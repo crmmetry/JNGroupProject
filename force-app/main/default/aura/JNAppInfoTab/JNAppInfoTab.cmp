@@ -1,0 +1,138 @@
+<!--
+  @File Name          : JNAppInfoTab.cmp
+  @Description        : 
+  @Author             : Jermaine.Byfield@crmmetry.com
+  @Group              : 
+  @Last Modified By   : Jermaine.Byfield@crmmetry.com
+  @Last Modified On   : 10/31/2019, 12:13:22 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    10/31/2019   Jermaine.Byfield@crmmetry.com     Initial Version
+-->
+<aura:component access="GLOBAL" controller="JNSiteController">
+  <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+  <aura:registerEvent type="c:JNComponentEvent" name="jnEvent" />
+  <aura:attribute name="loan_type" type="String" />
+  <aura:attribute name="SiteLead" type="Map" />
+  <aura:attribute name="preferredLocations" type="String[]" />
+  <aura:attribute name="loanPurposes" type="String[]" />
+  <aura:attribute name="mindate" type="Date" />
+  <aura:method name="validateTabFields" action="{!c.validateTabFields}" access="public"/>
+
+  <lightning:layout>
+    <lightning:layoutItem size="12">
+      <!-- first row -->
+      <div class="slds-grid slds-gutters">
+        <div class="slds-col">
+          <!-- Loan amount-->
+          <aura:if isTrue="{!v.loan_type == 'unsecured_loan'}">
+            <lightning:input
+              aura:id="validation"
+              name="loan_amount"
+              label="Loan Amount"
+              required="true"
+              value="{!v.SiteLead.Loan_Amount__c}"
+              formatter="currency"
+                             type="number"
+            />
+            <!-- Proposed card limit-->
+            <aura:set attribute="else">
+              <lightning:input
+                aura:id="validation"
+                name="proposed_card_limit"
+                label="Proposed Card Limit"
+                required="true"
+                value="{!v.SiteLead.Proposed_Card_Limit__c}"
+                formatter="currency"
+                                type="number"
+              />
+            </aura:set>
+          </aura:if>
+        </div>
+        <!-- Prefered Location -->
+        <div class="slds-col">
+          <lightning:select
+            aura:id="validation"
+            name="prefered_location"
+            label="Prefered Location"
+            required="true"
+            onchange="{!c.getPreferredLocation}"
+          >
+            <option value="">select one...</option>
+            <aura:iteration items="{!v.preferredLocations}" var="item">
+              <option value="{!item}">{!item}</option>
+            </aura:iteration>
+          </lightning:select>
+        </div>
+        <!-- Prefered Date of Contact -->
+        <div class="slds-col">
+          <lightning:input
+            aura:id="validation"
+            type="date"
+            min="{!v.mindate}"
+            name="date_of_contact"
+            label="Prefered Date of Contact"
+            required="true"
+            value="{!v.SiteLead.Preferred_Date_of_Contact__c }"
+             
+          />
+        </div>
+        <!-- Prefered Date of Contact -->
+        <div class="slds-col">
+          <lightning:input
+            aura:id="validation"
+            type="time"
+            name="time_of_contact"
+            label="Prefered Time of Contact"
+            required="true"
+            value="{!v.SiteLead.Preferred_Time_of_Contact__c }"
+          />
+        </div>
+      </div>
+      <!-- second row -->
+      <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_3-of-12">
+          <!-- Gross Montly Income -->
+          <lightning:input
+            aura:id="validation"
+            type="number"
+            name="gross_montly_income"
+            label="Gross Montly Income"
+            required="true"
+            value="{!v.SiteLead.Gross_Monthly_Income__c}"
+            formatter="currency"
+          />
+        </div>
+        <!-- Gross Montly Expenses -->
+        <div class="slds-col slds-size_3-of-12">
+          <lightning:input
+            aura:id="validation"
+            type="number"
+            name="gross_montly_expenses"
+            label="Gross Montly Expenses"
+            required="true"
+            value="{!v.SiteLead.Gross_Monthly_Expenses__c}"
+            formatter="currency"
+          />
+        </div>
+        <!-- Loan Purpose -->
+        <div class="slds-col slds-size_3-of-12">
+          <aura:if isTrue="{!v.loan_type=='unsecured_loan'}">
+            <lightning:select
+              aura:id="validation"
+              name="loan_purpose"
+              label="Loan Purpose"
+              required="true"
+              onchange="{!c.getLoanPurpose}"
+            >
+                <option value="">select one...</option>
+              <aura:iteration items="{!v.loanPurposes}" var="item">
+                <option value="{!item}">{!item}</option>
+              </aura:iteration>
+            </lightning:select>
+          </aura:if>
+        </div>
+      </div>
+    </lightning:layoutItem>
+  </lightning:layout>
+</aura:component>

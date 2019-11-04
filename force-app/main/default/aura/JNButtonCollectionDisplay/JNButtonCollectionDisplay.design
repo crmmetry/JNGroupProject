@@ -1,0 +1,4 @@
+<design:component label="Button List Display">
+  <design:attribute name="Ids" label="Object Ids" />
+    <design:attribute name="selectedId" label="selectedId"/>
+</design:component>

@@ -1,0 +1,108 @@
+<aura:component access="GLOBAL" controller="JNSiteController">
+  <aura:registerEvent type="c:JNComponentEvent" name="jnEvent" />
+  <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+  <aura:attribute name="relationships" type="String[]" />
+  <aura:attribute name="locations" type="String[]" />
+  <aura:attribute name="affiliateTypes" type="String[]" />
+  <aura:attribute name="layoutId" type="Integer" />
+  <aura:attribute name="SiteLead" type="Map" />
+  <aura:method name="validateTabFields" action="{!c.validateTabFields}" access="public"/>
+
+  <lightning:card>
+    <lightning:layout>
+      <lightning:layoutItem size="12" class="slds-m-bottom_medium">
+        <!-- first row -->
+        <div class="slds-grid slds-gutters">
+          <!-- First Name -->
+          <div class="slds-col slds-size_4-of-12">
+            <lightning:input
+              name="first_name"
+              label="First Name"
+              required="true"
+              aura:id="validation"
+              value="{!v.SiteLead.First_Name__c}"
+            />
+          </div>
+          <!-- Last Name -->
+          <div class="slds-col slds-size_4-of-12">
+            <lightning:input
+              name="last_name"
+              label="Last Name"
+              required="true"
+              aura:id="validation"
+              value="{!v.SiteLead.Last_Name__c}"
+            />
+          </div>
+          <!--Role-->
+          <div class="slds-col slds-size_4-of-12">
+            <lightning:input
+              name="role"
+              label="Role"
+              required="true"
+              aura:id="validation"
+              value="{!v.SiteLead.Role__c}"
+            />
+          </div>
+        </div>
+        <!-- second row -->
+        <div class="slds-grid slds-gutters">
+          <div class="slds-col slds-size_4-of-12">
+            <!-- Relationship -->
+            <lightning:select
+              name="relationship"
+              label="Relationship"
+              required="true"
+              aura:id="validation"
+              onchange="{!c.getRelationship}"
+            >
+              <option value="">select one...</option>
+              <aura:iteration items="{!v.relationships}" var="item">
+                <option value="{!item}">{!item}</option>
+              </aura:iteration>
+            </lightning:select>
+          </div>
+          <div class="slds-col slds-size_4-of-12">
+            <!-- Affiliate Type -->
+            <lightning:select
+              name="affiliate_type"
+              label="Affiliate Type"
+              required="true"
+              aura:id="validation"
+              onchange="{!c.getAffiliateType}"
+            >
+              <option value="">select one...</option>
+              <aura:iteration items="{!v.affiliateTypes}" var="item">
+                <option value="{!item}">{!item}</option>
+              </aura:iteration>
+            </lightning:select>
+          </div>
+          <div class="slds-col slds-size_4-of-12">
+            <!-- JN Affiliate Location -->
+            <lightning:select
+              name="affiliate_location"
+              label="JN Affiliate Location"
+              required="true"
+              aura:id="validation"
+              onchange="{!c.getLocation}"
+            >
+              <option value="">select one...</option>
+              <aura:iteration items="{!v.locations}" var="item">
+                <option value="{!item}">{!item}</option>
+              </aura:iteration>
+            </lightning:select>
+          </div>
+        </div>
+        <div class="slds-grid slds-grid_align-end slds-m-top_small">
+          <div class="slds-col">
+            <lightning:button
+              variant="destructive"
+              label="Remove Affiliate"
+              title="Remove Affiliate"
+              onclick="{! c.removeAffiliate }"
+            />
+          </div>
+        </div>
+      </lightning:layoutItem>
+    </lightning:layout>
+  </lightning:card>
+</aura:component>

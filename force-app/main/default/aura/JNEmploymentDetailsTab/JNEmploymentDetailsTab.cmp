@@ -1,0 +1,34 @@
+<aura:component access="GLOBAL" controller="JNSiteController">
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+    <aura:registerEvent type="c:JNComponentEvent" name="jnEvent" />
+    <aura:attribute name="employmentTypes" type="String[]" />
+    <aura:attribute name="SiteLead" type="Map" />
+    
+    <aura:method
+                 name="validateTabFields"
+                 action="{!c.validateTabFields}"
+                 access="public"
+                 />
+    
+    <lightning:layout>
+        <lightning:layoutItem size="12">
+            <div class="slds-grid slds-gutters">
+                <!-- Employment Type -->
+                <div class="slds-col slds-size_3-of-12">
+                    <lightning:select
+                                      name="employment_type"
+                                      label="Employment Type"
+                                      required="true"
+                                      aura:id="validation"
+                                      onchange="{!c.getEmploymentType}"
+                                      >
+                        <option value="">select one...</option>
+                        <aura:iteration items="{!v.employmentTypes}" var="item">
+                            <option value="{!item}">{!item}</option>
+                        </aura:iteration>
+                    </lightning:select>
+                </div>
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

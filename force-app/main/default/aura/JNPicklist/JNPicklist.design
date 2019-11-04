@@ -1,0 +1,6 @@
+<design:component>
+        <design:attribute name="crmmLabel" label="Label" description="Picklist Label name"/>
+    <design:attribute name="crmmObjectname" label="Object" description="What is the object that should be used"/>
+    <design:attribute name="crmmObjectField" label="Picklist API Name" description="What is the picklist that should be used"/>
+    <design:attribute name="crmmObjectSelected" label="Selected" description="What is value selected?"/>
+</design:component>

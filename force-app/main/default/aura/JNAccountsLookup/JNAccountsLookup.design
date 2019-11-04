@@ -1,0 +1,5 @@
+<design:component>
+	  <design:attribute name="accountIds" label="Account Ids" />
+    <design:attribute name="accounts" label="Accounts"/>
+    <design:attribute name="accountNames" label="Account Names"/>
+</design:component>

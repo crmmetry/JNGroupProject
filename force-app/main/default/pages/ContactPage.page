@@ -1,0 +1,17 @@
+<apex:page showHeader="false" sidebar="false">
+      <apex:includeLightning />
+    
+    <div id="app" />
+    <script>
+        $Lightning.use("c:myLightningApp", function() {
+            $Lightning.createComponent("c:FormContact",
+                {},
+                "app",
+                function(cmp) {},                                    
+            );         
+        });
+        
+    </script>
+    
+
+</apex:page>
