@@ -25,3 +25,4 @@ To start developing with this model in Visual Studio Code, see [Org Development 
 
 If you are developing against non-source-tracked orgs, use the command `SFDX: Create Project with Manifest` (VS Code) or `sfdx force:project:create --manifest` (Salesforce CLI) to create your project. If you used another command, you might want to start over with this command to create a Salesforce DX project.
 # JNGroupProject
+# Awaiting to add more details
