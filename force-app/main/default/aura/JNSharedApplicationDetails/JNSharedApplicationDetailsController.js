@@ -62,5 +62,17 @@
   getJNGroupEmployee: function(component, event, helper) {
     const selected = event.getSource().get("v.value");
     component.set("v.applicant.JN_Group_Employee__c", selected);
-  }
+  },
+  getAssessmentofBusiness: function(component, event, helper) {
+    const selected = event.getSource().get("v.value");
+    component.set("v.employment.Assessment_of_Business__c", selected);
+  },
+  getAssessmentofStatement: function(component, event, helper) {
+    const selected = event.getSource().get("v.value");
+    component.set("v.employment.Assessment_of_Statement__c", selected);
+  },
+  getAssessmentofBusinessWorkingCapita: function(component, event, helper) {
+    const selected = event.getSource().get("v.value");
+    component.set("v.employment.Assessment_of_Business_Working_Capita__c", selected);
+  },
 });

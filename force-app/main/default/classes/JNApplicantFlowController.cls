@@ -12,6 +12,7 @@ global with sharing class JNApplicantFlowController {
     @AuraEnabled
     global static Object getApplicantDetails(String applicantId){
         try{
+            Map<String, Sobject> objects  = new Map<String, SObject>();
             Applicant__c applicant = [SELECT Id,CRIF_Rating__c,CreditInfo_Rating__c,
                                       Overall_Credit_Bureau_Rating__c,Credit_History_in_last_24_Months__c,
                                       Assessment_of_Applicant_Net_Worth__c,Judgements_Filed__c,
@@ -28,7 +29,9 @@ global with sharing class JNApplicantFlowController {
                                                       Assessment_of_Business_Working_Capita__c
                                                       FROM FinServ__Employment__c WHERE Account__c =:applicant.Account__c];
                 
-                return applicant;
+                objects.put('applicant', applicant);
+                objects.put('employment', employment);
+                return objects;
             }
             return null;
         } catch(Exception e){
