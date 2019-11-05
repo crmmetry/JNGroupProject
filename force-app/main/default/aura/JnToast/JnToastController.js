@@ -29,4 +29,3 @@
       helper.hideMessage(component, event);
     }
   });
-  

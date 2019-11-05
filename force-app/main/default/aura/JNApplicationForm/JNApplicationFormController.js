@@ -61,10 +61,9 @@
             }
 
             default: {
-                if(typeof currentCmp.createDetails === "function"){
-                    currentCmp.createDetails();
-                }
-              
+              if (typeof currentCmp.createDetails === "function") {
+                currentCmp.createDetails();
+              }
             }
           }
         }
@@ -117,7 +116,12 @@
     const siteLead = component.get("v.SiteLead");
     if (!siteLead.hasOwnProperty("Id")) {
       //user must complete step 2 and 3 first
-      alert("must complete step 2 and 3 first");
+      const severity = "error"; //it could be 'confirm' or null
+      const title = "An error has occurred";
+      const message = "You must first complete step 2 and 3 before";
+      const toastContainer = component.find("toastContainer");
+      toastContainer.displayMessage(severity, title, message);
+      return;
     } else {
       // display successful toast
     }

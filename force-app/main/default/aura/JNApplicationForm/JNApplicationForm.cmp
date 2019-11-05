@@ -15,6 +15,7 @@
                   />
     <lightning:layout>
         <lightning:layoutItem size="12">
+            <c:JnToast aura:id="toastContainer"/>
             <c:JNModal aura:id="JNModal" postiveBtnClick="{!c.postiveBtnClick}"/>
             <div class="navbar-top">
                 <div class="navbar-top">
