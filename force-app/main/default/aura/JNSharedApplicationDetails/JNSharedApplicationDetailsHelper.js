@@ -39,7 +39,7 @@
     getPickListValues: function(component) {
         const action = component.get("c.getPickListValuesList");
         action.setParams({
-            objectApiName: "Applicant__c",
+            objectApiNames: ["Applicant__c","FinServ__Employment__c"],
             fieldApiNames: [
                 "CRIF_Rating__c",
                 "CreditInfo_Rating__c",
@@ -52,7 +52,10 @@
                 "Credit_History_in_last_24_Months__c",
                 "Assessment_of_Applicant_Net_Worth__c",
                 "Bankrupt_in_Last_7_Years__c",
-                "Is_applicant_KYC_Compliant__c"
+                "Is_applicant_KYC_Compliant__c",
+                "Assessment_of_Business__c",
+                "Assessment_of_Statement__c",
+                "Assessment_of_Business_Working_Capita__c"
             ]
         });
         action.setCallback(this, function(response) {
@@ -72,6 +75,9 @@
                 component.set("v.bankruptLast7Years", mappedList["Bankrupt_in_Last_7_Years__c"]);
                 component.set("v.KYCCompliants", mappedList["Is_applicant_KYC_Compliant__c"]);
 				component.set("v.JNGroupEmployee", mappedList["JN_Group_Employee__c"]);
+				component.set("v.assessmentofBusinesses", mappedList["Assessment_of_Business__c"]);
+				component.set("v.assessmentofStatements", mappedList["Assessment_of_Statement__c"]);
+				component.set("v.AssessmentofBusinessWorkingCapitas", mappedList["Assessment_of_Business_Working_Capita__c"]);
 
             } else {
             }

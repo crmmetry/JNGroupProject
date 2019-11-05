@@ -16,12 +16,12 @@
       Country_of_Citizenship__c: "Jamaica",
       Country_of_Residence__c: "Jamaica",
       Highest_Level_of_Education_Attained__c: "",
-      Supplementary_Applicant_TRN__c: ""
+      Supplementary_Applicant_TRN__c: 0
     };
-    var setMaxdate = new Date();
+    /*var setMaxdate = new Date();
     setMaxdate = new Date(setMaxdate.getFullYear() - 18, 11, 31);
     component.set("v.maxdate", setMaxdate.toISOString().split("T")[0]);
-    console.log(component.get("v.maxdate"));
+    console.log(component.get("v.maxdate"));*/
     component.set("v.SiteLead", sitelead);
     helper.getPickListValues(component);
   },

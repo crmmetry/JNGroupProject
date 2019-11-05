@@ -2435,15 +2435,17 @@
         }
         }
     },
-    isRequiredFieldMissingForScore : function(cmp, oppId){
-        var action = cmp.get('c.SaveLoanCalculation');
+    isRequiredFieldMissingForCreditScore : function(cmp, oppId){
+        var action = cmp.get('c.isRequiredFieldMissingForScore');
         action.setParams({
             oppid : oppId
         });
         action.setCallback(this,function(response){
             var state = response.getState();
             if(state=='SUCCESS'){
-               cmp.find("isRequiredField").set("v.value", response.getReturnValue()); 
+                var data = response.getReturnValue();
+               cmp.set("v.isRequiredField", data); 
+               console.log('isRequiredFieldMissingForCreditScore==>'+data);
               }
             else{}
         });

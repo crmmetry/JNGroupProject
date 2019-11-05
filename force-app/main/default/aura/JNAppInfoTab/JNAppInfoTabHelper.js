@@ -17,5 +17,5 @@
             }
         });
         $A.enqueueAction(action);
-	}
+	},
 })

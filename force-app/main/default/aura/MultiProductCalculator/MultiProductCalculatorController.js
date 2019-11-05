@@ -2,10 +2,11 @@
     doInit : function(cmp, event, helper) {
         helper.calculateScoreCalculate(cmp); 
         var isprod=cmp.get("v.isProductDetail");
-        var isprod1=cmp.get("v.isRecordIdM");
-       // helper.isRequiredFieldMissingForScore(cmp, isprod1);
+        
         if(isprod){
-            var action = cmp.get("c.FetchAllApplicant");
+            var opp_id=cmp.get("v.isRecordIdM");
+         helper.isRequiredFieldMissingForCreditScore(cmp, opp_id);
+       var action = cmp.get("c.FetchAllApplicant");
             action.setParams({      
                 oppId: cmp.get("v.isRecordIdM"),
             }); 
@@ -1950,6 +1951,8 @@
         var Vehicle_Classification ='';
         var Waive_Process_Fee ='';
         var Year_of_Motor_Vehicle ='';
+        var Market_Value_of_Propert='';
+        
         
         var EmpRow=cmp.get("v.RowNum");
         for(var k in EmpRow) {
@@ -2261,6 +2264,8 @@
                 Annual_Interest_Rate_on_Deposit_Account = cmp.find('Annual_Interest_Rate_on_Deposit_Account__id').get('v.value');
                 Financial_Institution = cmp.find('Financial_Institution__id').get('v.value');
                 console.log('11/2/2019--------------------------3.2');
+                //Market_Value_of_Propert=cmp.find('loc_MarketValueofProperty').get('v.value');
+                //Legal_Related_Activities=cmp.find('Legal_Related_Activities__id').get('v.value');
             }
             
         }
@@ -2619,10 +2624,12 @@
         var newCalculator4;
         var newCalculator5;
         var newCalculator6;
+        var newCalculator7;
+        
         if(isprod){
            console.log('Insurer=====3>');
             if(calc=='1' || calc=='5' || calc=='6' || calc=='7' ||calc=='11' || calc=='12' || calc=='13' || calc=='15'){
-                console.log('Insurer=====4>');
+                console.log('Insurer=====4>'+Repayment_Method_Auto);
                 newCalculator2 = {
                     // 'Desired_Monthly_Repayment_Date__c':Desired_Monthly_Repayment_Date,
                     'Make_and_Model_of_Motor_Vehicle__c':Make_and_Model_of_Motor_Vehicle,
@@ -2640,7 +2647,10 @@
             }
             if(calc=='3' || calc=='6' || calc=='8' || calc=='10' ||calc=='11' || calc=='13' || calc=='14' || calc=='15'){
                 console.log('Insurer=====6>'+Account_Type);
-                if(cmp.find("ccCollateralType").get("v.value")=='1'){
+                newCalculator7= {
+                'interest_in_JN_Life_CC_Creditor_Life_iIn__c':interest_in_JN_Life_CC_Creditor_Life_iIn,
+                };
+                    if(cmp.find("ccCollateralType").get("v.value")=='1'){
                     console.log('Insurer=====7>');
                     newCalculator4 = {
                         'Account_Number__c':Account_Number,
@@ -2677,11 +2687,13 @@
                         'Is_Property_a_Strata__c':Is_Property_a_Strata,
                         'Replacement_Value__c':Replacement_Value,
                         'Security_Address__c':Security_Address,
+                        'Market_Value_of_Property__c':Market_Value_of_Propert,
+                        
                     };
                 }
             }
         }
-        var newCalculator=Object.assign(newCalculator1, newCalculator2, newCalculator3, newCalculator4, newCalculator5, newCalculator6);
+        var newCalculator=Object.assign(newCalculator1, newCalculator2, newCalculator3, newCalculator4, newCalculator5, newCalculator6, newCalculator7);
         
         
         

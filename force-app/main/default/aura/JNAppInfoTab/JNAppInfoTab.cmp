@@ -31,7 +31,7 @@
               name="loan_amount"
               label="Loan Amount"
               required="true"
-              value="{!v.SiteLead.Loan_Amount__c}"
+              value="{!v.SiteLead.Estimated_Amount__c}"
               formatter="currency"
                              type="number"
             />

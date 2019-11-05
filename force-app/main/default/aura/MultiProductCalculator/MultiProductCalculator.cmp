@@ -316,9 +316,9 @@
                     <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <lightning:select label="Vehicle Classification" name="Vehicle Classification"  aura:id="Vehicle_Classification__id" required="true">
-                                <option value="1">New</option>
-                                <option value="2">Used (Imported)</option>
-                                <option value="3">Used (Local - Pre-owned)</option>
+                                <option value="New">New</option>
+                                <option value="Used (Imported)">Used (Imported)</option>
+                                <option value="Used (Local - Pre-owned)">Used (Local - Pre-owned)</option>
                             </lightning:select>
                         </div>
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
@@ -441,10 +441,10 @@
                         <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
                                 <lightning:select label="Indicate repayment method" aura:id="Repayment_Method_Auto__id" required="true">
-                                    <option value="0">None</option>
-                                    <option value="1">Salary Deduction</option>
-                                    <option value="2">Standing Order</option>
-                                    <option value="3">Over The Counter</option>                                
+                                    <option value="None">None</option>
+                                    <option value="Salary Deduction">Salary Deduction</option>
+                                    <option value="Standing Order">Standing Order</option>
+                                    <option value="Over The Counter">Over The Counter</option>                                
                                 </lightning:select>
                             </div>
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12" style="padding-right: 5px;padding-left: 5px;">
@@ -700,10 +700,10 @@
                         <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
                                 <lightning:select label="Indicate repayment method" aura:id="Repayment_Method_UL__id" required="true">
-                                    <option value="0">None</option>
-                                    <option value="1">Salary Deduction</option>
-                                    <option value="2">Standing Order</option>
-                                    <option value="3">Over The Counter</option>                                
+                                    <option value="None">None</option>
+                                    <option value="Salary Deduction">Salary Deduction</option>
+                                    <option value="Standing Order">Standing Order</option>
+                                    <option value="Over The Counter">Over The Counter</option>                                
                                 </lightning:select>
                             </div>
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12" style="padding-right: 5px;padding-left: 5px;">
@@ -941,18 +941,17 @@
                     <aura:if isTrue="{!v.isProductDetail}">
                         <div aura:id="LIFEINSURANCECOVERAGE" style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">LIFE INSURANCE COVERAGE</div>
                         <div class="slds-grid slds-wrap" style="margin-top: 5px;">
-                            <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12" style="padding-right: 5px;padding-left: 5px;">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
                                 <lightning:select label="Will the Applicant be interested in JN Life Credit Card Creditor Life Insurance?" name="Will the Applicant be interested in JN Life Credit Card Creditor Life Insurance?" aura:id="CCLifeInsurance">
-                                    <option value="1">Yes</option>
-                                    <option value="2">No</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
                                 </lightning:select>
                             </div>
-                        </div>
-                        <div class="slds-grid slds-wrap">
+                        
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
                                 <lightning:select label="Coverage Type" name="CoverageType" aura:id="CCCoverageType">
-                                    <option value="1">Life Only Benefit</option>
-                                    <option value="2">Life and Critical Illness Benefit</option>
+                                    <option value="Life Only Benefit">Life Only Benefit</option>
+                                    <option value="Life and Critical Illness Benefit">Life and Critical Illness Benefit</option>
                                 </lightning:select>
                             </div>
                         </div>
@@ -992,7 +991,7 @@
                                     </lightning:select>
                                 </div>
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                                    <lightning:input label="Deposit Account Number" type="text"  aura:id="Account_Numberloc__id" required="true"/>
+                                    <lightning:input label="Deposit Account Number" type="Number"  aura:id="Account_Numberloc__id" required="true"/>
                                 </div>
                             </div>
                             <div class="slds-grid slds-wrap" style="margin-top: 5px;">
@@ -1038,10 +1037,10 @@
                         <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
                                 <lightning:select label="Indicate repayment method" aura:id="IndicaterepaymentmethodCC" required="true">
-                                    <option value="0">None</option>
-                                    <option value="1">Salary Deduction</option>
-                                    <option value="2">Standing Order</option>
-                                    <option value="3">Over The Counter</option>                                
+                                    <option value="None">None</option>
+                                    <option value="Salary Deduction">Salary Deduction</option>
+                                    <option value="Standing Order">Standing Order</option>
+                                    <option value="Over The Counter">Over The Counter</option>                                
                                 </lightning:select>
                             </div>
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12" style="padding-right: 5px;padding-left: 5px;">
@@ -1181,7 +1180,7 @@
                                 </lightning:select>
                             </div>
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                                    <lightning:input label="Deposit Account Number" type="text"  aura:id="Account_Number__id" required="true"/>
+                                    <lightning:input label="Deposit Account Number" type="Number"  aura:id="Account_Number__id" required="true"/>
                                 </div>
                             </div>
                             <div class="slds-grid slds-wrap" style="margin-top: 5px;">
@@ -1204,10 +1203,10 @@
                                 </div>
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
                                     <lightning:select name="Property Classification" label="Property Classification"  aura:id="Property_Classification__id">
-                            <option value="Residential House/Apartment/Town House">Residential House/Apartment/Town House</option>
-                            <option value="Residential Lot with All Infrustructure">Residential Lot with All Infrustructure</option>
-                            <option value="Residential Lot with Some Infrustructure">Residential Lot with Some Infrustructure</option>
-                            <option value="Residential Lot with No Infrustructure">Residential Lot with No Infrustructure</option>
+                            <option value="Residential">Residential House/Apartment/Town House</option>
+                            <option value="Residential">Residential Lot with All Infrustructure</option>
+                            <option value="Residential">Residential Lot with Some Infrustructure</option>
+                            <option value="Residential">Residential Lot with No Infrustructure</option>
                         </lightning:select>
                                 </div>
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
@@ -1408,10 +1407,10 @@
                         <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
                                 <lightning:select label="Indicate repayment method" aura:id="IndicaterepaymentmethodLOC" required="true">
-                                    <option value="0">None</option>
-                                    <option value="1">Salary Deduction</option>
-                                    <option value="2">Standing Order</option>
-                                    <option value="3">Over The Counter</option>                                
+                                    <option value="None">None</option>
+                                    <option value="Salary Deduction">Salary Deduction</option>
+                                    <option value="Standing Order">Standing Order</option>
+                                    <option value="Over The Counter">Over The Counter</option>                                
                                 </lightning:select>
                             </div>
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12" style="padding-right: 5px;padding-left: 5px;">

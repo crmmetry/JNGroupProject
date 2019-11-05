@@ -72,7 +72,7 @@
                                     <div class="slds-card__body slds-card__body_inner">
                                         <c:JNGeneralDetailsTab
                                                                aura:id="General_Details"
-                                                               estimatedAmount="{!v.SiteLead.Loan_Amount__c}"
+                                                               estimatedAmount="{!v.SiteLead.Estimated_Amount__c}"
                                                                />
                                     </div>
                                 </lightning:tab>

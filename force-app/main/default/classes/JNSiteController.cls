@@ -144,18 +144,59 @@ public class JNSiteController {
     }
     @AuraEnabled
     public static Object updateLeadInformation(Map<String, String> currentLead){
+        Lead foundLead;
         try {
+            Map<String, String> decimalFields = new Map<String, String>{
+                'Loan_Amount__c' => 'Loan_Amount__c',
+                    'Proposed_Card_Limit__c' => 'Proposed_Card_Limit__c',
+                    'Gross_Monthly_Income__c' => 'Gross_Monthly_Income__c',
+                    'Gross_Monthly_Expenses__c' => 'Gross_Monthly_Expenses__c',
+                    'Supplementary_Applicant_TRN__c' => 'Supplementary_Applicant_TRN__c',
+                    'Number_of_Dependent_Adults__c' => 'Number_of_Dependent_Adults__c',
+                    'Number_of_Dependent_Children__c' => 'Number_of_Dependent_Children__c',
+                    'Identification_Number__c' => 'Identification_Number__c'
+                    };
+                        Map<String, String> dateFields = new Map<String, String>{
+                            'Preferred_Date_of_Contact__c' => 'Preferred_Date_of_Contact__c',
+                                'Date_of_Birth__c' => 'Date_of_Birth__c',
+                                'Identification_Type_Expiration__c' => 'Identification_Type_Expiration__c'
+                                };
+                                    Map<String, String> timeFields = new Map<String, String>{
+                                        'Preferred_Time_of_Contact__c' => 'Preferred_Time_of_Contact__c'
+                                            };
+                                                
             Id leadId = currentLead.get('Id');
-            Lead foundLead = [SELECT Id FROM Lead WHERE Id =:leadId];
+            foundLead = new Lead(Id=leadId);
+            currentLead.remove('Id');
             if(foundLead != null) {
                 for(String field: currentLead.keySet()){
-                    foundLead.put(field, currentLead.get(field));
+                    if(decimalFields.containsKey(field)){
+                        foundLead.put(String.valueOf(field), Decimal.valueOf(currentLead.get(field)));
+                    } else if(dateFields.containsKey(field)){
+                        foundLead.put(String.valueOf(field), Date.valueOf(currentLead.get(field)));
+                    }
+                    else if(timeFields.containsKey(field)){
+                        foundLead.put(String.valueOf(field), updateTime(currentLead.get(field)));
+                    }
+                    else {
+                        foundLead.put(String.valueOf(field), String.valueOf(currentLead.get(field)));
+                    }
+                    
                 }
             }
-            update foundLead;
-            return foundLead;
+            upsert foundLead;
+            return currentLead.values();
         } catch(Exception e){
-            return e;
+            return currentLead.keySet();
         }
+    }
+    public static Time updateTime(String strTimeChange){
+        
+        String[] strTimeSplit = strTimeChange.split(':');
+        return Time.newInstance( Integer.valueOf(strTimeSplit[0]) //hour
+                                ,Integer.valueOf(strTimeSplit[1]) //min
+                                ,0                                //sec
+                                ,0);  
+        
     }
 }

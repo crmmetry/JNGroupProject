@@ -230,7 +230,6 @@
             maxlength="9"
             messageWhenPatternMismatch="please enter a valid trn number"
             pattern="^[0-9]{3}[0-9]{3}[0-9]{3}$"
-            onblur="{!c.TRNformatter}"
             value="{!v.SiteLead.Supplementary_Applicant_TRN__c}"
             aura:id="validation"
           />

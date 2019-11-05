@@ -140,7 +140,7 @@
           //user must complete step 2 and 3 first
           alert("must complete step 2 and 3 first");
       } else {
-          helper.updateApplicationInformation(component);
+          helper.updateLeadInfo(component);
       }    
   },
 });
