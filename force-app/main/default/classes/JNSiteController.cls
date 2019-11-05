@@ -42,16 +42,16 @@ public class JNSiteController {
     @AuraEnabled
     public static Object updateApplicantTextInfo(Map<String, String> applicantDetails ,  String leadId ){
         try {
-                        Map<String, String> decimalFields = new Map<String, String>{
-                        'Mailing_Years_at_Residence__c' => 'Mailing_Years_at_Residence__c',
-                        'Years_at_Residence__c' => 'Years_at_Residence__c'
+            Map<String, String> decimalFields = new Map<String, String>{
+                'Mailing_Years_at_Residence__c' => 'Mailing_Years_at_Residence__c',
+                    'Years_at_Residence__c' => 'Years_at_Residence__c'
                     };
-            Map<String, String> dateFields = new Map<String, String>{
-                'Preferred_Date_of_Contact__c' => 'Preferred_Date_of_Contact__c',
-                    'Date_of_Birth__c' => 'Date_of_Birth__c',
-                    'Identification_Type_Expiration__c' => 'Identification_Type_Expiration__c'
-           };
-            Lead newLead = new Lead(Id=leadId);
+                        Map<String, String> dateFields = new Map<String, String>{
+                            'Preferred_Date_of_Contact__c' => 'Preferred_Date_of_Contact__c',
+                                'Date_of_Birth__c' => 'Date_of_Birth__c',
+                                'Identification_Type_Expiration__c' => 'Identification_Type_Expiration__c'
+                                };
+                                    Lead newLead = new Lead(Id=leadId);
             for(String field: applicantDetails.keySet()){ 
                 if(dateFields.containsKey(field)){
                     newLead.put(field, Date.valueOf(applicantDetails.get(field)));
@@ -76,38 +76,39 @@ public class JNSiteController {
                             AND LastName = :applicantDetails.get('LastName')];
         Id leadId;
         if(!leads.isEmpty()){
-             leadId = leads.get(0).Id;
+            leadId = leads.get(0).Id;
         }
-            Lead newLead = new Lead(Id=leadId);
-            newLead.FirstName=applicantDetails.get('FirstName');
-            newLead.LastName=applicantDetails.get('LastName');
-            newLead.Estimated_Amount__c = Decimal.valueOf(applicantDetails.get('Estimated_Amount__c')); 
-            newLead.Service_of_Interest__c = applicantDetails.get('Service_of_Interest__c');
-            newLead.Lead_Title__c =  applicantDetails.get('Lead_Title__c');
-            newLead.MiddleName = applicantDetails.get('MiddleName');
-            newLead.Suffix__c= applicantDetails.get('Suffix__c');
-            newLead.Gender__c= applicantDetails.get('Gender__c');
-            newLead.Marital_Status__c =applicantDetails.get('Marital_Status__c');
-            newLead.Date_of_Birth__c = Date.valueOf(applicantDetails.get('Date_of_Birth__c'));
-            newLead.Place_of_Birth__c= applicantDetails.get('Place_of_Birth__c');
-            newLead.Mother_s_Maiden_Name__c= applicantDetails.get('Mother_s_Maiden_Name__c');
-            newLead.Number_of_Dependent_Adults__c= Decimal.valueOf(applicantDetails.get('Number_of_Dependent_Adults__c'));
-            newLead.Number_of_Dependent_Children__c= Decimal.valueOf(applicantDetails.get('Number_of_Dependent_Children__c'));
-            newLead.Country_of_Citizenship__c = applicantDetails.get('Country_of_Citizenship__c');
-            newLead.Country_of_Residence__c = applicantDetails.get('Country_of_Residence__c');
-            newLead.Highest_Level_of_Education_Attained__c = applicantDetails.get('Highest_Level_of_Education_Attained__c');
-            newLead.Supplementary_Applicant_TRN__c = Decimal.valueOf(applicantDetails.get('Supplementary_Applicant_TRN__c'));
-            newLead.Service_of_Interest__c = applicantDetails.get('Service_of_Interest__c');
-            
-            newLead.Proposed_Card_Limit__c = Decimal.valueOf(applicantDetails.get('Proposed_Card_Limit__c'));
-            newLead.Preferred_Date_of_Contact__c = Date.valueOf(applicantDetails.get('Preferred_Date_of_Contact__c'));
-            newLead.Preferred_Time_of_Contact__c= updateTime(applicantDetails.get('Preferred_Time_of_Contact__c'));
-            newLead.Preferred_Location__c = applicantDetails.get('Preferred_Location__c');
-            newLead.Loan_Purpose__c = applicantDetails.get('Loan_Purpose__c');
-            newLead.Gross_Monthly_Income__c = Decimal.valueOf(applicantDetails.get('Gross_Monthly_Income__c'));
-            newLead.Gross_Monthly_Expenses__c = Decimal.valueOf(applicantDetails.get('Gross_Monthly_Expenses__c'));
-            upsert newLead;
-            return newLead;
+        Lead newLead = new Lead(Id=leadId);
+        newLead.LeadSource = 'Online Application Form';
+        newLead.FirstName=applicantDetails.get('FirstName');
+        newLead.LastName=applicantDetails.get('LastName');
+        newLead.Estimated_Amount__c = Decimal.valueOf(applicantDetails.get('Estimated_Amount__c')); 
+        newLead.Service_of_Interest__c = applicantDetails.get('Service_of_Interest__c');
+        newLead.Lead_Title__c =  applicantDetails.get('Lead_Title__c');
+        newLead.MiddleName = applicantDetails.get('MiddleName');
+        newLead.Suffix__c= applicantDetails.get('Suffix__c');
+        newLead.Gender__c= applicantDetails.get('Gender__c');
+        newLead.Marital_Status__c =applicantDetails.get('Marital_Status__c');
+        newLead.Date_of_Birth__c = Date.valueOf(applicantDetails.get('Date_of_Birth__c'));
+        newLead.Place_of_Birth__c= applicantDetails.get('Place_of_Birth__c');
+        newLead.Mother_s_Maiden_Name__c= applicantDetails.get('Mother_s_Maiden_Name__c');
+        newLead.Number_of_Dependent_Adults__c= Decimal.valueOf(applicantDetails.get('Number_of_Dependent_Adults__c'));
+        newLead.Number_of_Dependent_Children__c= Decimal.valueOf(applicantDetails.get('Number_of_Dependent_Children__c'));
+        newLead.Country_of_Citizenship__c = applicantDetails.get('Country_of_Citizenship__c');
+        newLead.Country_of_Residence__c = applicantDetails.get('Country_of_Residence__c');
+        newLead.Highest_Level_of_Education_Attained__c = applicantDetails.get('Highest_Level_of_Education_Attained__c');
+        newLead.Supplementary_Applicant_TRN__c = Decimal.valueOf(applicantDetails.get('Supplementary_Applicant_TRN__c'));
+        newLead.Service_of_Interest__c = applicantDetails.get('Service_of_Interest__c');
+        
+        newLead.Proposed_Card_Limit__c = Decimal.valueOf(applicantDetails.get('Proposed_Card_Limit__c'));
+        newLead.Preferred_Date_of_Contact__c = Date.valueOf(applicantDetails.get('Preferred_Date_of_Contact__c'));
+        newLead.Preferred_Time_of_Contact__c= updateTime(applicantDetails.get('Preferred_Time_of_Contact__c'));
+        newLead.Preferred_Location__c = applicantDetails.get('Preferred_Location__c');
+        newLead.Loan_Purpose__c = applicantDetails.get('Loan_Purpose__c');
+        newLead.Gross_Monthly_Income__c = Decimal.valueOf(applicantDetails.get('Gross_Monthly_Income__c'));
+        newLead.Gross_Monthly_Expenses__c = Decimal.valueOf(applicantDetails.get('Gross_Monthly_Expenses__c'));
+        upsert newLead;
+        return newLead;
         
         
     }
@@ -200,7 +201,7 @@ public class JNSiteController {
             return e;
         }
     }
-
+    
     public static Time updateTime(String strTimeChange){
         
         String[] strTimeSplit = strTimeChange.split(':');

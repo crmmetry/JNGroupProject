@@ -35,7 +35,7 @@
           >
             <option value="">select one...</option>
             <aura:iteration items="{!v.values}" var="item">
-              <option value="{!item}">{!item}</option>
+              <option value="{!item}" selected="{!item== v.crmmObjectSelected}">{!item}</option>
             </aura:iteration>
           </lightning:select>
         </div>
