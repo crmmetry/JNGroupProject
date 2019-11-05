@@ -43,7 +43,6 @@ public class JNSiteController {
     public static Object updateApplicantTextInfo(Map<String, String> applicantDetails ,  String leadId ){
         try {
                         Map<String, String> decimalFields = new Map<String, String>{
-                    'Identification_Number__c' => 'Identification_Number__c',
                         'Mailing_Years_at_Residence__c' => 'Mailing_Years_at_Residence__c',
                         'Years_at_Residence__c' => 'Years_at_Residence__c'
                     };
@@ -75,9 +74,11 @@ public class JNSiteController {
         List<Lead> leads = [SELECT Id FROM Lead WHERE  
                             FirstName = :applicantDetails.get('FirstName') 
                             AND LastName = :applicantDetails.get('LastName')];
-        if(leads.isEmpty()){
-            
-            Lead newLead = new Lead();
+        Id leadId;
+        if(!leads.isEmpty()){
+             leadId = leads.get(0).Id;
+        }
+            Lead newLead = new Lead(Id=leadId);
             newLead.FirstName=applicantDetails.get('FirstName');
             newLead.LastName=applicantDetails.get('LastName');
             newLead.Estimated_Amount__c = Decimal.valueOf(applicantDetails.get('Estimated_Amount__c')); 
@@ -105,12 +106,9 @@ public class JNSiteController {
             newLead.Loan_Purpose__c = applicantDetails.get('Loan_Purpose__c');
             newLead.Gross_Monthly_Income__c = Decimal.valueOf(applicantDetails.get('Gross_Monthly_Income__c'));
             newLead.Gross_Monthly_Expenses__c = Decimal.valueOf(applicantDetails.get('Gross_Monthly_Expenses__c'));
-            insert newLead;
+            upsert newLead;
             return newLead;
-        } else {
-            // lead already exist
-            throw new AuraHandledException('A lead with the entered first and last name already exists');
-        }
+        
         
     }
     @AuraEnabled
@@ -202,54 +200,7 @@ public class JNSiteController {
             return e;
         }
     }
-    @AuraEnabled
-    public static Object updateLeadInformation(Map<String, String> currentLead){
-        Lead foundLead;
-        try {
-            Map<String, String> decimalFields = new Map<String, String>{
-                'Loan_Amount__c' => 'Loan_Amount__c',
-                    'Proposed_Card_Limit__c' => 'Proposed_Card_Limit__c',
-                    'Gross_Monthly_Income__c' => 'Gross_Monthly_Income__c',
-                    'Gross_Monthly_Expenses__c' => 'Gross_Monthly_Expenses__c',
-                    'Supplementary_Applicant_TRN__c' => 'Supplementary_Applicant_TRN__c',
-                    'Number_of_Dependent_Adults__c' => 'Number_of_Dependent_Adults__c',
-                    'Number_of_Dependent_Children__c' => 'Number_of_Dependent_Children__c',
-                    'Identification_Number__c' => 'Identification_Number__c'
-                    };
-                        Map<String, String> dateFields = new Map<String, String>{
-                            'Preferred_Date_of_Contact__c' => 'Preferred_Date_of_Contact__c',
-                                'Date_of_Birth__c' => 'Date_of_Birth__c',
-                                'Identification_Type_Expiration__c' => 'Identification_Type_Expiration__c'
-                                };
-                                    Map<String, String> timeFields = new Map<String, String>{
-                                        'Preferred_Time_of_Contact__c' => 'Preferred_Time_of_Contact__c'
-                                            };
-                                                
-                                                Id leadId = currentLead.get('Id');
-            foundLead = new Lead(Id=leadId);
-            currentLead.remove('Id');
-            if(foundLead != null) {
-                for(String field: currentLead.keySet()){
-                    if(decimalFields.containsKey(field)){
-                        foundLead.put(String.valueOf(field), Decimal.valueOf(currentLead.get(field)));
-                    } else if(dateFields.containsKey(field)){
-                        foundLead.put(String.valueOf(field), Date.valueOf(currentLead.get(field)));
-                    }
-                    else if(timeFields.containsKey(field)){
-                        foundLead.put(String.valueOf(field), updateTime(currentLead.get(field)));
-                    }
-                    else {
-                        foundLead.put(String.valueOf(field), String.valueOf(currentLead.get(field)));
-                    }
-                    
-                }
-            }
-            upsert foundLead;
-            return currentLead.values();
-        } catch(Exception e){
-            return currentLead.keySet();
-        }
-    }
+
     public static Time updateTime(String strTimeChange){
         
         String[] strTimeSplit = strTimeChange.split(':');

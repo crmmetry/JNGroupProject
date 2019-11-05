@@ -3,7 +3,7 @@
     const sitelead = {
       Identification_Type_Country_of_issue__c: "Jamaica",
       Identification_Type__c: "",
-      Identification_Number__c: 0,
+      Identification_Number__c: "",
       Identification_Type_Expiration__c: new Date()
     };
     /*var setMindate = new Date();

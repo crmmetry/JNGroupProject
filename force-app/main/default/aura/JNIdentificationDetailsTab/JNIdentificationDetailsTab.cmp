@@ -30,7 +30,7 @@
                 <!-- Identification Number -->
                 <div class="slds-col slds-size_3-of-12">
                     <lightning:input
-                                     type="number"
+                                     type="text"
                                      name="identification_number"
                                      label="Identification Number"
                                      required="true"

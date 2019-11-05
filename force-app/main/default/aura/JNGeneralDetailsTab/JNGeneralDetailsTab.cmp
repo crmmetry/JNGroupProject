@@ -39,6 +39,7 @@
             required="true"
             value="{!v.SiteLead.FirstName }"
             aura:id="validation"
+            readonly="{!v.SiteLead.Id}"
           />
         </div>
         <!-- Middle Name -->
@@ -46,9 +47,10 @@
           <lightning:input
             name="middle_name"
             label="Middle Name"
-            required="true"
+            required="false"
             value="{!v.SiteLead.MiddleName }"
             aura:id="validation"
+            readonly="{!v.SiteLead.Id}"
           />
         </div>
         <!-- Last Name -->
