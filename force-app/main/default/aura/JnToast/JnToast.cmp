@@ -1,3 +1,6 @@
+<aura:component>
+
+</aura:component>	
 <aura:component >
 	<!-- METHODS -->
    	<aura:method name="displayMessage" action="{!c.displayMessage}" 
