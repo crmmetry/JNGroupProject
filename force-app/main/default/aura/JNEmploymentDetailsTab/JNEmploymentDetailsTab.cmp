@@ -3,6 +3,8 @@
     <aura:registerEvent type="c:JNComponentEvent" name="jnEvent" />
     <aura:attribute name="employmentTypes" type="String[]" />
     <aura:attribute name="SiteLead" type="Map" />
+    <aura:attribute name="leadId" type="String" />
+    <aura:method name="createDetails" action="{!c.createDetails}" access="public"/>
     
     <aura:method
                  name="validateTabFields"

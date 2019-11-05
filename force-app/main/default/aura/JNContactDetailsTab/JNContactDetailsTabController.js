@@ -17,7 +17,7 @@
             Country__c: "Jamaica",
             Status_of_Address__c: "",
             Address_Type__c: "",
-            Years_at_Residence__c: "",
+            Years_at_Residence__c: 0,
             Mailing_Street_1__c: "",
             Mailing_Street_2__c: "",
             Mailing_Street_3__c: "",
@@ -28,7 +28,7 @@
             Mailing_Country__c: "Jamaica",
             Mailing_Status_of_Address__c: "",
             Mailing_Address_Type__c: "",
-            Mailing_Years_at_Residence__c: ""
+            Mailing_Years_at_Residence__c: 0,
         };
         component.set("v.SiteLead", siteLead);
         helper.getPickListValues(component);
@@ -100,5 +100,8 @@
                 }
             }
         }
-    }
+    },
+     createDetails: function(component, event, helper) {
+         helper.updateApplicant(component);
+     }
 });

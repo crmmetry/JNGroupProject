@@ -1,6 +1,6 @@
 ({
   doInit: function(component, event, helper) {
-    const sitelead = {
+    const siteLead = {
       FirstName: "",
       LastName: "",
       Lead_Title__c: "",
@@ -16,13 +16,15 @@
       Country_of_Citizenship__c: "Jamaica",
       Country_of_Residence__c: "Jamaica",
       Highest_Level_of_Education_Attained__c: "",
-      Supplementary_Applicant_TRN__c: 0
+      Supplementary_Applicant_TRN__c: 0,
+      Service_of_Interest__c:""
     };
     /*var setMaxdate = new Date();
     setMaxdate = new Date(setMaxdate.getFullYear() - 18, 11, 31);
     component.set("v.maxdate", setMaxdate.toISOString().split("T")[0]);
     console.log(component.get("v.maxdate"));*/
-    component.set("v.SiteLead", sitelead);
+    Object.assign(siteLead, component.get("v.SiteLead"));
+    component.set("v.SiteLead", siteLead);
     helper.getPickListValues(component);
   },
   getTitle: function(component, event, helper) {
@@ -78,7 +80,7 @@
       return validSoFar && inputCmp.get("v.validity").valid;
     }, true);
   },
-  createLead: function(component, event, helper) {
+  createDetails: function(component, event, helper) {
     helper.createLead(component);
   }
 });

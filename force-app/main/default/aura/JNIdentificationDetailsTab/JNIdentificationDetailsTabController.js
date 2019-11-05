@@ -3,13 +3,12 @@
     const sitelead = {
       Identification_Type_Country_of_issue__c: "Jamaica",
       Identification_Type__c: "",
-      Identification_Number__c: "",
+      Identification_Number__c: 0,
       Identification_Type_Expiration__c: new Date()
     };
-    var setMindate = new Date();
+    /*var setMindate = new Date();
     component.set("v.mindate", setMindate.toISOString().split('T')[0]);
-    console.log(component.get("v.mindate"));
-
+    console.log(component.get("v.mindate"));*/
 
     component.set("v.SiteLead", sitelead);
     helper.getPickListValues(component);
@@ -32,5 +31,8 @@
       inputCmp.showHelpMessageIfInvalid();
       return validSoFar && inputCmp.get("v.validity").valid;
     }, true);
-  }
+  },
+         createDetails: function(component, event, helper) {
+         helper.updateApplicant(component);
+     }
 });

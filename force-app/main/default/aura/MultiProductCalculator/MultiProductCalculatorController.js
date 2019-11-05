@@ -2852,6 +2852,9 @@
                 break;
         }
     },
+    CalculateMinimumMV: function(cmp, evt, helper){
+       
+    },
     
     
     

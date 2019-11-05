@@ -5,7 +5,10 @@
   <aura:attribute name="SiteLead" type="Map" />
   <aura:attribute name="countries" type="String[]" />
   <aura:attribute name="addressTypes" type="String[]" />
+      <aura:attribute name="leadId" type="String" />
   <aura:attribute name="addressStatuses" type="String[]" />
+      <aura:method name="createDetails" action="{!c.createDetails}" access="public"/>
+
   <aura:method
     name="validateTabFields"
     action="{!c.validateTabFields}"

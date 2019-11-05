@@ -72,7 +72,7 @@
                                     <div class="slds-card__body slds-card__body_inner">
                                         <c:JNGeneralDetailsTab
                                                                aura:id="General_Details"
-                                                               estimatedAmount="{!v.SiteLead.Estimated_Amount__c}"
+                                                               SiteLead="{!v.SiteLead}"
                                                                />
                                     </div>
                                 </lightning:tab>
@@ -83,6 +83,7 @@
                                     <div class="slds-card__body slds-card__body_inner">
                                         <c:JNIdentificationDetailsTab
                                                                       aura:id="Identification_Details"
+                                                                      leadId="{!v.SiteLead.Id}"
                                                                       />
                                     </div>
                                 </lightning:tab>
@@ -90,13 +91,13 @@
                                                label="5: Contact Details"
                                                id="Contact_Details_Tab"
                                                >
-                                    <c:JNContactDetailsTab aura:id="Contact_Details" />
+                                    <c:JNContactDetailsTab aura:id="Contact_Details" leadId="{!v.SiteLead.Id}"/>
                                 </lightning:tab>
                                 <lightning:tab
                                                label="6: Emergency Contact"
                                                id="Emergency_Contact_Tab"
                                                >
-                                    <c:JNEmergencyContactDetailsTab aura:id="Emergency_Contact" />
+                                    <c:JNEmergencyContactDetailsTab aura:id="Emergency_Contact" leadId="{!v.SiteLead.Id}" />
                                 </lightning:tab>
                                 <lightning:tab
                                                label="7: Employment Details"
@@ -140,7 +141,7 @@
                                                id="Document_Upload_Tab"
                                                >
                                     <div class="slds-card__body slds-card__body_inner">
-                                        <c:JNDocumentUploadTab aura:id="Document_Upload" />
+                                        <c:JNDocumentUploadTab aura:id="Document_Upload" leadId="{!v.SiteLead.Id}"/>
                                     </div>
                                 </lightning:tab>
                             </lightning:tabset>

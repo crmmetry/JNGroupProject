@@ -265,7 +265,8 @@
                     </div>
                     
                 </div>
-                <div class="slds-grid slds-wrap">
+                <aura:if isTrue="{!v.isProductDetail==false}">
+                    <div class="slds-grid slds-wrap">
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
                         <lightning:select label="Market Currency of Vehicle" name="Market Value of Vehicle"  aura:id="MarketValueofVehicle" required="true" onchange="{! c.UpdateMarketCurrency }">
                             <option value="1">JMD</option>
@@ -278,6 +279,25 @@
                         <lightning:input formatter="currency" step="0.01" label="Market Value of Vehicle" type="Number" name="Market Value of Vehicle" aura:id="MarketValueofVehicle1" required="true" onblur="{!c.SetMotorVehicleDeposit}"/>
                     </div>        
                 </div>
+                </aura:if>
+                <aura:if isTrue="{!v.isProductDetail}">
+                    <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <lightning:select label="Market Currency of Vehicle" name="Market Value of Vehicle"  aura:id="MarketValueofVehicle" required="true" onchange="{! c.UpdateMarketCurrency }">
+                            <option value="1">JMD</option>
+                            <option value="2">USD</option>
+                            <option value="3">CAD</option>
+                            <option value="4">GBP</option>
+                        </lightning:select>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <lightning:input formatter="currency" step="0.01" label="Market Value of Vehicle" type="Number" name="Market Value of Vehicle" aura:id="MarketValueofVehicle1" required="true" onblur="{!c.SetMotorVehicleDeposit}"/>
+                    </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <lightning:input formatter="currency" step="0.01" label="Minimum (MV,PP)" type="Number" name="Market Value of Vehicle" aura:id="Minimummv" disabled="true"/>
+                    </div>
+                </div>
+                </aura:if>
                 
                 <div class="slds-grid slds-wrap"> 
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">

@@ -46,46 +46,25 @@
     } else {
       if (typeof currentCmp.validateTabFields === "function") {
         if (currentCmp.validateTabFields() === true) {
-          helper.setSiteLeadInfo(component, currentCmp);
           switch (tabName) {
-            case "General_Details": {
-              //create lead
-              currentCmp.createLead();
+            case "Application_Information": {
+              helper.setSiteLeadInfo(component, currentCmp);
+              helper.navigateNext(component);
               break;
             }
             case "Contact_Details": {
               if (!currentCmp.get("v.shouldShow")) {
                 currentCmp.setMailingAddress();
-                helper.setSiteLeadInfo(component, currentCmp);
-                console.log(
-                  "Current Lead",
-                  JSON.parse(JSON.stringify(component.get("v.SiteLead")))
-                );
-              } else {
-                console.log(
-                  "Current Lead",
-                  JSON.parse(JSON.stringify(component.get("v.SiteLead")))
-                );
               }
-              helper.navigateNext(component);
+              currentCmp.createDetails();
               break;
             }
-            case "Affiliations": {
-              currentCmp.createAffiliates();
-              break;
-            }
-            case "Extensions": {
-              console.log("creating the Extensions");
-              currentCmp.createExtensions();
-              break;
-            }
+
             default: {
-              helper.setSiteLeadInfo(component, currentCmp);
-              console.log(
-                "Current Lead",
-                JSON.parse(JSON.stringify(component.get("v.SiteLead")))
-              );
-              helper.navigateNext(component);
+                if(typeof currentCmp.createDetails === "function"){
+                    currentCmp.createDetails();
+                }
+              
             }
           }
         }
@@ -135,12 +114,12 @@
   },
   postiveBtnClick: function(component, event, helper) {
     helper.closeModal(component);
-      const siteLead = component.get("v.SiteLead");
-      if(!siteLead.hasOwnProperty("Id")) {
-          //user must complete step 2 and 3 first
-          alert("must complete step 2 and 3 first");
-      } else {
-          helper.updateLeadInfo(component);
-      }    
-  },
+    const siteLead = component.get("v.SiteLead");
+    if (!siteLead.hasOwnProperty("Id")) {
+      //user must complete step 2 and 3 first
+      alert("must complete step 2 and 3 first");
+    } else {
+      helper.updateLeadInfo(component);
+    }
+  }
 });

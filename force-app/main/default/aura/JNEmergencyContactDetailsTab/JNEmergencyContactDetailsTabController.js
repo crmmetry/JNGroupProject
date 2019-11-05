@@ -25,5 +25,8 @@
       inputCmp.showHelpMessageIfInvalid();
       return validSoFar && inputCmp.get("v.validity").valid;
     }, true);
-  }
+  },
+         createDetails: function(component, event, helper) {
+         helper.updateApplicant(component);
+     }
 });

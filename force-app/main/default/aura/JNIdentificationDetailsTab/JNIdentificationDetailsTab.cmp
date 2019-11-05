@@ -1,14 +1,3 @@
-<!--
-  @File Name          : JNIdentificationDetailsTab.cmp
-  @Description        : 
-  @Author             : Jermaine.Byfield@crmmetry.com
-  @Group              : 
-  @Last Modified By   : Jermaine.Byfield@crmmetry.com
-  @Last Modified On   : 10/31/2019, 4:14:17 PM
-  @Modification Log   : 
-  Ver       Date            Author      		    Modification
-  1.0    10/31/2019   Jermaine.Byfield@crmmetry.com     Initial Version
--->
 <aura:component access="GLOBAL" controller="JNSiteController">
     <aura:registerEvent type="c:JNComponentEvent" name="jnEvent" />
     <aura:attribute name="SiteLead" type="Map" />
@@ -18,7 +7,8 @@
     <aura:attribute name="identificationTypes" type="String[]" />
     <aura:attribute name="mindate" type="Date" />
     <aura:method name="validateTabFields" action="{!c.validateTabFields}" access="public"/>
-
+ <aura:attribute name="leadId" type="String" />
+    <aura:method name="createDetails" action="{!c.createDetails}" access="public"/>
     <lightning:layout>
         <lightning:layoutItem size="12">
             <div class="slds-grid slds-gutters">

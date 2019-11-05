@@ -9,9 +9,8 @@
   <aura:attribute name="titles" type="String[]" />
   <aura:attribute name="SiteLead" type="Map" />
   <aura:attribute name="maxdate" type="Date" />
-      <aura:attribute name="estimatedAmount" type="Decimal" />
   <aura:method name="validateTabFields" action="{!c.validateTabFields}" access="public"/>
-  <aura:method name="createLead" action="{!c.createLead}" access="public"/>
+  <aura:method name="createDetails" action="{!c.createDetails}" access="public"/>
 
   <lightning:layout>
     <lightning:layoutItem size="12">

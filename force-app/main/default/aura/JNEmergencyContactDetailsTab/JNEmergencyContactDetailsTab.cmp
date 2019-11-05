@@ -3,6 +3,9 @@
     <aura:registerEvent type="c:JNComponentEvent" name="jnEvent" />
     <aura:attribute name="SiteLead" type="Map" />
     <aura:attribute name="applicantRelationships" type="String[]" />
+    <aura:method name="createDetails" action="{!c.createDetails}" access="public"/>
+          <aura:attribute name="leadId" type="String" />
+
     <aura:method name="validateTabFields" action="{!c.validateTabFields}" access="public"/>
     <lightning:layout>
         <lightning:layoutItem size="12">
