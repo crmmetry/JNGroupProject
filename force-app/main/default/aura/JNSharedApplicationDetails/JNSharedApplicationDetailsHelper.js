@@ -7,7 +7,9 @@
         action.setCallback(this, function(response) {
             const state = response.getState();
             if (state === "SUCCESS") {
-                component.set("v.applicant", response.getReturnValue());
+                const data = response.getReturnValue();
+                component.set("v.applicant", data['applicant']);
+                component.set("v.employment", data['employment']);
             } else {
                 console.info(response.getError());
             }
@@ -17,7 +19,8 @@
     updateApplicant: function(component) {
         let action = component.get("c.updateApplicantDetails");
         action.setParams({
-            applicant: component.get("v.applicant")
+            "applicant": component.get("v.applicant"),
+            "employment": component.get("v.employment"),
         });
         action.setCallback(this, function(response) {
             const state = response.getState();
@@ -37,7 +40,7 @@
         }, true);
     },
     getPickListValues: function(component) {
-        const action = component.get("c.getPickListValuesList");
+        const action = component.get("c.getMultiPickListValuesList");
         action.setParams({
             objectApiNames: ["Applicant__c","FinServ__Employment__c"],
             fieldApiNames: [

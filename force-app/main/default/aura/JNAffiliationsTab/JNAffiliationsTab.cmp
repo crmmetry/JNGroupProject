@@ -12,8 +12,8 @@
   <aura:attribute name="showLoading" type="Boolean" default="false" />
 
   <aura:method
-    name="createAffiliates"
-    action="{!c.createAffiliates}"
+    name="createDetails"
+    action="{!c.createDetails}"
     access="public"
   />
   <aura:method

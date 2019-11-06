@@ -33,7 +33,7 @@
     }
     return true;
   },
-  createExtensions: function(component, event, helper) {
+  createDetails: function(component, event, helper) {
     let siteLead;
     let extensionList = component.get("v.extensionList");
     let components = component.find("layout");

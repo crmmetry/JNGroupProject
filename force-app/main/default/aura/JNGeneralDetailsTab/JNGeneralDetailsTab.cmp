@@ -22,7 +22,7 @@
             name="title"
             label="Title"
             onchange="{!c.getTitle}"
-            required="true"
+            required="false"
             aura:id="validation"
           >
             <option value="">select one...</option>
@@ -72,7 +72,7 @@
             name="suffix"
             label="Suffix"
             onchange="{!c.getSuffix}"
-            required="true"
+            required="false"
             aura:id="validation"
           >
             <option value="">select one...</option>

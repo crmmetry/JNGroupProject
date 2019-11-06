@@ -39,7 +39,20 @@
     }
   },
   tabNext: function(component, event, helper) {
+    const siteLead = component.get("v.SiteLead");
+    const allTabs = component.get("v.allTabs");
+    const index = allTabs.indexOf(component.get("v.tabId"));
     const tabName = helper.getTabName(component.get("v.tabId"));
+    // this logic needs to be at the component level
+    /*if (!siteLead.hasOwnProperty("Id") && index >= 3) {
+      helper.showErrorToast(component, {
+        severity: "error",
+        message: "You must first complete step 2 and 3 first",
+        title: "An error has occurred"
+      });
+      return;
+    }*/
+
     const currentCmp = component.find(tabName);
     if (component.get("v.formBtnText") === "Finish") {
       helper.showModal(component);
@@ -116,14 +129,23 @@
     const siteLead = component.get("v.SiteLead");
     if (!siteLead.hasOwnProperty("Id")) {
       //user must complete step 2 and 3 first
-      const severity = "error"; //it could be 'confirm' or null
-      const title = "An error has occurred";
-      const message = "You must first complete step 2 and 3 before";
-      const toastContainer = component.find("toastContainer");
-      toastContainer.displayMessage(severity, title, message);
+      helper.showErrorToast(component, {
+        severity: "error",
+        message: "You must first complete step 2 and 3 before",
+        title: "An error has occurred"
+      });
       return;
     } else {
       // display successful toast
+      helper.showSuccessToast(component, {
+        severity: "success",
+        message:
+          "Thanks for taking your time to complete this form, please look out for a follow up email.",
+        title: "Applicant Form Completion"
+      });
+      setTimeout(function() {
+        helper.sendEvents(component, "JNHomePage", ["showHomePage"], {});
+      }, 5500);
     }
   }
 });

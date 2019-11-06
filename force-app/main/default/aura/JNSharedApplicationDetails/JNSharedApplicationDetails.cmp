@@ -132,7 +132,7 @@
 				</lightning:layoutItem>
 			</lightning:layout>
 		</lightning:accordionSection>
-		<lightning:accordionSection name="jn_bank_details" label="JN bank details">
+		<lightning:accordionSection name="jn_bank_details" label="JN Bank Details">
 			<lightning:layout multipleRows="true" horizontalAlign="space" verticalAlign="center">
 				<!-- Is the applicant KYC compliant?* -->
 				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
@@ -206,7 +206,7 @@
 				</lightning:layoutItem>
 				<!-- Will the JN Employee Loan Benefit be applied?* -->
 				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small" >
-					<lightning:input value="{!v.applicant.JN_Employee_Loan_Benefit__c}" type="checkbox-button" label="Will the JN Employee Loan Benefit be applied?"/>
+					<lightning:input value="{!v.applicant.JN_Employee_Loan_Benefit__c}" type="checkbox" label="Will the JN Employee Loan Benefit be applied?"/>
 				</lightning:layoutItem>
 			</lightning:layout>
 		</lightning:accordionSection>

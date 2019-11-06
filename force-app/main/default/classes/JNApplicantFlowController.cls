@@ -119,6 +119,22 @@ global with sharing class JNApplicantFlowController {
             return e;
         }
     }
+    
+    @AuraEnabled
+    global static Object updateApplicantDetailsWithEmployment(Applicant__C applicant, FinServ__Employment__c employment){
+        try {
+            
+            if(applicant != null){
+                update applicant;
+            } if(employment != null) {
+                update employment;
+            }
+            return 200;
+        } catch(Exception e){
+            return e;
+        }
+    }
+    
     @AuraEnabled
     global static Object updateApplicantDetails(Applicant__C applicant){
         try {
@@ -155,7 +171,7 @@ global with sharing class JNApplicantFlowController {
         return mapFields;
     }
     @AuraEnabled
-    public static Map<String, List<String>> getMultiPickListValuesList(String[] objectApiNames, List<String> fieldApiNames){
+    public static Map<String, List<String>> getMultiPickListValuesList(List<String> objectApiNames, List<String> fieldApiNames){
         List<String> pickListValuesList= new List<String>();
         Map<String, List<String>> mapFields = new Map<String, List<String>>();
         Map<String , Schema.SObjectType> globalDescription = Schema.getGlobalDescribe();
@@ -166,13 +182,15 @@ global with sharing class JNApplicantFlowController {
             
             for(String fieldApiName: fieldApiNames){
                 Schema.SObjectField field = mapFieldList.get(fieldApiName);
-                Schema.DescribeFieldResult fieldResult = field.getDescribe();
-                List<Schema.PicklistEntry> ple = fieldResult.getPicklistValues();
-                pickListValuesList = new List<String>();
-                for( Schema.PicklistEntry pickListVal : ple){
-                    pickListValuesList.add(pickListVal.getLabel());
-                } 
-                mapFields.put(fieldApiName, pickListValuesList);
+                if(field != null){
+                    Schema.DescribeFieldResult fieldResult = field.getDescribe();
+                    List<Schema.PicklistEntry> ple = fieldResult.getPicklistValues();
+                    pickListValuesList = new List<String>();
+                    for( Schema.PicklistEntry pickListVal : ple){
+                        pickListValuesList.add(pickListVal.getLabel());
+                    } 
+                    mapFields.put(fieldApiName, pickListValuesList);
+                }
             }
             
         }

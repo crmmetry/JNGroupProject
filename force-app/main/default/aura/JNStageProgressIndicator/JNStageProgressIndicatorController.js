@@ -9,7 +9,8 @@
       "Emergency Contacts",
       "Employment Details",
       "JN Affiliations",
-      "Political Affiliations"
+      "Political Affiliations",
+      "Applicant Form"
     ];
     const financialStages = ["Applicant Details", "Assets/Liabilities"];
     if (component.get("v.stageType") === "applicant") {

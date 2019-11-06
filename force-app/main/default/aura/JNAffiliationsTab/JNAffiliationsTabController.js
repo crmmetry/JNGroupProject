@@ -20,7 +20,7 @@
       }
     }
   },
-  createAffiliates: function(component, event, helper) {
+  createDetails: function(component, event, helper) {
     let siteLead;
     let affiliateList = component.get("v.affiliateList");
     let components = component.find("layout");
