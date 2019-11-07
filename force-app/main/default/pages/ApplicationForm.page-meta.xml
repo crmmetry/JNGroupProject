@@ -4,4 +4,9 @@
     <availableInTouch>false</availableInTouch>
     <confirmationTokenRequired>false</confirmationTokenRequired>
     <label>ApplicationForm</label>
+    <packageVersions>
+        <majorNumber>222</majorNumber>
+        <minorNumber>3</minorNumber>
+        <namespace>FinServ</namespace>
+    </packageVersions>
 </ApexPage>

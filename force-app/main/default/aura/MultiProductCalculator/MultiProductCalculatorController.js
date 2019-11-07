@@ -2785,7 +2785,7 @@
             cmp.set("v.LOCPromotion",selectedRecordId);
     },
     ApplicationFormDoc: function(cmp, evt, helper){
-        window.open('https://jnbank--jnbanksan.lightning.force.com/apex/ApplicationForm');
+        window.open('https://jnbank--jnbanksan.lightning.force.com/apex/ApplicationForm'+'?oppid='+cmp.get("v.isRecordIdM"));
         
     },
     StatementofAffairDoc1: function(cmp, evt, helper){

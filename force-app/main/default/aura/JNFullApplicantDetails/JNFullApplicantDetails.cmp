@@ -3,11 +3,18 @@
   access="global"
   controller="JNApplicantFlowController"
 >
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
   <aura:attribute name="applicantId" type="String" />
   <aura:attribute
     name="applicant"
     type="Applicant__c"
-    default="{'sobjectType':'Applicant__c'}"
+  />
+  <aura:attribute
+    name="validate"
+    type="Aura.Action"
+    description="Custom validation function to run when the flow is navigated to the next screen. 
+                                 The function must evaluate the component and return values for isValid and errorMessage."
   />
   <lightning:accordion aura:id="accordion">
     <lightning:accordionSection name="monthly_income" label="Monthly Income">
@@ -31,6 +38,7 @@
             label="Salary and Allowances (as per pay slips)"
             formatter="Currency"
             value="{!v.applicant.Salary_and_Allowances_as_per_pay_slips__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
         <lightning:layoutItem
@@ -48,6 +56,7 @@
             label="Gratuity in lieu of Pension"
             formatter="Currency"
             value="{!v.applicant.Gratuity_in_lieu_of_Pension__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
         <lightning:layoutItem
@@ -62,9 +71,10 @@
           <!-- Performance_Based_PayC__c -->
           <lightning:input
             type="number"
-            label="Performance-Based PayC"
+            label="Performance-Based Pay"
             formatter="Currency"
-            value="{!v.applicant.Performance_Based_PayC__c}"
+            value="{!v.applicant.Performance_Based_Pay_Includes_Commissi__c }"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -83,6 +93,7 @@
             label="Net Profit - Sole Trader"
             formatter="Currency"
             value="{!v.applicant.Net_Profit_Sole_Trader__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
         <lightning:layoutItem
@@ -100,6 +111,7 @@
             label="Director’s Emoluments - Director"
             formatter="Currency"
             value="{!v.applicant.Director_s_Emoluments_Director__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
         <lightning:layoutItem
@@ -117,6 +129,7 @@
             label="Share of Profit - Partnership"
             formatter="Currency"
             value="{!v.applicant.Share_of_Profit_Partnership__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
         <lightning:layoutItem
@@ -134,6 +147,7 @@
             label="Share of Profit - Shareholder"
             formatter="Currency"
             value="{!v.applicant.Share_of_Profit_Shareholder__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -151,7 +165,8 @@
             type="number"
             label="Pension"
             formatter="Currency"
-            value="{!v.applicant.Pension}"
+            value="{!v.applicant.Pension__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -163,13 +178,15 @@
           largeDeviceSize="6"
           alignmentBump="right"
           padding="around-small"
+          aura:id="validation"
         >
-          <!-- Existing Real Estate Rental IC -->
+          <!-- Existing Real Estate Rental I -->
           <lightning:input
             type="number"
-            label="Existing Real Estate Rental IC"
+            label="Existing Real Estate Rental I"
             formatter="Currency"
-            value="{!v.applicant.Existing_Real_Estate_Rental_IC__c}"
+            value="{!v.applicant.Existing_Real_Estate_Rental_I__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -188,6 +205,7 @@
             label="Existing Real estate Rental II"
             formatter="Currency"
             value="{!v.applicant.Existing_Real_estate_Rental_II__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
         <lightning:layoutItem
@@ -205,6 +223,7 @@
             label="Projected Real Estate Rental"
             formatter="Currency"
             value="{!v.applicant.Projected_Real_Estate_Rental__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
       </lightning:layout>
@@ -230,7 +249,7 @@
         >
           <div class="slds-text-heading_medium">Statutory Deductions</div>
         </lightning:layoutItem>
-        
+
         <lightning:layoutItem
           flexibility="no-flex"
           size="12"
@@ -246,6 +265,7 @@
             label="Income Tax Monthly Payment Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Income_Tax_Monthly_Payment_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -264,6 +284,7 @@
             label="NIS Contribution Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.NIS_Contribution_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -282,6 +303,7 @@
             label="NHT Contributions Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.NHT_Contributions_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
         <lightning:layoutItem
@@ -299,6 +321,7 @@
             label="Education Tax Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Education_Tax_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -314,7 +337,6 @@
           <div class="slds-text-heading_medium">Family Fees</div>
         </lightning:layoutItem>
 
-        
         <lightning:layoutItem
           flexibility="no-flex"
           size="12"
@@ -330,6 +352,7 @@
             label="Food Cost Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Food_Cost_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
         <lightning:layoutItem
@@ -347,6 +370,7 @@
             label="Food Costs Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.Food_Costs_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -365,6 +389,7 @@
             label="Personal Expenses Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Personal_Expenses_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -383,6 +408,7 @@
             label="Personal Expenses Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.Personal_Expenses_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -401,6 +427,7 @@
             label="Child Care Costs Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Child_Care_Costs_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -419,6 +446,7 @@
             label="Child Care Costs Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.Child_Care_Costs_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -437,6 +465,7 @@
             label="School Costs Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.School_Costs_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -455,6 +484,7 @@
             label="School Costs Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.School_Costs_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -473,6 +503,7 @@
             label="Health Costs Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Health_Costs_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -491,6 +522,7 @@
             label="Health Costs Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.Health_Costs_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -509,6 +541,7 @@
             label="Other Personal/Family Costs Prior"
             formatter="Currency"
             value="{!v.applicant.Other_Personal_Family_Monthly_Prior_Loan__c }"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -527,6 +560,7 @@
             label="Other Personal/Family Costs Prior After"
             formatter="Currency"
             value="{!v.applicant.Other_Personal_Family_Costs_Prior_After__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -542,7 +576,6 @@
           <div class="slds-text-heading_medium">Property Related</div>
         </lightning:layoutItem>
 
-        
         <lightning:layoutItem
           flexibility="no-flex"
           size="12"
@@ -558,6 +591,7 @@
             label="Rent/Board Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Rent_Board_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -576,6 +610,7 @@
             label="Rent/Board Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.Rent_Board_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -594,6 +629,7 @@
             label="Strata Maintenance Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Strata_Maintenance_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -612,6 +648,7 @@
             label="Strata Maintenance Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.Strata_Maintenance_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -630,6 +667,7 @@
             label="Property Tax Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Property_Tax_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -648,6 +686,7 @@
             label="Property Tax Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.Property_Tax_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -666,6 +705,7 @@
             label="Property Insurance Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Property_Insurance_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -684,6 +724,7 @@
             label="Property Insurance Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.Property_Insurance_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -702,6 +743,7 @@
             label="Property Maintenance Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Property_Maintenance_Monthly_Prior_loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -720,6 +762,7 @@
             label="Property Maintenance Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.Property_Maintenance_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -734,8 +777,6 @@
         >
           <div class="slds-text-heading_medium">House Fees</div>
         </lightning:layoutItem>
-
-        
 
         <lightning:layoutItem
           flexibility="no-flex"
@@ -752,6 +793,7 @@
             label="Electricity Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Electricity_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -770,6 +812,7 @@
             label="Electricity Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.Electricity_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -788,6 +831,7 @@
             label="Water Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Water_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -806,6 +850,7 @@
             label="Water Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.Water_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -824,6 +869,7 @@
             label="Cell Phone/Landline Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Cell_Phone_Landline_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -842,6 +888,7 @@
             label="Cell Phone/Landline Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.Cell_Phone_Landline_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -860,6 +907,7 @@
             label="Internet/Cable Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Internet_Cable_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -878,6 +926,7 @@
             label="Internet/Cable Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.Internet_Cable_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -896,6 +945,7 @@
             label="Cooking Gas Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Cooking_Gas_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -914,6 +964,7 @@
             label="Cooking Gas Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.Cooking_Gas_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -932,6 +983,7 @@
             label="House Keeping Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.House_Keeping_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -950,6 +1002,7 @@
             label="House Keeping Costs Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.House_Keeping_Costs_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -968,6 +1021,7 @@
             label="Other Utilities Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Other_Utilities_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -986,6 +1040,7 @@
             label="Other Utilities Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.Other_Utilities_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
         <lightning:layoutItem
@@ -999,7 +1054,7 @@
         >
           <div class="slds-text-heading_medium">Transportation Related</div>
         </lightning:layoutItem>
-   
+
         <lightning:layoutItem
           flexibility="no-flex"
           size="12"
@@ -1015,6 +1070,7 @@
             label="Fares Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Fares_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -1033,6 +1089,7 @@
             label="Fares Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.Fares_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
         <lightning:layoutItem
@@ -1050,6 +1107,7 @@
             label="Petrol/Fuel Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Petrol_Fuel_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
         <lightning:layoutItem
@@ -1067,6 +1125,7 @@
             label="Petrol/Fuel Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.Petrol_Fuel_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
         <lightning:layoutItem
@@ -1084,6 +1143,7 @@
             label="Toll/Fees Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Toll_Fees_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -1102,6 +1162,7 @@
             label="Toll/Fees Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.Toll_Fees_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -1120,6 +1181,7 @@
             label="Motor V Insurance Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Motor_V_Insurance_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
         <lightning:layoutItem
@@ -1137,6 +1199,7 @@
             label="Motor V Insurance Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.Motor_V_Insurance_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -1155,6 +1218,7 @@
             label="Motor Vehicle Reg Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Motor_Vehicle_Reg_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -1173,6 +1237,7 @@
             label="Motor Vehicle Reg Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.Motor_Vehicle_Reg_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -1191,6 +1256,7 @@
             label="Motor Vehicle Fitness Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Motor_Vehicle_Fitness_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -1203,12 +1269,13 @@
           alignmentBump="right"
           padding="around-small"
         >
-          <!-- Motor Vehicle Fitness Monthly Prior Loan -->
+          <!-- Motor Vehicle Fitness Monthly After Loan -->
           <lightning:input
             type="number"
-            label="Motor Vehicle Fitness Monthly Prior Loan"
+            label="Motor Vehicle Fitness Monthly After Loan"
             formatter="Currency"
-            value="{!v.applicant.Motor_Vehicle_Fitness_Monthly_Prior_Loan__c}"
+            value="{!v.applicant.Motor_Vehicle_Fitness_Monthly_After_Loan__c }"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -1227,6 +1294,7 @@
             label="Motor V Maintenance Monthly Prior"
             formatter="Currency"
             value="{!v.applicant.Motor_V_Maintenance_Monthly_Before_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -1245,6 +1313,7 @@
             label="Motor V Maintenance Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.Motor_V_Maintenance_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -1263,6 +1332,7 @@
             label="Other Transport Costs Monthly Prior Loan"
             formatter="Currency"
             value="{!v.applicant.Other_Transport_Costs_Monthly_Prior_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
 
@@ -1281,6 +1351,7 @@
             label="Other Transport Monthly After Loan"
             formatter="Currency"
             value="{!v.applicant.Other_Transport_Monthly_After_Loan__c}"
+            aura:id="validation"
           />
         </lightning:layoutItem>
       </lightning:layout>

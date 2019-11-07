@@ -25,10 +25,13 @@ global with sharing class JNApplicantFlowController {
                                       FROM Applicant__c WHERE Id =:applicantId];
             
             if(applicant != null){
-                FinServ__Employment__c  employment = [SELECT Id,Assessment_of_Business__c,Assessment_of_Statement__c,
-                                                      Assessment_of_Business_Working_Capita__c
-                                                      FROM FinServ__Employment__c WHERE Account__c =:applicant.Account__c];
-                
+                List<FinServ__Employment__c>  employments = [SELECT Id,Assessment_of_Business__c,Assessment_of_Statement__c,
+                                                             Assessment_of_Business_Working_Capita__c
+                                                             FROM FinServ__Employment__c WHERE Account__c =:applicant.Account__c];
+                FinServ__Employment__c employment;
+                if(!employments.isEmpty()){
+                    employment = employments.get(0);// need to get specific employment
+                }
                 objects.put('applicant', applicant);
                 objects.put('employment', employment);
                 return objects;
@@ -44,14 +47,14 @@ global with sharing class JNApplicantFlowController {
             Applicant__c applicant = [SELECT Id,Applicable_sources_of_income__c, 
                                       Salary_and_Allowances_as_per_pay_slips__c,
                                       Gratuity_in_lieu_of_Pension__c,
-                                      Performance_Based_PayC__c,
+                                      Performance_Based_Pay_Includes_Commissi__c ,
                                       Net_Profit_Sole_Trader__c,
                                       Director_s_Emoluments_Director__c,
                                       Share_of_Profit_Partnership__c,
                                       Share_of_Profit_Shareholder__c,
                                       Pension__c,
-                                      Existing_Real_Estate_Rental_IC__c,
                                       Existing_Real_estate_Rental_II__c,
+                                      Existing_Real_Estate_Rental_I__c ,
                                       Projected_Real_Estate_Rental__c,
                                       Other_Income__c,
                                       Income_Tax_Monthly_Payment_Prior_Loan__c,
@@ -112,9 +115,10 @@ global with sharing class JNApplicantFlowController {
                                       Other_Transport_Monthly_After_Loan__c
                                       FROM Applicant__c WHERE Id =:applicantId];
             if(applicant != null){
+                System.debug('Full Applicant ' + applicant);
                 return applicant;
             }
-            return null;
+            return 'No Record';
         } catch(Exception e){
             return e;
         }
@@ -140,10 +144,20 @@ global with sharing class JNApplicantFlowController {
         try {
             
             if(applicant != null){
-                update applicant;
+                Applicant__C newApplicant = new Applicant__C(Id=applicant.Id);
+                Map<String, Object> fields = applicant.getPopulatedFieldsAsMap();
+                for(String field: fields.keySet()){
+                    if(field != 'Id') {
+                        Decimal d = Decimal.valueOf(String.valueOf(applicant.get(field)));
+                        newApplicant.put(field, d);
+                    }
+                }
+
+                update newApplicant;
             }
             return applicant;
         } catch(Exception e){
+            System.debug('Error ' + e.getMessage());
             return e;
         }
     }

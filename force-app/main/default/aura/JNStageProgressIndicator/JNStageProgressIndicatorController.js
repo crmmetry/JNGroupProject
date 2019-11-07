@@ -12,7 +12,13 @@
       "Political Affiliations",
       "Applicant Form"
     ];
-    const financialStages = ["Applicant Details", "Assets/Liabilities"];
+    const financialStages = [
+      "Applicant Selection",
+      "Applicant Details",
+      "Assets/Liabilities Selection",
+      "Assets/Liabilities Details",
+      "End"
+    ];
     if (component.get("v.stageType") === "applicant") {
       component.set("v.activeStages", applicantStages);
     } else {

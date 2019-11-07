@@ -2259,7 +2259,7 @@
                 </div>
             </div>
             <aura:if isTrue="{!v.isProductDetail}">
-                <!--<div class="slds-grid slds-wrap" style="margin-top: 10px;">
+                <div class="slds-grid slds-wrap" style="margin-top: 10px;">
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.ApplicationFormDoc }">
                     <lightning:layout class="slds-box">
                         <lightning:layoutItem> 
@@ -2267,12 +2267,12 @@
                         </lightning:layoutItem>
                         <lightning:layoutItem padding="horizontal-small">
                             <div class="page-section page-header">
-                                
-                              </div>
+                                <h2 class="slds-text-heading--small" style="font-weight: bold;color: #00a1e0;">APPLICANT FORM</h2>
+                                </div>
                         </lightning:layoutItem>
                     </lightning:layout>
                 </div>
-                </div> -->
+                </div>
                 <div class="slds-grid slds-wrap" style="margin-top: 10px;">
                     <aura:if isTrue="{!v.ApplicantCount>=1}">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.StatementofAffairDoc1 }">

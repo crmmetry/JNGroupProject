@@ -10,6 +10,7 @@
                 const data = response.getReturnValue();
                 component.set("v.applicant", data['applicant']);
                 component.set("v.employment", data['employment']);
+                console.log(data)
             } else {
                 console.info(response.getError());
             }
@@ -17,7 +18,7 @@
         $A.enqueueAction(action);
     },
     updateApplicant: function(component) {
-        let action = component.get("c.updateApplicantDetails");
+        let action = component.get("c.updateApplicantDetailsWithEmployment");
         action.setParams({
             "applicant": component.get("v.applicant"),
             "employment": component.get("v.employment"),

@@ -2,11 +2,12 @@
     getApplicant: function(component) {
         let action = component.get("c.getFullApplicantDetails");
         action.setParams({
-            applicantId: component.get("v.applicantId")
+            "applicantId": component.get("v.applicantId")
         });
         action.setCallback(this, function(response) {
             const state = response.getState();
             if (state === "SUCCESS") {
+                console.info(response.getReturnValue());
                 component.set("v.applicant", response.getReturnValue());
             } else {
                 console.info(response.getError());
@@ -16,8 +17,9 @@
     },
     updateApplicant: function(component) {
         let action = component.get("c.updateApplicantDetails");
+			console.info("current applicant",  component.get("v.applicant"))
         action.setParams({
-            applicant: component.get("v.applicant")
+            "applicant": component.get("v.applicant")
         });
         action.setCallback(this, function(response) {
             const state = response.getState();
