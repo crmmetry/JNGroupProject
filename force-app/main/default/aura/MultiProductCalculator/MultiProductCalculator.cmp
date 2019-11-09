@@ -153,11 +153,11 @@
             </div>   
             <aura:if isTrue="{!v.isProductDetail==false}">
                 <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1" >    
-                    <div class="slds-scrollable_x" style="width:51rem;margin-top:10px;">
+                    <div class="slds-scrollable_x" style="width:51.9rem;margin-top:10px;">
                         <table class="slds-table slds-table_cell-buffer slds-table_bordered">
                             <thead>
                                 <tr class="slds-text-heading--label">
-                                    <th scope="col">
+                                    <th scope="col" >
                                         <div class="slds-truncate fs" title="index"></div>
                                     </th>
                                     <th scope="col">
@@ -170,24 +170,23 @@
                                         <div class="slds-truncate fs" title="Date Of Birth">Date Of Birth*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>(MM/DD/YYYY)</div>
                                     </th>
                                     <th scope="col">
-                                        <div class="slds-truncate fs" title="Gross Monthly Income">Gross Monthly<br/>Income*</div>
+                                        <div class="slds-truncate fs" title="Gross Monthly Income">Gross Monthly Income*</div>
                                     </th>
                                     <th scope="col">
-                                        <div class="slds-truncate fs" title="Existing Monthly Credit Payment">Existing Monthly<br/>Credit Payment</div>
+                                        <div class="slds-truncate fs" title="Existing Monthly Credit Payment">Existing Monthly Credit<br/> Payment</div>
                                     </th>
                                     <th scope="col">
-                                        <div class="slds-truncate fs" title="JN Employee">JN Employee*(Check<br/> the box if YES)</div>
+                                        <div class="slds-truncate fs" title="JN Employee">JN EMPLOYEE*<br/><span style="font-size:6px;">(Check the box if YES)</span></div>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <aura:iteration items="{!v.RowNum}" var="row">
                                     <tr>
-                                        <td>
+                                        <td >
                                             {!row.Id} 
                                         </td>
                                         <td>
-                                            
                                             <lightning:input type="text"  value="{!row.LastName}"/>
                                         </td>
                                         <td>
@@ -197,21 +196,9 @@
                                             <lightning:input type="Date" displayDatePicker="false" value="{!row.DateOfBirth}" class="pr" style="padding-right: 0px!important;" onblur="{!c.showhideCoverageType}"/>
                                         </td>
                                         <td>
-                                            <!-- <lightning:select aura:id="currIncome" class="fl">
-                                            <option value="1">JMD</option>
-                                            <option value="2">USD</option>
-                                            <option value="3">CAD</option>
-                                            <option value="4">GBP</option>
-                                        </lightning:select>-->
                                             <lightning:input type="number" formatter="currency" step="0.01"  value="{!row.GMIncome}" onblur="{!c.ApplicantDetailsChange}" />
                                         </td>
                                         <td>
-                                            <!--<lightning:select aura:id="currIncome" class="fl">
-                                            <option value="1">JMD</option>
-                                            <option value="2">USD</option>
-                                            <option value="3">CAD</option>
-                                            <option value="4">GBP</option>
-                                        </lightning:select>-->
                                             <lightning:input type="number"  formatter="currency" step="0.01"  value="{!row.EMCPayment}" onblur="{!c.ApplicantDetailsChange}" />
                                         </td>
                                         <td>
@@ -305,9 +292,9 @@
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12" style="float:left;" >
                             <lightning:input label="%" type="number" disabled="{!v.disabledP}"  name="Motor Vehicle Deposit" aura:id="MotorVehicleDeposit" required="{!v.ReqP}" onblur="{!c.SetMotorVehicleDeposit}"/>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12 mTop" style="float:left;"  >
+                        <!--<div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12 mTop" style="float:left;"  >
                             <lightning:input label="" value="%"  aura:id="MotorVehicleDeposit1" disabled="true"/>
-                        </div>
+                        </div>-->
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12 mTop" style="float:left;" >
                             <lightning:input label=""  value="{!v.AutoMarketCurrency}" aura:id="MotorVehicleDeposit2" disabled="true"/>
                         </div>
@@ -382,7 +369,7 @@
                             <lightning:input formatter="currency" step="0.01" label="Monthly Premium"  type="number"  name="Monthly Premium" aura:id="MonthlyPremium" required="true" onblur="{!c.calculateJNGIMonthlyPremium }"/>
                         </div>
                     </div>
-                    <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">JN LIFE CREDITOR LIFE INSURENCE</div>
+                    <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">JN LIFE CREDITOR LIFE INSURANCE</div>
                     <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <lightning:select label="Interested in Creditor Life?" name="Interested in Creditor Life?"  aura:id="InterestedinCreditorLife" required="true" onchange="{!c.calculateJNLifeMonthlyPremium }">
@@ -644,7 +631,7 @@
                     <legend class="slds-text-heading--medium slds-p-vertical--medium">
                         Unsecured Loan Features
                     </legend>
-                    <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">JN LIFE CREDITOR LIFE INSURENCE</div>
+                    <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">JN LIFE CREDITOR LIFE INSURANCE</div>
                     <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <lightning:select label="Interested in Creditor Life?" name="Interested in Creditor Life?"  aura:id="InterestedinCreditorLifeUn" required="true" onchange="{!c.ShowHideOnInterestedinCreditorLifeUnsecured }">
@@ -1066,7 +1053,7 @@
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12" style="padding-right: 5px;padding-left: 5px;">
                                 <div class="slds-grid slds-wrap">
                                     <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12">
-                                        <lightning:input placeholder="th of the month" type="number" label="Desired Monthly Repayment Date"  aura:id="DesiredMonthlyRepaymentDateCC"/>
+                                        <lightning:input placeholder="th of the month" type="number" label="Desired Statement Date"  aura:id="DesiredMonthlyRepaymentDateCC"/>
                                     </div>
                                     
                                 </div>
@@ -1505,27 +1492,27 @@
                 <fieldset  class="slds-box slds-theme--default slds-container--large">
                     <legend class="slds-text-heading--medium slds-p-vertical--medium">Personal Auto Loan</legend>
                     <div class="slds-grid slds-wrap" style="margin-top: 5px;">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-4 slds-large-size_2-of-4">
                                 <div style=" text-decoration: underline;font-style: italic;font-weight: bold;">TOTAL FINANCING</div>
                             </div>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap" style="margin-top: 5px;">
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <div style=" text-decoration: underline;font-style: italic;font-weight: bold;">TOTAL LOAN REPAYMENT</div>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" aura:id="DuringMoratoriumhead">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" aura:id="DuringMoratoriumhead">
                                     <div style="font-style: italic;">During Moratorium</div>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" aura:id="AfterMoratoriumhead">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" aura:id="AfterMoratoriumhead">
                                     <div style=" font-style: italic;">After Moratorium</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="slds-grid slds-wrap">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
                                     <lightning:input step="0.01" label="$" value="JMD" name="Loan Amount (Market)" aura:id="LoanAmountMarket"  readonly="true"/>
@@ -1535,22 +1522,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input label="+ Monthly Loan Payment (Market)" value="JMD" name="Monthly Loan Payment (Market)" aura:id="MonthlyLoanPaymentMarket" required="true" readonly="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" value="{!v.LoanamountMarketAutoloannew}" aura:id="MonthlyLoanPaymentMarket1"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" value="{!v.AMLoanamountMarketAutoloannew}" aura:id="MonthlyLoanPaymentMarket2"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="slds-grid slds-wrap" aura:id="JNstaff1">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
                                     <lightning:input label="$" value="JMD" name="Loan Amount (JN Staff 1)" aura:id="LoanAmountJN1" readonly="true"/>
@@ -1560,22 +1547,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input label="+ Monthly Loan Payment (JN Staff 1)" value="JMD" name="Monthly Loan Payment (JN Staff 1)" aura:id="MonthlyLoanPaymentJN1" required="true" readonly="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" name="Loan Amount (JN Staff 1)1" aura:id="MonthlyLoanPaymentJN11"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" name="Loan Amount (JN Staff 1)2" aura:id="MonthlyLoanPaymentJN12"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="slds-grid slds-wrap" aura:id="JNstaff2">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
                                     <lightning:input label="$" value="JMD" name="Loan Amount (JN Staff 2)" aura:id="LoanAmountJN2" readonly="true"/>
@@ -1585,22 +1572,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input label="+ Monthly Loan Payment (JN Staff 2)" value="JMD" name="Monthly Loan Payment (JN Staff 2)" aura:id="MonthlyLoanPaymentJN2" required="true" readonly="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" name="Loan Amount (JN Staff 2)1" aura:id="MonthlyLoanPaymentJN21"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" name="Loan Amount (JN Staff 2)2" aura:id="MonthlyLoanPaymentJN22"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="slds-grid slds-wrap" aura:id="JNstaff3">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
                                     <lightning:input label="$" value="JMD" name="Loan Amount (JN Staff 1)" aura:id="LoanAmountJN3" readonly="true"/>
@@ -1610,22 +1597,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input label="+ Monthly Loan Payment (JN Staff 3)" value="JMD" name="Monthly Loan Payment (JN Staff 3)" aura:id="MonthlyLoanPaymentJN3" required="true" readonly="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" name="Loan Amount (JN Staff 3)1" aura:id="MonthlyLoanPaymentJN31"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" name="Loan Amount (JN Staff 3)2" aura:id="MonthlyLoanPaymentJN32"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="slds-grid slds-wrap" aura:id="JNGIMotorPremium">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
                                     <lightning:input label="$" style="margin-top: 18px;" value="JMD" name="JNGI Motor Premium (1st Year)" aura:id="JNGIMotorPremium1stYear" readonly="true"/>
@@ -1635,40 +1622,40 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input label="+ Monthly JNGI Motor Premium (1st Year)" value="JMD" name="Monthly Loan Payment (Market)" aura:id="MonthlyJNGIMotorPremium1stYear" required="true" readonly="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" name="Monthly JNGI Motor Premium (1st Year)" aura:id="MonthlyJNGIMotorPremium1stYear1"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" name="Monthly JNGI Motor Premium (1st Year)" aura:id="MonthlyJNGIMotorPremium1stYear2"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="slds-grid slds-wrap" aura:id="JNGIMotorPremium1">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
                             
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input label="+ Monthly JNGI Motor Premium (1/12 Payment)" value="JMD" name="Monthly JNGI Motor Premium (1/12 Payment)" aura:id="MonthlyJNGIMotorPremiumhalfPayment" required="true" readonly="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" name="Monthly JNGI Motor Premium (1/12 Payment)" aura:id="MonthlyJNGIMotorPremiumhalfPayment1"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" name="Monthly JNGI Motor Premium (1/12 Payment)" aura:id="MonthlyJNGIMotorPremiumhalfPayment2"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="slds-grid slds-wrap" aura:id="JNLifecal">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
                                     <lightning:input label="$" value="JMD" name="JN Life Creditor Life Premium" aura:id="JNLifeCreditorLifePremium" readonly="true"/>
@@ -1678,22 +1665,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input label="+ Monthly JN Life Creditor Life Premium" value="JMD" name="Monthly JN Life Creditor Life Premium" aura:id="MonthlyJNLifeCreditorLifePremium" required="true" readonly="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" name="Loan Amount (Market)" aura:id="MonthlyJNLifeCreditorLifePremium1"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" name="Loan Amount (Market)" aura:id="MonthlyJNLifeCreditorLifePremium2"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="slds-grid slds-wrap" aura:id="ProcessingFeescal">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
                                     <lightning:input label="$" style="margin-top: 18px;" value="JMD" name="Processing Fees (including GCT)" aura:id="ProcessingFeesincludingGCT" readonly="true"/>
@@ -1703,22 +1690,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input label="+ Monthly Processing Fees" value="JMD" name="Monthly Loan Payment (Market)" aura:id="MonthlyProcessingFees" required="true" readonly="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" name="Monthly Processing Fees" aura:id="MonthlyProcessingFees1"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" name="Monthly Processing Fees" aura:id="MonthlyProcessingFees2"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="slds-grid slds-wrap" style="font-weight: bold;">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
                                     <lightning:input label="$" value="JMD" name="Total Loan Amount" aura:id="TotalLoanAmount" readonly="true"/>
@@ -1728,22 +1715,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input label="Monthly Loan Payment" value="JMD" name="Monthly Loan Payment" aura:id="MonthlyLoanPayment" required="true" readonly="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" name="Monthly Loan Payment" aura:id="MonthlyLoanPayment1"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" name="Monthly Loan Payment" aura:id="MonthlyLoanPayment2"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="slds-grid slds-wrap" style="font-weight: bold;margin-top: 10px;">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
                                     <lightning:input label="$" value="JMD" name="Monthly Loan Savings" aura:id="MonthlyLoanSavings" readonly="true"/>
@@ -1753,22 +1740,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input label="Monthly Loan Payment + Monthly Loan Savings" value="JMD" name="Monthly Loan Payment (Market)" aura:id="MonthlyLoanPaymentsaving" required="true" readonly="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" name="Monthly Loan Payment + Monthly Loan Savings" aura:id="MonthlyLoanPaymentsaving1"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01"  type="number" name="Monthly Loan Payment + Monthly Loan Savings" aura:id="MonthlyLoanPaymentsaving2"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="slds-grid slds-wrap" style="font-weight: bold;margin-top: 10px;">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
                                     <lightning:input label="$" style="margin-top: 18px;" value="JMD" name="Total Loan Savings Balance (Over repayment period)" aura:id="TotalLSB" readonly="true"/>
@@ -1778,15 +1765,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input label="Total Interest Payment (Over repayment period)" value="JMD" name="Total Interest Payment (Over repayment period)" aura:id="TotalIP" required="true" readonly="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" name="Total Interest Payment (Over repayment period)" aura:id="TotalIP1"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     
                                 </div>
                             </div>
@@ -1853,24 +1840,24 @@
                 <fieldset  class="slds-box slds-theme--default slds-container--large">
                     <legend class="slds-text-heading--medium slds-p-vertical--medium">Personal Unsecured Loan</legend>
                     <div class="slds-grid slds-wrap" style="margin-top: 5px;">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-4 slds-large-size_2-of-4">
                                 <div style=" text-decoration: underline;font-style: italic;font-weight: bold;">TOTAL FINANCING</div>
                             </div>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap" style="margin-top: 5px;">
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12">
                                     <div style=" text-decoration: underline;font-style: italic;font-weight: bold;">TOTAL LOAN REPAYMENT</div>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     
                                 </div>                                
                             </div>
                         </div>
                     </div>
                     <div class="slds-grid slds-wrap">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
                                     <lightning:input label="$" value="JMD" name="Loan Amount (Market)" aura:id="LoanAmountMarketUn" readonly="true"/>
@@ -1880,12 +1867,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12">
                                     <lightning:input label="+ Monthly Loan Payment (Market)" value="JMD" name="Monthly Loan Payment (Market)" aura:id="MonthlyLoanPaymentMarketUn" required="true" readonly="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" value="{!v.BMLoanamountMarketAutoloanUnNew}" name="Loan Amount (Market)" aura:id="MonthlyLoanPaymentMarket1Un" style="margin-top: 5px;" disabled="true"/>
                                     <!-- <lightning:input label="" type="double" aura:id="MonthlyLoanPaymentMarket1Un"  style="margin-top: 5px;" disabled="true"/>-->
                                 </div>
@@ -1894,7 +1881,7 @@
                         </div>
                     </div>
                     <div class="slds-grid slds-wrap" aura:id="JNstaff1Un">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
                                     <lightning:input label="$" value="JMD" name="Loan Amount (JN Staff 1)" aura:id="LoanAmountJN1Un" readonly="true"/>
@@ -1904,12 +1891,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12">
                                     <lightning:input label="+ Monthly Loan Payment (JN Staff 1)" value="JMD" name="Monthly Loan Payment (JN Staff 1)" aura:id="MonthlyLoanPaymentJN1Un" required="true" readonly="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" value="{!v.BMLoanamountJNStaff1AutoloanUnNew}" name="Loan Amount (Market)" aura:id="MonthlyLoanPaymentJN11Un" style="margin-top: 5px;" disabled="true"/>
                                     <!-- <lightning:input label="" type="double" name="Loan Amount (JN Staff 1)1" aura:id="MonthlyLoanPaymentJN11Un"  style="margin-top: 5px;" disabled="true"/>-->
                                 </div>
@@ -1918,7 +1905,7 @@
                         </div>
                     </div>
                     <div class="slds-grid slds-wrap" aura:id="JNstaff2Un">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
                                     <lightning:input label="$" value="JMD" name="Loan Amount (JN Staff 2)" aura:id="LoanAmountJN2Un"  readonly="true"/>
@@ -1928,12 +1915,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12">
                                     <lightning:input label="+ Monthly Loan Payment (JN Staff 2)" value="JMD" name="Monthly Loan Payment (JN Staff 2)" aura:id="MonthlyLoanPaymentJN2Un" required="true" readonly="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" value="{!v.BMLoanamountJNStaff2AutoloanUnNew}" name="Loan Amount (Market)" aura:id="MonthlyLoanPaymentJN21Un" style="margin-top: 5px;" disabled="true"/>
                                     <!--<lightning:input label="" type="double" name="Loan Amount (JN Staff 2)1" aura:id="MonthlyLoanPaymentJN21Un"  style="margin-top: 5px;" disabled="true"/>-->
                                 </div>
@@ -1942,7 +1929,7 @@
                         </div>
                     </div>
                     <div class="slds-grid slds-wrap" aura:id="JNstaff3Un">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
                                     <lightning:input label="$" value="JMD" name="Loan Amount (JN Staff 1)" aura:id="LoanAmountJN3Un"  readonly="true"/>
@@ -1952,12 +1939,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12">
                                     <lightning:input label="+ Monthly Loan Payment (JN Staff 3)" value="JMD" name="Monthly Loan Payment (JN Staff 3)" aura:id="MonthlyLoanPaymentJN3Un" required="true" readonly="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" value="{!v.BMLoanamountJNStaff3AutoloanUnNew}" name="Loan Amount (Market)" aura:id="MonthlyLoanPaymentJN31Un" style="margin-top: 5px;" disabled="true"/>
                                     <!--<lightning:input label="" type="double" name="Loan Amount (JN Staff 3)1" aura:id="MonthlyLoanPaymentJN31Un"  style="margin-top: 5px;" disabled="true"/>-->
                                 </div>
@@ -1966,7 +1953,7 @@
                         </div>
                     </div>
                     <div class="slds-grid slds-wrap" aura:id="JNLifecalUn">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
                                     <lightning:input label="$" value="JMD" name="JN Life Creditor Life Premium" aura:id="JNLifeCreditorLifePremiumUn"  readonly="true"/>
@@ -1976,12 +1963,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12">
                                     <lightning:input label="+ Monthly JN Life Creditor Life Premium" value="JMD" name="Monthly JN Life Creditor Life Premium" aura:id="MonthlyJNLifeCreditorLifePremiumUn" required="true" readonly="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" name="Loan Amount (Market)" aura:id="MonthlyJNLifeCreditorLifePremium1Un"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
                                 
@@ -1989,7 +1976,7 @@
                         </div>
                     </div>
                     <div class="slds-grid slds-wrap" aura:id="ProcessingFeescalUn">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
                                     <lightning:input label="$" value="JMD" name="Processing Fees (including GCT)" aura:id="ProcessingFeesincludingGCTUn"  readonly="true"/>
@@ -1999,12 +1986,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12">
                                     <lightning:input label="+ Monthly Processing Fees" value="JMD" name="Monthly Loan Payment (Market)" aura:id="MonthlyProcessingFeesUn" required="true" readonly="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" name="Monthly Processing Fees" aura:id="MonthlyProcessingFees1Un"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
                                 
@@ -2012,7 +1999,7 @@
                         </div>
                     </div>
                     <div class="slds-grid slds-wrap" style="font-weight: bold;">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
                                     <lightning:input label="$" value="JMD" name="Total Loan Amount" aura:id="TotalLoanAmountUn"  readonly="true"/>
@@ -2022,12 +2009,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12">
                                     <lightning:input label="Monthly Loan Payment" value="JMD" name="Monthly Loan Payment" aura:id="MonthlyLoanPaymentUn" required="true" readonly="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" name="Monthly Loan Payment" aura:id="MonthlyLoanPayment1Un"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
                                 
@@ -2035,7 +2022,7 @@
                         </div>
                     </div>
                     <div class="slds-grid slds-wrap" style="font-weight: bold;margin-top: 10px;">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
                                     <lightning:input label="$" value="JMD" name="Monthly Loan Savings" aura:id="MonthlyLoanSavingsUn"  readonly="true"/>
@@ -2045,12 +2032,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12">
                                     <lightning:input label="Monthly Loan Payment + Monthly Loan Savings" value="JMD" name="Monthly Loan Payment (Market)" aura:id="MonthlyLoanPaymentsavingUn" required="true" readonly="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" name="Monthly Loan Payment + Monthly Loan Savings" aura:id="MonthlyLoanPaymentsaving1Un"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
                                 
@@ -2058,7 +2045,7 @@
                         </div>
                     </div>
                     <div class="slds-grid slds-wrap" style="font-weight: bold;margin-top: 10px;">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
                                     <lightning:input label="$" style="margin-top: 18px;" value="JMD" name="Total Loan Savings Balance (Over repayment period)" aura:id="TotalLSBUn"  readonly="true"/>
@@ -2068,12 +2055,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-grid slds-wrap">
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12">
                                     <lightning:input label="Total Interest Payment (Over repayment period)" value="JMD" name="Total Interest Payment (Over repayment period)" aura:id="TotalIPUn" required="true" readonly="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                     <lightning:input formatter="currency" step="0.01" label="" type="number" name="Total Interest Payment (Over repayment period)" aura:id="TotalIP1Un"  style="margin-top: 5px;" disabled="true"/>
                                 </div>
                                 

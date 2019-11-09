@@ -1,279 +1,221 @@
-<apex:page renderAs="PDF" controller="ApplicationForm">
-    
-    
-    <apex:image url="{!URLFOR($Resource.ApplicationFormheader)}" style="width:100%; height:100px;"/>
+<apex:page renderAs="PDF" applyBodyTag="false" controller="ApplicationForm" >
+    <head>
+        <style type="text/css" media="print">
+            @page {
+            @top-center {
+            content: element(header);
+            }
+            @bottom-left {
+            content: element(footer);
+            }
+            }
+            div.header {
+            padding: 10px;
+            position: running(header);
+            }
+            div.footer {
+            display: block;
+            padding: 5px;
+            margin-bottom:100px;
+            position: running(footer);
+            }
+            
+            .pagenumber:before {
+            content: counter(page);
+            }
+            .pagecount:before {
+            content: counter(pages);
+            }
+        </style>
+    </head>
     <apex:form >
-        <script>
-        function yr(obj){
-var array = obj.split('.')
-return array[1];
-}
-        </script>
-        <apex:repeat value="{!lst}" var="app" id="repeatapp" rows="">
-        <div style="margin-top:30px;">
-        <h3 style="font-size:Small;width:50%;color:white;background-color: #00a1e0;font-family: sans-serif; height:35px; padding-top:12px; margin-left:1px;">
-            &nbsp;PERSONAL &amp; FINANCIAL DETAILS - APPLICANT {!app.Appcount}
-        </h3>
-        <div style="border: 1px solid #00a1e0;margin: 1px; margin-top:-11px;">
-            <h5 style="font-size:16px; color:black;background-color: #92d5f0; height:30px; padding-top:15px;"><b>
-                &nbsp;PERSONAL DETAILS
-                </b>
-            </h5>
-            <div>
-                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
-                    &nbsp;GENERAL DETAILS
-                    </b>
-                </h5>
-                
-                <div style="margin-top:5px;font-size:small;">
-                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Title:</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Last Name:</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">First Name:</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Middle Name:</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Gender:</td>
-                        </tr>
-                        <tr style="margin-top:5px;">
-                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Salutation}</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.FirstName}</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.LastName}</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.MiddleName}</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.FinServ__Gender__pc}</td>
-                        </tr>
-                    </table>
-                </div>
-                <div style="margin-top:10px;font-size:small;">
-                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Suffix:</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Marital Status:</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Date of Birth:</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Place of Birth:</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Mother's Maiden Name:</td>
-                        </tr>
-                        <tr>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Suffix__pc}</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.FinServ__MaritalStatus__pc}</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;"><apex:outputText value="{0,date,dd-MM-yy}">
-        <apex:param value="{!app.ApplicantPersonAccount.Date_of_Birth__pc}" />                                         
-    </apex:outputText></td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Place_of_Birth__pc}</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.FinServ__MotherMaidenName__pc}</td>
-                        </tr> 
-                    </table>
-                </div>
-                <div style="margin-top:10px;font-size:small;">
-                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td colspan="4" style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Number of Dependent(s):</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Country of Citizenship:</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Country of Residence:</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Highest level of education attained?</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Primary Type of Employment:</td>
-                        </tr>
-                        <tr>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-right:1px;Text-align:center;">{!app.ApplicantPersonAccount.FinServ__NumberOfDependents__pc}</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">Adult</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">{!app.ApplicantPersonAccount.FinServ__NumberOfDependents__pc}</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;Text-align:center;">Childrem</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Country_of_Citizenship__pc}</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Country_of_Residency__pc}</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Highest_Level_of_Education_attained__pc}</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Primary_Employment_Type__pc}</td>
-                        </tr> 
-                    </table>
-                </div>
+        <!--<apex:outputText value="{0,date,dd-MM-yy}">
+<apex:param value="{!TODAY()}" />                                         
+</apex:outputText>-->  
+        <div class="footer">
+            <div style="text-align:left;font-size:15px;">{!$Label.ApplicationFormText} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="pagenumber"/> of <span class="pagecount"/>   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Applicant Initial:
             </div>
-            <div>
-                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
-                    &nbsp;IDENTIFICATION DETAILS
-                    </b>
-                </h5>
-                
-                <div style="margin-top:5px;font-size:small;">
-                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Identification Type:</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Identification Number:</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Expiration Date:</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Country of Issue:</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Tax Registration Number:</td>
-                        </tr>
-                        <tr style="margin-top:5px;">
-                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Identification_Type__pc}</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Identification_Number__pc}</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;"><apex:outputText value="{0,date,dd-MM-yy}">
-        <apex:param value="{!app.ApplicantPersonAccount.Identification_Type_Expiration__pc}" />                                         
-    </apex:outputText></td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Identification_Type_Country_of_issue__pc}</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Jamaican_Tax_Registration_Number__pc}</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div>
-                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
-                    &nbsp;CONTACT DETAILS
-                    </b>
-                </h5>
-                <div style="margin-top:5px;font-size:small;">
-                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td style="text-align:top;border: 1px solid rgb(191, 191, 191);border-right:5px solid rgb(149, 149, 149);width:10%;background-color:rgb(242, 242, 242);text-align:center;font-weight:bold;">PHYSICAL ADDRESS</td>
-                            <td style="width:90%;">
+            <div style="text-align:right;">_____________________&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        </div>
+        <div class="content">
+            <apex:image url="{!URLFOR($Resource.ApplicationFormheader)}" style="width:100%; height:100px;"/>
+            
+            <apex:repeat value="{!lst}" var="app" id="repeatapp" rows="">
+                <div style="margin-top:30px;">
+                    <h3 style="font-size:Small;width:50%;color:white;background-color: #00a1e0;font-family: sans-serif; height:35px; padding-top:12px; margin-left:1px;">
+                        &nbsp;PERSONAL &amp; FINANCIAL DETAILS - APPLICANT {!app.Appcount}
+                    </h3>
+                    <div style="border: 1px solid #00a1e0;margin: 1px; margin-top:-11px;">
+                        <h5 style="font-size:16px; color:black;background-color: #92d5f0; height:30px; padding-top:15px;"><b>
+                            &nbsp;PERSONAL DETAILS
+                            </b>
+                        </h5>
+                        <div>
+                            <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                &nbsp;GENERAL DETAILS
+                                </b>
+                            </h5>
+                            
+                            <div style="margin-top:5px;font-size:small;">
                                 <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
                                     <tr>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Street 1:*</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Street 2:</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Street 3:</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Title:</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Last Name:</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">First Name:</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Middle Name:</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Gender:</td>
                                     </tr>
                                     <tr style="margin-top:5px;">
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Street_1__pc}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Street_2__pc}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Street_3__pc}</td>
-                                        
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Salutation}</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.FirstName}</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.LastName}</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.MiddleName}</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.FinServ__Gender__pc}</td>
                                     </tr>
                                 </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
-                            <td style="width:90%;">
+                            </div>
+                            <div style="margin-top:10px;font-size:small;">
                                 <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
                                     <tr>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">City/Town:*</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Residential Area/District:</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Post Office/Zip Code:</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Province/Parish/State:*</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Country of Issue:*</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Suffix:</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Marital Status:</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Date of Birth:</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Place of Birth:</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Mother's Maiden Name:</td>
                                     </tr>
-                                    <tr style="margin-top:5px;">
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.City_Town__pc}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Residential_Area_District__pc}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Post_Office_Zip_Code__pc}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Province_Parish_State__pc}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.FinServ__CountryOfBirth__pc}</td>
-                                    </tr>
-                                    
-                                </table>
-                                
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
-                            <td style="width:90%;">
-                                <table style="margin-left:16px;margin-right:10px;width:70%;" cellpadding="0" cellspacing="0">
                                     <tr>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;" colspan="4">How long have you resided at this address?</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Status of Address:</td>
-                                    </tr>
-                                    <tr style="margin-top:5px;">
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-right:1px;Text-align:center;">{!FLOOR(app.ApplicantPersonAccount.Years_at_Residence__pc)}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">Years</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Years_at_Residence__pc}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">Months</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Status_of_Address__c}</td>
-                                    </tr>
-                                    
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Suffix__pc}</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.FinServ__MaritalStatus__pc}</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;"><apex:outputText value="{0,date,dd-MM-yy}">
+                                            <apex:param value="{!app.ApplicantPersonAccount.Date_of_Birth__pc}" />                                         
+                                            </apex:outputText></td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Place_of_Birth__pc}</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.FinServ__MotherMaidenName__pc}</td>
+                                    </tr> 
                                 </table>
-                                
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div style="margin-top:15px;font-size:small;">
-                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Mobile Number:</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Home Number:</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Business Number:</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Other Number:</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Personal Email:</td>
-                        </tr>
-                        <tr style="margin-top:5px;">
-                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.PersonMobilePhone}</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.PersonHomePhone}</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Business_Phone__pc}</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.PersonOtherPhone}</td>
-                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Personal_Email__c}</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div>
-                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
-                    &nbsp;EMERGENCY CONTACT
-                    </b>
-                </h5>
-                <apex:variable value="{!0}" var="num"/>
-                <apex:repeat value="{!app.ApplicantPAEmergencyContact}" var="eapp" id="repeatapp" rows="">
-                    <div style="margin-top:10px;font-size:small;">
-                        <apex:variable var="num" value="{!FLOOR(num) + 1}"/>
-                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td style="text-align:top;border: 1px solid rgb(191, 191, 191);border-right:5px solid rgb(149, 149, 149);width:10%;background-color:rgb(242, 242, 242);text-align:center;font-weight:bold;">{!FLOOR(num)}</td>
-                            <td style="width:90%;">
+                            </div>
+                            <div style="margin-top:10px;font-size:small;">
                                 <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
                                     <tr>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Last Name:*</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">First Name:*</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Middle Initial:</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Relationship to Applicant:*</td>
+                                        <td colspan="4" style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Number of Dependent(s):</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Country of Citizenship:</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Country of Residence:</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Highest level of education attained?</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Primary Type of Employment:</td>
                                     </tr>
-                                    <tr style="margin-top:5px;">
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.LastName}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.FirstName}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.MiddleName}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Emergency_Contact_Relationship__pc}</td>
-                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-right:1px;Text-align:center;">{!app.ApplicantPersonAccount.FinServ__NumberOfDependents__pc}</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">Adult</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">{!app.ApplicantPersonAccount.FinServ__NumberOfDependents__pc}</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;Text-align:center;">Childrem</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Country_of_Citizenship__pc}</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Country_of_Residency__pc}</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Highest_Level_of_Education_attained__pc}</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Primary_Employment_Type__pc}</td>
+                                    </tr> 
                                 </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
-                            <td style="width:90%;">
+                            </div>
+                        </div>
+                        <div>
+                            <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                &nbsp;IDENTIFICATION DETAILS
+                                </b>
+                            </h5>
+                            
+                            <div style="margin-top:5px;font-size:small;">
                                 <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
                                     <tr>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Street 1:*</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Street 2:</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Street 3:</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Identification Type:</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Identification Number:</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Expiration Date:</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Country of Issue:</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Tax Registration Number:</td>
                                     </tr>
                                     <tr style="margin-top:5px;">
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Street_1__pc}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Street_2__pc}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Street_2__pc}</td>
-                                        
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Identification_Type__pc}</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Identification_Number__pc}</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;"><apex:outputText value="{0,date,dd-MM-yy}">
+                                            <apex:param value="{!app.ApplicantPersonAccount.Identification_Type_Expiration__pc}" />                                         
+                                            </apex:outputText></td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Identification_Type_Country_of_issue__pc}</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Jamaican_Tax_Registration_Number__pc}</td>
                                     </tr>
                                 </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
-                            <td style="width:90%;">
+                            </div>
+                        </div>
+                        <div>
+                            <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                &nbsp;CONTACT DETAILS
+                                </b>
+                            </h5>
+                            <div style="margin-top:5px;font-size:small;">
                                 <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
                                     <tr>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">City/Town:*</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Residential Area/District:</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Post Office/Zip Code:</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Province/Parish/State:*</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Country of Issue:*</td>
+                                        <td style="text-align:top;border: 1px solid rgb(191, 191, 191);border-right:5px solid rgb(149, 149, 149);width:10%;background-color:rgb(242, 242, 242);text-align:center;font-weight:bold;">PHYSICAL ADDRESS</td>
+                                        <td style="width:90%;">
+                                            <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Street 1:*</td>
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Street 2:</td>
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Street 3:</td>
+                                                </tr>
+                                                <tr style="margin-top:5px;">
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Street_1__pc}</td>
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Street_2__pc}</td>
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Street_3__pc}</td>
+                                                    
+                                                </tr>
+                                            </table>
+                                        </td>
                                     </tr>
-                                    <tr style="margin-top:5px;">
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.City_Town__pc}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Residential_Area_District__pc}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Post_Office_Zip_Code__pc}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Province_Parish_State__pc}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.FinServ__CountryOfBirth__pc}</td>
+                                    <tr>
+                                        <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
+                                        <td style="width:90%;">
+                                            <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">City/Town:*</td>
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Residential Area/District:</td>
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Post Office/Zip Code:</td>
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Province/Parish/State:*</td>
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Country of Issue:*</td>
+                                                </tr>
+                                                <tr style="margin-top:5px;">
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.City_Town__pc}</td>
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Residential_Area_District__pc}</td>
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Post_Office_Zip_Code__pc}</td>
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Province_Parish_State__pc}</td>
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.FinServ__CountryOfBirth__pc}</td>
+                                                </tr>
+                                                
+                                            </table>
+                                            
+                                        </td>
                                     </tr>
-                                    
+                                    <tr>
+                                        <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
+                                        <td style="width:90%;">
+                                            <table style="margin-left:16px;margin-right:10px;width:70%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;" colspan="4">How long have you resided at this address?</td>
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Status of Address:</td>
+                                                </tr>
+                                                <tr style="margin-top:5px;">
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-right:1px;Text-align:center;">{!FLOOR(app.ApplicantPersonAccount.Years_at_Residence__pc)}</td>
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">Years</td>
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">{!app.howLongMonth}</td>
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">Months</td>
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Status_of_Address__c}</td>
+                                                </tr>
+                                                
+                                            </table>
+                                            
+                                        </td>
+                                    </tr>
                                 </table>
-                                
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
-                            <td style="width:90%;">
+                            </div>
+                            <div style="margin-top:15px;font-size:small;">
                                 <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Mobile Number:</td>
@@ -283,166 +225,1023 @@ return array[1];
                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Personal Email:</td>
                                     </tr>
                                     <tr style="margin-top:5px;">
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.PersonMobilePhone}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.PersonHomePhone}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Business_Phone__pc}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.PersonOtherPhone}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Personal_Email__c}</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.PersonMobilePhone}</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.PersonHomePhone}</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Business_Phone__pc}</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.PersonOtherPhone}</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Personal_Email__c}</td>
                                     </tr>
                                 </table>
-                            </td>
-                        </tr>
-                    </table>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                &nbsp;EMERGENCY CONTACT
+                                </b>
+                            </h5>
+                            <apex:variable value="{!0}" var="num"/>
+                            <apex:repeat value="{!app.ApplicantPAEmergencyContact}" var="eapp" id="repeatapp" rows="">
+                                <div style="margin-top:10px;font-size:small;">
+                                    <apex:variable var="num" value="{!FLOOR(num) + 1}"/>
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="text-align:top;border: 1px solid rgb(191, 191, 191);border-right:5px solid rgb(149, 149, 149);width:10%;background-color:rgb(242, 242, 242);text-align:center;font-weight:bold;">{!FLOOR(num)}</td>
+                                            <td style="width:90%;">
+                                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Last Name:*</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">First Name:*</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Middle Initial:</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Relationship to Applicant:*</td>
+                                                    </tr>
+                                                    <tr style="margin-top:5px;">
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.LastName}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.FirstName}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.MiddleName}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Emergency_Contact_Relationship__pc}</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
+                                            <td style="width:90%;">
+                                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Street 1:*</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Street 2:</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Street 3:</td>
+                                                    </tr>
+                                                    <tr style="margin-top:5px;">
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Street_1__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Street_2__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Street_2__pc}</td>
+                                                        
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
+                                            <td style="width:90%;">
+                                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">City/Town:*</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Residential Area/District:</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Post Office/Zip Code:</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Province/Parish/State:*</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Country of Issue:*</td>
+                                                    </tr>
+                                                    <tr style="margin-top:5px;">
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.City_Town__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Residential_Area_District__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Post_Office_Zip_Code__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Province_Parish_State__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.FinServ__CountryOfBirth__pc}</td>
+                                                    </tr>
+                                                    
+                                                </table>
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
+                                            <td style="width:90%;">
+                                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Mobile Number:</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Home Number:</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Business Number:</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Other Number:</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Personal Email:</td>
+                                                    </tr>
+                                                    <tr style="margin-top:5px;">
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.PersonMobilePhone}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.PersonHomePhone}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Business_Phone__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.PersonOtherPhone}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Personal_Email__c}</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </apex:repeat>
+                            
+                        </div>
+                        
+                        <div>
+                            <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                &nbsp;EMPLOYMENT DETAILS
+                                </b>
+                            </h5>
+                            <apex:repeat value="{!app.EmploymentDetails}" var="emp">
+                                <apex:pageBlock rendered="{!if(emp.RecordType.Name=='Employed',true, false)}">
+                                    <div style="margin-top:5px;font-size:small;">
+                                        <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="text-align:top;border: 1px solid rgb(191, 191, 191);border-right:5px solid rgb(149, 149, 149);width:10%;background-color:rgb(242, 242, 242);text-align:center;font-weight:bold;">CURRENT EMPLOYMENT</td>
+                                                <td style="width:90%;">
+                                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Name of Current Employer:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Current Position Held:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Employment Status:</td>
+                                                        </tr>
+                                                        <tr style="margin-top:5px;">
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!emp.Name}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.FinServ__Position__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.FinServ__EmploymentStatus__c}</td>
+                                                            
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
+                                                <td style="width:90%;">
+                                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Professional Category:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;" colspan="4">Time Employed (Current Employer):</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Industry of Employment:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;" colspan="4">Time Employed in Present Industry:</td>
+                                                        </tr>
+                                                        <tr style="margin-top:5px;">
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!emp.Professional_Category__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">{!emp.Time_in_Industry__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">Years</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">{!emp.Time_Employed_in_Present_Industry_Months__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">Months</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Industry__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">{!emp.Time_in_Industry__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">Years</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">{!emp.Time_Employed_in_Present_Industry_Months__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">Months</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
+                                                <td style="width:90%;">
+                                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Occupation:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Business Number 1:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Business Number 2:</td>
+                                                        </tr>
+                                                        <tr style="margin-top:5px;">
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!emp.FinServ__Occupation__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Business_Number_1__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Business_Number_2__c}</td>
+                                                            
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
+                                                <td style="width:90%;">
+                                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Street 1:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Street 2:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Street 3:</td>
+                                                        </tr>
+                                                        <tr style="margin-top:5px;">
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!emp.Street_1__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Street_2__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Street_3__c}</td>
+                                                            
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
+                                                <td style="width:90%;">
+                                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">City/Town:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Residential Area/District:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Post Office/Zip Code:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Province/Parish/State:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Country of Issue:</td>
+                                                        </tr>
+                                                        <tr style="margin-top:5px;">
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!emp.City_Town__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Residential_Area_District__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Post_Office_Zip_Code__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Province_Parish_State__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Country__c}</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </apex:pageBlock>
+                                <apex:pageBlock rendered="{!if(emp.RecordType.Name=='Self-Employed',true, false)}">
+                                    <div style="margin-top:5px;font-size:small;">
+                                        <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="text-align:top;border: 1px solid rgb(191, 191, 191);border-right:5px solid rgb(149, 149, 149);width:10%;background-color:rgb(242, 242, 242);text-align:center;font-weight:bold;">CURRENT EMPLOYMENT</td>
+                                                <td style="width:90%;">
+                                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Name of Business:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Type of Business:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Date of Incorporation:</td>
+                                                        </tr>
+                                                        <tr style="margin-top:5px;">
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!emp.Name}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Type_of_Business__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Date_of_Incorporation__c}</td>
+                                                            
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
+                                                <td style="width:90%;">
+                                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Industry of Employment:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;" colspan="4">Time Employed in Present Industry:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Nature of Engagement:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;" colspan="4">Length of Trade:</td>
+                                                        </tr>
+                                                        <tr style="margin-top:5px;">
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!emp.Industry__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">{!emp.Time_in_Industry__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">Years</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">{!emp.Time_Employed_in_Present_Industry_Months__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">Months</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Nature_of_Engagement__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!emp.Length_of_Trade__c}</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
+                                                <td style="width:90%;">
+                                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Street 1:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Street 2:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Street 3:</td>
+                                                        </tr>
+                                                        <tr style="margin-top:5px;">
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!emp.Street_1__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Street_2__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Street_3__c}</td>
+                                                            
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
+                                                <td style="width:90%;">
+                                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">City/Town:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Residential Area/District:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Post Office/Zip Code:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Province/Parish/State:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Country of Issue:</td>
+                                                        </tr>
+                                                        <tr style="margin-top:5px;">
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!emp.City_Town__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Residential_Area_District__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Post_Office_Zip_Code__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Province_Parish_State__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Country__c}</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
+                                                <td style="width:90%;">
+                                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Business Number 1:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Business Number 2:</td>
+                                                        </tr>
+                                                        <tr style="margin-top:5px;">
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!emp.Business_Number_1__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Business_Number_2__c}</td>
+                                                            
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            
+                                        </table>
+                                    </div>
+                                </apex:pageBlock>
+                            </apex:repeat>
+                        </div>  
+                        <div>
+                            <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                &nbsp;POLITICAL EXPOSURE
+                                </b>
+                            </h5>
+                            <div style="margin-top:5px;font-size:small;">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr >
+                                        <td style="width:90%;">Do you or any member of your immediate family currently hold or have ever held a prominent public function (whether in Jamaica or any foreign county), such as Head of State, Head of Opposition Political Party, Senior Member of the Judiciary, Head of Military or Police Force, CEO of Statutory Body/ Government Body or Agency or are you a personal/professional associate of any of the foregoing public officials?</td>
+                                        <td style="width:10%;border: 1px solid rgb(191, 191, 191);text-align:center;">{!if(app.PoliticalExposure.size>0,'Yes','No')}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <apex:pageBlock rendered="{!if(app.PoliticalExposure.size>0,true,false)}">
+                                <div style="margin-left:5px;margin-top:15px;font-size:small;Font-weight:bold;">Complete the relevant details below:</div>
+                                <div style="margin-top:5px;font-size:small;">
+                                    <apex:repeat value="{!app.PoliticalExposure }" var="epol" rendered="{!if(app.PoliticalExposure.size>0,true,false)}">
+                                        <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="text-align:top;border: 1px solid rgb(191, 191, 191);border-right:5px solid rgb(149, 149, 149);width:10%;background-color:rgb(242, 242, 242);text-align:center;font-weight:bold;">1</td>
+                                                <td style="width:90%;">
+                                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Last Name:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">First Name:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Role:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Relationship to Applicant:</td>
+                                                            
+                                                        </tr>
+                                                        <tr style="margin-top:5px;">
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!epol.FinServ__Contact__r.LastName}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!epol.FinServ__Contact__r.FirstName}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!epol.FinServ__Contact__r.Account.Political_Affiliation_Role__pc}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!epol.FinServ__Contact__r.Account.Political_Affiliation_Relationship__pc}</td>
+                                                            
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </apex:repeat>
+                                </div>
+                            </apex:pageBlock>
+                        </div>
+                        
+                        <div>
+                            <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                &nbsp;JN BANK AFFILIATION
+                                </b>
+                            </h5>
+                            <div style="margin-top:5px;font-size:small;">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr >
+                                        <td style="width:90%;">Do you have any immediate relative(s) employed to any JN Bank Branch/Department/Money Shop)?</td>
+                                        <td style="width:10%;border: 1px solid rgb(191, 191, 191);text-align:center;">{!if(app.BankAffiliation.size>0,'Yes','No')}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <apex:pageBlock rendered="{!if(app.BankAffiliation.size>0,true,false)}">
+                                <div style="margin-left:5px;margin-top:15px;font-size:small;Font-weight:bold;">Complete the relevant details below:</div>
+                                <apex:repeat value="{!app.BankAffiliation}" var="eaff" rendered="{!if(app.BankAffiliation.size>0,true,false)}">
+                                    <div style="margin-top:5px;font-size:small;">
+                                        <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="text-align:top;border: 1px solid rgb(191, 191, 191);border-right:5px solid rgb(149, 149, 149);width:10%;background-color:rgb(242, 242, 242);text-align:center;font-weight:bold;">1</td>
+                                                <td style="width:90%;">
+                                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Last Name:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">First Name:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">JN Bank Location:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Relationship to Applicant:</td>
+                                                            
+                                                        </tr>
+                                                        <tr style="margin-top:5px;">
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eaff.FinServ__Contact__r.LastName}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eaff.FinServ__Contact__r.FirstName}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eaff.FinServ__Contact__r.Account.JN_Bank_Affiliated_Location__pc}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eaff.FinServ__Contact__r.Account.JN_Bank_Affiliation_Relationship__pc}</td>
+                                                            
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </apex:repeat>
+                            </apex:pageBlock> 
+                        </div>
+                    </div>
                 </div>
-                </apex:repeat>
-              
-            </div>
-           <apex:pageBlock rendered="{!isVisible}">
-<div>
-    <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
-                    &nbsp;EMPLOYMENT DETAILS
-                    </b>
-                </h5>
-                <div style="margin-top:5px;font-size:small;">
-                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td style="text-align:top;border: 1px solid rgb(191, 191, 191);border-right:5px solid rgb(149, 149, 149);width:10%;background-color:rgb(242, 242, 242);text-align:center;font-weight:bold;">CURRENT EMPLOYMENT</td>
-                            <td style="width:90%;">
-                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Name of Current Employer:</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Current Position Held:</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Employment Status:</td>
-                                    </tr>
-                                    <tr style="margin-top:5px;">
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">1</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">1</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">Present</td>
-                                        
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
-                            <td style="width:90%;">
-                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Professional Category:</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;" colspan="4">Time Employed (Current Employer):</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Industry of Employment:</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;" colspan="4">Time Employed in Present Industry:</td>
-                                    </tr>
-                                    <tr style="margin-top:5px;">
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">Professional</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">5</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">Years</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">0</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">Months</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">Other</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">3</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">Years</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">0</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">Months</td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
-                            <td style="width:90%;">
-                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Occupation:</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Business Number 1:</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Business Number 2:</td>
-                                    </tr>
-                                    <tr style="margin-top:5px;">
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">test Occupation</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">(476)456-658</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">(476)456-658</td>
-                                        
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
-                            <td style="width:90%;">
-                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Street 1:*</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Street 2:</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Street 3:</td>
-                                    </tr>
-                                    <tr style="margin-top:5px;">
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">test S1</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">test S2</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">test S3</td>
-                                        
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
-                            <td style="width:90%;">
-                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">City/Town:*</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Residential Area/District:</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Post Office/Zip Code:</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Province/Parish/State:*</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Country of Issue:*</td>
-                                    </tr>
-                                    <tr style="margin-top:5px;">
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">TestCity</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">testD</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">546778</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">JM</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">Jamaica</td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-               </div>
-            </apex:pageBlock>
-            
-            
-                
-        </div>
-    </div>
             </apex:repeat>
-        </apex:form>
-    
-    
-    <div style="margin-top:30px;">
-        <h3 style="font-size:Small;width:50%;color:white;background-color: #00a1e0;font-family: sans-serif; height:35px; padding-top:12px; margin-left:1px;">
-            &nbsp;APPLICANT(S) DECLARATION
-        </h3>
-        <div style="border: 1px solid #00a1e0;margin: 1px; margin-top:-11px;">
-            <div style="margin-left:5px;margin-top:15px;font-size:10px;Font-weight:bold;">THE ABOVE APPLICATION IS SUBMITTED FOR THE PURPOSE OF OBTAINING CREDIT AND ALL INFORMATION HEREIN IS CERTIFIED TO BE TRUE, COMPLETE, AND CORRECT.  I/WE AUTHORIZE JN BANK LIMITED (HEREINAFTER CALLED "JN") TO MAKE WHATEVER CREDIT INQUIRIES IT DEEMS NECESSARY IN CONNECTION WITH THE CREDIT APPLICATION OR IN THE COURSE OF REVIEW OR COLLECTION OF ANY CREDIT EXTENDED IN RELIANCE ON THIS APPLICATION.  I/WE AUTHORIZE AND INSTRUCT ANY PERSON, INCLUDING BUT NOT LIMITED TO, ALL LOCAL, OR GOVERNMENT AGENCIES, OR CONSUMER REPORTING AGENCIES, TO COMPLETE AND FURNISH JN WITH ANY INFORMATION IT MAY HAVE OR OBTAIN IN RESPONSE TO SUCH CREDIT INQUIRIES, AND AGREE THAT SUCH INFORMATION, ALONG WITH THIS APPLICATION, SHALL REMAIN JN'S PROPERTY WHETHER OR NOT CREDIT IS EXTENDED.</div>
-            <div style="margin-left:5px;margin-top:5px;font-size:10px;Font-weight:bold;">JN IS HEREBY FURTHER AUTHORIZED TO SHARE THIS APPLICATION AND CREDIT INFORMATION WITH ITS AFFILIATES OR OTHER LENDERS, WHICH MAY CONSIDER MY/OUR APPLICATION FOR LOAN APPROVAL OR PURCHASE. THIS STATEMENT DOES NOT LIMIT JN'S RIGHT TO SELL OR ASSIGN ANY LOANS TO A THIRD PARTY.</div>
-            <h5 style="font-size:16px; color:black;background-color: #92d5f0; height:30px; padding-top:15px;"><b>
-                &nbsp;APPLICANT(S) SIGNATURE
-                </b>
-            </h5>
-            <div style="margin-top:5px;margin-bottom:15px;font-size:small;">
-                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td style="text-align:left;">Signature of Applicant 1:</td>
-                        <td style="text-align:center; border: 1px solid rgb(191, 191, 191);height:30px;">Test Applicant</td>
-                        <td style="text-align:left;">Date Signed: </td>
-                        <td style="text-align:center;border: 1px solid rgb(191, 191, 191);"><apex:outputText value="{0,date,dd-MM-yy}">
-        <apex:param value="{!currentDate}" />                                         
-    </apex:outputText></td>
-                    </tr>
-                </table>
+            <div style="margin-top:30px;">
+                <h3 style="font-size:Small;width:50%;color:white;background-color: #00a1e0;font-family: sans-serif; height:35px; padding-top:12px; margin-left:1px;">
+                    &nbsp;LOAN PRODUCT DETAILS
+                </h3>
+                <div style="border: 1px solid #00a1e0;margin: 1px; margin-top:-11px;">
+                    <apex:repeat value="{!ProductDetails }" var="prod" rendered="{!ProductDetails.size>0}">
+                        <apex:pageBlock rendered="{!isAutoFound}">
+                            <h5 style="font-size:16px; color:black;background-color: #92d5f0; height:30px; padding-top:15px;"><b>
+                                &nbsp;AUTO LOAN REQUEST
+                                </b>
+                            </h5>
+                            <div>
+                                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                    &nbsp;LOAN REQUEST DETAILS
+                                    </b>
+                                </h5>
+                                
+                                <div style="margin-top:5px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Loan Purpose:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;" colspan="4">Loan Term:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;" colspan="2">Interest Rate:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Loan Amount:</td>
+                                        </tr>
+                                        <tr style="margin-top:5px;">
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!prod.Auto_Loan_Purpose__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-right:1px;Text-align:center;">{!prod.Years__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">Years</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">{!prod.Months__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">Months</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-right:1px;Text-align:center;">{!prod.Interest_Rate__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">per annum</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">JMD ${!prod.Loan_Amount__c}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                    &nbsp;COLLATERAL DETAILS
+                                    </b>
+                                </h5>
+                                <div style="margin-top:5px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Vehicle Classification:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Year of Vehicle:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Make &amp; Model of Motor Vehicle:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Market Value of Motor Vehicle:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Purchase Price of Vehicle:*</td>
+                                        </tr>
+                                        <tr style="margin-top:5px;">
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!prod.Vehicle_Classification__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!prod.Year_of_Motor_Vehicle__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!prod.Make_and_Model_of_Motor_Vehicle__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">JMD ${!prod.Market_Value_of_Vehicle__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">JMD ${!prod.Purchase_Price_of_Vehicle__c}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                    &nbsp;PROMOTIONAL AND ADDITIONAL FINANCING DETAILS
+                                    </b>
+                                </h5>
+                                <div style="margin-top:5px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr >
+                                            <td style="width:90%;">Would you be interested in a current JN Bank Promotion?</td>
+                                            <td style="width:10%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!if(prod.JN_Promotion_Auto__c==null,'No','Yes')}</td>
+                                        </tr>
+                                        <tr >
+                                            <td style="width:90%;">Do you wish to obtain additional funding to finance processing fees?</td>
+                                            <td style="width:10%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!if(prod.Include_in_Loan_Amount_Processing_Fee__c=='Yes (Include in Loan Amount)','Yes',if(prod.Include_in_Loan_Amount_Processing_Fee__c=='No (Paid by the Applicant)','No',''))}</td>
+                                        </tr>
+                                        <tr >
+                                            <td style="width:90%;">Do you wish to deduct the 1st month repayment from loan proceeds?</td>
+                                            <td style="width:10%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!prod.Deduct_1st_moth_Payment_from_Loan__c}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                    &nbsp;MOTOR VEHICLE INSURANCE
+                                    </b>
+                                </h5>
+                                <div style="margin-top:5px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr >
+                                            <td style="width:85%;">Would you like to insure your motor vehicle with JNGI SureCover Programme?</td>
+                                            <td style="width:15%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!prod.Interested_in_programme__c}</td>
+                                        </tr>
+                                        <tr >
+                                            <td style="width:85%;">Do you wish to obtain funding to finance payment of the JNGI Motor Insurance Premium for the first year of the loan?</td>
+                                            <td style="width:15%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!if(prod.Include_first_year_premium_in_loan_amt__c=='Yes (Include in Loan Amount)','Yes',if(prod.Include_first_year_premium_in_loan_amt__c=='No (Paid by the Applicant)','No',''))}</td>
+                                        </tr>
+                                        <tr >
+                                            <td style="width:85%;">Proposed JNGI Motor Insurance Monthly Premium:</td>
+                                            <td style="width:15%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">JMD ${!prod.Monthly_Premium__c}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                            </div>
+                            <div>
+                                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                    &nbsp;JN LIFE SINGLE PREMIUM CREDITOR LIFE INSURANCE
+                                    </b>
+                                </h5>
+                                <div style="margin-top:5px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr >
+                                            <td style="width:85%;">Would you like JN Life Single Premium Creditor Life Insurance?</td>
+                                            <td style="width:15%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!prod.Interested_in_Creditor_Life__c}</td>
+                                        </tr>
+                                        <tr >
+                                            <td style="width:85%;">Do you wish to obtain additional funding to finance payment of the Single Premium Creditor Life Insurance Premium?</td>
+                                            <td style="width:15%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!if(prod.Include_in_Loan_Amount_jnlife__c=='Yes (Include in Loan Amount)','Yes',if(prod.Include_in_Loan_Amount_jnlife__c=='No (Paid by the Applicant)','No',''))}</td>
+                                        </tr>
+                                        <tr >
+                                            <td style="width:85%;">Proposed JN Life Single Premium Creditor Life Insurance Premium:</td>
+                                            <td style="width:15%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">JMD ${!prod.JN_Life_Creditor_Life_Premium__c}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                    &nbsp;MORATORIUM DETAILS
+                                    </b>
+                                </h5>
+                                <div style="margin-top:5px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:50%;" cellpadding="0" cellspacing="0">
+                                        <tr >
+                                            <td style="width:85%;">Include a moratorium of loan repayments:</td>
+                                            <td style="width:15%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!prod.Include_a_moratorium_of_Loan_Payment__c}</td>
+                                        </tr>
+                                        
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                    &nbsp;CREDIT REPAYMENT
+                                    </b>
+                                </h5>
+                                <div style="margin-top:5px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr >
+                                            <td>Indicate repayment method:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!prod.Repayment_Method_Auto__c}</td>
+                                            <td>Indicate the Applicant(s) desired repayment date:</td>
+                                            <td style="width:5%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!prod.Desired_Monthly_Repayment_Date__c}</td>
+                                            <td >th of the month</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="margin-top:5px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:75%;" cellpadding="0" cellspacing="0">
+                                        <tr >
+                                            <td>JN Bank is authorized to deduct loan related fees from Account Number:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="margin-left:5px;margin-top:5px;font-size:small;Font-weight:bold;Font-style:italic;">Please note that in the event that the disbursement of the loan does not coincide with the desired due date, there will be an incremental increase in your first month's payment to the account for the interest which would have accrued on the loan from the date of disbursement to your desired due date. This will become due for payment on your chosen date of the following month, along with the regular monthly installment. Subsequent installments will be based on a regular monthly cycle.</div>
+                            </div>
+                        </apex:pageBlock>
+                        <apex:pageBlock rendered="{!isUnFound}">
+                            <h5 style="font-size:16px; color:black;background-color: #92d5f0; height:30px; padding-top:15px;"><b>
+                                &nbsp;PERSONAL UNSECURED LOAN REQUEST
+                                </b>
+                            </h5>
+                            <div>
+                                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                    &nbsp;LOAN REQUEST DETAILS
+                                    </b>
+                                </h5>
+                                <div style="margin-top:5px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Loan Purpose:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;" colspan="4">Loan Term:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;" colspan="2">Interest Rate:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Loan Amount:</td>
+                                        </tr>
+                                        <tr style="margin-top:5px;">
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!prod.unsecure_Loan_Purpose__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-right:1px;Text-align:center;">{!prod.Unsecure_Years__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">Years</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">{!prod.Unsecure_Months__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">Months</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-right:1px;Text-align:center;">{!prod.Unsecure_Market_Per_Annum__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">per annum</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">JMD ${!prod.Unsecured_Loan_Amount__c}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                    &nbsp;PROMOTIONAL AND ADDITIONAL FINANCING DETAILS
+                                    </b>
+                                </h5>
+                                <div style="margin-top:5px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr >
+                                            <td style="width:90%;">Would you be interested in a current JN Bank Promotion?</td>
+                                            <td style="width:10%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!if(prod.JN_Promotion_UL__c==null,'No','Yes')}</td>
+                                        </tr>
+                                        <tr >
+                                            <td style="width:90%;">Do you wish to obtain additional funding to finance processing fees?</td>
+                                            <td style="width:10%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!prod.Unsecure_Fee_Include_in_Loan_Amount__c}</td>
+                                        </tr>
+                                        <tr >
+                                            <td style="width:90%;">Do you wish to deduct the 1st month repayment from loan proceeds?</td>
+                                            <td style="width:10%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">No</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                    &nbsp;JN LIFE SINGLE PREMIUM CREDITOR LIFE INSURANCE
+                                    </b>
+                                </h5>
+                                <div style="margin-top:5px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr >
+                                            <td style="width:85%;">Would you like JN Life Single Premium Creditor Life Insurance?</td>
+                                            <td style="width:15%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!prod.unsecure_Jn_Life_Creditor_Life_Insurance__c}</td>
+                                        </tr>
+                                        <tr >
+                                            <td style="width:85%;">Do you wish to obtain additional funding to finance payment of the Single Premium Creditor Life Insurance Premium?</td>
+                                            <td style="width:15%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!if(prod.Unsecure_Include_in_Loan_Amount__c=='Yes (Include in Loan Amount)','Yes',if(prod.Unsecure_Include_in_Loan_Amount__c=='No (Paid by the Applicant)','No',''))}</td>
+                                        </tr>
+                                        <tr >
+                                            <td style="width:85%;">Proposed JN Life Single Premium Creditor Life Insurance Premium:</td>
+                                            <td style="width:15%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">JMD ${!prod.unsecure_JN_Life_Creditor_Life_Premium__c}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                    &nbsp;CREDIT REPAYMENT
+                                    </b>
+                                </h5>
+                                <div style="margin-top:5px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr >
+                                            <td>Indicate repayment method:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!prod.Repayment_Method_UL__c}</td>
+                                            <td>Indicate the Applicant(s) desired repayment date:</td>
+                                            <td style="width:5%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!prod.Desired_Monthly_Repayment_Date_UL__c}</td>
+                                            <td >th of the month</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="margin-top:5px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:75%;" cellpadding="0" cellspacing="0">
+                                        <tr >
+                                            <td>JN Bank is authorized to deduct loan related fees from Account Number:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="margin-left:5px;margin-top:5px;font-size:small;Font-weight:bold;Font-style:italic;">Please note that in the event that the disbursement of the loan does not coincide with the desired due date, there will be an incremental increase in your first month's payment to the account for the interest which would have accrued on the loan from the date of disbursement to your desired due date. This will become due for payment on your chosen date of the following month, along with the regular monthly installment. Subsequent installments will be based on a regular monthly cycle.</div>
+                            </div>
+                        </apex:pageBlock>
+                        <apex:pageBlock rendered="{!isCcFound}">
+                            <h5 style="font-size:16px; color:black;background-color: #92d5f0; height:30px; padding-top:15px;"><b>
+                                &nbsp;PERSONAL CREDIT CARD REQUEST
+                                </b>
+                            </h5>
+                            <div>
+                                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                    &nbsp;REQUESTED LIMITS
+                                    </b>
+                                </h5>
+                                <div style="margin-top:5px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="width:35%;text-align:center;font-weight:bold;">PRIMARY CARDHOLDER DETAILS</td>
+                                            <td style="width:65%;">
+                                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Type of Collateral:</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Requested Limit:</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;" colspan="2">Annual Interest Rate on Credit Card:</td>
+                                                    </tr>
+                                                    <tr style="margin-top:5px;">
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!prod.PCL_Collateral_Type__c}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">JMD ${!prod.PCL_Requested_Credit_Limit__c}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">{!prod.PCL_Interest_Rate__c}%</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">per annum</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                    &nbsp;COLLATERAL DETAILS - CASH/INVESTMENT
+                                    </b>
+                                </h5>
+                                <div style="margin-top:5px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Financial Institution:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Account Holder(s):</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Account Number:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Account Type:</td>
+                                        </tr>
+                                        <tr style="margin-top:5px;">
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!prod.Financial_Institution__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!prod.Account_Holders__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!prod.Account_Number__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!prod.Account_Type__c}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="margin-top:10px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;" colspan="2">Interest Rate on Deposit Account:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Deposit Account Balance:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Is this Deposit Account hypothecated for another loan?</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Total Existing Loan Balance:</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">{!prod.Annual_Interest_Rate_on_Deposit_Account__c}%</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">per annum</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">JMD ${!prod.PC_Deposit_Account_Balance__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!prod.PC_Account_Hypothecated_for_another_Loan__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">JMD ${!prod.PC_Total_existing_Loan_Balance__c}</td>
+                                        </tr> 
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                    &nbsp;PROMOTIONAL AND ADDITIONAL FINANCING DETAILS
+                                    </b>
+                                </h5>
+                                <div style="margin-top:5px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr >
+                                            <td style="width:90%;">Would you be interested in a current JN Bank Promotion?</td>
+                                            <td style="width:10%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!if(prod.JN_Promotion_CC__c==null,'No','Yes')}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                    &nbsp;OTHER CREDIT CARD DETAILS
+                                    </b>
+                                </h5>
+                                <div style="margin-top:5px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr >
+                                            <td style="width:90%;">Will this card be used to conduct transactions on behalf of someone other than the authorized cardholders?</td>
+                                            <td style="width:10%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">No</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                    &nbsp;JN LIFE CREDIT CARD CREDITOR LIFE INSURANCE:
+                                    </b>
+                                </h5>
+                                <div style="margin-top:5px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr >
+                                            <td style="width:90%;">Would you like JN Life Credit Card Creditor Life Insurance?</td>
+                                            <td style="width:10%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!prod.interest_in_JN_Life_CC_Creditor_Life_iIn__c}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                    &nbsp;CREDIT REPAYMENT
+                                    </b>
+                                </h5>
+                                <div style="margin-top:5px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:70%;" cellpadding="0" cellspacing="0">
+                                        <tr >
+                                            <td>Indicate the Applicant(s) desired statement date:</td>
+                                            <td style="width:5%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!prod.Desired_Statement_Date__c}</td>
+                                            <td>th of the month</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </apex:pageBlock>
+                        <apex:pageBlock rendered="{!isLocFound}">
+                            <h5 style="font-size:16px; color:black;background-color: #92d5f0; height:30px; padding-top:15px;"><b>
+                                &nbsp;PERSONAL LINE OF CREDIT REQUEST
+                                </b>
+                            </h5>
+                            <div>
+                                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                    &nbsp;REQUESTED LIMITS
+                                    </b>
+                                </h5>
+                                <div style="margin-top:5px;font-size:small;">
+                                    
+                                    <table style="margin-left:16px;margin-right:10px;width:70%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Type of Collateral:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Requested Limit:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;" colspan="2">Annual Interest Rate on Credit Card:</td>
+                                        </tr>
+                                        <tr style="margin-top:5px;">
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!prod.PC_Collateral_Type__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">JMD ${!prod.PC_Collateral_Type__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">{!prod.PC_Collateral_Type__c}%</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">per annum</td>
+                                        </tr>
+                                    </table>
+                                    
+                                </div>
+                            </div>
+                            <div>
+                                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                    &nbsp;COLLATERAL DETAILS - REAL ESTATE
+                                    </b>
+                                </h5>
+                                <div style="margin-top:5px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="width:60%;border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Security Address:</td>
+                                            <td colspan="4" style="width:40%;border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Property Title Information:</td>
+                                        </tr>
+                                        <tr style="margin-top:5px;">
+                                            <td style="width:60%;border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!prod.Security_Address__c}</td>
+                                            <td style="width:10%;border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">Volume</td>
+                                            <td style="width:10%;border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">{!prod.Property_Title_information_Vol__c}</td>
+                                            <td style="width:10%;border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">Folio</td>
+                                            <td style="width:10%;border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!prod.Property_Title_Information_Folio__c}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="margin-top:10px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Property Classification:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Occupancy Type:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Is this property a Strata?</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Market Value:</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!prod.Property_Classification__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!prod.Occupancy_Type__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!prod.Is_Property_a_Strata__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!prod.Market_Value_of_Property__c}</td>
+                                        </tr> 
+                                    </table>
+                                </div>
+                                <div style="margin-top:10px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Legal related activities to be completed through:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Name of the Valuer:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Date of Last Valuation:</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;Text-align:center;">{!prod.Legal_Related_Activities__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!prod.Name_of_Valuer__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!prod.Date_of_Last_Valuation__c}</td>
+                                        </tr> 
+                                    </table>
+                                </div>
+                                <div style="margin-top:5px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Replacement Value:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Forced Sale Value:</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Insurer:</td>
+                                        </tr>
+                                        <tr style="margin-top:5px;">
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">JMD ${!prod.Replacement_Value__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">JMD ${!prod.Forced_Sale_Value__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!prod.Insurer__c}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="margin-top:10px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:60%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Is there an existing lien on this property?</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Total Existing Loan Balance:</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!prod.Is_a_Lien_on_Property__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">JMD ${!prod.PCL_Total_Existing_Loan_Balance__c}</td>
+                                        </tr> 
+                                    </table>
+                                </div>
+                                
+                            </div>
+                            <div>
+                                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                    &nbsp;PROMOTIONAL AND ADDITIONAL FINANCING DETAILS
+                                    </b>
+                                </h5>
+                                <div style="margin-top:5px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr >
+                                            <td style="width:90%;">Would you be interested in a current JN Bank Promotion?</td>
+                                            <td style="width:10%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!if(prod.JN_Promotion_LOC__c==null,'No','Yes')}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                    &nbsp;LIFE INSURANCE COVERAGE
+                                    </b>
+                                </h5>
+                                <div style="margin-top:5px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr >
+                                            <td style="width:90%;">Is the Applicant interested in JN Life Bulk Premium Creditor Life Insurance?</td>
+                                            <td style="width:10%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">No</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 style="width:98%;font-size:Small; color:#00a1e0;margin-left:5px;border-bottom: 2px solid #00a1e0;"><b>
+                                    &nbsp;CREDIT REPAYMENT
+                                    </b>
+                                </h5>
+                                <div style="margin-top:5px;margin-bottom:15px;font-size:small;">
+                                    <table style="margin-left:16px;margin-right:10px;width:70%;" cellpadding="0" cellspacing="0">
+                                        <tr >
+                                            <td>Indicate the Applicant(s) desired repayment date:</td>
+                                            <td style="width:5%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!prod.Desired_Monthly_Repayment_Date_LOC__c}</td>
+                                            <td>th of the month</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </apex:pageBlock>
+                    </apex:repeat>
+                </div>
+            </div>
+            
+            <div style="margin-top:30px;">
+                <h3 style="font-size:Small;width:50%;color:white;background-color: #00a1e0;font-family: sans-serif; height:35px; padding-top:12px; margin-left:1px;">
+                    &nbsp;APPLICANT(S) DECLARATION
+                </h3>
+                <div style="border: 1px solid #00a1e0;margin: 1px; margin-top:-11px;">
+                    <div style="margin-left:5px;margin-top:15px;font-size:10px;Font-weight:bold;">THE ABOVE APPLICATION IS SUBMITTED FOR THE PURPOSE OF OBTAINING CREDIT AND ALL INFORMATION HEREIN IS CERTIFIED TO BE TRUE, COMPLETE, AND CORRECT.  I/WE AUTHORIZE JN BANK LIMITED (HEREINAFTER CALLED "JN") TO MAKE WHATEVER CREDIT INQUIRIES IT DEEMS NECESSARY IN CONNECTION WITH THE CREDIT APPLICATION OR IN THE COURSE OF REVIEW OR COLLECTION OF ANY CREDIT EXTENDED IN RELIANCE ON THIS APPLICATION.  I/WE AUTHORIZE AND INSTRUCT ANY PERSON, INCLUDING BUT NOT LIMITED TO, ALL LOCAL, OR GOVERNMENT AGENCIES, OR CONSUMER REPORTING AGENCIES, TO COMPLETE AND FURNISH JN WITH ANY INFORMATION IT MAY HAVE OR OBTAIN IN RESPONSE TO SUCH CREDIT INQUIRIES, AND AGREE THAT SUCH INFORMATION, ALONG WITH THIS APPLICATION, SHALL REMAIN JN'S PROPERTY WHETHER OR NOT CREDIT IS EXTENDED.</div>
+                    <div style="margin-left:5px;margin-top:5px;font-size:10px;Font-weight:bold;">JN IS HEREBY FURTHER AUTHORIZED TO SHARE THIS APPLICATION AND CREDIT INFORMATION WITH ITS AFFILIATES OR OTHER LENDERS, WHICH MAY CONSIDER MY/OUR APPLICATION FOR LOAN APPROVAL OR PURCHASE. THIS STATEMENT DOES NOT LIMIT JN'S RIGHT TO SELL OR ASSIGN ANY LOANS TO A THIRD PARTY.</div>
+                    <h5 style="font-size:16px; color:black;background-color: #92d5f0; height:30px; padding-top:15px;"><b>
+                        &nbsp;APPLICANT(S) SIGNATURE
+                        </b>
+                    </h5>
+                    <div style="margin-top:5px;margin-bottom:15px;font-size:small;">
+                        <apex:pageBlock rendered="{!if(totalNumberOfAppli>=1,true,false)}">
+                            <table style="margin-left:10px;margin-right:15px;width:90%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="text-align:right;">Signature of Applicant 1:</td>
+                                    <td style="text-align:center; border: 1px solid rgb(191, 191, 191);height:30px;width:200px;"></td>
+                                    <td style="text-align:right;">Date Signed: </td>
+                                    <td style="text-align:center;border: 1px solid rgb(191, 191, 191);width:200px;"></td>
+                                </tr>
+                            </table>
+                        </apex:pageBlock>
+                        <apex:pageBlock rendered="{!if(totalNumberOfAppli>=2,true,false)}">
+                            <table style="margin-left:10px;margin-top:5px;margin-right:15px;width:90%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="text-align:right;">Signature of Applicant 2:</td>
+                                    <td style="text-align:center; border: 1px solid rgb(191, 191, 191);height:30px;width:200px;"></td>
+                                    <td style="text-align:right;">Date Signed: </td>
+                                    <td style="text-align:center;border: 1px solid rgb(191, 191, 191);width:200px;"></td>
+                                </tr>
+                            </table>
+                        </apex:pageBlock>
+                        <apex:pageBlock rendered="{!if(totalNumberOfAppli>=3,true,false)}">
+                            <table style="margin-left:10px;margin-top:5px;margin-right:15px;width:90%;" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="text-align:right;">Signature of Applicant 3:</td>
+                                    <td style="text-align:center; border: 1px solid rgb(191, 191, 191);height:30px;width:200px;"></td>
+                                    <td style="text-align:right;">Date Signed: </td>
+                                    <td style="text-align:center;border: 1px solid rgb(191, 191, 191);width:200px;"></td>
+                                </tr>
+                            </table>
+                        </apex:pageBlock>
+                    </div>
+                </div>
+                
             </div>
         </div>
-        
-    </div>
-    
+    </apex:form>
 </apex:page>

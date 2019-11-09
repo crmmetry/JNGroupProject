@@ -288,12 +288,15 @@
                 //--------------------------------
             }
             if(RequestData[k].colIndex=='JN Staff 1'){
-                var ijn1 =RequestData[k-1].Interestrate;
-                var njn1 = Number(RequestData[k-1].LoanTerm1*12)+Number(RequestData[k-1].LoanTerm2);
+                var ijn1 =RequestData[k].Interestrate;
+                var njn1 = Number(RequestData[k].LoanTerm1*12)+Number(RequestData[k-1].LoanTerm2);
+                console.log('1p========='+ijn1);
+                console.log('1p========='+njn1);
+                console.log('1p========='+RequestData[k].LoanAmount);
                 var pjn1 = RequestData[k].LoanAmount;
                 var bmlajn1= helper.PMTcalculator(ijn1, njn1, pjn1);
                 cmp.set("v.LoanamountJNStaff1Autoloan", RequestData[k].LoanAmount);
-                if(isNaN(bmla)==false){
+                if(isNaN(bmlajn1)==false){
                     cmp.set("v.BMLoanamountJNStaff1Autoloan", bmlajn1);
                     //cmp.set("v.LoanamountJNStaff1Autoloannew", bmlajn1.toFixed(2));
                     cmp.find("MonthlyLoanPaymentJN11").set("v.value", bmlajn1.toFixed(2));
@@ -303,12 +306,16 @@
                 }
             }
             if(RequestData[k].colIndex=='JN Staff 2'){
-                var ijn2 =RequestData[k-1].Interestrate;
-                var njn2 = Number(RequestData[k-1].LoanTerm1*12)+Number(RequestData[k-1].LoanTerm2);
+                var ijn2 =RequestData[k].Interestrate;
+                var njn2 = Number(RequestData[k].LoanTerm1*12)+Number(RequestData[k].LoanTerm2);
+                console.log('2p========='+ijn2);
+                console.log('2p========='+njn2);
+                console.log('2p========='+RequestData[k].LoanAmount);
                 var pjn2 = RequestData[k].LoanAmount;
+                
                 var bmlajn2= helper.PMTcalculator(ijn2, njn2, pjn2);
                 cmp.set("v.LoanamountJNStaff2Autoloan", RequestData[k].LoanAmount);
-                if(isNaN(bmla)==false){
+                if(isNaN(bmlajn2)==false){
                     cmp.set("v.BMLoanamountJNStaff2Autoloan", bmlajn2);
                     //cmp.set("v.LoanamountJNStaff2Autoloannew", bmlajn2.toFixed(2));
                     cmp.find("MonthlyLoanPaymentJN21").set("v.value", bmlajn2.toFixed(2))
@@ -318,8 +325,9 @@
                 
             }
             if(RequestData[k].colIndex=='JN Staff 3'){
-                var ijn3 =RequestData[k-1].Interestrate;
-                var njn3 = Number(RequestData[k-1].LoanTerm1*12)+Number(RequestData[k-1].LoanTerm2);
+                var ijn3 =RequestData[k].Interestrate;
+                var njn3 = Number(RequestData[k].LoanTerm1*12)+Number(RequestData[k].LoanTerm2);
+                console.log('3========='+RequestData[k].LoanAmount);
                 var pjn3 = RequestData[k].LoanAmount;
                 var bmlajn3= helper.PMTcalculator(ijn3, njn3, pjn3);
                 cmp.set("v.LoanamountJNStaff3Autoloan", RequestData[k].LoanAmount);
@@ -1356,7 +1364,11 @@
                 AV129 =helper.RoundTo(AV125/AV126, 10000);
                 AV130 = Math.min(AV128, AV129);
                 var Admin_TablesM20 = 66.67/100;
+                if(RequestedCreditLimit!=''){ //JN1-2254
                 startingLimit = helper.RoundTo(Math.min(AV130*Admin_TablesM20,RequestedCreditLimit),10000);
+                }else{
+                startingLimit = helper.RoundTo(AV130*Admin_TablesM20,10000);
+                }
                 console.log('startingLimit In None Case =====>'+startingLimit);
                 break;
             case "1":
@@ -1788,6 +1800,60 @@
         }
         
         console.log('test--------------------------101-');
+        var applicant1name='';
+        var applicant1dob='';
+        var applicant1gmi='';
+        var applicant1mcp='';
+        var applicant1isjn=false;
+        var applicant2name='';
+        var applicant2dob='';
+        var applicant2gmi='';
+        var applicant2mcp='';
+        var applicant2isjn=false;
+        var applicant3name='';
+        var applicant3dob='';
+        var applicant3gmi='';
+        var applicant3mcp='';
+        var applicant3isjn=false;
+        var numberapp;
+        var isprod1=cmp.get("v.isProductDetail");
+        
+          console.log('pavit1');
+            var numberapplst=cmp.get("v.RowNum");
+        if(numberapplst != undefined)
+            numberapp = numberapplst.length;
+        console.log('pavit-1');
+            
+        if(numberapp>=1){
+          applicant1name=numberapplst[0].FirstName+' '+numberapplst[0].LastName; 
+          applicant1dob=numberapplst[0].DateOfBirth;
+        applicant1gmi=numberapplst[0].GMIncome;
+        applicant1mcp=numberapplst[0].EMCPayment;
+        applicant1isjn=numberapplst[0].IsJNEmployee;
+            }
+            
+        console.log('pavit2');
+        if(numberapp>=2){
+            applicant2name=numberapplst[1].FirstName+' '+numberapplst[1].LastName;
+            console.log('pavit2');
+applicant2dob=numberapplst[1].DateOfBirth;
+            console.log('pavit2');
+        applicant2gmi=numberapplst[1].GMIncome;
+            console.log('pavit2');
+        applicant2mcp=numberapplst[1].EMCPayment;
+            console.log('pavit2');
+        applicant2isjn=numberapplst[1].IsJNEmployee;
+        }
+            
+        console.log('pavit3');
+        if(numberapp==3){
+            applicant3name=numberapplst[2].FirstName+' '+numberapplst[2].LastName;
+            applicant3dob=numberapplst[2].DateOfBirth;
+        applicant3gmi=numberapplst[2].GMIncome;
+        applicant3mcp=numberapplst[2].EMCPayment;
+        applicant3isjn=numberapplst[2].IsJNEmployee;
+        }
+            
         
         var Nick_Name_Of_Calculation='';
         var Monthly_Gross_Income='';
@@ -2522,6 +2588,21 @@
         */
         var newCalculator1 = {
             'sobjectType':'Loan_Calculator__c',
+            'Applicant_1_Name__c':applicant1name,
+            'Applocant_2_Name__c':applicant2name,
+            'Applicant_3_Name__c':applicant3name,
+            'Applicant_1_Date_of_Birth__c':applicant1dob,
+        'Applicant_1_Gross_Monthly_Income__c':applicant1gmi,
+        'Applicant_1_Existing_Monthly_Payment__c':applicant1mcp,
+        'Applicant_1_Jn_Employee__c':applicant1isjn,
+        'Applicant_2_Date_of_Birth__c':applicant2dob,
+        'Applicant_2_Gross_Monthly_income__c':applicant2gmi,
+        'Applicant_2_existing_monthly_credit__c':applicant2mcp,
+        'Applicant_2_JN_Employee__c':applicant2isjn,
+        'Applicant_3_Date_of_Birth__c':applicant2dob,
+        'Applicant_3_Gross_Monthly_income__c':applicant2gmi,
+        'Applicant_3_Existing_Monthly__c':applicant2mcp,
+        'Applicant_3_Jn_Employee__c':applicant2isjn,
             'Nick_Name_Of_Calculation__c':Nick_Name_Of_Calculation,
             'Lead_and_Referral__c':leadid,
             'Opportunity__c':oppid,
@@ -2786,8 +2867,7 @@
     },
     ApplicationFormDoc: function(cmp, evt, helper){
         window.open('https://jnbank--jnbanksan.lightning.force.com/apex/ApplicationForm'+'?oppid='+cmp.get("v.isRecordIdM"));
-        
-    },
+            },
     StatementofAffairDoc1: function(cmp, evt, helper){
         window.open('https://jnbank--jnbanksan.lightning.force.com/apex/StatementofAffair');
         
