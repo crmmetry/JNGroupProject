@@ -569,6 +569,27 @@ if (Primary Income Type = Self-Employed)
         }
     }*/
     
-   
+   @AuraEnabled  
+    public static Boolean SaveApplicationFormInOpp(string oppid){
+        try{
+            PageReference mypage = Page.ApplicationForm;
+            mypage.getParameters().put('oppid', oppid);
+            blob body = mypage.getContentAsPDF();
+            system.debug('attach===='+OppId);
+            Attachment attach = new Attachment();
+            attach.Body = body;
+            attach.ContentType='application/pdf';            
+            attach.Name = 'ApplicationForm.pdf';
+            attach.IsPrivate = false;
+            attach.ParentId = oppid;
+            insert attach;
+            system.debug('attach===='+attach);
+            return true;
+        }
+        catch(Exception ex){
+            system.debug('Exception ======'+ex.getMessage()+'....Line Number=>'+ex.getLineNumber());           
+        }
+        return false;
+    }
     
 }

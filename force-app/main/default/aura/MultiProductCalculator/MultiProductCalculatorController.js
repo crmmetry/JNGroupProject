@@ -2866,8 +2866,10 @@ applicant2dob=numberapplst[1].DateOfBirth;
             cmp.set("v.LOCPromotion",selectedRecordId);
     },
     ApplicationFormDoc: function(cmp, evt, helper){
-        window.open('https://jnbank--jnbanksan.lightning.force.com/apex/ApplicationForm'+'?oppid='+cmp.get("v.isRecordIdM"));
-            },
+        var oppid = cmp.get("v.isRecordIdM");
+        helper.savePdfOnOpp(cmp,oppid);   
+        window.open('https://jnbank--jnbanksan.lightning.force.com/apex/ApplicationForm'+'?oppid='+oppid);
+    },
     StatementofAffairDoc1: function(cmp, evt, helper){
         window.open('https://jnbank--jnbanksan.lightning.force.com/apex/StatementofAffair');
         

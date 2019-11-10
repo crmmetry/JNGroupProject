@@ -2458,5 +2458,26 @@
         });
         $A.enqueueAction(action);
     },
-     
+    
+    savePdfOnOpp : function(cmp,oppID){
+        console.log('savePdfOnOpp--------------------------1-'+oppID);
+        var action = cmp.get('c.SaveApplicationFormInOpp');
+        action.setParams({
+            oppid : oppID
+        });
+        console.log('savePdfOnOpp--------------------------2-');
+        action.setCallback(this,function(response){
+            var state = response.getState();
+            console.log('savePdfOnOpp--------------------------3-'+state);
+            if(state=='SUCCESS'){
+               
+            }
+            else{
+                var msg = response.getReturnValue();
+                console.log('saveCalculation--------------------------4-'+msg);
+            }
+        });
+        $A.enqueueAction(action);
+        console.log('saveCalculation--------------------------5-');
+    },
 })
