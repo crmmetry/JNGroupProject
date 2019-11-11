@@ -138,7 +138,7 @@
     } else {
       // display successful toast
       helper.showSuccessToast(component, {
-        severity: "success",
+        severity: "confirm",
         message:
           "Thanks for taking your time to complete this form, please look out for a follow up email.",
         title: "Applicant Form Completion"

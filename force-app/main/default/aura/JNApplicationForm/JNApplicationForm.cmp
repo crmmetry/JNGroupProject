@@ -116,7 +116,7 @@
                                 </lightning:tab>
                                 <aura:if isTrue="{!v.loan_type == 'credit_card'}">
                                     <div class="slds-card__body slds-card__body_inner">
-                                        <lightning:tab label="9: Extensions" id="Extensions_Tab">
+                                        <lightning:tab label="9: Supplementary Card Holder" id="Extensions_Tab">
                                             <c:JNExtensionsTab
                                                                aura:id="Extensions"
                                                                leadId="{!v.SiteLead.Id}"
@@ -125,7 +125,7 @@
                                     </div>
                                     <aura:set attribute="else">
                                         <div class="slds-card__body slds-card__body_inner">
-                                            <lightning:tab label="9: Extensions" id="Extensions_Tab">
+                                            <lightning:tab label="9: Supplementary Card Holder" id="Extensions_Tab">
                                                 <p
                                                    class="slds-text-heading_large slds-text-align_center"
                                                    aura:id="Extensions"

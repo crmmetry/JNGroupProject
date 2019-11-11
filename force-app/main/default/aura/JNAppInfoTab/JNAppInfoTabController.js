@@ -10,9 +10,10 @@
       Gross_Monthly_Income__c: 0,
       Gross_Monthly_Expenses__c: 0
     };
-    /*var setMindate = new Date();
-    component.set("v.mindate", setMindate.toISOString().split('T')[0]);
-    console.log(component.get("v.mindate"));*/
+      let current_datetime = new Date()
+      let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+    component.set("v.mindate", formatted_date);
+    console.log(component.get("v.mindate"));
     component.set("v.SiteLead", sitelead);
     helper.getPickListValues(component);
   },

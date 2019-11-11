@@ -86,6 +86,9 @@
               required="true"
               aura:id="validation"
               value="{!v.SiteLead.TRN__c }"
+              minLength="9"
+              messageWhenPatternMismatch="please enter a valid trn number"
+              pattern="^(?:(?:[0-9]{3}[0-9]{3}[0-9]{3})|(?:[0-9]{3}-[0-9]{3}-[0-9]{3}))$"
             />
           </div>
         </div>

@@ -228,7 +228,6 @@
             label="TRN Number"
             required="true"
             minlength="9"
-            maxlength="9"
             messageWhenPatternMismatch="please enter a valid trn number"
             pattern="^[0-9]{3}[0-9]{3}[0-9]{3}$"
             value="{!v.SiteLead.Supplementary_Applicant_TRN__c}"

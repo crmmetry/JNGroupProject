@@ -97,7 +97,7 @@ public class JNSiteController {
         newLead.Country_of_Citizenship__c = applicantDetails.get('Country_of_Citizenship__c');
         newLead.Country_of_Residence__c = applicantDetails.get('Country_of_Residence__c');
         newLead.Highest_Level_of_Education_Attained__c = applicantDetails.get('Highest_Level_of_Education_Attained__c');
-        newLead.Supplementary_Applicant_TRN__c = Decimal.valueOf(applicantDetails.get('Supplementary_Applicant_TRN__c'));
+        newLead.Supplementary_Applicant_TRN__c = applicantDetails.get('Supplementary_Applicant_TRN__c');
         newLead.Service_of_Interest__c = applicantDetails.get('Service_of_Interest__c');
         
         newLead.Proposed_Card_Limit__c = Decimal.valueOf(applicantDetails.get('Proposed_Card_Limit__c'));
@@ -155,7 +155,7 @@ public class JNSiteController {
                 newPerson.Middle_Name__c = String.valueOf(oldPerson.get('Middle_Name__c'));
                 newPerson.Title__c = String.valueOf(oldPerson.get('Title__c'));
                 newPerson.Relationship__c = String.valueOf(oldPerson.get('Relationship__c')); 
-                newPerson.TRN__c = Decimal.valueOf(String.valueOf(oldPerson.get('TRN__c')));
+                newPerson.TRN__c = String.valueOf(oldPerson.get('TRN__c'));
                 newPerson.Afilliate_Type__c = String.valueOf(oldPerson.get('Afilliate_Type__c'));
                 
                 persons.add(newPerson);

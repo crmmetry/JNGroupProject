@@ -17,7 +17,11 @@
   <aura:attribute name="preferredLocations" type="String[]" />
   <aura:attribute name="loanPurposes" type="String[]" />
   <aura:attribute name="mindate" type="Date" />
-  <aura:method name="validateTabFields" action="{!c.validateTabFields}" access="public"/>
+  <aura:method
+    name="validateTabFields"
+    action="{!c.validateTabFields}"
+    access="public"
+  />
 
   <lightning:layout>
     <lightning:layoutItem size="12">
@@ -33,7 +37,7 @@
               required="true"
               value="{!v.SiteLead.Estimated_Amount__c}"
               formatter="currency"
-                             type="number"
+              type="number"
             />
             <!-- Proposed card limit-->
             <aura:set attribute="else">
@@ -44,7 +48,7 @@
                 required="true"
                 value="{!v.SiteLead.Proposed_Card_Limit__c}"
                 formatter="currency"
-                                type="number"
+                type="number"
               />
             </aura:set>
           </aura:if>
@@ -74,7 +78,6 @@
             label="Prefered Date of Contact"
             required="true"
             value="{!v.SiteLead.Preferred_Date_of_Contact__c }"
-             
           />
         </div>
         <!-- Prefered Date of Contact -->
@@ -125,7 +128,7 @@
               required="true"
               onchange="{!c.getLoanPurpose}"
             >
-                <option value="">select one...</option>
+              <option value="">select one...</option>
               <aura:iteration items="{!v.loanPurposes}" var="item">
                 <option value="{!item}">{!item}</option>
               </aura:iteration>

@@ -429,24 +429,46 @@
             loanamountsum +=parseFloat(RequestData[k].LoanAmount);
         }
         var numberapp=cmp.get("v.RowNum").length;
+        
         console.log('Test2=====JNlife');
+        var age1;
+        var age2;
+        var age3;
         if(numberapp==1){//cmp.find("NumberofApplicant").get("v.value")==0){
             var age1=cmp.get("v.applicant1ageValue");
-            ageavg=age1;
+           
         }
         if(numberapp==2){//cmp.find("NumberofApplicant").get("v.value")==1||true){
             var age1=cmp.get("v.applicant1ageValue");
             var age2=cmp.get("v.applicant2ageValue");
-            console.log('age1====='+age1);
-            console.log('age2====='+age2);
-            ageavg=(parseFloat(age1)+parseFloat(age2))/2;
+           
         }
         if(numberapp==3){//cmp.find("NumberofApplicant").get("v.value")==2){
             var age1=cmp.get("v.applicant1ageValue");
             var age2=cmp.get("v.applicant2ageValue");
             var age3=cmp.get("v.applicant3ageValue");
-            var ageavg=(parseFloat(age1)+parseFloat(age2)+parseFloat(age3))/3;
-            console.log('ageavg====='+ageavg);
+           
+        }
+        var coveragetypeselectedUn=cmp.find("CoverageTypeUn").get("v.value");
+        switch(coveragetypeselectedUn){
+            case "1":
+                ageavg=parseFloat(age1);
+                break;
+            case "2":
+                ageavg=parseFloat(age2);
+                break;
+            case "3":
+                ageavg=parseFloat(age3);
+                break;
+            case "4":
+                ageavg=(parseFloat(age1)+parseFloat(age2))/2;
+                break;
+            case "5":
+                ageavg=(parseFloat(age1)+parseFloat(age3))/2;
+                break;
+            case "6":
+                ageavg=(parseFloat(age2)+parseFloat(age3))/2;
+                break;
         }
         var agegroup='';
         if(ageavg>=18 && ageavg<25){agegroup='18-24';}
@@ -1060,37 +1082,14 @@
     },
     
     autoLoanTotal : function(cmp){
-        /*var Admin_TablesBJ7 = '50.00%';
-        cmp.find("PolicyLimit").set("v.value",Admin_TablesBJ7);
-        
-        var ExistingMonthlyCreditPayment=0;
-        var GrossMonthlyIncome=0;
-        var applicantlst=cmp.get("v.RowNum");
-        for(var k in applicantlst){
-            GrossMonthlyIncome +=parseFloat(applicantlst[k].GMIncome);
-            ExistingMonthlyCreditPayment +=parseFloat(applicantlst[k].EMCPayment);
-        }
-        var  PriorToProposedCredit = ExistingMonthlyCreditPayment/GrossMonthlyIncome*100;
-        if(isNaN(PriorToProposedCredit))
-            cmp.find("PriortoProposedCredit").set("v.value", 0.00+'%');
-        else
-            cmp.find("PriortoProposedCredit").set("v.value", PriorToProposedCredit.toFixed(2)+'%');
-        
-        var maxval= cmp.get("v.AutoLoan_totalsavingsauto"); //   totalsavingsauto;//Math.max(marketloanamount1, JN1loanamount1, JN2loanamount1, JN3loanamount1);
-        var apc = parseFloat(ExistingMonthlyCreditPayment)+parseFloat(maxval);
-        apc = apc/parseFloat(GrossMonthlyIncome)*100;
-        if(isNaN(apc))
-            cmp.find("AfterProposedCredit").set("v.value", 0+'%');
-        else
-            cmp.find("AfterProposedCredit").set("v.value", apc.toFixed(2)+'%');
-        */
-        
         var EmpRow=cmp.get("v.RowNum");
         var AW56 =0;//GrossMonthlyIncome
         var AW57 =0;//ExistingMonthlyCreditPayment 
         for(var k in EmpRow) {
-            AW56 +=parseFloat(EmpRow[k].GMIncome);
-            AW57 +=parseFloat(EmpRow[k].EMCPayment);         
+            if(EmpRow[k].GMIncome !='')
+                AW56 +=parseFloat(EmpRow[k].GMIncome);
+            if(EmpRow[k].EMCPayment !='')
+                AW57 +=parseFloat(EmpRow[k].EMCPayment);         
         }
         
         this.SetDefaultVal(cmp.find("MonthlyLoanPaymentMarket1"),0);
@@ -1147,12 +1146,7 @@
         
         
         var AM158_AQ162_AM164_AQ165 = AM158_AQ162+AM164_AQ165;
-        console.log('AM158_AQ162_AM164_AQ165===='+AM158_AQ162_AM164_AQ165);
-        
-        //var AL208 = cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value");
-        
-        //console.log('AL208===='+AL208);
-        
+        console.log('AM158_AQ162_AM164_AQ165===='+AM158_AQ162_AM164_AQ165);      
         
         var apc = (AW57 + Math.max(parseFloat(AG158_AL162_AG164_AL165),parseFloat(AM158_AQ162_AM164_AQ165)))/AW56;
         console.log('apc===='+apc);
@@ -1170,14 +1164,6 @@
         PriortoProposedCredit =this.checkNaN(PriortoProposedCredit);
         PriortoProposedCredit=PriortoProposedCredit.toFixed(2)+'%'
         cmp.find("PriortoProposedCredit").set("v.value", PriortoProposedCredit);
-        
-        
-        
-        
-        
-        
-        
-        
     },
     unsecuredLoanTotal : function(cmp){
         var Admin_TablesBJ7 = '50.00%';
@@ -1187,8 +1173,10 @@
         var GrossMonthlyIncome=0;
         var applicantlst=cmp.get("v.RowNum");
         for(var k in applicantlst){
-            GrossMonthlyIncome +=parseFloat(applicantlst[k].GMIncome);
-            ExistingMonthlyCreditPayment +=parseFloat(applicantlst[k].EMCPayment);
+            if(applicantlst[k].GMIncome !='')
+                GrossMonthlyIncome +=parseFloat(applicantlst[k].GMIncome);
+            if(applicantlst[k].EMCPayment !='')
+                ExistingMonthlyCreditPayment +=parseFloat(applicantlst[k].EMCPayment);
         }
         
         var  PriorToProposedCredit = ExistingMonthlyCreditPayment/GrossMonthlyIncome*100;
@@ -1207,7 +1195,6 @@
             cmp.find("AfterProposedCredit").set("v.value", apc.toFixed(2)+'%');
     },  
     creditCardTotal : function(cmp){
-        //----- ----------Calculation for total footer start --------------------------------------
         var Admin_TablesBJ7 = '50%';
         cmp.find("PolicyLimit").set("v.value",Admin_TablesBJ7);
         
@@ -1216,9 +1203,14 @@
         var GrossMonthlyIncome=0; //$AB$56
         var ExistingMonthlyCreditPayment = 0; //$AI$56 = EXISTING MONTHLY CREDIT PAYMENT
         var EmpRow=cmp.get("v.RowNum");
+        var count=1;
         for(var k in EmpRow) {
-            GrossMonthlyIncome=EmpRow[k].GMIncome;
-            ExistingMonthlyCreditPayment = EmpRow[k].EMCPayment;
+            if(count==1){
+                if(EmpRow[k].GMIncome !='')
+                    GrossMonthlyIncome=EmpRow[k].GMIncome;
+                if(EmpRow[k].EMCPayment !='')
+                    ExistingMonthlyCreditPayment = EmpRow[k].EMCPayment;
+            }
         }
         
         var  PriorToProposedCredit = ExistingMonthlyCreditPayment/GrossMonthlyIncome*100;
@@ -1241,20 +1233,16 @@
         cmp.find("AfterProposedCredit").set("v.value", apc.toFixed(2)+'%');
     },
     lineOfCreditTotal:function(cmp){
-        
-        
         var Admin_TablesBJ7 = '50%';
         cmp.find("PolicyLimit").set("v.value", Admin_TablesBJ7);
-        
-        //PriortoProposedCredit=IFERROR($AW$57/$AW$56,0)
-        
-        
         var GrossMonthlyIncome=0; 
         var ExistingMonthlyCreditPayment = 0; 
         var EmpRow=cmp.get("v.RowNum");
         for(var k in EmpRow) {
-            GrossMonthlyIncome +=parseFloat(EmpRow[k].GMIncome);
-            ExistingMonthlyCreditPayment +=parseFloat(EmpRow[k].EMCPayment);         
+            if(EmpRow[k].GMIncome !='')
+                GrossMonthlyIncome +=parseFloat(EmpRow[k].GMIncome);
+            if(EmpRow[k].EMCPayment !='')
+                ExistingMonthlyCreditPayment +=parseFloat(EmpRow[k].EMCPayment);         
         }
         var AW56 =GrossMonthlyIncome;
         var AW57 = ExistingMonthlyCreditPayment;
@@ -1265,14 +1253,6 @@
         PriortoProposedCredit=PriortoProposedCredit.toFixed(2)+'%'
         cmp.find("PriortoProposedCredit").set("v.value", PriortoProposedCredit);
         
-        //After Proposed Credit(s)=IFERROR(VLOOKUP($L$53,$AU$156:$AV$170,2,0),0)
-        //=IFERROR(SUM($AW$57,$AA$216)/$AW$56,0)
-        //$AW$57 = Existing Monthly credit payment Sum
-        //$AA$216 = Minimum Payment as per Credit Limit
-        //$AW$56 = =SUM($AB$56:$AF$58) //Sum of Gross Monthly Income
-        //console.log('AW57='+AW57);
-        //console.log('AW56='+AW56);
-        // console.log('MinimumPaymentAsPerCreditLimit='+MinimumPaymentAsPerCreditLimit);
         
         var Admin_TablesBF14 = 3;
         var InterestRate = cmp.find("locInterestRate").get("v.value")/12;
@@ -1293,52 +1273,17 @@
         cmp.find("AfterProposedCredit").set("v.value", apc);
     },
     autoLoanAndUnsecuredLoanTotal:function(cmp){
-        /*
-          After Proposed Credit(s) = =IFERROR(VLOOKUP($L$53,$AU$156:$AV$170,2,0),0)
-     	 $AU$156:$AV$170   =IFERROR(SUM($AW$57,MAX(SUM($AG$158:$AL$162,$AG$164:$AL$165),SUM($AM$158:$AQ$162,$AM$164:$AQ$165)),$AG$191)/$AW$56,0)
-        $AW$57 = =SUM($AI$56:$AM$58) // Sum of Existing Monthly credit payment
-        $AG$158:$AL$162 = sum of (
-          + Monthly Loan Payment (Market)
-          + Monthly Loan Payment (JN Staff 1)
-          + Monthly Loan Payment (JN Staff 2)
-          + Monthly Loan Payment (JN Staff 3)
-          + Monthly JNGI Motor Premium (1st Year)
-        )
-        
-        $AG$164:$AL$165 = sum of{
-          + Monthly JN Life Creditor Life Premium
-            + Monthly Processing Fees
-        }
-          
-        $AM$158:$AQ$162 = sum of ( // After Textbox
-          + Monthly Loan Payment (Market)
-          + Monthly Loan Payment (JN Staff 1)
-          + Monthly Loan Payment (JN Staff 2)
-          + Monthly Loan Payment (JN Staff 3)
-          + Monthly JNGI Motor Premium (1st Year)
-        )
-        $AM$164:$AQ$165 = sum of{ //After Textbox
-         + Monthly JN Life Creditor Life Premium
-            + Monthly Processing Fees
-        }
-        
-        $AG$191 = Monthly Loan Payment
-        $AW$56 = =SUM($AB$56:$AF$58) / Sum of Gross Monthly Income
-        */
-        
-        
-        //$AW$57 = =SUM($AI$56:$AM$58) // Sum of Existing Monthly credit payment
-        //$AW$56 = =SUM($AB$56:$AF$58) / Sum of Gross Monthly Income
-        console.log("autoLoanAndUnsecuredLoanTotal=======================");
-        
+        console.log("autoLoanAndUnsecuredLoanTotal TDSR=======================");
         var EmpRow=cmp.get("v.RowNum");
         var GrossMonthlyIncome=0; 
         var ExistingMonthlyCreditPayment = 0; 
         
         
         for(var k in EmpRow) {
-            GrossMonthlyIncome +=parseFloat(EmpRow[k].GMIncome);
-            ExistingMonthlyCreditPayment +=parseFloat(EmpRow[k].EMCPayment);         
+            if(EmpRow[k].GMIncome !='')
+                GrossMonthlyIncome +=parseFloat(EmpRow[k].GMIncome);
+            if(EmpRow[k].EMCPayment !='')
+                ExistingMonthlyCreditPayment +=parseFloat(EmpRow[k].EMCPayment);         
         }
         console.log('GrossMonthlyIncome===='+GrossMonthlyIncome);
         console.log('ExistingMonthlyCreditPayment===='+ExistingMonthlyCreditPayment);
@@ -1463,8 +1408,10 @@
         var AW56 =0;//GrossMonthlyIncome
         var AW57 =0;//ExistingMonthlyCreditPayment 
         for(var k in EmpRow) {
-            AW56 +=parseFloat(EmpRow[k].GMIncome);
-            AW57 +=parseFloat(EmpRow[k].EMCPayment);         
+            if(EmpRow[k].GMIncome !='')
+                AW56 +=parseFloat(EmpRow[k].GMIncome);
+            if(EmpRow[k].EMCPayment !='')
+                AW57 +=parseFloat(EmpRow[k].EMCPayment);         
         }
         
         this.SetDefaultVal(cmp.find("MonthlyLoanPaymentMarket1"),0);
@@ -1558,8 +1505,10 @@
         var AW56 =0;//GrossMonthlyIncome
         var AW57 =0;//ExistingMonthlyCreditPayment 
         for(var k in EmpRow) {
-            AW56 +=parseFloat(EmpRow[k].GMIncome);
-            AW57 +=parseFloat(EmpRow[k].EMCPayment);         
+            if(EmpRow[k].GMIncome !='')
+                AW56 +=parseFloat(EmpRow[k].GMIncome);
+            if(EmpRow[k].EMCPayment !='')
+                AW57 +=parseFloat(EmpRow[k].EMCPayment);         
         }
         
         this.SetDefaultVal(cmp.find("MonthlyLoanPaymentMarket1"),0);
@@ -1652,8 +1601,10 @@
         var AW56 =0;//Gross Monthly Income
         var AW57 =0;//Existing Monthly Credit Payment 
         for(var k in EmpRow) {
-            AW56 +=parseFloat(EmpRow[k].GMIncome);
-            AW57 +=parseFloat(EmpRow[k].EMCPayment);         
+            if(EmpRow[k].GMIncome !='')
+                AW56 +=parseFloat(EmpRow[k].GMIncome);
+            if(EmpRow[k].EMCPayment !='')
+                AW57 +=parseFloat(EmpRow[k].EMCPayment);         
         }
         this.SetDefaultVal(cmp.find("MonthlyLoanPayment1Un"),0);
         this.SetDefaultVal(cmp.find("ccMinimumPaymentAsPerCreditLimit"),0);
@@ -1691,8 +1642,10 @@
         var AW56 =0;//Gross Monthly Income
         var AW57 =0;//Existing Monthly Credit Payment 
         for(var k in EmpRow) {
-            AW56 +=parseFloat(EmpRow[k].GMIncome);
-            AW57 +=parseFloat(EmpRow[k].EMCPayment);         
+            if(EmpRow[k].GMIncome !='')
+                AW56 +=parseFloat(EmpRow[k].GMIncome);
+            if(EmpRow[k].EMCPayment !='')
+                AW57 +=parseFloat(EmpRow[k].EMCPayment);         
         }
         this.SetDefaultVal(cmp.find("MonthlyLoanPayment1Un"),0);
         this.SetDefaultVal(cmp.find("locMinimumPaymentAsPerCreditLimit"),0);
@@ -1735,8 +1688,10 @@
         var ExistingMonthlyCreditPayment = 0; 
         var EmpRow=cmp.get("v.RowNum");
         for(var k in EmpRow) {
-            GrossMonthlyIncome +=parseFloat(EmpRow[k].GMIncome);
-            ExistingMonthlyCreditPayment +=parseFloat(EmpRow[k].EMCPayment);         
+            if(EmpRow[k].GMIncome !='')
+                GrossMonthlyIncome +=parseFloat(EmpRow[k].GMIncome);
+            if(EmpRow[k].EMCPayment !='')
+                ExistingMonthlyCreditPayment +=parseFloat(EmpRow[k].EMCPayment);         
         }
         var AW56 =GrossMonthlyIncome;
         var AW57 = ExistingMonthlyCreditPayment;
@@ -1777,8 +1732,10 @@
         
         
         for(var k in EmpRow) {
-            GrossMonthlyIncome +=parseFloat(EmpRow[k].GMIncome);
-            ExistingMonthlyCreditPayment +=parseFloat(EmpRow[k].EMCPayment);         
+            if(EmpRow[k].GMIncome !='')
+                GrossMonthlyIncome +=parseFloat(EmpRow[k].GMIncome);
+            if(EmpRow[k].EMCPayment !='')
+                ExistingMonthlyCreditPayment +=parseFloat(EmpRow[k].EMCPayment);         
         }
         console.log('GrossMonthlyIncome===='+GrossMonthlyIncome);
         console.log('ExistingMonthlyCreditPayment===='+ExistingMonthlyCreditPayment);
@@ -1886,8 +1843,10 @@
         
         
         for(var k in EmpRow) {
-            GrossMonthlyIncome +=parseFloat(EmpRow[k].GMIncome);
-            ExistingMonthlyCreditPayment +=parseFloat(EmpRow[k].EMCPayment);         
+            if(EmpRow[k].GMIncome !='')
+                GrossMonthlyIncome +=parseFloat(EmpRow[k].GMIncome);
+            if(EmpRow[k].EMCPayment !='')
+                ExistingMonthlyCreditPayment +=parseFloat(EmpRow[k].EMCPayment);         
         }
         console.log('GrossMonthlyIncome===='+GrossMonthlyIncome);
         console.log('ExistingMonthlyCreditPayment===='+ExistingMonthlyCreditPayment);
@@ -1992,8 +1951,10 @@
         var AW56 =0;//Gross Monthly Income
         var AW57 =0;//Existing Monthly Credit Payment 
         for(var k in EmpRow) {
-            AW56 +=parseFloat(EmpRow[k].GMIncome);
-            AW57 +=parseFloat(EmpRow[k].EMCPayment);         
+            if(EmpRow[k].GMIncome !='')
+                AW56 +=parseFloat(EmpRow[k].GMIncome);
+            if(EmpRow[k].EMCPayment !='')
+                AW57 +=parseFloat(EmpRow[k].EMCPayment);         
         }
         
         this.SetDefaultVal(cmp.find("MonthlyLoanPaymentMarket1"),0);
@@ -2078,14 +2039,18 @@
     unsecuredLoanCreditCardAndLineOfCredit : function(cmp){
         /*=IFERROR(SUM($AW$57,$AG$191,$AL$208,$AA$216)/$AW$56,0)
         */
-        
+        console.log('unsecuredLoanCreditCardAndLineOfCredit=========TDSR');
         var EmpRow=cmp.get("v.RowNum");
         var AW56 =0;//Gross Monthly Income
         var AW57 =0;//Existing Monthly Credit Payment 
         for(var k in EmpRow) {
-            AW56 +=parseFloat(EmpRow[k].GMIncome);
-            AW57 +=parseFloat(EmpRow[k].EMCPayment);         
+            if(EmpRow[k].GMIncome !='')
+                AW56 +=parseFloat(EmpRow[k].GMIncome);
+            if(EmpRow[k].EMCPayment !='')
+                AW57 +=parseFloat(EmpRow[k].EMCPayment);         
         }
+        console.log('Gross Income========='+AW56);
+        console.log('Payment========='+AW57);
         this.SetDefaultVal(cmp.find("MonthlyLoanPayment1Un"),0);
         this.SetDefaultVal(cmp.find("ccMinimumPaymentAsPerCreditLimit"),0);
         this.SetDefaultVal(cmp.find("locMinimumPaymentAsPerCreditLimit"),0);
@@ -2093,10 +2058,13 @@
         var AG191 =cmp.find("MonthlyLoanPayment1Un").get("v.value"); 
         var AL208 = cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value");
         var AA216 = cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value");
-        
+        console.log('AG191========='+AG191);
+        console.log('AL208========='+AL208);
+        console.log('AA216========='+AA216);
         var apc=(parseFloat(AW57)+parseFloat(AG191)+parseFloat(AL208)+parseFloat(AA216))/parseFloat(AW56);
         apc = apc*100;
         apc =this.checkNaN(apc);
+        console.log('apc========='+apc);
         cmp.find("AfterProposedCredit").set("v.value", apc.toFixed(2)+'%');
         
         
@@ -2105,6 +2073,7 @@
         
         var PriortoProposedCredit=parseFloat(AW57)/parseFloat(AW56);
         PriortoProposedCredit = PriortoProposedCredit*100;
+        console.log('PriortoProposedCredit========='+PriortoProposedCredit);
         PriortoProposedCredit =this.checkNaN(PriortoProposedCredit);
         PriortoProposedCredit=PriortoProposedCredit.toFixed(2)+'%'
         cmp.find("PriortoProposedCredit").set("v.value", PriortoProposedCredit);
@@ -2125,8 +2094,10 @@
         
         
         for(var k in EmpRow) {
-            GrossMonthlyIncome +=parseFloat(EmpRow[k].GMIncome);
-            ExistingMonthlyCreditPayment +=parseFloat(EmpRow[k].EMCPayment);         
+            if(EmpRow[k].GMIncome !='')
+                GrossMonthlyIncome +=parseFloat(EmpRow[k].GMIncome);
+            if(EmpRow[k].EMCPayment !='')
+                ExistingMonthlyCreditPayment +=parseFloat(EmpRow[k].EMCPayment);         
         }
         console.log('GrossMonthlyIncome===='+GrossMonthlyIncome);
         console.log('ExistingMonthlyCreditPayment===='+ExistingMonthlyCreditPayment);
