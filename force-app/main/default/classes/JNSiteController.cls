@@ -4,8 +4,8 @@ public class JNSiteController {
     public static List<String> getPickListValues(String objectApiName, String fieldApiName){
         String recordTypeId;
         /*if(recordTypeName != null){
-            //recordTypeId = getRecordTypeId(recordTypeName);
-        }*/
+//recordTypeId = getRecordTypeId(recordTypeName);
+}*/
         
         //List<String> specificValues = getPicklistValuesUIApi(recordTypeId,objectApiName,fieldApiName);
         List<String> pickListValuesList= new List<String>();
@@ -19,10 +19,10 @@ public class JNSiteController {
         List<Schema.PicklistEntry> ple = fieldResult.getPicklistValues();
         for( Schema.PicklistEntry pickListVal : ple){
             
-                    pickListValuesList.add(pickListVal.getLabel());
-            } 
-            
-            
+            pickListValuesList.add(pickListVal.getLabel());
+        } 
+        
+        
         return pickListValuesList;
     }
     
@@ -30,12 +30,12 @@ public class JNSiteController {
     public static Object getPickListValuesList(String objectApiName, List<String> fieldApiNames){
         String recordTypeId;
         /*if(recordTypeName != null){
-            recordTypeId = getRecordTypeId(recordTypeName);
-        }*/
+recordTypeId = getRecordTypeId(recordTypeName);
+}*/
         
         List<String> pickListValuesList= new List<String>();
         Map<String, List<String>> mapFields = new Map<String, List<String>>();
-         List<String> specificValues;
+        List<String> specificValues;
         Map<String , Schema.SObjectType> globalDescription = Schema.getGlobalDescribe();
         Schema.sObjectType sObjType = globalDescription.get(objectApiName);
         Schema.DescribeSObjectResult r1 = sObjType.getDescribe();
@@ -48,7 +48,7 @@ public class JNSiteController {
             List<Schema.PicklistEntry> ple = fieldResult.getPicklistValues();
             pickListValuesList = new List<String>();
             for( Schema.PicklistEntry pickListVal : ple){                
-                     pickListValuesList.add(pickListVal.getLabel());
+                pickListValuesList.add(pickListVal.getLabel());
                 
             } 
             mapFields.put(fieldApiName, pickListValuesList);
@@ -56,7 +56,7 @@ public class JNSiteController {
         
         return mapFields;
     }
-
+    
     @AuraEnabled
     public static Object updateApplicantTextInfo(Map<String, String> applicantDetails ,  String leadId ){
         try {
@@ -247,7 +247,7 @@ public class JNSiteController {
         request.setHeader('Content-Type','application/json; charset=UTF-8');
         request.setHeader('Accept','application/json');
         request.setHeader('Authorization', 'Bearer ' +  getSessionIdFromVfPage());
-
+        
         
         http http = new http();
         httpresponse response=http.send(request);
@@ -255,18 +255,18 @@ public class JNSiteController {
         System.debug('Wrapper ' + UserInfo.getSessionId());
         //obj=(picklistWrapper)JSON.deserialize(response.getBody(), picklistWrapper.class);
         
-       // for(piclistValues pickVal:obj.values){
-          //  piclistValues.add(pickVal.value);
-       // }
+        // for(piclistValues pickVal:obj.values){
+        //  piclistValues.add(pickVal.value);
+        // }
         return null;
     }
     //Wrapper class to handle the JSON response
     
     public class picklistWrapper{
-        @AuraEnabled public piclistValues[] values;
+        @AuraEnabled public pickListValues[] values;
     }
     
-    public class piclistValues {
+    public class pickListValues {
         @AuraEnabled public String label;	
         @AuraEnabled public String value;
     }
@@ -274,7 +274,7 @@ public class JNSiteController {
     public static String getRecordTypeId(String recordTypeName) {
         return [SELECT id FROM RecordType WHERE DeveloperName = :recordTypeName].Id;
     }
-        //Getting the session Id from the VF page to make the callouts
+    //Getting the session Id from the VF page to make the callouts
     private static string getSessionIdFromVfPage(){
         PageReference visualforcePage = Page.SessionIdPage;
         String content;
@@ -283,7 +283,7 @@ public class JNSiteController {
         }
         catch(VisualforceException e){
             content ='ID'+userinfo.getSessionId()+'END';
-		}
+        }
         Integer s = content.indexOf('ID') + 'ID'.length();
         Integer e = content.indexOf('END');
         return content.substring(s, e);

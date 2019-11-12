@@ -5,11 +5,15 @@
     const objField = component.get("v.crmmObjectField");
     const crmmLabel = component.get("v.crmmLabel");
     const selected = component.get("v.crmmObjectSelected");
-
+    const recordTypeName = component.get("v.recordTypeName");
+    const recordTypeId = component.get("v.recordTypeId");
     action.setParams({
       objectApiName: objName,
       fieldApiName: objField,
+      recordTypeName: recordTypeName,
+      recordTypeId: recordTypeId
     });
+
     action.setCallback(this, function(response) {
       const state = response.getState();
       if (state === "SUCCESS") {
@@ -17,12 +21,14 @@
           component.find("picklistChoices").set("v.label", crmmLabel);
         }
         const values = response.getReturnValue();
-          if(selected) {
-               component.find("picklistChoices").set("v.crmmObjectSelected", selected);
-          }
+        if (selected) {
+          component
+            .find("picklistChoices")
+            .set("v.crmmObjectSelected", selected);
+        }
         component.set("v.values", values);
       }
     });
     $A.enqueueAction(action);
-  },
+  }
 });
