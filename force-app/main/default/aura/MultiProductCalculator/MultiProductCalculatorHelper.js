@@ -1352,7 +1352,14 @@
         console.log('AM158_AQ162_AM164_AQ165===='+AM158_AQ162_AM164_AQ165);
         var AG191 =cmp.find("MonthlyLoanPayment1Un").get("v.value");  //Monthly Loan Payment
         console.log('AG191===='+AG191);
-        var apc = (AW57+Math.max(AG158_AL162_AG164_AL165,AM158_AQ162_AM164_AQ165)+AG191)/AW56;
+        console.log('new1===='+AG158_AL162_AG164_AL165);
+        console.log('new2===='+AM158_AQ162_AM164_AQ165);
+        console.log('new3===='+AW56);
+        var maxval=Math.max(AG158_AL162_AG164_AL165,AM158_AQ162_AM164_AQ165);
+        console.log('new4===='+maxval);
+        var apct = parseFloat(AW57)+parseFloat(maxval)+parseFloat(AG191);
+        console.log('new5===='+apct);
+        var apc = apct/AW56;
         console.log('apc===='+apc);
         apc = apc*100;
         cmp.find("AfterProposedCredit").set("v.value", apc.toFixed(2)+'%');

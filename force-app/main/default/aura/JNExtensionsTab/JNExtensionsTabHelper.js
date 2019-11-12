@@ -17,7 +17,7 @@
             const state = response.getState();
             if (state === "SUCCESS") {
                 console.log(JSON.parse(JSON.stringify(response.getReturnValue())));
-                component.set("v.extensionList", {});
+                component.set("v.extensionList", []);
                 
                 this.sendEvents(
                     component,

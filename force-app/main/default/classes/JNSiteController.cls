@@ -2,6 +2,12 @@ public class JNSiteController {
     
     @AuraEnabled
     public static List<String> getPickListValues(String objectApiName, String fieldApiName){
+        String recordTypeId;
+        /*if(recordTypeName != null){
+            //recordTypeId = getRecordTypeId(recordTypeName);
+        }*/
+        
+        //List<String> specificValues = getPicklistValuesUIApi(recordTypeId,objectApiName,fieldApiName);
         List<String> pickListValuesList= new List<String>();
         Map<String , Schema.SObjectType> globalDescription = Schema.getGlobalDescribe();
         Schema.sObjectType sObjType = globalDescription.get(objectApiName);
@@ -12,44 +18,61 @@ public class JNSiteController {
         Schema.DescribeFieldResult fieldResult = field.getDescribe();
         List<Schema.PicklistEntry> ple = fieldResult.getPicklistValues();
         for( Schema.PicklistEntry pickListVal : ple){
-            pickListValuesList.add(pickListVal.getLabel());
-        } 
+            
+                    pickListValuesList.add(pickListVal.getLabel());
+            } 
+            
+            
         return pickListValuesList;
     }
+    
     @AuraEnabled
-    public static Map<String, List<String>> getPickListValuesList(String objectApiName, List<String> fieldApiNames){
+    public static Object getPickListValuesList(String objectApiName, List<String> fieldApiNames){
+        String recordTypeId;
+        /*if(recordTypeName != null){
+            recordTypeId = getRecordTypeId(recordTypeName);
+        }*/
+        
         List<String> pickListValuesList= new List<String>();
         Map<String, List<String>> mapFields = new Map<String, List<String>>();
-        
+         List<String> specificValues;
         Map<String , Schema.SObjectType> globalDescription = Schema.getGlobalDescribe();
         Schema.sObjectType sObjType = globalDescription.get(objectApiName);
         Schema.DescribeSObjectResult r1 = sObjType.getDescribe();
         Map<String , Schema.SObjectField> mapFieldList = r1.fields.getMap();
         
         for(String fieldApiName: fieldApiNames){
+            
             Schema.SObjectField field = mapFieldList.get(fieldApiName);
             Schema.DescribeFieldResult fieldResult = field.getDescribe();
             List<Schema.PicklistEntry> ple = fieldResult.getPicklistValues();
             pickListValuesList = new List<String>();
-            for( Schema.PicklistEntry pickListVal : ple){
-                pickListValuesList.add(pickListVal.getLabel());
+            for( Schema.PicklistEntry pickListVal : ple){                
+                     pickListValuesList.add(pickListVal.getLabel());
+                
             } 
             mapFields.put(fieldApiName, pickListValuesList);
         }
         
         return mapFields;
     }
+
     @AuraEnabled
     public static Object updateApplicantTextInfo(Map<String, String> applicantDetails ,  String leadId ){
         try {
             Map<String, String> decimalFields = new Map<String, String>{
                 'Mailing_Years_at_Residence__c' => 'Mailing_Years_at_Residence__c',
-                    'Years_at_Residence__c' => 'Years_at_Residence__c'
+                    'Years_at_Residence__c' => 'Years_at_Residence__c',
+                    'Self_Employed_Time_in_Present_Industry__c' => 'Self_Employed_Time_in_Present_Industry__c',
+                    'Time_with_Current_Employer__c' => 'Time_with_Current_Employer__c',
+                    'Time_in_Industry__c' => 'Time_in_Industry__c',
+                    'Self_Employed_Time_in_Present_Industry__c' => 'Self_Employed_Time_in_Present_Industry__c'
                     };
                         Map<String, String> dateFields = new Map<String, String>{
                             'Preferred_Date_of_Contact__c' => 'Preferred_Date_of_Contact__c',
                                 'Date_of_Birth__c' => 'Date_of_Birth__c',
-                                'Identification_Type_Expiration__c' => 'Identification_Type_Expiration__c'
+                                'Identification_Type_Expiration__c' => 'Identification_Type_Expiration__c',
+                                'Date_of_Incorporation__c' => 'Date_of_Incorporation__c'
                                 };
                                     Lead newLead = new Lead(Id=leadId);
             for(String field: applicantDetails.keySet()){ 
@@ -201,7 +224,7 @@ public class JNSiteController {
             return e;
         }
     }
-    
+    @AuraEnabled public String value;
     public static Time updateTime(String strTimeChange){
         
         String[] strTimeSplit = strTimeChange.split(':');
@@ -210,5 +233,59 @@ public class JNSiteController {
                                 ,0                                //sec
                                 ,0);  
         
+    }
+    /* Making callout to the UI API to get the list of available picklist values based on the selected recordtype  */
+    @AuraEnabled
+    public static string[] getPicklistValuesUIApi(string recordTypeId, string ObjectApiName,string fieldApiName){
+        
+        string[] piclistValues=new string[]{};
+            string BaseUrl=system.Url.getOrgDomainUrl().toExternalForm();
+        
+        httprequest request= new httprequest();
+        request.setMethod('GET');
+        request.setEndpoint(BaseUrl+'/services/data/v47.0/ui-api/object-info/'+ObjectApiName+'/picklist-values/'+recordTypeId+'/'+fieldApiName);
+        request.setHeader('Content-Type','application/json; charset=UTF-8');
+        request.setHeader('Accept','application/json');
+        request.setHeader('Authorization', 'Bearer ' +  getSessionIdFromVfPage());
+
+        
+        http http = new http();
+        httpresponse response=http.send(request);
+        picklistWrapper obj=new picklistWrapper();
+        System.debug('Wrapper ' + UserInfo.getSessionId());
+        //obj=(picklistWrapper)JSON.deserialize(response.getBody(), picklistWrapper.class);
+        
+       // for(piclistValues pickVal:obj.values){
+          //  piclistValues.add(pickVal.value);
+       // }
+        return null;
+    }
+    //Wrapper class to handle the JSON response
+    
+    public class picklistWrapper{
+        @AuraEnabled public piclistValues[] values;
+    }
+    
+    public class piclistValues {
+        @AuraEnabled public String label;	
+        @AuraEnabled public String value;
+    }
+    @AuraEnabled 
+    public static String getRecordTypeId(String recordTypeName) {
+        return [SELECT id FROM RecordType WHERE DeveloperName = :recordTypeName].Id;
+    }
+        //Getting the session Id from the VF page to make the callouts
+    private static string getSessionIdFromVfPage(){
+        PageReference visualforcePage = Page.SessionIdPage;
+        String content;
+        try{
+            content = visualforcePage.getContent().toString();
+        }
+        catch(VisualforceException e){
+            content ='ID'+userinfo.getSessionId()+'END';
+		}
+        Integer s = content.indexOf('ID') + 'ID'.length();
+        Integer e = content.indexOf('END');
+        return content.substring(s, e);
     }
 }

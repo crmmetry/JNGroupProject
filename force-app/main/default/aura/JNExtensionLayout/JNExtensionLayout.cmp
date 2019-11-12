@@ -40,7 +40,7 @@
             <lightning:input
               name="middle_name"
               label="Middle Name"
-              required="true"
+              required="false"
               aura:id="validation"
               value="{!v.SiteLead.Middle_Name__c}"
             />

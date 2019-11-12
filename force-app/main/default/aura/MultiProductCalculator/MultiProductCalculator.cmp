@@ -106,6 +106,7 @@
     <aura:attribute name="CCPromotion" type="String" default=""/>
     <aura:attribute name="LOCPromotion" type="String" default=""/>
     <aura:attribute name="ApplicantCount" type="integer" default=""/>
+    <aura:attribute name="ismoratorium" type="Boolean" default="false"/>
     <aura:handler name="lookupSelect" event="c:sObjectLookupSelectEvent" action="{!c.handleLookupSelectEventProductDetail}" />
     
     <form class="slds-form ">
@@ -116,9 +117,12 @@
             <aura:if isTrue="{!v.isProductDetail}">
                 <legend class="slds-text-heading--large slds-p-vertical--medium" >PRODUCT DETAILS</legend>
             </aura:if>
+            
+            
             <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1" >
                 <div  class="slds-section__title slds-border_bottom">Product Selection &amp; Applicant Details</div>
                 <div class="slds-grid slds-wrap" style="margin-top:10px;">
+                  
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12" style="padding-right: 5px;padding-left: 5px;">
                         <lightning:select label="Select the application product combination" name="selectapplicant"  aura:id="selectapplicant" required="true" onchange="{! c.showhideONmethod }" disabled="{!v.isProductDetail}">
                             <option value="0">choose one...</option>
@@ -496,7 +500,7 @@
                     </div>
                     <div class="slds-grid slds-wrap">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12" style="padding-right: 5px;padding-left: 5px;">
-                            <lightning:select label="Other post moratorium options" name="Other post moratorium options"  aura:id="Othee_post_moratorium__id" required="true">
+                            <lightning:select label="Other post moratorium options" name="Other post moratorium options"  aura:id="Othee_post_moratorium__id" required="true" onchange="{!c.ShowHideOnIncludeamoratoriumofloanrepayments }">
                                 <option value="0">choose one...</option>
                                 <option value="1">Maintain original loan term</option>
                                 <option value="2">Extend original loan term by moratorium period</option>
@@ -1779,6 +1783,68 @@
                             </div>
                         </div>
                     </div>
+                    <!--// CREDIT REPAYMENT ALLOCATION Auto-->
+                    <aura:if isTrue="{!v.isProductDetail}">
+                <div class="slds-grid slds-wrap" style="margin-top:10px;">
+                    <div style=" text-decoration: underline;font-weight: bold;">CREDIT REPAYMENT ALLOCATION</div>
+                    <div class="slds-section__title  slds-large-size_12-of-12" style="font-style: italic;"><p>Please allocate the proposed loan amount and monthly payments among the Applicant(s)</p></div>
+                    
+                    <div  class="slds-section__title" style="margin-top:10px;font-weight: bold;">Applicant1</div>
+                    <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12" style="float:left;" >
+                                <lightning:input label="Loan Amount (%)" type="number" name="Loan Amount" aura:id="LoanAmountauto1"  />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="float:left; margin-top:5px;" >
+                                <lightning:input  label=" " disabled="true" type="text" aura:id="LoanAmountauto11" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_3-of-12" style="float:left; margin-left:5px;"   >
+                                <lightning:input label="Monthly Payment (%)" name="Monthly Payment"  type="number"  aura:id="MonthlyPaymentauto1" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="float:left; margin-top:5px;" >
+                                <lightning:input label=" " disabled="true" type="text"  aura:id="MonthlyPaymentauto11" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div  class="slds-section__title " style="margin-top:10px;font-weight: bold;">Applicant2</div>
+                    <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12" style="float:left;" >
+                                <lightning:input label="Loan Amount (%)" type="number" name="Loan Amount (%)" aura:id="LoanAmountauto2" required="{!v.ReqP}" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="float:left;margin-top:5px;" >
+                                <lightning:input  label=" " disabled="true" type="text" name="Monthly Payment" aura:id="LoanAmountauto21" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_3-of-12" style="float:left; margin-left:5px;"   >
+                                <lightning:input label="Monthly Payment (%)"  type="number"  aura:id="MonthlyPaymentauto2" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="float:left;margin-top:5px;" >
+                                <lightning:input label=" " disabled="true" type="text"  aura:id="MonthlyPaymentauto21" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div  class="slds-section__title" style="margin-top:10px;font-weight: bold;">Applicant3</div>
+                    <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12" style="float:left;" >
+                                <lightning:input label="Loan Amount (%)" type="number" name="Loan Amount (%)" aura:id="LoanAmountauto3" required="{!v.ReqP}" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="float:left;margin-top:5px;" >
+                                <lightning:input  label=" " disabled="true" type="text" aura:id="LoanAmountauto31" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_3-of-12" style="float:left; margin-left:5px;"   >
+                                <lightning:input label="Monthly Payment (%)" name="Monthly Payment" type="number"  aura:id="MonthlyPaymentauto3" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="float:left;margin-top:5px;" >
+                                <lightning:input label=" " disabled="true" type="text"  aura:id="MonthlyPaymentauto31" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aura:if>
                     <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-4 slds-large-size_2-of-4">
@@ -2067,6 +2133,69 @@
                             </div>
                         </div>
                     </div>
+                    <!--//CREDIT REPAYMENT ALLOCATION UnSecure-->
+                    <aura:if isTrue="{!v.isProductDetail}">
+                <div class="slds-grid slds-wrap" style="margin-top:10px;">
+                    <div style=" text-decoration: underline;font-weight: bold;">CREDIT REPAYMENT ALLOCATION</div>
+                    <div class="slds-section__title  slds-large-size_12-of-12" style="font-style: italic;"><p>Please allocate the proposed loan amount and monthly payments among the Applicant(s)</p></div>
+                    
+                    <div  class="slds-section__title" style="margin-top:10px;font-weight: bold;">Applicant1</div>
+                    <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12" style="float:left;" >
+                                <lightning:input label="Loan Amount (%)" type="number" name="Loan Amount" aura:id="LoanAmountUn1"/>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="float:left; margin-top:5px;" >
+                                <lightning:input  label=" " disabled="true" type="text" aura:id="LoanAmountUn11" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_3-of-12" style="float:left; margin-left:5px;"   >
+                                <lightning:input label="Monthly Payment (%)" name="Monthly Payment"  type="number"  aura:id="MonthlyPaymentUn1" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="float:left; margin-top:5px;" >
+                                <lightning:input label=" " disabled="true" type="text"  aura:id="MonthlyPaymentUn11" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div  class="slds-section__title " style="margin-top:10px;font-weight: bold;">Applicant2</div>
+                    <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12" style="float:left;" >
+                                <lightning:input label="Loan Amount (%)" type="number" name="Loan Amount (%)" aura:id="LoanAmountUn2" required="{!v.ReqP}" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="float:left;margin-top:5px;" >
+                                <lightning:input  label=" " disabled="true" type="text" name="Monthly Payment" aura:id="LoanAmountUn21" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_3-of-12" style="float:left; margin-left:5px;"   >
+                                <lightning:input label="Monthly Payment (%)"  type="number"  aura:id="MonthlyPaymentUn2" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="float:left;margin-top:5px;" >
+                                <lightning:input label=" " disabled="true" type="text"  aura:id="MonthlyPaymentUn21" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div  class="slds-section__title" style="margin-top:10px;font-weight: bold;">Applicant3</div>
+                    <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12" style="float:left;" >
+                                <lightning:input label="Loan Amount (%)" type="number" name="Loan Amount (%)" aura:id="LoanAmountUn3" required="{!v.ReqP}" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="float:left;margin-top:5px;" >
+                                <lightning:input  label=" " disabled="true" type="text" aura:id="LoanAmountUn31" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_3-of-12" style="float:left; margin-left:5px;"   >
+                                <lightning:input label="Monthly Payment (%)" name="Monthly Payment" type="number"  aura:id="MonthlyPaymentUn3" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="float:left;margin-top:5px;" >
+                                <lightning:input label=" " disabled="true" type="text"  aura:id="MonthlyPaymentUn31" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aura:if>
+                    
                     <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-4 slds-large-size_2-of-4">
@@ -2209,6 +2338,68 @@
                         
                         
                     </div>
+                    <!--///CREDIT REPAYMENT ALLOCATION LOC-->
+                    <aura:if isTrue="{!v.isProductDetail}">
+                <div class="slds-grid slds-wrap" style="margin-top:10px;">
+                    <div style=" text-decoration: underline;font-weight: bold;">CREDIT REPAYMENT ALLOCATION</div>
+                    <div class="slds-section__title  slds-large-size_12-of-12" style="font-style: italic;"><p>Please allocate the proposed loan amount and monthly payments among the Applicant(s)</p></div>
+                    
+                    <div  class="slds-section__title" style="margin-top:10px;font-weight: bold;">Applicant1</div>
+                    <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12" style="float:left;" >
+                                <lightning:input label="LOC Limit (%)" type="number" name="LOC Limit (%)" aura:id="LOCLimit1" required="{!v.ReqP}" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="float:left; margin-top:5px;" >
+                                <lightning:input  label=" " disabled="true" type="text" aura:id="LOCLimit11" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12" style="float:left; margin-left:5px;"   >
+                                <lightning:input label="Minimum Payment"  type="number"  aura:id="MinimumPayment1" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="float:left; margin-top:5px;" >
+                                <lightning:input label=" " disabled="true" type="text"  aura:id="MinimumPayment11" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div  class="slds-section__title " style="margin-top:10px;font-weight: bold;">Applicant2</div>
+                    <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12" style="float:left;" >
+                                <lightning:input label="LOC Limit (%)" type="number" name="LOC Limit (%)" aura:id="LOCLimit2" required="{!v.ReqP}" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="float:left;margin-top:5px;" >
+                                <lightning:input  label=" " disabled="true" type="text" aura:id="LOCLimit21" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12" style="float:left; margin-left:5px;"   >
+                                <lightning:input label="Minimum Payment"  type="number"  aura:id="MinimumPayment2" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="float:left;margin-top:5px;" >
+                                <lightning:input label=" " disabled="true" type="text"  aura:id="MinimumPayment21" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div  class="slds-section__title" style="margin-top:10px;font-weight: bold;">Applicant3</div>
+                    <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12" style="float:left;" >
+                                <lightning:input label="LOC Limit (%)" type="number" name="LOC Limit (%)" aura:id="LOCLimit3" required="{!v.ReqP}" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="float:left;margin-top:5px;" >
+                                <lightning:input  label=" " disabled="true" type="text" aura:id="LOCLimit31" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12" style="float:left; margin-left:5px;"   >
+                                <lightning:input label="Minimum Payment"  type="number"  aura:id="MinimumPayment3" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="float:left;margin-top:5px;" >
+                                <lightning:input label=" " disabled="true" type="text"  aura:id="MinimumPayment31" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aura:if>
                     <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">FEE AND CHARGES</div>
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12 fl" >
                         <lightning:input class="mTop " type="text" value="JMD" disabled="true"   aura:id="locAnFee"/>

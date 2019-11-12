@@ -73,6 +73,7 @@
                                     <div class="slds-card__body slds-card__body_inner">
                                         <c:JNGeneralDetailsTab
                                                                aura:id="General_Details"
+                                                               loan_type="{!v.loan_type}"
                                                                SiteLead="{!v.SiteLead}"
                                                                />
                                     </div>
@@ -104,7 +105,7 @@
                                                label="7: Employment Details"
                                                id="Employment_Details_Tab"
                                                >
-                                    <c:JNEmploymentDetailsTab aura:id="Employment_Details" />
+                                    <c:JNEmploymentDetailsTab aura:id="Employment_Details" leadId="{!v.SiteLead.Id}" />
                                 </lightning:tab>
                                 <lightning:tab label="8: Affiliations" id="Affiliations_Tab">
                                     <div class="slds-card__body slds-card__body_inner">

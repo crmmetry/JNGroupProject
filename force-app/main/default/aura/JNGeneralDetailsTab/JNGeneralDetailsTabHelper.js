@@ -44,7 +44,7 @@
     createLead: function(component) {
         console.log("General Details", component.get("v.SiteLead"))
         let serviceofInterest;
-        if (component.get("v.loan_type") === "credit_card") {
+        if (component.get("v.loan_type") == "credit_card") {
             serviceofInterest = "JN Bank Credit Card";
         } else {
             serviceofInterest = "JN Bank Unsecured Loan";

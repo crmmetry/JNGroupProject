@@ -191,11 +191,20 @@
         $A.enqueueAction(cmp.get('c.ApplicantDetailsChange'));
         
         
+        
     },
     Requestdetaileventhandler : function(cmp, event, helper){
         console.log('Test4===========');
-        var RequestData = event.getParam("RequestData");
-        cmp.set("v.RDetailAuto", RequestData);
+        var RequestData;
+        var notevent=cmp.get("v.ismoratorium");
+        if(notevent){
+            RequestData=cmp.get("v.RDetailAuto");
+            cmp.set("v.ismoratorium", false);
+        }
+        else{
+            RequestData = event.getParam("RequestData");
+            cmp.set("v.RDetailAuto", RequestData);
+        }
         var loanterm = Number(RequestData[0].LoanTerm1*12)+Number(RequestData[0].LoanTerm2);
         cmp.set("v.LoanTermMarket", loanterm);
         for(var k in RequestData) {
@@ -670,13 +679,19 @@
         }
     },
     ShowHideOnIncludeamoratoriumofloanrepayments: function(cmp, evt, helper){
-        helper.calculateJNLifeMonthlyPremiumhelper(cmp, event);
+        
+        // helper.calculateJNLifeMonthlyPremiumhelper(cmp, event);
         console.log('moratorium===========1');
-        helper.calculateProcessingFeehelper(cmp, event);
+        //helper.calculateProcessingFeehelper(cmp, event);
         console.log('moratorium===========2');
-        helper.calculateJNGIMonthlyPremiumhelper(cmp, event);
+        // helper.calculateJNGIMonthlyPremiumhelper(cmp, event);
         console.log('moratorium===========3');
-        helper.calculateTotalautoloan(cmp, event);
+        // helper.calculateTotalautoloan(cmp, event);
+        cmp.set("v.ismoratorium", true);
+        console.log('enqueueAction===========1'+cmp.get("v.ismoratorium"));
+        $A.enqueueAction(cmp.get('c.Requestdetaileventhandler'));
+        
+        console.log('enqueueAction===========2');
         var acMethod = cmp.find("Includeamoratoriumofloanrepayments").get("v.value");
         console.log('moratorium==========='+acMethod);
         switch(acMethod){
@@ -1835,7 +1850,7 @@
                     if(invaliddobstr=='ok')
                         invaliddobstr='Applicant 2 must be over 18 or under 65.';
                     else
-                    	invaliddobstr=invaliddobstr+'Applicant 2 must be over 18 or under 65.';
+                        invaliddobstr=invaliddobstr+'Applicant 2 must be over 18 or under 65.';
                     
                 }
             }
@@ -1852,7 +1867,7 @@
                     if(invaliddobstr=='ok')
                         invaliddobstr='Applicant 3 must be over 18 or under 65.';
                     else
-                    	invaliddobstr=invaliddobstr+'Applicant 3 must be over 18 or under 65.';
+                        invaliddobstr=invaliddobstr+'Applicant 3 must be over 18 or under 65.';
                     
                 }
             }
@@ -2761,6 +2776,18 @@
         }
     },
     CalculateMinimumMV: function(cmp, evt, helper){
+        
+    },
+    showLoanAmountUn1 : function(cmp, event, helper) {
+		console.log('showLoanAmountUn1 == ');
+        var loanamt1=cmp.find("LoanAmountUn1").get("v.value");
+		console.log('loanamt1 == '+loanamt1);
+        var perloanamt1=loanamt1/100;
+        var totalval1 = cmp.find("TotalLoanAmount1Un").get("v.value");
+		console.log('totalval1 == '+totalval1);
+        var param1 = totalval1*perloanamt1;
+		console.log('param1 == '+param1);
+        cmp.find("LoanAmountUn11").set("v.value",param1);
         
     },
     

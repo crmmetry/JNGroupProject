@@ -16,17 +16,19 @@
     <aura:attribute name="crmmObjectSelected" type="String"/>
     <aura:attribute name="crmmObjectField" type="String"/>
     <aura:attribute name="values" type="String[]"/>
+    <aura:attribute name="recordTypeId" type="String"/>
+        <aura:attribute name="recordTypeName" type="String"/>
     <aura:attribute name="validate" type="Aura.Action" 
                     description="Custom validation function to run when the flow is navigated to the next screen. 
                                  The function must evaluate the component and return values for isValid and errorMessage."/>
 
 
     <lightning:layout>
-    <lightning:layoutItem size="9">
+    <lightning:layoutItem size="5">
       <!-- first row -->
       <div class="slds-grid slds-gutters">
         <!-- Title -->
-        <div class="slds-col">
+        <div class="slds-col wrapper">
           <lightning:select
             name="title"
             label="Title"

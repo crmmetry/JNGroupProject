@@ -17,7 +17,7 @@
       const state = response.getState();
       if (state === "SUCCESS") {
 			//reset  list	
-        component.set("v.affiliateList", {});		
+        component.set("v.affiliateList", []);		
         this.sendEvents(
           component,
           ["navigateNext"],

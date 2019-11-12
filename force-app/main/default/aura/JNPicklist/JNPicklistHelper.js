@@ -8,7 +8,7 @@
 
     action.setParams({
       objectApiName: objName,
-      fieldApiName: objField
+      fieldApiName: objField,
     });
     action.setCallback(this, function(response) {
       const state = response.getState();
