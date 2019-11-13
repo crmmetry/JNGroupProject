@@ -220,7 +220,7 @@ public class MultiProductCalculatorController {
         if(lstopp.size()>0){
             system.debug('lstopp========='+lstopp);
             for(Opportunity a:lstopp){
-                accid.add(a.Accountid);
+                //accid.add(a.Accountid);
                 if(a.Existing_monthly_debts_being_serviced__c !=NULL)
                     EMCPayment = a.Existing_monthly_debts_being_serviced__c;
             }
@@ -590,6 +590,32 @@ if (Primary Income Type = Self-Employed)
             system.debug('Exception ======'+ex.getMessage()+'....Line Number=>'+ex.getLineNumber());           
         }
         return false;
+    }
+    
+    @AuraEnabled  
+    public static list<WrapperclsAssets> getApplicantAsset(string oppid){
+        list<WrapperclsAssets> wrapperlstAssets= new list<WrapperclsAssets>();
+        list<Application_Asset_Liability__c> lst = [select Assets_and_Liabilities__r.RecordType.Name,
+                                                   Assets_and_Liabilities__r.Monthly_Payment_Prior__c,
+                                                    Assets_and_Liabilities__r.Minimum_Payment__c,
+                                                    Assets_and_Liabilities__r.Monthly_Payment__c,
+                                                    Assets_and_Liabilities__r.Minimum_Payment_After__c
+                                                    from Application_Asset_Liability__c where Application__r.Opportunity__c =:oppid];
+        list<Applicant__c> applst = [select Gross_Monthly_IncomeC__c from Applicant__c where Opportunity__c=:oppid];
+    wrapperlstAssets.add( new WrapperclsAssets(lst, applst));
+        return wrapperlstAssets;
+    }
+    public class WrapperclsAssets{
+        @AuraEnabled
+        public list<Application_Asset_Liability__c> ApplicationAssetLiability {get;set;}
+        @AuraEnabled
+        public list<Applicant__c> Applicantlst{get;set;}
+       
+        WrapperclsAssets(list<Application_Asset_Liability__c> Application_Asset_Liability, list<Applicant__c> Applst){
+            this.ApplicationAssetLiability=Application_Asset_Liability;
+            this.Applicantlst=Applst;
+           
+        }
     }
     
 }

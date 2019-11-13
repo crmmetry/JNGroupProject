@@ -16,6 +16,9 @@
         
         
     },
+    PrindPage : function(cmp, event, helper){
+        window.print();
+    },
     Createapplicantlist : function(cmp, event, helper){
         var ApplicantRow=[{
             "Id":1,
@@ -260,7 +263,16 @@
         helper.calculateTotalautoloan(cmp, event);
         
     },
-    calculateLoansaving:function(cmp, event, helper) {       
+    calculateLoansaving:function(cmp, event, helper) { 
+       // console.log('==================1');
+        //var currentEvt = event.currentTarget;
+        //console.log('==================2='+currentEvt);
+       // var data_Value = event.getSource().get("v.name");   //.dataset.value;
+       // console.log('=================='+data_Value);
+        
+        
+        
+        
         var amount = cmp.find("ProposedSavings5").get("v.value");
         var percentage = cmp.find("ProposedSavings1").get("v.value");
         console.log('percentage ----------'+percentage);
@@ -278,6 +290,17 @@
                 console.log('Both NUll ----------');
                 cmp.set("v.disabledPSP", false);
                 cmp.set("v.disabledPSA", false);
+                
+               // if(data_Value=='Proposed Savings'){
+                    //cmp.set('v.ReqPSP',true);
+                //    var inputCmp = cmp.find("ProposedSavings5");
+                //    console.log('Both NUll ----------1='+inputCmp);
+               //     inputCmp.set("v.errors", [{message:"This field is required!"}]);
+                //}
+                
+                
+                
+                
             }
         
         helper.calculateTotalautoloan(cmp, event);

@@ -91,6 +91,7 @@
     <aura:attribute name="ReqPSP" type="Boolean" default="false"/>
     
     <form class="slds-form ">
+         <!--<lightning:button variant="brand" aura:id="btnPrint" label="Print" title="Print" onclick="{! c.PrindPage }"  />-->
         <fieldset  class="slds-box slds-theme--default slds-container--large" style="padding-right: 5px;">
             <legend class="slds-text-heading--large
                            slds-p-vertical--medium" >

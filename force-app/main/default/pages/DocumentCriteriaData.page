@@ -23,7 +23,7 @@ if(typeof callback == 'function') callback();
 
 console.log("Loading lightning component: pdfgenerator");
 $Lightning.use("c:DocumentCriteriaApp", function() {
-$Lightning.createComponent("c:DocumentCriteriaHelper",
+$Lightning.createComponent("c:MultiProductCalculator",
 { 
 sendData : saveData
 },

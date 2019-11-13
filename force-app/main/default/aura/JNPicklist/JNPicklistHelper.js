@@ -3,8 +3,7 @@
     const action = component.get("c.getPickListValues");
     const objName = component.get("v.crmmObjectname");
     const objField = component.get("v.crmmObjectField");
-    const crmmLabel = component.get("v.crmmLabel");
-    const selected = component.get("v.crmmObjectSelected");
+
     const recordTypeName = component.get("v.recordTypeName");
     const recordTypeId = component.get("v.recordTypeId");
     action.setParams({
@@ -17,15 +16,8 @@
     action.setCallback(this, function(response) {
       const state = response.getState();
       if (state === "SUCCESS") {
-        if (crmmLabel != null) {
-          component.find("picklistChoices").set("v.label", crmmLabel);
-        }
         const values = response.getReturnValue();
-        if (selected) {
-          component
-            .find("picklistChoices")
-            .set("v.crmmObjectSelected", selected);
-        }
+        component.find("picklistChoices").set("v.value", component.get("v.crmmObjectSelected"));
         component.set("v.values", values);
       }
     });
