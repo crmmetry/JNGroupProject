@@ -1,5 +1,5 @@
 trigger NewOpportunityTrigger on Opportunity (before insert, after insert,after update, before update) {
-    OpportunityTriggerHandler.init(Trigger.new, Trigger.oldMap);
+    OpportunityTriggerHandler.init(Trigger.new, Trigger.oldMap, Trigger.newMap);
     Set<id> oppid = new set<id>(); 
     if(Trigger.isUpdate) {
         if(Trigger.isAfter) {
@@ -21,11 +21,11 @@ trigger NewOpportunityTrigger on Opportunity (before insert, after insert,after 
         }
     }
     OpportunityTriggerHandler.setOpportunityAmountOnLead(Trigger.isAfter, Trigger.isUpdate, Trigger.isInsert);
-    /*if(oppid.size()>0){ //NEED TO SYNC WITH DEVS
+    if(oppid.size()>0){ //NEED TO SYNC WITH DEVS
          if(CreditScoreHelper.FirstRun)
             return;
         System.debug('CreditScore called=====>');
         CreditScoreHelper cs = new CreditScoreHelper();
         cs.CreditScoreFromOpp(oppid);
-    }*/
+    }
 }

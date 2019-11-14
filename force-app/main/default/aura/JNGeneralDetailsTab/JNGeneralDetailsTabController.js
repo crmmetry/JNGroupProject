@@ -16,7 +16,7 @@
             Country_of_Citizenship__c: "Jamaica",
             Country_of_Residence__c: "Jamaica",
             Highest_Level_of_Education_Attained__c: "",
-            Supplementary_Applicant_TRN__c: 0,
+            Jamaican_Tax_Registration_Number__c: 0,
             Service_of_Interest__c:""
         };
         let current_datetime = new Date()

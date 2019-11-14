@@ -1447,8 +1447,10 @@
         var AnnualMembershipPerSupplementaryCardClassic = 1720.01;//=Admin_Tables!$F$21
         cmp.find("ccAnnualMembershippersupplementaryApplicant").set("v.value",AnnualMembershipPerSupplementaryCardClassic);
         
-        
-        helper.ShowTotalAsPerCalculatorSelected(cmp);
+        if(cmp.get("v.isProductDetail"))
+            helper.ExistingAssetsandLiabilities(cmp);
+        else
+            helper.ShowTotalAsPerCalculatorSelected(cmp);
     },
     //------Line of Credit calculation start------
     LineOfCreditOnLoad : function(cmp,evt,helper){
@@ -1757,10 +1759,189 @@
         cmp.find("locMinimumPaymentAsPerCreditLimit").set("v.value",helper.checkNaN(MinimumPaymentAsPerCreditLimit).toFixed(2));
         cmp.find("locAnnualFacilityFee").set("v.value",helper.checkNaN(AnnualFacilityFee).toFixed(2));
         
+        if(cmp.get("v.isProductDetail"))
+            helper.ExistingAssetsandLiabilities(cmp);
+        else
             helper.ShowTotalAsPerCalculatorSelected(cmp);
         
     },
     SaveData: function(cmp,evt,helper){
+        var calc = cmp.find("selectapplicant").get("v.value");
+        var isprod=cmp.get("v.isProductDetail");
+        if(isprod){
+            var isPortionValid=true;
+            var isProposedHaveValue=true;
+            if(calc=='1' || calc=='6'){
+                var App1Portion=cmp.get('v.isAutoLoanPortionValid');
+                var App1PortionPay=cmp.get('v.isAutoPayPortionValid');
+                if(App1Portion || App1PortionPay){
+                    isPortionValid=false; 
+                }
+                console.log('validation 1 & 6 ===========>'+isPortionValid);
+                var psautoP = cmp.find('ProposedSavings1').get('v.value');
+                var psautoA = cmp.find('ProposedSavings5').get('v.value');
+                if(psautoP =='' && psautoA==''){
+                    isProposedHaveValue=false;
+                    cmp.set('v.isProposedAuto',true);
+                }
+                else{
+                    cmp.set('v.isProposedAuto',false);
+                }
+                
+            }        
+            if(calc=='2' || calc=='8'){
+                var App2Portion=cmp.get('v.isUnsecureLoanPortionValid');
+                var App2PortionPay=cmp.get('v.isUnsecurePayPortionValid');
+                if(App2Portion || App2PortionPay){
+                    isPortionValid=false; 
+                }
+                console.log('validation 2 & 8 ===========>'+isPortionValid);
+                var psautoP = cmp.find('ProposedSavings1Un').get('v.value');
+                var psautoA = cmp.find('ProposedSavings5Un').get('v.value');
+                if(psautoP =='' && psautoA==''){
+                    isProposedHaveValue=false;
+                    cmp.set('v.isProposedUN',true);
+                }
+                else{
+                    cmp.set('v.isProposedUN',false);
+                }
+            }
+            if(calc=='4' || calc=='10'){
+                var App3Portion=cmp.get('v.isLocLoanPortionValid');
+                var App3PortionPay=cmp.get('v.isLocPayPortionValid');
+                if(App3Portion || App3PortionPay){
+                    isPortionValid=false; 
+                }
+                console.log('validation 4 & 10 ===========>'+isPortionValid);
+            }
+            if(calc=='5' || calc=='11'){
+                var App1Portion=cmp.get('v.isAutoLoanPortionValid');
+                var App1PortionPay=cmp.get('v.isAutoPayPortionValid');
+                var App2Portion=cmp.get('v.isUnsecureLoanPortionValid');
+                var App2PortionPay=cmp.get('v.isUnsecurePayPortionValid');
+                if(App1Portion || App2Portion || App1PortionPay || App2PortionPay){
+                    isPortionValid=false; 
+                }
+                console.log('validation 5 & 11 ===========>'+isPortionValid);
+                var psautoP = cmp.find('ProposedSavings1').get('v.value');
+                var psautoA = cmp.find('ProposedSavings5').get('v.value');
+                if(psautoP =='' && psautoA==''){
+                    isProposedHaveValue=false;
+                    cmp.set('v.isProposedAuto',true);
+                }
+                else{
+                    cmp.set('v.isProposedAuto',false);
+                }
+                
+                var psautoP = cmp.find('ProposedSavings1Un').get('v.value');
+                var psautoA = cmp.find('ProposedSavings5Un').get('v.value');
+                if(psautoP =='' && psautoA==''){
+                    isProposedHaveValue=false;
+                    cmp.set('v.isProposedUN',true);
+                }
+                else{
+                    cmp.set('v.isProposedUN',false);
+                }
+            }
+            if(calc=='7' || calc=='13'){
+                var App1Portion=cmp.get('v.isAutoLoanPortionValid');
+                var App1PortionPay=cmp.get('v.isAutoPayPortionValid');
+                var App3Portion=cmp.get('v.isLocLoanPortionValid');
+                var App3PortionPay=cmp.get('v.isLocPayPortionValid');
+                if(App1Portion || App3Portion || App1PortionPay || App3PortionPay){
+                    isPortionValid=false; 
+                }
+                console.log('validation 7 & 13 ===========>'+isPortionValid);
+                 var psautoP = cmp.find('ProposedSavings1').get('v.value');
+                var psautoA = cmp.find('ProposedSavings5').get('v.value');
+                if(psautoP =='' && psautoA==''){
+                    isProposedHaveValue=false;
+                    cmp.set('v.isProposedAuto',true);
+                }
+                else{
+                    cmp.set('v.isProposedAuto',false);
+                }
+               
+            }
+            if(calc=='9' || calc=='14'){
+                var App2Portion=cmp.get('v.isUnsecureLoanPortionValid');
+                var App2PortionPay=cmp.get('v.isUnsecurePayPortionValid');
+                var App3Portion=cmp.get('v.isLocLoanPortionValid');
+                var App3PortionPay=cmp.get('v.isLocPayPortionValid');
+                if(App2Portion || App3Portion || App2PortionPay || App3PortionPay){
+                    isPortionValid=false; 
+                }
+                console.log('validation 9 & 14 ===========>'+isPortionValid);
+               
+                var psautoP = cmp.find('ProposedSavings1Un').get('v.value');
+                var psautoA = cmp.find('ProposedSavings5Un').get('v.value');
+                if(psautoP =='' && psautoA==''){
+                    isProposedHaveValue=false;
+                    cmp.set('v.isProposedUN',true);
+                }
+                else{
+                    cmp.set('v.isProposedUN',false);
+                }
+            }
+            if(calc=='15' || calc=='12'){
+                var App1Portion=cmp.get('v.isAutoLoanPortionValid');
+                var App1PortionPay=cmp.get('v.isAutoPayPortionValid');
+                var App2Portion=cmp.get('v.isUnsecureLoanPortionValid');
+                var App2PortionPay=cmp.get('v.isUnsecurePayPortionValid');
+                var App3Portion=cmp.get('v.isLocLoanPortionValid');
+                var App3PortionPay=cmp.get('v.isLocPayPortionValid');
+                if(App1Portion || App2Portion || App3Portion || App1PortionPay || App2PortionPay || App3PortionPay){
+                    isPortionValid=false; 
+                }
+                console.log('validation 15 & 12 ===========>'+isPortionValid);
+                 var psautoP = cmp.find('ProposedSavings1').get('v.value');
+                var psautoA = cmp.find('ProposedSavings5').get('v.value');
+                if(psautoP =='' && psautoA==''){
+                    isProposedHaveValue=false;
+                    cmp.set('v.isProposedAuto',true);
+                }
+                else{
+                    cmp.set('v.isProposedAuto',false);
+                }
+                var psautoP = cmp.find('ProposedSavings1Un').get('v.value');
+                var psautoA = cmp.find('ProposedSavings5Un').get('v.value');
+                if(psautoP =='' && psautoA==''){
+                    isProposedHaveValue=false;
+                    cmp.set('v.isProposedUN',true);
+                }
+                else{
+                    cmp.set('v.isProposedUN',false);
+                }
+            }
+            console.log('validation of 100===========>'+isPortionValid);
+            if(!isPortionValid){
+                var toastEvent = $A.get("e.force:showToast");
+                toastEvent.setParams({
+                    title : 'Error',
+                    message: 'Please update the fields against page validation/s to proceed and Save.',
+                    duration:' 5000',
+                    key: 'info_alt',
+                    type: 'Error',
+                    mode: 'pester'
+                });
+                toastEvent.fire();
+                return null;
+            }
+            if(!isProposedHaveValue){
+                var toastEvent = $A.get("e.force:showToast");
+                toastEvent.setParams({
+                    title : 'Error',
+                    message: 'Please update the fields against page validation/s to proceed and Save.',
+                    duration:' 5000',
+                    key: 'info_alt',
+                    type: 'Error',
+                    mode: 'pester'
+                });
+                toastEvent.fire();
+                return null;
+            }
+        }
+        console.log('############### validation Pass ###############');
         
         var RId = cmp.get("v.recordId");
         var leadid='';
@@ -1792,7 +1973,7 @@
         var applicant3mcp='';
         var applicant3isjn=false;
         var numberapp;
-        var isprod1=cmp.get("v.isProductDetail");
+        
         
         console.log('pavit1');
         var numberapplst=cmp.get("v.RowNum");
@@ -1800,7 +1981,7 @@
             numberapp = numberapplst.length;
         console.log('pavit-1');
         console.log('pavit-1.1111==>'+cmp.find("CoverageType").get("v.value"));
-        var calc = cmp.find("selectapplicant").get("v.value");
+        //var calc = cmp.find("selectapplicant").get("v.value");
         if(calc=='1' || calc=='5' || calc=='6' || calc=='7' ||calc=='11' || calc=='12' || calc=='13' || calc=='15' ||calc=='2' || calc=='8' || calc=='9'  || calc=='14'){
             cmp.set("v.applicant1age", false);
             cmp.set("v.applicant2age", false);
@@ -2011,7 +2192,7 @@
         var PCL_Account_Hypothecated_another_Loan='';
         var PCL_Total_Existing_Loan_Balance='';
         //var Market Value of Property
-        var isprod=cmp.get("v.isProductDetail");
+        
         //=====Oppotunity Fields===========
         var Deduct1stmonthAuto='';
         var Account_Type='';
@@ -2051,7 +2232,7 @@
         var Waive_Process_Fee ='';
         var Year_of_Motor_Vehicle ='';
         var Market_Value_of_Propert='';
-          //CREDIT REPAYMENT ALLOCATION 
+        //CREDIT REPAYMENT ALLOCATION 
         var App_1_Loan_Amount_A='';
         var App_2_Loan_Amount_A='';
         var App_3_Loan_Amount_A='';
@@ -2075,7 +2256,32 @@
         var App_1_Monthly_Payment_UL='';
         var App_2_Monthly_Payment_UL='';
         var App_3_Monthly_Payment_UL='';
-       
+        
+        
+        var App1_Loan_Amt_Alloc_UL='';
+        var App2_Loan_Amt_Alloc_UL='';
+        var App3_Loan_Amt_Alloc_UL='';
+        var App1_Mnthly_Pmt_Alloc_UL='';
+        var App2_Mnthly_Pmt_Alloc_UL='';
+        var App3_Mnthly_Pmt_Alloc_UL='';
+        var App1_Loan_Amt_Alloc='';
+        var App2_Loan_Amt_Alloc='';
+        var App3_Loan_Amt_Alloc='';
+        var App1_Mnthly_Pmt_Alloc='';
+        var App2_Mnthly_Pmt_Alloc='';
+        var App3_Mnthly_Pmt_Alloc='';
+        var App1_Portion_LOC_Lim='';
+        var App2_Portion_LOC_Lim='';
+        var App3_Portion_LOC_Lim='';
+        var App1_Portion_Min_Pay_LOC='';
+        var App2_Portion_Min_Pay_LOC='';
+        var App3_Portion_Min_Pay_LOC='';
+        
+        
+        
+        
+        
+        
         var EmpRow=cmp.get("v.RowNum");
         for(var k in EmpRow) {
             Monthly_Gross_Income=EmpRow[k].GMIncome;
@@ -2215,24 +2421,24 @@
                 console.log('asdfsdfas------------Auto Loan');
                 console.log('cmp.find("ApplicantCount").get("v.value")-----------Auto Loan'+cmp.get("v.ApplicantCount"));
                 if(cmp.get("v.ApplicantCount")>=1){
-                    //App_1_Loan_Amount_A=parseFloat(cmp.find("LoanAmountauto11").get("v.value"));
-                    //App1_Monthly_Payment_A=parseFloat(cmp.find("MonthlyPaymentauto11").get("v.value"));
+                    App1_Loan_Amt_Alloc= cmp.find('LoanAmountauto11').get('v.value');
+                    App1_Mnthly_Pmt_Alloc= cmp.find('MonthlyPaymentauto11').get('v.value');
                     App_1_Loan_Amount_A=parseFloat(cmp.find("LoanAmountauto1").get("v.value"));
                     App1_Monthly_Payment_A=parseFloat(cmp.find("MonthlyPaymentauto1").get("v.value"));
                 }
                 if(cmp.get("v.ApplicantCount")>=2){
-                    //App_2_Loan_Amount_A=parseFloat(cmp.find("LoanAmountauto21").get("v.value"));
-                    //App_2_Monthly_Payment_A=parseFloat(cmp.find("MonthlyPaymentauto21").get("v.value"));
+                    App2_Loan_Amt_Alloc= cmp.find('LoanAmountauto21').get('v.value');
+					App2_Mnthly_Pmt_Alloc= cmp.find('MonthlyPaymentauto21').get('v.value');
                     App_2_Loan_Amount_A=parseFloat(cmp.find("LoanAmountauto2").get("v.value"));
                     App_2_Monthly_Payment_A=parseFloat(cmp.find("MonthlyPaymentauto2").get("v.value"));
                 }
                 if(cmp.get("v.ApplicantCount")>=3){
-                    //App_3_Loan_Amount_A=parseFloat(cmp.find("LoanAmountauto31").get("v.value"));
-                    //App_3_Monthly_Payment_A=parseFloat(cmp.find("MonthlyPaymentauto31").get("v.value"));
+                    App3_Loan_Amt_Alloc= cmp.find('LoanAmountauto31').get('v.value');
+					App3_Mnthly_Pmt_Alloc= cmp.find('MonthlyPaymentauto31').get('v.value');
                     App_3_Loan_Amount_A=parseFloat(cmp.find("LoanAmountauto3").get("v.value"));
                     App_3_Monthly_Payment_A=parseFloat(cmp.find("MonthlyPaymentauto3").get("v.value"));
                 }
-        
+                
                 if(cmp.find("Deductthe1stmonthrepayment").get("v.value") =='1'){
                     Deduct1stmonthAuto = 'Yes';
                 } else if(cmp.find("Deductthe1stmonthrepayment").get("v.value") =='2'){
@@ -2306,21 +2512,21 @@
             Total_unsecured_Loan_Fee_Charges=cmp.find("TotalAutoLoanFeesCharges1Un").get("v.value");
             if(isprod){
                 if(cmp.get("v.ApplicantCount")>=1){
-                    //App_1_Loan_Amount_UL=parseFloat(cmp.find("LoanAmountUn11").get("v.value"));
-                    //App_1_Monthly_Payment_UL=(cmp.find("MonthlyPaymentUn11").get("v.value"));
+                    App1_Loan_Amt_Alloc_UL= cmp.find('LoanAmountUn11').get('v.value');
+					App1_Mnthly_Pmt_Alloc_UL= cmp.find('MonthlyPaymentUn11').get('v.value');
                     App_1_Loan_Amount_UL=parseFloat(cmp.find("LoanAmountUn1").get("v.value"));
                     App_1_Monthly_Payment_UL=(cmp.find("MonthlyPaymentUn1").get("v.value"));
                 }
                 if(cmp.get("v.ApplicantCount")>=2){
-                    //App_2_Loan_Amount_UL=parseFloat(cmp.find("LoanAmountUn21").get("v.value"));
-                    //App_2_Monthly_Payment_UL=parseFloat(cmp.find("MonthlyPaymentUn21").get("v.value"));
+                    App2_Loan_Amt_Alloc_UL= cmp.find('LoanAmountUn21').get('v.value');
+					App2_Mnthly_Pmt_Alloc_UL= cmp.find('MonthlyPaymentUn21').get('v.value');
                     App_2_Loan_Amount_UL=parseFloat(cmp.find("LoanAmountUn2").get("v.value"));
                     App_2_Monthly_Payment_UL=parseFloat(cmp.find("MonthlyPaymentUn2").get("v.value"));
                 }
                 
                 if(cmp.get("v.ApplicantCount")>=3){
-                    //App_3_Loan_Amount_UL=parseFloat(cmp.find("LoanAmountUn31").get("v.value"));
-                    //App_3_Monthly_Payment_UL=parseFloat(cmp.find("MonthlyPaymentUn31").get("v.value"));
+                    App3_Loan_Amt_Alloc_UL= cmp.find('LoanAmountUn31').get('v.value');
+					App3_Mnthly_Pmt_Alloc_UL= cmp.find('MonthlyPaymentUn31').get('v.value');
                     App_3_Loan_Amount_UL=parseFloat(cmp.find("LoanAmountUn3").get("v.value"));
                     App_3_Monthly_Payment_UL=parseFloat(cmp.find("MonthlyPaymentUn3").get("v.value"));
                 }
@@ -2452,24 +2658,24 @@
             console.log('testk--------------------------1-');
             if(isprod){
                 if(cmp.get("v.ApplicantCount")>=1){
-                    //App_1_LOC_limit=parseFloat(cmp.find("LOCLimit11").get("v.value"));
-                    //App_1_Min_Payment=parseFloat(cmp.find("MinimumPayment11").get("v.value"));
+                    App1_Portion_LOC_Lim= cmp.find('LOCLimit11').get('v.value');
+					App1_Portion_Min_Pay_LOC= cmp.find('MinimumPayment11').get('v.value');
                     App_1_LOC_limit=parseFloat(cmp.find("LOCLimit1").get("v.value"));
                     App_1_Min_Payment=parseFloat(cmp.find("MinimumPayment1").get("v.value"));
                 }
                 if(cmp.get("v.ApplicantCount")>=2){
-        			//App_2_LOC_Limit=parseFloat(cmp.find("LOCLimit21").get("v.value"));
-                    //App_2_Min_Payment_LOC=parseFloat(cmp.find("MinimumPayment21").get("v.value"));
+                    App2_Portion_LOC_Lim= cmp.find('LOCLimit21').get('v.value');
+					App2_Portion_Min_Pay_LOC= cmp.find('MinimumPayment21').get('v.value');
                     App_2_LOC_Limit=parseFloat(cmp.find("LOCLimit2").get("v.value"));
                     App_2_Min_Payment_LOC=parseFloat(cmp.find("MinimumPayment2").get("v.value"));
                 }
                 if(cmp.get("v.ApplicantCount")>=3){
-        			//App_3_LOC_Limit=parseFloat(cmp.find("LOCLimit31").get("v.value"));
-                    //App_3_Min_Payment_LOC=parseFloat(cmp.find("MinimumPayment31").get("v.value"));
+                    App3_Portion_LOC_Lim= cmp.find('LOCLimit31').get('v.value');
+					App3_Portion_Min_Pay_LOC= cmp.find('MinimumPayment31').get('v.value');
                     App_3_LOC_Limit=parseFloat(cmp.find("LOCLimit3").get("v.value"));
                     App_3_Min_Payment_LOC=parseFloat(cmp.find("MinimumPayment3").get("v.value"));
                 }
-        
+                
                 var pclAcc = cmp.find("AccountTypeloc").get("v.value");
                 
                 Account_Holders_LOC = cmp.find('Account_Holders_LOC__id').get('v.value');
@@ -2510,7 +2716,7 @@
         console.log('Forced_Sale_Value=====>'+Forced_Sale_Value);
         console.log('Insurer=====1>'+Insurer);
         
-      
+        
         
         var newCalculator1 = {
             'sobjectType':'Loan_Calculator__c',
@@ -2676,6 +2882,26 @@
                 'App_1_Monthly_Payment_UL__c':App_1_Monthly_Payment_UL,
                 'App_2_Monthly_Payment_UL__c':App_2_Monthly_Payment_UL,
                 'App_3_Monthly_Payment_UL__c':App_3_Monthly_Payment_UL,
+                
+                'App1_Loan_Amt_Alloc_UL__c':App1_Loan_Amt_Alloc_UL,
+                'App2_Loan_Amt_Alloc_UL__c':App2_Loan_Amt_Alloc_UL,
+                'App3_Loan_Amt_Alloc_UL__c':App3_Loan_Amt_Alloc_UL,
+                'App1_Mnthly_Pmt_Alloc_UL__c':App1_Mnthly_Pmt_Alloc_UL,
+                'App2_Mnthly_Pmt_Alloc_UL__c':App2_Mnthly_Pmt_Alloc_UL,
+                'App3_Mnthly_Pmt_Alloc_UL__c':App3_Mnthly_Pmt_Alloc_UL,
+                'App1_Loan_Amt_Alloc__c':App1_Loan_Amt_Alloc,
+                'App2_Loan_Amt_Alloc__c':App2_Loan_Amt_Alloc,
+                'App3_Loan_Amt_Alloc__c':App3_Loan_Amt_Alloc,
+                'App1_Mnthly_Pmt_Alloc__c':App1_Mnthly_Pmt_Alloc,
+                'App2_Mnthly_Pmt_Alloc__c':App2_Mnthly_Pmt_Alloc,
+                'App3_Mnthly_Pmt_Alloc__c':App3_Mnthly_Pmt_Alloc,
+                'App1_Portion_LOC_Lim__c':App1_Portion_LOC_Lim,
+                'App2_Portion_LOC_Lim__c':App2_Portion_LOC_Lim,
+                'App3_Portion_LOC_Lim__c':App3_Portion_LOC_Lim,
+                'App1_Portion_Min_Pay_LOC__c':App1_Portion_Min_Pay_LOC,
+                'App2_Portion_Min_Pay_LOC__c':App2_Portion_Min_Pay_LOC,
+                'App3_Portion_Min_Pay_LOC__c':App3_Portion_Min_Pay_LOC,
+                
             };
             console.log('newCalculator8after=====1>'+newCalculator8);
             console.log('Insurer=====3>');
@@ -2787,6 +3013,9 @@
         }
         else
             helper.saveCalculation(cmp,evt,newCalculator);
+        
+    },
+    ValidateProposedSaving : function(cmp){
         
     },
     //======Product Detail=============
@@ -2912,245 +3141,468 @@
     
     //======CREDIT REPAYMENT ALLOCATION UnSecure=============
     showLoanAmountUn1 : function(cmp, event, helper) {
-		console.log('showLoanAmountUn1 == ');
+        console.log('showLoanAmountUn1 == ');
         var loanamt1=cmp.find("LoanAmountUn1").get("v.value");
-		console.log('loanamt1 == '+loanamt1);
+        console.log('loanamt1 == '+loanamt1);
         var perloanamt1=loanamt1/100;
         var totalval1 = cmp.find("TotalLoanAmount1Un").get("v.value");
-		console.log('totalval1 == '+totalval1);
+        console.log('totalval1 == '+totalval1);
         var param1 = totalval1*perloanamt1;
-		console.log('param1 == '+param1);
+        console.log('param1 == '+param1);
         cmp.find("LoanAmountUn11").set("v.value",param1);
-        
+        $A.enqueueAction(cmp.get("c.calculateApplicantUnSecurePortion"));
     },
-	showMonthlyPaymentUn1 : function(cmp, event, helper) {
-		console.log('showMonthlyPaymentUn1 == ');
+    showMonthlyPaymentUn1 : function(cmp, event, helper) {
+        console.log('showMonthlyPaymentUn1 == ');
         var loanamt1=cmp.find("MonthlyPaymentUn1").get("v.value");
-		console.log('loanamt1 == '+loanamt1);
+        console.log('loanamt1 == '+loanamt1);
         var perloanamt1=loanamt1/100;
         var totalval1 = cmp.find("MonthlyLoanPayment1Un").get("v.value");
-		console.log('totalval1 == '+totalval1);
+        console.log('totalval1 == '+totalval1);
         var param1 = totalval1*perloanamt1;
-		console.log('param1 == '+param1);
+        console.log('param1 == '+param1);
         cmp.find("MonthlyPaymentUn11").set("v.value",param1);
-        
+        $A.enqueueAction(cmp.get("c.calculateApplicantUnSecurePortionPay"));
     },
-	showLoanAmountUn2 : function(cmp, event, helper) {
-		console.log('showLoanAmountUn2 == ');
+    showLoanAmountUn2 : function(cmp, event, helper) {
+        console.log('showLoanAmountUn2 == ');
         var loanamt1=cmp.find("LoanAmountUn2").get("v.value");
-		console.log('loanamt1 == '+loanamt1);
+        console.log('loanamt1 == '+loanamt1);
         var perloanamt1=loanamt1/100;
         var totalval1 = cmp.find("TotalLoanAmount1Un").get("v.value");
-		console.log('totalval1 == '+totalval1);
+        console.log('totalval1 == '+totalval1);
         var param1 = totalval1*perloanamt1;
-		console.log('param1 == '+param1);
+        console.log('param1 == '+param1);
         cmp.find("LoanAmountUn21").set("v.value",param1);
-        
+        $A.enqueueAction(cmp.get("c.calculateApplicantUnSecurePortion"));
     },
-	showMonthlyPaymentUn2 : function(cmp, event, helper) {
-		console.log('showMonthlyPaymentUn2 == ');
+    showMonthlyPaymentUn2 : function(cmp, event, helper) {
+        console.log('showMonthlyPaymentUn2 == ');
         var loanamt1=cmp.find("MonthlyPaymentUn2").get("v.value");
-		console.log('loanamt1 == '+loanamt1);
+        console.log('loanamt1 == '+loanamt1);
         var perloanamt1=loanamt1/100;
         var totalval1 = cmp.find("MonthlyLoanPayment1Un").get("v.value");
-		console.log('totalval1 == '+totalval1);
+        console.log('totalval1 == '+totalval1);
         var param1 = totalval1*perloanamt1;
-		console.log('param1 == '+param1);
+        console.log('param1 == '+param1);
         cmp.find("MonthlyPaymentUn21").set("v.value",param1);
-        
+        $A.enqueueAction(cmp.get("c.calculateApplicantUnSecurePortionPay"));
     },
-	showLoanAmountUn3 : function(cmp, event, helper) {
-		console.log('showLoanAmountUn3 == ');
+    showLoanAmountUn3 : function(cmp, event, helper) {
+        console.log('showLoanAmountUn3 == ');
         var loanamt1=cmp.find("LoanAmountUn3").get("v.value");
-		console.log('loanamt1 == '+loanamt1);
+        console.log('loanamt1 == '+loanamt1);
         var perloanamt1=loanamt1/100;
         var totalval1 = cmp.find("TotalLoanAmount1Un").get("v.value");
-		console.log('totalval1 == '+totalval1);
+        console.log('totalval1 == '+totalval1);
         var param1 = totalval1*perloanamt1;
-		console.log('param1 == '+param1);
+        console.log('param1 == '+param1);
         cmp.find("LoanAmountUn31").set("v.value",param1);
-        
+        $A.enqueueAction(cmp.get("c.calculateApplicantUnSecurePortion"));
     },
-	showMonthlyPaymentUn3 : function(cmp, event, helper) {
-		console.log('showMonthlyPaymentUn3 == ');
+    showMonthlyPaymentUn3 : function(cmp, event, helper) {
+        console.log('showMonthlyPaymentUn3 == ');
         var loanamt1=cmp.find("MonthlyPaymentUn3").get("v.value");
-		console.log('loanamt1 == '+loanamt1);
+        console.log('loanamt1 == '+loanamt1);
         var perloanamt1=loanamt1/100;
         var totalval1 = cmp.find("MonthlyLoanPayment1Un").get("v.value");
-		console.log('totalval1 == '+totalval1);
+        console.log('totalval1 == '+totalval1);
         var param1 = totalval1*perloanamt1;
-		console.log('param1 == '+param1);
+        console.log('param1 == '+param1);
         cmp.find("MonthlyPaymentUn31").set("v.value",param1);
+        $A.enqueueAction(cmp.get("c.calculateApplicantUnSecurePortionPay"));
+    },
+    calculateApplicantUnSecurePortion : function(cmp){
+        var loanamt1=0;
+        var loanamt2=0;
+        var loanamt3=0;
+        
+        
+        var totalLoan =0;
+        
+        var count = cmp.get("v.ApplicantCount");
+        if(count>=1){
+            loanamt1=cmp.find("LoanAmountUn1").get("v.value");
+            if(loanamt1 !='')
+                totalLoan +=parseFloat(loanamt1);
+            
+            
+        }
+        if(count>=2){
+            loanamt2=cmp.find("LoanAmountUn2").get("v.value");
+            if(loanamt2 !='')
+                totalLoan +=parseFloat(loanamt2);
+            
+            
+        }
+        if(count>=3){
+            loanamt3=cmp.find("LoanAmountUn3").get("v.value");
+            if(loanamt3 !='')
+                totalLoan +=parseFloat(loanamt3);
+            
+            
+        }
+        console.log('totalLoan UN=>'+totalLoan);
+       
+        if(totalLoan !=100){
+            cmp.set("v.isUnsecureLoanPortionValid",true);           
+        }
+        else{
+            cmp.set("v.isUnsecureLoanPortionValid",false);  
+        }
+        
+        console.log('isUnsecureLoanPortionValid========>'+cmp.get("v.isUnsecureLoanPortionValid"));
         
     },
-    
+    calculateApplicantUnSecurePortionPay : function(cmp){
+        
+        var monthlyPay1=0;
+        var monthlyPay2=0;
+        var monthlyPay3=0;
+        
+        var totalPay =0;
+        var count = cmp.get("v.ApplicantCount");
+        if(count>=1){
+            monthlyPay1=cmp.find("MonthlyPaymentUn1").get("v.value");
+            if(monthlyPay1 !='')
+                totalPay +=parseFloat(monthlyPay1);
+        }
+        if(count>=2){
+            monthlyPay2=cmp.find("MonthlyPaymentUn2").get("v.value");
+            if(monthlyPay2 !='')
+                totalPay +=parseFloat(monthlyPay2);
+        }
+        if(count>=3){
+            monthlyPay3=cmp.find("MonthlyPaymentUn3").get("v.value");
+            if(monthlyPay3 !='')
+                totalPay +=parseFloat(monthlyPay3);
+        }
+        
+        console.log('totalPay=>'+totalPay);
+        if(totalPay !=100){
+            cmp.set("v.isUnsecurePayPortionValid",true);           
+        }
+        else{
+            cmp.set("v.isUnsecurePayPortionValid",false);  
+        }
+        
+        console.log('isUnsecurePayPortionValid========>'+cmp.get("v.isUnsecurePayPortionValid"));
+    },
     //======CREDIT REPAYMENT ALLOCATION Auto Loan=============
-	showLoanAmountAuto1 : function(cmp, event, helper) {
-		console.log('showLoanAmountAuto1 == ');
+    showLoanAmountAuto1 : function(cmp, event, helper) {
+        console.log('showLoanAmountAuto1 == ');
         var loanamt1=cmp.find("LoanAmountauto1").get("v.value");
-		console.log('loanamt1 == '+loanamt1);
+        console.log('loanamt1 == '+loanamt1);
         var perloanamt1=loanamt1/100;
         console.log('perloanamt1 == '+perloanamt1);
         var totalval1 = cmp.find("TotalLoanAmount1").get("v.value");
-		console.log('totalval1 == '+totalval1);
+        console.log('totalval1 == '+totalval1);
         var param1 = totalval1*perloanamt1;
-		console.log('param1 == '+param1);
+        console.log('param1 == '+param1);
         cmp.find("LoanAmountauto11").set("v.value",param1);
-        
+        $A.enqueueAction(cmp.get("c.calculateApplicantAutoPortion"));
     },
-	showMonthlyPaymentAuto1 : function(cmp, event, helper) {
-		console.log('showMonthlyPaymentAuto1 == ');
+    showMonthlyPaymentAuto1 : function(cmp, event, helper) {
+        console.log('showMonthlyPaymentAuto1 == ');
         var loanamt1=cmp.find("MonthlyPaymentauto1").get("v.value");
-		console.log('loanamt1 == '+loanamt1);
+        console.log('loanamt1 == '+loanamt1);
         var perloanamt1=loanamt1/100;
-		
-        var beforeMonthlyLoanPayment1 = parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
-		console.log('beforeMonthlyLoanPayment1 == '+beforeMonthlyLoanPayment1);
-		var afterMonthlyLoanPayment2 = parseFloat(cmp.find("MonthlyLoanPayment2").get("v.value"));
-		console.log('afterMonthlyLoanPayment2 == '+afterMonthlyLoanPayment2);
-		var maxMonthlyLoanPayment=Math.max(beforeMonthlyLoanPayment1,afterMonthlyLoanPayment2);
-		console.log('maxMonthlyLoanPayment == '+maxMonthlyLoanPayment);
-        var param1 = maxMonthlyLoanPayment*perloanamt1;
-		
-		console.log('param1 == '+param1);
-        cmp.find("MonthlyPaymentauto11").set("v.value",param1);
         
+        var beforeMonthlyLoanPayment1 = parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
+        console.log('beforeMonthlyLoanPayment1 == '+beforeMonthlyLoanPayment1);
+        var afterMonthlyLoanPayment2 = parseFloat(cmp.find("MonthlyLoanPayment2").get("v.value"));
+        console.log('afterMonthlyLoanPayment2 == '+afterMonthlyLoanPayment2);
+        var maxMonthlyLoanPayment=Math.max(beforeMonthlyLoanPayment1,afterMonthlyLoanPayment2);
+        console.log('maxMonthlyLoanPayment == '+maxMonthlyLoanPayment);
+        var param1 = maxMonthlyLoanPayment*perloanamt1;
+        
+        console.log('param1 == '+param1);
+        cmp.find("MonthlyPaymentauto11").set("v.value",param1);
+        $A.enqueueAction(cmp.get("c.calculateApplicantAutoPortionPay"));
     },
-	showLoanAmountAuto2 : function(cmp, event, helper) {
-		console.log('showLoanAmountAuto2 == ');
+    showLoanAmountAuto2 : function(cmp, event, helper) {
+        console.log('showLoanAmountAuto2 == ');
         var loanamt1=cmp.find("LoanAmountauto2").get("v.value");
         var perloanamt1=loanamt1/100;
         console.log('perloanamt1 == '+perloanamt1);
         var totalval1 = cmp.find("TotalLoanAmount1").get("v.value");
-		console.log('totalval1 == '+totalval1);
+        console.log('totalval1 == '+totalval1);
         var param1 = totalval1*perloanamt1;
-		console.log('param1 == '+param1);
+        console.log('param1 == '+param1);
         cmp.find("LoanAmountauto21").set("v.value",param1);
-        
+        $A.enqueueAction(cmp.get("c.calculateApplicantAutoPortion"));
     },
-	showMonthlyPaymentAuto2 : function(cmp, event, helper) {
-		console.log('showMonthlyPaymentAuto2 == ');
+    showMonthlyPaymentAuto2 : function(cmp, event, helper) {
+        console.log('showMonthlyPaymentAuto2 == ');
         var loanamt1=cmp.find("MonthlyPaymentauto2").get("v.value");
-		console.log('loanamt1 == '+loanamt1);
+        console.log('loanamt1 == '+loanamt1);
         var perloanamt1=loanamt1/100;
-		
-        var beforeMonthlyLoanPayment1 = parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
-		console.log('beforeMonthlyLoanPayment1 == '+beforeMonthlyLoanPayment1);
-		var afterMonthlyLoanPayment2 = parseFloat(cmp.find("MonthlyLoanPayment2").get("v.value"));
-		console.log('afterMonthlyLoanPayment2 == '+afterMonthlyLoanPayment2);
-		var maxMonthlyLoanPayment=Math.max(beforeMonthlyLoanPayment1,afterMonthlyLoanPayment2);
-		console.log('maxMonthlyLoanPayment == '+maxMonthlyLoanPayment);
-        var param1 = maxMonthlyLoanPayment*perloanamt1;
-		
-		console.log('param1 == '+param1);
-        cmp.find("MonthlyPaymentauto21").set("v.value",param1);
         
+        var beforeMonthlyLoanPayment1 = parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
+        console.log('beforeMonthlyLoanPayment1 == '+beforeMonthlyLoanPayment1);
+        var afterMonthlyLoanPayment2 = parseFloat(cmp.find("MonthlyLoanPayment2").get("v.value"));
+        console.log('afterMonthlyLoanPayment2 == '+afterMonthlyLoanPayment2);
+        var maxMonthlyLoanPayment=Math.max(beforeMonthlyLoanPayment1,afterMonthlyLoanPayment2);
+        console.log('maxMonthlyLoanPayment == '+maxMonthlyLoanPayment);
+        var param1 = maxMonthlyLoanPayment*perloanamt1;
+        
+        console.log('param1 == '+param1);
+        cmp.find("MonthlyPaymentauto21").set("v.value",param1);
+        $A.enqueueAction(cmp.get("c.calculateApplicantAutoPortionPay"));
     },
-	showLoanAmountAuto3 : function(cmp, event, helper) {
-		console.log('showLoanAmountAuto3 == ');
+    showLoanAmountAuto3 : function(cmp, event, helper) {
+        console.log('showLoanAmountAuto3 == ');
         var loanamt1=cmp.find("LoanAmountauto3").get("v.value");
-		console.log('loanamt1 == '+loanamt1);
+        console.log('loanamt1 == '+loanamt1);
         var perloanamt1=loanamt1/100;
         console.log('perloanamt1 == '+perloanamt1);
         var totalval1 = cmp.find("TotalLoanAmount1").get("v.value");
-		console.log('totalval1 == '+totalval1);
+        console.log('totalval1 == '+totalval1);
         var param1 = totalval1*perloanamt1;
-		console.log('param1 == '+param1);
+        console.log('param1 == '+param1);
         cmp.find("LoanAmountauto31").set("v.value",param1);
-        
+        $A.enqueueAction(cmp.get("c.calculateApplicantAutoPortion"));
     },
-	showMonthlyPaymentAuto3 : function(cmp, event, helper) {
-		console.log('showMonthlyPaymentAuto3 == ');
+    showMonthlyPaymentAuto3 : function(cmp, event, helper) {
+        console.log('showMonthlyPaymentAuto3 == ');
         var loanamt1=cmp.find("MonthlyPaymentauto3").get("v.value");
-		console.log('loanamt1 == '+loanamt1);
+        console.log('loanamt1 == '+loanamt1);
         var perloanamt1=loanamt1/100;
         console.log('perloanamt1 == '+perloanamt1);
-		var beforeMonthlyLoanPayment1 = parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
-		console.log('beforeMonthlyLoanPayment1 == '+beforeMonthlyLoanPayment1);
-		var afterMonthlyLoanPayment2 = parseFloat(cmp.find("MonthlyLoanPayment2").get("v.value"));
-		console.log('afterMonthlyLoanPayment2 == '+afterMonthlyLoanPayment2);
-		var maxMonthlyLoanPayment=Math.max(beforeMonthlyLoanPayment1,afterMonthlyLoanPayment2);
-		console.log('maxMonthlyLoanPayment == '+maxMonthlyLoanPayment);
+        var beforeMonthlyLoanPayment1 = parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
+        console.log('beforeMonthlyLoanPayment1 == '+beforeMonthlyLoanPayment1);
+        var afterMonthlyLoanPayment2 = parseFloat(cmp.find("MonthlyLoanPayment2").get("v.value"));
+        console.log('afterMonthlyLoanPayment2 == '+afterMonthlyLoanPayment2);
+        var maxMonthlyLoanPayment=Math.max(beforeMonthlyLoanPayment1,afterMonthlyLoanPayment2);
+        console.log('maxMonthlyLoanPayment == '+maxMonthlyLoanPayment);
         var param1 = maxMonthlyLoanPayment*perloanamt1;
-		
-		console.log('param1 == '+param1);
+        
+        console.log('param1 == '+param1);
         cmp.find("MonthlyPaymentauto31").set("v.value",param1);
+        $A.enqueueAction(cmp.get("c.calculateApplicantAutoPortionPay"));
+    },
+    calculateApplicantAutoPortion : function(cmp){
+        var loanamt1=0;
+        var loanamt2=0;
+        var loanamt3=0;
+        
+        
+        var totalLoan =0;
+        
+        var count = cmp.get("v.ApplicantCount");
+        if(count>=1){
+            loanamt1=cmp.find("LoanAmountauto1").get("v.value");
+            if(loanamt1 !='')
+                totalLoan +=parseFloat(loanamt1);
+            
+            
+        }
+        if(count>=2){
+            loanamt2=cmp.find("LoanAmountauto2").get("v.value");
+            if(loanamt2 !='')
+                totalLoan +=parseFloat(loanamt2);
+            
+            
+        }
+        if(count>=3){
+            loanamt3=cmp.find("LoanAmountauto3").get("v.value");
+            if(loanamt3 !='')
+                totalLoan +=parseFloat(loanamt3);
+            
+            
+        }
+        console.log('totalLoan=>'+totalLoan);
+        
+        if(totalLoan !=100){
+            cmp.set("v.isAutoLoanPortionValid",true);           
+        }
+        else{
+            cmp.set("v.isAutoLoanPortionValid",false);  
+        }
+        
+        console.log('isAutoLoanPortionValid========>'+cmp.get("v.isAutoLoanPortionValid"));
         
     },
-	
+    calculateApplicantAutoPortionPay : function(cmp){
+        
+        
+        var monthlyPay1=0;
+        var monthlyPay2=0;
+        var monthlyPay3=0;
+        
+        var totalPay =0;
+        var count = cmp.get("v.ApplicantCount");
+        if(count>=1){
+            monthlyPay1=cmp.find("MonthlyPaymentauto1").get("v.value");
+            if(monthlyPay1 !='')
+                totalPay +=parseFloat(monthlyPay1);
+        }
+        if(count>=2){
+            monthlyPay2=cmp.find("MonthlyPaymentauto2").get("v.value");
+            if(monthlyPay2 !='')
+                totalPay +=parseFloat(monthlyPay2);
+        }
+        if(count>=3){
+            monthlyPay3=cmp.find("MonthlyPaymentauto3").get("v.value");
+            if(monthlyPay3 !='')
+                totalPay +=parseFloat(monthlyPay3);
+        }
+        
+        console.log('totalPay=>'+totalPay);
+        
+        if(totalPay !=100){
+            cmp.set("v.isAutoPayPortionValid",true);           
+        }
+        else{
+            cmp.set("v.isAutoPayPortionValid",false);  
+        }
+        console.log('isAutoPayPortionValid========>'+cmp.get("v.isAutoPayPortionValid"));
+    },
     //======CREDIT REPAYMENT ALLOCATION LOC=============
     showLOCLimit1 : function(cmp, event, helper) {
-		console.log('showLOCLimit1 == ');
+        console.log('showLOCLimit1 == ');
         var loanamt1=cmp.find("LOCLimit1").get("v.value");
-		console.log('loanamt1 == '+loanamt1);
+        console.log('loanamt1 == '+loanamt1);
         var perloanamt1=loanamt1/100;
         var totalval1 = cmp.find("locStartingLimit").get("v.value");
-		console.log('totalval1 == '+totalval1);
+        console.log('totalval1 == '+totalval1);
         var param1 = totalval1*perloanamt1;
-		console.log('param1 == '+param1);
+        console.log('param1 == '+param1);
         cmp.find("LOCLimit11").set("v.value",param1);
-        
+        $A.enqueueAction(cmp.get("c.calculateApplicantLocPortion")); 
     },
-	showMinimumPayment1 : function(cmp, event, helper) {
-		console.log('showMinimumPayment1 == ');
+    showMinimumPayment1 : function(cmp, event, helper) {
+        console.log('showMinimumPayment1 == ');
         var loanamt1=cmp.find("MinimumPayment1").get("v.value");
-		console.log('loanamt1 == '+loanamt1);
+        console.log('loanamt1 == '+loanamt1);
         var perloanamt1=loanamt1/100;
         var totalval1 = cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value");
-		console.log('totalval1 == '+totalval1);
+        console.log('totalval1 == '+totalval1);
         var param1 = totalval1*perloanamt1;
-		console.log('param1 == '+param1);
+        console.log('param1 == '+param1);
         cmp.find("MinimumPayment11").set("v.value",param1);
-        
+        $A.enqueueAction(cmp.get("c.calculateApplicantLocPortionPay")); 
     },
-	showLOCLimit2 : function(cmp, event, helper) {
-		console.log('showLOCLimit2 == ');
+    showLOCLimit2 : function(cmp, event, helper) {
+        console.log('showLOCLimit2 == ');
         var loanamt1=cmp.find("LOCLimit2").get("v.value");
-		console.log('loanamt1 == '+loanamt1);
+        console.log('loanamt1 == '+loanamt1);
         var perloanamt1=loanamt1/100;
         var totalval1 = cmp.find("locStartingLimit").get("v.value");
-		console.log('totalval1 == '+totalval1);
+        console.log('totalval1 == '+totalval1);
         var param1 = totalval1*perloanamt1;
-		console.log('param1 == '+param1);
+        console.log('param1 == '+param1);
         cmp.find("LOCLimit21").set("v.value",param1);
-        
+        $A.enqueueAction(cmp.get("c.calculateApplicantLocPortion")); 
     },
-	showMinimumPayment2 : function(cmp, event, helper) {
-		console.log('showMinimumPayment2 == ');
+    showMinimumPayment2 : function(cmp, event, helper) {
+        console.log('showMinimumPayment2 == ');
         var loanamt1=cmp.find("MinimumPayment2").get("v.value");
-		console.log('loanamt1 == '+loanamt1);
+        console.log('loanamt1 == '+loanamt1);
         var perloanamt1=loanamt1/100;
         var totalval1 = cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value");
-		console.log('totalval1 == '+totalval1);
+        console.log('totalval1 == '+totalval1);
         var param1 = totalval1*perloanamt1;
-		console.log('param1 == '+param1);
+        console.log('param1 == '+param1);
         cmp.find("MinimumPayment21").set("v.value",param1);
-        
+        $A.enqueueAction(cmp.get("c.calculateApplicantLocPortionPay")); 
     },
-	showLOCLimit3 : function(cmp, event, helper) {
-		console.log('showLOCLimit3 == ');
+    showLOCLimit3 : function(cmp, event, helper) {
+        console.log('showLOCLimit3 == ');
         var loanamt1=cmp.find("LOCLimit3").get("v.value");
-		console.log('loanamt1 == '+loanamt1);
+        console.log('loanamt1 == '+loanamt1);
         var perloanamt1=loanamt1/100;
         var totalval1 = cmp.find("locStartingLimit").get("v.value");
-		console.log('totalval1 == '+totalval1);
+        console.log('totalval1 == '+totalval1);
         var param1 = totalval1*perloanamt1;
-		console.log('param1 == '+param1);
+        console.log('param1 == '+param1);
         cmp.find("LOCLimit31").set("v.value",param1);
-        
+        $A.enqueueAction(cmp.get("c.calculateApplicantLocPortion")); 
     },
-	showMinimumPayment3 : function(cmp, event, helper) {
-		console.log('showMinimumPayment3 == ');
+    showMinimumPayment3 : function(cmp, event, helper) {
+        console.log('showMinimumPayment3 == ');
         var loanamt1=cmp.find("MinimumPayment3").get("v.value");
-		console.log('loanamt1 == '+loanamt1);
+        console.log('loanamt1 == '+loanamt1);
         var perloanamt1=loanamt1/100;
         var totalval1 = cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value");
-		console.log('totalval1 == '+totalval1);
+        console.log('totalval1 == '+totalval1);
         var param1 = totalval1*perloanamt1;
-		console.log('param1 == '+param1);
+        console.log('param1 == '+param1);
         cmp.find("MinimumPayment31").set("v.value",param1);
+        $A.enqueueAction(cmp.get("c.calculateApplicantLocPortionPay")); 
+    },
+    calculateApplicantLocPortion : function(cmp){
+        var loanamt1=0;
+        var loanamt2=0;
+        var loanamt3=0;
+        
+        
+        var totalLoan =0;
+        
+        var count = cmp.get("v.ApplicantCount");
+        if(count>=1){
+            loanamt1=cmp.find("LOCLimit1").get("v.value");
+            if(loanamt1 !='')
+                totalLoan +=parseFloat(loanamt1);
+            
+        }
+        if(count>=2){
+            loanamt2=cmp.find("LOCLimit2").get("v.value");
+            if(loanamt2 !='')
+                totalLoan +=parseFloat(loanamt2);
+            
+            
+        }
+        if(count>=3){
+            loanamt3=cmp.find("LOCLimit3").get("v.value");
+            if(loanamt3 !='')
+                totalLoan +=parseFloat(loanamt3);
+            
+            
+        }
+        console.log('totalLoan=>'+totalLoan);
+        
+        if(totalLoan !=100){
+            cmp.set("v.isLocLoanPortionValid",true);           
+        }
+        else{
+            cmp.set("v.isLocLoanPortionValid",false);  
+        }
+        
+        console.log('isLocLoanPortionValid========>'+cmp.get("v.isLocLoanPortionValid"));
         
     },
-	
-    
+    calculateApplicantLocPortionPay : function(cmp){
+        var monthlyPay1=0;
+        var monthlyPay2=0;
+        var monthlyPay3=0;
+        
+        var totalPay =0;
+        var count = cmp.get("v.ApplicantCount");
+        if(count>=1){
+            monthlyPay1=cmp.find("MinimumPayment1").get("v.value");
+            if(monthlyPay1 !='')
+                totalPay +=parseFloat(monthlyPay1);
+        }
+        if(count>=2){
+            monthlyPay2=cmp.find("MinimumPayment2").get("v.value");
+            if(monthlyPay2 !='')
+                totalPay +=parseFloat(monthlyPay2);
+        }
+        if(count>=3){
+            monthlyPay3=cmp.find("MinimumPayment3").get("v.value");
+            if(monthlyPay3 !='')
+                totalPay +=parseFloat(monthlyPay3);
+        }
+        
+        console.log('totalPay=>'+totalPay);
+        
+        if(totalPay !=100){
+            cmp.set("v.isLocPayPortionValid",true);           
+        }
+        else{
+            cmp.set("v.isLocPayPortionValid",false);  
+        }
+        console.log('isLocPayPortionValid========>'+cmp.get("v.isLocPayPortionValid"));
+    },
 })

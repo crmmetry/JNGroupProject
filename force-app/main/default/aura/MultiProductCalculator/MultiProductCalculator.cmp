@@ -112,8 +112,15 @@
     <aura:attribute name="ExistingGrossincome" type="integer" default="0"/>
     <aura:handler name="lookupSelect" event="c:sObjectLookupSelectEvent" action="{!c.handleLookupSelectEventProductDetail}" />
     
-    
-
+    <aura:attribute name="isAutoLoanPortionValid" type="Boolean" Default="false"/>
+    <aura:attribute name="isAutoPayPortionValid" type="Boolean" Default="false"/>
+    <aura:attribute name="isUnsecureLoanPortionValid" type="Boolean" Default="false"/>
+    <aura:attribute name="isUnsecurePayPortionValid" type="Boolean" Default="false"/>
+    <aura:attribute name="isLocLoanPortionValid" type="Boolean" Default="false"/>
+    <aura:attribute name="isLocPayPortionValid" type="Boolean" Default="false"/>
+    <aura:attribute name="isProposedUN" type="Boolean" Default="false"/>
+    <aura:attribute name="isProposedAuto" type="Boolean" Default="false"/>
+	
     
     <form class="slds-form ">
         <fieldset  class="slds-box slds-theme--default slds-container--large" style="padding-right: 5px;">
@@ -527,6 +534,8 @@
                     </aura:if>
                     <aura:if isTrue="{!v.isProductDetail==false}">
                         <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">LOAN SAVINGS</div>
+                        
+                        
                         <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12">
                                 <lightning:input label="Proposed Savings" disabled="{!v.disabledPSP}" type="number" name="Proposed Savings" aura:id="ProposedSavings1" required="{!v.ReqPSP}" onblur="{!c.calculateLoansaving }"/>
@@ -560,6 +569,10 @@
                     <c:RequestedDetails aura:id='AutoLoanchild'/>
                     <aura:if isTrue="{!v.isProductDetail}">
                         <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">LOAN SAVINGS</div>
+                        <aura:if isTrue="{!v.isProposedAuto}">
+                        <div style="margin-top: 5px; color:red;">Missing Proposed Savings value.</div>
+                        </aura:if>
+                        
                         <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12">
                                 <lightning:input label="Proposed Savings" disabled="{!v.disabledPSP}" type="number" name="Proposed Savings" aura:id="ProposedSavings1" required="{!v.ReqPSP}" onblur="{!c.calculateLoansaving }"/>
@@ -745,6 +758,8 @@
                     </aura:if>
                     <aura:if isTrue="{!v.isProductDetail==false}">
                         <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">LOAN SAVINGS</div>
+                        
+                        
                         <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" >
                                 <lightning:input label="Proposed Savings" type="number" disabled="{!v.disabledPSP}" name="Proposed Savings" aura:id="ProposedSavings1Un"  onblur="{!c.calculateLoansavingUnsecured }"/>
@@ -865,6 +880,9 @@
                             </div>
                         </div>
                         <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">LOAN SAVINGS</div>
+                        <aura:if isTrue="{!v.isProposedUN}">
+                        <div style="margin-top: 5px; color:red;">Missing Proposed Savings value.</div>
+                        </aura:if>
                         <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" >
                                 <lightning:input label="Proposed Savings" type="number" disabled="{!v.disabledPSP}" name="Proposed Savings" aura:id="ProposedSavings1Un"  onblur="{!c.calculateLoansavingUnsecured }"/>
@@ -1794,6 +1812,12 @@
                 <div class="slds-grid slds-wrap" style="margin-top:10px;">
                     <div style=" text-decoration: underline;font-weight: bold;">CREDIT REPAYMENT ALLOCATION</div>
                     <div class="slds-section__title  slds-large-size_12-of-12" style="font-style: italic;"><p>Please allocate the proposed loan amount and monthly payments among the Applicant(s)</p></div>
+                    <aura:if isTrue="{!v.isAutoLoanPortionValid}">
+                        <div class="slds-section__title  slds-large-size_12-of-12" style="Color:red;"><p>Auto Loan Amount (%) should add up to 100 %.</p></div>
+                    </aura:if>
+                    <aura:if isTrue="{!v.isAutoPayPortionValid}">
+                        <div class="slds-section__title  slds-large-size_12-of-12" style="Color:red;"><p>Auto Loan Monthly Payment (%) should add up to 100 %.</p></div>
+                    </aura:if>
                     <aura:if isTrue="{!v.ApplicantCount>=1}">
                     <div  class="slds-section__title" style="margin-top:10px;font-weight: bold;">Applicant1</div>
                     <div class="slds-grid slds-wrap" style="margin-top:5px;">
@@ -2148,6 +2172,13 @@
                 <div class="slds-grid slds-wrap" style="margin-top:10px;">
                     <div style=" text-decoration: underline;font-weight: bold;">CREDIT REPAYMENT ALLOCATION</div>
                     <div class="slds-section__title  slds-large-size_12-of-12" style="font-style: italic;"><p>Please allocate the proposed loan amount and monthly payments among the Applicant(s)</p></div>
+                    <aura:if isTrue="{!v.isUnsecureLoanPortionValid}">
+                        <div class="slds-section__title  slds-large-size_12-of-12" style="Color:red;"><p>Unsecured Loan Amount (%) should add up to 100 %.</p></div>
+                    </aura:if>
+                    <aura:if isTrue="{!v.isUnsecurePayPortionValid}">
+                        <div class="slds-section__title  slds-large-size_12-of-12" style="Color:red;"><p>Unsecured Loan Monthly Payment (%) should add up to 100 %.</p></div>
+                    </aura:if>
+                    
                     <aura:if isTrue="{!v.ApplicantCount>=1}">
                     <div  class="slds-section__title" style="margin-top:10px;font-weight: bold;">Applicant1</div>
                     <div class="slds-grid slds-wrap" style="margin-top:5px;">
@@ -2365,6 +2396,13 @@
                 <div class="slds-grid slds-wrap" style="margin-top:10px;">
                     <div style=" text-decoration: underline;font-weight: bold;">CREDIT REPAYMENT ALLOCATION</div>
                     <div class="slds-section__title  slds-large-size_12-of-12" style="font-style: italic;"><p>Please allocate the proposed loan amount and monthly payments among the Applicant(s)</p></div>
+                    <aura:if isTrue="{!v.isLocLoanPortionValid}">
+                        <div class="slds-section__title  slds-large-size_12-of-12" style="Color:red;"><p>Line of Credit limit (%) should add up to 100 %.</p></div>
+                    </aura:if>
+                    <aura:if isTrue="{!v.isLocPayPortionValid}">
+                        <div class="slds-section__title  slds-large-size_12-of-12" style="Color:red;"><p>Line of Credit Minimum Payment (%) should add up to 100 %.</p></div>
+                    </aura:if>
+                    
                     <aura:if isTrue="{!v.ApplicantCount>=1}">
                     <div  class="slds-section__title" style="margin-top:10px;font-weight: bold;">Applicant1</div>
                     <div class="slds-grid slds-wrap" style="margin-top:5px;">

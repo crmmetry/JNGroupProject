@@ -120,7 +120,7 @@ recordTypeId = getRecordTypeId(recordTypeName);
         newLead.Country_of_Citizenship__c = applicantDetails.get('Country_of_Citizenship__c');
         newLead.Country_of_Residence__c = applicantDetails.get('Country_of_Residence__c');
         newLead.Highest_Level_of_Education_Attained__c = applicantDetails.get('Highest_Level_of_Education_Attained__c');
-        newLead.Supplementary_Applicant_TRN__c = applicantDetails.get('Supplementary_Applicant_TRN__c');
+        newLead.Jamaican_Tax_Registration_Number__c = applicantDetails.get('Jamaican_Tax_Registration_Number__c');
         newLead.Service_of_Interest__c = applicantDetails.get('Service_of_Interest__c');
         
         newLead.Proposed_Card_Limit__c = Decimal.valueOf(applicantDetails.get('Proposed_Card_Limit__c'));

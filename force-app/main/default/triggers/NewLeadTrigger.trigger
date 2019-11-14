@@ -16,7 +16,7 @@ trigger NewLeadTrigger on Lead (before insert, after insert, before update, afte
            // SkillsBasedRouting.JNSkillsRouting((new Map<Id, Lead>(Trigger.new)).keySet());
 
         }
-        else if(Trigger.isBefore) {
+        else {
             LeadTriggerHandler.crmm_TimeSpentInStage();
             LeadTriggerHandler.crmm_TierTwoTrigger();
         }
@@ -24,7 +24,7 @@ trigger NewLeadTrigger on Lead (before insert, after insert, before update, afte
         if(Trigger.isAfter) {
             LeadTriggerHandler.leadActivityEvent();
         }
-        else if(Trigger.isBefore) {
+        else {
             LeadTriggerHandler.crmm_TierOne();
         }
     } 

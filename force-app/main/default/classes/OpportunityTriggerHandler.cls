@@ -2,11 +2,20 @@ public class OpportunityTriggerHandler {
     private static String Tag = 'OpportunityTriggerHandler';
     private static List<Opportunity> newRecords;
     private static Map<Id, Opportunity> oldMap;
-    
-    public static void init(List<Opportunity> newRecords, Map<Id, Opportunity> oldMap){
-        OpportunityTriggerHandler.newRecords = newRecords;
-        OpportunityTriggerHandler.oldMap = oldMap;
-    }
+    private static Map<Id, Opportunity> newMap;
+    private static Map<String,String> excludedFields = new Map<String, String>{
+        'Id' => 'Id',
+            'IsDeleted' => 'IsDeleted',
+            'CreatedById' => 'CreatedDate',
+            'LastModifiedById' => 'LastModifiedById',
+            'LastModifiedDate' => 'SystemModstamp'
+            };
+                public static void init(List<Opportunity> newRecords, 
+                                        Map<Id, Opportunity> oldMap, Map<Id, Opportunity> newMap){
+                    OpportunityTriggerHandler.newRecords = newRecords;
+                    OpportunityTriggerHandler.oldMap = oldMap;
+                    OpportunityTriggerHandler.newMap = newMap;
+                }
     public static void setOpportunityAmountOnLead(Boolean isAfter, Boolean isUpdate, Boolean isInsert){
         Set<id> oppid = new set<id>();
         Map<id,Double> oppMap = new Map<id,Double>();
@@ -108,24 +117,58 @@ system.debug('lstlead=====>'+lstlead);
         }
     }
     public static void lockRecordsForEditing(){
-        String errMsg = 'This record is currently LOCKED due to it being in the stage of "Closed Won" or "Closed Lost". Disable CoreLocker in CustomMetaData to enable record edit.';
-        Opportunity_Update_Locker__mdt locker = [SELECT Id, LockEnabled__c, RecordType__c 
-                                                 FROM Opportunity_Update_Locker__mdt 
-                                                 WHERE Label='CoreLocker' LIMIT 1];
-        if(locker != null){            
-            if(locker.LockEnabled__c) {
-                for(Opportunity opp : newRecords) {
+        
+        String errMsg = 'This record is currently LOCKED due to it being in the stage of "Closed Won" or "Closed Lost". Click Reactivate button to enable record edit.';
+        
+        List<String> changedFields = getChangedFields();
+        System.debug('Changed Fields' + changedFields);
+        for(Opportunity opp : newRecords) {
+            if(!changedFields.isEmpty() && changedFields.get(0) != 'Record_Lock__c'){                                
+                if(opp.StageName == 'Closed Lost' || opp.StageName == 'Closed Won' ) {
                     if(oldMap.get(opp.Id).StageName == 'Closed Lost' || oldMap.get(opp.Id).StageName == 'Closed Won'){
-                        opp.addError(errMsg);
-                    }                
-                }
+                        if(opp.Record_Lock__c) {
+                            opp.addError(errMsg);
+                        }
+                    }
+                }  
             }
         }
-    }
+        
+    }        
     private static String getRecordTypeName(Opportunity opp){
         return Schema.SObjectType.Opportunity.getRecordTypeInfosById().get(opp.recordTypeId).getname();
     }
     private static String getRecordTypeDeveloperName(String name) {
         return Schema.SObjectType.Opportunity.getRecordTypeInfosByName().get(name).getDeveloperName();
     }
+    
+    public static List<String> getChangedFields() {
+        List<String> changedFields = new List<String>();        
+        for(Opportunity opp: newRecords ){
+            SObject o1 = oldMap.get(opp.id);
+            SObject o2 = newMap.get(opp.Id);
+            Map<String, Object> fieldList = o2.getPopulatedFieldsAsMap();
+            for (String field : fieldList.keySet()) {
+                if(!excludedFields.containsKey(field)){
+                    Object v1 = o1.get(field);
+                    Object v2 = o2.get(field);
+                    if (didFieldChange(v1, v2)) {
+                        changedFields.add(field);
+                    }
+                }
+            }
+        }        
+        return changedFields;
+    }
+    
+    private static Boolean didFieldChange(Object v1, Object v2) {
+        if (v1 == null && v2 == null) {
+            return false;
+        }
+        if (v1 != v2) {
+            return true;
+        }
+        return false;
+    }
+    
 }

@@ -322,19 +322,22 @@ Encourage client to add start and end date to employment
     public static void leadActivityEvent(){
         List<Event> events = new List<Event>();
         for(Lead newRecord: leads){
+              System.debug('Preferred_Time_of_Contact__c null => ' + newRecord.Preferred_Time_of_Contact__c);
+                System.debug('Preferred_Date_of_Contact__c null => ' + newRecord.Preferred_Date_of_Contact__c);
             
-            if(newRecord.Preferred_Time_of_Contact__c != null && newRecord.Preferred_Date_of_Contact__c!= null){
+            if(newRecord.Preferred_Time_of_Contact__c != null && newRecord.Preferred_Date_of_Contact__c!= null) {
+                System.debug('Preferred_Time_of_Contact__c => ' + newRecord.Preferred_Time_of_Contact__c);
+                System.debug('Preferred_Date_of_Contact__c => ' + newRecord.Preferred_Date_of_Contact__c);
                 Event thisEvent = new Event();
                 thisEvent.StartDateTime  = createDateTime(newRecord.Preferred_Time_of_Contact__c, newRecord.Preferred_Date_of_Contact__c);
                 if(newRecord.Preferred_Contact_Method__c != null) {
-                    thisEvent.Subject = 'Contact ' + newRecord.FirstName + ' ' + newRecord.LastName + ' @'+getContactNumber(newRecord.Preferred_Contact_Method__c, newRecord);
-                } else {
-                    thisEvent.Subject = 'Contact cannot be made, because there is none.';
-                }
-                thisEvent.WhoId = newRecord.Id;
-                thisEvent.OwnerId = UserInfo.getUserId();  
-                thisEvent.DurationInMinutes = 60;
-                events.add(thisEvent);
+                    thisEvent.Subject = 'Contact ' + newRecord.FirstName + ' ' + newRecord.LastName + ' @ '+getContactNumber(newRecord.Preferred_Contact_Method__c, newRecord);
+                    thisEvent.WhoId = newRecord.Id;
+                    thisEvent.OwnerId = UserInfo.getUserId();  
+                    thisEvent.DurationInMinutes = 60;
+                    events.add(thisEvent);
+                } 
+                
             }
         }
         if(!events.isEmpty()){
