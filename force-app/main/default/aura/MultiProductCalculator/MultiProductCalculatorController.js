@@ -1,9 +1,10 @@
 ({
     doInit : function(cmp, event, helper) {
-        helper.calculateScoreCalculate(cmp); 
+        
         var isprod=cmp.get("v.isProductDetail");
         
         if(isprod){
+            helper.calculateScoreCalculate(cmp); 
             var opp_id=cmp.get("v.isRecordIdM");
             helper.isRequiredFieldMissingForCreditScore(cmp, opp_id);
             var action = cmp.get("c.FetchAllApplicant");
@@ -14,8 +15,19 @@
                 var state = response.getState();
                 if (state === "SUCCESS") {
                     var applicantlst=response.getReturnValue();
+                    var noOfApplicant = applicantlst.length;
                     console.log('applicantlst====kkkk========>'+applicantlst);
-                    cmp.set("v.ApplicantCount", applicantlst.length);
+                    cmp.set("v.ApplicantCount", noOfApplicant);
+                    if(noOfApplicant==1){
+                        cmp.find("LoanAmountauto1").set("v.value",100);
+                        cmp.find("MonthlyPaymentauto1").set("v.value",100);
+                        
+                        cmp.find("LoanAmountUn1").set("v.value",100);
+                        cmp.find("MonthlyPaymentUn1").set("v.value",100);
+                        
+                        cmp.find("LOCLimit1").set("v.value",100);
+                        cmp.find("MinimumPayment1").set("v.value",100);
+                    }
                     var EmpRow;
                     for(var k in applicantlst){
                         console.log('applicantlst====k========>'+k);
@@ -354,7 +366,7 @@
         helper.calculateProcessingFeehelper(cmp, event);
         helper.calculateJNGIMonthlyPremiumhelper(cmp, event);
         helper.calculateTotalautoloan(cmp, event); 
-        
+        $A.enqueueAction(cmp.get("c.calculateAppAutoPortionOnchange"));
     },
     addrowdatarequestDetail : function(cmp, event, helper) {
         const RDetailUnsecured=cmp.get("v.RDetailUnsecured");
@@ -1089,6 +1101,7 @@
             "LoanAmount":""
         }]
         cmp.set("v.RDetailUnsecured",ApplicantRow);
+         
     },
     updateRequestdetailsUnsecured: function(cmp, event, helper){
         var RequestData = cmp.get("v.RDetailUnsecured");
@@ -1141,6 +1154,7 @@
         console.log('Test2=====');
         helper.calculateTotalUnsecuredloan(cmp, event);
         console.log('Test3=====');
+        $A.enqueueAction(cmp.get("c.calculateAppUnsecurePortionOnchange"));
     },
     showhideONLoanPurposeUnsecured: function(cmp, evt, helper){
         var acMethod = cmp.find("LoanPurposeUn").get("v.value");
@@ -1763,7 +1777,7 @@
             helper.ExistingAssetsandLiabilities(cmp);
         else
             helper.ShowTotalAsPerCalculatorSelected(cmp);
-        
+       $A.enqueueAction(cmp.get("c.calculateAppLocPortionOnchange")); 
     },
     SaveData: function(cmp,evt,helper){
         var calc = cmp.find("selectapplicant").get("v.value");
@@ -1956,7 +1970,8 @@
                 break
         }
         
-        console.log('test--------------------------101-');
+        console.log('objType---------------------------'+objType);
+       
         var applicant1name='';
         var applicant1dob='';
         var applicant1gmi='';
@@ -2699,22 +2714,22 @@
             
         }
         
-        console.log('test ###############--------------------------1-');
+        //console.log('test ###############--------------------------1-');
         //Desired_Statement_Date = cmp.find('Desired_Statement_Date__id').get('v.value');
         //interest_in_JN_Life_CC_Creditor_Life_iIn = cmp.find('interest_in_JN_Life_CC_Creditor_Life_iIn__id').get('v.value');  
-        console.log('Account_Holders=====>'+Account_Holders);
-        console.log('Account_Holders_LOC=====>'+Account_Holders_LOC);
-        console.log('Account_Number=====>'+Account_Number);
-        console.log('Account_Type=====>'+Account_Type);
-        console.log('Annual_Interest_Rate_on_Deposit_Acc_LOC=====>'+Annual_Interest_Rate_on_Deposit_Acc_LOC);
-        console.log('Annual_Interest_Rate_on_Deposit_Account=====>'+Annual_Interest_Rate_on_Deposit_Account);
-        console.log('Desired_Monthly_Repayment_Date=====>'+Desired_Monthly_Repayment_Date);
-        console.log('Desired_Monthly_Repayment_Date_LOC=====>'+Desired_Monthly_Repayment_Date_LOC);
-        console.log('Desired_Monthly_Repayment_Date_UL=====>'+Desired_Monthly_Repayment_Date_UL);
-        console.log('Financial_Institution=====>'+Financial_Institution);
-        console.log('Financial_Institution_LOC=====>'+Financial_Institution_LOC);
-        console.log('Forced_Sale_Value=====>'+Forced_Sale_Value);
-        console.log('Insurer=====1>'+Insurer);
+       // console.log('Account_Holders=====>'+Account_Holders);
+        //console.log('Account_Holders_LOC=====>'+Account_Holders_LOC);
+        //console.log('Account_Number=====>'+Account_Number);
+        //console.log('Account_Type=====>'+Account_Type);
+        //console.log('Annual_Interest_Rate_on_Deposit_Acc_LOC=====>'+Annual_Interest_Rate_on_Deposit_Acc_LOC);
+        //console.log('Annual_Interest_Rate_on_Deposit_Account=====>'+Annual_Interest_Rate_on_Deposit_Account);
+        //console.log('Desired_Monthly_Repayment_Date=====>'+Desired_Monthly_Repayment_Date);
+        //console.log('Desired_Monthly_Repayment_Date_LOC=====>'+Desired_Monthly_Repayment_Date_LOC);
+        //console.log('Desired_Monthly_Repayment_Date_UL=====>'+Desired_Monthly_Repayment_Date_UL);
+        //console.log('Financial_Institution=====>'+Financial_Institution);
+        //console.log('Financial_Institution_LOC=====>'+Financial_Institution_LOC);
+        //console.log('Forced_Sale_Value=====>'+Forced_Sale_Value);
+        //console.log('Insurer=====1>'+Insurer);
         
         
         
@@ -2833,7 +2848,7 @@
             
             
         };
-        console.log('Insurer=====2>');
+        //console.log('Insurer=====2>');
         var newCalculator2;
         var newCalculator3;
         var newCalculator4;
@@ -2841,26 +2856,26 @@
         var newCalculator6;
         var newCalculator7;
         var newCalculator8;//For CREDIT REPAYMENT ALLOCATION
-        console.log('newCalculator8=====ff>'+newCalculator8);
+        //console.log('newCalculator8=====ff>'+newCalculator8);
         
-        console.log('newCalculator8=====1>'+App_1_Loan_Amount_A);
-        console.log('newCalculator8=====12>'+App_2_Loan_Amount_A);
-        console.log('newCalculator8=====13>'+App_3_Loan_Amount_A);
-        console.log('newCalculator8=====14>'+App1_Monthly_Payment_A);
-        console.log('newCalculator8=====15>'+App_2_Monthly_Payment_A);
-        console.log('newCalculator8=====16>'+App_3_Monthly_Payment_A);
-        console.log('newCalculator8=====17>'+App_1_LOC_limit);
-        console.log('newCalculator8=====18>'+App_2_LOC_Limit);
-        console.log('newCalculator8=====19>'+App_3_LOC_Limit);
-        console.log('newCalculator8=====110>'+App_1_Min_Payment);
-        console.log('newCalculator8=====111>'+App_2_Min_Payment_LOC);
-        console.log('newCalculator8=====112>'+App_3_Min_Payment_LOC);
-        console.log('newCalculator8=====113>'+App_1_Loan_Amount_UL);
-        console.log('newCalculator8=====114>'+App_2_Loan_Amount_UL);
-        console.log('newCalculator8=====115>'+App_3_Loan_Amount_UL);
-        console.log('newCalculator8=====116>'+App_1_Monthly_Payment_UL);
-        console.log('newCalculator8=====117>'+App_2_Monthly_Payment_UL);
-        console.log('newCalculator8=====118>'+App_3_Monthly_Payment_UL);
+        //console.log('newCalculator8=====1>'+App_1_Loan_Amount_A);
+        //console.log('newCalculator8=====12>'+App_2_Loan_Amount_A);
+        //console.log('newCalculator8=====13>'+App_3_Loan_Amount_A);
+        //console.log('newCalculator8=====14>'+App1_Monthly_Payment_A);
+        //console.log('newCalculator8=====15>'+App_2_Monthly_Payment_A);
+        //console.log('newCalculator8=====16>'+App_3_Monthly_Payment_A);
+       // console.log('newCalculator8=====17>'+App_1_LOC_limit);
+        //console.log('newCalculator8=====18>'+App_2_LOC_Limit);
+        //console.log('newCalculator8=====19>'+App_3_LOC_Limit);
+        //console.log('newCalculator8=====110>'+App_1_Min_Payment);
+        //console.log('newCalculator8=====111>'+App_2_Min_Payment_LOC);
+        //console.log('newCalculator8=====112>'+App_3_Min_Payment_LOC);
+        //console.log('newCalculator8=====113>'+App_1_Loan_Amount_UL);
+        //console.log('newCalculator8=====114>'+App_2_Loan_Amount_UL);
+        //console.log('newCalculator8=====115>'+App_3_Loan_Amount_UL);
+        //console.log('newCalculator8=====116>'+App_1_Monthly_Payment_UL);
+        //console.log('newCalculator8=====117>'+App_2_Monthly_Payment_UL);
+        //console.log('newCalculator8=====118>'+App_3_Monthly_Payment_UL);
         
         if(isprod){
             newCalculator8 = {
@@ -2903,8 +2918,8 @@
                 'App3_Portion_Min_Pay_LOC__c':App3_Portion_Min_Pay_LOC,
                 
             };
-            console.log('newCalculator8after=====1>'+newCalculator8);
-            console.log('Insurer=====3>');
+            //console.log('newCalculator8after=====1>'+newCalculator8);
+            //console.log('Insurer=====3>');
             if(calc=='1' || calc=='5' || calc=='6' || calc=='7' ||calc=='11' || calc=='12' || calc=='13' || calc=='15'){
                 console.log('Insurer=====4>'+Repayment_Method_Auto);
                 newCalculator2 = {
@@ -2970,28 +2985,28 @@
                 }
             }
         }
-        console.log('newCalculator8=====333>'+newCalculator8);
+        //console.log('newCalculator8=====333>'+newCalculator8);
         var newCalculator=Object.assign(newCalculator1, newCalculator2, newCalculator3, newCalculator4, newCalculator5, newCalculator6, newCalculator7, newCalculator8);
         //var newCalculator=Object.assign(newCalculator1, newCalculator2, newCalculator3, newCalculator4, newCalculator5, newCalculator6, newCalculator7);
-        console.log('newCalculator8=====444>'+newCalculator8);
+        //console.log('newCalculator8=====444>'+newCalculator8);
         
         
         
         
-        console.log('Property_Classification=====1>'+Property_Classification);
-        console.log('Property_Title_Information_Folio=====1>'+Property_Title_Information_Folio);
-        console.log('Property_Title_information_Vol=====1>'+Property_Title_information_Vol);
-        console.log('Repayment_Method_Auto=====1>'+Repayment_Method_Auto);
-        console.log('Repayment_Method_UL=====1>'+Repayment_Method_UL);
-        console.log('Replacement_Value=====1>'+Replacement_Value);
-        console.log('Security_Address=====1>'+Security_Address);
-        console.log('Vehicle_Classification=====1>'+Vehicle_Classification);
-        console.log('Year_of_Motor_Vehicle=====1>'+Year_of_Motor_Vehicle);
+        //console.log('Property_Classification=====1>'+Property_Classification);
+        //console.log('Property_Title_Information_Folio=====1>'+Property_Title_Information_Folio);
+        //console.log('Property_Title_information_Vol=====1>'+Property_Title_information_Vol);
+        //console.log('Repayment_Method_Auto=====1>'+Repayment_Method_Auto);
+        //console.log('Repayment_Method_UL=====1>'+Repayment_Method_UL);
+        //console.log('Replacement_Value=====1>'+Replacement_Value);
+        //console.log('Security_Address=====1>'+Security_Address);
+        //console.log('Vehicle_Classification=====1>'+Vehicle_Classification);
+        //console.log('Year_of_Motor_Vehicle=====1>'+Year_of_Motor_Vehicle);
         
         
-        console.log('test 1###############-=====>'+newCalculator);
+        console.log('loan calculator for save =====>'+newCalculator);
         
-        console.log('testcalc--------------------------'+calc);
+        console.log('Calc Type is Product Details ?------------'+isprod);
         if(isprod){
             var autoscore =cmp.find('CreditScoreAuto').get('v.value');
             var unscore =cmp.find('CreditScoreUn').get('v.value');
@@ -3012,7 +3027,7 @@
             helper.saveCalculation(cmp,evt,newCalculator,newopp);   
         }
         else
-            helper.saveCalculation(cmp,evt,newCalculator);
+            helper.saveLoanCalculation(cmp,evt,newCalculator);
         
     },
     ValidateProposedSaving : function(cmp){
@@ -3140,6 +3155,16 @@
     },
     
     //======CREDIT REPAYMENT ALLOCATION UnSecure=============
+    calculateAppUnsecurePortionOnchange : function(cmp, evt, helper){
+        $A.enqueueAction(cmp.get("c.showLoanAmountUn1"));
+        $A.enqueueAction(cmp.get("c.showMonthlyPaymentUn1"));
+        
+        $A.enqueueAction(cmp.get("c.showLoanAmountUn2"));
+        $A.enqueueAction(cmp.get("c.showMonthlyPaymentUn2"));
+        
+        $A.enqueueAction(cmp.get("c.showLoanAmountUn3"));
+        $A.enqueueAction(cmp.get("c.showMonthlyPaymentUn3"));
+    },
     showLoanAmountUn1 : function(cmp, event, helper) {
         console.log('showLoanAmountUn1 == ');
         var loanamt1=cmp.find("LoanAmountUn1").get("v.value");
@@ -3289,6 +3314,17 @@
         console.log('isUnsecurePayPortionValid========>'+cmp.get("v.isUnsecurePayPortionValid"));
     },
     //======CREDIT REPAYMENT ALLOCATION Auto Loan=============
+     calculateAppAutoPortionOnchange : function(cmp, evt, helper){
+        $A.enqueueAction(cmp.get("c.showLoanAmountAuto1"));
+        $A.enqueueAction(cmp.get("c.showMonthlyPaymentAuto1"));
+        
+        $A.enqueueAction(cmp.get("c.showLoanAmountAuto2"));
+        $A.enqueueAction(cmp.get("c.showMonthlyPaymentAuto2"));
+        
+        $A.enqueueAction(cmp.get("c.showLoanAmountAuto3"));
+        $A.enqueueAction(cmp.get("c.showMonthlyPaymentAuto3"));
+    },
+    
     showLoanAmountAuto1 : function(cmp, event, helper) {
         console.log('showLoanAmountAuto1 == ');
         var loanamt1=cmp.find("LoanAmountauto1").get("v.value");
@@ -3459,6 +3495,16 @@
         console.log('isAutoPayPortionValid========>'+cmp.get("v.isAutoPayPortionValid"));
     },
     //======CREDIT REPAYMENT ALLOCATION LOC=============
+    calculateAppLocPortionOnchange : function(cmp, evt, helper){
+        $A.enqueueAction(cmp.get("c.showLOCLimit1"));
+        $A.enqueueAction(cmp.get("c.showMinimumPayment1"));
+        
+        $A.enqueueAction(cmp.get("c.showLOCLimit2"));
+        $A.enqueueAction(cmp.get("c.showMinimumPayment2"));
+        
+        $A.enqueueAction(cmp.get("c.showLOCLimit3"));
+        $A.enqueueAction(cmp.get("c.showMinimumPayment3"));
+    },
     showLOCLimit1 : function(cmp, event, helper) {
         console.log('showLOCLimit1 == ');
         var loanamt1=cmp.find("LOCLimit1").get("v.value");
@@ -3605,4 +3651,29 @@
         }
         console.log('isLocPayPortionValid========>'+cmp.get("v.isLocPayPortionValid"));
     },
+    GenerateMultiCalcPdf : function(cmp, event, helper){
+        var leadOrOppId = cmp.get("v.recordId");
+        console.log('leadOrOppId==>'+leadOrOppId);
+        var loanid = cmp.get('v.retLoanCalcId');
+        console.log('loanid==>'+loanid);
+        helper.saveMultiCalcPdf(cmp,leadOrOppId,loanid);   
+        console.log('loanid================>');
+        window.open('https://jnbank--jnbanksan.lightning.force.com/apex/MultiProductCalculatorDoc?loanid='+loanid);
+        
+        
+    },
+    creditScoringAuto : function(cmp, event, helper){
+        //var leadOrOppId = cmp.get("v.recordId");
+        //console.log('leadOrOppId==>'+leadOrOppId);
+        //var loanid = cmp.get('v.retLoanCalcId');
+        //console.log('loanid==>'+loanid);
+        //helper.saveMultiCalcPdf(cmp,leadOrOppId,loanid);   
+        //console.log('loanid================>');
+        window.open('https://jnbank--jnbanksan.lightning.force.com/apex/CreditScoringModel');
+        
+        
+    },
+    
+    
+    
 })

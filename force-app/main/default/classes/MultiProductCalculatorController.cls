@@ -72,15 +72,15 @@ public class MultiProductCalculatorController {
                                                  return objectList;
                                              }
     @AuraEnabled
-    public static string SaveLoanCalculation (Loan_Calculator__c loancalculation){
+    public static string SaveOnlyLoanCalculation (Loan_Calculator__c loancalculation){
         string returnStr='';
         try{
-            System.debug('Cloancalculation============'+loancalculation);
+            System.debug('Only loancalculation for save============'+loancalculation);
             if(loancalculation != null){
                 Id rtID = Schema.SObjectType.Loan_Calculator__c.getRecordTypeInfosByName().get('Multi Product').getRecordTypeId();
                 loancalculation.recordTypeId =rtID;
                 insert loancalculation;
-                returnStr='Save';
+                returnStr=string.valueOf(loancalculation.Id);
                 system.debug('SaveLoanCalculation=='+loancalculation);
             }
             
@@ -95,7 +95,7 @@ public class MultiProductCalculatorController {
         string returnStr='';
         try{
             
-            System.debug('Cloancalculation============'+loancalculation);
+            System.debug('loancalculation with opportunity for save============'+loancalculation);
             if(loancalculation != null){
                 Id rtID = Schema.SObjectType.Loan_Calculator__c.getRecordTypeInfosByName().get('Product Details').getRecordTypeId();
                 loancalculation.recordTypeId =rtID;
@@ -107,10 +107,10 @@ public class MultiProductCalculatorController {
                 update Opptoupdate;
                 System.debug('Opptoupdate1============'+Opptoupdate);
                 returnStr='Save';
-                set<Id> oppset= new set<Id>();
-                oppset.add(Opptoupdate.Id);
-                CreditScoreHelper csh= new CreditScoreHelper();
-                csh.CreditScoreFromOpp(oppset);
+                //set<Id> oppset= new set<Id>();
+                //oppset.add(Opptoupdate.Id);
+                //CreditScoreHelper csh= new CreditScoreHelper();
+                //csh.CreditScoreFromOpp(oppset);
             }
             
         } catch (Exception ex){
@@ -261,119 +261,119 @@ public class MultiProductCalculatorController {
         }
     }
     
-   /* public static Boolean isRequiredFieldMissingForScore(string oppid){
-        Boolean flag=false;
-        Boolean autoProfound=false;
-        Boolean unProfound=false;
-        Boolean ccProfound=false;
-        Boolean locProfound=false;
-        List<OpportunityLineItem> lstlineItem  =  [select name,Opportunityid,Product2.Name,TotalPrice from OpportunityLineItem where Opportunityid =: oppid];
-        if(lstlineItem.size()>0){
-            for(OpportunityLineItem item:lstlineItem){
-                if(item.Name =='JN Bank Auto Loan'){// 'Auto Loan';
-                   autoProfound=true;
-                }
-                else if(item.Name =='JN Bank Unsecured Loan'){// 'Unsecured Loan';
-                   unProfound=true;
-                }
-                else if(item.Name =='JN Visa - Classic'){// 'Credit Card';
-                    ccProfound=true;
-                }
-                else if(item.Name =='JN Bank Line Of Credit'){// 'Line of Credit';
-                    locProfound=true;
-                }
-            }
-        }
-        if(!locProfound && !unProfound && !ccProfound && !locProfound){
-            return true;
-        }
-        
-        List<opportunity> lstopp = [select id,Collateral__r.RecordType.Name from opportunity where id=:oppid limit 1];
-        if(lstopp.size()>0){
-            system.debug('Naresh## lstopp================>'+lstopp);
-            if(autoProfound){
-                
-            }
-            if(unProfound){
-                
-            }
-            if(ccProfound){
-                
-            }
-            if(locProfound){
-                
-            }
-        }
-        
-        set<id> accid = new set<id>();
-        List<Applicant__c> lstapp = [select Account__c, 
-                                     Account__r.Jamaican_Tax_Registration_Number__pc,
-                                     Account__r.Political_Exposure__pc,
-                                     Account__r.FinServ__Age__pc,
-                                     Account__r.Highest_Level_of_Education_attained__pc,
-                                     Account__r.Status_of_Address__c,
-                                     Account__r.Years_at_Residence__c,
-                                     Account__r.Industry_of_Employment__pc,
-                                     Gross_Monthly_IncomeC__c,
-                                     Sanction_Screening_has_Negative_Trace__c,
-                                     Credit_History_in_last_24_Months__c,
-                                     Assessment_of_Applicant_Net_Worth__c
-                                     from Applicant__c where Opportunity__c=:oppid];
-       //if salared
-       // Industry_of_Employment__pc
-       // 
-        if(lstapp.size()>0){
-            system.debug('Naresh## lstapp================>'+lstapp);
-            for(Applicant__c a:lstapp){
-                accid.add(a.Account__c);
-            }
-        }
-        
-        
-        
-        List<FinServ__Employment__c> lstemp = [select
-                                               Income_type__c,
-                                               FinServ__EmploymentStatus__c,
-                                                Industry__c,
-                                               FinServ__LengthOfEmployment__c,
-                                               Account__c,
-                                               Professional_Category__c,
-                                              Assessment_of_Business_Working_Capita__c,
-                                               Nature_of_Engagement__c,
-                                               Financial_Preformance__c,
-                                               Financial_Statement_Support__c,
-                                               Length_of_Trade__c
-                                               
-                                              
-                                                from FinServ__Employment__c where Account__c IN:accid and Current_Employment__c=true];
-       
-         if(lstemp.size()>0){
-            system.debug('Naresh## lstemp================>'+lstemp);
-        }
-        
-        /*if Salared
-        //FinServ__EmploymentStatus__c,
-        //
-        //Professional_Category__c
-        
+    /* public static Boolean isRequiredFieldMissingForScore(string oppid){
+Boolean flag=false;
+Boolean autoProfound=false;
+Boolean unProfound=false;
+Boolean ccProfound=false;
+Boolean locProfound=false;
+List<OpportunityLineItem> lstlineItem  =  [select name,Opportunityid,Product2.Name,TotalPrice from OpportunityLineItem where Opportunityid =: oppid];
+if(lstlineItem.size()>0){
+for(OpportunityLineItem item:lstlineItem){
+if(item.Name =='JN Bank Auto Loan'){// 'Auto Loan';
+autoProfound=true;
+}
+else if(item.Name =='JN Bank Unsecured Loan'){// 'Unsecured Loan';
+unProfound=true;
+}
+else if(item.Name =='JN Visa - Classic'){// 'Credit Card';
+ccProfound=true;
+}
+else if(item.Name =='JN Bank Line Of Credit'){// 'Line of Credit';
+locProfound=true;
+}
+}
+}
+if(!locProfound && !unProfound && !ccProfound && !locProfound){
+return true;
+}
+
+List<opportunity> lstopp = [select id,Collateral__r.RecordType.Name from opportunity where id=:oppid limit 1];
+if(lstopp.size()>0){
+system.debug('Naresh## lstopp================>'+lstopp);
+if(autoProfound){
+
+}
+if(unProfound){
+
+}
+if(ccProfound){
+
+}
+if(locProfound){
+
+}
+}
+
+set<id> accid = new set<id>();
+List<Applicant__c> lstapp = [select Account__c, 
+Account__r.Jamaican_Tax_Registration_Number__pc,
+Account__r.Political_Exposure__pc,
+Account__r.FinServ__Age__pc,
+Account__r.Highest_Level_of_Education_attained__pc,
+Account__r.Status_of_Address__c,
+Account__r.Years_at_Residence__c,
+Account__r.Industry_of_Employment__pc,
+Gross_Monthly_IncomeC__c,
+Sanction_Screening_has_Negative_Trace__c,
+Credit_History_in_last_24_Months__c,
+Assessment_of_Applicant_Net_Worth__c
+from Applicant__c where Opportunity__c=:oppid];
+//if salared
+// Industry_of_Employment__pc
+// 
+if(lstapp.size()>0){
+system.debug('Naresh## lstapp================>'+lstapp);
+for(Applicant__c a:lstapp){
+accid.add(a.Account__c);
+}
+}
+
+
+
+List<FinServ__Employment__c> lstemp = [select
+Income_type__c,
+FinServ__EmploymentStatus__c,
+Industry__c,
+FinServ__LengthOfEmployment__c,
+Account__c,
+Professional_Category__c,
+Assessment_of_Business_Working_Capita__c,
+Nature_of_Engagement__c,
+Financial_Preformance__c,
+Financial_Statement_Support__c,
+Length_of_Trade__c
+
+
+from FinServ__Employment__c where Account__c IN:accid and Current_Employment__c=true];
+
+if(lstemp.size()>0){
+system.debug('Naresh## lstemp================>'+lstemp);
+}
+
+/*if Salared
+//FinServ__EmploymentStatus__c,
+//
+//Professional_Category__c
+
 */
-        /*(if Primary Income Type = Salaried ANDEmployment Status ≠Unemployed)"
-        FinServ__LengthOfEmployment__c,
-        
-			*/
-        /*
-         * "Y
+    /*(if Primary Income Type = Salaried ANDEmployment Status ≠Unemployed)"
+FinServ__LengthOfEmployment__c,
+
+*/
+    /*
+* "Y
 (if Primary Income Type = Self-Employed)"
-         * Assessment_of_Business_Working_Capita__c
-         * Nature_of_Engagement__c
-         * Industry__c
-         * Financial_Preformance__c,
-         * Financial_Statement_Support__c
-         * Length_of_Trade__c
-         * 
-        
-        return flag;
-    } */
+* Assessment_of_Business_Working_Capita__c
+* Nature_of_Engagement__c
+* Industry__c
+* Financial_Preformance__c,
+* Financial_Statement_Support__c
+* Length_of_Trade__c
+* 
+
+return flag;
+} */
     
     @AuraEnabled
     Public static List<CreditScoreHelper.WrapperScore> CalculateScore(String CalType,string oppid,string Total_Loan_Amount,string Market_Value_of_Vehicle, string Proposed_Starting_Limit,string PC_Deposit_Account_Balance,string Line_of_Credit_Starting_Limit,string PCL_Deposit_Account_Balance){
@@ -386,8 +386,8 @@ public class MultiProductCalculatorController {
         return retlst;
     }
     
-  @AuraEnabled  
-  public static Boolean isRequiredFieldMissingForScore(string oppid){
+    @AuraEnabled  
+    public static Boolean isRequiredFieldMissingForScore(string oppid){
         Boolean autoProfound=false;
         Boolean unProfound=false;
         Boolean ccProfound=false;
@@ -398,10 +398,10 @@ public class MultiProductCalculatorController {
             for(OpportunityLineItem item:lstlineItem){
                 system.debug('Naresh## item================>'+item.Name);
                 if(item.Product2.Name =='JN Bank Auto Loan'){// 'Auto Loan';
-                   autoProfound=true;
+                    autoProfound=true;
                 }
                 else if(item.Product2.Name =='JN Bank Unsecured Loan'){// 'Unsecured Loan';
-                   unProfound=true;
+                    unProfound=true;
                 }
                 else if(item.Product2.Name =='JN Visa - Classic'){// 'Credit Card';
                     ccProfound=true;
@@ -416,15 +416,15 @@ public class MultiProductCalculatorController {
             return true;
         }
         
-         List<opportunity> lstopp = [select id,Collateral__r.RecordType.Name,
-                                     Collateral_Personal_Line_of_Credit__r.RecordType.Name,
-                                     Collateral_Personal_Credit_Card__r.RecordType.Name,
-                                     Repayment_Method_Auto__c,
-                                     Repayment_Method_CC__c,
-                                     Repayment_Method_LOC__c,
-                                     Repayment_Method_UL__c 
-                                     from opportunity where id=:oppid limit 1];
-         if(lstopp.size()>0){
+        List<opportunity> lstopp = [select id,Collateral__r.RecordType.Name,
+                                    Collateral_Personal_Line_of_Credit__r.RecordType.Name,
+                                    Collateral_Personal_Credit_Card__r.RecordType.Name,
+                                    Repayment_Method_Auto__c,
+                                    Repayment_Method_CC__c,
+                                    Repayment_Method_LOC__c,
+                                    Repayment_Method_UL__c 
+                                    from opportunity where id=:oppid limit 1];
+        if(lstopp.size()>0){
             system.debug('Naresh## lstopp================>'+lstopp);
             if(autoProfound){
                 if(lstopp[0].Collateral__r.RecordType.Name!='Motor Vehicle' || string.isEmpty(lstopp[0].Repayment_Method_Auto__c)){
@@ -433,21 +433,21 @@ public class MultiProductCalculatorController {
                 }
             }
             if(unProfound){
-               if(string.isEmpty(lstopp[0].Repayment_Method_UL__c)){
-                   system.debug('Required missing ===============>3'); 
-                   return true;
+                if(string.isEmpty(lstopp[0].Repayment_Method_UL__c)){
+                    system.debug('Required missing ===============>3'); 
+                    return true;
                 }
             }
             if(ccProfound){
-                 if(lstopp[0].Collateral_Personal_Credit_Card__r.RecordType.Name!='Savings/Current Accounts and Investments' || string.isEmpty(lstopp[0].Repayment_Method_CC__c)){
+                if(lstopp[0].Collateral_Personal_Credit_Card__r.RecordType.Name!='Savings/Current Accounts and Investments' || string.isEmpty(lstopp[0].Repayment_Method_CC__c)){
                     system.debug('Required missing ===============>4');
-                     return true;
+                    return true;
                 }
             }
             if(locProfound){
-                 if(lstopp[0].Collateral_Personal_Line_of_Credit__r.RecordType.Name!='Real Estate' || string.isEmpty(lstopp[0].Repayment_Method_LOC__c)){
+                if(lstopp[0].Collateral_Personal_Line_of_Credit__r.RecordType.Name!='Real Estate' || string.isEmpty(lstopp[0].Repayment_Method_LOC__c)){
                     system.debug('Required missing ===============>5');
-                     return true;
+                    return true;
                 }
             }
         }
@@ -458,118 +458,118 @@ public class MultiProductCalculatorController {
                                      Credit_History_in_last_24_Months__c,
                                      Assessment_of_Applicant_Net_Worth__c
                                      from Applicant__c where Opportunity__c=:oppid];
-         if(lstapp.size()>0){
-             system.debug('Naresh## lstapp================>'+lstapp);
-             for(Applicant__c a:lstapp){
-                 accid.add(a.Account__c);
-                 if(a.Gross_Monthly_IncomeC__c ==Null || string.isEmpty(a.Credit_History_in_last_24_Months__c) || string.isEmpty(a.Assessment_of_Applicant_Net_Worth__c)){
-                     system.debug('Required missing ===============>6');
-                     return true;
-                 }
-             }
-         }
-         else{
-             system.debug('Required missing ===============>7');
-             return true;
-         }
+        if(lstapp.size()>0){
+            system.debug('Naresh## lstapp================>'+lstapp);
+            for(Applicant__c a:lstapp){
+                accid.add(a.Account__c);
+                if(a.Gross_Monthly_IncomeC__c ==Null || string.isEmpty(a.Credit_History_in_last_24_Months__c) || string.isEmpty(a.Assessment_of_Applicant_Net_Worth__c)){
+                    system.debug('Required missing ===============>6');
+                    return true;
+                }
+            }
+        }
+        else{
+            system.debug('Required missing ===============>7');
+            return true;
+        }
         
         
         
-         List<FinServ__Employment__c> lstemp = [select
-                                                Income_type__c,
-                                                FinServ__EmploymentStatus__c,
-                                                Industry__c,
-                                                FinServ__LengthOfEmployment__c,
-                                                Account__c,
-                                                Professional_Category__c,
-                                                Assessment_of_Business_Working_Capita__c,
-                                                Nature_of_Engagement__c,
-                                                Financial_Preformance__c,
-                                                Financial_Statement_Support__c,
-                                                Length_of_Trade__c,
-                                                Account__r.Jamaican_Tax_Registration_Number__pc,
-                                                
-                                                Account__r.FinServ__Age__pc,
-                                                Account__r.Highest_Level_of_Education_attained__pc,
-                                                Account__r.Status_of_Address__c,
-                                                Account__r.Years_at_Residence__c,
-                                                Account__r.Industry_of_Employment__pc
-                                                from FinServ__Employment__c where Account__c IN:accid and Current_Employment__c=true];
-         
-         if(lstemp.size()>0){
-             system.debug('Naresh## lstemp================>'+lstemp);
-             for(FinServ__Employment__c e:lstemp){
-                 string cat = '';
-                 if(string.isEmpty(e.Income_type__c)){
-                     system.debug('Required missing ===============>8');
-                     return true;
-                 }else {
-                     if(e.Account__r.FinServ__Age__pc==NULL || string.isEmpty(e.Account__r.Highest_Level_of_Education_attained__pc) || string.isEmpty(e.Account__r.Status_of_Address__c) || e.Account__r.Years_at_Residence__c ==NULL || string.isEmpty(e.Account__r.Jamaican_Tax_Registration_Number__pc)){
-                         system.debug('Required missing ===============>9');
-                         return true;
-                     }
-                     if(e.Income_type__c=='Salaried'){
-                         if(string.isEmpty(e.Account__r.Industry_of_Employment__pc) || string.isEmpty(e.FinServ__EmploymentStatus__c) || string.isEmpty(e.Professional_Category__c)){
-                             system.debug('Required missing ===============>10');
-                             return true;
-                         }
-                     }
-                     if(e.Income_type__c=='Salaried' && e.FinServ__EmploymentStatus__c!='Unemployed'){
-                         if(e.FinServ__LengthOfEmployment__c==NULL){
-                             system.debug('Required missing ===============>11');
-                             return true;
-                         }
-                     }
-                     if(e.Income_type__c=='Self-Employed'){
-                         if(string.isEmpty(e.Industry__c) || e.Assessment_of_Business_Working_Capita__c ==NULL || string.isEmpty(e.Nature_of_Engagement__c) || string.isEmpty(e.Financial_Preformance__c) || string.isEmpty(e.Financial_Statement_Support__c) || string.isEmpty(e.Length_of_Trade__c)){
-                             system.debug('Required missing ===============>12');
-                             return true;
-                         }
-                     }
-                 }
-             }
-         }
-         else{
-             system.debug('Required missing ===============>13');
-             return true;
-         }
+        List<FinServ__Employment__c> lstemp = [select
+                                               Income_type__c,
+                                               FinServ__EmploymentStatus__c,
+                                               Industry__c,
+                                               FinServ__LengthOfEmployment__c,
+                                               Account__c,
+                                               Professional_Category__c,
+                                               Assessment_of_Business_Working_Capita__c,
+                                               Nature_of_Engagement__c,
+                                               Financial_Preformance__c,
+                                               Financial_Statement_Support__c,
+                                               Length_of_Trade__c,
+                                               Account__r.Jamaican_Tax_Registration_Number__pc,
+                                               
+                                               Account__r.FinServ__Age__pc,
+                                               Account__r.Highest_Level_of_Education_attained__pc,
+                                               Account__r.Status_of_Address__c,
+                                               Account__r.Years_at_Residence__c,
+                                               Account__r.Industry_of_Employment__pc
+                                               from FinServ__Employment__c where Account__c IN:accid and Current_Employment__c=true];
+        
+        if(lstemp.size()>0){
+            system.debug('Naresh## lstemp================>'+lstemp);
+            for(FinServ__Employment__c e:lstemp){
+                string cat = '';
+                if(string.isEmpty(e.Income_type__c)){
+                    system.debug('Required missing ===============>8');
+                    return true;
+                }else {
+                    if(e.Account__r.FinServ__Age__pc==NULL || string.isEmpty(e.Account__r.Highest_Level_of_Education_attained__pc) || string.isEmpty(e.Account__r.Status_of_Address__c) || e.Account__r.Years_at_Residence__c ==NULL || string.isEmpty(e.Account__r.Jamaican_Tax_Registration_Number__pc)){
+                        system.debug('Required missing ===============>9');
+                        return true;
+                    }
+                    if(e.Income_type__c=='Salaried'){
+                        if(string.isEmpty(e.Account__r.Industry_of_Employment__pc) || string.isEmpty(e.FinServ__EmploymentStatus__c) || string.isEmpty(e.Professional_Category__c)){
+                            system.debug('Required missing ===============>10');
+                            return true;
+                        }
+                    }
+                    if(e.Income_type__c=='Salaried' && e.FinServ__EmploymentStatus__c!='Unemployed'){
+                        if(e.FinServ__LengthOfEmployment__c==NULL){
+                            system.debug('Required missing ===============>11');
+                            return true;
+                        }
+                    }
+                    if(e.Income_type__c=='Self-Employed'){
+                        if(string.isEmpty(e.Industry__c) || e.Assessment_of_Business_Working_Capita__c ==NULL || string.isEmpty(e.Nature_of_Engagement__c) || string.isEmpty(e.Financial_Preformance__c) || string.isEmpty(e.Financial_Statement_Support__c) || string.isEmpty(e.Length_of_Trade__c)){
+                            system.debug('Required missing ===============>12');
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            system.debug('Required missing ===============>13');
+            return true;
+        }
         /*if salared
-         Industry_of_Employment__pc//
-         FinServ__EmploymentStatus__c,//
-         Professional_Category__c//
-       if (Primary Income Type = Salaried AND Employment Status ≠Unemployed)"
-        FinServ__LengthOfEmployment__c,//
-        
-		
+Industry_of_Employment__pc//
+FinServ__EmploymentStatus__c,//
+Professional_Category__c//
+if (Primary Income Type = Salaried AND Employment Status ≠Unemployed)"
+FinServ__LengthOfEmployment__c,//
+
+
 
 if (Primary Income Type = Self-Employed)
-         * Assessment_of_Business_Working_Capita__c//
-         * Nature_of_Engagement__c//
-         * Industry__c//
-         * Financial_Preformance__c,//
-         * Financial_Statement_Support__c//
-         * Length_of_Trade__c//
-         * */
+* Assessment_of_Business_Working_Capita__c//
+* Nature_of_Engagement__c//
+* Industry__c//
+* Financial_Preformance__c,//
+* Financial_Statement_Support__c//
+* Length_of_Trade__c//
+* */
         system.debug('Required missing ===============>No');
         return false;
     }  
     
-   /* public class WrapperScore{
-        @AuraEnabled
-        public string Name{get;set;}
-        @AuraEnabled
-        public string Score{get;set;}
-        @AuraEnabled
-        public string Rating{get;set;}
-        
-        WrapperScore(string Name1,string Score1,string Rating1){
-            this.Name=Name1;
-            this.Score=Score1;
-            this.Rating=Rating1;
-        }
-    }*/
+    /* public class WrapperScore{
+@AuraEnabled
+public string Name{get;set;}
+@AuraEnabled
+public string Score{get;set;}
+@AuraEnabled
+public string Rating{get;set;}
+
+WrapperScore(string Name1,string Score1,string Rating1){
+this.Name=Name1;
+this.Score=Score1;
+this.Rating=Rating1;
+}
+}*/
     
-   @AuraEnabled  
+    @AuraEnabled  
     public static Boolean SaveApplicationFormInOpp(string oppid){
         try{
             PageReference mypage = Page.ApplicationForm;
@@ -591,18 +591,41 @@ if (Primary Income Type = Self-Employed)
         }
         return false;
     }
+    @AuraEnabled  
+    public static Boolean SaveMultiCalculatorpdf(string loancalcid,string idToSave){
+        try{
+             system.debug('idToSave===='+idToSave+'====loancalcid==>'+loancalcid);
+            PageReference mypage = Page.MultiProductCalculatorDoc;
+            mypage.getParameters().put('loanid', loancalcid);
+            blob body = mypage.getContentAsPDF();
+           
+            Attachment attach = new Attachment();
+            attach.Body = body;
+            attach.ContentType='application/pdf';            
+            attach.Name = 'MultiCalculatorpdf.pdf';
+            attach.IsPrivate = false;
+            attach.ParentId = idToSave;
+            insert attach;
+            system.debug('attach===='+attach);
+            return true;
+        }
+        catch(Exception ex){
+            system.debug('Exception ======'+ex.getMessage()+'....Line Number=>'+ex.getLineNumber());           
+        }
+        return false;
+    }
     
     @AuraEnabled  
     public static list<WrapperclsAssets> getApplicantAsset(string oppid){
         list<WrapperclsAssets> wrapperlstAssets= new list<WrapperclsAssets>();
         list<Application_Asset_Liability__c> lst = [select Assets_and_Liabilities__r.RecordType.Name,
-                                                   Assets_and_Liabilities__r.Monthly_Payment_Prior__c,
+                                                    Assets_and_Liabilities__r.Monthly_Payment_Prior__c,
                                                     Assets_and_Liabilities__r.Minimum_Payment__c,
                                                     Assets_and_Liabilities__r.Monthly_Payment__c,
                                                     Assets_and_Liabilities__r.Minimum_Payment_After__c
                                                     from Application_Asset_Liability__c where Application__r.Opportunity__c =:oppid];
         list<Applicant__c> applst = [select Gross_Monthly_IncomeC__c from Applicant__c where Opportunity__c=:oppid];
-    wrapperlstAssets.add( new WrapperclsAssets(lst, applst));
+        wrapperlstAssets.add( new WrapperclsAssets(lst, applst));
         return wrapperlstAssets;
     }
     public class WrapperclsAssets{
@@ -610,11 +633,11 @@ if (Primary Income Type = Self-Employed)
         public list<Application_Asset_Liability__c> ApplicationAssetLiability {get;set;}
         @AuraEnabled
         public list<Applicant__c> Applicantlst{get;set;}
-       
+        
         WrapperclsAssets(list<Application_Asset_Liability__c> Application_Asset_Liability, list<Applicant__c> Applst){
             this.ApplicationAssetLiability=Application_Asset_Liability;
             this.Applicantlst=Applst;
-           
+            
         }
     }
     

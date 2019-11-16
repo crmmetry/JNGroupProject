@@ -2566,17 +2566,18 @@
         
     },
     
-    saveCalculation : function(cmp,evt,dataForSave){
-        console.log('saveCalculation--------------------------1-'+dataForSave);
-        var action = cmp.get('c.SaveLoanCalculation');
+    saveLoanCalculation : function(cmp,evt,dataForSave){
+        console.log('save only loan Calculation--------------------------1-'+dataForSave);
+        var action = cmp.get('c.SaveOnlyLoanCalculation');
         action.setParams({
             loancalculation : dataForSave
         });
-        console.log('saveCalculation--------------------------2-'+dataForSave);
+        console.log('Only loan Calculation--------------------------2');
         action.setCallback(this,function(response){
             var state = response.getState();
-            console.log('saveCalculation--------------------------3-'+state);
+            console.log('Only loan Calculation State---------------------------'+state);
             if(state=='SUCCESS'){
+                
                 var toastEvent = $A.get("e.force:showToast");
                 toastEvent.setParams({
                     title : 'Success',
@@ -2587,11 +2588,14 @@
                     mode: 'pester'
                 });
                 toastEvent.fire();
+                cmp.set('v.showMultiCalcPdfIcon',true);
+                console.log('Only loan Calculation ret val---------------------------'+response.getReturnValue());
+                cmp.set('v.retLoanCalcId',response.getReturnValue());
             }
             else{
                 
                 var msg = response.getReturnValue();
-                console.log('saveCalculation--------------------------4-'+msg);
+                console.log('Only loan Calculation ret msg---------------------------'+msg);
                 var toastEvent = $A.get("e.force:showToast");
                 toastEvent.setParams({
                     title : 'Error',
@@ -2605,7 +2609,7 @@
             }
         });
         $A.enqueueAction(action);
-        console.log('saveCalculation--------------------------5-');
+        console.log('Only loan Calculation Save --------------------------5-');
     },
     saveCalculation : function(cmp,evt,dataForSave, Opptoupdate){
         console.log('saveCalculation--------------------------Opptoupdate-'+Opptoupdate);
@@ -2820,5 +2824,27 @@
         });
         $A.enqueueAction(action);
         console.log('saveCalculation--------------------------5-');
+    },
+    saveMultiCalcPdf: function(cmp,id_ToSave,loan_CalcId){
+        console.log('saveMultiCalcPdf--------------------------1-');
+        var action = cmp.get('c.SaveMultiCalculatorpdf');
+        action.setParams({
+            loancalcid : loan_CalcId,
+            idToSave : id_ToSave
+        });
+        console.log('saveMultiCalcPdf--------------------------2-');
+        action.setCallback(this,function(response){
+            var state = response.getState();
+            console.log('saveMultiCalcPdf--------------------------3-'+state);
+            if(state=='SUCCESS'){
+                
+            }
+            else{
+                var msg = response.getReturnValue();
+                console.log('saveMultiCalcPdf--------------------------4-'+msg);
+            }
+        });
+        $A.enqueueAction(action);
+        console.log('saveMultiCalcPdf--------------------------5-');
     },
 })

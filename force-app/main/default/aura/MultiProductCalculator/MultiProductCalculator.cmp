@@ -120,7 +120,8 @@
     <aura:attribute name="isLocPayPortionValid" type="Boolean" Default="false"/>
     <aura:attribute name="isProposedUN" type="Boolean" Default="false"/>
     <aura:attribute name="isProposedAuto" type="Boolean" Default="false"/>
-	
+	<aura:attribute name="showMultiCalcPdfIcon" type="Boolean" Default="false"/>
+    <aura:attribute name="retLoanCalcId" type="String" default=""/>
     
     <form class="slds-form ">
         <fieldset  class="slds-box slds-theme--default slds-container--large" style="padding-right: 5px;">
@@ -2498,6 +2499,22 @@
                     
                 </div>
             </div>
+            <aura:if isTrue="{!v.showMultiCalcPdfIcon}">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.GenerateMultiCalcPdf }">
+                            <lightning:layout class="slds-box">
+                                <lightning:layoutItem> 
+                                    <lightning:icon iconName="doctype:word"/>
+                                </lightning:layoutItem>
+                                <lightning:layoutItem padding="horizontal-small">
+                                    <div class="page-section page-header">
+                                        <h2 class="slds-text-heading--small" style="font-weight: bold;color: #00a1e0;">GENERATE Document</h2>
+                                        </div>
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                        </div>
+                
+            </aura:if>
+            
             <aura:if isTrue="{!v.isProductDetail}">
                 <div class="slds-grid slds-wrap" style="margin-top: 10px;">
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.ApplicationFormDoc }">
@@ -2560,6 +2577,27 @@
                         </div>
                     </aura:if>
                 </div>
+                
+                <div class="slds-grid slds-wrap" style="margin-top: 10px;">
+                    <!--<aura:if isTrue="{!v.ApplicantCount>=1}">-->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.creditScoringAuto }">
+                            <lightning:layout class="slds-box">
+                                <lightning:layoutItem> 
+                                    <lightning:icon iconName="doctype:word"/>
+                                </lightning:layoutItem>
+                                <lightning:layoutItem padding="horizontal-small">
+                                    <div class="page-section page-header">
+                                        <h2 class="slds-text-heading--small" style="font-weight: bold;color: #00a1e0;">CREDIT SCORING MODEL</h2>
+                                        <h1 class="slds-text-heading--label" style="font-weight: bold;color:#75db1b;">AUTO LOAN</h1>
+                                    </div>
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                        </div>
+                    <!--</aura:if>-->
+                
+                </div>
+                
+                
             </aura:if>
             
         </fieldset>
