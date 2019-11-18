@@ -127,7 +127,7 @@ recordTypeId = getRecordTypeId(recordTypeName);
         newLead.Preferred_Date_of_Contact__c = Date.valueOf(applicantDetails.get('Preferred_Date_of_Contact__c'));
         newLead.Preferred_Time_of_Contact__c= updateTime(applicantDetails.get('Preferred_Time_of_Contact__c'));
         newLead.Preferred_Location__c = applicantDetails.get('Preferred_Location__c');
-        newLead.Loan_Purpose__c = applicantDetails.get('Loan_Purpose__c');
+        newLead.Loan_Purpose_UL__c = applicantDetails.get('Loan_Purpose_UL__c');
         newLead.Gross_Monthly_Income__c = Decimal.valueOf(applicantDetails.get('Gross_Monthly_Income__c'));
         newLead.Gross_Monthly_Expenses__c = Decimal.valueOf(applicantDetails.get('Gross_Monthly_Expenses__c'));
         upsert newLead;

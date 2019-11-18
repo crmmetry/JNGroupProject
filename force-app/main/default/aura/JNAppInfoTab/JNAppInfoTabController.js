@@ -6,7 +6,7 @@
       Preferred_Date_of_Contact__c: "",
       Preferred_Time_of_Contact__c: "",
       Preferred_Location__c: "",
-      Loan_Purpose__c: "",
+      Loan_Purpose_UL__c: "",
       Gross_Monthly_Income__c: 0,
       Gross_Monthly_Expenses__c: 0
     };
@@ -26,7 +26,7 @@
   getLoanPurpose: function(component, event, helper) {
     const selected = event.getSource().get("v.value");
     let siteLead = component.get("v.SiteLead");
-    siteLead["Loan_Purpose__c"] = selected;
+    siteLead["Loan_Purpose_UL__c"] = selected;
     component.set("v.SiteLead", siteLead);
   },
   validateTabFields: function(component, event, helper) {

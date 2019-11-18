@@ -114,6 +114,26 @@
                     var productselection=response.getReturnValue(); 
                     cmp.find("selectapplicant").set("v.value",productselection);
                     $A.enqueueAction(cmp.get('c.showhideONmethod'));
+                    var calc = productselection;
+                    if(calc=='1' || calc=='5' || calc=='6' || calc=='7' ||calc=='11' || calc=='12' || calc=='13' || calc=='15'){
+                        cmp.set('v.isAutoPD',true);
+                    }
+                    if(calc=='2' || calc=='5' || calc=='8' || calc=='9' ||calc=='11' || calc=='12' || calc=='14' || calc=='15'){
+                        cmp.set('v.isUnsecurePD',true);
+                    }
+                    if(calc=='3' || calc=='6' || calc=='8' || calc=='10' ||calc=='11' || calc=='13' || calc=='14' || calc=='15'){
+                        cmp.set('v.isCCPD',true);
+                    }
+                    if(calc=='4' || calc=='7' || calc=='9' || calc=='10' ||calc=='12' || calc=='13' || calc=='14' || calc=='15'){
+                        cmp.set('v.isLocPD',true);
+                    }
+        
+                    
+                    
+                    
+                    
+                    
+                    
                 }
                 else if (state === "ERROR")  
                 {
@@ -3663,15 +3683,63 @@
         
     },
     creditScoringAuto : function(cmp, event, helper){
-        //var leadOrOppId = cmp.get("v.recordId");
-        //console.log('leadOrOppId==>'+leadOrOppId);
+        var oppid = cmp.get("v.isRecordIdM");
+        console.log('oppid==>'+oppid);
         //var loanid = cmp.get('v.retLoanCalcId');
         //console.log('loanid==>'+loanid);
         //helper.saveMultiCalcPdf(cmp,leadOrOppId,loanid);   
         //console.log('loanid================>');
-        window.open('https://jnbank--jnbanksan.lightning.force.com/apex/CreditScoringModel');
+        var numberOfApplicant=cmp.get('v.ApplicantCount');
+        var loanAmount='50000';
+        
+        window.open('https://jnbank--jnbanksan.lightning.force.com/apex/CreditScoringModel?productName=Auto Loan&numberOfApplicant='+numberOfApplicant+'&loanAmount='+loanAmount+'&oppid='+oppid);
         
         
+    },
+    creditScoringUS : function(cmp, event, helper){
+        var oppid = cmp.get("v.isRecordIdM");
+        console.log('oppid==>'+oppid);
+        //var loanid = cmp.get('v.retLoanCalcId');
+        //console.log('loanid==>'+loanid);
+        //helper.saveMultiCalcPdf(cmp,leadOrOppId,loanid);   
+        //console.log('loanid================>');
+        var numberOfApplicant=cmp.get('v.ApplicantCount');
+        var loanAmount='50000';
+        
+        window.open('https://jnbank--jnbanksan.lightning.force.com/apex/CreditScoringModel?productName=Unsecured Loan&numberOfApplicant='+numberOfApplicant+'&loanAmount='+loanAmount+'&oppid='+oppid);
+        
+        
+    },
+    creditScoringCC : function(cmp, event, helper){
+        var oppid = cmp.get("v.isRecordIdM");
+        console.log('oppid==>'+oppid);
+        //var loanid = cmp.get('v.retLoanCalcId');
+        //console.log('loanid==>'+loanid);
+        //helper.saveMultiCalcPdf(cmp,leadOrOppId,loanid);   
+        //console.log('loanid================>');
+        var numberOfApplicant=cmp.get('v.ApplicantCount');
+        var loanAmount='50000';
+        
+        window.open('https://jnbank--jnbanksan.lightning.force.com/apex/CreditScoringModel?productName=Credit Card&numberOfApplicant='+numberOfApplicant+'&loanAmount='+loanAmount+'&oppid='+oppid);
+        
+        
+    },
+    creditScoringLoc : function(cmp, event, helper){
+        var oppid = cmp.get("v.isRecordIdM");
+        console.log('oppid==>'+oppid);
+        //var loanid = cmp.get('v.retLoanCalcId');
+        //console.log('loanid==>'+loanid);
+        //helper.saveMultiCalcPdf(cmp,leadOrOppId,loanid);   
+        //console.log('loanid================>');
+        var numberOfApplicant=cmp.get('v.ApplicantCount');
+        var loanAmount='50000';
+        
+        window.open('https://jnbank--jnbanksan.lightning.force.com/apex/CreditScoringModel?productName=Line of Credit&numberOfApplicant='+numberOfApplicant+'&loanAmount='+loanAmount+'&oppid='+oppid);
+        
+        
+    },
+    CreditCalclationsDoc: function(cmp, event, helper){
+        window.open('https://jnbank--jnbanksan.lightning.force.com/apex/CreditCalculations');
     },
     
     

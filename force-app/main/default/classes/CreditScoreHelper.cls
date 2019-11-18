@@ -1,6 +1,6 @@
 public class CreditScoreHelper {
     
-   public static Boolean FirstRun=false;
+    public static Boolean FirstRun=false;
     public static Boolean FirstRunAcc=false;
     string category=''; 
     string Age1='0'; 
@@ -41,14 +41,28 @@ public class CreditScoreHelper {
     public List<Credit_Calculation__mdt> metalst = new List<Credit_Calculation__mdt>();
     public List<Credit_Calculation__mdt> metalsta2s = new List<Credit_Calculation__mdt>();
     public List<Credit_Calculation__mdt> metalst2oppProduct = new List<Credit_Calculation__mdt>();
-     Map<id,Applicant__c> accidvsApplication = new Map<id,Applicant__c>();
+    Map<id,Applicant__c> accidvsApplication = new Map<id,Applicant__c>();
     Map<id,Loan_Calculator__c> PdIDVsProductDetails = new Map<id,Loan_Calculator__c>();
     set<id> loancalcid = new set<id>();
     
+    public Decimal Total_Loan_Amount=0;
+    public Decimal Market_Value_of_Vehicle=0;
+    public Decimal Proposed_Starting_Limit=0;
+    public Decimal PC_Deposit_Account_Balance=0;
+    public Decimal Line_of_Credit_Starting_Limit=0;
+    public Decimal PCL_Deposit_Account_Balance=0;
+    List<Credit_Rating__mdt> lstRating = new List<Credit_Rating__mdt>();
+    //==================Credit Scoring Model ===============================
+    public List<List<WrapperScoringModel>> AppScore = new List<List<WrapperScoringModel>>();
+    public List<List<WrapperScoringModel>> AppProductScore = new List<List<WrapperScoringModel>>();
+    public string ProductTypeOfScoringModel='';
+    
+    public List<WrapperScoringModel> ApplicantScorelist = new List<WrapperScoringModel>();
+	Map<string,List<WrapperScoringModel>> MapAppScore = new Map<string,List<WrapperScoringModel>>();   
+    
+    Map<string,List<WrapperScoringModel>> MapProductScore = new Map<string,List<WrapperScoringModel>>();   
     
     
-    
-    public void CreditScoreFromOpp1(Set<id> oppid){}    
     public void CreditScoreFromOpp(Set<id> oppid){
         system.debug('Test## Credit score Helper called  with opp id = '+oppid);
         List<opportunity> lstToUpdate = new List<opportunity>();
@@ -72,6 +86,7 @@ public class CreditScoreHelper {
                 system.debug('Test## Account accosted with opportunity have application =======opp is ======>'+o);
                 if(accidvsApplication.containsKey(o.AccountId)){
                     system.debug('Test## Account accosted with opportunity have application =============>');
+                    AppScore = new List<List<WrapperScoringModel>>();
                     Decimal Applicant1SubTotalWeightedScore =0;
                     Decimal Applicant2SubTotalWeightedScore=0;
                     Decimal Applicant3SubTotalWeightedScore=0;
@@ -89,20 +104,32 @@ public class CreditScoreHelper {
                     Decimal IncomeWeight2=0;
                     Decimal IncomeWeight3=0;
                     Decimal AllApplicantsSubTotalWeightedScore =0;
-                    
                     Boolean Politically_ExposedApp1=false;
+                    
+                    string name='';
+                    string taxNumber=''; 
+                    string grossIncome=''; 
+                    string incomeType=''; 
+                    string politcallyExposed='';
+                    
+                    
                     if(oppIdVsAccidLst.containsKey(o.Id)){
                         List<id> relatedAcc = oppIdVsAccidLst.get(o.Id);
                         system.debug('======================00===relatedAcc=='+relatedAcc);
                         if(relatedAcc.size()>0){
+                             
+                            
                             numberOfApplicant =relatedAcc.size();
                             for(id AcID:relatedAcc){
                                 if(accmap.containsKey(AcID)){
                                     setBlank();
                                     Account acc = accmap.get(AcID);
                                     system.debug('Test## ========Account found==>'+acc);
-                                    //if(!string.isEmpty(acc.Employment_Type__pc))
-                                    //category = acc.Employment_Type__pc;
+                                    //=====================Score Model
+                                    name = acc.Name;
+                                    taxNumber = acc.Jamaican_Tax_Registration_Number__pc;
+                                    politcallyExposed = (acc.Political_Exposure__pc)?'Yes':'No';
+                                    //=====================Score 
                                     if(acc.FinServ__Age__pc != Null)
                                         Age1 = string.valueOf(acc.FinServ__Age__pc);
                                     if(string.isNotEmpty(acc.Highest_Level_of_Education_attained__pc))
@@ -111,20 +138,8 @@ public class CreditScoreHelper {
                                         ResidentialStatus=StatusOfAddress(acc.Status_of_Address__c);
                                     if(acc.Years_at_Residence__c !=NUll)
                                         Yearsatcurrentresidence1= string.valueOf(acc.Years_at_Residence__c);
-                                    // if(string.isNotEmpty(acc.Credit_History_over_the_last_24_months__pc))
-                                    // CreditHistory1=CreditHistory(acc.Credit_History_over_the_last_24_months__pc);
-                                    // if(acc.Net_Worth_p__pc != NULL)
-                                    //NetWorth= string.valueOf(acc.Net_Worth_p__pc);
-                                    //if(string.isNotEmpty(acc.Employment_Status__pc))
-                                    //EmploymentStatus= acc.Employment_Status__pc;
-                                    // if(string.isNotEmpty(acc.Professional_Category__pc))
-                                    //    ProfessionalCategory= acc.Professional_Category__pc;
                                     if(string.isNotEmpty(acc.Industry_of_Employment__pc))
                                         IndustryofEmployment= acc.Industry_of_Employment__pc;
-                                    //if(acc.Gross_Monthly_Income__pc != null)
-                                    //TotalIncome += acc.Gross_Monthly_Income__pc;
-                                    
-                                    
                                     
                                     
                                     if(accidvsApplication.containsKey(acc.id)){
@@ -136,8 +151,10 @@ public class CreditScoreHelper {
                                             NegaticeTrace = app.Sanction_Screening_has_Negative_Trace__c;
                                         if(string.isNotEmpty(app.Credit_History_in_last_24_Months__c))
                                             CreditHistory1=CreditHistory(app.Credit_History_in_last_24_Months__c);
-                                        if(app.Gross_Monthly_IncomeC__c != null)
+                                        if(app.Gross_Monthly_IncomeC__c != null){
                                             TotalIncome += app.Gross_Monthly_IncomeC__c;
+                                            grossIncome = string.valueOf(app.Gross_Monthly_IncomeC__c);
+                                        }
                                         
                                         if(count==1){
                                             if(app.Gross_Monthly_IncomeC__c != null)
@@ -156,8 +173,10 @@ public class CreditScoreHelper {
                                     if(empmap.containsKey(acc.id)){
                                         FinServ__Employment__c emp = empmap.get(acc.id);
                                         system.debug('Test## ========Employment found==>'+emp);
-                                        if(!string.isEmpty(emp.Income_type__c))
+                                        if(!string.isEmpty(emp.Income_type__c)){
                                             category = emp.Income_type__c;
+                                            incomeType = emp.Income_type__c;
+                                        }
                                         if(string.isNotEmpty(emp.FinServ__EmploymentStatus__c))
                                             EmploymentStatus= emp.FinServ__EmploymentStatus__c;
                                         if(string.isNotEmpty(emp.Industry__c))
@@ -195,6 +214,9 @@ public class CreditScoreHelper {
                                     system.debug('Test## FinancialPerformance====================>'+FinancialPerformance);
                                     system.debug('Test## FinancialSupport====================>'+FinancialSupport);
                                     system.debug('Test## TypeIndustry====================>'+TypeIndustry);                           
+                                    
+                                    //MapAppScore = new Map<string,List<WrapperScoringModel>>(); 
+                                    MapAppScore = new Map<string,List<WrapperScoringModel>>();  
                                     Decimal ScoreOfAppli = creditscorePerPersoncalculation(category,Age1,Education,ResidentialStatus,Yearsatcurrentresidence1,CreditHistory1,NetWorth,EmploymentStatus,
                                                                                            IndustryofEmployment,ProfessionalCategory,Collateral,LengthofCurrentEmployment1,ProductSelection,WorkingCapital,NatureEngagement,TypeIndustry,
                                                                                            FinancialPerformance,FinancialSupport,LengthTrade1);
@@ -216,37 +238,26 @@ public class CreditScoreHelper {
                                     else if(count==3){
                                         Applicant3SubTotalWeightedScore = ScoreOfAppli;
                                     }
-                                    /*    Boolean flag=false;
-Decimal tdsrwScore=0;
-if(tdsrmapacc.containsKey(acc.Id)){
-acc.Total_Debt_to_Service_Ratio__pc=tdsrmapacc.get(acc.Id);
-tdsrwScore = creditscorePerPersoncalculation4Ability2Service(tdsrmapacc.get(acc.Id));
-flag=true;
-} 
-system.debug('Test## ===============>>>'+tdsrwScore);
-
-if(acc.Political_Exposure__pc || NegaticeTrace=='Yes' )
-{
-acc.Credit_Score__pc=  ScoreOfAppli-(866-556)+tdsrwScore;
-flag=true;
-} 
-else{
-acc.Credit_Score__pc=  ScoreOfAppli+tdsrwScore;
-flag=true;
-}
-
-if(flag){
-accMaptoUpdate.put(acc.id, acc);
-}*/
-                                    
                                     count = count+1;
+                                    List<List<WrapperScoringModel>> AppScore1 = new List<List<WrapperScoringModel>>();
+                                    if(mapAppScore.size()>0){
+                                        
+                                        system.debug('mapAppScore.values()====>'+mapAppScore.values());
+                                        AppScore1.addAll(mapAppScore.values());
+                                    }
+                                    // List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                                    
+                                   //AppScore.add(WrapperScoringlst);
+                                   WrapperScoringModellst.add(new WrapperCreditScoringModel(name,taxNumber,grossIncome,incomeType,politcallyExposed,NegaticeTrace,AppScore1)); 
+                                 
+                                    mapAppScore.clear();
                                 }
                             }
                         }
                     }
                     if(numberOfApplicant ==1){//For one Applicant
                         AllApplicantsSubTotalWeightedScore = (Applicant1SubTotalWeightedScore*100)/100;
-                    system.debug('####################################=1='+AllApplicantsSubTotalWeightedScore);
+                        system.debug('####################################=1='+AllApplicantsSubTotalWeightedScore);
                     }
                     else if(numberOfApplicant ==2){//For two Applicant IncomeWeight2
                         if(TotalIncome>0){
@@ -375,8 +386,10 @@ accMaptoUpdate.put(acc.id, acc);
                                 
                                 Decimal Score = creditscorePerPersoncalculation1(Collateral,LoantoValue1,ProductSelection,Abilitytoservice1,RepaymentMethod);// PoliticallyExposed,NegaticeTrace
                                 system.debug('Test## Test item========================>'+item); 
+                                
+                                
                                 Decimal FinalScore = Score+AllApplicantsSubTotalWeightedScore;
-                                 system.debug('Test## Appli========================>'+AllApplicantsSubTotalWeightedScore);
+                                system.debug('Test## Appli========================>'+AllApplicantsSubTotalWeightedScore);
                                 system.debug('Test## FinalScore=========================>'+FinalScore); 
                                 if(item =='JN Bank Auto Loan'){// 'Auto Loan';
                                     Decimal myScore = FinalScore.round(System.RoundingMode.HALF_UP);
@@ -406,6 +419,7 @@ accMaptoUpdate.put(acc.id, acc);
                                 
                             }
                         }
+                        //AppProductScore.add(WrapperScoringlst);
                         lstToUpdate.add(o);
                     }
                     else{
@@ -414,16 +428,16 @@ accMaptoUpdate.put(acc.id, acc);
                 } 
             }        
         } 
-       /*system.debug('Test## lstToUpdate =========='+lstToUpdate); 
-        if(lstToUpdate.size()>0){
-            FirstRun=true;
-            update lstToUpdate;
-        }*/
+        /*system.debug('Test## lstToUpdate =========='+lstToUpdate); 
+if(lstToUpdate.size()>0){
+FirstRun=true;
+update lstToUpdate;
+}*/
         //system.debug('Test## accMaptoUpdate =========='+accMaptoUpdate);
-     /*   if(accMaptoUpdate.size()>0){
-            FirstRunAcc=true;
-            update accMaptoUpdate.values();
-        }*/
+        /*   if(accMaptoUpdate.size()>0){
+FirstRunAcc=true;
+update accMaptoUpdate.values();
+}*/
     }    
     
     public void fillOpp(Set<id> oppid){
@@ -464,27 +478,28 @@ accMaptoUpdate.put(acc.id, acc);
             for(opportunity o:lstopp){
                 loancalcid.add(o.Product_Details__c);
                 //accid.add(o.AccountId);
-               /* if(oppIdVsAccidLst.containsKey(o.id)){
-                    List<id> lstid = oppIdVsAccidLst.get(o.id);
-                    lstid.add(o.AccountId);
-                    oppIdVsAccidLst.put(o.id, lstid);
-                }
-                else{
-                    List<id> lstid = new List<id>();
-                    lstid.add(o.AccountId);
-                    oppIdVsAccidLst.put(o.id, lstid); 
-                }*/
+                /* if(oppIdVsAccidLst.containsKey(o.id)){
+List<id> lstid = oppIdVsAccidLst.get(o.id);
+lstid.add(o.AccountId);
+oppIdVsAccidLst.put(o.id, lstid);
+}
+else{
+List<id> lstid = new List<id>();
+lstid.add(o.AccountId);
+oppIdVsAccidLst.put(o.id, lstid); 
+}*/
             }
             system.debug('accid Set ============>'+accid);
         }       
     }
+    
     public void fillLoanCalculators(){
         if(loancalcid.size()>0){
             List<Loan_Calculator__c> lst = [select Total_Loan_Amount__c, 
                                             Market_Value_of_Vehicle__c, 
                                             Proposed_Starting_Limit__c,
                                             PC_Deposit_Account_Balance__c,
-       										Line_of_Credit_Starting_Limit__c,
+                                            Line_of_Credit_Starting_Limit__c,
                                             PCL_Deposit_Account_Balance__c 
                                             from Loan_Calculator__c where id IN:loancalcid];
             if(lst.size()>0){
@@ -494,8 +509,10 @@ accMaptoUpdate.put(acc.id, acc);
             }
         }
     }
+    
     public void fillAcc(set<id> Accid){
-        lstacc = [select Primary_Employment_Type__c,
+        lstacc = [select Name,
+                  Primary_Employment_Type__c,
                   Employment_Type__pc,
                   FinServ__Age__pc,
                   Highest_Level_of_Education_attained__pc,
@@ -510,7 +527,8 @@ accMaptoUpdate.put(acc.id, acc);
                   Sanction_Screening_w_Negative_Trace__pc,
                   Gross_Monthly_Income__pc,
                   Credit_Score__pc,
-                  Industry_of_Employment__pc
+                  Industry_of_Employment__pc,
+                  Jamaican_Tax_Registration_Number__pc
                   from Account where ID IN:Accid];
         if(lstacc.size()>0){
             system.debug('Acc List ============>'+lstacc);
@@ -519,6 +537,7 @@ accMaptoUpdate.put(acc.id, acc);
         }
         system.debug('accmap Map ============>'+accmap);
     }
+    
     public void fillEmp(set<id> Accid){
         lstemp = [select Account__c,
                   FinServ__LengthOfEmployment__c,
@@ -539,6 +558,7 @@ accMaptoUpdate.put(acc.id, acc);
         }  
         system.debug('Emp Map ============>'+empmap);
     }
+    
     public void fillProductType(Set<id> oppid){
         lstlineItem  =  [select name,Opportunityid,Product2.Name,TotalPrice from OpportunityLineItem where Opportunityid IN: oppid];
         system.debug('lstlineItem ============>'+lstlineItem);
@@ -558,17 +578,19 @@ accMaptoUpdate.put(acc.id, acc);
         }
         system.debug('lstlineItem MAP ============>'+oppLineItem);
     }
+    
     list<Applicant__c> Applicantlst = new list<Applicant__c>();
+    
     public void fillApplicant(Set<id> oppid){
         set<id> aid = new set<id>();
         Applicantlst = [select Account__c,Opportunity__c,
-                                    Credit_History_in_last_24_Months__c,
-                                    Gross_Monthly_IncomeC__c,
-									Sanction_Screening_has_Negative_Trace__c,
-									Assessment_of_Applicant_Net_Worth__c,
-                        			Rent_Board_Monthly_Prior_Loan__c,
-                        			Strata_Maintenance_Monthly_Prior_Loan__c
-                                    from Applicant__c where Opportunity__c IN:oppid];
+                        Credit_History_in_last_24_Months__c,
+                        Gross_Monthly_IncomeC__c,
+                        Sanction_Screening_has_Negative_Trace__c,
+                        Assessment_of_Applicant_Net_Worth__c,
+                        Rent_Board_Monthly_Prior_Loan__c,
+                        Strata_Maintenance_Monthly_Prior_Loan__c
+                        from Applicant__c where Opportunity__c IN:oppid];
         if(Applicantlst.size()>0){
             for(Applicant__c o:Applicantlst){
                 accidvsApplication.put(o.Account__c,o);
@@ -587,13 +609,14 @@ accMaptoUpdate.put(acc.id, acc);
             system.debug('oppIdVsAccidLst MAP ============>'+oppIdVsAccidLst);
         }      
     }
-   
+    
     Map<id,list<Application_Asset_Liability__c>> oppisVsAssetslst = new Map<id,list<Application_Asset_Liability__c>>();
+    
     public void FillAssets(Set<id> oppid){
         list<Application_Asset_Liability__c> lst = [select 
-                                                   Application__r.Opportunity__c,
-                                                   Assets_and_Liabilities__r.Monthly_Payment_Prior__c
-                                                   from Application_Asset_Liability__c where Application__r.Opportunity__c IN:oppid]; 
+                                                    Application__r.Opportunity__c,
+                                                    Assets_and_Liabilities__r.Monthly_Payment_Prior__c
+                                                    from Application_Asset_Liability__c where Application__r.Opportunity__c IN:oppid]; 
         if(lst.size()>0){
             for(Application_Asset_Liability__c a:lst){
                 if(oppisVsAssetslst.containsKey(a.Application__r.Opportunity__c)){
@@ -632,7 +655,7 @@ accMaptoUpdate.put(acc.id, acc);
     }    
     
     public void fillmetalst(){
-      List<Credit_Calculation__mdt>  metalstlocal = [SELECT Sub_Criteria__c,Sub_Criteria_Options__c,Employment_Type__c,Risk_Score__c,Weight_of_Sub_Criteria__c,Min__c,Max__c,Lower_Bound__c,Upper_Bound__c FROM Credit_Calculation__mdt];
+        List<Credit_Calculation__mdt>  metalstlocal = [SELECT Sub_Criteria__c,Sub_Criteria_Options__c,Employment_Type__c,Risk_Score__c,Weight_of_Sub_Criteria__c,Min__c,Max__c,Lower_Bound__c,Upper_Bound__c FROM Credit_Calculation__mdt];
         if(metalstlocal.size()>0){
             for(Credit_Calculation__mdt m:metalstlocal){
                 if(m.Sub_Criteria__c=='Ability to Service' || m.Sub_Criteria__c=='Loan to Value' || m.Sub_Criteria__c=='Repayment Method' || m.Sub_Criteria__c=='Collateral' ){
@@ -642,7 +665,7 @@ accMaptoUpdate.put(acc.id, acc);
                     metalst2oppProduct.add(m);
                 }
                 else{
-                     metalst.add(m);
+                    metalst.add(m);
                 }
             }
             system.debug('Test## metalsta2s ===>'+metalsta2s);
@@ -650,392 +673,519 @@ accMaptoUpdate.put(acc.id, acc);
             system.debug('Test## metalst ===>'+metalst);
         }
     }
+    
     Public decimal creditscorePerPersoncalculation(string category,string Age1, string Education,string ResidentialStatus,
-         string Yearsatcurrentresidence1,string CreditHistory1,string NetWorth,string EmploymentStatus,string IndustryofEmployment,string ProfessionalCategory,string Collateral,
-          string LengthofCurrentEmployment1, string ProductSelection,String WorkingCapital, string NatureEngagement, 
-         string TypeIndustry,string FinancialPerformance,string FinancialSupport,string LengthTrade1)
-    { //,string PoliticallyExposed,string NegaticeTrace
-             system.debug('age========'+Age1);
-             system.debug('LengthofCurrentEmployment1========'+LengthofCurrentEmployment1);
-             system.debug('Yearsatcurrentresidence1========'+Yearsatcurrentresidence1);
-             system.debug('CreditHistory1========'+CreditHistory1);
-             system.debug('LengthTrade1========'+LengthTrade1);
-             Decimal Age = Decimal.valueOf(Age1);
-             Decimal LengthofCurrentEmployment=Decimal.valueOf(LengthofCurrentEmployment1);
-             Decimal Yearsatcurrentresidence = Decimal.valueOf(Yearsatcurrentresidence1);
-             Decimal CreditHistory = Decimal.valueOf(CreditHistory1);
-             Decimal LengthTrade = Decimal.valueOf(LengthTrade1);
-             
-             decimal creditscore=0;
-            // Credit_Calculation__mdt[] threatMappings = [SELECT Sub_Criteria__c,Sub_Criteria_Options__c,Employment_Type__c,Risk_Score__c,Weight_of_Sub_Criteria__c,Min__c,Max__c,Lower_Bound__c,Upper_Bound__c FROM Credit_Calculation__mdt];
-             decimal agescore=0;
-             decimal educationscore=0;
-             decimal Residentialscore=0;
-             decimal residenceYearscore=0;
-             decimal CreditHistoryscore=0;
-             decimal NetWorthscore=0;
-             decimal EmploymentStatusscore=0;
-             decimal IndustryofEmploymentscore=0;
-             decimal ProfessionalCategoryscore=0;
-             decimal Collateralscore=0;
-             decimal LoantoValuescore=0;
-             decimal AbilitytoServicescore=0;
-             decimal RepaymentMethodscore=0;
-             decimal LengthEmploymentscore=0;
-             decimal loantoweight=0;
-             decimal repaymentweight=0;
-             decimal repaymentriskscore=0;
-             decimal LengthTradescore=0;
-             decimal FinancialSupportscore=0;
-             decimal FinancialPerformancescore=0;
-             decimal TypeIndustryscore=0;
-             decimal NatureEngagementscore=0;
-             decimal WorkingCapitalscore=0;
-             
-             system.debug('Test##      fillmetalst====='+metalst);
-             for(Credit_Calculation__mdt cr:metalst){
-                 if(cr.Risk_Score__c!=null && cr.Weight_of_Sub_Criteria__c!=null){
-                     if(cr.Sub_Criteria__c=='Age'){
-                         if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=Age && cr.Upper_Bound__c>=Age && cr.Employment_Type__c==category){
-                             system.debug('1========'+category);
-                             system.debug('agescore1========'+cr.Risk_Score__c);
-                             system.debug('agescore2========'+cr.Weight_of_Sub_Criteria__c);
-                             agescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('agescore========'+agescore);
-                         }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>=Age && cr.Employment_Type__c==category){
-                             system.debug('2========');
-                             agescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('agescore========'+agescore);
-                         }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=Age && cr.Employment_Type__c==category){
-                             system.debug('3========');
-                             agescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('agescore========'+agescore);
-                         }
-                     }
-                     
-                     if(cr.Sub_Criteria__c=='Education'){
-                         if(cr.Sub_Criteria_Options__c==Education && cr.Employment_Type__c==category){
-                             educationscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('educationscore========'+educationscore);
-                         }
-                     }
-                     
-                     if(cr.Sub_Criteria__c=='Residential Status'){
-                         if(cr.Sub_Criteria_Options__c==ResidentialStatus && cr.Employment_Type__c==category){
-                             Residentialscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('Residentialscore========'+Residentialscore);
-                         }
-                     }
-                     
-                     if(cr.Sub_Criteria__c=='Years at current residence'){
-                         if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=Yearsatcurrentresidence && cr.Upper_Bound__c>=Yearsatcurrentresidence && cr.Employment_Type__c==category){
-                             residenceYearscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('residenceYearscore========'+residenceYearscore);
-                         }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>=Yearsatcurrentresidence && cr.Employment_Type__c==category){
-                             residenceYearscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('residenceYearscore========'+residenceYearscore);
-                         }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=Yearsatcurrentresidence && cr.Employment_Type__c==category){
-                             residenceYearscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('residenceYearscore========'+residenceYearscore);
-                         }
-                     }
-                     
-                     system.debug('CreditHistoryscore1========'+cr.Lower_Bound__c);
-                     system.debug('CreditHistoryscore2========'+cr.Upper_Bound__c);
-                     
-                     if(cr.Sub_Criteria__c=='Credit History in last 24 Months'){
-                         if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=CreditHistory && cr.Upper_Bound__c>=CreditHistory && cr.Employment_Type__c==category){
-                             CreditHistoryscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('CreditHistoryscore========'+CreditHistoryscore);
-                         }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>=CreditHistory && cr.Employment_Type__c==category){
-                             CreditHistoryscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('CreditHistoryscore========'+CreditHistoryscore);
-                         }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=CreditHistory && cr.Employment_Type__c==category){
-                             CreditHistoryscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('CreditHistoryscore========'+CreditHistoryscore);
-                         }
-                         
-                     }
-                     
-                     if(cr.Sub_Criteria__c=='Net Worth'){
-                         if(cr.Sub_Criteria_Options__c==NetWorth && cr.Employment_Type__c==category)
-                             NetWorthscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                         system.debug('NetWorthscore========'+NetWorthscore);
-                     }
-                     system.debug('category=======================================>0=>'+category+'=0='+cr.Sub_Criteria__c+'==0=='+cr.Risk_Score__c+'=0='+EmploymentStatus);
-                     if(category=='Salaried'){
-                         if(cr.Sub_Criteria__c=='Employment Status'){
-                             if(cr.Sub_Criteria_Options__c==EmploymentStatus && cr.Employment_Type__c==category)
-                                 EmploymentStatusscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('EmploymentStatusscore========'+EmploymentStatusscore);
-                         }
-                         
-                         if(cr.Sub_Criteria__c=='Industry of Employment'){
-                             if(cr.Sub_Criteria_Options__c==IndustryofEmployment && cr.Employment_Type__c==category)
-                                 IndustryofEmploymentscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('IndustryofEmploymentscore========'+IndustryofEmploymentscore);
-                         }
-                         system.debug('LengthEmploymentscore=======================================>0=>'+cr.Sub_Criteria__c+'==0=='+cr.Risk_Score__c+'=0='+EmploymentStatus);
-                         if(cr.Sub_Criteria__c=='Length of Current Employment' && cr.Risk_Score__c!=null && EmploymentStatus!='Unemployed'){
-                             system.debug('LengthEmploymentscore=======================================>');
-                             if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=LengthofCurrentEmployment && cr.Upper_Bound__c>=LengthofCurrentEmployment && cr.Employment_Type__c==category){
-                                 LengthEmploymentscore=percentagevalue(cr.Risk_Score__c, 4);
-                                 system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
-                             }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>=LengthofCurrentEmployment && cr.Employment_Type__c==category){
-                                 LengthEmploymentscore=percentagevalue(cr.Risk_Score__c, 4);
-                                 system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
-                             }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=LengthofCurrentEmployment && cr.Employment_Type__c==category){
-                                 LengthEmploymentscore=percentagevalue(cr.Risk_Score__c, 4);
-                                 system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
-                             }
-                             
-                         }
-                         
-                         if(cr.Sub_Criteria__c=='Professional Category' && EmploymentStatus!='Unemployed'){
-                             if(cr.Sub_Criteria_Options__c==ProfessionalCategory && cr.Employment_Type__c==category)
-                                 ProfessionalCategoryscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('ProfessionalCategoryscore========'+ProfessionalCategoryscore);
-                         }
-                         if(cr.Sub_Criteria__c=='Professional Category' && EmploymentStatus=='Unemployed'){
-                             if(cr.Sub_Criteria_Options__c==ProfessionalCategory && cr.Employment_Type__c==category){
-                                 Decimal loantoweightUn=cr.Weight_of_Sub_Criteria__c+4;
-                                 ProfessionalCategoryscore=percentagevalue(cr.Risk_Score__c, loantoweightUn);
-                             }
-                             system.debug('ProfessionalCategoryscore========'+ProfessionalCategoryscore);
-                         }
-                     }
-                     
-                     if(cr.Sub_Criteria__c=='Collateral'){
-                         if(cr.Sub_Criteria_Options__c==Collateral && cr.Employment_Type__c==category)
-                             Collateralscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                         system.debug('Collateralscore========'+Collateralscore);
-                     }
-                     
-                   
-                  
+                                                   string Yearsatcurrentresidence1,string CreditHistory1,string NetWorth,string EmploymentStatus,string IndustryofEmployment,string ProfessionalCategory,string Collateral,
+                                                   string LengthofCurrentEmployment1, string ProductSelection,String WorkingCapital, string NatureEngagement, 
+                                                   string TypeIndustry,string FinancialPerformance,string FinancialSupport,string LengthTrade1)
+    { 
+        system.debug('age========'+Age1);
+        system.debug('LengthofCurrentEmployment1========'+LengthofCurrentEmployment1);
+        //system.debug('Yearsatcurrentresidence1========'+Yearsatcurrentresidence1);
+        //system.debug('CreditHistory1========'+CreditHistory1);
+        system.debug('category========'+category);
+        Decimal Age = Decimal.valueOf(Age1);
+        Decimal LengthofCurrentEmployment=Decimal.valueOf(LengthofCurrentEmployment1);
+        Decimal Yearsatcurrentresidence = Decimal.valueOf(Yearsatcurrentresidence1);
+        Decimal CreditHistory = Decimal.valueOf(CreditHistory1);
+        Decimal LengthTrade = Decimal.valueOf(LengthTrade1);
+        
+        decimal creditscore=0;
+        // Credit_Calculation__mdt[] threatMappings = [SELECT Sub_Criteria__c,Sub_Criteria_Options__c,Employment_Type__c,Risk_Score__c,Weight_of_Sub_Criteria__c,Min__c,Max__c,Lower_Bound__c,Upper_Bound__c FROM Credit_Calculation__mdt];
+        decimal agescore=0;
+        decimal educationscore=0;
+        decimal Residentialscore=0;
+        decimal residenceYearscore=0;
+        decimal CreditHistoryscore=0;
+        decimal NetWorthscore=0;
+        decimal EmploymentStatusscore=0;
+        decimal IndustryofEmploymentscore=0;
+        decimal ProfessionalCategoryscore=0;
+        decimal Collateralscore=0;
+        decimal LoantoValuescore=0;
+        decimal AbilitytoServicescore=0;
+        decimal RepaymentMethodscore=0;
+        decimal LengthEmploymentscore=0;
+        decimal loantoweight=0;
+        decimal repaymentweight=0;
+        decimal repaymentriskscore=0;
+        decimal LengthTradescore=0;
+        decimal FinancialSupportscore=0;
+        decimal FinancialPerformancescore=0;
+        decimal TypeIndustryscore=0;
+        decimal NatureEngagementscore=0;
+        decimal WorkingCapitalscore=0;
+        //WrapperScoringlst.clear();
+        system.debug('Test##      fillmetalst====='+metalst);
+        for(Credit_Calculation__mdt cr:metalst){
+            if(cr.Risk_Score__c!=null && cr.Weight_of_Sub_Criteria__c!=null){
+                if(cr.Sub_Criteria__c=='Age'){
+                    if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=Age && cr.Upper_Bound__c>=Age && cr.Employment_Type__c==category){
+                        //system.debug('1========'+category);
+                        //system.debug('agescore1========'+cr.Risk_Score__c);
+                        //system.debug('agescore2========'+cr.Weight_of_Sub_Criteria__c);
+                        agescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('agescore========'+agescore);
+                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Age),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(agescore)));
+                        MapAppScore.put('Age', WrapperScoringlst1);
+                        
+                    }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>=Age && cr.Employment_Type__c==category){
+                        agescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('agescore========'+agescore);
+                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Age),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(agescore)));
+                        MapAppScore.put('Age', WrapperScoringlst1);
+                        
+                    }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=Age && cr.Employment_Type__c==category){
+                        //system.debug('3========');
+                        agescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('agescore========'+agescore);
+                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Age),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(agescore)));
+                        MapAppScore.put('Age', WrapperScoringlst1);
+                        
+                    }
                     
-                     //=====self-employed====
-                     if(category=='Self-Employed'){
-                         if(cr.Sub_Criteria__c=='Working Capital'){
-                             system.debug('WorkingCapital========'+WorkingCapital);
-                             system.debug('WorkingCapitalcr.Risk_Score__c========'+cr.Risk_Score__c);
-                             system.debug('WorkingCapitalcr.Weight_of_Sub_Criteria__c========'+cr.Weight_of_Sub_Criteria__c);
-                             if(cr.Sub_Criteria_Options__c==WorkingCapital && cr.Employment_Type__c==category)
-                                 WorkingCapitalscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('WorkingCapitalscore========'+WorkingCapitalscore);
-                         }
-                         if(cr.Sub_Criteria__c=='Nature of Engagement'){
-                             if(cr.Sub_Criteria_Options__c==NatureEngagement && cr.Employment_Type__c==category)
-                                 NatureEngagementscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('NatureEngagementscore========'+NatureEngagementscore);
-                         }
-                         if(cr.Sub_Criteria__c=='Type of Industry'){
-                             if(cr.Sub_Criteria_Options__c==TypeIndustry && cr.Employment_Type__c==category)
-                                 TypeIndustryscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('TypeIndustryscore========'+TypeIndustryscore);
-                         }
-                         if(cr.Sub_Criteria__c=='Financial Performance'){
-                             if(cr.Sub_Criteria_Options__c==FinancialPerformance && cr.Employment_Type__c==category)
-                                 FinancialPerformancescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('FinancialPerformancescore========'+FinancialPerformancescore);
-                         }
-                         if(cr.Sub_Criteria__c=='Financial Statement Support'){
-                             if(cr.Sub_Criteria_Options__c==FinancialSupport && cr.Employment_Type__c==category)
-                                 FinancialSupportscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('FinancialSupportscore========'+FinancialSupportscore);
-                         }
-                         if(cr.Sub_Criteria__c=='Length of Trade'){
-                             if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=LengthTrade && cr.Upper_Bound__c>LengthTrade && cr.Employment_Type__c==category){
-                                 LengthTradescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                                 system.debug('LengthTradescore1========'+LengthTradescore);
-                             }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>LengthTrade && cr.Employment_Type__c==category){
-                                 LengthTradescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                                 system.debug('LengthTradescore2========'+LengthTradescore);
-                             }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=LengthTrade && cr.Employment_Type__c==category){
-                                 LengthTradescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                                 system.debug('LengthTradescore3========'+LengthTradescore);
-                             }
-                         }
+                    
+                }
+                
+                if(cr.Sub_Criteria__c=='Education'){
+                    if(cr.Sub_Criteria_Options__c==Education && cr.Employment_Type__c==category){
+                        educationscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('educationscore========'+educationscore);
+                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Education),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(educationscore)));
+                        MapAppScore.put('Education', WrapperScoringlst1);
                          
-                         
-                     }
-                 }
-                 
-                 if(cr.Risk_Score__c!=null ){
-                     if(category=='Salaried'){
-                         system.debug('LengthEmploymentscore=======================================>0=>'+cr.Sub_Criteria__c+'==0=='+cr.Risk_Score__c+'=0='+EmploymentStatus);
-                         if(cr.Sub_Criteria__c=='Length of Current Employment' && cr.Risk_Score__c!=null && EmploymentStatus!='Unemployed'){
-                             system.debug('LengthEmploymentscore=======================================>');
-                             if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=LengthofCurrentEmployment && cr.Upper_Bound__c>=LengthofCurrentEmployment && cr.Employment_Type__c==category){
-                                 LengthEmploymentscore=percentagevalue(cr.Risk_Score__c, 4);
-                                 system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
-                             }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>=LengthofCurrentEmployment && cr.Employment_Type__c==category){
-                                 LengthEmploymentscore=percentagevalue(cr.Risk_Score__c, 4);
-                                 system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
-                             }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=LengthofCurrentEmployment && cr.Employment_Type__c==category){
-                                 LengthEmploymentscore=percentagevalue(cr.Risk_Score__c, 4);
-                                 system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
-                             }
-                             
-                         }
-                     }
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                 }
-                 
-                 
-             }
-             if(ProductSelection=='Unsecured Loan' && Collateral=='None'){
-                 decimal weight=loantoweight+ repaymentweight;
-                 RepaymentMethodscore=percentagevalue(repaymentriskscore,weight);
-                 system.debug('Test## RepaymentMethodscore========'+RepaymentMethodscore);
-             }
-             
-             system.debug('Test## agescore========>'+agescore);
-             system.debug('Test## educationscore========>'+educationscore);
-             system.debug('Test## Residentialscore========>'+Residentialscore);
-             system.debug('Test## residenceYearscore========>'+residenceYearscore);
-             system.debug('Test## CreditHistoryscore========>'+CreditHistoryscore);
-             system.debug('Test## NetWorthscore========>'+NetWorthscore);
-             system.debug('Test## EmploymentStatusscore========>'+EmploymentStatusscore);
-             system.debug('Test## IndustryofEmploymentscore========>'+IndustryofEmploymentscore);
-             system.debug('Test## ProfessionalCategoryscore========>'+ProfessionalCategoryscore);
-             system.debug('Test## Collateralscore========>'+Collateralscore);
-             system.debug('Test## LoantoValuescore========>'+LoantoValuescore);
-             system.debug('Test## AbilitytoServicescore========>'+AbilitytoServicescore);
-             system.debug('Test## RepaymentMethodscore========>'+RepaymentMethodscore);
-             system.debug('Test## LengthEmploymentscore========>'+LengthEmploymentscore);
-             system.debug('Test## LengthTradescore========>'+LengthTradescore);
-             system.debug('Test## FinancialSupportscore========>'+FinancialSupportscore);
-             system.debug('Test## FinancialPerformancescore========>'+FinancialPerformancescore);
-             system.debug('Test## TypeIndustryscore========>'+TypeIndustryscore);
-             system.debug('Test## NatureEngagementscore========>'+NatureEngagementscore);
-             system.debug('Test## WorkingCapitalscore========>'+WorkingCapitalscore);
-             
-             creditscore=agescore+educationscore+Residentialscore+residenceYearscore+
-                 CreditHistoryscore+NetWorthscore+EmploymentStatusscore+IndustryofEmploymentscore+ProfessionalCategoryscore+
-                 LengthEmploymentscore+LengthTradescore+FinancialSupportscore+FinancialPerformancescore+TypeIndustryscore+NatureEngagementscore+WorkingCapitalscore;
-             
-             system.debug('creditscore========'+creditscore);
-           /*  if(NegaticeTrace=='0'|| PoliticallyExposed=='0' || CreditHistory==91){
-                 if(creditscore<479)
-                     creditscore=479;
-                 if(creditscore>556)
-                     creditscore  =556;
-             }*/                        
-             return creditscore; 
-         }
+                    }
+                }
+                
+                if(cr.Sub_Criteria__c=='Residential Status'){
+                    if(cr.Sub_Criteria_Options__c==ResidentialStatus && cr.Employment_Type__c==category){
+                        Residentialscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('Residentialscore========'+Residentialscore);
+                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(ResidentialStatus),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(Residentialscore)));
+                         MapAppScore.put('Residential Status', WrapperScoringlst1);
+                    }
+                }
+                
+                if(cr.Sub_Criteria__c=='Years at current residence'){
+                    if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=Yearsatcurrentresidence && cr.Upper_Bound__c>=Yearsatcurrentresidence && cr.Employment_Type__c==category){
+                        residenceYearscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('residenceYearscore========'+residenceYearscore);
+                       List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Yearsatcurrentresidence),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(residenceYearscore)));
+                        MapAppScore.put('Years at current residence', WrapperScoringlst1);
+                    }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>=Yearsatcurrentresidence && cr.Employment_Type__c==category){
+                        residenceYearscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('residenceYearscore========'+residenceYearscore);
+                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Yearsatcurrentresidence),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(residenceYearscore)));
+                    MapAppScore.put('Years at current residence', WrapperScoringlst1);
+                    }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=Yearsatcurrentresidence && cr.Employment_Type__c==category){
+                        residenceYearscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('residenceYearscore========'+residenceYearscore);
+                       List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Yearsatcurrentresidence),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(residenceYearscore)));
+                   MapAppScore.put('Years at current residence', WrapperScoringlst1);
+                    }
+                }
+                
+                system.debug('CreditHistoryscore1========'+cr.Lower_Bound__c);
+                system.debug('CreditHistoryscore2========'+cr.Upper_Bound__c);
+                
+                if(cr.Sub_Criteria__c=='Credit History in last 24 Months'){
+                    if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=CreditHistory && cr.Upper_Bound__c>=CreditHistory && cr.Employment_Type__c==category){
+                        CreditHistoryscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('CreditHistoryscore========'+CreditHistoryscore);
+                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(CreditHistory),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(CreditHistoryscore)));
+                    MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                    }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>=CreditHistory && cr.Employment_Type__c==category){
+                        CreditHistoryscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('CreditHistoryscore========'+CreditHistoryscore);
+                       List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(CreditHistory),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(CreditHistoryscore)));
+                         MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                    }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=CreditHistory && cr.Employment_Type__c==category){
+                        CreditHistoryscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('CreditHistoryscore========'+CreditHistoryscore);
+                       List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(CreditHistory),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(CreditHistoryscore)));
+                         MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                    }
+                           
+                }
+                
+                if(cr.Sub_Criteria__c=='Net Worth'){
+                    if(cr.Sub_Criteria_Options__c==NetWorth && cr.Employment_Type__c==category)
+                        NetWorthscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                    system.debug('NetWorthscore========'+NetWorthscore);
+                   List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                    WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(NetWorth),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(NetWorthscore))); 
+                 MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                }
+                system.debug('category=======================================>0=>'+category+'=0='+cr.Sub_Criteria__c+'==0=='+cr.Risk_Score__c+'=0='+EmploymentStatus);
+                if(category=='Salaried'){
+                    if(cr.Sub_Criteria__c=='Employment Status'){
+                        if(cr.Sub_Criteria_Options__c==EmploymentStatus && cr.Employment_Type__c==category)
+                            EmploymentStatusscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('EmploymentStatusscore========'+EmploymentStatusscore);
+                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(EmploymentStatus),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(EmploymentStatusscore))); 
+                    MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                    }
+                    
+                    if(cr.Sub_Criteria__c=='Industry of Employment'){
+                        if(cr.Sub_Criteria_Options__c==IndustryofEmployment && cr.Employment_Type__c==category)
+                            IndustryofEmploymentscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('IndustryofEmploymentscore========'+IndustryofEmploymentscore);
+                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(IndustryofEmployment),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(IndustryofEmploymentscore))); 
+                     MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                    }
+                    system.debug('LengthEmploymentscore=======================================>0=>'+cr.Sub_Criteria__c+'==0=='+cr.Risk_Score__c+'=0='+EmploymentStatus);
+                    if(cr.Sub_Criteria__c=='Length of Current Employment' && cr.Risk_Score__c!=null && EmploymentStatus!='Unemployed'){
+                        system.debug('LengthEmploymentscore=======================================>');
+                        if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=LengthofCurrentEmployment && cr.Upper_Bound__c>=LengthofCurrentEmployment && cr.Employment_Type__c==category){
+                            LengthEmploymentscore=percentagevalue(cr.Risk_Score__c, 4);
+                            system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
+                            List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                            WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LengthofCurrentEmployment),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LengthEmploymentscore)));
+                         MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                        }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>=LengthofCurrentEmployment && cr.Employment_Type__c==category){
+                            LengthEmploymentscore=percentagevalue(cr.Risk_Score__c, 4);
+                            system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
+                            List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                            WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LengthofCurrentEmployment),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LengthEmploymentscore)));
+                         MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                        }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=LengthofCurrentEmployment && cr.Employment_Type__c==category){
+                            LengthEmploymentscore=percentagevalue(cr.Risk_Score__c, 4);
+                            system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
+                            List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                            WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LengthofCurrentEmployment),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LengthEmploymentscore)));
+                         MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                        }
+                        
+                    }
+                    
+                    if(cr.Sub_Criteria__c=='Professional Category' && EmploymentStatus!='Unemployed'){
+                        if(cr.Sub_Criteria_Options__c==ProfessionalCategory && cr.Employment_Type__c==category)
+                            ProfessionalCategoryscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('ProfessionalCategoryscore========'+ProfessionalCategoryscore);
+                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(ProfessionalCategory),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(ProfessionalCategoryscore))); 
+                     MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                    }
+                    if(cr.Sub_Criteria__c=='Professional Category' && EmploymentStatus=='Unemployed'){
+                        if(cr.Sub_Criteria_Options__c==ProfessionalCategory && cr.Employment_Type__c==category){
+                            Decimal loantoweightUn=cr.Weight_of_Sub_Criteria__c+4;
+                            ProfessionalCategoryscore=percentagevalue(cr.Risk_Score__c, loantoweightUn);
+                        }
+                        system.debug('ProfessionalCategoryscore========'+ProfessionalCategoryscore);
+                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(ProfessionalCategory),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(ProfessionalCategoryscore))); 
+                     MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                    }
+                }
+                
+                if(cr.Sub_Criteria__c=='Collateral'){
+                    if(cr.Sub_Criteria_Options__c==Collateral && cr.Employment_Type__c==category)
+                        Collateralscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                    system.debug('Collateralscore========'+Collateralscore);
+                }
+                
+                
+                
+                
+                //=====self-employed====
+                if(category=='Self-Employed'){
+                    if(cr.Sub_Criteria__c=='Working Capital'){
+                        system.debug('WorkingCapital========'+WorkingCapital);
+                        system.debug('WorkingCapitalcr.Risk_Score__c========'+cr.Risk_Score__c);
+                        system.debug('WorkingCapitalcr.Weight_of_Sub_Criteria__c========'+cr.Weight_of_Sub_Criteria__c);
+                        if(cr.Sub_Criteria_Options__c==WorkingCapital && cr.Employment_Type__c==category)
+                            WorkingCapitalscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('WorkingCapitalscore========'+WorkingCapitalscore);
+                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(WorkingCapital),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(WorkingCapitalscore))); 
+                     MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                    }
+                    if(cr.Sub_Criteria__c=='Nature of Engagement'){
+                        if(cr.Sub_Criteria_Options__c==NatureEngagement && cr.Employment_Type__c==category)
+                            NatureEngagementscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('NatureEngagementscore========'+NatureEngagementscore);
+                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(NatureEngagement),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(NatureEngagementscore))); 
+                    MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                    }
+                    if(cr.Sub_Criteria__c=='Type of Industry'){
+                        if(cr.Sub_Criteria_Options__c==TypeIndustry && cr.Employment_Type__c==category)
+                            TypeIndustryscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('TypeIndustryscore========'+TypeIndustryscore);
+                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(TypeIndustry),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(TypeIndustryscore))); 
+                     MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                    }
+                    if(cr.Sub_Criteria__c=='Financial Performance'){
+                        if(cr.Sub_Criteria_Options__c==FinancialPerformance && cr.Employment_Type__c==category)
+                            FinancialPerformancescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('FinancialPerformancescore========'+FinancialPerformancescore);
+                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(FinancialPerformance),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(FinancialPerformancescore))); 
+                     MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                    }
+                    if(cr.Sub_Criteria__c=='Financial Statement Support'){
+                        if(cr.Sub_Criteria_Options__c==FinancialSupport && cr.Employment_Type__c==category)
+                            FinancialSupportscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('FinancialSupportscore========'+FinancialSupportscore);
+                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(FinancialSupport),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(FinancialSupportscore))); 
+                     MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                    }
+                    if(cr.Sub_Criteria__c=='Length of Trade'){
+                        if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=LengthTrade && cr.Upper_Bound__c>LengthTrade && cr.Employment_Type__c==category){
+                            LengthTradescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                            system.debug('LengthTradescore1========'+LengthTradescore);
+                            List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                            WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LengthTrade),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LengthTradescore)));
+                         MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                        }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>LengthTrade && cr.Employment_Type__c==category){
+                            LengthTradescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                            system.debug('LengthTradescore2========'+LengthTradescore);
+                           List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                            WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LengthTrade),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LengthTradescore)));
+                         MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                        }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=LengthTrade && cr.Employment_Type__c==category){
+                            LengthTradescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                            system.debug('LengthTradescore3========'+LengthTradescore);
+                            List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                            WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LengthTrade),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LengthTradescore)));
+                         MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                        }
+                    }
+                    
+                    
+                }
+            }
+            
+            if(cr.Risk_Score__c!=null ){
+                if(category=='Salaried'){
+                    system.debug('LengthEmploymentscore=======================================>0=>'+cr.Sub_Criteria__c+'==0=='+cr.Risk_Score__c+'=0='+EmploymentStatus);
+                    if(cr.Sub_Criteria__c=='Length of Current Employment' && cr.Risk_Score__c!=null && EmploymentStatus!='Unemployed'){
+                        system.debug('LengthEmploymentscore=======================================>');
+                        if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=LengthofCurrentEmployment && cr.Upper_Bound__c>=LengthofCurrentEmployment && cr.Employment_Type__c==category){
+                            LengthEmploymentscore=percentagevalue(cr.Risk_Score__c, 4);
+                            system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
+                            List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                            WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LengthofCurrentEmployment),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LengthEmploymentscore)));
+                         MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                        }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>=LengthofCurrentEmployment && cr.Employment_Type__c==category){
+                            LengthEmploymentscore=percentagevalue(cr.Risk_Score__c, 4);
+                            system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
+                            List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                            WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LengthofCurrentEmployment),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LengthEmploymentscore)));
+                         MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                        }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=LengthofCurrentEmployment && cr.Employment_Type__c==category){
+                            LengthEmploymentscore=percentagevalue(cr.Risk_Score__c, 4);
+                            system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
+                           List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                            WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LengthofCurrentEmployment),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LengthEmploymentscore)));
+                        MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                        }
+                        
+                    }
+                }
+                
+                
+                
+                
+                
+                
+                
+                
+            }
+            
+            system.debug('Test##      WrapperScoringlst====='+WrapperScoringlst); 
+        }
+        system.debug('Test##      WrapperScoringlst out====='+WrapperScoringlst);
+        if(ProductSelection=='Unsecured Loan' && Collateral=='None'){
+            decimal weight=loantoweight+ repaymentweight;
+            RepaymentMethodscore=percentagevalue(repaymentriskscore,weight);
+            system.debug('Test## RepaymentMethodscore========'+RepaymentMethodscore);
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        system.debug('Test## agescore========>'+agescore);
+        system.debug('Test## educationscore========>'+educationscore);
+        system.debug('Test## Residentialscore========>'+Residentialscore);
+        system.debug('Test## residenceYearscore========>'+residenceYearscore);
+        system.debug('Test## CreditHistoryscore========>'+CreditHistoryscore);
+        system.debug('Test## NetWorthscore========>'+NetWorthscore);
+        system.debug('Test## EmploymentStatusscore========>'+EmploymentStatusscore);
+        system.debug('Test## IndustryofEmploymentscore========>'+IndustryofEmploymentscore);
+        system.debug('Test## ProfessionalCategoryscore========>'+ProfessionalCategoryscore);
+        system.debug('Test## Collateralscore========>'+Collateralscore);
+        system.debug('Test## LoantoValuescore========>'+LoantoValuescore);
+        system.debug('Test## AbilitytoServicescore========>'+AbilitytoServicescore);
+        system.debug('Test## RepaymentMethodscore========>'+RepaymentMethodscore);
+        system.debug('Test## LengthEmploymentscore========>'+LengthEmploymentscore);
+        system.debug('Test## LengthTradescore========>'+LengthTradescore);
+        system.debug('Test## FinancialSupportscore========>'+FinancialSupportscore);
+        system.debug('Test## FinancialPerformancescore========>'+FinancialPerformancescore);
+        system.debug('Test## TypeIndustryscore========>'+TypeIndustryscore);
+        system.debug('Test## NatureEngagementscore========>'+NatureEngagementscore);
+        system.debug('Test## WorkingCapitalscore========>'+WorkingCapitalscore);
+        
+        creditscore=agescore+educationscore+Residentialscore+residenceYearscore+
+            CreditHistoryscore+NetWorthscore+EmploymentStatusscore+IndustryofEmploymentscore+ProfessionalCategoryscore+
+            LengthEmploymentscore+LengthTradescore+FinancialSupportscore+FinancialPerformancescore+TypeIndustryscore+NatureEngagementscore+WorkingCapitalscore;
+        
+        system.debug('creditscore========'+creditscore);
+        /*  if(NegaticeTrace=='0'|| PoliticallyExposed=='0' || CreditHistory==91){
+if(creditscore<479)
+creditscore=479;
+if(creditscore>556)
+creditscore  =556;
+}*/                        
+        return creditscore; 
+    }
     
     Public decimal creditscorePerPersoncalculation1(string Collateral,Decimal LoantoValue,string ProductSelection,Decimal Abilitytoservice,string RepaymentMethod){
-             
-             //Decimal Abilitytoservice = Decimal.valueOf(Abilitytoservice1);
-             decimal creditscore=0;
-             decimal Collateralscore=0;
-             decimal LoantoValuescore=0;
-             decimal AbilitytoServicescore=0;
-             decimal RepaymentMethodscore=0;
-             decimal loantoweight=0;
-             decimal repaymentriskscore=0;
-             decimal repaymentweight=0;
-             
-             for(Credit_Calculation__mdt cr:metalst2oppProduct){
-                 if(ProductSelection=='Unsecured Loan' && Collateral=='None'){
-                     if(cr.Sub_Criteria__c=='Loan to Value'){
-                         system.debug('tesk##########LoantoValue###'+LoantoValue);
-                         if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=LoantoValue && cr.Upper_Bound__c>=LoantoValue ){
-                             loantoweight=cr.Weight_of_Sub_Criteria__c;
-                         }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>=LoantoValue ){
-                             loantoweight=cr.Weight_of_Sub_Criteria__c;
-                         }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=LoantoValue ){
-                             loantoweight=cr.Weight_of_Sub_Criteria__c;
-                         }
-                     }
-                     system.debug('loantoweight2========'+loantoweight);
-                     if(cr.Sub_Criteria__c=='Repayment Method'){
-                         if(cr.Sub_Criteria_Options__c==RepaymentMethod ){
-                             repaymentriskscore=cr.Risk_Score__c!=null?cr.Risk_Score__c:0;
-                             repaymentweight=cr.Weight_of_Sub_Criteria__c!=null?cr.Weight_of_Sub_Criteria__c:0;
-                         }
-                     }
-                 }
-                 
-                 if(cr.Risk_Score__c!=null && cr.Weight_of_Sub_Criteria__c!=null){
-                     
-                     if(cr.Sub_Criteria__c=='Collateral'){
-                         system.debug('Collateralscore===============0='+Collateral);
-                         system.debug('cr.Risk_Score__c===============0='+cr.Risk_Score__c);
-                         system.debug('cr.Weight_of_Sub_Criteria__c===============0='+cr.Weight_of_Sub_Criteria__c);
-                         system.debug('cr.Sub_Criteria_Options__c===============0='+cr.Sub_Criteria_Options__c);
-                         if(cr.Sub_Criteria_Options__c==Collateral )
-                             Collateralscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                         system.debug('Collateralscore========##=='+Collateralscore);
-                     }
-                     
-                     if(cr.Sub_Criteria__c=='Loan to Value' && ProductSelection!='Unsecured Loan' && Collateral!='None'){
-                         if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=LoantoValue && cr.Upper_Bound__c>=LoantoValue ){
-                             LoantoValuescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('LoantoValuescore========'+LoantoValuescore);
-                         }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>=LoantoValue ){
-                             LoantoValuescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('LoantoValuescore========'+LoantoValuescore);
-                         }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=LoantoValue ){
-                             LoantoValuescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('loantoweight3========'+cr.Weight_of_Sub_Criteria__c);
-                             system.debug('LoantoValuescore========'+LoantoValuescore);
-                         }
-                     }
-                     
-                     if(cr.Sub_Criteria__c=='Ability to Service'){
-                         if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=Abilitytoservice && cr.Upper_Bound__c>=Abilitytoservice ){
-                             AbilitytoServicescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('AbilitytoServicescore========'+AbilitytoServicescore);
-                         }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>=Abilitytoservice ){
-                             AbilitytoServicescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('AbilitytoServicescore========'+AbilitytoServicescore);
-                         }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=Abilitytoservice ){
-                             AbilitytoServicescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                             system.debug('AbilitytoServicescore========'+AbilitytoServicescore);
-                         }
-                     }
-                     
-                     if(cr.Sub_Criteria__c=='Repayment Method'){
-                         system.debug('pavit2========');
-                         if(ProductSelection!='Unsecured Loan' && Collateral!='None'){
-                             if(cr.Sub_Criteria_Options__c==RepaymentMethod ){
-                                 RepaymentMethodscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                                 system.debug('RepaymentMethodscore========'+RepaymentMethodscore);
-                             }
-                         }
-                     }
-                 }
-                 
-             }
-             if(ProductSelection=='Unsecured Loan' && Collateral=='None'){
-                 decimal weight=loantoweight+ repaymentweight;
-                 system.debug('loantoweight========>'+loantoweight);
-                 system.debug('repaymentweight========>'+repaymentweight);
-                 system.debug('weight========>'+weight);
-                 RepaymentMethodscore=percentagevalue(repaymentriskscore,weight);
-                 system.debug('RepaymentMethodscore========>'+RepaymentMethodscore);
-             }
-             
-             system.debug('Test## ProductSelection========>'+ProductSelection);
-             system.debug('Test## Collateralscore========>'+Collateralscore);
-             system.debug('Test## LoantoValuescore========>'+LoantoValuescore);
-             system.debug('Test## AbilitytoServicescore========>'+AbilitytoServicescore);
-             system.debug('Test## RepaymentMethodscore========>'+RepaymentMethodscore);
-             if(ProductSelection=='Unsecured Loan' && Collateral=='None')
-                 LoantoValuescore=0;
-             creditscore=Collateralscore+LoantoValuescore+AbilitytoServicescore+RepaymentMethodscore;
-             
-             return creditscore; 
-         }
+        
+        //Decimal Abilitytoservice = Decimal.valueOf(Abilitytoservice1);
+        decimal creditscore=0;
+        decimal Collateralscore=0;
+        decimal LoantoValuescore=0;
+        decimal AbilitytoServicescore=0;
+        decimal RepaymentMethodscore=0;
+        decimal loantoweight=0;
+        decimal repaymentriskscore=0;
+        decimal repaymentweight=0;
+        
+        //WrapperScoringlst.clear();
+        string ReOption='';
+        string Sub_Criteria ='';
+        string Risk_Score='';
+        
+        for(Credit_Calculation__mdt cr:metalst2oppProduct){
+            if(ProductSelection=='Unsecured Loan' && Collateral=='None'){
+                if(cr.Sub_Criteria__c=='Loan to Value'){
+                    system.debug('tesk##########LoantoValue###'+LoantoValue);
+                    if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=LoantoValue && cr.Upper_Bound__c>=LoantoValue ){
+                        loantoweight=cr.Weight_of_Sub_Criteria__c;
+                    }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>=LoantoValue ){
+                        loantoweight=cr.Weight_of_Sub_Criteria__c;
+                    }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=LoantoValue ){
+                        loantoweight=cr.Weight_of_Sub_Criteria__c;
+                    }
+                }
+                system.debug('loantoweight2========'+loantoweight);
+                if(cr.Sub_Criteria__c=='Repayment Method'){
+                    if(cr.Sub_Criteria_Options__c==RepaymentMethod ){
+                        repaymentriskscore=cr.Risk_Score__c!=null?cr.Risk_Score__c:0;
+                        repaymentweight=cr.Weight_of_Sub_Criteria__c!=null?cr.Weight_of_Sub_Criteria__c:0;
+                    }
+                }
+            }
+            
+            if(cr.Risk_Score__c!=null && cr.Weight_of_Sub_Criteria__c!=null){
+                
+                if(cr.Sub_Criteria__c=='Collateral'){
+                    system.debug('Collateralscore===============0='+Collateral);
+                    system.debug('cr.Risk_Score__c===============0='+cr.Risk_Score__c);
+                    system.debug('cr.Weight_of_Sub_Criteria__c===============0='+cr.Weight_of_Sub_Criteria__c);
+                    system.debug('cr.Sub_Criteria_Options__c===============0='+cr.Sub_Criteria_Options__c);
+                    if(cr.Sub_Criteria_Options__c==Collateral )
+                        Collateralscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                    system.debug('Collateralscore========##=='+Collateralscore);
+                    
+                   /* if(ProductTypeOfScoringModel == ProductSelection){
+                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                        WrapperScoringlst.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Collateral),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(Collateralscore)));
+                        MapProductScore.put('Age', WrapperScoringlst1);
+                    }*/
+                }
+                
+                if(cr.Sub_Criteria__c=='Loan to Value' && ProductSelection!='Unsecured Loan' && Collateral!='None'){
+                    if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=LoantoValue && cr.Upper_Bound__c>=LoantoValue ){
+                        LoantoValuescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('LoantoValuescore========'+LoantoValuescore);
+                    }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>=LoantoValue ){
+                        LoantoValuescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('LoantoValuescore========'+LoantoValuescore);
+                    }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=LoantoValue ){
+                        LoantoValuescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('loantoweight3========'+cr.Weight_of_Sub_Criteria__c);
+                        system.debug('LoantoValuescore========'+LoantoValuescore);
+                    }
+                   // if(ProductTypeOfScoringModel == ProductSelection) 
+                      //  WrapperScoringlst.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LoantoValue),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LoantoValuescore)));
+                }
+                
+                if(cr.Sub_Criteria__c=='Ability to Service'){
+                    if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=Abilitytoservice && cr.Upper_Bound__c>=Abilitytoservice ){
+                        AbilitytoServicescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('AbilitytoServicescore========'+AbilitytoServicescore);
+                    }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>=Abilitytoservice ){
+                        AbilitytoServicescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('AbilitytoServicescore========'+AbilitytoServicescore);
+                    }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=Abilitytoservice ){
+                        AbilitytoServicescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                        system.debug('AbilitytoServicescore========'+AbilitytoServicescore);
+                    }
+                   // if(ProductTypeOfScoringModel == ProductSelection) 
+                     //   WrapperScoringlst.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Abilitytoservice),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(AbilitytoServicescore)));
+                }
+                
+                if(cr.Sub_Criteria__c=='Repayment Method'){
+                    system.debug('pavit2========');
+                    if(ProductSelection!='Unsecured Loan' && Collateral!='None'){
+                        if(cr.Sub_Criteria_Options__c==RepaymentMethod ){
+                            RepaymentMethodscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
+                            system.debug('RepaymentMethodscore========'+RepaymentMethodscore);
+                            ReOption = cr.Sub_Criteria_Options__c;
+                            Sub_Criteria = cr.Sub_Criteria__c;
+                            Risk_Score = string.valueOf(cr.Risk_Score__c);
+                        }
+                    }
+                }
+            }
+            
+        }
+        if(ProductSelection=='Unsecured Loan' && Collateral=='None'){
+            decimal weight=loantoweight+ repaymentweight;
+            system.debug('loantoweight========>'+loantoweight);
+            system.debug('repaymentweight========>'+repaymentweight);
+            system.debug('weight========>'+weight);
+            RepaymentMethodscore=percentagevalue(repaymentriskscore,weight);
+            system.debug('RepaymentMethodscore========>'+RepaymentMethodscore);
+        }
+        
+       // if(ProductTypeOfScoringModel == ProductSelection) 
+           // WrapperScoringlst.add(new WrapperScoringModel(Sub_Criteria,string.valueOf(RepaymentMethod),string.valueOf(RepaymentMethodscore),string.valueOf(Risk_Score),string.valueOf(RepaymentMethodscore)));
+        
+        
+        system.debug('Test## ProductSelection========>'+ProductSelection);
+        system.debug('Test## Collateralscore========>'+Collateralscore);
+        system.debug('Test## LoantoValuescore========>'+LoantoValuescore);
+        system.debug('Test## AbilitytoServicescore========>'+AbilitytoServicescore);
+        system.debug('Test## RepaymentMethodscore========>'+RepaymentMethodscore);
+        if(ProductSelection=='Unsecured Loan' && Collateral=='None')
+            LoantoValuescore=0;
+        creditscore=Collateralscore+LoantoValuescore+AbilitytoServicescore+RepaymentMethodscore;
+        
+        return creditscore; 
+    }
     
     Public decimal creditscorePerPersoncalculation4Ability2Service(Decimal Abilitytoservice){
         system.debug('Test## #####################A2S========'+Abilitytoservice);
@@ -1066,189 +1216,85 @@ accMaptoUpdate.put(acc.id, acc);
         }
         Decimal TDSR=0;
         Decimal totalmonthlypayment=0;
-       if(assetlst.size()>0)
-        for(Application_Asset_Liability__c al:assetlst){
-            if(al.Assets_and_Liabilities__r.Monthly_Payment_Prior__c != NULL)
-          totalmonthlypayment += al.Assets_and_Liabilities__r.Monthly_Payment_Prior__c;
-        }
+        if(assetlst.size()>0)
+            for(Application_Asset_Liability__c al:assetlst){
+                if(al.Assets_and_Liabilities__r.Monthly_Payment_Prior__c != NULL)
+                    totalmonthlypayment += al.Assets_and_Liabilities__r.Monthly_Payment_Prior__c;
+            }
         if(Applicantlst.size()>0)
-        for(Applicant__c app:Applicantlst){
-            if(app.Rent_Board_Monthly_Prior_Loan__c != NULL && app.Strata_Maintenance_Monthly_Prior_Loan__c != Null)
-            totalmonthlypayment+=app.Rent_Board_Monthly_Prior_Loan__c+app.Strata_Maintenance_Monthly_Prior_Loan__c;
-        }
+            for(Applicant__c app:Applicantlst){
+                if(app.Rent_Board_Monthly_Prior_Loan__c != NULL && app.Strata_Maintenance_Monthly_Prior_Loan__c != Null)
+                    totalmonthlypayment+=app.Rent_Board_Monthly_Prior_Loan__c+app.Strata_Maintenance_Monthly_Prior_Loan__c;
+            }
         if(totalmonthlypayment>0 && totalincome>0)
-        	TDSR=totalmonthlypayment/totalincome;
+            TDSR=totalmonthlypayment/totalincome;
         return TDSR;
     }
-  
     
-    /*
-     
-    Public map<string, string> getAbilitytoService(Opportunity opp, list<opportunityLineitem> opplinelst,Decimal totalincome){ // list<Account> acclist
-        Decimal Autototalprice=0;
-        Decimal Unsecuredtotalprice=0;
-        Decimal CCtotalprice=0;
-        Decimal LOCtotalprice=0;
-        Decimal AutoTDSR=0;
-        Decimal UnsecuredTDSR=0;
-        Decimal CCTDSR=0;
-        Decimal LOCTDSR=0;
-        
-        map<string, string> tdsrmap= new map<string, string>();
-      
-        if(opplinelst.size()>0){
-            for(opportunityLineitem ol:opplinelst){
-                if(ol.Product2.Name =='JN Bank Auto Loan'){// 'Auto Loan';
-                    Autototalprice=ol.TotalPrice;
-                    decimal Autoasset=opp.Collateral__r.Monthly_Payment_Calc__c!=null?opp.Collateral__r.Monthly_Payment_Calc__c:0;
-                    system.debug('Autototalprice==>'+Autototalprice);
-                    system.debug('Autoasset==>'+Autoasset);
-                    system.debug('totalincome==>'+totalincome);
-                    if(totalincome>0)
-                        AutoTDSR=(Autototalprice+Autoasset)/totalincome;
-                }
-                if(ol.Product2.Name =='JN Bank Unsecured Loan'){// 'Unsecured Loan';
-                    Unsecuredtotalprice=ol.TotalPrice;
-                    decimal Unsecuredasset=opp.Unsecured_Assets_and_Liabilities__r.Monthly_Payment_Calc__c!=null?opp.Unsecured_Assets_and_Liabilities__r.Monthly_Payment_Calc__c:0;
-                    if(totalincome>0)
-                        UnsecuredTDSR=(Unsecuredtotalprice+Unsecuredasset)/totalincome;
-                }
-                if(ol.Product2.Name =='JN Visa - Classic'){// 'Credit Card';
-                    CCtotalprice=ol.TotalPrice;
-                    decimal ccasset=opp.Collateral_Personal_Credit_Card__r.Minimum_Payment__c!=null?opp.Collateral_Personal_Credit_Card__r.Minimum_Payment__c:0;
-                    if(totalincome>0)
-                        CCTDSR=(CCtotalprice+ccasset)/totalincome;
-                }
-                if(ol.Product2.Name =='JN Bank Line Of Credit'){// 'Line of Credit';
-                    LOCtotalprice=ol.TotalPrice;
-                    decimal locasset=opp.Collateral_Personal_Line_of_Credit__r.Minimum_Payment__c!=null?opp.Collateral_Personal_Line_of_Credit__r.Minimum_Payment__c:0;
-                    if(totalincome>0)
-                        LOCTDSR=(LOCtotalprice+locasset)/totalincome;
-                }
-            }
-        }
-        tdsrmap.put('AutoTDSR',string.valueof(AutoTDSR));
-        tdsrmap.put('UnsecuredTDSR',string.valueof(UnsecuredTDSR));
-        tdsrmap.put('CCTDSR',string.valueof(CCTDSR));
-        tdsrmap.put('LOCTDSR',string.valueof(LOCTDSR));
-        return tdsrmap;
-    }
-    */
-    Public void getAbilitytoServicePerApplicant(){
-        system.debug('lstacc===>'+lstacc);
-        for(Account acc:lstacc){
-            Decimal TDSRacc=0;
-            Decimal liabilitytotal=0;
-            if(accVsAssets.containsKey(acc.id)){
-                for(FinServ__AssetsAndLiabilities__c al:accVsAssets.get(acc.Id)){
-                    if((al.RecordType.Name=='Credit Cards' || al.RecordType.Name=='Lines of Credit') && al.Minimum_Payment__c!=null && al.Minimum_Payment__c>0){
-                        liabilitytotal+= al.Minimum_Payment__c;
-                    } else
-                        if(al.Monthly_Payment_Calc__c!=null && al.Monthly_Payment_Calc__c>0){
-                            liabilitytotal+= al.Monthly_Payment_Calc__c;
-                        }
-                }
-                system.debug('liabilitytotal===>'+liabilitytotal);
-                system.debug('acc.Gross_Monthly_Income__pc===>'+acc.Gross_Monthly_Income__pc);
-                if(liabilitytotal>0 && acc.Gross_Monthly_Income__pc!=null && acc.Gross_Monthly_Income__pc>0 )
-                    TDSRacc= liabilitytotal /acc.Gross_Monthly_Income__pc;
-            }
-            
-            tdsrmapacc.put(acc.Id, TDSRacc);
-            system.debug('tdsrmapacc===>'+tdsrmapacc);
-        }
-    }
-    //Public map<string, Decimal> getLoantoValue(Loan_Calculator__c lc)
     Public map<string, Decimal> getLoantoValue(){
-      /*  
-       system.debug('Test## Loan to value called ===>opp='+opp+'===Product='+Productname+'====TotalPrice='+TotalPrice);
-        system.debug('Test## Loan to value called ===>opp.Collateral__r.Account_Balance__c='+opp.Collateral__r.Account_Balance__c+'===opp.Collateral__r.Total_Market_Value_Calc__c='+opp.Collateral__r.Total_Market_Value_Calc__c);
-        decimal loan2value=0;
-        if((Productname=='Auto' || Productname=='Credit' || Productname=='LineofCredit') && TotalPrice>0){
-            if(opp!=null){
-                decimal totalassets=0;              
-                if(Productname=='Auto')
-                    totalassets=(opp.Collateral__r.Account_Balance__c!=null?opp.Collateral__r.Account_Balance__c:0)+(opp.Collateral__r.Total_Market_Value_Calc__c!=null?opp.Collateral__r.Total_Market_Value_Calc__c:0);
-                if(Productname=='Credit')
-                    totalassets=(opp.Collateral_Personal_Credit_Card__r.Account_Balance__c!=null?opp.Collateral_Personal_Credit_Card__r.Account_Balance__c:0)+(opp.Collateral_Personal_Credit_Card__r.Total_Market_Value_Calc__c!=null?opp.Collateral_Personal_Credit_Card__r.Total_Market_Value_Calc__c:0);
-                if(Productname=='LineofCredit')
-                    totalassets=(opp.Collateral_Personal_Line_of_Credit__r.Account_Balance__c!=null?opp.Collateral_Personal_Line_of_Credit__r.Account_Balance__c:0)+(opp.Collateral_Personal_Line_of_Credit__r.Total_Market_Value_Calc__c!=null?opp.Collateral_Personal_Line_of_Credit__r.Total_Market_Value_Calc__c:0);
-                system.debug('Test## totalassets='+totalassets+'==='+Productname);
-                system.debug('Test## TotalPrice='+TotalPrice);
-                if(totalassets>0)
-                    loan2value=TotalPrice/totalassets;
-                system.debug('Test## Loan to value called ===>loan2value='+loan2value);
-            }
-        }*/
-       map<string, Decimal> lcmap= new map<string, Decimal>();
+        /*  
+system.debug('Test## Loan to value called ===>opp='+opp+'===Product='+Productname+'====TotalPrice='+TotalPrice);
+system.debug('Test## Loan to value called ===>opp.Collateral__r.Account_Balance__c='+opp.Collateral__r.Account_Balance__c+'===opp.Collateral__r.Total_Market_Value_Calc__c='+opp.Collateral__r.Total_Market_Value_Calc__c);
+decimal loan2value=0;
+if((Productname=='Auto' || Productname=='Credit' || Productname=='LineofCredit') && TotalPrice>0){
+if(opp!=null){
+decimal totalassets=0;              
+if(Productname=='Auto')
+totalassets=(opp.Collateral__r.Account_Balance__c!=null?opp.Collateral__r.Account_Balance__c:0)+(opp.Collateral__r.Total_Market_Value_Calc__c!=null?opp.Collateral__r.Total_Market_Value_Calc__c:0);
+if(Productname=='Credit')
+totalassets=(opp.Collateral_Personal_Credit_Card__r.Account_Balance__c!=null?opp.Collateral_Personal_Credit_Card__r.Account_Balance__c:0)+(opp.Collateral_Personal_Credit_Card__r.Total_Market_Value_Calc__c!=null?opp.Collateral_Personal_Credit_Card__r.Total_Market_Value_Calc__c:0);
+if(Productname=='LineofCredit')
+totalassets=(opp.Collateral_Personal_Line_of_Credit__r.Account_Balance__c!=null?opp.Collateral_Personal_Line_of_Credit__r.Account_Balance__c:0)+(opp.Collateral_Personal_Line_of_Credit__r.Total_Market_Value_Calc__c!=null?opp.Collateral_Personal_Line_of_Credit__r.Total_Market_Value_Calc__c:0);
+system.debug('Test## totalassets='+totalassets+'==='+Productname);
+system.debug('Test## TotalPrice='+TotalPrice);
+if(totalassets>0)
+loan2value=TotalPrice/totalassets;
+system.debug('Test## Loan to value called ===>loan2value='+loan2value);
+}
+}*/
+        map<string, Decimal> lcmap= new map<string, Decimal>();
         Decimal AutoLC=0;
-       Decimal CCLC=0;
-       Decimal LOCLC=0;
-       /* if(lc !=null) {
-            if(lc.Total_Loan_Amount__c!=null && lc.Market_Value_of_Vehicle__c!=null && lc.Total_Loan_Amount__c>0 && lc.Market_Value_of_Vehicle__c>0)
-                AutoLC=lc.Total_Loan_Amount__c/lc.Market_Value_of_Vehicle__c;
-            if(lc.Proposed_Starting_Limit__c!=null && lc.PC_Deposit_Account_Balance__c!=null && lc.Proposed_Starting_Limit__c>0 && lc.PC_Deposit_Account_Balance__c>0)
-                CCLC=lc.Proposed_Starting_Limit__c/lc.PC_Deposit_Account_Balance__c;
-            if(lc.Line_of_Credit_Starting_Limit__c!=null && lc.PCL_Deposit_Account_Balance__c!=null && lc.Line_of_Credit_Starting_Limit__c>0 && lc.PCL_Deposit_Account_Balance__c>0)
-                LOCLC=lc.Line_of_Credit_Starting_Limit__c/lc.PCL_Deposit_Account_Balance__c;
-       
-       lcmap.put('AutoLC',AutoLC);
-       lcmap.put('CCLC',CCLC);
-       lcmap.put('LOCLC',LOCLC);
-        }*/
-      /*  public Decimal Total_Loan_Amount=0;
-    public Decimal Market_Value_of_Vehicle=0;
-    public Decimal Proposed_Starting_Limit=0;
-    public Decimal PC_Deposit_Account_Balance=0;
-    public Decimal Line_of_Credit_Starting_Limit=0;
-    public Decimal PCL_Deposit_Account_Balance=0;
-        */
-       
-            if(Total_Loan_Amount!=null && Market_Value_of_Vehicle!=null && Total_Loan_Amount>0 && Market_Value_of_Vehicle>0)
-                AutoLC=Total_Loan_Amount/Market_Value_of_Vehicle;
-            if(Proposed_Starting_Limit!=null && PC_Deposit_Account_Balance!=null && Proposed_Starting_Limit>0 && PC_Deposit_Account_Balance>0)
-                CCLC=Proposed_Starting_Limit/PC_Deposit_Account_Balance;
-            if(Line_of_Credit_Starting_Limit!=null && PCL_Deposit_Account_Balance!=null && Line_of_Credit_Starting_Limit>0 && PCL_Deposit_Account_Balance>0)
-                LOCLC=Line_of_Credit_Starting_Limit/PCL_Deposit_Account_Balance;
-            
-            lcmap.put('AutoLC',AutoLC);
-            lcmap.put('CCLC',CCLC);
-            lcmap.put('LOCLC',LOCLC);
-             
+        Decimal CCLC=0;
+        Decimal LOCLC=0;
+        /* if(lc !=null) {
+if(lc.Total_Loan_Amount__c!=null && lc.Market_Value_of_Vehicle__c!=null && lc.Total_Loan_Amount__c>0 && lc.Market_Value_of_Vehicle__c>0)
+AutoLC=lc.Total_Loan_Amount__c/lc.Market_Value_of_Vehicle__c;
+if(lc.Proposed_Starting_Limit__c!=null && lc.PC_Deposit_Account_Balance__c!=null && lc.Proposed_Starting_Limit__c>0 && lc.PC_Deposit_Account_Balance__c>0)
+CCLC=lc.Proposed_Starting_Limit__c/lc.PC_Deposit_Account_Balance__c;
+if(lc.Line_of_Credit_Starting_Limit__c!=null && lc.PCL_Deposit_Account_Balance__c!=null && lc.Line_of_Credit_Starting_Limit__c>0 && lc.PCL_Deposit_Account_Balance__c>0)
+LOCLC=lc.Line_of_Credit_Starting_Limit__c/lc.PCL_Deposit_Account_Balance__c;
+
+lcmap.put('AutoLC',AutoLC);
+lcmap.put('CCLC',CCLC);
+lcmap.put('LOCLC',LOCLC);
+}*/
+        /*  public Decimal Total_Loan_Amount=0;
+public Decimal Market_Value_of_Vehicle=0;
+public Decimal Proposed_Starting_Limit=0;
+public Decimal PC_Deposit_Account_Balance=0;
+public Decimal Line_of_Credit_Starting_Limit=0;
+public Decimal PCL_Deposit_Account_Balance=0;
+*/
+        
+        if(Total_Loan_Amount!=null && Market_Value_of_Vehicle!=null && Total_Loan_Amount>0 && Market_Value_of_Vehicle>0)
+            AutoLC=Total_Loan_Amount/Market_Value_of_Vehicle;
+        if(Proposed_Starting_Limit!=null && PC_Deposit_Account_Balance!=null && Proposed_Starting_Limit>0 && PC_Deposit_Account_Balance>0)
+            CCLC=Proposed_Starting_Limit/PC_Deposit_Account_Balance;
+        if(Line_of_Credit_Starting_Limit!=null && PCL_Deposit_Account_Balance!=null && Line_of_Credit_Starting_Limit>0 && PCL_Deposit_Account_Balance>0)
+            LOCLC=Line_of_Credit_Starting_Limit/PCL_Deposit_Account_Balance;
+        
+        lcmap.put('AutoLC',AutoLC);
+        lcmap.put('CCLC',CCLC);
+        lcmap.put('LOCLC',LOCLC);
+        
         
         
         
         system.debug('Test## ========lcmap==============='+lcmap);
         
-       return lcmap;
+        return lcmap;
     }
-    
-    
-    
-    /*
-    Public decimal getLoantoValue(Opportunity opp, string Productname, Decimal TotalPrice){
-        system.debug('Test## Loan to value called ===>opp='+opp+'===Product='+Productname+'====TotalPrice='+TotalPrice);
-        system.debug('Test## Loan to value called ===>opp.Collateral__r.Account_Balance__c='+opp.Collateral__r.Account_Balance__c+'===opp.Collateral__r.Total_Market_Value_Calc__c='+opp.Collateral__r.Total_Market_Value_Calc__c);
-        decimal loan2value=0;
-        if((Productname=='Auto' || Productname=='Credit' || Productname=='LineofCredit') && TotalPrice>0){
-            if(opp!=null){
-                decimal totalassets=0;              
-                if(Productname=='Auto')
-                    totalassets=(opp.Collateral__r.Account_Balance__c!=null?opp.Collateral__r.Account_Balance__c:0)+(opp.Collateral__r.Total_Market_Value_Calc__c!=null?opp.Collateral__r.Total_Market_Value_Calc__c:0);
-                if(Productname=='Credit')
-                    totalassets=(opp.Collateral_Personal_Credit_Card__r.Account_Balance__c!=null?opp.Collateral_Personal_Credit_Card__r.Account_Balance__c:0)+(opp.Collateral_Personal_Credit_Card__r.Total_Market_Value_Calc__c!=null?opp.Collateral_Personal_Credit_Card__r.Total_Market_Value_Calc__c:0);
-                if(Productname=='LineofCredit')
-                    totalassets=(opp.Collateral_Personal_Line_of_Credit__r.Account_Balance__c!=null?opp.Collateral_Personal_Line_of_Credit__r.Account_Balance__c:0)+(opp.Collateral_Personal_Line_of_Credit__r.Total_Market_Value_Calc__c!=null?opp.Collateral_Personal_Line_of_Credit__r.Total_Market_Value_Calc__c:0);
-                system.debug('Test## totalassets='+totalassets+'==='+Productname);
-                system.debug('Test## TotalPrice='+TotalPrice);
-                if(totalassets>0)
-                    loan2value=TotalPrice/totalassets;
-                system.debug('Test## Loan to value called ===>loan2value='+loan2value);
-            }
-        }
-        return loan2value;
-    }
-    */
+   
     private Decimal percentagevalue(Decimal score, decimal percentage){
         decimal val=(score*percentage)/100;
         return val;
@@ -1315,14 +1361,9 @@ accMaptoUpdate.put(acc.id, acc);
         
         return data;
     }
-
+    
     public List<WrapperScore> retlst = new List<WrapperScore>();
-    public Decimal Total_Loan_Amount=0;
-    public Decimal Market_Value_of_Vehicle=0;
-    public Decimal Proposed_Starting_Limit=0;
-    public Decimal PC_Deposit_Account_Balance=0;
-    public Decimal Line_of_Credit_Starting_Limit=0;
-    public Decimal PCL_Deposit_Account_Balance=0;
+    
     public List<WrapperScore> calculateScoreOnOpp(string opp_id,string Total_Loan_Amount,string Market_Value_of_Vehicle, string Proposed_Starting_Limit,string PC_Deposit_Account_Balance,string Line_of_Credit_Starting_Limit,string PCL_Deposit_Account_Balance){
         lstRating =[select Rating__c,Classification__c,Credit_Score_Min__c,Credit_Score_Max__c from Credit_Rating__mdt];
         set<id> oppid = new set<id>();
@@ -1347,6 +1388,7 @@ accMaptoUpdate.put(acc.id, acc);
         CreditScoreFromOpp(oppid);
         return retlst;
     }
+    
     public class WrapperScore{
         @AuraEnabled
         public string Name{get;set;}
@@ -1360,36 +1402,34 @@ accMaptoUpdate.put(acc.id, acc);
             this.Rating=Rating1;
         }
     }
-    List<Credit_Rating__mdt> lstRating = new List<Credit_Rating__mdt>();
+    
     public string Rating(Decimal CreditScore){
         string rat='';
         if(lstRating.size()>0){
             for(Credit_Rating__mdt d:lstRating){
                 if(CreditScore >= d.Credit_Score_Min__c && CreditScore <=d.Credit_Score_Max__c ){
-                  rat =   d.Rating__c;
+                    rat =   d.Rating__c;
                 }
             }
         }
         return rat;
-    }
+    }    
     
-    
-    
-     public Boolean isRequiredFieldMissingForScore(string oppid){
+    public Boolean isRequiredFieldMissingForScore(string oppid){
         Boolean autoProfound=false;
         Boolean unProfound=false;
         Boolean ccProfound=false;
         Boolean locProfound=false;
         List<OpportunityLineItem> lstlineItem  =  [select name,Opportunityid,Product2.Name,TotalPrice from OpportunityLineItem where Opportunityid =: oppid];
         if(lstlineItem.size()>0){
-            system.debug('Naresh## lstlineItem================>'+lstlineItem);
+            system.debug('Test## lstlineItem================>'+lstlineItem);
             for(OpportunityLineItem item:lstlineItem){
-                system.debug('Naresh## item================>'+item.Name);
+                system.debug('Test## item================>'+item.Name);
                 if(item.Product2.Name =='JN Bank Auto Loan'){// 'Auto Loan';
-                   autoProfound=true;
+                    autoProfound=true;
                 }
                 else if(item.Product2.Name =='JN Bank Unsecured Loan'){// 'Unsecured Loan';
-                   unProfound=true;
+                    unProfound=true;
                 }
                 else if(item.Product2.Name =='JN Visa - Classic'){// 'Credit Card';
                     ccProfound=true;
@@ -1404,16 +1444,16 @@ accMaptoUpdate.put(acc.id, acc);
             return true;
         }
         
-         List<opportunity> lstopp = [select id,Collateral__r.RecordType.Name,
-                                     Collateral_Personal_Line_of_Credit__r.RecordType.Name,
-                                     Collateral_Personal_Credit_Card__r.RecordType.Name,
-                                     Repayment_Method_Auto__c,
-                                     Repayment_Method_CC__c,
-                                     Repayment_Method_LOC__c,
-                                     Repayment_Method_UL__c 
-                                     from opportunity where id=:oppid limit 1];
-         if(lstopp.size()>0){
-            system.debug('Naresh## lstopp================>'+lstopp);
+        List<opportunity> lstopp = [select id,Collateral__r.RecordType.Name,
+                                    Collateral_Personal_Line_of_Credit__r.RecordType.Name,
+                                    Collateral_Personal_Credit_Card__r.RecordType.Name,
+                                    Repayment_Method_Auto__c,
+                                    Repayment_Method_CC__c,
+                                    Repayment_Method_LOC__c,
+                                    Repayment_Method_UL__c 
+                                    from opportunity where id=:oppid limit 1];
+        if(lstopp.size()>0){
+            system.debug('Test## lstopp================>'+lstopp);
             if(autoProfound){
                 if(lstopp[0].Collateral__r.RecordType.Name!='Motor Vehicle' || string.isEmpty(lstopp[0].Repayment_Method_Auto__c)){
                     system.debug('Required missing ===============>2');
@@ -1421,21 +1461,21 @@ accMaptoUpdate.put(acc.id, acc);
                 }
             }
             if(unProfound){
-               if(string.isEmpty(lstopp[0].Repayment_Method_UL__c)){
-                   system.debug('Required missing ===============>3'); 
-                   return true;
+                if(string.isEmpty(lstopp[0].Repayment_Method_UL__c)){
+                    system.debug('Required missing ===============>3'); 
+                    return true;
                 }
             }
             if(ccProfound){
-                 if(lstopp[0].Collateral_Personal_Credit_Card__r.RecordType.Name!='Savings/Current Accounts and Investments' || string.isEmpty(lstopp[0].Repayment_Method_CC__c)){
+                if(lstopp[0].Collateral_Personal_Credit_Card__r.RecordType.Name!='Savings/Current Accounts and Investments' || string.isEmpty(lstopp[0].Repayment_Method_CC__c)){
                     system.debug('Required missing ===============>4');
-                     return true;
+                    return true;
                 }
             }
             if(locProfound){
-                 if(lstopp[0].Collateral_Personal_Line_of_Credit__r.RecordType.Name!='Real Estate' || string.isEmpty(lstopp[0].Repayment_Method_LOC__c)){
+                if(lstopp[0].Collateral_Personal_Line_of_Credit__r.RecordType.Name!='Real Estate' || string.isEmpty(lstopp[0].Repayment_Method_LOC__c)){
                     system.debug('Required missing ===============>5');
-                     return true;
+                    return true;
                 }
             }
         }
@@ -1446,100 +1486,149 @@ accMaptoUpdate.put(acc.id, acc);
                                      Credit_History_in_last_24_Months__c,
                                      Assessment_of_Applicant_Net_Worth__c
                                      from Applicant__c where Opportunity__c=:oppid];
-         if(lstapp.size()>0){
-             system.debug('Naresh## lstapp================>'+lstapp);
-             for(Applicant__c a:lstapp){
-                 accid.add(a.Account__c);
-                 if(a.Gross_Monthly_IncomeC__c ==Null || string.isEmpty(a.Credit_History_in_last_24_Months__c) || string.isEmpty(a.Assessment_of_Applicant_Net_Worth__c)){
-                     system.debug('Required missing ===============>6');
-                     return true;
-                 }
-             }
-         }
-         else{
-             system.debug('Required missing ===============>7');
-             return true;
-         }
+        if(lstapp.size()>0){
+            system.debug('Test## lstapp================>'+lstapp);
+            for(Applicant__c a:lstapp){
+                accid.add(a.Account__c);
+                if(a.Gross_Monthly_IncomeC__c ==Null || string.isEmpty(a.Credit_History_in_last_24_Months__c) || string.isEmpty(a.Assessment_of_Applicant_Net_Worth__c)){
+                    system.debug('Required missing ===============>6');
+                    return true;
+                }
+            }
+        }
+        else{
+            system.debug('Required missing ===============>7');
+            return true;
+        }
         
         
         
-         List<FinServ__Employment__c> lstemp = [select
-                                                Income_type__c,
-                                                FinServ__EmploymentStatus__c,
-                                                Industry__c,
-                                                FinServ__LengthOfEmployment__c,
-                                                Account__c,
-                                                Professional_Category__c,
-                                                Assessment_of_Business_Working_Capita__c,
-                                                Nature_of_Engagement__c,
-                                                Financial_Preformance__c,
-                                                Financial_Statement_Support__c,
-                                                Length_of_Trade__c,
-                                                Account__r.Jamaican_Tax_Registration_Number__pc,
-                                                
-                                                Account__r.FinServ__Age__pc,
-                                                Account__r.Highest_Level_of_Education_attained__pc,
-                                                Account__r.Status_of_Address__c,
-                                                Account__r.Years_at_Residence__c,
-                                                Account__r.Industry_of_Employment__pc
-                                                from FinServ__Employment__c where Account__c IN:accid and Current_Employment__c=true];
-         
-         if(lstemp.size()>0){
-             system.debug('Naresh## lstemp================>'+lstemp);
-             for(FinServ__Employment__c e:lstemp){
-                 string cat = '';
-                 if(string.isEmpty(e.Income_type__c)){
-                     system.debug('Required missing ===============>8');
-                     return true;
-                 }else {
-                     if(e.Account__r.FinServ__Age__pc==NULL || string.isEmpty(e.Account__r.Highest_Level_of_Education_attained__pc) || string.isEmpty(e.Account__r.Status_of_Address__c) || e.Account__r.Years_at_Residence__c ==NULL || string.isEmpty(e.Account__r.Jamaican_Tax_Registration_Number__pc)){
-                         system.debug('Required missing ===============>9');
-                         return true;
-                     }
-                     if(e.Income_type__c=='Salaried'){
-                         if(string.isEmpty(e.Account__r.Industry_of_Employment__pc) || string.isEmpty(e.FinServ__EmploymentStatus__c) || string.isEmpty(e.Professional_Category__c)){
-                             system.debug('Required missing ===============>10');
-                             return true;
-                         }
-                     }
-                     if(e.Income_type__c=='Salaried' && e.FinServ__EmploymentStatus__c!='Unemployed'){
-                         if(e.FinServ__LengthOfEmployment__c==NULL){
-                             system.debug('Required missing ===============>11');
-                             return true;
-                         }
-                     }
-                     if(e.Income_type__c=='Self-Employed'){
-                         if(string.isEmpty(e.Industry__c) || e.Assessment_of_Business_Working_Capita__c ==NULL || string.isEmpty(e.Nature_of_Engagement__c) || string.isEmpty(e.Financial_Preformance__c) || string.isEmpty(e.Financial_Statement_Support__c) || string.isEmpty(e.Length_of_Trade__c)){
-                             system.debug('Required missing ===============>12');
-                             return true;
-                         }
-                     }
-                 }
-             }
-         }
-         else{
-             system.debug('Required missing ===============>13');
-             return true;
-         }
-        /*if salared
-         Industry_of_Employment__pc//
-         FinServ__EmploymentStatus__c,//
-         Professional_Category__c//
-       if (Primary Income Type = Salaried AND Employment Status ≠Unemployed)"
-        FinServ__LengthOfEmployment__c,//
+        List<FinServ__Employment__c> lstemp = [select
+                                               Income_type__c,
+                                               FinServ__EmploymentStatus__c,
+                                               Industry__c,
+                                               FinServ__LengthOfEmployment__c,
+                                               Account__c,
+                                               Professional_Category__c,
+                                               Assessment_of_Business_Working_Capita__c,
+                                               Nature_of_Engagement__c,
+                                               Financial_Preformance__c,
+                                               Financial_Statement_Support__c,
+                                               Length_of_Trade__c,
+                                               Account__r.Jamaican_Tax_Registration_Number__pc,
+                                               
+                                               Account__r.FinServ__Age__pc,
+                                               Account__r.Highest_Level_of_Education_attained__pc,
+                                               Account__r.Status_of_Address__c,
+                                               Account__r.Years_at_Residence__c,
+                                               Account__r.Industry_of_Employment__pc
+                                               from FinServ__Employment__c where Account__c IN:accid and Current_Employment__c=true];
         
-		
-
-if (Primary Income Type = Self-Employed)
-         * Assessment_of_Business_Working_Capita__c//
-         * Nature_of_Engagement__c//
-         * Industry__c//
-         * Financial_Preformance__c,//
-         * Financial_Statement_Support__c//
-         * Length_of_Trade__c//
-         * */
+        if(lstemp.size()>0){
+            system.debug('Test## lstemp================>'+lstemp);
+            for(FinServ__Employment__c e:lstemp){
+                string cat = '';
+                if(string.isEmpty(e.Income_type__c)){
+                    system.debug('Required missing ===============>8');
+                    return true;
+                }else {
+                    if(e.Account__r.FinServ__Age__pc==NULL || string.isEmpty(e.Account__r.Highest_Level_of_Education_attained__pc) || string.isEmpty(e.Account__r.Status_of_Address__c) || e.Account__r.Years_at_Residence__c ==NULL || string.isEmpty(e.Account__r.Jamaican_Tax_Registration_Number__pc)){
+                        system.debug('Required missing ===============>9');
+                        return true;
+                    }
+                    if(e.Income_type__c=='Salaried'){
+                        if(string.isEmpty(e.Account__r.Industry_of_Employment__pc) || string.isEmpty(e.FinServ__EmploymentStatus__c) || string.isEmpty(e.Professional_Category__c)){
+                            system.debug('Required missing ===============>10');
+                            return true;
+                        }
+                    }
+                    if(e.Income_type__c=='Salaried' && e.FinServ__EmploymentStatus__c!='Unemployed'){
+                        if(e.FinServ__LengthOfEmployment__c==NULL){
+                            system.debug('Required missing ===============>11');
+                            return true;
+                        }
+                    }
+                    if(e.Income_type__c=='Self-Employed'){
+                        if(string.isEmpty(e.Industry__c) || e.Assessment_of_Business_Working_Capita__c ==NULL || string.isEmpty(e.Nature_of_Engagement__c) || string.isEmpty(e.Financial_Preformance__c) || string.isEmpty(e.Financial_Statement_Support__c) || string.isEmpty(e.Length_of_Trade__c)){
+                            system.debug('Required missing ===============>12');
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            system.debug('Required missing ===============>13');
+            return true;
+        }
+        
         system.debug('Required missing ===============>No');
         return false;
-    } 
+    }
+    
+    //======================Credit Scoring Model =========================================
+    Public List<WrapperCreditScoringModel> WrapperScoringModellst = new List<WrapperCreditScoringModel>();
+    
+    Public List<MainScoringModel> ScoringModelApplicantDetails(string ProductType, string opp_id){
+        ProductTypeOfScoringModel = ProductType;
+        set<id> oppid = new set<id>();
+        oppid.add(opp_id);
+        CreditScoreFromOpp(oppid);
+        MainScoringModellst.add(new MainScoringModel(WrapperScoringModellst,AppProductScore));
+        // system.debug('WrapperScoringModellst=====>'+WrapperScoringModellst);
+        //system.debug('WrapperScoringlst=====>'+WrapperScoringlst);
+		//system.debug('AppScore=====>'+AppScore);
+        system.debug('MapAppScore=====>'+MapAppScore);
+        return MainScoringModellst;
+    }
+    Public List<MainScoringModel> MainScoringModellst = new List<MainScoringModel>();
+    public class MainScoringModel{
+        Public List<WrapperCreditScoringModel> WrapperScoringModellst{get;set;}
+        public List<List<WrapperScoringModel>> AppProductScore{get;set;}
+        
+        public MainScoringModel(List<WrapperCreditScoringModel> WrapperScoringModellst,List<List<WrapperScoringModel>> AppProductScore){
+            this.WrapperScoringModellst = WrapperScoringModellst;
+            this.AppProductScore = AppProductScore;
+        }
+        
+    }
+    
+    
+    
+    
+    public class WrapperCreditScoringModel{
+        public string name{get;set;}
+        public string taxNumber{get;set;}
+        public string grossIncome{get;set;}
+        public string incomeType{get;set;}
+        public string politcallyExposed{get;set;}
+        public string sanctionScreening{get;set;}
+        public List<List<WrapperScoringModel>> AppScore{get;set;}
+        
+        public WrapperCreditScoringModel(string name,string taxNumber,string grossIncome,string incomeType,string politcallyExposed,string NegaticeTrace,List<List<WrapperScoringModel>> AppScore){
+            this.name = name;
+            this.taxNumber = taxNumber;
+            this.grossIncome=grossIncome;
+            this.incomeType = incomeType;
+            this.politcallyExposed = politcallyExposed;
+            this.sanctionScreening = sanctionScreening;
+            this.AppScore = AppScore;
+        }
+    }
+    Public List<WrapperScoringModel> WrapperScoringlst = new List<WrapperScoringModel>();
+    public class WrapperScoringModel{
+        public string heading{get;set;}
+        public string inputValue{get;set;}
+        public string range{get;set;}
+        public string score{get;set;}
+        public string weight{get;set;}
+        public WrapperScoringModel(string name,string inputValue,string range,string score, string weight){
+            this.heading = name;
+            this.inputValue = inputValue;
+            this.range = range;
+            this.score = score;
+            this.weight = weight;
+        }
+    }
     
 }

@@ -123,6 +123,13 @@
 	<aura:attribute name="showMultiCalcPdfIcon" type="Boolean" Default="false"/>
     <aura:attribute name="retLoanCalcId" type="String" default=""/>
     
+    <aura:attribute name="isAutoPD" type="Boolean" Default="false"/>
+    <aura:attribute name="isUnsecurePD" type="Boolean" Default="false"/>
+    <aura:attribute name="isCCPD" type="Boolean" Default="false"/>
+    <aura:attribute name="isLocPD" type="Boolean" Default="false"/>
+    
+    
+    
     <form class="slds-form ">
         <fieldset  class="slds-box slds-theme--default slds-container--large" style="padding-right: 5px;">
             <aura:if isTrue="{!v.isProductDetail==false}">
@@ -2529,6 +2536,18 @@
                         </lightning:layoutItem>
                     </lightning:layout>
                 </div>
+                     <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.CreditCalclationsDoc }">
+                    <lightning:layout class="slds-box">
+                        <lightning:layoutItem> 
+                            <lightning:icon iconName="custom:custom27"/>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem padding="horizontal-small">
+                            <div class="page-section page-header">
+                                <h2 class="slds-text-heading--small" style="font-weight: bold;color: #00a1e0;">CREDIT CALCULATIONS</h2>
+                                </div>
+                        </lightning:layoutItem>
+                    </lightning:layout>
+                </div>
                 </div>
                 <div class="slds-grid slds-wrap" style="margin-top: 10px;">
                     <aura:if isTrue="{!v.ApplicantCount>=1}">
@@ -2579,7 +2598,7 @@
                 </div>
                 
                 <div class="slds-grid slds-wrap" style="margin-top: 10px;">
-                    <!--<aura:if isTrue="{!v.ApplicantCount>=1}">-->
+                    <aura:if isTrue="{!v.isAutoPD}">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.creditScoringAuto }">
                             <lightning:layout class="slds-box">
                                 <lightning:layoutItem> 
@@ -2593,7 +2612,52 @@
                                 </lightning:layoutItem>
                             </lightning:layout>
                         </div>
-                    <!--</aura:if>-->
+                    </aura:if>
+                    <aura:if isTrue="{!v.isUnsecurePD}">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.creditScoringUS }">
+                            <lightning:layout class="slds-box">
+                                <lightning:layoutItem> 
+                                    <lightning:icon iconName="doctype:word"/>
+                                </lightning:layoutItem>
+                                <lightning:layoutItem padding="horizontal-small">
+                                    <div class="page-section page-header">
+                                        <h2 class="slds-text-heading--small" style="font-weight: bold;color: #00a1e0;">CREDIT SCORING MODEL</h2>
+                                        <h1 class="slds-text-heading--label" style="font-weight: bold;color:#75db1b;">UNSECURE LOAN</h1>
+                                    </div>
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                        </div>
+                    </aura:if>
+                    <aura:if isTrue="{!v.isCCPD}">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.creditScoringCC }">
+                            <lightning:layout class="slds-box">
+                                <lightning:layoutItem> 
+                                    <lightning:icon iconName="doctype:word"/>
+                                </lightning:layoutItem>
+                                <lightning:layoutItem padding="horizontal-small">
+                                    <div class="page-section page-header">
+                                        <h2 class="slds-text-heading--small" style="font-weight: bold;color: #00a1e0;">CREDIT SCORING MODEL</h2>
+                                        <h1 class="slds-text-heading--label" style="font-weight: bold;color:#75db1b;">CREDIT CARD</h1>
+                                    </div>
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                        </div>
+                    </aura:if>
+                    <aura:if isTrue="{!v.isLocPD}">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.creditScoringLoc }">
+                            <lightning:layout class="slds-box">
+                                <lightning:layoutItem> 
+                                    <lightning:icon iconName="doctype:word"/>
+                                </lightning:layoutItem>
+                                <lightning:layoutItem padding="horizontal-small">
+                                    <div class="page-section page-header">
+                                        <h2 class="slds-text-heading--small" style="font-weight: bold;color: #00a1e0;">CREDIT SCORING MODEL</h2>
+                                        <h1 class="slds-text-heading--label" style="font-weight: bold;color:#75db1b;">LINE OF CREDIT</h1>
+                                    </div>
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                        </div>
+                    </aura:if>
                 
                 </div>
                 
