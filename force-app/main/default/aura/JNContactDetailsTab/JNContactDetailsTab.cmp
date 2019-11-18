@@ -201,8 +201,9 @@
                                           name="country"
                                           label="Country"
                                           aura:id="validation"
-                                          required="true"
+                                          required="false"
                                           onchange="{!c.getCountry}"
+                                          disabled="true"
                                           >
                             <option value="Jamaica">Jamaica</option>
                             <aura:iteration items="{!v.countries}" var="item">
