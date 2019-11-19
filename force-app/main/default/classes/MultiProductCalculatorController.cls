@@ -261,7 +261,8 @@ public class MultiProductCalculatorController {
         }
     }
     
-    /* public static Boolean isRequiredFieldMissingForScore(string oppid){
+    /* 
+      public static Boolean isRequiredFieldMissingForScore(string oppid){
 Boolean flag=false;
 Boolean autoProfound=false;
 Boolean unProfound=false;
@@ -614,6 +615,43 @@ this.Rating=Rating1;
         }
         return false;
     }
+    
+    
+    
+    @AuraEnabled  
+    public static Boolean SaveCreditScoringModelPDF(string oppid,string productname,string numberOfApplicant,string loanAmount,string Total_Loan_Amount1,string Market_Value_of_Vehicle1,string Proposed_Starting_Limit1,string PC_Deposit_Account_Balance1,string Line_of_Credit_Starting_Limit1,string PCL_Deposit_Account_Balance1){
+        try{
+            system.debug('SaveCreditScoringModelPDF===='+oppid);
+            PageReference mypage = Page.CreditScoringModel;
+            mypage.getParameters().put('productName', productname);
+            mypage.getParameters().put('numberOfApplicant', numberOfApplicant);
+            mypage.getParameters().put('loanAmount', loanAmount);
+            mypage.getParameters().put('oppid', oppid);
+            mypage.getParameters().put('Total_Loan_Amount', Total_Loan_Amount1);
+            mypage.getParameters().put('marketValue', Market_Value_of_Vehicle1);
+            mypage.getParameters().put('proposedStarting', Proposed_Starting_Limit1);
+            mypage.getParameters().put('pcDeposit', PC_Deposit_Account_Balance1);
+            mypage.getParameters().put('locStarting', Line_of_Credit_Starting_Limit1);
+            mypage.getParameters().put('pclDeposit', PCL_Deposit_Account_Balance1);
+            
+            blob body = mypage.getContentAsPDF();
+           
+            Attachment attach = new Attachment();
+            attach.Body = body;
+            attach.ContentType='application/pdf';            
+            attach.Name = 'MultiCalculatorpdf.pdf';
+            attach.IsPrivate = false;
+            attach.ParentId = oppid;
+            insert attach;
+            system.debug('attach===='+attach);
+            return true;
+        }
+        catch(Exception ex){
+            system.debug('Exception ======'+ex.getMessage()+'....Line Number=>'+ex.getLineNumber());           
+        }
+        return false;
+    }
+    
     
     @AuraEnabled  
     public static list<WrapperclsAssets> getApplicantAsset(string oppid){

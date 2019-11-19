@@ -2847,4 +2847,40 @@
         $A.enqueueAction(action);
         console.log('saveMultiCalcPdf--------------------------5-');
     },
+    
+    
+    saveCreditScoringModelPdf: function(cmp,oppid,productname,numberOfApplicant,loanAmount,Total_Loan_Amount1,Market_Value_of_Vehicle1,Proposed_Starting_Limit1,PC_Deposit_Account_Balance1,Line_of_Credit_Starting_Limit1,PCL_Deposit_Account_Balance1){
+        console.log('saveCreditScoringModelPdf--------------------------1-');
+        var action = cmp.get('c.SaveCreditScoringModelPDF');
+        action.setParams({
+            oppid : oppid,
+            productname : productname,
+            numberOfApplicant : numberOfApplicant,
+            loanAmount : loanAmount,
+            Total_Loan_Amount1 : Total_Loan_Amount1,
+            Market_Value_of_Vehicle1 : Market_Value_of_Vehicle1,
+            Proposed_Starting_Limit1 : Proposed_Starting_Limit1,
+            PC_Deposit_Account_Balance1 : PC_Deposit_Account_Balance1,
+            Line_of_Credit_Starting_Limit1 : Line_of_Credit_Starting_Limit1,
+            PCL_Deposit_Account_Balance1 : PCL_Deposit_Account_Balance1
+        });
+        console.log('save--------------------------2-');
+        action.setCallback(this,function(response){
+            var state = response.getState();
+            console.log('save--------------------------3-'+state);
+            if(state=='SUCCESS'){
+                
+            }
+            else{
+                var msg = response.getReturnValue();
+                console.log('saveMultiCalcPdf--------------------------4-'+msg);
+            }
+        });
+        $A.enqueueAction(action);
+        console.log('save--------------------------5-');
+    },
+    
+    
+    
+    
 })

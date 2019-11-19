@@ -3685,9 +3685,8 @@
     creditScoringAuto : function(cmp, event, helper){
         var oppid = cmp.get("v.isRecordIdM");
         console.log('oppid==>'+oppid);
-        //var loanid = cmp.get('v.retLoanCalcId');
-        //console.log('loanid==>'+loanid);
-        //helper.saveMultiCalcPdf(cmp,leadOrOppId,loanid);   
+       
+       
         //console.log('loanid================>');
         var numberOfApplicant=cmp.get('v.ApplicantCount');
         var loanAmount='';
@@ -3747,18 +3746,20 @@
                             break;
                     }*/
                 }
-        
-        if(Total_Loan_Amount1 =='undefined')
+       
+        if(Total_Loan_Amount1 ==undefined){
+            loanAmount= 0;
             Total_Loan_Amount1=0;
-        if(Market_Value_of_Vehicle1 =='undefined')
+        }
+        if(Market_Value_of_Vehicle1 ==undefined)
             Market_Value_of_Vehicle1=0;
-        if(Proposed_Starting_Limit1 =='undefined')
+        if(Proposed_Starting_Limit1 ==undefined)
             Proposed_Starting_Limit1=0;
-        if(PC_Deposit_Account_Balance1 =='undefined')
+        if(PC_Deposit_Account_Balance1 ==undefined)
             PC_Deposit_Account_Balance1=0;
-        if(Line_of_Credit_Starting_Limit1 =='undefined')
+        if(Line_of_Credit_Starting_Limit1 ==undefined)
             Line_of_Credit_Starting_Limit1=0;
-        if(PCL_Deposit_Account_Balance1 =='undefined')
+        if(PCL_Deposit_Account_Balance1 ==undefined)
             PCL_Deposit_Account_Balance1=0;
         
         
@@ -3767,6 +3768,10 @@
         str += '&Total_Loan_Amount='+Total_Loan_Amount1+'&marketValue='+Market_Value_of_Vehicle1;
         str += '&proposedStarting='+Proposed_Starting_Limit1+'&pcDeposit='+PC_Deposit_Account_Balance1;
         str += '&locStarting='+Line_of_Credit_Starting_Limit1+'&pclDeposit='+PCL_Deposit_Account_Balance1;
+        
+        
+        helper.saveCreditScoringModelPdf(cmp,oppid,'Auto Loan',numberOfApplicant,loanAmount,Total_Loan_Amount1,Market_Value_of_Vehicle1,Proposed_Starting_Limit1,PC_Deposit_Account_Balance1,Line_of_Credit_Starting_Limit1,PCL_Deposit_Account_Balance1);   
+        
         
         console.log('Auto str======='+str);
         window.open('https://jnbank--jnbanksan.lightning.force.com/apex/CreditScoringModel'+str);
@@ -3842,18 +3847,19 @@
                             break;
                     }*/
                 }
-        
-        if(Total_Loan_Amount1 =='undefined')
+        if(loanAmount ==undefined)
+            loanAmount=0;
+        if(Total_Loan_Amount1 ==undefined)
             Total_Loan_Amount1=0;
-        if(Market_Value_of_Vehicle1 =='undefined')
+        if(Market_Value_of_Vehicle1 ==undefined)
             Market_Value_of_Vehicle1=0;
-        if(Proposed_Starting_Limit1 =='undefined')
+        if(Proposed_Starting_Limit1 ==undefined)
             Proposed_Starting_Limit1=0;
-        if(PC_Deposit_Account_Balance1 =='undefined')
+        if(PC_Deposit_Account_Balance1 ==undefined)
             PC_Deposit_Account_Balance1=0;
-        if(Line_of_Credit_Starting_Limit1 =='undefined')
+        if(Line_of_Credit_Starting_Limit1 ==undefined)
             Line_of_Credit_Starting_Limit1=0;
-        if(PCL_Deposit_Account_Balance1 =='undefined')
+        if(PCL_Deposit_Account_Balance1 ==undefined)
             PCL_Deposit_Account_Balance1=0;
         
         var str ='?productName=Unsecured Loan&numberOfApplicant='+numberOfApplicant+'&loanAmount='+loanAmount+'&oppid='+oppid;
@@ -3862,7 +3868,7 @@
         str += '&locStarting='+Line_of_Credit_Starting_Limit1+'&pclDeposit='+PCL_Deposit_Account_Balance1;
         
         console.log('UN str======='+str);
-        
+        helper.saveCreditScoringModelPdf(cmp,oppid,'Unsecured Loan',numberOfApplicant,loanAmount,Total_Loan_Amount1,Market_Value_of_Vehicle1,Proposed_Starting_Limit1,PC_Deposit_Account_Balance1,Line_of_Credit_Starting_Limit1,PCL_Deposit_Account_Balance1);   
         
         window.open('https://jnbank--jnbanksan.lightning.force.com/apex/CreditScoringModel'+str);
         
@@ -3942,19 +3948,24 @@
                             break;
                     }*/
                 }
-        if(Total_Loan_Amount1 =='undefined')
-            Total_Loan_Amount1=0;
-        if(Market_Value_of_Vehicle1 =='undefined')
-            Market_Value_of_Vehicle1=0;
-        if(Proposed_Starting_Limit1 =='undefined')
-            Proposed_Starting_Limit1=0;
-        if(PC_Deposit_Account_Balance1 =='undefined')
-            PC_Deposit_Account_Balance1=0;
-        if(Line_of_Credit_Starting_Limit1 =='undefined')
-            Line_of_Credit_Starting_Limit1=0;
-        if(PCL_Deposit_Account_Balance1 =='undefined')
-            PCL_Deposit_Account_Balance1=0;
+        
         loanAmount =Proposed_Starting_Limit1; 
+        
+        if(Total_Loan_Amount1 ==undefined)
+            Total_Loan_Amount1=0;
+        if(Market_Value_of_Vehicle1 ==undefined)
+            Market_Value_of_Vehicle1=0;
+        if(Proposed_Starting_Limit1 ==undefined){
+            Proposed_Starting_Limit1=0;
+            loanAmount=0;   
+        }
+        if(PC_Deposit_Account_Balance1 ==undefined)
+            PC_Deposit_Account_Balance1=0;
+        if(Line_of_Credit_Starting_Limit1 ==undefined)
+            Line_of_Credit_Starting_Limit1=0;
+        if(PCL_Deposit_Account_Balance1 ==undefined)
+            PCL_Deposit_Account_Balance1=0;
+        
         
         var str ='?productName=Credit Card&numberOfApplicant='+numberOfApplicant+'&loanAmount='+loanAmount+'&oppid='+oppid;
         str += '&Total_Loan_Amount='+Total_Loan_Amount1+'&marketValue='+Market_Value_of_Vehicle1;
@@ -3963,7 +3974,7 @@
         
         
         console.log('CC str======='+str);
-        
+		helper.saveCreditScoringModelPdf(cmp,oppid,'Credit Card',numberOfApplicant,loanAmount,Total_Loan_Amount1,Market_Value_of_Vehicle1,Proposed_Starting_Limit1,PC_Deposit_Account_Balance1,Line_of_Credit_Starting_Limit1,PCL_Deposit_Account_Balance1);           
         window.open('https://jnbank--jnbanksan.lightning.force.com/apex/CreditScoringModel'+str);
         
         
@@ -4039,22 +4050,24 @@
                     }
                     
                 }
-        
-        if(Total_Loan_Amount1 =='undefined')
+        loanAmount = Line_of_Credit_Starting_Limit1;
+        if(Total_Loan_Amount1 ==undefined)
             Total_Loan_Amount1=0;
-        if(Market_Value_of_Vehicle1 =='undefined')
+        if(Market_Value_of_Vehicle1 ==undefined)
             Market_Value_of_Vehicle1=0;
-        if(Proposed_Starting_Limit1 =='undefined')
+        if(Proposed_Starting_Limit1 ==undefined)
             Proposed_Starting_Limit1=0;
-        if(PC_Deposit_Account_Balance1 =='undefined')
+        if(PC_Deposit_Account_Balance1 ==undefined)
             PC_Deposit_Account_Balance1=0;
-        if(Line_of_Credit_Starting_Limit1 =='undefined')
+        if(Line_of_Credit_Starting_Limit1 ==undefined){
             Line_of_Credit_Starting_Limit1=0;
-        if(PCL_Deposit_Account_Balance1 =='undefined')
+            loanAmount=0;
+        }
+        if(PCL_Deposit_Account_Balance1 ==undefined)
             PCL_Deposit_Account_Balance1=0;
         
         
-        loanAmount = Line_of_Credit_Starting_Limit1;
+        
         
         var str ='?productName=Line of Credit&numberOfApplicant='+numberOfApplicant+'&loanAmount='+loanAmount+'&oppid='+oppid;
         str += '&Total_Loan_Amount='+Total_Loan_Amount1+'&marketValue='+Market_Value_of_Vehicle1;
@@ -4063,7 +4076,7 @@
         
         console.log('LOC str======='+str);
         
-        
+		helper.saveCreditScoringModelPdf(cmp,oppid,'Line of Credit',numberOfApplicant,loanAmount,Total_Loan_Amount1,Market_Value_of_Vehicle1,Proposed_Starting_Limit1,PC_Deposit_Account_Balance1,Line_of_Credit_Starting_Limit1,PCL_Deposit_Account_Balance1);                   
         window.open('https://jnbank--jnbanksan.lightning.force.com/apex/CreditScoringModel'+str);
         
         

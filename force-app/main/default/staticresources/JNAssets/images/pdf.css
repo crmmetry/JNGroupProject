@@ -24,6 +24,12 @@ h5 {
   overflow: hidden;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
 }
+.summary-table {
+  margin: 5px;
+}
+.summary-table  tr:last-of-type {
+  border-bottom: 0 solid  white;
+}
 .content-table {
   margin-left: 16px;
   margin-right: 10px;
@@ -44,7 +50,7 @@ h5 {
 .content-table th {
   padding: 12px 5px;
 }
-.content-table tbody tr:nth-of-type(even) {
+.content-table  tr:nth-of-type(even) {
   background-color: #f3f3f3;
   font-weight: bold;
 }

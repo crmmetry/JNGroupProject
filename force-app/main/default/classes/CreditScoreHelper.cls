@@ -874,22 +874,25 @@ oppIdVsAccidLst.put(o.id, lstid);
                     }
                     
                     if(cr.Sub_Criteria__c=='Professional Category' && EmploymentStatus!='Unemployed'){
-                        if(cr.Sub_Criteria_Options__c==ProfessionalCategory && cr.Employment_Type__c==category)
+                        if(cr.Sub_Criteria_Options__c==ProfessionalCategory && cr.Employment_Type__c==category){
                             ProfessionalCategoryscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                        //system.debug('ProfessionalCategoryscore========'+ProfessionalCategoryscore);
-                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
-                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(ProfessionalCategory),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(ProfessionalCategoryscore))); 
-                     MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                            system.debug('ProfessionalCategoryscore 1========'+ProfessionalCategoryscore);
+                            system.debug('ProfessionalCategoryscore score========'+cr.Risk_Score__c);
+                            List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                            WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(ProfessionalCategory),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(ProfessionalCategoryscore))); 
+                            MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                        }
                     }
                     if(cr.Sub_Criteria__c=='Professional Category' && EmploymentStatus=='Unemployed'){
                         if(cr.Sub_Criteria_Options__c==ProfessionalCategory && cr.Employment_Type__c==category){
                             Decimal loantoweightUn=cr.Weight_of_Sub_Criteria__c+4;
                             ProfessionalCategoryscore=percentagevalue(cr.Risk_Score__c, loantoweightUn);
+                            
+                            system.debug('ProfessionalCategoryscore 2========'+ProfessionalCategoryscore);
+                            List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                            WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(ProfessionalCategory),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(ProfessionalCategoryscore))); 
+                            MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
                         }
-                        //system.debug('ProfessionalCategoryscore========'+ProfessionalCategoryscore);
-                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
-                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(ProfessionalCategory),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(ProfessionalCategoryscore))); 
-                     MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
                     }
                 }
                 
@@ -1096,6 +1099,11 @@ creditscore  =556;
                     if(cr.Sub_Criteria_Options__c==RepaymentMethod ){
                         repaymentriskscore=cr.Risk_Score__c!=null?cr.Risk_Score__c:0;
                         repaymentweight=cr.Weight_of_Sub_Criteria__c!=null?cr.Weight_of_Sub_Criteria__c:0;
+                        if(ProductTypeOfScoringModel == ProductSelection) {
+                            List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                            WrapperScoringlst1.add(new WrapperScoringModel('Repayment Method',string.valueOf(RepaymentMethod),string.valueOf(repaymentriskscore),string.valueOf(cr.Risk_Score__c),string.valueOf(repaymentweight)));
+                            MapProductScore.put('Repayment Method', WrapperScoringlst1);
+                        }
                     }
                 }
             }
@@ -1107,14 +1115,20 @@ creditscore  =556;
                     system.debug('cr.Risk_Score__c===============0='+cr.Risk_Score__c);
                     system.debug('cr.Weight_of_Sub_Criteria__c===============0='+cr.Weight_of_Sub_Criteria__c);
                     system.debug('cr.Sub_Criteria_Options__c===============0='+cr.Sub_Criteria_Options__c);
-                    if(cr.Sub_Criteria_Options__c==Collateral )
+                    if(cr.Sub_Criteria_Options__c==Collateral ){
                         Collateralscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                    system.debug('Collateralscore========##=='+Collateralscore);
-                    
-                    if(ProductTypeOfScoringModel == ProductSelection){
-                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
-                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Collateral),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(Collateralscore)));
-                        MapProductScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                        system.debug('Collateralscore========##=='+Collateralscore);
+                        
+                        if(ProductTypeOfScoringModel == ProductSelection && ProductSelection !='Unsecured Loan'){
+                            List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                            WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Collateral),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(Collateralscore)));
+                            MapProductScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                        }
+                        if(ProductTypeOfScoringModel == ProductSelection && ProductSelection =='Unsecured Loan'){
+                            List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                            WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Collateral),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(0),string.valueOf(0)));
+                            MapProductScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                        }
                     }
                 }
                 
@@ -1122,37 +1136,59 @@ creditscore  =556;
                     if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=LoantoValue && cr.Upper_Bound__c>=LoantoValue ){
                         LoantoValuescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
                         system.debug('LoantoValuescore========'+LoantoValuescore);
+                        if(ProductTypeOfScoringModel == ProductSelection) {
+                            List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                            WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LoantoValue),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LoantoValuescore)));
+                            MapProductScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                        }
                     }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>=LoantoValue ){
                         LoantoValuescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
                         system.debug('LoantoValuescore========'+LoantoValuescore);
+                        if(ProductTypeOfScoringModel == ProductSelection) {
+                            List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                            WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LoantoValue),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LoantoValuescore)));
+                            MapProductScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                        }
                     }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=LoantoValue ){
                         LoantoValuescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
                         system.debug('loantoweight3========'+cr.Weight_of_Sub_Criteria__c);
                         system.debug('LoantoValuescore========'+LoantoValuescore);
+                        if(ProductTypeOfScoringModel == ProductSelection) {
+                            List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                            WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LoantoValue),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LoantoValuescore)));
+                            MapProductScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                        }
                     }
-                    if(ProductTypeOfScoringModel == ProductSelection) {
-                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
-                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LoantoValue),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LoantoValuescore)));
-                    	MapProductScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
-                    }
+                    
                 }
                 
                 if(cr.Sub_Criteria__c=='Ability to Service'){
                     if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=Abilitytoservice && cr.Upper_Bound__c>=Abilitytoservice ){
                         AbilitytoServicescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
                         system.debug('AbilitytoServicescore========'+AbilitytoServicescore);
+                        if(ProductTypeOfScoringModel == ProductSelection) {
+                            List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                            WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Abilitytoservice),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(AbilitytoServicescore)));
+                            MapProductScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                        }
                     }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>=Abilitytoservice ){
                         AbilitytoServicescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
                         system.debug('AbilitytoServicescore========'+AbilitytoServicescore);
+                        if(ProductTypeOfScoringModel == ProductSelection) {
+                            List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                            WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Abilitytoservice),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(AbilitytoServicescore)));
+                            MapProductScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                        }
                     }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=Abilitytoservice ){
                         AbilitytoServicescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
                         system.debug('AbilitytoServicescore========'+AbilitytoServicescore);
+                        if(ProductTypeOfScoringModel == ProductSelection) {
+                            List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                            WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Abilitytoservice),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(AbilitytoServicescore)));
+                            MapProductScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                        }
                     }
-                   if(ProductTypeOfScoringModel == ProductSelection) {
-                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
-                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Abilitytoservice),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(AbilitytoServicescore)));
-                        MapProductScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
-                    }
+                    
                 }
                 
                 if(cr.Sub_Criteria__c=='Repayment Method'){
@@ -1164,6 +1200,11 @@ creditscore  =556;
                             ReOption = cr.Sub_Criteria_Options__c;
                             Sub_Criteria = cr.Sub_Criteria__c;
                             Risk_Score = string.valueOf(cr.Risk_Score__c);
+                            if(ProductTypeOfScoringModel == ProductSelection) {
+                                List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                                WrapperScoringlst1.add(new WrapperScoringModel('Repayment Method',string.valueOf(RepaymentMethod),string.valueOf(RepaymentMethodscore),string.valueOf(Risk_Score),string.valueOf(RepaymentMethodscore)));
+                                MapProductScore.put('Repayment Method', WrapperScoringlst1);
+                            }
                         }
                     }
                 }
@@ -1179,11 +1220,7 @@ creditscore  =556;
             system.debug('RepaymentMethodscore========>'+RepaymentMethodscore);
         }
         
-        if(ProductTypeOfScoringModel == ProductSelection) {
-            List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
-            WrapperScoringlst1.add(new WrapperScoringModel(Sub_Criteria,string.valueOf(RepaymentMethod),string.valueOf(RepaymentMethodscore),string.valueOf(Risk_Score),string.valueOf(RepaymentMethodscore)));
-            MapProductScore.put(Sub_Criteria, WrapperScoringlst1);
-        }
+        
         
         
        // if(ProductTypeOfScoringModel == ProductSelection) 
