@@ -473,26 +473,42 @@
                     
                 </table>
             </div>
-            <h5 style="font-size:16px; color:black;background-color: #92d5f0; height:30px; padding-top:15px;"><b>
+            <h5><b>
                 &nbsp;PENSION CONTRIBUTIONS OR INDIVIDUAL RETIREMENT SCHEME
                 </b>
             </h5>
-            <div style="margin-top:10px;font-size:small;">
-                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+            <div class="table-top">
+                <table class="content-table">
                     <tr>
                         <td></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);">Pension Scheme/Individual Retirement Scheme</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Total Contributions to Date</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Monthly Contribution<br/>(Prior to loan)</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Monthly Contribution<br/>(After loan)</td>
+                        <td class="tdText2">Pension Scheme/Individual Retirement Scheme</td>
+                        <td class="tdText2">Total Contributions to Date</td>
+                        <td class="tdText2">Monthly Contribution<br/>(Prior to loan)</td>
+                        <td class="tdText2">Monthly Contribution<br/>(After loan)</td>
                     </tr>
-                    <tr>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-right:1px;">E1</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;"></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                    </tr>
+                    <apex:variable var="index" value="{!1}" />
+                    <apex:repeat value="{!assets}" var="asset"> <!-- use assets here -->
+                        <apex:outputPanel rendered="{!IF(asset.RecordType.DeveloperName == 'Pension_Contributions_or_Individual', true, false)}">
+                            <tr>
+                                <td  class="sideChar">E{!index}</td>
+                                <td class="tdValue2">{!asset.Pension_Scheme__c }</td>
+                                <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Total_Contributions_to_Date__c  }"/></apex:outputText></td>
+                                <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Monthly_Contribution_Before_Loan__c   }"/></apex:outputText></td>
+                                <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Monthly_Contribution_After_Loan__c    }"/></apex:outputText></td>
+                            </tr>
+                            <apex:variable var="index" value="{!index + 1}" />
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!IF(assetsSize == 0, true, false)}">
+                                                    <tr>
+                                <td  class="sideChar">E{!index}</td>
+                                <td class="tdValue2"></td>
+                                <td class="tdValue3">$0.00</td>
+                                <td class="tdValue3">$0.00</td>
+                                <td class="tdValue3">$0.00</td>
+                            </tr>
+                        </apex:outputPanel>
+
+                    </apex:repeat>
                     
                 </table>
             </div>

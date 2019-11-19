@@ -54,7 +54,7 @@ public class CreditScoreHelper {
     List<Credit_Rating__mdt> lstRating = new List<Credit_Rating__mdt>();
     //==================Credit Scoring Model ===============================
     public List<List<WrapperScoringModel>> AppScore = new List<List<WrapperScoringModel>>();
-    public List<List<WrapperScoringModel>> AppProductScore = new List<List<WrapperScoringModel>>();
+    
     public string ProductTypeOfScoringModel='';
     
     public List<WrapperScoringModel> ApplicantScorelist = new List<WrapperScoringModel>();
@@ -213,7 +213,8 @@ public class CreditScoreHelper {
                                     system.debug('Test## NatureEngagement====================>'+NatureEngagement);
                                     system.debug('Test## FinancialPerformance====================>'+FinancialPerformance);
                                     system.debug('Test## FinancialSupport====================>'+FinancialSupport);
-                                    system.debug('Test## TypeIndustry====================>'+TypeIndustry);                           
+                                    system.debug('Test## TypeIndustry====================>'+TypeIndustry); 
+                                    system.debug('Test## NegaticeTrace====================>'+NegaticeTrace);  
                                     
                                     //MapAppScore = new Map<string,List<WrapperScoringModel>>(); 
                                     MapAppScore = new Map<string,List<WrapperScoringModel>>();  
@@ -241,13 +242,10 @@ public class CreditScoreHelper {
                                     count = count+1;
                                     List<List<WrapperScoringModel>> AppScore1 = new List<List<WrapperScoringModel>>();
                                     if(mapAppScore.size()>0){
-                                        
                                         system.debug('mapAppScore.values()====>'+mapAppScore.values());
                                         AppScore1.addAll(mapAppScore.values());
                                     }
-                                    // List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
-                                    
-                                   //AppScore.add(WrapperScoringlst);
+                                     system.debug('Test## NegaticeTrace====================1>'+NegaticeTrace);  
                                    WrapperScoringModellst.add(new WrapperCreditScoringModel(name,taxNumber,grossIncome,incomeType,politcallyExposed,NegaticeTrace,AppScore1)); 
                                  
                                     mapAppScore.clear();
@@ -419,7 +417,8 @@ public class CreditScoreHelper {
                                 
                             }
                         }
-                        //AppProductScore.add(WrapperScoringlst);
+                        
+                       
                         lstToUpdate.add(o);
                     }
                     else{
@@ -1109,11 +1108,11 @@ creditscore  =556;
                         Collateralscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
                     system.debug('Collateralscore========##=='+Collateralscore);
                     
-                   /* if(ProductTypeOfScoringModel == ProductSelection){
+                    if(ProductTypeOfScoringModel == ProductSelection){
                         List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
-                        WrapperScoringlst.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Collateral),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(Collateralscore)));
-                        MapProductScore.put('Age', WrapperScoringlst1);
-                    }*/
+                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Collateral),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(Collateralscore)));
+                        MapProductScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                    }
                 }
                 
                 if(cr.Sub_Criteria__c=='Loan to Value' && ProductSelection!='Unsecured Loan' && Collateral!='None'){
@@ -1128,8 +1127,11 @@ creditscore  =556;
                         system.debug('loantoweight3========'+cr.Weight_of_Sub_Criteria__c);
                         system.debug('LoantoValuescore========'+LoantoValuescore);
                     }
-                   // if(ProductTypeOfScoringModel == ProductSelection) 
-                      //  WrapperScoringlst.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LoantoValue),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LoantoValuescore)));
+                    if(ProductTypeOfScoringModel == ProductSelection) {
+                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LoantoValue),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LoantoValuescore)));
+                    	MapProductScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                    }
                 }
                 
                 if(cr.Sub_Criteria__c=='Ability to Service'){
@@ -1143,8 +1145,11 @@ creditscore  =556;
                         AbilitytoServicescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
                         system.debug('AbilitytoServicescore========'+AbilitytoServicescore);
                     }
-                   // if(ProductTypeOfScoringModel == ProductSelection) 
-                     //   WrapperScoringlst.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Abilitytoservice),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(AbilitytoServicescore)));
+                   if(ProductTypeOfScoringModel == ProductSelection) {
+                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+                        WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Abilitytoservice),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(AbilitytoServicescore)));
+                        MapProductScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
+                    }
                 }
                 
                 if(cr.Sub_Criteria__c=='Repayment Method'){
@@ -1170,6 +1175,13 @@ creditscore  =556;
             RepaymentMethodscore=percentagevalue(repaymentriskscore,weight);
             system.debug('RepaymentMethodscore========>'+RepaymentMethodscore);
         }
+        
+        if(ProductTypeOfScoringModel == ProductSelection) {
+            List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
+            WrapperScoringlst1.add(new WrapperScoringModel(Sub_Criteria,string.valueOf(RepaymentMethod),string.valueOf(RepaymentMethodscore),string.valueOf(Risk_Score),string.valueOf(RepaymentMethodscore)));
+            MapProductScore.put(Sub_Criteria, WrapperScoringlst1);
+        }
+        
         
        // if(ProductTypeOfScoringModel == ProductSelection) 
            // WrapperScoringlst.add(new WrapperScoringModel(Sub_Criteria,string.valueOf(RepaymentMethod),string.valueOf(RepaymentMethodscore),string.valueOf(Risk_Score),string.valueOf(RepaymentMethodscore)));
@@ -1569,12 +1581,42 @@ public Decimal PCL_Deposit_Account_Balance=0;
     //======================Credit Scoring Model =========================================
     Public List<WrapperCreditScoringModel> WrapperScoringModellst = new List<WrapperCreditScoringModel>();
     
-    Public List<MainScoringModel> ScoringModelApplicantDetails(string ProductType, string opp_id){
+    Public List<MainScoringModel> ScoringModelApplicantDetails(string ProductType, string opp_id,string Total_Loan_Amount1,string Market_Value_of_Vehicle1,string Proposed_Starting_Limit1,string PC_Deposit_Account_Balance1,string Line_of_Credit_Starting_Limit1,string PCL_Deposit_Account_Balance1){
+        lstRating =[select Rating__c,Classification__c,Credit_Score_Min__c,Credit_Score_Max__c from Credit_Rating__mdt];
         ProductTypeOfScoringModel = ProductType;
         set<id> oppid = new set<id>();
         oppid.add(opp_id);
+        
+        if(string.isNotEmpty(Total_Loan_Amount1))
+            this.Total_Loan_Amount = Decimal.valueOf(Total_Loan_Amount1);
+        if(string.isNotEmpty(Market_Value_of_Vehicle1))
+            this.Market_Value_of_Vehicle = Decimal.valueOf(Market_Value_of_Vehicle1);
+        if(string.isNotEmpty(Proposed_Starting_Limit1))
+            this.Proposed_Starting_Limit = Decimal.valueOf(Proposed_Starting_Limit1);
+        if(string.isNotEmpty(PC_Deposit_Account_Balance1))
+            this.PC_Deposit_Account_Balance = Decimal.valueOf(PC_Deposit_Account_Balance1);
+        if(string.isNotEmpty(Line_of_Credit_Starting_Limit1))
+            this.Line_of_Credit_Starting_Limit = Decimal.valueOf(Line_of_Credit_Starting_Limit1);
+        if(string.isNotEmpty(PCL_Deposit_Account_Balance1))
+            this.PCL_Deposit_Account_Balance = Decimal.valueOf(PCL_Deposit_Account_Balance1);
+        
+        
+         
+        
+        
+        
         CreditScoreFromOpp(oppid);
-        MainScoringModellst.add(new MainScoringModel(WrapperScoringModellst,AppProductScore));
+        List<List<WrapperScoringModel>> AppProductScore = new List<List<WrapperScoringModel>>();
+        
+        if(MapProductScore.size()>0){
+            system.debug('MapProductScore.values()====>'+MapProductScore.values());
+            AppProductScore.addAll(MapProductScore.values());
+        }            
+        
+        system.debug('AppProductScore=====>'+AppProductScore);
+         system.debug('retlst=====>'+retlst);
+     
+        MainScoringModellst.add(new MainScoringModel(WrapperScoringModellst,AppProductScore,retlst));
         // system.debug('WrapperScoringModellst=====>'+WrapperScoringModellst);
         //system.debug('WrapperScoringlst=====>'+WrapperScoringlst);
 		//system.debug('AppScore=====>'+AppScore);
@@ -1585,10 +1627,11 @@ public Decimal PCL_Deposit_Account_Balance=0;
     public class MainScoringModel{
         Public List<WrapperCreditScoringModel> WrapperScoringModellst{get;set;}
         public List<List<WrapperScoringModel>> AppProductScore{get;set;}
-        
-        public MainScoringModel(List<WrapperCreditScoringModel> WrapperScoringModellst,List<List<WrapperScoringModel>> AppProductScore){
+        public List<WrapperScore> lstscore{get;set;}
+        public MainScoringModel(List<WrapperCreditScoringModel> WrapperScoringModellst,List<List<WrapperScoringModel>> AppProductScore,List<WrapperScore> lstscore){
             this.WrapperScoringModellst = WrapperScoringModellst;
             this.AppProductScore = AppProductScore;
+            this.lstscore = lstscore;
         }
         
     }
@@ -1611,7 +1654,7 @@ public Decimal PCL_Deposit_Account_Balance=0;
             this.grossIncome=grossIncome;
             this.incomeType = incomeType;
             this.politcallyExposed = politcallyExposed;
-            this.sanctionScreening = sanctionScreening;
+            this.sanctionScreening = NegaticeTrace;
             this.AppScore = AppScore;
         }
     }
