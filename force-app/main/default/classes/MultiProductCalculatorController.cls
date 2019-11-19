@@ -106,7 +106,7 @@ public class MultiProductCalculatorController {
                 Opptoupdate.Product_Details__c=loancalculation.Id;
                 update Opptoupdate;
                 System.debug('Opptoupdate1============'+Opptoupdate);
-                returnStr='Save';
+                returnStr=string.valueOf(loancalculation.Id);
                 //set<Id> oppset= new set<Id>();
                 //oppset.add(Opptoupdate.Id);
                 //CreditScoreHelper csh= new CreditScoreHelper();
@@ -617,29 +617,29 @@ this.Rating=Rating1;
     }
     
     
-    
+    //public static Boolean SaveCreditScoringModelPDF(string oppid,string productname,string numberOfApplicant,string loanAmount,string Total_Loan_Amount1,string Market_Value_of_Vehicle1,string Proposed_Starting_Limit1,string PC_Deposit_Account_Balance1,string Line_of_Credit_Starting_Limit1,string PCL_Deposit_Account_Balance1){
     @AuraEnabled  
-    public static Boolean SaveCreditScoringModelPDF(string oppid,string productname,string numberOfApplicant,string loanAmount,string Total_Loan_Amount1,string Market_Value_of_Vehicle1,string Proposed_Starting_Limit1,string PC_Deposit_Account_Balance1,string Line_of_Credit_Starting_Limit1,string PCL_Deposit_Account_Balance1){
+    public static Boolean SaveCreditScoringModelPDF(string oppid,string productname,string numberOfApplicant){
         try{
             system.debug('SaveCreditScoringModelPDF===='+oppid);
             PageReference mypage = Page.CreditScoringModel;
             mypage.getParameters().put('productName', productname);
             mypage.getParameters().put('numberOfApplicant', numberOfApplicant);
-            mypage.getParameters().put('loanAmount', loanAmount);
+            //mypage.getParameters().put('loanAmount', loanAmount);
             mypage.getParameters().put('oppid', oppid);
-            mypage.getParameters().put('Total_Loan_Amount', Total_Loan_Amount1);
-            mypage.getParameters().put('marketValue', Market_Value_of_Vehicle1);
-            mypage.getParameters().put('proposedStarting', Proposed_Starting_Limit1);
-            mypage.getParameters().put('pcDeposit', PC_Deposit_Account_Balance1);
-            mypage.getParameters().put('locStarting', Line_of_Credit_Starting_Limit1);
-            mypage.getParameters().put('pclDeposit', PCL_Deposit_Account_Balance1);
+            //mypage.getParameters().put('Total_Loan_Amount', Total_Loan_Amount1);
+            //mypage.getParameters().put('marketValue', Market_Value_of_Vehicle1);
+            //mypage.getParameters().put('proposedStarting', Proposed_Starting_Limit1);
+            //mypage.getParameters().put('pcDeposit', PC_Deposit_Account_Balance1);
+            //mypage.getParameters().put('locStarting', Line_of_Credit_Starting_Limit1);
+            //mypage.getParameters().put('pclDeposit', PCL_Deposit_Account_Balance1);
             
             blob body = mypage.getContentAsPDF();
            
             Attachment attach = new Attachment();
             attach.Body = body;
             attach.ContentType='application/pdf';            
-            attach.Name = 'MultiCalculatorpdf.pdf';
+            attach.Name = 'CreditScoringModel'+productname.replaceAll(' ','')+'.pdf';
             attach.IsPrivate = false;
             attach.ParentId = oppid;
             insert attach;
@@ -651,6 +651,34 @@ this.Rating=Rating1;
         }
         return false;
     }
+    
+    @AuraEnabled  
+    public static Boolean SaveCreditCalculationSavePDF(string oppid,string loanid){
+        try{
+            system.debug('SaveCreditCalculationSavePDF===='+oppid);
+            PageReference mypage = Page.CreditCalculations;
+            mypage.getParameters().put('oppid', oppid);
+            mypage.getParameters().put('loanid', loanid);
+            
+            blob body = mypage.getContentAsPDF();
+           
+            Attachment attach = new Attachment();
+            attach.Body = body;
+            attach.ContentType='application/pdf';            
+            attach.Name = 'CreditCalculation.pdf';
+            attach.IsPrivate = false;
+            attach.ParentId = oppid;
+            insert attach;
+            system.debug('attach===='+attach);
+            return true;
+        }
+        catch(Exception ex){
+            system.debug('Exception ======'+ex.getMessage()+'....Line Number=>'+ex.getLineNumber());           
+        }
+        return false;
+    }
+    
+    
     
     
     @AuraEnabled  

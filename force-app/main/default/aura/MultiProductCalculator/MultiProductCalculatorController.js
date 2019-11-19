@@ -3763,15 +3763,15 @@
             PCL_Deposit_Account_Balance1=0;
         
         
+        var str ='?productName=Auto Loan&numberOfApplicant='+numberOfApplicant+'&oppid='+oppid;
+        //var str ='?productName=Auto Loan&numberOfApplicant='+numberOfApplicant+'&loanAmount='+loanAmount+'&oppid='+oppid;
+        //str += '&Total_Loan_Amount='+Total_Loan_Amount1+'&marketValue='+Market_Value_of_Vehicle1;
+        //str += '&proposedStarting='+Proposed_Starting_Limit1+'&pcDeposit='+PC_Deposit_Account_Balance1;
+        //str += '&locStarting='+Line_of_Credit_Starting_Limit1+'&pclDeposit='+PCL_Deposit_Account_Balance1;
         
-        var str ='?productName=Auto Loan&numberOfApplicant='+numberOfApplicant+'&loanAmount='+loanAmount+'&oppid='+oppid;
-        str += '&Total_Loan_Amount='+Total_Loan_Amount1+'&marketValue='+Market_Value_of_Vehicle1;
-        str += '&proposedStarting='+Proposed_Starting_Limit1+'&pcDeposit='+PC_Deposit_Account_Balance1;
-        str += '&locStarting='+Line_of_Credit_Starting_Limit1+'&pclDeposit='+PCL_Deposit_Account_Balance1;
         
-        
-        helper.saveCreditScoringModelPdf(cmp,oppid,'Auto Loan',numberOfApplicant,loanAmount,Total_Loan_Amount1,Market_Value_of_Vehicle1,Proposed_Starting_Limit1,PC_Deposit_Account_Balance1,Line_of_Credit_Starting_Limit1,PCL_Deposit_Account_Balance1);   
-        
+        //helper.saveCreditScoringModelPdf(cmp,oppid,'Auto Loan',numberOfApplicant,loanAmount,Total_Loan_Amount1,Market_Value_of_Vehicle1,Proposed_Starting_Limit1,PC_Deposit_Account_Balance1,Line_of_Credit_Starting_Limit1,PCL_Deposit_Account_Balance1);   
+        helper.saveCreditScoringModelPdf(cmp,oppid,'Auto Loan',numberOfApplicant);   
         
         console.log('Auto str======='+str);
         window.open('https://jnbank--jnbanksan.lightning.force.com/apex/CreditScoringModel'+str);
@@ -3861,15 +3861,17 @@
             Line_of_Credit_Starting_Limit1=0;
         if(PCL_Deposit_Account_Balance1 ==undefined)
             PCL_Deposit_Account_Balance1=0;
+       
+        var str ='?productName=Unsecured Loan&numberOfApplicant='+numberOfApplicant+'&oppid='+oppid;
         
-        var str ='?productName=Unsecured Loan&numberOfApplicant='+numberOfApplicant+'&loanAmount='+loanAmount+'&oppid='+oppid;
-        str += '&Total_Loan_Amount='+Total_Loan_Amount1+'&marketValue='+Market_Value_of_Vehicle1;
-        str += '&proposedStarting='+Proposed_Starting_Limit1+'&pcDeposit='+PC_Deposit_Account_Balance1;
-        str += '&locStarting='+Line_of_Credit_Starting_Limit1+'&pclDeposit='+PCL_Deposit_Account_Balance1;
+        //var str ='?productName=Unsecured Loan&numberOfApplicant='+numberOfApplicant+'&loanAmount='+loanAmount+'&oppid='+oppid;
+        //str += '&Total_Loan_Amount='+Total_Loan_Amount1+'&marketValue='+Market_Value_of_Vehicle1;
+        //str += '&proposedStarting='+Proposed_Starting_Limit1+'&pcDeposit='+PC_Deposit_Account_Balance1;
+        //str += '&locStarting='+Line_of_Credit_Starting_Limit1+'&pclDeposit='+PCL_Deposit_Account_Balance1;
         
         console.log('UN str======='+str);
-        helper.saveCreditScoringModelPdf(cmp,oppid,'Unsecured Loan',numberOfApplicant,loanAmount,Total_Loan_Amount1,Market_Value_of_Vehicle1,Proposed_Starting_Limit1,PC_Deposit_Account_Balance1,Line_of_Credit_Starting_Limit1,PCL_Deposit_Account_Balance1);   
-        
+        //helper.saveCreditScoringModelPdf(cmp,oppid,'Unsecured Loan',numberOfApplicant,loanAmount,Total_Loan_Amount1,Market_Value_of_Vehicle1,Proposed_Starting_Limit1,PC_Deposit_Account_Balance1,Line_of_Credit_Starting_Limit1,PCL_Deposit_Account_Balance1);   
+        helper.saveCreditScoringModelPdf(cmp,oppid,'Unsecured Loan',numberOfApplicant);   
         window.open('https://jnbank--jnbanksan.lightning.force.com/apex/CreditScoringModel'+str);
         
         
@@ -3966,15 +3968,16 @@
         if(PCL_Deposit_Account_Balance1 ==undefined)
             PCL_Deposit_Account_Balance1=0;
         
-        
-        var str ='?productName=Credit Card&numberOfApplicant='+numberOfApplicant+'&loanAmount='+loanAmount+'&oppid='+oppid;
-        str += '&Total_Loan_Amount='+Total_Loan_Amount1+'&marketValue='+Market_Value_of_Vehicle1;
-        str += '&proposedStarting='+Proposed_Starting_Limit1+'&pcDeposit='+PC_Deposit_Account_Balance1;
-        str += '&locStarting='+Line_of_Credit_Starting_Limit1+'&pclDeposit='+PCL_Deposit_Account_Balance1;
+        var str ='?productName=Credit Card&numberOfApplicant='+numberOfApplicant+'&oppid='+oppid;
+        //var str ='?productName=Credit Card&numberOfApplicant='+numberOfApplicant+'&loanAmount='+loanAmount+'&oppid='+oppid;
+       // str += '&Total_Loan_Amount='+Total_Loan_Amount1+'&marketValue='+Market_Value_of_Vehicle1;
+        //str += '&proposedStarting='+Proposed_Starting_Limit1+'&pcDeposit='+PC_Deposit_Account_Balance1;
+        //str += '&locStarting='+Line_of_Credit_Starting_Limit1+'&pclDeposit='+PCL_Deposit_Account_Balance1;
         
         
         console.log('CC str======='+str);
-		helper.saveCreditScoringModelPdf(cmp,oppid,'Credit Card',numberOfApplicant,loanAmount,Total_Loan_Amount1,Market_Value_of_Vehicle1,Proposed_Starting_Limit1,PC_Deposit_Account_Balance1,Line_of_Credit_Starting_Limit1,PCL_Deposit_Account_Balance1);           
+		//helper.saveCreditScoringModelPdf(cmp,oppid,'Credit Card',numberOfApplicant,loanAmount,Total_Loan_Amount1,Market_Value_of_Vehicle1,Proposed_Starting_Limit1,PC_Deposit_Account_Balance1,Line_of_Credit_Starting_Limit1,PCL_Deposit_Account_Balance1);           
+        helper.saveCreditScoringModelPdf(cmp,oppid,'Credit Card',numberOfApplicant);           
         window.open('https://jnbank--jnbanksan.lightning.force.com/apex/CreditScoringModel'+str);
         
         
@@ -4068,15 +4071,17 @@
         
         
         
-        
-        var str ='?productName=Line of Credit&numberOfApplicant='+numberOfApplicant+'&loanAmount='+loanAmount+'&oppid='+oppid;
-        str += '&Total_Loan_Amount='+Total_Loan_Amount1+'&marketValue='+Market_Value_of_Vehicle1;
-        str += '&proposedStarting='+Proposed_Starting_Limit1+'&pcDeposit='+PC_Deposit_Account_Balance1;
-        str += '&locStarting='+Line_of_Credit_Starting_Limit1+'&pclDeposit='+PCL_Deposit_Account_Balance1;
+        var str ='?productName=Line of Credit&numberOfApplicant='+numberOfApplicant+'&oppid='+oppid;
+        //var str ='?productName=Line of Credit&numberOfApplicant='+numberOfApplicant+'&loanAmount='+loanAmount+'&oppid='+oppid;
+        //str += '&Total_Loan_Amount='+Total_Loan_Amount1+'&marketValue='+Market_Value_of_Vehicle1;
+       // str += '&proposedStarting='+Proposed_Starting_Limit1+'&pcDeposit='+PC_Deposit_Account_Balance1;
+       // str += '&locStarting='+Line_of_Credit_Starting_Limit1+'&pclDeposit='+PCL_Deposit_Account_Balance1;
         
         console.log('LOC str======='+str);
         
-		helper.saveCreditScoringModelPdf(cmp,oppid,'Line of Credit',numberOfApplicant,loanAmount,Total_Loan_Amount1,Market_Value_of_Vehicle1,Proposed_Starting_Limit1,PC_Deposit_Account_Balance1,Line_of_Credit_Starting_Limit1,PCL_Deposit_Account_Balance1);                   
+		//helper.saveCreditScoringModelPdf(cmp,oppid,'Line of Credit',numberOfApplicant,loanAmount,Total_Loan_Amount1,Market_Value_of_Vehicle1,Proposed_Starting_Limit1,PC_Deposit_Account_Balance1,Line_of_Credit_Starting_Limit1,PCL_Deposit_Account_Balance1);                   
+        helper.saveCreditScoringModelPdf(cmp,oppid,'Line of Credit',numberOfApplicant);                   
+        
         window.open('https://jnbank--jnbanksan.lightning.force.com/apex/CreditScoringModel'+str);
         
         
@@ -4087,7 +4092,12 @@
     },
     CreditCalclationsDoc: function(cmp, event, helper){
         var oppid = cmp.get("v.isRecordIdM");
-        window.open('https://jnbank--jnbanksan.lightning.force.com/apex/CreditCalculations?oppid='+oppid);
+        var loancalcid = cmp.get('v.retLoanCalcId');
+        
+        helper.saveCreditCalculationPdf(cmp,oppid,loancalcid);                   
+        
+        console.log('CreditCalclationsDoc========>'+loancalcid);
+        window.open('https://jnbank--jnbanksan.lightning.force.com/apex/CreditCalculations?oppid='+oppid+'&loanid='+loancalcid);
     },
     
     
