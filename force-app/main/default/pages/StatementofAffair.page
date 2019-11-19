@@ -191,27 +191,27 @@
                     <tr>
                         <td></td>
                         <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);">Property Address</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Property Type</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Total Market Value</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Lender(s)</td>
-                        <td colspan="2" style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Loan Balance</td>
-                        <td colspan="2" style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Monthly Payment</td>
+                        <td class="tdText2">Property Type</td>
+                        <td class="tdText2">Total Market Value</td>
+                        <td class="tdText2">Lender(s)</td>
+                        <td colspan="2" class="tdText2">Loan Balance</td>
+                        <td colspan="2" class="tdText2">Monthly Payment</td>
                     </tr>
                     <tr>
                         <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-right:1px;">E1</td>
                         <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);border-top:1px;"></td>
-                        <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"></td>
-                        <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">Prior</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">After</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
+                        <td rowspan="2" class="tdValue2"></td>
+                        <td rowspan="2" class="tdValue2"></td>
+                        <td class="tdValue2">Prior</td>
+                        <td class="tdValue2">$0.00</td>
+                        <td class="tdValue2">After</td>
+                        <td class="tdValue2">$0.00</td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">Prior</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">After</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
+                        <td class="tdValue2">Prior</td>
+                        <td class="tdValue2">$0.00</td>
+                        <td class="tdValue2">After</td>
+                        <td class="tdValue2">$0.00</td>
                     </tr>
                 </table>
             </div>
@@ -224,34 +224,34 @@
                     <tr>
                         <td></td>
                         <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);">Vehicle Details</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Total Market Value</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Lender(s)</td>
-                        <td colspan="2" style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Loan Balance</td>
-                        <td colspan="2" style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Monthly Payment</td>
+                        <td class="tdText2">Total Market Value</td>
+                        <td class="tdText2">Lender(s)</td>
+                        <td colspan="2" class="tdText2">Loan Balance</td>
+                        <td colspan="2" class="tdText2">Monthly Payment</td>
                     </tr>
                     <tr>
                         <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-right:1px;">P</td>
                         <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;"></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">After</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">After</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
+                        <td class="tdValue2"></td>
+                        <td class="tdValue2">After</td>
+                        <td class="tdValue2">$0.00</td>
+                        <td class="tdValue2">After</td>
+                        <td class="tdValue2">$0.00</td>
                     </tr>
                     <tr>
                         <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-right:1px;border-top:1px;">E1</td>
                         <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);border-top:1px;"></td>
-                        <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">Prior</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">After</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
+                        <td rowspan="2" class="tdValue2"></td>
+                        <td class="tdValue2">Prior</td>
+                        <td class="tdValue2">$0.00</td>
+                        <td class="tdValue2">After</td>
+                        <td class="tdValue2">$0.00</td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">Prior</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">After</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
+                        <td class="tdValue2">Prior</td>
+                        <td class="tdValue2">$0.00</td>
+                        <td class="tdValue2">After</td>
+                        <td class="tdValue2">$0.00</td>
                     </tr>
                 </table>
             </div>
@@ -264,25 +264,25 @@
                     <tr>
                         <td></td>
                         <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);">Asset Details</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Total Market Value</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Lender(s)</td>
-                        <td colspan="2" style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Loan Balance</td>
-                        <td colspan="2" style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Monthly Payment</td>
+                        <td class="tdText2">Total Market Value</td>
+                        <td class="tdText2">Lender(s)</td>
+                        <td colspan="2" class="tdText2">Loan Balance</td>
+                        <td colspan="2" class="tdText2">Monthly Payment</td>
                     </tr>
                     <tr>
                         <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-right:1px;">E1</td>
                         <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);border-top:1px;"></td>
-                        <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">Prior</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">After</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
+                        <td rowspan="2" class="tdValue2"></td>
+                        <td class="tdValue2">Prior</td>
+                        <td class="tdValue2">$0.00</td>
+                        <td class="tdValue2">After</td>
+                        <td class="tdValue2">$0.00</td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">Prior</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">After</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
+                        <td class="tdValue2">Prior</td>
+                        <td class="tdValue2">$0.00</td>
+                        <td class="tdValue2">After</td>
+                        <td class="tdValue2">$0.00</td>
                     </tr>
                 </table>
             </div>
@@ -295,181 +295,198 @@
                     <tr>
                         <td></td>
                         <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);">Financial Institution</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Type of Loan</td>
-                        <td colspan="2" style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Loan Balance</td>
-                        <td colspan="2" style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Monthly Payment</td>
+                        <td class="tdText2">Type of Loan</td>
+                        <td colspan="2" class="tdText2">Loan Balance</td>
+                        <td colspan="2" class="tdText2">Monthly Payment</td>
                     </tr>
                     <tr>
                         <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-right:1px;">P</td>
                         <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;"></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">After</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">After</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
+                        <td class="tdValue2"></td>
+                        <td class="tdValue2">After</td>
+                        <td class="tdValue2">$0.00</td>
+                        <td class="tdValue2">After</td>
+                        <td class="tdValue2">$0.00</td>
                     </tr>
                     <tr>
                         <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-right:1px;border-top:1px;">E1</td>
                         <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);border-top:1px;"></td>
-                        <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">Prior</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">After</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
+                        <td rowspan="2" class="tdValue2"></td>
+                        <td class="tdValue2">Prior</td>
+                        <td class="tdValue2">$0.00</td>
+                        <td class="tdValue2">After</td>
+                        <td class="tdValue2">$0.00</td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">Prior</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">After</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
+                        <td class="tdValue2">Prior</td>
+                        <td class="tdValue2">$0.00</td>
+                        <td class="tdValue2">After</td>
+                        <td class="tdValue2">$0.00</td>
                     </tr>
                 </table>
             </div>
-            <h5 style="font-size:16px; color:black;background-color: #92d5f0; height:30px; padding-top:15px;"><b>
+            <h5><b>
                 &nbsp;CREDIT CARD(S)
                 </b>
             </h5>
-            <div style="margin-top:5px;font-size:small;">
-                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+            <div class="table-top">
+                <table class="content-table">
                     <tr>
                         <td></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);">Financial Institution</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Type of Card</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Average Monthly Usage</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Credit Card Limit</td>
-                        <td colspan="2" style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Credit Card Balance</td>
-                        <td colspan="2" style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Minimum Payment</td>
+                        <td class="tdText2">Financial Institution</td>
+                        <td class="tdText2">Type of Card</td>
+                        <td class="tdText2">Average Monthly Usage</td>
+                        <td class="tdText2">Credit Card Limit</td>
+                        <td colspan="2" class="tdText2">Credit Card Balance</td>
+                        <td colspan="2" class="tdText2">Minimum Payment</td>
                     </tr>
-                    <tr>
-                        <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-right:1px;">E1</td>
-                        <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);border-top:1px;"></td>
-                        <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"></td>
-                        <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">Prior</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">After</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                    </tr>
-                    <tr>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">Prior</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">After</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                    </tr>
+                    <apex:variable var="index" value="{!1}" />
+                    <apex:repeat value="{!assets}" var="asset"> <!-- use assets here -->
+                        <apex:outputPanel rendered="{!IF(asset.RecordType.DeveloperName != 'Credit_Cards', true, false)}">
+                            <tr>
+                                <td rowspan="2" class="sideChar">E{!index}</td>
+                                <td rowspan="2" class="tdValue2">{! asset.Financial_Institution__c }</td>
+                                <td rowspan="2" class="tdValue2">{! asset.Type_of_Card__c }</td>
+                                <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Average_Monthly_Usage__c  }"/></apex:outputText></td>     
+                                <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Asset_Credit_Limit__c	  }"/></apex:outputText></td>     
+                                
+                                <td class="tdValue2">Prior</td>
+                                <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Asset_Credit_Balance__c   }"/></apex:outputText></td>     
+                                <td class="tdValue2">After</td>
+                                <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Asset_Credit_Balance_After__c    }"/></apex:outputText></td>     
+                            </tr>
+                            <tr>
+                                <td class="tdValue2">Prior</td>
+                                <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Minimum_Payment__c    }"/></apex:outputText></td>     
+                                <td class="tdValue2">After</td>
+                                <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Minimum_Payment_After__c     }"/></apex:outputText></td>     
+                            </tr>
+                        </apex:outputPanel>
+                        <apex:variable var="index" value="{!index + 1}" />
+                        
+                    </apex:repeat>
+                    
                 </table>
             </div>
-            <h5 style="font-size:16px; color:black;background-color: #92d5f0; height:30px; padding-top:15px;"><b>
+            <h5 ><b>
                 &nbsp;LINE(S) OF CREDIT
                 </b>
             </h5>
-            <div style="margin-top:5px;font-size:small;">
-                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+            <div class="table-top">
+                <table class="content-table">
                     <tr>
                         <td></td>
                         <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);">Financial Institution</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Type of Line</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Average Monthly Usage</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Line of Credit Limit</td>
-                        <td colspan="2" style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Line of Credit Balance</td>
-                        <td colspan="2" style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Minimum Payment</td>
+                        <td class="tdText2">Type of Line</td>
+                        <td class="tdText2">Average Monthly Usage</td>
+                        <td class="tdText2">Line of Credit Limit</td>
+                        <td colspan="2" class="tdText2">Line of Credit Balance</td>
+                        <td colspan="2" class="tdText2">Minimum Payment</td>
                     </tr>
                     <tr>
                         <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-right:1px;">P</td>
                         <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;"></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"></td>
+                        <td class="tdValue2"></td>
+                        <td class="tdValue2"></td>
                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;background-color:rgb(242, 242, 242);"></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">After</td>
+                        <td class="tdValue2">After</td>
                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;background-color:rgb(242, 242, 242);"></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">After</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
+                        <td class="tdValue2">After</td>
+                        <td class="tdValue2">$0.00</td>
                     </tr>
                     <tr>
                         <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-right:1px;border-top:1px;">E1</td>
                         <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);border-top:1px;"></td>
-                        <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"></td>
-                        <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"></td>
-                        <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">Prior</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">After</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
+                        <td rowspan="2" class="tdValue2"></td>
+                        <td rowspan="2" class="tdValue2"></td>
+                        <td rowspan="2" class="tdValue2"></td>
+                        <td class="tdValue2">Prior</td>
+                        <td class="tdValue2">$0.00</td>
+                        <td class="tdValue2">After</td>
+                        <td class="tdValue2">$0.00</td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">Prior</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">After</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
+                        <td class="tdValue2">Prior</td>
+                        <td class="tdValue2">$0.00</td>
+                        <td class="tdValue2">After</td>
+                        <td class="tdValue2">$0.00</td>
                     </tr>
                 </table>
             </div>
-            <h5 style="font-size:16px; color:black;background-color: #92d5f0; height:30px; padding-top:15px;"><b>
+            <h5><b>
                 &nbsp;SAVING/CURRENT ACCOUNTS &amp; INVESTMENTS
                 </b>
             </h5>
-            <div style="margin-top:5px;font-size:small;">
-                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+            <div class="table-top">
+                <table class="content-table">
                     <tr>
                         <td></td>
                         <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);">Financial Institution</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Account Type</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Account Balance</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Overdraft Limit</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Monthly Savings/Investments<br/>(Prior to loan)</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Monthly Savings/Investments<br/>(After loan)</td>
+                        <td class="tdText2">Account Type</td>
+                        <td class="tdText2">Account Balance</td>
+                        <td class="tdText2">Overdraft Limit</td>
+                        <td class="tdText2">Monthly Savings/Investments<br/>(Prior to loan)</td>
+                        <td class="tdText2">Monthly Savings/Investments<br/>(After loan)</td>
                     </tr>
                     <tr>
                         <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-right:1px;">P(A)</td>
                         <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;"></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"></td>
+                        <td class="tdValue2"></td>
                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;background-color:rgb(242, 242, 242);"></td>
                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;background-color:rgb(242, 242, 242);"></td>
                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;background-color:rgb(242, 242, 242);"></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
+                        <td class="tdValue2">$0.00</td>
                     </tr>
                     <tr>
                         <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-right:1px;">P(U)</td>
                         <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;"></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"></td>
+                        <td class="tdValue2"></td>
                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;background-color:rgb(242, 242, 242);"></td>
                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;background-color:rgb(242, 242, 242);"></td>
                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;background-color:rgb(242, 242, 242);"></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
+                        <td class="tdValue2">$0.00</td>
                     </tr>
                     <tr>
                         <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-right:1px;">E1</td>
                         <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;"></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
+                        <td class="tdValue2"></td>
+                        <td class="tdValue2">$0.00</td>
+                        <td class="tdValue2">$0.00</td>
+                        <td class="tdValue2">$0.00</td>
+                        <td class="tdValue2">$0.00</td>
                     </tr>
                     
                 </table>
             </div>
-            <h5 style="font-size:16px; color:black;background-color: #92d5f0; height:30px; padding-top:15px;"><b>
+            <h5><b>
                 &nbsp;LIFE INSURANCE POLICIES HELD
                 </b>
             </h5>
-            <div style="margin-top:10px;font-size:small;">
-                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+            <div class="table-top">
+                <table class="content-table">
                     <tr>
                         <td></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);">Financial Institution</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Policy Number</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Cash Value</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Sum Insured</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Annual Premium</td>
+                        <td class="tdText2">Financial Institution</td>
+                        <td class="tdText2">Policy Number</td>
+                        <td class="tdText2">Cash Value</td>
+                        <td class="tdText2">Sum Insured</td>
+                        <td class="tdText2">Annual Premium</td>
                     </tr>
-                    <tr>
-                        <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-right:1px;">E1</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;"></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"></td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">$0.00</td>
-                    </tr>
+                    <apex:variable var="index" value="{!1}" />
+                    <apex:repeat value="{!assets}" var="asset"> <!-- use assets here -->
+                        <apex:outputPanel rendered="{!IF(asset.RecordType.DeveloperName != 'Life_Insurance_Policies', true, false)}">
+                            <tr>
+                                <td class="sideChar">E{!index}</td>
+                                <td class="tdValue3">{!asset.Financial_Institution__c }</td>
+                                <td class="tdValue3">{!asset.Policy_Number__c }</td>
+                                <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Cash_Value__c }"/></apex:outputText></td>
+                                <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Sum_Insured__c  }"/></apex:outputText></td>
+                                <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Annual_Premium__c   }"/></apex:outputText></td>
+                            </tr>
+                        </apex:outputPanel>
+                        <apex:variable var="index" value="{!index + 1}" />
+                        
+                    </apex:repeat>
                     
                 </table>
             </div>
@@ -488,26 +505,26 @@
                     </tr>
                     <apex:variable var="index" value="{!1}" />
                     <apex:repeat value="{!assets}" var="asset"> <!-- use assets here -->
-                        <apex:outputPanel rendered="{!IF(asset.RecordType.DeveloperName == 'Pension_Contributions_or_Individual', true, false)}">
+                        <apex:outputPanel rendered="{!IF(asset.RecordType.DeveloperName != 'Pension_Contributions_or_Individual', true, false)}">
                             <tr>
                                 <td  class="sideChar">E{!index}</td>
                                 <td class="tdValue2">{!asset.Pension_Scheme__c }</td>
                                 <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Total_Contributions_to_Date__c  }"/></apex:outputText></td>
                                 <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Monthly_Contribution_Before_Loan__c   }"/></apex:outputText></td>
-                                <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Monthly_Contribution_After_Loan__c    }"/></apex:outputText></td>
+                                <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Monthly_Contribution_After_Loan__c   }"/></apex:outputText></td>
                             </tr>
                             <apex:variable var="index" value="{!index + 1}" />
                         </apex:outputPanel>
                         <apex:outputPanel rendered="{!IF(assetsSize == 0, true, false)}">
-                                                    <tr>
-                                <td  class="sideChar">E{!index}</td>
+                            <tr>
+                                <td  class="sideChar">E1</td>
                                 <td class="tdValue2"></td>
                                 <td class="tdValue3">$0.00</td>
                                 <td class="tdValue3">$0.00</td>
                                 <td class="tdValue3">$0.00</td>
                             </tr>
                         </apex:outputPanel>
-
+                        
                     </apex:repeat>
                     
                 </table>
@@ -532,51 +549,51 @@
                     </tr>
                     <tr>
                         <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;">Salary and Allowances (As per payslips, bank statements or negotiated cheques)</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Salary_and_Allowances_as_per_pay_slips__c }"/></apex:outputText></td>
+                        <td class="tdValue2"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Salary_and_Allowances_as_per_pay_slips__c }"/></apex:outputText></td>
                     </tr>
                     <tr>
                         <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;">Gratuity in lieu of Pension</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Gratuity_in_lieu_of_Pension__c }"/></apex:outputText></td>
+                        <td class="tdValue2"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Gratuity_in_lieu_of_Pension__c }"/></apex:outputText></td>
                     </tr>
                     <tr>
                         <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;">Performance-Based Pay (Includes: Commission, Overtime, Bonus)</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Performance_Based_PayC__c }"/></apex:outputText></td>
+                        <td class="tdValue2"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Performance_Based_PayC__c }"/></apex:outputText></td>
                     </tr>
                     <tr>
                         <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;">Net Profit - Sole Trader</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Net_Profit_Sole_Trader__c }"/></apex:outputText></td>
+                        <td class="tdValue2"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Net_Profit_Sole_Trader__c }"/></apex:outputText></td>
                     </tr>
                     <tr>
                         <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;">Director's Emoluments - Company Director</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Director_s_Emoluments_Director__c }"/></apex:outputText></td>
+                        <td class="tdValue2"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Director_s_Emoluments_Director__c }"/></apex:outputText></td>
                     </tr>
                     <tr>
                         <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;">Share of Profit - Partnership</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Share_of_Profit_Partnership__c }"/></apex:outputText></td>
+                        <td class="tdValue2"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Share_of_Profit_Partnership__c }"/></apex:outputText></td>
                     </tr>
                     <tr>
                         <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;">Share of Profit - Company Shareholder</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Share_of_Profit_Shareholder__c }"/></apex:outputText></td>
+                        <td class="tdValue2"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Share_of_Profit_Shareholder__c }"/></apex:outputText></td>
                     </tr>
                     <tr>
                         <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;">Pension</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Pension__c }"/></apex:outputText></td>
+                        <td class="tdValue2"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Pension__c }"/></apex:outputText></td>
                     </tr>
                     <tr>
                         <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;">Existing Real Estate Rental I (where rental of property is not treated as a business)</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Existing_Real_Estate_Rental_IC__c }"/></apex:outputText></td>
+                        <td class="tdValue2"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Existing_Real_Estate_Rental_IC__c }"/></apex:outputText></td>
                     </tr>
                     <tr>
                         <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;">Existing Real Estate Rental I (where rental of property is not treated as a business)</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Existing_Real_estate_Rental_II__c }"/></apex:outputText></td>
+                        <td class="tdValue2"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Existing_Real_estate_Rental_II__c }"/></apex:outputText></td>
                     </tr>
                     <tr>
                         <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;">Projected Real Estate Rental </td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Projected_Real_Estate_Rental__c }"/></apex:outputText></td>
+                        <td class="tdValue2"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Projected_Real_Estate_Rental__c }"/></apex:outputText></td>
                     </tr>
                     <tr>
                         <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;">Other Income</td>
-                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Other_Income__c }"/></apex:outputText></td>
+                        <td class="tdValue2"><apex:outputText value="{0,number,currency}"><apex:param value="{! applicant.Other_Income__c }"/></apex:outputText></td>
                     </tr>
                 </table>
             </div>
@@ -589,11 +606,11 @@
                     
                     <tr>
                         <th colspan="2" style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);">Expense Details<br/>(Note: For accuracy, compute ANNUAL and divide by 12)</th>
-                        <th style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Monthly Payment (Prior to loan)</th>
-                        <th style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Monthly Payment (After loan)</th>
-                        <th colspan="2" style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Expense Details<br/>(Note: For accuracy, compute ANNUAL and divide by 12)</th>
-                        <th style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Monthly Payment (Prior to loan)</th>
-                        <th style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-left:1px;">Monthly Payment (After loan)</th>
+                        <th class="tdText2">Monthly Payment (Prior to loan)</th>
+                        <th class="tdText2">Monthly Payment (After loan)</th>
+                        <th colspan="2" class="tdText2">Expense Details<br/>(Note: For accuracy, compute ANNUAL and divide by 12)</th>
+                        <th class="tdText2">Monthly Payment (Prior to loan)</th>
+                        <th class="tdText2">Monthly Payment (After loan)</th>
                     </tr>
                     
                     

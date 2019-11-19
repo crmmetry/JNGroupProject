@@ -3690,7 +3690,7 @@
         //helper.saveMultiCalcPdf(cmp,leadOrOppId,loanid);   
         //console.log('loanid================>');
         var numberOfApplicant=cmp.get('v.ApplicantCount');
-        var loanAmount='50000';
+        var loanAmount='';
         
         var Total_Loan_Amount1='0'; 
         var Market_Value_of_Vehicle1='0';
@@ -3709,6 +3709,7 @@
                         console.log('--------------------------2.3=> ');
                         Total_Loan_Amount1 = RequestDataAuto[0].LoanAmount;
                     }
+                    loanAmount= Total_Loan_Amount1;
                     Market_Value_of_Vehicle1 = cmp.find('MarketValueofVehicle1').get('v.value');
                     console.log('Total_Loan_Amount1---------'+Total_Loan_Amount1);
                     console.log('Market_Value_of_Vehicle1---------'+Market_Value_of_Vehicle1);
@@ -3717,7 +3718,7 @@
                     
                 }
                 if(acMethod=='3' || acMethod=='6' || acMethod=='8' || acMethod=='10' || acMethod=='11' || acMethod=='13' || acMethod=='14' || acMethod=='15'){//Credit Card
-                    var type = cmp.find("ccCollateralType").get("v.value");
+                   /* var type = cmp.find("ccCollateralType").get("v.value");
                     switch(type){
                         case "1":
                             Proposed_Starting_Limit1 = cmp.find("ccStartingLimit").get("v.value");
@@ -3725,10 +3726,10 @@
                             console.log('Proposed_Starting_Limit1---------'+Proposed_Starting_Limit1);
                             console.log('PC_Deposit_Account_Balance1---------'+PC_Deposit_Account_Balance1);
                             break;
-                    }
+                    }*/
                 }
                 if(acMethod=='4' || acMethod=='7' || acMethod=='9' || acMethod=='10' || acMethod=='12' || acMethod=='13' || acMethod=='14' || acMethod=='15'){//Line of Credit
-                    var type = cmp.find("locCollateralType").get("v.value");
+                   /* var type = cmp.find("locCollateralType").get("v.value");
                     switch(type){
                         case "0":
                             // For NONE
@@ -3744,8 +3745,21 @@
                             Line_of_Credit_Starting_Limit1 = cmp.find("loc_StartingLimit").get("v.value");
                             console.log('Line_of_Credit_Starting_Limit1 RS---------'+Line_of_Credit_Starting_Limit1);
                             break;
-                    }
+                    }*/
                 }
+        
+        if(Total_Loan_Amount1 =='undefined')
+            Total_Loan_Amount1=0;
+        if(Market_Value_of_Vehicle1 =='undefined')
+            Market_Value_of_Vehicle1=0;
+        if(Proposed_Starting_Limit1 =='undefined')
+            Proposed_Starting_Limit1=0;
+        if(PC_Deposit_Account_Balance1 =='undefined')
+            PC_Deposit_Account_Balance1=0;
+        if(Line_of_Credit_Starting_Limit1 =='undefined')
+            Line_of_Credit_Starting_Limit1=0;
+        if(PCL_Deposit_Account_Balance1 =='undefined')
+            PCL_Deposit_Account_Balance1=0;
         
         
         
@@ -3754,7 +3768,7 @@
         str += '&proposedStarting='+Proposed_Starting_Limit1+'&pcDeposit='+PC_Deposit_Account_Balance1;
         str += '&locStarting='+Line_of_Credit_Starting_Limit1+'&pclDeposit='+PCL_Deposit_Account_Balance1;
         
-        
+        console.log('Auto str======='+str);
         window.open('https://jnbank--jnbanksan.lightning.force.com/apex/CreditScoringModel'+str);
         
         
@@ -3767,7 +3781,7 @@
         //helper.saveMultiCalcPdf(cmp,leadOrOppId,loanid);   
         //console.log('loanid================>');
         var numberOfApplicant=cmp.get('v.ApplicantCount');
-        var loanAmount='50000';
+        var loanAmount='';
         
         
         
@@ -3781,7 +3795,7 @@
         var acMethod = cmp.find("selectapplicant").get("v.value");
                 console.log('--------------------------2=> '+acMethod);
                 if(acMethod=='1' || acMethod=='5' || acMethod=='6' || acMethod=='7' || acMethod=='11' || acMethod=='12' || acMethod=='13' || acMethod=='15'){ //Auto Loan
-                    console.log('--------------------------2.1=> ');
+                    /*console.log('--------------------------2.1=> ');
                     var RequestDataAuto=cmp.get("v.RDetailAuto");
                     console.log('--------------------------2.2=> '+RequestDataAuto);
                     if(RequestDataAuto.length>0){
@@ -3790,13 +3804,16 @@
                     }
                     Market_Value_of_Vehicle1 = cmp.find('MarketValueofVehicle1').get('v.value');
                     console.log('Total_Loan_Amount1---------'+Total_Loan_Amount1);
-                    console.log('Market_Value_of_Vehicle1---------'+Market_Value_of_Vehicle1);
+                    console.log('Market_Value_of_Vehicle1---------'+Market_Value_of_Vehicle1);*/
                 }
                 if(acMethod=='2' || acMethod=='5' || acMethod=='8' || acMethod=='9' || acMethod=='11' || acMethod=='12' || acMethod=='14' || acMethod=='15'){ //Unsecured Loan
+                    var RDetailUnsecured='';
+                    RDetailUnsecured=cmp.get("v.RDetailUnsecured");
                     
+                    loanAmount = RDetailUnsecured[0].LoanAmount;
                 }
                 if(acMethod=='3' || acMethod=='6' || acMethod=='8' || acMethod=='10' || acMethod=='11' || acMethod=='13' || acMethod=='14' || acMethod=='15'){//Credit Card
-                    var type = cmp.find("ccCollateralType").get("v.value");
+                   /* var type = cmp.find("ccCollateralType").get("v.value");
                     switch(type){
                         case "1":
                             Proposed_Starting_Limit1 = cmp.find("ccStartingLimit").get("v.value");
@@ -3804,10 +3821,10 @@
                             console.log('Proposed_Starting_Limit1---------'+Proposed_Starting_Limit1);
                             console.log('PC_Deposit_Account_Balance1---------'+PC_Deposit_Account_Balance1);
                             break;
-                    }
+                    }*/
                 }
                 if(acMethod=='4' || acMethod=='7' || acMethod=='9' || acMethod=='10' || acMethod=='12' || acMethod=='13' || acMethod=='14' || acMethod=='15'){//Line of Credit
-                    var type = cmp.find("locCollateralType").get("v.value");
+                   /* var type = cmp.find("locCollateralType").get("v.value");
                     switch(type){
                         case "0":
                             // For NONE
@@ -3823,17 +3840,28 @@
                             Line_of_Credit_Starting_Limit1 = cmp.find("loc_StartingLimit").get("v.value");
                             console.log('Line_of_Credit_Starting_Limit1 RS---------'+Line_of_Credit_Starting_Limit1);
                             break;
-                    }
+                    }*/
                 }
         
-        
+        if(Total_Loan_Amount1 =='undefined')
+            Total_Loan_Amount1=0;
+        if(Market_Value_of_Vehicle1 =='undefined')
+            Market_Value_of_Vehicle1=0;
+        if(Proposed_Starting_Limit1 =='undefined')
+            Proposed_Starting_Limit1=0;
+        if(PC_Deposit_Account_Balance1 =='undefined')
+            PC_Deposit_Account_Balance1=0;
+        if(Line_of_Credit_Starting_Limit1 =='undefined')
+            Line_of_Credit_Starting_Limit1=0;
+        if(PCL_Deposit_Account_Balance1 =='undefined')
+            PCL_Deposit_Account_Balance1=0;
         
         var str ='?productName=Unsecured Loan&numberOfApplicant='+numberOfApplicant+'&loanAmount='+loanAmount+'&oppid='+oppid;
         str += '&Total_Loan_Amount='+Total_Loan_Amount1+'&marketValue='+Market_Value_of_Vehicle1;
         str += '&proposedStarting='+Proposed_Starting_Limit1+'&pcDeposit='+PC_Deposit_Account_Balance1;
         str += '&locStarting='+Line_of_Credit_Starting_Limit1+'&pclDeposit='+PCL_Deposit_Account_Balance1;
         
-        
+        console.log('UN str======='+str);
         
         
         window.open('https://jnbank--jnbanksan.lightning.force.com/apex/CreditScoringModel'+str);
@@ -3848,7 +3876,12 @@
         //helper.saveMultiCalcPdf(cmp,leadOrOppId,loanid);   
         //console.log('loanid================>');
         var numberOfApplicant=cmp.get('v.ApplicantCount');
-        var loanAmount='50000';
+        var loanAmount='';
+        
+        
+        
+        
+        
         
         
          var Total_Loan_Amount1='0'; 
@@ -3861,7 +3894,7 @@
         var acMethod = cmp.find("selectapplicant").get("v.value");
                 console.log('--------------------------2=> '+acMethod);
                 if(acMethod=='1' || acMethod=='5' || acMethod=='6' || acMethod=='7' || acMethod=='11' || acMethod=='12' || acMethod=='13' || acMethod=='15'){ //Auto Loan
-                    console.log('--------------------------2.1=> ');
+                   /* console.log('--------------------------2.1=> ');
                     var RequestDataAuto=cmp.get("v.RDetailAuto");
                     console.log('--------------------------2.2=> '+RequestDataAuto);
                     if(RequestDataAuto.length>0){
@@ -3870,7 +3903,7 @@
                     }
                     Market_Value_of_Vehicle1 = cmp.find('MarketValueofVehicle1').get('v.value');
                     console.log('Total_Loan_Amount1---------'+Total_Loan_Amount1);
-                    console.log('Market_Value_of_Vehicle1---------'+Market_Value_of_Vehicle1);
+                    console.log('Market_Value_of_Vehicle1---------'+Market_Value_of_Vehicle1);*/
                 }
                 if(acMethod=='2' || acMethod=='5' || acMethod=='8' || acMethod=='9' || acMethod=='11' || acMethod=='12' || acMethod=='14' || acMethod=='15'){ //Unsecured Loan
                     
@@ -3878,6 +3911,9 @@
                 if(acMethod=='3' || acMethod=='6' || acMethod=='8' || acMethod=='10' || acMethod=='11' || acMethod=='13' || acMethod=='14' || acMethod=='15'){//Credit Card
                     var type = cmp.find("ccCollateralType").get("v.value");
                     switch(type){
+                        case "0":
+                            Proposed_Starting_Limit1 = cmp.find("ccStartingLimit").get("v.value");
+                            break;
                         case "1":
                             Proposed_Starting_Limit1 = cmp.find("ccStartingLimit").get("v.value");
                             PC_Deposit_Account_Balance1 = cmp.find("ccDepositAccountBalance").get("v.value");
@@ -3885,9 +3921,10 @@
                             console.log('PC_Deposit_Account_Balance1---------'+PC_Deposit_Account_Balance1);
                             break;
                     }
+                    
                 }
                 if(acMethod=='4' || acMethod=='7' || acMethod=='9' || acMethod=='10' || acMethod=='12' || acMethod=='13' || acMethod=='14' || acMethod=='15'){//Line of Credit
-                    var type = cmp.find("locCollateralType").get("v.value");
+                   /* var type = cmp.find("locCollateralType").get("v.value");
                     switch(type){
                         case "0":
                             // For NONE
@@ -3903,10 +3940,21 @@
                             Line_of_Credit_Starting_Limit1 = cmp.find("loc_StartingLimit").get("v.value");
                             console.log('Line_of_Credit_Starting_Limit1 RS---------'+Line_of_Credit_Starting_Limit1);
                             break;
-                    }
+                    }*/
                 }
-        
-        
+        if(Total_Loan_Amount1 =='undefined')
+            Total_Loan_Amount1=0;
+        if(Market_Value_of_Vehicle1 =='undefined')
+            Market_Value_of_Vehicle1=0;
+        if(Proposed_Starting_Limit1 =='undefined')
+            Proposed_Starting_Limit1=0;
+        if(PC_Deposit_Account_Balance1 =='undefined')
+            PC_Deposit_Account_Balance1=0;
+        if(Line_of_Credit_Starting_Limit1 =='undefined')
+            Line_of_Credit_Starting_Limit1=0;
+        if(PCL_Deposit_Account_Balance1 =='undefined')
+            PCL_Deposit_Account_Balance1=0;
+        loanAmount =Proposed_Starting_Limit1; 
         
         var str ='?productName=Credit Card&numberOfApplicant='+numberOfApplicant+'&loanAmount='+loanAmount+'&oppid='+oppid;
         str += '&Total_Loan_Amount='+Total_Loan_Amount1+'&marketValue='+Market_Value_of_Vehicle1;
@@ -3914,7 +3962,7 @@
         str += '&locStarting='+Line_of_Credit_Starting_Limit1+'&pclDeposit='+PCL_Deposit_Account_Balance1;
         
         
-        
+        console.log('CC str======='+str);
         
         window.open('https://jnbank--jnbanksan.lightning.force.com/apex/CreditScoringModel'+str);
         
@@ -3932,7 +3980,7 @@
         //helper.saveMultiCalcPdf(cmp,leadOrOppId,loanid);   
         //console.log('loanid================>');
         var numberOfApplicant=cmp.get('v.ApplicantCount');
-        var loanAmount='50000';
+        var loanAmount='';
         
         
         var Total_Loan_Amount1='0'; 
@@ -3945,7 +3993,7 @@
         var acMethod = cmp.find("selectapplicant").get("v.value");
                 console.log('--------------------------2=> '+acMethod);
                 if(acMethod=='1' || acMethod=='5' || acMethod=='6' || acMethod=='7' || acMethod=='11' || acMethod=='12' || acMethod=='13' || acMethod=='15'){ //Auto Loan
-                    console.log('--------------------------2.1=> ');
+                    /*console.log('--------------------------2.1=> ');
                     var RequestDataAuto=cmp.get("v.RDetailAuto");
                     console.log('--------------------------2.2=> '+RequestDataAuto);
                     if(RequestDataAuto.length>0){
@@ -3954,13 +4002,13 @@
                     }
                     Market_Value_of_Vehicle1 = cmp.find('MarketValueofVehicle1').get('v.value');
                     console.log('Total_Loan_Amount1---------'+Total_Loan_Amount1);
-                    console.log('Market_Value_of_Vehicle1---------'+Market_Value_of_Vehicle1);
+                    console.log('Market_Value_of_Vehicle1---------'+Market_Value_of_Vehicle1);*/
                 }
                 if(acMethod=='2' || acMethod=='5' || acMethod=='8' || acMethod=='9' || acMethod=='11' || acMethod=='12' || acMethod=='14' || acMethod=='15'){ //Unsecured Loan
                     
                 }
                 if(acMethod=='3' || acMethod=='6' || acMethod=='8' || acMethod=='10' || acMethod=='11' || acMethod=='13' || acMethod=='14' || acMethod=='15'){//Credit Card
-                    var type = cmp.find("ccCollateralType").get("v.value");
+                   /* var type = cmp.find("ccCollateralType").get("v.value");
                     switch(type){
                         case "1":
                             Proposed_Starting_Limit1 = cmp.find("ccStartingLimit").get("v.value");
@@ -3968,36 +4016,52 @@
                             console.log('Proposed_Starting_Limit1---------'+Proposed_Starting_Limit1);
                             console.log('PC_Deposit_Account_Balance1---------'+PC_Deposit_Account_Balance1);
                             break;
-                    }
+                    }*/
                 }
                 if(acMethod=='4' || acMethod=='7' || acMethod=='9' || acMethod=='10' || acMethod=='12' || acMethod=='13' || acMethod=='14' || acMethod=='15'){//Line of Credit
                     var type = cmp.find("locCollateralType").get("v.value");
                     switch(type){
                         case "0":
-                            // For NONE
+                            Line_of_Credit_Starting_Limit1 = cmp.find("locStartingLimit").get("v.value");
                             break;
                         case "1":
-                            Line_of_Credit_Starting_Limit1 = cmp.find("loc_StartingLimit").get("v.value");
+                            Line_of_Credit_Starting_Limit1 = cmp.find("locStartingLimit").get("v.value");
                             PCL_Deposit_Account_Balance1  = cmp.find("locDepositAccountBalance").get("v.value");
                             console.log('Line_of_Credit_Starting_Limit1---------'+Line_of_Credit_Starting_Limit1);
                             console.log('PCL_Deposit_Account_Balance1---------'+PCL_Deposit_Account_Balance1);
                             break;
                         case "2":
                             //Real state
-                            Line_of_Credit_Starting_Limit1 = cmp.find("loc_StartingLimit").get("v.value");
+                            Line_of_Credit_Starting_Limit1 = cmp.find("locStartingLimit").get("v.value");
                             console.log('Line_of_Credit_Starting_Limit1 RS---------'+Line_of_Credit_Starting_Limit1);
+                            
                             break;
                     }
+                    
                 }
         
+        if(Total_Loan_Amount1 =='undefined')
+            Total_Loan_Amount1=0;
+        if(Market_Value_of_Vehicle1 =='undefined')
+            Market_Value_of_Vehicle1=0;
+        if(Proposed_Starting_Limit1 =='undefined')
+            Proposed_Starting_Limit1=0;
+        if(PC_Deposit_Account_Balance1 =='undefined')
+            PC_Deposit_Account_Balance1=0;
+        if(Line_of_Credit_Starting_Limit1 =='undefined')
+            Line_of_Credit_Starting_Limit1=0;
+        if(PCL_Deposit_Account_Balance1 =='undefined')
+            PCL_Deposit_Account_Balance1=0;
         
+        
+        loanAmount = Line_of_Credit_Starting_Limit1;
         
         var str ='?productName=Line of Credit&numberOfApplicant='+numberOfApplicant+'&loanAmount='+loanAmount+'&oppid='+oppid;
         str += '&Total_Loan_Amount='+Total_Loan_Amount1+'&marketValue='+Market_Value_of_Vehicle1;
         str += '&proposedStarting='+Proposed_Starting_Limit1+'&pcDeposit='+PC_Deposit_Account_Balance1;
         str += '&locStarting='+Line_of_Credit_Starting_Limit1+'&pclDeposit='+PCL_Deposit_Account_Balance1;
         
-        
+        console.log('LOC str======='+str);
         
         
         window.open('https://jnbank--jnbanksan.lightning.force.com/apex/CreditScoringModel'+str);

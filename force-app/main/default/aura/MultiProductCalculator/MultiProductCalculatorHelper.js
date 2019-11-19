@@ -2707,14 +2707,14 @@
                             // For NONE
                             break;
                         case "1":
-                            Line_of_Credit_Starting_Limit1 = cmp.find("loc_StartingLimit").get("v.value");
+                            Line_of_Credit_Starting_Limit1 = cmp.find("locStartingLimit").get("v.value");
                             PCL_Deposit_Account_Balance1  = cmp.find("locDepositAccountBalance").get("v.value");
                             console.log('Line_of_Credit_Starting_Limit1---------'+Line_of_Credit_Starting_Limit1);
                             console.log('PCL_Deposit_Account_Balance1---------'+PCL_Deposit_Account_Balance1);
                             break;
                         case "2":
                             //Real state
-                            Line_of_Credit_Starting_Limit1 = cmp.find("loc_StartingLimit").get("v.value");
+                            Line_of_Credit_Starting_Limit1 = cmp.find("locStartingLimit").get("v.value");
                             console.log('Line_of_Credit_Starting_Limit1 RS---------'+Line_of_Credit_Starting_Limit1);
                             break;
                     }

@@ -276,7 +276,10 @@ public class CreditScoreHelper {
                         If (Applicant1GrossMonthlyIncome == 0 && Applicant2GrossMonthlyIncome > 0)
                             IncomeWeight2= 70/100;// In %
                         
-                        
+                        system.debug('Test##======Applicant1SubTotalWeightedScore==================>'+Applicant1SubTotalWeightedScore); 
+                        system.debug('Test##======IncomeWeight1==================>'+IncomeWeight1); 
+                        system.debug('Test##======Applicant2SubTotalWeightedScore==================>'+Applicant2SubTotalWeightedScore); 
+                        system.debug('Test##======IncomeWeight2==================>'+IncomeWeight2);                         
                         AllApplicantsSubTotalWeightedScore = (Applicant1SubTotalWeightedScore * IncomeWeight1) + (Applicant2SubTotalWeightedScore * IncomeWeight2);
                         system.debug('####################################=2='+AllApplicantsSubTotalWeightedScore);
                     }
@@ -353,42 +356,42 @@ public class CreditScoreHelper {
                                 }
                                 else if(item =='JN Bank Unsecured Loan'){// 'Unsecured Loan';
                                     Collateral = 'None'; 
-                                    LoantoValue1=NULL;//string.valueOf(getLoantoValue(o, 'Unsecured Loan', TotalProce));
-                                    Abilitytoservice1=ats;//.get('UnsecuredTDSR');//'0';
+                                    LoantoValue1=NULL;
+                                    Abilitytoservice1=ats;
                                     ProductSelection='Unsecured Loan';
                                     if(!string.isEmpty(o.Repayment_Method_UL__c))
                                         RepaymentMethod = o.Repayment_Method_UL__c;
                                 }
                                 else if(item =='JN Visa - Classic'){// 'Credit Card';
                                     Collateral =o.Collateral_CC__c;
-                                    LoantoValue1=loanToValueMap.get('CCLC');    //string.valueOf(getLoantoValue(o, 'Credit', TotalPrice));
-                                    Abilitytoservice1=ats;//.get('CCTDSR');//'0';
+                                    LoantoValue1=loanToValueMap.get('CCLC');    
+                                    Abilitytoservice1=ats;
                                     ProductSelection='Credit Card';
                                     if(!string.isEmpty(o.Repayment_Method_CC__c))
                                         RepaymentMethod = o.Repayment_Method_CC__c;
                                 }
                                 else if(item =='JN Bank Line Of Credit'){// 'Line of Credit';
                                     Collateral =o.Collateral_LOC__c;
-                                    LoantoValue1=loanToValueMap.get('LOCLC'); //string.valueOf(getLoantoValue(o, 'LineofCredit', TotalPrice));
+                                    LoantoValue1=loanToValueMap.get('LOCLC'); 
                                     Abilitytoservice1=ats;//.get('LOCTDSR');//'0';
                                     ProductSelection='Line of Credit';
                                     if(!string.isEmpty(o.Repayment_Method_LOC__c))
                                         RepaymentMethod = o.Repayment_Method_LOC__c;
                                 }
-                                system.debug('Test## Collateral====================>'+Collateral); 
-                                system.debug('Test## LoantoValue1====================>'+LoantoValue1); 
-                                system.debug('Test## Abilitytoservice1====================>'+Abilitytoservice1); 
-                                system.debug('Test## ProductSelection====================>'+ProductSelection);
-                                system.debug('Test## RepaymentMethod====================>'+RepaymentMethod);  
+                                system.debug('Test### Collateral====================>'+Collateral); 
+                                system.debug('Test### LoantoValue1====================>'+LoantoValue1); 
+                                system.debug('Test### Abilitytoservice1====================>'+Abilitytoservice1); 
+                                system.debug('Test### ProductSelection====================>'+ProductSelection);
+                                system.debug('Test### RepaymentMethod====================>'+RepaymentMethod);  
                                 
                                 
                                 Decimal Score = creditscorePerPersoncalculation1(Collateral,LoantoValue1,ProductSelection,Abilitytoservice1,RepaymentMethod);// PoliticallyExposed,NegaticeTrace
-                                system.debug('Test## Test item========================>'+item); 
+                                system.debug('Test### Test item========================>'+item); 
                                 
                                 
                                 Decimal FinalScore = Score+AllApplicantsSubTotalWeightedScore;
-                                system.debug('Test## Appli========================>'+AllApplicantsSubTotalWeightedScore);
-                                system.debug('Test## FinalScore=========================>'+FinalScore); 
+                                system.debug('Test### Appli========================>'+AllApplicantsSubTotalWeightedScore);
+                                system.debug('Test### FinalScore=========================>'+FinalScore); 
                                 if(item =='JN Bank Auto Loan'){// 'Auto Loan';
                                     Decimal myScore = FinalScore.round(System.RoundingMode.HALF_UP);
                                     o.Credit_Score_Auto__c=myScore;
@@ -678,11 +681,11 @@ oppIdVsAccidLst.put(o.id, lstid);
                                                    string LengthofCurrentEmployment1, string ProductSelection,String WorkingCapital, string NatureEngagement, 
                                                    string TypeIndustry,string FinancialPerformance,string FinancialSupport,string LengthTrade1)
     { 
-        system.debug('age========'+Age1);
-        system.debug('LengthofCurrentEmployment1========'+LengthofCurrentEmployment1);
+        //system.debug('age========'+Age1);
+        //system.debug('LengthofCurrentEmployment1========'+LengthofCurrentEmployment1);
         //system.debug('Yearsatcurrentresidence1========'+Yearsatcurrentresidence1);
         //system.debug('CreditHistory1========'+CreditHistory1);
-        system.debug('category========'+category);
+        //system.debug('category========'+category);
         Decimal Age = Decimal.valueOf(Age1);
         Decimal LengthofCurrentEmployment=Decimal.valueOf(LengthofCurrentEmployment1);
         Decimal Yearsatcurrentresidence = Decimal.valueOf(Yearsatcurrentresidence1);
@@ -724,14 +727,14 @@ oppIdVsAccidLst.put(o.id, lstid);
                         //system.debug('agescore1========'+cr.Risk_Score__c);
                         //system.debug('agescore2========'+cr.Weight_of_Sub_Criteria__c);
                         agescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                        system.debug('agescore========'+agescore);
+                        //system.debug('agescore========'+agescore);
                         List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                         WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Age),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(agescore)));
                         MapAppScore.put('Age', WrapperScoringlst1);
                         
                     }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>=Age && cr.Employment_Type__c==category){
                         agescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                        system.debug('agescore========'+agescore);
+                        //system.debug('agescore========'+agescore);
                         List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                         WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Age),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(agescore)));
                         MapAppScore.put('Age', WrapperScoringlst1);
@@ -739,7 +742,7 @@ oppIdVsAccidLst.put(o.id, lstid);
                     }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=Age && cr.Employment_Type__c==category){
                         //system.debug('3========');
                         agescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                        system.debug('agescore========'+agescore);
+                        //system.debug('agescore========'+agescore);
                         List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                         WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Age),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(agescore)));
                         MapAppScore.put('Age', WrapperScoringlst1);
@@ -752,7 +755,7 @@ oppIdVsAccidLst.put(o.id, lstid);
                 if(cr.Sub_Criteria__c=='Education'){
                     if(cr.Sub_Criteria_Options__c==Education && cr.Employment_Type__c==category){
                         educationscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                        system.debug('educationscore========'+educationscore);
+                        //system.debug('educationscore========'+educationscore);
                         List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                         WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Education),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(educationscore)));
                         MapAppScore.put('Education', WrapperScoringlst1);
@@ -763,7 +766,7 @@ oppIdVsAccidLst.put(o.id, lstid);
                 if(cr.Sub_Criteria__c=='Residential Status'){
                     if(cr.Sub_Criteria_Options__c==ResidentialStatus && cr.Employment_Type__c==category){
                         Residentialscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                        system.debug('Residentialscore========'+Residentialscore);
+                        //system.debug('Residentialscore========'+Residentialscore);
                         List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                         WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(ResidentialStatus),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(Residentialscore)));
                          MapAppScore.put('Residential Status', WrapperScoringlst1);
@@ -773,44 +776,44 @@ oppIdVsAccidLst.put(o.id, lstid);
                 if(cr.Sub_Criteria__c=='Years at current residence'){
                     if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=Yearsatcurrentresidence && cr.Upper_Bound__c>=Yearsatcurrentresidence && cr.Employment_Type__c==category){
                         residenceYearscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                        system.debug('residenceYearscore========'+residenceYearscore);
+                        //system.debug('residenceYearscore========'+residenceYearscore);
                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                         WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Yearsatcurrentresidence),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(residenceYearscore)));
                         MapAppScore.put('Years at current residence', WrapperScoringlst1);
                     }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>=Yearsatcurrentresidence && cr.Employment_Type__c==category){
                         residenceYearscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                        system.debug('residenceYearscore========'+residenceYearscore);
+                        //system.debug('residenceYearscore========'+residenceYearscore);
                         List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                         WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Yearsatcurrentresidence),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(residenceYearscore)));
                     MapAppScore.put('Years at current residence', WrapperScoringlst1);
                     }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=Yearsatcurrentresidence && cr.Employment_Type__c==category){
                         residenceYearscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                        system.debug('residenceYearscore========'+residenceYearscore);
+                        //system.debug('residenceYearscore========'+residenceYearscore);
                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                         WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(Yearsatcurrentresidence),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(residenceYearscore)));
                    MapAppScore.put('Years at current residence', WrapperScoringlst1);
                     }
                 }
                 
-                system.debug('CreditHistoryscore1========'+cr.Lower_Bound__c);
-                system.debug('CreditHistoryscore2========'+cr.Upper_Bound__c);
+                //system.debug('CreditHistoryscore1========'+cr.Lower_Bound__c);
+                //system.debug('CreditHistoryscore2========'+cr.Upper_Bound__c);
                 
                 if(cr.Sub_Criteria__c=='Credit History in last 24 Months'){
                     if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=CreditHistory && cr.Upper_Bound__c>=CreditHistory && cr.Employment_Type__c==category){
                         CreditHistoryscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                        system.debug('CreditHistoryscore========'+CreditHistoryscore);
+                        //system.debug('CreditHistoryscore========'+CreditHistoryscore);
                         List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                         WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(CreditHistory),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(CreditHistoryscore)));
                     MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
                     }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>=CreditHistory && cr.Employment_Type__c==category){
                         CreditHistoryscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                        system.debug('CreditHistoryscore========'+CreditHistoryscore);
+                        //system.debug('CreditHistoryscore========'+CreditHistoryscore);
                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                         WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(CreditHistory),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(CreditHistoryscore)));
                          MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
                     }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=CreditHistory && cr.Employment_Type__c==category){
                         CreditHistoryscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                        system.debug('CreditHistoryscore========'+CreditHistoryscore);
+                        //system.debug('CreditHistoryscore========'+CreditHistoryscore);
                        List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                         WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(CreditHistory),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(CreditHistoryscore)));
                          MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
@@ -821,17 +824,17 @@ oppIdVsAccidLst.put(o.id, lstid);
                 if(cr.Sub_Criteria__c=='Net Worth'){
                     if(cr.Sub_Criteria_Options__c==NetWorth && cr.Employment_Type__c==category)
                         NetWorthscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                    system.debug('NetWorthscore========'+NetWorthscore);
+                    //system.debug('NetWorthscore========'+NetWorthscore);
                    List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                     WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(NetWorth),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(NetWorthscore))); 
                  MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
                 }
-                system.debug('category=======================================>0=>'+category+'=0='+cr.Sub_Criteria__c+'==0=='+cr.Risk_Score__c+'=0='+EmploymentStatus);
+                //system.debug('category=======================================>0=>'+category+'=0='+cr.Sub_Criteria__c+'==0=='+cr.Risk_Score__c+'=0='+EmploymentStatus);
                 if(category=='Salaried'){
                     if(cr.Sub_Criteria__c=='Employment Status'){
                         if(cr.Sub_Criteria_Options__c==EmploymentStatus && cr.Employment_Type__c==category)
                             EmploymentStatusscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                        system.debug('EmploymentStatusscore========'+EmploymentStatusscore);
+                        //system.debug('EmploymentStatusscore========'+EmploymentStatusscore);
                         List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                         WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(EmploymentStatus),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(EmploymentStatusscore))); 
                     MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
@@ -840,29 +843,29 @@ oppIdVsAccidLst.put(o.id, lstid);
                     if(cr.Sub_Criteria__c=='Industry of Employment'){
                         if(cr.Sub_Criteria_Options__c==IndustryofEmployment && cr.Employment_Type__c==category)
                             IndustryofEmploymentscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                        system.debug('IndustryofEmploymentscore========'+IndustryofEmploymentscore);
+                        //system.debug('IndustryofEmploymentscore========'+IndustryofEmploymentscore);
                         List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                         WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(IndustryofEmployment),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(IndustryofEmploymentscore))); 
                      MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
                     }
                     system.debug('LengthEmploymentscore=======================================>0=>'+cr.Sub_Criteria__c+'==0=='+cr.Risk_Score__c+'=0='+EmploymentStatus);
                     if(cr.Sub_Criteria__c=='Length of Current Employment' && cr.Risk_Score__c!=null && EmploymentStatus!='Unemployed'){
-                        system.debug('LengthEmploymentscore=======================================>');
+                        //system.debug('LengthEmploymentscore=======================================>');
                         if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=LengthofCurrentEmployment && cr.Upper_Bound__c>=LengthofCurrentEmployment && cr.Employment_Type__c==category){
                             LengthEmploymentscore=percentagevalue(cr.Risk_Score__c, 4);
-                            system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
+                            //system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
                             List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                             WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LengthofCurrentEmployment),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LengthEmploymentscore)));
                          MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
                         }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>=LengthofCurrentEmployment && cr.Employment_Type__c==category){
                             LengthEmploymentscore=percentagevalue(cr.Risk_Score__c, 4);
-                            system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
+                           // system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
                             List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                             WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LengthofCurrentEmployment),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LengthEmploymentscore)));
                          MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
                         }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=LengthofCurrentEmployment && cr.Employment_Type__c==category){
                             LengthEmploymentscore=percentagevalue(cr.Risk_Score__c, 4);
-                            system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
+                            //system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
                             List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                             WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LengthofCurrentEmployment),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LengthEmploymentscore)));
                          MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
@@ -873,7 +876,7 @@ oppIdVsAccidLst.put(o.id, lstid);
                     if(cr.Sub_Criteria__c=='Professional Category' && EmploymentStatus!='Unemployed'){
                         if(cr.Sub_Criteria_Options__c==ProfessionalCategory && cr.Employment_Type__c==category)
                             ProfessionalCategoryscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                        system.debug('ProfessionalCategoryscore========'+ProfessionalCategoryscore);
+                        //system.debug('ProfessionalCategoryscore========'+ProfessionalCategoryscore);
                         List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                         WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(ProfessionalCategory),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(ProfessionalCategoryscore))); 
                      MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
@@ -883,7 +886,7 @@ oppIdVsAccidLst.put(o.id, lstid);
                             Decimal loantoweightUn=cr.Weight_of_Sub_Criteria__c+4;
                             ProfessionalCategoryscore=percentagevalue(cr.Risk_Score__c, loantoweightUn);
                         }
-                        system.debug('ProfessionalCategoryscore========'+ProfessionalCategoryscore);
+                        //system.debug('ProfessionalCategoryscore========'+ProfessionalCategoryscore);
                         List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                         WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(ProfessionalCategory),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(ProfessionalCategoryscore))); 
                      MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
@@ -893,7 +896,7 @@ oppIdVsAccidLst.put(o.id, lstid);
                 if(cr.Sub_Criteria__c=='Collateral'){
                     if(cr.Sub_Criteria_Options__c==Collateral && cr.Employment_Type__c==category)
                         Collateralscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                    system.debug('Collateralscore========'+Collateralscore);
+                    //system.debug('Collateralscore========'+Collateralscore);
                 }
                 
                 
@@ -902,12 +905,12 @@ oppIdVsAccidLst.put(o.id, lstid);
                 //=====self-employed====
                 if(category=='Self-Employed'){
                     if(cr.Sub_Criteria__c=='Working Capital'){
-                        system.debug('WorkingCapital========'+WorkingCapital);
-                        system.debug('WorkingCapitalcr.Risk_Score__c========'+cr.Risk_Score__c);
-                        system.debug('WorkingCapitalcr.Weight_of_Sub_Criteria__c========'+cr.Weight_of_Sub_Criteria__c);
+                        //system.debug('WorkingCapital========'+WorkingCapital);
+                        //system.debug('WorkingCapitalcr.Risk_Score__c========'+cr.Risk_Score__c);
+                        //system.debug('WorkingCapitalcr.Weight_of_Sub_Criteria__c========'+cr.Weight_of_Sub_Criteria__c);
                         if(cr.Sub_Criteria_Options__c==WorkingCapital && cr.Employment_Type__c==category)
                             WorkingCapitalscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                        system.debug('WorkingCapitalscore========'+WorkingCapitalscore);
+                        //system.debug('WorkingCapitalscore========'+WorkingCapitalscore);
                         List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                         WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(WorkingCapital),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(WorkingCapitalscore))); 
                      MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
@@ -915,7 +918,7 @@ oppIdVsAccidLst.put(o.id, lstid);
                     if(cr.Sub_Criteria__c=='Nature of Engagement'){
                         if(cr.Sub_Criteria_Options__c==NatureEngagement && cr.Employment_Type__c==category)
                             NatureEngagementscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                        system.debug('NatureEngagementscore========'+NatureEngagementscore);
+                        //system.debug('NatureEngagementscore========'+NatureEngagementscore);
                         List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                         WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(NatureEngagement),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(NatureEngagementscore))); 
                     MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
@@ -923,7 +926,7 @@ oppIdVsAccidLst.put(o.id, lstid);
                     if(cr.Sub_Criteria__c=='Type of Industry'){
                         if(cr.Sub_Criteria_Options__c==TypeIndustry && cr.Employment_Type__c==category)
                             TypeIndustryscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                        system.debug('TypeIndustryscore========'+TypeIndustryscore);
+                        //system.debug('TypeIndustryscore========'+TypeIndustryscore);
                         List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                         WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(TypeIndustry),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(TypeIndustryscore))); 
                      MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
@@ -931,7 +934,7 @@ oppIdVsAccidLst.put(o.id, lstid);
                     if(cr.Sub_Criteria__c=='Financial Performance'){
                         if(cr.Sub_Criteria_Options__c==FinancialPerformance && cr.Employment_Type__c==category)
                             FinancialPerformancescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                        system.debug('FinancialPerformancescore========'+FinancialPerformancescore);
+                        //system.debug('FinancialPerformancescore========'+FinancialPerformancescore);
                         List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                         WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(FinancialPerformance),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(FinancialPerformancescore))); 
                      MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
@@ -939,7 +942,7 @@ oppIdVsAccidLst.put(o.id, lstid);
                     if(cr.Sub_Criteria__c=='Financial Statement Support'){
                         if(cr.Sub_Criteria_Options__c==FinancialSupport && cr.Employment_Type__c==category)
                             FinancialSupportscore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                        system.debug('FinancialSupportscore========'+FinancialSupportscore);
+                        //system.debug('FinancialSupportscore========'+FinancialSupportscore);
                         List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                         WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(FinancialSupport),string.valueOf(cr.Sub_Criteria_Options__c),string.valueOf(cr.Risk_Score__c),string.valueOf(FinancialSupportscore))); 
                      MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
@@ -947,19 +950,19 @@ oppIdVsAccidLst.put(o.id, lstid);
                     if(cr.Sub_Criteria__c=='Length of Trade'){
                         if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=LengthTrade && cr.Upper_Bound__c>LengthTrade && cr.Employment_Type__c==category){
                             LengthTradescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                            system.debug('LengthTradescore1========'+LengthTradescore);
+                            //system.debug('LengthTradescore1========'+LengthTradescore);
                             List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                             WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LengthTrade),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LengthTradescore)));
                          MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
                         }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>LengthTrade && cr.Employment_Type__c==category){
                             LengthTradescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                            system.debug('LengthTradescore2========'+LengthTradescore);
+                            //system.debug('LengthTradescore2========'+LengthTradescore);
                            List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                             WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LengthTrade),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LengthTradescore)));
                          MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
                         }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=LengthTrade && cr.Employment_Type__c==category){
                             LengthTradescore=percentagevalue(cr.Risk_Score__c, cr.Weight_of_Sub_Criteria__c);
-                            system.debug('LengthTradescore3========'+LengthTradescore);
+                            //system.debug('LengthTradescore3========'+LengthTradescore);
                             List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                             WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LengthTrade),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LengthTradescore)));
                          MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
@@ -972,24 +975,24 @@ oppIdVsAccidLst.put(o.id, lstid);
             
             if(cr.Risk_Score__c!=null ){
                 if(category=='Salaried'){
-                    system.debug('LengthEmploymentscore=======================================>0=>'+cr.Sub_Criteria__c+'==0=='+cr.Risk_Score__c+'=0='+EmploymentStatus);
+                    //system.debug('LengthEmploymentscore=======================================>0=>'+cr.Sub_Criteria__c+'==0=='+cr.Risk_Score__c+'=0='+EmploymentStatus);
                     if(cr.Sub_Criteria__c=='Length of Current Employment' && cr.Risk_Score__c!=null && EmploymentStatus!='Unemployed'){
-                        system.debug('LengthEmploymentscore=======================================>');
+                        //system.debug('LengthEmploymentscore=======================================>');
                         if(cr.Lower_Bound__c!=null && cr.Upper_Bound__c!=null && cr.Lower_Bound__c<=LengthofCurrentEmployment && cr.Upper_Bound__c>=LengthofCurrentEmployment && cr.Employment_Type__c==category){
                             LengthEmploymentscore=percentagevalue(cr.Risk_Score__c, 4);
-                            system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
+                            //system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
                             List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                             WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LengthofCurrentEmployment),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LengthEmploymentscore)));
                          MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
                         }else if(cr.Lower_Bound__c==null && cr.Upper_Bound__c>=LengthofCurrentEmployment && cr.Employment_Type__c==category){
                             LengthEmploymentscore=percentagevalue(cr.Risk_Score__c, 4);
-                            system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
+                            //system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
                             List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                             WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LengthofCurrentEmployment),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LengthEmploymentscore)));
                          MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
                         }else if(cr.Upper_Bound__c==null && cr.Lower_Bound__c<=LengthofCurrentEmployment && cr.Employment_Type__c==category){
                             LengthEmploymentscore=percentagevalue(cr.Risk_Score__c, 4);
-                            system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
+                           // system.debug('LengthEmploymentscore========'+LengthEmploymentscore);
                            List<WrapperScoringModel> WrapperScoringlst1 = new List<WrapperScoringModel>();
                             WrapperScoringlst1.add(new WrapperScoringModel(cr.Sub_Criteria__c,string.valueOf(LengthofCurrentEmployment),string.valueOf(cr.Lower_Bound__c +' - '+cr.Upper_Bound__c),string.valueOf(cr.Risk_Score__c),string.valueOf(LengthEmploymentscore)));
                         MapAppScore.put(cr.Sub_Criteria__c, WrapperScoringlst1);
@@ -1007,9 +1010,9 @@ oppIdVsAccidLst.put(o.id, lstid);
                 
             }
             
-            system.debug('Test##      WrapperScoringlst====='+WrapperScoringlst); 
+            //system.debug('Test##      WrapperScoringlst====='+WrapperScoringlst); 
         }
-        system.debug('Test##      WrapperScoringlst out====='+WrapperScoringlst);
+        //system.debug('Test##      WrapperScoringlst out====='+WrapperScoringlst);
         if(ProductSelection=='Unsecured Loan' && Collateral=='None'){
             decimal weight=loantoweight+ repaymentweight;
             RepaymentMethodscore=percentagevalue(repaymentriskscore,weight);
