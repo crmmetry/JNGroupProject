@@ -6,15 +6,14 @@
 * @Last Modified On   : 10/7/2019
 */
 trigger NewLeadTrigger on Lead (before insert, after insert, before update, after update) {
-    LeadTriggerHandler.init(Trigger.new, Trigger.oldMap);
+    LeadTriggerHandler.init(Trigger.new, Trigger.oldMap, Trigger.newMap);
     
     if(Trigger.isUpdate) {
         if(Trigger.isAfter) {
             LeadTriggerHandler.crmm_CreateEmploymentOnConversion();
             LeadTriggerHandler.crmm_lead_trigger_conversion();
             LeadTriggerHandler.leadConversionBasic();
-           // SkillsBasedRouting.JNSkillsRouting((new Map<Id, Lead>(Trigger.new)).keySet());
-
+            LeadTriggerHandler.convertInfoToEmployment();
         }
         else {
             LeadTriggerHandler.crmm_TimeSpentInStage();

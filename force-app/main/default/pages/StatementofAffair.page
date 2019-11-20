@@ -517,7 +517,7 @@
                         <td></td>
                         <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);">Vehicle Details</td>
                         <td class="tdText2">Total Market Value</td>
-                        <td class="tdText2">Lender(s)</td>
+                        
                         <td colspan="2" class="tdText2">Loan Balance</td>
                         <td colspan="2" class="tdText2">Monthly Payment</td>
                     </tr>

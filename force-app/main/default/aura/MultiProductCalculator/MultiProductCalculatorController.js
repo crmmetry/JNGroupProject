@@ -2,8 +2,9 @@
     doInit : function(cmp, event, helper) {
         
         var isprod=cmp.get("v.isProductDetail");
-        
+        console.log('component type========>'+isprod);
         if(isprod){
+            
             helper.calculateScoreCalculate(cmp); 
             var opp_id=cmp.get("v.isRecordIdM");
             helper.isRequiredFieldMissingForCreditScore(cmp, opp_id);
@@ -593,7 +594,7 @@
                 //cmp.set("v.ReqP", true);
             }
         }
-        
+        $A.enqueueAction(cmp.get('c.CalculateMinimumMV'));
     },
     hidePersentage : function(cmp, evt, helper){
         var amount = cmp.find("MotorVehicleDeposit4").get("v.value");                   
@@ -794,6 +795,7 @@
     },
     showhideONLoanPurpose: function(cmp, evt, helper){
         helper.calculateTotalautoloan(cmp, event);
+        cmp.find('Minimummv').set('v.value','');
         var acMethod = cmp.find("LoanPurpose").get("v.value");
         switch(acMethod){
             case "0":
@@ -812,6 +814,8 @@
                 
                 cmp.set("v.IsExistingLoan",false);
                 $A.util.addClass(cmp.find("LoanBalanceofVehicle"),"slds-hide");
+                $A.util.removeClass(cmp.find("LoanBalanceOfVehicleCurr"),"slds-hide");
+                $A.util.removeClass(cmp.find("Minimummv"),"slds-hide");
                 $A.util.removeClass(cmp.find("PurchasePriceofVehicle"),"slds-hide");
                 $A.util.removeClass(cmp.find("MotorVehicleDeposit"),"slds-hide");
                 $A.util.removeClass(cmp.find("MotorVehicleDeposit1"),"slds-hide");
@@ -820,10 +824,15 @@
                 $A.util.removeClass(cmp.find("MotorVehicleDepositCurr"),"slds-hide");
                 $A.util.removeClass(cmp.find("MotorVehicleDepositor"),"slds-hide");
                 $A.util.removeClass(cmp.find("MotorVehicleDeposit4"),"slds-hide");
+                
                 break;
             case "2":
                 cmp.set("v.IsExistingLoan",true);
                 $A.util.removeClass(cmp.find("LoanBalanceofVehicle"),"slds-hide");
+                $A.util.removeClass(cmp.find("LoanBalanceOfVehicleCurr"),"slds-hide");
+                $A.util.removeClass(cmp.find("Minimummv"),"slds-hide");
+                cmp.set('v.lblMinimum','Minimum (MV,LB)');
+                
                 $A.util.addClass(cmp.find("PurchasePriceofVehicle"),"slds-hide");
                 $A.util.addClass(cmp.find("MotorVehicleDeposit"),"slds-hide");
                 $A.util.addClass(cmp.find("MotorVehicleDeposit1"),"slds-hide");
@@ -845,7 +854,8 @@
                 $A.util.addClass(cmp.find("MotorVehicleDeposit4"),"slds-hide");
                 break;
         }
-        
+        $A.enqueueAction(cmp.get('c.CalculateMinimumMV'));
+        console.log('Minimum value=============>'+cmp.find('Minimummv').get('v.value'));
     },
     showhideONmethod: function(cmp, evt, helper){
         var acMethod = cmp.find("selectapplicant").get("v.value");
@@ -1988,6 +1998,9 @@
                 case "Opportunity":
                 oppid = RId;
                 break
+        }
+        if(isprod){
+          oppid=cmp.get("v.isRecordIdM");  
         }
         
         console.log('objType---------------------------'+objType);
@@ -3171,7 +3184,54 @@
         }
     },
     CalculateMinimumMV: function(cmp, evt, helper){
-        
+         var isprod=cmp.get("v.isProductDetail");
+        console.log('component type========>'+isprod);
+        if(isprod){
+            var PurchasePriceofVehicle ='';
+            var MarketValueofVehicle = '';
+            var acMethod = cmp.find("LoanPurpose").get("v.value");
+            switch(acMethod){
+                case "0":
+                case "1":
+                    PurchasePriceofVehicle = cmp.find('PurchasePriceofVehicle').get('v.value');
+                    MarketValueofVehicle = cmp.find('MarketValueofVehicle1').get('v.value');
+                    
+                    break;
+                case "2":
+                    PurchasePriceofVehicle = cmp.find('LoanBalanceofVehicle').get('v.value');
+                    MarketValueofVehicle = cmp.find('MarketValueofVehicle1').get('v.value');
+                    break;
+                case "3":
+                    $A.util.addClass(cmp.find("LoanBalanceofVehicle"),"slds-hide");
+                    $A.util.addClass(cmp.find("LoanBalanceOfVehicleCurr"),"slds-hide");
+                    $A.util.addClass(cmp.find("Minimummv"),"slds-hide");
+                    break;
+            }
+            if(PurchasePriceofVehicle=='')
+                PurchasePriceofVehicle=0;
+            if(MarketValueofVehicle=='')
+                MarketValueofVehicle=0;
+            if(PurchasePriceofVehicle == undefined)
+                PurchasePriceofVehicle=0;
+            if(MarketValueofVehicle == undefined)
+                MarketValueofVehicle=0;
+            
+            console.log('PurchasePriceofVehicle==='+PurchasePriceofVehicle);
+            console.log('MarketValueofVehicle==='+MarketValueofVehicle);
+            if(PurchasePriceofVehicle=='' && MarketValueofVehicle==''){
+                cmp.find('Minimummv').set('v.value','');  
+            }
+            else if(PurchasePriceofVehicle==0 && MarketValueofVehicle >0){
+                cmp.find('Minimummv').set('v.value',MarketValueofVehicle);  
+            }
+                else if(PurchasePriceofVehicle>0 && MarketValueofVehicle==0){
+                    cmp.find('Minimummv').set('v.value',PurchasePriceofVehicle);  
+                }
+                    else{
+                        cmp.find('Minimummv').set('v.value',Math.min(PurchasePriceofVehicle,MarketValueofVehicle ));
+                    }
+          console.log('Minimum value=============1>'+cmp.find('Minimummv').get('v.value'));  
+        }
     },
     
     //======CREDIT REPAYMENT ALLOCATION UnSecure=============

@@ -1700,6 +1700,7 @@ public Decimal PCL_Deposit_Account_Balance=0;
     }
     Public List<WrapperScoringModel> WrapperScoringlst = new List<WrapperScoringModel>();
     public class WrapperScoringModel{
+        public integer index{get;set;}
         public string heading{get;set;}
         public string inputValue{get;set;}
         public string range{get;set;}
@@ -1711,6 +1712,7 @@ public Decimal PCL_Deposit_Account_Balance=0;
             this.range = range;
             this.score = score;
             this.weight = weight;
+            index=0;
         }
     }
     

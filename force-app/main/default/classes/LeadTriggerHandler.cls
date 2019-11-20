@@ -9,10 +9,11 @@ public class LeadTriggerHandler {
     private static final String TAG = 'LeadTriggerHandler';
     private static List<Lead> leads;
     private static Map<Id, Lead> oldMap;
-    
-    public static void init(List<Lead> leads, Map<Id, Lead> oldMap){
+    private static Map<Id, Lead> newMap;
+    public static void init(List<Lead> leads, Map<Id, Lead> oldMap, Map<Id, Lead> newMap){
         LeadTriggerHandler.leads = leads;
         LeadTriggerHandler.oldMap = oldMap;
+        LeadTriggerHandler.newMap = newMap;
     }
     
     public static void crmm_TimeSpentInStage(){
@@ -239,9 +240,9 @@ Encourage client to add start and end date to employment
         }
         
     }
-    /*
-* Responsible for assigning converted leads fields to account, contact and opportunity 
-*/
+    
+    // Responsible for assigning converted leads fields to account, contact and opportunity 
+    
     public static void leadConversionBasic(){
         List<Account> accounts = new List<Account>();
         List<Contact> contacts = new List<Contact>();
@@ -316,18 +317,13 @@ Encourage client to add start and end date to employment
         
     }
     
-    /*
-* Create a event when a lead is created
-*/ 
+    
+    //Create a event when a lead is created
+    
     public static void leadActivityEvent(){
         List<Event> events = new List<Event>();
-        for(Lead newRecord: leads){
-              System.debug('Preferred_Time_of_Contact__c null => ' + newRecord.Preferred_Time_of_Contact__c);
-                System.debug('Preferred_Date_of_Contact__c null => ' + newRecord.Preferred_Date_of_Contact__c);
-            
+        for(Lead newRecord: leads){            
             if(newRecord.Preferred_Time_of_Contact__c != null && newRecord.Preferred_Date_of_Contact__c!= null) {
-                System.debug('Preferred_Time_of_Contact__c => ' + newRecord.Preferred_Time_of_Contact__c);
-                System.debug('Preferred_Date_of_Contact__c => ' + newRecord.Preferred_Date_of_Contact__c);
                 Event thisEvent = new Event();
                 thisEvent.StartDateTime  = createDateTime(newRecord.Preferred_Time_of_Contact__c, newRecord.Preferred_Date_of_Contact__c);
                 if(newRecord.Preferred_Contact_Method__c != null) {
@@ -368,6 +364,200 @@ Encourage client to add start and end date to employment
                                     preferredTime_of_Contact.hour(), 
                                     preferredTime_of_Contact.minute(), 
                                     preferredTime_of_Contact.second());
+    }
+    
+    // convert Lead related person to accounts
+    public static void convertLeadRelatedPersons(){
+        List<String> leadIds = new List<String>();
+        List<String> convertedAccountIds = new List<String>();
+        Map<String, Id> recordTypeids = Util.getRecordTypeids('Account');
+        for(Lead record: leads){
+            leadIds.add(record.Id);
+            convertedAccountIds.add(record.ConvertedAccountId);
+        }
+        Map<Id, Account> mappedAccounts = new Map<Id, Account>([
+            SELECT Id,PersonContactId FROM Account WHERE Id in :convertedAccountIds
+        ]);
+        
+        Map<Id, Lead_Related_Person__c> leadRelatedPersons = new Map<Id, Lead_Related_Person__C>([
+            SELECT Id,TRN__c ,TItle__c ,Role__c ,
+            Relationship__c ,Mobile_Number__c ,Middle_Name__c ,
+            Lead_and_Referral__c ,Last_Name__c ,JN_Location__c ,
+            Home_Phone_Number__c ,First_Name__c ,Email__c ,
+            Business_Number__c ,Afilliate_Type__c 
+            FROM Lead_Related_Person__c WHERE Lead_and_Referral__c in :leadids
+        ]);
+        
+        Lead thisLead;
+        Map<Long, Account> mappedCardHolders = new Map<Long, Account>(); //only for supplementary card holders
+        List<Account> personAccounts = new List<Account>(); // for JN and political affiliations
+        Map<String, FinServ__ReciprocalRole__c> mappedRoles = Util.getRoleRelationships(); //get contact roles
+        
+        for(Lead_Related_Person__C record: leadRelatedPersons.values()){
+            switch on record.Afilliate_Type__c  {
+                when 'Credit Card Extension' {
+                    //create supplementary card holder
+                    thisLead = newMap.get(record.Lead_and_Referral__c);
+                    Map<String, String> mappedData = new Map<String, String>();
+                    //create account first
+                    mappedData.put('First_Name__c','FirstName');
+                    mappedData.put('LastName','last_Name__c');
+                    mappedData.put('MiddleName','Middle_Name__c');
+                    mappedData.put('Supplementary_Applicant_Relationship__c','Relationship__c');
+                    mappedData.put('Jamaican_Tax_Registration_Number__c','TRN__c');
+                    Account newAccount = Util.createAccount(mappedData, record, recordTypeids.get('PersonAccount'));
+                    mappedCardHolders.put(System.hashCode(newAccount), newAccount);
+                    //create supplementary account
+                    
+                    /*Supplementary_Card_Holders__c newRecord = new Supplementary_Card_Holders__c();
+newRecord.Opportunity__c = thisLead.ConvertedOpportunityId;
+newRecord.Account__c = newAccount.Id;*/
+                    
+                }
+                when 'Political' {
+                    // create account with Political role  
+                    FinServ__ReciprocalRole__c role = mappedRoles.get('Political Affiliation');
+                    
+                }
+                when 'JN Bank' {
+                    // create account with JN Bank role 
+                    FinServ__ReciprocalRole__c role = mappedRoles.get('JN Affiliation'); 
+                }
+            }
+        }
+        //insert all the accounts first
+        List<Account> accountsToInsert = new List<Account>();
+        accountsToInsert.addAll(mappedCardHolders.values());
+        accountsToInsert.addAll(personAccounts);
+        Database.SaveResult[] savedAccounts = Database.insert(accountsToInsert, true);
+        
+        
+    }
+    
+    // converted leads with with employment from lead related persion
+    // run after [update]
+    public static void convertInfoToEmployment(){
+        String leadSource ='Online Application Form';
+        String creditCard ='JN Bank Credit Card';
+        String unsecuredLoan ='JN Bank Unsecured Loan';
+        Map<String, Id> recordTypes = Util.getRecordTypeids('FinServ__Employment__c');
+        List<String> emptyFieldsForEmployed = new List<String>{'Name_of_Current_Employer__c','Current_Position_Held__c',
+            'Time_with_Current_Employer__c','Employer_Industry__c',
+            'Time_in_Industry__c','Employment_Status__c'};
+                List<String> emptyFieldsForSelfEmployed  = new List<String>{'Self_Employed_Company_Name__c','Type_of_Business__c',
+                    'Date_of_Incorporation__c','Type_of_Industry_Self_Employed__c',
+                    'Nature_of_Engagement__c', 'Self_Employed_Time_in_Present_Industry__c'};
+                        
+                        List<String> emptyFieldsForUnEmployed = new List<String>{'Unemployed_Previous_Emoployer__c','Last_Position_Held__c','Unemployed_Industry_Previous_Employment__c'};
+                            List<FinServ__Employment__c> employments = new List<FinServ__Employment__c>();
+        for(Lead record: leads){
+            //new lead conversion
+            if(checkIfNewConversion(record)){
+                //lead is from the JN site
+                if(record.LeadSource  ==(leadSource) 
+                   && record.Service_of_Interest__c == (creditCard) || record.Service_of_Interest__c == (unsecuredLoan)){
+                       switch on record.Primary_Employment_Type__c {
+                           when 'Employed' {
+                               if(!areFieldsEmpty(emptyFieldsForEmployed, record)){                               
+                                   
+                                   FinServ__Employment__c employment = new FinServ__Employment__c();
+                                   employment.Account__c = record.ConvertedAccountId;
+                                   employment.Name = record.Name_of_Current_Employer__c;
+                                   employment.FinServ__Position__c = record.Current_Position_Held__c;
+                                   employment.Time_Employed_with_Current_Employer__c = record.Time_with_Current_Employer__c;
+                                   employment.Industry__c = record.Employer_Industry__c;
+                                   employment.Time_in_Industry__c = record.Time_in_Industry__c;
+                                   employment.FinServ__EmploymentStatus__c  = record.Employment_Status__c;
+                                   employment.Description__c = record.Employment_Description__c;
+                                   employment.Street_1__c = record.Employer_Address_Street_1__c;
+                                   employment.Street_2__c = record.Employer_Address_Street_2__c;
+                                   employment.Street_3__c = record.Employer_Address_Street_3__c;
+                                   employment.City_Town__c = record.Employer_City_Town__c;
+                                   employment.Residential_Area_District__c = record.Employer_Area_District__c;
+                                   employment.Post_Office_Zip_Code__c = record.Post_Office_Zip_Code__c;
+                                   employment.Province_Parish_State__c = record.Employer_Province_Parish_State__c;
+                                   employment.Country__c = record.Employer_Country__c;
+                                   employment.Business_Number_1__c = record.Employer_Phone_1__c;
+                                   employment.Business_Number_2__c = record.Employer_Phone_2__c;
+                                   employment.RecordTypeId =  recordTypes.get('Employed');
+                                   employments.add(employment);
+                               }
+                           }
+                           when 'Self-Employed' {
+                               if(!areFieldsEmpty(emptyFieldsForSelfEmployed, record)){   
+                                   FinServ__Employment__c employment = new FinServ__Employment__c();
+                                   employment.Account__c = record.ConvertedAccountId;
+                                   employment.Name = record.Self_Employed_Company_Name__c;
+                                   employment.Type_of_Business__c = record.Type_of_Business__c;
+                                   employment.Date_of_Incorporation__c = record.Date_of_Incorporation__c;
+                                   employment.Industry__c = record.Type_of_Industry_Self_Employed__c;
+                                   employment.Nature_of_Engagement__c = record.Nature_of_Engagement__c;
+                                   employment.Time_in_Industry__c = record.Self_Employed_Time_in_Present_Industry__c;
+                                   employment.Street_1__c = record.Self_Employed_Street_1__c;
+                                   employment.Street_2__c = record.Self_Employed_Street_2__c;
+                                   employment.Street_3__c = record.Self_Employed_Street_3__c;
+                                   employment.City_Town__c = record.Employer_City_Town__c;
+                                   employment.Residential_Area_District__c = record.Employer_Area_District__c;
+                                   employment.Post_Office_Zip_Code__c = record.Employer_Post_Office_Zip_Code__c;
+                                   employment.Province_Parish_State__c = record.Employer_Province_Parish_State__c;
+                                   employment.Country__c = record.Employer_Country__c;
+                                   employment.Business_Number_1__c = record.Employer_Phone_1__c;
+                                   employment.Business_Number_2__c = record.Employer_Phone_2__c;
+                                   employment.RecordTypeId =  recordTypes.get('Self-Employed');
+                                   employments.add(employment);
+                               }
+                           }
+                           when 'Unemployed' {
+                               if(!areFieldsEmpty(emptyFieldsForUnEmployed, record)){   
+                                   FinServ__Employment__c employment = new FinServ__Employment__c();
+                                   employment.Account__c = record.ConvertedAccountId;
+                                   employment.Name = record.Unemployed_Previous_Emoployer__c;
+                                   employment.Position__c = record.Last_Position_Held__c;
+                                   employment.Date_of_Incorporation__c = record.Date_of_Incorporation__c;
+                                   employment.Industry__c = record.Unemployed_Industry_Previous_Employment__c;
+                                   employment.Nature_of_Engagement__c = record.Nature_of_Engagement__c;
+                                   employment.Time_in_Industry__c = record.Self_Employed_Time_in_Present_Industry__c;
+                                   employment.Street_1__c = record.Unemployed_Street_1__c;
+                                   employment.Street_2__c = record.Unemployed_Street_2__c;
+                                   employment.Street_3__c = record.Unemployed_Street_3__c;
+                                   employment.City_Town__c = record.Unemployed_City_Town__c;
+                                   employment.Residential_Area_District__c = record.Unemployed_Residential_Area_District__c;
+                                   employment.Post_Office_Zip_Code__c = record.Unemployed_Post_Office_Zip__c;
+                                   employment.Province_Parish_State__c = record.Unemployed_Province_Parish_State__c;
+                                   employment.Country__c = record.Unemployed_Country__c;
+                                   employment.Business_Number_1__c = record.Unemployed_Phone_1__c;
+                                   employment.Business_Number_2__c = record.Unemployed_Phone_2__c;
+                                   employment.RecordTypeId =  recordTypes.get('Unemployed');
+                                   employments.add(employment);
+                               }
+                           }
+                       }
+                   }
+            }
+        }
+        if(!employments.isEmpty()){
+            insert employments;
+        }
+    }
+    private static Boolean checkIfNewConversion(Lead record){
+        if(record.ConvertedOpportunityId != null
+           && record.ConvertedAccountId != null && record.ConvertedDate != null){
+               Lead oldLead = OldMap.get(record.Id);
+               if(record.ConvertedOpportunityId == null
+                  && record.ConvertedAccountId == null && record.ConvertedDate == null){
+                      return true;
+                  }
+               
+           }
+        return false;
+    }
+    private static Boolean areFieldsEmpty(List<String> fields, Lead record){
+        for(String field: fields){
+            if(record.get(field) == null || record.get(field) == ''){
+                return true;
+            }
+        }
+        return false;
     }
     
 }

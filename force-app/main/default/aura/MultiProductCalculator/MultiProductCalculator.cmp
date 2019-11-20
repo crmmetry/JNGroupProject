@@ -129,6 +129,11 @@
     <aura:attribute name="isLocPD" type="Boolean" Default="false"/>
     
     
+    <aura:attribute name="lblMarketValue" type="string" default="Market Value of Vehicle"/>
+    <aura:attribute name="lblMinimum" type="string" default="Minimum (MV,PP)"/>
+    
+    
+    
     
     <form class="slds-form ">
         <fieldset  class="slds-box slds-theme--default slds-container--large" style="padding-right: 5px;">
@@ -262,16 +267,16 @@
                                 <option value="4">GBP</option>
                             </lightning:select>
                             
-                            <lightning:input formatter="currency" step="0.01" label="Purchase Price of Vehicle" type="number"  name="Purchase Price of Vehicle" aura:id="PurchasePriceofVehicle" class="slds-col slds-size_1-of-1 slds-medium-size_10-of-12 slds-large-size_10-of-12 fl"/>
+                            <lightning:input formatter="currency" step="0.01" label="Purchase Price of Vehicle" type="number"  name="Purchase Price of Vehicle" aura:id="PurchasePriceofVehicle" class="slds-col slds-size_1-of-1 slds-medium-size_10-of-12 slds-large-size_10-of-12 fl" onchange="{!c.CalculateMinimumMV}" />
                         </aura:if>
                         <aura:if isTrue="{!v.IsExistingLoan == true}">
-                            <lightning:select label="$" name="Loan Balance of Vehicle"  aura:id="LoanBalanceOfVehicleCurr" class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12 fl">
+                            <lightning:select label="$" name="Loan Balance of Vehicle"  aura:id="LoanBalanceOfVehicleCurr" class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12 fl" >
                                 <option value="1">JMD</option>
                                 <option value="2">USD</option>
                                 <option value="3">CAD</option>
                                 <option value="4">GBP</option>
                             </lightning:select>
-                            <lightning:input formatter="currency" step="0.01" label="Loan Balance of Vehicle" type="number"  name="Loan Balance of Vehicle" aura:id="LoanBalanceofVehicle" class="slds-col slds-size_1-of-1 slds-medium-size_10-of-12 slds-large-size_10-of-12 fl"/>
+                            <lightning:input formatter="currency" step="0.01" label="Loan Balance of Vehicle" type="number"  name="Loan Balance of Vehicle" aura:id="LoanBalanceofVehicle" class="slds-col slds-size_1-of-1 slds-medium-size_10-of-12 slds-large-size_10-of-12 fl" onchange="{!c.CalculateMinimumMV}"/> 
                         </aura:if>
                         
                     </div>
@@ -288,7 +293,7 @@
                         </lightning:select>
                     </div>
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
-                        <lightning:input formatter="currency" step="0.01" label="Market Value of Vehicle" type="Number" name="Market Value of Vehicle" aura:id="MarketValueofVehicle1" required="true" onblur="{!c.SetMotorVehicleDeposit}"/>
+                        <lightning:input formatter="currency" step="0.01" label="{!v.lblMarketValue}" type="Number" name="Market Value of Vehicle" aura:id="MarketValueofVehicle1" required="true" onblur="{!c.SetMotorVehicleDeposit}"/>
                     </div>        
                 </div>
                 </aura:if>
@@ -306,7 +311,7 @@
                         <lightning:input formatter="currency" step="0.01" label="Market Value of Vehicle" type="Number" name="Market Value of Vehicle" aura:id="MarketValueofVehicle1" required="true" onblur="{!c.SetMotorVehicleDeposit}"/>
                     </div>
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                        <lightning:input formatter="currency" step="0.01" label="Minimum (MV,PP)" type="Number" name="Market Value of Vehicle" aura:id="Minimummv" disabled="true"/>
+                        <lightning:input formatter="currency" step="0.01" label="{!v.lblMinimum}" type="Number" name="Market Value of Vehicle" aura:id="Minimummv" disabled="true"/>
                     </div>
                 </div>
                 </aura:if>
