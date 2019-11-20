@@ -152,6 +152,8 @@ recordTypeId = getRecordTypeId(recordTypeName);
                 newPerson.Relationship__c = String.valueOf(oldPerson.get('Relationship__c')); 
                 newPerson.Afilliate_Type__c = String.valueOf(oldPerson.get('Afilliate_Type__c'));
                 newPerson.JN_Location__c  = String.valueOf(oldPerson.get('JN_Location__c'));
+                newPerson.Mobile_Number__c  = String.valueOf(oldPerson.get('Mobile_Number__c'));
+				newPerson.Lead_and_Referral__c  = String.valueOf(oldPerson.get('Lead_and_Referral__c'));
                 persons.add(newPerson);
             }
             if(!persons.isEmpty()){

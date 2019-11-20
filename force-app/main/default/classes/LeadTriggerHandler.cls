@@ -132,7 +132,7 @@ public class LeadTriggerHandler {
                 IsConverted =true;
                 AccountList.Id = objLead.ConvertedAccountId;
                 AccountList.FinServ__Citizenship__pc =objlead.Country_of_Citizenship__c;
-                AccountList.FinServ__CountryOfBirth__pc = objlead.Place_of_Birth__c;
+                AccountList.Place_Of_Birth__pc = objlead.Place_of_Birth__c;
                 AccountList.FinServ__CountryOfResidence__pc = objlead.Country__c;
                 AccountList.FinServ__CurrentEmployer__pc = objlead.Name_of_Current_Employer__c;
                 AccountList.FinServ__MaritalStatus__pc = objlead.Marital_Status__c;
@@ -256,7 +256,7 @@ Encourage client to add start and end date to employment
                 account.Id = newRecord.ConvertedAccountId;
                 account.FinServ__Citizenship__pc = newRecord.Country_of_Citizenship__c;
                 account.FinServ__ContactPreference__pc = newRecord.Preferred_Contact_Method__c;
-                account.FinServ__CountryOfBirth__pc = newRecord.Place_of_Birth__c;
+                account.Place_of_Birth__pc = newRecord.Place_of_Birth__c;
                 account.FinServ__CountryOfResidence__pc = newRecord.Country_of_Residence__c;
                 account.FinServ__CurrentEmployer__pc = newRecord.Name_of_Current_Employer__c;
                 account.FinServ__Gender__pc = newRecord.Gender__c;
@@ -372,66 +372,100 @@ Encourage client to add start and end date to employment
         List<String> convertedAccountIds = new List<String>();
         Map<String, Id> recordTypeids = Util.getRecordTypeids('Account');
         for(Lead record: leads){
-            leadIds.add(record.Id);
-            convertedAccountIds.add(record.ConvertedAccountId);
-        }
-        Map<Id, Account> mappedAccounts = new Map<Id, Account>([
-            SELECT Id,PersonContactId FROM Account WHERE Id in :convertedAccountIds
-        ]);
-        
-        Map<Id, Lead_Related_Person__c> leadRelatedPersons = new Map<Id, Lead_Related_Person__C>([
-            SELECT Id,TRN__c ,TItle__c ,Role__c ,
-            Relationship__c ,Mobile_Number__c ,Middle_Name__c ,
-            Lead_and_Referral__c ,Last_Name__c ,JN_Location__c ,
-            Home_Phone_Number__c ,First_Name__c ,Email__c ,
-            Business_Number__c ,Afilliate_Type__c 
-            FROM Lead_Related_Person__c WHERE Lead_and_Referral__c in :leadids
-        ]);
-        
-        Lead thisLead;
-        Map<Long, Account> mappedCardHolders = new Map<Long, Account>(); //only for supplementary card holders
-        List<Account> personAccounts = new List<Account>(); // for JN and political affiliations
-        Map<String, FinServ__ReciprocalRole__c> mappedRoles = Util.getRoleRelationships(); //get contact roles
-        
-        for(Lead_Related_Person__C record: leadRelatedPersons.values()){
-            switch on record.Afilliate_Type__c  {
-                when 'Credit Card Extension' {
-                    //create supplementary card holder
-                    thisLead = newMap.get(record.Lead_and_Referral__c);
-                    Map<String, String> mappedData = new Map<String, String>();
-                    //create account first
-                    mappedData.put('First_Name__c','FirstName');
-                    mappedData.put('LastName','last_Name__c');
-                    mappedData.put('MiddleName','Middle_Name__c');
-                    mappedData.put('Supplementary_Applicant_Relationship__c','Relationship__c');
-                    mappedData.put('Jamaican_Tax_Registration_Number__c','TRN__c');
-                    Account newAccount = Util.createAccount(mappedData, record, recordTypeids.get('PersonAccount'));
-                    mappedCardHolders.put(System.hashCode(newAccount), newAccount);
-                    //create supplementary account
-                    
-                    /*Supplementary_Card_Holders__c newRecord = new Supplementary_Card_Holders__c();
-newRecord.Opportunity__c = thisLead.ConvertedOpportunityId;
-newRecord.Account__c = newAccount.Id;*/
-                    
-                }
-                when 'Political' {
-                    // create account with Political role  
-                    FinServ__ReciprocalRole__c role = mappedRoles.get('Political Affiliation');
-                    
-                }
-                when 'JN Bank' {
-                    // create account with JN Bank role 
-                    FinServ__ReciprocalRole__c role = mappedRoles.get('JN Affiliation'); 
-                }
+            //new lead conversion
+            if(checkIfNewConversion(record)){
+                leadIds.add(record.Id);
+                convertedAccountIds.add(record.ConvertedAccountId);
             }
         }
-        //insert all the accounts first
-        List<Account> accountsToInsert = new List<Account>();
-        accountsToInsert.addAll(mappedCardHolders.values());
-        accountsToInsert.addAll(personAccounts);
-        Database.SaveResult[] savedAccounts = Database.insert(accountsToInsert, true);
-        
-        
+        if(!leadIds.isEmpty()){
+            Map<Id, Account> mappedAccounts = new Map<Id, Account>([
+                SELECT Id,PersonContactId FROM Account WHERE Id in :convertedAccountIds
+            ]);
+            
+            Map<Id, Lead_Related_Person__c> leadRelatedPersons = new Map<Id, Lead_Related_Person__C>([
+                SELECT Id,TRN__c ,TItle__c ,Role__c ,
+                Relationship__c ,Mobile_Number__c ,Middle_Name__c ,
+                Lead_and_Referral__c ,Last_Name__c ,JN_Location__c ,
+                Home_Phone_Number__c ,First_Name__c ,Email__c ,
+                Business_Number__c ,Afilliate_Type__c 
+                FROM Lead_Related_Person__c WHERE Lead_and_Referral__c in :leadids
+            ]);
+            
+            Lead thisLead;
+            Map<Long, ID> mappedOppIds = new Map<Long, ID>(); //only for supplementary card holders opportunity ids
+            Map<Long, Account> mappedCardHolders = new Map<Long, Account>(); //only for supplementary card holders
+            List<Account> personAccounts = new List<Account>(); // for JN and political affiliations
+            Map<String, FinServ__ReciprocalRole__c> mappedRoles = Util.getRoleRelationships(); //get contact roles
+            
+            for(Lead_Related_Person__C record: leadRelatedPersons.values()){
+                switch on record.Afilliate_Type__c  {
+                    when 'Credit Card Extension' {
+                        //create supplementary card holder
+                        thisLead = newMap.get(record.Lead_and_Referral__c);
+                        Map<String, String> mappedData = new Map<String, String>();
+                        //create account first
+                        mappedData.put('FirstName','First_Name__c');
+                        mappedData.put('LastName','last_Name__c');
+                        mappedData.put('MiddleName','Middle_Name__c');
+                        mappedData.put('Supplementary_Applicant_Relationship__c','Relationship__c');
+                        mappedData.put('Jamaican_Tax_Registration_Number__c','TRN__c');
+                        Account newAccount = Util.createAccount(mappedData, record, recordTypeids.get('PersonAccount'));
+                        mappedCardHolders.put(System.hashCode(newAccount), newAccount);
+                        mappedOppIds.put(System.hashCode(newAccount),thisLead.ConvertedOpportunityId );
+                        
+                    }
+                    when 'Political' {
+                        // create account with Political role  
+                        FinServ__ReciprocalRole__c role = mappedRoles.get('Political Affiliation');
+                        Map<String, String> mappedData = new Map<String, String>();
+                        mappedData.put('FirstName','First_Name__c');
+                        mappedData.put('LastName','last_Name__c');
+                        mappedData.put('Political_Affiliation_Role__pc','Role__c');
+                        mappedData.put('Political_Affiliation_Relationship__pc','Relationship__c');
+                        mappedData.put('PersonMobilePhone','Mobile_Number__c');
+						Account newAccount = Util.createAccount(mappedData, record, recordTypeids.get('PersonAccount'));
+                    }
+                    when 'JN Bank' {
+                        // create account with JN Bank role 
+                        FinServ__ReciprocalRole__c role = mappedRoles.get('JN Affiliation');
+                        Map<String, String> mappedData = new Map<String, String>();
+                        mappedData.put('FirstName','First_Name__c');
+                        mappedData.put('LastName','last_Name__c');
+                        mappedData.put('Political_Affiliation_Role__pc','Role__c');
+                        mappedData.put('JN_Bank_Affiliation_Relationship__pc','Relationship__c');
+                        mappedData.put('JN_Bank_Affiliated_Location__c', 'JN_Location__c');
+                        mappedData.put('PersonMobilePhone','Mobile_Number__c');
+						Account newAccount = Util.createAccount(mappedData, record, recordTypeids.get('PersonAccount'));
+                    }
+                }
+            }
+            //insert all the accounts first
+            List<Account> accountsToInsert = new List<Account>();
+            accountsToInsert.addAll(mappedCardHolders.values());
+           // accountsToInsert.addAll(personAccounts);
+            Database.SaveResult[] savedAccounts = Database.insert(accountsToInsert, true);
+            
+            for (Database.SaveResult sr : savedAccounts) {           
+                if (sr.isSuccess()) {               
+                    // Operation was successful, so get the ID of the record that was processed                
+                    System.debug(TAG + ' Successfully inserted account. Record ID: ' + sr.getId());                
+                }           
+                else {               
+                    // Operation failed, so get all errors                               
+                    for(Database.Error err : sr.getErrors()) {                   
+                        System.debug(TAG + ' The following error has occurred.');                                       
+                        System.debug(TAG + ' ' + err.getStatusCode() + ': ' + err.getMessage());                   
+                        System.debug(TAG + ' Record fields that affected this error: ' + err.getFields());
+                        
+                    }
+                    
+                }
+                
+            }
+            //create card holders
+            createSupplementaryCardHolders(mappedCardHolders, mappedOppIds);
+        }
     }
     
     // converted leads with with employment from lead related persion
@@ -441,25 +475,31 @@ newRecord.Account__c = newAccount.Id;*/
         String creditCard ='JN Bank Credit Card';
         String unsecuredLoan ='JN Bank Unsecured Loan';
         Map<String, Id> recordTypes = Util.getRecordTypeids('FinServ__Employment__c');
-        List<String> emptyFieldsForEmployed = new List<String>{'Name_of_Current_Employer__c','Current_Position_Held__c',
+        List<String> emptyFieldsForEmployed = new List<String>{'FinServ__Employer__c','Current_Position_Held__c',
             'Time_with_Current_Employer__c','Employer_Industry__c',
             'Time_in_Industry__c','Employment_Status__c'};
+                
                 List<String> emptyFieldsForSelfEmployed  = new List<String>{'Self_Employed_Company_Name__c','Type_of_Business__c',
                     'Date_of_Incorporation__c','Type_of_Industry_Self_Employed__c',
                     'Nature_of_Engagement__c', 'Self_Employed_Time_in_Present_Industry__c'};
                         
-                        List<String> emptyFieldsForUnEmployed = new List<String>{'Unemployed_Previous_Emoployer__c','Last_Position_Held__c','Unemployed_Industry_Previous_Employment__c'};
+                        List<String> emptyFieldsForUnEmployed = new List<String>{'Unemployed_Previous_Emoployer__c','Unemployed_Last_Position_Held__c','Unemployed_Industry_Previous_Employment__c'};
                             List<FinServ__Employment__c> employments = new List<FinServ__Employment__c>();
         for(Lead record: leads){
             //new lead conversion
+            System.debug('Trying to convert with employment' + record);
             if(checkIfNewConversion(record)){
+                System.debug('success new conversion');
                 //lead is from the JN site
                 if(record.LeadSource  ==(leadSource) 
                    && record.Service_of_Interest__c == (creditCard) || record.Service_of_Interest__c == (unsecuredLoan)){
+                       System.debug('success lead source and service of interest');
                        switch on record.Primary_Employment_Type__c {
                            when 'Employed' {
-                               if(!areFieldsEmpty(emptyFieldsForEmployed, record)){                               
+                               System.debug('success  employed');
+                               if(!Util.areFieldsEmpty(emptyFieldsForEmployed, record)){                               
                                    
+                                   System.debug('success employed fields not null');
                                    FinServ__Employment__c employment = new FinServ__Employment__c();
                                    employment.Account__c = record.ConvertedAccountId;
                                    employment.Name = record.Name_of_Current_Employer__c;
@@ -479,12 +519,15 @@ newRecord.Account__c = newAccount.Id;*/
                                    employment.Country__c = record.Employer_Country__c;
                                    employment.Business_Number_1__c = record.Employer_Phone_1__c;
                                    employment.Business_Number_2__c = record.Employer_Phone_2__c;
+                                   employment.Income_Type__c = 'Salaried';
                                    employment.RecordTypeId =  recordTypes.get('Employed');
                                    employments.add(employment);
                                }
                            }
                            when 'Self-Employed' {
-                               if(!areFieldsEmpty(emptyFieldsForSelfEmployed, record)){   
+                                 System.debug('success self employed');
+                               if(!Util.areFieldsEmpty(emptyFieldsForSelfEmployed, record)){  
+                                   System.debug('success self employed fields not null');
                                    FinServ__Employment__c employment = new FinServ__Employment__c();
                                    employment.Account__c = record.ConvertedAccountId;
                                    employment.Name = record.Self_Employed_Company_Name__c;
@@ -503,16 +546,19 @@ newRecord.Account__c = newAccount.Id;*/
                                    employment.Country__c = record.Employer_Country__c;
                                    employment.Business_Number_1__c = record.Employer_Phone_1__c;
                                    employment.Business_Number_2__c = record.Employer_Phone_2__c;
-                                   employment.RecordTypeId =  recordTypes.get('Self-Employed');
+                                   employment.Income_Type__c = 'Self-Employed';
+                                   employment.RecordTypeId =  recordTypes.get('Self_Employed');
                                    employments.add(employment);
                                }
                            }
                            when 'Unemployed' {
-                               if(!areFieldsEmpty(emptyFieldsForUnEmployed, record)){   
+                               System.debug('success  employed');
+                               if(!Util.areFieldsEmpty(emptyFieldsForUnEmployed, record)){   
+                                 System.debug('success self UNemployed fields not null');
                                    FinServ__Employment__c employment = new FinServ__Employment__c();
                                    employment.Account__c = record.ConvertedAccountId;
                                    employment.Name = record.Unemployed_Previous_Emoployer__c;
-                                   employment.Position__c = record.Last_Position_Held__c;
+                                   employment.Position__c = record.Unemployed_Last_Position_Held__c;
                                    employment.Date_of_Incorporation__c = record.Date_of_Incorporation__c;
                                    employment.Industry__c = record.Unemployed_Industry_Previous_Employment__c;
                                    employment.Nature_of_Engagement__c = record.Nature_of_Engagement__c;
@@ -527,6 +573,7 @@ newRecord.Account__c = newAccount.Id;*/
                                    employment.Country__c = record.Unemployed_Country__c;
                                    employment.Business_Number_1__c = record.Unemployed_Phone_1__c;
                                    employment.Business_Number_2__c = record.Unemployed_Phone_2__c;
+                                   employment.Income_Type__c = 'Salaried';
                                    employment.RecordTypeId =  recordTypes.get('Unemployed');
                                    employments.add(employment);
                                }
@@ -539,25 +586,29 @@ newRecord.Account__c = newAccount.Id;*/
             insert employments;
         }
     }
+    
     private static Boolean checkIfNewConversion(Lead record){
         if(record.ConvertedOpportunityId != null
            && record.ConvertedAccountId != null && record.ConvertedDate != null){
                Lead oldLead = OldMap.get(record.Id);
-               if(record.ConvertedOpportunityId == null
-                  && record.ConvertedAccountId == null && record.ConvertedDate == null){
+               if(oldLead.ConvertedOpportunityId == null
+                  && oldLead.ConvertedAccountId == null && oldLead.ConvertedDate == null){
                       return true;
                   }
                
            }
         return false;
     }
-    private static Boolean areFieldsEmpty(List<String> fields, Lead record){
-        for(String field: fields){
-            if(record.get(field) == null || record.get(field) == ''){
-                return true;
-            }
+    
+    
+    private static void createSupplementaryCardHolders(Map<Long, Account> mappedCardHolders, Map<Long, ID> mappedOppIds){
+        List<Supplementary_Card_Holders__c> records = new List<Supplementary_Card_Holders__c>();
+        for(Long hashCode: mappedCardHolders.keySet()){
+            Supplementary_Card_Holders__c newRecord = Util.createSupplementaryCardHolder(mappedOppIds.get(hashCode), 
+                                                                                         mappedCardHolders.get(hashCode).Id);
+            records.add(newRecord);
         }
-        return false;
+        insert records;
     }
     
 }

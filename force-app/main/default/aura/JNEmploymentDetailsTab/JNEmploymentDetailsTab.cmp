@@ -94,7 +94,7 @@
                                           label="Industry of Employment"
                                           required="true"
                                           aura:id="validation"
-                                          onchange="{!c.getAddressStatus}"
+                                          onchange="{!c.getIndustryEmployment}"
                                           >
                             <option value="">select one...</option>
                             <aura:iteration items="{!v.employmentIndustries}" var="item">

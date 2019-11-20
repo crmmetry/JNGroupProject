@@ -6,7 +6,9 @@
       Afilliate_Type__c: "",
       JN_Location__c: "",
       Relationship__c: "",
-      Role__c: ""
+      Role__c: "",
+      Mobile_Number__c:"",
+      Lead_and_Referral__c: component.get("v.leadId")
     };
     component.set("v.SiteLead", sitelead);
     helper.getPickListValues(component);
