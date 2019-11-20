@@ -393,6 +393,7 @@ Encourage client to add start and end date to employment
             ]);
             
             Lead thisLead;
+            List<SupplementryCardHolderWrapper> cardHoldersWrapperList = new List<SupplementryCardHolderWrapper>();
             Map<Long, ID> mappedOppIds = new Map<Long, ID>(); //only for supplementary card holders opportunity ids
             Map<Long, Account> mappedCardHolders = new Map<Long, Account>(); //only for supplementary card holders
             List<Account> personAccounts = new List<Account>(); // for JN and political affiliations
@@ -411,9 +412,10 @@ Encourage client to add start and end date to employment
                         mappedData.put('Supplementary_Applicant_Relationship__c','Relationship__c');
                         mappedData.put('Jamaican_Tax_Registration_Number__c','TRN__c');
                         Account newAccount = Util.createAccount(mappedData, record, recordTypeids.get('PersonAccount'));
-                        mappedCardHolders.put(System.hashCode(newAccount), newAccount);
-                        mappedOppIds.put(System.hashCode(newAccount),thisLead.ConvertedOpportunityId );
-                        
+                        List<String> nameList = new List<String>{record.First_Name__c,record.Last_Name__c, record.TRN__c};
+                        mappedCardHolders.put(getNameHash(nameList), newAccount);
+                        mappedOppIds.put(getNameHash(nameList),thisLead.ConvertedOpportunityId );
+                        cardHoldersWrapperList.add(new SupplementryCardHolderWrapper(record.Last_Name__c,record.First_Name__c, record.TRN__c));
                     }
                     when 'Political' {
                         // create account with Political role  
@@ -464,7 +466,7 @@ Encourage client to add start and end date to employment
                 
             }
             //create card holders
-            createSupplementaryCardHolders(mappedCardHolders, mappedOppIds);
+            queryCardHolders(cardHoldersWrapperList, mappedCardHolders, mappedOppIds);
         }
     }
     
@@ -610,5 +612,73 @@ Encourage client to add start and end date to employment
         }
         insert records;
     }
-    
+    class SupplementryCardHolderWrapper {
+        public String lastName,firstName,trn;
+        public SupplementryCardHolderWrapper(String ln, String fn, String trn){
+            this.firstName = fn;
+            this.LastName = ln;
+            this.trn = trn;
+        }
+    }
+    public static void queryCardHolders(List<SupplementryCardHolderWrapper> cardHoldersWrapperList, 
+                                        Map<Long, Account> mappedCardHolders,
+                                        Map<Long, ID> mappedOppIds){
+                                            
+        List<String> lastNames = new List<String>();
+        List<String> firstNames = new List<String>();
+        List<String> trns = new List<String>();
+        list<Account> accounts = new List<Account>();
+        list<Supplementary_Card_Holders__c> holders = new List<Supplementary_Card_Holders__c>();
+                                            
+        for(SupplementryCardHolderWrapper record:cardHoldersWrapperList ){
+            lastNames.add(record.lastName);
+            firstNames.add(record.firstName);
+            trns.add(record.trn);
+        }
+        
+        List<Account> existingAccounts = [SELECT Id FROM Account WHERE FirstName in :firstNames
+                                         AND LastName in :lastNames AND Jamaican_Tax_Registration_Number__c in :trns];
+                                            
+        for(Account existingAccount: existingAccounts) {
+            List<String> nameList = new List<String>{existingAccount.FirstName,existingAccount.LastName, 
+            existingAccount.Jamaican_Tax_Registration_Number__c};
+            Long nameHash = getNameHash(nameList);
+            Id opportunityId = mappedOppIds.get(nameHash);
+            Id accountId = existingAccount.id;
+            //this means account is existing
+            if(mappedCardHolders.containsKey(nameHash)){
+                //create supplementary card holder
+                Supplementary_Card_Holders__c holder = Util.createSupplementaryCardHolder(opportunityId, accountId);
+                holders.add(holder);
+            } else {
+                //create account
+                accounts.add(mappedCardHolders.get(nameHash));
+            }
+        }
+            
+          if(!holders.isEmpty()) {
+              insert holders;                         
+          }
+                                            
+          if(!accounts.isEmpty()) {
+                insert accounts;
+              for(Account newAccount: accounts){
+                  List<String> nameList = new List<String>{newAccount.FirstName,newAccount.LastName, 
+                  newAccount.Jamaican_Tax_Registration_Number__c};
+                  Long nameHash = getNameHash(nameList);
+                   Id opportunityId = mappedOppIds.get(nameHash);
+                  holders = new List<Supplementary_Card_Holders__c>();
+                  Supplementary_Card_Holders__c holder = Util.createSupplementaryCardHolder(opportunityId, newAccount.Id);
+                  holders.add(holder);
+              }
+          if(!holders.isEmpty()) {
+              insert holders;                         
+          }
+          }
+                                            
+    }
+    private static Long getNameHash(List<String> values){     
+        String value = String.join(Values, ':');
+        return value.hashCode();
+    }
 }
