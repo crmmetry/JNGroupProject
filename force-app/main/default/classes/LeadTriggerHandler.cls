@@ -379,10 +379,7 @@ Encourage client to add start and end date to employment
             }
         }
         if(!leadIds.isEmpty()){
-            Map<Id, Account> mappedAccounts = new Map<Id, Account>([
-                SELECT Id,PersonContactId FROM Account WHERE Id in :convertedAccountIds
-            ]);
-            
+            System.debug('Related persons new conversion');
             Map<Id, Lead_Related_Person__c> leadRelatedPersons = new Map<Id, Lead_Related_Person__C>([
                 SELECT Id,TRN__c ,TItle__c ,Role__c ,
                 Relationship__c ,Mobile_Number__c ,Middle_Name__c ,
@@ -393,80 +390,118 @@ Encourage client to add start and end date to employment
             ]);
             
             Lead thisLead;
-            List<SupplementryCardHolderWrapper> cardHoldersWrapperList = new List<SupplementryCardHolderWrapper>();
-            Map<Long, ID> mappedOppIds = new Map<Long, ID>(); //only for supplementary card holders opportunity ids
-            Map<Long, Account> mappedCardHolders = new Map<Long, Account>(); //only for supplementary card holders
-            List<Account> personAccounts = new List<Account>(); // for JN and political affiliations
+            Id accountId;
+            Id contactId;
+            List<Sobject> recordsToInsert = new List<Sobject>();
             Map<String, FinServ__ReciprocalRole__c> mappedRoles = Util.getRoleRelationships(); //get contact roles
+            Map<String, Id> recordTypesRole = Util.getRecordTypeids('FinServ__ReciprocalRole__c');
+
             
             for(Lead_Related_Person__C record: leadRelatedPersons.values()){
+                System.debug('found Related persons');
+                thisLead = newMap.get(record.Lead_and_Referral__c);
                 switch on record.Afilliate_Type__c  {
                     when 'Credit Card Extension' {
+                        System.debug('Related persons Credit Card Extension');
                         //create supplementary card holder
-                        thisLead = newMap.get(record.Lead_and_Referral__c);
+                        
                         Map<String, String> mappedData = new Map<String, String>();
                         //create account first
                         mappedData.put('FirstName','First_Name__c');
-                        mappedData.put('LastName','last_Name__c');
+                        mappedData.put('LastName','Last_Name__c');
                         mappedData.put('MiddleName','Middle_Name__c');
                         mappedData.put('Supplementary_Applicant_Relationship__c','Relationship__c');
                         mappedData.put('Jamaican_Tax_Registration_Number__c','TRN__c');
                         Account newAccount = Util.createAccount(mappedData, record, recordTypeids.get('PersonAccount'));
-                        List<String> nameList = new List<String>{record.First_Name__c,record.Last_Name__c, record.TRN__c};
-                        mappedCardHolders.put(getNameHash(nameList), newAccount);
-                        mappedOppIds.put(getNameHash(nameList),thisLead.ConvertedOpportunityId );
-                        cardHoldersWrapperList.add(new SupplementryCardHolderWrapper(record.Last_Name__c,record.First_Name__c, record.TRN__c));
+                        //query
+                        
+                        Account[] foundAccounts = [SELECT Id from account where FirstName =:record.First_Name__c and LastName =:record.Last_Name__c 
+                                                   and Jamaican_Tax_Registration_Number__c=:record.TRN__c];
+                        if(!foundAccounts.isEmpty()){
+                            accountId = foundAccounts.get(0).Id;
+                        } else {
+                            insert newAccount;
+                            accountId = newAccount.Id;
+                        }
+                        recordsToInsert.add(Util.createSupplementaryCardHolder(thisLead.ConvertedOpportunityId, accountId));
                     }
                     when 'Political' {
+                         System.debug('Related persons Political');
                         // create account with Political role  
                         FinServ__ReciprocalRole__c role = mappedRoles.get('Political Affiliation');
+                        role.RecordTypeId = recordTypesRole.get('AccountRole');
                         Map<String, String> mappedData = new Map<String, String>();
                         mappedData.put('FirstName','First_Name__c');
-                        mappedData.put('LastName','last_Name__c');
+                        mappedData.put('LastName','Last_Name__c');
                         mappedData.put('Political_Affiliation_Role__pc','Role__c');
                         mappedData.put('Political_Affiliation_Relationship__pc','Relationship__c');
                         mappedData.put('PersonMobilePhone','Mobile_Number__c');
-						Account newAccount = Util.createAccount(mappedData, record, recordTypeids.get('PersonAccount'));
+                        Account newAccount = Util.createAccount(mappedData, record, recordTypeids.get('PersonAccount'));
+                        
+                        Account[] foundAccounts = [SELECT Id,PersonContactId from account where FirstName =:record.First_Name__c and LastName =:record.Last_Name__c 
+                                                   and Mobile_Number__pc=:record.Mobile_Number__c];
+                        if(!foundAccounts.isEmpty()){
+                            accountId = foundAccounts.get(0).Id;
+                            contactId = foundAccounts.get(0).PersonContactId;
+                        } else {
+                            insert newAccount;
+                            newAccount = [SELECT Id,PersonContactId from account where Id = :newAccount.Id];
+                            accountId = newAccount.Id;
+                            contactId = newAccount.PersonContactId;
+                        }
+                        recordsToInsert.add(Util.createContactToContactRelationship(thisLead.ConvertedContactId, contactId, role.Id));
                     }
                     when 'JN Bank' {
+                        System.debug('Related persons JN Bank');
                         // create account with JN Bank role 
                         FinServ__ReciprocalRole__c role = mappedRoles.get('JN Affiliation');
+                        System.debug('Role Map: '+ role);
+                        role.RecordTypeId = '0124P0000011gtiQAA';
+                        System.debug('Role Map After: '+ role);
                         Map<String, String> mappedData = new Map<String, String>();
                         mappedData.put('FirstName','First_Name__c');
-                        mappedData.put('LastName','last_Name__c');
+                        mappedData.put('LastName','Last_Name__c');
                         mappedData.put('Political_Affiliation_Role__pc','Role__c');
                         mappedData.put('JN_Bank_Affiliation_Relationship__pc','Relationship__c');
-                        mappedData.put('JN_Bank_Affiliated_Location__c', 'JN_Location__c');
+                        mappedData.put('JN_Bank_Affiliated_Location__pc', 'JN_Location__c');
                         mappedData.put('PersonMobilePhone','Mobile_Number__c');
-						Account newAccount = Util.createAccount(mappedData, record, recordTypeids.get('PersonAccount'));
+                        Account newAccount = Util.createAccount(mappedData, record, recordTypeids.get('PersonAccount'));
+                        Account[] foundAccounts = [SELECT Id,PersonContactId from account where FirstName =:record.First_Name__c and LastName =:record.Last_Name__c 
+                                                   and Mobile_Number__pc=:record.Mobile_Number__c];
+                        if(!foundAccounts.isEmpty()){
+                            accountId = foundAccounts.get(0).Id;
+                            contactId = foundAccounts.get(0).PersonContactId;
+                        } else {
+                            System.debug('creating account Jn');
+                            insert newAccount;
+                              newAccount = [SELECT Id,PersonContactId from account where Id = :newAccount.Id];
+                            accountId = newAccount.Id;
+                            contactId = newAccount.PersonContactId;
+                        }
+                        recordsToInsert.add(Util.createContactToContactRelationship(thisLead.ConvertedContactId, contactId, role.Id));
                     }
                 }
             }
-            //insert all the accounts first
-            List<Account> accountsToInsert = new List<Account>();
-            accountsToInsert.addAll(mappedCardHolders.values());
-           // accountsToInsert.addAll(personAccounts);
-            Database.SaveResult[] savedAccounts = Database.insert(accountsToInsert, true);
             
-            for (Database.SaveResult sr : savedAccounts) {           
+            // accountsToInsert.addAll(personAccounts);
+            Database.SaveResult[] results = Database.insert(recordsToInsert, true);
+            
+            for (Database.SaveResult sr : results) {           
                 if (sr.isSuccess()) {               
                     // Operation was successful, so get the ID of the record that was processed                
                     System.debug(TAG + ' Successfully inserted account. Record ID: ' + sr.getId());                
                 }           
-                else {               
+                else {                    
                     // Operation failed, so get all errors                               
                     for(Database.Error err : sr.getErrors()) {                   
                         System.debug(TAG + ' The following error has occurred.');                                       
                         System.debug(TAG + ' ' + err.getStatusCode() + ': ' + err.getMessage());                   
                         System.debug(TAG + ' Record fields that affected this error: ' + err.getFields());
-                        
                     }
                     
                 }
                 
             }
-            //create card holders
-            queryCardHolders(cardHoldersWrapperList, mappedCardHolders, mappedOppIds);
         }
     }
     
@@ -527,7 +562,7 @@ Encourage client to add start and end date to employment
                                }
                            }
                            when 'Self-Employed' {
-                                 System.debug('success self employed');
+                               System.debug('success self employed');
                                if(!Util.areFieldsEmpty(emptyFieldsForSelfEmployed, record)){  
                                    System.debug('success self employed fields not null');
                                    FinServ__Employment__c employment = new FinServ__Employment__c();
@@ -556,7 +591,7 @@ Encourage client to add start and end date to employment
                            when 'Unemployed' {
                                System.debug('success  employed');
                                if(!Util.areFieldsEmpty(emptyFieldsForUnEmployed, record)){   
-                                 System.debug('success self UNemployed fields not null');
+                                   System.debug('success self UNemployed fields not null');
                                    FinServ__Employment__c employment = new FinServ__Employment__c();
                                    employment.Account__c = record.ConvertedAccountId;
                                    employment.Name = record.Unemployed_Previous_Emoployer__c;
@@ -602,83 +637,4 @@ Encourage client to add start and end date to employment
         return false;
     }
     
-    
-    private static void createSupplementaryCardHolders(Map<Long, Account> mappedCardHolders, Map<Long, ID> mappedOppIds){
-        List<Supplementary_Card_Holders__c> records = new List<Supplementary_Card_Holders__c>();
-        for(Long hashCode: mappedCardHolders.keySet()){
-            Supplementary_Card_Holders__c newRecord = Util.createSupplementaryCardHolder(mappedOppIds.get(hashCode), 
-                                                                                         mappedCardHolders.get(hashCode).Id);
-            records.add(newRecord);
-        }
-        insert records;
-    }
-    class SupplementryCardHolderWrapper {
-        public String lastName,firstName,trn;
-        public SupplementryCardHolderWrapper(String ln, String fn, String trn){
-            this.firstName = fn;
-            this.LastName = ln;
-            this.trn = trn;
-        }
-    }
-    public static void queryCardHolders(List<SupplementryCardHolderWrapper> cardHoldersWrapperList, 
-                                        Map<Long, Account> mappedCardHolders,
-                                        Map<Long, ID> mappedOppIds){
-                                            
-        List<String> lastNames = new List<String>();
-        List<String> firstNames = new List<String>();
-        List<String> trns = new List<String>();
-        list<Account> accounts = new List<Account>();
-        list<Supplementary_Card_Holders__c> holders = new List<Supplementary_Card_Holders__c>();
-                                            
-        for(SupplementryCardHolderWrapper record:cardHoldersWrapperList ){
-            lastNames.add(record.lastName);
-            firstNames.add(record.firstName);
-            trns.add(record.trn);
-        }
-        
-        List<Account> existingAccounts = [SELECT Id FROM Account WHERE FirstName in :firstNames
-                                         AND LastName in :lastNames AND Jamaican_Tax_Registration_Number__c in :trns];
-                                            
-        for(Account existingAccount: existingAccounts) {
-            List<String> nameList = new List<String>{existingAccount.FirstName,existingAccount.LastName, 
-            existingAccount.Jamaican_Tax_Registration_Number__c};
-            Long nameHash = getNameHash(nameList);
-            Id opportunityId = mappedOppIds.get(nameHash);
-            Id accountId = existingAccount.id;
-            //this means account is existing
-            if(mappedCardHolders.containsKey(nameHash)){
-                //create supplementary card holder
-                Supplementary_Card_Holders__c holder = Util.createSupplementaryCardHolder(opportunityId, accountId);
-                holders.add(holder);
-            } else {
-                //create account
-                accounts.add(mappedCardHolders.get(nameHash));
-            }
-        }
-            
-          if(!holders.isEmpty()) {
-              insert holders;                         
-          }
-                                            
-          if(!accounts.isEmpty()) {
-                insert accounts;
-              for(Account newAccount: accounts){
-                  List<String> nameList = new List<String>{newAccount.FirstName,newAccount.LastName, 
-                  newAccount.Jamaican_Tax_Registration_Number__c};
-                  Long nameHash = getNameHash(nameList);
-                   Id opportunityId = mappedOppIds.get(nameHash);
-                  holders = new List<Supplementary_Card_Holders__c>();
-                  Supplementary_Card_Holders__c holder = Util.createSupplementaryCardHolder(opportunityId, newAccount.Id);
-                  holders.add(holder);
-              }
-          if(!holders.isEmpty()) {
-              insert holders;                         
-          }
-          }
-                                            
-    }
-    private static Long getNameHash(List<String> values){     
-        String value = String.join(Values, ':');
-        return value.hashCode();
-    }
 }

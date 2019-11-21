@@ -14,6 +14,7 @@ trigger NewLeadTrigger on Lead (before insert, after insert, before update, afte
             LeadTriggerHandler.crmm_lead_trigger_conversion();
             LeadTriggerHandler.leadConversionBasic();
             LeadTriggerHandler.convertInfoToEmployment();
+            LeadTriggerHandler.convertLeadRelatedPersons();
         }
         else {
             LeadTriggerHandler.crmm_TimeSpentInStage();

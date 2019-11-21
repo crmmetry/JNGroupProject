@@ -2490,13 +2490,13 @@
                 <div  class="slds-section__title slds-border_bottom" style="margin-top:10px;">Total Debt Service Ratio</div>
                 <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                        <lightning:input label="Policy Limit" type="text"  name="Policy Limit" aura:id="PolicyLimit" required="true"  disabled="true"/>
+                        <lightning:input formatter="percent-fixed" step="0.01" label="Policy Limit" type="number"  name="Policy Limit" aura:id="PolicyLimit" required="true"  disabled="true"/>
                     </div>
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                        <lightning:input label="Prior to Proposed Credit(s)" type="text"  name="Prior to Proposed Credit(s)" aura:id="PriortoProposedCredit" required="true" disabled="true"/>
+                        <lightning:input formatter="percent-fixed" step="0.01" label="Prior to Proposed Credit(s)" type="number"  name="Prior to Proposed Credit(s)" aura:id="PriortoProposedCredit" required="true" disabled="true"/>
                     </div>
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                        <lightning:input label="After Proposed Credit(s)" type="text"  name="After Proposed Credit(s)" aura:id="AfterProposedCredit" required="true"  disabled="true"/>
+                        <lightning:input formatter="percent-fixed" step="0.01" label="After Proposed Credit(s)" type="number"  name="After Proposed Credit(s)" aura:id="AfterProposedCredit" required="true"  disabled="true"/>
                     </div>
                 </div>
             </div>
