@@ -15,6 +15,7 @@
     <aura:attribute name="AutoMarketCurrency" type="String" default=""/>
     <aura:attribute name="MarketValueofVehicleA" type="integer"/>
     <aura:attribute name="RowNum" type="Object[]" default="{}"/>
+    <aura:attribute name="applicants" type="String[]"/>
     <aura:attribute name="RDetailAuto" type="Object[]" default="{}"/>
     <aura:attribute name="RDetailUnsecured" type="Object[]" default="{}"/>
     <aura:handler event="c:Requestdetailevent" action="{!c.Requestdetaileventhandler}"/>

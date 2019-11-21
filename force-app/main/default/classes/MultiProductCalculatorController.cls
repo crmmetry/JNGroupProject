@@ -231,7 +231,7 @@ public class MultiProductCalculatorController {
         if(lstacc.size()>0){
             system.debug('lstacc========='+lstacc);
             for(Account a:lstacc){
-                retlst.add( new Wrappercls(a.firstname,a.lastname,a.PersonBirthdate,a.Gross_Monthly_Income__pc,EMCPayment,a.JN_Bank_Affiliation__pc));
+                retlst.add( new Wrappercls(a.firstname,a.lastname,a.PersonBirthdate,a.Gross_Monthly_Income__pc,EMCPayment,a.JN_Bank_Affiliation__pc,a.Id));
             }
         }   
         system.debug('retlst========='+retlst);
@@ -251,13 +251,16 @@ public class MultiProductCalculatorController {
         public Decimal EMC_Payment{get;set;}
         @AuraEnabled
         public Boolean IsJNEmp{get;set;}
-        Wrappercls(string FirstName,string LastName,Date DateOfBirth,Decimal GMIncome,Decimal EMCPayment,Boolean IsJNEmployee){
+        @AuraEnabled
+        public String accountId{get;set;}
+        Wrappercls(string FirstName,string LastName,Date DateOfBirth,Decimal GMIncome,Decimal EMCPayment,Boolean IsJNEmployee, String accountId){
             this.First_Name=FirstName;
             this.Last_Name=LastName;
             this.DateOf_Birth=DateOfBirth;
             this.GM_Income=GMIncome;
             this.EMC_Payment=EMCPayment;
             this.IsJNEmp=IsJNEmployee;
+            this.accountId=accountId;
         }
     }
     
