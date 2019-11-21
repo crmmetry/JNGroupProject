@@ -1,7 +1,7 @@
 <apex:page standardcontroller="Opportunity" applyBodyTag="false" 
            extensions="PDFGeneratorController" renderAs="pdf">
     <apex:stylesheet value="{!URLFOR($Resource.JNAssets, '/images/pdf.css')}"/>
-        <head>
+    <head>
         <style type="text/css" media="print">
             @page {
             @top-center {
@@ -36,7 +36,7 @@
         <div style="width:52%;float:left;"><b>Applicant's Name:</b> {!applicant.Account__r.Name}</div>
         <div style="width:48%;float:left;">
             <div style="font-weight: bold;">                 
-                 Date Application Commenced:
+                Date Application Commenced:
                 <small style="display:inline;">{!todayDate}</small>
             </div>
         </div>
@@ -51,7 +51,7 @@
         </h3>
         <div style="border: 1px solid rgb(165, 208, 40);margin: 1px; margin-top:-16px;">
             <div style="margin-top:10px;font-size:small;">
-                <table class="summary-table">
+                <table class="content-table">
                     <tr>
                         <th style="border: 1px solid rgb(165, 208, 40);background-color:rgb(203, 230, 123);">ASSETS</th>
                         <th style="border: 1px solid rgb(165, 208, 40);border-left:1px;background-color:rgb(203, 230, 123);">VALUE<br/>(Before Proposed Loan)</th>
@@ -73,7 +73,7 @@
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">Loan(s) on Real Estate</td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
                             <apex:outputText value="{0,number,currency}">
-                                <apex:param value="{! loanRealEstateSumBoth}" />
+                                <apex:param value="{! loanRealEstateBefore}" />
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
@@ -242,13 +242,13 @@
             </div>
         </div>
     </div>
-    <div style="margin-top:30px;">
+    <div style="margin-top:250px;">
         <h3 style="width:70%;color:black;background-color:rgb(165, 208, 40);font-family:Trebuchet MS; height:30px; padding-top:12px; margin-left:1px;">
             &nbsp;SUMMARY OF MONTHLY INFLOWS &amp; OUTFLOWS
         </h3>
         <div style="border: 1px solid rgb(165, 208, 40);margin: 1px; margin-top:-16px;">
             <div class="table-top">
-                <table class="summary-table">
+                <table class="content-table">
                     <tr>
                         <th style="border: 1px solid rgb(165, 208, 40);background-color:rgb(203, 230, 123);">INFLOWS</th>
                         <th style="border: 1px solid rgb(165, 208, 40);border-left:1px;background-color:rgb(203, 230, 123);">VALUE<br/>(Before Proposed Loan)</th>
@@ -270,7 +270,7 @@
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
-                        	<apex:outputText value="{0,number,currency}">
+                            <apex:outputText value="{0,number,currency}">
                                 <apex:param value="{! installmentPaymentsAfter}" />
                             </apex:outputText>
                         </td>
@@ -278,18 +278,18 @@
                     <tr>
                         <td style="border: 1px solid rgb(165, 208, 40);border-top:1px;">Income (Performance-Based Pay)</td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
-                        	<apex:outputText value="{0,number,currency}">
+                            <apex:outputText value="{0,number,currency}">
                                 <apex:param value="{! incomePerformance}" />
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">Life Insurance Payments</td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
-                          <apex:outputText value="{0,number,currency}">
+                            <apex:outputText value="{0,number,currency}">
                                 <apex:param value="{! lifeInsurancePayments}" />
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
-                           <apex:outputText value="{0,number,currency}">
+                            <apex:outputText value="{0,number,currency}">
                                 <apex:param value="{! lifeInsurancePaymentsAfter}" />
                             </apex:outputText>
                         </td>
@@ -346,7 +346,7 @@
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
-                        
+                            
                             <apex:outputText value="{0,number,currency}">
                                 <apex:param value="{! propertyRelatedCostsAfter}" />
                             </apex:outputText>
@@ -355,20 +355,20 @@
                     <tr>
                         <td style="border: 1px solid rgb(165, 208, 40);border-top:1px;">Other Income</td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
-                                                
+                            
                             <apex:outputText value="{0,number,currency}">
                                 <apex:param value="{! incomeOther}" />
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">Personal/Family Costs</td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
-                                                                        
+                            
                             <apex:outputText value="{0,number,currency}">
                                 <apex:param value="{! personalFamilyCosts}" />
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
-                                                                        
+                            
                             <apex:outputText value="{0,number,currency}">
                                 <apex:param value="{! personalFamilyCostsAfter}" />
                             </apex:outputText>
@@ -377,20 +377,20 @@
                     <tr>
                         <td style="border: 1px solid rgb(165, 208, 40);border-top:1px;background-color:rgb(203, 230, 123);"><b>Total Gross Monthly Income</b></td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
-                                                                                                
+                            
                             <apex:outputText value="{0,number,currency}">
                                 <apex:param value="{! totalGrossMontlyIncome}" />
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">Utilities/Household Expenses</td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
-                                                                                                
+                            
                             <apex:outputText value="{0,number,currency}">
                                 <apex:param value="{! utilitiesExpenses}" />
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
-                                                                                                
+                            
                             <apex:outputText value="{0,number,currency}">
                                 <apex:param value="{! utilitiesExpensesAfter}" />
                             </apex:outputText>
@@ -399,20 +399,20 @@
                     <tr>
                         <td style="border: 1px solid rgb(165, 208, 40);border-top:1px;">Less Statutory Deductions</td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">          
-                                                                                                
+                            
                             <apex:outputText value="{0,number,currency}">
                                 <apex:param value="{! lessStatutoryDeductions}" />
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">Transportation Costs</td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
-                                                                       
+                            
                             <apex:outputText value="{0,number,currency}">
                                 <apex:param value="{! transportationCosts}" />
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
-                                                                                               
+                            
                             <apex:outputText value="{0,number,currency}">
                                 <apex:param value="{! transportationCostsAfter}" />
                             </apex:outputText>
@@ -421,20 +421,20 @@
                     <tr>
                         <td style="border: 1px solid rgb(165, 208, 40);border-top:1px;background-color:rgb(203, 230, 123);"><b>TOTAL INFLOWS</b></td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;background-color:rgb(203, 230, 123);">
-                                                                                                                       
+                            
                             <apex:outputText value="{0,number,currency}">
                                 <apex:param value="{! totalInflows}" />
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;background-color:rgb(203, 230, 123);"><b>TOTAL OUTFLOWS</b></td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;background-color:rgb(203, 230, 123);">
-                                                                                                                       
+                            
                             <apex:outputText value="{0,number,currency}">
                                 <apex:param value="{! totalOutflowsBefore}" />
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;background-color:rgb(203, 230, 123);">
-                                                                                                                       
+                            
                             <apex:outputText value="{0,number,currency}">
                                 <apex:param value="{! totalOutflowsAfter}" />
                             </apex:outputText>
@@ -443,13 +443,13 @@
                     <tr>
                         <td colspan="3" style="text-align: right;border: 1px solid rgb(165, 208, 40);border-top:1px;"><b>Residual Income After Commitments<br/>(Total Inflows less Total Outflows)</b></td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;background-color:rgb(203, 230, 123);">
-                                                                                                                                       
+                            
                             <apex:outputText value="{0,number,currency}">
                                 <apex:param value="{! residualIncomeAfterBeforeLoan}" />
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;background-color:rgb(203, 230, 123);">
-                                                                                                                                       
+                            
                             <apex:outputText value="{0,number,currency}">
                                 <apex:param value="{! residualIncomeAfterAfterLoan}" />
                             </apex:outputText>
@@ -480,30 +480,30 @@
                         <td colspan="2" class="tdText2">Monthly Payment</td>
                     </tr>
                     <apex:variable var="index" value="{!1}" />
-                    <apex:repeat value="{!assets}" var="asset"> <!-- use assets here -->
-                        <apex:outputPanel rendered="{!IF(asset.RecordType.DeveloperName == 'Real_Estate', true, false)}">
-                            <tr>
-                                <td rowspan="2" class="sideChar">E{!index}</td>
-                                <td rowspan="2" class="tdValue2">{!asset.Address__c }</td>
-                                <td rowspan="2" class="tdValue2">{!asset.Property_Type__c }</td>
-                                <td rowspan="2" class="tdValue2">{!asset.Lender__c  }</td>
-                                <td rowspan="2" class="tdValue2"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Total_Market_Value_Calc__c }"/></apex:outputText></td>
-                                
-                                <td class="tdValue2">Prior</td>
-                                <td  class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Loan_Balance_Prior__c  }"/></apex:outputText></td>     
-                                <td class="tdValue2">After</td>
-                                <td  class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Loan_Balance_After__c  }"/></apex:outputText></td>    
+                    <tbody >
+                        <apex:repeat value="{!realEstateAssets}" var="asset"  > <!-- use assets here -->
+                            
+                            <tr >
+                                <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-right:1px;">E{!index}</td>
+                                <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);border-top:1px;">{!asset.Address__c }</td>
+                                <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">{!asset.Property_Type__c }</td>
+                                <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Total_Market_Value_Calc__c }"/></apex:outputText></td>
+                                <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">{!asset.Lender__c  }</td>
+                                <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">Prior</td>
+                                <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Loan_Balance_Prior__c  }"/></apex:outputText></td>
+                                <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">Prior</td>
+                                <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Monthly_Payment_Prior__c   }"/></apex:outputText></td>
                             </tr>
-                            <tr>
-                                <td class="tdValue2">Prior</td>
-                                <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Monthly_Payment_Prior__c    }"/></apex:outputText></td>     
-                                <td class="tdValue2">After</td>
-                                <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Monthly_Payment__c     }"/></apex:outputText></td>     
+                            <tr >
+                                <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">After</td>
+                                <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Monthly_Payment__c    }"/></apex:outputText></td>
+                                <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;">After</td>
+                                <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Loan_Balance_After__c   }"/></apex:outputText></td>
                             </tr>
-                            <apex:variable var="index" value="{!1}" />
-                        </apex:outputPanel>
-                    </apex:repeat>
-                    
+                            
+                            <apex:variable var="index" value="{!index + 1}" />
+                        </apex:repeat>
+                    </tbody>
                     
                 </table>
             </div>
@@ -517,34 +517,35 @@
                         <td></td>
                         <td style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);">Vehicle Details</td>
                         <td class="tdText2">Total Market Value</td>
-                        
+                        <td class="tdText2">Lender</td>
                         <td colspan="2" class="tdText2">Loan Balance</td>
                         <td colspan="2" class="tdText2">Monthly Payment</td>
                     </tr>
-                    <tr>
-                        <td class="sideChar">P</td>
-                        <td class="tdValue2"></td>
-                        <td class="tdValue2"></td>
-                        <td class="tdValue2">After</td>
-                        <td class="tdValue2">$0.00</td>
-                        <td class="tdValue2">After</td>
-                        <td class="tdValue2">$0.00</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="2" style="border: 1px solid rgb(191, 191, 191);background-color:rgb(242, 242, 242);border-right:1px;border-top:1px;">E1</td>
-                        <td rowspan="2" class="tdValue2"></td>
-                        <td rowspan="2" class="tdValue2"></td>
-                        <td class="tdValue2">Prior</td>
-                        <td class="tdValue2">$0.00</td>
-                        <td class="tdValue2">After</td>
-                        <td class="tdValue2">$0.00</td>
-                    </tr>
-                    <tr>
-                        <td class="tdValue2">Prior</td>
-                        <td class="tdValue2">$0.00</td>
-                        <td class="tdValue2">After</td>
-                        <td class="tdValue2">$0.00</td>
-                    </tr>
+                    <apex:variable var="index" value="{!1}" />
+                    <tbody>
+                        <apex:repeat value="{!motorVehicleAssets}" var="asset"> <!-- use assets here -->
+                            <tr>
+                                <td rowspan="2" class="sideChar">E{!index}</td>
+                                <td rowspan="2" class="tdValue2">{!asset.Vehicle_Details__C}</td>
+                                <td rowspan="2" class="tdValue2"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Total_Market_Value_Calc__c }"/></apex:outputText></td>
+                                <td rowspan="2" class="tdValue2">{!asset.Lender__C}</td>
+                                
+                                <td class="tdValue2">Prior</td>
+                                <td><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Loan_Balance_Prior__c  }"/></apex:outputText> </td>                       
+                                <td class="tdValue2">Prior</td>
+                                <td><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Loan_Balance_After__c  }"/></apex:outputText></td>                    
+                            </tr>
+                            <tr>
+                                <td class="tdValue2">After</td>
+                                <td class="tdValue2"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Monthly_Payment__c    }"/></apex:outputText></td>
+                                <td class="tdValue2">After</td>
+                                <td class="tdValue2"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Loan_Balance_After__c   }"/></apex:outputText></td>
+                            </tr>
+                            <apex:variable var="index" value="{!index + 1}" />
+
+                        </apex:repeat>
+                    </tbody>
+                                                     
                 </table>
             </div>
             <h5><b>
@@ -562,28 +563,27 @@
                         <td colspan="2" class="tdText2">Monthly Payment</td>
                     </tr>
                     <apex:variable var="index" value="{!1}" />
-                    <apex:repeat value="{!assets}" var="asset"> <!-- use assets here -->
-                        <apex:outputPanel rendered="{!IF(asset.RecordType.DeveloperName == 'Other_Assets', true, false)}">
-                            <tr>
+                    <tbody>
+                    <apex:repeat value="{!otherAssetsAssets}" var="asset">
+                                                    <tr>
                                 <td rowspan="2" class="sideChar">E{!index}</td>
-                                <td rowspan="2" class="tdValue2">{!asset.Description_of_Asset__c }</td>
+                                <td rowspan="2" class="tdValue2">{!asset.Description_of_Asset__c  }</td>
                                 <td rowspan="2" class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Total_Market_Value_Calc__c }"/></apex:outputText></td>     
+                                <td rowspan="2" class="tdValue2">{!asset.Lender__C }</td>
                                 <td class="tdValue2">Prior</td>
                                 <td  class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Loan_Balance_Prior__c  }"/></apex:outputText></td>     
-                                <td class="tdValue2">After</td>
-                                <td  class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Loan_Balance_After__c  }"/></apex:outputText></td>     
+                                <td class="tdValue2">Prior</td>
+                                <td  class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Monthly_Payment_Prior__c }"/></apex:outputText></td>     
                             </tr>
                             <tr>
-                                <td class="tdValue2">Prior</td>
-                                <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Monthly_Payment_Prior__c    }"/></apex:outputText></td>     
                                 <td class="tdValue2">After</td>
-                                <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Monthly_Payment__c     }"/></apex:outputText></td>     
+                                <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Loan_Balance_After__c    }"/></apex:outputText></td>     
+                                <td class="tdValue2">After</td>
+                                <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Monthly_Payment__c  }"/></apex:outputText></td>     
                             </tr>
-                            <apex:variable var="index" value="{!1}" />
-                        </apex:outputPanel>                
+                         <apex:variable var="index" value="{!index + 1}" />
                     </apex:repeat>
-                    
-                    
+                    </tbody>                                     
                 </table>
             </div>
             <h5 ><b>
@@ -773,8 +773,7 @@
                         <td class="tdText2">Annual Premium</td>
                     </tr>
                     <apex:variable var="index" value="{!1}" />
-                    <apex:repeat value="{!assets}" var="asset"> <!-- use assets here -->
-                        <apex:outputPanel rendered="{!IF(asset.RecordType.DeveloperName == 'Life_Insurance_Policies', true, false)}">
+                    <apex:repeat value="{!lifeInsuranceAssets}" var="asset"> <!-- use assets here -->
                             <tr>
                                 <td class="sideChar">E{!index}</td>
                                 <td class="tdValue3">{!asset.Financial_Institution__c }</td>
@@ -783,7 +782,7 @@
                                 <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Sum_Insured__c  }"/></apex:outputText></td>
                                 <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Annual_Premium__c   }"/></apex:outputText></td>
                             </tr>
-                        </apex:outputPanel>
+                        
                         <apex:variable var="index" value="{!index + 1}" />
                         
                     </apex:repeat>
@@ -804,8 +803,7 @@
                         <td class="tdText2">Monthly Contribution<br/>(After loan)</td>
                     </tr>
                     <apex:variable var="index" value="{!1}" />
-                    <apex:repeat value="{!assets}" var="asset"> <!-- use assets here -->
-                        <apex:outputPanel rendered="{!IF(asset.RecordType.DeveloperName == 'Pension_Contributions_or_Individual', true, false)}">
+                    <apex:repeat value="{!pensionAssets}" var="asset"> <!-- use assets here -->
                             <tr>
                                 <td  class="sideChar">E{!index}</td>
                                 <td class="tdValue2">{!asset.Pension_Scheme__c }</td>
@@ -814,17 +812,7 @@
                                 <td class="tdValue3"><apex:outputText value="{0,number,currency}"><apex:param value="{! asset.Monthly_Contribution_After_Loan__c   }"/></apex:outputText></td>
                             </tr>
                             <apex:variable var="index" value="{!index + 1}" />
-                        </apex:outputPanel>
-                        <apex:outputPanel rendered="{!IF(assetsSize == 0, true, false)}">
-                            <tr>
-                                <td  class="sideChar">E1</td>
-                                <td class="tdValue2"></td>
-                                <td class="tdValue3">$0.00</td>
-                                <td class="tdValue3">$0.00</td>
-                                <td class="tdValue3">$0.00</td>
-                            </tr>
-                        </apex:outputPanel>
-                        
+                                                
                     </apex:repeat>
                     
                 </table>

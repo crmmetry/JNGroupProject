@@ -2683,7 +2683,7 @@
                         console.log('--------------------------2.3=> ');
                         Total_Loan_Amount1 = RequestDataAuto[0].LoanAmount;
                     }
-                    Market_Value_of_Vehicle1 = cmp.find('Minimummv').get('v.value');
+                    Market_Value_of_Vehicle1 = cmp.find('MarketValueofVehicle1').get('v.value');
                     console.log('Total_Loan_Amount1---------'+Total_Loan_Amount1);
                     console.log('Market_Value_of_Vehicle1---------'+Market_Value_of_Vehicle1);
                 }
@@ -2695,7 +2695,7 @@
                     switch(type){
                         case "0":
                             // For NONE
-                            PC_Deposit_Account_Balance1  = '0';
+                            //PC_Deposit_Account_Balance1  = '0';
                             break;
                         case "1":
                             Proposed_Starting_Limit1 = cmp.find("ccStartingLimit").get("v.value");
@@ -2710,7 +2710,7 @@
                     switch(type){
                         case "0":
                             // For NONE
-                            PCL_Deposit_Account_Balance1  = '0';
+                            //PCL_Deposit_Account_Balance1  = '0';
                             break;
                         case "1":
                             Line_of_Credit_Starting_Limit1 = cmp.find("locStartingLimit").get("v.value");
@@ -2721,7 +2721,7 @@
                         case "2":
                             //Real state
                             Line_of_Credit_Starting_Limit1 = cmp.find("locStartingLimit").get("v.value");
-                            PCL_Deposit_Account_Balance1=cmp.find("locMarketValueofProperty").get("v.value");
+                            //PCL_Deposit_Account_Balance1=cmp.find("locMarketValueofProperty").get("v.value");
                                 console.log('Line_of_Credit_Starting_Limit1 RS---------'+Line_of_Credit_Starting_Limit1);
                             break;
                     }

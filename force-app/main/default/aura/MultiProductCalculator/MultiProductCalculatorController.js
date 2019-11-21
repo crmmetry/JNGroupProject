@@ -2999,9 +2999,20 @@
             console.log("11/2/2019--------------------------3c");
             PC_Interest_Rate = cmp.find("ccInterestRate").get("v.value");
             console.log("11/2/2019--------------------------3d");
-            PC_Deposit_Account_Balance = cmp
-            .find("ccDepositAccountBalance")
-            .get("v.value");
+            
+            var pclCT = cmp.find("ccCollateralType").get("v.value");
+            switch (pclCT) {
+                case "0":
+                    
+                    break;
+                case "1":
+                    PC_Deposit_Account_Balance = cmp.find("ccDepositAccountBalance").get("v.value");
+                    break;
+            }
+            
+            
+            
+            
             PC_Account_Hypothecated_for_another_Loan =
                 cmp.find("ccIsthisAccounthypothecatedforanotherloan").get("v.value") ==
                 "0"
@@ -3150,6 +3161,7 @@
                     PCL_Total_Existing_Loan_Balance = cmp
                     .find("locTotalExistingLoanBalanceRS")
                     .get("v.value");
+                    Market_Value_of_Propert=cmp.find('locMarketValueofProperty').get('v.value');
                     break;
             }
             console.log("testk--------------------------1-");

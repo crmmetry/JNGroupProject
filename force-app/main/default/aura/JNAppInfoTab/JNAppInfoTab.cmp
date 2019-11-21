@@ -46,7 +46,7 @@
                 name="proposed_card_limit"
                 label="Proposed Card Limit"
                 required="true"
-                value="{!v.SiteLead.Proposed_Card_Limit__c}"
+                value="{!v.SiteLead.Estimated_Amount__c}"
                 formatter="currency"
                 type="number"
               />
