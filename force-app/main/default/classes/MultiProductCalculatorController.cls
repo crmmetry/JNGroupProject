@@ -99,6 +99,8 @@ public class MultiProductCalculatorController {
             if(loancalculation != null){
                 Id rtID = Schema.SObjectType.Loan_Calculator__c.getRecordTypeInfosByName().get('Product Details').getRecordTypeId();
                 loancalculation.recordTypeId =rtID;
+                loancalculation.Annual_Membership_Per_sulpplementary__c=string.valueOf(loancalculation.Annual_Membership_Per_sulpplementary__c);
+                loancalculation.Annual_Membership__c=string.valueOf(loancalculation.Annual_Membership__c);
                 insert loancalculation;
                 
                 system.debug('SaveLoanCalculation=='+loancalculation.Id);

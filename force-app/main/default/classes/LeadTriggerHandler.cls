@@ -371,15 +371,62 @@ Encourage client to add start and end date to employment
         List<String> leadIds = new List<String>();
         List<String> convertedAccountIds = new List<String>();
         Map<String, Id> recordTypeids = Util.getRecordTypeids('Account');
-        for(Lead record: leads){
-            //new lead conversion
-            if(checkIfNewConversion(record)){
-                leadIds.add(record.Id);
-                convertedAccountIds.add(record.ConvertedAccountId);
-            }
-        }
+        Map<String, FinServ__ReciprocalRole__c> mappedRoles = Util.getRoleRelationships(); //get contact roles
+        Map<Id, Lead> mappedOpportunityRecords = new Map<Id, Lead>();
+        Lead thisLead;
+        Id accountId;
+        Id contactId;
+        List<Sobject> recordsToInsert = new List<Sobject>();
+        Map<String, Id> recordTypesRole = Util.getRecordTypeids('FinServ__ReciprocalRole__c');
+        List<String> emptyFieldsForEmergencyContact = new List<String>{
+            'Emergency_Contact_First_Name__c',
+                'Emergency_Contact_Last_Name__c',
+                'Emergency_Contact_Personal_Email__c',
+                'Emergency_Contact_Mobile__c'};
+                    
+                    for(Lead record: leads){
+                        //new lead conversion
+                        if(checkIfNewConversion(record)){
+                            leadIds.add(record.Id);
+                            convertedAccountIds.add(record.ConvertedAccountId);
+                            mappedOpportunityRecords.put(record.ConvertedOpportunityId,record );
+                            if(!Util.areFieldsEmpty(emptyFieldsForEmergencyContact, record)){
+                                //create emergency contact
+                                Map<String, String> mappedData = new Map<String, String>();
+                                //create account first
+                                mappedData.put('FirstName','Emergency_Contact_First_Name__c');
+                                mappedData.put('LastName','Emergency_Contact_Last_Name__c');
+                                mappedData.put('MiddleName','Emergency_Contact_Middle_Initial__c');
+                                mappedData.put('PersonMobilePhone','Emergency_Contact_Mobile__c');
+                                mappedData.put('Personal_Email__c','Emergency_Contact_Personal_Email__c');
+                                mappedData.put('Emergency_Contact_Relationship__pc','Emergency_Contact_Relationship__c');
+                                mappedData.put('PersonHomePhone','Emergency_Contact_Home_Phone__c');                     
+                                Account newAccount = Util.createAccount(mappedData, record, recordTypeids.get('PersonAccount'));
+                                
+                                Account[] foundAccounts = [SELECT Id, PersonContactId from account where FirstName =:record.Emergency_Contact_First_Name__c 
+                                                           and LastName =:record.Emergency_Contact_Last_Name__c 
+                                                           and Mobile_Number__pc=:record.Emergency_Contact_Mobile__c];
+                                FinServ__ReciprocalRole__c role = mappedRoles.get('Emergency Contact');
+                                if(!foundAccounts.isEmpty()){
+                                    accountId = foundAccounts.get(0).Id;
+                                    contactId = foundAccounts.get(0).PersonContactId;
+                                } else {
+                                    insert newAccount;
+                                    newAccount = [SELECT Id,PersonContactId from account where Id = :newAccount.Id];
+                                    accountId = newAccount.Id;
+                                    contactId = newAccount.PersonContactId;
+                                }
+                                recordsToInsert.add(Util.createContactToContactRelationship(record.ConvertedContactId, contactId, role.Id));
+                            }
+                        }
+                        
+                    }
         if(!leadIds.isEmpty()){
-            System.debug('Related persons new conversion');
+            //find all loan calculations with led id and update opportunity id
+            updateLoanCalculationsWithOpportunity(leadIds);
+            // enforce lead to opportunity record types
+            enforceLeadOpportunityRecordType(mappedOpportunityRecords);
+            
             Map<Id, Lead_Related_Person__c> leadRelatedPersons = new Map<Id, Lead_Related_Person__C>([
                 SELECT Id,TRN__c ,TItle__c ,Role__c ,
                 Relationship__c ,Mobile_Number__c ,Middle_Name__c ,
@@ -388,14 +435,6 @@ Encourage client to add start and end date to employment
                 Business_Number__c ,Afilliate_Type__c 
                 FROM Lead_Related_Person__c WHERE Lead_and_Referral__c in :leadids
             ]);
-            
-            Lead thisLead;
-            Id accountId;
-            Id contactId;
-            List<Sobject> recordsToInsert = new List<Sobject>();
-            Map<String, FinServ__ReciprocalRole__c> mappedRoles = Util.getRoleRelationships(); //get contact roles
-            Map<String, Id> recordTypesRole = Util.getRecordTypeids('FinServ__ReciprocalRole__c');
-
             
             for(Lead_Related_Person__C record: leadRelatedPersons.values()){
                 System.debug('found Related persons');
@@ -413,23 +452,24 @@ Encourage client to add start and end date to employment
                         mappedData.put('Supplementary_Applicant_Relationship__c','Relationship__c');
                         mappedData.put('Jamaican_Tax_Registration_Number__c','TRN__c');
                         Account newAccount = Util.createAccount(mappedData, record, recordTypeids.get('PersonAccount'));
-                        //query
                         
                         Account[] foundAccounts = [SELECT Id from account where FirstName =:record.First_Name__c and LastName =:record.Last_Name__c 
                                                    and Jamaican_Tax_Registration_Number__c=:record.TRN__c];
                         if(!foundAccounts.isEmpty()){
                             accountId = foundAccounts.get(0).Id;
+                            System.debug('existing  Credit Card Extension');
                         } else {
                             insert newAccount;
                             accountId = newAccount.Id;
+                            System.debug('new  Credit Card Extension');
+                            System.debug('Opp Id: '+thisLead.ConvertedOpportunityId);
                         }
-                        recordsToInsert.add(Util.createSupplementaryCardHolder(thisLead.ConvertedOpportunityId, accountId));
+                        recordsToInsert.add(Util.createSupplementaryCardHolder(thisLead.ConvertedOpportunityId, thisLead.ConvertedAccountId));
                     }
                     when 'Political' {
-                         System.debug('Related persons Political');
+                        System.debug('Related persons Political');
                         // create account with Political role  
                         FinServ__ReciprocalRole__c role = mappedRoles.get('Political Affiliation');
-                        role.RecordTypeId = recordTypesRole.get('AccountRole');
                         Map<String, String> mappedData = new Map<String, String>();
                         mappedData.put('FirstName','First_Name__c');
                         mappedData.put('LastName','Last_Name__c');
@@ -456,7 +496,6 @@ Encourage client to add start and end date to employment
                         // create account with JN Bank role 
                         FinServ__ReciprocalRole__c role = mappedRoles.get('JN Affiliation');
                         System.debug('Role Map: '+ role);
-                        role.RecordTypeId = '0124P0000011gtiQAA';
                         System.debug('Role Map After: '+ role);
                         Map<String, String> mappedData = new Map<String, String>();
                         mappedData.put('FirstName','First_Name__c');
@@ -474,7 +513,7 @@ Encourage client to add start and end date to employment
                         } else {
                             System.debug('creating account Jn');
                             insert newAccount;
-                              newAccount = [SELECT Id,PersonContactId from account where Id = :newAccount.Id];
+                            newAccount = [SELECT Id,PersonContactId from account where Id = :newAccount.Id];
                             accountId = newAccount.Id;
                             contactId = newAccount.PersonContactId;
                         }
@@ -635,6 +674,46 @@ Encourage client to add start and end date to employment
                
            }
         return false;
+    }
+    private static void updateLoanCalculationsWithOpportunity(List<Id> ids){
+        List<Loan_Calculator__c > updates = new List<Loan_Calculator__c >();
+        for(Loan_Calculator__c record: [SELECT Id,Lead_and_Referral__c FROM Loan_Calculator__c  WHERE Lead_and_Referral__c in :ids]){
+            record.Opportunity__c = newMap.get(record.Lead_and_Referral__c).ConvertedOpportunityId;
+            updates.add(record);
+        }
+        if(!updates.isEmpty()){
+            update updates;
+        }
+    }
+    // when lead is being converted, both and lead and opportunity should have same record type
+    private static void enforceLeadOpportunityRecordType(Map<Id, Lead> mappedRecords){
+        Map<String, Id> leadRecordTypes = Util.getRecordTypeids('Lead');
+        Map<String, Id> opportunityRecordTypes = Util.getRecordTypeids('Opportunity');
+        List<Opportunity> updates = new List<Opportunity>();
+        String devName;
+        Lead thisLead;
+        Id oppRecordTypeId;
+        //lead => opportunity
+        Map<String,String> recordTypeMappings = new Map<String,String>{
+                'Loan' => 'Credit_Facility',
+                'Mortgage' => 'Mortgage',
+                'Savings_Chequing' => 'Savings_Chequing'
+        };
+        for(Opportunity record: [SELECT Id,RecordTypeid FROM Opportunity where Id in: mappedRecords.keySet()]){
+			thisLead = mappedRecords.get(record.Id);            
+            devName = Util.getRecordTypeDevName(thisLead.RecordTypeid, leadRecordTypes);
+              if(devName != null && recordTypeMappings.containsKey(devName)){
+                  oppRecordTypeId = opportunityRecordTypes.get(recordTypeMappings.get(devName));
+                  if(record.RecordTypeId != oppRecordTypeId){
+                      record.RecordTypeId = oppRecordTypeId;
+                  	  updates.add(record);
+                  }
+                     
+              }     
+        } 
+        if(!updates.isEmpty()){
+            update updates;
+        }        
     }
     
 }

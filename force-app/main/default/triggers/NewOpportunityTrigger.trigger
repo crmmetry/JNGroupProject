@@ -8,6 +8,7 @@ trigger NewOpportunityTrigger on Opportunity (before insert, after insert,after 
             } 
         } else {
             OpportunityTriggerHandler.lockRecordsForEditing();
+            OpportunityTriggerHandler.assignOpportunityRecordTypeName(); 
         }
     } else if( Trigger.isInsert) {
          System.debug('NewOpportunityTrigger');

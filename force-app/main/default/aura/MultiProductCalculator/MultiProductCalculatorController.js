@@ -2493,6 +2493,9 @@
         var PC_Collateral_Type = "";
         var Proposed_Starting_Limit = "";
         var Type_of_Card = "";
+        var Minimum_Payment_as_per_Credit_Limit= "";
+        var Annual_Membership= "";
+        var Annual_Membership_Per_sulpplementary= "";
         var PC_Type_of_Cash_Secured_Collateral = "";
         var PC_Deposit_Account_Balance = "";
         var PC_Account_Hypothecated_for_another_Loan = "";
@@ -2703,7 +2706,7 @@
             if (RequestDataAuto.length >= 2) {
                 JN_Staff1_intereste_rate = RequestDataAuto[1].Interestrate;
                 JN_Staff1_loan_term =
-                    RequestDataAuto[1].LoanTerm1 * 12 + RequestDataAuto[1].LoanTerm2;
+                    parseFloat(RequestDataAuto[1].LoanTerm1 * 12 )+parseFloat( RequestDataAuto[1].LoanTerm2);
             }
             console.log("pavit1--------------------------Auto Loan");
             Monthly_Loan_Payment = cmp.find("MonthlyLoanPayment1").get("v.value");
@@ -2987,7 +2990,11 @@
             console.log("11/2/2019--------------------------3");
             Nick_Name_Of_Calculation = "Credit Card";
             PC_Credit_Limit = "JMD";
+            Type_of_Card=cmp.find("ccTypeofCard").get("v.value");
             
+            Minimum_Payment_as_per_Credit_Limit=cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value");
+            Annual_Membership=cmp.find("ccAnnualMembership").get("v.value");
+            Annual_Membership_Per_sulpplementary=cmp.find("ccAnnualMembershippersupplementaryApplicant").get("v.value");
             Proposed_Starting_Limit = cmp.find("ccStartingLimit").get("v.value");
             console.log("11/2/2019--------------------------3a");
             PC_Collateral_Type =
@@ -3073,20 +3080,19 @@
                     Card_used_by_other_not_cardholder = "No";
                 
                 var pclAcc = cmp.find("Account_Type__id").get("v.value");
-                
+                interest_in_JN_Life_CC_Creditor_Life_iIn = cmp.find('CCLifeInsurance').get('v.value');
                 console.log("11/2/2019--------------------------3.1");
                 Account_Holders = cmp.find("Account_Holders__id").get("v.value");
                 console.log("11/2/2019--------------------------3.2");
                 Account_Number = cmp.find("Account_Number__id").get("v.value");
-                console.log("11/2/2019--------------------------3.3");
+                console.log("11/22/2019--------------------------3.3"+cmp.find("Account_Number__id").get("v.value"));
+                Desired_Statement_Date = cmp.find('DesiredMonthlyRepaymentDateCC').get('v.value');
                 Account_Type = cmp.find("Account_Type__id").get("v.value");
                 console.log("11/2/2019--------------------------3.4");
                 Annual_Interest_Rate_on_Deposit_Account = cmp
                 .find("Annual_Interest_Rate_on_Deposit_Account__id")
                 .get("v.value");
-                Financial_Institution = cmp
-                .find("Financial_Institution__id")
-                .get("v.value");
+                Financial_Institution = cmp.find("Financial_Institution__id").get("v.value");
                 console.log("11/2/2019--------------------------3.2");
                 //Market_Value_of_Propert=cmp.find('loc_MarketValueofProperty').get('v.value');
                 //Legal_Related_Activities=cmp.find('Legal_Related_Activities__id').get('v.value');
@@ -3240,8 +3246,8 @@
         }
         
         //console.log('test ###############--------------------------1-');
-        //Desired_Statement_Date = cmp.find('Desired_Statement_Date__id').get('v.value');
-        //interest_in_JN_Life_CC_Creditor_Life_iIn = cmp.find('interest_in_JN_Life_CC_Creditor_Life_iIn__id').get('v.value');
+        //
+        //
         // console.log('Account_Holders=====>'+Account_Holders);
         //console.log('Account_Holders_LOC=====>'+Account_Holders_LOC);
         //console.log('Account_Number=====>'+Account_Number);
@@ -3319,7 +3325,7 @@
             Unsecure_Months__c: monthun,
             PC_Credit_Limit__c: PC_Credit_Limit,
             PC_Credit_Limit_Amount__c: Reqeusted_Limit,
-            Reqeusted_Limit__c: Reqeusted_Limit,
+            
             PC_Interest_Rate__c: PC_Interest_Rate,
             Number_of_Supplementary_Applicant__c: Number_of_Supplementary_Applicant,
             PC_Collateral_Type__c: PC_Collateral_Type,
@@ -3372,9 +3378,15 @@
             Staff2_Mthly_Loan_Payment_D_Moratorium__c: Staff2_Mthly_Loan_Payment_D_Moratorium,
             Staff2_Mthly_Loan_Payment_A_Moratorium__c: Staff2_Mthly_Loan_Payment_A_Moratorium,
             Staff3_Mthly_Loan_Payment_D_Moratorium__c: Staff3_Mthly_Loan_Payment_D_Moratorium,
-            Staff3_Mthly_Loan_Payment_A_Moratorium__c: Staff3_Mthly_Loan_Payment_A_Moratorium
+            Staff3_Mthly_Loan_Payment_A_Moratorium__c: Staff3_Mthly_Loan_Payment_A_Moratorium,
+            Type_of_Card__c:Type_of_Card,
+            Minimum_Payment_as_per_Credit_Limit__c:Minimum_Payment_as_per_Credit_Limit,
+            Annual_Membership__c:Annual_Membership,
+            Annual_Membership_Per_sulpplementary__c:Annual_Membership_Per_sulpplementary
+            
         };
         //console.log('Insurer=====2>');
+        //Reqeusted_Limit__c: Reqeusted_Limit,
         var newCalculator2;
         var newCalculator3;
         var newCalculator4;
@@ -3492,7 +3504,9 @@
             ) {
                 console.log("Insurer=====6>" + Account_Type);
                 newCalculator7 = {
-                    interest_in_JN_Life_CC_Creditor_Life_iIn__c: interest_in_JN_Life_CC_Creditor_Life_iIn
+                    interest_in_JN_Life_CC_Creditor_Life_iIn__c: interest_in_JN_Life_CC_Creditor_Life_iIn,
+                    Desired_Statement_Date__c:Desired_Statement_Date,
+                    Will_card_used_by_authorized_cardholders__c:Card_used_by_other_not_cardholder
                 };
                 if (cmp.find("ccCollateralType").get("v.value") == "1") {
                     console.log("Insurer=====7>");

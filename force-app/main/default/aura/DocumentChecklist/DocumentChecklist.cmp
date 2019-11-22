@@ -163,7 +163,7 @@
                     <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">INCOME CRITERIA</div>
                     <lightning:checkboxGroup class="slds-form-element__control slds-checkbox" aura:id="mygroupapp"
                                              name="checkboxGroup"
-                                             label="Select the applicable loan purpose(s)"
+                                             label="Select the applicable source(s) of income for the Applicant(s)"
                                              options="{! v.optionsapplicant }"
                                              value="{! v.checkboxGroupValueapplicant }"
                                              onchange="{! c.checkboxGrouphandleChangeApplicant }"

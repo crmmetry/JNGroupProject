@@ -63,6 +63,7 @@
             required="true"
             value="{!v.SiteLead.LastName }"
             aura:id="validation"
+            readonly="{!v.SiteLead.Id}"
           />
         </div>
       </div>

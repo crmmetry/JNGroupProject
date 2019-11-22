@@ -934,9 +934,9 @@
                                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;" colspan="2">Annual Interest Rate on Credit Card:</td>
                                                     </tr>
                                                     <tr style="margin-top:5px;">
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!prod.PCL_Collateral_Type__c}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">JMD ${!prod.PCL_Requested_Credit_Limit__c}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">{!prod.PCL_Interest_Rate__c}%</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!prod.PC_Collateral_Type__c}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">JMD ${!prod.PC_Credit_Limit_Amount__c}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">{!prod.PC_Interest_Rate__c}%</td>
                                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">per annum</td>
                                                     </tr>
                                                 </table>
@@ -1007,7 +1007,7 @@
                                     <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
                                         <tr >
                                             <td style="width:90%;">Will this card be used to conduct transactions on behalf of someone other than the authorized cardholders?</td>
-                                            <td style="width:10%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">No</td>
+                                            <td style="width:10%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!prod.Will_card_used_by_authorized_cardholders__c}</td>
                                         </tr>
                                     </table>
                                 </div>

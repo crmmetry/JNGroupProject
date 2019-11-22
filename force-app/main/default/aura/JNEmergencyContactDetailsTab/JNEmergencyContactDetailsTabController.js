@@ -1,7 +1,7 @@
 ({
   doInit: function(component, event, helper) {
     const siteLead = {
-        Supplementary_Applicant_Relationship__c: "",
+        Emergency_Contact_Relationship__c : "",
         Emergency_Contact_First_Name__c:'',
         Emergency_Contact_Last_Name__c:'',
         Emergency_Contact_Middle_Initial__c:'',
@@ -16,7 +16,7 @@
   getApplicantRelationship: function(component, event, helper) {
     const selected = event.getSource().get("v.value");
     let siteLead = component.get("v.SiteLead");
-    siteLead["Supplementary_Applicant_Relationship__c"] = selected;
+    siteLead["Emergency_Contact_Relationship__c"] = selected;
     component.set("v.SiteLead", siteLead);
   },
   validateTabFields: function(component, event, helper) {
