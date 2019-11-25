@@ -42,7 +42,7 @@
         </div>
     </div>
     <div style="margin-top:25px;">
-        <div style="width:52%;float:left;"><b>Product Combination:</b> Auto</div>
+        <div style="width:52%;float:left;"><b>Product Combination:</b> {!combinationString}</div>
         <div style="width:48%;float:left;"><b>Currency of Financials:</b> JMD</div>
     </div>
     <div style="margin-top:55px;">

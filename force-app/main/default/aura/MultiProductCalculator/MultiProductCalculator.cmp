@@ -1272,12 +1272,12 @@
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
                                     <lightning:input label="Property Title Information" placeholder="Folio" type="number"  aura:id="Property_Title_Information_Folio__id" required="true"/>
                                 </div>
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                               <!-- <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
                                     <lightning:select name="Is there an existing lein on this property?" label="Is there an existing lein on this property?"  aura:id="Is_a_Lien_on_Property__id"    >
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                           </lightning:select>
-                                </div>
+                                </div>-->
                             </div>
                             <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                                  <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
@@ -1305,7 +1305,7 @@
                         </lightning:select>
                     </div>
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                        <lightning:input formatter="currency"  step="0.01" label="Market Value" type="number"   aura:id="MarketValue" required="true"/>
+                        <lightning:input formatter="currency"  step="0.01" label="Market Value" type="number"   aura:id="locMarketValueofProperty" required="true"/>
                     </div>
                             </div>
                         <div class="slds-grid slds-wrap" style="margin-top: 5px;">
@@ -1416,7 +1416,8 @@
                             <lightning:input formatter="currency"  step="0.01" label="Total Existing Loan Balance" type="number"  name="loc_TotalExistingLoanBalance" aura:id="locTotalExistingLoanBalance" required="true" onblur="{!c.lineOfCreditCalculation}" class="slds-col slds-size_1-of-1 slds-medium-size_10-of-12 slds-large-size_10-of-12 fl"/>
                         </div>
                     </div>
-                    <div aura:Id="locRealEstateDiv1" style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">REAL ESTATE DETAILS</div>
+                    <aura:if isTrue="{!v.isProductDetail==false}">
+                        <div aura:Id="locRealEstateDiv1" style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">REAL ESTATE DETAILS</div>
                     <div aura:Id="locRealEstateDiv2" class="slds-grid slds-wrap" style="margin-top: 5px;">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12">
                             <lightning:select name="locMarketValueofProperty_Currency" label="$"  aura:id="locMarketValueofPropertyCurrency"    >
@@ -1430,12 +1431,13 @@
                             <lightning:input formatter="currency"  step="0.01" label="Market Value of Property" type="number"  name="loc_MarketValueofProperty" aura:id="locMarketValueofProperty" required="true" onblur="{!c.lineOfCreditCalculation}"/>
                         </div>
                     </div>
+                    </aura:if>
                     <div aura:Id="locRealEstateDiv3" class="slds-grid slds-wrap" style="margin-top: 5px;">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12" style="padding-right: 5px;padding-left: 5px;">
                             
                             <lightning:select label="Is there an existing lein on this property?" name="loc_Isthereanexistingleinonthisproperty" aura:id="locIsthereanexistingleinonthisproperty" onchange="{!c.locIsthereanexistingleinonthispropertyOnchange}">
-                                <option value="0">No</option>
-                                <option value="1">Yes</option>
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
                             </lightning:select>
                         </div>
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12" style="padding-right: 5px;padding-left: 5px;">
@@ -1507,7 +1509,7 @@
                             
                             
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                                <lightning:input formatter="percent-fixed"  step="0.01" label="Annual Interest Rate on Credit Card"  type="number"  placeholder="per annum" aura:id="AnnualInterestRateLOC" required="true"/>
+                                <lightning:input formatter="percent-fixed"  step="0.01" label="Annual Interest Rate Line of Credit"  type="number"  placeholder="per annum" aura:id="AnnualInterestRateLOC" required="true"/>
                             </div>
                             
                         </div>

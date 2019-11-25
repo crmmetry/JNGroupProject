@@ -1767,7 +1767,7 @@
     locIsthereanexistingleinonthispropertyOnchange: function(cmp, evt, helper) {
         var str = cmp.find("locIsthereanexistingleinonthisproperty").get("v.value");
         switch (str) {
-            case "0":
+            case "No":
                 $A.util.addClass(
                     cmp.find("locTotalExistingLoanBalanceRS"),
                     "slds-hide"
@@ -1777,7 +1777,7 @@
                     "slds-hide"
                 );
                 break;
-            case "1":
+            case "Yes":
                 $A.util.removeClass(
                     cmp.find("locTotalExistingLoanBalanceRS"),
                     "slds-hide"
@@ -2242,6 +2242,7 @@
         var Policy_Limit="";
         var Pior_to_Proposed_Credit="";
         var After_Proposed_Credit="";
+        var Loan_Balance_of_Vehicle="";
         
         console.log("pavit1");
         var numberapplst = cmp.get("v.RowNum");
@@ -2620,6 +2621,8 @@
             if (cmp.find("LoanPurpose").get("v.value") == "3")
                 loanpuposeauto = "Equity in a Motor Vehicle";
             
+            if (cmp.find("LoanPurpose").get("v.value") == "2")
+                Loan_Balance_of_Vehicle=cmp.find("LoanBalanceofVehicle").get("v.value");
             if (cmp.find("Interestedinprogramme").get("v.value") == "0")
                 interestedinprogramm = "Yes";
             if (cmp.find("Interestedinprogramme").get("v.value") == "1")
@@ -2690,9 +2693,8 @@
             loanamountauto = RequestDataAuto[0].LoanAmount;
             //===========
             console.log("pavit--------------------------Auto Loan");
-            Purchase_Price_of_Vehicle = cmp
-            .find("PurchasePriceofVehicle")
-            .get("v.value");
+            if (cmp.find("LoanPurpose").get("v.value") == "1")
+                Purchase_Price_of_Vehicle = cmp.find("PurchasePriceofVehicle").get("v.value");
             if (cmp.find("IndicateType").get("v.value") == "1") {
                 Indicate_Type = "Principal Only";
             } else if (cmp.find("IndicateType").get("v.value") == "2") {
@@ -3160,7 +3162,7 @@
                 case "2":
                     PCL_Collateral_Type = "Real-Estate";
                     PCL_Account_Hypothecated_another_Loan =
-                        cmp.find("locIsthereanexistingleinonthisproperty").get("v.value") ==
+                        cmp.find("loc_IsThisAccountHypothecatedForAnotherLoan").get("v.value") ==
                         "0"
                     ? "No"
                     : "Yes";
@@ -3220,7 +3222,7 @@
                 Forced_Sale_Value = cmp.find("Forced_Sale_Value__id").get("v.value");
                 Insurer = cmp.find("Insurer__id").get("v.value");
                 Is_a_Lien_on_Property = cmp
-                .find("Is_a_Lien_on_Property__id")
+                .find("locIsthereanexistingleinonthisproperty")
                 .get("v.value");
                 Is_Property_a_Strata = cmp
                 .find("Is_Property_a_Strata__id")
@@ -3291,6 +3293,7 @@
             Existing_Monthly_Credit_Payment__c: Existing_Monthly_Credit_Payment,
             Auto_Loan_Purpose__c: loanpuposeauto,
             Market_Value_of_Vehicle__c: Market_Value_of_Vehicle,
+            Loan_Balance_of_Vehicle__c:Loan_Balance_of_Vehicle,
             Motor_Vehicle_Deposit__c: Motor_Vehicle_Deposit,
             Motor_Vehicle_Deposit_Percentage__c: Motor_Vehicle_Deposit_Percentage,
             Interested_in_programme__c: interestedinprogramm,
