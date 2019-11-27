@@ -58,7 +58,7 @@ public class CreditScoreHelper {
     public string ProductTypeOfScoringModel='';
     
     public List<WrapperScoringModel> ApplicantScorelist = new List<WrapperScoringModel>();
-	Map<string,List<WrapperScoringModel>> MapAppScore = new Map<string,List<WrapperScoringModel>>();   
+    Map<string,List<WrapperScoringModel>> MapAppScore = new Map<string,List<WrapperScoringModel>>();   
     
     Map<string,List<WrapperScoringModel>> MapProductScore = new Map<string,List<WrapperScoringModel>>();   
     
@@ -690,8 +690,15 @@ oppIdVsAccidLst.put(o.id, lstid);
         Decimal LengthofCurrentEmployment=Decimal.valueOf(LengthofCurrentEmployment1);
         Decimal Yearsatcurrentresidence = Decimal.valueOf(Yearsatcurrentresidence1);
         Decimal CreditHistory = Decimal.valueOf(CreditHistory1);
-        Decimal LengthTrade = Decimal.valueOf(LengthTrade1);
-        
+        Decimal LengthTrade;
+         if(LengthTrade1=='>5 years')
+         LengthTrade=6;
+        if(LengthTrade1=='3-5 years')
+         LengthTrade=4;
+         if(LengthTrade1=='1-3 years')
+         LengthTrade=2;
+         if(LengthTrade1=='<1 year')
+         LengthTrade=0;
         decimal creditscore=0;
         // Credit_Calculation__mdt[] threatMappings = [SELECT Sub_Criteria__c,Sub_Criteria_Options__c,Employment_Type__c,Risk_Score__c,Weight_of_Sub_Criteria__c,Min__c,Max__c,Lower_Bound__c,Upper_Bound__c FROM Credit_Calculation__mdt];
         decimal agescore=0;
@@ -1659,7 +1666,7 @@ public Decimal PCL_Deposit_Account_Balance=0;
         MainScoringModellst.add(new MainScoringModel(WrapperScoringModellst,AppProductScore,retlst));
         // system.debug('WrapperScoringModellst=====>'+WrapperScoringModellst);
         //system.debug('WrapperScoringlst=====>'+WrapperScoringlst);
-		//system.debug('AppScore=====>'+AppScore);
+        //system.debug('AppScore=====>'+AppScore);
         system.debug('MapAppScore=====>'+MapAppScore);
         return MainScoringModellst;
     }

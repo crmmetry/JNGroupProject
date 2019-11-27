@@ -30,14 +30,16 @@
 .THIS .fr{
     float:right;
 }
+
+
 .THIS .slds-datepicker{
     display: none;
     visibility: hidden!important;
     opacity: 0;
     height:0px!important;
 }
-/*
-.THIS .slds-dropdown {
+
+/*.THIS .slds-dropdown {
     display: none;
     visibility: hidden;
     opacity: 0;
@@ -46,8 +48,8 @@
     display: none;
     visibility: hidden;
     opacity: 0;
-}*/
-
+}
+*/
 .THIS  .slds-dropdown-trigger_click.slds-is-open .THIS .slds-dropdown, .THIS .slds-dropdown-trigger--click.slds-is-open .THIS .slds-dropdown {
     display: none!important;
     visibility: hidden!important;

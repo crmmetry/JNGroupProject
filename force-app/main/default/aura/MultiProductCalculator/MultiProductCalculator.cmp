@@ -224,7 +224,8 @@
                                             <lightning:input type="text"  value="{!row.FirstName}"/>
                                         </td>
                                         <td>
-                                            <lightning:input type="Date" displayDatePicker="false" value="{!row.DateOfBirth}" class="pr" style="padding-right: 0px!important;" onblur="{!c.showhideCoverageType}"/>
+                                            
+                                          <lightning:input type="Date" displayDatePicker="false" value="{!row.DateOfBirth}" class="pr" style="padding-right: 0px!important;" onblur="{!c.showhideCoverageType}"/>
                                         </td>
                                         <td>
                                             <lightning:input type="number" formatter="currency" step="0.01"  value="{!row.GMIncome}" onblur="{!c.ApplicantDetailsChange}" />
@@ -287,10 +288,10 @@
                     <div class="slds-grid slds-wrap">
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
                         <lightning:select label="Market Currency of Vehicle" name="Market Value of Vehicle"  aura:id="MarketValueofVehicle" required="true" onchange="{! c.UpdateMarketCurrency }">
-                            <option value="1">JMD</option>
-                            <option value="2">USD</option>
-                            <option value="3">CAD</option>
-                            <option value="4">GBP</option>
+                            <option value="JMD">JMD</option>
+                            <option value="USD">USD</option>
+                            <option value="CAD">CAD</option>
+                            <option value="GBP">GBP</option>
                         </lightning:select>
                     </div>
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
@@ -302,10 +303,10 @@
                     <div class="slds-grid slds-wrap">
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
                         <lightning:select label="Market Currency of Vehicle" name="Market Value of Vehicle"  aura:id="MarketValueofVehicle" required="true" onchange="{! c.UpdateMarketCurrency }">
-                            <option value="1">JMD</option>
-                            <option value="2">USD</option>
-                            <option value="3">CAD</option>
-                            <option value="4">GBP</option>
+                            <option value="JMD">JMD</option>
+                            <option value="USD">USD</option>
+                            <option value="CAD">CAD</option>
+                            <option value="GBP">GBP</option>
                         </lightning:select>
                     </div>
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
@@ -529,8 +530,8 @@
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <lightning:select label="Other post moratorium options" name="Other post moratorium options"  aura:id="Othee_post_moratorium__id" required="true" onchange="{!c.ShowHideOnIncludeamoratoriumofloanrepayments }">
                                 <option value="0">choose one...</option>
-                                <option value="1">Maintain original loan term</option>
-                                <option value="2">Extend original loan term by moratorium period</option>
+                                <option value="Maintain original loan term">Maintain original loan term</option>
+                                <option value="Extend original loan term by moratorium period">Extend original loan term by moratorium period</option>
                             </lightning:select>
                         </div>
                         
@@ -622,7 +623,7 @@
                                 <lightning:input type="text" class="slds-hide" label="Exceptional Terms Approved By" aura:id="ExceptionalTermsApprovedBy" required="true"/>
                             </div>
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                                <lightning:input type="date" class="slds-hide" label="Date of Approval" aura:id="DateofApproval" required="true"/>
+                                <lightning:input type="date" class="slds-hide" displayDatePicker="true" label="Date of Approval" aura:id="DateofApproval" onblur="{!c.applyCSSdate}" required="true"/>
                             </div>
                         </div>
                     </aura:if>

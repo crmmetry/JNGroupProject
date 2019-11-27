@@ -428,27 +428,34 @@
         for(var k in RequestData) {
             loanamountsum +=parseFloat(RequestData[k].LoanAmount);
         }
-        var numberapp=cmp.get("v.RowNum").length;
-        
-        console.log('Test2=====JNlife');
+        var numberapp;
+      if(cmp.get("v.RowNum")==undefined){
+            numberapp=0;
+        }
+        else{
+            numberapp=cmp.get("v.RowNum").length;
+        }
         var age1;
         var age2;
         var age3;
-        if(numberapp==1){//cmp.find("NumberofApplicant").get("v.value")==0){
-            var age1=cmp.get("v.applicant1ageValue");
+        if(numberapp!== 'undefined' && numberapp==1){//cmp.find("NumberofApplicant").get("v.value")==0){
+            age1=cmp.get("v.applicant1ageValue");
             
         }
-        if(numberapp==2){//cmp.find("NumberofApplicant").get("v.value")==1||true){
-            var age1=cmp.get("v.applicant1ageValue");
-            var age2=cmp.get("v.applicant2ageValue");
+        if(numberapp!== 'undefined' && numberapp==2){//cmp.find("NumberofApplicant").get("v.value")==1||true){
+            age1=cmp.get("v.applicant1ageValue");
+            age2=cmp.get("v.applicant2ageValue");
             
         }
-        if(numberapp==3){//cmp.find("NumberofApplicant").get("v.value")==2){
-            var age1=cmp.get("v.applicant1ageValue");
-            var age2=cmp.get("v.applicant2ageValue");
-            var age3=cmp.get("v.applicant3ageValue");
+        if(numberapp!== 'undefined' && numberapp==3){//cmp.find("NumberofApplicant").get("v.value")==2){
+            age1=cmp.get("v.applicant1ageValue");
+            age2=cmp.get("v.applicant2ageValue");
+            age3=cmp.get("v.applicant3ageValue");
             
         }
+        console.log('Testk=====age1'+age1);
+        console.log('Testk=====age2'+age2);
+        console.log('Testk=====age3'+age3);
         var coveragetypeselectedUn=cmp.find("CoverageTypeUn").get("v.value");
         switch(coveragetypeselectedUn){
             case "1":
@@ -1286,8 +1293,10 @@
             else
                 cmp.find("PriortoProposedCredit").set("v.value", PriorToProposedCredit.toFixed(2));  
             
-            var totalsavingsauto = cmp.get("v.Unsecuredloan_totalsavingsauto");
-            
+            var totalsavingsauto =cmp.find("MonthlyLoanPayment1Un").get("v.value");
+            console.log('ExistingMonthlyCreditPayment=========='+ExistingMonthlyCreditPayment);
+            console.log('totalsavingsauto=========='+totalsavingsauto);
+            console.log('GrossMonthlyIncome=========='+GrossMonthlyIncome);
             var apc = parseFloat(ExistingMonthlyCreditPayment)+parseFloat(totalsavingsauto);
             apc = apc/parseFloat(GrossMonthlyIncome)*100;
             if(isNaN(apc))
@@ -2579,7 +2588,19 @@
             if(state=='SUCCESS'){
                 
                 var toastEvent = $A.get("e.force:showToast");
-                toastEvent.setParams({
+                var respon=response.getReturnValue();
+                if(respon.includes("error")){
+                    toastEvent.setParams({
+                    title : 'Error',
+                    message:msg,
+                    duration:' 5000',
+                    key: 'info_alt',
+                    type: 'error',
+                    mode: 'pester'
+                });
+                }
+                else
+                {toastEvent.setParams({
                     title : 'Success',
                     message: 'The record has been saved successfully.',
                     duration:' 5000',
@@ -2587,6 +2608,7 @@
                     type: 'success',
                     mode: 'pester'
                 });
+                }
                 toastEvent.fire();
                 cmp.set('v.showMultiCalcPdfIcon',true);
                 console.log('Only loan Calculation ret val---------------------------'+response.getReturnValue());

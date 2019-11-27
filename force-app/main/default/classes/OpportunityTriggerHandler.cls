@@ -46,18 +46,6 @@ public class OpportunityTriggerHandler {
                 }  
             }
             system.debug('oppid=====>'+oppid);
-            /*
-if(oppid.size()>0) {
-List<Lead> lstlead = [select id,Actual_Amount_From_Opportunity__c,Opportunity__c from lead where Opportunity__c IN:oppid ];
-if(lstlead.size()>0){
-for(lead l:lstlead){
-l.Actual_Amount_From_Opportunity__c = oppMap.get(l.Opportunity__c);
-}
-update lstlead;
-system.debug('lstlead=====>'+lstlead);
-}
-}
-*/
             
             if(oppAMT>0) {
                 List<Lead> lstlead = [select id,Actual_Amount_From_Opportunity__c,Opportunity__c , ConvertedAccountId from lead where ConvertedAccountId IN (select accountId from opportunity where Id =:oppsID )];

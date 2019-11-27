@@ -1044,7 +1044,7 @@
                 $A.util.removeClass(cmp.find("UnsecuredLoanCalculations"), "slds-hide");
                 $A.util.addClass(cmp.find("CreditCalculations"), "slds-hide");
                 $A.util.addClass(cmp.find("LineofCreditCalculations"), "slds-hide");
-                
+                $A.util.removeClass(cmp.find("Total"), "slds-hide");
                 $A.util.removeClass(cmp.find("NumberofApplicant"), "slds-hide");
                 $A.enqueueAction(cmp.get("c.RequestdetailUnsecured"));
                 break;
@@ -2243,6 +2243,12 @@
         var Pior_to_Proposed_Credit="";
         var After_Proposed_Credit="";
         var Loan_Balance_of_Vehicle="";
+        var Annual_Facility_Fee="";
+        var Market_currency_of_vehicle="";
+        var unsecure_Monthly_n_Loan_Savings="";
+        var Line_of_Credit_Starting_Limit="";
+var Minimum_Payment="";
+        
         
         console.log("pavit1");
         var numberapplst = cmp.get("v.RowNum");
@@ -2419,10 +2425,19 @@
         //======================
         var Purchase_Price_of_Vehicle = "";
         var Indicate_Type = "";
-        var Othee_post_moratorium = "";
+    
         var JN_Staff1_intereste_rate = "";
         var JN_Staff1_loan_term = "";
+        var Staff_1_Loan_amount_and_calculations="";
+        var Staff_2_Loan_amount_and_calculations="";
+        var Staff_3_Loan_amount_and_calculations="";
+        var JN_Staff2_interest_rate="";
+        var JN_Staff3_Interest_rate="";
+        
+            
+            
         var Monthly_Loan_Payment = "";
+        var Total_Monthly="";
         var JN_Life_Creditor_Life_Premium = "";
         var JN_life_Creditor_Life_Premium_moratorium = "";
         var Monthly_JNGI_Motor_Premium_moratorium = "";
@@ -2445,6 +2460,10 @@
         var Staff2_Mthly_Loan_Payment_A_Moratorium = "";
         var Staff3_Mthly_Loan_Payment_D_Moratorium = "";
         var Staff3_Mthly_Loan_Payment_A_Moratorium = "";
+        var Monthly_Processing_Fees_During_moratoriu="";
+        var Monthly_Processing_Fees_moratorium="";
+        var Unsecure_Monthly_Processing_Fees="";
+        var unsecure_JN_Life_Creditor_Life_Premium="";
         
         if (cmp.find("LoanPurposeUn").get("v.value") == "1")
             loanpuposeun = "Asset Acquisition";
@@ -2613,6 +2632,7 @@
             calc == "15"
         ) {
             console.log("test--------------------------Auto Loan");
+            Market_currency_of_vehicle=cmp.find("MarketValueofVehicle").get("v.value");
             Nick_Name_Of_Calculation = "Auto Loan";
             if (cmp.find("LoanPurpose").get("v.value") == "1")
                 loanpuposeauto = "Purchase a Motor Vehicle";
@@ -2639,8 +2659,10 @@
                 includeinjnlife = "Yes (Include in Loan Amount)";
             if (cmp.find("IncludeinLoanAmountinsurence").get("v.value") == "1")
                 includeinjnlife = "No (Paid by the Applicant)";
-            if (cmp.find("Includeamoratoriumofloanrepayments").get("v.value") == "0")
+            if (cmp.find("Includeamoratoriumofloanrepayments").get("v.value") == "0"){
                 includemoratorium = "Yes";
+               Othee_post_moratorium = cmp.find("Othee_post_moratorium__id").get("v.value");  
+            }
             if (cmp.find("Includeamoratoriumofloanrepayments").get("v.value") == "1")
                 includemoratorium = "No";
             console.log("test--------------------------Auto Loan 2");
@@ -2701,17 +2723,29 @@
                 Indicate_Type = "Principal and Interest";
             }
             
-            Othee_post_moratorium = cmp
-            .find("Othee_post_moratorium__id")
-            .get("v.value");
-            
+           
+            console.log("pavit--------------------------Auto Loan"+RequestDataAuto.length);
             if (RequestDataAuto.length >= 2) {
+                console.log("pavit--------------------------Auto Loanstaff1");
                 JN_Staff1_intereste_rate = RequestDataAuto[1].Interestrate;
-                JN_Staff1_loan_term =
-                    parseFloat(RequestDataAuto[1].LoanTerm1 * 12 )+parseFloat( RequestDataAuto[1].LoanTerm2);
+                JN_Staff1_loan_term =parseFloat(RequestDataAuto[1].LoanTerm1 * 12 )+parseFloat( RequestDataAuto[1].LoanTerm2);
+            Staff_1_Loan_amount_and_calculations=parseFloat(RequestDataAuto[1].LoanAmount);
             }
+             if (RequestDataAuto.length >= 3) {
+                 console.log("pavit--------------------------Auto Loanstaff2");
+                 JN_Staff2_interest_rate=parseFloat(RequestDataAuto[2].Interestrate);
+                     Staff_2_Loan_amount_and_calculations=parseFloat(RequestDataAuto[2].LoanAmount);
+             }
+                 if (RequestDataAuto.length >= 4) {
+            console.log("pavit--------------------------Auto Loanstaff3");
+            JN_Staff3_Interest_rate=parseFloat(RequestDataAuto[3].Interestrate);
+            Staff_3_Loan_amount_and_calculations=parseFloat(RequestDataAuto[3].LoanAmount);
+                 }
+            
+            
             console.log("pavit1--------------------------Auto Loan");
-            Monthly_Loan_Payment = cmp.find("MonthlyLoanPayment1").get("v.value");
+            Total_Monthly=cmp.find("MonthlyLoanPayment1").get("v.value");
+            Monthly_Loan_Payment = cmp.find("MonthlyLoanPaymentMarket1").get("v.value");
             JN_Life_Creditor_Life_Premium = cmp
             .find("JNLifeCreditorLifePremium1")
             .get("v.value");
@@ -2731,9 +2765,14 @@
             .find("MonthlyProcessingFees2")
             .get("v.value");
             console.log("pavit2--------------------------Auto Loan");
-            // Processing_Fees_including_GCT=cmp.find("ProcessingFeesincludingGCT").get("v.value");
+            if (cmp.find("WaiveProcessingFee").get("v.value") == "0"){
+                Processing_Fees_including_GCT=cmp.find("ProcessingFeesincludingGCT").get("v.value");
+                Monthly_Processing_Fees_During_moratoriu=cmp.find("MonthlyProcessingFees1").get("v.value");
+                Monthly_Processing_Fees_moratorium =cmp.find("MonthlyProcessingFees2").get("v.value");
+            }
+               
             
-            // Total_Loan_Amount=cmp.find("TotalLoanAmount1").get("v.value");
+             Total_Loan_Amount=cmp.find("TotalLoanAmount1").get("v.value");
             console.log("pavit3.1--------------------------Auto Loan");
             Monthly_Loan_Savings = cmp.find("MonthlyLoanSavings1").get("v.value");
             Monthly_loan_Payment_Monthly_Savings = cmp
@@ -2839,10 +2878,7 @@
                 Year_of_Motor_Vehicle = cmp
                 .find("Year_of_Motor_Vehicle__id")
                 .get("v.value");
-                Othee_post_moratorium = cmp
-                .find("Othee_post_moratorium__id")
-                .get("v.value");
-                Repayment_Method_Auto = cmp
+               Repayment_Method_Auto = cmp
                 .find("Repayment_Method_Auto__id")
                 .get("v.value");
                 console.log("11/2/2019--------------------------1");
@@ -2860,15 +2896,24 @@
         ) {
             console.log("test--------------------------Unsecured Loan");
             Nick_Name_Of_Calculation = "Unsecured Loan";
-            if (cmp.find("InterestedinCreditorLifeUn").get("v.value") == "0")
+            console.log("test--------------------------Unsecured Loan 0.11");
+            if (cmp.find("InterestedinCreditorLifeUn").get("v.value") == "0"){
                 includeincreditorun = "Yes";
-            if (cmp.find("InterestedinCreditorLifeUn").get("v.value") == "1")
+                unsecure_JN_Life_Creditor_Life_Premium=cmp.find("JNLifeCreditorLifePremium1Un").get("v.value");
+            }
+            console.log("test--------------------------Unsecured Loan 0.1");
+            if (cmp.find("InterestedinCreditorLifeUn").get("v.value") == "1"){
                 includeincreditorun = "No";
+            }
+             console.log("test--------------------------Unsecured Loan 0.2");   
             if (cmp.find("WaiveProcessingFeeUn").get("v.value") == "0")
                 waivefeeun = "Yes";
             console.log("test--------------------------Unsecured Loan 1");
-            if (cmp.find("WaiveProcessingFeeUn").get("v.value") == "1")
+            if (cmp.find("WaiveProcessingFeeUn").get("v.value") == "1"){
                 waivefeeun = "No";
+                Unsecure_Monthly_Processing_Fees=cmp.find("MonthlyProcessingFees1Un").get("v.value");
+            }
+                
             if (cmp.find("IncludeinLoanAmountinsurenceUn").get("v.value") == "0")
                 includeinjnlifeun = "Yes (Include in Loan Amount)";
             console.log("test--------------------------Unsecured Loan 2");
@@ -2891,7 +2936,7 @@
             console.log("test--------------------------Unsecured Loan 4");
             if (cmp.find("CoverageTypeUn").get("v.value") == "7")
                 CoverageTypeun = "No Suitable Applicants";
-            
+            console.log("test--------------------------Unsecured Loan 4.1");
             Unsecure_Indcate_applicable_process_fee = cmp
             .find("IndicateapplicableprocessingfeesUn")
             .get("v.value");
@@ -2899,39 +2944,30 @@
             Unsecure_Proposed_Savings_percentage = cmp
             .find("ProposedSavings1Un")
             .get("v.value");
-            
+            console.log("test--------------------------Unsecured Loan 4.2");
             RDetailUnsecured = cmp.get("v.RDetailUnsecured");
             interestrateun = RDetailUnsecured[0].Interestrate;
             yearun = RDetailUnsecured[0].LoanTerm1;
             monthun = RDetailUnsecured[0].LoanTerm2;
             loanamountun = RDetailUnsecured[0].LoanAmount;
+            console.log("test--------------------------Unsecured Loan 4.3");
             if (cmp.find("IncludeinLoanAmountfeeUn").get("v.value") == "0")
                 Unsecure_Fee_Include_in_Loan_Amount = "Yes";
             else if (cmp.find("IncludeinLoanAmountfeeUn").get("v.value") == "1")
                 Unsecure_Fee_Include_in_Loan_Amount = "No";
-            
-            unsecure_Total_Loan_Amount = cmp
-            .find("TotalLoanAmount1Un")
-            .get("v.value");
-            Unsecure_Monthly_Loan_Payment = cmp
-            .find("MonthlyLoanPayment1Un")
-            .get("v.value");
-            unsecure_Monthly_Loan_Savings = cmp
-            .find("MonthlyLoanSavings1Un")
-            .get("v.value");
-            unsecure_Total_Loan_Savings_Balance = cmp
-            .find("TotalLSB1Un")
-            .get("v.value");
+            console.log("test--------------------------Unsecured Loan 5");
+            unsecure_Monthly_n_Loan_Savings=cmp.find("MonthlyLoanPaymentsaving1Un").get("v.value");
+            console.log("test--------------------------Unsecured Loan 6");
+            unsecure_Total_Loan_Amount = cmp.find("TotalLoanAmount1Un").get("v.value");
+            Unsecure_Monthly_Loan_Payment = cmp.find("MonthlyLoanPayment1Un").get("v.value");
+            console.log("test--------------------------Unsecured Loan 7");
+            unsecure_Monthly_Loan_Savings = cmp.find("MonthlyLoanSavings1Un").get("v.value");
+            console.log("test--------------------------Unsecured Loan 8");
+            unsecure_Total_Loan_Savings_Balance = cmp.find("TotalLSB1Un").get("v.value");
             unsecure_Total_Interest_Payment = cmp.find("TotalIP1Un").get("v.value");
-            unsecure_Legal_Fees_Including_GCT = cmp
-            .find("LegalFeesGCT1Un")
-            .get("v.value");
-            Stamp_Duty_Security_Documents = cmp
-            .find("StampDutyDoc1Un")
-            .get("v.value");
-            Total_unsecured_Loan_Fee_Charges = cmp
-            .find("TotalAutoLoanFeesCharges1Un")
-            .get("v.value");
+            unsecure_Legal_Fees_Including_GCT = cmp.find("LegalFeesGCT1Un").get("v.value");
+            Stamp_Duty_Security_Documents = cmp.find("StampDutyDoc1Un").get("v.value");
+            Total_unsecured_Loan_Fee_Charges = cmp.find("TotalAutoLoanFeesCharges1Un").get("v.value");
             if (isprod) {
                 if (cmp.get("v.ApplicantCount") >= 1) {
                     App1_Loan_Amt_Alloc_UL = cmp.find("LoanAmountUn11").get("v.value");
@@ -2996,7 +3032,7 @@
             
             Minimum_Payment_as_per_Credit_Limit=cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value");
             Annual_Membership=cmp.find("ccAnnualMembership").get("v.value");
-            Annual_Membership_Per_sulpplementary=cmp.find("ccAnnualMembershippersupplementaryApplicant").get("v.value");
+            Annual_Membership_Per_sulpplementary=""+cmp.find("ccAnnualMembershippersupplementaryApplicant").get("v.value");
             Proposed_Starting_Limit = cmp.find("ccStartingLimit").get("v.value");
             console.log("11/2/2019--------------------------3a");
             PC_Collateral_Type =
@@ -3111,12 +3147,16 @@
             calc == "15"
         ) {
             console.log("testk--------------------------1-1");
+            console.log("testk--------------------------1-1"+cmp.find("locStartingLimit").get("v.value"));
+            Line_of_Credit_Starting_Limit=cmp.find("locStartingLimit").get("v.value");
+            console.log("testk--------------------------1-1"+cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value"));
+Minimum_Payment=cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value");
+            console.log("testk--------------------------1-1.1");
             Nick_Name_Of_Calculation = "Line of Credit";
             PLC_Credit_Limit_Currency = "JMD";
             PCL_Interest_Rate = cmp.find("locInterestRate").get("v.value");
-            PCL_Requested_Credit_Limit = cmp
-            .find("locRequestedCreditLimit")
-            .get("v.value");
+            PCL_Requested_Credit_Limit = cmp.find("locRequestedCreditLimit").get("v.value");
+            Annual_Facility_Fee=cmp.find("locAnnualFacilityFee").get("v.value");
             var pclCT = cmp.find("locCollateralType").get("v.value");
             switch (pclCT) {
                 case "0":
@@ -3146,29 +3186,18 @@
                                 break;
                         }
                     }
-                    PCL_Deposit_Account_Balance = cmp
-                    .find("locDepositAccountBalance")
-                    .get("v.value");
+                    PCL_Deposit_Account_Balance = cmp.find("locDepositAccountBalance").get("v.value");
                     PCL_Account_Hypothecated_another_Loan =
-                        cmp
-                    .find("locIsThisAccountHypothecatedForAnotherLoan")
-                    .get("v.value") == "0"
-                    ? "No"
-                    : "Yes";
-                    PCL_Total_Existing_Loan_Balance = cmp
-                    .find("locTotalExistingLoanBalance")
-                    .get("v.value");
+                        cmp.find("locIsThisAccountHypothecatedForAnotherLoan").get("v.value") == "0"? "No": "Yes";
+                    PCL_Total_Existing_Loan_Balance = cmp.find("locTotalExistingLoanBalance").get("v.value");
                     break;
                 case "2":
                     PCL_Collateral_Type = "Real-Estate";
-                    PCL_Account_Hypothecated_another_Loan =
-                        cmp.find("loc_IsThisAccountHypothecatedForAnotherLoan").get("v.value") ==
-                        "0"
-                    ? "No"
-                    : "Yes";
-                    PCL_Total_Existing_Loan_Balance = cmp
-                    .find("locTotalExistingLoanBalanceRS")
-                    .get("v.value");
+                    console.log("testk--------------------------1lien-"+cmp.find("locIsthereanexistingleinonthisproperty").get("v.value"));
+                    Is_a_Lien_on_Property = cmp.find("locIsthereanexistingleinonthisproperty").get("v.value");
+                    if(cmp.find("locIsthereanexistingleinonthisproperty").get("v.value")=="Yes")
+				PCL_Total_Existing_Loan_Balance = cmp.find("locTotalExistingLoanBalanceRS").get("v.value");
+                    console.log("testk--------------------------1-market"+cmp.find('locMarketValueofProperty').get('v.value'));
                     Market_Value_of_Propert=cmp.find('locMarketValueofProperty').get('v.value');
                     break;
             }
@@ -3262,12 +3291,15 @@
         //console.log('Financial_Institution=====>'+Financial_Institution);
         //console.log('Financial_Institution_LOC=====>'+Financial_Institution_LOC);
         //console.log('Forced_Sale_Value=====>'+Forced_Sale_Value);
-        //console.log('Insurer=====1>'+Insurer);
+        console.log('Insurer=====1>+Insurer');
         Policy_Limit=cmp.find("PolicyLimit").get("v.value");
         Pior_to_Proposed_Credit=cmp.find("PriortoProposedCredit").get("v.value");
-        After_Proposed_Credit=cmp.find("AfterProposedCredit").get("v.value");
+        After_Proposed_Credit=""+cmp.find("AfterProposedCredit").get("v.value");
+        console.log('Insurer=====1.1>+Insurer');
         var newCalculator1 = {
             sobjectType: "Loan_Calculator__c",
+            Market_currency_of_vehicle__c:Market_currency_of_vehicle,
+            Annual_Facility_Fee__c:Annual_Facility_Fee,
             Policy_Limit__c:Policy_Limit,
             Pior_to_Proposed_Credit__c:Pior_to_Proposed_Credit,
             After_Proposed_Credit__c:After_Proposed_Credit,
@@ -3358,12 +3390,18 @@
             Indicate_Type__c: Indicate_Type,
             JN_Staff1_intereste_rate__c: JN_Staff1_intereste_rate,
             JN_Staff1_loan_term__c: JN_Staff1_loan_term,
+            Staff_1_Loan_amount_and_calculations__c:Staff_1_Loan_amount_and_calculations,
+            Staff_2_Loan_amount_and_calculations__c:Staff_2_Loan_amount_and_calculations,
+            Staff_3_Loan_amount_and_calculations__c:Staff_3_Loan_amount_and_calculations,
+            JN_Staff2_interest_rate__c:JN_Staff2_interest_rate,
+            JN_Staff3_Interest_rate__c:JN_Staff3_Interest_rate,
             JN_Life_Creditor_Life_Premium__c: JN_Life_Creditor_Life_Premium,
             JN_life_Creditor_Life_Premium_moratorium__c: JN_life_Creditor_Life_Premium_moratorium,
             Monthly_JNGI_Motor_Premium_moratorium__c: Monthly_JNGI_Motor_Premium_moratorium,
             Monthly_JNGI_Motor_Premium_1_12_Pay__c: Monthly_JNGI_Motor_Premium_1_12_Pay,
             Monthly_JN_Life_Creditor_Life_Premium__c: Monthly_JN_Life_Creditor_Life_Premium,
             Monthly_Processing_Fees_moratorium__c: Monthly_Processing_Fees_moratorium,
+            Total_Monthly__c:Total_Monthly,
             Monthly_Loan_Payment__c: Monthly_Loan_Payment,
             Unsecured_Loan_Amount__c: loanamountun,
             Unsecure_Fee_Include_in_Loan_Amount__c: Unsecure_Fee_Include_in_Loan_Amount,
@@ -3385,10 +3423,17 @@
             Type_of_Card__c:Type_of_Card,
             Minimum_Payment_as_per_Credit_Limit__c:Minimum_Payment_as_per_Credit_Limit,
             Annual_Membership__c:Annual_Membership,
-            Annual_Membership_Per_sulpplementary__c:Annual_Membership_Per_sulpplementary
+            Annual_Membership_Per_sulpplementary__c:Annual_Membership_Per_sulpplementary,
+            Monthly_Processing_Fees_During_moratoriu__c:Monthly_Processing_Fees_During_moratoriu,
+            Monthly_Processing_Fees_moratorium__c:Monthly_Processing_Fees_moratorium,
             
+            Unsecure_Monthly_Processing_Fees__c:Unsecure_Monthly_Processing_Fees,
+            unsecure_Monthly_n_Loan_Savings__c:unsecure_Monthly_n_Loan_Savings,
+            Line_of_Credit_Starting_Limit__c:Line_of_Credit_Starting_Limit,
+Minimum_Payment__c:Minimum_Payment,
+        unsecure_JN_Life_Creditor_Life_Premium__c:unsecure_JN_Life_Creditor_Life_Premium,    
         };
-        //console.log('Insurer=====2>');
+        console.log('Insurer=====2>+Insurer');
         //Reqeusted_Limit__c: Reqeusted_Limit,
         var newCalculator2;
         var newCalculator3;
@@ -3396,27 +3441,33 @@
         var newCalculator5;
         var newCalculator6;
         var newCalculator7;
-        var newCalculator8; //For CREDIT REPAYMENT ALLOCATION
-        //console.log('newCalculator8=====ff>'+newCalculator8);
-        
-        //console.log('newCalculator8=====1>'+App_1_Loan_Amount_A);
-        //console.log('newCalculator8=====12>'+App_2_Loan_Amount_A);
-        //console.log('newCalculator8=====13>'+App_3_Loan_Amount_A);
-        //console.log('newCalculator8=====14>'+App1_Monthly_Payment_A);
-        //console.log('newCalculator8=====15>'+App_2_Monthly_Payment_A);
-        //console.log('newCalculator8=====16>'+App_3_Monthly_Payment_A);
-        // console.log('newCalculator8=====17>'+App_1_LOC_limit);
-        //console.log('newCalculator8=====18>'+App_2_LOC_Limit);
-        //console.log('newCalculator8=====19>'+App_3_LOC_Limit);
-        //console.log('newCalculator8=====110>'+App_1_Min_Payment);
-        //console.log('newCalculator8=====111>'+App_2_Min_Payment_LOC);
-        //console.log('newCalculator8=====112>'+App_3_Min_Payment_LOC);
-        //console.log('newCalculator8=====113>'+App_1_Loan_Amount_UL);
-        //console.log('newCalculator8=====114>'+App_2_Loan_Amount_UL);
-        //console.log('newCalculator8=====115>'+App_3_Loan_Amount_UL);
-        //console.log('newCalculator8=====116>'+App_1_Monthly_Payment_UL);
-        //console.log('newCalculator8=====117>'+App_2_Monthly_Payment_UL);
-        //console.log('newCalculator8=====118>'+App_3_Monthly_Payment_UL);
+        var newCalculator8;
+        var newCalculator9;
+        var newCalculator10;
+        if (
+                calc == "4" ||
+                calc == "7" ||
+                calc == "9" ||
+                calc == "10" ||
+                calc == "12" ||
+                calc == "13" ||
+                calc == "14" ||
+                calc == "15"
+            ) {
+               
+                if (cmp.find("locCollateralType").get("v.value") == "2") {
+                    console.log("Insurer=====10>");
+                    newCalculator10 = {
+                       Is_a_Lien_on_Property__c: Is_a_Lien_on_Property,
+                        Market_Value_of_Property__c: Market_Value_of_Propert
+                    };
+                }
+            }
+        if (cmp.find("IncludeinLoanAmountfee").get("v.value") == "0"){
+            newCalculator9 = {
+                Othee_post_moratorium__c:Othee_post_moratorium
+            };
+        }
         
         if (isprod) {
             newCalculator8 = {
@@ -3552,10 +3603,11 @@
                         Property_Title_information_Vol__c: Property_Title_information_Vol,
                         Forced_Sale_Value__c: Forced_Sale_Value,
                         Insurer__c: Insurer,
-                        Is_a_Lien_on_Property__c: Is_a_Lien_on_Property,
+                        
                         Is_Property_a_Strata__c: Is_Property_a_Strata,
                         Replacement_Value__c: Replacement_Value,
                         Security_Address__c: Security_Address,
+                        Is_a_Lien_on_Property__c: Is_a_Lien_on_Property,
                         Market_Value_of_Property__c: Market_Value_of_Propert
                     };
                 }
@@ -3570,7 +3622,9 @@
             newCalculator5,
             newCalculator6,
             newCalculator7,
-            newCalculator8
+            newCalculator8,
+            newCalculator9,
+            newCalculator10
         );
         //var newCalculator=Object.assign(newCalculator1, newCalculator2, newCalculator3, newCalculator4, newCalculator5, newCalculator6, newCalculator7);
         //console.log('newCalculator8=====444>'+newCalculator8);
@@ -4935,5 +4989,29 @@
             "&loanid=" +
             loancalcid
         );
-    }
+    },
+    applyCSSdate: function(cmp, event, helper) {
+  /*     // var cmpTarget = cmp.find("DateofApproval");
+      try {
+  alert('1');
+        
+        var elements = document.getElementsByClassName("slds-datepicker");
+        
+        elements[0].style.display = 'none';
+}
+catch(err) {
+  
+} 
+       
+  alert('2');
+        */
+       
+          
+        
+       // $A.util.removeClass(cmp, 'slds-datepicker');
+       // $A.util.removeClass(cmp, 'slds-dropdown');
+       // $A.util.removeClass(cmp, 'slds-dropdown-trigger_click');
+      //  $A.util.removeClass(cmp, 'slds-is-open');
+       // alert();
+  }
 });
