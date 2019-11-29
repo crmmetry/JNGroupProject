@@ -2247,7 +2247,13 @@
         var Market_currency_of_vehicle="";
         var unsecure_Monthly_n_Loan_Savings="";
         var Line_of_Credit_Starting_Limit="";
-var Minimum_Payment="";
+        var Minimum_Payment="";
+        var Monthly_JN_Life_Creditor_Life_Premium_M="";
+        var Monthly_JNGI_Motor_Premium_1st_Year="";
+        var Monthly_Loan_Payment_after_moratorium="";
+        var Monthly_loan_Payment_Monthly_Savings_M="";
+        var Unsecure_Monthly_JN_Life_Premium="";
+        
         
         
         console.log("pavit1");
@@ -2464,6 +2470,8 @@ var Minimum_Payment="";
         var Monthly_Processing_Fees_moratorium="";
         var Unsecure_Monthly_Processing_Fees="";
         var unsecure_JN_Life_Creditor_Life_Premium="";
+        var Unsecure_Monthly_Loan_Payment_Market="";
+        
         
         if (cmp.find("LoanPurposeUn").get("v.value") == "1")
             loanpuposeun = "Asset Acquisition";
@@ -2654,14 +2662,20 @@ var Minimum_Payment="";
             console.log("test--------------------------Auto Loan 1");
             if (cmp.find("WaiveProcessingFee").get("v.value") == "0")
                 waivefee = "Yes";
-            if (cmp.find("WaiveProcessingFee").get("v.value") == "1") waivefee = "No";
+            if (cmp.find("WaiveProcessingFee").get("v.value") == "1")
+                waivefee = "No";
             if (cmp.find("IncludeinLoanAmountinsurence").get("v.value") == "0")
                 includeinjnlife = "Yes (Include in Loan Amount)";
             if (cmp.find("IncludeinLoanAmountinsurence").get("v.value") == "1")
                 includeinjnlife = "No (Paid by the Applicant)";
-            if (cmp.find("Includeamoratoriumofloanrepayments").get("v.value") == "0"){
-                includemoratorium = "Yes";
-               Othee_post_moratorium = cmp.find("Othee_post_moratorium__id").get("v.value");  
+            
+            Monthly_JNGI_Motor_Premium_1st_Year=cmp.find("MonthlyJNGIMotorPremium1stYear1").get("v.value");
+                if (cmp.find("Includeamoratoriumofloanrepayments").get("v.value") == "0"){
+                    includemoratorium = "Yes";
+                    Othee_post_moratorium = cmp.find("Othee_post_moratorium__id").get("v.value");
+                    Monthly_JN_Life_Creditor_Life_Premium_M=cmp.find("MonthlyJNLifeCreditorLifePremium2").get("v.value");
+                    Monthly_Loan_Payment_after_moratorium=cmp.find("MonthlyLoanPayment2").get("v.value");
+                    Monthly_loan_Payment_Monthly_Savings_M=cmp.find("MonthlyLoanPaymentsaving2").get("v.value");
             }
             if (cmp.find("Includeamoratoriumofloanrepayments").get("v.value") == "1")
                 includemoratorium = "No";
@@ -2765,8 +2779,8 @@ var Minimum_Payment="";
             .find("MonthlyProcessingFees2")
             .get("v.value");
             console.log("pavit2--------------------------Auto Loan");
-            if (cmp.find("WaiveProcessingFee").get("v.value") == "0"){
-                Processing_Fees_including_GCT=cmp.find("ProcessingFeesincludingGCT").get("v.value");
+            if (cmp.find("WaiveProcessingFee").get("v.value") == "1"){
+                Processing_Fees_including_GCT=cmp.find("ProcessingFeesincludingGCT1").get("v.value");
                 Monthly_Processing_Fees_During_moratoriu=cmp.find("MonthlyProcessingFees1").get("v.value");
                 Monthly_Processing_Fees_moratorium =cmp.find("MonthlyProcessingFees2").get("v.value");
             }
@@ -2900,6 +2914,7 @@ var Minimum_Payment="";
             if (cmp.find("InterestedinCreditorLifeUn").get("v.value") == "0"){
                 includeincreditorun = "Yes";
                 unsecure_JN_Life_Creditor_Life_Premium=cmp.find("JNLifeCreditorLifePremium1Un").get("v.value");
+                Unsecure_Monthly_JN_Life_Premium=cmp.find("MonthlyJNLifeCreditorLifePremium1Un").get("v.value");
             }
             console.log("test--------------------------Unsecured Loan 0.1");
             if (cmp.find("InterestedinCreditorLifeUn").get("v.value") == "1"){
@@ -2951,6 +2966,7 @@ var Minimum_Payment="";
             monthun = RDetailUnsecured[0].LoanTerm2;
             loanamountun = RDetailUnsecured[0].LoanAmount;
             console.log("test--------------------------Unsecured Loan 4.3");
+            Unsecure_Monthly_Loan_Payment_Market=cmp.find("MonthlyLoanPaymentMarket1Un").get("v.value");
             if (cmp.find("IncludeinLoanAmountfeeUn").get("v.value") == "0")
                 Unsecure_Fee_Include_in_Loan_Amount = "Yes";
             else if (cmp.find("IncludeinLoanAmountfeeUn").get("v.value") == "1")
@@ -3430,8 +3446,15 @@ Minimum_Payment=cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value");
             Unsecure_Monthly_Processing_Fees__c:Unsecure_Monthly_Processing_Fees,
             unsecure_Monthly_n_Loan_Savings__c:unsecure_Monthly_n_Loan_Savings,
             Line_of_Credit_Starting_Limit__c:Line_of_Credit_Starting_Limit,
-Minimum_Payment__c:Minimum_Payment,
-        unsecure_JN_Life_Creditor_Life_Premium__c:unsecure_JN_Life_Creditor_Life_Premium,    
+            Minimum_Payment__c:Minimum_Payment,
+            unsecure_JN_Life_Creditor_Life_Premium__c:unsecure_JN_Life_Creditor_Life_Premium,   
+            Monthly_JN_Life_Creditor_Life_Premium_M__c:Monthly_JN_Life_Creditor_Life_Premium_M,
+            Monthly_JNGI_Motor_Premium_1st_Year__c:Monthly_JNGI_Motor_Premium_1st_Year,
+            Monthly_Loan_Payment_after_moratorium__c:Monthly_Loan_Payment_after_moratorium,
+            Monthly_loan_Payment_Monthly_Savings_M__c:Monthly_loan_Payment_Monthly_Savings_M,
+            Unsecure_Monthly_Loan_Payment_Market__c:Unsecure_Monthly_Loan_Payment_Market,
+            Unsecure_Monthly_JN_Life_Premium__c:Unsecure_Monthly_JN_Life_Premium,
+            
         };
         console.log('Insurer=====2>+Insurer');
         //Reqeusted_Limit__c: Reqeusted_Limit,
@@ -3702,14 +3725,21 @@ Minimum_Payment__c:Minimum_Payment,
         var selectedRecordId = event.getParam("recordId");
         var selectedrecordName = event.getParam("recordName");
         var selectedProductName = event.getParam("Producttype");
-        if ((selectedProductName = "Auto"))
+        if (selectedProductName == "Auto")
             cmp.set("v.AutoPromotion", selectedRecordId);
-        if ((selectedProductName = "Unsecured"))
+        if (selectedProductName == "Unsecured")
             cmp.set("v.UnsecuredPromotion", selectedRecordId);
-        if ((selectedProductName = "Credit"))
+        if (selectedProductName == "Credit")
             cmp.set("v.CCPromotion", selectedRecordId);
-        if ((selectedProductName = "LineofCredit"))
+        if (selectedProductName == "LineofCredit")
             cmp.set("v.LOCPromotion", selectedRecordId);
+        console.log('Record id Promotion Auto'+selectedRecordId);
+        console.log('Record id Promotion Auto'+selectedrecordName);
+        console.log('Record id Promotion Auto'+selectedProductName);
+        console.log('Record id Promotion Auto'+cmp.get("v.AutoPromotion"));
+        console.log('Record id Promotion Unsecured'+cmp.get("v.UnsecuredPromotion"));
+        console.log('Record id Promotion Credit'+cmp.get("v.CCPromotion"));
+        console.log('Record id Promotion Line of Credit'+cmp.get("v.LOCPromotion"));
     },
     ApplicationFormDoc: function(cmp, evt, helper) {
         var oppid = cmp.get("v.isRecordIdM");
@@ -4990,28 +5020,5 @@ Minimum_Payment__c:Minimum_Payment,
             loancalcid
         );
     },
-    applyCSSdate: function(cmp, event, helper) {
-  /*     // var cmpTarget = cmp.find("DateofApproval");
-      try {
-  alert('1');
-        
-        var elements = document.getElementsByClassName("slds-datepicker");
-        
-        elements[0].style.display = 'none';
-}
-catch(err) {
-  
-} 
-       
-  alert('2');
-        */
-       
-          
-        
-       // $A.util.removeClass(cmp, 'slds-datepicker');
-       // $A.util.removeClass(cmp, 'slds-dropdown');
-       // $A.util.removeClass(cmp, 'slds-dropdown-trigger_click');
-      //  $A.util.removeClass(cmp, 'slds-is-open');
-       // alert();
-  }
+    
 });

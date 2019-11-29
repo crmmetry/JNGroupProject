@@ -225,7 +225,7 @@
                                         </td>
                                         <td>
                                             
-                                          <lightning:input type="Date" displayDatePicker="false" value="{!row.DateOfBirth}" class="pr" style="padding-right: 0px!important;" onblur="{!c.showhideCoverageType}"/>
+                                            <lightning:input type="Date" value="{!row.DateOfBirth}" class="pr" messageWhenBadInput="Your entry does not match the allowed format MM/DD/YYYY." style="padding-right: 0px!important;" onblur="{!c.showhideCoverageType}"/>
                                         </td>
                                         <td>
                                             <lightning:input type="number" formatter="currency" step="0.01"  value="{!row.GMIncome}" onblur="{!c.ApplicantDetailsChange}" />
@@ -623,7 +623,7 @@
                                 <lightning:input type="text" class="slds-hide" label="Exceptional Terms Approved By" aura:id="ExceptionalTermsApprovedBy" required="true"/>
                             </div>
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                                <lightning:input type="date" class="slds-hide" displayDatePicker="true" label="Date of Approval" aura:id="DateofApproval" onblur="{!c.applyCSSdate}" required="true"/>
+                                <lightning:input type="date" class="slds-hide" label="Date of Approval" placeholder="MM/DD/YYYY" messageWhenBadInput="Your entry does not match the allowed format MM/DD/YYYY." aura:id="DateofApproval" required="true"/>
                             </div>
                         </div>
                     </aura:if>
@@ -891,7 +891,7 @@
                                 <lightning:input type="text" class="slds-hide" label="Exceptional Terms Approved By" aura:id="ExceptionalTermsApprovedByUn" required="true"/>
                             </div>
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                                <lightning:input type="date" class="slds-hide" label="Date of Approval" aura:id="DateofApprovalUn" required="true"/>
+                                <lightning:input type="date" class="slds-hide" label="Date of Approval" placeholder="MM/DD/YYYY" messageWhenBadInput="Your entry does not match the allowed format MM/DD/YYYY." aura:id="DateofApprovalUn" required="true"/>
                             </div>
                         </div>
                         <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">LOAN SAVINGS</div>
@@ -1152,7 +1152,7 @@
                                 <lightning:input type="text" class="slds-hide" label="Exceptional Terms Approved By" aura:id="ExceptionalTermsApprovedByCC" required="true"/>
                             </div>
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                                <lightning:input type="date" class="slds-hide" label="Date of Approval" aura:id="DateofApprovalCC" required="true"/>
+                                <lightning:input type="date" class="slds-hide" label="Date of Approval" placeholder="MM/DD/YYYY" messageWhenBadInput="Your entry does not match the allowed format MM/DD/YYYY." aura:id="DateofApprovalCC" required="true"/>
                             </div>
                         </div>
                     </fieldset>
@@ -1295,7 +1295,7 @@
                                     <lightning:input label="Name of the Valuer" type="text"  aura:id="Name_of_Valuer__id" required="true"/>
                                 </div>
                              <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                                    <lightning:input label="Date of Last Valuation" type="Date"  aura:id="DateofLastValuation" required="true"/>
+                                 <lightning:input label="Date of Last Valuation" type="Date"  aura:id="DateofLastValuation" messageWhenBadInput="Your entry does not match the allowed format MM/DD/YYYY." required="true"/>
                                 </div>
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-12 slds-large-size_1-of-12">
                                 <lightning:select name="loc_Currency" label="$"  aura:id="locCurrency"    >
@@ -1526,7 +1526,7 @@
                                 <lightning:input type="text" class="slds-hide" label="Exceptional Terms Approved By" aura:id="ExceptionalTermsApprovedByLOC" required="true"/>
                             </div>
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                                <lightning:input type="date" class="slds-hide" label="Date of Approval" aura:id="DateofApprovalLOC" required="true"/>
+                                <lightning:input type="date" class="slds-hide" label="Date of Approval" placeholder="MM/DD/YYYY" messageWhenBadInput="Your entry does not match the allowed format MM/DD/YYYY." aura:id="DateofApprovalLOC" required="true"/>
                             </div>
                         </div>
                     </fieldset>
@@ -1731,7 +1731,7 @@
                                     <lightning:input label="$" style="margin-top: 18px;" value="JMD" name="Processing Fees (including GCT)" aura:id="ProcessingFeesincludingGCT" readonly="true"/>
                                 </div>
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12">
-                                    <lightning:input formatter="currency" step="0.01" label="+ Processing Fees (including GCT)" required="true" type="number" value="{!v.ProcessingFeesAutoloan}" name="Processing Fees (including GCT)" aura:id="ProcessingFeesincludingGCT"  disabled="true"/>
+                                    <lightning:input formatter="currency" step="0.01" label="+ Processing Fees (including GCT)" required="true" type="number" value="{!v.ProcessingFeesAutoloan}" name="Processing Fees (including GCT)" aura:id="ProcessingFeesincludingGCT1"  disabled="true"/>
                                 </div>
                             </div>
                         </div>

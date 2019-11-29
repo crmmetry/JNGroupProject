@@ -12,6 +12,7 @@
     },
      
     handleSelect : function (component,event) {
+        console.log('lookup===='+component.get("v.PromotionProduct"));
         var chooseEvent = component.getEvent("lookupSelect");
         chooseEvent.setParams({
             "recordId" : component.get("v.record").Id,

@@ -134,30 +134,31 @@ public class MultiProductCalculatorController {
         set<string> productset= new set<string>();
         string selection='0';
         Set<String> set1 = new Set<String>{'JN Bank Auto Loan'};
-            Set<String> set2 = new Set<String>{'JN Bank Unsecured Loan'};
-                Set<String> set3 = new Set<String>{'JN Visa - Classic'};
-                    Set<String> set4 = new Set<String>{'JN Bank Line Of Credit'};
-                        Set<String> set5 = new Set<String>{'JN Bank Auto Loan', 'JN Bank Unsecured Loan'};
-                            Set<String> set6 = new Set<String>{'JN Bank Auto Loan', 'JN Visa - Classic'};
-                                Set<String> set7 = new Set<String>{'JN Bank Auto Loan', 'JN Bank Line Of Credit'};
-                                    Set<String> set8 = new Set<String>{'JN Bank Unsecured Loan', 'JN Visa - Classic'};
-                                        Set<String> set9 = new Set<String>{'JN Bank Unsecured Loan', 'JN Bank Line Of Credit'};
-                                            Set<String> set10 = new Set<String>{'JN Visa - Classic', 'JN Bank Line Of Credit'};
-                                                Set<String> set11 = new Set<String>{'JN Bank Auto Loan', 'JN Bank Unsecured Loan','JN Visa - Classic'};
-                                                    Set<String> set12 = new Set<String>{'JN Bank Auto Loan', 'JN Bank Unsecured Loan','JN Bank Line Of Credit'};
-                                                        Set<String> set13 = new Set<String>{'JN Bank Auto Loan', 'JN Visa - Classic', 'JN Bank Line Of Credit'};
-                                                            Set<String> set14 = new Set<String>{'JN Bank Unsecured Loan', 'JN Visa - Classic', 'JN Bank Line Of Credit'};
-                                                                Set<String> set15 = new Set<String>{'JN Bank Auto Loan', 'JN Bank Unsecured Loan', 'JN Visa - Classic', 'JN Bank Line Of Credit'};
-                                                                    list<OpportunityLineItem> lstlineItem=new list<OpportunityLineItem>();
+        Set<String> set2 = new Set<String>{'JN Bank Unsecured Loan'};
+        Set<String> set3 = new Set<String>{'JN Visa - Classic'};
+        Set<String> set4 = new Set<String>{'JN Bank Line Of Credit'};
+        Set<String> set5 = new Set<String>{'JN Bank Auto Loan', 'JN Bank Unsecured Loan'};
+        Set<String> set6 = new Set<String>{'JN Bank Auto Loan', 'JN Visa - Classic'};
+        Set<String> set7 = new Set<String>{'JN Bank Auto Loan', 'JN Bank Line Of Credit'};
+        Set<String> set8 = new Set<String>{'JN Bank Unsecured Loan', 'JN Visa - Classic'};
+        Set<String> set9 = new Set<String>{'JN Bank Unsecured Loan', 'JN Bank Line Of Credit'};
+        Set<String> set10 = new Set<String>{'JN Visa - Classic', 'JN Bank Line Of Credit'};
+        Set<String> set11 = new Set<String>{'JN Bank Auto Loan', 'JN Bank Unsecured Loan','JN Visa - Classic'};
+        Set<String> set12 = new Set<String>{'JN Bank Auto Loan', 'JN Bank Unsecured Loan','JN Bank Line Of Credit'};
+        Set<String> set13 = new Set<String>{'JN Bank Auto Loan', 'JN Visa - Classic', 'JN Bank Line Of Credit'};
+        Set<String> set14 = new Set<String>{'JN Bank Unsecured Loan', 'JN Visa - Classic', 'JN Bank Line Of Credit'};
+        Set<String> set15 = new Set<String>{'JN Bank Auto Loan', 'JN Bank Unsecured Loan', 'JN Visa - Classic', 'JN Bank Line Of Credit'};
+        list<OpportunityLineItem> lstlineItem=new list<OpportunityLineItem>();
         lstlineItem  =  [select Product2.Name from OpportunityLineItem where Opportunityid =: oppid];
         for(OpportunityLineItem ol:lstlineItem){
-            if(ol.Product2.Name =='JN Bank Auto Loan')
+            String  Productname=ol.Product2.Name;
+            if(Productname =='JN Bank Auto Loan')
                 productset.add('JN Bank Auto Loan');
-            if(ol.Product2.Name =='JN Bank Unsecured Loan')
+            if(Productname =='JN Bank Unsecured Loan')
                 productset.add('JN Bank Unsecured Loan');
-            if(ol.Product2.Name =='JN Visa - Classic')
+            if(Productname.contains('JN Visa'))
                 productset.add('JN Visa - Classic');
-            if(ol.Product2.Name =='JN Bank Line Of Credit')
+            if(Productname =='JN Bank Line Of Credit')
                 productset.add('JN Bank Line Of Credit');
         }
         if(productset.size()==1){
