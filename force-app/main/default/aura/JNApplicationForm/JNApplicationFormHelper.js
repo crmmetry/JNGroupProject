@@ -29,10 +29,6 @@
   },
   updateLeadInfo: function(component) {
     const action = component.get("c.updateLeadInformation");
-    console.log(
-      "Submitting Lead",
-      JSON.parse(JSON.stringify(component.get("v.SiteLead")))
-    );
     action.setParams({
       currentLead: component.get("v.SiteLead")
     });
@@ -42,10 +38,7 @@
       const state = response.getState();
       if (state === "SUCCESS") {
         //display successful toast
-        console.log(JSON.parse(JSON.stringify(response.getReturnValue())));
         alert("successfuly submitted");
-      } else {
-        console.error(JSON.parse(JSON.stringify(response.getError())));
       }
     });
     $A.enqueueAction(action);

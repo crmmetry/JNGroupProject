@@ -42,7 +42,6 @@
         eventToSend.fire();
     },
     createLead: function(component) {
-        console.log("General Details", component.get("v.SiteLead"))
         let serviceofInterest;
         if (component.get("v.loan_type") == "credit_card") {
             serviceofInterest = "JN Bank Credit Card";
@@ -59,9 +58,7 @@
             this.sendEvents(component, ["disableShowLoading"]);
             const state = response.getState();
             if (state === "SUCCESS") {
-                console.info(response.getReturnValue());
-                let siteLead = component.get("v.SiteLead");
-                
+                let siteLead = component.get("v.SiteLead");               
                 Object.assign(siteLead, response.getReturnValue());
                 component.set("v.SiteLead", siteLead);
                 this.sendEvents(
@@ -69,8 +66,6 @@
                     [ "setLeadInfo", "navigateNext"],
                     {"Id": siteLead.Id}
                 );
-            } else {
-                console.error(JSON.parse(JSON.stringify(response.getError())));
             }
         });
         $A.enqueueAction(action);

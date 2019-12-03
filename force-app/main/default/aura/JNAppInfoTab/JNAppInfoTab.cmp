@@ -1,14 +1,3 @@
-<!--
-  @File Name          : JNAppInfoTab.cmp
-  @Description        : 
-  @Author             : Jermaine.Byfield@crmmetry.com
-  @Group              : 
-  @Last Modified By   : Jermaine.Byfield@crmmetry.com
-  @Last Modified On   : 10/31/2019, 12:13:22 PM
-  @Modification Log   : 
-  Ver       Date            Author      		    Modification
-  1.0    10/31/2019   Jermaine.Byfield@crmmetry.com     Initial Version
--->
 <aura:component access="GLOBAL" controller="JNSiteController">
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
   <aura:registerEvent type="c:JNComponentEvent" name="jnEvent" />
@@ -53,12 +42,12 @@
             </aura:set>
           </aura:if>
         </div>
-        <!-- Prefered Location -->
+        <!-- Preferred Location -->
         <div class="slds-col">
           <lightning:select
             aura:id="validation"
-            name="prefered_location"
-            label="Prefered Location"
+            name="preferred_location"
+            label="Preferred Location"
             required="true"
             onchange="{!c.getPreferredLocation}"
           >
@@ -68,25 +57,25 @@
             </aura:iteration>
           </lightning:select>
         </div>
-        <!-- Prefered Date of Contact -->
+        <!-- Preferred Date of Contact -->
         <div class="slds-col">
           <lightning:input
             aura:id="validation"
             type="date"
             min="{!v.mindate}"
             name="date_of_contact"
-            label="Prefered Date of Contact"
+            label="Preferred Date of Contact"
             required="true"
             value="{!v.SiteLead.Preferred_Date_of_Contact__c }"
           />
         </div>
-        <!-- Prefered Date of Contact -->
+        <!-- Preferred Date of Contact -->
         <div class="slds-col">
           <lightning:input
             aura:id="validation"
             type="time"
             name="time_of_contact"
-            label="Prefered Time of Contact"
+            label="Preferred Time of Contact"
             required="true"
             value="{!v.SiteLead.Preferred_Time_of_Contact__c }"
           />

@@ -33,15 +33,12 @@
             this.sendEvents(component, ["disableShowLoading"]);
             const state = response.getState();
             if (state === "SUCCESS") {
-                console.log("SUCCESS", JSON.parse(JSON.stringify(response.getReturnValue())))
                 this.sendEvents(
                     component,
                     ["navigateNext"],
                     {}
                 );
                 
-            } else {
-                console.log(JSON.parse(JSON.stringify(reponse.getError())))
             }
         });
         $A.enqueueAction(action);

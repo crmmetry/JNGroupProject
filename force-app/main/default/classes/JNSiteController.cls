@@ -29,10 +29,6 @@ public class JNSiteController {
     @AuraEnabled
     public static Object getPickListValuesList(String objectApiName, List<String> fieldApiNames){
         String recordTypeId;
-        /*if(recordTypeName != null){
-recordTypeId = getRecordTypeId(recordTypeName);
-}*/
-        
         List<String> pickListValuesList= new List<String>();
         Map<String, List<String>> mapFields = new Map<String, List<String>>();
         List<String> specificValues;

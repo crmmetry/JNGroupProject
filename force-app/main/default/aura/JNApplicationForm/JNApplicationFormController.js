@@ -18,7 +18,6 @@
   },
 
   openModal: function(component, event, helper) {
-    console.log("modal got clicked");
     var childCmp = component.find("JNModal");
     var header = "Here is the header I assign";
     var body = "Here is content for the body";

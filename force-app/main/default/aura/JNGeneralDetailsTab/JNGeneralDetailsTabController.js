@@ -21,7 +21,6 @@
         };
         let current_datetime = new Date()
         let formatted_date = current_datetime.getFullYear()-18 + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
-        console.log(formatted_date);
         component.set("v.maxdate", formatted_date);
         Object.assign(siteLead, component.get("v.SiteLead"));
         component.set("v.SiteLead", siteLead);

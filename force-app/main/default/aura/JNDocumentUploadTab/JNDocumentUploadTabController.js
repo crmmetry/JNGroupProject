@@ -82,8 +82,6 @@
 
         // set call back
         action.setCallback(this, function(response) {
-          console.info(response.getReturnValue());
-          console.log(response.getState());
             helper.disableProgress(component, cmpName);
         });
         $A.enqueueAction(action);
