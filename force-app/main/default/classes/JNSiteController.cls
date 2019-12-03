@@ -1,13 +1,13 @@
 public class JNSiteController {
     
+        @AuraEnabled
+    public static Object getPickListFromAPI(String objectApiName, String fieldApiName, String recordTypeName, String recordTypeId){
+        return JNApplicantFlowController.getPickListValues(objectApiName, fieldApiName, recordTypeName, recordTypeId);
+    }
+
     @AuraEnabled
     public static List<String> getPickListValues(String objectApiName, String fieldApiName){
         String recordTypeId;
-        /*if(recordTypeName != null){
-//recordTypeId = getRecordTypeId(recordTypeName);
-}*/
-        
-        //List<String> specificValues = getPicklistValuesUIApi(recordTypeId,objectApiName,fieldApiName);
         List<String> pickListValuesList= new List<String>();
         Map<String , Schema.SObjectType> globalDescription = Schema.getGlobalDescribe();
         Schema.sObjectType sObjType = globalDescription.get(objectApiName);

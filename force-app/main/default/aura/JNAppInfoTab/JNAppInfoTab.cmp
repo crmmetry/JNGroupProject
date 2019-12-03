@@ -95,24 +95,24 @@
       <!-- second row -->
       <div class="slds-grid slds-gutters">
         <div class="slds-col slds-size_3-of-12">
-          <!-- Gross Montly Income -->
+          <!-- Gross Monthly Income -->
           <lightning:input
             aura:id="validation"
             type="number"
             name="gross_montly_income"
-            label="Gross Montly Income"
+            label="Gross Monthly Income"
             required="true"
             value="{!v.SiteLead.Gross_Monthly_Income__c}"
             formatter="currency"
           />
         </div>
-        <!-- Gross Montly Expenses -->
+        <!-- Gross Monthly Expenses -->
         <div class="slds-col slds-size_3-of-12">
           <lightning:input
             aura:id="validation"
             type="number"
             name="gross_montly_expenses"
-            label="Gross Montly Expenses"
+            label="Gross Monthly Expenses"
             required="true"
             value="{!v.SiteLead.Gross_Monthly_Expenses__c}"
             formatter="currency"

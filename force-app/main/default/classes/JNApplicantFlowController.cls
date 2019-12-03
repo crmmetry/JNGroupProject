@@ -27,10 +27,10 @@ global with sharing class JNApplicantFlowController {
             if(applicant != null){
                 List<FinServ__Employment__c>  employments = [SELECT Id,Assessment_of_Business__c,Assessment_of_Statement__c,
                                                              Assessment_of_Business_Working_Capita__c
-                                                             FROM FinServ__Employment__c WHERE Account__c =:applicant.Account__c];
+                                                             FROM FinServ__Employment__c WHERE Account__c =:applicant.Account__c AND Current_Employment__c = TRUE];
                 FinServ__Employment__c employment;
                 if(!employments.isEmpty()){
-                    employment = employments.get(0);// need to get specific employment
+                    employment = employments.get(0);
                 }
                 objects.put('applicant', applicant);
                 objects.put('employment', employment);

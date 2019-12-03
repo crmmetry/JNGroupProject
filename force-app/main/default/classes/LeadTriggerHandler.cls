@@ -379,7 +379,7 @@ Encourage client to add start and end date to employment
         List<Sobject> recordsToInsert = new List<Sobject>();
         Map<String, Id> recordTypesRole = Util.getRecordTypeids('FinServ__ReciprocalRole__c');
         List<String> emptyFieldsForEmergencyContact = new List<String>{
-            'Emergency_Contact_First_Name__c',
+            	'Emergency_Contact_First_Name__c',
                 'Emergency_Contact_Last_Name__c',
                 'Emergency_Contact_Personal_Email__c',
                 'Emergency_Contact_Mobile__c'};
@@ -551,11 +551,13 @@ Encourage client to add start and end date to employment
         String creditCard ='JN Bank Credit Card';
         String unsecuredLoan ='JN Bank Unsecured Loan';
         Map<String, Id> recordTypes = Util.getRecordTypeids('FinServ__Employment__c');
-        List<String> emptyFieldsForEmployed = new List<String>{'FinServ__Employer__c','Current_Position_Held__c',
-            'Time_with_Current_Employer__c','Employer_Industry__c',
-            'Time_in_Industry__c','Employment_Status__c'};
+        List<String> emptyFieldsForEmployed = new List<String>
+        		{'FinServ__Employer__c','Current_Position_Held__c',
+            	'Time_with_Current_Employer__c','Employer_Industry__c',
+           		 'Time_in_Industry__c','Employment_Status__c'};
                 
-                List<String> emptyFieldsForSelfEmployed  = new List<String>{'Self_Employed_Company_Name__c','Type_of_Business__c',
+                List<String> emptyFieldsForSelfEmployed  = new List<String>
+                 {'Self_Employed_Company_Name__c','Type_of_Business__c',
                     'Date_of_Incorporation__c','Type_of_Industry_Self_Employed__c',
                     'Nature_of_Engagement__c', 'Self_Employed_Time_in_Present_Industry__c'};
                         
@@ -597,6 +599,7 @@ Encourage client to add start and end date to employment
                                    employment.Business_Number_2__c = record.Employer_Phone_2__c;
                                    employment.Income_Type__c = 'Salaried';
                                    employment.RecordTypeId =  recordTypes.get('Employed');
+                                   employment.Current_Employment__c = true;
                                    employments.add(employment);
                                }
                            }
@@ -624,6 +627,7 @@ Encourage client to add start and end date to employment
                                    employment.Business_Number_2__c = record.Employer_Phone_2__c;
                                    employment.Income_Type__c = 'Self-Employed';
                                    employment.RecordTypeId =  recordTypes.get('Self_Employed');
+                                   employment.Current_Employment__c = true;
                                    employments.add(employment);
                                }
                            }
@@ -651,6 +655,7 @@ Encourage client to add start and end date to employment
                                    employment.Business_Number_2__c = record.Unemployed_Phone_2__c;
                                    employment.Income_Type__c = 'Salaried';
                                    employment.RecordTypeId =  recordTypes.get('Unemployed');
+                                   employment.Current_Employment__c = true;
                                    employments.add(employment);
                                }
                            }
