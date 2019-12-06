@@ -23,10 +23,12 @@
             "applicant": component.get("v.applicant"),
             "employment": component.get("v.employment"),
         });
+        console.info(JSON.parse(JSON.stringify(component.get("v.applicant"))));
+       console.info(JSON.parse(JSON.stringify(component.get("v.employment"))));
         action.setCallback(this, function(response) {
             const state = response.getState();
             if (state === "SUCCESS") {
-                component.set("v.applicant", response.getReturnValue());
+                console.log('applicant & EMPLoynent updated')
             } else {
                 console.info(response.getError());
             }

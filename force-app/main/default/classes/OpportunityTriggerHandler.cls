@@ -3,8 +3,9 @@ public class OpportunityTriggerHandler {
     private static List<Opportunity> newRecords;
     private static Map<Id, Opportunity> oldMap;
     private static Map<Id, Opportunity> newMap;
-    private static Map<String,String> excludedFields = new Map<String, String>{
-        'Id' => 'Id',
+    private static Map<String,String> excludedFields = new Map<String, String>
+    		{
+       		'Id' => 'Id',
             'IsDeleted' => 'IsDeleted',
             'CreatedById' => 'CreatedDate',
             'LastModifiedById' => 'LastModifiedById',
@@ -119,6 +120,11 @@ public class OpportunityTriggerHandler {
                         }
                     }
                 }  
+            }
+            if(opp.StageName == 'Closed Lost' || opp.StageName == 'Closed Won' && !changedFields.isEmpty() && changedFields.get(0) != 'Record_Lock__c'){
+                if(oldMap.get(opp.Id).StageName != 'Closed Lost' || oldMap.get(opp.Id).StageName != 'Closed Won'){
+                    opp.Record_Lock__c = true;
+                }
             }
         }
         

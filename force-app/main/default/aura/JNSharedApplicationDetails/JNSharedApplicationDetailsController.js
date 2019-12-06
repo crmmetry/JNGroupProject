@@ -4,7 +4,7 @@
     helper.getApplicant(component);
     component.set("v.validate", function() {
       if (helper.validateFields(component)) {
-        //helper.updateApplicant(component);
+        helper.updateApplicant(component);
         return { isValid: true };
       } else {
         return {isValid: false,  errorMessage: 'Please fill all the required fields on the page.' }
@@ -70,5 +70,9 @@
   getAssessmentofBusinessWorkingCapita: function(component, event, helper) {
     const selected = event.getSource().get("v.value");
     component.set("v.employment.Assessment_of_Business_Working_Capita__c", selected);
+  },
+      getJNEMployee: function(component, event, helper) {
+    const selected = event.getSource().get("v.value");
+    component.set("v.employment.JN_Employee_Loan_Benefit__c", selected);
   },
 });

@@ -34,6 +34,7 @@ global with sharing class JNApplicantFlowController {
                 }
                 objects.put('applicant', applicant);
                 objects.put('employment', employment);
+                System.debug('Applicant Objects: '+ objects);
                 return objects;
             }
             return null;
@@ -166,15 +167,12 @@ global with sharing class JNApplicantFlowController {
         List<String> specificValues;
         if(recordTypeId == null && recordTypeName != null){
             recordTypeId = getRecordTypeId(recordTypeName);
-            System.debug('getRecordTypeId ' + recordTypeId);
             specificValues = getPicklistValuesUIApi(recordTypeId,objectApiName,fieldApiName);
             return specificValues;
         } else if(recordTypeId != null){
-            System.debug('getRecordTypeId ' + recordTypeId);
             specificValues = getPicklistValuesUIApi(recordTypeId,objectApiName,fieldApiName);
-            System.debug('specificValues: ' + specificValues);
             return specificValues;
-        }else {
+        } else {
             List<String> pickListValuesList= new List<String>();
             Map<String , Schema.SObjectType> globalDescription = Schema.getGlobalDescribe();
             Schema.sObjectType sObjType = globalDescription.get(objectApiName);
@@ -240,7 +238,7 @@ global with sharing class JNApplicantFlowController {
         }
         return mapFields;
     }
-    /* Making callout to the UI API to get the list of available picklist values based on the selected recordtype  */
+ /* Making callout to the UI API to get the list of available picklist values based on the selected recordtype  */
     @AuraEnabled
     public static string[] getPicklistValuesUIApi(string recordTypeId, string ObjectApiName,string fieldApiName){
         

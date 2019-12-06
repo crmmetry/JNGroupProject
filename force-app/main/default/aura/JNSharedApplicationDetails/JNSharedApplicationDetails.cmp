@@ -18,7 +18,7 @@
 	<aura:attribute name="AssessmentofBusinessWorkingCapitas" type="String[]" />
 	<aura:attribute name="validate" type="Aura.Action" description="Custom validation function to run when the flow is navigated to the next screen. 
                                  The function must evaluate the component and return values for isValid and errorMessage." />
-	<aura:attribute name="applicant" type="Applicant__c" default="{'sobjectType':'Applicant__c'}" />
+	<aura:attribute name="applicant" type="Applicant__c" default="{'sobjectType':'Applicant__c'}"/>
 	<aura:attribute name="employment" type="FinServ__Employment__c" default="{'sobjectType':'FinServ__Employment__c'}" />
 	<lightning:accordion aura:id="accordion">
 		<lightning:accordionSection name="credit_bureau_reporting" label="Credit Bureau Reporting Financial and Legal Assessment">
@@ -221,7 +221,8 @@
 				</lightning:layoutItem>
 				<!-- Will the JN Employee Loan Benefit be applied?* -->
 				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small" >
-					<lightning:input value="{!v.applicant.JN_Employee_Loan_Benefit__c}" type="checkbox" label="Will the JN Employee Loan Benefit be applied?" checked="{!!v.applicant.JN_Employee_Loan_Benefit__c ==true}"/>
+					<lightning:input onchange="{!c.getJNEMployee}" type="checkbox" aura:id="JN_Employee_Loan_Benefit"
+                                     label="Will the JN Employee Loan Benefit be applied?" checked="{!v.applicant.JN_Employee_Loan_Benefit__c}"/>
 				</lightning:layoutItem>
 			</lightning:layout>
 		</lightning:accordionSection>
