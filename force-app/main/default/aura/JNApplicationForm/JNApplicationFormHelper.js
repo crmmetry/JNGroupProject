@@ -55,24 +55,23 @@
       return;
     }
   },
-      showSuccessToast: function(component, data) {
+  showSuccessToast: function(component, data) {
     const siteLead = component.get("v.SiteLead");
 
-      //user must complete step 2 and 3 first
-      const severity = data.severity; 
-      const title = data.title; 
-      const message = data.message; 
-      const toastContainer = component.find("toastContainer");
-      toastContainer.displayMessage(severity, title, message);
-    
+    //user must complete step 2 and 3 first
+    const severity = data.severity;
+    const title = data.title;
+    const message = data.message;
+    const toastContainer = component.find("toastContainer");
+    toastContainer.displayMessage(severity, title, message);
   },
-        sendEvents: function(component, cmpName, events, data) {
-        const eventToSend = component.getEvent("jnEvent");
-        eventToSend.setParams({
-            component: cmpName,
-            action: events,
-            data: data
-        });
-        eventToSend.fire();
-    },
+  sendEvents: function(component, cmpName, events, data) {
+    const eventToSend = component.getEvent("jnEvent");
+    eventToSend.setParams({
+      component: cmpName,
+      action: events,
+      data: data
+    });
+    eventToSend.fire();
+  }
 });

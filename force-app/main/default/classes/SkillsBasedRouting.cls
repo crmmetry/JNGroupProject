@@ -1,6 +1,8 @@
 Global class SkillsBasedRouting {
     public static void routeUsingSkills(Set<Id> leads) {
-        List<Lead> leadObjects = [SELECT Id, Preferred_Location__c,OwnerId   FROM Lead WHERE Id in :leads];
+         //get Sales Development queue id
+        Group salesDevQueue = [SELECT Id FROM Group WHERE Type='Queue' AND Name='Sales Development Team'];
+        List<Lead> leadObjects = [SELECT Id, Preferred_Location__c,OwnerId FROM Lead WHERE Id in :leads AND OwnerID =:salesDevQueue.Id];
         System.debug('JNSkillsRouting' + leadObjects);
         for (Lead leadObj : leadObjects) {
             // Add SkillsBased PendingServiceRouting
@@ -17,7 +19,7 @@ Global class SkillsBasedRouting {
                 System.debug('JNSkillsRouting' + pendingSrvRouting);
             INSERT pendingSrvRouting;
             pendingSrvRouting = [SELECT Id, IsReadyForRouting FROM 
-                                 PendingServiceRouting WHERE Id = : pendingSrvRouting.id];
+                                 PendingServiceRouting WHERE Id = :pendingSrvRouting.id];
             
             // Now add SkillRequirement(s)
             SkillRequirement srObj = new SkillRequirement(

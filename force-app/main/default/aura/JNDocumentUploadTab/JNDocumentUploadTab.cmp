@@ -21,6 +21,8 @@
     
     <lightning:layout>
         <lightning:layoutItem size="12" padding="around-small">
+            <c:JnToast aura:id="toastContainer"/>
+
             <div
                  class="slds-text-heading_large slds-align_absolute-center slds-m-bottom_medium"
                  >{!v.currentSize}/{!v.maxSize}MB used</div

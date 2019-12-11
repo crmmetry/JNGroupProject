@@ -44,16 +44,16 @@
       ]
     ];
     component.set("v.documentTypeList", documentTypeList);
-      component.set("v.maxSize", 50);
+    component.set("v.maxSize", 50);
   },
   handleFilesChange: function(component, event, helper) {
     const MAX_FILE_SIZE = 4500000;
     let fileName = "No File Selected..";
     if (event.getSource().get("v.files").length > 0) {
       fileName = event.getSource().get("v.files")[0]["name"];
-		const cmpName = event.getSource().get("v.name");
-        helper.enableProgress(component, cmpName);
-        
+      const cmpName = event.getSource().get("v.name");
+      helper.enableProgress(component, cmpName);
+
       component.set("v.fileName", fileName);
       let fileInput = event.getSource().get("v.files")[0];
       // get the first file using array index[0]
@@ -63,8 +63,8 @@
         // component.set("v.fileName", 'Alert : File size cannot exceed ' + self.MAX_FILE_SIZE + ' bytes.\n' + ' Selected file size: ' + file.size);
         return;
       }
-        helper.setCurrentSize(component, file.size);
-     
+      helper.setCurrentSize(component, file.size);
+
       // create a FileReader object
       let objFileReader = new FileReader();
       // set onload function of FileReader object
@@ -82,7 +82,11 @@
 
         // set call back
         action.setCallback(this, function(response) {
-            helper.disableProgress(component, cmpName);
+          helper.disableProgress(component, cmpName);
+          helper.showSuccessToast(component, {
+            severity: "confirm",
+            message: "Your image was successfully uploaded."
+          });
         });
         $A.enqueueAction(action);
       });

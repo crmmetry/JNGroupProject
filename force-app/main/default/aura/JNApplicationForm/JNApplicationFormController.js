@@ -143,7 +143,8 @@
         title: "Applicant Form Completion"
       });
       setTimeout(function() {
-        helper.sendEvents(component, "JNHomePage", ["showHomePage"], {});
+          window.location.reload();
+        //helper.sendEvents(component, "JNHomePage", ["showHomePage"], {});
       }, 5500);
     }
   }

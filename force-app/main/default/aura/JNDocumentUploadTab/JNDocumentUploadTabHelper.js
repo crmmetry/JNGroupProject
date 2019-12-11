@@ -28,5 +28,16 @@
         let list = component.get("v.documentTypeList");
         list[row][index].active = false;
        component.set("v.documentTypeList", list);
-    }
+    },
+   showSuccessToast: function(component, data) {
+    const siteLead = component.get("v.SiteLead");
+
+      //user must complete step 2 and 3 first
+      const severity = data.severity; 
+      const title = data.title; 
+      const message = data.message; 
+      const toastContainer = component.find("toastContainer");
+      toastContainer.displayMessage(severity, title, message);
+    
+  },
 })
