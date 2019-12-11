@@ -597,7 +597,7 @@
         cmp.find("MonthlyProcessingFees1Un").set("v.value", parseFloat(ProcessingFee10).toFixed(2));
         cmp.find("ProcessingFeesGCT1Un").set("v.value", parseFloat(ProcessingFee10).toFixed(2));
         
-        /* console.log('pavitUn');
+         console.log('pavitUn');
         if(cmp.find("WaiveProcessingFeeUn").get("v.value")=='1'){
             console.log('pavitUn1');
             var RequestData=cmp.get("v.RDetailUnsecured");
@@ -635,7 +635,7 @@
             cmp.find("ProcessingFeesincludingGCTUn1").set("v.value", parseFloat(ProcessingFee10).toFixed(2));
             cmp.find("MonthlyProcessingFees1Un").set("v.value", parseFloat(ProcessingFee10).toFixed(2));
             
-        }*/
+        }
         
     },
     calculateTotalautoloan:function(cmp, event) {
@@ -990,10 +990,12 @@
     ExistingAssetsandLiabilities: function(cmp){
         console.log('ExistingAssetsandLiabilities==========');
         var action = cmp.get("c.getApplicantAsset");
+        console.log('ExistingAssetsandLiabilities==========1.1');
         action.setParams({      
             oppid: cmp.get("v.isRecordIdM"),
             
-        }); 
+        });
+        console.log('ExistingAssetsandLiabilities==========1.2');
         action.setCallback(this, function(response) {
             var state = response.getState();
             if (state === "SUCCESS"){

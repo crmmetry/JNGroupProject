@@ -1,5 +1,5 @@
 Global class SkillsBasedRouting {
-    public static void JNSkillsRouting(Set<Id> leads) {
+    public static void routeUsingSkills(Set<Id> leads) {
         List<Lead> leadObjects = [SELECT Id, Preferred_Location__c,OwnerId   FROM Lead WHERE Id in :leads];
         System.debug('JNSkillsRouting' + leadObjects);
         for (Lead leadObj : leadObjects) {
@@ -8,7 +8,7 @@ Global class SkillsBasedRouting {
             PendingServiceRouting pendingSrvRouting = new PendingServiceRouting(
                 CapacityWeight = 1,
                 IsReadyForRouting = FALSE,
-                RoutingModel  = 'MostAvailable',
+                RoutingModel  = 'LeastActive',
                 RoutingPriority = 1,
                 RoutingType = 'SkillsBased',
                 ServiceChannelId = getChannelId('New_lead'),
@@ -23,10 +23,10 @@ Global class SkillsBasedRouting {
             SkillRequirement srObj = new SkillRequirement(
                 RelatedRecordId = pendingSrvRouting.id,
                 SkillId = getSkillId(leadObj.Preferred_Location__c ),
-                SkillLevel = 5
+                SkillLevel = 1
             );
             insert srObj;
-            
+            System.debug('Current Skill: ' + srObj);
             // Update PendingServiceRouting as IsReadyForRouting
             pendingSrvRouting.IsReadyForRouting = TRUE;
             update pendingSrvRouting;
@@ -41,7 +41,7 @@ Global class SkillsBasedRouting {
     }
     
     private static String getSkillId(String preferedLocation) {
-        Skill skill = [Select Id From Skill Where DeveloperName = :preferedLocation];
+        Skill skill = [Select Id From Skill Where MasterLabel = :preferedLocation];
         return skill.Id;
     }
     private static String getQueueId(String name) {

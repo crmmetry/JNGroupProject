@@ -829,7 +829,7 @@
                                             {!row.colIndex}
                                         </td>
                                         <td>
-                                            <lightning:input formatter="percent-fixed" type="number"  value="{!row.Interestrate}" onblur="{!c.updateRequestdetailsUnsecured}"/>
+                                            <lightning:input formatter="percent-fixed"  step="0.01" type="number"  value="{!row.Interestrate}" onblur="{!c.updateRequestdetailsUnsecured}"/>
                                         </td>
                                         <td>
                                             per annum
@@ -2561,7 +2561,7 @@
                 </div>
                 <div class="slds-grid slds-wrap" style="margin-top: 10px;">
                     <aura:if isTrue="{!v.ApplicantCount>=1}">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.StatementofAffairDoc1 }">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.StatementofAffair }" data-value="Doc1">
                             <lightning:layout class="slds-box">
                                 <lightning:layoutItem> 
                                     <lightning:icon iconName="doctype:word"/>
@@ -2576,7 +2576,7 @@
                         </div>
                     </aura:if>
                     <aura:if isTrue="{!v.ApplicantCount>=2}">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.StatementofAffairDoc2 }">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.StatementofAffair }" data-value="Doc2">
                             <lightning:layout class="slds-box">
                                 <lightning:layoutItem> 
                                     <lightning:icon iconName="doctype:word"/>
@@ -2591,7 +2591,7 @@
                         </div>
                     </aura:if>
                     <aura:if isTrue="{!v.ApplicantCount>=3}">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.StatementofAffairDoc3 }">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.StatementofAffair }" data-value="Doc3">
                             <lightning:layout class="slds-box">
                                 <lightning:layoutItem> 
                                     <lightning:icon iconName="doctype:word"/>
@@ -2609,7 +2609,7 @@
                 
                 <div class="slds-grid slds-wrap" style="margin-top: 10px;">
                     <aura:if isTrue="{!v.isAutoPD}">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.creditScoringAuto }">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.creditScoring}" data-value="Auto">
                             <lightning:layout class="slds-box">
                                 <lightning:layoutItem> 
                                     <lightning:icon iconName="doctype:word"/>
@@ -2624,7 +2624,7 @@
                         </div>
                     </aura:if>
                     <aura:if isTrue="{!v.isUnsecurePD}">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.creditScoringUS }">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.creditScoring}" data-value="Unsecured">
                             <lightning:layout class="slds-box">
                                 <lightning:layoutItem> 
                                     <lightning:icon iconName="doctype:word"/>
@@ -2639,7 +2639,7 @@
                         </div>
                     </aura:if>
                     <aura:if isTrue="{!v.isCCPD}">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.creditScoringCC }">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.creditScoring}" data-value="CC">
                             <lightning:layout class="slds-box">
                                 <lightning:layoutItem> 
                                     <lightning:icon iconName="doctype:word"/>
@@ -2654,7 +2654,7 @@
                         </div>
                     </aura:if>
                     <aura:if isTrue="{!v.isLocPD}">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.creditScoringLoc }">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.creditScoring}" data-value="Loc">
                             <lightning:layout class="slds-box">
                                 <lightning:layoutItem> 
                                     <lightning:icon iconName="doctype:word"/>

@@ -683,11 +683,7 @@ this.Rating=Rating1;
         }
         return false;
     }
-    
-    
-    
-    
-    @AuraEnabled  
+   @AuraEnabled  
     public static list<WrapperclsAssets> getApplicantAsset(string oppid){
         list<WrapperclsAssets> wrapperlstAssets= new list<WrapperclsAssets>();
         list<Application_Asset_Liability__c> lst = [select Assets_and_Liabilities__r.RecordType.Name,
@@ -711,6 +707,5 @@ this.Rating=Rating1;
             this.Applicantlst=Applst;
             
         }
-    }
-    
+    } 
 }

@@ -243,7 +243,7 @@ global with sharing class JNApplicantFlowController {
     public static string[] getPicklistValuesUIApi(string recordTypeId, string ObjectApiName,string fieldApiName){
         
         string[] piclistValues=new string[]{};
-            string BaseUrl=system.Url.getOrgDomainUrl().toExternalForm();
+        string BaseUrl=system.Url.getOrgDomainUrl().toExternalForm();
         String endPoint = BaseUrl+'/services/data/v47.0/ui-api/object-info/'+ObjectApiName+'/picklist-values/'+recordTypeId+'/'+fieldApiName;
         httprequest request= new httprequest();
         request.setMethod('GET');
@@ -251,13 +251,10 @@ global with sharing class JNApplicantFlowController {
         request.setHeader('Content-Type','application/json; charset=UTF-8');
         request.setHeader('Accept','application/json');
         request.setHeader('Authorization', 'Bearer ' +  getSessionIdFromVfPage());
-        
-        System.debug('Wrapper ' + getSessionIdFromVfPage());
-        
+                
         http http = new http();
         httpresponse response=http.send(request);
         System.debug(response.getBody());
-        System.debug('Session id: '+ UserInfo.getSessionId());
         picklistWrapper obj=new picklistWrapper();        
         obj=(picklistWrapper)JSON.deserialize(response.getBody(), picklistWrapper.class);
         

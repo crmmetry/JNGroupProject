@@ -197,16 +197,19 @@
         appEvent.fire(); 
         
     },
-    documentapplicantDoc: function(cmp, evt, helper){
-        
+    documentChecklistDoc: function(cmp, event, helper){
+        var ctarget = event.currentTarget;
+    var id_str = ctarget.dataset.value;
+    console.log(id_str);
+        if(id_str=="Applicant"){
         var url='?incr='+cmp.get("v.checkboxGroupValueapplicant")+'&kycdone='+cmp.find("MembershipStatusApplicant").get("v.value")+'&kyc='+cmp.get("v.checkboxGroupValuekyc")+'&autolp='+cmp.find("LoanPurpose").get("v.value")+'&autovc='+cmp.find("VehicleClassification").get("v.value")+'&autoin='+cmp.find("InterestedinJNGIProgramme").get("v.value")+'&uns='+cmp.get("v.checkboxGroupValue")+'&credit='+cmp.find("CollateralTypeCredit").get("v.value")+'&loc='+cmp.find("CollateralTypeLineofCredit").get("v.value")+'&isloc='+cmp.find("Ispropertystrata").get("v.value")+'&payslip='+cmp.find("Doesreceivepayslips").get("v.value")+'&commision='+cmp.get("v.checkboxGroupValuepayslip");
         console.log('==='+url);
-        window.open('https://jnbank--jnbanksan.lightning.force.com/apex/DocumentCriteriaApplicant'+url+''+'&CalType='+cmp.find("Selectcombination").get("v.value"));
-        
-    },
-    documentOfficerDoc: function(cmp, evt, helper){
+        window.open(""+window.location.origin+"/apex/DocumentCriteriaApplicant"+url+""+"&CalType="+cmp.find("Selectcombination").get("v.value"));
+        }
+        else{    
         var url='?incr='+cmp.get("v.checkboxGroupValueapplicant")+'&kycdone='+cmp.find("MembershipStatusApplicant").get("v.value")+'&kyc='+cmp.get("v.checkboxGroupValuekyc")+'&autolp='+cmp.find("LoanPurpose").get("v.value")+'&autovc='+cmp.find("VehicleClassification").get("v.value")+'&autoin='+cmp.find("InterestedinJNGIProgramme").get("v.value")+'&uns='+cmp.get("v.checkboxGroupValue")+'&credit='+cmp.find("CollateralTypeCredit").get("v.value")+'&loc='+cmp.find("CollateralTypeLineofCredit").get("v.value")+'&isloc='+cmp.find("Ispropertystrata").get("v.value")+'&payslip='+cmp.find("Doesreceivepayslips").get("v.value")+'&commision='+cmp.get("v.checkboxGroupValuepayslip");
         console.log('==='+url);
-        window.open('https://jnbank--jnbanksan.lightning.force.com/apex/DocumentCriteriaOfficer'+url+''+'&CalType='+cmp.find("Selectcombination").get("v.value")); 
+        window.open(""+window.location.origin+"/apex/DocumentCriteriaOfficer"+url+""+"&CalType="+cmp.find("Selectcombination").get("v.value"));
+        }
     },
 })

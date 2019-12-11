@@ -256,7 +256,7 @@
                 <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-12 slds-large-size_1-of-12">
                     <lightning:icon style="margin-top: 20px;margin-left: 25px;" iconName="utility:chevronright"/>
                 </div>
-                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="margin-left: -15px;" onclick="{! c.documentapplicantDoc }">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="margin-left: -15px;" onclick="{! c.documentChecklistDoc }" data-value="Applicant">
                     
                     <lightning:layout class="slds-box">
                         <lightning:layoutItem> 
@@ -270,7 +270,7 @@
                         </lightning:layoutItem>
                     </lightning:layout>
                 </div>
-                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="margin-left: 5px;"  onclick="{! c.documentOfficerDoc }">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="margin-left: 5px;"  onclick="{! c.documentChecklistDoc }" data-value="Officer">
                     
                     <lightning:layout class="slds-box">
                         <lightning:layoutItem> 
