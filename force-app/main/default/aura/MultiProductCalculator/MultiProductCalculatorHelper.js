@@ -429,7 +429,7 @@
             loanamountsum +=parseFloat(RequestData[k].LoanAmount);
         }
         var numberapp;
-      if(cmp.get("v.RowNum")==undefined){
+        if(cmp.get("v.RowNum")==undefined){
             numberapp=0;
         }
         else{
@@ -597,7 +597,7 @@
         cmp.find("MonthlyProcessingFees1Un").set("v.value", parseFloat(ProcessingFee10).toFixed(2));
         cmp.find("ProcessingFeesGCT1Un").set("v.value", parseFloat(ProcessingFee10).toFixed(2));
         
-         console.log('pavitUn');
+        console.log('pavitUn');
         if(cmp.find("WaiveProcessingFeeUn").get("v.value")=='1'){
             console.log('pavitUn1');
             var RequestData=cmp.get("v.RDetailUnsecured");
@@ -1161,7 +1161,7 @@
             var ExistingInstallmentPaymentBefore = parseFloat(cmp.get("v.ExistingInstallmentBefore"));
             var ExistingInstallmentPaymentAfter = parseFloat(cmp.get("v.ExistingInstallmentAfter"));
             var ExistingGrossmonthlyincome = parseFloat(cmp.get("v.ExistingGrossincome"));
-            var totalmonthlyInstallmentcmp=parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
+            var totalmonthlyInstallmentcmp=isNaN(parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value")))?0:parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
             if(ExistingInstallmentPaymentBefore>0 && ExistingGrossmonthlyincome>0)
                 PriortoProposedCredit=ExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
             var totalExistingInstallmentPaymentAfter=ExistingInstallmentPaymentAfter+totalmonthlyInstallmentcmp;
@@ -1264,7 +1264,7 @@
             var ExistingInstallmentPaymentBefore = parseFloat(cmp.get("v.ExistingInstallmentBefore"));
             var ExistingInstallmentPaymentAfter = parseFloat(cmp.get("v.ExistingInstallmentAfter"));
             var ExistingGrossmonthlyincome = parseFloat(cmp.get("v.ExistingGrossincome"));
-            var totalmonthlyInstallmentcmp=parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value"));
+            var totalmonthlyInstallmentcmp=isNaN(parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value")))?0:parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value"));
             if(ExistingInstallmentPaymentBefore>0 && ExistingGrossmonthlyincome>0)
                 PriortoProposedCredit=ExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
             var totalExistingInstallmentPaymentAfter=ExistingInstallmentPaymentAfter+totalmonthlyInstallmentcmp;
@@ -1316,7 +1316,7 @@
             var ExistingInstallmentPaymentBefore = parseFloat(cmp.get("v.ExistingInstallmentBefore"));
             var ExistingInstallmentPaymentAfter = parseFloat(cmp.get("v.ExistingInstallmentAfter"));
             var ExistingGrossmonthlyincome = parseFloat(cmp.get("v.ExistingGrossincome"));
-            var totalmonthlyInstallmentcmp=parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value"));
+            var totalmonthlyInstallmentcmp=isNaN(parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value")))?0:parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value"));
             if(ExistingInstallmentPaymentBefore>0 && ExistingGrossmonthlyincome>0)
                 PriortoProposedCredit=ExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
             var totalExistingInstallmentPaymentAfter=ExistingInstallmentPaymentAfter+totalmonthlyInstallmentcmp;
@@ -1373,7 +1373,7 @@
             var ExistingInstallmentPaymentBefore = parseFloat(cmp.get("v.ExistingInstallmentBefore"));
             var ExistingInstallmentPaymentAfter = parseFloat(cmp.get("v.ExistingInstallmentAfter"));
             var ExistingGrossmonthlyincome = parseFloat(cmp.get("v.ExistingGrossincome"));
-            var totalmonthlyInstallmentcmp=parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value"));
+            var totalmonthlyInstallmentcmp=isNaN(parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value")))?0:parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value"));
             if(ExistingInstallmentPaymentBefore>0 && ExistingGrossmonthlyincome>0)
                 PriortoProposedCredit=ExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
             var totalExistingInstallmentPaymentAfter=ExistingInstallmentPaymentAfter+totalmonthlyInstallmentcmp;
@@ -1432,8 +1432,8 @@
             var ExistingInstallmentPaymentBefore = parseFloat(cmp.get("v.ExistingInstallmentBefore"));
             var ExistingInstallmentPaymentAfter = parseFloat(cmp.get("v.ExistingInstallmentAfter"));
             var ExistingGrossmonthlyincome = parseFloat(cmp.get("v.ExistingGrossincome"));
-            var totalmonthlyInstallmentcmpauto=parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
-            var totalmonthlyInstallmentcmpUn=parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value"));
+            var  totalmonthlyInstallmentcmpauto=isNaN(parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value")))?0:parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
+            var totalmonthlyInstallmentcmpUn=isNaN(parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value")))?0:parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value"));
             var totalExistingInstallmentPaymentBefore=ExistingInstallmentPaymentBefore+totalmonthlyInstallmentcmpauto;
             if(totalExistingInstallmentPaymentBefore>0 && ExistingGrossmonthlyincome>0)
                 PriortoProposedCredit=totalExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
@@ -1558,8 +1558,8 @@
             var ExistingInstallmentPaymentBefore = parseFloat(cmp.get("v.ExistingInstallmentBefore"));
             var ExistingInstallmentPaymentAfter = parseFloat(cmp.get("v.ExistingInstallmentAfter"));
             var ExistingGrossmonthlyincome = parseFloat(cmp.get("v.ExistingGrossincome"));
-            var totalmonthlyInstallmentcmpauto=parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
-            var totalmonthlyInstallmentcmpCC=parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value"));
+            var totalmonthlyInstallmentcmpauto=isNaN(parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value")))?0:parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
+            var totalmonthlyInstallmentcmpCC=isNaN(parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value")))?0:parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value"));
             var totalExistingInstallmentPaymentBefore=ExistingInstallmentPaymentBefore+totalmonthlyInstallmentcmpauto;
             if(totalExistingInstallmentPaymentBefore>0 && ExistingGrossmonthlyincome>0)
                 PriortoProposedCredit=totalExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
@@ -1697,8 +1697,8 @@
             var ExistingInstallmentPaymentBefore = parseFloat(cmp.get("v.ExistingInstallmentBefore"));
             var ExistingInstallmentPaymentAfter = parseFloat(cmp.get("v.ExistingInstallmentAfter"));
             var ExistingGrossmonthlyincome = parseFloat(cmp.get("v.ExistingGrossincome"));
-            var totalmonthlyInstallmentcmpauto=parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
-            var totalmonthlyInstallmentcmpLOC=parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value"));
+            var totalmonthlyInstallmentcmpauto=isNaN(parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value")))?0:parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
+            var totalmonthlyInstallmentcmpLOC=isNaN(parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value")))?0:parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value"));
             var totalExistingInstallmentPaymentBefore=ExistingInstallmentPaymentBefore+totalmonthlyInstallmentcmpauto;
             if(totalExistingInstallmentPaymentBefore>0 && ExistingGrossmonthlyincome>0)
                 PriortoProposedCredit=totalExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
@@ -1812,8 +1812,8 @@
             var ExistingInstallmentPaymentBefore = parseFloat(cmp.get("v.ExistingInstallmentBefore"));
             var ExistingInstallmentPaymentAfter = parseFloat(cmp.get("v.ExistingInstallmentAfter"));
             var ExistingGrossmonthlyincome = parseFloat(cmp.get("v.ExistingGrossincome"));
-            var totalmonthlyInstallmentcmpUn=parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value"));
-            var totalmonthlyInstallmentcmpCC=parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value"));
+            var totalmonthlyInstallmentcmpUn=isNaN(parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value")))?0:parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value"));
+            var totalmonthlyInstallmentcmpCC=isNaN(parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value")))?0:parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value"));
             var totalExistingInstallmentPaymentBefore=ExistingInstallmentPaymentBefore+totalmonthlyInstallmentcmpUn;
             if(totalExistingInstallmentPaymentBefore>0 && ExistingGrossmonthlyincome>0)
                 PriortoProposedCredit=totalExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
@@ -1874,8 +1874,8 @@
             var ExistingInstallmentPaymentBefore = parseFloat(cmp.get("v.ExistingInstallmentBefore"));
             var ExistingInstallmentPaymentAfter = parseFloat(cmp.get("v.ExistingInstallmentAfter"));
             var ExistingGrossmonthlyincome = parseFloat(cmp.get("v.ExistingGrossincome"));
-            var totalmonthlyInstallmentcmpUn=parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value"));
-            var totalmonthlyInstallmentcmpLOC=parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value"));
+            var totalmonthlyInstallmentcmpUn=isNaN(parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value")))?0:parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value"));
+            var totalmonthlyInstallmentcmpLOC=isNaN(parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value")))?0:parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value"));
             var totalExistingInstallmentPaymentBefore=ExistingInstallmentPaymentBefore+totalmonthlyInstallmentcmpUn;
             if(totalExistingInstallmentPaymentBefore>0 && ExistingGrossmonthlyincome>0)
                 PriortoProposedCredit=totalExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
@@ -1937,8 +1937,8 @@
             var ExistingInstallmentPaymentBefore = parseFloat(cmp.get("v.ExistingInstallmentBefore"));
             var ExistingInstallmentPaymentAfter = parseFloat(cmp.get("v.ExistingInstallmentAfter"));
             var ExistingGrossmonthlyincome = parseFloat(cmp.get("v.ExistingGrossincome"));
-            var totalmonthlyInstallmentcmpCC=parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value"));
-            var totalmonthlyInstallmentcmpLOC=parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value"));
+            var totalmonthlyInstallmentcmpCC=isNaN(parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value")))?0:parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value"));
+            var totalmonthlyInstallmentcmpLOC=isNaN(parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value")))?0:parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value"));
             var totalExistingInstallmentPaymentBefore=ExistingInstallmentPaymentBefore+totalmonthlyInstallmentcmpCC;
             if(totalExistingInstallmentPaymentBefore>0 && ExistingGrossmonthlyincome>0)
                 PriortoProposedCredit=totalExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
@@ -2003,9 +2003,9 @@
             var ExistingInstallmentPaymentBefore = parseFloat(cmp.get("v.ExistingInstallmentBefore"));
             var ExistingInstallmentPaymentAfter = parseFloat(cmp.get("v.ExistingInstallmentAfter"));
             var ExistingGrossmonthlyincome = parseFloat(cmp.get("v.ExistingGrossincome"));
-            var totalmonthlyInstallmentcmpauto=parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
-            var totalmonthlyInstallmentcmpUn=parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value"));
-            var totalmonthlyInstallmentcmpCC=parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value"));
+            var totalmonthlyInstallmentcmpauto=isNaN(parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value")))?0:parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
+            var totalmonthlyInstallmentcmpUn=isNaN(parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value")))?0:parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value"));
+            var totalmonthlyInstallmentcmpCC=isNaN(parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value")))?0:parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value"));
             var totalExistingInstallmentPaymentBefore=ExistingInstallmentPaymentBefore+totalmonthlyInstallmentcmpauto+totalmonthlyInstallmentcmpUn;
             if(totalExistingInstallmentPaymentBefore>0 && ExistingGrossmonthlyincome>0)
                 PriortoProposedCredit=totalExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
@@ -2135,9 +2135,9 @@
             var ExistingInstallmentPaymentBefore = parseFloat(cmp.get("v.ExistingInstallmentBefore"));
             var ExistingInstallmentPaymentAfter = parseFloat(cmp.get("v.ExistingInstallmentAfter"));
             var ExistingGrossmonthlyincome = parseFloat(cmp.get("v.ExistingGrossincome"));
-            var totalmonthlyInstallmentcmpauto=parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
-            var totalmonthlyInstallmentcmpUn=parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value"));
-            var totalmonthlyInstallmentcmpLOC=parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value"));
+            var totalmonthlyInstallmentcmpauto=isNaN(parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value")))?0:parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
+            var totalmonthlyInstallmentcmpUn=isNaN(parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value")))?0:parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value"));
+            var totalmonthlyInstallmentcmpLOC=isNaN(parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value")))?0:parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value"));
             var totalExistingInstallmentPaymentBefore=ExistingInstallmentPaymentBefore+totalmonthlyInstallmentcmpauto+totalmonthlyInstallmentcmpUn;
             if(totalExistingInstallmentPaymentBefore>0 && ExistingGrossmonthlyincome>0)
                 PriortoProposedCredit=totalExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
@@ -2266,9 +2266,9 @@
             var ExistingInstallmentPaymentBefore = parseFloat(cmp.get("v.ExistingInstallmentBefore"));
             var ExistingInstallmentPaymentAfter = parseFloat(cmp.get("v.ExistingInstallmentAfter"));
             var ExistingGrossmonthlyincome = parseFloat(cmp.get("v.ExistingGrossincome"));
-            var totalmonthlyInstallmentcmpauto=parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
-            var totalmonthlyInstallmentcmpCC=parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value"));
-            var totalmonthlyInstallmentcmpLOC=parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value"));
+            var totalmonthlyInstallmentcmpauto=isNaN(parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value")))?0:parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
+            var totalmonthlyInstallmentcmpCC=isNaN(parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value")))?0:parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value"));
+            var totalmonthlyInstallmentcmpLOC=isNaN(parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value")))?0:parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value"));
             var totalExistingInstallmentPaymentBefore=ExistingInstallmentPaymentBefore+totalmonthlyInstallmentcmpauto+totalmonthlyInstallmentcmpCC;
             if(totalExistingInstallmentPaymentBefore>0 && ExistingGrossmonthlyincome>0)
                 PriortoProposedCredit=totalExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
@@ -2381,9 +2381,9 @@
             var ExistingInstallmentPaymentBefore = parseFloat(cmp.get("v.ExistingInstallmentBefore"));
             var ExistingInstallmentPaymentAfter = parseFloat(cmp.get("v.ExistingInstallmentAfter"));
             var ExistingGrossmonthlyincome = parseFloat(cmp.get("v.ExistingGrossincome"));
-            var totalmonthlyInstallmentcmpUn=parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value"));
-            var totalmonthlyInstallmentcmpCC=parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value"));
-            var totalmonthlyInstallmentcmpLOC=parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value"));
+            var totalmonthlyInstallmentcmpUn=isNaN(parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value")))?0:parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value"));
+            var totalmonthlyInstallmentcmpCC=isNaN(parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value")))?0:parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value"));
+            var totalmonthlyInstallmentcmpLOC=isNaN(parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value")))?0:parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value"));
             var totalExistingInstallmentPaymentBefore=ExistingInstallmentPaymentBefore+totalmonthlyInstallmentcmpUn+totalmonthlyInstallmentcmpCC;
             if(totalExistingInstallmentPaymentBefore>0 && ExistingGrossmonthlyincome>0)
                 PriortoProposedCredit=totalExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
@@ -2450,10 +2450,10 @@
             var ExistingInstallmentPaymentBefore = parseFloat(cmp.get("v.ExistingInstallmentBefore"));
             var ExistingInstallmentPaymentAfter = parseFloat(cmp.get("v.ExistingInstallmentAfter"));
             var ExistingGrossmonthlyincome = parseFloat(cmp.get("v.ExistingGrossincome"));
-            var totalmonthlyInstallmentcmpauto=parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
-            var totalmonthlyInstallmentcmpUn=parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value"));
-            var totalmonthlyInstallmentcmpCC=parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value"));
-            var totalmonthlyInstallmentcmpLOC=parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value"));
+            var totalmonthlyInstallmentcmpauto=isNaN(parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value")))?0:parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
+            var totalmonthlyInstallmentcmpUn=isNaN(parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value")))?0:parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value"));
+            var totalmonthlyInstallmentcmpCC=isNaN(parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value")))?0:parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value"));
+            var totalmonthlyInstallmentcmpLOC=isNaN(parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value")))?0:parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value"));
             var totalExistingInstallmentPaymentBefore=ExistingInstallmentPaymentBefore+totalmonthlyInstallmentcmpauto+totalmonthlyInstallmentcmpUn;
             if(totalExistingInstallmentPaymentBefore>0 && ExistingGrossmonthlyincome>0)
                 PriortoProposedCredit=totalExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
@@ -2593,13 +2593,13 @@
                 var respon=response.getReturnValue();
                 if(respon.includes("error")){
                     toastEvent.setParams({
-                    title : 'Error',
-                    message:msg,
-                    duration:' 5000',
-                    key: 'info_alt',
-                    type: 'error',
-                    mode: 'pester'
-                });
+                        title : 'Error',
+                        message:msg,
+                        duration:' 5000',
+                        key: 'info_alt',
+                        type: 'error',
+                        mode: 'pester'
+                    });
                 }
                 else
                 {toastEvent.setParams({
@@ -2746,7 +2746,7 @@
                             //Real state
                             Line_of_Credit_Starting_Limit1 = cmp.find("locStartingLimit").get("v.value");
                             //PCL_Deposit_Account_Balance1=cmp.find("locMarketValueofProperty").get("v.value");
-                                console.log('Line_of_Credit_Starting_Limit1 RS---------'+Line_of_Credit_Starting_Limit1);
+                            console.log('Line_of_Credit_Starting_Limit1 RS---------'+Line_of_Credit_Starting_Limit1);
                             break;
                     }
                 }

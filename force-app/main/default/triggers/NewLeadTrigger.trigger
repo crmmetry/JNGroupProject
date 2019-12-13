@@ -16,6 +16,8 @@ trigger NewLeadTrigger on Lead (before insert, after insert, before update, afte
             LeadTriggerHandler.leadConversionBasic();
             LeadTriggerHandler.convertInfoToEmployment();
             LeadTriggerHandler.convertLeadRelatedPersons();
+            //SkillsBasedRouting.routeUsingSkillsTier2((new Map<Id,Lead>(Trigger.new)).keySet());
+
         }
         else {
             
@@ -25,8 +27,8 @@ trigger NewLeadTrigger on Lead (before insert, after insert, before update, afte
     } else if(Trigger.isInsert){
         if(Trigger.isAfter) {
             LeadTriggerHandler.leadActivityEvent();
-            SkillsBasedRouting.routeUsingSkills((new Map<Id,Lead>(Trigger.new)).keySet());
-
+            SkillsBasedRouting.routeUsingSkillsTier1((new Map<Id,Lead>(Trigger.new)).keySet());
+			//SkillsBasedRouting.routeUsingSkillsTier2((new Map<Id,Lead>(Trigger.new)).keySet());
         }
         else {
             LeadTriggerHandler.crmm_TierOne();
