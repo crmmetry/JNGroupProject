@@ -1,4 +1,5 @@
 Global class SkillsBasedRouting {
+    public static final String TAG = 'SkillsBasedRouting';
     public static void routeUsingSkillsTier1(Set<Id> leads) {
         //get Sales Development queue id
         Group salesDevQueue = [SELECT Id FROM Group WHERE Type='Queue' AND Name='Sales Development Team'];
@@ -50,15 +51,14 @@ Global class SkillsBasedRouting {
         return [select Id,Name from Group where  Type = 'Queue' AND NAME = :name].Id;
         
     }
-    private static void getLocations(String leadLocation,AggregateResult[] aggregateRecords){
-        for(AggregateResult record: aggregateRecords){
-            Integer total = (Integer)record.get('total');
-            String ownerId = (String)record.get('ownerid');
-            String location = (String)record.get('Preferred_Location__c');
-            if(leadLocation.equals(location)){
-                Worker work = new Worker(ownerId, total,location);
+    private static PriorityQueue getLocations(String leadLocation, List<Worker> workers){
+        PriorityQueue pq = new PriorityQueue(new SkillComparator(), Worker.class);
+        for(Worker record: workers){          
+            if(leadLocation.equals(record.location)){
+                pq.add(record);   
             }
         }
+        return pq;
     }
     public static void routeUsingSkillsTier2(List<Lead> leads) {
         //PriorityQueue pq = new PriorityQueue(new SkillComparator(), Worker.class);
@@ -69,79 +69,88 @@ Global class SkillsBasedRouting {
         for(Lead record: leads){
             if(record.OwnerId.equals(salesDevQueue.Id)){
                 if(record.Escalate_to_Tier2__c == True){
+                    System.debug(TAG + ' Lead Selected for tier 2 routing');
                     selectedLeads.add(record);
                     locations.add(record.Preferred_Location__c);     
                 }
             }
         }
-        /*for(Lead record: [SELECT Id, Preferred_Location__c,OwnerId FROM Lead 
-                          WHERE Id in :leads AND OwnerID =:salesDevQueue.Id
-                          AND Escalate_to_Tier2__c = TRUE]){
-                              locations.add(record.Preferred_Location__c);                                     
-                          }*/
-        
         
         // get all skills that match preferred location
         Map<Id, Skill> mappedSkills = getSkills(locations);
         List<Id> userIds = new List<Id>();
-        Map<Id,List<String>> mappedIDLocations = new Map<Id,List<String>>();
+        Set<Id> skilledUsers = new Set<Id>(); //users found with the skill
+        List<Worker> workers = new  List<Worker>();
         for(GroupMember record: [SELECT 
                                  UserOrGroupId FROM GroupMember 
                                  WHERE Group.Name = :salesTeam 	
                                  AND Group.Type = 'Queue']){
+                                     System.debug(TAG + ' User is a tier 2 member');
                                      userIds.add(record.UserOrGroupId);
                                  }
         
         //get all service resource with associated users
-        for(serviceresource record: [select id,RelatedRecordId,
-                                     (Select SkillId from ServiceResourceSkills 
-                                      where id in:mappedSkills.keySet()) 
-                                     from serviceresource 
-                                     where RelatedRecordId 
-                                     in :userIds]){
-                                         for(ServiceResourceSkill skilRecord: record.ServiceResourceSkills){
-                                             if(mappedIDLocations.containsKey(record.RelatedRecordId)){
-                                                 List<String> records = mappedIDLocations.get(record.RelatedRecordId);
-                                                 records.add(skilRecord.Id);
-                                                 mappedIDLocations.put(record.RelatedRecordId,records);
+        Map<String,Set<Id>> mappedLocationSkills = new Map<String,Set<Id>>();
+        for(serviceresource record: [SELECT Id,RelatedRecordId,
+                                     (SELECT SkillId,Skill.MasterLabel FROM ServiceResourceSkills WHERE Id in:mappedSkills.keySet()) 
+                                     FROM serviceresource WHERE RelatedRecordId IN :userIds]){
+                                         System.debug(TAG + ' User is a matched skilled tier 2 member');
+                                         skilledUsers.add(record.RelatedRecordId);
+                                         for(ServiceResourceSkill skillRecord: record.ServiceResourceSkills){
+                                             if(mappedLocationSkills.containsKey(skillRecord.Skill.MasterLabel)){
+                                                 Set<Id> records = mappedLocationSkills.get(skillRecord.Skill.MasterLabel);
+                                                 records.add(skillRecord.Id);
+                                                 mappedLocationSkills.put(skillRecord.Skill.MasterLabel,records);
                                              } else {
-                                                 mappedIDLocations.put(record.RelatedRecordId, new List<String>());
+                                                 mappedLocationSkills.put(skillRecord.Skill.MasterLabel, new Set<Id>());
                                              }
                                          }
                                      }
-        //aggregate leads by service resource user id
+        //aggregate leads by service resource user id        
+        for(AggregateResult record: [SELECT COUNT(Id) total,Preferred_Location__c FROM Lead
+                                     WHERE Preferred_Location__c IN :locations
+                                     AND OwnerId IN :skilledUsers
+                                     GROUP BY OwnerId,Preferred_Location__c ORDER BY COUNT(Id)]){
+                                         Integer total = (Integer)record.get('total');
+                                         String userID = (String)record.get('OwnerId');
+                                         String location = (String)record.get('Preferred_Location__c');
+                                         workers.add(new Worker(userId, total, location));
+                                         System.debug(TAG + ' Worker ' + new Worker(userId, total, location));
+                                     }
         
-        AggregateResult[] aggregateRecords = [select count(id) total,Preferred_Location__c from lead where Preferred_Location__c in :locations
-                                              and ownerId in:mappedIDLocations.keySet()
-                                              group by ownerid,Preferred_Location__c order by count(id)];
-        if(aggregateRecords.size() > 0){
-            AggregateResult record;
-            Integer minTotal;
-            String ownerId;
-            String location;
-            for(Lead leadRecord: leads) {
-                String leadLocation = leadRecord.Preferred_Location__c;
-                for(Integer i = 0; i <aggregateRecords.size();i++ ){
-                        record = aggregateRecords[i];
-                        minTotal = (Integer)record.get('total');
-                        ownerId = (String)record.get('ownerid');
-                        location = (String)record.get('Preferred_Location__c');
-                        if(leadLocation.equals(location)){
-                            
-                        }
-                     
-                    if((Integer)record.get('total') < minTotal ){
-                        minTotal = (Integer)record.get('total');
-                        ownerId = (String)record.get('ownerid');
+        //assign the selected leads if aggregations were found
+        String leadLocation;
+        PriorityQueue pq;
+        Worker selectedWorker;
+        if(workers.size() > 0) {           
+            for(Lead selectedLead: selectedLeads) {
+                leadLocation = selectedLead.Preferred_Location__c;
+                //search aggregate results to match the best record based on lowest capacity and actual location
+                pq = getLocations(leadLocation, workers);
+                if(pq.size() > 0){                    
+                    selectedWorker = (Worker)pq.poll();
+                    System.debug(TAG + ' Found work ' + selectedWorker);
+                    selectedWorker.updateWorkLoad();
+                    //update lead with owner id , who has the least amount of work
+                    selectedLead.OwnerId = selectedWorker.userId;   
+                }
+            }
+            
+        } else {
+            Id skilledUser;
+            if(mappedLocationSkills.size() > 0){
+                System.debug(TAG + ' Assigning a skilled worker without aggregation ');
+                //assign leads if skilled workers were found
+                for(Lead selectedLead: selectedLeads) {
+                    leadLocation = selectedLead.Preferred_Location__c;
+                    skilledUser = new List<Id>(mappedLocationSkills.get(leadLocation)).get(0); //randomize list
+                    if(skilledUser != null){
+                        System.debug(TAG + ' User is skilled and assigned');
+                        selectedLead.OwnerId = skilledUser;
                     }
                 }
             }
-        }
-        
-                                 
-        //update lead with owner id , who has the least amount of work
-       // Worker selectedWorker = (Worker)pq.poll();
-        
+        } 
     }
     class Worker implements Comparable {
         public Id userId;
@@ -152,7 +161,9 @@ Global class SkillsBasedRouting {
             this.workLoad = workLoad;
             this.userId = userId;
         }
-
+        public void updateWorkLoad(){
+            this.workLoad = this.workLoad + 1;
+        }
         public Integer compareTo(Object work) {
             if(workLoad < ((Worker)work).workLoad) return -1;
             else if(workLoad > ((Worker)work).workLoad) return 1;

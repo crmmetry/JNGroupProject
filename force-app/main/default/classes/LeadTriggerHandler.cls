@@ -565,7 +565,6 @@ Encourage client to add start and end date to employment
                             List<FinServ__Employment__c> employments = new List<FinServ__Employment__c>();
         for(Lead record: leads){
             //new lead conversion
-            System.debug('Trying to convert with employment' + record);
             if(checkIfNewConversion(record)){
                 System.debug('success new conversion');
                 //lead is from the JN site
