@@ -9,11 +9,7 @@
             if (state === "SUCCESS") {
                 const data = response.getReturnValue();
                 component.set("v.applicant", data['applicant']);
-                component.set("v.employment", data['employment']);
-                console.log(data)
-            } else {
-                console.info(response.getError());
-            }
+            } 
         });
         $A.enqueueAction(action);
     },
@@ -21,18 +17,9 @@
         let action = component.get("c.updateApplicantDetailsWithEmployment");
         action.setParams({
             "applicant": component.get("v.applicant"),
-            "employment": component.get("v.employment"),
         });
-        console.info(JSON.parse(JSON.stringify(component.get("v.applicant"))));
-       console.info(JSON.parse(JSON.stringify(component.get("v.employment"))));
-        action.setCallback(this, function(response) {
-            const state = response.getState();
-            if (state === "SUCCESS") {
-                console.log('applicant & EMPLoynent updated')
-            } else {
-                console.info(response.getError());
-            }
-        });
+
+        action.setCallback(this, function(response) {});
         $A.enqueueAction(action);
     },
     validateFields: function(component) {
@@ -59,9 +46,6 @@
                 "Assessment_of_Applicant_Net_Worth__c",
                 "Bankrupt_in_Last_7_Years__c",
                 "Is_applicant_KYC_Compliant__c",
-                "Assessment_of_Business__c",
-                "Assessment_of_Statement__c",
-                "Assessment_of_Business_Working_Capita__c"
             ]
         });
         action.setCallback(this, function(response) {
@@ -80,13 +64,8 @@
                 component.set("v.assessmentApplicantNetWorth", mappedList["Assessment_of_Applicant_Net_Worth__c"]);
                 component.set("v.bankruptLast7Years", mappedList["Bankrupt_in_Last_7_Years__c"]);
                 component.set("v.KYCCompliants", mappedList["Is_applicant_KYC_Compliant__c"]);
-				component.set("v.JNGroupEmployee", mappedList["JN_Group_Employee__c"]);
-				component.set("v.assessmentofBusinesses", mappedList["Assessment_of_Business__c"]);
-				component.set("v.assessmentofStatements", mappedList["Assessment_of_Statement__c"]);
-				component.set("v.AssessmentofBusinessWorkingCapitas", mappedList["Assessment_of_Business_Working_Capita__c"]);
-
-            } else {
-            }
+				component.set("v.JNGroupEmployee", mappedList["JN_Group_Employee__c"]);				
+            } 
         });
         $A.enqueueAction(action);
     },

@@ -22,7 +22,7 @@ trigger NewOpportunityTrigger on Opportunity (before insert, after insert,after 
         }
     }
     OpportunityTriggerHandler.setOpportunityAmountOnLead(Trigger.isAfter, Trigger.isUpdate, Trigger.isInsert);
-    if(oppid.size()>0){ //NEED TO SYNC WITH DEVS
+    if(oppid.size()>0){
          if(CreditScoreHelper.FirstRun)
             return;
         System.debug('CreditScore called=====>');

@@ -25,15 +25,15 @@ global with sharing class JNApplicantFlowController {
                                       FROM Applicant__c WHERE Id =:applicantId];
             
             if(applicant != null){
-                List<FinServ__Employment__c>  employments = [SELECT Id,Assessment_of_Business__c,Assessment_of_Statement__c,
+                /*List<FinServ__Employment__c>  employments = [SELECT Id,Assessment_of_Business__c,Assessment_of_Statement__c,
                                                              Assessment_of_Business_Working_Capita__c
                                                              FROM FinServ__Employment__c WHERE Account__c =:applicant.Account__c AND Current_Employment__c = TRUE];
                 FinServ__Employment__c employment;
                 if(!employments.isEmpty()){
                     employment = employments.get(0);
-                }
+                }*/
                 objects.put('applicant', applicant);
-                objects.put('employment', employment);
+                //objects.put('employment', employment);
                 System.debug('Applicant Objects: '+ objects);
                 return objects;
             }
@@ -126,14 +126,14 @@ global with sharing class JNApplicantFlowController {
     }
     
     @AuraEnabled
-    global static Object updateApplicantDetailsWithEmployment(Applicant__C applicant, FinServ__Employment__c employment){
+    global static Object updateApplicantDetailsWithEmployment(Applicant__C applicant){
         try {
             
             if(applicant != null){
                 update applicant;
-            } if(employment != null) {
+            } /*if(employment != null) {
                 update employment;
-            }
+            }*/
             return 200;
         } catch(Exception e){
             return e;
@@ -147,7 +147,7 @@ global with sharing class JNApplicantFlowController {
             if(applicant != null){
                 Applicant__C newApplicant = new Applicant__C(Id=applicant.Id);
                 Map<String, Object> fields = applicant.getPopulatedFieldsAsMap();
-                for(String field: fields.keySet()){
+                for(String field: fields.keySet()) {
                     if(field != 'Id') {
                         Decimal d = Decimal.valueOf(String.valueOf(applicant.get(field)));
                         newApplicant.put(field, d);

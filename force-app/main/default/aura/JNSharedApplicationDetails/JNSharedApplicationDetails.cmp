@@ -107,8 +107,8 @@
 						</aura:iteration>
 					</lightning:select>
 				</lightning:layoutItem>
-				<!-- Assessment of business’s working capital* -->
-				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
+				<!-- Assessment of business’s working capital*
+                <lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
 					<lightning:select label="Assessment of business’s working capital" required="true" aura:id="validation" onchange="{!c.getAssessmentofBusiness}" >
 						<option value="">select one...</option>
                         <aura:iteration items="{!v.assessmentofBusinesses}" var="item">
@@ -117,8 +117,8 @@
 							</option>
 						</aura:iteration>
 					</lightning:select>
-				</lightning:layoutItem>
-				<!-- Assessment of businesses financial performance * -->
+                </lightning:layoutItem> -->
+				<!-- Assessment of businesses financial performance 
 				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
 					<lightning:select label="Assessment of businesses financial performance" required="true" aura:id="validation" onchange="{!c.getAssessmentofStatement}" >
 						<option value="">select one...</option>
@@ -128,8 +128,8 @@
 							</option>
 						</aura:iteration>
 					</lightning:select>
-				</lightning:layoutItem>
-				<!-- Assessment of business financial statement support* -->
+				</lightning:layoutItem>* -->
+				<!-- Assessment of business financial statement support
 				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
 					<lightning:select label="Assessment of business financial statement support" required="true" aura:id="validation" onchange="{!c.getAssessmentofBusinessWorkingCapita}">
 						<option value="">select one...</option>
@@ -139,7 +139,7 @@
 							</option>
 						</aura:iteration>
 					</lightning:select>
-				</lightning:layoutItem>
+				</lightning:layoutItem>* -->
 			</lightning:layout>
 		</lightning:accordionSection>
 		<lightning:accordionSection name="jn_bank_details" label="JN Bank Details">

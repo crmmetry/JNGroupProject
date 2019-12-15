@@ -81,6 +81,7 @@ Global class SkillsBasedRouting {
         List<Id> userIds = new List<Id>();
         Set<Id> skilledUsers = new Set<Id>(); //users found with the skill
         List<Worker> workers = new  List<Worker>();
+        List<Worker> tmpWorkers = new  List<Worker>();
         for(GroupMember record: [SELECT 
                                  UserOrGroupId FROM GroupMember 
                                  WHERE Group.Name = :salesTeam 	
@@ -89,41 +90,47 @@ Global class SkillsBasedRouting {
                                      userIds.add(record.UserOrGroupId);
                                  }
         
-        //get all service resource with associated users
-        Map<String,Set<Id>> mappedLocationSkills = new Map<String,Set<Id>>();
+        //get all service resource with associated users hascode
+        Map<String,Worker> mappedLocationSkills = new Map<String,Worker>();
+        String generatedHash;
         for(serviceresource record: [SELECT Id,RelatedRecordId,
                                      (SELECT SkillId,Skill.MasterLabel FROM ServiceResourceSkills WHERE Id in:mappedSkills.keySet()) 
                                      FROM serviceresource WHERE RelatedRecordId IN :userIds]){
                                          System.debug(TAG + ' User is a matched skilled tier 2 member');
                                          skilledUsers.add(record.RelatedRecordId);
+       
                                          for(ServiceResourceSkill skillRecord: record.ServiceResourceSkills){
-                                             if(mappedLocationSkills.containsKey(skillRecord.Skill.MasterLabel)){
-                                                 Set<Id> records = mappedLocationSkills.get(skillRecord.Skill.MasterLabel);
-                                                 records.add(skillRecord.Id);
-                                                 mappedLocationSkills.put(skillRecord.Skill.MasterLabel,records);
-                                             } else {
-                                                 mappedLocationSkills.put(skillRecord.Skill.MasterLabel, new Set<Id>());
-                                             }
+                                             generatedHash = generateHash(new List<String>{record.RelatedRecordId, skillRecord.Skill.MasterLabel});
+                                             mappedLocationSkills.put(generatedHash,new Worker(record.RelatedRecordId, 0, skillRecord.Skill.MasterLabel));
                                          }
                                      }
-        //aggregate leads by service resource user id        
+    
+        //aggregate leads by service resource user id   
+        Integer total;
+        String userID,location;
         for(AggregateResult record: [SELECT COUNT(Id) total,Preferred_Location__c FROM Lead
                                      WHERE Preferred_Location__c IN :locations
                                      AND OwnerId IN :skilledUsers
                                      GROUP BY OwnerId,Preferred_Location__c ORDER BY COUNT(Id)]){
-                                         Integer total = (Integer)record.get('total');
-                                         String userID = (String)record.get('OwnerId');
-                                         String location = (String)record.get('Preferred_Location__c');
-                                         workers.add(new Worker(userId, total, location));
+                                         total = (Integer)record.get('total');
+                                         userID = (String)record.get('OwnerId');
+                                         location = (String)record.get('Preferred_Location__c');                                         
+                                         generatedHash = generateHash(new List<String>{userID, location});
+                                         if(mappedLocationSkills.containsKey(generatedHash)){
+                                             mappedLocationSkills.get(generatedHash).setWorkLoad(total);
+                                         }
                                          System.debug(TAG + ' Worker ' + new Worker(userId, total, location));
                                      }
+
+        //add all the workers
+        workers.addAll(mappedLocationSkills.values());
         
         //assign the selected leads if aggregations were found
         String leadLocation;
         PriorityQueue pq;
         Worker selectedWorker;
         if(workers.size() > 0) {           
-            for(Lead selectedLead: selectedLeads) {
+            for(Lead selectedLead: selectedLeads) { //can optimize by using a set
                 leadLocation = selectedLead.Preferred_Location__c;
                 //search aggregate results to match the best record based on lowest capacity and actual location
                 pq = getLocations(leadLocation, workers);
@@ -134,23 +141,13 @@ Global class SkillsBasedRouting {
                     //update lead with owner id , who has the least amount of work
                     selectedLead.OwnerId = selectedWorker.userId;   
                 }
-            }
-            
-        } else {
-            Id skilledUser;
-            if(mappedLocationSkills.size() > 0){
-                System.debug(TAG + ' Assigning a skilled worker without aggregation ');
-                //assign leads if skilled workers were found
-                for(Lead selectedLead: selectedLeads) {
-                    leadLocation = selectedLead.Preferred_Location__c;
-                    skilledUser = new List<Id>(mappedLocationSkills.get(leadLocation)).get(0); //randomize list
-                    if(skilledUser != null){
-                        System.debug(TAG + ' User is skilled and assigned');
-                        selectedLead.OwnerId = skilledUser;
-                    }
-                }
-            }
+            }            
         } 
+    }
+    private static String generateHash(List<String> values){
+        Blob targetBlob = Blob.valueOf(String.join(values, '-'));
+		Blob hash = Crypto.generateDigest('MD5', targetBlob);
+        return hash.toString();
     }
     class Worker implements Comparable {
         public Id userId;
@@ -163,6 +160,9 @@ Global class SkillsBasedRouting {
         }
         public void updateWorkLoad(){
             this.workLoad = this.workLoad + 1;
+        }
+        public void setWorkLoad(Integer value){
+            this.workLoad = value;
         }
         public Integer compareTo(Object work) {
             if(workLoad < ((Worker)work).workLoad) return -1;

@@ -25,8 +25,7 @@ trigger NewLeadTrigger on Lead (before insert, after insert, before update, afte
     } else if(Trigger.isInsert){
         if(Trigger.isAfter) {
             LeadTriggerHandler.leadActivityEvent();
-            SkillsBasedRouting.routeUsingSkillsTier1((new Map<Id,Lead>(Trigger.new)).keySet());
-			SkillsBasedRouting.routeUsingSkillsTier2(Trigger.new);
+            SkillsBasedRouting.routeUsingSkillsTier1((new Map<Id,Lead>(Trigger.new)).keySet());			
         }
         else {
             LeadTriggerHandler.crmm_TierOne();
