@@ -21,6 +21,8 @@ trigger NewLeadTrigger on Lead (before insert, after insert, before update, afte
             
             LeadTriggerHandler.crmm_TimeSpentInStage();
             LeadTriggerHandler.crmm_TierTwoTrigger();
+            SkillsBasedRouting.routeUsingSkillsTier2(Trigger.new);
+
         }
     } else if(Trigger.isInsert){
         if(Trigger.isAfter) {
