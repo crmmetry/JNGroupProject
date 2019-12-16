@@ -3,11 +3,6 @@ public class JNSiteController {
     @AuraEnabled
     public static List<String> getPickListValues(String objectApiName, String fieldApiName){
         String recordTypeId;
-        /*if(recordTypeName != null){
-//recordTypeId = getRecordTypeId(recordTypeName);
-}*/
-        
-        //List<String> specificValues = getPicklistValuesUIApi(recordTypeId,objectApiName,fieldApiName);
         List<String> pickListValuesList= new List<String>();
         Map<String , Schema.SObjectType> globalDescription = Schema.getGlobalDescribe();
         Schema.sObjectType sObjType = globalDescription.get(objectApiName);
@@ -29,10 +24,6 @@ public class JNSiteController {
     @AuraEnabled
     public static Object getPickListValuesList(String objectApiName, List<String> fieldApiNames){
         String recordTypeId;
-        /*if(recordTypeName != null){
-recordTypeId = getRecordTypeId(recordTypeName);
-}*/
-        
         List<String> pickListValuesList= new List<String>();
         Map<String, List<String>> mapFields = new Map<String, List<String>>();
         List<String> specificValues;
@@ -123,6 +114,12 @@ recordTypeId = getRecordTypeId(recordTypeName);
         newLead.Jamaican_Tax_Registration_Number__c = applicantDetails.get('Jamaican_Tax_Registration_Number__c');
         newLead.Service_of_Interest__c = applicantDetails.get('Service_of_Interest__c');
         
+        Map<String,Id> recordTypes = util.getRecordTypeids('Lead');
+        if(newLead.Service_of_Interest__c == 'JN Bank Credit Card'){ //credit_card
+            newLead.RecordTypeId = recordTypes.get('Credit_Card_Super_Lead');
+        } else {
+            newLead.RecordTypeId = recordTypes.get('Unsecured_Loan_Super_Lead');
+        }
         newLead.Proposed_Card_Limit__c = Decimal.valueOf(applicantDetails.get('Proposed_Card_Limit__c'));
         newLead.Preferred_Date_of_Contact__c = Date.valueOf(applicantDetails.get('Preferred_Date_of_Contact__c'));
         newLead.Preferred_Time_of_Contact__c= updateTime(applicantDetails.get('Preferred_Time_of_Contact__c'));
@@ -130,7 +127,7 @@ recordTypeId = getRecordTypeId(recordTypeName);
         newLead.Loan_Purpose_UL__c = applicantDetails.get('Loan_Purpose_UL__c');
         newLead.Gross_Monthly_Income__c = Decimal.valueOf(applicantDetails.get('Gross_Monthly_Income__c'));
         newLead.Gross_Monthly_Expenses__c = Decimal.valueOf(applicantDetails.get('Gross_Monthly_Expenses__c'));
-        upsert newLead;
+        upsert newLead; //return a error duplicate
         return newLead;
         
         

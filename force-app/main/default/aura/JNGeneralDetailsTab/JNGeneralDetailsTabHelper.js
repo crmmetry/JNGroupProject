@@ -66,6 +66,8 @@
                     [ "setLeadInfo", "navigateNext"],
                     {"Id": siteLead.Id}
                 );
+            } else {
+                console.error(JSON.parse(JSON.stringify(response.getError())))
             }
         });
         $A.enqueueAction(action);

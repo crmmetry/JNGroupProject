@@ -21,7 +21,7 @@ trigger NewOpportunityTrigger on Opportunity (before insert, after insert,after 
             OpportunityTriggerHandler.assignOpportunityRecordTypeName(); 
         }
     }
-    OpportunityTriggerHandler.setOpportunityAmountOnLead(Trigger.isAfter, Trigger.isUpdate, Trigger.isInsert);
+    //OpportunityTriggerHandler.setOpportunityAmountOnLead(Trigger.isAfter, Trigger.isUpdate, Trigger.isInsert);
     if(oppid.size()>0){
          if(CreditScoreHelper.FirstRun)
             return;

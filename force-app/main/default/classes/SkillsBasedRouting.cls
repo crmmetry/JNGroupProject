@@ -76,13 +76,14 @@ Global class SkillsBasedRouting {
                 }
             }
         }
-        if(locations.size() > 1){
+
+       // if(locations.size() >= 1){
+
         // get all skills that match preferred location
         Map<Id, Skill> mappedSkills = getSkills(locations);
         List<Id> userIds = new List<Id>();
         Set<Id> skilledUsers = new Set<Id>(); //users found with the skill
         List<Worker> workers = new  List<Worker>();
-        List<Worker> tmpWorkers = new  List<Worker>();
         for(GroupMember record: [SELECT 
                                  UserOrGroupId FROM GroupMember 
                                  WHERE Group.Name = :salesTeam 	
@@ -97,7 +98,7 @@ Global class SkillsBasedRouting {
         for(serviceresource record: [SELECT Id,RelatedRecordId,
                                      (SELECT SkillId,Skill.MasterLabel FROM ServiceResourceSkills WHERE SKill.Id in:mappedSkills.keySet()) 
                                      FROM serviceresource WHERE RelatedRecordId IN :userIds]){
-                                         System.debug(TAG + ' User is a matched skilled tier 2 member');
+                                         System.debug(record.RelatedRecordId + ' User is a matched skilled tier 2 member');
                                          skilledUsers.add(record.RelatedRecordId);
                                          
                                          for(ServiceResourceSkill skillRecord: record.ServiceResourceSkills){
@@ -147,7 +148,7 @@ Global class SkillsBasedRouting {
                 }
             }            
         } 
-        }
+        //}
     }
     private static String generateHash(List<String> values){
         Blob targetBlob = Blob.valueOf(String.join(values, '-'));
@@ -177,7 +178,7 @@ Global class SkillsBasedRouting {
     }
     class SkillComparator implements Comparator{ 
         public Integer compare(Object a, Object b){
-            return ((worker)a).compareTo(((worker)b));            
+            return ((worker)a).compareTo((worker)b);            
         }             
     } 
 }
