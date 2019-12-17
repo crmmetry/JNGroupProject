@@ -266,13 +266,13 @@
                         /*
                             =PV((rate/12),(time in months,-disried monthly payment)
                             */
-                            getCalc =helper.RoundTo(helper.PV((acInterest/12),acPeriod,acDesiredPayment),100000);
+                            getCalc =helper.RoundTo(helper.PV((acInterest/12),acPeriod,acDesiredPayment),10000);
                             
                             cmp.find("maximumLoanamt").set("v.value",getCalc);
                             break;
                         case "3":
                             var maxpayment = ((acGrossIncome*0.5)-acexistingMthlyPayment );
-                            getCalc =helper.RoundTo(helper.SpecialPv(maxpayment,acInterest/12,acPeriod),100000);
+                            getCalc =helper.RoundTo(helper.SpecialPv(maxpayment,acInterest/12,acPeriod),10000);
                             cmp.find("maximumLoanamt").set("v.value",getCalc);
                             
                             break;

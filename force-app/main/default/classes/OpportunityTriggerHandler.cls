@@ -135,7 +135,29 @@ public class OpportunityTriggerHandler {
     private static String getRecordTypeDeveloperName(String name) {
         return Schema.SObjectType.Opportunity.getRecordTypeInfosByName().get(name).getDeveloperName();
     }
-    
+    public static void validateApplicantProfileCompletion(){
+        List<String> changedFields = getChangedFields();
+        Map<Id,Opportunity> mappedRecords = new Map<Id,Opportunity>(newRecords);
+        List<Applicant__c> applicants = [SELECT Id,Opportunity__c FROM Applicant__c WHERE Opportunity__c IN :mappedRecords.keySet()];
+        Map<Id,Applicant__c> mappedApplicants = new Map<Id,Applicant__c>(applicants);
+        List<Application_Asset_Liability__c> applicantAssets = [SELECT Id FROM Application_Asset_Liability__c 
+                                                                      WHERE Application__c IN :mappedApplicants.keySet() 
+                                                                      AND Assets_and_Liabilities__c != NULL ];
+        String err1 = 'You must complete the Create Application flow before selecting "Yes" for this field';
+        String err2 = 'You must complete the Financial Information flow before selecting "Yes" for this field';
+
+            for(Opportunity record : newRecords) {
+                if(record.Loan_Path__c.equals('Complete Applicant Profile(s)')){
+                    if(record.Personal_Details_Complete_PK__c != null && record.Personal_Details_Complete_PK__c.equals('Yes') && applicants.isEmpty()){
+                        record.Personal_Details_Complete_PK__c.addError(err1);
+                    }
+                    if(record.Financial_Information_Complete_PK__c != null && record.Financial_Information_Complete_PK__c.equals('Yes') && applicantAssets.isEmpty()){
+                        record.Financial_Information_Complete_PK__c.addError(err2);
+                    }
+                }
+            }
+        
+    }
     public static List<String> getChangedFields() {
         List<String> changedFields = new List<String>();        
         for(Opportunity opp: newRecords ){

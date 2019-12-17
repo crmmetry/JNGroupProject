@@ -8,7 +8,8 @@ trigger NewOpportunityTrigger on Opportunity (before insert, after insert,after 
             } 
         } else {
             OpportunityTriggerHandler.lockRecordsForEditing();
-            OpportunityTriggerHandler.assignOpportunityRecordTypeName(); 
+            OpportunityTriggerHandler.assignOpportunityRecordTypeName();
+            OpportunityTriggerHandler.validateApplicantProfileCompletion();
         }
     } else if( Trigger.isInsert) {
          System.debug('NewOpportunityTrigger');
