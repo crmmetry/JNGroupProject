@@ -214,8 +214,9 @@
                     </div>
                 </div>
                 <div class="slds-grid slds-gutters">
+                    <!-- Address Status 
                     <div  class="slds-col slds-size_3-of-12">
-                        <!-- Address Status -->
+                        
                         <lightning:select
                                           name="address_status"
                                           label="Address Status"
@@ -228,7 +229,7 @@
                                 <option value="{!item}">{!item}</option>
                             </aura:iteration>
                         </lightning:select>
-                    </div>
+                    </div>-->
                     <div  class="slds-col slds-size_3-of-12">
                         <!-- Employer Country -->
                         <lightning:select
@@ -384,8 +385,9 @@
                     </div>
                 </div>
                 <div class="slds-grid slds-gutters">
+                    <!-- Address Status 
                     <div  class="slds-col slds-size_3-of-12">
-                        <!-- Address Status -->
+                        
                         <lightning:select
                                           name="address_status"
                                           label="Address Status"
@@ -398,7 +400,7 @@
                                 <option value="{!item}">{!item}</option>
                             </aura:iteration>
                         </lightning:select>
-                    </div>
+                    </div>-->
                     <div  class="slds-col slds-size_3-of-12">
                         <!-- Employer Country -->
                         <lightning:select
@@ -600,8 +602,9 @@
                     </div>
                 </div>
                 <div class="slds-grid slds-gutters">
+                    <!-- Address Status 
                     <div  class="slds-col slds-size_3-of-12">
-                        <!-- Address Status -->
+                        
                         <lightning:select
                                           name="address_status"
                                           label="Address Status"
@@ -614,7 +617,7 @@
                                 <option value="{!item}">{!item}</option>
                             </aura:iteration>
                         </lightning:select>
-                    </div>
+                    </div>-->
                     <div  class="slds-col slds-size_3-of-12">
                         <!-- self Employed Country -->
                         <lightning:select

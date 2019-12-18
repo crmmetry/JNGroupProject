@@ -4,8 +4,8 @@ public class OpportunityTriggerHandler {
     private static Map<Id, Opportunity> oldMap;
     private static Map<Id, Opportunity> newMap;
     private static Map<String,String> excludedFields = new Map<String, String>
-    		{
-       		'Id' => 'Id',
+    {
+        'Id' => 'Id',
             'IsDeleted' => 'IsDeleted',
             'CreatedById' => 'CreatedDate',
             'LastModifiedById' => 'LastModifiedById',
@@ -13,10 +13,10 @@ public class OpportunityTriggerHandler {
             };
                 public static void init(List<Opportunity> newRecords, 
                                         Map<Id, Opportunity> oldMap, Map<Id, Opportunity> newMap){
-                    OpportunityTriggerHandler.newRecords = newRecords;
-                    OpportunityTriggerHandler.oldMap = oldMap;
-                    OpportunityTriggerHandler.newMap = newMap;
-                }
+                                            OpportunityTriggerHandler.newRecords = newRecords;
+                                            OpportunityTriggerHandler.oldMap = oldMap;
+                                            OpportunityTriggerHandler.newMap = newMap;
+                                        }
     public static void setOpportunityAmountOnLead(Boolean isAfter, Boolean isUpdate, Boolean isInsert){
         Set<id> oppid = new set<id>();
         Map<id,Double> oppMap = new Map<id,Double>();
@@ -141,23 +141,48 @@ public class OpportunityTriggerHandler {
         List<Applicant__c> applicants = [SELECT Id,Opportunity__c FROM Applicant__c WHERE Opportunity__c IN :mappedRecords.keySet()];
         Map<Id,Applicant__c> mappedApplicants = new Map<Id,Applicant__c>(applicants);
         List<Application_Asset_Liability__c> applicantAssets = [SELECT Id FROM Application_Asset_Liability__c 
-                                                                      WHERE Application__c IN :mappedApplicants.keySet() 
-                                                                      AND Assets_and_Liabilities__c != NULL ];
+                                                                WHERE Application__c IN :mappedApplicants.keySet() 
+                                                                AND Assets_and_Liabilities__c != NULL ];
         String err1 = 'You must complete the Create Application flow before selecting "Yes" for this field';
         String err2 = 'You must complete the Financial Information flow before selecting "Yes" for this field';
-
-            for(Opportunity record : newRecords) {
-                if(record.Loan_Path__c.equals('Complete Applicant Profile(s)')){
-                    if(record.Personal_Details_Complete_PK__c != null && record.Personal_Details_Complete_PK__c.equals('Yes') && applicants.isEmpty()){
-                        record.Personal_Details_Complete_PK__c.addError(err1);
-                    }
-                    if(record.Financial_Information_Complete_PK__c != null && record.Financial_Information_Complete_PK__c.equals('Yes') && applicantAssets.isEmpty()){
-                        record.Financial_Information_Complete_PK__c.addError(err2);
-                    }
+        
+        for(Opportunity record : newRecords) {
+            if(record.Loan_Path__c.equals('Complete Applicant Profile(s)')){
+                if(record.Personal_Details_Complete_PK__c != null && record.Personal_Details_Complete_PK__c.equals('Yes') && applicants.isEmpty()){
+                    record.Personal_Details_Complete_PK__c.addError(err1);
+                }
+                if(record.Financial_Information_Complete_PK__c != null && record.Financial_Information_Complete_PK__c.equals('Yes') && applicantAssets.isEmpty()){
+                    record.Financial_Information_Complete_PK__c.addError(err2);
                 }
             }
+        }
         
     }
+    public static void validateCloseBackDate(Integer days){
+        String err1 = 'The Closed Date cannot be this far back in the past. Please contact Sales Support.';
+        String err2 ='The Closed Date cannot be greater than this record created date.';
+        String err3 ='The Closed Date cannot be greater than today';
+        DateTime minDate = System.now();
+        Integer currentMonth = minDate.month();
+        minDate = minDate.addDays(-days);
+        Integer oldMonth = minDate.month();
+        for(Opportunity record: newRecords ) {
+            if(record.CloseDate > record.CreatedDate){
+                record.CloseDate.addError(err2);
+            }
+            else if(record.CloseDate > System.now()){
+                record.CloseDate.addError(err3);
+            } else if(oldMonth != currentMonth){
+                DateTime acceptedDate = Util.GetBackDatedDate(System.now(), days);
+                if(record.CloseDate > acceptedDate){
+                    record.CloseDate.addError(err1);
+                }
+                
+            }
+            
+        }
+    }
+    
     public static List<String> getChangedFields() {
         List<String> changedFields = new List<String>();        
         for(Opportunity opp: newRecords ){

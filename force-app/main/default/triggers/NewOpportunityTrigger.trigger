@@ -10,6 +10,7 @@ trigger NewOpportunityTrigger on Opportunity (before insert, after insert,after 
             OpportunityTriggerHandler.lockRecordsForEditing();
             OpportunityTriggerHandler.assignOpportunityRecordTypeName();
             OpportunityTriggerHandler.validateApplicantProfileCompletion();
+            OpportunityTriggerHandler.validateCloseBackDate(2);
         }
     } else if( Trigger.isInsert) {
          System.debug('NewOpportunityTrigger');
@@ -19,7 +20,8 @@ trigger NewOpportunityTrigger on Opportunity (before insert, after insert,after 
             }       
         } else if(Trigger.isBefore){
                   System.debug('NewOpportunityTrigger BEFPRE');
-            OpportunityTriggerHandler.assignOpportunityRecordTypeName(); 
+            OpportunityTriggerHandler.assignOpportunityRecordTypeName();
+            OpportunityTriggerHandler.validateCloseBackDate(2);
         }
     }
     //OpportunityTriggerHandler.setOpportunityAmountOnLead(Trigger.isAfter, Trigger.isUpdate, Trigger.isInsert);

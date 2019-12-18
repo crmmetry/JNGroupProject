@@ -49,13 +49,13 @@
     getIndustryEmployment: function(component, event, helper) {
         const selected = event.getSource().get("v.value");
         let siteLead = component.get("v.SiteLead");
-        siteLead["Employer_Industry__c"] = selected;
+        siteLead["Industry"] = selected;
         component.set("v.SiteLead", siteLead);
     },
       getSelfEmployedIndustry: function(component, event, helper) {
         const selected = event.getSource().get("v.value");
         let siteLead = component.get("v.SiteLeadSelfEmployed");
-        siteLead["Type_of_Industry_Self_Employed__c"] = selected;
+        siteLead["Industry"] = selected;
         component.set("v.SiteLeadSelfEmployed", siteLead);
     },
           getBusinessNature: function(component, event, helper) {
@@ -91,7 +91,7 @@
     getIndustryBusiness: function(component, event, helper) {
         const selected = event.getSource().get("v.value");
         let siteLead = component.get("v.SiteLeadUnemployed");
-        siteLead["Unemployed_Industry_Previous_Employment__c"] = selected;
+        siteLead["Industry"] = selected;
         component.set("v.SiteLeadUnemployed", siteLead);
     },
     getBusinessType: function(component, event, helper) {
