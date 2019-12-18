@@ -152,7 +152,7 @@
                                                 <lightning:input formatter="currency" step="0.01" label="Gross Monthly Income" class="mrgBottom" type="number" name="grossmonthlyincomeRCL" aura:id="grossmonthlyincomeRCL"/>
                                             </div>
                                             <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
-                                                <lightning:input formatter="currency" step="0.01" label="Total Monthly Loan Repayment" type="number" name="totalmonthlyPaymentUnsecure"   aura:id="totalmonthlyPaymentUnsecure" readonly="readonly" class="bggreen bggreenLeftBorder"/>
+                                                <lightning:input formatter="currency" step="0.01" label="Proposed Starting Limit" type="number" name="totalmonthlyPaymentUnsecure"   aura:id="totalmonthlyPaymentUnsecure" readonly="readonly" class="bggreen bggreenLeftBorder"/>
                                             </div>
                                         </div>
                                     </fieldset>

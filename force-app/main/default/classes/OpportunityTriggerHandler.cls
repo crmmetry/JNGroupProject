@@ -5,18 +5,17 @@ public class OpportunityTriggerHandler {
     private static Map<Id, Opportunity> newMap;
     private static Map<String,String> excludedFields = new Map<String, String>
     {
-        'Id' => 'Id',
+        	'Id' => 'Id',
             'IsDeleted' => 'IsDeleted',
             'CreatedById' => 'CreatedDate',
             'LastModifiedById' => 'LastModifiedById',
             'LastModifiedDate' => 'SystemModstamp'
             };
-                public static void init(List<Opportunity> newRecords, 
-                                        Map<Id, Opportunity> oldMap, Map<Id, Opportunity> newMap){
-                                            OpportunityTriggerHandler.newRecords = newRecords;
-                                            OpportunityTriggerHandler.oldMap = oldMap;
-                                            OpportunityTriggerHandler.newMap = newMap;
-                                        }
+                public static void init(List<Opportunity> newRecords, Map<Id, Opportunity> oldMap, Map<Id, Opportunity> newMap){
+                    OpportunityTriggerHandler.newRecords = newRecords;
+                    OpportunityTriggerHandler.oldMap = oldMap;
+                    OpportunityTriggerHandler.newMap = newMap;
+                }
     public static void setOpportunityAmountOnLead(Boolean isAfter, Boolean isUpdate, Boolean isInsert){
         Set<id> oppid = new set<id>();
         Map<id,Double> oppMap = new Map<id,Double>();
@@ -158,28 +157,41 @@ public class OpportunityTriggerHandler {
         }
         
     }
-    public static void validateCloseBackDate(Integer days){
+    public static void validateCloseBackDate(Integer backdatedDays, Integer maxPrevDays){
         String err1 = 'The Closed Date cannot be this far back in the past. Please contact Sales Support.';
-        String err2 ='The Closed Date cannot be greater than this record created date.';
-        String err3 ='The Closed Date cannot be greater than today';
+        String err2 = 'The Closed Date cannot be greater than this record created date.';
+        String err3 = 'The Closed Date cannot be greater than today';
         DateTime minDate = System.now();
         Integer currentMonth = minDate.month();
-        minDate = minDate.addDays(-days);
+        minDate = minDate.addDays(-maxPrevDays);
         Integer oldMonth = minDate.month();
+        
         for(Opportunity record: newRecords ) {
-            if(record.CloseDate > record.CreatedDate){
+            System.debug('record.CloseDate: ' + record.CloseDate);
+            System.debug('record.CreatedDate: ' + record.CreatedDate);
+            //need to check if the date did not change
+            DateTime prevCloseDate = oldMap.get(record.Id).CloseDate;
+            if(record.CreatedDate != null && Util.DidFieldChange(prevCloseDate, record.CloseDate) && record.CloseDate > record.CreatedDate){
                 record.CloseDate.addError(err2);
+                System.debug('closedate greater than createddate');
             }
-            else if(record.CloseDate > System.now()){
+            else if(record.CreatedDate != null && record.CloseDate > System.now()){
                 record.CloseDate.addError(err3);
-            } else if(oldMonth != currentMonth){
-                DateTime acceptedDate = Util.GetBackDatedDate(System.now(), days);
-                if(record.CloseDate > acceptedDate){
-                    record.CloseDate.addError(err1);
+                System.debug('closedate greater than today');
+            } else if(record.CreatedDate != null && record.CloseDate > minDate){
+                record.CloseDate.addError(err1);   
+                System.debug('closedate greater than 7 days in the past');
+            } else {
+                Integer prevMonth = record.CloseDate.month();
+                if(prevMonth != currentMonth){
+                    System.debug('closedate in different month');
+                    DateTime acceptedDate = Util.GetBackDatedDate(System.now(), backdatedDays);
+                    if(record.CloseDate > acceptedDate){
+                        System.debug('closedate in different month greater than max 2 days');
+                      record.CloseDate.addError(err1);  
+                    }
                 }
-                
-            }
-            
+            }            
         }
     }
     
@@ -193,24 +205,13 @@ public class OpportunityTriggerHandler {
                 if(!excludedFields.containsKey(field)){
                     Object v1 = o1.get(field);
                     Object v2 = o2.get(field);
-                    if (didFieldChange(v1, v2)) {
+                    if (Util.DidFieldChange(v1, v2)) {
                         changedFields.add(field);
                     }
                 }
             }
         }        
         return changedFields;
-    }
-    
-    private static Boolean didFieldChange(Object v1, Object v2) {
-        if (v1 == null && v2 == null) {
-            return false;
-        }
-        if (v1 != v2) {
-            return true;
-        }
-        return false;
-    }
-    
+    } 
     
 }

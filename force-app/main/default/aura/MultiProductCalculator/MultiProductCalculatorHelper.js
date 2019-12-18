@@ -41,7 +41,7 @@
                 cmp.find("MonthlyJNGIMotorPremium1stYear1").set("v.value",  parseFloat(jngid).toFixed(2));
             }
             //================
-            if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2 && cmp.find("Othee_post_moratorium__id").get("v.value")==1 && cmp.find("IndicateTerm").get("v.value")==1){
+            if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2 && cmp.find("Othee_post_moratorium__id").get("v.value")=="Maintain original loan term" && cmp.find("IndicateTerm").get("v.value")==1){
                 var n1=n-1;
                 var AmortizationSC2C12=im*premium1styear;
                 var premium1styear1=parseFloat(premium1styear)+parseFloat(AmortizationSC2C12);
@@ -49,7 +49,7 @@
                 cmp.set("v.MonthlyJNGIMotorPremium1stYear2New", ajngid);
                 cmp.find("MonthlyJNGIMotorPremium1stYear2").set("v.value",  parseFloat(ajngid).toFixed(2));
             }
-            else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2 && cmp.find("Othee_post_moratorium__id").get("v.value")==1 && cmp.find("IndicateTerm").get("v.value")==2){
+            else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2 && cmp.find("Othee_post_moratorium__id").get("v.value")=="Maintain original loan term" && cmp.find("IndicateTerm").get("v.value")==2){
                 var n1=n-2;
                 var AmortizationSC2C12=im*premium1styear*2;
                 var premium1styear1=parseFloat(premium1styear)+parseFloat(AmortizationSC2C12);
@@ -57,14 +57,14 @@
                 cmp.set("v.MonthlyJNGIMotorPremium1stYear2New", ajngid);
                 cmp.find("MonthlyJNGIMotorPremium1stYear2").set("v.value",  parseFloat(ajngid).toFixed(2));
             }
-                else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2 && cmp.find("Othee_post_moratorium__id").get("v.value")==1 && cmp.find("IndicateTerm").get("v.value")==3){
+                else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2 && cmp.find("Othee_post_moratorium__id").get("v.value")=="Maintain original loan term" && cmp.find("IndicateTerm").get("v.value")==3){
                     var n1=n-3;
                     var AmortizationSC2C12=im*premium1styear*3;
                     var premium1styear1=parseFloat(premium1styear)+parseFloat(AmortizationSC2C12);
                     var ajngid=this.PMTcalculator(i,n1,premium1styear1);
                     cmp.set("v.MonthlyJNGIMotorPremium1stYear2New", ajngid);
                     cmp.find("MonthlyJNGIMotorPremium1stYear2").set("v.value",  parseFloat(ajngid).toFixed(2));
-                } else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2 && cmp.find("Othee_post_moratorium__id").get("v.value")==2 && cmp.find("IndicateTerm").get("v.value")==1){
+                } else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2 && cmp.find("Othee_post_moratorium__id").get("v.value")=="Extend original loan term by moratorium period" && cmp.find("IndicateTerm").get("v.value")==1){
                     var n1=n;
                     var AmortizationSC2C12=im*premium1styear;
                     var premium1styear1=parseFloat(premium1styear)+parseFloat(AmortizationSC2C12);
@@ -72,7 +72,7 @@
                     cmp.set("v.MonthlyJNGIMotorPremium1stYear2New", ajngid);
                     cmp.find("MonthlyJNGIMotorPremium1stYear2").set("v.value",  parseFloat(ajngid).toFixed(2));
                 }
-                    else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2 && cmp.find("Othee_post_moratorium__id").get("v.value")==2 && cmp.find("IndicateTerm").get("v.value")==2){
+                    else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2 && cmp.find("Othee_post_moratorium__id").get("v.value")=="Extend original loan term by moratorium period" && cmp.find("IndicateTerm").get("v.value")==2){
                         var n1=n;
                         var AmortizationSC2C12=im*premium1styear*2;
                         var premium1styear1=parseFloat(premium1styear)+parseFloat(AmortizationSC2C12);
@@ -80,7 +80,7 @@
                         cmp.set("v.MonthlyJNGIMotorPremium1stYear2New", ajngid);
                         cmp.find("MonthlyJNGIMotorPremium1stYear2").set("v.value",  parseFloat(ajngid).toFixed(2));
                     }
-                        else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2 && cmp.find("Othee_post_moratorium__id").get("v.value")==2 && cmp.find("IndicateTerm").get("v.value")==3){
+                        else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2 && cmp.find("Othee_post_moratorium__id").get("v.value")=="Extend original loan term by moratorium period" && cmp.find("IndicateTerm").get("v.value")==3){
                             var n1=n;
                             var AmortizationSC2C12=im*premium1styear*3;
                             var premium1styear1=parseFloat(premium1styear)+parseFloat(AmortizationSC2C12);
@@ -88,14 +88,14 @@
                             cmp.set("v.MonthlyJNGIMotorPremium1stYear2New", ajngid);
                             cmp.find("MonthlyJNGIMotorPremium1stYear2").set("v.value",  parseFloat(ajngid).toFixed(2));
                         }
-                            else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==1 && cmp.find("Othee_post_moratorium__id").get("v.value")==1){
+                            else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==1 && cmp.find("Othee_post_moratorium__id").get("v.value")=="Maintain original loan term"){
                                 var n1=n-cmp.find("IndicateTerm").get("v.value");
                                 var premium1styear1=premium1styear;
                                 var ajngid=this.PMTcalculator(i,n1,premium1styear1);
                                 cmp.set("v.MonthlyJNGIMotorPremium1stYear2New", ajngid);
                                 cmp.find("MonthlyJNGIMotorPremium1stYear2").set("v.value",  parseFloat(ajngid).toFixed(2));
                             }
-                                else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==1 && cmp.find("Othee_post_moratorium__id").get("v.value")==2){
+                                else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==1 && cmp.find("Othee_post_moratorium__id").get("v.value")=="Extend original loan term by moratorium period"){
                                     var ajngid=this.PMTcalculator(i,n,premium1styear);
                                     cmp.set("v.MonthlyJNGIMotorPremium1stYear2New", ajngid);
                                     cmp.find("MonthlyJNGIMotorPremium1stYear2").set("v.value",  parseFloat(ajngid).toFixed(2));
@@ -175,7 +175,7 @@
                 loanamountsum +=parseFloat(RequestData[k].LoanAmount);
         }
         console.log('test=====5.1'+loanamountsum);
-        var numberapp=cmp.get("v.RowNum");
+        /*var numberapp=cmp.get("v.RowNum");
         console.log('test=====5.2'+numberapp);
         if(numberapp != undefined)
             numberapp = numberapp.length;
@@ -204,7 +204,56 @@
             ageavg=(parseFloat(age1)+parseFloat(age2)+parseFloat(age3))/3;
             console.log('ageavg====='+ageavg);
         }
-        console.log('test=====6'); 
+       */ console.log('test=====6'); 
+        var numberapp;
+        if(cmp.get("v.RowNum")==undefined){
+            numberapp=0;
+        }
+        else{
+            numberapp=cmp.get("v.RowNum").length;
+        }
+        var age1;
+        var age2;
+        var age3;
+        if(numberapp!== 'undefined' && numberapp==1){//cmp.find("NumberofApplicant").get("v.value")==0){
+            age1=cmp.get("v.applicant1ageValue");
+            
+        }
+        if(numberapp!== 'undefined' && numberapp==2){//cmp.find("NumberofApplicant").get("v.value")==1||true){
+            age1=cmp.get("v.applicant1ageValue");
+            age2=cmp.get("v.applicant2ageValue");
+            
+        }
+        if(numberapp!== 'undefined' && numberapp==3){//cmp.find("NumberofApplicant").get("v.value")==2){
+            age1=cmp.get("v.applicant1ageValue");
+            age2=cmp.get("v.applicant2ageValue");
+            age3=cmp.get("v.applicant3ageValue");
+            
+        }
+        console.log('Testk=====age1'+age1);
+        console.log('Testk=====age2'+age2);
+        console.log('Testk=====age3'+age3);
+        var coveragetypeselected=cmp.find("CoverageType").get("v.value");
+        switch(coveragetypeselected){
+            case "1":
+                ageavg=parseFloat(age1);
+                break;
+            case "2":
+                ageavg=parseFloat(age2);
+                break;
+            case "3":
+                ageavg=parseFloat(age3);
+                break;
+            case "4":
+                ageavg=(parseFloat(age1)+parseFloat(age2))/2;
+                break;
+            case "5":
+                ageavg=(parseFloat(age1)+parseFloat(age3))/2;
+                break;
+            case "6":
+                ageavg=(parseFloat(age2)+parseFloat(age3))/2;
+                break;
+        }
         var agegroup='';
         if(ageavg>=18 && ageavg<25){agegroup='18-24';}
         if(ageavg>=25 && ageavg<30){agegroup='25-29';}
@@ -219,16 +268,20 @@
             
             var rate=0;
             var ir=(cmp.get("v.LoanTermMarket")/12);
-            var irceil;
-            var i;
+            console.log('ir====='+ir);
+            var irceil=Math.round(ir*2)/2;
+            if(irceil<ir)
+             irceil=Math.round(ir); 
+           /* var i;
             for (i = 0; i <= ir; i++) {
                 var j=i+0.5;
-                if(ir>i && ir<j)
+                console.log('j====='+j);
+                if(ir>i && (ir<j ||ir==j))
                     irceil=j;
                 else if(ir==i)
                     irceil=i; 
                 j=0;
-            }
+            }*/
             console.log('irceil====='+irceil);
             console.log("agegroup === "+agegroup);
             var action = cmp.get("c.JNlifeCalculation");
@@ -271,7 +324,7 @@
                         }
                         
                         ///=====================
-                        if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2 && cmp.find("Othee_post_moratorium__id").get("v.value")==1 && (cmp.find("IndicateTerm").get("v.value")==1 || cmp.find("IndicateTerm").get("v.value")==2 || cmp.find("IndicateTerm").get("v.value")==3)){
+                        if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2 && cmp.find("Othee_post_moratorium__id").get("v.value")=="Maintain original loan term" && (cmp.find("IndicateTerm").get("v.value")==1 || cmp.find("IndicateTerm").get("v.value")==2 || cmp.find("IndicateTerm").get("v.value")==3)){
                             var n1=parseFloat(n)-parseFloat(cmp.find("IndicateTerm").get("v.value"));
                             console.log("4 n1=== "+n1);
                             var AmortizationSC2C12=im*jnlp*cmp.find("IndicateTerm").get("v.value");
@@ -280,7 +333,7 @@
                             cmp.set("v.MonthlyJNLifeCreditorLifePremium2New",ajngid);
                             cmp.find("MonthlyJNLifeCreditorLifePremium2").set("v.value",  parseFloat(ajngid).toFixed(2));
                         }
-                        else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2 && cmp.find("Othee_post_moratorium__id").get("v.value")==2 && (cmp.find("IndicateTerm").get("v.value")==1 || cmp.find("IndicateTerm").get("v.value")==2 || cmp.find("IndicateTerm").get("v.value")==3)){
+                        else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2 && cmp.find("Othee_post_moratorium__id").get("v.value")=="Extend original loan term by moratorium period" && (cmp.find("IndicateTerm").get("v.value")==1 || cmp.find("IndicateTerm").get("v.value")==2 || cmp.find("IndicateTerm").get("v.value")==3)){
                             var n1=n;
                             var AmortizationSC2C12=im*jnlp*cmp.find("IndicateTerm").get("v.value");
                             var premium1styear2=parseFloat(jnlp)+parseFloat(AmortizationSC2C12);
@@ -288,14 +341,14 @@
                             cmp.set("v.MonthlyJNLifeCreditorLifePremium2New",ajngid);
                             cmp.find("MonthlyJNLifeCreditorLifePremium2").set("v.value",  parseFloat(ajngid).toFixed(2));
                         }
-                            else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==1 && cmp.find("Othee_post_moratorium__id").get("v.value")==1){
+                            else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==1 && cmp.find("Othee_post_moratorium__id").get("v.value")=="Maintain original loan term"){
                                 var n1=parseFloat(n)-parseFloat(cmp.find("IndicateTerm").get("v.value"));
                                 var premium1styear3=jnlp;
                                 var ajngid=this.PMTcalculator(marketi,n1,premium1styear3);
                                 cmp.set("v.MonthlyJNLifeCreditorLifePremium2New",ajngid);
                                 cmp.find("MonthlyJNLifeCreditorLifePremium2").set("v.value",  parseFloat(ajngid).toFixed(2));
                             }
-                                else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==1 && cmp.find("Othee_post_moratorium__id").get("v.value")==2){
+                                else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==1 && cmp.find("Othee_post_moratorium__id").get("v.value")=="Extend original loan term by moratorium period"){
                                     var ajngid=this.PMTcalculator(marketi,n,jnlp);
                                     cmp.set("v.MonthlyJNLifeCreditorLifePremium2New",ajngid);
                                     cmp.find("MonthlyJNLifeCreditorLifePremium2").set("v.value",  parseFloat(ajngid).toFixed(2));
@@ -358,7 +411,7 @@
             
             //========================
             
-            if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2 && cmp.find("Othee_post_moratorium__id").get("v.value")==1 && (cmp.find("IndicateTerm").get("v.value")==1 || cmp.find("IndicateTerm").get("v.value")==2 || cmp.find("IndicateTerm").get("v.value")==3)){
+            if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2 && cmp.find("Othee_post_moratorium__id").get("v.value")=="Maintain original loan term" && (cmp.find("IndicateTerm").get("v.value")==1 || cmp.find("IndicateTerm").get("v.value")==2 || cmp.find("IndicateTerm").get("v.value")==3)){
                 var n1=n-cmp.find("IndicateTerm").get("v.value");
                 var AmortizationSC2C12=im*ProcessingFee1*cmp.find("IndicateTerm").get("v.value");
                 var premium1styear1=parseFloat(ProcessingFee1)+parseFloat(AmortizationSC2C12);
@@ -366,7 +419,7 @@
                 cmp.set("v.MonthlyProcessingFees2New", ajngid);
                 cmp.find("MonthlyProcessingFees2").set("v.value", ajngid.toFixed(2));
             }
-            else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2 && cmp.find("Othee_post_moratorium__id").get("v.value")==2 && (cmp.find("IndicateTerm").get("v.value")==1 || cmp.find("IndicateTerm").get("v.value")==2 || cmp.find("IndicateTerm").get("v.value")==3)){
+            else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2 && cmp.find("Othee_post_moratorium__id").get("v.value")=="Extend original loan term by moratorium period" && (cmp.find("IndicateTerm").get("v.value")==1 || cmp.find("IndicateTerm").get("v.value")==2 || cmp.find("IndicateTerm").get("v.value")==3)){
                 var n1=n;
                 var AmortizationSC2C12=im*ProcessingFee1*cmp.find("IndicateTerm").get("v.value");
                 var premium1styear1=parseFloat(ProcessingFee1)+parseFloat(AmortizationSC2C12);
@@ -374,14 +427,14 @@
                 cmp.set("v.MonthlyProcessingFees2New", ajngid);
                 cmp.find("MonthlyProcessingFees2").set("v.value", ajngid.toFixed(2));
             }
-                else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==1 && cmp.find("Othee_post_moratorium__id").get("v.value")==1){
+                else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==1 && cmp.find("Othee_post_moratorium__id").get("v.value")=="Maintain original loan term"){
                     var n1=n-cmp.find("IndicateTerm").get("v.value");
                     var premium1styear1=ProcessingFee1;
                     var ajngid=this.PMTcalculator(i,n1,premium1styear1);
                     cmp.set("v.MonthlyProcessingFees2New", ajngid);
                     cmp.find("MonthlyProcessingFees2").set("v.value", ajngid.toFixed(2));
                 }
-                    else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==1 && cmp.find("Othee_post_moratorium__id").get("v.value")==2){
+                    else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==1 && cmp.find("Othee_post_moratorium__id").get("v.value")=="Extend original loan term by moratorium period"){
                         var ajngid=this.PMTcalculator(i,n,ProcessingFee1);
                         cmp.set("v.MonthlyProcessingFees2New", ajngid);
                         cmp.find("MonthlyProcessingFees2").set("v.value", ajngid.toFixed(2));
@@ -494,16 +547,19 @@
             var rate=0;
             var ir=n/12;
             console.log('ir====='+ir);
-            var irceil;
-            var i;
+             var irceil=Math.round(ir*2)/2;
+            if(irceil<ir)
+             irceil=Math.round(ir);
+            /*var i;
             for (i = 0; i <= ir; i++) {
                 var j=i+0.5;
-                if(ir>i && ir<j)
+                
+                if(ir>i && (ir<j ||ir==j) )
                     irceil=j;
                 else if(ir==i)
                     irceil=i; 
                 j=0;
-            }
+            }*/
             console.log('irceil====='+irceil);
             console.log("agegroup === "+agegroup);
             
@@ -1533,9 +1589,11 @@
             var apct = parseFloat(AW57)+parseFloat(maxval)+parseFloat(AG191);
             console.log('new5===='+apct);
             var apc = apct/AW56;
+            
             console.log('apc===='+apc);
             apc = apc*100;
-            cmp.find("AfterProposedCredit").set("v.value", apc.toFixed(2));
+            apc=Math.round(apc * 100)/100;
+            cmp.find("AfterProposedCredit").set("v.value", apc);
             
             
             
@@ -1546,7 +1604,8 @@
             var PriortoProposedCredit=parseFloat(AW57)/parseFloat(AW56);
             PriortoProposedCredit = PriortoProposedCredit*100;
             PriortoProposedCredit =this.checkNaN(PriortoProposedCredit);
-            PriortoProposedCredit=PriortoProposedCredit.toFixed(2);
+            console.log("PriortoProposedCredit========="+PriortoProposedCredit);
+            PriortoProposedCredit=Math.round(PriortoProposedCredit * 100)/100;
             cmp.find("PriortoProposedCredit").set("v.value", PriortoProposedCredit);
         }
         

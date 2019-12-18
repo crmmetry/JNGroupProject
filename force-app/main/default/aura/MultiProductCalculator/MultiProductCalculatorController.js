@@ -324,7 +324,7 @@
                 if (
                     cmp.find("Includeamoratoriumofloanrepayments").get("v.value") == 0 &&
                     cmp.find("IndicateType").get("v.value") == 2 &&
-                    cmp.find("Othee_post_moratorium__id").get("v.value") == 1
+                    cmp.find("Othee_post_moratorium__id").get("v.value") == "Maintain original loan term"
                 ) {
                     var n1 = n - cmp.find("IndicateTerm").get("v.value");
                     var AmortizationSC1C121 =
@@ -337,14 +337,18 @@
                         cmp.set("v.AMLoanamountMarketAutoloannew", amla.toFixed(2));
                     }
                 }
+                console.log("amla1========"+cmp.find("Includeamoratoriumofloanrepayments").get("v.value"));
+                console.log("amla2========"+cmp.find("IndicateType").get("v.value"));
+                console.log("amla3========"+cmp.find("Othee_post_moratorium__id").get("v.value"));
                 if (
                     cmp.find("Includeamoratoriumofloanrepayments").get("v.value") == 0 &&
                     cmp.find("IndicateType").get("v.value") == 1 &&
-                    cmp.find("Othee_post_moratorium__id").get("v.value") == 1
+                    cmp.find("Othee_post_moratorium__id").get("v.value") == "Maintain original loan term"
                 ) {
                     var n1 = n - cmp.find("IndicateTerm").get("v.value");
                     var amla = 0;
                     amla = helper.PMTcalculator(i, n1, p);
+                    console.log("amla========"+amla);
                     if (isNaN(amla) == false) {
                         cmp.set("v.AMLoanamountMarketAutoloan", amla);
                         cmp.set("v.AMLoanamountMarketAutoloannew", amla.toFixed(2));
@@ -353,7 +357,7 @@
                 if (
                     cmp.find("Includeamoratoriumofloanrepayments").get("v.value") == 0 &&
                     cmp.find("IndicateType").get("v.value") == 2 &&
-                    cmp.find("Othee_post_moratorium__id").get("v.value") == 2
+                    cmp.find("Othee_post_moratorium__id").get("v.value") == "Extend original loan term by moratorium period"
                 ) {
                     var AmortizationSC1C122 =
                         im * p * cmp.find("IndicateTerm").get("v.value");
@@ -368,7 +372,7 @@
                 if (
                     cmp.find("Includeamoratoriumofloanrepayments").get("v.value") == 0 &&
                     cmp.find("IndicateType").get("v.value") == 1 &&
-                    cmp.find("Othee_post_moratorium__id").get("v.value") == 2
+                    cmp.find("Othee_post_moratorium__id").get("v.value") == "Extend original loan term by moratorium period"
                 ) {
                     var amla = 0;
                     amla = helper.PMTcalculator(i, n, p);

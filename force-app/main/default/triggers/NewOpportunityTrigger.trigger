@@ -10,23 +10,23 @@ trigger NewOpportunityTrigger on Opportunity (before insert, after insert,after 
             OpportunityTriggerHandler.lockRecordsForEditing();
             OpportunityTriggerHandler.assignOpportunityRecordTypeName();
             OpportunityTriggerHandler.validateApplicantProfileCompletion();
-            OpportunityTriggerHandler.validateCloseBackDate(2);
+            OpportunityTriggerHandler.validateCloseBackDate(2, 7);
         }
     } else if( Trigger.isInsert) {
-         System.debug('NewOpportunityTrigger');
+        System.debug('NewOpportunityTrigger');
         if(Trigger.isAfter) {
             for(Opportunity opp : Trigger.new){
                 oppid.add(opp.ID);
             }       
         } else if(Trigger.isBefore){
-                  System.debug('NewOpportunityTrigger BEFPRE');
+            System.debug('NewOpportunityTrigger BEFPRE');
             OpportunityTriggerHandler.assignOpportunityRecordTypeName();
-            OpportunityTriggerHandler.validateCloseBackDate(2);
+            OpportunityTriggerHandler.validateCloseBackDate(2, 7);
         }
     }
-    //OpportunityTriggerHandler.setOpportunityAmountOnLead(Trigger.isAfter, Trigger.isUpdate, Trigger.isInsert);
+    //OpportunityTriggerHandler.setOpportunityAmountOnLead(Trigger.isAfter, Trigger.isUpdate, Trigger.isInsert); causing last contact made issues
     if(oppid.size()>0){
-         if(CreditScoreHelper.FirstRun)
+        if(CreditScoreHelper.FirstRun)
             return;
         System.debug('CreditScore called=====>');
         CreditScoreHelper cs = new CreditScoreHelper();
