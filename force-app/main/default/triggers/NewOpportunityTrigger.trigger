@@ -10,7 +10,7 @@ trigger NewOpportunityTrigger on Opportunity (before insert, after insert,after 
             OpportunityTriggerHandler.lockRecordsForEditing();
             OpportunityTriggerHandler.assignOpportunityRecordTypeName();
             OpportunityTriggerHandler.validateApplicantProfileCompletion();
-            OpportunityTriggerHandler.validateCloseBackDate(2, 7);
+            OpportunityTriggerHandler.validateCloseBackDate(2, 7, System.now());
         }
     } else if( Trigger.isInsert) {
         System.debug('NewOpportunityTrigger');
@@ -21,7 +21,6 @@ trigger NewOpportunityTrigger on Opportunity (before insert, after insert,after 
         } else if(Trigger.isBefore){
             System.debug('NewOpportunityTrigger BEFPRE');
             OpportunityTriggerHandler.assignOpportunityRecordTypeName();
-            OpportunityTriggerHandler.validateCloseBackDate(2, 7);
         }
     }
     //OpportunityTriggerHandler.setOpportunityAmountOnLead(Trigger.isAfter, Trigger.isUpdate, Trigger.isInsert); causing last contact made issues

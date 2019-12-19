@@ -23,12 +23,17 @@
       applicantDetails: component.get("v.SiteLead"),
       leadId: component.get("v.leadId")
     });
+     console.info(JSON.parse(JSON.stringify(component.get("v.SiteLead"))));
+     console.log('Id: ' + component.get("v.leadId"));
     this.sendEvents(component, ["showLoading"]);
     action.setCallback(this, function(response) {
       this.sendEvents(component, ["disableShowLoading"]);
       const state = response.getState();
       if (state === "SUCCESS") {
         this.sendEvents(component, ["navigateNext"], {});
+          console.error(JSON.parse(JSON.stringify(response)))
+      } else {
+                console.error(JSON.parse(JSON.stringify(response.getError())))
       }
     });
     $A.enqueueAction(action);

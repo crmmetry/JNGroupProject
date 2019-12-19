@@ -54,10 +54,8 @@ public class JNSiteController {
             Map<String, String> decimalFields = new Map<String, String>{
                 'Mailing_Years_at_Residence__c' => 'Mailing_Years_at_Residence__c',
                     'Years_at_Residence__c' => 'Years_at_Residence__c',
-                    'Self_Employed_Time_in_Present_Industry__c' => 'Self_Employed_Time_in_Present_Industry__c',
                     'Time_with_Current_Employer__c' => 'Time_with_Current_Employer__c',
-                    'Time_in_Industry__c' => 'Time_in_Industry__c',
-                    'Self_Employed_Time_in_Present_Industry__c' => 'Self_Employed_Time_in_Present_Industry__c'
+                    'Time_in_Industry__c' => 'Time_in_Industry__c'
                     };
                         Map<String, String> dateFields = new Map<String, String>{
                             'Preferred_Date_of_Contact__c' => 'Preferred_Date_of_Contact__c',

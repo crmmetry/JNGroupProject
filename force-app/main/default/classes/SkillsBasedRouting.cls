@@ -5,6 +5,7 @@ Global class SkillsBasedRouting {
         Group salesDevQueue = [SELECT Id FROM Group WHERE Type='Queue' AND Name='Sales Development Team'];
         for (Lead leadObj : [SELECT Id, Preferred_Location__c,OwnerId FROM Lead 
                              WHERE Id in :leads AND OwnerID =:salesDevQueue.Id]) {
+                                  if(leadObj.Preferred_Location__c != null){
                                  PendingServiceRouting pendingSrvRouting = new PendingServiceRouting(
                                      CapacityWeight = 1,
                                      IsReadyForRouting = FALSE,
@@ -19,17 +20,19 @@ Global class SkillsBasedRouting {
                                  pendingSrvRouting = [SELECT Id, IsReadyForRouting FROM 
                                                       PendingServiceRouting WHERE Id = :pendingSrvRouting.id];
                                  
-                                 // Now add SkillRequirement(s)
-                                 SkillRequirement srObj = new SkillRequirement(
-                                     RelatedRecordId = pendingSrvRouting.id,
-                                     SkillId = getSkillId(leadObj.Preferred_Location__c ),
-                                     SkillLevel = 1
-                                 );
-                                 insert srObj;
-                                 System.debug('Current Skill: ' + srObj);
-                                 // Update PendingServiceRouting as IsReadyForRouting
-                                 pendingSrvRouting.IsReadyForRouting = TRUE;
-                                 update pendingSrvRouting;
+                                
+                                     // Now add SkillRequirement(s)
+                                     SkillRequirement srObj = new SkillRequirement(
+                                         RelatedRecordId = pendingSrvRouting.id,
+                                         SkillId = getSkillId(leadObj.Preferred_Location__c ),
+                                         SkillLevel = 1
+                                     );
+                                     insert srObj;
+                                     System.debug('Current Skill: ' + srObj);
+                                     // Update PendingServiceRouting as IsReadyForRouting
+                                     pendingSrvRouting.IsReadyForRouting = TRUE;
+                                     update pendingSrvRouting;
+                                 }
                                  
                              }
         return;
@@ -76,9 +79,9 @@ Global class SkillsBasedRouting {
                 }
             }
         }
-
-       // if(locations.size() >= 1){
-
+        
+        // if(locations.size() >= 1){
+        
         // get all skills that match preferred location
         Map<Id, Skill> mappedSkills = getSkills(locations);
         List<Id> userIds = new List<Id>();

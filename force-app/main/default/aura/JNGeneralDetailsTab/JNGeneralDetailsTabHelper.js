@@ -67,6 +67,7 @@
                     {"Id": siteLead.Id}
                 );
             } else {
+                console.log('error')
                 console.error(JSON.parse(JSON.stringify(response.getError())))
             }
         });

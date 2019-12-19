@@ -79,13 +79,13 @@
         getSelfEmployedCountry: function(component, event, helper) {
         const selected = event.getSource().get("v.value");
         let siteLead = component.get("v.SiteLeadSelfEmployed");
-        siteLead["Self_Employed_Country__c"] = selected;
+        siteLead["Employer_Country__c"] = selected;
         component.set("v.SiteLeadSelfEmployed", siteLead);
     },
     getUnemployedCountry: function(component, event, helper) {
         const selected = event.getSource().get("v.value");
         let siteLead = component.get("v.SiteLeadUnemployed");
-        siteLead["Unemployed_Country__c"] = selected;
+        siteLead["Employer_Country__c"] = selected;
         component.set("v.SiteLeadUnemployed", siteLead);
     },
     getIndustryBusiness: function(component, event, helper) {
