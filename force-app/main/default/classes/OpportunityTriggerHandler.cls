@@ -3,9 +3,10 @@ public class OpportunityTriggerHandler {
     private static List<Opportunity> newRecords;
     private static Map<Id, Opportunity> oldMap;
     private static Map<Id, Opportunity> newMap;
+    private static Map<Id,Opportunity> mappedRecords;
     private static Map<String,String> excludedFields = new Map<String, String>
     {
-        	'Id' => 'Id',
+        'Id' => 'Id',
             'IsDeleted' => 'IsDeleted',
             'CreatedById' => 'CreatedDate',
             'LastModifiedById' => 'LastModifiedById',
@@ -15,6 +16,7 @@ public class OpportunityTriggerHandler {
                     OpportunityTriggerHandler.newRecords = newRecords;
                     OpportunityTriggerHandler.oldMap = oldMap;
                     OpportunityTriggerHandler.newMap = newMap;
+                    
                 }
     public static void setOpportunityAmountOnLead(Boolean isAfter, Boolean isUpdate, Boolean isInsert){
         Set<id> oppid = new set<id>();
@@ -146,12 +148,14 @@ public class OpportunityTriggerHandler {
         String err2 = 'You must complete the Financial Information flow before selecting "Yes" for this field';
         
         for(Opportunity record : newRecords) {
-            if(record.Loan_Path__c.equals('Complete Applicant Profile(s)')){
-                if(record.Personal_Details_Complete_PK__c != null && record.Personal_Details_Complete_PK__c.equals('Yes') && applicants.isEmpty()){
-                    record.Personal_Details_Complete_PK__c.addError(err1);
-                }
-                if(record.Financial_Information_Complete_PK__c != null && record.Financial_Information_Complete_PK__c.equals('Yes') && applicantAssets.isEmpty()){
-                    record.Financial_Information_Complete_PK__c.addError(err2);
+            if(record.Loan_Path__c != null){
+                if(record.Loan_Path__c.equals('Complete Applicant Profile(s)')){
+                    if(record.Personal_Details_Complete_PK__c != null && record.Personal_Details_Complete_PK__c.equals('Yes') && applicants.isEmpty()){
+                        record.Personal_Details_Complete_PK__c.addError(err1);
+                    }
+                    if(record.Financial_Information_Complete_PK__c != null && record.Financial_Information_Complete_PK__c.equals('Yes') && applicantAssets.isEmpty()){
+                        record.Financial_Information_Complete_PK__c.addError(err2);
+                    }
                 }
             }
         }
@@ -161,42 +165,46 @@ public class OpportunityTriggerHandler {
         String err1 = 'The Closed Date cannot be this far back in the past. Please contact Sales Support.';
         String err2 = 'The Closed Date cannot be greater than this record created date.';
         String err3 = 'The Closed Date cannot be greater than today';
-
+        
         Date minDate = date.newinstance(now.year(), now.month(), now.day());
         Date todayDate = date.newinstance(now.year(), now.month(), now.day());
         Integer currentMonth = minDate.month();
         minDate = Util.GetBackDatedDate(minDate, maxPrevDays);
         System.debug('Min date: ' + minDate);
-
+        
         for(Opportunity record: newRecords ) {
-            System.debug('record.CloseDate: ' + record.CloseDate);
-            System.debug('record.CreatedDate: ' + record.CreatedDate);
-			date closeDate = date.newinstance(record.CloseDate.year(), record.CloseDate.month(), record.CloseDate.day());
-            date createdDate = date.newinstance(record.CreatedDate.year(), record.CreatedDate.month(), record.CreatedDate.day());
-            Integer prevMonth = record.CloseDate.month();
-            if( 
-               closeDate > createdDate){
-               record.CloseDate.addError(err2);
-                System.debug('closedate greater than createddate');
-            }
-            else if(closeDate > todayDate){
-                record.CloseDate.addError(err3);
-                System.debug('closedate greater than today');
-            } else if((record.CloseDate <= minDate.addDays(-1)) && prevMonth == currentMonth){
-                record.CloseDate.addError(err1);   
-                System.debug('closedate greater than 7 days in the past');
-            } else {
-                
-                if(prevMonth != currentMonth){
-                    System.debug('closedate in different month');
-                    now = System.now();
-                    Date acceptedDate = Util.GetBackDatedDate(date.newinstance(now.year(), now.month(), now.day()), backdatedDays);
-                    if(closeDate > acceptedDate){
-                        System.debug('closedate in different month greater than max 2 days');
-                      record.CloseDate.addError(err1);  
-                    }
+            
+            if(record.StageName == 'Closed Lost' || record.StageName == 'Closed Won' ) {
+                if(oldMap.get(record.Id).StageName != 'Closed Lost' || oldMap.get(record.Id).StageName != 'Closed Won'){
+                    date closeDate = date.newinstance(record.CloseDate.year(), record.CloseDate.month(), record.CloseDate.day());
+                    date createdDate = date.newinstance(record.CreatedDate.year(), record.CreatedDate.month(), record.CreatedDate.day());
+                    Integer prevMonth = record.CloseDate.month();
+                    /*if( 
+closeDate > createdDate){
+record.CloseDate.addError(err2);
+System.debug('closedate greater than createddate');
+}*/
+                    if(closeDate > todayDate){
+                        record.CloseDate.addError(err3);
+                        System.debug('closedate greater than today');
+                    } else if((record.CloseDate <= minDate.addDays(-1))){
+                        record.CloseDate.addError(err1);   
+                        System.debug('closedate greater than 7 days in the past');
+                    } else {
+                        
+                        if(prevMonth != currentMonth){
+                            System.debug('closedate in different month');
+                            now = System.now();
+                            Date acceptedDate = Util.GetBackDatedDate(date.newinstance(now.year(), now.month(), now.day()), backdatedDays);
+                            if(closeDate > acceptedDate){
+                                System.debug('closedate in different month greater than max 2 days');
+                                record.CloseDate.addError(err1);  
+                            }
+                        }
+                    }            
                 }
-            }            
+            }
+            
         }
     }
     
@@ -218,5 +226,65 @@ public class OpportunityTriggerHandler {
         }        
         return changedFields;
     } 
-    
+    public static void ProductsFamiliyValidation(){
+        OpportunityTriggerHandler.mappedRecords = new Map<Id, Opportunity>(newRecords);
+        Boolean autoLoan = false;
+        Boolean lineOfCredit = false;
+        Boolean unsecureLoan = false;
+        Boolean creditCard = false;
+        Opportunity updatedOpportunity;
+        for(Opportunity newRecord: [Select Id, (Select Id,Product_Family__c From OpportunityLineItems) From Opportunity Where Id in :newRecords]) {
+            for(OpportunityLineItem lineItem: newRecord.OpportunityLineItems) {
+                System.debug('Familiy: ' + lineItem.Product_Family__c);
+                switch on lineItem.Product_Family__c {
+                    when 'JN Bank Auto Loan','JN Bank Commercial Auto Loan' {
+                        System.debug('auto loan');
+                        autoLoan = true;
+                    }
+                    when 'JN Bank Line Of Credit','JN Bank Cash Secured Loan'{
+                        System.debug('line of credit');
+                        lineOfCredit = true;
+                    }
+                    when 'JN Bank Term Share Loan','JN Bank Unsecured Loan','JN Bank 12 to 1 Loan (Supersize Loan)'{
+                        System.debug('Unsecure Loan');
+                        unsecureLoan = true;
+                    }
+                    when 'JN Bank Credit Card'{
+                        System.debug('Credit Card');
+                        creditCard = true;
+                    }
+                }
+                
+                
+            }
+            updatedOpportunity = mappedRecords.get(newRecord.Id);
+            System.debug('updatedOpportunity ' + updatedOpportunity);
+            if(autoLoan) {
+                System.debug(' Updating Auto_Loan__c ');
+                updatedOpportunity.Auto_Loan__c = true;
+            } else {
+                System.debug('NOT Updating Auto_Loan__c ');
+                updatedOpportunity.Auto_Loan__c = false;
+            } if(lineOfCredit){
+                System.debug(' Updating Line_Of_Credit__c ');
+                updatedOpportunity.Line_Of_Credit__c  = true;
+            } else {
+                updatedOpportunity.Line_Of_Credit__c  = false;
+                System.debug('NOT Updating Line_Of_Credit__c ');
+            } if(unsecureLoan){
+                updatedOpportunity.Unsecure_Loan__c   = true;
+                System.debug('Updating unsecured loan');
+            } else {
+                updatedOpportunity.Unsecure_Loan__c   = false;
+                System.debug('NOT Updating unsecured loan');
+            } if(creditCard){
+                System.debug('Updating credit card');
+                updatedOpportunity.Credit_Card__c   = true;
+            } else {
+                System.debug('NOT Updating credit card');
+                updatedOpportunity.Credit_Card__c   = false;
+            }
+        }
+        
+    }
 }

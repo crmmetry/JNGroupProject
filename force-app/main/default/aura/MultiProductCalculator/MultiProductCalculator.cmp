@@ -5,10 +5,13 @@
     <aura:attribute name="isRecordIdM" type="String" required="false" default="false" access="public"/>
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:attribute name="Applicantlist" type="List" />
+    <aura:attribute name="Coverageoptions" type="List" />
+    <aura:attribute name="selectedValue" type="String"/>
+    <aura:attribute name="selectedValueUn" type="String"/>
     <aura:attribute name="IsExistingLoan" type="boolean"/>
     <aura:attribute name="applicant1age" type="boolean" default="false"/>
     <aura:attribute name="applicant2age" type="boolean" default="false"/>
-    <aura:attribute name="applicant3age" type="boolean" default="false"/>
+    <aura:attribute name="applicant3age" type="boolean" default="false"/> 
     <aura:attribute name="applicant1ageValue" type="decimal" default="0"/>
     <aura:attribute name="applicant2ageValue" type="decimal" default="0"/>
     <aura:attribute name="applicant3ageValue" type="decimal" default="0"/>
@@ -410,7 +413,12 @@
                             </lightning:select>
                         </div>
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                            <lightning:select label="Coverage Type" name="Coverage Type"  aura:id="CoverageType" required="true">
+                            <lightning:select label="Coverage Type" name="Coverage Type"  aura:id="CoverageType" required="true" value="{!v.selectedValue}">
+         <aura:iteration items="{!v.Coverageoptions}" var="item">
+            <option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+        </aura:iteration>
+    </lightning:select>
+                            <!--<lightning:select label="Coverage Type" name="Coverage Type"  aura:id="CoverageType" required="true">
                                 <option value="0">choose one...</option>
                                 <aura:if isTrue="{!v.applicant1age}">
                                     <option value="1">Applicant 1 Only</option>
@@ -433,7 +441,7 @@
                                 <aura:if isTrue="{!not(or(v.applicant1age,v.applicant2age,v.applicant3age))}">
                                     <option value="7">No Suitable Applicants</option>  
                                 </aura:if>
-                            </lightning:select> 
+                            </lightning:select>-->
                         </div>
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <lightning:select label="Include in Loan Amount" name="Include in Loan Amount"  aura:id="IncludeinLoanAmountinsurence" required="true" onchange="{!c.calculateJNLifeMonthlyPremium}">
@@ -679,7 +687,12 @@
                             
                         </div>
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                            <lightning:select label="Coverage Type" name="Coverage Type"  aura:id="CoverageTypeUn" required="true" onchange="{!c.ShowHideOnInterestedinCreditorLifeUnsecured }">
+                            <lightning:select label="Coverage Type" name="Coverage Type"  aura:id="CoverageTypeUn" required="true" value="{!v.selectedValueUn}" onchange="{!c.ShowHideOnInterestedinCreditorLifeUnsecured }">
+         <aura:iteration items="{!v.Coverageoptions}" var="item">
+            <option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+        </aura:iteration>
+    </lightning:select>
+                           <!-- <lightning:select label="Coverage Type" name="Coverage Type"  aura:id="CoverageTypeUn" required="true" onchange="{!c.ShowHideOnInterestedinCreditorLifeUnsecured }">
                                 <option value="0">choose one...</option>
                                 <aura:if isTrue="{!v.applicant1age}">
                                     <option value="1">Applicant 1 Only</option>
@@ -702,7 +715,7 @@
                                 <aura:if isTrue="{!not(or(v.applicant1age,v.applicant2age,v.applicant3age))}">
                                     <option value="7">No Suitable Applicants</option>  
                                 </aura:if>                                
-                            </lightning:select> 
+                            </lightning:select> -->
                         </div>
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <lightning:select label="Include in Loan Amount" name="Include in Loan Amount"  aura:id="IncludeinLoanAmountinsurenceUn" required="true" onblur="{!c.ShowHideOnInterestedinCreditorLifeUnsecured }">

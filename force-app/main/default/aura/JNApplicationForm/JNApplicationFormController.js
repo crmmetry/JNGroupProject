@@ -1,6 +1,7 @@
 ({
   doInit: function(component, event, helper) {
-    const allTabIds = [
+       
+    const creditCardTabs = [
       "Getting_Started_Tab",
       "Application_Information_Tab",
       "General_Details_Tab",
@@ -12,8 +13,20 @@
       "Extensions_Tab",
       "Document_Upload_Tab"
     ];
+    const unsecuredLoanTabs = [
+      "Getting_Started_Tab",
+      "Application_Information_Tab",
+      "General_Details_Tab",
+      "Identification_Details_Tab",
+      "Contact_Details_Tab",
+      "Emergency_Contact_Tab",
+      "Employment_Details_Tab",
+      "Affiliations_Tab",
+      "Document_Upload_Tab"
+    ];
+    const loanType = component.get("v.loan_type");
     component.set("v.SiteLead", {});
-    component.set("v.allTabs", allTabIds);
+    component.set("v.allTabs", loanType == 'credit_card' ? creditCardTabs : unsecuredLoanTabs);
     component.set("v.tabId", "Getting_Started_Tab");
   },
 

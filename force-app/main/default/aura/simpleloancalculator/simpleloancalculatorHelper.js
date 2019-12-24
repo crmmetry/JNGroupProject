@@ -157,5 +157,119 @@
         component.find("existingMthlyPayment").set("v.value",'');
         component.find("GrossIncome").set("v.value",'');
         console.log("prob clear"); 
-    }
+    },
+    validateAffordabilityCalculator: function(cmp, event,acMethod) {//JN1-2459
+        var flag=false;
+        var InterestRate = cmp.find("InterestRate").get("v.value");
+        if(InterestRate=='0') {
+            cmp.set('v.showErrorIR',true);
+            flag =true;
+        }
+        else{
+            cmp.set('v.showErrorIR',false);
+            flag =false;
+        }            
+        var loanTerm = cmp.find("loanTermYr").get("v.value");
+        var loanTermMonth = cmp.find("loanTermMth").get("v.value");
+        if(loanTerm=='0') {
+            if(loanTermMonth =='0'){
+                 cmp.set('v.showErrorLT',true);
+            flag =true;
+            }
+            else{
+                cmp.set('v.showErrorLT',false);
+                if(!flag)
+                    flag =false;
+            }
+           
+        }
+        else{
+            cmp.set('v.showErrorLT',false);
+            if(!flag)
+            	flag =false;
+        }
+        
+        
+        
+        if(acMethod=='2'){
+            var desiredMonthly = cmp.find("desiredMonthly").get("v.value");
+            if(desiredMonthly=='0') {
+                cmp.set('v.showErrorDP',true);
+                flag =true;
+            }
+            else{
+                cmp.set('v.showErrorDP',false);
+                if(!flag)
+            		flag =false;
+            }
+        }
+        if(acMethod=='3'){
+            var GrossIncome1 = cmp.find("GrossIncome").get("v.value");
+            if(GrossIncome1=='0') {
+                cmp.set('v.showErrorMGI',true);
+                flag =true;
+            }
+            else{
+                cmp.set('v.showErrorMGI',false);
+                if(!flag)
+            		flag =false;
+            }
+            var existingMthlyPayment1 = cmp.find("existingMthlyPayment").get("v.value");
+            if(existingMthlyPayment1=='0') {
+                cmp.set('v.showErrorEMP',true);
+                flag =true;
+            }
+            else{
+                cmp.set('v.showErrorEMP',false);
+                if(!flag)
+            	flag =false;
+            }
+        }
+        console.log("Affordability validation msg: =====>"+flag);    
+        return flag;
+    },
+    validateInstallmentPaymentCalculator: function(cmp, event) { //JN1-2459
+        var flag=false;
+        var InterestRate = cmp.find("InterestRatePayment").get("v.value");
+        console.log("InstallmentPayment validation InterestRate: =====>"+InterestRate);
+        if(InterestRate=='0') {
+            cmp.set('v.showErrorIP_IR',true);
+            flag =true;
+        }
+        else{
+            cmp.set('v.showErrorIP_IR',false);
+            flag =false;
+        }            
+        var loanTerm = cmp.find("loanTermYrPayment").get("v.value");
+        var loanTermMonth = cmp.find("loanTermMthPayment").get("v.value");
+        if(loanTerm=='0') {
+            if(loanTermMonth =='0'){
+                cmp.set('v.showErrorIP_LT',true);
+                flag =true;
+            }
+            else{
+                cmp.set('v.showErrorIP_LT',false);
+                if(!flag)
+                    flag =false;
+            }
+        }
+        else{
+            cmp.set('v.showErrorIP_LT',false);
+            if(!flag)
+            	flag =false;
+        }
+        var loanAmt = cmp.find("loanAmtPayment").get("v.value");
+        console.log("InstallmentPayment validation loanAmt: =====>"+loanAmt);
+        if(loanAmt=='0') {
+            cmp.set('v.showErrorIP_LA',true);
+            flag =true;
+        }
+        else{
+            cmp.set('v.showErrorIP_LA',false);
+            if(!flag)
+            	flag =false;
+        }
+        console.log("InstallmentPayment validation msg: =====>"+flag);    
+        return flag;
+    },
 })

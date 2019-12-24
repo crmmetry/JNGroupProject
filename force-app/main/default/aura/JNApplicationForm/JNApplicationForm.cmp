@@ -50,13 +50,13 @@
                                         </div>
                                     </div>
                                 </aura:if>
-                                <lightning:tab label="1: Getting Started" id="Getting_Started_Tab">
+                                <lightning:tab label="Getting Started" id="Getting_Started_Tab">
                                     <div class="slds-align_absolute-center" >
                                         <c:JNGettingStartedTab aura:id="Getting_Started"/>
                                     </div>
                                 </lightning:tab>
                                 <lightning:tab
-                                               label="2: Application Information"
+                                               label="Application Information"
                                                id="Application_Information_Tab"
                                                >
                                     <div class="slds-card__body slds-card__body_inner">
@@ -67,7 +67,7 @@
                                     </div>
                                 </lightning:tab>
                                 <lightning:tab
-                                               label="3: General Details"
+                                               label="General Details"
                                                id="General_Details_Tab"
                                                >
                                     <div class="slds-card__body slds-card__body_inner">
@@ -79,7 +79,7 @@
                                     </div>
                                 </lightning:tab>
                                 <lightning:tab
-                                               label="4: Identification Details"
+                                               label="Identification Details"
                                                id="Identification_Details_Tab"
                                                >
                                     <div class="slds-card__body slds-card__body_inner">
@@ -90,24 +90,24 @@
                                     </div>
                                 </lightning:tab>
                                 <lightning:tab
-                                               label="5: Contact Details"
+                                               label="Contact Details"
                                                id="Contact_Details_Tab"
                                                >
                                     <c:JNContactDetailsTab aura:id="Contact_Details" leadId="{!v.SiteLead.Id}"/>
                                 </lightning:tab>
                                 <lightning:tab
-                                               label="6: Emergency Contact"
+                                               label="Emergency Contact"
                                                id="Emergency_Contact_Tab"
                                                >
                                     <c:JNEmergencyContactDetailsTab aura:id="Emergency_Contact" leadId="{!v.SiteLead.Id}" />
                                 </lightning:tab>
                                 <lightning:tab
-                                               label="7: Employment Details"
+                                               label="Employment Details"
                                                id="Employment_Details_Tab"
                                                >
                                     <c:JNEmploymentDetailsTab aura:id="Employment_Details" leadId="{!v.SiteLead.Id}" />
                                 </lightning:tab>
-                                <lightning:tab label="8: Affiliations" id="Affiliations_Tab">
+                                <lightning:tab label="Affiliations" id="Affiliations_Tab">
                                     <div class="slds-card__body slds-card__body_inner">
                                         <c:JNAffiliationsTab
                                                              aura:id="Affiliations"
@@ -117,29 +117,16 @@
                                 </lightning:tab>
                                 <aura:if isTrue="{!v.loan_type == 'credit_card'}">
                                     <div class="slds-card__body slds-card__body_inner">
-                                        <lightning:tab label="9: Supplementary Card Holder" id="Extensions_Tab">
+                                        <lightning:tab label="Supplementary Card Holder" id="Extensions_Tab">
                                             <c:JNExtensionsTab
                                                                aura:id="Extensions"
                                                                leadId="{!v.SiteLead.Id}"
                                                                />
                                         </lightning:tab>
                                     </div>
-                                    <aura:set attribute="else">
-                                        <div class="slds-card__body slds-card__body_inner">
-                                            <lightning:tab label="9: Supplementary Card Holder" id="Extensions_Tab">
-                                                <p
-                                                   class="slds-text-heading_large slds-text-align_center"
-                                                   aura:id="Extensions"
-                                                   >
-                                                    This page was intentionally left blank, please
-                                                    continue
-                                                </p>
-                                            </lightning:tab>
-                                        </div>
-                                    </aura:set>
                                 </aura:if>
                                 <lightning:tab
-                                               label="10: Document Upload"
+                                               label="Document Upload"
                                                id="Document_Upload_Tab"
                                                >
                                     <div class="slds-card__body slds-card__body_inner">

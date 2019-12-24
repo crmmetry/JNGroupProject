@@ -1,6 +1,11 @@
 ({
     doInit: function(cmp, event, helper) {
         var isprod = cmp.get("v.isProductDetail");
+        var opts = [
+                { value: "0", label: "choose one..." },
+                { value: "7", label: "No Suitable Applicants" }
+            ];
+            cmp.set("v.Coverageoptions", opts);
         console.log("component type========>" + isprod);
         console.log("window.location.origin"+window.location.origin);
         if (isprod) {
@@ -714,6 +719,72 @@
                 );
             }
         }
+        console.log("1age ============"+cmp.get("v.applicant1age"));
+        console.log("1age ============"+cmp.get("v.applicant2age"));
+        console.log("1age ============"+cmp.get("v.applicant3age"));
+        if(cmp.get("v.applicant1age") && cmp.get("v.applicant2age") && cmp.get("v.applicant3age")){
+            var opts = [
+                { value: "0", label: "choose one..." },
+                { value: "1", label: "Applicant 1 Only" },
+                { value: "2", label: "Applicant 2 Only" },
+                { value: "3", label: "Applicant 2 Only" },
+                { value: "4", label: "Applicant 1 & Applicant 2" },
+                { value: "5", label: "Applicant 1 & Applicant 3" },
+                { value: "6", label: "Applicant 2 & Applicant 3" }
+            ];
+            cmp.set("v.Coverageoptions", opts);  
+        } else if(cmp.get("v.applicant1age") && cmp.get("v.applicant2age")){
+            var opts = [
+                { value: "0", label: "choose one..." },
+                { value: "1", label: "Applicant 1 Only" },
+                { value: "2", label: "Applicant 2 Only" },
+                { value: "4", label: "Applicant 1 & Applicant 2" }
+            ];
+            cmp.set("v.Coverageoptions", opts);  
+        } else if(cmp.get("v.applicant1age") && cmp.get("v.applicant3age")){
+            var opts = [
+                { value: "0", label: "choose one..." },
+                { value: "1", label: "Applicant 1 Only" },
+                { value: "3", label: "Applicant 3 Only" },
+                { value: "5", label: "Applicant 1 & Applicant 3" }
+            ];
+            cmp.set("v.Coverageoptions", opts);
+        } else if(cmp.get("v.applicant2age") && cmp.get("v.applicant3age")){
+            var opts = [
+                { value: "0", label: "choose one..." },
+                { value: "2", label: "Applicant 2 Only" },
+                { value: "3", label: "Applicant 3 Only" },
+                { value: "6", label: "Applicant 2 & Applicant 3" }
+            ];
+            cmp.set("v.Coverageoptions", opts);
+        } else if(cmp.get("v.applicant1age")){
+            console.log("1App ============");
+            var opts = [
+                { value: "0", label: "choose one..." },
+                { value: "1", label: "Applicant 1 Only" }
+            ];
+                cmp.set("v.Coverageoptions", opts);
+            console.log("1App ============1");
+                } else if(cmp.get("v.applicant2age")){
+                var opts = [
+                { value: "0", label: "choose one..." },
+                { value: "2", label: "Applicant 2 Only" }
+            ];
+            cmp.set("v.Coverageoptions", opts);
+        } else if(cmp.get("v.applicant3age")){
+            var opts = [
+                { value: "0", label: "choose one..." },
+                { value: "3", label: "Applicant 3 Only" }
+            ];
+                cmp.set("v.Coverageoptions", opts);
+                } else{
+                var opts = [
+                { value: "0", label: "choose one..." },
+                { value: "7", label: "No Suitable Applicants" }
+            ];
+            cmp.set("v.Coverageoptions", opts);  
+        }
+         console.log("Coverageoptions ============"+cmp.get("v.Coverageoptions"));
     },
     ShowHideOnInterestedinprogramme: function(cmp, evt, helper) {
         var acMethod = cmp.find("Interestedinprogramme").get("v.value");
@@ -2034,6 +2105,9 @@
         $A.enqueueAction(cmp.get("c.calculateAppLocPortionOnchange"));
     },
     SaveData: function(cmp, evt, helper) {
+        console.log("applicant1age-------------------------1-" +cmp.get("v.applicant1age"));
+            console.log("applicant2age-------------------------1-" +cmp.get("v.applicant2age") );
+            console.log("applicant2age-------------------------1-" + cmp.get("v.applicant3age"));
         var calc = cmp.find("selectapplicant").get("v.value");
         var isprod = cmp.get("v.isProductDetail");
         if (isprod) {
@@ -2944,7 +3018,7 @@
                 CoverageTypeun = "Applicant 1 Only";
             if (cmp.find("CoverageTypeUn").get("v.value") == "2")
                 CoverageTypeun = "Applicant 2 Only";
-            if (cmp.find("CoverageTypeUn").get("v.value") == "3")
+            if (cmp.find("CoverageTypeUn").get("v.value") == "3") 
                 CoverageTypeun = "Applicant 3 Only";
             console.log("test--------------------------Unsecured Loan 3");
             if (cmp.find("CoverageTypeUn").get("v.value") == "4")
@@ -3686,9 +3760,17 @@
                 Credit_Risk_Score_Line_of_Credit__c: locscore
             };
             
+            
             console.log("newopp--------------------------" + newopp);
             helper.saveCalculation(cmp, evt, newCalculator, newopp);
-        } else helper.saveLoanCalculation(cmp, evt, newCalculator);
+        } else{
+            helper.saveLoanCalculation(cmp, evt, newCalculator);
+            
+            console.log("applicant1age--------------------------" +cmp.find("CoverageType").get("v.value"));
+            console.log("applicant2age--------------------------" +cmp.get("v.applicant2age") );
+            console.log("applicant2age--------------------------" + cmp.get("v.applicant3age"));
+            
+        }
     },
     //======Product Detail=============
     ChangeAccountTypelistCC: function(cmp, evt, helper) {

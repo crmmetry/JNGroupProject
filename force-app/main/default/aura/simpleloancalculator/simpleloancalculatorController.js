@@ -216,21 +216,30 @@
                 $A.util.removeClass(cmp.find("GrossIncome"),"slds-hide");
                 $A.util.removeClass(cmp.find("existingMthlyPayment"),"slds-hide");
                 $A.util.addClass(cmp.find("affordablitySave"),"slds-hide");
-                
+                cmp.set('v.showErrorIR',false); //Aff
+                cmp.set('v.showErrorLT',false);//Aff
+                cmp.set('v.showErrorDP',false);//Aff
+                 cmp.set('v.showErrorMOC',false);
                 break;
             case "2":
                 $A.util.removeClass(cmp.find("desiredMonthly"),"slds-hide");
                 $A.util.addClass(cmp.find("GrossIncome"),"slds-hide");
                 $A.util.addClass(cmp.find("existingMthlyPayment"),"slds-hide");
                 $A.util.addClass(cmp.find("affordablitySave"),"slds-hide");
-                
+                cmp.set('v.showErrorMGI',false);//Aff 2
+                cmp.set('v.showErrorEMP',false);//Aff 2
+                 cmp.set('v.showErrorMOC',false);
                 break;
             case "0":
                 $A.util.addClass(cmp.find("desiredMonthly"),"slds-hide");
                 $A.util.addClass(cmp.find("GrossIncome"),"slds-hide");
                 $A.util.addClass(cmp.find("existingMthlyPayment"),"slds-hide");
                 $A.util.addClass(cmp.find("affordablitySave"),"slds-hide");
-                
+                cmp.set('v.showErrorIR',false); //Aff
+                cmp.set('v.showErrorLT',false);//Aff
+                cmp.set('v.showErrorDP',false);//Aff
+                cmp.set('v.showErrorMGI',false); //Aff 2
+                cmp.set('v.showErrorEMP',false);//Aff 2
                 break;
         }
         
@@ -252,6 +261,7 @@
                 helper.SetDefaultVal(cmp.find("InterestRate"),0);
                 helper.SetDefaultVal(cmp.find("existingMthlyPayment"),0);
                 helper.SetDefaultVal(cmp.find("desiredMonthly"),0);
+                helper.SetDefaultVal(cmp.find("GrossIncome"),0);
                 
                 var acPeriod =((cmp.find("loanTermYr").get("v.value")*12)+parseFloat((cmp.find("loanTermMth").get("v.value"))));
                 var acInterest = (cmp.find("InterestRate").get("v.value")/100);
@@ -261,22 +271,58 @@
                 var acDesiredPayment = cmp.find("desiredMonthly").get("v.value");
                 console.log("Months Calculated: "+ acPeriod);
                 switch(acMethod){
+                       case "0":
+                         cmp.set('v.showErrorMOC',true);
+                        break;
                     case "2":
+                        /*=PV((rate/12),(time in months,-disried monthly payment)*/
+                        console.log("acInterest: "+ acInterest);
+                        console.log("acPeriod: "+ acPeriod);
+                        console.log("acDesiredPayment: "+ acDesiredPayment);
                         
-                        /*
-                            =PV((rate/12),(time in months,-disried monthly payment)
-                            */
+                        var isValid = helper.validateAffordabilityCalculator(cmp, evt,acMethod);
+                        if(isValid) {
+                             console.log("Validation Fail : =====>");
+                             break;
+                        }
+                        else{
+                            console.log("Validation fass =======================>");
                             getCalc =helper.RoundTo(helper.PV((acInterest/12),acPeriod,acDesiredPayment),10000);
-                            
-                            cmp.find("maximumLoanamt").set("v.value",getCalc);
+                            console.log("getCalc: "+ getCalc);
+                            if(isNaN(getCalc))
+                                cmp.find("maximumLoanamt").set("v.value",'');
+                            else
+                                cmp.find("maximumLoanamt").set("v.value",getCalc);
                             break;
-                        case "3":
+                        }
+                    case "3":
+                         var isValid = helper.validateAffordabilityCalculator(cmp, evt,acMethod);
+                        if(isValid) {
+                             console.log("Validation Fail: =====>");
+                             break;
+                        }
+                        else{
+                            console.log("Validation Pass: =====>");
+                            
                             var maxpayment = ((acGrossIncome*0.5)-acexistingMthlyPayment );
                             getCalc =helper.RoundTo(helper.SpecialPv(maxpayment,acInterest/12,acPeriod),10000);
-                            cmp.find("maximumLoanamt").set("v.value",getCalc);
+                            getCalc = parseFloat(getCalc);
+                            if(isNaN(getCalc)){
+                                cmp.find("maximumLoanamt").set("v.value",'');
+                            }
+                            else{
+                                cmp.find("maximumLoanamt").set("v.value",getCalc);
+                            }
                             
-                            break;
-                    }
+                           break;
+                        }
+                }
+                console.log('desiredMonthly==========>'+cmp.find("desiredMonthly").get("v.value"));
+                console.log('acMethodCal=============>'+acMethodCal);
+                console.log('maximumLoanamt==========>'+cmp.find("maximumLoanamt").get("v.value"));
+                console.log('existingMthlyPayment====>'+cmp.find("existingMthlyPayment").get("v.value"));
+                console.log('GrossIncome=============>'+cmp.find("GrossIncome").get("v.value"));
+                
                 var acMethodCal = cmp.find("methodCalucaltion").get("v.value");
                 if( cmp.find("desiredMonthly").get("v.value")>0 && acMethodCal=='2' && cmp.find("maximumLoanamt").get("v.value")>0){
                     $A.util.removeClass(cmp.find("affordablitySave"),"slds-hide");
@@ -293,6 +339,9 @@
             case "InstallmentPayment":
                 
                 console.log("InstallmentPayment fired"); 
+                 helper.SetDefaultVal(cmp.find("InterestRatePayment"),0);
+                 helper.SetDefaultVal(cmp.find("loanAmtPayment"),0);
+                
                 helper.SetDefaultVal(cmp.find("loanTermYrPayment"),0);
                 helper.SetDefaultVal(cmp.find("loanTermMthPayment"),0);
                 helper.SetDefaultVal(cmp.find("otherfinancingPayment"),0);
@@ -306,19 +355,38 @@
                 console.log("totalLoanamt"+totalLoanamt);
                 //JN1-2171 getCalc =helper.round_to_precision(helper.InstallmentPv(totalLoanamt,ipInterest/12,ipTerm),2);
                 //console.log("getCalc"+getCalc);
-                
-                getCalc =(helper.InstallmentPv(totalLoanamt,ipInterest/12,ipTerm));//Updated by NS JN1-2171
-                console.log("getCalc111"+getCalc);
-                
-                cmp.find("maximumLoanamtPayment").set("v.value",getCalc); 
-                if( ipInterest >0 && ipTerm >0 && iploanAmtPayment >0 && cmp.find("maximumLoanamtPayment").get("v.value")>0 ){
-                    $A.util.removeClass(cmp.find("affordablitySave"),"slds-hide");
+                var isValid = helper.validateInstallmentPaymentCalculator(cmp, evt);
+                 console.log("Validation isValid: =====>"+isValid);
+                if(isValid) {
+                    console.log("Validation Fail: =====>");
+                    break;
                 }
                 else{
-                    $A.util.addClass(cmp.find("affordablitySave"),"slds-hide");
+                    console.log("totalLoanamt: =====>"+totalLoanamt);
+                    console.log("Validation Fail: =====>"+ipInterest);
+                    console.log("Validation Fail: =====>"+ipTerm);
+                
+                    
+                    getCalc =(helper.InstallmentPv(totalLoanamt,ipInterest/12,ipTerm));//Updated by NS JN1-2171
+                    console.log("getCalc111 ="+getCalc);
+                    if(isNaN(getCalc)){
+                        cmp.find("maximumLoanamtPayment").set("v.value",''); 
+                    }
+                    else{
+                        cmp.find("maximumLoanamtPayment").set("v.value",getCalc); 
+                    }
+                    
+                    if( ipInterest >0 && ipTerm >0 && iploanAmtPayment >0 && cmp.find("maximumLoanamtPayment").get("v.value")>0 ){
+                        $A.util.removeClass(cmp.find("affordablitySave"),"slds-hide");
+                    }
+                    else{
+                        $A.util.addClass(cmp.find("affordablitySave"),"slds-hide");
+                    }
+                    break; 
                 }
-
-                break; 
+                
+                
+               
                 
             case "RevolvingCreditLimitUnsecured":
                 console.log("fired");
@@ -354,9 +422,9 @@
                         //JN1-2172
                         if(grossmonthly<250001){
                             var maxaLimitCalc = 20.00/100
-                        }else{
-                            var maxaLimitCalc = 30.00/100
-                        }
+                            }else{
+                                var maxaLimitCalc = 30.00/100
+                                }
                         console.log("maxaLimitCalc "+maxaLimitCalc);
                         var monthlyPrincipal = 2.5/100;
                         var minimumOutstanding = CardInterest+monthlyPrincipal;
@@ -371,7 +439,7 @@
                         //JN1-2172 var proposedStartingLimit = Math.min(proposedLimit_beforecredit*startingCreditLimit,requestedlimitRCL);
                         var proposedStartingLimit = helper.RoundTo(Math.min(proposedLimit_beforecredit*startingCreditLimit,requestedlimitRCL),10000);//JN1-2172 applied round
                         if(requestedlimitRCL>0)
-                        	var proposedStartingLimit = helper.RoundTo(Math.min(proposedLimit_beforecredit*startingCreditLimit,requestedlimitRCL),10000);//JN1-2172 applied round
+                            var proposedStartingLimit = helper.RoundTo(Math.min(proposedLimit_beforecredit*startingCreditLimit,requestedlimitRCL),10000);//JN1-2172 applied round
                         else
                             var proposedStartingLimit = helper.RoundTo((proposedLimit_beforecredit*startingCreditLimit),10000);//JN1-2172 applied round
                         

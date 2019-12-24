@@ -107,7 +107,7 @@ Global class SkillsBasedRouting {
                                          for(ServiceResourceSkill skillRecord: record.ServiceResourceSkills){
                                              System.debug('------ServiceResourceSkill-----');
                                              generatedHash = generateHash(new List<String>{record.RelatedRecordId, skillRecord.Skill.MasterLabel});
-                                             mappedLocationSkills.put(generatedHash,new Worker(record.RelatedRecordId, 0, skillRecord.Skill.MasterLabel));
+                                             mappedLocationSkills.put(generatedHash, new Worker(record.RelatedRecordId, 0, skillRecord.Skill.MasterLabel));
                                          }
                                      }
         
@@ -179,7 +179,7 @@ Global class SkillsBasedRouting {
             return 0;
         }
     }
-    class SkillComparator implements Comparator{ 
+    class SkillComparator implements Comparator { 
         public Integer compare(Object a, Object b){
             return ((worker)a).compareTo((worker)b);            
         }             

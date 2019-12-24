@@ -273,7 +273,7 @@
             if(irceil<ir)
              irceil=Math.round(ir); 
            /* var i;
-            for (i = 0; i <= ir; i++) {
+            for (i = 0; i <= ir; i++) { 
                 var j=i+0.5;
                 console.log('j====='+j);
                 if(ir>i && (ir<j ||ir==j))
