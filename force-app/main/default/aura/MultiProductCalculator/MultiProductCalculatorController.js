@@ -3872,17 +3872,17 @@
         if(id_str=="Doc1"){
             let oppid = cmp.get("v.isRecordIdM");
             let appId = cmp.get("v.RowNum")[0].applicantId;
-            window.open(""+window.location.origin+"/apex/StatementofAffair?oppid=" +oppid +"&appId=" +appId);
+            window.open(""+window.location.origin+"/apex/StatementofAffair?oppid=" +oppid +"&appId=" +appId+"&num=1");
         }
         if(id_str=="Doc2"){
             let oppid = cmp.get("v.isRecordIdM");
             let appId = cmp.get("v.RowNum")[1].applicantId;
-            window.open(""+window.location.origin+"/apex/StatementofAffair?oppid=" +oppid +"&appId=" +appId);
+            window.open(""+window.location.origin+"/apex/StatementofAffair?oppid=" +oppid +"&appId=" +appId+"&num=2");
         }
         if(id_str=="Doc3"){
             let oppid = cmp.get("v.isRecordIdM");
             let appId = cmp.get("v.RowNum")[2].applicantId;
-            window.open(""+window.location.origin+"/apex/StatementofAffair?oppid=" +oppid +"&appId=" +appId);
+            window.open(""+window.location.origin+"/apex/StatementofAffair?oppid=" +oppid +"&appId=" +appId+"&num=3");
         }
     },
     Wasexceptiongrantonchange: function(cmp, evt, helper) {
