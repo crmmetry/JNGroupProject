@@ -211,7 +211,8 @@ public class MultiProductCalculatorController {
         system.debug('oppId========='+oppId);
         Set<id> accid = new set<id>();
         list<Applicant__c> applst=new list<Applicant__c>();
-        applst = [Select id, Account__c  from Applicant__c where Opportunity__c=:oppId];
+        applst = [Select id, Account__c,Account__r.firstname,Account__r.lastname, Account__r.PersonBirthdate,
+                  Account__r.JN_Bank_Affiliation__pc,Account__r.Gross_Monthly_Income__pc,Account__r.Id  from Applicant__c where Opportunity__c=:oppId];
         if(applst.size()>0){
             system.debug('applst========='+applst);
             for(Applicant__c a:applst)
@@ -231,13 +232,16 @@ public class MultiProductCalculatorController {
         }
         system.debug('EMCPayment========='+EMCPayment);
         list<Account> lstacc=new list<Account>();
-        lstacc = [Select id, firstname,lastname, PersonBirthdate,JN_Bank_Affiliation__pc,Gross_Monthly_Income__pc  from Account where id IN:accid];
-        if(lstacc.size()>0){
-            system.debug('lstacc========='+lstacc);
-            for(Account a:lstacc){
-                retlst.add( new Wrappercls(a.firstname,a.lastname,a.PersonBirthdate,a.Gross_Monthly_Income__pc,EMCPayment,a.JN_Bank_Affiliation__pc,a.Id));
+        //lstacc = [Select id, firstname,lastname, PersonBirthdate,JN_Bank_Affiliation__pc,Gross_Monthly_Income__pc  from Account where id IN:accid];
+
+            for(Applicant__c a:applst){
+              retlst.add( new Wrappercls(a.Account__r.firstname,a.Account__r.lastname,
+                                         a.Account__r.PersonBirthdate,a.Account__r.Gross_Monthly_Income__pc,
+                                         EMCPayment,a.Account__r.JN_Bank_Affiliation__pc,a.Account__r.Id,a.Id));
+
             }
-        }   
+
+
         system.debug('retlst========='+retlst);
         return retlst;
     }
@@ -257,7 +261,11 @@ public class MultiProductCalculatorController {
         public Boolean IsJNEmp{get;set;}
         @AuraEnabled
         public String accountId{get;set;}
-        Wrappercls(string FirstName,string LastName,Date DateOfBirth,Decimal GMIncome,Decimal EMCPayment,Boolean IsJNEmployee, String accountId){
+        @AuraEnabled
+        public String applicantId{get;set;}
+        Wrappercls(string FirstName,string LastName,Date DateOfBirth,Decimal GMIncome,
+                   Decimal EMCPayment,Boolean IsJNEmployee, String accountId,
+                  String applicantId){
             this.First_Name=FirstName;
             this.Last_Name=LastName;
             this.DateOf_Birth=DateOfBirth;
@@ -265,6 +273,7 @@ public class MultiProductCalculatorController {
             this.EMC_Payment=EMCPayment;
             this.IsJNEmp=IsJNEmployee;
             this.accountId=accountId;
+            this.applicantId = applicantId;
         }
     }
     
@@ -708,5 +717,17 @@ this.Rating=Rating1;
             this.Applicantlst=Applst;
             
         }
-    } 
+    }
+    @AuraEnabled
+    Public static List<string> getLocationValues(){
+        List<string> optionlist= new list<string>();
+        Schema.DescribeFieldResult F = Lead.Preferred_Location__c.getDescribe();
+Schema.sObjectField T = F.getSObjectField();
+List<PicklistEntry> entries = T.getDescribe().getPicklistValues();
+        for (Schema.PicklistEntry pv : entries) {
+            optionlist.add(pv.getValue());
+        }
+        optionlist.add('Choose one...');
+        return optionlist;
+    }
 }

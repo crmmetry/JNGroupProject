@@ -10,6 +10,18 @@
         $A.util.addClass(cmp.find("LINEOFCREDITCRITERIA"),"slds-hide");
         $A.util.addClass(cmp.find("choosepayslip"),"slds-hide");
         $A.util.addClass(cmp.find("Ispropertystrata1"),"slds-hide");
+        var action = cmp.get("c.getLocationValues");
+        action.setCallback(this, function(response) {
+                var Locations = response.getReturnValue();
+            console.log('Locations========'+Locations);
+            var state = response.getState();
+                if (state === "SUCCESS") {
+                     cmp.set("v.Locationoptions", Locations);
+                } else if (state === "ERROR") {
+                }
+            });
+            $A.enqueueAction(action);
+        cmp.find("officerLocation").set("v.value", 'choose one..');
     },
     showhideONSelectcombination: function(cmp, evt, helper){
         var acMethod = cmp.find("Selectcombination").get("v.value");
@@ -202,12 +214,12 @@
     var id_str = ctarget.dataset.value;
     console.log(id_str);
         if(id_str=="Applicant"){
-        var url='?incr='+cmp.get("v.checkboxGroupValueapplicant")+'&kycdone='+cmp.find("MembershipStatusApplicant").get("v.value")+'&kyc='+cmp.get("v.checkboxGroupValuekyc")+'&autolp='+cmp.find("LoanPurpose").get("v.value")+'&autovc='+cmp.find("VehicleClassification").get("v.value")+'&autoin='+cmp.find("InterestedinJNGIProgramme").get("v.value")+'&uns='+cmp.get("v.checkboxGroupValue")+'&credit='+cmp.find("CollateralTypeCredit").get("v.value")+'&loc='+cmp.find("CollateralTypeLineofCredit").get("v.value")+'&isloc='+cmp.find("Ispropertystrata").get("v.value")+'&payslip='+cmp.find("Doesreceivepayslips").get("v.value")+'&commision='+cmp.get("v.checkboxGroupValuepayslip");
+        var url='?incr='+cmp.get("v.checkboxGroupValueapplicant")+'&kycdone='+cmp.find("MembershipStatusApplicant").get("v.value")+'&kyc='+cmp.get("v.checkboxGroupValuekyc")+'&autolp='+cmp.find("LoanPurpose").get("v.value")+'&autovc='+cmp.find("VehicleClassification").get("v.value")+'&autoin='+cmp.find("InterestedinJNGIProgramme").get("v.value")+'&uns='+cmp.get("v.checkboxGroupValue")+'&credit='+cmp.find("CollateralTypeCredit").get("v.value")+'&loc='+cmp.find("CollateralTypeLineofCredit").get("v.value")+'&isloc='+cmp.find("Ispropertystrata").get("v.value")+'&payslip='+cmp.find("Doesreceivepayslips").get("v.value")+'&commision='+cmp.get("v.checkboxGroupValuepayslip")+'&location='+cmp.get("v.selectedValue");
         console.log('==='+url);
         window.open(""+window.location.origin+"/apex/DocumentCriteriaApplicant"+url+""+"&CalType="+cmp.find("Selectcombination").get("v.value"));
         }
         else{    
-        var url='?incr='+cmp.get("v.checkboxGroupValueapplicant")+'&kycdone='+cmp.find("MembershipStatusApplicant").get("v.value")+'&kyc='+cmp.get("v.checkboxGroupValuekyc")+'&autolp='+cmp.find("LoanPurpose").get("v.value")+'&autovc='+cmp.find("VehicleClassification").get("v.value")+'&autoin='+cmp.find("InterestedinJNGIProgramme").get("v.value")+'&uns='+cmp.get("v.checkboxGroupValue")+'&credit='+cmp.find("CollateralTypeCredit").get("v.value")+'&loc='+cmp.find("CollateralTypeLineofCredit").get("v.value")+'&isloc='+cmp.find("Ispropertystrata").get("v.value")+'&payslip='+cmp.find("Doesreceivepayslips").get("v.value")+'&commision='+cmp.get("v.checkboxGroupValuepayslip");
+        var url='?incr='+cmp.get("v.checkboxGroupValueapplicant")+'&kycdone='+cmp.find("MembershipStatusApplicant").get("v.value")+'&kyc='+cmp.get("v.checkboxGroupValuekyc")+'&autolp='+cmp.find("LoanPurpose").get("v.value")+'&autovc='+cmp.find("VehicleClassification").get("v.value")+'&autoin='+cmp.find("InterestedinJNGIProgramme").get("v.value")+'&uns='+cmp.get("v.checkboxGroupValue")+'&credit='+cmp.find("CollateralTypeCredit").get("v.value")+'&loc='+cmp.find("CollateralTypeLineofCredit").get("v.value")+'&isloc='+cmp.find("Ispropertystrata").get("v.value")+'&payslip='+cmp.find("Doesreceivepayslips").get("v.value")+'&commision='+cmp.get("v.checkboxGroupValuepayslip")+'&location='+cmp.get("v.selectedValue");
         console.log('==='+url);
         window.open(""+window.location.origin+"/apex/DocumentCriteriaOfficer"+url+""+"&CalType="+cmp.find("Selectcombination").get("v.value"));
         }

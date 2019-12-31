@@ -136,7 +136,8 @@
     <aura:attribute name="lblMarketValue" type="string" default="Market Value of Vehicle"/>
     <aura:attribute name="lblMinimum" type="string" default="Minimum (MV,PP)"/>
     
-    
+    <aura:attribute name="Locationoptions" type="List" />
+    <aura:attribute name="selectedLocation" type="String" default="choose one..."/>
     
     
     <form class="slds-form ">
@@ -944,7 +945,7 @@
                     <div  class="slds-section__title slds-border_bottom" style="margin-top:10px;">Personal Credit Card Request</div>
                 </aura:if>
                 
-                <div class="slds-grid slds-wrap" style="margin-top: 5px;">
+                <div class="slds-grid slds-wrap" style="margin-top: 5px;" aura:id="ccRequest">
                     
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
                         <!--<label class="CCCurlab">Requested Credit Limit</label>-->
@@ -1144,12 +1145,12 @@
                                 </lightning:select>
                             </div>
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12" >
-                                <lightning:input formatter="currency" step="0.01" label="Requested Limit"  type="number" aura:id="RequestedLimitCC"/>
+                                <lightning:input formatter="currency" step="0.01" label="Requested Limit"  type="number" aura:id="RequestedLimitCC" onblur="{!c.CreditCardCalculationSwitch}" />
                             </div>
                             
                             
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                                <lightning:input formatter="percent-fixed"  step="0.01" label="Annual Interest Rate on Credit Card"  type="number"  placeholder="per annum" aura:id="AnnualInterestRateCC" required="true"/>
+                                <lightning:input formatter="percent-fixed"  step="0.01" label="Annual Interest Rate on Credit Card"  type="number"  placeholder="per annum" aura:id="AnnualInterestRateCC" required="true" onblur="{!c.CreditCardCalculationSwitch}"/>
                             </div>
                             
                         </div>
@@ -2517,6 +2518,24 @@
                     </div>
                 </div>
             </div>
+            <aura:if isTrue="{!v.isProductDetail==false}">
+                <fieldset  class="slds-box slds-theme--default slds-container--large">
+                <legend class="slds-text-heading--medium
+                               slds-p-vertical--medium">
+                    Sales Officer Details
+                </legend>
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                        <lightning:select label="Location" name="Location"  aura:id="officerLocation" required="true" value="{!v.selectedLocation}">
+                            <aura:iteration items="{!v.Locationoptions}" var="item">
+                                <option text="{!item}" value="{!item}" selected="{!item}"/>
+        </aura:iteration>
+    </lightning:select>
+                    </div>
+                </div>
+                
+            </fieldset>
+            </aura:if>
             <div aura:id="Save">
                 <div class="slds-grid slds-wrap" style="margin-top: 25px;">
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12" style="padding-right: 5px;padding-left: 5px;">

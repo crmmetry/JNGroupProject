@@ -228,12 +228,13 @@ System.debug('closedate greater than createddate');
     } 
     public static void ProductsFamiliyValidation(){
         OpportunityTriggerHandler.mappedRecords = new Map<Id, Opportunity>(newRecords);
-        Boolean autoLoan = false;
-        Boolean lineOfCredit = false;
-        Boolean unsecureLoan = false;
-        Boolean creditCard = false;
+
         Opportunity updatedOpportunity;
         for(Opportunity newRecord: [Select Id, (Select Id,Product_Family__c From OpportunityLineItems) From Opportunity Where Id in :newRecords]) {
+                    Boolean autoLoan = false;
+                    Boolean lineOfCredit = false;
+                    Boolean unsecureLoan = false;
+                    Boolean creditCard = false;
             for(OpportunityLineItem lineItem: newRecord.OpportunityLineItems) {
                 System.debug('Familiy: ' + lineItem.Product_Family__c);
                 switch on lineItem.Product_Family__c {

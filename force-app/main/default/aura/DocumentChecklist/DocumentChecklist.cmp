@@ -1,7 +1,9 @@
-<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId">
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId" controller="MultiProductCalculatorController">
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:registerEvent name="DocumentCriteriaEvent1" type="c:DocumentCriteriaEvent1"/>
     <aura:handler event="c:DocumentCriteriaEvent" action="{!c.downloadDocument}"/>
+    <aura:attribute name="Locationoptions" type="List" />
+    <aura:attribute name="selectedValue" type="String" default="choose one..."/>
     
     <aura:attribute name="optionsunsecured" type="List" default="[
                                                                  {'label': 'Education', 'value': 'Education'},
@@ -232,10 +234,11 @@
                 <div class="slds-grid slds-wrap">
                     
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                        <lightning:select label="Location" name="Location"  aura:id="officerLocation" required="true">
-                            <option value="0">choose one...</option>
-                            <option value="1">Branch Network - Barbican</option>
-                        </lightning:select>
+                        <lightning:select label="Location" name="Location"  aura:id="officerLocation" required="true" value="{!v.selectedValue}">
+                            <aura:iteration items="{!v.Locationoptions}" var="item">
+                                <option text="{!item}" value="{!item}" selected="{!item}"/>
+        </aura:iteration>
+    </lightning:select>
                     </div>
                    <!-- 
                     

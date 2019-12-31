@@ -42,6 +42,7 @@ public class DocumentCriteriaController{
     public string oemail{get;set;}
     public string ophone{get;set;}
     public string kycdone{get;set;}
+    public string officerlocation{get;set;}
     
     
     
@@ -100,6 +101,8 @@ public class DocumentCriteriaController{
         kycdone='';
         if(Apexpages.currentPage().getParameters().get('kycdone')!=null )
             kycdone=Apexpages.currentPage().getParameters().get('kycdone');
+         if(Apexpages.currentPage().getParameters().get('location')!=null )
+            officerlocation=Apexpages.currentPage().getParameters().get('location');
         if(Apexpages.currentPage().getParameters().get('commision')!=null )
             commision=Apexpages.currentPage().getParameters().get('commision');
         if(Apexpages.currentPage().getParameters().get('payslip')!=null)
@@ -205,6 +208,8 @@ ophone=Apexpages.currentPage().getParameters().get('ophone');*/
         
         return pageRef;
     }
+    
+   
     
     
 }

@@ -63,11 +63,11 @@
                     <tr>
                         <td style="border: 1px solid rgb(165, 208, 40);border-top:1px;">Real Estate</td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;"><apex:outputText value="{0,number,currency}">
-                            <apex:param value="{! realEstateSumBoth}" />
+                            <apex:param value="{! realEstateBefore}" />
                             </apex:outputText></td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
                             <apex:outputText value="{0,number,currency}">
-                                <apex:param value="{! realEstateSumBoth}" />
+                                <apex:param value="{! realEstateAfter}" />
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">Loan(s) on Real Estate</td>
@@ -86,22 +86,22 @@
                         <td style="border: 1px solid rgb(165, 208, 40);border-top:1px;">Motor Vehicle(s)</td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">                        
                             <apex:outputText value="{0,number,currency}">
-                                <apex:param value="{! motorVehicleSumBefore}" />
+                                <apex:param value="{! motorVehicleBefore}" />
                             </apex:outputText></td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
                             <apex:outputText value="{0,number,currency}">
-                                <apex:param value="{! motorVehicleSumAfter}" />
+                                <apex:param value="{! motorVehicleAfter}" />
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">Loan(s) on Motor Vehicle</td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
                             <apex:outputText value="{0,number,currency}">
-                                <apex:param value="{! loanMotorVehicleSumBefore}" />
+                                <apex:param value="{! loanMotorVehicleBefore}" />
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
                             <apex:outputText value="{0,number,currency}">
-                                <apex:param value="{! loanMotorVehicleSumAfter}" />
+                                <apex:param value="{! loanMotorVehicleAfter}" />
                             </apex:outputText>
                         </td>
                     </tr>
@@ -109,12 +109,12 @@
                         <td style="border: 1px solid rgb(165, 208, 40);border-top:1px;">Other Asset(s)</td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
                             <apex:outputText value="{0,number,currency}">
-                                <apex:param value="{! otherAssetSumBoth}" />
+                                <apex:param value="{! otherAssetBefore}" />
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
                             <apex:outputText value="{0,number,currency}">
-                                <apex:param value="{! otherAssetSumBoth}" />
+                                <apex:param value="{! otherAssetAfter}" />
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">Loan(s) Other Assets</td>
@@ -133,12 +133,12 @@
                         <td style="border: 1px solid rgb(165, 208, 40);border-top:1px;">Life Insurance Cash Value </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
                             <apex:outputText value="{0,number,currency}">
-                                <apex:param value="{! lifeInsuranceSumBoth}" />
+                                <apex:param value="{! lifeInsuranceBefore}" />
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
                             <apex:outputText value="{0,number,currency}">
-                                <apex:param value="{! lifeInsuranceSumBoth}" />
+                                <apex:param value="{! lifeInsuranceAfter}" />
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">Other Loan(s) </td>
@@ -157,12 +157,12 @@
                         <td style="border: 1px solid rgb(165, 208, 40);border-top:1px;">Saving/Investment/<br/>Current Account(s) Balance</td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
                             <apex:outputText value="{0,number,currency}">
-                                <apex:param value="{! savingsSumBoth}" />
+                                <apex:param value="{! savingsBefore}" />
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
                             <apex:outputText value="{0,number,currency}">
-                                <apex:param value="{! savingsSumBoth}" />
+                                <apex:param value="{! savingsAfter}" />
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">Credit Card &amp; Line of Credit Balances</td>
@@ -181,12 +181,12 @@
                         <td style="border: 1px solid rgb(165, 208, 40);border-top:1px;">Pension Contribution</td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
                             <apex:outputText value="{0,number,currency}">
-                                <apex:param value="{! pensionSumBoth}" />
+                                <apex:param value="{! pensionBefore}" />
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">
                             <apex:outputText value="{0,number,currency}">
-                                <apex:param value="{! pensionSumBoth}" />
+                                <apex:param value="{! pensionAfter}" />
                             </apex:outputText>
                         </td>
                         <td style="border: 1px solid rgb(165, 208, 40);border-left:1px;border-top:1px;">Current Account(s) Overdraft</td>

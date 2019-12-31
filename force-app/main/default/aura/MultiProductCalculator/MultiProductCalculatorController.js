@@ -7,8 +7,11 @@
             ];
             cmp.set("v.Coverageoptions", opts);
         console.log("component type========>" + isprod);
+        
         console.log("window.location.origin"+window.location.origin);
         if (isprod) {
+            //$A.util.addClass(cmp.find("ccRequest"), "slds-hide"); //JN1-2490
+            console.log("A========>" + isprod);
             helper.calculateScoreCalculate(cmp);
             var opp_id = cmp.get("v.isRecordIdM");
             helper.isRequiredFieldMissingForCreditScore(cmp, opp_id);
@@ -44,6 +47,7 @@
                         var GMIncome = "";
                         var EMCPayment = "";
                         var IsJNEmployee = "";
+                        var applicantId = "";
                         /*
                         if(applicantlst[k].Account__r.firstname!=null)
                             FirstName=applicantlst[k].Account__r.firstname;
@@ -69,6 +73,9 @@
                             EMCPayment = applicantlst[k].EMC_Payment;
                         if (applicantlst[k].IsJNEmp != null)
                             IsJNEmployee = applicantlst[k].IsJNEmp;
+                        if (applicantlst[k].applicantId != null)
+                            applicantId = applicantlst[k].applicantId;
+                            
                         
                         console.log("applicantlst====FirstName========>" + FirstName);
                         console.log("applicantlst====LastName========>" + LastName);
@@ -86,7 +93,8 @@
                                     DateOfBirth: DateOfBirth,
                                     GMIncome: GMIncome,
                                     EMCPayment: EMCPayment,
-                                    IsJNEmployee: IsJNEmployee
+                                    IsJNEmployee: IsJNEmployee,
+                                    applicantId:applicantId
                                 }
                             ];
                         } else {
@@ -97,7 +105,8 @@
                                 DateOfBirth: DateOfBirth,
                                 GMIncome: GMIncome,
                                 EMCPayment: EMCPayment,
-                                IsJNEmployee: IsJNEmployee
+                                IsJNEmployee: IsJNEmployee,
+                                applicantId:applicantId
                             });
                         }
                     }
@@ -174,7 +183,21 @@
             $A.enqueueAction(action);
         }
         
-        if (!isprod) $A.enqueueAction(cmp.get("c.Createapplicantlist"));
+        if (!isprod) {
+            $A.enqueueAction(cmp.get("c.Createapplicantlist"));
+        var action = cmp.get("c.getLocationValues");
+        action.setCallback(this, function(response) {
+                var Locations = response.getReturnValue();
+            console.log('Locations========'+Locations);
+            var state = response.getState();
+                if (state === "SUCCESS") {
+                     cmp.set("v.Locationoptions", Locations);
+                } else if (state === "ERROR") {
+                }
+            });
+            $A.enqueueAction(action);
+        cmp.find("officerLocation").set("v.value", 'choose one..');
+        }
         cmp.set("v.IsExistingLoan", false);
         cmp.set("v.AutoMarketCurrency", "JMD");
         $A.util.addClass(cmp.find("AutoLoan"), "slds-hide");
@@ -1590,10 +1613,10 @@
         .get("v.value"); // $J$122
         var interestRate = cmp.find("ccInterestRate").get("v.value");
         var CollateralType = cmp.find("ccCollateralType").get("v.value");
-        var SupplementaryApplicants = cmp
-        .find("ccNumberofSupplementaryApplicants")
-        .get("v.value");
         
+            var SupplementaryApplicants = cmp.find("ccNumberofSupplementaryApplicants").get("v.value");
+        console.log("CC RequestedCreditLimit======" + RequestedCreditLimit);
+        console.log("CC interestRate======" + interestRate);
         var isError = false;
         var EmpRow = cmp.get("v.RowNum");
         var count = 1;
@@ -1752,6 +1775,11 @@
         
         if (cmp.get("v.isProductDetail")) helper.ExistingAssetsandLiabilities(cmp);
         else helper.ShowTotalAsPerCalculatorSelected(cmp);
+    },
+    CreditCardCalculationSwitch : function(cmp,evt,helper){ //JN1-2490
+        //cmp.find("ccRequestedCreditLimit").set("v.value",cmp.find("RequestedLimitCC").get("v.value")); 
+       // cmp.find("ccInterestRate").set("v.value",cmp.find("AnnualInterestRateCC").get("v.value")); 
+       // $A.enqueueAction(cmp.get("c.CreditCardCalculation"));
     },
     //------Line of Credit calculation start------
     LineOfCreditOnLoad: function(cmp, evt, helper) {
@@ -3451,6 +3479,7 @@
             Unsecure_Proposed_Savings__c: Unsecure_Proposed_Savings,
             Unsecure_Proposed_Savings_percentage__c: Unsecure_Proposed_Savings_percentage,
             Unsecure_Market_Per_Annum__c: interestrateun,
+            Unsecure_Interest_Rate__c: interestrateun,
             Unsecure_Years__c: yearun,
             Unsecure_Months__c: monthun,
             PC_Credit_Limit__c: PC_Credit_Limit,
@@ -3534,7 +3563,7 @@
             Unsecure_Monthly_Loan_Payment_Market__c:Unsecure_Monthly_Loan_Payment_Market,
             Unsecure_Monthly_JN_Life_Premium__c:Unsecure_Monthly_JN_Life_Premium,
             
-        };
+        }; //Unsecure_Interest_Rate__c: interestrateun, Added JN1-2484
         console.log('Insurer=====2>+Insurer');
         //Reqeusted_Limit__c: Reqeusted_Limit,
         var newCalculator2;
@@ -3842,17 +3871,17 @@
         console.log("Doc"+id_str);
         if(id_str=="Doc1"){
             let oppid = cmp.get("v.isRecordIdM");
-            let appId = cmp.get("v.applicants")[0];
+            let appId = cmp.get("v.RowNum")[0].applicantId;
             window.open(""+window.location.origin+"/apex/StatementofAffair?oppid=" +oppid +"&appId=" +appId);
         }
         if(id_str=="Doc2"){
             let oppid = cmp.get("v.isRecordIdM");
-            let appId = cmp.get("v.applicants")[1];
+            let appId = cmp.get("v.RowNum")[1].applicantId;
             window.open(""+window.location.origin+"/apex/StatementofAffair?oppid=" +oppid +"&appId=" +appId);
         }
         if(id_str=="Doc3"){
             let oppid = cmp.get("v.isRecordIdM");
-            let appId = cmp.get("v.applicants")[2];
+            let appId = cmp.get("v.RowNum")[2].applicantId;
             window.open(""+window.location.origin+"/apex/StatementofAffair?oppid=" +oppid +"&appId=" +appId);
         }
     },
@@ -4479,7 +4508,7 @@
         console.log("loanid================>");
         window.open(
             ""+window.location.origin+"/apex/MultiProductCalculatorDoc?loanid=" +
-            loanid
+            loanid+'&location='+cmp.get("v.selectedLocation")
         );
     },
     creditScoring: function(cmp, event, helper) {
