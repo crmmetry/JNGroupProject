@@ -44,16 +44,16 @@
       ]
     ];
     component.set("v.documentTypeList", documentTypeList);
-    component.set("v.maxSize", 50);
+    component.set("v.maxSize", 30);
   },
   handleFilesChange: function(component, event, helper) {
-    const MAX_FILE_SIZE = 4500000;
+    const MAX_FILE_SIZE = 5000000;
     let fileName = "No File Selected..";
     if (event.getSource().get("v.files").length > 0) {
       fileName = event.getSource().get("v.files")[0]["name"];
       const cmpName = event.getSource().get("v.name");
       helper.enableProgress(component, cmpName);
-
+      const tabTitle = helper.getTabTitle(component, cmpName);
       component.set("v.fileName", fileName);
       let fileInput = event.getSource().get("v.files")[0];
       // get the first file using array index[0]
@@ -77,16 +77,27 @@
           parentId: component.get("v.leadId"),
           fileName: file.name,
           base64Data: base64result,
-          contentType: file.type
+          contentType: file.type,
+          tabTitle:tabTitle,
         });
 
         // set call back
         action.setCallback(this, function(response) {
           helper.disableProgress(component, cmpName);
-          helper.showSuccessToast(component, {
-            severity: "confirm",
-            message: "Your image was successfully uploaded."
-          });
+            if(response.getState() == 'SUCCESS'){
+                helper.showSuccessToast(component, {
+                    severity: "confirm",
+                    message: "Your document was successfully uploaded."
+                });
+            } else {
+               helper.showSuccessToast(component, {
+                    severity: "error",
+                    message: "There was a error uploading this document."
+          	   });
+            }
+            console.log(JSON.parse(JSON.stringify(response.getReturnValue())))
+            console.log(JSON.parse(JSON.stringify(response.getError())))
+
         });
         $A.enqueueAction(action);
       });

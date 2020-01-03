@@ -1,5 +1,4 @@
 <aura:component access="GLOBAL" controller="JNSiteController">
-    <aura:attribute name="testId" type="String" default="00Qq00000095xqjEAA" />
     <aura:attribute name="currentSize" type="Integer" default="0" />
     <aura:attribute name="maxSize" type="Integer" default="0" />
     <aura:attribute name="documentTypeList" type="Map[]" />

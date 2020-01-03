@@ -189,14 +189,15 @@ public class JNSiteController {
         }
     }
     @AuraEnabled
-    public static Object saveFile(Id parentId, String fileName, String base64Data, String contentType) {
+    public static Object saveFile(Id parentId, String fileName, String base64Data, String contentType, String tabTitle) {
         ContentVersion conVer = new ContentVersion();
         try {
             String extension = fileName.substring(fileName.lastIndexOf('.')+1);
             String name = fileName.substring(0, fileName.lastIndexOf('.'));
             conVer.ContentLocation = 'S'; // S specify this document is in SF, use E for external files
             conVer.PathOnClient = fileName; // The files name, extension is very important here which will help the file in preview.
-            conVer.Title = name; // Display name of the files
+            conVer.Title = tabTitle; // Display name of the files
+            //conVer.Description = description;
             conVer.VersionData = EncodingUtil.base64Decode(base64Data); // converting your binary string to Blog
             insert conVer;
             

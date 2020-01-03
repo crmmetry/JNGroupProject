@@ -22,6 +22,12 @@
         list[row][index].active = true;
         component.set("v.documentTypeList", list);
     },
+        getTabTitle: function(component, name){
+        const row = name.split("_")[0];
+        const index = name.split("_")[1];
+            let list = component.get("v.documentTypeList");
+        return list[row][index].title;
+    },
    disableProgress: function(component, name){
         const row = name.split("_")[0];
         const index = name.split("_")[1];
