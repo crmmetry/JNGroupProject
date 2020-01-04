@@ -47,22 +47,33 @@
     component.set("v.maxSize", 30);
   },
   handleFilesChange: function(component, event, helper) {
+    
     const MAX_FILE_SIZE = 5000000;
     let fileName = "No File Selected..";
+      if(!component.get("v.leadId")){
+           helper.showToast(component, {
+                    severity: "error",
+                    message: "Please complete step 2 & 3 before attempting a document upload."
+            });
+          return;
+      }
     if (event.getSource().get("v.files").length > 0) {
       fileName = event.getSource().get("v.files")[0]["name"];
       const cmpName = event.getSource().get("v.name");
-      helper.enableProgress(component, cmpName);
+      
       const tabTitle = helper.getTabTitle(component, cmpName);
       component.set("v.fileName", fileName);
       let fileInput = event.getSource().get("v.files")[0];
       // get the first file using array index[0]
       let file = fileInput;
       if (file.size > MAX_FILE_SIZE) {
-        //component.set("v.showLoadingSpinner", false);
-        // component.set("v.fileName", 'Alert : File size cannot exceed ' + self.MAX_FILE_SIZE + ' bytes.\n' + ' Selected file size: ' + file.size);
+            helper.showToast(component, {
+                    severity: "error",
+                    message: "5MB is the max allowed upload size."
+            });
         return;
       }
+      helper.enableProgress(component, cmpName);
       helper.setCurrentSize(component, file.size);
 
       // create a FileReader object
@@ -85,19 +96,17 @@
         action.setCallback(this, function(response) {
           helper.disableProgress(component, cmpName);
             if(response.getState() == 'SUCCESS'){
-                helper.showSuccessToast(component, {
+                helper.showToast(component, {
                     severity: "confirm",
                     message: "Your document was successfully uploaded."
                 });
             } else {
-               helper.showSuccessToast(component, {
+               helper.showToast(component, {
                     severity: "error",
                     message: "There was a error uploading this document."
           	   });
             }
-            console.log(JSON.parse(JSON.stringify(response.getReturnValue())))
-            console.log(JSON.parse(JSON.stringify(response.getError())))
-
+           
         });
         $A.enqueueAction(action);
       });

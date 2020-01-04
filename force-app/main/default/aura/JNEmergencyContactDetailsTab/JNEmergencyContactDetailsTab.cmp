@@ -5,7 +5,7 @@
     <aura:attribute name="applicantRelationships" type="String[]" />
     <aura:method name="createDetails" action="{!c.createDetails}" access="public"/>
     <aura:attribute name="leadId" type="String" />
-    <aura:attribute name="phoneRegex" type="String" default="^[+]{0,1}((\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{4,5}?$"/>
+    <aura:attribute name="phoneRegex" type="String" default="(\(\d{3}\)\s?\d{3}(\s|-)?\d{4})?"/>
     <aura:attribute name="emailRegex" type="String"  default="^[a-zA-Z0-9_\-.]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"/>
     <aura:method name="validateTabFields" action="{!c.validateTabFields}" access="public"/>
     <lightning:layout>

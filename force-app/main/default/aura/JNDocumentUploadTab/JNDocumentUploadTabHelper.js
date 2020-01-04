@@ -35,7 +35,7 @@
         list[row][index].active = false;
        component.set("v.documentTypeList", list);
     },
-   showSuccessToast: function(component, data) {
+   showToast: function(component, data) {
     const siteLead = component.get("v.SiteLead");
 
       //user must complete step 2 and 3 first

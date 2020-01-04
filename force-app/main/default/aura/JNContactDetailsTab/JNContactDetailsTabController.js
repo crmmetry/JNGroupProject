@@ -29,6 +29,8 @@
             Mailing_Status_of_Address__c: "",
             Mailing_Address_Type__c: "",
             Mailing_Years_at_Residence__c: 0,
+            Preferred_Contact_Method__c: ""
+            
         };
         component.set("v.SiteLead", siteLead);
         helper.getPickListValues(component);
@@ -56,6 +58,12 @@
         const selected = event.getSource().get("v.value");
         let siteLead = component.get("v.SiteLead");
         siteLead["Status_of_Address__c"] = selected;
+        component.set("v.SiteLead", siteLead);
+    },
+    getPreferredContactMethod: function(component, event, helper) {
+        const selected = event.getSource().get("v.value");
+        let siteLead = component.get("v.SiteLead");
+        siteLead["Preferred_Contact_Method__c"] = selected;
         component.set("v.SiteLead", siteLead);
     },
     getAddresstatusMailing: function(component, event, helper) {

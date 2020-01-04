@@ -7,6 +7,7 @@
     <aura:attribute name="addressTypes" type="String[]" />
     <aura:attribute name="leadId" type="String" />
     <aura:attribute name="addressStatuses" type="String[]" />
+    <aura:attribute name="preferredContactMethods" type="String[]" />
     <aura:attribute name="emailRegex" type="String"  default="^[a-zA-Z0-9_\-.]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"/>
     
     <aura:method
@@ -17,7 +18,7 @@
     <aura:attribute
                     name="phoneRegex"
                     type="String"
-                    default="^[+]{0,1}((\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{4,5}?$"
+                    default="(\(\d{3}\)\s?\d{3}(\s|-)?\d{4})?"
                     />
     
     <aura:method
@@ -113,6 +114,21 @@
                                      pattern="{!v.emailRegex}"
                                      messageWhenPatternMismatch="Enter a valid email"
                                      />
+                </div>
+                <div class="slds-col slds-size_3-of-12">
+                        <!-- Preferred Contact Method -->
+                        <lightning:select
+                                          name="preferred_contact_method"
+                                          label="Preferred Contact Method"
+                                          required="true"
+                                          aura:id="validation"
+                                          onchange="{!c.getPreferredContactMethod}"
+                                          >
+                            <option value="">select one...</option>
+                            <aura:iteration items="{!v.preferredContactMethods}" var="item">
+                                <option value="{!item}">{!item}</option>
+                            </aura:iteration>
+                        </lightning:select>
                 </div>
             </div>
             <p class="slds-text-heading_medium slds-m-top_small"

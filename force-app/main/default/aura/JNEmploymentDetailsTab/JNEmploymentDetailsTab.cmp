@@ -17,7 +17,7 @@
         <aura:attribute
                     name="phoneRegex"
                     type="String"
-                    default="^[+]{0,1}((\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{4,5}?$"
+                    default="(\(\d{3}\)\s?\d{3}(\s|-)?\d{4})?"
                     />
     <aura:method
                  name="validateTabFields"
