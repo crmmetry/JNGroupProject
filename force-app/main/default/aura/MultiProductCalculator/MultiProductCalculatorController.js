@@ -233,6 +233,15 @@
         cmp.set("v.RowNum", ApplicantRow);
         cmp.find("NumberofApplicant").set("v.value", "0");
     },
+    //Tecnical lead changes @Sunday Jan 5 2020
+    setLifeInsuranceApplied:function(cmp, event, helper) {
+        const value = event.getSource().get("v.value");
+        cmp.set("v.lifeInsuranceCoverageType",value);
+    },
+    setInsuranceProviderName:function(cmp, event, helper) {
+        const value = event.getSource().get("v.value");
+        cmp.set("v.insuranceProviderName",value);
+    },
     updateRequestdetail: function(cmp, event, helper) {
         var childCmp = cmp.find("AutoLoanchild");
         const param1 = cmp.get("v.RowNum");
