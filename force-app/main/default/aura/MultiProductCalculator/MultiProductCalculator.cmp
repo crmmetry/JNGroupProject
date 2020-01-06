@@ -138,7 +138,14 @@
     
     <aura:attribute name="Locationoptions" type="List" />
     <aura:attribute name="selectedLocation" type="String" default="choose one..."/>
-    
+    <aura:attribute
+        name="lifeInsuranceCoverageType"
+        type="String"
+        default="None"/>
+    <aura:attribute
+        name="insuranceProviderName"
+        type="String"
+        default="None"/>
     
     <form class="slds-form ">
         <fieldset  class="slds-box slds-theme--default slds-container--large" style="padding-right: 5px;">
@@ -405,7 +412,8 @@
                             <lightning:input formatter="currency" step="0.01" label="Monthly Premium"  type="number"  name="Monthly Premium" aura:id="MonthlyPremium" required="true" onblur="{!c.calculateJNGIMonthlyPremium }"/>
                         </div>
                     </div>
-                    <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">JN LIFE CREDITOR LIFE INSURANCE</div>
+                    <aura:if isTrue="{!v.isProductDetail == false}">
+                    	    <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">JN LIFE CREDITOR LIFE INSURANCE</div>
                     <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <lightning:select label="Interested in Creditor Life?" name="Interested in Creditor Life?"  aura:id="InterestedinCreditorLife" required="true" onchange="{!c.calculateJNLifeMonthlyPremium }">
@@ -415,34 +423,10 @@
                         </div>
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <lightning:select label="Coverage Type" name="Coverage Type"  aura:id="CoverageType" required="true" value="{!v.selectedValue}">
-         <aura:iteration items="{!v.Coverageoptions}" var="item">
-            <option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
-        </aura:iteration>
-    </lightning:select>
-                            <!--<lightning:select label="Coverage Type" name="Coverage Type"  aura:id="CoverageType" required="true">
-                                <option value="0">choose one...</option>
-                                <aura:if isTrue="{!v.applicant1age}">
-                                    <option value="1">Applicant 1 Only</option>
-                                </aura:if>
-                                <aura:if isTrue="{!v.applicant2age}">
-                                    <option value="2">Applicant 2 Only</option>
-                                </aura:if>
-                                <aura:if isTrue="{!v.applicant3age}">
-                                    <option value="3">Applicant 3 Only</option>
-                                </aura:if>
-                                <aura:if isTrue="{!and(v.applicant1age,v.applicant2age)}">
-                                    <option value="4">Applicant 1 &amp; Applicant 2</option>
-                                </aura:if>
-                                <aura:if isTrue="{!and(v.applicant1age,v.applicant3age)}">
-                                    <option value="5">Applicant 1 &amp; Applicant 3</option>
-                                </aura:if>
-                                <aura:if isTrue="{!and(v.applicant2age,v.applicant3age)}">
-                                    <option value="6">Applicant 2 &amp; Applicant 3</option>
-                                </aura:if>
-                                <aura:if isTrue="{!not(or(v.applicant1age,v.applicant2age,v.applicant3age))}">
-                                    <option value="7">No Suitable Applicants</option>  
-                                </aura:if>
-                            </lightning:select>-->
+                             <aura:iteration items="{!v.Coverageoptions}" var="item">
+                                <option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+                            </aura:iteration>
+                        </lightning:select>
                         </div>
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <lightning:select label="Include in Loan Amount" name="Include in Loan Amount"  aura:id="IncludeinLoanAmountinsurence" required="true" onchange="{!c.calculateJNLifeMonthlyPremium}">
@@ -451,6 +435,81 @@
                             </lightning:select>
                         </div>
                     </div>
+                    </aura:if>
+                    <aura:if isTrue="{!v.isProductDetail == true}">
+                    	    <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">JN LIFE CREDITOR LIFE INSURANCE</div>
+    						 <div class="slds-grid slds-wrap" style="margin-top: 5px;">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12"
+                            style="padding-right: 5px;padding-left: 5px;">
+                                <lightning:select
+                                                    label="Type of Life Insurance Coverage to be applied"
+                                                    name="life_insurance_applied"
+                                                    aura:id="life_insurance_applied"
+                                                    required="false"
+                                                    onchange="{!c.setLifeInsuranceApplied}">
+                                                        <option value="None">None</option>
+                                                        <option value="JN Life Single Life Coverage">JN Life Single Life Coverage</option>
+                                                        <option value="Assigned Life Insurance Policy">Assigned Life Insurance Policy</option>
+                                                        
+                                </lightning:select>
+                            </div>
+                            <!-- JN Life Single life coverage selected-->
+                            <aura:if isTrue="{!v.lifeInsuranceCoverageType == 'JN Life Single Life Coverage'}">
+                                <div
+                                class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12"
+                                style="padding-right: 5px;padding-left: 5px;">
+                               <lightning:select
+                                                 label="Coverage Type"
+                                                 name="Coverage Type"
+                                                 aura:id="CoverageType"
+                                                 required="true"
+                                                 value="{!v.selectedValue}"
+                                                 >
+                                   <aura:iteration items="{!v.Coverageoptions}" var="item">
+                                       <option
+                                               text="{!item.label}"
+                                               value="{!item.value}"
+                                               selected="{!item.selected}"
+                                               />
+                                   </aura:iteration>
+                               </lightning:select>
+                           </div>
+                           <div
+                                class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12"
+                                style="padding-right: 5px;padding-left: 5px;"
+                                >
+                               <lightning:select
+                                                 label="Include in Loan Amount"
+                                                 name="Include in Loan Amount"
+                                                 aura:id="IncludeinLoanAmountinsurence"
+                                                 required="true"
+                                                 onchange="{!c.calculateJNLifeMonthlyPremium}"
+                                                 >
+                                   <option value="0">Yes (Include in Loan Amount)</option>
+                                   <option value="1">No (Paid by the Applicant)</option>
+                               </lightning:select>
+                           </div>
+                            </aura:if>
+
+                            <!-- Assigned Life Insurance Policy selected-->
+                            <aura:if isTrue="{!v.lifeInsuranceCoverageType == 'Assigned Life Insurance Policy'}">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12"
+                                    style="padding-right: 5px;padding-left: 5px;">
+                                    <lightning:select
+                                                        label="Name of Insurance Provider"
+                                                        name="name_insurance_provider"
+                                                        aura:id="name_insurance_provider"
+                                                        required="false"
+                                                        onchange="{!c.setInsuranceProviderName}">
+                                                            <option value="Sagicor">Sagicor</option>
+                                                            <option value="Guardian Life">Guardian Life</option>
+                                                            <option value="Other">Other</option>
+                                    </lightning:select>
+                                </div>
+                            </aura:if>
+                         </div>
+                    </aura:if>
+
                     <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">PROCESSING FEE</div>
                     <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
@@ -679,6 +738,7 @@
                         Unsecured Loan Features
                     </legend>
                     <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">JN LIFE CREDITOR LIFE INSURANCE</div>
+                   
                     <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
                             <lightning:select label="Interested in Creditor Life?" name="Interested in Creditor Life?"  aura:id="InterestedinCreditorLifeUn" required="true" onchange="{!c.ShowHideOnInterestedinCreditorLifeUnsecured }">
@@ -725,6 +785,7 @@
                             </lightning:select>                            
                         </div>
                     </div>
+                    
                     <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">PROCESSING FEE</div>
                     <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">

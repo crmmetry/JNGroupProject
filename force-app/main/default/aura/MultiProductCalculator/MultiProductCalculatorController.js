@@ -586,8 +586,15 @@
             cmp.set("v.applicant3age", false);
         }
         cmp.set("v.AutoMarketCurrency", "JMD");
-        cmp.find("Interestedinprogramme").set("v.value", "1");
-        cmp.find("InterestedinCreditorLife").set("v.value", "1");
+        let Interestedinprogramme = cmp.find("Interestedinprogramme")
+        if(Interestedinprogramme){
+            Interestedinprogramme.set("v.value", "1");
+        }
+        let InterestedinCreditorLife = cmp.find("InterestedinCreditorLife");
+        if(InterestedinCreditorLife){
+            InterestedinCreditorLife.set("v.value", "1");
+        }
+
         cmp.find("WaiveProcessingFee").set("v.value", "0");
         cmp.find("Includeamoratoriumofloanrepayments").set("v.value", "1");
         cmp.find("MarketValueofVehicle1").set("v.value", "");
@@ -602,11 +609,19 @@
         $A.util.addClass(cmp.find("Indicateapplicableprocessingfees"), "slds-hide");
         $A.util.addClass(cmp.find("CoverageType"), "slds-hide");
         $A.util.addClass(cmp.find("IncludeinLoanAmountinsurence"), "slds-hide");
-        $A.util.addClass(
-            cmp.find("Include1stYearPremiuminLoanAmount"),
-            "slds-hide"
-        );
-        $A.util.addClass(cmp.find("MonthlyPremium"), "slds-hide");
+
+        let Include1stYearPremiuminLoanAmount = cmp.find("Include1stYearPremiuminLoanAmount");
+        if(Include1stYearPremiuminLoanAmount){
+            $A.util.addClass(
+                Include1stYearPremiuminLoanAmount,
+                "slds-hide"
+            );
+        }
+
+        let MonthlyPremium = cmp.find("MonthlyPremium");
+        if(MonthlyPremium) {
+            $A.util.addClass(MonthlyPremium, "slds-hide");
+        }
         $A.util.addClass(cmp.find("JNstaff1"), "slds-hide");
         $A.util.addClass(cmp.find("JNstaff2"), "slds-hide");
         $A.util.addClass(cmp.find("JNstaff3"), "slds-hide");
@@ -3411,27 +3426,15 @@
             }
         }
         
-        //console.log('test ###############--------------------------1-');
-        //
-        //
-        // console.log('Account_Holders=====>'+Account_Holders);
-        //console.log('Account_Holders_LOC=====>'+Account_Holders_LOC);
-        //console.log('Account_Number=====>'+Account_Number);
-        //console.log('Account_Type=====>'+Account_Type);
-        //console.log('Annual_Interest_Rate_on_Deposit_Acc_LOC=====>'+Annual_Interest_Rate_on_Deposit_Acc_LOC);
-        //console.log('Annual_Interest_Rate_on_Deposit_Account=====>'+Annual_Interest_Rate_on_Deposit_Account);
-        //console.log('Desired_Monthly_Repayment_Date=====>'+Desired_Monthly_Repayment_Date);
-        //console.log('Desired_Monthly_Repayment_Date_LOC=====>'+Desired_Monthly_Repayment_Date_LOC);
-        //console.log('Desired_Monthly_Repayment_Date_UL=====>'+Desired_Monthly_Repayment_Date_UL);
-        //console.log('Financial_Institution=====>'+Financial_Institution);
-        //console.log('Financial_Institution_LOC=====>'+Financial_Institution_LOC);
-        //console.log('Forced_Sale_Value=====>'+Forced_Sale_Value);
-        console.log('Insurer=====1>+Insurer');
+
+       
         Policy_Limit=cmp.find("PolicyLimit").get("v.value");
         Pior_to_Proposed_Credit=cmp.find("PriortoProposedCredit").get("v.value");
         After_Proposed_Credit=""+cmp.find("AfterProposedCredit").get("v.value");
         console.log('Insurer=====1.1>+Insurer');
         var newCalculator1 = {
+            Type_of_Life_Insurance_to_be_Applied__c: cmp.get("v.lifeInsuranceCoverageType"),
+            Name_of_Insurance_Provider__c: cmp.get("v.insuranceProviderName"),
             sobjectType: "Loan_Calculator__c",
             Market_currency_of_vehicle__c:Market_currency_of_vehicle,
             Annual_Facility_Fee__c:Annual_Facility_Fee,
