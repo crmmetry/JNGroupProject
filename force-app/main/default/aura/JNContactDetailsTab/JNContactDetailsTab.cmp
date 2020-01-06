@@ -18,7 +18,7 @@
     <aura:attribute
                     name="phoneRegex"
                     type="String"
-                    default="(\(\d{3}\)\s?\d{3}(\s|-)?\d{4})?"
+                    default="^\d{10,25}$"
                     />
     
     <aura:method

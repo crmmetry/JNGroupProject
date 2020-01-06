@@ -1,14 +1,14 @@
 <aura:component access="GLOBAL" controller="JNSiteController">
     <aura:registerEvent type="c:JNComponentEvent" name="jnEvent" />
-    <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+    <aura:handler 	name="init" action="{!c.doInit}" value="{!this}" />
     <aura:attribute name="relationships" type="String[]" />
     <aura:attribute name="locations" type="String[]" />
     <aura:attribute name="affiliateTypes" type="String[]" />
     <aura:attribute name="layoutId" type="Integer" />
     <aura:attribute name="SiteLead" type="Map" />
-      <aura:attribute name="leadId" type="String" />
-    <aura:attribute name="phoneRegex" type="String" default="(\(\d{3}\)\s?\d{3}(\s|-)?\d{4})?"/>
-    <aura:method name="validateTabFields" action="{!c.validateTabFields}" access="public"/>
+    <aura:attribute name="leadId" type="String" />
+    <aura:attribute name="phoneRegex" type="String" default="^\d{10,25}$"/>
+    <aura:method 	name="validateTabFields" action="{!c.validateTabFields}" access="public"/>
     
     <lightning:card>
         <lightning:layout>

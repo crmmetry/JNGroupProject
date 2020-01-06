@@ -125,6 +125,7 @@
             action.setCallback(this, function(response) {
                 var state = response.getState();
                 if (state === "SUCCESS") {
+                    
                     var productselection = response.getReturnValue();
                     cmp.find("selectapplicant").set("v.value", productselection);
                     $A.enqueueAction(cmp.get("c.showhideONmethod"));
@@ -177,7 +178,8 @@
                     ) {
                         cmp.set("v.isLocPD", true);
                     }
-                } else if (state === "ERROR") {
+                    
+
                 }
             });
             $A.enqueueAction(action);
@@ -568,6 +570,7 @@
         helper.calculateTotalautoloan(cmp, event);
     },
     OnChangeclear: function(cmp, event, helper) {
+        console.log('OnChangeclear called')
         var rdetail = cmp.get("v.RowNum");
         var isprod = cmp.get("v.isProductDetail");
         if (isprod) {
@@ -1140,7 +1143,7 @@
                     "slds-hide"
                 );
                 $A.util.addClass(cmp.find("JNGIMotorInsurancePremium1st"), "slds-hide");
-                
+
                 break;
             case "2":
                 $A.util.addClass(cmp.find("AutoLoan"), "slds-hide");
