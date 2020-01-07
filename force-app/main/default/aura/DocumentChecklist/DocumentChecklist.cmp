@@ -196,7 +196,7 @@
                                                  options="{! v.optionspayslip }"
                                                  value="{! v.checkboxGroupValuepayslip }"
                                                  onchange="{! c.checkboxGrouphandleChangepayslip }"
-                                                 required="true"
+                                                 required="false"
                                                  style="margin-top: 5px;"/>
                     </div>
                 </div>

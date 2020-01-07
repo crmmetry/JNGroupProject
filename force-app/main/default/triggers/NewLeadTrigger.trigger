@@ -2,7 +2,7 @@
 * @Description        : Handler for trigger
 * @Author             : Remario Richards
 * @Last Modified By   : Remario Richards
-* @Created On		   : 10/7/2019
+* @Created On          : 10/7/2019
 * @Last Modified On   : 10/7/2019
 */
 trigger NewLeadTrigger on Lead (before insert, after insert, before update, after update) {
@@ -27,7 +27,7 @@ trigger NewLeadTrigger on Lead (before insert, after insert, before update, afte
     } else if(Trigger.isInsert){
         if(Trigger.isAfter) {
             LeadTriggerHandler.leadActivityEvent();
-            //SkillsBasedRouting.routeUsingSkillsTier1((new Map<Id,Lead>(Trigger.new)).keySet());			
+            //SkillsBasedRouting.routeUsingSkillsTier1((new Map<Id,Lead>(Trigger.new)).keySet());           
         }
         else {
             LeadTriggerHandler.crmm_TierOne();
