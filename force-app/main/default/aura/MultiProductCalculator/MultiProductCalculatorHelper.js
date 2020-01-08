@@ -1042,6 +1042,241 @@
         var bmla= -(i * p * Math.pow((1 + i), n) / (1 - Math.pow((1 + i), n)));
         return bmla;
     },
+    getCurrentApplicant: function(applicants, id){
+        const filters = applicants.filter(function(applicant){
+            return applicant.Id === id;
+        });
+        if(filter.length > 0) {
+            return filters[0];
+        }
+        return null;
+    },
+    isMainApplicant: function(accountId, applicantAccountId){
+        return accountId === applicantAccountId;
+    },
+    calculateTDSRBefore : function(cmp){
+         const selection = cmp.find("selectapplicant").get("v.value");
+        	switch(selection){
+            case "0":{
+              break;
+            }
+
+            case "1":{
+                //Auto Loan
+                this.autoLoanTotal(cmp);
+                break;
+            }
+            case "2":{
+                //Unsecured Loan
+                this.unsecuredLoanTotal(cmp);
+                break;
+            }
+            case "3":{
+                //Credit Card
+               
+                break;
+            }
+            case "4":{
+                //Line of Credit
+
+                break;
+            }
+            case "5":{
+                //Auto Loan &amp; Unsecured Loan
+                
+                break;
+            }
+            case "6":{
+                //Auto Loan &amp; Credit Card
+                
+                break;
+            }
+            case "7":{
+                //Auto Loan &amp; Line of Credit
+                
+                break;
+            }
+            case "8":{
+                //Unsecured Loan &amp; Credit Card
+                
+                break;
+            }
+            case "9":{
+                //Unsecured Loan &amp; Line of Credit
+                break;
+            }
+            case "10":{
+                //Credit Card &amp; Line of Credit
+                break;
+            }
+            case "11":{
+                //Auto Loan, Unsecured Loan &amp; Credit Card
+                break;
+            }
+            case "12":{
+                //Auto Loan, Unsecured Loan &amp; Line of Credit
+                break;
+            }
+            case "13":{
+                //Auto Loan, Credit Card &amp; Line of Credit
+                break;
+            }
+            case "14":{
+                //Unsecured Loan, Credit Card &amp; Line of Credit
+                break;
+            }
+            case "15":{
+                //Auto Loan, Unsecured Loan, Credit Card &amp; Line of Credit
+                break;
+            }
+        }
+    },
+        calculateTDSRAfter : function(cmp){
+         const selection = cmp.find("selectapplicant").get("v.value");
+            switch(selection){
+            case "0":{
+              break;
+            }
+
+            case "1":{
+                //Auto Loan
+                this.autoLoanTotal(cmp);
+                break;
+            }
+            case "2":{
+                //Unsecured Loan
+                this.unsecuredLoanTotal(cmp);
+                break;
+            }
+            case "3":{
+                //Credit Card
+               
+                break;
+            }
+            case "4":{
+                //Line of Credit
+
+                break;
+            }
+            case "5":{
+                //Auto Loan &amp; Unsecured Loan
+                
+                break;
+            }
+            case "6":{
+                //Auto Loan &amp; Credit Card
+                
+                break;
+            }
+            case "7":{
+                //Auto Loan &amp; Line of Credit
+                
+                break;
+            }
+            case "8":{
+                //Unsecured Loan &amp; Credit Card
+                
+                break;
+            }
+            case "9":{
+                //Unsecured Loan &amp; Line of Credit
+                break;
+            }
+            case "10":{
+                //Credit Card &amp; Line of Credit
+                break;
+            }
+            case "11":{
+                //Auto Loan, Unsecured Loan &amp; Credit Card
+                break;
+            }
+            case "12":{
+                //Auto Loan, Unsecured Loan &amp; Line of Credit
+                break;
+            }
+            case "13":{
+                //Auto Loan, Credit Card &amp; Line of Credit
+                break;
+            }
+            case "14":{
+                //Unsecured Loan, Credit Card &amp; Line of Credit
+                break;
+            }
+            case "15":{
+                //Auto Loan, Unsecured Loan, Credit Card &amp; Line of Credit
+                break;
+            }
+        }
+    },
+    ExistingApplicantAssetsandLiabilities: function(cmp){
+        const action = cmp.get("c.getApplicantAsset");
+        action.setParams({      
+            oppid: cmp.get("v.isRecordIdM"),
+            
+        });
+        action.setCallback(this, function(response) {
+            const state = response.getState();
+            if (state === "SUCCESS"){
+                let existingInstallmentPaymentBefore=0;
+                let existingInstallmentPaymentAfter=0;
+                let applicantAssets = response.getReturnValue();
+                if(applicantAssets){
+                    for(let index of applicantAssets){
+                        let applicantAsset = applicantAssets[index];
+                        const loanCalculation = applicantAsset.loanCalculation;
+
+                        for(let indexTwo of applicantAsset.ApplicationAssetLiability){
+                            let applicationAssetLiability = applicantAsset.ApplicationAssetLiability[indexTwo];
+                            switch(applicationAssetLiability.Assets_and_Liabilities__r.DeveloperName){
+                                    
+                                case "Real_Estate":{
+                                    
+                                    break;
+                                }
+                                case "Motor_Vehicle":{
+                                    
+                                    break;
+                                }   
+                                case "Other_Assets":{
+                                    
+                                    break;
+                                }
+                                case "Other_Loans":{
+                                    
+                                    break;
+                                }
+                                case "Other_Loans":{
+                                    
+                                    break;
+                                }
+                                case "Credit_Cards": {
+                                    break;
+                                }
+                                case "Lines_of_Credit":{
+                                    break;
+                                }
+                                case "Life_Insurance_Policies":{
+                                    break;
+                                }
+                                case "Savings_Current_Accounts_Investments": {
+                                    break;
+                                }
+                                case "Pension_Contributions_or_Individual": {
+                                    break;
+                                }
+                            }
+                        }
+                        for(let indexThree of applicantAsset.Applicantlst){
+                            let applicant = applicantAsset.Applicantlst[indexThree];
+                        }
+                    }
+                }
+            } else {
+                
+            }
+        });
+        $A.enqueueAction(action);
+    },
     //---------------------------------------------
     ExistingAssetsandLiabilities: function(cmp){
         console.log('ExistingAssetsandLiabilities==========');

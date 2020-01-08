@@ -135,21 +135,21 @@ public class MultiProductCalculatorController {
         set<string> productset= new set<string>();
         string selection='0';
         Set<String> set1 = new Set<String>{'JN Bank Auto Loan'};
-        Set<String> set2 = new Set<String>{'JN Bank Unsecured Loan'};
-        Set<String> set3 = new Set<String>{'JN Visa - Classic'};
-        Set<String> set4 = new Set<String>{'JN Bank Line Of Credit'};
-        Set<String> set5 = new Set<String>{'JN Bank Auto Loan', 'JN Bank Unsecured Loan'};
-        Set<String> set6 = new Set<String>{'JN Bank Auto Loan', 'JN Visa - Classic'};
-        Set<String> set7 = new Set<String>{'JN Bank Auto Loan', 'JN Bank Line Of Credit'};
-        Set<String> set8 = new Set<String>{'JN Bank Unsecured Loan', 'JN Visa - Classic'};
-        Set<String> set9 = new Set<String>{'JN Bank Unsecured Loan', 'JN Bank Line Of Credit'};
-        Set<String> set10 = new Set<String>{'JN Visa - Classic', 'JN Bank Line Of Credit'};
-        Set<String> set11 = new Set<String>{'JN Bank Auto Loan', 'JN Bank Unsecured Loan','JN Visa - Classic'};
-        Set<String> set12 = new Set<String>{'JN Bank Auto Loan', 'JN Bank Unsecured Loan','JN Bank Line Of Credit'};
-        Set<String> set13 = new Set<String>{'JN Bank Auto Loan', 'JN Visa - Classic', 'JN Bank Line Of Credit'};
-        Set<String> set14 = new Set<String>{'JN Bank Unsecured Loan', 'JN Visa - Classic', 'JN Bank Line Of Credit'};
-        Set<String> set15 = new Set<String>{'JN Bank Auto Loan', 'JN Bank Unsecured Loan', 'JN Visa - Classic', 'JN Bank Line Of Credit'};
-        list<OpportunityLineItem> lstlineItem=new list<OpportunityLineItem>();
+            Set<String> set2 = new Set<String>{'JN Bank Unsecured Loan'};
+                Set<String> set3 = new Set<String>{'JN Visa - Classic'};
+                    Set<String> set4 = new Set<String>{'JN Bank Line Of Credit'};
+                        Set<String> set5 = new Set<String>{'JN Bank Auto Loan', 'JN Bank Unsecured Loan'};
+                            Set<String> set6 = new Set<String>{'JN Bank Auto Loan', 'JN Visa - Classic'};
+                                Set<String> set7 = new Set<String>{'JN Bank Auto Loan', 'JN Bank Line Of Credit'};
+                                    Set<String> set8 = new Set<String>{'JN Bank Unsecured Loan', 'JN Visa - Classic'};
+                                        Set<String> set9 = new Set<String>{'JN Bank Unsecured Loan', 'JN Bank Line Of Credit'};
+                                            Set<String> set10 = new Set<String>{'JN Visa - Classic', 'JN Bank Line Of Credit'};
+                                                Set<String> set11 = new Set<String>{'JN Bank Auto Loan', 'JN Bank Unsecured Loan','JN Visa - Classic'};
+                                                    Set<String> set12 = new Set<String>{'JN Bank Auto Loan', 'JN Bank Unsecured Loan','JN Bank Line Of Credit'};
+                                                        Set<String> set13 = new Set<String>{'JN Bank Auto Loan', 'JN Visa - Classic', 'JN Bank Line Of Credit'};
+                                                            Set<String> set14 = new Set<String>{'JN Bank Unsecured Loan', 'JN Visa - Classic', 'JN Bank Line Of Credit'};
+                                                                Set<String> set15 = new Set<String>{'JN Bank Auto Loan', 'JN Bank Unsecured Loan', 'JN Visa - Classic', 'JN Bank Line Of Credit'};
+                                                                    list<OpportunityLineItem> lstlineItem=new list<OpportunityLineItem>();
         lstlineItem  =  [select Product2.Name from OpportunityLineItem where Opportunityid =: oppid];
         for(OpportunityLineItem ol:lstlineItem){
             String  Productname=ol.Product2.Name;
@@ -233,15 +233,15 @@ public class MultiProductCalculatorController {
         system.debug('EMCPayment========='+EMCPayment);
         list<Account> lstacc=new list<Account>();
         //lstacc = [Select id, firstname,lastname, PersonBirthdate,JN_Bank_Affiliation__pc,Gross_Monthly_Income__pc  from Account where id IN:accid];
-
-            for(Applicant__c a:applst){
-              retlst.add( new Wrappercls(a.Account__r.firstname,a.Account__r.lastname,
-                                         a.Account__r.PersonBirthdate,a.Account__r.Gross_Monthly_Income__pc,
-                                         EMCPayment,a.Account__r.JN_Bank_Affiliation__pc,a.Account__r.Id,a.Id));
-
-            }
-
-
+        
+        for(Applicant__c a:applst){
+            retlst.add( new Wrappercls(a.Account__r.firstname,a.Account__r.lastname,
+                                       a.Account__r.PersonBirthdate,a.Account__r.Gross_Monthly_Income__pc,
+                                       EMCPayment,a.Account__r.JN_Bank_Affiliation__pc,a.Account__r.Id,a.Id));
+            
+        }
+        
+        
         system.debug('retlst========='+retlst);
         return retlst;
     }
@@ -265,20 +265,20 @@ public class MultiProductCalculatorController {
         public String applicantId{get;set;}
         Wrappercls(string FirstName,string LastName,Date DateOfBirth,Decimal GMIncome,
                    Decimal EMCPayment,Boolean IsJNEmployee, String accountId,
-                  String applicantId){
-            this.First_Name=FirstName;
-            this.Last_Name=LastName;
-            this.DateOf_Birth=DateOfBirth;
-            this.GM_Income=GMIncome;
-            this.EMC_Payment=EMCPayment;
-            this.IsJNEmp=IsJNEmployee;
-            this.accountId=accountId;
-            this.applicantId = applicantId;
-        }
+                   String applicantId){
+                       this.First_Name=FirstName;
+                       this.Last_Name=LastName;
+                       this.DateOf_Birth=DateOfBirth;
+                       this.GM_Income=GMIncome;
+                       this.EMC_Payment=EMCPayment;
+                       this.IsJNEmp=IsJNEmployee;
+                       this.accountId=accountId;
+                       this.applicantId = applicantId;
+                   }
     }
     
     /* 
-      public static Boolean isRequiredFieldMissingForScore(string oppid){
+public static Boolean isRequiredFieldMissingForScore(string oppid){
 Boolean flag=false;
 Boolean autoProfound=false;
 Boolean unProfound=false;
@@ -611,11 +611,11 @@ this.Rating=Rating1;
     @AuraEnabled  
     public static Boolean SaveMultiCalculatorpdf(string loancalcid,string idToSave){
         try{
-             system.debug('idToSave===='+idToSave+'====loancalcid==>'+loancalcid);
+            system.debug('idToSave===='+idToSave+'====loancalcid==>'+loancalcid);
             PageReference mypage = Page.MultiProductCalculatorDoc;
             mypage.getParameters().put('loanid', loancalcid);
             blob body = mypage.getContentAsPDF();
-           
+            
             Attachment attach = new Attachment();
             attach.Body = body;
             attach.ContentType='application/pdf';            
@@ -651,7 +651,7 @@ this.Rating=Rating1;
             //mypage.getParameters().put('pclDeposit', PCL_Deposit_Account_Balance1);
             
             blob body = mypage.getContentAsPDF();
-           
+            
             Attachment attach = new Attachment();
             attach.Body = body;
             attach.ContentType='application/pdf';            
@@ -677,7 +677,7 @@ this.Rating=Rating1;
             mypage.getParameters().put('loanid', loanid);
             
             blob body = mypage.getContentAsPDF();
-           
+            
             Attachment attach = new Attachment();
             attach.Body = body;
             attach.ContentType='application/pdf';            
@@ -693,17 +693,39 @@ this.Rating=Rating1;
         }
         return false;
     }
-   @AuraEnabled  
+    @AuraEnabled  
     public static list<WrapperclsAssets> getApplicantAsset(string oppid){
         list<WrapperclsAssets> wrapperlstAssets= new list<WrapperclsAssets>();
-        list<Application_Asset_Liability__c> lst = [select Assets_and_Liabilities__r.RecordType.Name,
+        Loan_Calculator__c loanCalculation;
+        Opportunity thisOpportunity = [SELECT Id,AccountId, Product_Details__c   from Opportunity where id = :oppid];
+        
+        Loan_Calculator__c[] productDetails = [SELECT Id, Market_Value_of_Vehicle__c, Total_Loan_Amount__c,
+                                               Monthly_Loan_Payment__c, Unsecured_Loan_Amount__c,App_3_Monthly_Payment_UL__c,
+                                               Unsecure_Monthly_Loan_Payment__c, Line_of_Credit_Starting_Limit__c,
+                                               Minimum_Payment_as_per_Credit_Limit__c ,Type_of_LOC__c,App_3_Monthly_Payment_A__c,
+                                               unsecure_Monthly_n_Loan_Savings__c , Monthly_Loan_Savings__c,App1_Loan_Amt_Alloc_UL__c,
+                                               App_3_Loan_Amount_A__c,App_2_Loan_Amount_A__c,Minimum_Payment__c ,
+                                               App_1_Loan_Amount_A__c,App_3_Min_Payment_LOC__c, App_1_Min_Payment__c,
+                                               App_2_Min_Payment_LOC__c, App1_Monthly_Payment_A__c, App_2_Monthly_Payment_A__c 
+                                               FROM Loan_Calculator__c WHERE Id =: thisOpportunity.Product_Details__c ];
+        if(productDetails.size() > 0) {
+            loanCalculation = productDetails.get(0);
+        } else {
+            loanCalculation = new Loan_Calculator__c();
+        }
+        list<Application_Asset_Liability__c> lst = [select Monthly_Payment_Prior__c,
+                                                    Minimum_Payment__c,
+                                                    Application__c,
+                                                    Assets_and_Liabilities__r.RecordType.Name,
+                                                    Assets_and_Liabilities__r.RecordType.DeveloperName,
                                                     Assets_and_Liabilities__r.Monthly_Payment_Prior__c,
                                                     Assets_and_Liabilities__r.Minimum_Payment__c,
                                                     Assets_and_Liabilities__r.Monthly_Payment__c,
-                                                    Assets_and_Liabilities__r.Minimum_Payment_After__c
+                                                    Assets_and_Liabilities__r.Minimum_Payment_After__c,
+                                                    Assets_and_Liabilities__r.Percent_Applicant_Portion__c
                                                     from Application_Asset_Liability__c where Application__r.Opportunity__c =:oppid];
-        list<Applicant__c> applst = [select Gross_Monthly_IncomeC__c from Applicant__c where Opportunity__c=:oppid];
-        wrapperlstAssets.add( new WrapperclsAssets(lst, applst));
+        list<Applicant__c> applst = [select id,Account__c,Gross_Monthly_IncomeC__c from Applicant__c where Opportunity__c=:oppid order by CreatedDate];
+        wrapperlstAssets.add( new WrapperclsAssets(lst, applst, loanCalculation, thisOpportunity.AccountId));
         return wrapperlstAssets;
     }
     public class WrapperclsAssets{
@@ -711,10 +733,22 @@ this.Rating=Rating1;
         public list<Application_Asset_Liability__c> ApplicationAssetLiability {get;set;}
         @AuraEnabled
         public list<Applicant__c> Applicantlst{get;set;}
-        
+        @AuraEnabled
+        public Loan_Calculator__c  loanCalculation{get;set;}
+        @AuraEnabled
+        public String accountId{get;set;}
         WrapperclsAssets(list<Application_Asset_Liability__c> Application_Asset_Liability, list<Applicant__c> Applst){
             this.ApplicationAssetLiability=Application_Asset_Liability;
             this.Applicantlst=Applst;
+            
+        }
+        WrapperclsAssets(list<Application_Asset_Liability__c> Application_Asset_Liability, 
+                         list<Applicant__c> Applst, Loan_Calculator__c  loanCalculation, String accountId)
+        {
+            this.ApplicationAssetLiability=Application_Asset_Liability;
+            this.Applicantlst=Applst;
+            this.loanCalculation=loanCalculation;
+            this.accountId=accountId;         
             
         }
     }
@@ -722,8 +756,8 @@ this.Rating=Rating1;
     Public static List<string> getLocationValues(){
         List<string> optionlist= new list<string>();
         Schema.DescribeFieldResult F = Lead.Preferred_Location__c.getDescribe();
-Schema.sObjectField T = F.getSObjectField();
-List<PicklistEntry> entries = T.getDescribe().getPicklistValues();
+        Schema.sObjectField T = F.getSObjectField();
+        List<PicklistEntry> entries = T.getDescribe().getPicklistValues();
         for (Schema.PicklistEntry pv : entries) {
             optionlist.add(pv.getValue());
         }
