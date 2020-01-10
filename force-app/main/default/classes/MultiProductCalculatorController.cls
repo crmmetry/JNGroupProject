@@ -704,8 +704,8 @@ this.Rating=Rating1;
                                                Unsecure_Monthly_Loan_Payment__c, Line_of_Credit_Starting_Limit__c,
                                                Minimum_Payment_as_per_Credit_Limit__c ,Type_of_LOC__c,App_3_Monthly_Payment_A__c,
                                                unsecure_Monthly_n_Loan_Savings__c , Monthly_Loan_Savings__c,App1_Loan_Amt_Alloc_UL__c,
-                                               App_3_Loan_Amount_A__c,App_2_Loan_Amount_A__c,Minimum_Payment__c ,
-                                               App_1_Loan_Amount_A__c,App_3_Min_Payment_LOC__c, App_1_Min_Payment__c,
+                                               App_3_Loan_Amount_A__c,App_2_Loan_Amount_A__c,Minimum_Payment__c ,JN_Life_Creditor_Life_Premium__c,
+                                               App_1_Loan_Amount_A__c,App_3_Min_Payment_LOC__c, App_1_Min_Payment__c,JNGI_Motor_Premium_1st_Year__c,
                                                App_2_Min_Payment_LOC__c, App1_Monthly_Payment_A__c, App_2_Monthly_Payment_A__c 
                                                FROM Loan_Calculator__c WHERE Id =: thisOpportunity.Product_Details__c ];
         if(productDetails.size() > 0) {

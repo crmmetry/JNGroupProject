@@ -146,7 +146,13 @@
         name="insuranceProviderName"
         type="String"
         default="None"/>
-    
+
+    <aura:attribute name="allApplicants" type="Object[]" default="{}"/>
+    <aura:attribute name="allApplicationAssetLiabilities" type="Object[]" default="{}"/>
+    <aura:attribute name="loanCalculation" type="Object" default="{}"/>
+    <aura:attribute name="mainAccountId" type="String" description="account id linked to opportunity for primary applicant"/>
+    <aura:attribute name="existingMonthlyPaymentBefore" type="Object" default="{}"/>
+    <aura:attribute name="existingMonthlyPaymentAfter" type="Object" default="{}"/>
     <form class="slds-form ">
         <fieldset  class="slds-box slds-theme--default slds-container--large" style="padding-right: 5px;">
             <aura:if isTrue="{!v.isProductDetail==false}">

@@ -22,7 +22,9 @@
                 $A.util.removeClass(cmpTarget, toggleClass);
             }           
         }
+        
         component.set("v.loan_type", id);
+        console.info('loan_type=> ', component.get("v.loan_type"))
     },
     navigateToComponent: function(component, event, helper) {
         const appPageView = component.find("AppPageView");

@@ -6,9 +6,8 @@
                 { value: "7", label: "No Suitable Applicants" }
             ];
             cmp.set("v.Coverageoptions", opts);
-        console.log("component type========>" + isprod);
-        
-        console.log("window.location.origin"+window.location.origin);
+        // get applicant assets/liabilities and loan calculation
+        helper.getApplicantLoanAssets(cmp);
         if (isprod) {
             //$A.util.addClass(cmp.find("ccRequest"), "slds-hide"); //JN1-2490
             console.log("A========>" + isprod);

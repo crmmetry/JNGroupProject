@@ -51,6 +51,9 @@ public class JNSiteController {
     @AuraEnabled
     public static Object updateApplicantTextInfo(Map<String, String> applicantDetails ,  String leadId ){
         try {
+            Map<String, String> booleanFields = new Map<String, String>{
+                'Different_Mailing_Address__c' => 'Different_Mailing_Address__c'
+                    };
             Map<String, String> decimalFields = new Map<String, String>{
                 'Mailing_Years_at_Residence__c' => 'Mailing_Years_at_Residence__c',
                     'Years_at_Residence__c' => 'Years_at_Residence__c',
@@ -69,6 +72,8 @@ public class JNSiteController {
                     newLead.put(field, Date.valueOf(applicantDetails.get(field)));
                 } else if(decimalFields.containsKey(field)){
                     newLead.put(field, Decimal.valueOf(applicantDetails.get(field)));
+                } else if(booleanFields.containsKey(field)){
+                     newLead.put(field, Boolean.valueOf(applicantDetails.get(field)));
                 }else {
                     newLead.put(field, applicantDetails.get(field));
                 }

@@ -29,7 +29,8 @@
             Mailing_Status_of_Address__c: "",
             Mailing_Address_Type__c: "",
             Mailing_Years_at_Residence__c: 0,
-            Preferred_Contact_Method__c: ""
+            Preferred_Contact_Method__c: "",
+            Different_Mailing_Address__c:false,
             
         };
         component.set("v.SiteLead", siteLead);
@@ -97,7 +98,7 @@
                            Status_of_Address__c: "",
                            Address_Type__c: "",
                            Years_at_Residence__c: ""}
-        if(!component.get("v.shouldShow")){
+        if(!component.get("v.SiteLead.Different_Mailing_Address__c")){
             for (let key in siteLead){
                 if(siteLead.hasOwnProperty(key) && validKeys.hasOwnProperty(key)){
                     if(!key.startsWith('Mailing')){

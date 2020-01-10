@@ -505,7 +505,7 @@
                         
                         <!-- Business Nature -->
                         <lightning:select
-                                          name="industry_of_business"
+                                          name="business_nature"
                                           label="Business Nature"
                                           required="true"
                                           aura:id="validation"

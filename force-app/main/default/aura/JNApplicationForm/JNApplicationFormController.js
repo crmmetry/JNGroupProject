@@ -24,12 +24,20 @@
       "Affiliations_Tab",
       "Document_Upload_Tab"
     ];
-    const loanType = component.get("v.loan_type");
+      
+    component.set("v.unsecuredLoanTabs",unsecuredLoanTabs);
+    component.set("v.creditCardTabs",creditCardTabs);
     component.set("v.SiteLead", {});
-    component.set("v.allTabs", loanType == 'credit_card' ? creditCardTabs : unsecuredLoanTabs);
     component.set("v.tabId", "Getting_Started_Tab");
   },
-
+  handleLoanTypeChange : function (component, event, helper) {
+        const old = event.getParam("oldValue");
+        const current = event.getParam("value");
+        const unsecuredLoanTabs = component.get("v.unsecuredLoanTabs");
+    	const creditCardTabs = component.get("v.creditCardTabs");
+      	component.set("v.loan_type", current);
+      	component.set("v.allTabs", current === 'credit_card' ? creditCardTabs : unsecuredLoanTabs);
+    },
   openModal: function(component, event, helper) {
     var childCmp = component.find("JNModal");
     var header = "Here is the header I assign";
@@ -44,6 +52,7 @@
   },
   handleTabChange: function(component, event, helper) {
     const tabName = helper.getTabName(component.get("v.tabId"));
+      console.log('Current Tab', tabName);
     if (tabName === "Document_Upload") {
       component.set("v.formBtnText", "Finish");
     } else {
@@ -53,7 +62,6 @@
   tabNext: function(component, event, helper) {
     const siteLead = component.get("v.SiteLead");
     const allTabs = component.get("v.allTabs");
-    const index = allTabs.indexOf(component.get("v.tabId"));
     const tabName = helper.getTabName(component.get("v.tabId"));
     // this logic needs to be at the component level
     /*if (!siteLead.hasOwnProperty("Id") && index >= 3) {

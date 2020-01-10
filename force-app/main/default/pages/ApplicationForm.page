@@ -240,7 +240,7 @@
                                 </b>
                             </h5>
                             <apex:variable value="{!0}" var="num"/>
-                            <apex:repeat value="{!app.ApplicantPAEmergencyContact}" var="eapp" id="repeatapp" rows="">
+                            <apex:repeat value="{!emergencyContacts}" var="eapp" id="repeatapp" rows="">
                                 <div style="margin-top:10px;font-size:small;">
                                     <apex:variable var="num" value="{!FLOOR(num) + 1}"/>
                                     <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
@@ -255,10 +255,10 @@
                                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Relationship to Applicant:*</td>
                                                     </tr>
                                                     <tr style="margin-top:5px;">
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.LastName}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.FirstName}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.MiddleName}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Emergency_Contact_Relationship__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.LastName}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FirstName}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.MiddleName}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.Emergency_Contact_Relationship__pc}</td>
                                                     </tr>
                                                 </table>
                                             </td>
@@ -273,9 +273,9 @@
                                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Street 3:</td>
                                                     </tr>
                                                     <tr style="margin-top:5px;">
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Street_1__pc}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Street_2__pc}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Street_2__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.Street_1__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.Street_2__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.Street_2__pc}</td>
                                                         
                                                     </tr>
                                                 </table>
@@ -293,11 +293,11 @@
                                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Country of Issue:*</td>
                                                     </tr>
                                                     <tr style="margin-top:5px;">
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.City_Town__pc}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Residential_Area_District__pc}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Post_Office_Zip_Code__pc}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Province_Parish_State__pc}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.FinServ__CountryOfBirth__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.City_Town__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.Residential_Area_District__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.Post_Office_Zip_Code__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.Province_Parish_State__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__CountryOfBirth__pc}</td>
                                                     </tr>
                                                     
                                                 </table>
@@ -316,11 +316,11 @@
                                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Personal Email:</td>
                                                     </tr>
                                                     <tr style="margin-top:5px;">
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.PersonMobilePhone}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.PersonHomePhone}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Business_Phone__pc}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.PersonOtherPhone}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Personal_Email__c}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.PersonMobilePhone}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.PersonHomePhone}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.Business_Phone__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.PersonOtherPhone}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.Personal_Email__c}</td>
                                                     </tr>
                                                 </table>
                                             </td>
@@ -370,9 +370,9 @@
                                                         </tr>
                                                         <tr style="margin-top:5px;">
                                                             <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!emp.Professional_Category__c}</td>
-                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">{!emp.Time_in_Industry__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">{!emp.Time_Employed_with_Current_Employer__c}</td>
                                                             <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">Years</td>
-                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">{!emp.Time_Employed_in_Present_Industry_Months__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">{!emp.Time_Employed_in_Present_Employer_M__c}</td>
                                                             <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">Months</td>
                                                             <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Industry__c}</td>
                                                             <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">{!emp.Time_in_Industry__c}</td>

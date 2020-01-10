@@ -52,13 +52,13 @@
         siteLead["Industry"] = selected;
         component.set("v.SiteLead", siteLead);
     },
-      getSelfEmployedIndustry: function(component, event, helper) {
+    getSelfEmployedIndustry: function(component, event, helper) {
         const selected = event.getSource().get("v.value");
         let siteLead = component.get("v.SiteLeadSelfEmployed");
         siteLead["Industry"] = selected;
         component.set("v.SiteLeadSelfEmployed", siteLead);
     },
-          getBusinessNature: function(component, event, helper) {
+    getBusinessNature: function(component, event, helper) {
         const selected = event.getSource().get("v.value");
         let siteLead = component.get("v.SiteLeadSelfEmployed");
         siteLead["Nature_of_Engagement__c"] = selected;
@@ -76,7 +76,7 @@
         siteLead["Employer_Country__c"] = selected;
         component.set("v.SiteLead", siteLead);
     },
-        getSelfEmployedCountry: function(component, event, helper) {
+    getSelfEmployedCountry: function(component, event, helper) {
         const selected = event.getSource().get("v.value");
         let siteLead = component.get("v.SiteLeadSelfEmployed");
         siteLead["Employer_Country__c"] = selected;

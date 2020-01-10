@@ -1,5 +1,5 @@
 <aura:component access="GLOBAL" controller="JNSiteController">
-    <aura:attribute name="shouldShow" type="Boolean" default="false" />
+    
     <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
     <aura:registerEvent type="c:JNComponentEvent" name="jnEvent" />
     <aura:attribute name="SiteLead" type="Map" />
@@ -274,11 +274,11 @@
                                  type="checkbox"
                                  label="My mailing address is different from my physical address"
                                  name="different_address"
-                                 checked="{!v.shouldShow}"
+                                 checked="{!v.SiteLead.Different_Mailing_Address__c}"
                                  class="slds-m-vertical_large"
                                  />
             </div>
-            <aura:if isTrue="{!v.shouldShow}">
+            <aura:if isTrue="{!v.SiteLead.Different_Mailing_Address__c}">
                 <p class="slds-text-heading_medium slds-m-vertical_small"
                    >Mailing Address</p
                     >
