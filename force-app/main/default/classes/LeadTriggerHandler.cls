@@ -10,12 +10,19 @@ public class LeadTriggerHandler {
     private static List<Lead> leads;
     private static Map<Id, Lead> oldMap;
     private static Map<Id, Lead> newMap;
+    private static boolean FirstRun = true;
     public static void init(List<Lead> leads, Map<Id, Lead> oldMap, Map<Id, Lead> newMap){
         LeadTriggerHandler.leads = leads;
         LeadTriggerHandler.oldMap = oldMap;
         LeadTriggerHandler.newMap = newMap;
     }
-    
+    public static Boolean Executed(){
+        if(FirstRun){
+            FirstRun = false;
+            return true;
+        }       
+        return FirstRun;
+    }
     public static void crmm_TimeSpentInStage(){
         for(Lead ObjLead : leads){
             Lead leadObjOld = oldMap.get(ObjLead.Id);

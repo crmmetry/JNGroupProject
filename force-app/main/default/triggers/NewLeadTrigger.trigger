@@ -6,31 +6,36 @@
 * @Last Modified On   : 10/7/2019
 */
 trigger NewLeadTrigger on Lead (before insert, after insert, before update, after update) {
-    LeadTriggerHandler.init(Trigger.new, Trigger.oldMap, Trigger.newMap);
-    
-    if(Trigger.isUpdate) {
-        if(Trigger.isAfter) {
-            
-            LeadTriggerHandler.crmm_CreateEmploymentOnConversion();
-            LeadTriggerHandler.crmm_lead_trigger_conversion();
-            LeadTriggerHandler.leadConversionBasic();
-            LeadTriggerHandler.convertInfoToEmployment();
-            LeadTriggerHandler.convertLeadRelatedPersons();
-        }
-        else {
-            
-            LeadTriggerHandler.crmm_TimeSpentInStage();
-            LeadTriggerHandler.crmm_TierTwoTrigger();
-            SkillsBasedRouting.routeUsingSkillsTier2(Trigger.new);
-
-        }
-    } else if(Trigger.isInsert){
-        if(Trigger.isAfter) {
-            LeadTriggerHandler.leadActivityEvent();
-            //SkillsBasedRouting.routeUsingSkillsTier1((new Map<Id,Lead>(Trigger.new)).keySet());           
-        }
-        else {
-            LeadTriggerHandler.crmm_TierOne();
-        }
-    } 
+    if(LeadTriggerHandler.Executed()){
+        Lead l = trigger.new[0];
+        System.debug('Today Conversion ' + l.ConvertedDate);
+        System.debug('Is Conversion ' + l.IsConverted);
+        LeadTriggerHandler.init(Trigger.new, Trigger.oldMap, Trigger.newMap);
+        
+        if(Trigger.isUpdate) {
+            if(Trigger.isAfter) {
+                
+                LeadTriggerHandler.crmm_CreateEmploymentOnConversion();
+                LeadTriggerHandler.crmm_lead_trigger_conversion();
+                LeadTriggerHandler.leadConversionBasic();
+                LeadTriggerHandler.convertInfoToEmployment();
+                LeadTriggerHandler.convertLeadRelatedPersons();
+            }
+            else {
+                
+                LeadTriggerHandler.crmm_TimeSpentInStage();
+                LeadTriggerHandler.crmm_TierTwoTrigger();
+                SkillsBasedRouting.routeUsingSkillsTier2(Trigger.new);
+                
+            }
+        } else if(Trigger.isInsert){
+            if(Trigger.isAfter) {
+                LeadTriggerHandler.leadActivityEvent();
+                //SkillsBasedRouting.routeUsingSkillsTier1((new Map<Id,Lead>(Trigger.new)).keySet());           
+            }
+            else {
+                LeadTriggerHandler.crmm_TierOne();
+            }
+        } 
+    }
 }

@@ -724,6 +724,7 @@ this.Rating=Rating1;
                                                     Assets_and_Liabilities__r.Minimum_Payment_After__c,
                                                     Assets_and_Liabilities__r.Percent_Applicant_Portion__c
                                                     from Application_Asset_Liability__c where Application__r.Opportunity__c =:oppid];
+        
         list<Applicant__c> applst = [select id,Account__c,Gross_Monthly_IncomeC__c from Applicant__c where Opportunity__c=:oppid order by CreatedDate];
         wrapperlstAssets.add( new WrapperclsAssets(lst, applst, loanCalculation, thisOpportunity.AccountId));
         return wrapperlstAssets;

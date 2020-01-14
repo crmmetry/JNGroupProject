@@ -6,7 +6,7 @@
       fieldApiNames: [
         "Primary_Employment_Type__c",
         "Address_Status_PK__c",
-        "Employer_Industry__c",
+        "Industry",
         "Employment_Status__c",
         "Employer_Country__c",
         "Type_of_Business__c",
@@ -23,7 +23,7 @@
           values["Primary_Employment_Type__c"]
         );
         component.set("v.countries", values["Employer_Country__c"]);
-        component.set("v.employmentIndustries", values["Employer_Industry__c"]);
+        component.set("v.employmentIndustries", values["Industry"]);
         component.set("v.employmentStatuses", values["Employment_Status__c"]);
         component.set("v.addressStatuses", values["Address_Status_PK__c"]);
         component.set("v.businessTypes", values["Type_of_Business__c"]);

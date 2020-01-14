@@ -4,6 +4,7 @@ public class OpportunityTriggerHandler {
     private static Map<Id, Opportunity> oldMap;
     private static Map<Id, Opportunity> newMap;
     private static Map<Id,Opportunity> mappedRecords;
+    private static boolean FirstRun = true;
     private static Map<String,String> excludedFields = new Map<String, String>
     {
         'Id' => 'Id',
@@ -12,12 +13,19 @@ public class OpportunityTriggerHandler {
             'LastModifiedById' => 'LastModifiedById',
             'LastModifiedDate' => 'SystemModstamp'
             };
-                public static void init(List<Opportunity> newRecords, Map<Id, Opportunity> oldMap, Map<Id, Opportunity> newMap){
+    public static void init(List<Opportunity> newRecords, Map<Id, Opportunity> oldMap, Map<Id, Opportunity> newMap){
                     OpportunityTriggerHandler.newRecords = newRecords;
                     OpportunityTriggerHandler.oldMap = oldMap;
                     OpportunityTriggerHandler.newMap = newMap;
                     
-                }
+    }
+    public static Boolean Executed(){
+        if(FirstRun){
+            FirstRun = false;
+            return true;
+        }       
+        return FirstRun;
+    }
     public static void setOpportunityAmountOnLead(Boolean isAfter, Boolean isUpdate, Boolean isInsert){
         Set<id> oppid = new set<id>();
         Map<id,Double> oppMap = new Map<id,Double>();

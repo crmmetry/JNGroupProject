@@ -37,9 +37,6 @@
       const state = response.getState();
       if (state === "SUCCESS") {
         this.sendEvents(component, ["navigateNext"], {});
-          console.log(JSON.parse(JSON.stringify(response.getReturnValue())))
-      } else {
-          console.log(JSON.parse(JSON.stringify(response.getError())))
       }
     });
     $A.enqueueAction(action);
