@@ -425,7 +425,7 @@ Encourage client to add start and end date to employment
                                 }
                                 recordsToInsert.add(Util.createContactToContactRelationship(record.ConvertedContactId, contactId, role.Id));
                             }
-                        }
+                        } 
                         
                     }
         if(!leadIds.isEmpty()){
@@ -604,7 +604,7 @@ Encourage client to add start and end date to employment
                                    employment.Country__c = record.Employer_Country__c;
                                    employment.Business_Number_1__c = record.Employer_Phone_1__c;
                                    employment.Business_Number_2__c = record.Employer_Phone_2__c;
-                                   employment.Income_Type__c = 'Salaried';
+                                   //employment.Income_Type__c = 'Salaried';
                                    employment.RecordTypeId = recordTypes.get('Employed');
                                    employment.Current_Employment__c = true;
                                    employments.add(employment);
@@ -632,7 +632,7 @@ Encourage client to add start and end date to employment
                                    employment.Country__c = record.Employer_Country__c;
                                    employment.Business_Number_1__c = record.Employer_Phone_1__c;
                                    employment.Business_Number_2__c = record.Employer_Phone_2__c;
-                                   employment.Income_Type__c = 'Self-Employed';
+                                  // employment.Income_Type__c = 'Self-Employed';
                                    employment.RecordTypeId =  recordTypes.get('Self_Employed');
                                    employment.Current_Employment__c = true;
                                    employments.add(employment);
@@ -660,7 +660,7 @@ Encourage client to add start and end date to employment
                                    employment.Country__c = record.Employer_Country__c;
                                    employment.Business_Number_1__c = record.Employer_Phone_1__c;
                                    employment.Business_Number_2__c = record.Employer_Phone_2__c;
-                                   employment.Income_Type__c = 'Salaried';
+                                   //employment.Income_Type__c = 'Salaried';
                                    employment.RecordTypeId = recordTypes.get('Unemployed');
                                    employment.Current_Employment__c = true;
                                    employments.add(employment);
@@ -668,7 +668,9 @@ Encourage client to add start and end date to employment
                            }
                        }
                    }
-            }
+            }else {
+                            System.debug('Cannot be converted!');
+                        }
         }
         if(!employments.isEmpty()){
             insert employments;

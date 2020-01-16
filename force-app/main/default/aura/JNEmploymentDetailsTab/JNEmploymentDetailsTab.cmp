@@ -13,6 +13,10 @@
     <aura:attribute name="businessNatures" type="String[]" />
         <aura:attribute name="businessTypes" type="String[]" />
     <aura:attribute name="employmentIndustries" type="String[]" default="[]"/>
+     <aura:attribute name="employedIndustries" type="String[]" default="[]"/>
+     <aura:attribute name="unEmployedIndustries" type="String[]" default="[]"/>
+     <aura:attribute name="selfEmployedIndustries" type="String[]" default="[]"/>
+
     <aura:attribute name="emailRegex" type="String"  default="^[a-zA-Z0-9_\-.]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"/>
         <aura:attribute
                     name="phoneRegex"
@@ -97,7 +101,7 @@
                                           onchange="{!c.getIndustryEmployment}"
                                           >
                             <option value="">select one...</option>
-                            <aura:iteration items="{!v.employmentIndustries}" var="item">
+                            <aura:iteration items="{!v.employedIndustries}" var="item">
                                 <option value="{!item}">{!item}</option>
                             </aura:iteration>
                         </lightning:select>
@@ -307,7 +311,7 @@
                                           onchange="{!c.getIndustryBusiness}"
                                           >
                             <option value="">select one...</option>
-                            <aura:iteration items="{!v.employmentIndustries}" var="item">
+                            <aura:iteration items="{!v.unEmployedIndustries}" var="item">
                                 <option value="{!item}">{!item}</option>
                             </aura:iteration>
                         </lightning:select>
@@ -495,7 +499,7 @@
                                           onchange="{!c.getSelfEmployedIndustry}"
                                           >
                             <option value="">select one...</option>
-                            <aura:iteration items="{!v.employmentIndustries}" var="item">
+                            <aura:iteration items="{!v.selfEmployedIndustries}" var="item">
                                 <option value="{!item}">{!item}</option>
                             </aura:iteration>
                         </lightning:select>

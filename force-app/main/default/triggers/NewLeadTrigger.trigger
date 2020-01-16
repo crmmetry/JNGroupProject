@@ -6,10 +6,7 @@
 * @Last Modified On   : 10/7/2019
 */
 trigger NewLeadTrigger on Lead (before insert, after insert, before update, after update) {
-    if(LeadTriggerHandler.Executed()){
-        Lead l = trigger.new[0];
-        System.debug('Today Conversion ' + l.ConvertedDate);
-        System.debug('Is Conversion ' + l.IsConverted);
+    //if(LeadTriggerHandler.Executed()){
         LeadTriggerHandler.init(Trigger.new, Trigger.oldMap, Trigger.newMap);
         
         if(Trigger.isUpdate) {
@@ -37,5 +34,5 @@ trigger NewLeadTrigger on Lead (before insert, after insert, before update, afte
                 LeadTriggerHandler.crmm_TierOne();
             }
         } 
-    }
+    //}
 }
