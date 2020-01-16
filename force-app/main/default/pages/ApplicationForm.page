@@ -30,8 +30,8 @@
     </head>
     <apex:form >
         <!--<apex:outputText value="{0,date,dd-MM-yy}">
-<apex:param value="{!TODAY()}" />                                         
-</apex:outputText>-->  
+            <apex:param value="{!TODAY()}" />                                         
+            </apex:outputText>-->  
         <div class="footer">
             <div style="text-align:left;font-size:15px;">{!$Label.ApplicationFormText} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span class="pagenumber"/> of <span class="pagecount"/>   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

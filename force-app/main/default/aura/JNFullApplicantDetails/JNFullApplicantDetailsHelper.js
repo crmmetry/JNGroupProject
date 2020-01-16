@@ -7,7 +7,6 @@
         action.setCallback(this, function(response) {
             const state = response.getState();
             if (state === "SUCCESS") {
-                console.info(response.getReturnValue());
                 component.set("v.applicant", response.getReturnValue());
             } else {
                 console.info(response.getError());
