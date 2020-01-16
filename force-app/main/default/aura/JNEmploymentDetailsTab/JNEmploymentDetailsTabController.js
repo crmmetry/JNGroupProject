@@ -34,6 +34,8 @@
       "Other",
       "None"
     ]);
+    component.set("v.employmentStatuses", ["Permanent","Contractual"]);
+    component.set("v.unEmploymentStatuses", ["Unemployed"]);
     helper.getPickListValues(component);
   },
   getEmploymentType: function(component, event, helper) {

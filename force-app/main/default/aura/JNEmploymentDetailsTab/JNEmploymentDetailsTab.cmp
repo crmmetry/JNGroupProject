@@ -8,6 +8,7 @@
     <aura:attribute name="leadId" type="String" />
     <aura:attribute name="addressStatuses" type="String[]" />
     <aura:attribute name="employmentStatuses" type="String[]" />
+    <aura:attribute name="unEmploymentStatuses" type="String[]" />
     <aura:attribute name="countries" type="String[]" />
     
     <aura:attribute name="businessNatures" type="String[]" />
@@ -316,6 +317,21 @@
                             </aura:iteration>
                         </lightning:select>
                     </div>
+                    <div class="slds-col slds-size_3-of-12">
+                        <!-- UnEmployment Status -->
+                        <lightning:select
+                                          name="unemployment_status"
+                                          label="Unemployment Status"
+                                          required="true"
+                                          aura:id="validation"
+                                          onchange="{!c.getEmploymentStatus}"
+                                          >
+                            <option value="">select one...</option>
+                            <aura:iteration items="{!v.unEmploymentStatuses}" var="item">
+                                <option value="{!item}">{!item}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div> 
                 </div>
                 <div class="slds-grid slds-gutters">
                     <!-- Street 1 -->
