@@ -6,17 +6,17 @@
 * @Last Modified On   : 10/7/2019
 */
 trigger NewLeadTrigger on Lead (before insert, after insert, before update, after update) {
-    //if(LeadTriggerHandler.Executed()){
         LeadTriggerHandler.init(Trigger.new, Trigger.oldMap, Trigger.newMap);
         
         if(Trigger.isUpdate) {
             if(Trigger.isAfter) {
-                
+                System.debug('LeadTriggerHandler Executed');
                 LeadTriggerHandler.crmm_CreateEmploymentOnConversion();
                 LeadTriggerHandler.crmm_lead_trigger_conversion();
                 LeadTriggerHandler.leadConversionBasic();
                 LeadTriggerHandler.convertInfoToEmployment();
                 LeadTriggerHandler.convertLeadRelatedPersons();
+                LeadTriggerHandler.EnforceLeadOpportunityRecordType();
             }
             else {
                 
@@ -34,5 +34,4 @@ trigger NewLeadTrigger on Lead (before insert, after insert, before update, afte
                 LeadTriggerHandler.crmm_TierOne();
             }
         } 
-    //}
 }

@@ -19,14 +19,10 @@ public class OpportunityTriggerHandler {
                     OpportunityTriggerHandler.newMap = newMap;
                     
     }
-    public static Boolean Executed(){
-        if(FirstRun){
-            FirstRun = false;
-            return true;
-        }       
-        return FirstRun;
-    }
+
     public static void setOpportunityAmountOnLead(Boolean isAfter, Boolean isUpdate, Boolean isInsert){
+                // can only execute only per execution context
+        if(!Util.IsExecuted('setOpportunityAmountOnLead')){
         Set<id> oppid = new set<id>();
         Map<id,Double> oppMap = new Map<id,Double>();
         String oppsID;
@@ -71,6 +67,7 @@ public class OpportunityTriggerHandler {
             
             
         }
+        }
     }
     public static void assignOpportunityRecordTypeName(){
         List<Id> ids = new List<Id>();
@@ -102,6 +99,7 @@ public class OpportunityTriggerHandler {
         
     }
     public static void creditScoreOppHandler() {
+        if(!Util.IsExecuted('creditScoreOppHandler')){
         system.debug('Trigger called=====================>');
         CreditScoreHelper cs = new CreditScoreHelper();
         Set<id> oppid = new set<id>();   
@@ -112,6 +110,7 @@ public class OpportunityTriggerHandler {
         }
         if(oppid.size()>0){
             cs.CreditScoreFromOpp(oppid);
+        }
         }
     }
     public static void lockRecordsForEditing(){
@@ -145,6 +144,7 @@ public class OpportunityTriggerHandler {
         return Schema.SObjectType.Opportunity.getRecordTypeInfosByName().get(name).getDeveloperName();
     }
     public static void validateApplicantProfileCompletion(){
+         if(!Util.IsExecuted('validateApplicantProfileCompletion')){
         List<String> changedFields = getChangedFields();
         Map<Id,Opportunity> mappedRecords = new Map<Id,Opportunity>(newRecords);
         List<Applicant__c> applicants = [SELECT Id,Opportunity__c FROM Applicant__c WHERE Opportunity__c IN :mappedRecords.keySet()];
@@ -167,7 +167,7 @@ public class OpportunityTriggerHandler {
                 }
             }
         }
-        
+         }
     }
     public static void validateCloseBackDate(Integer backdatedDays, Integer maxPrevDays, DateTime now){
         String err1 = 'The Closed Date cannot be this far back in the past. Please contact Sales Support.';
@@ -187,11 +187,7 @@ public class OpportunityTriggerHandler {
                     date closeDate = date.newinstance(record.CloseDate.year(), record.CloseDate.month(), record.CloseDate.day());
                     date createdDate = date.newinstance(record.CreatedDate.year(), record.CreatedDate.month(), record.CreatedDate.day());
                     Integer prevMonth = record.CloseDate.month();
-                    /*if( 
-closeDate > createdDate){
-record.CloseDate.addError(err2);
-System.debug('closedate greater than createddate');
-}*/
+
                     if(closeDate > todayDate){
                         record.CloseDate.addError(err3);
                         System.debug('closedate greater than today');
@@ -235,6 +231,7 @@ System.debug('closedate greater than createddate');
         return changedFields;
     } 
     public static void ProductsFamiliyValidation(){
+         if(!Util.IsExecuted('ProductsFamiliyValidation')){
         OpportunityTriggerHandler.mappedRecords = new Map<Id, Opportunity>(newRecords);
 
         Opportunity updatedOpportunity;
@@ -295,5 +292,6 @@ System.debug('closedate greater than createddate');
             }
         }
         
+    }
     }
 }

@@ -106,7 +106,7 @@ Global class SkillsBasedRouting {
                                          
                                          for(ServiceResourceSkill skillRecord: record.ServiceResourceSkills){
                                              System.debug('------ServiceResourceSkill-----');
-                                             generatedHash = generateHash(new List<String>{record.RelatedRecordId, skillRecord.Skill.MasterLabel});
+                                             generatedHash = Util.GenerateHash(new List<String>{record.RelatedRecordId, skillRecord.Skill.MasterLabel});
                                              mappedLocationSkills.put(generatedHash, new Worker(record.RelatedRecordId, 0, skillRecord.Skill.MasterLabel));
                                          }
                                      }
@@ -123,7 +123,7 @@ Global class SkillsBasedRouting {
                                          total = (Integer)record.get('total');
                                          userID = (String)record.get('OwnerId');
                                          location = (String)record.get('Preferred_Location__c');                                         
-                                         generatedHash = generateHash(new List<String>{userID, location});
+                                         generatedHash = Util.GenerateHash(new List<String>{userID, location});
                                          if(mappedLocationSkills.containsKey(generatedHash)){
                                              mappedLocationSkills.get(generatedHash).setWorkLoad(total);
                                          }
@@ -153,11 +153,7 @@ Global class SkillsBasedRouting {
         } 
         //}
     }
-    private static String generateHash(List<String> values){
-        Blob targetBlob = Blob.valueOf(String.join(values, '-'));
-        Blob hash = Crypto.generateDigest('MD5', targetBlob);
-        return EncodingUtil.base64Encode(hash);
-    }
+
     class Worker implements Comparable {
         public Id userId;
         public Integer workLoad;

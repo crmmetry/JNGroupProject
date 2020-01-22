@@ -1,5 +1,5 @@
 trigger NewOpportunityTrigger on Opportunity (before insert, after insert,after update, before update) {
-    if(OpportunityTriggerHandler.Executed()){
+
         OpportunityTriggerHandler.init(Trigger.new, Trigger.oldMap, Trigger.newMap);
         System.debug('System debug opport');
         Set<id> oppid = new set<id>(); 
@@ -32,5 +32,5 @@ trigger NewOpportunityTrigger on Opportunity (before insert, after insert,after 
             CreditScoreHelper cs = new CreditScoreHelper();
             cs.CreditScoreFromOpp(oppid);
         }
-    }
+    
 }
