@@ -249,6 +249,7 @@
     },
     calculateJNLifeMonthlyPremium:function(cmp, event, helper) {
         console.log('c1==');
+        debugger;
         helper.calculateJNLifeMonthlyPremiumhelper(cmp, event);
         helper.calculateTotalautoloan(cmp, event);
     },

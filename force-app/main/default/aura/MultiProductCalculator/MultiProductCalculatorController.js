@@ -1,5 +1,6 @@
 ({
     doInit: function(cmp, event, helper) {
+        debugger;
         var isprod = cmp.get("v.isProductDetail");
         var opts = [
                 { value: "0", label: "choose one..." },
@@ -526,6 +527,8 @@
         }
     },
     calculateJNLifeMonthlyPremium: function(cmp, event, helper) {
+        debugger;
+        
         helper.calculateJNLifeMonthlyPremiumhelper(cmp, event);
         helper.calculateTotalautoloan(cmp, event);
     },
@@ -810,6 +813,7 @@
          console.log("Coverageoptions ============"+cmp.get("v.Coverageoptions"));
     },
     ShowHideOnInterestedinprogramme: function(cmp, evt, helper) {
+        debugger
         var acMethod = cmp.find("Interestedinprogramme").get("v.value");
         switch (acMethod) {
             case "0":
@@ -860,6 +864,8 @@
                     "slds-hide"
                 );
                 $A.util.addClass(cmp.find("JNGIMotorInsurancePremium1st"), "slds-hide");
+                
+                cmp.find("MonthlyPremium").set("v.value", 0);//AK
                 helper.calculateJNGIMonthlyPremiumhelper(cmp, event);
                 helper.calculateTotalautoloan(cmp, event);
                 break;

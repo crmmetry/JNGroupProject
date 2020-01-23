@@ -1,3 +1,8 @@
+/*
+ *  * Sr#  Ticket#      Modified By      Modified Date       Description
+ *    1    JN1-2727     Priyanka A.(TQ)  01/23/2020          1.NaN issue   
+ *    2    JN1-2727     Priyanka A.(TQ)  01/23/2020          Monthly loan reset issue   
+*/
 ({	
     AddRow:function(RowIndex,EmpRow,cmp){
         EmpRow.push({
@@ -137,6 +142,7 @@
         
     },
     calculateJNLifeMonthlyPremiumhelper:function(cmp, event) {
+        debugger;
         console.log('test=====1');
         if(cmp.find("InterestedinCreditorLife").get("v.value")=='0'  ){
             console.log('test=====2');
@@ -165,16 +171,35 @@
         var jnlp=0;
         var ageavg=0;
         var loanamountsum=0;
-        var RequestData=cmp.get("v.RDetailAuto");
-        var marketi =RequestData[0].Interestrate;
-        var im =RequestData[0].Interestrate/ 1200;
+        
+        var marketi = 0;
+        var im = 0;
+        
+        
+        var RequestData=cmp.get("v.RDetailAuto") ;
+             
+        if(RequestData[0].Interestrate != undefined){
+           marketi =RequestData[0].Interestrate;  
+        }
+        if(RequestData[0].Interestrate != undefined ){
+           im =RequestData[0].Interestrate/ 1200 ; 
+        }
+        
+        
+        
         var n=cmp.get("v.LoanTermMarket");
         console.log('test=====4');
+        
+        console.log('RequestData == ');
+        console.log('marketi == ' +marketi);
+        console.log('im == ' +im);
+        
+        
         for(var k in RequestData) {
-            if(RequestData[k].LoanAmount !='')
+            if(RequestData[k].LoanAmount !='' && RequestData[k].LoanAmount != undefined)
                 loanamountsum +=parseFloat(RequestData[k].LoanAmount);
         }
-        console.log('test=====5.1'+loanamountsum);
+        console.log('test 5====='+loanamountsum);
         /*var numberapp=cmp.get("v.RowNum");
         console.log('test=====5.2'+numberapp);
         if(numberapp != undefined)
@@ -295,15 +320,19 @@
                 if (state === "SUCCESS") {
                     rate = response.getReturnValue();
                     console.log('rate====='+rate);
-                    jnlp=(loanamountsum/1000)*rate;
+                    debugger;
+                    jnlp=(loanamountsum/1000)*rate || 0;
                     if(cmp.find("InterestedinCreditorLife").get("v.value")=='0' && cmp.find("IncludeinLoanAmountinsurence").get("v.value")=='0' ){
                         if(cmp.find("CoverageType").get("v.value")=='1' || cmp.find("CoverageType").get("v.value")=='2' || cmp.find("CoverageType").get("v.value")=='3'){    
+                            console.log('jnlp====='+jnlp);
                             cmp.set("v.JNLifeCreditorLifePremium1New",jnlp);
                             cmp.find("JNLifeCreditorLifePremium1").set("v.value", parseFloat(jnlp).toFixed(2));
                         }
                         if(cmp.find("CoverageType").get("v.value")=='4' || cmp.find("CoverageType").get("v.value")=='5' || cmp.find("CoverageType").get("v.value")=='6'){
                             var jnlp=jnlp*1.85;
+                             console.log('jnlp 2====='+jnlp);
                             cmp.set("v.JNLifeCreditorLifePremium1New",jnlp);
+                            
                             cmp.find("JNLifeCreditorLifePremium1").set("v.value", parseFloat(jnlp).toFixed(2));
                         }
                         var bjnlp=0;
@@ -314,11 +343,13 @@
                             cmp.find("MonthlyJNLifeCreditorLifePremium1").set("v.value", parseFloat(bjnlp).toFixed(2));
                         }
                         else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2){
+                             console.log('1.1=====');
                             bjnlp=0;
                             cmp.set("v.MonthlyJNLifeCreditorLifePremium1New",bjnlp);
                             cmp.find("MonthlyJNLifeCreditorLifePremium1").set("v.value", parseFloat(bjnlp).toFixed(2));
                         } else{
-                            bjnlp=this.PMTcalculator(marketi,n,jnlp);
+                            bjnlp=this.PMTcalculator(marketi,n,jnlp) || 0;//JN1-2727#1 :: Set 0 if NaN/Undefined
+                            
                             cmp.set("v.MonthlyJNLifeCreditorLifePremium1New",bjnlp);
                             cmp.find("MonthlyJNLifeCreditorLifePremium1").set("v.value", parseFloat(bjnlp).toFixed(2));
                         }
@@ -334,6 +365,7 @@
                             cmp.find("MonthlyJNLifeCreditorLifePremium2").set("v.value",  parseFloat(ajngid).toFixed(2));
                         }
                         else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2 && cmp.find("Othee_post_moratorium__id").get("v.value")=="Extend original loan term by moratorium period" && (cmp.find("IndicateTerm").get("v.value")==1 || cmp.find("IndicateTerm").get("v.value")==2 || cmp.find("IndicateTerm").get("v.value")==3)){
+                              console.log('1.2=====');
                             var n1=n;
                             var AmortizationSC2C12=im*jnlp*cmp.find("IndicateTerm").get("v.value");
                             var premium1styear2=parseFloat(jnlp)+parseFloat(AmortizationSC2C12);
@@ -342,6 +374,7 @@
                             cmp.find("MonthlyJNLifeCreditorLifePremium2").set("v.value",  parseFloat(ajngid).toFixed(2));
                         }
                             else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==1 && cmp.find("Othee_post_moratorium__id").get("v.value")=="Maintain original loan term"){
+                                  console.log('1.3=====');
                                 var n1=parseFloat(n)-parseFloat(cmp.find("IndicateTerm").get("v.value"));
                                 var premium1styear3=jnlp;
                                 var ajngid=this.PMTcalculator(marketi,n1,premium1styear3);
@@ -349,18 +382,20 @@
                                 cmp.find("MonthlyJNLifeCreditorLifePremium2").set("v.value",  parseFloat(ajngid).toFixed(2));
                             }
                                 else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==1 && cmp.find("Othee_post_moratorium__id").get("v.value")=="Extend original loan term by moratorium period"){
+                                      console.log('1.4=====');
                                     var ajngid=this.PMTcalculator(marketi,n,jnlp);
                                     cmp.set("v.MonthlyJNLifeCreditorLifePremium2New",ajngid);
                                     cmp.find("MonthlyJNLifeCreditorLifePremium2").set("v.value",  parseFloat(ajngid).toFixed(2));
                                 }
                                     else{
-                                        
+                                        console.log('1.5=====');
                                         var ajngid=0;
                                         cmp.set("v.MonthlyJNLifeCreditorLifePremium2New",ajngid);
                                         cmp.find("MonthlyJNLifeCreditorLifePremium2").set("v.value",  parseFloat(ajngid).toFixed(2));
                                     }
                     }
                     else if(cmp.find("InterestedinCreditorLife").get("v.value")=='0' && cmp.find("IncludeinLoanAmountinsurence").get("v.value")=='1' ){
+                          console.log('1.6=====');
                         var jnlifenotincludeinloan=0;
                         if(cmp.find("CoverageType").get("v.value")=='4' || cmp.find("CoverageType").get("v.value")=='5' || cmp.find("CoverageType").get("v.value")=='6')
                             jnlp=jnlp*1.85;
@@ -381,6 +416,12 @@
             $A.enqueueAction(action); 
             
             
+        } else if(cmp.find("InterestedinCreditorLife").get("v.value")=='1' ){
+            //JN1-2727#2
+            cmp.set("v.MonthlyJNLifeCreditorLifePremium1New",0);
+            cmp.find("MonthlyJNLifeCreditorLifePremium1").set("v.value", parseFloat(0).toFixed(2));
+            cmp.set("v.MonthlyJNLifeCreditorLifePremium2New",0);
+            cmp.find("MonthlyJNLifeCreditorLifePremium2").set("v.value", parseFloat(0).toFixed(2));
         }
     },
     calculateProcessingFeehelper:function(cmp, event) {
@@ -695,6 +736,7 @@
         
     },
     calculateTotalautoloan:function(cmp, event) {
+        
         var marketloanamount=0;
         var JN1loanamount=0;
         var JN2loanamount=0;
@@ -1034,11 +1076,12 @@
         }
     },
     PMTcalculator : function(Interestrate, LoanTerminMonth, LoanAmount){
+        debugger;
+       
         console.log('PMT=====');
         var i =Interestrate / 1200;
         var n = LoanTerminMonth;
         var p = LoanAmount;
-        console.log('n====='+n);
         var bmla= -(i * p * Math.pow((1 + i), n) / (1 - Math.pow((1 + i), n)));
         return bmla;
     },
