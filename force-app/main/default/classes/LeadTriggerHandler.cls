@@ -721,5 +721,42 @@ Encourage client to add start and end date to employment
         }
         return mappedOpportunityRecords;
     }
-    
+
+    public static void IndustryTypeValidations()  {
+        // validate the primary employment type against the industry selected
+        String errMsg1 = 'The selected Industry value does not match the Primary Employment Type (Employed) selected';
+        String errMsg2 = 'The selected Industry value does not match the Primary Employment Type (Unemployed) selected';
+        String errMsg3 = 'The selected Industry value does not match the Primary Employment Type (Self-Employed) selected';
+        List<String> employedIndustries = new List<String>{'Manufacturing','ICT','Other','Financial Services','Tourism','Government','None'};
+        List<String> selfEmployedIndustries = new List<String>{'Manufacturing','Agriculture','Other','Retail Trade','Tourism','Transportation','Construction','None'};
+        List<String> unEmployedIndustries = new List<String>{'Manufacturing','ICT','Other','Financial Services','Tourism','Government','None'};
+        String industry;
+        for(Lead record: leads){            
+            if(record.Primary_Employment_Type__c != null){
+                if(record.Industry != null){
+                    industry = record.Industry;
+                    switch on record.Primary_Employment_Type__c {
+                        when 'Employed' {
+                            System.debug(TAG + ' Employed ');
+                            if(Util.Some(employedIndustries, industry)  == False){
+                                record.Industry.addError(errMsg1);
+                            }
+                        }
+                        when 'Unemployed' {
+                            System.debug(TAG + ' UNEmployed ');
+                            if(Util.Some(unEmployedIndustries, industry) == False){
+                                 record.Industry.addError(errMsg2);
+                            }
+                        }
+                        when 'Self-Employed' {
+                            System.debug(TAG + ' Self Employed ');
+                            if(Util.Some(selfEmployedIndustries, industry) == False){
+                                 record.Industry.addError(errMsg3);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }  
 }

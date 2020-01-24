@@ -23,6 +23,7 @@ trigger NewLeadTrigger on Lead (before insert, after insert, before update, afte
                 LeadTriggerHandler.crmm_TimeSpentInStage();
                 LeadTriggerHandler.crmm_TierTwoTrigger();
                 SkillsBasedRouting.routeUsingSkillsTier2(Trigger.new);
+                LeadTriggerHandler.IndustryTypeValidations();
                 
             }
         } else if(Trigger.isInsert){
@@ -32,6 +33,7 @@ trigger NewLeadTrigger on Lead (before insert, after insert, before update, afte
             }
             else {
                 LeadTriggerHandler.crmm_TierOne();
+                LeadTriggerHandler.IndustryTypeValidations();
             }
         } 
 }
