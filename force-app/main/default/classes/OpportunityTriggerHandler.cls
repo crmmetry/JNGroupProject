@@ -181,7 +181,10 @@ public class OpportunityTriggerHandler {
         System.debug('Min date: ' + minDate);
         
         for(Opportunity record: newRecords ) {
-            
+            System.debug('New Stage Name => ' +record.StageName);
+            System.debug('Old Stage Name => ' +oldMap.get(record.Id).StageName);
+            System.debug('Today date => ' +todayDate);
+            System.debug('Close date => ' + date.newinstance(record.CloseDate.year(), record.CloseDate.month(), record.CloseDate.day()));
             if(record.StageName == 'Closed Lost' || record.StageName == 'Closed Won' ) {
                 if(oldMap.get(record.Id).StageName != 'Closed Lost' || oldMap.get(record.Id).StageName != 'Closed Won'){
                     date closeDate = date.newinstance(record.CloseDate.year(), record.CloseDate.month(), record.CloseDate.day());

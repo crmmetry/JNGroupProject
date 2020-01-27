@@ -2,6 +2,8 @@
  *  * Sr#  Ticket#      Modified By      Modified Date       Description
  *    1    JN1-2727     Priyanka A.(TQ)  01/23/2020          1.NaN issue   
  *    2    JN1-2727     Priyanka A.(TQ)  01/23/2020          Monthly loan reset issue   
+ *    3    JN1-2740     Amar K.(TQ)      01/25/2020          Monthly load payment before moratorium   
+ *    4    JN1-2741     Priyanka A.(TQ)  01/23/2020          Monthly load payment after moratorium   
 */
 ({	
     AddRow:function(RowIndex,EmpRow,cmp){
@@ -21,6 +23,7 @@
         cmp.set("v.RowNum",EmpRow); 
     },
     calculateJNGIMonthlyPremiumhelper:function(cmp, event) {
+        debugger;
         var RequestData=cmp.get("v.RDetailAuto");
         var i =RequestData[0].Interestrate;
         var im =RequestData[0].Interestrate/ 1200;
@@ -770,6 +773,7 @@
         var JNGIauto2=0;
         var JNLifeauto1=0;
         var processingfeeauto1=0;
+        var halfMonthlyJngiPremium =0;
         if(cmp.get("v.BMLoanamountMarketAutoloan")>0)
             marketloanamount1=cmp.get("v.BMLoanamountMarketAutoloan");
         if(cmp.get("v.LoanamountJNStaff1Autoloan")>0)
@@ -786,7 +790,18 @@
             JNLifeauto1=cmp.get("v.MonthlyJNLifeCreditorLifePremium1New");
         if(cmp.get("v.MonthlyProcessingFees1New")>0)
             processingfeeauto1=cmp.get("v.MonthlyProcessingFees1New");
-        var totalsavingsauto=parseFloat(marketloanamount1)+parseFloat(JN1loanamount1)+parseFloat(JN2loanamount1)+parseFloat(JN3loanamount1)+parseFloat(JNGIauto1)+parseFloat(JNGIauto2)+parseFloat(JNLifeauto1)+parseFloat(processingfeeauto1);
+        
+         //if(cmp.get("v.MonthlyJNGIMotorPremiumhalfPayment1")>0)
+         //   halfMonthlyJngiPremium=cmp.get("v.MonthlyJNGIMotorPremiumhalfPayment1");
+        
+        debugger;
+        console.log('JNGIauto2'+ JNGIauto2);
+        //JN1-2740#3
+        //var totalsavingsauto=parseFloat(marketloanamount1)+parseFloat(JN1loanamount1)+parseFloat(JN2loanamount1)+parseFloat(JN3loanamount1)+parseFloat(JNGIauto1)+parseFloat(JNGIauto2)+parseFloat(JNLifeauto1)+parseFloat(processingfeeauto1);
+         var totalsavingsauto=parseFloat(marketloanamount1)+parseFloat(JN1loanamount1)+parseFloat(JN2loanamount1)+parseFloat(JN3loanamount1)+parseFloat(JNGIauto1)+parseFloat(JNLifeauto1)+parseFloat(processingfeeauto1);
+         //var totalsavingsauto1_test=parseFloat(marketloanamount1)+parseFloat(JN1loanamount1)+parseFloat(JN2loanamount1)+parseFloat(JN3loanamount1)+parseFloat(JNGIauto1)+parseFloat(JNLifeauto1)+parseFloat(processingfeeauto1)+parseFloat(halfMonthlyJngiPremium);
+        
+        //console.log('totalsavingsauto1_test'+ totalsavingsauto1_test);
         cmp.find("MonthlyLoanPayment1").set("v.value", totalsavingsauto.toFixed(2));
         
         var marketloanamount2=0;
@@ -814,7 +829,9 @@
             JNLifeauto2=cmp.get("v.MonthlyJNLifeCreditorLifePremium2New");
         if(cmp.get("v.MonthlyProcessingFees2New")>0)
             processingfeeauto2=cmp.get("v.MonthlyProcessingFees2New");
-        aftermpayment=parseFloat(marketloanamount2)+parseFloat(JN1loanamount2)+parseFloat(JN2loanamount2)+parseFloat(JN3loanamount2)+parseFloat(JNGIauto21)+parseFloat(JNGIauto22)+parseFloat(JNLifeauto2)+parseFloat(processingfeeauto2);
+        //JN1-2740#4
+        //aftermpayment=parseFloat(marketloanamount2)+parseFloat(JN1loanamount2)+parseFloat(JN2loanamount2)+parseFloat(JN3loanamount2)+parseFloat(JNGIauto21)+parseFloat(JNGIauto22)+parseFloat(JNLifeauto2)+parseFloat(processingfeeauto2);
+        aftermpayment=parseFloat(marketloanamount2)+parseFloat(JN1loanamount2)+parseFloat(JN2loanamount2)+parseFloat(JN3loanamount2)+parseFloat(JNGIauto21)+parseFloat(JNLifeauto2)+parseFloat(processingfeeauto2);
         cmp.find("MonthlyLoanPayment2").set("v.value", aftermpayment.toFixed(2));
         
         //===============================
@@ -1308,7 +1325,18 @@
             var MonthlyLoanPaymentJNS2During      = cmp.find("MonthlyLoanPaymentJN21").get("v.value");
             var MonthlyLoanPaymentJNS3During      = cmp.find("MonthlyLoanPaymentJN31").get("v.value");
             var MonthlyJNGIMotorPremium1stYruring = cmp.find("MonthlyJNGIMotorPremium1stYear1").get("v.value");
-            var AG158_AL162 = parseFloat(MonthlyLoanPaymentMarketDuring)+parseFloat(MonthlyLoanPaymentJNS1During)+parseFloat(MonthlyLoanPaymentJNS2During)+parseFloat(MonthlyLoanPaymentJNS3During)+parseFloat(MonthlyJNGIMotorPremium1stYruring);
+            debugger;
+             console.log('MonthlyLoanPaymentMarketDuring===='+MonthlyLoanPaymentMarketDuring);
+             console.log('MonthlyLoanPaymentJNS1During===='+MonthlyLoanPaymentJNS1During);
+             console.log('MonthlyLoanPaymentJNS2During===='+MonthlyLoanPaymentJNS2During);
+             console.log('MonthlyLoanPaymentJNS3During===='+MonthlyLoanPaymentJNS3During);
+             console.log('MonthlyJNGIMotorPremium1stYruring===='+MonthlyJNGIMotorPremium1stYruring);
+            
+             var halfMonthlyJngiPremium  = cmp.find("MonthlyJNGIMotorPremiumhalfPayment1").get("v.value") ||  0;
+             console.log('halfMonthlyJngiPremium===='+halfMonthlyJngiPremium);
+            
+            //var AG158_AL162 = parseFloat(MonthlyLoanPaymentMarketDuring)+parseFloat(MonthlyLoanPaymentJNS1During)+parseFloat(MonthlyLoanPaymentJNS2During)+parseFloat(MonthlyLoanPaymentJNS3During)+parseFloat(MonthlyJNGIMotorPremium1stYruring);
+            var AG158_AL162 = parseFloat(MonthlyLoanPaymentMarketDuring)+parseFloat(MonthlyLoanPaymentJNS1During)+parseFloat(MonthlyLoanPaymentJNS2During)+parseFloat(MonthlyLoanPaymentJNS3During)+parseFloat(MonthlyJNGIMotorPremium1stYruring)+parseFloat(halfMonthlyJngiPremium);
             console.log('AG158_AL162===='+AG158_AL162);
             
             var MonthlyJNLifeCreditorLifePremiumDuring = cmp.find("MonthlyJNLifeCreditorLifePremium1").get("v.value");

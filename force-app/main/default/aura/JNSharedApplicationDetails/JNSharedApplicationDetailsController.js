@@ -71,8 +71,12 @@
     const selected = event.getSource().get("v.value");
     component.set("v.employment.Assessment_of_Business_Working_Capita__c", selected);
   },
-      getJNEMployee: function(component, event, helper) {
+  getJNEMployee: function(component, event, helper) {
     const selected = event.getSource().get("v.value");
     component.set("v.employment.JN_Employee_Loan_Benefit__c", selected);
   },
-});
+  getSanctionScreeningResult: function(component, event, helper) {
+    const selected = event.getSource().get("v.value");
+    component.set("v.employment.Sanction_Screening_has_Negative_Trace__c", selected);
+  }
+})

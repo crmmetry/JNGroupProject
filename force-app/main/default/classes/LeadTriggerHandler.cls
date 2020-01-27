@@ -689,7 +689,7 @@ Encourage client to add start and end date to employment
             Id oppRecordTypeId;
             //lead => opportunity
             Map<String,String> recordTypeMappings = new Map<String,String>{
-                'Loan' => 'Credit_Facility',
+                	'Loan' => 'Credit_Facility',
                     'Mortgage' => 'Mortgage',
                     'Savings_Chequing' => 'Savings_Chequing',
                     'Credit_Card_Super_Lead' => 'Credit_Facility',
@@ -707,7 +707,8 @@ Encourage client to add start and end date to employment
                                     updates.add(record);
                                 }
                                 
-                            }     
+                            }
+                            record = AssignStageUponConversion(recordTypeMappings.get(devName), record);
                         } 
             if(!updates.isEmpty()){
                 update updates;
@@ -758,5 +759,21 @@ Encourage client to add start and end date to employment
                 }
             }
         }
-    }  
+    }
+    private static Opportunity AssignStageUponConversion(String devName, Opportunity record){
+        // assign the correct stage per recoord type on opportunity  
+        System.debug('Current DevName => ' + devName );      
+        switch on devName {
+            when 'Savings_Chequing'{
+                record.StageName = 'Propose Product';
+            }
+            when 'Credit_Facility'{
+                record.StageName = 'Customer Interview';
+            }
+            when 'Mortgage' {
+                record.StageName = 'Get Credit Consent & Await Credit Report';
+            }            
+        }
+        return record;
+    }
 }

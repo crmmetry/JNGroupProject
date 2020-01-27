@@ -200,6 +200,14 @@
 						</aura:iteration>
 					</lightning:select>
 				</lightning:layoutItem>
+                <aura:if isTrue="{!v.applicant.Sanction_Screening_Completed__c == 'Yes'}">
+                  <!-- Sanction Screening Result -->
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="12" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
+					<lightning:input onchange="{!c.getSanctionScreeningResult}" type="checkbox" aura:id="sanction_screening_result"
+                                     label="Has the sanction screening resulted in a negative trace?" checked="{!v.applicant.Sanction_Screening_has_Negative_Trace__c }"/>
+				</lightning:layoutItem>
+                </aura:if>
+
 				<!-- JN Group Employee?* -->
 				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
 					<lightning:select name="jn_group_employee" label="JN Group Employee?" required="true" aura:id="validation" onchange="{!c.getJNGroupEmployee}" >

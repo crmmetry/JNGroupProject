@@ -533,8 +533,9 @@
         helper.calculateTotalautoloan(cmp, event);
     },
     calculateJNGIMonthlyPremium: function(cmp, event, helper) {
+        debuuger;
         console.log("c1==");
-        helper.calculateJNGIMonthlyPremiumhelper(cmp, event);
+
         helper.calculateTotalautoloan(cmp, event);
     },
     calculateProcessingFee: function(cmp, event, helper) {

@@ -20,7 +20,7 @@ global with sharing class JNApplicantFlowController {
                                       Primary_Relationship_Tier__c,Affiliation_Type__c,Account__c,
                                       Time_as_Member_Months__c,Time_as_Member_Years__c,JN_Group_Employee__c,
                                       Sanction_Screening_Completed__c ,Rim_Number__c,Basic_monthly_pay_no_allowances__c,
-                                      Total_unsecured_Balance_Installment_and__c,JN_Employee_Loan_Benefit__c
+                                      Total_unsecured_Balance_Installment_and__c,JN_Employee_Loan_Benefit__c,Sanction_Screening_has_Negative_Trace__c 
                                       
                                       FROM Applicant__c WHERE Id =:applicantId];
             
