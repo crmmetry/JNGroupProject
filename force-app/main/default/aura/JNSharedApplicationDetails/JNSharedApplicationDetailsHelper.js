@@ -14,12 +14,18 @@
         $A.enqueueAction(action);
     },
     updateApplicant: function(component) {
-        let action = component.get("c.updateApplicantDetailsWithEmployment");
+        let action = component.get("c.updateApplicantDetailsBasic");
         action.setParams({
             "applicant": component.get("v.applicant"),
         });
 
-        action.setCallback(this, function(response) {});
+        action.setCallback(this, function(response) {
+            if(response.getState() == 'SUCCESS'){
+                console.info(response.getReturnValue());
+            } else {
+                console.warn(response.getError());
+            }
+        });
         $A.enqueueAction(action);
     },
     validateFields: function(component) {

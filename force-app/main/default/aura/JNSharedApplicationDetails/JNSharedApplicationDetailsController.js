@@ -73,10 +73,10 @@
   },
   getJNEMployee: function(component, event, helper) {
     const selected = event.getSource().get("v.value");
-    component.set("v.employment.JN_Employee_Loan_Benefit__c", selected);
+    component.set("v.applicant.JN_Employee_Loan_Benefit__c", selected);
   },
   getSanctionScreeningResult: function(component, event, helper) {
     const selected = event.getSource().get("v.value");
-    component.set("v.employment.Sanction_Screening_has_Negative_Trace__c", selected);
+    component.set("v.applicant.Sanction_Screening_has_Negative_Trace__c", selected);
   }
 })

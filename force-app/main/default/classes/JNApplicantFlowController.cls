@@ -26,12 +26,12 @@ global with sharing class JNApplicantFlowController {
             
             if(applicant != null){
                 /*List<FinServ__Employment__c>  employments = [SELECT Id,Assessment_of_Business__c,Assessment_of_Statement__c,
-                                                             Assessment_of_Business_Working_Capita__c
-                                                             FROM FinServ__Employment__c WHERE Account__c =:applicant.Account__c AND Current_Employment__c = TRUE];
-                FinServ__Employment__c employment;
-                if(!employments.isEmpty()){
-                    employment = employments.get(0);
-                }*/
+Assessment_of_Business_Working_Capita__c
+FROM FinServ__Employment__c WHERE Account__c =:applicant.Account__c AND Current_Employment__c = TRUE];
+FinServ__Employment__c employment;
+if(!employments.isEmpty()){
+employment = employments.get(0);
+}*/
                 objects.put('applicant', applicant);
                 //objects.put('employment', employment);
                 System.debug('Applicant Objects: '+ objects);
@@ -126,16 +126,21 @@ global with sharing class JNApplicantFlowController {
     }
     
     @AuraEnabled
-    global static Object updateApplicantDetailsWithEmployment(Applicant__C applicant){
+    global static Object updateApplicantDetailsBasic(Applicant__C applicant){
         try {
+            Map<String, Object> fieldsToValue = applicant.getPopulatedFieldsAsMap();            
+            for (String fieldName : fieldsToValue.keySet()){                
+                System.debug('field name is ' + fieldName + ', value is ' + fieldsToValue.get(fieldName));                
+            }
             
             if(applicant != null){
                 update applicant;
             } /*if(employment != null) {
-                update employment;
-            }*/
+update employment;
+}*/
             return 200;
         } catch(Exception e){
+            System.debug(e.getMessage());
             return e;
         }
     }
@@ -238,12 +243,12 @@ global with sharing class JNApplicantFlowController {
         }
         return mapFields;
     }
- /* Making callout to the UI API to get the list of available picklist values based on the selected recordtype  */
+    /* Making callout to the UI API to get the list of available picklist values based on the selected recordtype  */
     @AuraEnabled
     public static string[] getPicklistValuesUIApi(string recordTypeId, string ObjectApiName,string fieldApiName){
         
         string[] piclistValues=new string[]{};
-        string BaseUrl=system.Url.getOrgDomainUrl().toExternalForm();
+            string BaseUrl=system.Url.getOrgDomainUrl().toExternalForm();
         String endPoint = BaseUrl+'/services/data/v47.0/ui-api/object-info/'+ObjectApiName+'/picklist-values/'+recordTypeId+'/'+fieldApiName;
         httprequest request= new httprequest();
         request.setMethod('GET');
@@ -251,7 +256,7 @@ global with sharing class JNApplicantFlowController {
         request.setHeader('Content-Type','application/json; charset=UTF-8');
         request.setHeader('Accept','application/json');
         request.setHeader('Authorization', 'Bearer ' +  getSessionIdFromVfPage());
-                
+        
         http http = new http();
         httpresponse response=http.send(request);
         System.debug(response.getBody());

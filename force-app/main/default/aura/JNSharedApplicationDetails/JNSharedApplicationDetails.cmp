@@ -191,7 +191,7 @@
 				</lightning:layoutItem>
 				<!-- Sanction Screening completed -->
 				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
-					<lightning:select name="sanction_screening_completed" label="Sanction Screening completed" required="true" aura:id="validation" onchange="{!c.getSanctionScreening}" >
+					<lightning:select name="sanction_screening_completed" label="Sanction Screening completed?" required="true" aura:id="validation" onchange="{!c.getSanctionScreening}" >
 						<option value="">select one...</option>
                         <aura:iteration items="{!v.sanctionScreenings}" var="item">
 							<option value="{!item}" selected="{!v.applicant.Sanction_Screening_Completed__c == item}">
@@ -202,9 +202,15 @@
 				</lightning:layoutItem>
                 <aura:if isTrue="{!v.applicant.Sanction_Screening_Completed__c == 'Yes'}">
                   <!-- Sanction Screening Result -->
-				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="12" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
-					<lightning:input onchange="{!c.getSanctionScreeningResult}" type="checkbox" aura:id="sanction_screening_result"
-                                     label="Has the sanction screening resulted in a negative trace?" checked="{!v.applicant.Sanction_Screening_has_Negative_Trace__c }"/>
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="12" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">					
+                   <lightning:select name="sanction_screening_result" label="Has the sanction screening resulted in a negative trace?" required="true" aura:id="validation" onchange="{!c.getSanctionScreeningResult}" >
+						<option value="">select one...</option>
+                        <aura:iteration items="{!v.sanctionScreenings}" var="item">
+							<option value="{!item}" selected="{!v.applicant.Sanction_Screening_has_Negative_Trace__c == item}">
+								{!item}
+							</option>
+						</aura:iteration>
+					</lightning:select>
 				</lightning:layoutItem>
                 </aura:if>
 
@@ -221,15 +227,15 @@
 				</lightning:layoutItem>
 				<!-- Basic monthly pay (no allowances) -->
 				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
-					<lightning:input value="{!v.applicant.Basic_monthly_pay_no_allowances__c}" formatter="currency" type="number"  label="Basic monthly pay (no allowances)"/>
+					<lightning:input aura:id="validation" value="{!v.applicant.Basic_monthly_pay_no_allowances__c}" formatter="currency" type="number"  label="Basic monthly pay (no allowances)"/>
 				</lightning:layoutItem>
 				<!-- Total unsecured Balance (Installment and revolving) -->
 				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
-					<lightning:input value="{!v.applicant.Total_unsecured_Balance_Installment_and__c}" formatter="currency" type="number" label="Total unsecured Balance (Installment and revolving)" />
+					<lightning:input aura:id="validation" value="{!v.applicant.Total_unsecured_Balance_Installment_and__c}" formatter="currency" type="number" label="Total unsecured Balance (Installment and revolving)" />
 				</lightning:layoutItem>
 				<!-- Will the JN Employee Loan Benefit be applied?* -->
 				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small" >
-					<lightning:input onchange="{!c.getJNEMployee}" type="checkbox" aura:id="JN_Employee_Loan_Benefit"
+					<lightning:input onchange="{!c.getJNEMployee}" type="checkbox" aura:id="validation"
                                      label="Will the JN Employee Loan Benefit be applied?" checked="{!v.applicant.JN_Employee_Loan_Benefit__c}"/>
 				</lightning:layoutItem>
 			</lightning:layout>
