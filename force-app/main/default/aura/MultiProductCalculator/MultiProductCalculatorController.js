@@ -1,3 +1,7 @@
+/*
+ *  * Sr#  Ticket#      Modified By      Modified Date       Description
+ *    1    JN1-2727     Amar K.(TQ)      01/24/2020          1.NaN issue 
+*/
 ({
     doInit: function(cmp, event, helper) {
         debugger;
@@ -533,9 +537,9 @@
         helper.calculateTotalautoloan(cmp, event);
     },
     calculateJNGIMonthlyPremium: function(cmp, event, helper) {
-        debuuger;
+        debugger;
         console.log("c1==");
-
+		helper.calculateJNGIMonthlyPremiumhelper(cmp, event);
         helper.calculateTotalautoloan(cmp, event);
     },
     calculateProcessingFee: function(cmp, event, helper) {
@@ -814,7 +818,7 @@
          console.log("Coverageoptions ============"+cmp.get("v.Coverageoptions"));
     },
     ShowHideOnInterestedinprogramme: function(cmp, evt, helper) {
-        debugger
+        debugger;
         var acMethod = cmp.find("Interestedinprogramme").get("v.value");
         switch (acMethod) {
             case "0":
@@ -865,8 +869,8 @@
                     "slds-hide"
                 );
                 $A.util.addClass(cmp.find("JNGIMotorInsurancePremium1st"), "slds-hide");
-                
-                cmp.find("MonthlyPremium").set("v.value", 0);//AK
+                //JN1-2727#1 :: Reset to zero if No
+                cmp.find("MonthlyPremium").set("v.value", 0);
                 helper.calculateJNGIMonthlyPremiumhelper(cmp, event);
                 helper.calculateTotalautoloan(cmp, event);
                 break;
