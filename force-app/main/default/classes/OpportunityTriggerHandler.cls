@@ -171,8 +171,8 @@ public class OpportunityTriggerHandler {
     }
     public static void validateCloseBackDate(Integer backdatedDays, Integer maxPrevDays, DateTime now){
         String err1 = 'The Closed Date cannot be this far back in the past. Please contact Sales Support.';
-        String err2 = 'The Closed Date cannot be greater than this record created date.';
-        String err3 = 'The Closed Date cannot be greater than today';
+        String err2 = 'The Closed Date cannot be greater than this record created date. Please contact Sales Support.';
+        String err3 = 'The Closed Date cannot be greater than today. Please contact Sales Support.';
         
         Date minDate = date.newinstance(now.year(), now.month(), now.day());
         Date todayDate = date.newinstance(now.year(), now.month(), now.day());
@@ -181,12 +181,8 @@ public class OpportunityTriggerHandler {
         System.debug('Min date: ' + minDate);
         
         for(Opportunity record: newRecords ) {
-            System.debug('New Stage Name => ' +record.StageName);
-            System.debug('Old Stage Name => ' +oldMap.get(record.Id).StageName);
-            System.debug('Today date => ' +todayDate);
-            System.debug('Close date => ' + date.newinstance(record.CloseDate.year(), record.CloseDate.month(), record.CloseDate.day()));
             if(record.StageName == 'Closed Lost' || record.StageName == 'Closed Won' ) {
-                if(oldMap.get(record.Id).StageName != 'Closed Lost' || oldMap.get(record.Id).StageName != 'Closed Won'){
+                //if(oldMap.get(record.Id).StageName != 'Closed Lost' || oldMap.get(record.Id).StageName != 'Closed Won'){
                     date closeDate = date.newinstance(record.CloseDate.year(), record.CloseDate.month(), record.CloseDate.day());
                     date createdDate = date.newinstance(record.CreatedDate.year(), record.CreatedDate.month(), record.CreatedDate.day());
                     Integer prevMonth = record.CloseDate.month();
@@ -209,7 +205,7 @@ public class OpportunityTriggerHandler {
                             }
                         }
                     }            
-                }
+                //}
             }
             
         }

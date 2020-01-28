@@ -27,10 +27,11 @@
     let childCmp = component.find("JNModal");
     childCmp.hideModal();
   },
-  updateLeadInfo: function(component) {
+  updateLeadInfo: function(component , applicant) {
+    let lead = applicant || component.get("v.SiteLead");
     const action = component.get("c.updateLeadInformation");
     action.setParams({
-      currentLead: component.get("v.SiteLead")
+      currentLead: lead
     });
     component.set("v.showLoading", true);
     action.setCallback(this, function(response) {

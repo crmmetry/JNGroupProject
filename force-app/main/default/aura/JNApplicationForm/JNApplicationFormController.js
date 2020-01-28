@@ -1,6 +1,5 @@
 ({
   doInit: function(component, event, helper) {
-       
     const creditCardTabs = [
       "Getting_Started_Tab",
       "Application_Information_Tab",
@@ -24,20 +23,23 @@
       "Affiliations_Tab",
       "Document_Upload_Tab"
     ];
-      
-    component.set("v.unsecuredLoanTabs",unsecuredLoanTabs);
-    component.set("v.creditCardTabs",creditCardTabs);
+
+    component.set("v.unsecuredLoanTabs", unsecuredLoanTabs);
+    component.set("v.creditCardTabs", creditCardTabs);
     component.set("v.SiteLead", {});
     component.set("v.tabId", "Getting_Started_Tab");
   },
-  handleLoanTypeChange : function (component, event, helper) {
-        const old = event.getParam("oldValue");
-        const current = event.getParam("value");
-        const unsecuredLoanTabs = component.get("v.unsecuredLoanTabs");
-    	const creditCardTabs = component.get("v.creditCardTabs");
-      	component.set("v.loan_type", current);
-      	component.set("v.allTabs", current === 'credit_card' ? creditCardTabs : unsecuredLoanTabs);
-    },
+  handleLoanTypeChange: function(component, event, helper) {
+    const old = event.getParam("oldValue");
+    const current = event.getParam("value");
+    const unsecuredLoanTabs = component.get("v.unsecuredLoanTabs");
+    const creditCardTabs = component.get("v.creditCardTabs");
+    component.set("v.loan_type", current);
+    component.set(
+      "v.allTabs",
+      current === "credit_card" ? creditCardTabs : unsecuredLoanTabs
+    );
+  },
   openModal: function(component, event, helper) {
     var childCmp = component.find("JNModal");
     var header = "Here is the header I assign";
@@ -52,7 +54,7 @@
   },
   handleTabChange: function(component, event, helper) {
     const tabName = helper.getTabName(component.get("v.tabId"));
-      console.log('Current Tab', tabName);
+    console.log("Current Tab", tabName);
     if (tabName === "Document_Upload") {
       component.set("v.formBtnText", "Finish");
     } else {
@@ -156,6 +158,8 @@
       });
       return;
     } else {
+      // update JN_Site_Form_Completed_Flag__c = true
+      
       // display successful toast
       helper.showSuccessToast(component, {
         severity: "confirm",
@@ -164,7 +168,7 @@
         title: "Applicant Form Completion"
       });
       setTimeout(function() {
-          window.location.reload();
+        window.location.reload();
         //helper.sendEvents(component, "JNHomePage", ["showHomePage"], {});
       }, 5500);
     }

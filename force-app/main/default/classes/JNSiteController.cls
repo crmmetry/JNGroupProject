@@ -52,10 +52,11 @@ public class JNSiteController {
     public static Object updateApplicantTextInfo(Map<String, String> applicantDetails ,  String leadId ){
         try {
             Map<String, String> booleanFields = new Map<String, String>{
-                'Different_Mailing_Address__c' => 'Different_Mailing_Address__c'
+                'Different_Mailing_Address__c' => 'Different_Mailing_Address__c',
+                'JN_Site_Form_Completed_Flag__c' =>'JN_Site_Form_Completed_Flag__c'
                     };
             Map<String, String> decimalFields = new Map<String, String>{
-                'Mailing_Years_at_Residence__c' => 'Mailing_Years_at_Residence__c',
+                	'Mailing_Years_at_Residence__c' => 'Mailing_Years_at_Residence__c',
                     'Years_at_Residence__c' => 'Years_at_Residence__c',
                     'Time_with_Current_Employer__c' => 'Time_with_Current_Employer__c',
                     'Time_in_Industry__c' => 'Time_in_Industry__c'
@@ -66,7 +67,7 @@ public class JNSiteController {
                                 'Identification_Type_Expiration__c' => 'Identification_Type_Expiration__c',
                                 'Date_of_Incorporation__c' => 'Date_of_Incorporation__c'
                                 };
-                                    Lead newLead = new Lead(Id=leadId);
+            Lead newLead = new Lead(Id=leadId);
             for(String field: applicantDetails.keySet()){ 
                 if(dateFields.containsKey(field)){
                     newLead.put(field, Date.valueOf(applicantDetails.get(field)));

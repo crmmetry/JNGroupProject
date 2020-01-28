@@ -235,7 +235,7 @@
 				</lightning:layoutItem>
 				<!-- Will the JN Employee Loan Benefit be applied?* -->
 				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small" >
-					<lightning:input onchange="{!c.getJNEMployee}" type="checkbox" aura:id="validation"
+					<lightning:input type="checkbox" aura:id="validation"
                                      label="Will the JN Employee Loan Benefit be applied?" checked="{!v.applicant.JN_Employee_Loan_Benefit__c}"/>
 				</lightning:layoutItem>
 			</lightning:layout>
