@@ -157,7 +157,7 @@
 				</lightning:layoutItem>
 				<!-- Rim Number -->
 				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
-					<lightning:input type="number" label="Rim Number" value="{!v.applicant.Rim_Number__c}" required="true" />
+					<lightning:input type="text" label="Rim Number" value="{!v.applicant.Rim_Number__c}" required="true" />
 				</lightning:layoutItem>
 				<!-- Time as Member years -->
 				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
