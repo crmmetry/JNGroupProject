@@ -32,13 +32,29 @@
   handleLoanTypeChange: function(component, event, helper) {
     const old = event.getParam("oldValue");
     const current = event.getParam("value");
-    const unsecuredLoanTabs = component.get("v.unsecuredLoanTabs");
-    const creditCardTabs = component.get("v.creditCardTabs");
-    component.set("v.loan_type", current);
-    component.set(
-      "v.allTabs",
-      current === "credit_card" ? creditCardTabs : unsecuredLoanTabs
-    );
+    if (old != current) {
+      const unsecuredLoanTabs = component.get("v.unsecuredLoanTabs");
+      const creditCardTabs = component.get("v.creditCardTabs");
+      component.set("v.loan_type", current);
+      component.set(
+        "v.allTabs",
+        current === "credit_card" ? creditCardTabs : unsecuredLoanTabs
+      );
+      const currentTabs = component.get("v.allTabs");
+      let validatedTabs = {};
+      const tabs = currentTabs
+        .filter(function(tab) {
+          return tab != "Getting_Started_Tab" && tab != "Document_Upload_Tab" && tab != 'Extensions_Tab';
+        })
+        .map(function(value, index) {
+          return { [value]: false };
+        });
+
+      tabs.forEach(function(body) {
+        Object.assign(validatedTabs, body);
+      });
+      component.set("v.validatedTabs", validatedTabs);
+    }
   },
   openModal: function(component, event, helper) {
     var childCmp = component.find("JNModal");
@@ -54,7 +70,6 @@
   },
   handleTabChange: function(component, event, helper) {
     const tabName = helper.getTabName(component.get("v.tabId"));
-    console.log("Current Tab", tabName);
     if (tabName === "Document_Upload") {
       component.set("v.formBtnText", "Finish");
     } else {
@@ -65,22 +80,18 @@
     const siteLead = component.get("v.SiteLead");
     const allTabs = component.get("v.allTabs");
     const tabName = helper.getTabName(component.get("v.tabId"));
-    // this logic needs to be at the component level
-    /*if (!siteLead.hasOwnProperty("Id") && index >= 3) {
-      helper.showErrorToast(component, {
-        severity: "error",
-        message: "You must first complete step 2 and 3 first",
-        title: "An error has occurred"
-      });
-      return;
-    }*/
-
+    const validatedTabs = component.get("v.validatedTabs");
     const currentCmp = component.find(tabName);
     if (component.get("v.formBtnText") === "Finish") {
       helper.showModal(component);
     } else {
       if (typeof currentCmp.validateTabFields === "function") {
         if (currentCmp.validateTabFields() === true) {
+          const tab = component.get("v.tabId");
+          if (validatedTabs.hasOwnProperty(tab)) {
+              validatedTabs[tab] = true;
+              component.set("v.validatedTabs", validatedTabs);
+          }
           switch (tabName) {
             case "Application_Information": {
               helper.setSiteLeadInfo(component, currentCmp);
@@ -147,19 +158,24 @@
     }
   },
   postiveBtnClick: function(component, event, helper) {
+    const {error, message} = helper.createCompoundErrorMessage(component)
+     
     helper.closeModal(component);
     const siteLead = component.get("v.SiteLead");
-    if (!siteLead.hasOwnProperty("Id")) {
-      //user must complete step 2 and 3 first
+    if (error) {
+        console.info(error)
+        console.warn('Message ', message)
+      //user must complete all required steps first
       helper.showErrorToast(component, {
         severity: "error",
-        message: "You must first complete step 2 and 3 before",
+        message: message,
         title: "An error has occurred"
       });
       return;
     } else {
-        const applicant = {JN_Site_Form_Completed_Flag__c: true};
-      	helper.updateLeadInfo(component, applicant, siteLead['Id']);
+        console.warn('whats going on')
+      const applicant = { JN_Site_Form_Completed_Flag__c: true };
+      helper.updateLeadInfo(component, applicant, siteLead["Id"]);
     }
   }
 });

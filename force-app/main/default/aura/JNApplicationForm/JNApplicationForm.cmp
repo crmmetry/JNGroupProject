@@ -6,6 +6,7 @@
     <aura:handler name="change" value="{!v.loan_type}" action="{!c.handleLoanTypeChange}"/>
     <aura:attribute name="tabId" type="String" />
     <aura:attribute name="allTabs" type="String[]" />
+    <aura:attribute name="validatedTabs" type="Object" />
     <aura:attribute name="unsecuredLoanTabs" type="String[]" />
     <aura:attribute name="creditCardTabs" type="String[]" />
     <aura:attribute name="formBtnText" type="String" default="Next" />
