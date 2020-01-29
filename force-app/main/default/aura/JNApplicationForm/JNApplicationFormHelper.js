@@ -74,8 +74,6 @@
   },
   showSuccessToast: function(component, data) {
     const siteLead = component.get("v.SiteLead");
-
-    //user must complete step 2 and 3 first
     const severity = data.severity;
     const title = data.title;
     const message = data.message;
@@ -103,7 +101,7 @@
               }
           }
 	 }
-      let message = `Please complete the following steps first ${missingSteps.join(',')}`;
+      let message = `Please complete the following tab(s) first ${missingSteps.join(',')}`;
       return {error, message};
   }
 });
