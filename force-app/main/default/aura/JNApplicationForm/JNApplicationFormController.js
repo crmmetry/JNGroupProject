@@ -158,19 +158,8 @@
       });
       return;
     } else {
-      // update JN_Site_Form_Completed_Flag__c = true
-      
-      // display successful toast
-      helper.showSuccessToast(component, {
-        severity: "confirm",
-        message:
-          "Thanks for taking your time to complete this form, please look out for a follow up email.",
-        title: "Applicant Form Completion"
-      });
-      setTimeout(function() {
-        window.location.reload();
-        //helper.sendEvents(component, "JNHomePage", ["showHomePage"], {});
-      }, 5500);
+        const applicant = {JN_Site_Form_Completed_Flag__c: true};
+      	helper.updateLeadInfo(component, applicant, siteLead['Id']);
     }
   }
 });

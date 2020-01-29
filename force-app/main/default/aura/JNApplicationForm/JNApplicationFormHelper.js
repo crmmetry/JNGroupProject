@@ -27,19 +27,27 @@
     let childCmp = component.find("JNModal");
     childCmp.hideModal();
   },
-  updateLeadInfo: function(component , applicant) {
-    let lead = applicant || component.get("v.SiteLead");
-    const action = component.get("c.updateLeadInformation");
+  updateLeadInfo: function(component, applicant, leadId) {
+    const action = component.get("c.updateApplicantTextInfo");
     action.setParams({
-      currentLead: lead
+      applicantDetails: applicant,
+      leadId: leadId
     });
     component.set("v.showLoading", true);
     action.setCallback(this, function(response) {
       component.set("v.showLoading", false);
       const state = response.getState();
       if (state === "SUCCESS") {
-        //display successful toast
-        alert("successfuly submitted");
+        // display successful toast
+        helper.showSuccessToast(component, {
+          severity: "confirm",
+          message:
+            "Thanks for taking your time to complete this form, please look out for a follow up email.",
+          title: "Applicant Form Completion"
+        });
+        setTimeout(function() {
+          window.location.reload();
+        }, 5500);
       }
     });
     $A.enqueueAction(action);
