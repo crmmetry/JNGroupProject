@@ -158,13 +158,10 @@
     }
   },
   postiveBtnClick: function(component, event, helper) {
-    const {error, message} = helper.createCompoundErrorMessage(component)
-     
+    const {error, message} = helper.createCompoundErrorMessage(component)     
     helper.closeModal(component);
     const siteLead = component.get("v.SiteLead");
     if (error) {
-        console.info(error)
-        console.warn('Message ', message)
       //user must complete all required steps first
       helper.showErrorToast(component, {
         severity: "error",
@@ -173,7 +170,6 @@
       });
       return;
     } else {
-        console.warn('whats going on')
       const applicant = { JN_Site_Form_Completed_Flag__c: true };
       helper.updateLeadInfo(component, applicant, siteLead["Id"]);
     }
