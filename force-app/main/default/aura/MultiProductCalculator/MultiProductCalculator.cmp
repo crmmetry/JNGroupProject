@@ -232,8 +232,8 @@
                                             <lightning:input type="text" value="{!row.FirstName}" />
                                         </td>
                                         <td>
-
-                                            <lightning:input type="Date" value="{!row.DateOfBirth}" class="pr" messageWhenBadInput="Your entry does not match the allowed format MM/DD/YYYY." style="padding-right: 0px!important;" onblur="{!c.showhideCoverageType}" />
+                                 <!--        <lightning:input type="Date" value="{!row.DateOfBirth}" class="pr" messageWhenBadInput="Your entry does not match the allowed format MM/DD/YYYY." style="padding-right: 0px!important;" onblur="{!c.showhideCoverageType}" /> -->
+                                            <lightning:input type="Date" value="{!row.DateOfBirth}" class="pr" messageWhenBadInput="Your entry does not match the allowed format MM/DD/YYYY." style="padding-right: 0px!important;" onchange="{!c.showhideCoverageType}" />
                                         </td>
                                         <td>
                                             <lightning:input type="number" formatter="currency" step="0.01" value="{!row.GMIncome}" onblur="{!c.ApplicantDetailsChange}" />
