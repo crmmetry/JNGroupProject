@@ -5,6 +5,7 @@
  *    3    JN1-2840     Amar K.(TQ)      01/25/2020          Monthly load payment before moratorium   
  *    4    JN1-2841     Amar K.(TQ)  01/23/2020          Monthly load payment after moratorium   
  *    5    JN1-2739     Priyanka A.(TQ)  01/30/2020      Total Interest Payment
+ *    6    JN1-2740     Priyanka A.(TQ)  01/30/2020      Total Interest Payment
 */    
 ({	
     AddRow:function(RowIndex,EmpRow,cmp){
@@ -180,8 +181,8 @@
         var RequestData=cmp.get("v.RDetailAuto") ;
       
         //JN1-2727#1 
-        marketi = RequestData[0].Interestrate != undefined ? RequestData[0].Interestrate : 0;
-        im = RequestData[0].Interestrate != undefined ? RequestData[0].Interestrate / 1200 : 0;
+        marketi = this.setObjectValueIfInvalid(RequestData[0].Interestrate);
+        im = this.setObjectValueIfInvalid(RequestData[0].Interestrate) > 0 ? RequestData[0].Interestrate / 1200 : 0;
         
         var n=cmp.get("v.LoanTermMarket");
         
@@ -845,60 +846,27 @@
         }
         //========================= 
       
-        // JN 2739 #5       
+        // JN1-2739#5 Calculated totloaninterest, changed existing formula
+        // JN1-2740#6     
         var totloaninterest=0;
-        
         if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==1){
           
-            //Old
+            /*
             var t1=parseFloat(((parseFloat(marketloanamount2)+parseFloat(JNGIauto21)+parseFloat(JNLifeauto2)+parseFloat(processingfeeauto2))*(parseFloat(ltmarket)-parseFloat(cmp.find("IndicateTerm").get("v.value")))));
-            console.log('t1 ='+t1 );
-            var  moratoriumTerm = parseFloat(cmp.find("IndicateTerm").get("v.value"));
             totloaninterest=parseFloat(marketloanamount1)+parseFloat(JNGIauto1)+parseFloat(JNLifeauto1)+parseFloat(processingfeeauto1)+parseFloat(t1)+parseFloat(JN1loanamount1*ltjn1)+parseFloat(JN2loanamount1*ltjn2)+parseFloat(JN3loanamount1*ltjn3)-parseFloat(totalloanauto);
-            var totloaninterest1=((parseFloat(marketloanamount1)+parseFloat(JNGIauto1)+parseFloat(JNLifeauto1)+parseFloat(processingfeeauto1))*moratoriumTerm)+parseFloat(t1)+parseFloat(JN1loanamount1*ltjn1)+parseFloat(JN2loanamount1*ltjn2)+parseFloat(JN3loanamount1*ltjn3)-parseFloat(totalloanauto);
-           
-            console.log('@@@@@@@@@ principle only 0  =  '+totloaninterest);
-            console.log('@@@@@@@@@ principle only 1 =  '+totloaninterest1);
-            
-            var morotoriumPeriod = cmp.find("IndicateTerm").get("v.value");
-            var beforeMorotorium = (marketloanamount1 + JNGIauto1 + JNLifeauto1 + processingfeeauto1) * morotoriumPeriod ;
-            console.log('**marketloanamount1 ='+marketloanamount1 ); 
-            console.log('**JNGIauto1 ='+JNGIauto1 ); 
-            console.log('**JNLifeauto1 ='+JNLifeauto1 ); 
-            console.log('**processingfeeauto1 ='+processingfeeauto1 );   
-            console.log('**morotoriumPeriod ='+morotoriumPeriod ); 
-            console.log('beforeMorotorium ='+beforeMorotorium );
-            
-            console.log('----------------------------after------------------------------------------------------------------ ');
-            var afterMorotorium =  (marketloanamount2 + JNGIauto21 + JNLifeauto2 + processingfeeauto2) * (ltmarket - morotoriumPeriod);
-            console.log('**marketloanamount2 ='+marketloanamount2 ); 
-            console.log('**JNGIauto21 ='+JNGIauto21 ); 
-            console.log('**JNLifeauto2 ='+JNLifeauto2 ); 
-            console.log('**processingfeeauto2 ='+processingfeeauto2 );   
-            console.log('**ltmarket ='+ltmarket ); 
-            console.log('**morotoriumPeriod ='+morotoriumPeriod );
-          
-            console.log('----------------------------staff------------------------------------------------------------------ ');
-            
+            */
+            var moratoriumPeriod = cmp.find("IndicateTerm").get("v.value");
+            var beforeMoratorium = (marketloanamount1 + JNGIauto1 + JNLifeauto1 + processingfeeauto1) * moratoriumPeriod ;
+            var afterMoratorium =  (marketloanamount2 + JNGIauto21 + JNLifeauto2 + processingfeeauto2) * (ltmarket - moratoriumPeriod);
             var staffCalculation = (JN1loanamount1 *ltjn1) + (JN2loanamount1*ltjn2 ) + (JN3loanamount1 *ltjn3 );
-            console.log('**JN1loanamount1 ='+JN1loanamount1 );
-            console.log('**ltjn1 ='+ltjn1 );
-            console.log('**totalloanauto ='+totalloanauto );
-            totloaninterest =   (beforeMorotorium + afterMorotorium + staffCalculation) - totalloanauto;
-            console.log(' totloaninterest =  '+totloaninterest);
-            
-        }
-        else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2){
-           
-            console.log('@@@@@@@@@ principle and interest=  '+totloaninterest);
+            totloaninterest =   (beforeMoratorium + afterMoratorium + staffCalculation) - totalloanauto;
+        } else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2){
             var t1=parseFloat(((parseFloat(marketloanamount2)+parseFloat(JNGIauto21)+parseFloat(JNLifeauto2)+parseFloat(processingfeeauto2))*(parseFloat(ltmarket)-parseFloat(cmp.find("IndicateTerm").get("v.value")))));
             totloaninterest=parseFloat(t1)+parseFloat(JN1loanamount1*ltjn1)+parseFloat(JN2loanamount1*ltjn2)+parseFloat(JN3loanamount1*ltjn3)-parseFloat(totalloanauto);  
             
         } else{
             totloaninterest=((parseFloat(marketloanamount1)+parseFloat(JNGIauto1)+parseFloat(JNLifeauto1)+parseFloat(processingfeeauto1))*(ltmarket))+parseFloat(JN1loanamount1*ltjn1)+parseFloat(JN2loanamount1*ltjn2)+parseFloat(JN3loanamount1*ltjn3)-parseFloat(totalloanauto);  
         }
-
-           
         //================
         cmp.find("TotalIP1").set("v.value", parseFloat(totloaninterest).toFixed(2));
         cmp.find("LegalFeesGCT1").set("v.value", "5825");
@@ -3058,13 +3026,18 @@
         $A.enqueueAction(action);
         console.log('save--------------------------5-');
     },
-    /*setObjectValueIfInvalid: function(Object objValue) {
+     canShowStatementOfAffairs: function(values, scenario){
+        return values.some(function(value){
+            return scenario == value;
+        });
+    },//JN1-2727#1
+    setObjectValueIfInvalid: function(objValue) {
         objValue = objValue == undefined ? 0 : objValue;
-        objValue = isNaN(objValue) ? 0 : objValue;
-        objValue = isFinite(objValue) ? 0 : objValue;
+        objValue = Number.isNaN(objValue) ? 0 : objValue;
+        objValue = isFinite(objValue) ? objValue : 0;
         
         return objValue;
-    }*/
+    }
     
     
 })

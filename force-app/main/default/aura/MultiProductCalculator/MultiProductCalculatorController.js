@@ -4,19 +4,16 @@
 */
 ({
     doInit: function(cmp, event, helper) {
-        debugger;
+        const notAllowedStatementAffairsScenarios = ["3","4","10"];
         var isprod = cmp.get("v.isProductDetail");
         var opts = [
                 { value: "0", label: "choose one..." },
                 { value: "7", label: "No Suitable Applicants" }
             ];
             cmp.set("v.Coverageoptions", opts);
-        console.log("component type========>" + isprod);
         
-        console.log("window.location.origin"+window.location.origin);
         if (isprod) {
             //$A.util.addClass(cmp.find("ccRequest"), "slds-hide"); //JN1-2490
-            console.log("A========>" + isprod);
             helper.calculateScoreCalculate(cmp);
             var opp_id = cmp.get("v.isRecordIdM");
             helper.isRequiredFieldMissingForCreditScore(cmp, opp_id);
@@ -53,19 +50,6 @@
                         var EMCPayment = "";
                         var IsJNEmployee = "";
                         var applicantId = "";
-                        /*
-                        if(applicantlst[k].Account__r.firstname!=null)
-                            FirstName=applicantlst[k].Account__r.firstname;
-                        if(applicantlst[k].Account__r.lastname!=null)
-                            LastName=applicantlst[k].Account__r.lastname;
-                        if(applicantlst[k].Account__r.PersonBirthdate!=null)
-                            DateOfBirth=applicantlst[k].Account__r.PersonBirthdate;
-                        if(applicantlst[k].Account__r.Gross_Monthly_Income__pc!=null)
-                            GMIncome=applicantlst[k].Account__r.Gross_Monthly_Income__pc;
-                        if(applicantlst[k].Opportunity__r.Existing_monthly_debts_being_serviced__c!=null)
-                            EMCPayment=applicantlst[k].Opportunity__r.Existing_monthly_debts_being_serviced__c;
-                        if(applicantlst[k].Account__r.JN_Bank_Affiliation__pc!=null)
-                            IsJNEmployee=applicantlst[k].Account__r.JN_Bank_Affiliation__pc;*/
                         if (applicantlst[k].First_Name != null)
                             FirstName = applicantlst[k].First_Name;
                         if (applicantlst[k].Last_Name != null)
@@ -80,14 +64,7 @@
                             IsJNEmployee = applicantlst[k].IsJNEmp;
                         if (applicantlst[k].applicantId != null)
                             applicantId = applicantlst[k].applicantId;
-                            
-                        
-                        console.log("applicantlst====FirstName========>" + FirstName);
-                        console.log("applicantlst====LastName========>" + LastName);
-                        console.log("applicantlst====DateOfBirth========>" + DateOfBirth);
-                        console.log("applicantlst====GMIncome========>" + GMIncome);
-                        console.log("applicantlst====EMCPayment========>" + EMCPayment);
-                        console.log("applicantlst====IsJNEmployee========>" + IsJNEmployee);
+                           
                         
                         if (k == 0) {
                             EmpRow = [
@@ -130,10 +107,22 @@
             action.setCallback(this, function(response) {
                 var state = response.getState();
                 if (state === "SUCCESS") {
+                    console.warn(response.getReturnValue())
                     var productselection = response.getReturnValue();
-                    cmp.find("selectapplicant").set("v.value", productselection);
+                    const selectapplicant = cmp.find("selectapplicant");
+                    if(selectapplicant){
+                        selectapplicant.set("v.value", productselection);
+                    }
                     $A.enqueueAction(cmp.get("c.showhideONmethod"));
                     var calc = productselection;
+                    // dont show statement of affairs based on product selection
+                    const shouldShowStatements = helper.canShowStatementOfAffairs(notAllowedStatementAffairsScenarios, productselection);
+                    console.warn('shouldShowStatements ', shouldShowStatements)
+                    cmp.set("v.canShowStatementAffairs",shouldShowStatements);
+                    if(!productselection || productselection == null || typeof productselection === 'undefined' || productselection == '0'){
+                        cmp.set("v.canShowStatementAffairs", true);
+                    }
+                    console.warn('canShowStatementAffairs Next', cmp.get("v.canShowStatementAffairs"))
                     if (
                         calc == "1" ||
                         calc == "5" ||
@@ -222,6 +211,9 @@
         } else if (str.indexOf("Opportunity") != -1) {
             cmp.set("v.sobjectName", "Opportunity");
         }
+        // Given that the Opportunity Product is “Line of Credit” ONLY OR “Credit Card” ONLY or “Line of Credit 
+        // AND Credit Card” ONLY the Statement of Affairs document should not be Generated.
+       
     },
     Createapplicantlist: function(cmp, event, helper) {
         var ApplicantRow = [

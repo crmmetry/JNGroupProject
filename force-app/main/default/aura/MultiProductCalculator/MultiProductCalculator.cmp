@@ -23,6 +23,7 @@
     <aura:attribute name="MarketValueofVehicleA" type="integer" />
     <aura:attribute name="RowNum" type="Object[]" default="{}" />
     <aura:attribute name="applicants" type="String[]" />
+    <aura:attribute name="canShowStatementAffairs" type="Boolean" default="true"/>
     <aura:attribute name="RDetailAuto" type="Object[]" default="{}" />
     <aura:attribute name="RDetailUnsecured" type="Object[]" default="{}" />
     <aura:handler event="c:Requestdetailevent" action="{!c.Requestdetaileventhandler}" />
@@ -2624,7 +2625,7 @@
                     </div>
                 </div>
                 <div class="slds-grid slds-wrap" style="margin-top: 10px;">
-                    <aura:if isTrue="{!v.ApplicantCount>=1}">
+                    <aura:if isTrue="{!and(v.ApplicantCount>=1,equals(v.canShowStatementAffairs,false))}">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.StatementofAffair }" data-value="Doc1">
                             <lightning:layout class="slds-box">
                                 <lightning:layoutItem>
@@ -2639,7 +2640,7 @@
                             </lightning:layout>
                         </div>
                     </aura:if>
-                    <aura:if isTrue="{!v.ApplicantCount>=2}">
+                    <aura:if isTrue="{!and(v.ApplicantCount>=2,equals(v.canShowStatementAffairs,false))}">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.StatementofAffair }" data-value="Doc2">
                             <lightning:layout class="slds-box">
                                 <lightning:layoutItem>
@@ -2654,7 +2655,7 @@
                             </lightning:layout>
                         </div>
                     </aura:if>
-                    <aura:if isTrue="{!v.ApplicantCount>=3}">
+                    <aura:if isTrue="{!and(v.ApplicantCount>=3,equals(v.canShowStatementAffairs,false))}">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="cursor: pointer;padding-right: 5px;" onclick="{! c.StatementofAffair }" data-value="Doc3">
                             <lightning:layout class="slds-box">
                                 <lightning:layoutItem>
