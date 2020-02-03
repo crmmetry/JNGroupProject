@@ -239,6 +239,8 @@ public class OpportunityTriggerHandler {
                     Boolean lineOfCredit = false;
                     Boolean unsecureLoan = false;
                     Boolean creditCard = false;
+                    Boolean mortgage = false;
+            		Boolean savingsChequing = false;
             for(OpportunityLineItem lineItem: newRecord.OpportunityLineItems) {
                 System.debug('Familiy: ' + lineItem.Product_Family__c);
                 switch on lineItem.Product_Family__c {
@@ -258,8 +260,14 @@ public class OpportunityTriggerHandler {
                         System.debug('Credit Card');
                         creditCard = true;
                     }
+
+                    when 'JN Bank Deposit Account'{
+                        savingsChequing = true;
+                    }
                 }
-                
+                if(lineItem.Product_Family__c.contains('JN Bank Mortgage')){
+                    mortgage = true;
+                }
                 
             }
             updatedOpportunity = mappedRecords.get(newRecord.Id);
@@ -288,6 +296,14 @@ public class OpportunityTriggerHandler {
             } else {
                 System.debug('NOT Updating credit card');
                 updatedOpportunity.Credit_Card__c   = false;
+            } if(savingsChequing){
+                updatedOpportunity.Savings_and_Chequing__c = true;
+            } else {
+                updatedOpportunity.Savings_and_Chequing__c = false;
+            } if(mortgage) {
+                updatedOpportunity.Mortgage__c = true;
+            } else {
+                updatedOpportunity.Mortgage__c = false;
             }
         }
         
