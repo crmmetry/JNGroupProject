@@ -49,5 +49,20 @@
       data: data
     });
     eventToSend.fire();
+  },
+  setPreferredRequiredField: function(component) {
+    let siteLead = component.get("v.SiteLead");
+    switch (siteLead["Preferred_Contact_Method__c"]) {
+      case "Home Phone": {
+          component.set("v.homeNumberRequired", true);
+          component.set("v.businessNumberRequired", false);
+        break;
+      }
+      case "Business Phone": {
+          component.set("v.businessNumberRequired", true);
+          component.set("v.homeNumberRequired", false);
+        break;
+      }
+    }
   }
 });

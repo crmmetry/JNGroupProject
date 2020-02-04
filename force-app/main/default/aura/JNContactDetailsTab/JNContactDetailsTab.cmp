@@ -7,6 +7,8 @@
     <aura:attribute name="addressTypes" type="String[]" />
     <aura:attribute name="leadId" type="String" />
     <aura:attribute name="addressStatuses" type="String[]" />
+    <aura:attribute name="homeNumberRequired" type="Boolean" default="false"/>
+    <aura:attribute name="businessNumberRequired" type="Boolean" default="false"/>
     <aura:attribute name="preferredContactMethods" type="String[]" />
     <aura:attribute name="emailRegex" type="String"  default="^[a-zA-Z0-9_\-.]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"/>
     
@@ -58,6 +60,7 @@
                                      value="{!v.SiteLead.Home_Phone__c}"
                                      aura:id="validation"
                                      pattern="{!v.phoneRegex}"
+                                     required="{!v.homeNumberRequired}"
                                      messageWhenPatternMismatch="Enter a valid number"
                                      />
                 </div>
@@ -70,6 +73,7 @@
                                      value="{!v.SiteLead.Business_Phone__c}"
                                      aura:id="validation"
                                      pattern="{!v.phoneRegex}"
+                                     required="{!v.businessNumberRequired}"
                                      messageWhenPatternMismatch="Enter a valid number"
                                      />
                 </div>
