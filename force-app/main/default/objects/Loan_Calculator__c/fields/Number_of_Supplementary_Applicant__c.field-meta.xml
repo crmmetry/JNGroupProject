@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Number_of_Supplementary_Applicant__c</fullName>
+    <externalId>false</externalId>
+    <label>Number of Supplementary Applicant</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1 Supplementary Cardholder</fullName>
+                <default>false</default>
+                <label>1 Supplementary Cardholder</label>
+            </value>
+            <value>
+                <fullName>2 Supplementary Cardholder</fullName>
+                <default>false</default>
+                <label>2 Supplementary Cardholder</label>
+            </value>
+            <value>
+                <fullName>3 Supplementary Cardholder</fullName>
+                <default>false</default>
+                <label>3 Supplementary Cardholder</label>
+            </value>
+            <value>
+                <fullName>4 Supplementary Cardholder</fullName>
+                <default>false</default>
+                <label>4 Supplementary Cardholder</label>
+            </value>
+            <value>
+                <fullName>5 Supplementary Cardholder</fullName>
+                <default>false</default>
+                <label>5 Supplementary Cardholder</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

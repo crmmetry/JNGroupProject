@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Assets_and_Liabilities__c</fullName>
+    <externalId>false</externalId>
+    <label>Assets and Liabilities</label>
+    <referenceTo>FinServ__AssetsAndLiabilities__c</referenceTo>
+    <relationshipName>Application_Assets_Liabilities</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

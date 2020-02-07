@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Afilliate_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Afilliate Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>JN Bank</fullName>
+                <default>false</default>
+                <label>JN Bank</label>
+            </value>
+            <value>
+                <fullName>Political</fullName>
+                <default>false</default>
+                <label>Political</label>
+            </value>
+            <value>
+                <fullName>Credit Card Extension</fullName>
+                <default>false</default>
+                <label>Credit Card Extension</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
