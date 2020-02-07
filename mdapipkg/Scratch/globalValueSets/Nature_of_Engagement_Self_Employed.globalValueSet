@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Professional service provider</fullName>
+        <default>false</default>
+        <label>Professional service provider</label>
+    </customValue>
+    <customValue>
+        <fullName>Vocational service provider</fullName>
+        <default>false</default>
+        <label>Vocational service provider</label>
+    </customValue>
+    <customValue>
+        <fullName>Trader</fullName>
+        <default>false</default>
+        <label>Trader</label>
+    </customValue>
+    <customValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </customValue>
+    <masterLabel>Nature of Engagement (Self-Employed)</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

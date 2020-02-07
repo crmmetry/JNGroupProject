@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Driver&#39;s Licence</fullName>
+        <default>false</default>
+        <label>Driver&#39;s Licence</label>
+    </customValue>
+    <customValue>
+        <fullName>National ID</fullName>
+        <default>false</default>
+        <label>National ID</label>
+    </customValue>
+    <customValue>
+        <fullName>Passport</fullName>
+        <default>false</default>
+        <label>Passport</label>
+    </customValue>
+    <customValue>
+        <fullName>Other Government Issued</fullName>
+        <default>false</default>
+        <label>Other Government Issued</label>
+    </customValue>
+    <masterLabel>ID Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

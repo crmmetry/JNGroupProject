@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Account_Balance__c</fullName>
+        <externalId>false</externalId>
+        <label>Account Balance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Address__c</fullName>
+        <encryptionScheme>None</encryptionScheme>
+        <externalId>false</externalId>
+        <label>Address</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Annual_Premium__c</fullName>
+        <externalId>false</externalId>
+        <label>Annual Premium</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Asset_Credit_Balance_After__c</fullName>
+        <externalId>false</externalId>
+        <label>Asset Credit Balance After</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Asset_Credit_Balance__c</fullName>
+        <externalId>false</externalId>
+        <label>Asset Credit Balance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Asset_Credit_Limit__c</fullName>
+        <externalId>false</externalId>
+        <label>Asset Credit Limit</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Average_Monthly_Usage__c</fullName>
+        <externalId>false</externalId>
+        <label>Average Monthly Usage</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Cash_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Cash Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Description_of_Asset__c</fullName>
+        <encryptionScheme>None</encryptionScheme>
+        <externalId>false</externalId>
+        <label>Description of Asset</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Education_Tax__c</fullName>
+        <externalId>false</externalId>
+        <label>Education Tax</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Financial_Institution__c</fullName>
+        <encryptionScheme>None</encryptionScheme>
+        <externalId>false</externalId>
+        <label>Financial Institution</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Full_Details__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This field represents the screen type selection (Short Summary or Full Details) in the Assets/Liabilities flow.</description>
+        <externalId>false</externalId>
+        <label>Full Details?</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Interest_Rate__c</fullName>
+        <externalId>false</externalId>
+        <label>Interest Rate</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Lender__c</fullName>
+        <encryptionScheme>None</encryptionScheme>
+        <externalId>false</externalId>
+        <label>Financial Institution/Lender</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lien_on_Asset__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Lien on Asset?</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Loan_Balance_After__c</fullName>
+        <externalId>false</externalId>
+        <label>Loan Balance After</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Loan_Balance_Cal__c</fullName>
+        <externalId>false</externalId>
+        <formula>Loan_Balance_Prior__c  *  Percent_Applicant_Portion__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Loan Balance Cal</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Loan_Balance_Prior__c</fullName>
+        <externalId>false</externalId>
+        <label>Loan Balance Prior</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Loan_Balance__c</fullName>
+        <externalId>false</externalId>
+        <label>DEL Loan Balance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Loan_Repaid_from_Facility__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Loan Repaid from Facility</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Minimum_Payment_After__c</fullName>
+        <externalId>false</externalId>
+        <label>Minimum Payment After</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Minimum_Payment__c</fullName>
+        <externalId>false</externalId>
+        <label>Minimum Payment Prior</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Monthly_Contribution_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Monthly Contribution After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Monthly_Contribution_Before_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Monthly Contribution (Before Loan)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Monthly_Payment_Calc__c</fullName>
+        <externalId>false</externalId>
+        <formula>Monthly_Payment_Prior__c *  Percent_Applicant_Portion__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Monthly Payment Calc</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Monthly_Payment_Prior__c</fullName>
+        <description>Prior to Loan</description>
+        <externalId>false</externalId>
+        <label>Monthly Payment Prior</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Monthly_Payment__c</fullName>
+        <description>Loan Detail</description>
+        <externalId>false</externalId>
+        <label>Monthly Payment After</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Monthly_Saving_Investment_after_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Monthly Saving/Investment (after Loan)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Monthly_Savings_Investment__c</fullName>
+        <description>Prior to Loan</description>
+        <externalId>false</externalId>
+        <label>Monthly Savings/Investment Prior to Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>NHT_Contributions_Monthly__c</fullName>
+        <externalId>false</externalId>
+        <label>NHT Contributions Monthly</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>NIS_Contributions_Monthly__c</fullName>
+        <externalId>false</externalId>
+        <label>NIS Contributions Monthly</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Overdraft_Limit__c</fullName>
+        <description>Current Account Only</description>
+        <externalId>false</externalId>
+        <label>Overdraft Limit</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Pension_Scheme__c</fullName>
+        <encryptionScheme>None</encryptionScheme>
+        <externalId>false</externalId>
+        <label>Pension Scheme</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Percent_Applicant_Portion__c</fullName>
+        <externalId>false</externalId>
+        <label>Percent Applicant Portion</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Percent_Average_Monthly_User__c</fullName>
+        <externalId>false</externalId>
+        <label>Percent Average Monthly Useage</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Percent_Ownership__c</fullName>
+        <externalId>false</externalId>
+        <label>Percent Ownership</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Policy_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Policy Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Property_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Property Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>Property_Type</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Rent_Board_Monthly_Before__c</fullName>
+        <externalId>false</externalId>
+        <label>Rent/Board Monthly Before</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Savings_Deposit_Investments__c</fullName>
+        <externalId>false</externalId>
+        <label>Savings/Deposit/Investments</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Sum_Insured__c</fullName>
+        <externalId>false</externalId>
+        <label>Sum Insured</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Contributions_to_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Contributions to Date</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Market_Value_Calc__c</fullName>
+        <externalId>false</externalId>
+        <formula>Total_Market_Value__c *  Percent_Ownership__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Market Value Calc</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Market_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Market Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Treatment_of_Credit__c</fullName>
+        <externalId>false</externalId>
+        <label>Treatment of Credit</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Repay Facility</fullName>
+                    <default>false</default>
+                    <label>Repay Facility</label>
+                </value>
+                <value>
+                    <fullName>Close facility</fullName>
+                    <default>false</default>
+                    <label>Close facility</label>
+                </value>
+                <value>
+                    <fullName>Will Remain</fullName>
+                    <default>false</default>
+                    <label>Will Remain</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Type_of_Account__c</fullName>
+        <externalId>false</externalId>
+        <label>Type of Account</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Savings</fullName>
+                    <default>false</default>
+                    <label>Savings</label>
+                </value>
+                <value>
+                    <fullName>Current</fullName>
+                    <default>false</default>
+                    <label>Current</label>
+                </value>
+                <value>
+                    <fullName>Investment</fullName>
+                    <default>false</default>
+                    <label>Investment</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Type_of_Asset_Liability_Recording__c</fullName>
+        <externalId>false</externalId>
+        <label>Type of  Asset/Liability Recording</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Summary</fullName>
+                    <default>false</default>
+                    <label>Summary</label>
+                </value>
+                <value>
+                    <fullName>Detail</fullName>
+                    <default>false</default>
+                    <label>Detail</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Type_of_Card__c</fullName>
+        <description>Type of line and Credit</description>
+        <externalId>false</externalId>
+        <label>Type of Line/Credit</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>Type_of_Card_Type_Loan</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Type_of_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Type of Loan</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>Type_of_Card_Type_Loan</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Vehicle_Details__c</fullName>
+        <encryptionScheme>None</encryptionScheme>
+        <externalId>false</externalId>
+        <label>Vehicle Details (Year , Make , Model)</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+</CustomObject>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Annotto Bay</fullName>
+        <default>false</default>
+        <label>Annotto Bay</label>
+    </customValue>
+    <customValue>
+        <fullName>Barbican</fullName>
+        <default>false</default>
+        <label>Barbican</label>
+    </customValue>
+    <customValue>
+        <fullName>Brown&apos;s Town</fullName>
+        <default>false</default>
+        <label>Brown&apos;s Town</label>
+    </customValue>
+    <customValue>
+        <fullName>Catherine Hall</fullName>
+        <default>false</default>
+        <label>Catherine Hall</label>
+    </customValue>
+    <customValue>
+        <fullName>Christiana</fullName>
+        <default>false</default>
+        <label>Christiana</label>
+    </customValue>
+    <customValue>
+        <fullName>Duke Street</fullName>
+        <default>false</default>
+        <label>Duke Street</label>
+    </customValue>
+    <customValue>
+        <fullName>Falmouth</fullName>
+        <default>false</default>
+        <label>Falmouth</label>
+    </customValue>
+    <customValue>
+        <fullName>Gayle</fullName>
+        <default>false</default>
+        <label>Gayle</label>
+    </customValue>
+    <customValue>
+        <fullName>Half Way Tree</fullName>
+        <default>false</default>
+        <label>Half Way Tree</label>
+    </customValue>
+    <customValue>
+        <fullName>Highgate</fullName>
+        <default>false</default>
+        <label>Highgate</label>
+    </customValue>
+    <customValue>
+        <fullName>JN Premier</fullName>
+        <default>false</default>
+        <label>JN Premier</label>
+    </customValue>
+    <customValue>
+        <fullName>Junction</fullName>
+        <default>false</default>
+        <label>Junction</label>
+    </customValue>
+    <customValue>
+        <fullName>Linstead</fullName>
+        <default>false</default>
+        <label>Linstead</label>
+    </customValue>
+    <customValue>
+        <fullName>Lucea</fullName>
+        <default>false</default>
+        <label>Lucea</label>
+    </customValue>
+    <customValue>
+        <fullName>Mandeville</fullName>
+        <default>false</default>
+        <label>Mandeville</label>
+    </customValue>
+    <customValue>
+        <fullName>May Pen</fullName>
+        <default>false</default>
+        <label>May Pen</label>
+    </customValue>
+    <customValue>
+        <fullName>Michi Supercentre</fullName>
+        <default>false</default>
+        <label>Michi Supercentre</label>
+    </customValue>
+    <customValue>
+        <fullName>Montego Bay</fullName>
+        <default>false</default>
+        <label>Montego Bay</label>
+    </customValue>
+    <customValue>
+        <fullName>Morant Bay</fullName>
+        <default>false</default>
+        <label>Morant Bay</label>
+    </customValue>
+    <customValue>
+        <fullName>New Kingston</fullName>
+        <default>false</default>
+        <label>New Kingston</label>
+    </customValue>
+    <customValue>
+        <fullName>Knutsford</fullName>
+        <default>false</default>
+        <label>Knutsford</label>
+    </customValue>
+    <customValue>
+        <fullName>Ocho Rios</fullName>
+        <default>false</default>
+        <label>Ocho Rios</label>
+    </customValue>
+    <customValue>
+        <fullName>Old Harbour</fullName>
+        <default>false</default>
+        <label>Old Harbour</label>
+    </customValue>
+    <customValue>
+        <fullName>Papine</fullName>
+        <default>false</default>
+        <label>Papine</label>
+    </customValue>
+    <customValue>
+        <fullName>Port Antonio</fullName>
+        <default>false</default>
+        <label>Port Antonio</label>
+    </customValue>
+    <customValue>
+        <fullName>Port Maria</fullName>
+        <default>false</default>
+        <label>Port Maria</label>
+    </customValue>
+    <customValue>
+        <fullName>Portmore</fullName>
+        <default>false</default>
+        <label>Portmore</label>
+    </customValue>
+    <customValue>
+        <fullName>Santa Cruz</fullName>
+        <default>false</default>
+        <label>Santa Cruz</label>
+    </customValue>
+    <customValue>
+        <fullName>Sav-la-mar</fullName>
+        <default>false</default>
+        <label>Savanna-La-Mar</label>
+    </customValue>
+    <customValue>
+        <fullName>Spanish Town</fullName>
+        <default>false</default>
+        <label>Spanish Town</label>
+    </customValue>
+    <customValue>
+        <fullName>St. Ann&apos;s Bay</fullName>
+        <default>false</default>
+        <label>St. Ann&apos;s Bay</label>
+    </customValue>
+    <customValue>
+        <fullName>Tivoli</fullName>
+        <default>false</default>
+        <label>Tivoli</label>
+    </customValue>
+    <customValue>
+        <fullName>UWI</fullName>
+        <default>false</default>
+        <label>UWI</label>
+    </customValue>
+    <customValue>
+        <fullName>Whitehouse</fullName>
+        <default>false</default>
+        <label>Whitehouse</label>
+    </customValue>
+    <customValue>
+        <fullName>Half-Way-Tree Transport Centre</fullName>
+        <default>false</default>
+        <label>Half-Way-Tree Transport Centre</label>
+    </customValue>
+    <customValue>
+        <fullName>JN Rep Office Florida</fullName>
+        <default>false</default>
+        <label>JN Rep Office Florida</label>
+    </customValue>
+    <customValue>
+        <fullName>JN Rep Office Toronto</fullName>
+        <default>false</default>
+        <label>JN Rep Office Toronto</label>
+    </customValue>
+    <customValue>
+        <fullName>JN Rep Office UK</fullName>
+        <default>false</default>
+        <label>JN Rep Office UK</label>
+    </customValue>
+    <customValue>
+        <fullName>Mortgage Centre - Mandeville</fullName>
+        <default>false</default>
+        <label>Mortgage Centre - Mandeville</label>
+    </customValue>
+    <customValue>
+        <fullName>Mortgage Sales Hub - Montego Bay</fullName>
+        <default>false</default>
+        <label>Mortgage Sales Hub - Montego Bay</label>
+    </customValue>
+    <customValue>
+        <fullName>Mortgage Sales Hub - New Kingston</fullName>
+        <default>false</default>
+        <label>Mortgage Sales Hub - New Kingston</label>
+    </customValue>
+    <customValue>
+        <fullName>Mortgage Sales Hub - Ocho Rios</fullName>
+        <default>false</default>
+        <label>Mortgage Sales Hub - Ocho Rios</label>
+    </customValue>
+    <masterLabel>JN Locations</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

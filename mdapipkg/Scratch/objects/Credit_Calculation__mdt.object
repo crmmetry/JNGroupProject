@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Employment_Type__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Employment Type</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Salaried</fullName>
+                    <default>true</default>
+                    <label>Salaried</label>
+                </value>
+                <value>
+                    <fullName>Self-Employed</fullName>
+                    <default>false</default>
+                    <label>Self-Employed</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Lower_Bound__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Lower Bound</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Max__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Max</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Min__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Min</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Risk_Score__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Risk Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sub_Criteria_Options__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Sub-Criteria Options</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Adequate</fullName>
+                    <default>false</default>
+                    <label>Adequate</label>
+                </value>
+                <value>
+                    <fullName>Adequately Supported</fullName>
+                    <default>false</default>
+                    <label>Adequately Supported</label>
+                </value>
+                <value>
+                    <fullName>Cash</fullName>
+                    <default>false</default>
+                    <label>Cash</label>
+                </value>
+                <value>
+                    <fullName>Clerical</fullName>
+                    <default>false</default>
+                    <label>Clerical</label>
+                </value>
+                <value>
+                    <fullName>Contracted</fullName>
+                    <default>false</default>
+                    <label>Contracted</label>
+                </value>
+                <value>
+                    <fullName>Family</fullName>
+                    <default>false</default>
+                    <label>Family</label>
+                </value>
+                <value>
+                    <fullName>Financial Services</fullName>
+                    <default>false</default>
+                    <label>Financial Services</label>
+                </value>
+                <value>
+                    <fullName>Good</fullName>
+                    <default>false</default>
+                    <label>Good</label>
+                </value>
+                <value>
+                    <fullName>Government</fullName>
+                    <default>false</default>
+                    <label>Government</label>
+                </value>
+                <value>
+                    <fullName>High School</fullName>
+                    <default>false</default>
+                    <label>High School</label>
+                </value>
+                <value>
+                    <fullName>ICT</fullName>
+                    <default>false</default>
+                    <label>ICT</label>
+                </value>
+                <value>
+                    <fullName>Low net worth</fullName>
+                    <default>false</default>
+                    <label>Low net worth</label>
+                </value>
+                <value>
+                    <fullName>Manufacturing</fullName>
+                    <default>false</default>
+                    <label>Manufacturing</label>
+                </value>
+                <value>
+                    <fullName>Motor Vehicle</fullName>
+                    <default>false</default>
+                    <label>Motor Vehicle</label>
+                </value>
+                <value>
+                    <fullName>Negative</fullName>
+                    <default>false</default>
+                    <label>Negative</label>
+                </value>
+                <value>
+                    <fullName>Net worth not commensurate with age and earning</fullName>
+                    <default>false</default>
+                    <label>Net worth not commensurate with age and earning</label>
+                </value>
+                <value>
+                    <fullName>None</fullName>
+                    <default>false</default>
+                    <label>None</label>
+                </value>
+                <value>
+                    <fullName>Not applicable</fullName>
+                    <default>false</default>
+                    <label>Not applicable</label>
+                </value>
+                <value>
+                    <fullName>Officer</fullName>
+                    <default>false</default>
+                    <label>Officer</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+                <value>
+                    <fullName>Over The Counter</fullName>
+                    <default>false</default>
+                    <label>Over The Counter</label>
+                </value>
+                <value>
+                    <fullName>Own</fullName>
+                    <default>false</default>
+                    <label>Own</label>
+                </value>
+                <value>
+                    <fullName>Permanent</fullName>
+                    <default>false</default>
+                    <label>Permanent</label>
+                </value>
+                <value>
+                    <fullName>Post Graduate</fullName>
+                    <default>false</default>
+                    <label>Post Graduate</label>
+                </value>
+                <value>
+                    <fullName>Professional</fullName>
+                    <default>false</default>
+                    <label>Professional</label>
+                </value>
+                <value>
+                    <fullName>Professional service provider</fullName>
+                    <default>false</default>
+                    <label>Professional service provider</label>
+                </value>
+                <value>
+                    <fullName>RealEstate - Commercial</fullName>
+                    <default>false</default>
+                    <label>RealEstate - Commercial</label>
+                </value>
+                <value>
+                    <fullName>Realestate - Residential</fullName>
+                    <default>false</default>
+                    <label>Realestate - Residential</label>
+                </value>
+                <value>
+                    <fullName>Reasonable net worth</fullName>
+                    <default>false</default>
+                    <label>Reasonable net worth</label>
+                </value>
+                <value>
+                    <fullName>Rent</fullName>
+                    <default>false</default>
+                    <label>Rent</label>
+                </value>
+                <value>
+                    <fullName>Salary Deduction</fullName>
+                    <default>false</default>
+                    <label>Salary Deduction</label>
+                </value>
+                <value>
+                    <fullName>Skilled Worker</fullName>
+                    <default>false</default>
+                    <label>Skilled Worker</label>
+                </value>
+                <value>
+                    <fullName>Sound Business Plan, Skill And Professional Competence</fullName>
+                    <default>false</default>
+                    <label>Sound Business Plan, Skill And Professional Competence</label>
+                </value>
+                <value>
+                    <fullName>Standing Order</fullName>
+                    <default>false</default>
+                    <label>Standing Order</label>
+                </value>
+                <value>
+                    <fullName>Strongly Supported</fullName>
+                    <default>false</default>
+                    <label>Strongly Supported</label>
+                </value>
+                <value>
+                    <fullName>Strong net worth</fullName>
+                    <default>false</default>
+                    <label>Strong net worth</label>
+                </value>
+                <value>
+                    <fullName>Tourism</fullName>
+                    <default>false</default>
+                    <label>Tourism</label>
+                </value>
+                <value>
+                    <fullName>Trader</fullName>
+                    <default>false</default>
+                    <label>Trader</label>
+                </value>
+                <value>
+                    <fullName>Undergraduate</fullName>
+                    <default>false</default>
+                    <label>Undergraduate</label>
+                </value>
+                <value>
+                    <fullName>Unemployed</fullName>
+                    <default>false</default>
+                    <label>Unemployed</label>
+                </value>
+                <value>
+                    <fullName>Unskilled Worker</fullName>
+                    <default>false</default>
+                    <label>Unskilled Worker</label>
+                </value>
+                <value>
+                    <fullName>Vocational</fullName>
+                    <default>false</default>
+                    <label>Vocational</label>
+                </value>
+                <value>
+                    <fullName>Vocational service provider</fullName>
+                    <default>false</default>
+                    <label>Vocational service provider</label>
+                </value>
+                <value>
+                    <fullName>weak</fullName>
+                    <default>false</default>
+                    <label>weak</label>
+                </value>
+                <value>
+                    <fullName>Weak Support Or Doubtful</fullName>
+                    <default>false</default>
+                    <label>Weak Support Or Doubtful</label>
+                </value>
+                <value>
+                    <fullName>Agriculture</fullName>
+                    <default>false</default>
+                    <label>Agriculture</label>
+                </value>
+                <value>
+                    <fullName>Transportation</fullName>
+                    <default>false</default>
+                    <label>Transportation</label>
+                </value>
+                <value>
+                    <fullName>Construction</fullName>
+                    <default>false</default>
+                    <label>Construction</label>
+                </value>
+                <value>
+                    <fullName>Retail trade</fullName>
+                    <default>false</default>
+                    <label>Retail trade</label>
+                </value>
+                <value>
+                    <fullName>Good growth and or profit trends for 3-4 years</fullName>
+                    <default>false</default>
+                    <label>Good growth and or profit trends for 3-4 years</label>
+                </value>
+                <value>
+                    <fullName>Good growth and or profit trends for up to 2 years</fullName>
+                    <default>false</default>
+                    <label>Good growth and or profit trends for up to 2 years</label>
+                </value>
+                <value>
+                    <fullName>Inconsistent profit/growth trends</fullName>
+                    <default>false</default>
+                    <label>Inconsistent profit/growth trends</label>
+                </value>
+                <value>
+                    <fullName>Inadequate growth and or profit trends</fullName>
+                    <default>false</default>
+                    <label>Inadequate growth and or profit trends</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Sub_Criteria__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Sub-Criteria</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Repayment Method</fullName>
+                    <default>true</default>
+                    <label>Repayment Method</label>
+                </value>
+                <value>
+                    <fullName>Collateral</fullName>
+                    <default>false</default>
+                    <label>Collateral</label>
+                </value>
+                <value>
+                    <fullName>Financial Statement Support</fullName>
+                    <default>false</default>
+                    <label>Financial Statement Support</label>
+                </value>
+                <value>
+                    <fullName>Nature of Engagement</fullName>
+                    <default>false</default>
+                    <label>Nature of Engagement</label>
+                </value>
+                <value>
+                    <fullName>Working Capital</fullName>
+                    <default>false</default>
+                    <label>Working Capital</label>
+                </value>
+                <value>
+                    <fullName>Ability to Service</fullName>
+                    <default>false</default>
+                    <label>Ability to Service</label>
+                </value>
+                <value>
+                    <fullName>Loan to Value</fullName>
+                    <default>false</default>
+                    <label>Loan to Value</label>
+                </value>
+                <value>
+                    <fullName>Length of Trade</fullName>
+                    <default>false</default>
+                    <label>Length of Trade</label>
+                </value>
+                <value>
+                    <fullName>Credit History in last 24 Months</fullName>
+                    <default>false</default>
+                    <label>Credit History in last 24 Months</label>
+                </value>
+                <value>
+                    <fullName>Years at Current Residence</fullName>
+                    <default>false</default>
+                    <label>Years at Current Residence</label>
+                </value>
+                <value>
+                    <fullName>Professional Category</fullName>
+                    <default>false</default>
+                    <label>Professional Category</label>
+                </value>
+                <value>
+                    <fullName>Industry of Employment</fullName>
+                    <default>false</default>
+                    <label>Industry of Employment</label>
+                </value>
+                <value>
+                    <fullName>Employment Status</fullName>
+                    <default>false</default>
+                    <label>Employment Status</label>
+                </value>
+                <value>
+                    <fullName>Net Worth</fullName>
+                    <default>false</default>
+                    <label>Net Worth</label>
+                </value>
+                <value>
+                    <fullName>Residential Status</fullName>
+                    <default>false</default>
+                    <label>Residential Status</label>
+                </value>
+                <value>
+                    <fullName>Age</fullName>
+                    <default>false</default>
+                    <label>Age</label>
+                </value>
+                <value>
+                    <fullName>Education</fullName>
+                    <default>false</default>
+                    <label>Education</label>
+                </value>
+                <value>
+                    <fullName>Length of Current Employment</fullName>
+                    <default>false</default>
+                    <label>Length of Current Employment</label>
+                </value>
+                <value>
+                    <fullName>Type of Industry</fullName>
+                    <default>false</default>
+                    <label>Type of Industry</label>
+                </value>
+                <value>
+                    <fullName>Financial Performance</fullName>
+                    <default>false</default>
+                    <label>Financial Performance</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Upper_Bound__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Upper Bound</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Weight_of_Sub_Criteria__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Weight of Sub-Criteria</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Percent</type>
+    </fields>
+    <label>Credit Calculation</label>
+    <pluralLabel>Credit Calculations</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

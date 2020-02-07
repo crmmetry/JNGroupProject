@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>JN_Site_Form_Completed_Flag__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Determines if the jn site was completed successfully.</description>
+    <externalId>false</externalId>
+    <label>JN Site Form Completed</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

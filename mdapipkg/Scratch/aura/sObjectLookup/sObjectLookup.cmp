@@ -1,0 +1,52 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId" controller="MultiProductCalculatorController" description="Lightning component for lookup fields">
+    
+    <!--Declare Attributes-->
+    <aura:attribute name="objectAPIName" type="String" required="true"/>
+    <aura:attribute name="fieldAPIName" type="String" required="true"/>
+    <aura:attribute name="lookupIcon" type="String" default="standard:contact"/>
+    <aura:attribute name="placeholder" type="String" default="Search..."/>
+    <aura:attribute name="fieldLabel" type="String" required="true"/>
+    <aura:attribute name="PromotionProduct" type="String" default=""/>
+    
+    <aura:attribute name="selectedRecordId" type="String"/>
+    <aura:attribute name="selectedRecordName" type="String"/>
+    <aura:attribute name="subHeadingFieldsAPI" type="String[]"
+                    description="Field API for the fields to be shown under the record Name.
+                                 Must be comma separated. Example: Email,Phone"/>
+    <aura:attribute name="matchingRecords" type="Object[]" access="private"/>
+    <aura:attribute name="recordLimit" type="Integer" access="public" default="5"/>
+    
+    <!--Declare Handlers-->
+    <aura:handler name="lookupSelect" event="c:sObjectLookupSelectEvent" action="{!c.handleLookupSelectEvent}"
+                  description="Event handler to get the selected record Id and Name from LookupItem component"/>
+    <!--Component-->
+    <div class="slds-form-element__control">
+        <div class="slds-combobox_container slds-has-inline-listbox">
+            <div aura:id="divLookup"
+                 class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-combobox-lookup"
+                 aria-expanded="false" aria-haspopup="listbox" role="combobox">
+                
+                <div class="slds-combobox__form-element">
+                    <lightning:input type="search"
+                                     style="margin-top: -19px;"
+                                     aura:id="searchinput"
+                                     label="{!v.fieldLabel}"
+                                     name="{!v.fieldLabel}"
+                                     value="{!v.selectedRecordName}"
+                                     onchange="{!c.handleSearchRecords}"
+                                     isLoading="false"
+                                     placeholder="{!v.placeholder}"
+                                     onfocus="{!c.handleSearchRecords}"
+                                     onblur="{!c.hideList}"/>
+                </div>
+                <div id="listbox-unique-id" role="listbox">
+                    <ul class="slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown_fluid" role="presentation">
+                        <aura:iteration var="rec" items="{!v.matchingRecords}">
+                            <c:sObjectLookupItem record="{!rec}" subHeadingFieldsAPI="{!v.subHeadingFieldsAPI}" iconCategoryName="{!v.lookupIcon}" PromotionProduct="{!v.PromotionProduct}"/>
+                        </aura:iteration>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

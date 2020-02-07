@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <flexiPageRegions>
+        <name>header</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <name>main</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <componentInstances>
+            <componentInstanceProperties>
+                <name>recordActionDeployment</name>
+                <value>ApplicantInformationForm</value>
+            </componentInstanceProperties>
+            <componentName>lbpm:actionList</componentName>
+        </componentInstances>
+        <name>leftsidebar</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <masterLabel>Applicant Form</masterLabel>
+    <sobjectType>Account</sobjectType>
+    <template>
+        <name>flexipage:recordHomePinnedHeaderLeftSidebarTwoColTemplateDesktop</name>
+    </template>
+    <type>RecordPage</type>
+</FlexiPage>

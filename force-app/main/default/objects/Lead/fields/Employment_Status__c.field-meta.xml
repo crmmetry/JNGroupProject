@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Employment_Status__c</fullName>
+    <externalId>false</externalId>
+    <label>Employment Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Primary_Employment_Type__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetName>Employment_Status</valueSetName>
+        <valueSettings>
+            <controllingFieldValue>Employed</controllingFieldValue>
+            <valueName>Permanent</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Employed</controllingFieldValue>
+            <valueName>Contractual</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Unemployed</controllingFieldValue>
+            <valueName>Unemployed</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

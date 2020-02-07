@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>JN Bank Credit Card</fullName>
+        <default>false</default>
+        <label>JN Bank Credit Card</label>
+    </customValue>
+    <customValue>
+        <fullName>JN Bank Mortgage Loan</fullName>
+        <default>false</default>
+        <label>JN Bank Mortgage Loan</label>
+    </customValue>
+    <customValue>
+        <fullName>JN Bank Deposit Account</fullName>
+        <default>false</default>
+        <label>JN Bank Deposit Account</label>
+    </customValue>
+    <customValue>
+        <fullName>JN Bank Auto Loan</fullName>
+        <default>false</default>
+        <label>JN Bank Auto Loan</label>
+    </customValue>
+    <customValue>
+        <fullName>JN Bank Commercial Auto Loan</fullName>
+        <default>false</default>
+        <label>JN Bank Commercial Auto Loan</label>
+    </customValue>
+    <customValue>
+        <fullName>JN Bank Line Of Credit</fullName>
+        <default>false</default>
+        <label>JN Bank Line Of Credit</label>
+    </customValue>
+    <customValue>
+        <fullName>JN Bank Unsecured Loan</fullName>
+        <default>false</default>
+        <label>JN Bank Unsecured Loan</label>
+    </customValue>
+    <customValue>
+        <fullName>JN Bank 12 to 1 Loan (Supersize Loan)</fullName>
+        <default>false</default>
+        <label>JN Bank 12 to 1 Loan (Supersize Loan)</label>
+    </customValue>
+    <customValue>
+        <fullName>JN Bank Cash Secured Loan</fullName>
+        <default>false</default>
+        <label>JN Bank Cash Secured Loan</label>
+    </customValue>
+    <customValue>
+        <fullName>JN Bank Insurance Premium Financing</fullName>
+        <default>false</default>
+        <label>JN Bank Insurance Premium Financing</label>
+    </customValue>
+    <customValue>
+        <fullName>JN Bank Term Share Loan</fullName>
+        <default>false</default>
+        <label>JN Bank Term Share Loan</label>
+    </customValue>
+    <masterLabel>Product Group of Interest</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

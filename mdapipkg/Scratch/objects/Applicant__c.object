@@ -1,0 +1,2840 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Account__c</fullName>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipName>Application_Details</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Affiliation_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Affiliation Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>Affiliation_Type</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Applicable_sources_of_income__c</fullName>
+        <externalId>false</externalId>
+        <label>Applicable sources of income</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Salary</fullName>
+                    <default>false</default>
+                    <label>Salary</label>
+                </value>
+                <value>
+                    <fullName>Net Profit (Sole Trader)</fullName>
+                    <default>false</default>
+                    <label>Net Profit (Sole Trader)</label>
+                </value>
+                <value>
+                    <fullName>Director&apos;s Emoluments (Director)</fullName>
+                    <default>false</default>
+                    <label>Director&apos;s Emoluments (Director)</label>
+                </value>
+                <value>
+                    <fullName>Share of Profits (Partnership)</fullName>
+                    <default>false</default>
+                    <label>Share of Profits (Partnership)</label>
+                </value>
+                <value>
+                    <fullName>Share of Profit (Shareholder)</fullName>
+                    <default>false</default>
+                    <label>Share of Profit (Shareholder)</label>
+                </value>
+                <value>
+                    <fullName>Pension</fullName>
+                    <default>false</default>
+                    <label>Pension</label>
+                </value>
+                <value>
+                    <fullName>Property Rental</fullName>
+                    <default>false</default>
+                    <label>Property Rental</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Assessment_of_Applicant_Net_Worth__c</fullName>
+        <externalId>false</externalId>
+        <label>Assessment of Applicant Net Worth</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Strong net worth</fullName>
+                    <default>false</default>
+                    <label>Strong net worth</label>
+                </value>
+                <value>
+                    <fullName>Reasonable net worth</fullName>
+                    <default>false</default>
+                    <label>Reasonable net worth</label>
+                </value>
+                <value>
+                    <fullName>Low Net Worth</fullName>
+                    <default>false</default>
+                    <label>Low Net Worth</label>
+                </value>
+                <value>
+                    <fullName>New worth not commensurate with age and earning</fullName>
+                    <default>false</default>
+                    <label>New worth not commensurate with age and earning</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Bankrupt_in_Last_7_Years__c</fullName>
+        <externalId>false</externalId>
+        <label>Bankrupt in Last 7 Years?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Basic_monthly_pay_no_allowances__c</fullName>
+        <description>Basic monthly pay of a JN group Employee excluding allowances</description>
+        <externalId>false</externalId>
+        <label>Basic monthly pay (no allowances)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>CRIF_Rating__c</fullName>
+        <externalId>false</externalId>
+        <label>CRIF Rating</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>Risk_Rating_Scale</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Cell_Phone_Landline_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Cell Phone/Landline Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Cell_Phone_Landline_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Cell Phone/Landline Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Child_Care_Costs_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Child Care Costs Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Child_Care_Costs_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Child Care Costs Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Cooking_Gas_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Cooking Gas Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Cooking_Gas_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Cooking Gas Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>CreditInfo_Rating__c</fullName>
+        <externalId>false</externalId>
+        <label>Credit Info Rating</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>Risk_Rating_Scale</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Credit_History_in_last_24_Months__c</fullName>
+        <externalId>false</externalId>
+        <label>Credit History in last 24 Months</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>No Delinquency</fullName>
+                    <default>false</default>
+                    <label>No Delinquency</label>
+                </value>
+                <value>
+                    <fullName>1 - 10 Days Delinquent</fullName>
+                    <default>false</default>
+                    <label>1 - 10 Days Delinquent</label>
+                </value>
+                <value>
+                    <fullName>11 - 30 Days Delinquent</fullName>
+                    <default>false</default>
+                    <label>11 - 30 Days Delinquent</label>
+                </value>
+                <value>
+                    <fullName>31 - 60 Days Delinquent</fullName>
+                    <default>false</default>
+                    <label>31 - 60 Days Delinquent</label>
+                </value>
+                <value>
+                    <fullName>61 - 90 Days Delinquent</fullName>
+                    <default>false</default>
+                    <label>61 - 90 Days Delinquent</label>
+                </value>
+                <value>
+                    <fullName>Over 90 Days Delinquent</fullName>
+                    <default>false</default>
+                    <label>Over 90 Days Delinquent</label>
+                </value>
+                <value>
+                    <fullName>No Credit History</fullName>
+                    <default>false</default>
+                    <label>No Credit History</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Director_s_Emoluments_DirectorC__c</fullName>
+        <externalId>false</externalId>
+        <formula>Director_s_Emoluments_Director__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Director’s Emoluments - DirectorC</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Director_s_Emoluments_Director__c</fullName>
+        <externalId>false</externalId>
+        <label>Director’s Emoluments - Director</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Education_Tax_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Education Tax Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Electricity_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Electricity Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Electricity_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Electricity Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Existing_Real_Estate_Rental_IC__c</fullName>
+        <externalId>false</externalId>
+        <formula>Existing_Real_Estate_Rental_I__c  * 0.7</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Existing Real Estate Rental IC</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Existing_Real_Estate_Rental_I__c</fullName>
+        <description>(where rental property not treated as business)</description>
+        <externalId>false</externalId>
+        <label>Existing Real Estate Rental I</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Existing_Real_estate_Rental_II_C__c</fullName>
+        <externalId>false</externalId>
+        <formula>Existing_Real_estate_Rental_II__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Existing Real estate Rental II C</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Existing_Real_estate_Rental_II__c</fullName>
+        <externalId>false</externalId>
+        <label>Existing Real estate Rental II</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Fares_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Fares Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Fares_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Fares Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Food_Cost_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Food Cost Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Food_Costs_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Food Costs Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Gratuity_in_lieu_of_PensionC__c</fullName>
+        <externalId>false</externalId>
+        <formula>Gratuity_in_lieu_of_Pension__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Gratuity in lieu of PensionC</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Gratuity_in_lieu_of_Pension__c</fullName>
+        <externalId>false</externalId>
+        <label>Gratuity in lieu of Pension</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Gross_Monthly_IncomeC__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (  RecordType.Name = &quot;Short Summary of Income&quot;,  
+   ( Gross_Monthly_Income__c  +  Other_IncomeC__c ),  
+
+IF (  RecordType.Name = &quot;Full Details Of Income/Living Expenses&quot;, 
+   (Salary_and_Allowances_as_per_pay_slips__c + Gratuity_in_lieu_of_Pension__c +  Performance_Based_Pay_Includes_Commissi__c +  Net_Profit_Sole_TraderC__c +  Director_s_Emoluments_Director__c + Share_of_Profit_Partnership__c +  Share_of_Profit_Shareholder__c +  Pension__c +  Existing_Real_Estate_Rental_IC__c +  Existing_Real_estate_Rental_II__c + Projected_Real_Estate_RentalC__c +  Other_IncomeC__c),0)
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Gross Monthly IncomeC</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Gross_Monthly_Income__c</fullName>
+        <externalId>false</externalId>
+        <label>Gross Monthly Income</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Health_Costs_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Health Costs Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Health_Costs_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Health Costs Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>House_Keeping_Costs_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>House Keeping Costs Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>House_Keeping_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>House Keeping Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Income_Tax_Monthly_Payment_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Income Tax Monthly Payment Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Indicate_Partnership_Target_Group__c</fullName>
+        <encryptionScheme>None</encryptionScheme>
+        <externalId>false</externalId>
+        <label>Indicate Partnership/Target Group</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Internet_Cable_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Internet/Cable Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Internet_Cable_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Internet/Cable Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Is_applicant_KYC_Compliant__c</fullName>
+        <externalId>false</externalId>
+        <label>Is applicant KYC Compliant?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>JN_Employee_Loan_Benefit__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Will the JN Employee Loan Benefit be applied?*</description>
+        <externalId>false</externalId>
+        <label>JN Employee Loan Benefit</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>JN_Group_Employee__c</fullName>
+        <externalId>false</externalId>
+        <label>JN Group Employee</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Judgements_Filed__c</fullName>
+        <externalId>false</externalId>
+        <label>Judgements Filed</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Lawsuits_or_Claims__c</fullName>
+        <externalId>false</externalId>
+        <label>Lawsuits or Claims?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Life_Insurance_Cash_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Life Insurance (Cash Value)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Monthly_Living_Expenses_Complete__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(
+
+And(
+NOT( ISBLANK (Text(Income_Tax_Monthly_Payment_Prior_Loan__c))),
+NOT(ISBLANK( Text(NIS_Contribution_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(NHT_Contributions_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Rent_Board_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Rent_Board_Monthly_Prior_Loan__c))),	
+NOT(ISBLANK( Text(Strata_Maintenance_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Strata_Maintenance_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Property_Tax_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Property_Tax_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Property_Insurance_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Property_Insurance_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Property_Maintenance_Monthly_Prior_loan__c))),
+NOT(ISBLANK( Text(Property_Maintenance_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Personal_Expenses_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Personal_Expenses_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Food_Costs_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Food_Cost_Monthly_Prior_Loan__c))),	
+NOT(ISBLANK( Text(Child_Care_Costs_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Child_Care_Costs_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(School_Costs_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(School_Costs_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Health_Costs_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Health_Costs_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Other_Personal_Family_Costs_Prior_After__c))), 
+NOT(ISBLANK( Text(Other_Personal_Family_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Electricity_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Electricity_Monthly_Prior_Loan__c))),	
+NOT(ISBLANK( Text(Water_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Water_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Cell_Phone_Landline_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Cell_Phone_Landline_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Internet_Cable_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Internet_Cable_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Cooking_Gas_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Cooking_Gas_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(House_Keeping_Costs_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(House_Keeping_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Other_Utilities_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Other_Utilities_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Fares_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Fares_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Petrol_Fuel_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Petrol_Fuel_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Toll_Fees_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Toll_Fees_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Motor_V_Insurance_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Motor_V_Insurance_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Motor_V_Maintenance_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Motor_Vehicle_Reg_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Motor_Vehicle_Reg_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Motor_Vehicle_Fitness_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Motor_Vehicle_Fitness_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Motor_V_Maintenance_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Motor_V_Maintenance_Monthly_Before_Loan__c))),
+NOT(ISBLANK( Text(Other_Transport_Costs_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Other_Transport_Monthly_After_Loan__c)))
+ 
+)
+
+
+,
+&apos;TRUE&apos; ,
+&apos;FALSE&apos;
+
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Monthly Living Expenses Complete?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Monthly_Living_Expenses__c</fullName>
+        <externalId>false</externalId>
+        <label>Monthly Living Expenses</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Motor_V_Insurance_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Motor V Insurance Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Motor_V_Insurance_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Motor V Insurance Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Motor_V_Maintenance_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Motor V Maintenance Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Motor_V_Maintenance_Monthly_Before_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Motor V Maintenance Monthly Prior</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Motor_Vehicle_Fitness_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Motor Vehicle Fitness Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Motor_Vehicle_Fitness_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Motor Vehicle Fitness Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Motor_Vehicle_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Motor Vehicle Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Motor_Vehicle_Reg_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Motor Vehicle Reg Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Motor_Vehicle_Reg_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Motor Vehicle Reg Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>NHT_Contributions_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>NHT Contributions Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>NIS_Contribution_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>NIS Contribution Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Net_Profit_Sole_TraderC__c</fullName>
+        <externalId>false</externalId>
+        <formula>Net_Profit_Sole_Trader__c  * 0.7</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Net Profit - Sole TraderC</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Net_Profit_Sole_Trader__c</fullName>
+        <externalId>false</externalId>
+        <label>Net Profit - Sole Trader</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <externalId>false</externalId>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipName>Application_Details</relationshipName>
+        <relationshipOrder>1</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Other_IncomeC__c</fullName>
+        <externalId>false</externalId>
+        <formula>Other_Income__c * 1</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Other IncomeC</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Other_Income__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Income</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Other_Liabilities__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Liabilities</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Other_Monthly_Expenses_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Monthly Expenses  Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Other_Monthly_Income__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Monthly Income</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Other_Personal_Family_Costs_Prior_After__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Personal/Family Costs After</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Other_Personal_Family_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Personal/Family Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Other_Transport_Costs_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Transport Costs Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Other_Transport_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Transport Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Other_Utilities_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Utilities Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Other_Utilities_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Utilities Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Overall_Credit_Bureau_Rating__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(NOT(ISBLANK(Overall_Rating__c)), Overall_Rating__c,&apos;Not Populated&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Overall Credit Bureau Rating</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Overall_Rating__c</fullName>
+        <description>Describes the overall credit bureau rating.</description>
+        <encryptionScheme>None</encryptionScheme>
+        <externalId>false</externalId>
+        <label>Overall Rating</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Overdraft_Limit__c</fullName>
+        <externalId>false</externalId>
+        <label>Overdraft Limit</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>PensionC__c</fullName>
+        <externalId>false</externalId>
+        <formula>Pension__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>PensionC</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Pension_IRS_Total_Contribution__c</fullName>
+        <externalId>false</externalId>
+        <label>Pension/IRS (Total Contribution)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Pension__c</fullName>
+        <externalId>false</externalId>
+        <label>Pension</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Performance_Based_PayC__c</fullName>
+        <externalId>false</externalId>
+        <formula>Performance_Based_Pay_Includes_Commissi__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Performance-Based PayC</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Performance_Based_Pay_Includes_Commissi__c</fullName>
+        <description>(Includes Commission, Overtime Bonus)</description>
+        <externalId>false</externalId>
+        <label>Performance-Based Pay</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Personal_Expenses_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Personal Expenses Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Personal_Expenses_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Personal Expenses Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Personal_Insurance_Monthly_Prior_to_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Personal Insurance Monthly Prior to Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Petrol_Fuel_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Petrol/Fuel Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Petrol_Fuel_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Petrol/Fuel Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Primary_Relationship_Tier__c</fullName>
+        <externalId>false</externalId>
+        <label>Primary Relationship Tier</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>Primary_Relationship_Teir</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Projected_Real_Estate_RentalC__c</fullName>
+        <externalId>false</externalId>
+        <formula>Projected_Real_Estate_Rental__c * 0.6</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Projected Real Estate RentalC</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Real_Estate_Rental__c</fullName>
+        <externalId>false</externalId>
+        <label>Projected Real Estate Rental</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Property_Insurance_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Property Insurance Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Property_Insurance_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Property Insurance Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Property_Maintenance_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Property Maintenance Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Property_Maintenance_Monthly_Prior_loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Property Maintenance Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Property_Tax_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Property Tax Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Property_Tax_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Property Tax Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Rent_Board_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Rent/Board Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Rent_Board_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Rent/Board Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Rent_Board_Strata_After_TDSR__c</fullName>
+        <externalId>false</externalId>
+        <formula>If  (RecordType.DeveloperName = &quot;Short_Summary_of_Income&quot;,  Rent_Strata_Maintenance__c , (Rent_Board_Monthly_After_Loan__c +  Strata_Maintenance_Monthly_After_Loan__c ))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Rent &amp; Board Strata After TDSR</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Rent_Board_Strata_Before_TDSR__c</fullName>
+        <externalId>false</externalId>
+        <formula>If  (RecordType.DeveloperName = &quot;Short_Summary_of_Income&quot;,  Rent_Strata_Maintenance__c , (Rent_Board_Monthly_Prior_Loan__c +  Strata_Maintenance_Monthly_Prior_Loan__c ))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Rent &amp; Board Strata Before TDSR</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Rent_Strata_Maintenance__c</fullName>
+        <externalId>false</externalId>
+        <label>Rent/Strata Maintenance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Rim_Number__c</fullName>
+        <description>Used to store the Rim Number for an Applicsnt</description>
+        <encryptionScheme>None</encryptionScheme>
+        <externalId>false</externalId>
+        <label>Rim Number</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Salaried__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Salaried</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Salary_and_AllowancesC__c</fullName>
+        <externalId>false</externalId>
+        <formula>1</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Salary and AllowancesC</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Salary_and_Allowances__c</fullName>
+        <externalId>false</externalId>
+        <formula>1</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Salary and AllowancesC</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Salary_and_Allowances_as_per_pay_slips__c</fullName>
+        <externalId>false</externalId>
+        <label>Salary and Allowances (as per pay slips,</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Sanction_Screening_Completed__c</fullName>
+        <externalId>false</externalId>
+        <label>Sanction Screening Completed</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Sanction_Screening_has_Negative_Trace__c</fullName>
+        <externalId>false</externalId>
+        <label>Sanction Screening has Negative Trace</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Savings_Deposit_Investments__c</fullName>
+        <externalId>false</externalId>
+        <label>Savings/Deposit/Investments</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>School_Costs_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>School Costs Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>School_Costs_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>School Costs Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Share_of_Profit_PartnershipC__c</fullName>
+        <externalId>false</externalId>
+        <formula>Share_of_Profit_Partnership__c * 1</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Share of Profit - PartnershipC</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Share_of_Profit_Partnership__c</fullName>
+        <externalId>false</externalId>
+        <label>Share of Profit - Partnership</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Share_of_Profit_ShareholderC__c</fullName>
+        <externalId>false</externalId>
+        <formula>Share_of_Profit_Shareholder__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Share of Profit - ShareholderC</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Share_of_Profit_Shareholder__c</fullName>
+        <externalId>false</externalId>
+        <label>Share of Profit - Shareholder</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Strata_Maintenance_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Strata Maintenance Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Strata_Maintenance_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Strata Maintenance Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Time_as_Member_Months__c</fullName>
+        <externalId>false</externalId>
+        <label>Time as Member Months</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Time_as_Member_Years__c</fullName>
+        <externalId>false</externalId>
+        <label>Time as Member Years</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Toll_Fees_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Toll/Fees Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Toll_Fees_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Toll/Fees Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Inflows__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (RecordType.Name = &quot;Full Details Of Income/Living Expenses&quot;,  
+   (Gross_Monthly_IncomeC__c -  (Income_Tax_Monthly_Payment_Prior_Loan__c +  NIS_Contribution_Monthly_Prior_Loan__c +  NHT_Contributions_Monthly_Prior_Loan__c +  Education_Tax_Monthly_Prior_Loan__c  )), 
+
+IF ( RecordType.Name = &quot;Short Summary of Income&quot;, 
+    Gross_Monthly_IncomeC__c +  Other_Income__c , 0  )  
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Inflows</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Outflows__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF ( RecordType.Name = &quot;Short Summary of Income&quot;, Monthly_Living_Expenses__c, 
+
+IF ( RecordType.Name = &quot;Full Details Of Income/Living Expenses&quot;, 
+ (Property_Tax_Monthly_Prior_Loan__c +
+ Property_Insurance_Monthly_Prior_Loan__c +
+ Property_Maintenance_Monthly_Prior_loan__c +
+ Personal_Expenses_Monthly_Prior_Loan__c +
+ Food_Cost_Monthly_Prior_Loan__c +
+ Child_Care_Costs_Monthly_Prior_Loan__c +
+ School_Costs_Monthly_Prior_Loan__c +
+ Health_Costs_Monthly_Prior_Loan__c +
+ Other_Personal_Family_Monthly_Prior_Loan__c +
+ Electricity_Monthly_Prior_Loan__c  +
+ Water_Monthly_Prior_Loan__c +
+ Cell_Phone_Landline_Monthly_Prior_Loan__c +
+ Internet_Cable_Monthly_Prior_Loan__c +
+ Cooking_Gas_Monthly_Prior_Loan__c +
+ House_Keeping_Monthly_Prior_Loan__c +
+ Other_Utilities_Monthly_Prior_Loan__c +
+ Fares_Monthly_Prior_Loan__c +
+ Petrol_Fuel_Monthly_Prior_Loan__c +
+ Toll_Fees_Monthly_Prior_Loan__c +
+ Motor_V_Insurance_Monthly_Prior_Loan__c +
+ Motor_Vehicle_Reg_Monthly_Prior_Loan__c +
+ Motor_Vehicle_Fitness_Monthly_Prior_Loan__c +
+ Motor_V_Maintenance_Monthly_Before_Loan__c +
+ Other_Transport_Costs_Monthly_Prior_Loan__c ),0
+))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Outflows</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_unsecured_Balance_Installment_and__c</fullName>
+        <description>Total unsecured Balance (Installment and revolving)</description>
+        <externalId>false</externalId>
+        <label>Total unsecured Balance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Water_Monthly_After_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Water Monthly After Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Water_Monthly_Prior_Loan__c</fullName>
+        <externalId>false</externalId>
+        <label>Water Monthly Prior Loan</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <label>Applicant</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Account__c</columns>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>App-{000000000}</displayFormat>
+        <label>Applicant Details  Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Applicants</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Empty_Application</fullName>
+        <active>true</active>
+        <description>Represents an application that is blank and contains no info</description>
+        <label>Empty Application</label>
+        <picklistValues>
+            <picklist>Affiliation_Type__c</picklist>
+            <values>
+                <fullName>Immediate relative of JN Bank Director</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Immediate relative of JN Bank Employee</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>JN Bank Director</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>JN Bank Employee</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other JN Group Director</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other JN Group Employee</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unconnected</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Applicable_sources_of_income__c</picklist>
+            <values>
+                <fullName>Director%27s Emoluments %28Director%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net Profit %28Sole Trader%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pension</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Property Rental</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Salary</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Share of Profit %28Shareholder%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Share of Profits %28Partnership%29</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Assessment_of_Applicant_Net_Worth__c</picklist>
+            <values>
+                <fullName>Low Net Worth</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New worth not commensurate with age and earning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reasonable net worth</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strong net worth</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Bankrupt_in_Last_7_Years__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CRIF_Rating__c</picklist>
+            <values>
+                <fullName>Applicant too new to rate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Average Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>High Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Score too low to rate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Very High Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Very Low Risk</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CreditInfo_Rating__c</picklist>
+            <values>
+                <fullName>Applicant too new to rate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Average Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>High Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Score too low to rate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Very High Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Very Low Risk</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Credit_History_in_last_24_Months__c</picklist>
+            <values>
+                <fullName>1 - 10 Days Delinquent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>11 - 30 Days Delinquent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>31 - 60 Days Delinquent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>61 - 90 Days Delinquent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Credit History</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Delinquency</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Over 90 Days Delinquent</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Is_applicant_KYC_Compliant__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>JN_Group_Employee__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Judgements_Filed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Lawsuits_or_Claims__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Primary_Relationship_Tier__c</picklist>
+            <values>
+                <fullName>JN Blue Mahoe Club</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>JN Lignum Vitae Club</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>JN Mahogany Club</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Applicable</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Sanction_Screening_Completed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Sanction_Screening_has_Negative_Trace__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Full_Details_Of_Income_Living_Expenses</fullName>
+        <active>true</active>
+        <label>Full Details Of Income/Living Expenses</label>
+        <picklistValues>
+            <picklist>Affiliation_Type__c</picklist>
+            <values>
+                <fullName>Immediate relative of JN Bank Director</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Immediate relative of JN Bank Employee</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>JN Bank Director</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>JN Bank Employee</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other JN Group Director</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other JN Group Employee</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unconnected</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Applicable_sources_of_income__c</picklist>
+            <values>
+                <fullName>Director%27s Emoluments %28Director%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net Profit %28Sole Trader%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pension</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Property Rental</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Salary</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Share of Profit %28Shareholder%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Share of Profits %28Partnership%29</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Assessment_of_Applicant_Net_Worth__c</picklist>
+            <values>
+                <fullName>Low Net Worth</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New worth not commensurate with age and earning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reasonable net worth</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strong net worth</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Bankrupt_in_Last_7_Years__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CRIF_Rating__c</picklist>
+            <values>
+                <fullName>Applicant too new to rate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Average Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>High Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Score too low to rate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Very High Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Very Low Risk</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CreditInfo_Rating__c</picklist>
+            <values>
+                <fullName>Applicant too new to rate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Average Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>High Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Score too low to rate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Very High Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Very Low Risk</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Credit_History_in_last_24_Months__c</picklist>
+            <values>
+                <fullName>1 - 10 Days Delinquent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>11 - 30 Days Delinquent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>31 - 60 Days Delinquent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>61 - 90 Days Delinquent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Credit History</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Delinquency</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Over 90 Days Delinquent</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Is_applicant_KYC_Compliant__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>JN_Group_Employee__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Judgements_Filed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Lawsuits_or_Claims__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Primary_Relationship_Tier__c</picklist>
+            <values>
+                <fullName>JN Blue Mahoe Club</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>JN Lignum Vitae Club</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>JN Mahogany Club</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Applicable</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Sanction_Screening_Completed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Sanction_Screening_has_Negative_Trace__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Short_Summary_of_Income</fullName>
+        <active>true</active>
+        <label>Short Summary of Income</label>
+        <picklistValues>
+            <picklist>Affiliation_Type__c</picklist>
+            <values>
+                <fullName>Immediate relative of JN Bank Director</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Immediate relative of JN Bank Employee</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>JN Bank Director</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>JN Bank Employee</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other JN Group Director</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other JN Group Employee</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unconnected</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Applicable_sources_of_income__c</picklist>
+            <values>
+                <fullName>Director%27s Emoluments %28Director%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net Profit %28Sole Trader%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pension</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Property Rental</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Salary</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Share of Profit %28Shareholder%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Share of Profits %28Partnership%29</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Assessment_of_Applicant_Net_Worth__c</picklist>
+            <values>
+                <fullName>Low Net Worth</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New worth not commensurate with age and earning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reasonable net worth</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strong net worth</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Bankrupt_in_Last_7_Years__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CRIF_Rating__c</picklist>
+            <values>
+                <fullName>Applicant too new to rate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Average Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>High Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Score too low to rate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Very High Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Very Low Risk</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CreditInfo_Rating__c</picklist>
+            <values>
+                <fullName>Applicant too new to rate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Average Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>High Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Score too low to rate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Very High Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Very Low Risk</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Credit_History_in_last_24_Months__c</picklist>
+            <values>
+                <fullName>1 - 10 Days Delinquent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>11 - 30 Days Delinquent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>31 - 60 Days Delinquent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>61 - 90 Days Delinquent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Credit History</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Delinquency</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Over 90 Days Delinquent</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Is_applicant_KYC_Compliant__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>JN_Group_Employee__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Judgements_Filed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Lawsuits_or_Claims__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Primary_Relationship_Tier__c</picklist>
+            <values>
+                <fullName>JN Blue Mahoe Club</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>JN Lignum Vitae Club</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>JN Mahogany Club</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Applicable</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Sanction_Screening_Completed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Sanction_Screening_has_Negative_Trace__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <startsWith>Vowel</startsWith>
+    <validationRules>
+        <fullName>Directors_emoluments</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(INCLUDES(Applicable_sources_of_income__c , &quot;Director&apos;s Emoluments (Director)&quot;),ISBLANK(Director_s_Emoluments_Director__c))</errorConditionFormula>
+        <errorMessage>Director&apos;s Emoluments (Director) is required</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Gratuity_in_lieu_of_Pension</fullName>
+        <active>false</active>
+        <errorConditionFormula>AND(INCLUDES(Applicable_sources_of_income__c , &quot;Salary&quot;), OR(Gratuity_in_lieu_of_Pension__c &lt;1,ISBLANK(Gratuity_in_lieu_of_Pension__c)))</errorConditionFormula>
+        <errorMessage>Gratuity in lieu of Pension  is cannot be blank</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Net_Profit_Sole_Trader</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(INCLUDES(Applicable_sources_of_income__c , &quot;Net Profit (Sole Trader)&quot;),ISBLANK(Net_Profit_Sole_Trader__c))</errorConditionFormula>
+        <errorMessage>Net Profit (Sole Trader) is required</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Other</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(INCLUDES(Applicable_sources_of_income__c , &quot;Other&quot;),ISBLANK(Other_Income__c))</errorConditionFormula>
+        <errorMessage>Other income is required</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Pension</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(INCLUDES(Applicable_sources_of_income__c , &quot;Pension&quot;),ISBLANK(Pension__c))</errorConditionFormula>
+        <errorMessage>Pension is required</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Perfomance_based_Pay</fullName>
+        <active>false</active>
+        <errorConditionFormula>AND(INCLUDES(Applicable_sources_of_income__c , &quot;Salary&quot;), OR(Performance_Based_Pay_Includes_Commissi__c &lt;1,ISBLANK(Performance_Based_Pay_Includes_Commissi__c)))</errorConditionFormula>
+        <errorMessage>Performance Base pay  cannot be blank</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Project_Realestate_rental</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(INCLUDES(Applicable_sources_of_income__c , &quot;Property Rental&quot;),ISBLANK(Projected_Real_Estate_Rental__c))</errorConditionFormula>
+        <errorMessage>Projected Realestate  information is required</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Property_Rental_not_treated_as_business</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(INCLUDES(Applicable_sources_of_income__c , &quot;Property Rental&quot;),ISBLANK(Existing_Real_Estate_Rental_I__c))</errorConditionFormula>
+        <errorMessage>Property Rental information is required</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Property_Rental_treated_as_business</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(INCLUDES(Applicable_sources_of_income__c , &quot;Property Rental&quot;),ISBLANK(Existing_Real_estate_Rental_II__c))</errorConditionFormula>
+        <errorMessage>Existing Realestate Rental II information is required</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Salary_and_Allowances</fullName>
+        <active>false</active>
+        <errorConditionFormula>AND(INCLUDES(Applicable_sources_of_income__c , &quot;Salary&quot;), OR(Salary_and_Allowances_as_per_pay_slips__c&lt;1,ISBLANK(Salary_and_Allowances_as_per_pay_slips__c)))</errorConditionFormula>
+        <errorMessage>Salary and Allowance is cannot be blank</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Salary_and_Allowances_gp</fullName>
+        <active>false</active>
+        <errorConditionFormula>AND(INCLUDES(Applicable_sources_of_income__c , &quot;Salary&quot;), OR(Salary_and_Allowances_as_per_pay_slips__c&lt;1,ISBLANK(Salary_and_Allowances_as_per_pay_slips__c)),
+OR(Gratuity_in_lieu_of_Pension__c &lt;1,ISBLANK(Gratuity_in_lieu_of_Pension__c)),
+OR(Performance_Based_Pay_Includes_Commissi__c &lt;1,ISBLANK(Performance_Based_Pay_Includes_Commissi__c))
+)</errorConditionFormula>
+        <errorMessage>Salary and Allowance is cannot be blank</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Share_of_Profit_Partnership</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(INCLUDES(Applicable_sources_of_income__c , &quot;Share of Profits (Partnership)&quot;),ISBLANK(Share_of_Profit_Partnership__c))</errorConditionFormula>
+        <errorMessage>Share of Profit (Partnership) is required</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Share_of_Profit_shareholder</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(INCLUDES(Applicable_sources_of_income__c , &quot;Share of Profits (Shareholder)&quot;),ISBLANK(Share_of_Profit_Shareholder__c))</errorConditionFormula>
+        <errorMessage>Share of Profit (Shareholder) is required</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

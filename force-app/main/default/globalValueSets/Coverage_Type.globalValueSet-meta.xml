@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>JN Life - Creditor Life Insurance</fullName>
+        <default>false</default>
+        <label>JN Life - Creditor Life Insurance</label>
+    </customValue>
+    <customValue>
+        <fullName>Assigned Life Insurance Policy</fullName>
+        <default>false</default>
+        <label>Assigned Life Insurance Policy</label>
+    </customValue>
+    <customValue>
+        <fullName>None</fullName>
+        <default>false</default>
+        <label>None</label>
+    </customValue>
+    <masterLabel>Coverage Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

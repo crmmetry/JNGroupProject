@@ -1,0 +1,244 @@
+<aura:component implements="lightning:availableForFlowScreens" access="global" controller="JNApplicantFlowController">
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+	<aura:attribute name="applicantId" type="String" />
+	<aura:attribute name="crifRatings" type="String[]" />
+	<aura:attribute name="creditInfoRatings" type="String[]" />
+	<aura:attribute name="judgementsFiled" type="String[]" />
+	<aura:attribute name="lawsuitsorClaims" type="String[]" />
+	<aura:attribute name="affiliationTypes" type="String[]" />
+	<aura:attribute name="primaryRelationshipTiers" type="String[]" />
+	<aura:attribute name="sanctionScreenings" type="String[]" />
+	<aura:attribute name="creditHistory24Months" type="String[]" />
+	<aura:attribute name="assessmentApplicantNetWorth" type="String[]" />
+	<aura:attribute name="bankruptLast7Years" type="String[]" />
+	<aura:attribute name="KYCCompliants" type="String[]" />
+	<aura:attribute name="JNGroupEmployee" type="String[]" />
+	<aura:attribute name="assessmentofStatements" type="String[]" />
+	<aura:attribute name="assessmentofBusinesses" type="String[]" />
+	<aura:attribute name="AssessmentofBusinessWorkingCapitas" type="String[]" />
+	<aura:attribute name="validate" type="Aura.Action" description="Custom validation function to run when the flow is navigated to the next screen. 
+                                 The function must evaluate the component and return values for isValid and errorMessage." />
+	<aura:attribute name="applicant" type="Applicant__c" default="{'sobjectType':'Applicant__c'}"/>
+	<aura:attribute name="employment" type="FinServ__Employment__c" default="{'sobjectType':'FinServ__Employment__c'}" />
+	<lightning:accordion aura:id="accordion">
+		<lightning:accordionSection name="credit_bureau_reporting" label="Credit Bureau Reporting Financial and Legal Assessment">
+			<lightning:layout multipleRows="true" horizontalAlign="space" verticalAlign="center">
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
+					<lightning:select label="CRIF Rating" required="true" aura:id="validation" onchange="{!c.getCRIFRating}" >
+						<option value="">select one...</option>
+                        <aura:iteration items="{!v.crifRatings}" var="item">
+							<option value="{!item}" selected="{!v.applicant.CRIF_Rating__c == item}">
+								{!item}
+							</option>
+						</aura:iteration>
+					</lightning:select>
+				</lightning:layoutItem>
+				<!-- credit info rating -->
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
+					<lightning:select label="Credit Info Rating" required="true" aura:id="validation" onchange="{!c.getCreditInfoRating}" >
+						<option value="">select one...</option>
+                        <aura:iteration items="{!v.creditInfoRatings}" var="item">
+							<option value="{!item}" selected="{!v.applicant.CreditInfo_Rating__c ==item}">
+								{!item}
+							</option>
+						</aura:iteration>
+					</lightning:select>
+				</lightning:layoutItem>
+				<!-- Overall Credit bureau rating -->
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
+					<lightning:input type="text" label="Overall Credit bureau rating" value="{!v.applicant.Overall_Credit_Bureau_Rating__c}" readonly="true" />
+				</lightning:layoutItem>
+			</lightning:layout>
+		</lightning:accordionSection>
+		<lightning:accordionSection name="financial_legal_assessment" label="Financial and Legal Assessment">
+			<lightning:layout multipleRows="true" horizontalAlign="space" verticalAlign="center">
+				<!-- Credit History in the last 24 months -->
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
+					<lightning:select name="Credit_History_in_24_months" label="Credit History in the last 24 months" required="true" aura:id="validation" onchange="{!c.getCreditHistory24Months}" >
+						<option value="">select one...</option>
+                        <aura:iteration items="{!v.creditHistory24Months}" var="item">
+							<option value="{!item}" selected="{!v.applicant.Credit_History_in_last_24_Months__c == item}">
+								{!item}
+							</option>
+						</aura:iteration>
+					</lightning:select>
+				</lightning:layoutItem>
+				<!-- Assessment of applicants net worth -->
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
+					<lightning:select name="Assessment_of_applicants_net_worth" label="Assessment of applicants net worth" required="true" aura:id="validation" onchange="{!c.getAssessmentNetworth}" >
+						<option value="">select one...</option>
+                        <aura:iteration items="{!v.assessmentApplicantNetWorth}" var="item">
+							<option value="{!item}" selected="{!v.applicant.Assessment_of_Applicant_Net_Worth__c == item}">
+								{!item}
+							</option>
+						</aura:iteration>
+					</lightning:select>
+				</lightning:layoutItem>
+				<!-- Judgments filed ? -->
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
+					<lightning:select label="Judgments filed ?" required="true" aura:id="validation" onchange="{!c.getJudgementsFiled}" >
+						<option value="">select one...</option>
+                        <aura:iteration items="{!v.judgementsFiled}" var="item">
+							<option value="{!item}" selected="{!v.applicant.Judgements_Filed__c == item}">
+								{!item}
+							</option>
+						</aura:iteration>
+					</lightning:select>
+				</lightning:layoutItem>
+				<!-- Bankrupt in last 7 years? -->
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
+					<lightning:select name="bankrupt_in_7_years" label="Bankrupt in last 7 years?" required="true" aura:id="validation" onchange="{!c.getBankrupt7Years}" >
+						<option value="">select one...</option>
+                        <aura:iteration items="{!v.bankruptLast7Years}" var="item">
+							<option value="{!item}" selected="{!v.applicant.Bankrupt_in_Last_7_Years__c == item}">
+								{!item}
+							</option>
+						</aura:iteration>
+					</lightning:select>
+				</lightning:layoutItem>
+				<!-- Lawsuit or Claims? -->
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
+					<lightning:select name="lawsuit_or_claims" label="Lawsuit or Claims?" required="true" aura:id="validation" onchange="{!c.getLawsuitClaims}" >
+						<option value="">select one...</option>
+                        <aura:iteration items="{!v.lawsuitsorClaims}" var="item">
+							<option value="{!item}" selected="{!v.applicant.Lawsuits_or_Claims__c == item}">
+								{!item}
+							</option>
+						</aura:iteration>
+					</lightning:select>
+				</lightning:layoutItem>
+				<!-- Assessment of business’s working capital*
+                <lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
+					<lightning:select label="Assessment of business’s working capital" required="true" aura:id="validation" onchange="{!c.getAssessmentofBusiness}" >
+						<option value="">select one...</option>
+                        <aura:iteration items="{!v.assessmentofBusinesses}" var="item">
+							<option value="{!item}" selected="{!v.employment.Assessment_of_Business__c == item}">
+								{!item}
+							</option>
+						</aura:iteration>
+					</lightning:select>
+                </lightning:layoutItem> -->
+				<!-- Assessment of businesses financial performance 
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
+					<lightning:select label="Assessment of businesses financial performance" required="true" aura:id="validation" onchange="{!c.getAssessmentofStatement}" >
+						<option value="">select one...</option>
+                        <aura:iteration items="{!v.assessmentofStatements}" var="item">
+							<option value="{!item}" selected="{!v.employment.Assessment_of_Statement__c == item}">
+								{!item}
+							</option>
+						</aura:iteration>
+					</lightning:select>
+				</lightning:layoutItem>* -->
+				<!-- Assessment of business financial statement support
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
+					<lightning:select label="Assessment of business financial statement support" required="true" aura:id="validation" onchange="{!c.getAssessmentofBusinessWorkingCapita}">
+						<option value="">select one...</option>
+                        <aura:iteration items="{!v.AssessmentofBusinessWorkingCapitas}" var="item">
+							<option value="{!item}" selected="{!v.employment.Assessment_of_Business_Working_Capita__c == item}">
+								{!item}
+							</option>
+						</aura:iteration>
+					</lightning:select>
+				</lightning:layoutItem>* -->
+			</lightning:layout>
+		</lightning:accordionSection>
+		<lightning:accordionSection name="jn_bank_details" label="JN Bank Details">
+			<lightning:layout multipleRows="true" horizontalAlign="space" verticalAlign="center">
+				<!-- Is the applicant KYC compliant?* -->
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
+					<lightning:select name="lawsuit_or_claims" label="Is applicant KYC Compliant?" required="true" aura:id="validation" onchange="{!c.getKYCCompliant}" >
+						<option value="">select one...</option>
+                        <aura:iteration items="{!v.KYCCompliants}" var="item">
+							<option value="{!item}" selected="{!v.applicant.Is_applicant_KYC_Compliant__c == item}">
+								{!item}
+							</option>
+						</aura:iteration>
+					</lightning:select>
+				</lightning:layoutItem>
+				<!-- Rim Number -->
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
+					<lightning:input type="text" label="Rim Number" value="{!v.applicant.Rim_Number__c}" required="true" />
+				</lightning:layoutItem>
+				<!-- Time as Member years -->
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
+					<lightning:input type="number" label="Time as Member years?" value="{!v.applicant.Time_as_Member_Years__c}" />
+				</lightning:layoutItem>
+				<!-- Time as Member months -->
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
+					<lightning:input type="number" label="Time as Member months?" value="{!v.applicant.Time_as_Member_Months__c}" />
+				</lightning:layoutItem>
+				<!-- Affiliation type affiliationTypes -->
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
+					<lightning:select name="affiliation_types" label="Affiliation Types" required="true" aura:id="validation" onchange="{!c.getAffiliationType}" >
+						<option value="">select one...</option>
+                        <aura:iteration items="{!v.affiliationTypes}" var="item">
+							<option value="{!item}" selected="{!v.applicant.Affiliation_Type__c == item}">
+								{!item}
+							</option>
+						</aura:iteration>
+					</lightning:select>
+				</lightning:layoutItem>
+				<!-- Primary Relationship tier -->
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
+					<lightning:select name="affiliation_types" label="Primary Relationship Tier" required="true" aura:id="validation" onchange="{!c.getPrimaryRelationshipType}" >
+						<option value="">select one...</option>
+                        <aura:iteration items="{!v.primaryRelationshipTiers}" var="item">
+							<option value="{!item}" selected="{!v.applicant.Primary_Relationship_Tier__c == item}">
+								{!item}
+							</option>
+						</aura:iteration>
+					</lightning:select>
+				</lightning:layoutItem>
+				<!-- Sanction Screening completed -->
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
+					<lightning:select name="sanction_screening_completed" label="Sanction Screening completed?" required="true" aura:id="validation" onchange="{!c.getSanctionScreening}" >
+						<option value="">select one...</option>
+                        <aura:iteration items="{!v.sanctionScreenings}" var="item">
+							<option value="{!item}" selected="{!v.applicant.Sanction_Screening_Completed__c == item}">
+								{!item}
+							</option>
+						</aura:iteration>
+					</lightning:select>
+				</lightning:layoutItem>
+                <aura:if isTrue="{!v.applicant.Sanction_Screening_Completed__c == 'Yes'}">
+                  <!-- Sanction Screening Result -->
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="12" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">					
+                   <lightning:select name="sanction_screening_result" label="Has the sanction screening resulted in a negative trace?" required="true" aura:id="validation" onchange="{!c.getSanctionScreeningResult}" >
+						<option value="">select one...</option>
+                        <aura:iteration items="{!v.sanctionScreenings}" var="item">
+							<option value="{!item}" selected="{!v.applicant.Sanction_Screening_has_Negative_Trace__c == item}">
+								{!item}
+							</option>
+						</aura:iteration>
+					</lightning:select>
+				</lightning:layoutItem>
+                </aura:if>
+
+				<!-- JN Group Employee?* -->
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
+					<lightning:select name="jn_group_employee" label="JN Group Employee?" required="true" aura:id="validation" onchange="{!c.getJNGroupEmployee}" >
+						<option value="">select one...</option>
+                        <aura:iteration items="{!v.sanctionScreenings}" var="item">
+							<option value="{!item}" selected="{!v.applicant.JN_Group_Employee__c == item}">
+								{!item}
+							</option>
+						</aura:iteration>
+					</lightning:select>
+				</lightning:layoutItem>
+				<!-- Basic monthly pay (no allowances) -->
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
+					<lightning:input aura:id="validation" value="{!v.applicant.Basic_monthly_pay_no_allowances__c}" formatter="currency" type="number"  label="Basic monthly pay (no allowances)"/>
+				</lightning:layoutItem>
+				<!-- Total unsecured Balance (Installment and revolving) -->
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small">
+					<lightning:input aura:id="validation" value="{!v.applicant.Total_unsecured_Balance_Installment_and__c}" formatter="currency" type="number" label="Total unsecured Balance (Installment and revolving)" />
+				</lightning:layoutItem>
+				<!-- Will the JN Employee Loan Benefit be applied?* -->
+				<lightning:layoutItem flexibility="no-flex" size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" alignmentBump="right" padding="around-small" >
+					<lightning:input type="checkbox" aura:id="validation"
+                                     label="Will the JN Employee Loan Benefit be applied?" checked="{!v.applicant.JN_Employee_Loan_Benefit__c}"/>
+				</lightning:layoutItem>
+			</lightning:layout>
+		</lightning:accordionSection>
+	</lightning:accordion>
+</aura:component>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Salary Deduction</fullName>
+        <default>false</default>
+        <label>Salary Deduction</label>
+    </customValue>
+    <customValue>
+        <fullName>Standing Order</fullName>
+        <default>false</default>
+        <label>Standing Order</label>
+    </customValue>
+    <customValue>
+        <fullName>Over The Counter</fullName>
+        <default>false</default>
+        <label>Over The Counter</label>
+    </customValue>
+    <masterLabel>Repayment Method</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>
