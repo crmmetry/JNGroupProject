@@ -556,7 +556,7 @@
                     </div>
                     <aura:if isTrue="{!v.isProductDetail}">
                         <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">CREDIT RISK PRE-ASSESSMENT</div>
-                        <div class="slds-grid slds-wrap" style="margin-top: 5px;">
+                        <div class="slds-grid slds-wrap" style="margin-top: 5px;">*
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
                                 <lightning:input label="Credit Risk Score Prior to Application" disabled="true" type="text" aura:id="CreditScoreAuto" style="padding-right: 5px;padding-left: 5px;" />
                             </div>

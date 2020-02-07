@@ -2908,6 +2908,7 @@
             console.log("pavit3.3--------------------------Auto Loan");
             Legal_Fees_Including_GCT = cmp.find("LegalFeesGCT1").get("v.value");
             Stamp_Duty = cmp.find("StampDutyDoc1").get("v.value");
+            console.log('Stamp_Duty *** '+ Stamp_Duty);
             Total_Auto_Loan_Fees_Charges = cmp
             .find("TotalAutoLoanFeesCharges1")
             .get("v.value");

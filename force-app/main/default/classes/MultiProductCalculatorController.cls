@@ -1,3 +1,9 @@
+/*  
+ * Sr#  Ticket#      Modified By      Modified Date       Description
+ *   1  JN1-2755     Priyanka A.(TQ)  02/06/2020      TDSR - Auto Loan Before
+ * */
+
+
 public class MultiProductCalculatorController {
     
     @AuraEnabled
@@ -80,6 +86,7 @@ public class MultiProductCalculatorController {
                 Id rtID = Schema.SObjectType.Loan_Calculator__c.getRecordTypeInfosByName().get('Multi Product').getRecordTypeId();
                 loancalculation.recordTypeId =rtID;
                 system.debug('SaveLoanCalculation=='+loancalculation);
+                system.debug('SaveLoanCalculation=='+loancalculation.Stamp_duty__c);
                 insert loancalculation;
                 returnStr=string.valueOf(loancalculation.Id);
                 system.debug('SaveLoanCalculation=='+loancalculation);
@@ -713,9 +720,11 @@ this.Rating=Rating1;
         } else {
             loanCalculation = new Loan_Calculator__c();
         }
+        //JN1-2755#1 :: Added new fields in the query
         list<Application_Asset_Liability__c> lst = [select Monthly_Payment_Prior__c,
                                                     Minimum_Payment__c,
                                                     Application__c,
+                                                    Monthly_Payment_Prior_Calc_App_Portion__c,
                                                     Assets_and_Liabilities__r.RecordType.Name,
                                                     Assets_and_Liabilities__r.RecordType.DeveloperName,
                                                     Assets_and_Liabilities__r.Monthly_Payment_Prior__c,
@@ -725,8 +734,13 @@ this.Rating=Rating1;
                                                     Assets_and_Liabilities__r.Percent_Applicant_Portion__c
                                                     from Application_Asset_Liability__c where Application__r.Opportunity__c =:oppid];
         
-        list<Applicant__c> applst = [select id,Account__c,Gross_Monthly_IncomeC__c from Applicant__c where Opportunity__c=:oppid order by CreatedDate];
+        // JN1-2755#1 
+        //list<Applicant__c> applst = [select id,Account__c,Gross_Monthly_IncomeC__c from Applicant__c where Opportunity__c=:oppid order by CreatedDate];
+        list<Applicant__c> applst = [select id,Account__c,Gross_Monthly_IncomeC__c,Rent_Board_Strata_Before_TDSR__c from Applicant__c where Opportunity__c=:oppid order by CreatedDate];
+        
+        
         wrapperlstAssets.add( new WrapperclsAssets(lst, applst, loanCalculation, thisOpportunity.AccountId));
+        system.debug('wrapperlstAssets'+wrapperlstAssets);
         return wrapperlstAssets;
     }
     public class WrapperclsAssets{

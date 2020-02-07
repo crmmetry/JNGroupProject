@@ -6,6 +6,7 @@
  *    4    JN1-2841     Amar K.(TQ)  01/23/2020          Monthly load payment after moratorium   
  *    5    JN1-2739     Priyanka A.(TQ)  01/30/2020      Total Interest Payment
  *    6    JN1-2740     Priyanka A.(TQ)  01/30/2020      Total Interest Payment
+ *    7    JN1-2755     Priyanka A.(TQ)  02/06/2020      TDSR - Auto Loan Before, Fields changed 
 */    
 ({	
     AddRow:function(RowIndex,EmpRow,cmp){
@@ -1091,16 +1092,18 @@
                     for(var k in assetslst){
                         console.log("ApplicationAssetLiability==========="+assetslst[k].Assets_and_Liabilities__r.RecordType.Name);
                         if(assetslst[k].Assets_and_Liabilities__r.RecordType.Name=="Real Estate" || assetslst[k].Assets_and_Liabilities__r.RecordType.Name=="Motor Vehicle" || assetslst[k].Assets_and_Liabilities__r.RecordType.Name=="Other Assets" || assetslst[k].Assets_and_Liabilities__r.RecordType.Name=="Other Loans"){
-                            console.log("ApplicationAssetLiability1==========="+assetslst[k].Assets_and_Liabilities__r.Monthly_Payment_Prior__c);
-                            if(assetslst[k].Assets_and_Liabilities__r.Monthly_Payment_Prior__c!=null)
-                                ExistingInstallmentPaymentBefore += assetslst[k].Assets_and_Liabilities__r.Monthly_Payment_Prior__c;
-                            if(assetslst[k].Assets_and_Liabilities__r.Monthly_Payment__c!=null)
+                            //AK JN1-2755#7 :: Assets_and_Liabilities__r.Monthly_Payment_Prior__c > Monthly_Payment_Prior_Calc_App_Portion__c
+                            console.log("ApplicationAssetLiability1==========="+assetslst[k].Monthly_Payment_Prior_Calc_App_Portion__c);
+                            if(assetslst[k].Monthly_Payment_Prior_Calc_App_Portion__c != null)
+                                ExistingInstallmentPaymentBefore += assetslst[k].Monthly_Payment_Prior_Calc_App_Portion__c;
+                            if(assetslst[k].Assets_and_Liabilities__r.Monthly_Payment__c!=null) // Question: Monthly_Payment?
                                 ExistingInstallmentPaymentAfter +=assetslst[k].Assets_and_Liabilities__r.Monthly_Payment__c;
                         }
                         if(assetslst[k].Assets_and_Liabilities__r.RecordType.Name=="Credit Cards" || assetslst[k].Assets_and_Liabilities__r.RecordType.Name=="Lines of Credit" ){
-                            console.log("ApplicationAssetLiability1==========="+assetslst[k].Assets_and_Liabilities__r.Minimum_Payment__c);
-                            if(assetslst[k].Assets_and_Liabilities__r.Minimum_Payment__c!=null)
-                                ExistingInstallmentPaymentBefore += assetslst[k].Assets_and_Liabilities__r.Minimum_Payment__c;
+                            //AK JN1-2755#7 :: Assets_and_Liabilities__r.Minimum_Payment__c > Minimum_Payment__c 
+                            console.log("ApplicationAssetLiability1==========="+assetslst[k].Minimum_Payment__c);
+                            if(assetslst[k].Minimum_Payment__c!=null)
+                                ExistingInstallmentPaymentBefore += assetslst[k].Minimum_Payment__c;
                             if(assetslst[k].Assets_and_Liabilities__r.Minimum_Payment_After__c!=null)
                                 ExistingInstallmentPaymentAfter +=assetslst[k].Assets_and_Liabilities__r.Minimum_Payment_After__c;
                         }
@@ -1110,11 +1113,27 @@
                     cmp.set("v.ExistingInstallmentBefore",ExistingInstallmentPaymentBefore);
                     cmp.set("v.ExistingInstallmentAfter",ExistingInstallmentPaymentAfter);
                     var applst=response.getReturnValue()[0].Applicantlst;
+
+                                   
+                    var rentBoardBeforeTdsr = 0 ; 
                     
                     for(var k in applst){
                         if(applst[k].Gross_Monthly_IncomeC__c!=null)
                             ExistingGrossmonthlyincome +=applst[k].Gross_Monthly_IncomeC__c;
+                        
+                        // JN1-2755#7   
+                        if(applst[k].Rent_Board_Strata_Before_TDSR__c != null){
+                            rentBoardBeforeTdsr+= applst[k].Rent_Board_Strata_Before_TDSR__c;
+                        }
                     }
+                    console.log("rentBoardBeforeTdsr="+rentBoardBeforeTdsr);
+                    console.log("ExistingInstallmentPaymentBefore="+ExistingInstallmentPaymentBefore);
+                     
+                     // JN1-2755#7 
+                     ExistingInstallmentPaymentBefore = ExistingInstallmentPaymentBefore +  rentBoardBeforeTdsr;
+                     console.log("ExistingInstallmentPaymentBefore=========="+ExistingInstallmentPaymentBefore);
+                     cmp.set("v.ExistingInstallmentBefore",ExistingInstallmentPaymentBefore);
+                    
                     console.log("ExistingGrossmonthlyincome=========="+ExistingGrossmonthlyincome);
                     cmp.set("v.ExistingGrossincome",ExistingGrossmonthlyincome);
                 }
@@ -1236,6 +1255,7 @@
     },
     
     autoLoanTotal : function(cmp){
+        debugger;
         console.log('AutoNotisprod=========='+cmp.get("v.isProductDetail"));
         if(cmp.get("v.isProductDetail")){
             console.log('Autoisprod=========='+cmp.get("v.isProductDetail"));
@@ -1246,12 +1266,22 @@
             var ExistingGrossmonthlyincome = parseFloat(cmp.get("v.ExistingGrossincome"));
             var totalmonthlyInstallmentcmp=isNaN(parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value")))?0:parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
             if(ExistingInstallmentPaymentBefore>0 && ExistingGrossmonthlyincome>0)
-                PriortoProposedCredit=ExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
+                
+            PriortoProposedCredit=ExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
+            console.log('ExistingInstallmentPaymentBefore = '+ExistingInstallmentPaymentBefore);
+            console.log('ExistingGrossmonthlyincome = '+ExistingGrossmonthlyincome);
+            
+            console.log('PriortoProposedCredit = '+PriortoProposedCredit);
+            console.log('ExistingInstallmentPaymentAfter = '+ExistingInstallmentPaymentAfter);
+            console.log('totalmonthlyInstallmentcmp = '+totalmonthlyInstallmentcmp);
+
             var totalExistingInstallmentPaymentAfter=ExistingInstallmentPaymentAfter+totalmonthlyInstallmentcmp;
             if(totalExistingInstallmentPaymentAfter>0 && ExistingGrossmonthlyincome>0)
                 afterProposedCredit=totalExistingInstallmentPaymentAfter/ExistingGrossmonthlyincome;
             var Admin_TablesBJ7 = '50';
             cmp.find("PolicyLimit").set("v.value", Admin_TablesBJ7);
+            //AK :: JN1-2755#7 
+            PriortoProposedCredit = PriortoProposedCredit*100;
             cmp.find("PriortoProposedCredit").set("v.value", parseFloat(PriortoProposedCredit).toFixed(2));
             cmp.find("AfterProposedCredit").set("v.value", parseFloat(afterProposedCredit).toFixed(2));  
         }
@@ -1404,7 +1434,10 @@
             var ExistingGrossmonthlyincome = parseFloat(cmp.get("v.ExistingGrossincome"));
             var totalmonthlyInstallmentcmp=isNaN(parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value")))?0:parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value"));
             if(ExistingInstallmentPaymentBefore>0 && ExistingGrossmonthlyincome>0)
-                PriortoProposedCredit=ExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
+               PriortoProposedCredit=ExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
+               console.log('PriortoProposedCredit'+PriortoProposedCredit);
+                console.log('PriortoProposedCredit'+ExistingInstallmentPaymentBefore);
+                console.log('PriortoProposedCredit'+ExistingGrossmonthlyincome);
             var totalExistingInstallmentPaymentAfter=ExistingInstallmentPaymentAfter+totalmonthlyInstallmentcmp;
             if(totalExistingInstallmentPaymentAfter>0 && ExistingGrossmonthlyincome>0)
                 afterProposedCredit=totalExistingInstallmentPaymentAfter/ExistingGrossmonthlyincome;
