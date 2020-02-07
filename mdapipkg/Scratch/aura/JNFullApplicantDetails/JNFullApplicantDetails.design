@@ -1,3 +1,0 @@
-<design:component label="Applicant Full Details">
-    <design:attribute name="applicantId" label="Applicant Id"/>
-</design:component>

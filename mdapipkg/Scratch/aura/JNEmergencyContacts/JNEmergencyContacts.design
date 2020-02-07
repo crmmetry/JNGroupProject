@@ -1,6 +1,0 @@
-<design:component label="Emergency Contacts List">
-  <design:attribute name="contactIds" label="Contact Ids" />
-  <design:attribute name="contactId" label="Contact Id" />
-  <design:attribute name="contact" label="Contact" />
-  <design:attribute name="title" label="Title" />
-</design:component>
