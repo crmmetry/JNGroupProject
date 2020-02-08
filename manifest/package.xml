@@ -41,5 +41,9 @@
         <members>*</members>
         <name>StaticResource</name>
     </types>
+        <types>
+        <members>*</members>
+        <name>InstalledPackage</name>
+    </types>
     <version>47.0</version>
 </Package>
