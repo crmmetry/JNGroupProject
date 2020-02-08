@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity_must_have_Savings</fullName>
+    <active>true</active>
+    <description>Opportunity must have a product to be closed won forSaving and chequings</description>
+    <errorConditionFormula>AND
+(
+$RecordType.DeveloperName= &quot;Savings_Chequing&quot;,
+ISPICKVAL(Closed_Status__c , &#39;Closed Won&#39;),
+Savings_and_Chequing__c= FALSE
+
+)</errorConditionFormula>
+    <errorMessage>Please add a product to this Opportunity. All opportunities must have a product to be closed won</errorMessage>
+</ValidationRule>

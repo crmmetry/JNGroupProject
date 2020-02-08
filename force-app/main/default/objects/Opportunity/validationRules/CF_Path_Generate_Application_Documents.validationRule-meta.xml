@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CF_Path_Generate_Application_Documents</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+
+Not(
+And(
+ISPICKVAL(Application_Form_Created_PK__c , &quot;Yes&quot;), 
+ISPICKVAL( Statement_of_Affairs_gene_PK__c  , &quot;Yes&quot;) ,
+ISPICKVAL( Credit_Calculations_Generated_PK__c  , &quot;Yes&quot;) ,
+ISPICKVAL(  Credit_Scoring_Model_generated_PK__c  , &quot;Yes&quot;) 
+)
+),
+ISPICKVAL( StageName ,&quot;Loan Submitted For Review&quot;),
+ISPICKVAL( Loan_Path__c , &quot;ADJUDICATION: AWAIT CREDIT DECISION&quot;),
+$RecordType.Name = &quot;Credit_Facility&quot;,
+$Profile.Name = &quot;Sales - All Products&quot;
+)</errorConditionFormula>
+    <errorMessage>Please Meet the Criteria for &quot;Loan Submitted For Review&quot; in the Sales Path.</errorMessage>
+</ValidationRule>

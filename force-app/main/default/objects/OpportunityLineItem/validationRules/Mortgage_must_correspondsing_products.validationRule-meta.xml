@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mortgage_must_correspondsing_products</fullName>
+    <active>true</active>
+    <description>Mortgage must have the corresponding line of product to be added</description>
+    <errorConditionFormula>AND
+(
+Opportunity.RecordType.DeveloperName= &quot;Mortgage&quot;,
+NOT(ISPICKVAL(Product2.Family, &quot;JN Bank Mortgage Loan&quot;)),
+NOT(ISPICKVAL(Product2.Family, &quot;JN Bank Insurance Premium Financing&quot;))
+
+)</errorConditionFormula>
+    <errorMessage>This product is not apart of the Mortgage Line of Products. Please add a product corresponding to the mortgage&#39;s lines of product or create a new opportunity with a different record type that matches the line of product.</errorMessage>
+</ValidationRule>

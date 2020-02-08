@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Must_Be_Person_Account</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT(Account.RecordType.DeveloperName = &#39;PersonAccount&#39;)</errorConditionFormula>
+    <errorDisplayField>AccountId</errorDisplayField>
+    <errorMessage>Account Must Be A Person Account</errorMessage>
+</ValidationRule>

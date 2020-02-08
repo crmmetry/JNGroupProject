@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Leads_Cannot_Be_Converted_Until_Contact</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+ISBLANK(Last_Contact_Made__c ) ,
+  ISPICKVAL(Status, &quot;Qualified&quot;) 
+) &amp;&amp;  FinServ__ConversionDateTime__c  = NOW()</errorConditionFormula>
+    <errorMessage>Lead cannot be converted until CONTACT is made</errorMessage>
+</ValidationRule>

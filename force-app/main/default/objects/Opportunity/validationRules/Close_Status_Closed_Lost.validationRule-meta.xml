@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Close_Status_Closed_Lost</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( 
+ISPICKVAL(Closed_Status__c , &#39;Closed Lost&#39;),
+
+ISBLANK((Text(Close_Lose_Reason__c ))  
+
+
+)
+)</errorConditionFormula>
+    <errorMessage>Please close this dialog box and complete the &quot;Close Lost Reason&quot;</errorMessage>
+</ValidationRule>

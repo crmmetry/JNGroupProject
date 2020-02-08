@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CloseDateMustTodayorLater</fullName>
+    <active>true</active>
+    <description>Validates that the close date cant be less than today.</description>
+    <errorConditionFormula>ISNEW() &amp;&amp; CloseDate &lt; TODAY()</errorConditionFormula>
+    <errorDisplayField>CloseDate</errorDisplayField>
+    <errorMessage>Close Date cannot be in the past.</errorMessage>
+</ValidationRule>

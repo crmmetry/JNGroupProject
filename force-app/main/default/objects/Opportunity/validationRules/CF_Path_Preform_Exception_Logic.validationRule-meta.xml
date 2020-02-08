@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CF_Path_Preform_Exception_Logic</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+
+NOT(
+AND( 
+
+OR(
+  AND( 
+ISPICKVAL(Request_ADJ_Exception_for_Credit__c , &quot;Yes&quot;), 
+  ISPICKVAL(Await_Credit_Report_Picklist__c , &quot;Received&quot;)
+)
+,
+ISPICKVAL(Request_ADJ_Exception_for_Credit__c , &quot;Not Applicable&quot;)
+)
+,
+ISPICKVAL(Loan_Path__c, &quot;Preform Exception Handling&quot;)
+)
+)
+,
+
+ISPICKVAL( StageName , &quot;Preform Exception Handling&quot;),
+ISPICKVAL(  Loan_Path__c , &quot;Collect and Check Customer Documents&quot;),
+$RecordType.Name = &quot;Credit_Facility&quot;,
+$Profile.Name = &quot;Sales - All Products&quot;
+
+
+)</errorConditionFormula>
+    <errorMessage>Please Meet the Criteria for &quot;Collect and Check Customer Documents&quot; in the Sales Path.</errorMessage>
+</ValidationRule>

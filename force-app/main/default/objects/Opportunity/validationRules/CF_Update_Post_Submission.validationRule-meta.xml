@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CF_Update_Post_Submission</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF( $Profile.Name = &#39;Sales - All Products&#39; &amp;&amp;  
+Submit_Security_Documentation_to_CRMU__c = true &amp;&amp;
+ISPICKVAL(Loan_Path__c,&#39;Closing Step&#39;) &amp;&amp;
+Contact_Customer_to_Sign_Security_Docs__c != NULL &amp;&amp;
+ISPICKVAL(StageName,&#39;Processing Documents Submitted&#39;) &amp;&amp;
+$RecordType.Name = &#39;Credit_Facility&#39;,
+true,
+false  )</errorConditionFormula>
+    <errorDisplayField>StageName</errorDisplayField>
+    <errorMessage>Please Meet the Criteria for “Complete Loan Application” in the Sales Path.</errorMessage>
+</ValidationRule>

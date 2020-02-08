@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Must_Make_Contact_To_Escalate_To_Tier_2</fullName>
+    <active>true</active>
+    <description>A Tier 1 user cannot escalate a lead to Tier 2 without making contact.</description>
+    <errorConditionFormula>AND(
+ISBLANK(Last_Contact_Made__c ) ,
+ Escalate_to_Tier2__c = true
+)</errorConditionFormula>
+    <errorDisplayField>Escalate_to_Tier2__c</errorDisplayField>
+    <errorMessage>CONTACT must be made before escalating to Tier 2.</errorMessage>
+</ValidationRule>
