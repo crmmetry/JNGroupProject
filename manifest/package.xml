@@ -2,6 +2,10 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
         <members>*</members>
+        <name>CustomApplication</name>
+    </types>
+    <types>
+        <members>*</members>
         <name>CustomObject</name>
     </types>
     <types>
@@ -48,5 +52,17 @@
         <members>*</members>
         <name>InstalledPackage</name>
     </types>
+      <types>
+    <name>ListView</name>
+    <members>*</members>
+  </types>
+  <types>
+    <name>RecordType</name>
+    <members>*</members>
+  </types>
+  <types>
+    <name>ValidationRule</name>
+    <members>*</members>
+  </types>
     <version>47.0</version>
 </Package>
