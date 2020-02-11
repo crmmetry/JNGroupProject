@@ -1,7 +1,7 @@
 public class CreditScoreHelper {
     
     public static Boolean FirstRun=false;
-    public static Boolean FirstRunAcc=true;
+    public static Boolean FirstRunAcc=false;
     string category=''; 
     string Age1='0'; 
     string Education=''; 
@@ -61,6 +61,7 @@ public class CreditScoreHelper {
     Map<string,List<WrapperScoringModel>> MapAppScore = new Map<string,List<WrapperScoringModel>>();   
     
     Map<string,List<WrapperScoringModel>> MapProductScore = new Map<string,List<WrapperScoringModel>>();   
+    
     
     public void CreditScoreFromOpp(Set<id> oppid){
         system.debug('Test## Credit score Helper called  with opp id = '+oppid);

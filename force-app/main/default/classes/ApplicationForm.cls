@@ -8,7 +8,6 @@ public class ApplicationForm {
     public Boolean isUnFound{get;set;}
     public Boolean isCcFound{get;set;}
     public Boolean isLocFound{get;set;}
-    public List<Account> emergencyContacts{get;set;}
     public Integer totalNumberOfAppli{get;set;}
     public string mypdf='';
     public  ApplicationForm(){
@@ -65,47 +64,42 @@ public class ApplicationForm {
         Map<id,List<FinServ__ContactContactRelation__c>> MapBankAff = new  Map<id,List<FinServ__ContactContactRelation__c>>();
         set<id> accid = new set<id>();
         set<id> conid = new set<id>();
-        List<Applicant__c> lstapp = [select Account__c,Account__r.FinServ__PrimaryContact__c,Account__r.PersonContactId from Applicant__c where Opportunity__c=:oppid];
+        List<Applicant__c> lstapp = [select Account__c,Account__r.FinServ__PrimaryContact__c from Applicant__c where Opportunity__c=:oppid];
         if(lstapp.size()>0){
             totalNumberOfAppli = lstapp.size();
             
             
             for(Applicant__c a:lstapp){
                 accid.add(a.Account__c);
-                conid.add(a.Account__r.PersonContactId);        
+                conid.add(a.Account__r.FinServ__PrimaryContact__c);        
             }
             
         }
         system.debug('accid======'+accid);
         system.debug('conid============='+conid);   
         if(conid.size()>0){
-            Set<id> accountIds = new Set<Id>();
             List<FinServ__ContactContactRelation__c> EmergencyContactlst = [select FinServ__RelatedContact__c,
                                                                             FinServ__Contact__r.FirstName,
-                                                                            FinServ__RelatedContact__r.Account.Id,
-                                                                            FinServ__RelatedContact__r.LastName,
-                                                                            FinServ__RelatedContact__r.MiddleName,
-                                                                            FinServ__RelatedContact__r.Account.Emergency_Contact_Relationship__pc,
-                                                                            FinServ__RelatedContact__r.Account.Street_1__pc,
-                                                                            FinServ__RelatedContact__r.Account.Street_2__pc,
-                                                                            FinServ__RelatedContact__r.Account.Street_3__pc,
-                                                                            FinServ__RelatedContact__r.Account.City_Town__pc,
-                                                                            FinServ__RelatedContact__r.Account.Residential_Area_District__pc,
-                                                                            FinServ__RelatedContact__r.Account.Post_Office_Zip_Code__pc,        
-                                                                            FinServ__RelatedContact__r.Account.Province_Parish_State__pc,
-                                                                            FinServ__RelatedContact__r.Account.PersonMobilePhone,
-                                                                            FinServ__RelatedContact__r.Account.Business_Phone__pc,
-                                                                            FinServ__RelatedContact__r.Account.PersonHomePhone,
-                                                                            FinServ__RelatedContact__r.Account.Personal_Email__c,
-                                                                            FinServ__RelatedContact__r.Account.PersonOtherPhone,
-                                                                            FinServ__RelatedContact__r.Account.FinServ__CountryOfBirth__pc
-                                                                            from FinServ__ContactContactRelation__c where FinServ__RelatedContact__c IN:conid 
-                                                                            and FinServ__Role__r.Name='Emergency Contact' ];
+                                                                            FinServ__Contact__r.LastName,
+                                                                            FinServ__Contact__r.MiddleName,
+                                                                            FinServ__Contact__r.Account.Emergency_Contact_Relationship__pc,
+                                                                            FinServ__Contact__r.Account.Street_1__pc,
+                                                                            FinServ__Contact__r.Account.Street_2__pc,
+                                                                            FinServ__Contact__r.Account.Street_3__pc,
+                                                                            FinServ__Contact__r.Account.City_Town__pc,
+                                                                            FinServ__Contact__r.Account.Residential_Area_District__pc,
+                                                                            FinServ__Contact__r.Account.Post_Office_Zip_Code__pc,        
+                                                                            FinServ__Contact__r.Account.Province_Parish_State__pc,
+                                                                            FinServ__Contact__r.Account.PersonMobilePhone,
+                                                                            FinServ__Contact__r.Account.Business_Phone__pc,
+                                                                            FinServ__Contact__r.Account.PersonHomePhone,
+                                                                            FinServ__Contact__r.Account.Personal_Email__c,
+                                                                            FinServ__Contact__r.Account.PersonOtherPhone,
+                                                                            FinServ__Contact__r.Account.FinServ__CountryOfBirth__pc
+                                                                            from FinServ__ContactContactRelation__c where FinServ__RelatedContact__c IN:conid and FinServ__Role__r.Name='Emergency Contact' ];
             system.debug('EmergencyContactlst===>'+EmergencyContactlst);
-            Set<id> emergencyAccountIds = new Set<Id>();
             if(EmergencyContactlst.size()>0){
                 for(FinServ__ContactContactRelation__c c:EmergencyContactlst){
-                    emergencyAccountIds.add(c.FinServ__RelatedContact__r.Account.Id);
                     if(AccidVsEmrConLst.containsKey(c.FinServ__RelatedContact__c)){
                         List<FinServ__ContactContactRelation__c> aclst = AccidVsEmrConLst.get(c.FinServ__RelatedContact__c);
                         if(aclst.size()<2){
@@ -120,25 +114,7 @@ public class ApplicationForm {
                     }
                 }
             }
-            this.emergencyContacts = [SELECT  Id,
-             FirstName,
-             LastName,
-             MiddleName,
-             Emergency_Contact_Relationship__pc,
-             Street_1__pc,
-             Street_2__pc,FinServ__CountryOfBirth__pc,
-                                      Street_3__pc,
-                                      City_Town__pc,
-                                      Residential_Area_District__pc,
-                                      Post_Office_Zip_Code__pc,        
-                                      Province_Parish_State__pc,
-                                      PersonMobilePhone,
-                                      Business_Phone__pc,
-                                      PersonHomePhone,
-                                      Personal_Email__c,
-                                      PersonOtherPhone
-                                      
-             from Account where id in :emergencyAccountIds];
+            system.debug('AccidVsEmrConLst===>'+AccidVsEmrConLst);  
             
             
             List<FinServ__ContactContactRelation__c> PoliExpolst = [select FinServ__RelatedContact__c,
@@ -207,12 +183,10 @@ public class ApplicationForm {
                                                            Country__c,
                                                            Length_of_Trade__c,
                                                            Nature_of_Engagement__c,
-                                                           Type_of_Business__c,Time_Employed_with_Current_Employer__c,
-                                                           Date_of_Incorporation__c,Time_Employed_in_Present_Employer_M__c
+                                                           Type_of_Business__c,
+                                                           Date_of_Incorporation__c
                                                            from FinServ__Employment__c where Account__c IN:accid];
-            
             if(Employmentlst.size()>0) {
-                SetCalendarValues(Employmentlst);
                 for(FinServ__Employment__c c:Employmentlst){
                     if(AccidVsEmpLst.containsKey(c.Account__c)){
                         List<FinServ__Employment__c> aclst = AccidVsEmpLst.get(c.Account__c);
@@ -301,19 +275,6 @@ public class ApplicationForm {
             }
         }
         system.debug('Final Wrapper =======>'+lst);
-    }
-    private static void SetCalendarValues(List<FinServ__Employment__c>  records){
-        Map<String, Integer> values;
-        for(FinServ__Employment__c record: records){
-            if(record.Current_Employment__c){
-            values = Util.GetYearValues(record.FinServ__StartDate__c, Date.today());
-            record.Time_Employed_with_Current_Employer__c  = values.get('years');
-            record.Time_Employed_in_Present_Employer_M__c  = values.get('months');
-            } else {
-                            record.Time_Employed_with_Current_Employer__c  = 0;
-            record.Time_Employed_in_Present_Employer_M__c  = 0;
-            }
-        }
     }
     public class WrapperApplicationForm{
         public Integer Appcount{get;set;}

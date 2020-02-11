@@ -149,7 +149,7 @@
                                         <td style="cellspacing:0px;width:10%;border: 1px solid rgb(191, 191, 191);Text-align:center;">years</td>
                                         <td style="cellspacing:0px;width:5%;border: 1px solid rgb(191, 191, 191);Text-align:center;">{!appitem.applicant.Time_as_Member_Months__c}</td>
                                         <td style="cellspacing:0px;width:10%;border: 1px solid rgb(191, 191, 191);Text-align:center;">months</td>
-                                        <td style="width:15%;border: 1px solid rgb(191, 191, 191);Text-align:center;">{!appitem.applicant.Rim_Number__c}</td>
+                                        <td style="width:15%;border: 1px solid rgb(191, 191, 191);Text-align:center;"><!--{!appitem.applicant.Rim_Number__c}--></td>
                                         <td style="width:25%;border: 1px solid rgb(191, 191, 191);Text-align:center;">{!appitem.applicant.Primary_Relationship_Tier__c}</td>
                                     </tr>
                                 </table>

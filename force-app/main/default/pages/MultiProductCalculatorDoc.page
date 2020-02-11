@@ -1,14 +1,3 @@
-<!--
-  @File Name          : MultiProductCalculatorDoc.page
-  @Description        : 
-  @Author             : ChangeMeIn@UserSettingsUnder.SFDoc
-  @Group              : 
-  @Last Modified By   : ChangeMeIn@UserSettingsUnder.SFDoc
-  @Last Modified On   : 7/2/2020, 12:42:29 PM
-  @Modification Log   : 
-  Ver       Date            Author      		    Modification
-  1.0    7/2/2020   ChangeMeIn@UserSettingsUnder.SFDoc     Initial Version
--->
 <apex:page applyBodyTag="false" controller="MultiProductCalculatorDocController" renderAs="PDF">
     <head>
         <style type="text/css" media="print">

@@ -6520,27 +6520,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Half-Way-Tree Transport Centre</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Highgate</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>JN Premier</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>JN Rep Office Florida</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>JN Rep Office Toronto</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>JN Rep Office UK</fullName>
             <default>false</default>
         </values>
         <values>
@@ -6577,22 +6561,6 @@
         </values>
         <values>
             <fullName>Morant Bay</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Mortgage Centre - Mandeville</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Mortgage Sales Hub - Montego Bay</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Mortgage Sales Hub - New Kingston</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Mortgage Sales Hub - Ocho Rios</fullName>
             <default>false</default>
         </values>
         <values>
@@ -7818,6 +7786,10 @@
         </values>
         <values>
             <fullName>JN Bank Mortgage Loan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JN Bank Term Share Loan</fullName>
             <default>false</default>
         </values>
         <values>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X12_to_1_Loan_Supersize_Loan_Lead</fullName>
+    <filterScope>Queue</filterScope>
+    <label>12 to 1 Loan (Supersize Loan)</label>
+    <queue>X12_to_1_Loan_Supersize_Loan</queue>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

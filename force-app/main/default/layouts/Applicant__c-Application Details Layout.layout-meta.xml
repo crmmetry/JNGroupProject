@@ -262,10 +262,6 @@
                 <behavior>Edit</behavior>
                 <field>NHT_Contributions_Monthly_Prior_Loan__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Education_Tax_Monthly_Prior_Loan__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -286,6 +282,10 @@
         <editHeading>true</editHeading>
         <label>Family Fees</label>
         <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Education_Tax_Monthly_Prior_Loan__c</field>
+            </layoutItems>
             <layoutItems>
                 <emptySpace>true</emptySpace>
             </layoutItems>

@@ -15,10 +15,6 @@
         <default>false</default>
     </values>
     <values>
-        <fullName>Re- Activated Opportunity</fullName>
-        <default>false</default>
-    </values>
-    <values>
         <fullName>Submit Loan</fullName>
         <default>false</default>
     </values>

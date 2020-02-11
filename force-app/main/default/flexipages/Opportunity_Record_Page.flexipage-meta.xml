@@ -48,14 +48,14 @@
         <componentInstances>
             <componentName>MultiProductCalculator</componentName>
         </componentInstances>
-        <name>Facet-6a40bf10-835e-41dd-b2a4-6c2f53918973</name>
+        <name>Facet-918ed890-914f-4adb-a0fc-8ca757f9f850</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
         <componentInstances>
             <componentName>ProductDetail</componentName>
         </componentInstances>
-        <name>Facet-y3f7kyl58l</name>
+        <name>Facet-iyi2fttq39</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -84,7 +84,7 @@
         <componentInstances>
             <componentInstanceProperties>
                 <name>body</name>
-                <value>Facet-6a40bf10-835e-41dd-b2a4-6c2f53918973</value>
+                <value>Facet-918ed890-914f-4adb-a0fc-8ca757f9f850</value>
             </componentInstanceProperties>
             <componentInstanceProperties>
                 <name>title</name>
@@ -95,7 +95,7 @@
         <componentInstances>
             <componentInstanceProperties>
                 <name>body</name>
-                <value>Facet-y3f7kyl58l</value>
+                <value>Facet-iyi2fttq39</value>
             </componentInstanceProperties>
             <componentInstanceProperties>
                 <name>title</name>

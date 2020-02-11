@@ -1997,6 +1997,14 @@
     <picklistValues>
         <picklist>Employment_Status__c</picklist>
         <values>
+            <fullName>Contractual</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Permanent</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Unemployed</fullName>
             <default>false</default>
         </values>
@@ -2004,7 +2012,7 @@
     <picklistValues>
         <picklist>FinServ__EmploymentStatus__c</picklist>
         <values>
-            <fullName>Unemployed</fullName>
+            <fullName>Contractual</fullName>
             <default>false</default>
         </values>
     </picklistValues>

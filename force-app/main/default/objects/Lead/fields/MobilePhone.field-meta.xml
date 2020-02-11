@@ -3,5 +3,5 @@
     <fullName>MobilePhone</fullName>
     <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>true</trackHistory>
+    <trackHistory>false</trackHistory>
 </CustomField>

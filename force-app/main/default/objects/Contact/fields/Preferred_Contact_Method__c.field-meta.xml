@@ -11,7 +11,7 @@
             <sorted>false</sorted>
             <value>
                 <fullName>Mobile</fullName>
-                <default>false</default>
+                <default>true</default>
                 <label>Mobile</label>
             </value>
             <value>
@@ -25,9 +25,9 @@
                 <label>Email</label>
             </value>
             <value>
-                <fullName>Business Phone</fullName>
+                <fullName>Business phone</fullName>
                 <default>false</default>
-                <label>Business Phone</label>
+                <label>Business phone</label>
             </value>
         </valueSetDefinition>
     </valueSet>

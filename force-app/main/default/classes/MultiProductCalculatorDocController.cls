@@ -251,7 +251,7 @@ Monthly_loan_Payment_Monthly_Savings_M__c,
                           from Loan_Calculator__c where id =:loanid and RecordType.Name='Multi Product' limit 1];
         if(ProductDetails.size()>0){
             
-               System.debug('---'+ProductDetails[0].Stamp_Duty__c ); 
+                
                 
             
     
