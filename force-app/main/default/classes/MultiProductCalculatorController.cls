@@ -725,6 +725,8 @@ this.Rating=Rating1;
                                                     Minimum_Payment__c,
                                                     Application__c,
                                                     Monthly_Payment_Prior_Calc_App_Portion__c,
+                                                    Monthly_Payment_After_Calc_App_Portion__c,
+                                                    Minimum_Payment_After__c,
                                                     Assets_and_Liabilities__r.RecordType.Name,
                                                     Assets_and_Liabilities__r.RecordType.DeveloperName,
                                                     Assets_and_Liabilities__r.Monthly_Payment_Prior__c,
@@ -736,7 +738,7 @@ this.Rating=Rating1;
         
         // JN1-2755#1 
         //list<Applicant__c> applst = [select id,Account__c,Gross_Monthly_IncomeC__c from Applicant__c where Opportunity__c=:oppid order by CreatedDate];
-        list<Applicant__c> applst = [select id,Account__c,Gross_Monthly_IncomeC__c,Rent_Board_Strata_Before_TDSR__c from Applicant__c where Opportunity__c=:oppid order by CreatedDate];
+        list<Applicant__c> applst = [select id,Account__c,Gross_Monthly_IncomeC__c,Rent_Board_Strata_Before_TDSR__c,Rent_Board_Strata_After_TDSR__c from Applicant__c where Opportunity__c=:oppid order by CreatedDate];
         
         
         wrapperlstAssets.add( new WrapperclsAssets(lst, applst, loanCalculation, thisOpportunity.AccountId));
