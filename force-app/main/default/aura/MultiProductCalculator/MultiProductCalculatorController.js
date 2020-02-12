@@ -1,17 +1,19 @@
+/*
+ *  * Sr#  Ticket#      Modified By      Modified Date       Description
+ *    1    JN1-2727     Amar K.(TQ)      01/24/2020          1.NaN issue 
+*/
 ({
     doInit: function(cmp, event, helper) {
+        const notAllowedStatementAffairsScenarios = ["3","4","10"];
         var isprod = cmp.get("v.isProductDetail");
         var opts = [
                 { value: "0", label: "choose one..." },
                 { value: "7", label: "No Suitable Applicants" }
             ];
             cmp.set("v.Coverageoptions", opts);
-        console.log("component type========>" + isprod);
         
-        console.log("window.location.origin"+window.location.origin);
         if (isprod) {
             //$A.util.addClass(cmp.find("ccRequest"), "slds-hide"); //JN1-2490
-            console.log("A========>" + isprod);
             helper.calculateScoreCalculate(cmp);
             var opp_id = cmp.get("v.isRecordIdM");
             helper.isRequiredFieldMissingForCreditScore(cmp, opp_id);
@@ -47,19 +49,7 @@
                         var GMIncome = "";
                         var EMCPayment = "";
                         var IsJNEmployee = "";
-                        /*
-                        if(applicantlst[k].Account__r.firstname!=null)
-                            FirstName=applicantlst[k].Account__r.firstname;
-                        if(applicantlst[k].Account__r.lastname!=null)
-                            LastName=applicantlst[k].Account__r.lastname;
-                        if(applicantlst[k].Account__r.PersonBirthdate!=null)
-                            DateOfBirth=applicantlst[k].Account__r.PersonBirthdate;
-                        if(applicantlst[k].Account__r.Gross_Monthly_Income__pc!=null)
-                            GMIncome=applicantlst[k].Account__r.Gross_Monthly_Income__pc;
-                        if(applicantlst[k].Opportunity__r.Existing_monthly_debts_being_serviced__c!=null)
-                            EMCPayment=applicantlst[k].Opportunity__r.Existing_monthly_debts_being_serviced__c;
-                        if(applicantlst[k].Account__r.JN_Bank_Affiliation__pc!=null)
-                            IsJNEmployee=applicantlst[k].Account__r.JN_Bank_Affiliation__pc;*/
+                        var applicantId = "";
                         if (applicantlst[k].First_Name != null)
                             FirstName = applicantlst[k].First_Name;
                         if (applicantlst[k].Last_Name != null)
@@ -72,13 +62,9 @@
                             EMCPayment = applicantlst[k].EMC_Payment;
                         if (applicantlst[k].IsJNEmp != null)
                             IsJNEmployee = applicantlst[k].IsJNEmp;
-                        
-                        console.log("applicantlst====FirstName========>" + FirstName);
-                        console.log("applicantlst====LastName========>" + LastName);
-                        console.log("applicantlst====DateOfBirth========>" + DateOfBirth);
-                        console.log("applicantlst====GMIncome========>" + GMIncome);
-                        console.log("applicantlst====EMCPayment========>" + EMCPayment);
-                        console.log("applicantlst====IsJNEmployee========>" + IsJNEmployee);
+                        if (applicantlst[k].applicantId != null)
+                            applicantId = applicantlst[k].applicantId;
+                           
                         
                         if (k == 0) {
                             EmpRow = [
@@ -89,7 +75,8 @@
                                     DateOfBirth: DateOfBirth,
                                     GMIncome: GMIncome,
                                     EMCPayment: EMCPayment,
-                                    IsJNEmployee: IsJNEmployee
+                                    IsJNEmployee: IsJNEmployee,
+                                    applicantId:applicantId
                                 }
                             ];
                         } else {
@@ -100,7 +87,8 @@
                                 DateOfBirth: DateOfBirth,
                                 GMIncome: GMIncome,
                                 EMCPayment: EMCPayment,
-                                IsJNEmployee: IsJNEmployee
+                                IsJNEmployee: IsJNEmployee,
+                                applicantId:applicantId
                             });
                         }
                     }
@@ -119,10 +107,22 @@
             action.setCallback(this, function(response) {
                 var state = response.getState();
                 if (state === "SUCCESS") {
+                    console.warn(response.getReturnValue())
                     var productselection = response.getReturnValue();
-                    cmp.find("selectapplicant").set("v.value", productselection);
+                    const selectapplicant = cmp.find("selectapplicant");
+                    if(selectapplicant){
+                        selectapplicant.set("v.value", productselection);
+                    }
                     $A.enqueueAction(cmp.get("c.showhideONmethod"));
                     var calc = productselection;
+                    // dont show statement of affairs based on product selection
+                    const shouldShowStatements = helper.canShowStatementOfAffairs(notAllowedStatementAffairsScenarios, productselection);
+                    console.warn('shouldShowStatements ', shouldShowStatements)
+                    cmp.set("v.canShowStatementAffairs",shouldShowStatements);
+                    if(!productselection || productselection == null || typeof productselection === 'undefined' || productselection == '0'){
+                        cmp.set("v.canShowStatementAffairs", true);
+                    }
+                    console.warn('canShowStatementAffairs Next', cmp.get("v.canShowStatementAffairs"))
                     if (
                         calc == "1" ||
                         calc == "5" ||
@@ -211,6 +211,9 @@
         } else if (str.indexOf("Opportunity") != -1) {
             cmp.set("v.sobjectName", "Opportunity");
         }
+        // Given that the Opportunity Product is “Line of Credit” ONLY OR “Credit Card” ONLY or “Line of Credit 
+        // AND Credit Card” ONLY the Statement of Affairs document should not be Generated.
+       
     },
     Createapplicantlist: function(cmp, event, helper) {
         var ApplicantRow = [
@@ -520,12 +523,15 @@
         }
     },
     calculateJNLifeMonthlyPremium: function(cmp, event, helper) {
+        debugger;
+        
         helper.calculateJNLifeMonthlyPremiumhelper(cmp, event);
         helper.calculateTotalautoloan(cmp, event);
     },
     calculateJNGIMonthlyPremium: function(cmp, event, helper) {
+        debugger;
         console.log("c1==");
-        helper.calculateJNGIMonthlyPremiumhelper(cmp, event);
+		helper.calculateJNGIMonthlyPremiumhelper(cmp, event);
         helper.calculateTotalautoloan(cmp, event);
     },
     calculateProcessingFee: function(cmp, event, helper) {
@@ -804,6 +810,7 @@
          console.log("Coverageoptions ============"+cmp.get("v.Coverageoptions"));
     },
     ShowHideOnInterestedinprogramme: function(cmp, evt, helper) {
+        debugger;
         var acMethod = cmp.find("Interestedinprogramme").get("v.value");
         switch (acMethod) {
             case "0":
@@ -854,6 +861,8 @@
                     "slds-hide"
                 );
                 $A.util.addClass(cmp.find("JNGIMotorInsurancePremium1st"), "slds-hide");
+                //JN1-2727#1 :: Reset to zero if No
+                cmp.find("MonthlyPremium").set("v.value", 0);
                 helper.calculateJNGIMonthlyPremiumhelper(cmp, event);
                 helper.calculateTotalautoloan(cmp, event);
                 break;
@@ -2899,6 +2908,7 @@
             console.log("pavit3.3--------------------------Auto Loan");
             Legal_Fees_Including_GCT = cmp.find("LegalFeesGCT1").get("v.value");
             Stamp_Duty = cmp.find("StampDutyDoc1").get("v.value");
+            console.log('Stamp_Duty *** '+ Stamp_Duty);
             Total_Auto_Loan_Fees_Charges = cmp
             .find("TotalAutoLoanFeesCharges1")
             .get("v.value");
@@ -3865,18 +3875,18 @@
         console.log("Doc"+id_str);
         if(id_str=="Doc1"){
             let oppid = cmp.get("v.isRecordIdM");
-            let appId = cmp.get("v.applicants")[0];
-            window.open(""+window.location.origin+"/apex/StatementofAffair?oppid=" +oppid +"&appId=" +appId);
+            let appId = cmp.get("v.RowNum")[0].applicantId;
+            window.open(""+window.location.origin+"/apex/StatementofAffair?oppid=" +oppid +"&appId=" +appId+"&num=1");
         }
         if(id_str=="Doc2"){
             let oppid = cmp.get("v.isRecordIdM");
-            let appId = cmp.get("v.applicants")[1];
-            window.open(""+window.location.origin+"/apex/StatementofAffair?oppid=" +oppid +"&appId=" +appId);
+            let appId = cmp.get("v.RowNum")[1].applicantId;
+            window.open(""+window.location.origin+"/apex/StatementofAffair?oppid=" +oppid +"&appId=" +appId+"&num=2");
         }
         if(id_str=="Doc3"){
             let oppid = cmp.get("v.isRecordIdM");
-            let appId = cmp.get("v.applicants")[2];
-            window.open(""+window.location.origin+"/apex/StatementofAffair?oppid=" +oppid +"&appId=" +appId);
+            let appId = cmp.get("v.RowNum")[2].applicantId;
+            window.open(""+window.location.origin+"/apex/StatementofAffair?oppid=" +oppid +"&appId=" +appId+"&num=3");
         }
     },
     Wasexceptiongrantonchange: function(cmp, evt, helper) {

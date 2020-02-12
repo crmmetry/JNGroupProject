@@ -1499,7 +1499,7 @@
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>myDecision26</targetReference>
+            <targetReference>myDecision27</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
@@ -1536,6 +1536,37 @@
                     <stringValue>Closed Won</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Date</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Date</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>Date</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Formula</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>myVariable_current.CloseDate</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>formula_26_myRule_25_4482773309</elementReference>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>myRule_25_A1</targetReference>
             </connector>
@@ -1549,13 +1580,13 @@
                 <numberValue>13.0</numberValue>
             </value>
         </processMetadataValues>
-        <name>myDecision26</name>
-        <label>myDecision26</label>
+        <name>myDecision27</name>
+        <label>myDecision27</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>myRule_27</name>
+            <name>myRule_28</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <processMetadataValues>
@@ -1588,8 +1619,39 @@
                     <stringValue>Closed Lost</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Date</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Date</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>Date</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Formula</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>myVariable_current.CloseDate</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>formula_29_myRule_28_8837448726</elementReference>
+                </rightValue>
+            </conditions>
             <connector>
-                <targetReference>myRule_27_A1</targetReference>
+                <targetReference>myRule_28_A1</targetReference>
             </connector>
             <label>Record Close Lost</label>
         </rules>
@@ -2039,7 +2101,29 @@
         </rules>
     </decisions>
     <description>adding the closed date  conidition</description>
-    <interviewLabel>Opportunity_Loan_Flow-21_InterviewLabel</interviewLabel>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>TODAY() </stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_26_myRule_25_4482773309</name>
+        <dataType>Date</dataType>
+        <expression>TODAY()</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>TODAY() </stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_29_myRule_28_8837448726</name>
+        <dataType>Date</dataType>
+        <expression>TODAY()</expression>
+    </formulas>
+    <interviewLabel>Opportunity_Loan_Flow-56_InterviewLabel</interviewLabel>
     <label>Opportunity path</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -3156,9 +3240,9 @@
         <processMetadataValues>
             <name>referenceTargetField</name>
         </processMetadataValues>
-        <name>myRule_27_A1</name>
+        <name>myRule_28_A1</name>
         <label>Update to Lost</label>
-        <locationX>2700</locationX>
+        <locationX>2800</locationX>
         <locationY>200</locationY>
         <filters>
             <processMetadataValues>
@@ -3699,7 +3783,7 @@
         <object>Opportunity</object>
     </recordUpdates>
     <startElementReference>myDecision</startElementReference>
-    <status>Active</status>
+    <status>Draft</status>
     <variables>
         <name>myVariable_current</name>
         <dataType>SObject</dataType>

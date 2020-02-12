@@ -2004,10 +2004,6 @@
             <fullName>Permanent</fullName>
             <default>false</default>
         </values>
-        <values>
-            <fullName>Unemployed</fullName>
-            <default>false</default>
-        </values>
     </picklistValues>
     <picklistValues>
         <picklist>FinServ__EmploymentStatus__c</picklist>

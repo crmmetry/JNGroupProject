@@ -1,3 +1,12 @@
+/*
+    Sr#     Ticket#      Modified By                Modified Date       Description
+ *    1     JN1-2780      Ishwari Gaikwad.(TQ)      02/11/2020        1.General Info Field Mapping  
+ *    2     JN1-2781      Ishwari Gaikwad.(TQ)      02/11/2020        1.Contact Details Field Mapping
+ *    3     JN1-2791      Ishwari Gaikwad.(TQ)      02/11/2020        Line Of Credit Request Field Mapping
+ *    4     JN1-2788      Ishwari Gaikwad.(TQ)      02/11/2020        Auto Loan Request Field Mapping
+ *    5     JN1-2782      Ishwari Gaikwad.(TQ)      02/12/2020        Emergency Contact Field Mapping
+*/
+
 public class ApplicationForm {
     Public static integer isFirst=1;
     public List<WrapperApplicationForm> lst{get;set;}
@@ -8,6 +17,7 @@ public class ApplicationForm {
     public Boolean isUnFound{get;set;}
     public Boolean isCcFound{get;set;}
     public Boolean isLocFound{get;set;}
+    public List<Account> emergencyContacts{get;set;}
     public Integer totalNumberOfAppli{get;set;}
     public string mypdf='';
     public  ApplicationForm(){
@@ -64,42 +74,47 @@ public class ApplicationForm {
         Map<id,List<FinServ__ContactContactRelation__c>> MapBankAff = new  Map<id,List<FinServ__ContactContactRelation__c>>();
         set<id> accid = new set<id>();
         set<id> conid = new set<id>();
-        List<Applicant__c> lstapp = [select Account__c,Account__r.FinServ__PrimaryContact__c from Applicant__c where Opportunity__c=:oppid];
+        List<Applicant__c> lstapp = [select Account__c,Account__r.FinServ__PrimaryContact__c,Account__r.PersonContactId from Applicant__c where Opportunity__c=:oppid];
         if(lstapp.size()>0){
             totalNumberOfAppli = lstapp.size();
             
             
             for(Applicant__c a:lstapp){
                 accid.add(a.Account__c);
-                conid.add(a.Account__r.FinServ__PrimaryContact__c);        
+                conid.add(a.Account__r.PersonContactId);        
             }
             
         }
         system.debug('accid======'+accid);
         system.debug('conid============='+conid);   
         if(conid.size()>0){
+            Set<id> accountIds = new Set<Id>();
             List<FinServ__ContactContactRelation__c> EmergencyContactlst = [select FinServ__RelatedContact__c,
                                                                             FinServ__Contact__r.FirstName,
-                                                                            FinServ__Contact__r.LastName,
-                                                                            FinServ__Contact__r.MiddleName,
-                                                                            FinServ__Contact__r.Account.Emergency_Contact_Relationship__pc,
-                                                                            FinServ__Contact__r.Account.Street_1__pc,
-                                                                            FinServ__Contact__r.Account.Street_2__pc,
-                                                                            FinServ__Contact__r.Account.Street_3__pc,
-                                                                            FinServ__Contact__r.Account.City_Town__pc,
-                                                                            FinServ__Contact__r.Account.Residential_Area_District__pc,
-                                                                            FinServ__Contact__r.Account.Post_Office_Zip_Code__pc,        
-                                                                            FinServ__Contact__r.Account.Province_Parish_State__pc,
-                                                                            FinServ__Contact__r.Account.PersonMobilePhone,
-                                                                            FinServ__Contact__r.Account.Business_Phone__pc,
-                                                                            FinServ__Contact__r.Account.PersonHomePhone,
-                                                                            FinServ__Contact__r.Account.Personal_Email__c,
-                                                                            FinServ__Contact__r.Account.PersonOtherPhone,
-                                                                            FinServ__Contact__r.Account.FinServ__CountryOfBirth__pc
-                                                                            from FinServ__ContactContactRelation__c where FinServ__RelatedContact__c IN:conid and FinServ__Role__r.Name='Emergency Contact' ];
+                                                                            FinServ__RelatedContact__r.Account.Id,
+                                                                            FinServ__RelatedContact__r.LastName,
+                                                                            FinServ__RelatedContact__r.MiddleName,
+                                                                            FinServ__RelatedContact__r.Account.Emergency_Contact_Relationship__pc,
+                                                                            FinServ__RelatedContact__r.Account.Street_1__pc,
+                                                                            FinServ__RelatedContact__r.Account.Street_2__pc,
+                                                                            FinServ__RelatedContact__r.Account.Street_3__pc,
+                                                                            FinServ__RelatedContact__r.Account.City_Town__pc,
+                                                                            FinServ__RelatedContact__r.Account.Residential_Area_District__pc,
+                                                                            FinServ__RelatedContact__r.Account.Post_Office_Zip_Code__pc,        
+                                                                            FinServ__RelatedContact__r.Account.Province_Parish_State__pc,
+                                                                            FinServ__RelatedContact__r.Account.PersonMobilePhone,
+                                                                            FinServ__RelatedContact__r.Account.Business_Phone__pc,
+                                                                            FinServ__RelatedContact__r.Account.PersonHomePhone,
+                                                                            FinServ__RelatedContact__r.Account.Personal_Email__c,
+                                                                            FinServ__RelatedContact__r.Account.PersonOtherPhone,
+                                                                            FinServ__RelatedContact__r.Account.FinServ__CountryOfBirth__pc
+                                                                            from FinServ__ContactContactRelation__c where FinServ__RelatedContact__c IN:conid 
+                                                                            and FinServ__Role__r.Name='Emergency Contact' ];
             system.debug('EmergencyContactlst===>'+EmergencyContactlst);
+            Set<id> emergencyAccountIds = new Set<Id>();
             if(EmergencyContactlst.size()>0){
                 for(FinServ__ContactContactRelation__c c:EmergencyContactlst){
+                    emergencyAccountIds.add(c.FinServ__RelatedContact__r.Account.Id);
                     if(AccidVsEmrConLst.containsKey(c.FinServ__RelatedContact__c)){
                         List<FinServ__ContactContactRelation__c> aclst = AccidVsEmrConLst.get(c.FinServ__RelatedContact__c);
                         if(aclst.size()<2){
@@ -114,7 +129,27 @@ public class ApplicationForm {
                     }
                 }
             }
-            system.debug('AccidVsEmrConLst===>'+AccidVsEmrConLst);  
+            // JN1-2782 : field added to the query
+            this.emergencyContacts = [SELECT  Id,
+             FirstName,
+             LastName,
+             MiddleName,
+             Emergency_Contact_Relationship__pc,
+             Street_1__pc,
+             Street_2__pc,FinServ__CountryOfBirth__pc,
+                                      Street_3__pc,
+                                      City_Town__pc,
+                                      Residential_Area_District__pc,
+                                      Post_Office_Zip_Code__pc,        
+                                      Province_Parish_State__pc,
+                                      PersonMobilePhone,
+                                      Business_Phone__pc,
+                                      PersonHomePhone,
+                                      Personal_Email__c,
+                                      PersonOtherPhone,
+                                      Emergency_Contact_Middle_Initial__pc // JN1-2782
+                                      
+             from Account where id in :emergencyAccountIds];
             
             
             List<FinServ__ContactContactRelation__c> PoliExpolst = [select FinServ__RelatedContact__c,
@@ -183,10 +218,12 @@ public class ApplicationForm {
                                                            Country__c,
                                                            Length_of_Trade__c,
                                                            Nature_of_Engagement__c,
-                                                           Type_of_Business__c,
-                                                           Date_of_Incorporation__c
+                                                           Type_of_Business__c,Time_Employed_with_Current_Employer__c,
+                                                           Date_of_Incorporation__c,Time_Employed_in_Present_Employer_M__c
                                                            from FinServ__Employment__c where Account__c IN:accid];
+            
             if(Employmentlst.size()>0) {
+                SetCalendarValues(Employmentlst);
                 for(FinServ__Employment__c c:Employmentlst){
                     if(AccidVsEmpLst.containsKey(c.Account__c)){
                         List<FinServ__Employment__c> aclst = AccidVsEmpLst.get(c.Account__c);
@@ -200,7 +237,7 @@ public class ApplicationForm {
                     }
                 }
             } 
-            
+            // JN1-2780,JN1-2781 : New Fields are added to query
             List<Account> ApplicantPersonAccount =[select id,
                                                    FinServ__PrimaryContact__c,
                                                    Salutation,
@@ -211,9 +248,9 @@ public class ApplicationForm {
                                                    FinServ__Gender__pc,
                                                    Suffix__pc,
                                                    FinServ__MaritalStatus__pc,
-                                                   Date_of_Birth__pc,
+                                                //   Date_of_Birth__pc,
                                                    Place_of_Birth__pc,
-                                                   FinServ__MotherMaidenName__pc,
+                                                //   FinServ__MotherMaidenName__pc,
                                                    FinServ__NumberOfDependents__pc,
                                                    Number_of_Dependent_Children__c,
                                                    Country_of_Citizenship__pc,
@@ -221,8 +258,8 @@ public class ApplicationForm {
                                                    Highest_Level_of_Education_attained__pc,
                                                    Primary_Employment_Type__pc,
                                                    Identification_Type__pc,
-                                                   Identification_Number__pc,
-                                                   Identification_Type_Expiration__pc,
+                                                   //Identification_Number__pc,
+                                                   //Identification_Type_Expiration__pc,
                                                    Identification_Type_Country_of_issue__pc,
                                                    Jamaican_Tax_Registration_Number__pc,
                                                    Street_1__pc,
@@ -234,12 +271,24 @@ public class ApplicationForm {
                                                    Province_Parish_State__pc,
                                                    FinServ__CountryOfBirth__pc,
                                                    Years_at_Residence__pc,
-                                                   Status_of_Address__c,
+                                                 //  Status_of_Address__c,
                                                    PersonMobilePhone,
                                                    PersonHomePhone,
                                                    Business_Phone__pc,
-                                                   Personal_Email__c,
-                                                   PersonOtherPhone
+                                                // Personal_Email__c,
+                                                //PersonOtherPhone,
+                                                // JN1-2780
+                                                   PersonBirthdate,
+                                                   Mother_s_Maiden_Name__pc,
+                                                   ID_Expiration_Date__c,
+                                                   Identification_Number__c,
+                                                   Marital_Status__c,
+                                                   Number_of_Dependent_Adults__pc,
+                                                   Number_of_Dependent_Children__pc,
+                                                //JN1-2781
+                                                   Status_of_Address__pc,
+                                                   Other_Number__c,
+                                                   PersonEmail
                                                    from Account where id IN:accid];
             if(ApplicantPersonAccount.size()>0){
                 for(Account a:ApplicantPersonAccount){
@@ -275,6 +324,19 @@ public class ApplicationForm {
             }
         }
         system.debug('Final Wrapper =======>'+lst);
+    }
+    private static void SetCalendarValues(List<FinServ__Employment__c>  records){
+        Map<String, Integer> values;
+        for(FinServ__Employment__c record: records){
+            if(record.Current_Employment__c){
+            values = Util.GetYearValues(record.FinServ__StartDate__c, Date.today());
+            record.Time_Employed_with_Current_Employer__c  = values.get('years');
+            record.Time_Employed_in_Present_Employer_M__c  = values.get('months');
+            } else {
+                            record.Time_Employed_with_Current_Employer__c  = 0;
+            record.Time_Employed_in_Present_Employer_M__c  = 0;
+            }
+        }
     }
     public class WrapperApplicationForm{
         public Integer Appcount{get;set;}
@@ -449,7 +511,10 @@ public class ApplicationForm {
                                   JN_Promotion_Auto__r.name,
                                   JN_Promotion_UL__r.name,
                                   JN_Promotion_CC__r.name,
-                                  JN_Promotion_LOC__r.name
+                                  JN_Promotion_LOC__r.name,
+                                  //JN1-2788
+                                  Interested_in_JNGI_SureCover_Programme__c,
+                                  Deposit_Account_Number_LOC__c //JN1-2791
                                   from Loan_Calculator__c where id =:loanid and RecordType.Name='Product Details' order by createddate desc];
                 if(ProductDetails.size()>0){
                     isAutoFound= (ProductDetails[0].Auto_Loan_Purpose__c != NULL)?True:False;

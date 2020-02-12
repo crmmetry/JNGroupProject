@@ -1,3 +1,11 @@
+<!--/*
+    Sr#     Ticket#      Modified By                Modified Date       Description
+ *    1     JN1-2780      Ishwari Gaikwad.(TQ)      02/11/2020        General Info Field Mapping  
+ *    2     JN1-2781      Ishwari Gaikwad.(TQ)      02/11/2020        Contact Details Field Mapping  
+ *    3     JN1-2791      Ishwari Gaikwad.(TQ)      02/11/2020        Line Of Credit Request Field Mapping
+ *    4     JN1-2788      Ishwari Gaikwad.(TQ)      02/11/2020        Auto Loan Request Field Mapping
+ *    5     JN1-2782      Ishwari Gaikwad.(TQ)      02/12/2020        Emergency Contact Field Mapping
+*/ -->
 <apex:page renderAs="PDF" applyBodyTag="false" controller="ApplicationForm" >
     <head>
         <style type="text/css" media="print">
@@ -30,8 +38,8 @@
     </head>
     <apex:form >
         <!--<apex:outputText value="{0,date,dd-MM-yy}">
-<apex:param value="{!TODAY()}" />                                         
-</apex:outputText>-->  
+            <apex:param value="{!TODAY()}" />                                         
+            </apex:outputText>-->  
         <div class="footer">
             <div style="text-align:left;font-size:15px;">{!$Label.ApplicationFormText} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span class="pagenumber"/> of <span class="pagecount"/>   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -71,7 +79,8 @@
                                         <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Salutation}</td>
                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.FirstName}</td>
                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.LastName}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.MiddleName}</td>
+                                        <!-- JN1-2780-->
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Middle_Name__pc}</td>
                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.FinServ__Gender__pc}</td>
                                     </tr>
                                 </table>
@@ -87,29 +96,33 @@
                                     </tr>
                                     <tr>
                                         <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Suffix__pc}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.FinServ__MaritalStatus__pc}</td>
+                                        <!-- JN1-2780-->
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Marital_Status__c}</td>
+                                        <!-- JN1-2780-->
                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;"><apex:outputText value="{0,date,dd-MM-yy}">
-                                            <apex:param value="{!app.ApplicantPersonAccount.Date_of_Birth__pc}" />                                         
+                                            <apex:param value="{!app.ApplicantPersonAccount.PersonBirthdate}" />                                         
                                             </apex:outputText></td>
                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Place_of_Birth__pc}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.FinServ__MotherMaidenName__pc}</td>
+                                        <!-- JN1-2780-->
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Mother_s_Maiden_Name__pc}</td>
                                     </tr> 
                                 </table>
                             </div>
                             <div style="margin-top:10px;font-size:small;">
                                 <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
                                     <tr>
-                                        <td colspan="4" style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Number of Dependent(s):</td>
+                                        <td colspan="4" style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Number of Dependent(s): {!app.ApplicantPersonAccount.FinServ__NumberOfDependents__pc}</td>
                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Country of Citizenship:</td>
                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Country of Residence:</td>
                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Highest level of education attained?</td>
                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Primary Type of Employment:</td>
                                     </tr>
                                     <tr>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-right:1px;Text-align:center;">{!app.ApplicantPersonAccount.FinServ__NumberOfDependents__pc}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">Adult</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">{!app.ApplicantPersonAccount.FinServ__NumberOfDependents__pc}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;Text-align:center;">Childrem</td>
+                                        <!-- JN1-2780-->
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-right:1px;Text-align:center;">Adult</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">{!app.ApplicantPersonAccount.Number_of_Dependent_Adults__pc}</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">Children</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;Text-align:center;">{!app.ApplicantPersonAccount.Number_of_Dependent_Children__c}</td>
                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Country_of_Citizenship__pc}</td>
                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Country_of_Residency__pc}</td>
                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Highest_Level_of_Education_attained__pc}</td>
@@ -135,9 +148,10 @@
                                     </tr>
                                     <tr style="margin-top:5px;">
                                         <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Identification_Type__pc}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Identification_Number__pc}</td>
+                                        <!-- JN1-2780-->
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Identification_Number__c}</td>
                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;"><apex:outputText value="{0,date,dd-MM-yy}">
-                                            <apex:param value="{!app.ApplicantPersonAccount.Identification_Type_Expiration__pc}" />                                         
+                                            <apex:param value="{!app.ApplicantPersonAccount.ID_Expiration_Date__c}" />                                         
                                             </apex:outputText></td>
                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Identification_Type_Country_of_issue__pc}</td>
                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Jamaican_Tax_Registration_Number__pc}</td>
@@ -206,7 +220,8 @@
                                                     <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">Years</td>
                                                     <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">{!app.howLongMonth}</td>
                                                     <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">Months</td>
-                                                    <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Status_of_Address__c}</td>
+                                                    <!-- JN1-2781-->
+                                                    <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Status_of_Address__pc}</td>
                                                 </tr>
                                                 
                                             </table>
@@ -228,8 +243,9 @@
                                         <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.PersonMobilePhone}</td>
                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.PersonHomePhone}</td>
                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Business_Phone__pc}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.PersonOtherPhone}</td>
-                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Personal_Email__c}</td>
+                                        <!-- JN1-2781-->
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.Other_Number__c}</td>
+                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!app.ApplicantPersonAccount.PersonEmail}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -240,7 +256,7 @@
                                 </b>
                             </h5>
                             <apex:variable value="{!0}" var="num"/>
-                            <apex:repeat value="{!app.ApplicantPAEmergencyContact}" var="eapp" id="repeatapp" rows="">
+                            <apex:repeat value="{!emergencyContacts}" var="eapp" id="repeatapp" rows="">
                                 <div style="margin-top:10px;font-size:small;">
                                     <apex:variable var="num" value="{!FLOOR(num) + 1}"/>
                                     <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
@@ -255,10 +271,11 @@
                                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Relationship to Applicant:*</td>
                                                     </tr>
                                                     <tr style="margin-top:5px;">
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.LastName}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.FirstName}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.MiddleName}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Emergency_Contact_Relationship__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.LastName}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FirstName}</td>
+                                                        <!--JN1-2782-->
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.Emergency_Contact_Middle_Initial__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.Emergency_Contact_Relationship__pc}</td>
                                                     </tr>
                                                 </table>
                                             </td>
@@ -273,9 +290,10 @@
                                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Street 3:</td>
                                                     </tr>
                                                     <tr style="margin-top:5px;">
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Street_1__pc}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Street_2__pc}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Street_2__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.Street_1__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.Street_2__pc}</td>
+                                                        <!--JN1-2782 -->
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.Street_3__pc}</td>
                                                         
                                                     </tr>
                                                 </table>
@@ -293,11 +311,11 @@
                                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Country of Issue:*</td>
                                                     </tr>
                                                     <tr style="margin-top:5px;">
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.City_Town__pc}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Residential_Area_District__pc}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Post_Office_Zip_Code__pc}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Province_Parish_State__pc}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.FinServ__CountryOfBirth__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.City_Town__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.Residential_Area_District__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.Post_Office_Zip_Code__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.Province_Parish_State__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__CountryOfBirth__pc}</td>
                                                     </tr>
                                                     
                                                 </table>
@@ -316,11 +334,11 @@
                                                         <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Personal Email:</td>
                                                     </tr>
                                                     <tr style="margin-top:5px;">
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.PersonMobilePhone}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.PersonHomePhone}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Business_Phone__pc}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.PersonOtherPhone}</td>
-                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.FinServ__Contact__r.Account.Personal_Email__c}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!eapp.PersonMobilePhone}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.PersonHomePhone}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.Business_Phone__pc}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.PersonOtherPhone}</td>
+                                                        <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!eapp.Personal_Email__c}</td>
                                                     </tr>
                                                 </table>
                                             </td>
@@ -370,9 +388,9 @@
                                                         </tr>
                                                         <tr style="margin-top:5px;">
                                                             <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!emp.Professional_Category__c}</td>
-                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">{!emp.Time_in_Industry__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">{!emp.Time_Employed_with_Current_Employer__c}</td>
                                                             <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">Years</td>
-                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">{!emp.Time_Employed_in_Present_Industry_Months__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">{!emp.Time_Employed_in_Present_Employer_M__c}</td>
                                                             <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">Months</td>
                                                             <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Industry__c}</td>
                                                             <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">{!emp.Time_in_Industry__c}</td>
@@ -732,7 +750,8 @@
                                     <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
                                         <tr >
                                             <td style="width:85%;">Would you like to insure your motor vehicle with JNGI SureCover Programme?</td>
-                                            <td style="width:15%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!prod.Interested_in_programme__c}</td>
+                                            <!--JN1-2788-->
+                                            <td style="width:15%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!prod.Interested_in_JNGI_SureCover_Programme__c}</td>
                                         </tr>
                                         <tr >
                                             <td style="width:85%;">Do you wish to obtain funding to finance payment of the JNGI Motor Insurance Premium for the first year of the loan?</td>
@@ -830,13 +849,16 @@
                                         </tr>
                                         <tr style="margin-top:5px;">
                                             <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!prod.unsecure_Loan_Purpose__c}</td>
-                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-right:1px;Text-align:center;">{!prod.Unsecure_Years__c}</td>
+                                            <!-- JN1-2788 -->
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-right:1px;Text-align:center;">{!prod.Years__c}</td>
                                             <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">Years</td>
-                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">{!prod.Unsecure_Months__c}</td>
+                                            <!-- JN1-2788 -->
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">{!prod.Months__c}</td>
                                             <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">Months</td>
-                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-right:1px;Text-align:center;">{!prod.Unsecure_Market_Per_Annum__c}</td>
+                                            <!-- JN1-2788 -->
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-right:1px;Text-align:center;">{!prod.Interest_Rate__c}</td>
                                             <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">per annum</td>
-                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">JMD ${!prod.Unsecured_Loan_Amount__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">JMD ${!prod.Loan_Amount__c}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -850,7 +872,8 @@
                                     <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
                                         <tr >
                                             <td style="width:90%;">Would you be interested in a current JN Bank Promotion?</td>
-                                            <td style="width:10%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!if(prod.JN_Promotion_UL__c==null,'No','Yes')}</td>
+                                            <!-- JN1-2788 -->
+                                            <td style="width:10%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!if(prod.JN_Promotion_Auto__c==null,'No','Yes')}</td>
                                         </tr>
                                         <tr >
                                             <td style="width:90%;">Do you wish to obtain additional funding to finance processing fees?</td>
@@ -955,13 +978,15 @@
                                         <tr>
                                             <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Financial Institution:</td>
                                             <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Account Holder(s):</td>
-                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Account Number:</td>
+                                            <!--JN1-2791-->
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Deposit Account Number</td>
                                             <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Account Type:</td>
                                         </tr>
                                         <tr style="margin-top:5px;">
                                             <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!prod.Financial_Institution__c}</td>
                                             <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!prod.Account_Holders__c}</td>
-                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!prod.Account_Number__c}</td>
+                                            <!--JN1-2791-->
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!prod.Deposit_Account_Number_LOC__c}</td>
                                             <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!prod.Account_Type__c}</td>
                                         </tr>
                                     </table>
@@ -977,8 +1002,9 @@
                                         <tr>
                                             <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">{!prod.Annual_Interest_Rate_on_Deposit_Account__c}%</td>
                                             <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">per annum</td>
-                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">JMD ${!prod.PC_Deposit_Account_Balance__c}</td>
-                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!prod.PC_Account_Hypothecated_for_another_Loan__c}</td>
+                                            <!-- JN1-2791 -->
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">JMD ${!prod.PCL_Deposit_Account_Balance__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!prod.PCL_Account_Hypothecated_another_Loan__c}</td>
                                             <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">JMD ${!prod.PC_Total_existing_Loan_Balance__c}</td>
                                         </tr> 
                                     </table>
@@ -1061,9 +1087,10 @@
                                             <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;" colspan="2">Annual Interest Rate on Credit Card:</td>
                                         </tr>
                                         <tr style="margin-top:5px;">
-                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!prod.PC_Collateral_Type__c}</td>
-                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">JMD ${!prod.PC_Collateral_Type__c}</td>
-                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">{!prod.PC_Collateral_Type__c}%</td>
+                                            <!--JN1-2791-->
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!prod.PCL_Collateral_Type__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">JMD ${!prod.PCL_Requested_Credit_Limit__c}</td>
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-right:1px;border-top:1px;Text-align:center;">{!prod.PCL_Interest_Rate__c}%</td>
                                             <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">per annum</td>
                                         </tr>
                                     </table>
@@ -1142,7 +1169,8 @@
                                         </tr>
                                         <tr>
                                             <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!prod.Is_a_Lien_on_Property__c}</td>
-                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">JMD ${!prod.PCL_Total_Existing_Loan_Balance__c}</td>
+                                            <!--JN1-2791-->
+                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">JMD ${!prod.Is_a_Lien_on_Property__c}</td>
                                         </tr> 
                                     </table>
                                 </div>
@@ -1172,6 +1200,11 @@
                                         <tr >
                                             <td style="width:90%;">Is the Applicant interested in JN Life Bulk Premium Creditor Life Insurance?</td>
                                             <td style="width:10%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">No</td>
+                                            <!--JN1-2791-->
+                                            </tr>
+                                            <tr>
+                                            <td style="width:90%;">Coverage Type</td>
+                                            <td style="width:10%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!prod.Coverage_Type__c}</td>
                                         </tr>
                                     </table>
                                 </div>

@@ -1,3 +1,9 @@
+/*  
+ * Sr#  Ticket#      Modified By      Modified Date       Description
+ *   1  JN1-2755     Priyanka A.(TQ)  02/06/2020      TDSR - Auto Loan Before
+ * */
+
+
 public class MultiProductCalculatorController {
     
     @AuraEnabled
@@ -80,6 +86,7 @@ public class MultiProductCalculatorController {
                 Id rtID = Schema.SObjectType.Loan_Calculator__c.getRecordTypeInfosByName().get('Multi Product').getRecordTypeId();
                 loancalculation.recordTypeId =rtID;
                 system.debug('SaveLoanCalculation=='+loancalculation);
+                system.debug('SaveLoanCalculation=='+loancalculation.Stamp_duty__c);
                 insert loancalculation;
                 returnStr=string.valueOf(loancalculation.Id);
                 system.debug('SaveLoanCalculation=='+loancalculation);
@@ -211,7 +218,7 @@ public class MultiProductCalculatorController {
         system.debug('oppId========='+oppId);
         Set<id> accid = new set<id>();
         list<Applicant__c> applst=new list<Applicant__c>();
-        applst = [Select id, Account__c,Account__r.firstname,Account__r.lastname, Account__r.PersonBirthdate,
+        applst = [Select id, Account__c,Account__r.firstname,Account__r.lastname, Account__r.PersonBirthdate,Gross_Monthly_IncomeC__c,
                   Account__r.JN_Bank_Affiliation__pc,Account__r.Gross_Monthly_Income__pc,Account__r.Id  from Applicant__c where Opportunity__c=:oppId];
         if(applst.size()>0){
             system.debug('applst========='+applst);
@@ -236,7 +243,7 @@ public class MultiProductCalculatorController {
         
         for(Applicant__c a:applst){
             retlst.add( new Wrappercls(a.Account__r.firstname,a.Account__r.lastname,
-                                       a.Account__r.PersonBirthdate,a.Account__r.Gross_Monthly_Income__pc,
+                                       a.Account__r.PersonBirthdate,a.Gross_Monthly_IncomeC__c,//AK::a.Account__r.Gross_Monthly_Income__pc,
                                        EMCPayment,a.Account__r.JN_Bank_Affiliation__pc,a.Account__r.Id,a.Id));
             
         }
@@ -698,14 +705,17 @@ this.Rating=Rating1;
         list<WrapperclsAssets> wrapperlstAssets= new list<WrapperclsAssets>();
         Loan_Calculator__c loanCalculation;
         Opportunity thisOpportunity = [SELECT Id,AccountId, Product_Details__c   from Opportunity where id = :oppid];
+         System.debug('oppid'+oppid);
+        System.debug('thisOpportunity'+thisOpportunity.Product_Details__c);
+        
         
         Loan_Calculator__c[] productDetails = [SELECT Id, Market_Value_of_Vehicle__c, Total_Loan_Amount__c,
                                                Monthly_Loan_Payment__c, Unsecured_Loan_Amount__c,App_3_Monthly_Payment_UL__c,
                                                Unsecure_Monthly_Loan_Payment__c, Line_of_Credit_Starting_Limit__c,
                                                Minimum_Payment_as_per_Credit_Limit__c ,Type_of_LOC__c,App_3_Monthly_Payment_A__c,
                                                unsecure_Monthly_n_Loan_Savings__c , Monthly_Loan_Savings__c,App1_Loan_Amt_Alloc_UL__c,
-                                               App_3_Loan_Amount_A__c,App_2_Loan_Amount_A__c,Minimum_Payment__c ,
-                                               App_1_Loan_Amount_A__c,App_3_Min_Payment_LOC__c, App_1_Min_Payment__c,
+                                               App_3_Loan_Amount_A__c,App_2_Loan_Amount_A__c,Minimum_Payment__c ,JN_Life_Creditor_Life_Premium__c,
+                                               App_1_Loan_Amount_A__c,App_3_Min_Payment_LOC__c, App_1_Min_Payment__c,JNGI_Motor_Premium_1st_Year__c,
                                                App_2_Min_Payment_LOC__c, App1_Monthly_Payment_A__c, App_2_Monthly_Payment_A__c 
                                                FROM Loan_Calculator__c WHERE Id =: thisOpportunity.Product_Details__c ];
         if(productDetails.size() > 0) {
@@ -713,9 +723,15 @@ this.Rating=Rating1;
         } else {
             loanCalculation = new Loan_Calculator__c();
         }
+        System.debug('loanCalculation'+loanCalculation);
+        System.debug('loanCalculation'+thisOpportunity.Product_Details__c);
+        //JN1-2755#1 :: Added new fields in the query
         list<Application_Asset_Liability__c> lst = [select Monthly_Payment_Prior__c,
                                                     Minimum_Payment__c,
                                                     Application__c,
+                                                    Monthly_Payment_Prior_Calc_App_Portion__c,
+                                                    Monthly_Payment_After_Calc_App_Portion__c,
+                                                    Minimum_Payment_After__c,
                                                     Assets_and_Liabilities__r.RecordType.Name,
                                                     Assets_and_Liabilities__r.RecordType.DeveloperName,
                                                     Assets_and_Liabilities__r.Monthly_Payment_Prior__c,
@@ -724,8 +740,14 @@ this.Rating=Rating1;
                                                     Assets_and_Liabilities__r.Minimum_Payment_After__c,
                                                     Assets_and_Liabilities__r.Percent_Applicant_Portion__c
                                                     from Application_Asset_Liability__c where Application__r.Opportunity__c =:oppid];
-        list<Applicant__c> applst = [select id,Account__c,Gross_Monthly_IncomeC__c from Applicant__c where Opportunity__c=:oppid order by CreatedDate];
+        
+        // JN1-2755#1 
+        //list<Applicant__c> applst = [select id,Account__c,Gross_Monthly_IncomeC__c from Applicant__c where Opportunity__c=:oppid order by CreatedDate];
+        list<Applicant__c> applst = [select id,Account__c,Gross_Monthly_IncomeC__c,Rent_Board_Strata_Before_TDSR__c,Rent_Board_Strata_After_TDSR__c from Applicant__c where Opportunity__c=:oppid order by CreatedDate];
+        
+        
         wrapperlstAssets.add( new WrapperclsAssets(lst, applst, loanCalculation, thisOpportunity.AccountId));
+        system.debug('wrapperlstAssets'+wrapperlstAssets);
         return wrapperlstAssets;
     }
     public class WrapperclsAssets{

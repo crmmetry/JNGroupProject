@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Mortgage_must_correspondsing_products</fullName>
-    <active>false</active>
+    <active>true</active>
     <description>Mortgage must have the corresponding line of product to be added</description>
     <errorConditionFormula>AND
 (

@@ -51,7 +51,7 @@ public class CreditCalculationsController {
                                               Is_applicant_KYC_Compliant__c,
                                               Time_as_Member_Months__c,
                                               Time_as_Member_Years__c,
-                                              /*Rim_Number__c,*/
+                                              Rim_Number__c,
                                               Primary_Relationship_Tier__c,
                                               Affiliation_Type__c,
                                               Sanction_Screening_Completed__c,

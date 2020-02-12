@@ -1,3 +1,23 @@
+/*
+ *  * Sr#  Ticket#      Modified By      Modified Date       Description
+ *    1    JN1-2727     Priyanka A.(TQ)  01/23/2020          1.NaN issue   
+ *    2    JN1-2727     Priyanka A.(TQ)  01/23/2020          Monthly loan reset issue   
+ *    3    JN1-2840     Amar K.(TQ)      01/25/2020          Monthly load payment before moratorium   
+ *    4    JN1-2841     Amar K.(TQ)  01/23/2020          Monthly load payment after moratorium   
+ *    5    JN1-2739     Priyanka A.(TQ)  01/30/2020      Total Interest Payment
+ *    6    JN1-2740     Priyanka A.(TQ)  01/30/2020      Total Interest Payment
+ *    7    JN1-2755     Priyanka A.(TQ)  02/06/2020      TDSR - Auto Loan Before, Fields changed 
+ *    8    JN1-3102     Priyanka A.(TQ)  02/10/2020      TDSR - Auto Loan after, Fields changed 
+ *    9    JN1-2756     Lakhan           02/11/2020      TDSR -Unsecure Loan before  In formula, 100 is not multiplied
+ *   10    JN1-3104     Priyanka         02/11/2020      TDSR -Unsecure Loan after ,Field changes
+ *   11    JN1-2758     Lakhan           02/11/2020      TDSR -Credit Card before ,Field changes
+ *   12    JN1-3108     Priyanka         02/11/2020      TDSR -Credit Card after ,Field changes
+ *   13    JN1-2757     Lakhan           02/11/2020      TDSR -Line Of Credit Before ,Field changes
+ *   14    JN1-3106     Priyanka         02/11/2020      TDSR -Line Of Credit After ,Field changes
+ *   15    JN1-2759     Lakhan           02/11/2020      TDSR - AutoLoan and Unsecure Loan Before 
+ *   16    JN1-3110     Priyanka         02/11/2020      TDSR- Autoloan and Unsecure Loan After
+*/
+
 ({	
     AddRow:function(RowIndex,EmpRow,cmp){
         EmpRow.push({
@@ -16,6 +36,7 @@
         cmp.set("v.RowNum",EmpRow); 
     },
     calculateJNGIMonthlyPremiumhelper:function(cmp, event) {
+        debugger;
         var RequestData=cmp.get("v.RDetailAuto");
         var i =RequestData[0].Interestrate;
         var im =RequestData[0].Interestrate/ 1200;
@@ -137,9 +158,10 @@
         
     },
     calculateJNLifeMonthlyPremiumhelper:function(cmp, event) {
-        console.log('test=====1');
+        debugger;
+        
         if(cmp.find("InterestedinCreditorLife").get("v.value")=='0'  ){
-            console.log('test=====2');
+            
             if(cmp.find("IncludeinLoanAmountinsurence").get("v.value")=='0'){
                 var valzero=0;
                 cmp.find("JNLifeCreditorInsurancePremium1").set("v.value",  parseFloat(valzero).toFixed(2));
@@ -156,25 +178,31 @@
             $A.util.removeClass(cmp.find("IncludeinLoanAmountinsurence"),"slds-hide");
         }
         else if(cmp.find("InterestedinCreditorLife").get("v.value")=='1' ){
-            console.log('test=====3');
+            
             $A.util.addClass(cmp.find("JNLifecal"),"slds-hide");
             $A.util.addClass(cmp.find("CoverageType"),"slds-hide");
             $A.util.addClass(cmp.find("IncludeinLoanAmountinsurence"),"slds-hide");
         }
-        //----1-----------------
+        
         var jnlp=0;
         var ageavg=0;
         var loanamountsum=0;
-        var RequestData=cmp.get("v.RDetailAuto");
-        var marketi =RequestData[0].Interestrate;
-        var im =RequestData[0].Interestrate/ 1200;
+        var marketi = 0;
+        var im = 0;
+        var RequestData=cmp.get("v.RDetailAuto") ;
+        
+        //JN1-2727#1 
+        marketi = this.setObjectValueIfInvalid(RequestData[0].Interestrate);
+        im = this.setObjectValueIfInvalid(RequestData[0].Interestrate) > 0 ? RequestData[0].Interestrate / 1200 : 0;
+        
         var n=cmp.get("v.LoanTermMarket");
-        console.log('test=====4');
+        
+        //JN1-2727#1 
         for(var k in RequestData) {
-            if(RequestData[k].LoanAmount !='')
+            if(RequestData[k].LoanAmount !='' && RequestData[k].LoanAmount != undefined)
                 loanamountsum +=parseFloat(RequestData[k].LoanAmount);
         }
-        console.log('test=====5.1'+loanamountsum);
+        
         /*var numberapp=cmp.get("v.RowNum");
         console.log('test=====5.2'+numberapp);
         if(numberapp != undefined)
@@ -204,7 +232,7 @@
             ageavg=(parseFloat(age1)+parseFloat(age2)+parseFloat(age3))/3;
             console.log('ageavg====='+ageavg);
         }
-       */ console.log('test=====6'); 
+       */
         var numberapp;
         if(cmp.get("v.RowNum")==undefined){
             numberapp=0;
@@ -230,9 +258,6 @@
             age3=cmp.get("v.applicant3ageValue");
             
         }
-        console.log('Testk=====age1'+age1);
-        console.log('Testk=====age2'+age2);
-        console.log('Testk=====age3'+age3);
         var coveragetypeselected=cmp.find("CoverageType").get("v.value");
         switch(coveragetypeselected){
             case "1":
@@ -268,11 +293,10 @@
             
             var rate=0;
             var ir=(cmp.get("v.LoanTermMarket")/12);
-            console.log('ir====='+ir);
             var irceil=Math.round(ir*2)/2;
             if(irceil<ir)
-             irceil=Math.round(ir); 
-           /* var i;
+                irceil=Math.round(ir); 
+            /* var i;
             for (i = 0; i <= ir; i++) { 
                 var j=i+0.5;
                 console.log('j====='+j);
@@ -282,8 +306,6 @@
                     irceil=i; 
                 j=0;
             }*/
-            console.log('irceil====='+irceil);
-            console.log("agegroup === "+agegroup);
             var action = cmp.get("c.JNlifeCalculation");
             action.setParams({      
                 agegroup: agegroup,
@@ -294,8 +316,8 @@
                 var state = response.getState();
                 if (state === "SUCCESS") {
                     rate = response.getReturnValue();
-                    console.log('rate====='+rate);
-                    jnlp=(loanamountsum/1000)*rate;
+                    debugger;
+                    jnlp=(loanamountsum/1000)*rate || 0;
                     if(cmp.find("InterestedinCreditorLife").get("v.value")=='0' && cmp.find("IncludeinLoanAmountinsurence").get("v.value")=='0' ){
                         if(cmp.find("CoverageType").get("v.value")=='1' || cmp.find("CoverageType").get("v.value")=='2' || cmp.find("CoverageType").get("v.value")=='3'){    
                             cmp.set("v.JNLifeCreditorLifePremium1New",jnlp);
@@ -309,7 +331,6 @@
                         var bjnlp=0;
                         if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==1 && (cmp.find("IndicateTerm").get("v.value")==1 || cmp.find("IndicateTerm").get("v.value")==2 || cmp.find("IndicateTerm").get("v.value")==3)){
                             bjnlp=im*jnlp;
-                            console.log("3 === "+bjnlp);
                             cmp.set("v.MonthlyJNLifeCreditorLifePremium1New",bjnlp);
                             cmp.find("MonthlyJNLifeCreditorLifePremium1").set("v.value", parseFloat(bjnlp).toFixed(2));
                         }
@@ -318,7 +339,8 @@
                             cmp.set("v.MonthlyJNLifeCreditorLifePremium1New",bjnlp);
                             cmp.find("MonthlyJNLifeCreditorLifePremium1").set("v.value", parseFloat(bjnlp).toFixed(2));
                         } else{
-                            bjnlp=this.PMTcalculator(marketi,n,jnlp);
+                            bjnlp=this.PMTcalculator(marketi,n,jnlp) || 0;//JN1-2727#1 :: Set 0 if NaN/Undefined
+                            
                             cmp.set("v.MonthlyJNLifeCreditorLifePremium1New",bjnlp);
                             cmp.find("MonthlyJNLifeCreditorLifePremium1").set("v.value", parseFloat(bjnlp).toFixed(2));
                         }
@@ -326,7 +348,6 @@
                         ///=====================
                         if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2 && cmp.find("Othee_post_moratorium__id").get("v.value")=="Maintain original loan term" && (cmp.find("IndicateTerm").get("v.value")==1 || cmp.find("IndicateTerm").get("v.value")==2 || cmp.find("IndicateTerm").get("v.value")==3)){
                             var n1=parseFloat(n)-parseFloat(cmp.find("IndicateTerm").get("v.value"));
-                            console.log("4 n1=== "+n1);
                             var AmortizationSC2C12=im*jnlp*cmp.find("IndicateTerm").get("v.value");
                             var premium1styear1=parseFloat(jnlp)+parseFloat(AmortizationSC2C12);
                             var ajngid=this.PMTcalculator(marketi,n1,premium1styear1);
@@ -349,6 +370,7 @@
                                 cmp.find("MonthlyJNLifeCreditorLifePremium2").set("v.value",  parseFloat(ajngid).toFixed(2));
                             }
                                 else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==1 && cmp.find("Othee_post_moratorium__id").get("v.value")=="Extend original loan term by moratorium period"){
+                                    
                                     var ajngid=this.PMTcalculator(marketi,n,jnlp);
                                     cmp.set("v.MonthlyJNLifeCreditorLifePremium2New",ajngid);
                                     cmp.find("MonthlyJNLifeCreditorLifePremium2").set("v.value",  parseFloat(ajngid).toFixed(2));
@@ -381,6 +403,12 @@
             $A.enqueueAction(action); 
             
             
+        } else if(cmp.find("InterestedinCreditorLife").get("v.value")=='1' ){
+            //JN1-2727#2
+            cmp.set("v.MonthlyJNLifeCreditorLifePremium1New",0);
+            cmp.find("MonthlyJNLifeCreditorLifePremium1").set("v.value", parseFloat(0).toFixed(2));
+            cmp.set("v.MonthlyJNLifeCreditorLifePremium2New",0);
+            cmp.find("MonthlyJNLifeCreditorLifePremium2").set("v.value", parseFloat(0).toFixed(2));
         }
     },
     calculateProcessingFeehelper:function(cmp, event) {
@@ -468,8 +496,6 @@
         }
     },
     calculateJNLifeMonthlyPremiumUnsecuredhelper:function(cmp, event) {
-        console.log('Test1=====JNlife');
-        //----1-----------------
         var jnlp=0;
         var ageavg;
         var loanamountsum=0;
@@ -541,15 +567,15 @@
         if(ageavg>=55 && ageavg<60){agegroup='55-59';}
         if(ageavg>=60 && ageavg<=64){agegroup='60-64';}
         
-        if(cmp.find("InterestedinCreditorLifeUn").get("v.value")=='0' ){//&& cmp.find("IncludeinLoanAmountinsurence").get("v.value")=='0'
+        if(cmp.find("InterestedinCreditorLifeUn").get("v.value")=='0' ){
             
             console.log('pavit1====');
             var rate=0;
             var ir=n/12;
             console.log('ir====='+ir);
-             var irceil=Math.round(ir*2)/2;
+            var irceil=Math.round(ir*2)/2;
             if(irceil<ir)
-             irceil=Math.round(ir);
+                irceil=Math.round(ir);
             /*var i;
             for (i = 0; i <= ir; i++) {
                 var j=i+0.5;
@@ -560,8 +586,6 @@
                     irceil=i; 
                 j=0;
             }*/
-            console.log('irceil====='+irceil);
-            console.log("agegroup === "+agegroup);
             
             var action = cmp.get("c.JNlifeCalculation");
             action.setParams({      
@@ -575,7 +599,7 @@
                 if (state === "SUCCESS") {
                     rate = response.getReturnValue();
                     jnlp=(loanamountsum/1000)*rate;
-                    //===============
+                    
                     if(cmp.find("InterestedinCreditorLifeUn").get("v.value")=='0' && cmp.find("IncludeinLoanAmountinsurenceUn").get("v.value")=='0'){
                         $A.util.addClass(cmp.find("JNLifeCreditorInsurancePremiumUn"),"slds-hide");
                         $A.util.addClass(cmp.find("JNLifeCreditorInsurancePremium1Un"),"slds-hide");
@@ -695,6 +719,7 @@
         
     },
     calculateTotalautoloan:function(cmp, event) {
+        
         var marketloanamount=0;
         var JN1loanamount=0;
         var JN2loanamount=0;
@@ -728,6 +753,7 @@
         var JNGIauto2=0;
         var JNLifeauto1=0;
         var processingfeeauto1=0;
+        var halfMonthlyJngiPremium =0;
         if(cmp.get("v.BMLoanamountMarketAutoloan")>0)
             marketloanamount1=cmp.get("v.BMLoanamountMarketAutoloan");
         if(cmp.get("v.LoanamountJNStaff1Autoloan")>0)
@@ -744,7 +770,12 @@
             JNLifeauto1=cmp.get("v.MonthlyJNLifeCreditorLifePremium1New");
         if(cmp.get("v.MonthlyProcessingFees1New")>0)
             processingfeeauto1=cmp.get("v.MonthlyProcessingFees1New");
+        
+        debugger;
+        
+        //JN1-2840#3
         var totalsavingsauto=parseFloat(marketloanamount1)+parseFloat(JN1loanamount1)+parseFloat(JN2loanamount1)+parseFloat(JN3loanamount1)+parseFloat(JNGIauto1)+parseFloat(JNGIauto2)+parseFloat(JNLifeauto1)+parseFloat(processingfeeauto1);
+        
         cmp.find("MonthlyLoanPayment1").set("v.value", totalsavingsauto.toFixed(2));
         
         var marketloanamount2=0;
@@ -772,10 +803,11 @@
             JNLifeauto2=cmp.get("v.MonthlyJNLifeCreditorLifePremium2New");
         if(cmp.get("v.MonthlyProcessingFees2New")>0)
             processingfeeauto2=cmp.get("v.MonthlyProcessingFees2New");
+        //JN1-2841#4
         aftermpayment=parseFloat(marketloanamount2)+parseFloat(JN1loanamount2)+parseFloat(JN2loanamount2)+parseFloat(JN3loanamount2)+parseFloat(JNGIauto21)+parseFloat(JNGIauto22)+parseFloat(JNLifeauto2)+parseFloat(processingfeeauto2);
         cmp.find("MonthlyLoanPayment2").set("v.value", aftermpayment.toFixed(2));
         
-        //===============================
+        
         var loansavingpercentage = cmp.find("ProposedSavings1").get("v.value");
         var loansavingamount=cmp.find("ProposedSavings5").get("v.value");
         var loanpaymentamountfinal=0;
@@ -823,24 +855,29 @@
             if(k==3)
                 ltjn3= Number(RDetailUnsecured[3].LoanTerm1*12)+Number(RDetailUnsecured[3].LoanTerm2);
         }
-        //=========================        
+        //========================= 
+        
+        // JN1-2739#5 Calculated totloaninterest, changed existing formula
+        // JN1-2740#6     
         var totloaninterest=0;
         if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==1){
-            console.log('//////////////////////');
+            
+            /*
             var t1=parseFloat(((parseFloat(marketloanamount2)+parseFloat(JNGIauto21)+parseFloat(JNLifeauto2)+parseFloat(processingfeeauto2))*(parseFloat(ltmarket)-parseFloat(cmp.find("IndicateTerm").get("v.value")))));
-            console.log('t1========='+t1);
             totloaninterest=parseFloat(marketloanamount1)+parseFloat(JNGIauto1)+parseFloat(JNLifeauto1)+parseFloat(processingfeeauto1)+parseFloat(t1)+parseFloat(JN1loanamount1*ltjn1)+parseFloat(JN2loanamount1*ltjn2)+parseFloat(JN3loanamount1*ltjn3)-parseFloat(totalloanauto);
-        }
-        else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2){
+            */
+            var moratoriumPeriod = cmp.find("IndicateTerm").get("v.value");
+            var beforeMoratorium = (marketloanamount1 + JNGIauto1 + JNLifeauto1 + processingfeeauto1) * moratoriumPeriod ;
+            var afterMoratorium =  (marketloanamount2 + JNGIauto21 + JNLifeauto2 + processingfeeauto2) * (ltmarket - moratoriumPeriod);
+            var staffCalculation = (JN1loanamount1 *ltjn1) + (JN2loanamount1*ltjn2 ) + (JN3loanamount1 *ltjn3 );
+            totloaninterest =   (beforeMoratorium + afterMoratorium + staffCalculation) - totalloanauto;
+        } else if(cmp.find("Includeamoratoriumofloanrepayments").get("v.value")==0 && cmp.find("IndicateType").get("v.value")==2){
             var t1=parseFloat(((parseFloat(marketloanamount2)+parseFloat(JNGIauto21)+parseFloat(JNLifeauto2)+parseFloat(processingfeeauto2))*(parseFloat(ltmarket)-parseFloat(cmp.find("IndicateTerm").get("v.value")))));
             totloaninterest=parseFloat(t1)+parseFloat(JN1loanamount1*ltjn1)+parseFloat(JN2loanamount1*ltjn2)+parseFloat(JN3loanamount1*ltjn3)-parseFloat(totalloanauto);  
+            
+        } else{
+            totloaninterest=((parseFloat(marketloanamount1)+parseFloat(JNGIauto1)+parseFloat(JNLifeauto1)+parseFloat(processingfeeauto1))*(ltmarket))+parseFloat(JN1loanamount1*ltjn1)+parseFloat(JN2loanamount1*ltjn2)+parseFloat(JN3loanamount1*ltjn3)-parseFloat(totalloanauto);  
         }
-            else{
-                
-                totloaninterest=((parseFloat(marketloanamount1)+parseFloat(JNGIauto1)+parseFloat(JNLifeauto1)+parseFloat(processingfeeauto1))*(ltmarket))+parseFloat(JN1loanamount1*ltjn1)+parseFloat(JN2loanamount1*ltjn2)+parseFloat(JN3loanamount1*ltjn3)-parseFloat(totalloanauto);  
-            }
-        
-        
         //================
         cmp.find("TotalIP1").set("v.value", parseFloat(totloaninterest).toFixed(2));
         cmp.find("LegalFeesGCT1").set("v.value", "5825");
@@ -1034,11 +1071,12 @@
         }
     },
     PMTcalculator : function(Interestrate, LoanTerminMonth, LoanAmount){
+        debugger;
+        
         console.log('PMT=====');
         var i =Interestrate / 1200;
         var n = LoanTerminMonth;
         var p = LoanAmount;
-        console.log('n====='+n);
         var bmla= -(i * p * Math.pow((1 + i), n) / (1 - Math.pow((1 + i), n)));
         return bmla;
     },
@@ -1060,36 +1098,105 @@
                 var ExistingGrossmonthlyincome=0;
                 
                 var assetslst=response.getReturnValue()[0].ApplicationAssetLiability;
+                
+                //JN1-3104#10
+                var loanCalculationObject =response.getReturnValue()[0].loanCalculation;
+                
+                
+                
                 if(assetslst.length>0){
                     for(var k in assetslst){
-                        console.log("ApplicationAssetLiability==========="+assetslst[k].Assets_and_Liabilities__r.RecordType.Name);
+                        
+                        var priorPaymentInstallment = this.getPriorPaymentInstallment(assetslst);
                         if(assetslst[k].Assets_and_Liabilities__r.RecordType.Name=="Real Estate" || assetslst[k].Assets_and_Liabilities__r.RecordType.Name=="Motor Vehicle" || assetslst[k].Assets_and_Liabilities__r.RecordType.Name=="Other Assets" || assetslst[k].Assets_and_Liabilities__r.RecordType.Name=="Other Loans"){
-                            console.log("ApplicationAssetLiability1==========="+assetslst[k].Assets_and_Liabilities__r.Monthly_Payment_Prior__c);
-                            if(assetslst[k].Assets_and_Liabilities__r.Monthly_Payment_Prior__c!=null)
-                                ExistingInstallmentPaymentBefore += assetslst[k].Assets_and_Liabilities__r.Monthly_Payment_Prior__c;
-                            if(assetslst[k].Assets_and_Liabilities__r.Monthly_Payment__c!=null)
-                                ExistingInstallmentPaymentAfter +=assetslst[k].Assets_and_Liabilities__r.Monthly_Payment__c;
+                            //AK JN1-2755#7 :: Assets_and_Liabilities__r.Monthly_Payment_Prior__c > Monthly_Payment_Prior_Calc_App_Portion__c
+                            console.log("ApplicationAssetLiability1==========="+assetslst[k].Monthly_Payment_Prior_Calc_App_Portion__c);
+                            if(assetslst[k].Monthly_Payment_Prior_Calc_App_Portion__c != null)
+                                ExistingInstallmentPaymentBefore += assetslst[k].Monthly_Payment_Prior_Calc_App_Portion__c;
+                            
+                            // JN1-3102#8 
+                            /* if(assetslst[k].Assets_and_Liabilities__r.Monthly_Payment__c!=null) // Question: Monthly_Payment?
+                               ExistingInstallmentPaymentAfter +=assetslst[k].Assets_and_Liabilities__r.Monthly_Payment__c;
+                            */  
+                            if(assetslst[k].Monthly_Payment_After_Calc_App_Portion__c!=null) 
+                                ExistingInstallmentPaymentAfter +=assetslst[k].Monthly_Payment_After_Calc_App_Portion__c;
                         }
                         if(assetslst[k].Assets_and_Liabilities__r.RecordType.Name=="Credit Cards" || assetslst[k].Assets_and_Liabilities__r.RecordType.Name=="Lines of Credit" ){
-                            console.log("ApplicationAssetLiability1==========="+assetslst[k].Assets_and_Liabilities__r.Minimum_Payment__c);
-                            if(assetslst[k].Assets_and_Liabilities__r.Minimum_Payment__c!=null)
-                                ExistingInstallmentPaymentBefore += assetslst[k].Assets_and_Liabilities__r.Minimum_Payment__c;
-                            if(assetslst[k].Assets_and_Liabilities__r.Minimum_Payment_After__c!=null)
+                            //AK JN1-2755#7 :: Assets_and_Liabilities__r.Minimum_Payment__c > Minimum_Payment__c 
+                            
+                            if(assetslst[k].Minimum_Payment__c!=null)
+                                ExistingInstallmentPaymentBefore += assetslst[k].Minimum_Payment__c;
+                            
+                            // JN1-3012#8
+                            /*if(assetslst[k].Assets_and_Liabilities__r.Minimum_Payment_After__c!=null)
                                 ExistingInstallmentPaymentAfter +=assetslst[k].Assets_and_Liabilities__r.Minimum_Payment_After__c;
+                            */  
+                            if(assetslst[k].Minimum_Payment_After__c!=null)
+                                ExistingInstallmentPaymentAfter +=assetslst[k].Minimum_Payment_After__c;
+                            
                         }
                     }
-                    console.log("ExistingInstallmentPaymentBefore=========="+ExistingInstallmentPaymentBefore);
-                    console.log("ExistingInstallmentPaymentAfter=========="+ExistingInstallmentPaymentAfter);
-                    cmp.set("v.ExistingInstallmentBefore",ExistingInstallmentPaymentBefore);
-                    cmp.set("v.ExistingInstallmentAfter",ExistingInstallmentPaymentAfter);
+                    
+                    // cmp.set("v.ExistingInstallmentBefore",ExistingInstallmentPaymentBefore);
+                    // cmp.set("v.ExistingInstallmentAfter",ExistingInstallmentPaymentAfter);
+                    
                     var applst=response.getReturnValue()[0].Applicantlst;
+                    var applicantList = response.getReturnValue()[0].Applicantlst;
+                    
+                    var grossMonthlyIncome = this.getGrossMonthlyIncome(applicantList); 
+                    var rentBoardStrataBefore = this.getRentBoardStrataBefore(applicantList);
+                    var rentBoardStrataAfter = this.getRentBoardStrataAfter(applicantList);
+                    
+                    var rentBoardBeforeTdsr = 0 ; 
+                    var rentBoardAfterTdsr = 0 ; 
+                    
                     
                     for(var k in applst){
                         if(applst[k].Gross_Monthly_IncomeC__c!=null)
                             ExistingGrossmonthlyincome +=applst[k].Gross_Monthly_IncomeC__c;
+                        
+                        // JN1-2755#7   
+                        if(applst[k].Rent_Board_Strata_Before_TDSR__c != null){
+                            rentBoardBeforeTdsr+= applst[k].Rent_Board_Strata_Before_TDSR__c;
+                        }
+                        
+                        // JN1-3102#8
+                        if(applst[k].Rent_Board_Strata_After_TDSR__c != null){
+                            rentBoardAfterTdsr+= applst[k].Rent_Board_Strata_After_TDSR__c;
+                        }
                     }
-                    console.log("ExistingGrossmonthlyincome=========="+ExistingGrossmonthlyincome);
+                    
+                    // JN1-2755#7 
+                    // JN1-2756#9 
+                    ExistingInstallmentPaymentBefore = ExistingInstallmentPaymentBefore +  rentBoardBeforeTdsr;
+                    
+                    // JN1-3102#8   // JN1-3104#10   // JN1-3108#12  //JN1-2757#13
+                    ExistingInstallmentPaymentAfter = ExistingInstallmentPaymentAfter + rentBoardAfterTdsr;
+                    
+                    cmp.set("v.ExistingInstallmentBefore",ExistingInstallmentPaymentBefore);
+                    cmp.set("v.ExistingInstallmentAfter",ExistingInstallmentPaymentAfter);
                     cmp.set("v.ExistingGrossincome",ExistingGrossmonthlyincome);
+                    
+                    //JN1-3104#10
+                    var acMethod = cmp.find("selectapplicant").get("v.value");
+                    if(acMethod ==2){
+                        var unsecureMonthlyLoanPayment=  loanCalculationObject.Unsecure_Monthly_Loan_Payment__c;
+                        var ExistingInstallmentPaymentAfter= ExistingInstallmentPaymentAfter + rentBoardAfterTdsr + unsecureMonthlyLoanPayment;
+                        cmp.set("v.ExistingInstallmentAfter",ExistingInstallmentPaymentAfter);
+                    }
+                    //JN1-3108#12
+                    if(acMethod ==3){
+                        var minimumPaymentAsPerCreditLimit = loanCalculationObject.Minimum_Payment_as_per_Credit_Limit__c;
+                        var ExistingInstallmentPaymentAfter= ExistingInstallmentPaymentAfter + rentBoardAfterTdsr + minimumPaymentAsPerCreditLimit;
+                        cmp.set("v.ExistingInstallmentAfter",ExistingInstallmentPaymentAfter);
+                    }
+                    //JN1-3106#13
+                    if(acMethod ==4){
+                        var minimumPaymentAsPerCreditLimit = loanCalculationObject.Minimum_Payment__c;
+                        var ExistingInstallmentPaymentAfter= ExistingInstallmentPaymentAfter + rentBoardAfterTdsr + minimumPaymentAsPerCreditLimit;
+                        cmp.set("v.ExistingInstallmentAfter",ExistingInstallmentPaymentAfter);
+                    }
+                    
                 }
                 this.ShowTotalAsPerCalculatorSelected(cmp);
             }
@@ -1209,6 +1316,7 @@
     },
     
     autoLoanTotal : function(cmp){
+        debugger;
         console.log('AutoNotisprod=========='+cmp.get("v.isProductDetail"));
         if(cmp.get("v.isProductDetail")){
             console.log('Autoisprod=========='+cmp.get("v.isProductDetail"));
@@ -1217,16 +1325,29 @@
             var ExistingInstallmentPaymentBefore = parseFloat(cmp.get("v.ExistingInstallmentBefore"));
             var ExistingInstallmentPaymentAfter = parseFloat(cmp.get("v.ExistingInstallmentAfter"));
             var ExistingGrossmonthlyincome = parseFloat(cmp.get("v.ExistingGrossincome"));
+            
             var totalmonthlyInstallmentcmp=isNaN(parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value")))?0:parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
+            
+            // JN1-3102#8 calculation of 
+            let tdsrAfterForAutoloan = this.calculateTdsrAfterAutoLoan(cmp,ExistingInstallmentPaymentAfter,ExistingGrossmonthlyincome);
+            
             if(ExistingInstallmentPaymentBefore>0 && ExistingGrossmonthlyincome>0)
-                PriortoProposedCredit=ExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
-            var totalExistingInstallmentPaymentAfter=ExistingInstallmentPaymentAfter+totalmonthlyInstallmentcmp;
-            if(totalExistingInstallmentPaymentAfter>0 && ExistingGrossmonthlyincome>0)
+                PriortoProposedCredit=ExistingGrossmonthlyincome > 0 ? ExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome : 0;
+            
+            /*var totalExistingInstallmentPaymentAfter=ExistingInstallmentPaymentAfter+totalmonthlyInstallmentcmp;
+                if(totalExistingInstallmentPaymentAfter>0 && ExistingGrossmonthlyincome>0)
                 afterProposedCredit=totalExistingInstallmentPaymentAfter/ExistingGrossmonthlyincome;
+              */
+            
             var Admin_TablesBJ7 = '50';
             cmp.find("PolicyLimit").set("v.value", Admin_TablesBJ7);
+            // JN1-2755#7 
+            PriortoProposedCredit = PriortoProposedCredit * 100;
             cmp.find("PriortoProposedCredit").set("v.value", parseFloat(PriortoProposedCredit).toFixed(2));
-            cmp.find("AfterProposedCredit").set("v.value", parseFloat(afterProposedCredit).toFixed(2));  
+            
+            // JN1-3102#8
+            cmp.find("AfterProposedCredit").set("v.value", parseFloat(tdsrAfterForAutoloan).toFixed(2));  
+            // cmp.find("AfterProposedCredit").set("v.value", parseFloat(afterProposedCredit).toFixed(2));
         }
         else{
             var EmpRow=cmp.get("v.RowNum");
@@ -1265,13 +1386,19 @@
             var MonthlyLoanPaymentJNS2During      = cmp.find("MonthlyLoanPaymentJN21").get("v.value");
             var MonthlyLoanPaymentJNS3During      = cmp.find("MonthlyLoanPaymentJN31").get("v.value");
             var MonthlyJNGIMotorPremium1stYruring = cmp.find("MonthlyJNGIMotorPremium1stYear1").get("v.value");
-            var AG158_AL162 = parseFloat(MonthlyLoanPaymentMarketDuring)+parseFloat(MonthlyLoanPaymentJNS1During)+parseFloat(MonthlyLoanPaymentJNS2During)+parseFloat(MonthlyLoanPaymentJNS3During)+parseFloat(MonthlyJNGIMotorPremium1stYruring);
-            console.log('AG158_AL162===='+AG158_AL162);
+            debugger;
+            console.log('MonthlyLoanPaymentMarketDuring===='+MonthlyLoanPaymentMarketDuring);
+            console.log('MonthlyLoanPaymentJNS1During===='+MonthlyLoanPaymentJNS1During);
+            console.log('MonthlyLoanPaymentJNS2During===='+MonthlyLoanPaymentJNS2During);
+            console.log('MonthlyLoanPaymentJNS3During===='+MonthlyLoanPaymentJNS3During);
+            console.log('MonthlyJNGIMotorPremium1stYruring===='+MonthlyJNGIMotorPremium1stYruring);
+            
+            
+            var AG158_AL162 =parseFloat(MonthlyLoanPaymentMarketDuring)+parseFloat(MonthlyLoanPaymentJNS1During)+parseFloat(MonthlyLoanPaymentJNS2During)+parseFloat(MonthlyLoanPaymentJNS3During)+parseFloat(MonthlyJNGIMotorPremium1stYruring);
             
             var MonthlyJNLifeCreditorLifePremiumDuring = cmp.find("MonthlyJNLifeCreditorLifePremium1").get("v.value");
             var MonthlyProcessingFeesDuring 		   = cmp.find("MonthlyProcessingFees1").get("v.value");
             var AG164_AL165 = parseFloat(MonthlyJNLifeCreditorLifePremiumDuring)+parseFloat(MonthlyProcessingFeesDuring);
-            console.log('AG164_AL165===='+AG164_AL165);
             
             var AG158_AL162_AG164_AL165 = AG158_AL162+AG164_AL165;
             console.log('AG158_AL162_AG164_AL165===='+AG158_AL162_AG164_AL165);
@@ -1287,7 +1414,7 @@
             
             var MonthlyJNLifeCreditorLifePremiumAfter  = cmp.find("MonthlyJNLifeCreditorLifePremium2").get("v.value");
             var MonthlyProcessingFeesAfter 			   = cmp.find("MonthlyProcessingFees2").get("v.value");
-            //var AG158_AL162 = parseFloat()+parseFloat()+parseFloat()+parseFloat()+parseFloat();
+            
             var AM164_AQ165 = parseFloat(MonthlyJNLifeCreditorLifePremiumAfter)+parseFloat(MonthlyProcessingFeesAfter);
             console.log('AM164_AQ165===='+AM164_AQ165);
             
@@ -1296,11 +1423,8 @@
             console.log('AM158_AQ162_AM164_AQ165===='+AM158_AQ162_AM164_AQ165);      
             
             var apc = (AW57 + Math.max(parseFloat(AG158_AL162_AG164_AL165),parseFloat(AM158_AQ162_AM164_AQ165)))/AW56;
-            console.log('apc===='+apc);
             apc = apc*100;
             cmp.find("AfterProposedCredit").set("v.value", apc.toFixed(2));
-            
-            
             
             var Admin_TablesBJ7 = '50';
             cmp.find("PolicyLimit").set("v.value", Admin_TablesBJ7);
@@ -1317,19 +1441,30 @@
         if(cmp.get("v.isProductDetail")){
             var PriortoProposedCredit=0;
             var afterProposedCredit=0;
+            let tdsrAfterForUnsecure = 0 ;
             var ExistingInstallmentPaymentBefore = parseFloat(cmp.get("v.ExistingInstallmentBefore"));
             var ExistingInstallmentPaymentAfter = parseFloat(cmp.get("v.ExistingInstallmentAfter"));
             var ExistingGrossmonthlyincome = parseFloat(cmp.get("v.ExistingGrossincome"));
             var totalmonthlyInstallmentcmp=isNaN(parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value")))?0:parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value"));
             if(ExistingInstallmentPaymentBefore>0 && ExistingGrossmonthlyincome>0)
-                PriortoProposedCredit=ExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
+                // JN1-2756#9
+                PriortoProposedCredit=(ExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome)*100;
+            
+            
+            debugger;
             var totalExistingInstallmentPaymentAfter=ExistingInstallmentPaymentAfter+totalmonthlyInstallmentcmp;
             if(totalExistingInstallmentPaymentAfter>0 && ExistingGrossmonthlyincome>0)
-                afterProposedCredit=totalExistingInstallmentPaymentAfter/ExistingGrossmonthlyincome;
+                //JN1-3104#10
+                //afterProposedCredit=(totalExistingInstallmentPaymentAfter/ExistingGrossmonthlyincome)*100;
+                tdsrAfterForUnsecure = (ExistingInstallmentPaymentAfter/ExistingGrossmonthlyincome)*100;
+            
+            
             var Admin_TablesBJ7 = '50.00';
             cmp.find("PolicyLimit").set("v.value",Admin_TablesBJ7);
             cmp.find("PriortoProposedCredit").set("v.value", parseFloat(PriortoProposedCredit).toFixed(2));
-            cmp.find("AfterProposedCredit").set("v.value", parseFloat(afterProposedCredit).toFixed(2));
+            //JN1-3104#10
+            //cmp.find("AfterProposedCredit").set("v.value", parseFloat(afterProposedCredit).toFixed(2));
+            cmp.find("AfterProposedCredit").set("v.value", parseFloat(tdsrAfterForUnsecure).toFixed(2));
         }
         else{
             var Admin_TablesBJ7 = '50.00';
@@ -1345,7 +1480,7 @@
                     ExistingMonthlyCreditPayment +=parseFloat(applicantlst[k].EMCPayment);
             }
             
-            var  PriorToProposedCredit = ExistingMonthlyCreditPayment/GrossMonthlyIncome*100;
+            var  PriorToProposedCredit = (ExistingMonthlyCreditPayment/GrossMonthlyIncome)*100;
             if(isNaN(PriorToProposedCredit))
                 cmp.find("PriortoProposedCredit").set("v.value", 0);
             else
@@ -1364,20 +1499,31 @@
         }
     },  
     creditCardTotal : function(cmp){
+        debugger;
         console.log('CreditNotisprod=======');
         if(cmp.get("v.isProductDetail")){
             console.log('Creditisprod=======');
             var PriortoProposedCredit=0;
-            var afterProposedCredit=0;
+            let afterProposedCredit=0;
             var ExistingInstallmentPaymentBefore = parseFloat(cmp.get("v.ExistingInstallmentBefore"));
             var ExistingInstallmentPaymentAfter = parseFloat(cmp.get("v.ExistingInstallmentAfter"));
             var ExistingGrossmonthlyincome = parseFloat(cmp.get("v.ExistingGrossincome"));
             var totalmonthlyInstallmentcmp=isNaN(parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value")))?0:parseFloat(cmp.find("ccMinimumPaymentAsPerCreditLimit").get("v.value"));
             if(ExistingInstallmentPaymentBefore>0 && ExistingGrossmonthlyincome>0)
-                PriortoProposedCredit=ExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
+                // JN1-2758#11
+                PriortoProposedCredit=(ExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome)*100;
+            
+            console.log('PriortoProposedCredit'+PriortoProposedCredit);
+            console.log('PriortoProposedCredit'+ExistingInstallmentPaymentBefore);
+            console.log('PriortoProposedCredit'+ExistingGrossmonthlyincome);
             var totalExistingInstallmentPaymentAfter=ExistingInstallmentPaymentAfter+totalmonthlyInstallmentcmp;
+            
+            
             if(totalExistingInstallmentPaymentAfter>0 && ExistingGrossmonthlyincome>0)
-                afterProposedCredit=totalExistingInstallmentPaymentAfter/ExistingGrossmonthlyincome;
+                //JN1-3108#12
+                //afterProposedCredit=totalExistingInstallmentPaymentAfter/ExistingGrossmonthlyincome;
+                afterProposedCredit =(ExistingInstallmentPaymentAfter/ExistingGrossmonthlyincome)*100;
+            
             var Admin_TablesBJ7 = '50';
             cmp.find("PolicyLimit").set("v.value",Admin_TablesBJ7);
             cmp.find("PriortoProposedCredit").set("v.value", parseFloat(PriortoProposedCredit).toFixed(2));
@@ -1389,8 +1535,8 @@
             
             //Prior to Proposed Credit(s) =  Existing monthly credit payment /Gross Monthly Income
             
-            var GrossMonthlyIncome=0; //$AB$56
-            var ExistingMonthlyCreditPayment = 0; //$AI$56 = EXISTING MONTHLY CREDIT PAYMENT
+            var GrossMonthlyIncome=0; 
+            var ExistingMonthlyCreditPayment = 0; 
             var EmpRow=cmp.get("v.RowNum");
             var count=1;
             for(var k in EmpRow) {
@@ -1402,7 +1548,7 @@
                 }
             }
             
-            var  PriorToProposedCredit = ExistingMonthlyCreditPayment/GrossMonthlyIncome*100;
+            var  PriorToProposedCredit = (ExistingMonthlyCreditPayment/GrossMonthlyIncome)*100;
             cmp.find("PriortoProposedCredit").set("v.value", PriorToProposedCredit.toFixed(2));
             
             var interestRate = cmp.find("ccInterestRate").get("v.value");
@@ -1423,7 +1569,9 @@
         }
     },
     lineOfCreditTotal:function(cmp){
+        debugger;
         if(cmp.get("v.isProductDetail")){
+            
             var PriortoProposedCredit=0;
             var afterProposedCredit=0;
             var ExistingInstallmentPaymentBefore = parseFloat(cmp.get("v.ExistingInstallmentBefore"));
@@ -1431,10 +1579,14 @@
             var ExistingGrossmonthlyincome = parseFloat(cmp.get("v.ExistingGrossincome"));
             var totalmonthlyInstallmentcmp=isNaN(parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value")))?0:parseFloat(cmp.find("locMinimumPaymentAsPerCreditLimit").get("v.value"));
             if(ExistingInstallmentPaymentBefore>0 && ExistingGrossmonthlyincome>0)
-                PriortoProposedCredit=ExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
-            var totalExistingInstallmentPaymentAfter=ExistingInstallmentPaymentAfter+totalmonthlyInstallmentcmp;
-            if(totalExistingInstallmentPaymentAfter>0 && ExistingGrossmonthlyincome>0)
-                afterProposedCredit=totalExistingInstallmentPaymentAfter/ExistingGrossmonthlyincome;
+                //JN1-2757#13
+                PriortoProposedCredit=(ExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome)*100;
+            
+            // var totalExistingInstallmentPaymentAfter=ExistingInstallmentPaymentAfter+totalmonthlyInstallmentcmp;
+            //JN1-3106#13
+            if(ExistingInstallmentPaymentAfter>0 && ExistingGrossmonthlyincome>0)
+                afterProposedCredit=(ExistingInstallmentPaymentAfter/ExistingGrossmonthlyincome)*100;
+            
             var Admin_TablesBJ7 = '50';
             cmp.find("PolicyLimit").set("v.value", Admin_TablesBJ7);
             cmp.find("PriortoProposedCredit").set("v.value", parseFloat(PriortoProposedCredit).toFixed(2));
@@ -1483,6 +1635,7 @@
     },
     autoLoanAndUnsecuredLoanTotal:function(cmp){
         if(cmp.get("v.isProductDetail")){
+            debugger;
             var PriortoProposedCredit=0;
             var afterProposedCredit=0;
             var ExistingInstallmentPaymentBefore = parseFloat(cmp.get("v.ExistingInstallmentBefore"));
@@ -1491,15 +1644,35 @@
             var  totalmonthlyInstallmentcmpauto=isNaN(parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value")))?0:parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
             var totalmonthlyInstallmentcmpUn=isNaN(parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value")))?0:parseFloat(cmp.find("MonthlyLoanPayment1Un").get("v.value"));
             var totalExistingInstallmentPaymentBefore=ExistingInstallmentPaymentBefore+totalmonthlyInstallmentcmpauto;
+            
+            //JN1-2759#15
             if(totalExistingInstallmentPaymentBefore>0 && ExistingGrossmonthlyincome>0)
-                PriortoProposedCredit=totalExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome;
+                PriortoProposedCredit=(ExistingInstallmentPaymentBefore/ExistingGrossmonthlyincome)*100;
+            
+            
             var totalExistingInstallmentPaymentAfter=ExistingInstallmentPaymentAfter+totalmonthlyInstallmentcmpauto+totalmonthlyInstallmentcmpUn;
-            if(totalExistingInstallmentPaymentAfter>0 && ExistingGrossmonthlyincome>0)
-                afterProposedCredit=totalExistingInstallmentPaymentAfter/ExistingGrossmonthlyincome;
+            //if(totalExistingInstallmentPaymentAfter>0 && ExistingGrossmonthlyincome>0)
+            //  afterProposedCredit=(totalExistingInstallmentPaymentAfter/ExistingGrossmonthlyincome)*100;
+            
+            //var abc = parseFloat(cmp.get("v.MonthlyLoanPaymentMarketUn"));
+            
+            //JN1-3110#16 
+            var previousInstallmentPayment = this.geLoanAmount(cmp);
+            var tdsrAfterForAutoloan =((ExistingInstallmentPaymentAfter+previousInstallmentPayment)/ExistingGrossmonthlyincome)*100;
+            
+            
+            // var tdsrAfterForAutoloan = this.calculateTdsrAfterAutoLoanAndUnsecureLoan(cmp,ExistingInstallmentPaymentAfter,ExistingGrossmonthlyincome,totalmonthlyInstallmentcmpUn);
+            
+            
+            
             var Admin_TablesBJ7 = '50';
             cmp.find("PolicyLimit").set("v.value", Admin_TablesBJ7);
             cmp.find("PriortoProposedCredit").set("v.value", parseFloat(PriortoProposedCredit).toFixed(2));
-            cmp.find("AfterProposedCredit").set("v.value", parseFloat(afterProposedCredit).toFixed(2));
+            
+            //cmp.find("AfterProposedCredit").set("v.value", parseFloat(afterProposedCredit).toFixed(2));
+            cmp.find("AfterProposedCredit").set("v.value", parseFloat(tdsrAfterForAutoloan).toFixed(2));
+            
+            
         }
         else{
             console.log("autoLoanAndUnsecuredLoanTotal TDSR=======================");
@@ -1533,6 +1706,7 @@
             this.SetDefaultVal(cmp.find("MonthlyJNLifeCreditorLifePremium1"),0);
             this.SetDefaultVal(cmp.find("MonthlyProcessingFees1"),0);
             
+            
             this.SetDefaultVal(cmp.find("MonthlyLoanPaymentMarket2"),0);
             this.SetDefaultVal(cmp.find("MonthlyLoanPaymentJN12"),0);
             this.SetDefaultVal(cmp.find("MonthlyLoanPaymentJN22"),0);
@@ -1556,10 +1730,10 @@
             var MonthlyJNLifeCreditorLifePremiumDuring = cmp.find("MonthlyJNLifeCreditorLifePremium1").get("v.value");
             var MonthlyProcessingFeesDuring 		   = cmp.find("MonthlyProcessingFees1").get("v.value");
             var AG164_AL165 = parseFloat(MonthlyJNLifeCreditorLifePremiumDuring)+parseFloat(MonthlyProcessingFeesDuring);
-            console.log('AG164_AL165===='+AG164_AL165);
+            
             
             var AG158_AL162_AG164_AL165 = AG158_AL162+AG164_AL165;
-            console.log('AG158_AL162_AG164_AL165===='+AG158_AL162_AG164_AL165);
+            
             
             var MonthlyLoanPaymentMarketAfter     = cmp.find("MonthlyLoanPaymentMarket2").get("v.value");
             var MonthlyLoanPaymentJNS1After       = cmp.find("MonthlyLoanPaymentJN12").get("v.value");
@@ -1567,19 +1741,19 @@
             var MonthlyLoanPaymentJNS3After       = cmp.find("MonthlyLoanPaymentJN32").get("v.value");
             var MonthlyJNGIMotorPremium1stYrAfter = cmp.find("MonthlyJNGIMotorPremium1stYear2").get("v.value");
             var AM158_AQ162 = parseFloat(MonthlyLoanPaymentMarketAfter)+parseFloat(MonthlyLoanPaymentJNS1After)+parseFloat(MonthlyLoanPaymentJNS2After)+parseFloat(MonthlyLoanPaymentJNS3After)+parseFloat(MonthlyJNGIMotorPremium1stYrAfter);
-            console.log('AM158_AQ162===='+AM158_AQ162);
+            
             
             
             var MonthlyJNLifeCreditorLifePremiumAfter  = cmp.find("MonthlyJNLifeCreditorLifePremium2").get("v.value");
             var MonthlyProcessingFeesAfter 			   = cmp.find("MonthlyProcessingFees2").get("v.value");
-            //var AG158_AL162 = parseFloat()+parseFloat()+parseFloat()+parseFloat()+parseFloat();
+            
             var AM164_AQ165 = parseFloat(MonthlyJNLifeCreditorLifePremiumAfter)+parseFloat(MonthlyProcessingFeesAfter);
             console.log('AM164_AQ165===='+AM164_AQ165);
             
             
             var AM158_AQ162_AM164_AQ165 = AM158_AQ162+AM164_AQ165;
             console.log('AM158_AQ162_AM164_AQ165===='+AM158_AQ162_AM164_AQ165);
-            var AG191 =cmp.find("MonthlyLoanPayment1Un").get("v.value");  //Monthly Loan Payment
+            var AG191 =cmp.find("MonthlyLoanPayment1Un").get("v.value");  
             console.log('AG191===='+AG191);
             console.log('new1===='+AG158_AL162_AG164_AL165);
             console.log('new2===='+AM158_AQ162_AM164_AQ165);
@@ -1600,7 +1774,7 @@
             var Admin_TablesBJ7 = '50';
             cmp.find("PolicyLimit").set("v.value", Admin_TablesBJ7);
             
-            //PriortoProposedCredit=IFERROR($AW$57/$AW$56,0)
+            
             var PriortoProposedCredit=parseFloat(AW57)/parseFloat(AW56);
             PriortoProposedCredit = PriortoProposedCredit*100;
             PriortoProposedCredit =this.checkNaN(PriortoProposedCredit);
@@ -2167,7 +2341,6 @@
             
             
             var apc = (parseFloat(AW57) + parseFloat(Math.max(AG158_AL162_AG164_AL165,AM158_AQ162_AM164_AQ165))+parseFloat(AG191)+parseFloat(AL208))/parseFloat(AW56);
-            console.log('apc===='+apc);
             apc = apc*100;
             cmp.find("AfterProposedCredit").set("v.value", apc.toFixed(2));
             
@@ -2996,7 +3169,93 @@
         $A.enqueueAction(action);
         console.log('save--------------------------5-');
     },
+    canShowStatementOfAffairs: function(values, scenario){
+        return values.some(function(value){
+            return scenario == value;
+        });
+    },//JN1-2727#1
+    setObjectValueIfInvalid: function(objValue) {
+        objValue = objValue == undefined ? 0 : objValue;
+        objValue = Number.isNaN(objValue) ? 0 : objValue;
+        objValue = isFinite(objValue) ? objValue : 0;
+        
+        return objValue;
+    },
     
+    // JN1-3102#8
+    calculateTdsrAfterAutoLoan : function(cmp,existingInstallmentPaymentAfter,existingGrossMonthlyIncome){
+        
+        
+        let newInstallmentPayment = this.geLoanAmount(cmp);
+        let tdsrAfterForAutoloan = existingGrossMonthlyIncome > 0 ? ((existingInstallmentPaymentAfter + newInstallmentPayment)/existingGrossMonthlyIncome)*100 : 0;
+        return tdsrAfterForAutoloan;
+    },// JN1-3102#8
+    calculateTdsrAfterAutoLoanAndUnsecureLoan:function(cmp,existingInstallmentPaymentAfter,existingGrossMonthlyIncome,unsecureLoanAmount){
+        
+        let maxMonthlyLoanPayment = this.geLoanAmount(cmp);
+        let newInstallmentPayment =maxMonthlyLoanPayment + unsecureLoanAmount;
+        let tdsrAfterForAutoloan = existingGrossMonthlyIncome > 0 ? ((existingInstallmentPaymentAfter + newInstallmentPayment)/existingGrossMonthlyIncome)*100 : 0;
+        return tdsrAfterForAutoloan;    
+        
+    },
+    geLoanAmount:function(cmp){
+        debugger;
+        let monthlyJngiMotorPremium1By12 =0;
+        let monthlyLoanPaymentBeforeMoratorium = parseFloat(cmp.find("MonthlyLoanPayment1").get("v.value"));
+        console.log("monthlyLoanPaymentBeforeMoratorium == " + monthlyLoanPaymentBeforeMoratorium);
+        let monthlyLoanPaymentAfterMoratorium = parseFloat(cmp.find("MonthlyLoanPayment2").get("v.value"));
+        console.log("monthlyLoanPaymentAfterMoratorium == " + monthlyLoanPaymentAfterMoratorium);
+        //let monthlyJngiMotorPremium1By12 =0;
+        if(cmp.get("v.MonthlyJNGIMotorPremiumhalfPayment1New")>0){
+            monthlyJngiMotorPremium1By12=cmp.get("v.MonthlyJNGIMotorPremiumhalfPayment1New");
+        }
+        let maxMonthlyLoanPayment = Math.max(
+            monthlyLoanPaymentBeforeMoratorium,
+            monthlyLoanPaymentAfterMoratorium
+        );
+        if(cmp.get("v.MonthlyJNGIMotorPremiumhalfPayment1New")>0){
+            monthlyJngiMotorPremium1By12=cmp.get("v.MonthlyJNGIMotorPremiumhalfPayment1New");
+        }
+        let loanAmount = maxMonthlyLoanPayment - monthlyJngiMotorPremium1By12;
+        
+        return loanAmount;
+    },
     
-    
-})
+    getPriorPaymentInstallment:function(cmp,assetAndLiabilityList){
+        
+        var priorPaymentInstallment = 0 
+        for(var k in assetAndLiabilityList){
+            if(assetAndLiabilityList[k].Assets_and_Liabilities__r.RecordType.Name=="Real Estate" || 
+               assetAndLiabilityList[k].Assets_and_Liabilities__r.RecordType.Name=="Motor Vehicle" ||
+               assetAndLiabilityList[k].Assets_and_Liabilities__r.RecordType.Name=="Other Assets" ||
+               assetAndLiabilityList[k].Assets_and_Liabilities__r.RecordType.Name=="Other Loans")
+            {
+                if(assetAndLiabilityList[k].Monthly_Payment_Prior_Calc_App_Portion__c != null)
+                    priorPaymentInstallment += assetAndLiabilityList[k].Monthly_Payment_Prior_Calc_App_Portion__c;
+                
+                if(assetAndLiabilityList[k].Assets_and_Liabilities__r.RecordType.Name=="Credit Cards" || assetAndLiabilityList[k].Assets_and_Liabilities__r.RecordType.Name=="Lines of Credit" ){
+                    if(assetAndLiabilityList[k].Minimum_Payment__c!=null)
+                        priorPaymentInstallment += assetAndLiabilityList[k].Minimum_Payment__c;
+                } 
+            }
+        }
+        
+        return priorPaymentInstallment;
+    },
+    getGrossMonthlyIncome:function(applicantList){
+        var totalGrossMonthlyIncome =0;
+        for(var k in applicantList){
+            if(applicantList[k].Gross_Monthly_IncomeC__c!=null)
+                totalGrossMonthlyIncome +=applicantList[k].Gross_Monthly_IncomeC__c;
+        }
+        return totalGrossMonthlyIncome;
+    },
+    getRentBoardStrataBefore:function(applicantList){
+        var totalRentBoardStrataBefore = 0 
+        for(var k in applicantList){
+           if(applicantList[k].Rent_Board_Strata_Before_TDSR__c != null){
+                totalRentBoardStrataBefore+= applicantList[k].Rent_Board_Strata_Before_TDSR__c;
+            }
+        }
+    }
+    })

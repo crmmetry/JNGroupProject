@@ -1288,21 +1288,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Preferred_Contact_Method__c</picklist>
-        <values>
-            <fullName>Email</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Home Phone</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Mobile</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Preferred_Location__c</picklist>
         <values>
             <fullName>Annotto Bay</fullName>

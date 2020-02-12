@@ -6,7 +6,7 @@
     <label>creditCalculations</label>
     <packageVersions>
         <majorNumber>224</majorNumber>
-        <minorNumber>3</minorNumber>
+        <minorNumber>2</minorNumber>
         <namespace>FinServ</namespace>
     </packageVersions>
 </ApexPage>

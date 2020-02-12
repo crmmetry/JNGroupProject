@@ -39,6 +39,22 @@
                 <behavior>Edit</behavior>
                 <field>Lien_on_Asset__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Monthly_Payment_Prior_Calc_App_Portion__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Monthly_Payment_After_Calc_App_Portion__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Loan_Balance_Prior_Calc_App_Portion__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Loan_Balance_After_Calc_App_Portion__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

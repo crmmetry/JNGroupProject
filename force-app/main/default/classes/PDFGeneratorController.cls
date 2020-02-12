@@ -102,7 +102,6 @@ public class PDFGeneratorController {
                recordId = ApexPages.currentPage().getParameters().get('oppid');
                Id applicantId = ApexPages.currentPage().getParameters().get('appid');
                applicantNumber = ApexPages.currentPage().getParameters().get('num');
-               //(Opportunity)controller.getRecord();
                
                thisOpportunity = [SELECT Id,AccountId, Product_Details__c   from Opportunity where id = :recordId];
                
@@ -359,13 +358,13 @@ public class PDFGeneratorController {
         
     }
     private Map<Id,RecordType> getRecordTypeMap(String sObjectType ){
-        return new Map<Id, RecordType>([select Id,Name,DeveloperName 
-                                        from RecordType where sobjecttype= :sObjectType]); 
+        return new Map<Id, RecordType>([SELECT Id,Name,DeveloperName 
+                                        FROM RecordType WHERE sobjecttype= :sObjectType]); 
     }
     private String getRecordTypeName(Id recordTypeId, String sObjectType){
         return getRecordTypeMap(sObjectType).get(recordTypeId).DeveloperName;
     }
-    private Decimal convertValue(Object obj){
+    private Decimal cv(Object obj){
         String value = String.valueOf(obj);
         Decimal result = 0.0;
         if(value != null) {
@@ -377,137 +376,137 @@ public class PDFGeneratorController {
     public void sumApplicantAssetsLiabilities(List<Application_Asset_Liability__c> records){
         for(Application_Asset_Liability__c record: records){
             System.debug('Applicant record type: ' +record.Assets_and_Liabilities__r.RecordType.DeveloperName );
-            System.debug('Applicant data convert: ' +convertValue(record.Assets_and_Liabilities__r.Total_Market_Value_Calc__c) );
+            System.debug('Applicant data convert: ' +cv(record.Assets_and_Liabilities__r.Total_Market_Value_Calc__c) );
             System.debug('Applicant data: ' +(record.Assets_and_Liabilities__r.Total_Market_Value_Calc__c) );
             switch on record.Assets_and_Liabilities__r.RecordType.DeveloperName {                    
                 when 'Real_Estate' {
                     //Summary Assets and Liabilities - Assets Before Proposed assets
-                    realEstateBefore += convertValue(record.Assets_and_Liabilities__r.Total_Market_Value_Calc__c);
-                    realEstateAfter += convertValue(record.Assets_and_Liabilities__r.Total_Market_Value_Calc__c);
+                    realEstateBefore += cv(record.Assets_and_Liabilities__r.Total_Market_Value_Calc__c);
+                    realEstateAfter += cv(record.Assets_and_Liabilities__r.Total_Market_Value_Calc__c);
                     
                     //Summary Assets and Liabilities - Liabilities Before Proposed Loan
-                    loanRealEstateBefore += convertValue(record.get('Loan_Balance_Prior__c')) 
-                        * convertValue(record.Assets_and_Liabilities__r.Percent_Ownership__c);
+                    loanRealEstateBefore += cv(record.get('Loan_Balance_Prior__c')) 
+                        * cv(record.Assets_and_Liabilities__r.Percent_Ownership__c);
                     
-                    loanRealEstateAfter += convertValue(record.get('Loan_Balance_After__c')) 
-                        * convertValue(record.Assets_and_Liabilities__r.Percent_Ownership__c);
+                    loanRealEstateAfter += cv(record.get('Loan_Balance_After__c')) 
+                        * cv(record.Assets_and_Liabilities__r.Percent_Ownership__c);
                     
                     //infows & outflows
-                    installmentPayments += convertValue(record.Monthly_Payment_Prior__c)* convertValue(record.Assets_and_Liabilities__r.Percent_Applicant_Portion__c);
-                    installmentPaymentsAfter += convertValue(record.Assets_and_Liabilities__r.Monthly_Payment__c) 
-                        * convertValue(record.Assets_and_Liabilities__r.Percent_Applicant_Portion__c);
+                    installmentPayments += cv(record.Monthly_Payment_Prior__c)* cv(record.Assets_and_Liabilities__r.Percent_Applicant_Portion__c);
+                    installmentPaymentsAfter += cv(record.Assets_and_Liabilities__r.Monthly_Payment__c) 
+                        * cv(record.Assets_and_Liabilities__r.Percent_Applicant_Portion__c);
                     
                 }
                 when 'Motor_Vehicle' {
                     //Summary Assets and Liabilities - Assets Before Proposed assets                        
-                    motorVehicleBefore += convertValue(record.Assets_and_Liabilities__r.Total_Market_Value_Calc__c);                                       
-                    motorVehicleAfter +=convertValue(record.Assets_and_Liabilities__r.Total_Market_Value_Calc__c) ;
+                    motorVehicleBefore += cv(record.Assets_and_Liabilities__r.Total_Market_Value_Calc__c);                                       
+                    motorVehicleAfter +=cv(record.Assets_and_Liabilities__r.Total_Market_Value_Calc__c) ;
                     
                     //Summary Assets and Liabilities - Liabilities Before Proposed Loan                    
-                    loanMotorVehicleBefore += convertValue(record.get('Loan_Balance_Prior__c'))
-                        * convertValue(record.Assets_and_Liabilities__r.Percent_Ownership__c);
+                    loanMotorVehicleBefore += cv(record.get('Loan_Balance_Prior__c'))
+                        * cv(record.Assets_and_Liabilities__r.Percent_Ownership__c);
                     
-                    loanMotorVehicleAfter += convertValue(record.get('Loan_Balance_After__c'))
-                        * convertValue(record.Assets_and_Liabilities__r.Percent_Ownership__c);
+                    loanMotorVehicleAfter += cv(record.get('Loan_Balance_After__c'))
+                        * cv(record.Assets_and_Liabilities__r.Percent_Ownership__c);
                     
-                    installmentPayments += convertValue(record.Monthly_Payment_Prior__c)* convertValue(record.Assets_and_Liabilities__r.Percent_Applicant_Portion__c);
-                    installmentPaymentsAfter += convertValue(record.Assets_and_Liabilities__r.Monthly_Payment__c)
-                        * convertValue(record.Assets_and_Liabilities__r.Percent_Applicant_Portion__c)
-                        + convertValue(loanCalculator.Monthly_Loan_Payment__c);
+                    installmentPayments += cv(record.Monthly_Payment_Prior__c)* cv(record.Assets_and_Liabilities__r.Percent_Applicant_Portion__c);
+                    installmentPaymentsAfter += cv(record.Assets_and_Liabilities__r.Monthly_Payment__c)
+                        * cv(record.Assets_and_Liabilities__r.Percent_Applicant_Portion__c)
+                        + cv(loanCalculator.Monthly_Loan_Payment__c);
                     if(applicantNumber == '1') {
-                        motorVehicleAfter+=convertValue(loanCalculator.Market_Value_of_Vehicle__c) + convertValue(loanCalculator.App_1_Loan_Amount_A__c);
-                        installmentPaymentsAfter*= convertValue(loanCalculator.App1_Monthly_Payment_A__c);
+                        motorVehicleAfter+=cv(loanCalculator.Market_Value_of_Vehicle__c) + cv(loanCalculator.App_1_Loan_Amount_A__c);
+                        installmentPaymentsAfter*= cv(loanCalculator.App1_Monthly_Payment_A__c);
                     } else if(applicantNumber == '2'){
-                        motorVehicleAfter+=convertValue(loanCalculator.Market_Value_of_Vehicle__c) + convertValue(loanCalculator.App_2_Loan_Amount_A__c);
-                        installmentPaymentsAfter*= convertValue(loanCalculator.App_2_Monthly_Payment_A__c );
+                        motorVehicleAfter+=cv(loanCalculator.Market_Value_of_Vehicle__c) + cv(loanCalculator.App_2_Loan_Amount_A__c);
+                        installmentPaymentsAfter*= cv(loanCalculator.App_2_Monthly_Payment_A__c );
                     } else {
-                        motorVehicleAfter+=convertValue(loanCalculator.Market_Value_of_Vehicle__c) + convertValue(loanCalculator.App_3_Loan_Amount_A__c);
-                        installmentPaymentsAfter*= convertValue(loanCalculator.App_3_Monthly_Payment_A__c );
+                        motorVehicleAfter+=cv(loanCalculator.Market_Value_of_Vehicle__c) + cv(loanCalculator.App_3_Loan_Amount_A__c);
+                        installmentPaymentsAfter*= cv(loanCalculator.App_3_Monthly_Payment_A__c );
                     }
                     
                 }
                 when 'Other_Assets' {
                     //Summary Assets and Liabilities - Assets Before Proposed assets
-                    otherAssetBefore +=convertValue(record.Assets_and_Liabilities__r.Total_Market_Value_Calc__c);
-                    otherAssetAfter += convertValue(record.Assets_and_Liabilities__r.Total_Market_Value_Calc__c);
+                    otherAssetBefore +=cv(record.Assets_and_Liabilities__r.Total_Market_Value_Calc__c);
+                    otherAssetAfter += cv(record.Assets_and_Liabilities__r.Total_Market_Value_Calc__c);
                     
                     //Summary Assets and Liabilities - Liabilities Before Proposed loan
-                    loanOtherAssetBefore += convertValue(record.get('Loan_Balance_Prior__c')) *
-                        convertValue(record.Assets_and_Liabilities__r.Percent_Ownership__c);
+                    loanOtherAssetBefore += cv(record.get('Loan_Balance_Prior__c')) *
+                        cv(record.Assets_and_Liabilities__r.Percent_Ownership__c);
                     
-                    loanOtherAssetAfter += convertValue(record.get('Loan_Balance_After__c')) *
-                        convertValue(record.Assets_and_Liabilities__r.Percent_Ownership__c);
+                    loanOtherAssetAfter += cv(record.get('Loan_Balance_After__c')) *
+                        cv(record.Assets_and_Liabilities__r.Percent_Ownership__c);
                     
-                    installmentPayments += convertValue(record.Monthly_Payment_Prior__c)* convertValue(record.Assets_and_Liabilities__r.Percent_Applicant_Portion__c);
-                    installmentPaymentsAfter += convertValue(record.Assets_and_Liabilities__r.Monthly_Payment__c) 
-                        * convertValue(record.Assets_and_Liabilities__r.Percent_Applicant_Portion__c);
+                    installmentPayments += cv(record.Monthly_Payment_Prior__c)* cv(record.Assets_and_Liabilities__r.Percent_Applicant_Portion__c);
+                    installmentPaymentsAfter += cv(record.Assets_and_Liabilities__r.Monthly_Payment__c) 
+                        * cv(record.Assets_and_Liabilities__r.Percent_Applicant_Portion__c);
                 }
                 when 'Other_Loans'{
                     //Summary Assets and Liabilities - Liabilities Before Proposed Loan
-                    otherLoansBefore += convertValue(record.get('Loan_Balance_Prior__c')) * 
-                        convertValue(record.Assets_and_Liabilities__r.Percent_Ownership__c);
+                    otherLoansBefore += cv(record.get('Loan_Balance_Prior__c')) * 
+                        cv(record.Assets_and_Liabilities__r.Percent_Ownership__c);
                     
-                    otherLoansAfter += convertValue(record.get('Loan_Balance_After__c')) * 
-                        convertValue(record.Assets_and_Liabilities__r.Percent_Ownership__c);
+                    otherLoansAfter += cv(record.get('Loan_Balance_After__c')) * 
+                        cv(record.Assets_and_Liabilities__r.Percent_Ownership__c);
                     
                     
                     
-                    installmentPayments += convertValue(record.Monthly_Payment_Prior__c)* convertValue(record.Assets_and_Liabilities__r.Percent_Applicant_Portion__c);
-                    installmentPaymentsAfter += convertValue(record.Assets_and_Liabilities__r.Monthly_Payment__c) 
-                        * convertValue(record.Assets_and_Liabilities__r.Percent_Applicant_Portion__c)
-                        + convertValue(loanCalculator.Unsecure_Monthly_Loan_Payment__c);
+                    installmentPayments += cv(record.Monthly_Payment_Prior__c)* cv(record.Assets_and_Liabilities__r.Percent_Applicant_Portion__c);
+                    installmentPaymentsAfter += cv(record.Assets_and_Liabilities__r.Monthly_Payment__c) 
+                        * cv(record.Assets_and_Liabilities__r.Percent_Applicant_Portion__c)
+                        + cv(loanCalculator.Unsecure_Monthly_Loan_Payment__c);
                     if(applicantNumber == '1') {
-                        otherLoansAfter+=convertValue(loanCalculator.App1_Loan_Amt_Alloc_UL__c);
-                        installmentPaymentsAfter *= convertValue(loanCalculator.App_1_Monthly_Payment_UL__c);
+                        otherLoansAfter+=cv(loanCalculator.App1_Loan_Amt_Alloc_UL__c);
+                        installmentPaymentsAfter *= cv(loanCalculator.App_1_Monthly_Payment_UL__c);
                     } else if(applicantNumber == '2') {
-                        installmentPaymentsAfter *= convertValue(loanCalculator.App_2_Monthly_Payment_UL__c);
+                        installmentPaymentsAfter *= cv(loanCalculator.App_2_Monthly_Payment_UL__c);
                     } else {
-                        installmentPaymentsAfter *= convertValue(loanCalculator.App_3_Monthly_Payment_UL__c);
+                        installmentPaymentsAfter *= cv(loanCalculator.App_3_Monthly_Payment_UL__c);
                     }
                 }
                 
                 when 'Credit_Cards', 'Lines_of_Credit'{
                     //Summary Assets and Liabilities - Liabilities Before Proposed Loan
-                    loanCreditCardBefore+=convertValue(record.get('Asset_Credit_Balance__c'));
-                    loanCreditCardBefore+=convertValue(record.get('Asset_Credit_Balance_After__c'));
+                    loanCreditCardBefore+=cv(record.get('Asset_Credit_Balance__c'));
+                    loanCreditCardBefore+=cv(record.get('Asset_Credit_Balance_After__c'));
                     
-                    installmentPayments += convertValue(record.Minimum_payment__c)* convertValue(record.Assets_and_Liabilities__r.Percent_Applicant_Portion__c);
+                    installmentPayments += cv(record.Minimum_payment__c)* cv(record.Assets_and_Liabilities__r.Percent_Applicant_Portion__c);
                     
-                    installmentPaymentsAfter += convertValue(record.get('Minimum_Payment_After__c')) 
-                        * convertValue(record.Assets_and_Liabilities__r.Percent_Applicant_Portion__c) +
-                        convertValue(loanCalculator.Minimum_Payment__c);
+                    installmentPaymentsAfter += cv(record.get('Minimum_Payment_After__c')) 
+                        * cv(record.Assets_and_Liabilities__r.Percent_Applicant_Portion__c) +
+                        cv(loanCalculator.Minimum_Payment__c);
                     if(applicantNumber == '1') {
                         
-                        installmentPaymentsAfter *= convertValue(loanCalculator.App_1_Min_Payment__c  );
+                        installmentPaymentsAfter *= cv(loanCalculator.App_1_Min_Payment__c  );
                     } else if(applicantNumber == '2') {
-                        installmentPaymentsAfter *= convertValue(loanCalculator.App_2_Min_Payment_LOC__c );
+                        installmentPaymentsAfter *= cv(loanCalculator.App_2_Min_Payment_LOC__c );
                     } else {
-                        installmentPaymentsAfter *= convertValue(loanCalculator.App_3_Min_Payment_LOC__c );
+                        installmentPaymentsAfter *= cv(loanCalculator.App_3_Min_Payment_LOC__c );
                     }
                 }
                 when 'Life_Insurance_Policies' {
                     //Summary Assets and Liabilities - Assets Before Proposed Loan
-                    lifeInsuranceBefore += convertValue(record.Assets_and_Liabilities__r.Cash_Value__c);
-                    lifeInsuranceAfter += convertValue(record.Assets_and_Liabilities__r.Cash_Value__c);
-                    lifeInsurancePaymentsAfter+=convertValue(record.Assets_and_Liabilities__r.Annual_Premium__c);
+                    lifeInsuranceBefore += cv(record.Assets_and_Liabilities__r.Cash_Value__c);
+                    lifeInsuranceAfter += cv(record.Assets_and_Liabilities__r.Cash_Value__c);
+                    lifeInsurancePaymentsAfter+=cv(record.Assets_and_Liabilities__r.Annual_Premium__c);
                 }
                 when 'Savings_Current_Accounts_Investments' {
-                    savingsAfter += convertValue(record.Assets_and_Liabilities__r.Account_Balance__c) + convertValue(record.Account_Balance_After__c);
-                    savingsBefore += convertValue(record.Assets_and_Liabilities__r.Account_Balance__c);
+                    savingsAfter += cv(record.Assets_and_Liabilities__r.Account_Balance__c) + cv(record.Account_Balance_After__c);
+                    savingsBefore += cv(record.Assets_and_Liabilities__r.Account_Balance__c);
                     
-                    savingsInvestmentsAfter += convertValue(record.Assets_and_Liabilities__r.Monthly_Saving_Investment_after_Loan__c);
+                    savingsInvestmentsAfter += cv(record.Assets_and_Liabilities__r.Monthly_Saving_Investment_after_Loan__c);
                 }
                 when 'Pension_Contributions_or_Individual' {
                     //Summary Assets and Liabilities - Assets Before Proposed assets
-                    pensionBefore += convertValue(record.Assets_and_Liabilities__r.Total_Contributions_to_Date__c);
-                    pensionAfter += convertValue(record.Assets_and_Liabilities__r.Total_Contributions_to_Date__c);
+                    pensionBefore += cv(record.Assets_and_Liabilities__r.Total_Contributions_to_Date__c);
+                    pensionAfter += cv(record.Assets_and_Liabilities__r.Total_Contributions_to_Date__c);
                     
-                    pensionContribution += convertValue(record.get('Monthly_Contribution_Before_Loan__c'));
-                    pensionContributionAfter += convertValue(record.get('Monthly_Contribution_After_Loan__c'));
+                    pensionContribution += cv(record.get('Monthly_Contribution_Before_Loan__c'));
+                    pensionContributionAfter += cv(record.get('Monthly_Contribution_After_Loan__c'));
                 }
             }
-            loanCurrentAccountOverdraftBefore += convertValue(record.Assets_and_Liabilities__r.Overdraft_Limit__c);    
-            loanCurrentAccountOverdraftAfter += convertValue(record.Assets_and_Liabilities__r.Overdraft_Limit__c);    
+            loanCurrentAccountOverdraftBefore += cv(record.Assets_and_Liabilities__r.Overdraft_Limit__c);    
+            loanCurrentAccountOverdraftAfter += cv(record.Assets_and_Liabilities__r.Overdraft_Limit__c);    
             
         }
         //grand totals
@@ -546,12 +545,12 @@ public class PDFGeneratorController {
                 
                 when 'Life_Insurance_Policies' {
                     lifeInsuranceAssets.add(asset);
-                    lifeInsurancePayments += convertValue(asset.get('Annual_Premium__c'))/12;
+                    lifeInsurancePayments += cv(asset.get('Annual_Premium__c'))/12;
                     
                 }
                 when 'Savings_Current_Accounts_Investments' {
                     savingsAssets.add(asset);
-                    savingsInvestments += convertValue(asset.get('Monthly_Savings_Investment__c'));
+                    savingsInvestments += cv(asset.get('Monthly_Savings_Investment__c'));
                 }
                 when 'Pension_Contributions_or_Individual' {
                     pensionAssets.add(asset);                    
@@ -574,101 +573,101 @@ public class PDFGeneratorController {
     public void sumUpAllMonthlyflows(){
         
         incomeRegular = loanCurrentAccountOverdraftAfter = 
-            convertValue(applicant.get('Salary_and_Allowances_as_per_pay_slips__c'))+
-            convertValue(applicant.get('Gratuity_in_lieu_of_PensionC__c'));
+            cv(applicant.get('Salary_and_Allowances_as_per_pay_slips__c'))+
+            cv(applicant.get('Gratuity_in_lieu_of_PensionC__c'));
         
-        incomePerformance = convertValue(applicant.get('Performance_Based_PayC__c'));
+        incomePerformance = cv(applicant.get('Performance_Based_PayC__c'));
         
         incomeSelfEmployed = 
-            convertValue(applicant.get('Net_Profit_Sole_TraderC__c'))+
-            convertValue(applicant.get('Director_s_Emoluments_DirectorC__c'))+
-            convertValue(applicant.get('Share_of_Profit_PartnershipC__c'))+
-            convertValue(applicant.get('Share_of_Profit_ShareholderC__c'));
+            cv(applicant.get('Net_Profit_Sole_TraderC__c'))+
+            cv(applicant.get('Director_s_Emoluments_DirectorC__c'))+
+            cv(applicant.get('Share_of_Profit_PartnershipC__c'))+
+            cv(applicant.get('Share_of_Profit_ShareholderC__c'));
         
         incomeRental = 
-            convertValue(applicant.get('Projected_Real_Estate_RentalC__c'))+
-            convertValue(applicant.get('Existing_Real_estate_Rental_II_C__c'))+
-            convertValue(applicant.get('Existing_Real_Estate_Rental_IC__c'));
+            cv(applicant.get('Projected_Real_Estate_RentalC__c'))+
+            cv(applicant.get('Existing_Real_estate_Rental_II_C__c'))+
+            cv(applicant.get('Existing_Real_Estate_Rental_IC__c'));
         
-        incomePension = convertValue(applicant.get('PensionC__c'));
+        incomePension = cv(applicant.get('PensionC__c'));
         
-        incomeOther = convertValue(applicant.get('Other_IncomeC__c'));
+        incomeOther = cv(applicant.get('Other_IncomeC__c'));
         
-        totalGrossMontlyIncome = convertValue(applicant.get('Gross_Monthly_IncomeC__c'));
+        totalGrossMontlyIncome = cv(applicant.get('Gross_Monthly_IncomeC__c'));
         //incomeRegular + incomePerformance + incomeSelfEmployed + incomeRental + incomePension + incomeOther;
         
         lessStatutoryDeductions = 
-            convertValue(applicant.get('Income_Tax_Monthly_Payment_Prior_Loan__c')) +
-            convertValue(applicant.get('NIS_Contribution_Monthly_Prior_Loan__c'))+
-            convertValue(applicant.get('Education_Tax_Monthly_Prior_Loan__c'))+
-            convertValue(applicant.get('NHT_Contributions_Monthly_Prior_Loan__c'));
+            cv(applicant.get('Income_Tax_Monthly_Payment_Prior_Loan__c')) +
+            cv(applicant.get('NIS_Contribution_Monthly_Prior_Loan__c'))+
+            cv(applicant.get('Education_Tax_Monthly_Prior_Loan__c'))+
+            cv(applicant.get('NHT_Contributions_Monthly_Prior_Loan__c'));
         
         totalInflows = totalGrossMontlyIncome - lessStatutoryDeductions;
         
         
         propertyRelatedCosts = 
-            convertValue(applicant.get('Property_Maintenance_Monthly_Prior_loan__c')) +
-            convertValue(applicant.get('Property_Insurance_Monthly_Prior_Loan__c'))+
-            convertValue(applicant.get('Property_Tax_Monthly_Prior_Loan__c'));
+            cv(applicant.get('Property_Maintenance_Monthly_Prior_loan__c')) +
+            cv(applicant.get('Property_Insurance_Monthly_Prior_Loan__c'))+
+            cv(applicant.get('Property_Tax_Monthly_Prior_Loan__c'));
         
         personalFamilyCosts = 
-            convertValue(applicant.get('Personal_Expenses_Monthly_Prior_Loan__c')) +
-            convertValue(applicant.get('Food_Cost_Monthly_Prior_Loan__c')) +
-            convertValue(applicant.get('Child_Care_Costs_Monthly_Prior_Loan__c'))+
-            convertValue(applicant.get('School_Costs_Monthly_Prior_Loan__c'))+
-            convertValue(applicant.get('Health_Costs_Monthly_Prior_Loan__c'))+
-            convertValue(applicant.get('Other_Personal_Family_Monthly_Prior_Loan__c'));
+            cv(applicant.get('Personal_Expenses_Monthly_Prior_Loan__c')) +
+            cv(applicant.get('Food_Cost_Monthly_Prior_Loan__c')) +
+            cv(applicant.get('Child_Care_Costs_Monthly_Prior_Loan__c'))+
+            cv(applicant.get('School_Costs_Monthly_Prior_Loan__c'))+
+            cv(applicant.get('Health_Costs_Monthly_Prior_Loan__c'))+
+            cv(applicant.get('Other_Personal_Family_Monthly_Prior_Loan__c'));
         
         utilitiesExpenses = 
-            convertValue(applicant.get('Electricity_Monthly_Prior_Loan__c')) +
-            convertValue(applicant.get('Water_Monthly_Prior_Loan__c'))+
-            convertValue(applicant.get('Cell_Phone_Landline_Monthly_Prior_Loan__c'))+
-            convertValue(applicant.get('Internet_Cable_Monthly_Prior_Loan__c'))+
-            convertValue(applicant.get('House_Keeping_Monthly_Prior_Loan__c'))+
-            convertValue(applicant.get('Other_Utilities_Monthly_Prior_Loan__c'));
+            cv(applicant.get('Electricity_Monthly_Prior_Loan__c')) +
+            cv(applicant.get('Water_Monthly_Prior_Loan__c'))+
+            cv(applicant.get('Cell_Phone_Landline_Monthly_Prior_Loan__c'))+
+            cv(applicant.get('Internet_Cable_Monthly_Prior_Loan__c'))+
+            cv(applicant.get('House_Keeping_Monthly_Prior_Loan__c'))+
+            cv(applicant.get('Other_Utilities_Monthly_Prior_Loan__c'));
         
         transportationCosts = 
-            convertValue(applicant.get('Fares_Monthly_Prior_Loan__c')) +
-            convertValue(applicant.get('Petrol_Fuel_Monthly_Prior_Loan__c'))+
-            convertValue(applicant.get('Toll_Fees_Monthly_Prior_Loan__c'))+
-            convertValue(applicant.get('Motor_V_Insurance_Monthly_Prior_Loan__c'))+
-            convertValue(applicant.get('Motor_Vehicle_Reg_Monthly_Prior_Loan__c'))+
-            convertValue(applicant.get('Motor_Vehicle_Fitness_Monthly_Prior_Loan__c'))+
-            convertValue(applicant.get('Motor_V_Maintenance_Monthly_Before_Loan__c'))+
-            convertValue(applicant.get('Other_Transport_Costs_Monthly_Prior_Loan__c'));
+            cv(applicant.get('Fares_Monthly_Prior_Loan__c')) +
+            cv(applicant.get('Petrol_Fuel_Monthly_Prior_Loan__c'))+
+            cv(applicant.get('Toll_Fees_Monthly_Prior_Loan__c'))+
+            cv(applicant.get('Motor_V_Insurance_Monthly_Prior_Loan__c'))+
+            cv(applicant.get('Motor_Vehicle_Reg_Monthly_Prior_Loan__c'))+
+            cv(applicant.get('Motor_Vehicle_Fitness_Monthly_Prior_Loan__c'))+
+            cv(applicant.get('Motor_V_Maintenance_Monthly_Before_Loan__c'))+
+            cv(applicant.get('Other_Transport_Costs_Monthly_Prior_Loan__c'));
         
         transportationCostsAfter = 
-            convertValue(applicant.get('Other_Transport_Monthly_After_Loan__c')) +
-            convertValue(applicant.get('Fares_Monthly_After_Loan__c'))+
-            convertValue(applicant.get('Petrol_Fuel_Monthly_After_Loan__c'))+
-            convertValue(applicant.get('Motor_V_Insurance_Monthly_After_Loan__c'))+
-            convertValue(applicant.get('Toll_Fees_Monthly_After_Loan__c'))+
-            convertValue(applicant.get('Motor_V_Insurance_Monthly_After_Loan__c'))+
-            convertValue(applicant.get('Motor_Vehicle_Reg_Monthly_After_Loan__c'))+
-            convertValue(applicant.get('Motor_V_Maintenance_Monthly_After_Loan__c'))+
-            convertValue(applicant.get('Motor_Vehicle_Fitness_Monthly_After_Loan__c'));
+            cv(applicant.get('Other_Transport_Monthly_After_Loan__c')) +
+            cv(applicant.get('Fares_Monthly_After_Loan__c'))+
+            cv(applicant.get('Petrol_Fuel_Monthly_After_Loan__c'))+
+            cv(applicant.get('Motor_V_Insurance_Monthly_After_Loan__c'))+
+            cv(applicant.get('Toll_Fees_Monthly_After_Loan__c'))+
+            cv(applicant.get('Motor_V_Insurance_Monthly_After_Loan__c'))+
+            cv(applicant.get('Motor_Vehicle_Reg_Monthly_After_Loan__c'))+
+            cv(applicant.get('Motor_V_Maintenance_Monthly_After_Loan__c'))+
+            cv(applicant.get('Motor_Vehicle_Fitness_Monthly_After_Loan__c'));
         
         propertyRelatedCostsAfter = 
-            convertValue(applicant.get('Property_Insurance_Monthly_After_Loan__c')) +
-            convertValue(applicant.get('Property_Tax_Monthly_After_Loan__c'))+
-            convertValue(applicant.get('Property_Maintenance_Monthly_After_Loan__c'));
+            cv(applicant.get('Property_Insurance_Monthly_After_Loan__c')) +
+            cv(applicant.get('Property_Tax_Monthly_After_Loan__c'))+
+            cv(applicant.get('Property_Maintenance_Monthly_After_Loan__c'));
         
         personalFamilyCostsAfter = 
-            convertValue(applicant.get('Personal_Expenses_Monthly_After_Loan__c')) +
-            convertValue(applicant.get('Food_Costs_Monthly_After_Loan__c')) +
-            convertValue(applicant.get('Child_Care_Costs_Monthly_After_Loan__c'))+
-            convertValue(applicant.get('School_Costs_Monthly_After_Loan__c'))+
-            convertValue(applicant.get('Health_Costs_Monthly_After_Loan__c'))+
-            convertValue(applicant.get('Other_Personal_Family_Costs_Prior_After__c'));
+            cv(applicant.get('Personal_Expenses_Monthly_After_Loan__c')) +
+            cv(applicant.get('Food_Costs_Monthly_After_Loan__c')) +
+            cv(applicant.get('Child_Care_Costs_Monthly_After_Loan__c'))+
+            cv(applicant.get('School_Costs_Monthly_After_Loan__c'))+
+            cv(applicant.get('Health_Costs_Monthly_After_Loan__c'))+
+            cv(applicant.get('Other_Personal_Family_Costs_Prior_After__c'));
         
         utilitiesExpensesAfter = 
-            convertValue(applicant.get('Electricity_Monthly_After_Loan__c')) +
-            convertValue(applicant.get('Water_Monthly_After_Loan__c'))+
-            convertValue(applicant.get('Cell_Phone_Landline_Monthly_After_Loan__c'))+
-            convertValue(applicant.get('Internet_Cable_Monthly_After_Loan__c'))+
-            convertValue(applicant.get('Cooking_Gas_Monthly_After_Loan__c'))+
-            convertValue(applicant.get('Other_Utilities_Monthly_After_Loan__c'))+
-            convertValue(applicant.get('House_Keeping_Costs_Monthly_After_Loan__c'));
+            cv(applicant.get('Electricity_Monthly_After_Loan__c')) +
+            cv(applicant.get('Water_Monthly_After_Loan__c'))+
+            cv(applicant.get('Cell_Phone_Landline_Monthly_After_Loan__c'))+
+            cv(applicant.get('Internet_Cable_Monthly_After_Loan__c'))+
+            cv(applicant.get('Cooking_Gas_Monthly_After_Loan__c'))+
+            cv(applicant.get('Other_Utilities_Monthly_After_Loan__c'))+
+            cv(applicant.get('House_Keeping_Costs_Monthly_After_Loan__c'));
         
         totalOutflowsBefore = 
             installmentPayments + lifeInsurancePayments + 

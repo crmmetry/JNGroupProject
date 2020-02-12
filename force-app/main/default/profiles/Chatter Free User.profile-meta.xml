@@ -1843,7 +1843,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Application_Asset_Liability__c.Loan_Balance_After_Calc_App_Portion__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Application_Asset_Liability__c.Loan_Balance_After__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Application_Asset_Liability__c.Loan_Balance_Prior_Calc_App_Portion__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1878,7 +1888,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Application_Asset_Liability__c.Monthly_Payment_After_Calc_App_Portion__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Application_Asset_Liability__c.Monthly_Payment_After__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Application_Asset_Liability__c.Monthly_Payment_Prior_Calc_App_Portion__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2537,9 +2557,9 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Contact.Identification_Type_Expiration__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -3853,11 +3873,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Lead.Emergency_Contact_Business_Phone_del__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Lead.Emergency_Contact_First_Name__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -4113,11 +4128,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Lead.JN_Campaign__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Lead.JN_Site_Form_Completed_Flag__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -4184,11 +4194,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Lead.Length_of_Trade__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Lead.Loan_Amount__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4614,11 +4619,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Lead.Suffix__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Lead.Test_Phone__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -6608,16 +6608,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Opportunity.Applicant_2__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Opportunity.Applicant_3__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Opportunity.Application_Form_Created_PK__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -7604,11 +7594,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.Preferred_Contact_Location__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Opportunity.Preferred_Contact_Method__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
