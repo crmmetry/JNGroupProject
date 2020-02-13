@@ -15,6 +15,7 @@
 
   <lightning:layout  >
     <lightning:layoutItem size="12">
+        <c:JnToast aura:id="toastContainer"/>
       <!-- first row -->
       <div class="slds-grid slds-gutters">
         <!-- Title -->

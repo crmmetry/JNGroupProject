@@ -18,5 +18,6 @@
         </quickActionLayoutColumns>
         <quickActionLayoutColumns/>
     </quickActionLayout>
+    <successMessage>Record has been successfully re-activated and is now available for editing.</successMessage>
     <type>Update</type>
 </QuickAction>

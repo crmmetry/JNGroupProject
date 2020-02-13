@@ -2295,7 +2295,7 @@
             <label>Create New Asset</label>
         </rules>
     </decisions>
-    <description>Removing loan balance from short CC &amp; LOC</description>
+    <description>Adding fault message</description>
     <dynamicChoiceSets>
         <name>PropertyTypeChoices</name>
         <dataType>Picklist</dataType>
@@ -2424,6 +2424,9 @@
         <connector>
             <targetReference>Assign_Created_Assets</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
         <inputReference>SelectedAssetLiability</inputReference>
     </recordCreates>
     <recordCreates>
@@ -2431,6 +2434,9 @@
         <label>Create Application Assets/Liabilities</label>
         <locationX>4303</locationX>
         <locationY>696</locationY>
+        <faultConnector>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
         <inputReference>ApplicantAssetsLiabiltyRecord</inputReference>
     </recordCreates>
     <recordLookups>
@@ -2560,6 +2566,9 @@
         <label>Update Applicant Assets/Liability</label>
         <locationX>4308</locationX>
         <locationY>368</locationY>
+        <faultConnector>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
         <inputReference>ApplicantAssetsLiabiltyRecord</inputReference>
     </recordUpdates>
     <recordUpdates>
@@ -2570,6 +2579,9 @@
         <connector>
             <targetReference>Assign_Applicant_id</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
         <inputReference>SelectedAssetLiability</inputReference>
     </recordUpdates>
     <screens>
@@ -2736,6 +2748,22 @@
             </inputParameters>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Fault_Message</name>
+        <label>Fault Message</label>
+        <locationX>4693</locationX>
+        <locationY>564</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>faultmessage</name>
+            <fieldText>&lt;p&gt;{!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>

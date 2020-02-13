@@ -133,7 +133,7 @@
             <label>Add Card Holder</label>
         </rules>
     </decisions>
-    <description>Validating the pattern used for the number field</description>
+    <description>Adding fault screen</description>
     <interviewLabel>Supplementary Card Holder {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Supplementary Card Holder</label>
     <loops>
@@ -173,6 +173,9 @@
         <connector>
             <targetReference>Create_Supplementary_Card_Holder</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
         <inputAssignments>
             <field>Business_Number__pc</field>
             <value>
@@ -322,8 +325,11 @@
     <recordCreates>
         <name>Create_Supplementary_Card_Holder</name>
         <label>Create Supplementary Card Holder</label>
-        <locationX>337</locationX>
-        <locationY>1170</locationY>
+        <locationX>128</locationX>
+        <locationY>1072</locationY>
+        <faultConnector>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
         <inputAssignments>
             <field>Account__c</field>
             <value>
@@ -846,6 +852,22 @@
         <showHeader>true</showHeader>
     </screens>
     <screens>
+        <name>Fault_Message</name>
+        <label>Fault Message</label>
+        <locationX>371</locationX>
+        <locationY>1308</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Error</name>
+            <fieldText>&lt;p&gt;{!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
         <name>No_Supplementary_Card_Holder</name>
         <label>No Supplementary Card Holder</label>
         <locationX>639</locationX>
@@ -1033,6 +1055,16 @@
         <isInput>false</isInput>
         <isOutput>false</isOutput>
         <objectType>Supplementary_Card_Holders__c</objectType>
+    </variables>
+    <variables>
+        <name>errormessage</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <elementReference>$Flow.FaultMessage</elementReference>
+        </value>
     </variables>
     <variables>
         <name>OpportunityProducts</name>

@@ -83,7 +83,7 @@
             <elementReference>IdentificationChoiceFormula</elementReference>
         </value>
     </choices>
-    <description>Made fields on screen required</description>
+    <description>Adding fault screen</description>
     <dynamicChoiceSets>
         <name>CountryofIssuechoices</name>
         <dataType>Picklist</dataType>
@@ -156,8 +156,27 @@
         <label>Update Account Record</label>
         <locationX>826</locationX>
         <locationY>246</locationY>
+        <faultConnector>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
         <inputReference>AccountRecord</inputReference>
     </recordUpdates>
+    <screens>
+        <name>Fault_Message</name>
+        <label>Fault Message</label>
+        <locationX>979</locationX>
+        <locationY>247</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>faultmessage</name>
+            <fieldText>&lt;p&gt;{!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
     <screens>
         <name>Id_Documents</name>
         <label>Id Documents</label>

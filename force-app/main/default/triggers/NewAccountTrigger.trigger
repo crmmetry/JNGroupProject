@@ -6,6 +6,7 @@ trigger NewAccountTrigger on Account (after update, before delete, before update
                 
             } else {
                 NewAccountTriggerHandler.assignMobileNumber();
+                NewAccountTriggerHandler.SetAccountAffiliations();
             }
         } else if( Trigger.isInsert) {        
             if(Trigger.isAfter) {
@@ -14,4 +15,5 @@ trigger NewAccountTrigger on Account (after update, before delete, before update
                 NewAccountTriggerHandler.assignMobileNumber();
             }
         }
+    
 }

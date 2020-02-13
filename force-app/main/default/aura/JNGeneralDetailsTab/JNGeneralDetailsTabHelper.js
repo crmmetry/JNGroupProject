@@ -67,10 +67,24 @@
                     {"Id": siteLead.Id}
                 );
             } else {
-                console.log('error')
-                console.error(JSON.parse(JSON.stringify(response.getError())))
+                const commonError = "You're creating a duplicate record with First and Last name.";
+                this.showToast(component, {
+                    severity: "error",
+                    message: commonError
+                });
             }
         });
         $A.enqueueAction(action);
-    }
+    },
+    showToast: function(component, data) {
+        const siteLead = component.get("v.SiteLead");
+        
+        //user must complete step 2 and 3 first
+        const severity = data.severity; 
+        const title = data.title; 
+        const message = data.message; 
+        const toastContainer = component.find("toastContainer");
+        toastContainer.displayMessage(severity, title, message);
+        
+    },
 });

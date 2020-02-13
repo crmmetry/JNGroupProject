@@ -111,7 +111,7 @@
             <label>Political Affiliation</label>
         </rules>
     </decisions>
-    <description>changing label on JN Affiliation 2</description>
+    <description>Adding fault screen</description>
     <interviewLabel>JN Shared Affiliation Flow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>JN Shared Affiliation Flow</label>
     <processMetadataValues>
@@ -158,10 +158,29 @@
     <recordUpdates>
         <name>Update_Account_Record</name>
         <label>Update Account Record</label>
-        <locationX>1002</locationX>
-        <locationY>397</locationY>
+        <locationX>1013</locationX>
+        <locationY>395</locationY>
+        <faultConnector>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
         <inputReference>Get_Account_Records</inputReference>
     </recordUpdates>
+    <screens>
+        <name>Fault_Message</name>
+        <label>Fault Message</label>
+        <locationX>1176</locationX>
+        <locationY>394</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>faultmessage</name>
+            <fieldText>&lt;p&gt;{!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
     <screens>
         <name>JN_Bank_Affiliation</name>
         <label>JN Bank Affiliation Additional Details</label>

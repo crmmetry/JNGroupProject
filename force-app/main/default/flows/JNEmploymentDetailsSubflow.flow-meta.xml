@@ -1554,7 +1554,7 @@
             <label>Yes Continue</label>
         </rules>
     </decisions>
-    <description>Adding record variable - previous employment 4</description>
+    <description>Adding fault screen</description>
     <dynamicChoiceSets>
         <name>IncomeTypeChoiceSet</name>
         <dataType>Picklist</dataType>
@@ -2325,30 +2325,8 @@
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <fields>
-            <name>faulttab_progress_indicator</name>
-            <extensionName>c:JNStageProgressIndicator</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>currentStage</name>
-                <value>
-                    <elementReference>EmploymentDetailsStage</elementReference>
-                </value>
-            </inputParameters>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <fields>
-            <name>Fault_message_display_text</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;ERROR: Employment Record&lt;/span&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <fields>
             <name>Fault_Message</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 16px; color: rgb(228, 5, 5); background-color: rgb(255, 255, 255);&quot;&gt;You can only have one Employment record marked as &quot;Current Employment.&quot; Please update your employment records before proceeding.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <fields>
-            <name>Faultmessage_dp</name>
+            <fieldText>&lt;p&gt;{!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>

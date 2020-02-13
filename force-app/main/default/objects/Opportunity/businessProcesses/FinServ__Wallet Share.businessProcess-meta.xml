@@ -51,6 +51,10 @@
         <default>false</default>
     </values>
     <values>
+        <fullName>Re- Activated Opportunity</fullName>
+        <default>false</default>
+    </values>
+    <values>
         <fullName>Schedule%2F Proceed with Account Opening</fullName>
         <default>false</default>
     </values>

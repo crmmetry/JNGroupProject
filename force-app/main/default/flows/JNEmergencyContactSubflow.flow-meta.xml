@@ -3,8 +3,8 @@
     <actionCalls>
         <name>Mock_Accounts</name>
         <label>Mock Accounts</label>
-        <locationX>1293</locationX>
-        <locationY>593</locationY>
+        <locationX>1372</locationX>
+        <locationY>432</locationY>
         <actionName>EmergencyContactsMockupAction</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -29,7 +29,7 @@
         <name>Save_Contacts</name>
         <label>Save Contacts</label>
         <locationX>1613</locationX>
-        <locationY>477</locationY>
+        <locationY>378</locationY>
         <actionName>EmergencyContactSaveAction</actionName>
         <actionType>apex</actionType>
         <inputParameters>
@@ -304,8 +304,8 @@
         <description>check if any emergency contacts were found</description>
         <name>Check_Emergency_Contacts_Existence</name>
         <label>Check Emergency Contacts Existence</label>
-        <locationX>816</locationX>
-        <locationY>1017</locationY>
+        <locationX>1034</locationX>
+        <locationY>1006</locationY>
         <defaultConnector>
             <targetReference>HowManyContacts</targetReference>
         </defaultConnector>
@@ -327,12 +327,34 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Contacts_greater_than_0</name>
+        <label>Contacts greater than 0</label>
+        <locationX>1068</locationX>
+        <locationY>437</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Greater_than</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Number_of_Contacts</leftValueReference>
+                <operator>GreaterThanOrEqualTo</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Mock_Accounts</targetReference>
+            </connector>
+            <label>Yes Greater than</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Num_of_Contacts_Less_Than_2</name>
         <label>Num of Contacts Less Than 2</label>
         <locationX>1158</locationX>
         <locationY>810</locationY>
         <defaultConnector>
-            <targetReference>Mock_Accounts</targetReference>
+            <targetReference>Contacts_greater_than_0</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>MInimum Met</defaultConnectorLabel>
         <rules>
@@ -361,8 +383,11 @@
     <decisions>
         <name>Should_add_more_contact</name>
         <label>Should add more contact?</label>
-        <locationX>791</locationX>
-        <locationY>808</locationY>
+        <locationX>781</locationX>
+        <locationY>470</locationY>
+        <defaultConnector>
+            <targetReference>Num_of_Contacts_Less_Than_2</targetReference>
+        </defaultConnector>
         <defaultConnectorLabel>Don&#39;t Add</defaultConnectorLabel>
         <rules>
             <name>Yes_Add_More</name>
@@ -405,7 +430,7 @@
             <label>Create this Account</label>
         </rules>
     </decisions>
-    <description>SearchContact variables</description>
+    <description>The added decision when a number of contacts were inputted.</description>
     <formulas>
         <name>ContactsNeeded</name>
         <dataType>Number</dataType>
@@ -466,10 +491,13 @@
         <name>Create_emergency_contacts</name>
         <label>Create emergency contacts</label>
         <locationX>1612</locationX>
-        <locationY>645</locationY>
+        <locationY>558</locationY>
         <connector>
             <targetReference>Save_Contacts</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
         <inputReference>NeededEmergencyContactsToSave</inputReference>
     </recordCreates>
     <recordLookups>
@@ -686,8 +714,8 @@
     <screens>
         <name>Emergency_Contact_List_Selection</name>
         <label>Emergency Contact List Selection</label>
-        <locationX>601</locationX>
-        <locationY>806</locationY>
+        <locationX>564</locationX>
+        <locationY>726</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -1078,10 +1106,26 @@
         <showHeader>true</showHeader>
     </screens>
     <screens>
+        <name>Fault_Message</name>
+        <label>Fault Message</label>
+        <locationX>1791</locationX>
+        <locationY>483</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>faultmessage</name>
+            <fieldText>&lt;p&gt;{!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
         <name>HowManyContacts</name>
         <label>How many contacts would you like to add?</label>
-        <locationX>1011</locationX>
-        <locationY>807</locationY>
+        <locationX>764</locationX>
+        <locationY>776</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>

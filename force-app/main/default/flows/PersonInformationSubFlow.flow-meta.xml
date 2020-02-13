@@ -82,7 +82,7 @@
             <label>AccountFound</label>
         </rules>
     </decisions>
-    <description>Creates or lookup person information</description>
+    <description>Adding fault screen</description>
     <dynamicChoiceSets>
         <name>AccountChoices</name>
         <dataType>String</dataType>
@@ -132,6 +132,9 @@
         <locationX>406</locationX>
         <locationY>271</locationY>
         <assignRecordIdToReference>AccountId</assignRecordIdToReference>
+        <faultConnector>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
         <inputAssignments>
             <field>FirstName</field>
             <value>
@@ -343,6 +346,22 @@
                 <assignToReference>AccountId</assignToReference>
                 <name>selectedValue</name>
             </outputParameters>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Fault_Message</name>
+        <label>Fault Message</label>
+        <locationX>235</locationX>
+        <locationY>272</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>faultmessage</name>
+            <fieldText>&lt;p&gt;{!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>

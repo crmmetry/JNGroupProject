@@ -411,7 +411,7 @@
             <label>Full Details Selected</label>
         </rules>
     </decisions>
-    <description>Fixing picklists</description>
+    <description>Adding fault screen</description>
     <dynamicChoiceSets>
         <name>AssessmentApplicantNetWorthChoices</name>
         <dataType>Picklist</dataType>
@@ -704,6 +704,9 @@
         <label>Update 2</label>
         <locationX>1959</locationX>
         <locationY>1292</locationY>
+        <faultConnector>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -724,16 +727,22 @@
         <label>Update Account Application</label>
         <locationX>1618</locationX>
         <locationY>1355</locationY>
+        <faultConnector>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
         <inputReference>SelectedApplication</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>Update_Applicant_Employment</name>
         <label>Update Applicant Employment</label>
-        <locationX>1615</locationX>
-        <locationY>1157</locationY>
+        <locationX>1618</locationX>
+        <locationY>1127</locationY>
         <connector>
             <targetReference>Update_Account_Application</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
         <inputReference>ApplicantEmployment</inputReference>
     </recordUpdates>
     <screens>
@@ -774,6 +783,22 @@
                 <assignToReference>SelectedRecordTypeId</assignToReference>
                 <name>selectedValue</name>
             </outputParameters>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Fault_Message</name>
+        <label>Fault Message</label>
+        <locationX>1850</locationX>
+        <locationY>1740</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>faultmessage</name>
+            <fieldText>&lt;p&gt;{!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>

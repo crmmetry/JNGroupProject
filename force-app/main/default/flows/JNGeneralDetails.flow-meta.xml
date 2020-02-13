@@ -156,7 +156,7 @@
             <elementReference>PrimaryEmploymentTypeFormula</elementReference>
         </value>
     </choices>
-    <description>Updating Mother&#39;s Maiden Name assignment</description>
+    <description>Adding fault screen</description>
     <dynamicChoiceSets>
         <name>CountryOfCitizenshipChoices</name>
         <dataType>Picklist</dataType>
@@ -259,8 +259,27 @@
         <label>Update Account</label>
         <locationX>604</locationX>
         <locationY>307</locationY>
+        <faultConnector>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
         <inputReference>AccountRecord</inputReference>
     </recordUpdates>
+    <screens>
+        <name>Fault_Message</name>
+        <label>Fault Message</label>
+        <locationX>780</locationX>
+        <locationY>307</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>faultmessage</name>
+            <fieldText>&lt;p&gt;{!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
     <screens>
         <name>General_Details</name>
         <label>General Detail Information</label>

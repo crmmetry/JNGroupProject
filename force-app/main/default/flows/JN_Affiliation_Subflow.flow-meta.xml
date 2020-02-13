@@ -4,7 +4,7 @@
         <name>Assign_Affiliation_Record</name>
         <label>Assign Affiliation Name</label>
         <locationX>1391</locationX>
-        <locationY>104</locationY>
+        <locationY>252</locationY>
         <assignmentItems>
             <assignToReference>BasicNamesCollection</assignToReference>
             <operator>Add</operator>
@@ -27,7 +27,7 @@
         <name>Assign_Basic_Choices</name>
         <label>Assign Basic Choices</label>
         <locationX>885</locationX>
-        <locationY>146</locationY>
+        <locationY>294</locationY>
         <assignmentItems>
             <assignToReference>BasicChoices</assignToReference>
             <operator>Add</operator>
@@ -50,7 +50,7 @@
         <name>Assign_Contact_Id</name>
         <label>Assign Contact Id</label>
         <locationX>2055</locationX>
-        <locationY>783</locationY>
+        <locationY>931</locationY>
         <assignmentItems>
             <assignToReference>SelectedAffiliationId</assignToReference>
             <operator>Assign</operator>
@@ -66,7 +66,7 @@
         <name>Affiliations_Exists</name>
         <label>Affiliations Exists?</label>
         <locationX>1437</locationX>
-        <locationY>614</locationY>
+        <locationY>762</locationY>
         <defaultConnector>
             <targetReference>Create_Affiliation_Account</targetReference>
         </defaultConnector>
@@ -91,7 +91,7 @@
         <name>Existing_Affiliation_Relationship</name>
         <label>Existing Affiliation Relationship?</label>
         <locationX>2244</locationX>
-        <locationY>371</locationY>
+        <locationY>519</locationY>
         <defaultConnector>
             <targetReference>Create_Political_Contact_Relationship</targetReference>
         </defaultConnector>
@@ -116,7 +116,7 @@
         <name>JN_Affiliated</name>
         <label>JN Affiliated ?</label>
         <locationX>932</locationX>
-        <locationY>329</locationY>
+        <locationY>477</locationY>
         <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
             <name>Yes</name>
@@ -138,7 +138,7 @@
         <name>Same_Account_Name_and_Mobile</name>
         <label>Same Account Name and Mobile</label>
         <locationX>1054</locationX>
-        <locationY>753</locationY>
+        <locationY>901</locationY>
         <defaultConnector>
             <targetReference>Get_Accounts_For_JN_Affiliations</targetReference>
         </defaultConnector>
@@ -173,14 +173,14 @@
             <label>Same</label>
         </rules>
     </decisions>
-    <description>Adding new subflow</description>
+    <description>Adding fault screen</description>
     <interviewLabel>JN Affiliation {!$Flow.CurrentDateTime}</interviewLabel>
     <label>JN Affiliation</label>
     <loops>
         <name>JN_Affiliations_Loop</name>
         <label>JN Affiliations Loop</label>
         <locationX>1396</locationX>
-        <locationY>366</locationY>
+        <locationY>514</locationY>
         <assignNextValueToReference>JNAffiliationAccount</assignNextValueToReference>
         <collectionReference>JNAffiliationsCollection</collectionReference>
         <iterationOrder>Asc</iterationOrder>
@@ -208,11 +208,14 @@
         <name>Create_Affiliation_Account</name>
         <label>Create Affiliation Account</label>
         <locationX>1683</locationX>
-        <locationY>783</locationY>
+        <locationY>931</locationY>
         <assignRecordIdToReference>CreatedAccountId</assignRecordIdToReference>
         <connector>
             <targetReference>Get_Created_Account_ContactId</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>Fault_Message_0</targetReference>
+        </faultConnector>
         <inputAssignments>
             <field>FirstName</field>
             <value>
@@ -243,8 +246,11 @@
         <name>Create_Political_Contact_Relationship</name>
         <label>Create Political Contact Relationship</label>
         <locationX>2262</locationX>
-        <locationY>97</locationY>
+        <locationY>245</locationY>
         <assignRecordIdToReference>ContactToContactId</assignRecordIdToReference>
+        <faultConnector>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
         <inputAssignments>
             <field>FinServ__Contact__c</field>
             <value>
@@ -269,7 +275,7 @@
         <name>Get_Account_Record</name>
         <label>Get Account Record</label>
         <locationX>280</locationX>
-        <locationY>50</locationY>
+        <locationY>198</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Reciprocal_Role</targetReference>
@@ -293,7 +299,7 @@
         <name>Get_Accounts_For_JN_Affiliations</name>
         <label>Get Accounts For JN Affiliations</label>
         <locationX>1217</locationX>
-        <locationY>508</locationY>
+        <locationY>656</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Affiliations_Exists</targetReference>
@@ -338,7 +344,7 @@
         <name>Get_Created_Account_ContactId</name>
         <label>Get Created Account ContactId</label>
         <locationX>1865</locationX>
-        <locationY>783</locationY>
+        <locationY>931</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Contact_Id</targetReference>
@@ -359,7 +365,7 @@
         <name>Get_existing_Relationship</name>
         <label>Get existing Relationship</label>
         <locationX>2242</locationX>
-        <locationY>544</locationY>
+        <locationY>692</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Existing_Affiliation_Relationship</targetReference>
@@ -393,7 +399,7 @@
         <name>Get_PersonAccount_RecordTypeInfo</name>
         <label>Get PersonAccount RecordTypeInfo</label>
         <locationX>733</locationX>
-        <locationY>49</locationY>
+        <locationY>197</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Basic_Choices</targetReference>
@@ -421,7 +427,7 @@
         <name>Get_Reciprocal_Role</name>
         <label>Get Reciprocal Role</label>
         <locationX>522</locationX>
-        <locationY>49</locationY>
+        <locationY>197</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_PersonAccount_RecordTypeInfo</targetReference>
@@ -448,7 +454,7 @@
         <name>Existing_Political_Affiliation</name>
         <label>Existing JN Affiliation</label>
         <locationX>2547</locationX>
-        <locationY>374</locationY>
+        <locationY>522</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -479,10 +485,42 @@
         <showHeader>true</showHeader>
     </screens>
     <screens>
+        <name>Fault_Message</name>
+        <label>Fault Message</label>
+        <locationX>2264</locationX>
+        <locationY>50</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>faultmessage</name>
+            <fieldText>&lt;p&gt;{!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Fault_Message_0</name>
+        <label>Fault Message</label>
+        <locationX>1682</locationX>
+        <locationY>1195</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>faultmessage_0</name>
+            <fieldText>&lt;p&gt;{!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
         <name>JN_Affiliation</name>
         <label>JN Affiliation</label>
         <locationX>742</locationX>
-        <locationY>327</locationY>
+        <locationY>475</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -539,7 +577,7 @@
         <name>JN_Affiliations_Selection</name>
         <label>JN Affiliations Selection</label>
         <locationX>1704</locationX>
-        <locationY>367</locationY>
+        <locationY>515</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -599,7 +637,7 @@
         <name>SameAccountSearch</name>
         <label>Same Account Search</label>
         <locationX>825</locationX>
-        <locationY>749</locationY>
+        <locationY>897</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -631,7 +669,7 @@
         <name>YesJNAffiliated</name>
         <label>YesJNAffiliated</label>
         <locationX>938</locationX>
-        <locationY>522</locationY>
+        <locationY>670</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -716,7 +754,7 @@
     </screens>
     <start>
         <locationX>50</locationX>
-        <locationY>13</locationY>
+        <locationY>161</locationY>
         <connector>
             <targetReference>Get_Account_Record</targetReference>
         </connector>
@@ -726,7 +764,7 @@
         <name>JN_Shared_Affiliation_Subflow</name>
         <label>JN Shared Affiliation Subflow</label>
         <locationX>1989</locationX>
-        <locationY>367</locationY>
+        <locationY>515</locationY>
         <connector>
             <targetReference>Existing_Affiliation_Relationship</targetReference>
         </connector>
@@ -748,7 +786,7 @@
         <name>JN_Shared_Affiliation_Subflow2</name>
         <label>JN Shared Affiliation Subflow2</label>
         <locationX>2242</locationX>
-        <locationY>783</locationY>
+        <locationY>931</locationY>
         <connector>
             <targetReference>Get_existing_Relationship</targetReference>
         </connector>

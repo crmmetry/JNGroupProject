@@ -48,6 +48,11 @@ public with sharing class Util {
         return accountRecord;
     }
     
+    public static List<AggregateResult> QueryContactToContactRelationship(List<Id> roleIds, List<Id> contactIds){
+        return [SELECT Id,FinServ__Contact__c,FinServ__Role__r.Name FROM FinServ__ContactContactRelation__c 
+                WHERE FinServ__Contact__c IN :contactIds AND FinServ__Role__c IN :roleIds 
+                GROUP BY FinServ__Contact__c,Id,FinServ__Role__r.Name ];
+    }
     public static FinServ__ContactContactRelation__c createContactToContactRelationship(Id mainContact, Id relatedContact, Id role){
         FinServ__ContactContactRelation__c   record = new FinServ__ContactContactRelation__c ();
         record.FinServ__Role__c = role;

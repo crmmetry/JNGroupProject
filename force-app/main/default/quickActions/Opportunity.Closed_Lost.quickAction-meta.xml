@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
     <fieldOverrides>
-        <field>Close_Lose_Reason__c</field>
-        <literalValue>To be done</literalValue>
-    </fieldOverrides>
-    <fieldOverrides>
         <field>Closed_Status__c</field>
         <literalValue>Closed Lost</literalValue>
     </fieldOverrides>
@@ -23,10 +19,6 @@
     <fieldOverrides>
         <field>Savings__c</field>
         <literalValue>Closing Steps</literalValue>
-    </fieldOverrides>
-    <fieldOverrides>
-        <field>StageName</field>
-        <literalValue>Closed Lost</literalValue>
     </fieldOverrides>
     <label>Closed Lost</label>
     <optionsCreateFeedItem>false</optionsCreateFeedItem>

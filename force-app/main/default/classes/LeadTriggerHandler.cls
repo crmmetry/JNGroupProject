@@ -270,6 +270,10 @@ Encourage client to add start and end date to employment
                     account.FinServ__Occupation__pc = newRecord.Occupation__c;
                     account.PersonBirthdate = newRecord.Date_of_Birth__c;
                     account.PersonHomePhone = newRecord.Home_Phone__c;
+                    account.Preferred_time_of_contact__pc = newRecord.Preferred_Time_of_Contact__c;
+                    account.Other_Number__c = newRecord.Other_Number__c;
+                    account.Other_Email__pc = newRecord.Other_Email__c;
+                    account.Industry = newRecord.Industry;
                     accounts.add(account); //add account
                     
                     //Contact fields
@@ -558,8 +562,6 @@ Encourage client to add start and end date to employment
                     switch on record.Primary_Employment_Type__c {
                         when 'Employed' {
                             System.debug('success  employed');
-                            //if(!Util.areFieldsEmpty(emptyFieldsForEmployed, record)){                               
-                            
                             System.debug('success employed fields not null');
                             FinServ__Employment__c employment = new FinServ__Employment__c();
                             employment.Account__c = record.ConvertedAccountId;
@@ -580,15 +582,12 @@ Encourage client to add start and end date to employment
                             employment.Country__c = record.Employer_Country__c;
                             employment.Business_Number_1__c = record.Employer_Phone_1__c;
                             employment.Business_Number_2__c = record.Employer_Phone_2__c;
-                            //employment.Income_Type__c = 'Salaried';
                             employment.RecordTypeId = recordTypes.get('Employed');
                             employment.Current_Employment__c = true;
                             employments.add(employment);
-                            //}
                         }
                         when 'Self-Employed' {
-                            System.debug('success self employed');
-                            //if(!Util.areFieldsEmpty(emptyFieldsForSelfEmployed, record)){  
+                            System.debug('success self employed'); 
                             FinServ__Employment__c employment = new FinServ__Employment__c();
                             employment.Account__c = record.ConvertedAccountId;
                             employment.Name = record.FinServ__Employer__c;
@@ -607,20 +606,19 @@ Encourage client to add start and end date to employment
                             employment.Country__c = record.Employer_Country__c;
                             employment.Business_Number_1__c = record.Employer_Phone_1__c;
                             employment.Business_Number_2__c = record.Employer_Phone_2__c;
-                            // employment.Income_Type__c = 'Self-Employed';
                             employment.RecordTypeId =  recordTypes.get('Self_Employed');
                             employment.Current_Employment__c = true;
+                            employment.FinServ__EmploymentStatus__c = record.Employment_Status__c;
+                            employment.FinServ__Position__c = record.Position__c;
                             employments.add(employment);
-                            //}
                         }
                         when 'Unemployed' {
                             System.debug('success  employed');
-                            //if(!Util.areFieldsEmpty(emptyFieldsForUnEmployed, record)){   
                             System.debug('success self UNemployed fields not null');
                             FinServ__Employment__c employment = new FinServ__Employment__c();
                             employment.Account__c = record.ConvertedAccountId;
                             employment.Name = record.FinServ__Employer__c;
-                            employment.Position__c = record.Position__c;
+                            employment.FinServ__Position__c = record.Position__c;
                             employment.Date_of_Incorporation__c = record.Date_of_Incorporation__c;
                             employment.Industry__c = record.Industry;
                             employment.Nature_of_Engagement__c = record.Nature_of_Engagement__c;
@@ -635,14 +633,12 @@ Encourage client to add start and end date to employment
                             employment.Country__c = record.Employer_Country__c;
                             employment.Business_Number_1__c = record.Employer_Phone_1__c;
                             employment.Business_Number_2__c = record.Employer_Phone_2__c;
-                            //employment.Income_Type__c = 'Salaried';
                             employment.RecordTypeId = recordTypes.get('Unemployed');
                             employment.Current_Employment__c = true;
+                            employment.FinServ__EmploymentStatus__c = record.Employment_Status__c;
                             employments.add(employment);
-                            //}
                         }
                     }
-                    //}
                 } else {
                     System.debug('Cannot be converted');
                 }

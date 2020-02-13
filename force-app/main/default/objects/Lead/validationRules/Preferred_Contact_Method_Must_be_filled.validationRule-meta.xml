@@ -6,11 +6,6 @@
     <errorConditionFormula>IF( ISNEW () &amp;&amp;
 NOT(Ispickval(LeadSource,&quot;Online Application Form&quot;))&amp;&amp; OR
 (
-And
-(
-ISPICKVAL(Preferred_Contact_Method__c, &quot;Mobile&quot;),
-ISBLANK(MobilePhone)
-),
 
 AND
 (

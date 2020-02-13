@@ -218,7 +218,7 @@
             <label>Add More</label>
         </rules>
     </decisions>
-    <description>Adjustments to verbiage 2</description>
+    <description>Adding fault screen</description>
     <interviewLabel>Applicant Flow V2.0 {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Applicant Flow V2.0</label>
     <loops>
@@ -258,6 +258,9 @@
         <connector>
             <targetReference>Main_Applicant_Details</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
         <inputAssignments>
             <field>Account__c</field>
             <value>
@@ -532,6 +535,22 @@
             </inputParameters>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Fault_Message</name>
+        <label>Fault Message</label>
+        <locationX>1638</locationX>
+        <locationY>857</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>faultmessage</name>
+            <fieldText>&lt;p&gt;{!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>

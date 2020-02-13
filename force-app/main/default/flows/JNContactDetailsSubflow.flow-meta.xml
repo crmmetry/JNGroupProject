@@ -69,7 +69,7 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.Post_Office_Zip_Code__pc</assignToReference>
+            <assignToReference>AccountRecord.Post_Office_Zip_Code__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Post_office_Zip_Code</elementReference>
@@ -258,7 +258,7 @@
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>Adding validation rules to the number fields</description>
+    <description>Post Office</description>
     <dynamicChoiceSets>
         <name>CountryChoices</name>
         <dataType>Picklist</dataType>
@@ -308,7 +308,7 @@
     <recordLookups>
         <name>Account_Record</name>
         <label>Account Record Lookup</label>
-        <locationX>214</locationX>
+        <locationX>215</locationX>
         <locationY>159</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -333,7 +333,6 @@
         <queriedFields>FinServ__CountryOfBirth__pc</queriedFields>
         <queriedFields>Years_at_Residence__pc</queriedFields>
         <queriedFields>Status_of_Address__pc</queriedFields>
-        <queriedFields>Post_Office_Zip_Code__pc</queriedFields>
         <queriedFields>Country__c</queriedFields>
         <queriedFields>Street_1_Prev__c</queriedFields>
         <queriedFields>Street_2_Prev__c</queriedFields>
@@ -349,12 +348,16 @@
         <queriedFields>Mobile_Phone__c</queriedFields>
         <queriedFields>Other_Number__c</queriedFields>
         <queriedFields>PersonEmail</queriedFields>
+        <queriedFields>Post_Office_Zip_Code__c</queriedFields>
     </recordLookups>
     <recordUpdates>
         <name>Update_Account_Record</name>
         <label>Update Account Record</label>
         <locationX>824</locationX>
         <locationY>404</locationY>
+        <faultConnector>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
         <inputReference>AccountRecord</inputReference>
     </recordUpdates>
     <screens>
@@ -446,9 +449,9 @@
             <name>Post_office_Zip_Code</name>
             <dataType>String</dataType>
             <defaultValue>
-                <elementReference>AccountRecord.Post_Office_Zip_Code__pc</elementReference>
+                <elementReference>AccountRecord.Post_Office_Zip_Code__c</elementReference>
             </defaultValue>
-            <fieldText>Post office/ Zip Code</fieldText>
+            <fieldText>Post Office/ Zip Code</fieldText>
             <fieldType>InputField</fieldType>
             <isRequired>false</isRequired>
             <validationRule>
@@ -681,6 +684,22 @@
             </inputParameters>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Fault_Message</name>
+        <label>Fault Message</label>
+        <locationX>826</locationX>
+        <locationY>668</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>faultmessage</name>
+            <fieldText>&lt;p&gt;{!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>

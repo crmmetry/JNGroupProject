@@ -90,13 +90,15 @@ public class JNSiteController {
     public static Lead createLeadReferral(Map<String, String> applicantDetails ){
         
         List<Lead> leads = [SELECT Id FROM Lead WHERE  
-                            FirstName = :applicantDetails.get('FirstName') 
+                            FirstName = :applicantDetails.get('FirstName')
+                            AND MiddleName = :applicantDetails.get('MiddleName')
                             AND LastName = :applicantDetails.get('LastName')];
         Id leadId;
         if(!leads.isEmpty()){
-            leadId = leads.get(0).Id;
+            throw new AuraHandledException('A user already exist with the supplied first and last name');
+            //return error
         }
-        Lead newLead = new Lead(Id=leadId);
+        Lead newLead = new Lead();
         newLead.LeadSource = 'Online Application Form';
         newLead.FirstName=applicantDetails.get('FirstName');
         newLead.LastName=applicantDetails.get('LastName');
@@ -131,7 +133,7 @@ public class JNSiteController {
         newLead.Loan_Purpose_UL__c = applicantDetails.get('Loan_Purpose_UL__c');
         newLead.Gross_Monthly_Income__c = Decimal.valueOf(applicantDetails.get('Gross_Monthly_Income__c'));
         newLead.Gross_Monthly_Expenses__c = Decimal.valueOf(applicantDetails.get('Gross_Monthly_Expenses__c'));
-        upsert newLead; //return a error duplicate
+        insert newLead; //return a error duplicate
         return newLead;
         
         
@@ -142,16 +144,23 @@ public class JNSiteController {
             
             List<Lead_Related_Person__c> persons = new List<Lead_Related_Person__c>();
             Map<String, Object>  oldPerson;
+            Lead leadRecord = new Lead(Id=leadId);
             for (String key : values.keySet()) {
                 String c = JSON.serialize(values.get(key));
                 oldPerson = (Map<String, Object>) JSON.deserializeUntyped(c);
                 Lead_Related_Person__c newPerson = new Lead_Related_Person__c();
-                
                 newPerson.First_Name__c = String.valueOf(oldPerson.get('First_Name__c'));
                 newPerson.Last_Name__c = String.valueOf(oldPerson.get('Last_Name__c'));
                 newPerson.Role__c = String.valueOf(oldPerson.get('Role__c'));
                 newPerson.Relationship__c = String.valueOf(oldPerson.get('Relationship__c')); 
-                newPerson.Afilliate_Type__c = String.valueOf(oldPerson.get('Afilliate_Type__c'));
+                String afilliateType = String.valueOf(oldPerson.get('Afilliate_Type__c'));
+                newPerson.Afilliate_Type__c = afilliateType;
+                
+                if(afilliateType == 'JN Bank'){
+                    leadRecord.JN_Bank_Affiliation__c = true;
+                } else if (afilliateType == 'Political'){
+                    leadRecord.Political_Affiliation__c = true;
+                }
                 newPerson.JN_Location__c  = String.valueOf(oldPerson.get('JN_Location__c'));
                 newPerson.Mobile_Number__c  = String.valueOf(oldPerson.get('Mobile_Number__c'));
 				newPerson.Lead_and_Referral__c  = String.valueOf(oldPerson.get('Lead_and_Referral__c'));
@@ -159,6 +168,7 @@ public class JNSiteController {
             }
             if(!persons.isEmpty()){
                 insert persons;
+                update leadRecord;
             }            
             return persons;
         } catch(Exception e){

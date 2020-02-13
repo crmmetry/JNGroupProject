@@ -31,6 +31,10 @@
         <default>false</default>
     </values>
     <values>
+        <fullName>Re- Activated Opportunity</fullName>
+        <default>false</default>
+    </values>
+    <values>
         <fullName>Suspended</fullName>
         <default>false</default>
     </values>
