@@ -5,6 +5,7 @@
  *    3     JN1-2791      Ishwari Gaikwad.(TQ)      02/11/2020        Line Of Credit Request Field Mapping
  *    4     JN1-2788      Ishwari Gaikwad.(TQ)      02/11/2020        Auto Loan Request Field Mapping
  *    5     JN1-2782      Ishwari Gaikwad.(TQ)      02/12/2020        Emergency Contact Field Mapping
+ *    6     JN1-2783      Ishwari Gaikwad.(TQ)      02/14/2020        Employemnt Details Section
 */
 
 public class ApplicationForm {
@@ -191,6 +192,7 @@ public class ApplicationForm {
         }
         
         if(accid.size()>0){   
+            //JN1-2783 : Added fields to the query
             List<FinServ__Employment__c>  Employmentlst = [select id,
                                                            RecordType.Name,
                                                            Income_Type__c,
@@ -219,7 +221,18 @@ public class ApplicationForm {
                                                            Length_of_Trade__c,
                                                            Nature_of_Engagement__c,
                                                            Type_of_Business__c,Time_Employed_with_Current_Employer__c,
-                                                           Date_of_Incorporation__c,Time_Employed_in_Present_Employer_M__c
+                                                           Date_of_Incorporation__c,Time_Employed_in_Present_Employer_M__c,
+                                                           Were_you_previously_employed__c, //JN1-2783
+                                                           Name_of_Previous_Employer__c,  //JN1-2783
+                                                           Position_Previously_Held__c,   //JN1-2783 -> JN1-3563
+                                                           Street_1_prev__c,//JN1-2783 -> JN1-3563
+                                                           Street_2_prev__c,//JN1-2783 -> JN1-3563
+                                                           Street_3_prev__c,//JN1-2783 -> JN1-3563
+                                                           City_Town_prev__c,//JN1-2783 -> JN1-3563
+                                                           Residential_Area_District_prev__c,//JN1-2783 -> JN1-3563
+                                                           Post_Office_Zip_Code_prev__c,//JN1-2783 -> JN1-3563
+                                                           Province_Parish_State_prev__c,//JN1-2783 -> JN1-3563
+                                                           Country_prev__c//JN1-2783 -> JN1-3563
                                                            from FinServ__Employment__c where Account__c IN:accid];
             
             if(Employmentlst.size()>0) {

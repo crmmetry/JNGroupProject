@@ -5,6 +5,7 @@
  *    3     JN1-2791      Ishwari Gaikwad.(TQ)      02/11/2020        Line Of Credit Request Field Mapping
  *    4     JN1-2788      Ishwari Gaikwad.(TQ)      02/11/2020        Auto Loan Request Field Mapping
  *    5     JN1-2782      Ishwari Gaikwad.(TQ)      02/12/2020        Emergency Contact Field Mapping
+ *    6     JN1-2783      Ishwari Gaikwad.(TQ)      02/14/2020        Employemnt Details Section
 */ -->
 <apex:page renderAs="PDF" applyBodyTag="false" controller="ApplicationForm" >
     <head>
@@ -563,6 +564,192 @@
                                         </table>
                                     </div>
                                 </apex:pageBlock>
+                                <!--Start - JN1-2783
+                                    Subtask - JN1-3561 : Unemployment section-->
+                                <apex:pageBlock rendered="{!if(emp.RecordType.Name=='Unemployed',true, false)}">
+                                    <div style="margin-top:5px;font-size:small;">
+                                        <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="text-align:top;border: 1px solid rgb(191, 191, 191);border-right:5px solid rgb(149, 149, 149);width:10%;background-color:rgb(242, 242, 242);text-align:center;font-weight:bold;"> UNEMPLOYED DETAILS</td>
+                                                <td style="width:90%;">
+                                                    <table style="margin-left:16px;margin-right:10px;width:50%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Was the Applicant previously employed?*</td>
+                                                        </tr>
+                                                        <tr style="margin-top:5px;">
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!if(emp.Were_you_previously_employed__c == true ,'Yes', 'No')}</td>
+                                                            
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
+                                                <td style="width:90%;">
+                                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Name of Previous Employer:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Last Position Held:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Industry of Previous Employment:</td>
+                                                        </tr>
+                                                        <tr style="margin-top:5px;">
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!emp.Name_of_Previous_Employer__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.FinServ__Position__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Industry__c}</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
+                                                <td style="width:90%;">
+                                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Street 1:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Street 2:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Street 3:</td>
+                                                        </tr>
+                                                        <tr style="margin-top:5px;">
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!emp.Street_1__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Street_2__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Street_3__c}</td>
+                                                            
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
+                                                <td style="width:90%;">
+                                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">City/Town:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Residential Area/District:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Post Office/Zip Code:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Province/Parish/State:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Country of Issue:</td>
+                                                        </tr>
+                                                        <tr style="margin-top:5px;">
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!emp.City_Town__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Residential_Area_District__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Post_Office_Zip_Code__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Province_Parish_State__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Country__c}</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
+                                                <td style="width:90%;">
+                                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Business Number 1:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Business Number 2:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Professional Category:</td>
+                                                        </tr>
+                                                        <tr style="margin-top:5px;">
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!emp.Business_Number_1__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Business_Number_2__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Professional_Category__c}</td>
+                                                            
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            
+                                        </table>
+                                    </div>
+                                </apex:pageBlock>
+                               <!--End Subtask - JN1-3561 : Unemployment section-->
+
+                               <!--Start Subtask - JN1-3563 : Previous Employemnt section-->
+                                <apex:pageBlock rendered="{!if(OR(AND( emp.RecordType.Name=='Employed',emp.FinServ__StartDate__c != NULL, TODAY() - emp.FinServ__StartDate__c < 365),
+                                                        AND( emp.RecordType.Name=='Self-Employed', emp.Date_of_Incorporation__c != NULL ,TODAY() - emp.Date_of_Incorporation__c < 365)) ,true, false)}">
+                                    <div style="margin-top:5px;font-size:small;">
+                                        <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="text-align:top;border: 1px solid rgb(191, 191, 191);border-right:5px solid rgb(149, 149, 149);width:10%;background-color:rgb(242, 242, 242);text-align:center;font-weight:bold;">PREVIOUS EMPLOYMENT DETAILS</td>
+                                                <td style="width:90%;">
+                                                    <table style="margin-left:16px;margin-right:10px;width:80%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Name of Previous Employer:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Last Position Held:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;" colspan="4">Time Employed (Previous Employer):</td>
+                                                        </tr>
+                                                        <tr style="margin-top:5px;">
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!emp.Name_of_Previous_Employer__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Position_Previously_Held__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">0</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">Years</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-left:1px;border-right:1px;Text-align:center;">0</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">Months</td>
+                                                            
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
+                                                <td style="width:90%;">
+                                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Street 1:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Street 2:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Street 3:</td>
+                                                        </tr>
+                                                        <tr style="margin-top:5px;">
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!emp.Street_1_prev__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Street_2_prev__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Street_3_prev__c}</td>
+                                                            
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
+                                                <td style="width:90%;">
+                                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">City/Town:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Residential Area/District:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Post Office/Zip Code:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Province/Parish/State:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Country of Issue:</td>
+                                                        </tr>
+                                                        <tr style="margin-top:5px;">
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!emp.City_Town_prev__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Residential_Area_District_prev__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Post_Office_Zip_Code_prev__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Province_Parish_State_prev__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Country_prev__c}</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border-right:5px solid rgb(149, 149, 149);width:10%;"></td>
+                                                <td style="width:90%;">
+                                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;border-bottom:1px;">Business Number 1:</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;border-bottom:1px;">Business Number 2:</td>
+                                                        </tr>
+                                                        <tr style="margin-top:5px;">
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-top:1px;Text-align:center;">{!emp.Business_Number_1__c}</td>
+                                                            <td style="border: 1px solid rgb(191, 191, 191);border-left:1px;border-top:1px;Text-align:center;">{!emp.Business_Number_2__c}</td>
+                                                            
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </apex:pageBlock>
+                                <!--End Subtask - JN1-3563 : Previous Employemnt section-->
+                                 <!--End - JN1-2783-->
                             </apex:repeat>
                         </div>  
                         <div>
