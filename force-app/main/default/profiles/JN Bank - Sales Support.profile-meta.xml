@@ -448,11 +448,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Are_Id_Documents_Completed__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Account.Are_there_other_application_details__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -969,11 +964,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.JN_Employee__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Account.Jamaican_Tax_Registration_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

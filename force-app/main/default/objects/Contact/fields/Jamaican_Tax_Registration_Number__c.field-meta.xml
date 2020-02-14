@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Jamaican_Tax_Registration_Number__c</fullName>
-    <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
+    <description>TRN</description>
+    <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
     <label>Jamaican Tax Registration Number</label>
     <length>12</length>

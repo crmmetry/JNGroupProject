@@ -133,7 +133,7 @@
             <label>Add Card Holder</label>
         </rules>
     </decisions>
-    <description>Adding fault screen</description>
+    <description>fixing TRN</description>
     <interviewLabel>Supplementary Card Holder {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Supplementary Card Holder</label>
     <loops>
@@ -225,7 +225,7 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>Jamaican_Tax_Registration_Number__c</field>
+            <field>Jamaican_Tax_Registration_Number__pc</field>
             <value>
                 <elementReference>Person_TRN</elementReference>
             </value>
@@ -404,7 +404,7 @@
         <name>Get_Supplementary_Card_Holders</name>
         <label>Get Supplementary Card Holders</label>
         <locationX>464</locationX>
-        <locationY>212</locationY>
+        <locationY>213</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Existing_Card_Holders</targetReference>

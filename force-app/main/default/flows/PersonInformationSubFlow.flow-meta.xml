@@ -82,7 +82,7 @@
             <label>AccountFound</label>
         </rules>
     </decisions>
-    <description>Adding fault screen</description>
+    <description>testing trn2</description>
     <dynamicChoiceSets>
         <name>AccountChoices</name>
         <dataType>String</dataType>
@@ -129,8 +129,8 @@
         <description>Creates the person account with first and last name</description>
         <name>CreatePersonAccount</name>
         <label>CreatePersonAccount</label>
-        <locationX>406</locationX>
-        <locationY>271</locationY>
+        <locationX>408</locationX>
+        <locationY>273</locationY>
         <assignRecordIdToReference>AccountId</assignRecordIdToReference>
         <faultConnector>
             <targetReference>Fault_Message</targetReference>
@@ -201,13 +201,13 @@
         </connector>
         <filters>
             <field>FirstName</field>
-            <operator>StartsWith</operator>
+            <operator>EqualTo</operator>
             <value>
                 <elementReference>Person_First_Name</elementReference>
             </value>
         </filters>
         <filters>
-            <field>Jamaican_Tax_Registration_Number__c</field>
+            <field>Jamaican_Tax_Registration_Number__pc</field>
             <operator>EqualTo</operator>
             <value>
                 <elementReference>Tax_Registration_Number_TRN_Text</elementReference>
@@ -215,7 +215,7 @@
         </filters>
         <filters>
             <field>LastName</field>
-            <operator>StartsWith</operator>
+            <operator>EqualTo</operator>
             <value>
                 <elementReference>Person_Last_Name</elementReference>
             </value>
@@ -353,7 +353,7 @@
     <screens>
         <name>Fault_Message</name>
         <label>Fault Message</label>
-        <locationX>235</locationX>
+        <locationX>186</locationX>
         <locationY>272</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>

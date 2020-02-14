@@ -13,13 +13,6 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.Jamaican_Tax_Registration_Number__pc</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Tax_Registration_Number</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
             <assignToReference>AccountRecord.Identification_Country_of_Issue__c</assignToReference>
             <operator>Assign</operator>
             <value>
@@ -130,7 +123,7 @@
         <name>Get_Account</name>
         <label>Get Account</label>
         <locationX>228</locationX>
-        <locationY>73</locationY>
+        <locationY>74</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Set_Deafults</targetReference>
@@ -146,15 +139,15 @@
         <outputReference>AccountRecord</outputReference>
         <queriedFields>Id</queriedFields>
         <queriedFields>Identification_Type__pc</queriedFields>
-        <queriedFields>Jamaican_Tax_Registration_Number__pc</queriedFields>
         <queriedFields>Identification_Country_of_Issue__c</queriedFields>
         <queriedFields>ID_Expiration_Date__c</queriedFields>
         <queriedFields>Identification_Number__c</queriedFields>
+        <queriedFields>Jamaican_Tax_Registration_Number__pc</queriedFields>
     </recordLookups>
     <recordUpdates>
         <name>Update_Account_Record</name>
         <label>Update Account Record</label>
-        <locationX>826</locationX>
+        <locationX>825</locationX>
         <locationY>246</locationY>
         <faultConnector>
             <targetReference>Fault_Message</targetReference>

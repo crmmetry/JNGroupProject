@@ -511,8 +511,7 @@ return flag;
                                                Financial_Preformance__c,
                                                Financial_Statement_Support__c,
                                                Length_of_Trade__c,
-                                               Account__r.Jamaican_Tax_Registration_Number__pc,
-                                               
+                                               Account__r.Jamaican_Tax_Registration_Number__pc,                                              
                                                Account__r.FinServ__Age__pc,
                                                Account__r.Highest_Level_of_Education_attained__pc,
                                                Account__r.Status_of_Address__c,
@@ -528,10 +527,10 @@ return flag;
                     system.debug('Required missing ===============>8');
                     return true;
                 }else {
-                    if(e.Account__r.FinServ__Age__pc==NULL || string.isEmpty(e.Account__r.Highest_Level_of_Education_attained__pc) || string.isEmpty(e.Account__r.Status_of_Address__c) || e.Account__r.Years_at_Residence__c ==NULL || string.isEmpty(e.Account__r.Jamaican_Tax_Registration_Number__pc)){
+                    /*if(e.Account__r.FinServ__Age__pc==NULL || string.isEmpty(e.Account__r.Highest_Level_of_Education_attained__pc) || string.isEmpty(e.Account__r.Status_of_Address__c) || e.Account__r.Years_at_Residence__c ==NULL || string.isEmpty(e.Account__r.Jamaican_Tax_Registration_Number__pc)){
                         system.debug('Required missing ===============>9');
                         return true;
-                    }
+                    }*/
                     if(e.Income_type__c=='Salaried'){
                         if(string.isEmpty(e.Account__r.Industry_of_Employment__pc) || string.isEmpty(e.FinServ__EmploymentStatus__c) || string.isEmpty(e.Professional_Category__c)){
                             system.debug('Required missing ===============>10');

@@ -455,9 +455,8 @@ Encourage client to add start and end date to employment
                             mappedData.put('Supplementary_Applicant_Relationship__c','Relationship__c');
                             mappedData.put('Jamaican_Tax_Registration_Number__c','TRN__c');
                             Account newAccount = Util.createAccount(mappedData, record, recordTypeids.get('PersonAccount'));
-                            
                             Account[] foundAccounts = [SELECT Id from account where FirstName =:record.First_Name__c and LastName =:record.Last_Name__c 
-                                                       and Jamaican_Tax_Registration_Number__c=:record.TRN__c];
+                                                       and Jamaican_Tax_Registration_Number__pc=:record.TRN__c];
                             if(!foundAccounts.isEmpty()){
                                 accountId = foundAccounts.get(0).Id;
                                 System.debug('existing  Credit Card Extension');
