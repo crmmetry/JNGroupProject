@@ -4,7 +4,7 @@
         <name>Account_Record_Assignment</name>
         <label>Account Record Assignment</label>
         <locationX>604</locationX>
-        <locationY>37</locationY>
+        <locationY>38</locationY>
         <assignmentItems>
             <assignToReference>AccountRecord.FinServ__NumberOfDependents__pc</assignToReference>
             <operator>Assign</operator>
@@ -20,7 +20,7 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.Mother_s_Maiden_Name__pc</assignToReference>
+            <assignToReference>AccountRecord.Mother_s_Maiden_Name__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Mother_s_Maiden_Name</elementReference>
@@ -109,7 +109,7 @@
             <assignToReference>MothersMaidenNameDefault</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>AccountRecord.Mother_s_Maiden_Name__pc</elementReference>
+                <elementReference>AccountRecord.Mother_s_Maiden_Name__c</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -156,7 +156,7 @@
             <elementReference>PrimaryEmploymentTypeFormula</elementReference>
         </value>
     </choices>
-    <description>Adding fault screen</description>
+    <description>field update</description>
     <dynamicChoiceSets>
         <name>CountryOfCitizenshipChoices</name>
         <dataType>Picklist</dataType>
@@ -245,7 +245,6 @@
         <queriedFields>LastName</queriedFields>
         <queriedFields>Salutation</queriedFields>
         <queriedFields>FinServ__CountryOfBirth__pc</queriedFields>
-        <queriedFields>Mother_s_Maiden_Name__pc</queriedFields>
         <queriedFields>FinServ__NumberOfDependents__pc</queriedFields>
         <queriedFields>FinServ__Gender__pc</queriedFields>
         <queriedFields>Highest_Level_of_Education_attained__pc</queriedFields>
@@ -253,6 +252,7 @@
         <queriedFields>Country_of_Citizenship__pc</queriedFields>
         <queriedFields>Country_of_Residency__pc</queriedFields>
         <queriedFields>PersonBirthdate</queriedFields>
+        <queriedFields>Mother_s_Maiden_Name__c</queriedFields>
     </recordLookups>
     <recordUpdates>
         <name>Update_Account</name>
@@ -427,7 +427,7 @@
             <name>Mother_s_Maiden_Name</name>
             <dataType>String</dataType>
             <defaultValue>
-                <elementReference>AccountRecord.Mother_s_Maiden_Name__pc</elementReference>
+                <elementReference>AccountRecord.Mother_s_Maiden_Name__c</elementReference>
             </defaultValue>
             <fieldText>Mother&#39;s Maiden Name</fieldText>
             <fieldType>InputField</fieldType>

@@ -76,14 +76,14 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.Mobile_Phone__c</assignToReference>
+            <assignToReference>AccountRecord.PersonMobilePhone</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>MobileNumber.value</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.PersonHomePhone</assignToReference>
+            <assignToReference>AccountRecord.Home_Number__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>HomeNumber.value</elementReference>
@@ -258,7 +258,7 @@
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>Post Office</description>
+    <description>Updating phone fields</description>
     <dynamicChoiceSets>
         <name>CountryChoices</name>
         <dataType>Picklist</dataType>
@@ -344,11 +344,11 @@
         <queriedFields>Years_at_Residence_Prev__c</queriedFields>
         <queriedFields>Country_Prev__c</queriedFields>
         <queriedFields>Business_Phone__pc</queriedFields>
-        <queriedFields>PersonHomePhone</queriedFields>
-        <queriedFields>Mobile_Phone__c</queriedFields>
         <queriedFields>Other_Number__c</queriedFields>
         <queriedFields>PersonEmail</queriedFields>
         <queriedFields>Post_Office_Zip_Code__c</queriedFields>
+        <queriedFields>PersonMobilePhone</queriedFields>
+        <queriedFields>Home_Number__c</queriedFields>
     </recordLookups>
     <recordUpdates>
         <name>Update_Account_Record</name>
@@ -592,7 +592,7 @@
             <inputParameters>
                 <name>value</name>
                 <value>
-                    <elementReference>AccountRecord.Mobile_Phone__c</elementReference>
+                    <elementReference>AccountRecord.PersonMobilePhone</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -623,7 +623,7 @@
             <inputParameters>
                 <name>value</name>
                 <value>
-                    <elementReference>AccountRecord.PersonHomePhone</elementReference>
+                    <elementReference>AccountRecord.Home_Number__c</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>

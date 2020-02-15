@@ -453,7 +453,7 @@ Encourage client to add start and end date to employment
                             mappedData.put('LastName','Last_Name__c');
                             mappedData.put('MiddleName','Middle_Name__c');
                             mappedData.put('Supplementary_Applicant_Relationship__c','Relationship__c');
-                            mappedData.put('Jamaican_Tax_Registration_Number__c','TRN__c');
+                            mappedData.put('Jamaican_Tax_Registration_Number__pc','TRN__c');
                             Account newAccount = Util.createAccount(mappedData, record, recordTypeids.get('PersonAccount'));
                             Account[] foundAccounts = [SELECT Id from account where FirstName =:record.First_Name__c and LastName =:record.Last_Name__c 
                                                        and Jamaican_Tax_Registration_Number__pc=:record.TRN__c];

@@ -33,6 +33,13 @@
                 <elementReference>Identification_Number</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>AccountRecord.Jamaican_Tax_Registration_Number__pc</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Tax_Registration_Number</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>Update_Account_Record</targetReference>
         </connector>
