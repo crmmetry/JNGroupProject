@@ -253,7 +253,7 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>ApplicantAssetsLiabiltyRecord.Asset_Credit_Balance__c</assignToReference>
+            <assignToReference>SelectedAssetLiability.Asset_Credit_Balance__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Assets_Credit_Balance_CreditCard_long</elementReference>
@@ -339,7 +339,7 @@
         <name>Long_Lines</name>
         <label>Long Lines</label>
         <locationX>2981</locationX>
-        <locationY>765</locationY>
+        <locationY>767</locationY>
         <assignmentItems>
             <assignToReference>SelectedAssetLiability.RecordTypeId</assignToReference>
             <operator>Assign</operator>
@@ -390,14 +390,14 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>ApplicantAssetsLiabiltyRecord.Asset_Credit_Balance__c</assignToReference>
+            <assignToReference>SelectedAssetLiability.Asset_Credit_Balance__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Asset_Credit_Balance_lines_long</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>ApplicantAssetsLiabiltyRecord.Minimum_Payment__c</assignToReference>
+            <assignToReference>SelectedAssetLiability.Minimum_Payment__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Minimum_Payment_Lines_long_NEW</elementReference>
@@ -562,14 +562,14 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>ApplicantAssetsLiabiltyRecord.Monthly_Payment_Prior__c</assignToReference>
+            <assignToReference>SelectedAssetLiability.Monthly_Payment_Prior__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Monthly_Payment_to_Prior_assetlong</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>ApplicantAssetsLiabiltyRecord.Lien_on_Asset__c</assignToReference>
+            <assignToReference>SelectedAssetLiability.Lien_on_Asset__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Lien_on_Asset_OtherAssetlong</elementReference>
@@ -964,7 +964,7 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>ApplicantAssetsLiabiltyRecord.Treatment_of_Credit__c</assignToReference>
+            <assignToReference>SelectedAssetLiability.Treatment_of_Credit__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>TreatmentOfCredit_motorvehiclee_short.crmmObjectSelected</elementReference>
@@ -2295,7 +2295,7 @@
             <label>Create New Asset</label>
         </rules>
     </decisions>
-    <description>Adding fault message</description>
+    <description>fixes</description>
     <dynamicChoiceSets>
         <name>PropertyTypeChoices</name>
         <dataType>Picklist</dataType>
@@ -2897,13 +2897,19 @@
             <inputParameters>
                 <name>crmmObjectSelected</name>
                 <value>
-                    <elementReference>ApplicantTreatmentCreditDefault</elementReference>
+                    <elementReference>AssetsTreatmentOfCreditDefault</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
                 <name>recordTypeName</name>
                 <value>
                     <stringValue>Lines_of_Credit</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>recordTypeId</name>
+                <value>
+                    <elementReference>LinesofCreditRecordTypeId</elementReference>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
@@ -3107,13 +3113,19 @@
             <inputParameters>
                 <name>crmmObjectSelected</name>
                 <value>
-                    <elementReference>ApplicantTreatmentCreditDefault</elementReference>
+                    <elementReference>AssetsTreatmentOfCreditDefault</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
                 <name>recordTypeName</name>
                 <value>
                     <stringValue>Credit_Cards</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>recordTypeId</name>
+                <value>
+                    <elementReference>CreditCardRecordTypeId</elementReference>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
@@ -3247,8 +3259,8 @@
     <screens>
         <name>Long_Lines_of_Credit_Screen</name>
         <label>Long Lines of Credit Screen</label>
-        <locationX>2603</locationX>
-        <locationY>879</locationY>
+        <locationX>2605</locationX>
+        <locationY>874</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -3357,7 +3369,7 @@
             <name>Asset_Credit_Balance_lines_long</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>ApplicantAssetsLiabiltyRecord.Asset_Credit_Balance__c</elementReference>
+                <elementReference>SelectedAssetLiability.Asset_Credit_Balance__c</elementReference>
             </defaultValue>
             <fieldText>Line of Credit Balance</fieldText>
             <fieldType>InputField</fieldType>
@@ -3397,7 +3409,7 @@
             <name>Minimum_Payment_Lines_long_NEW</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>ApplicantAssetsLiabiltyRecord.Minimum_Payment__c</elementReference>
+                <elementReference>SelectedAssetLiability.Minimum_Payment__c</elementReference>
             </defaultValue>
             <fieldText>Minimum Payment</fieldText>
             <fieldType>InputField</fieldType>
@@ -3427,7 +3439,7 @@
             <inputParameters>
                 <name>crmmObjectSelected</name>
                 <value>
-                    <elementReference>ApplicantTreatmentCreditDefault</elementReference>
+                    <elementReference>AssetsTreatmentOfCreditDefault</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -3440,6 +3452,12 @@
                 <name>recordTypeName</name>
                 <value>
                     <stringValue>Lines_of_Credit</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>recordTypeId</name>
+                <value>
+                    <elementReference>LinesofCreditRecordTypeId</elementReference>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
@@ -4256,9 +4274,9 @@
             <name>Lien_on_Asset_OtherAssetlong</name>
             <dataType>Boolean</dataType>
             <defaultValue>
-                <elementReference>ApplicantAssetsLiabiltyRecord.Lien_on_Asset__c</elementReference>
+                <elementReference>SelectedAssetLiability.Lien_on_Asset__c</elementReference>
             </defaultValue>
-            <fieldText>Do you have a lien on this property?</fieldText>
+            <fieldText>Do you have a lien on this asset?</fieldText>
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
         </fields>
@@ -4320,7 +4338,7 @@
             <name>Monthly_Payment_to_Prior_assetlong</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>ApplicantAssetsLiabiltyRecord.Monthly_Payment_After__c</elementReference>
+                <elementReference>SelectedAssetLiability.Monthly_Payment_Prior__c</elementReference>
             </defaultValue>
             <fieldText>Monthly Payment to Prior</fieldText>
             <fieldType>InputField</fieldType>
@@ -4757,13 +4775,19 @@
             <inputParameters>
                 <name>crmmObjectSelected</name>
                 <value>
-                    <elementReference>ApplicantTreatmentCreditDefault</elementReference>
+                    <elementReference>AssetsTreatmentOfCreditDefault</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
                 <name>recordTypeName</name>
                 <value>
                     <stringValue>Credit_Cards</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>recordTypeId</name>
+                <value>
+                    <elementReference>CreditCardRecordTypeId</elementReference>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
@@ -4983,13 +5007,19 @@
             <inputParameters>
                 <name>crmmObjectSelected</name>
                 <value>
-                    <elementReference>ApplicantTreatmentCreditDefault</elementReference>
+                    <elementReference>AssetsTreatmentOfCreditDefault</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
                 <name>crmmObjectname</name>
                 <value>
                     <stringValue>Application_Asset_Liability__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>recordTypeId</name>
+                <value>
+                    <elementReference>MotorVehicleRecordTypeId</elementReference>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
