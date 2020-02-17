@@ -7,6 +7,7 @@
 ISPICKVAL(Closed_Status__c , &quot;Closed Won&quot;),
 ISBLANK( RIM_Client_No__c ),
 ISBLANK( Phoenix_Account_Number__c),
+ISPICKVAL( Phoenix_Account_Type__c, &quot;&quot;),
 
 OR
 (
