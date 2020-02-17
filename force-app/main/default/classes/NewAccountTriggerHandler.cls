@@ -46,7 +46,8 @@ public class NewAccountTriggerHandler {
     }
         // sets the JN affilliation and political checkbox
     public static void SetAccountAffiliations(){
-        if(!Util.IsExecuted('SetAccountAffiliations')){
+        if(!Util.IsExecuted('SetAccountAffiliations') || Util.affiliations.size() > 0){
+            
             Map<String,FinServ__ReciprocalRole__c> mappedRoles = Util.GetRoleRelationships('ContactRole');
             List<Id> roleIds = new List<String>{mappedRoles.get('Political Affiliation').id, mappedRoles.get('JN Affiliation').id};
             List<Id> contactIds = new List<Id>();
@@ -59,19 +60,27 @@ public class NewAccountTriggerHandler {
             }
             Id contactId;
             String affiliation;
+           	System.debug('Aff = ' + Util.affiliations);
             for(AggregateResult result: Util.QueryContactToContactRelationship(roleIds, contactIds)){
                 System.debug('Result: ' + result);
                 contactId = String.valueOf(result.get('FinServ__Contact__c'));
                 affiliation = String.valueOf(result.get('Name'));
                 switch on affiliation {
                     when 'Political Affiliation'{
-                        mappedAccounts.get(contactId).Politically_Affiliated__c = true;
+                        //if the relationship is deleted, false by default
+                        if(!Util.affiliations.containsKey('Political Affiliation')){
+                        	mappedAccounts.get(contactId).Politically_Affiliated__c = true;
+                        }
                     }
                     when 'JN Affiliation'{
+                        //if the relationship is deleted, false by default
+                        if(!Util.affiliations.containsKey('JN Affiliation')){
                         mappedAccounts.get(contactId).JN_Bank_Affiliation__pc = true;
+                        }
                     }
                 }
             }
+        
         }
     }
     

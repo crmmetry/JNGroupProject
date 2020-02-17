@@ -1,6 +1,8 @@
 public with sharing class Util {
     public static final String AccountRole = 'AccountRole';
     public static final String ContactRole = 'ContactRole';
+    public static Boolean isDeleteContext = false;
+    public static Map<String,Boolean> affiliations = new Map<String,Boolean>();
     public static Map<String,Boolean> Memory = new Map<String,Boolean>();// ensures methods are executed only once
     public static Map<String, Id> getRecordTypeids(String sobjectType){
         Map<String, Id> recordTypesMap = new Map<String, Id>();
@@ -51,6 +53,7 @@ public with sharing class Util {
     public static List<AggregateResult> QueryContactToContactRelationship(List<Id> roleIds, List<Id> contactIds){
         return [SELECT Id,FinServ__Contact__c,FinServ__Role__r.Name FROM FinServ__ContactContactRelation__c 
                 WHERE FinServ__Contact__c IN :contactIds AND FinServ__Role__c IN :roleIds 
+                AND FinServ__RelatedContact__c != NULL
                 GROUP BY FinServ__Contact__c,Id,FinServ__Role__r.Name ];
     }
     public static FinServ__ContactContactRelation__c createContactToContactRelationship(Id mainContact, Id relatedContact, Id role){
