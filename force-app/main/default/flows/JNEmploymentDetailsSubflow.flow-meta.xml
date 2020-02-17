@@ -1170,7 +1170,7 @@
             <assignToReference>SelectedEmploymentRecord.Industry__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>IndustryDefault</elementReference>
+                <elementReference>Industry_UN.crmmObjectSelected</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -1554,7 +1554,7 @@
             <label>Yes Continue</label>
         </rules>
     </decisions>
-    <description>Adding fault screen</description>
+    <description>Industry</description>
     <dynamicChoiceSets>
         <name>IncomeTypeChoiceSet</name>
         <dataType>Picklist</dataType>
@@ -3587,6 +3587,12 @@
                 <name>crmmObjectSelected</name>
                 <value>
                     <elementReference>IndustryDefault</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>recordTypeId</name>
+                <value>
+                    <elementReference>UnEmployedRecordTypeId</elementReference>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>

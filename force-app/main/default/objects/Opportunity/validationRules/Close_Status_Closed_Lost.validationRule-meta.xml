@@ -10,5 +10,5 @@ ISBLANK((Text(Close_Lose_Reason__c ))
 
 )
 )</errorConditionFormula>
-    <errorMessage>Please close this dialog box and complete the &quot;Close Lost Reason&quot;</errorMessage>
+    <errorMessage>Please complete the &quot;Close Lost Reason&quot;.</errorMessage>
 </ValidationRule>

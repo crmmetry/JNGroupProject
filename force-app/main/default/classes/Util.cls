@@ -1,7 +1,7 @@
 public with sharing class Util {
     public static final String AccountRole = 'AccountRole';
     public static final String ContactRole = 'ContactRole';
-    public static Boolean isDeleteContext = false;
+    public static Integer ExecutionCount = 0;
     public static Map<String,Boolean> affiliations = new Map<String,Boolean>();
     public static Map<String,Boolean> Memory = new Map<String,Boolean>();// ensures methods are executed only once
     public static Map<String, Id> getRecordTypeids(String sobjectType){

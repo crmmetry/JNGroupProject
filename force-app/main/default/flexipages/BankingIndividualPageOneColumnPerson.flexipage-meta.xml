@@ -197,6 +197,10 @@
                 <name>fsName</name>
                 <value>RB_Client_Relationship_Group_Members</value>
             </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>shouldShowGroupActivityRollup</name>
+                <value>true</value>
+            </componentInstanceProperties>
             <componentName>FinServ:relationshipMembersGrid</componentName>
         </componentInstances>
         <componentInstances>
