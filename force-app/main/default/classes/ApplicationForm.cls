@@ -8,6 +8,8 @@
 */
 
 public class ApplicationForm {
+    //AK
+    public static final string RECORD_TYPE_SHORT_SUMMARY_INCOME = 'Short Summary of Income';
     Public static integer isFirst=1;
     public List<WrapperApplicationForm> lst{get;set;}
     public List<Loan_Calculator__c> ProductDetails{get;set;}
@@ -74,7 +76,12 @@ public class ApplicationForm {
         Map<id,List<FinServ__ContactContactRelation__c>> MapBankAff = new  Map<id,List<FinServ__ContactContactRelation__c>>();
         set<id> accid = new set<id>();
         set<id> conid = new set<id>();
-        List<Applicant__c> lstapp = [select Account__c,Account__r.FinServ__PrimaryContact__c,Account__r.PersonContactId from Applicant__c where Opportunity__c=:oppid];
+        //AK
+        Map<Id, List<Applicant__c>> shortSummaryApplicantMap = new Map<Id, List<Applicant__c>>();
+        List<Applicant__c> lstapp = [select Account__c,Account__r.FinServ__PrimaryContact__c,Account__r.PersonContactId,
+                                     RecordType.Name, Gross_Monthly_Income__c, Other_Monthly_Income__c, Monthly_Living_Expenses__c, 
+                                     Rent_Strata_Maintenance__c, Overdraft_Limit__c, Life_Insurance_Cash_Value__c, Pension_IRS_Total_Contribution__c,//AK ? Total_Contributions_to_Date__c,
+                                     Savings_Deposit_Investments__c, Other_Liabilities__c from Applicant__c where Opportunity__c=:oppid];
         if(lstapp.size()>0){
             totalNumberOfAppli = lstapp.size();
             
@@ -82,9 +89,19 @@ public class ApplicationForm {
             for(Applicant__c a:lstapp){
                 accid.add(a.Account__c);
                 conid.add(a.Account__r.PersonContactId);        
+
+                //AK
+                if(a.RecordType.Name == RECORD_TYPE_SHORT_SUMMARY_INCOME) {
+                    if(!shortSummaryApplicantMap.isEmpty() && shortSummaryApplicantMap.containsKey(a.Account__c)) {
+                        shortSummaryApplicantMap.get(a.Account__c).add(a);
+                    } else {
+                        shortSummaryApplicantMap.put(a.Account__c, new List<Applicant__c>{a});
+                    }
+                }
             }
             
         }
+        System.debug('shortSummaryApplicantMap :: ' + shortSummaryApplicantMap);
         system.debug('accid======'+accid);
         system.debug('conid============='+conid);   
         if(conid.size()>0){
@@ -297,6 +314,7 @@ public class ApplicationForm {
                     List<FinServ__Employment__c>  emplst = new List<FinServ__Employment__c>();
                     List<FinServ__ContactContactRelation__c> PoliEx = new List<FinServ__ContactContactRelation__c>();
                     List<FinServ__ContactContactRelation__c> BankAff = new List<FinServ__ContactContactRelation__c>();
+                    List<Applicant__c> applicantList = new List<Applicant__c>();
                     pa = a;
                     system.debug('Account id ==>'+a.id);
                     if(AccidVsEmrConLst.containsKey(a.FinServ__PrimaryContact__c)){
@@ -311,6 +329,11 @@ public class ApplicationForm {
                     if(MapBankAff.containsKey(a.FinServ__PrimaryContact__c)){
                         BankAff=MapBankAff.get(a.FinServ__PrimaryContact__c);
                     }
+
+                    //AK
+                    if(shortSummaryApplicantMap.containsKey(a.Id)) {
+                        applicantList = shortSummaryApplicantMap.get(a.Id);
+                    }
                     
                     system.debug('Person Account ==>'+pa);
                     system.debug('EmerConlst ==>'+EmerConlst);
@@ -318,7 +341,7 @@ public class ApplicationForm {
                     system.debug('PoliticalExp ==>'+PoliEx);
                     system.debug('BankAff ==>'+BankAff);
                     
-                    lst.add(new WrapperApplicationForm(Appcount,pa,EmerConlst,emplst,PoliEx,BankAff));
+                    lst.add(new WrapperApplicationForm(Appcount,pa,EmerConlst,emplst,PoliEx,BankAff, applicantList));
                     Appcount= Appcount+1;
                 }
             }
@@ -346,13 +369,16 @@ public class ApplicationForm {
         public List<FinServ__Employment__c> EmploymentDetails{get;set;}
         public List<FinServ__ContactContactRelation__c> PoliticalExposure{get;set;}
         public List<FinServ__ContactContactRelation__c> BankAffiliation{get;set;}
-        WrapperApplicationForm(Integer Appcount,Account ApplicantPersonAccount1,List<FinServ__ContactContactRelation__c> ApplicantPAEmergencyContact1,List<FinServ__Employment__c> EmploymentDetails1,List<FinServ__ContactContactRelation__c> PoliticalExposure1,List<FinServ__ContactContactRelation__c> BankAffiliation1){
+        public Applicant__c applicant { get; set; }
+        WrapperApplicationForm(Integer Appcount,Account ApplicantPersonAccount1,List<FinServ__ContactContactRelation__c> ApplicantPAEmergencyContact1,List<FinServ__Employment__c> EmploymentDetails1,List<FinServ__ContactContactRelation__c> PoliticalExposure1,List<FinServ__ContactContactRelation__c> BankAffiliation1, List<Applicant__c> applicantList){
             this.Appcount = Appcount;
             this.ApplicantPersonAccount=ApplicantPersonAccount1;
             this.ApplicantPAEmergencyContact=ApplicantPAEmergencyContact1;
             this.EmploymentDetails=EmploymentDetails1;
             this.PoliticalExposure = PoliticalExposure1;
             this.BankAffiliation = BankAffiliation1;
+            //AK
+            this.applicant = applicantList.size() > 0 ? applicantList[0] : new Applicant__c();
             if(ApplicantPersonAccount1.Years_at_Residence__pc !=NULL){
                 system.debug('==============='+ApplicantPersonAccount1.Years_at_Residence__pc);
                 this.howLongMonth='';
