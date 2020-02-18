@@ -980,12 +980,20 @@
                                     </b>
                                 </h5>
                                 <div style="margin-top:5px;font-size:small;">
-                                    <table style="margin-left:16px;margin-right:10px;width:50%;" cellpadding="0" cellspacing="0">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
                                         <tr >
                                             <td style="width:85%;">Include a moratorium of loan repayments:</td>
                                             <td style="width:15%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!prod.Include_a_moratorium_of_Loan_Payment__c}</td>
                                         </tr>
-                                        
+                                        <tr style="width:100%;">
+                                            <td style="width:20%;">Indicate Type:</td>
+                                            <td style="width:10%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!prod.Indicate_Type__c}</td>
+                                            <td style="width:20%;">Indicate Term:</td>
+                                            <td style="width:10%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!prod.Moratorium_Indicate_Term__c} months</td>
+                                            <td style="width:25%;">Other Post Moratorium options:</td>
+                                            <td style="width:15%;border: 1px solid rgb(191, 191, 191);border-left: 1px;border-right: 1px;border-top: 1px;text-align:center;">{!prod.Othee_post_moratorium__c}</td>
+                                           
+                                        </tr>
                                     </table>
                                 </div>
                             </div>

@@ -527,6 +527,7 @@ public class ApplicationForm {
                                   JN_Promotion_LOC__r.name,
                                   //JN1-2788
                                   Interested_in_JNGI_SureCover_Programme__c,
+                                  Othee_post_moratorium__c,
                                   Deposit_Account_Number_LOC__c //JN1-2791
                                   from Loan_Calculator__c where id =:loanid and RecordType.Name='Product Details' order by createddate desc];
                 if(ProductDetails.size()>0){
