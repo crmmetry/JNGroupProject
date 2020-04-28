@@ -3,7 +3,7 @@
     <apiVersion>47.0</apiVersion>
     <packageVersions>
         <majorNumber>224</majorNumber>
-        <minorNumber>3</minorNumber>
+        <minorNumber>5</minorNumber>
         <namespace>FinServ</namespace>
     </packageVersions>
     <status>Active</status>

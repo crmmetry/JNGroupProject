@@ -13,7 +13,7 @@ trigger NewOpportunityTrigger on Opportunity (before insert, after insert,after 
                 OpportunityTriggerHandler.lockRecordsForEditing();
                 OpportunityTriggerHandler.assignOpportunityRecordTypeName();
                 OpportunityTriggerHandler.validateApplicantProfileCompletion();
-                OpportunityTriggerHandler.validateCloseBackDate(2, 7, System.now());
+                OpportunityTriggerHandler.validateCloseBackDate(2, 7, Date.today());
                 OpportunityTriggerHandler.ProductsFamiliyValidation();
             }
         } else if( Trigger.isInsert) {

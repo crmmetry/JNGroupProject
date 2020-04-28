@@ -4,4 +4,5 @@
     <enableInboxActivitySharing>false</enableInboxActivitySharing>
     <enableInsightsInTimeline>true</enableInsightsInTimeline>
     <enableInsightsInTimelineEacStd>false</enableInsightsInTimelineEacStd>
+    <provisionProductivityFeatures>false</provisionProductivityFeatures>
 </EACSettings>

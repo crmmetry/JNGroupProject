@@ -92,12 +92,13 @@ public with sharing class Util {
     }
     public static Date GetBackDatedDate(Date currentDate, Integer days){
         while(days > 0){
-               DateTime dt = DateTime.newInstance(currentDate.year(),currentDate.month(),currentDate.day());
+            DateTime dt = DateTime.newInstance(currentDate.year(),currentDate.month(),currentDate.day());
             String day = dt.format('E');
             System.debug(currentDate.day());
             if(day != 'Sat' && day != 'Sun'){              
                 days-=1;
             }
+            if(days > 0)
             currentDate = currentDate.addDays(-1);
         }
         return currentDate;

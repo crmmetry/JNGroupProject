@@ -6765,25 +6765,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Residential_Status_del__c</picklist>
-        <values>
-            <fullName>Family</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Own</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Rent</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Review_Sales_Person_Document_Checklit__c</picklist>
         <values>
             <fullName>Completed</fullName>

@@ -159,36 +159,30 @@ public class OpportunityTriggerHandler {
             }
         }
     }
-    public static void validateCloseBackDate(Integer backdatedDays, Integer maxPrevDays, DateTime now){
+    public static void validateCloseBackDate(Integer backdatedDays, Integer maxPrevDays, Date now){
         String err1 = 'The Closed Date cannot be this far back in the past. Please contact Sales Support.';
-        String err2 = 'The Closed Date cannot be greater than this record created date. Please contact Sales Support.';
+        String err2 = 'The Closed Date cannot be less than the last 2 days within this month. Please contact Sales Support.';
         String err3 = 'The Closed Date cannot be greater than today. Please contact Sales Support.';
-        
-        Date minDate = date.newinstance(now.year(), now.month(), now.day());
-        Date todayDate = date.newinstance(now.year(), now.month(), now.day());
-        Integer currentMonth = minDate.month();
-        minDate = Util.GetBackDatedDate(minDate, maxPrevDays);
-        
+		
+		Date todayDate;
+        Integer currentMonth = now.month();
+        todayDate = Util.GetBackDatedDate(now, maxPrevDays);
         for(Opportunity record: newRecords ) {
-            if(record.StageName == 'Closed Lost' || record.StageName == 'Closed Won' ) {
+            if(record.StageName == 'Closed Lost' || record.StageName == 'Closed Won') {
                 date closeDate = date.newinstance(record.CloseDate.year(), record.CloseDate.month(), record.CloseDate.day());
                 date createdDate = date.newinstance(record.CreatedDate.year(), record.CreatedDate.month(), record.CreatedDate.day());
                 Integer prevMonth = record.CloseDate.month();
-                
-                if(closeDate > todayDate){
-                    record.CloseDate.addError(err3);
-                } else if((record.CloseDate <= minDate.addDays(-1))){
-                    record.CloseDate.addError(err1);   
-                } else {                    
-                    if(prevMonth != currentMonth){
-                        now = System.now();
-                        Date acceptedDate = Util.GetBackDatedDate(date.newinstance(now.year(), now.month(), now.day()), backdatedDays);
-                        if(closeDate > acceptedDate){
-                            record.CloseDate.addError(err1);  
-                        }
+                if(prevMonth != currentMonth){
+                    Date acceptedDate = Util.GetBackDatedDate(date.newinstance(now.year(), now.month(), now.day()), backdatedDays);
+                    if(closeDate > acceptedDate){
+                        record.CloseDate.addError(err1);  
                     }
-                }            
-               
+                }
+                else if(closeDate > now){
+                    record.CloseDate.addError(err3);
+                } else if((record.CloseDate < todayDate)){
+                    record.CloseDate.addError(err2);   
+                }
             }
             
         }
