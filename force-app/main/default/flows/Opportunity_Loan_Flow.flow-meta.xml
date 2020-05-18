@@ -113,7 +113,7 @@
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
             <name>myRule_1</name>
-            <conditionLogic>((1 AND 2 AND 3 AND 4)  AND ((5 AND 6) OR 7)) AND 8 AND 9</conditionLogic>
+            <conditionLogic>((1 AND 2 AND 3 AND 4)  AND ((5 AND 6) OR 7)) AND 8 AND 9 AND 10</conditionLogic>
             <conditions>
                 <processMetadataValues>
                     <name>inputDataType</name>
@@ -391,6 +391,37 @@
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Credit_Facility</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>myVariable_current.IsfromLead__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -2407,7 +2438,7 @@
         </rules>
     </decisions>
     <description>Added the record type lock condition</description>
-    <interviewLabel>Opportunity_Loan_Flow-86_InterviewLabel</interviewLabel>
+    <interviewLabel>Opportunity_Loan_Flow-58_InterviewLabel</interviewLabel>
     <label>Opportunity path</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -4249,7 +4280,7 @@
         <object>Opportunity</object>
     </recordUpdates>
     <startElementReference>isChangedDecision26_myRule_25_Record_Lock_c</startElementReference>
-    <status>Active</status>
+    <status>Draft</status>
     <variables>
         <name>myVariable_current</name>
         <dataType>SObject</dataType>

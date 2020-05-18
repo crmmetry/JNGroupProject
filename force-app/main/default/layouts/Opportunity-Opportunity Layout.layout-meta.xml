@@ -643,6 +643,10 @@
                 <behavior>Edit</behavior>
                 <field>Savings_and_Chequing__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IsfromLead__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

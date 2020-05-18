@@ -9548,6 +9548,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Lead.Ischecked__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Lead.Issue_Letter_of_Pre_Aproval__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -13489,6 +13494,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.Is_a_Lien_on_Property__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.IsfromLead__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>

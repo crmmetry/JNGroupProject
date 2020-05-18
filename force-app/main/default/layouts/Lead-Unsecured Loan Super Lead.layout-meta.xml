@@ -27,6 +27,10 @@
                 <behavior>Readonly</behavior>
                 <field>JN_Bank_Affiliation__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Ischecked__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
