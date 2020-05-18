@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
-        <members>*</members>
-        <name>InstalledPackage</name>
+	<members>OpportunityStage</members>
+	<members>LeadStatus</members>
+	<members>LeadSource</members>
+		<members>Industry</members>
+		<members>CaseStatus</members>
+        <members>AccountType</members>
+		<members>OpportunityType</members>
+		<members>Salutation</members>
+		<members>TaskStatus</members>
+		<members>TaskSubject</members>
+		<members>TaskType</members>
+        <name>StandardValueSet</name>
     </types>
     <version>40.0</version>
 </Package>
