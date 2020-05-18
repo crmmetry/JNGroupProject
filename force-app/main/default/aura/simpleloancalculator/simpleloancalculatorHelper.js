@@ -1,7 +1,7 @@
 ({
     helperMethod : function() {
         
-    }, 
+    },
     RoundTo: function( number, roundto){
         return roundto * Math.round(number/roundto);
     },  

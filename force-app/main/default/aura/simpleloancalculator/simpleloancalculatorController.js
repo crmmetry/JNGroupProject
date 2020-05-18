@@ -249,6 +249,7 @@
         var selCalc = cmp.find("calculatorType").get("v.value");
         var getCalc="";  
         var TDSR = 50;
+        var rounder = 100000;
         console.log('Selected Calculator = '+selCalc);
         switch(selCalc){
             case "AffordabilityCalculator":
@@ -287,7 +288,7 @@
                         }
                         else{
                             console.log("Validation fass =======================>");
-                            getCalc =helper.RoundTo(helper.PV((acInterest/12),acPeriod,acDesiredPayment),10000);
+                            getCalc =helper.RoundTo(helper.PV((acInterest/12),acPeriod,acDesiredPayment),rounder);
                             console.log("getCalc: "+ getCalc);
                             if(isNaN(getCalc))
                                 cmp.find("maximumLoanamt").set("v.value",'');
@@ -305,7 +306,7 @@
                             console.log("Validation Pass: =====>");
                             
                             var maxpayment = ((acGrossIncome*0.5)-acexistingMthlyPayment );
-                            getCalc =helper.RoundTo(helper.SpecialPv(maxpayment,acInterest/12,acPeriod),10000);
+                            getCalc =helper.RoundTo(helper.SpecialPv(maxpayment,acInterest/12,acPeriod),rounder);
                             getCalc = parseFloat(getCalc);
                             if(isNaN(getCalc)){
                                 cmp.find("maximumLoanamt").set("v.value",'');
@@ -431,17 +432,17 @@
                         console.log("minimumOutstanding "+minimumOutstanding);
                         var maxmumlimit_annual = (grossmonthly*12)*maxaLimitCalc;
                         console.log("maxmumlimit_annual "+maxmumlimit_annual);
-                        var maximumlimit_payment=helper.RoundTo( MinimumPayment/minimumOutstanding,10000);
+                        var maximumlimit_payment=helper.RoundTo( MinimumPayment/minimumOutstanding,rounder);
                         console.log("maximumlimit_payment "+maximumlimit_payment);
                         var proposedLimit_beforecredit= Math.min(maxmumlimit_annual,maximumlimit_payment);
                         console.log("proposedLimit_beforecredit "+proposedLimit_beforecredit);
                         var startingCreditLimit = 66.67/100;
                         //JN1-2172 var proposedStartingLimit = Math.min(proposedLimit_beforecredit*startingCreditLimit,requestedlimitRCL);
-                        var proposedStartingLimit = helper.RoundTo(Math.min(proposedLimit_beforecredit*startingCreditLimit,requestedlimitRCL),10000);//JN1-2172 applied round
+                        var proposedStartingLimit = helper.RoundTo(Math.min(proposedLimit_beforecredit*startingCreditLimit,requestedlimitRCL),rounder);//JN1-2172 applied round
                         if(requestedlimitRCL>0)
-                            var proposedStartingLimit = helper.RoundTo(Math.min(proposedLimit_beforecredit*startingCreditLimit,requestedlimitRCL),10000);//JN1-2172 applied round
+                            var proposedStartingLimit = helper.RoundTo(Math.min(proposedLimit_beforecredit*startingCreditLimit,requestedlimitRCL),rounder);//JN1-2172 applied round
                         else
-                            var proposedStartingLimit = helper.RoundTo((proposedLimit_beforecredit*startingCreditLimit),10000);//JN1-2172 applied round
+                            var proposedStartingLimit = helper.RoundTo((proposedLimit_beforecredit*startingCreditLimit),rounder);//JN1-2172 applied round
                         
                         console.log("proposedStartingLimit "+proposedStartingLimit);
                         cmp.find("totalmonthlyPaymentUnsecure").set("v.value",proposedStartingLimit);
@@ -465,7 +466,7 @@
                         console.log("maxmumlimit"+maxmumlimit);
                         var maxmumlimit_annual = (grossmonthly*12)*maxaLimitCalc;
                         console.log("maxmumlimit_annual"+maxmumlimit_annual);
-                        var maximumlimit_payment=helper.RoundTo( MinimumPayment/minimumOutstanding,100000);
+                        var maximumlimit_payment=helper.RoundTo( MinimumPayment/minimumOutstanding,rounder);
                         console.log("maximumlimit_payment"+maximumlimit_payment);
                         var proposedLimit_beforecredit= Math.min(maxmumlimit_annual,maximumlimit_payment);
                         console.log("proposedLimit_beforecredit"+proposedLimit_beforecredit);
@@ -544,7 +545,7 @@
                         console.log("MinpaymentOfOutstandingBalance "+MinpaymentOfOutstandingBalance);
                         var MaximumLoanPosssible = MaximumlimitCalc_accountbal*valueofSecurity;
                         console.log("MaximumLoanPosssible "+MaximumLoanPosssible);
-                        var maximumlimit_payment=helper.RoundTo( MaximumLoanPosssible/MinpaymentOfOutstandingBalance,10000);
+                        var maximumlimit_payment=helper.RoundTo( MaximumLoanPosssible/MinpaymentOfOutstandingBalance,rounder);
                         console.log("maximumlimit_payment "+maximumlimit_payment);
                         var proposedLimit_beforecredit= Math.min(MaximumLoanPosssible,maximumlimit_payment);
                         console.log("proposedLimit_beforecredit "+proposedLimit_beforecredit);
@@ -552,15 +553,15 @@
                         if(collateral=='70'){
                             var proposedStartingLimit = Math.min(proposedLimit_beforecredit,maximumLineofCredit,requestedlimitRCL);
                             if(requestedlimitRCL>0)
-                                proposedStartingLimit = helper.RoundTo(Math.min(proposedLimit_beforecredit,maximumLineofCredit,requestedlimitRCL),10000);
+                                proposedStartingLimit = helper.RoundTo(Math.min(proposedLimit_beforecredit,maximumLineofCredit,requestedlimitRCL),rounder);
                             else
-                                proposedStartingLimit = helper.RoundTo(proposedLimit_beforecredit,10000);
+                                proposedStartingLimit = helper.RoundTo(proposedLimit_beforecredit,rounder);
                         }else{
                             var proposedStartingLimit = Math.min(proposedLimit_beforecredit,requestedlimitRCL);
                             if(requestedlimitRCL>0)
-                                proposedStartingLimit = helper.RoundTo(Math.min(proposedLimit_beforecredit,requestedlimitRCL),10000);
+                                proposedStartingLimit = helper.RoundTo(Math.min(proposedLimit_beforecredit,requestedlimitRCL),rounder);
                             else
-                                proposedStartingLimit = helper.RoundTo(proposedLimit_beforecredit,10000);
+                                proposedStartingLimit = helper.RoundTo(proposedLimit_beforecredit,rounder);
                         }
                         console.log("proposeStartingLimit "+proposedStartingLimit);
                         cmp.find("proposeStartingLimit").set("v.value",proposedStartingLimit);
@@ -584,7 +585,7 @@
                         var MaximumLoanPosssible = (parseFloat(MaximumlimitCalc_accountbal)*parseFloat(valueofSecurity));//Updated by NS
                         console.log("MaximumLoanPosssible "+MaximumLoanPosssible);
                         //var maximumlimit_payment=helper.RoundTo((parseFloat(MinimuMaximumLoanPosssiblemPayment)/parseFloat(MinpaymentOfOutstandingBalance)),10000);
-                        var maximumlimit_payment=helper.RoundTo((parseFloat(MaximumLoanPosssible)/parseFloat(MinpaymentOfOutstandingBalance)),10000);//Updated by NS
+                        var maximumlimit_payment=helper.RoundTo((parseFloat(MaximumLoanPosssible)/parseFloat(MinpaymentOfOutstandingBalance)),rounder);//Updated by NS
                         console.log("maximumlimit_payment "+maximumlimit_payment);
                         var proposedLimit_beforecredit= Math.min(MaximumLoanPosssible,maximumlimit_payment);
                         console.log("proposedLimit_beforecredit "+proposedLimit_beforecredit);
@@ -592,15 +593,15 @@
                         if(collateral=='70'){
                             var proposedStartingLimit = Math.min(proposedLimit_beforecredit,maximumLineofCredit,requestedlimitRCL);
                             if(requestedlimitRCL>0)
-                                proposedStartingLimit = helper.RoundTo(Math.min(proposedLimit_beforecredit,maximumLineofCredit,requestedlimitRCL),10000);
+                                proposedStartingLimit = helper.RoundTo(Math.min(proposedLimit_beforecredit,maximumLineofCredit,requestedlimitRCL),rounder);
                             else
-                                proposedStartingLimit = helper.RoundTo(proposedLimit_beforecredit,10000);
+                                proposedStartingLimit = helper.RoundTo(proposedLimit_beforecredit,rounder);
                         }else{
                             var proposedStartingLimit = Math.min(proposedLimit_beforecredit,requestedlimitRCL);
                             if(requestedlimitRCL>0)
-                                proposedStartingLimit = helper.RoundTo(Math.min(proposedLimit_beforecredit,requestedlimitRCL),10000);
+                                proposedStartingLimit = helper.RoundTo(Math.min(proposedLimit_beforecredit,requestedlimitRCL),rounder);
                             else
-                                proposedStartingLimit = helper.RoundTo(proposedLimit_beforecredit,10000);
+                                proposedStartingLimit = helper.RoundTo(proposedLimit_beforecredit,rounder);
                         }
                         console.log("proposedStartingLimit "+proposedStartingLimit);
                         cmp.find("proposeStartingLimit").set("v.value",proposedStartingLimit);

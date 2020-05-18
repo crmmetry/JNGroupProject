@@ -821,11 +821,35 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Collect and Check Customer Documents</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complete Applicant Profile%28s%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complete Product Details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Conduct Customer Background Checks</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Generate Application Documents</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Post Submission Contact %E2%80%93 CUSTOMER SIGN PROCESSING DOCUMENTS</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Post Submission Contact - RESUBMIT LOAN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Preform Exception Handling</fullName>
             <default>false</default>
         </values>
         <values>
