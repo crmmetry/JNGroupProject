@@ -1,3 +1,0 @@
-<aura:event type="APPLICATION" description="Doc Applicant Event template">
-    <aura:attribute name="message" type="String" Default="Hello ....." />
-</aura:event>

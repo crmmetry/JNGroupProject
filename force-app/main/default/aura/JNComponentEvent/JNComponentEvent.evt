@@ -1,5 +1,0 @@
-<aura:event type="COMPONENT">
-    <aura:attribute  name="action" type="String"/>
-    <aura:attribute  name="component" type="String"/>
-    <aura:attribute  name="data" type="Map"/>
-</aura:event>

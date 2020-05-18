@@ -1,5 +1,0 @@
-<aura:event type="COMPONENT" description="sObjectLookupSelectEvent">
-    <aura:attribute name="recordId" type="String" required="true" description="Used to send selected record Id"/>
-    <aura:attribute name="recordName" type="String" required="true" description="Used to send selected record Name" />
-    <aura:attribute name="Producttype" type="String"/>
-</aura:event>

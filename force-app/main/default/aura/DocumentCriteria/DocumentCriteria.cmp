@@ -1,4 +1,0 @@
-<aura:component implements="force:lightningQuickAction,flexipage:availableForAllPageTypes,force:hasRecordId" >
-    <iframe width="500" height="500" style="border: 1px solid" src="{!'/apex/DocumentCriteriaData'}" />
-    <!--<c:DocumentCriteriaHelper/>   -->
-</aura:component>
