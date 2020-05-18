@@ -20,10 +20,5 @@
         <operation>equals</operation>
         <value>JN Bank Mortgage Loan,JN Bank Commercial Auto Loan,JN Bank Term Share Loan,JN Bank Unsecured Loan,JN Bank 12 to 1 Loan (Supersize Loan),JN Bank Cash Secured Loan</value>
     </filters>
-    <filters>
-        <field>LEAD.RECORDTYPE</field>
-        <operation>equals</operation>
-        <value>Lead.Credit_Card_Application</value>
-    </filters>
     <label>My Leads and Referrals Loans</label>
 </ListView>

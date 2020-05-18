@@ -1,10 +1,59 @@
 Global class SkillsBasedRouting {
     public static final String TAG = 'SkillsBasedRouting';
-
+    public static void routeUsingSkillsTier1(Set<Id> leads) {
+        //get Sales Development queue id
+        Group salesDevQueue = [SELECT Id FROM Group WHERE Type='Queue' AND Name='Sales Development Team'];
+        for (Lead leadObj : [SELECT Id, Preferred_Location__c,OwnerId FROM Lead 
+                             WHERE Id in :leads AND OwnerID =:salesDevQueue.Id]) {
+                                  if(leadObj.Preferred_Location__c != null){
+                                 PendingServiceRouting pendingSrvRouting = new PendingServiceRouting(
+                                     CapacityWeight = 1,
+                                     IsReadyForRouting = FALSE,
+                                     RoutingModel  = 'LeastActive',
+                                     RoutingPriority = 1,
+                                     RoutingType = 'SkillsBased',
+                                     ServiceChannelId = getChannelId('New_lead'),
+                                     WorkItemId = leadObj.Id
+                                 );
+                                 System.debug('JNSkillsRouting' + pendingSrvRouting);
+                                 INSERT pendingSrvRouting;
+                                 pendingSrvRouting = [SELECT Id, IsReadyForRouting FROM 
+                                                      PendingServiceRouting WHERE Id = :pendingSrvRouting.id];
+                                 
+                                
+                                     // Now add SkillRequirement(s)
+                                     SkillRequirement srObj = new SkillRequirement(
+                                         RelatedRecordId = pendingSrvRouting.id,
+                                         SkillId = getSkillId(leadObj.Preferred_Location__c ),
+                                         SkillLevel = 1
+                                     );
+                                     insert srObj;
+                                     System.debug('Current Skill: ' + srObj);
+                                     // Update PendingServiceRouting as IsReadyForRouting
+                                     pendingSrvRouting.IsReadyForRouting = TRUE;
+                                     update pendingSrvRouting;
+                                 }
+                                 
+                             }
+        return;
+    }
+    
+    private static String getChannelId(String channelName) {
+        ServiceChannel channel = [Select Id From ServiceChannel Where DeveloperName = :channelName];
+        return channel.Id;
+    }
+    
+    private static String getSkillId(String preferedLocation) {
+        Skill skill = [Select Id From Skill Where MasterLabel = :preferedLocation];
+        return skill.Id;
+    }
     private static Map<Id,Skill> getSkills(List<String> locations) {
         return new Map<Id, Skill>([Select Id From Skill Where MasterLabel in :locations]);
     }
-
+    private static String getQueueId(String name) {
+        return [select Id,Name from Group where  Type = 'Queue' AND NAME = :name].Id;
+        
+    }
     private static PriorityQueue getLocations(String leadLocation, List<Worker> workers){
         PriorityQueue pq = new PriorityQueue(new SkillComparator(), SkillsBasedRouting.Worker.class);
         System.debug('All Workers: ' + workers);
@@ -26,7 +75,6 @@ Global class SkillsBasedRouting {
                 if(record.Escalate_to_Tier2__c == True){
                     System.debug(TAG + ' Lead Selected for tier 2 routing');
                     selectedLeads.add(record);
-                    record.Time_Escalated_to_Tier_2__c = Date.today();
                     locations.add(record.Preferred_Location__c);     
                 }
             }

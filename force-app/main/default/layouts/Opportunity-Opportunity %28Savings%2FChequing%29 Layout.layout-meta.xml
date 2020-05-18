@@ -39,10 +39,6 @@
                 <behavior>Edit</behavior>
                 <field>Preferred_Contact_Location__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IsfromLead__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

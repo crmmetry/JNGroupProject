@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-    <types>
-        <members>*</members>
-        <name>QuickAction</name>
-    </types>
-    <version>40.0</version>
+	<types>
+		<members>*</members>
+		<name>QuickAction</name>
+	</types>
+	<types>
+		<members>*</members>
+		<name>Workflow</name>
+	</types>
+	<types>
+		<members>Field_Trip__Object_Analysis__c.Field_Trip__Send_Processing_Complete_Notification2</members>
+		<members>Lead.FSCNewReferralAssignmentNotification</members>
+		<members>Lead.FSCNewReferralNotification</members>
+		<members>Lead.FSCUpdatedReferralNotification</members>
+		<name>WorkflowAlert</name>
+	</types>
+	<types>
+		<members>Field_Trip__Object_Analysis__c.Field_Trip__Processing Complete</members>
+		<name>WorkflowRule</name>
+	</types>
+	<version>48.0</version>
 </Package>

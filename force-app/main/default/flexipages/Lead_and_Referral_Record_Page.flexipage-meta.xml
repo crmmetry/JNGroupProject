@@ -84,20 +84,6 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <componentInstances>
-            <componentName>MultiProductCalculator</componentName>
-        </componentInstances>
-        <name>Facet-53522b7c-3fec-4f6e-bc95-dc8622965bee</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <componentInstances>
-            <componentName>DocumentChecklist</componentName>
-        </componentInstances>
-        <name>Facet-5191ba19-c7a6-4aad-8b4f-cd43a16d533b</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <componentInstances>
             <componentInstanceProperties>
                 <name>active</name>
                 <value>true</value>
@@ -153,28 +139,6 @@
             <componentInstanceProperties>
                 <name>title</name>
                 <value>Simple Loan Calculator</value>
-            </componentInstanceProperties>
-            <componentName>flexipage:tab</componentName>
-        </componentInstances>
-        <componentInstances>
-            <componentInstanceProperties>
-                <name>body</name>
-                <value>Facet-53522b7c-3fec-4f6e-bc95-dc8622965bee</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>title</name>
-                <value>Multi Product Calculator</value>
-            </componentInstanceProperties>
-            <componentName>flexipage:tab</componentName>
-        </componentInstances>
-        <componentInstances>
-            <componentInstanceProperties>
-                <name>body</name>
-                <value>Facet-5191ba19-c7a6-4aad-8b4f-cd43a16d533b</value>
-            </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>title</name>
-                <value>Document Criteria</value>
             </componentInstanceProperties>
             <componentName>flexipage:tab</componentName>
         </componentInstances>

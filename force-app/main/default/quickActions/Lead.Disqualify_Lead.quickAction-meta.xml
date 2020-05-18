@@ -6,6 +6,7 @@
     </fieldOverrides>
     <fieldOverrides>
         <field>Service_of_Interest__c</field>
+        <formula>TEXT(Lead.Service_of_Interest__c)</formula>
     </fieldOverrides>
     <fieldOverrides>
         <field>Status</field>

@@ -12,8 +12,8 @@ trigger NewOpportunityTrigger on Opportunity (before insert, after insert,after 
                 System.debug('Before updating opportunity');
                 OpportunityTriggerHandler.lockRecordsForEditing();
                 OpportunityTriggerHandler.assignOpportunityRecordTypeName();
-                OpportunityTriggerHandler.validateApplicantProfileCompletion();
-                OpportunityTriggerHandler.validateCloseBackDate(2, 7, Date.today());
+                //OpportunityTriggerHandler.validateApplicantProfileCompletion();
+                OpportunityTriggerHandler.validateCloseBackDate(2, 7, System.now());
                 OpportunityTriggerHandler.ProductsFamiliyValidation();
             }
         } else if( Trigger.isInsert) {
