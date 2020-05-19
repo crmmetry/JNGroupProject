@@ -216,7 +216,7 @@ insert testOpp;*/
          Integer maxPrevDays = 2;
          Date d0 = Date.newInstance(2020, 04, 23);
          Date d1 = Util.GetBackDatedDate(d0, maxPrevDays);
-         System.assertEquals(d1, Date.newInstance(2020, 04, 22),d1 + ' wrong backdate with ' + maxPrevDays);
+         System.assertEquals(d1, Date.newInstance(2020, 04, 21),d1 + ' wrong backdate with ' + maxPrevDays);
          
         Test.stopTest();
         
