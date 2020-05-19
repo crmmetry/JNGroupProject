@@ -48,7 +48,7 @@
             <field>Email</field>
             <type>email</type>
         </recipients>
-        <senderAddress>trishana.russell@crmmetry.com</senderAddress>
+        <senderAddress>remario.richards@crmmetry.com</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>unfiled$public/Application_Form_Lead_has_been_received</template>
     </alerts>

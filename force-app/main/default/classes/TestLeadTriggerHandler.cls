@@ -15,7 +15,9 @@ public class TestLeadTriggerHandler {
     @isTest
     public static void shouldcrmm_TierTwoTrigger(){
         Test.startTest();
-        
+                        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
+        System.runAs(newUser){
         //Create an Account
         Account acc = TestDataFactory.CreateBasicAccounts(1, 'Stone')[0];
         insert acc;
@@ -31,8 +33,6 @@ public class TestLeadTriggerHandler {
         Lead leadRecord = TestDataFactory.CreateLeads(1)[0];
         insert leadRecord;
         
-        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
-        System.assert(newUser!=null, 'User is empty');
         
         Task tsk = TestDataFactory.CreateTask(newUser.Id, leadRecord.Id);
         tsk.Result__c = 'Contact Made';
@@ -54,17 +54,18 @@ public class TestLeadTriggerHandler {
         
         leadRecord.Escalate_to_Tier2__c = true;
         update leadRecord;
-		
+        }
         Test.stopTest();
     }
-
-    
+  
 
     @isTest
     public static void shouldCheckIfNewConversion(){
         Map<String,Id> recordTypes_lead = Util.getRecordTypeids('Lead');
         
-        
+                        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
+        System.runAs(newUser){
         Account acc = TestDataFactory.CreateBasicAccounts(1, 'lastName')[0];
         insert acc;
         
@@ -80,8 +81,6 @@ public class TestLeadTriggerHandler {
         leadRecord.RecordTypeId = recordTypes_lead.get('Loan');
         insert leadRecord;
         
-        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
-		System.assert(newUser!=null, 'User is empty');
         
         Task tsk = TestDataFactory.CreateTask(newUser.Id, leadRecord.Id);
         tsk.Result__c = 'Contact Made';
@@ -101,13 +100,16 @@ public class TestLeadTriggerHandler {
         System.assert(lcr.isSuccess());
         
         Test.stopTest();
+        }
     }
     
     @isTest
     public static void shouldCrmm_TimeSpentInStageWhenOpen(){
         
         Test.startTest();
-        
+                        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
+        System.runAs(newUser){
         List<Lead> leadRecords = TestDataFactory.CreateLeads(2);
         insert leadRecords;
         
@@ -116,8 +118,7 @@ public class TestLeadTriggerHandler {
         leadRecords[1].Status = 'Open';
         
         update leadRecords;        
-        
-        
+        }
         Test.stopTest();
     }
     
@@ -125,7 +126,9 @@ public class TestLeadTriggerHandler {
     public static void shouldCrmm_TimeSpentInStageWhenWorking(){
         
         Test.startTest();
-        
+                        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
+        System.runAs(newUser){
         List<Lead> leadRecords = TestDataFactory.CreateLeads(2);
         insert leadRecords;
         
@@ -134,8 +137,7 @@ public class TestLeadTriggerHandler {
         leadRecords[1].Status = 'Working';
         
         update leadRecords;        
-        
-        
+        }
         Test.stopTest();
     }
     
@@ -143,7 +145,9 @@ public class TestLeadTriggerHandler {
     public static void shouldCrmm_TimeSpentInStageWhenContactMade(){
         
         Test.startTest();
-        
+                        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
+        System.runAs(newUser){
         List<Lead> leadRecords = TestDataFactory.CreateLeads(2);
         insert leadRecords;
         
@@ -152,8 +156,7 @@ public class TestLeadTriggerHandler {
         leadRecords[1].Status = 'Contact Made';
         
         update leadRecords;        
-        
-        
+        }
         Test.stopTest();
     }
     
@@ -161,7 +164,9 @@ public class TestLeadTriggerHandler {
     public static void shouldCrmm_TimeSpentInStageWhenDetermineCustomersNeedsGoals(){
         
         Test.startTest();
-        
+                        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
+        System.runAs(newUser){
         List<Lead> leadRecords = TestDataFactory.CreateLeads(2);
         insert leadRecords;
         
@@ -170,7 +175,7 @@ public class TestLeadTriggerHandler {
         leadRecords[1].Status = 'Determine Customers needs goals';
         
         update leadRecords;        
-        
+        }
         
         Test.stopTest();
     }
@@ -179,7 +184,9 @@ public class TestLeadTriggerHandler {
     public static void shouldCrmm_TimeSpentInStageWhenCollectCustomersInformation(){
         
         Test.startTest();
-        
+                        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
+        System.runAs(newUser){
         List<Lead> leadRecords = TestDataFactory.CreateLeads(2);
         insert leadRecords;
         
@@ -188,7 +195,7 @@ public class TestLeadTriggerHandler {
         leadRecords[1].Status = 'Collect Customers Information';
         
         update leadRecords;        
-        
+        }
         
         Test.stopTest();
     }
@@ -197,7 +204,9 @@ public class TestLeadTriggerHandler {
     public static void shouldCrmm_TimeSpentInStageWhenRunLoanScenarios(){
         
         Test.startTest();
-        
+                        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
+        System.runAs(newUser){
         List<Lead> leadRecords = TestDataFactory.CreateLeads(2);
         insert leadRecords;
         
@@ -207,7 +216,7 @@ public class TestLeadTriggerHandler {
         
         update leadRecords;        
         
-        
+        }
         Test.stopTest();
     }
     
@@ -215,7 +224,9 @@ public class TestLeadTriggerHandler {
     public static void shouldCrmm_TimeSpentInStageWhenDisqualified(){
         
         Test.startTest();
-        
+                        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
+        System.runAs(newUser){
         List<Lead> leadRecords = TestDataFactory.CreateLeads(2);
         insert leadRecords;
         
@@ -224,13 +235,16 @@ public class TestLeadTriggerHandler {
         leadRecords[1].Status = 'Disqualified';
         
         update leadRecords;        
-        
+        }
         
         Test.stopTest();
     }
     
     @isTest
     public static void shouldCrmm_TimeSpentInStageWhenQualified(){
+                        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
+        System.runAs(newUser){
         Account acc = TestDataFactory.CreateBasicAccounts(1, 'lastName')[0];
         insert acc;
         
@@ -244,8 +258,6 @@ public class TestLeadTriggerHandler {
         leadRecord.Time_in_Qualified__c = 500000;
         insert leadRecord;
       
-        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
-        System.assert(newUser!=null, 'User is empty');
         
         Task tsk = TestDataFactory.CreateTask(newUser.Id, leadRecord.Id);
         tsk.Result__c = 'Contact Made';
@@ -266,12 +278,15 @@ public class TestLeadTriggerHandler {
         update leadRecord;
         
         Test.stopTest();
+        }
     }
     
     @isTest
     public static void shouldcrmm_lead_trigger_conversion(){
         Test.startTest();
-        
+                        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
+        System.runAs(newUser){
         //Create an Account
         Account acc = TestDataFactory.CreateBasicAccounts(1, 'Stone')[0];
         insert acc;
@@ -286,9 +301,6 @@ public class TestLeadTriggerHandler {
         //Create new lead record
         Lead leadRecord = TestDataFactory.CreateLeads(1)[0];
         insert leadRecord;
-        
-        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
-        System.assert(newUser!=null, 'User is empty');
         
         Task tsk = TestDataFactory.CreateTask(newUser.Id, leadRecord.Id);
         tsk.Result__c = 'Contact Made';
@@ -307,12 +319,15 @@ public class TestLeadTriggerHandler {
         
         Database.LeadConvertResult lcr = Database.convertLead(lc);
         System.assert(lcr.isSuccess());
-		
+        }
         Test.stopTest();
     }
     
     @isTest
     public static void shouldCrmm_TimeSpentInStageZeroWhenQualified(){
+                        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
+        System.runAs(newUser){
         Account acc = TestDataFactory.CreateBasicAccounts(1, 'lastName')[0];
         insert acc;
         
@@ -324,9 +339,7 @@ public class TestLeadTriggerHandler {
         
         Lead leadRecord = TestDataFactory.CreateLeads(1)[0];
         insert leadRecord;
-        
-        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
-        System.assert(newUser!=null, 'User is empty');
+
         
         Task tsk = TestDataFactory.CreateTask(newUser.Id, leadRecord.Id);
         tsk.Result__c = 'Contact Made';
@@ -348,12 +361,15 @@ public class TestLeadTriggerHandler {
         update leadRecord;
         
         Test.stopTest();
+        }
     }
 
     @isTest
     public static void shouldCrmm_TimeSpentInStageWhenUnqualified(){
         Test.startTest();
-        
+                        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
+        System.runAs(newUser){
         List<Lead> leadRecords = TestDataFactory.CreateLeads(2);
         insert leadRecords;
         
@@ -362,7 +378,7 @@ public class TestLeadTriggerHandler {
         leadRecords[1].Status = 'Unqualified';
         
         update leadRecords;        
-        
+        }
         
         Test.stopTest();
     }
@@ -370,7 +386,9 @@ public class TestLeadTriggerHandler {
     @isTest
     public static void shouldCrmm_TimeSpentInStageWhenNurturing(){
         Test.startTest();
-        
+                        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
+        System.runAs(newUser){
         List<Lead> leadRecords = TestDataFactory.CreateLeads(2);
         insert leadRecords;
         
@@ -379,7 +397,7 @@ public class TestLeadTriggerHandler {
         leadRecords[1].Status = 'Nurturing';
         
         update leadRecords;        
-        
+        }
         
         Test.stopTest();
     }
@@ -393,7 +411,7 @@ public class TestLeadTriggerHandler {
         User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
         System.assert(newUser!=null, 'User is empty');
         
-        //System.runAs(newUser){  
+        System.runAs(newUser){  
         //Create new lead record
         Lead leadRecord = TestDataFactory.CreateLeads(1)[0];
         leadRecord.Service_of_Interest__c = 'JN Bank Auto Loan';
@@ -435,7 +453,7 @@ public class TestLeadTriggerHandler {
         Database.LeadConvertResult lcr = Database.convertLead(lc);
         System.assert(lcr.isSuccess());
         update leadRecord;
-        //}
+        }
         
         Test.stopTest();
         
@@ -444,7 +462,9 @@ public class TestLeadTriggerHandler {
     @isTest
     public static void shouldleadConversionBasic(){
         Test.startTest();
-        
+                        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
+        System.runAs(newUser){
         //Create an Account
         Account acc = TestDataFactory.CreateBasicAccounts(1, 'Stone')[0];
         insert acc;
@@ -460,8 +480,6 @@ public class TestLeadTriggerHandler {
         Lead leadRecord = TestDataFactory.CreateLeads(1)[0];
         insert leadRecord;
         
-        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
-        System.assert(newUser!=null, 'User is empty');
         
         Task tsk = TestDataFactory.CreateTask(newUser.Id, leadRecord.Id);
         tsk.Result__c = 'Contact Made';
@@ -485,13 +503,17 @@ public class TestLeadTriggerHandler {
         update leadRecord;
         
         System.assertEquals('Qualified', leadRecord.Status, 'Lead status do not match');
-        
+        }
         Test.stopTest();
         
     }
     
     @isTest
     public static void shouldValidateIndustryTypeWhenEmployed(){
+        Test.startTest();
+                        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
+        System.runAs(newUser){
         //Create new lead record
         Lead leadRecord = TestDataFactory.CreateLeads(1)[0];
         insert leadRecord;
@@ -506,11 +528,16 @@ public class TestLeadTriggerHandler {
             Boolean expectedExceptionThrown =  e.getMessage().contains('The selected Industry value does not match the Primary Employment Type (Employed) selected') ? true : false;       
             System.AssertEquals(expectedExceptionThrown, true, 'Error message was thrown!');
         }  
+        }
+        Test.stopTest();
     }
     
     @isTest
     public static void shouldValidateIndustryTypeWhenUnemployed(){
         Test.startTest();
+                User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
+        System.runAs(newUser){
         //Create new lead record
         Lead leadRecord = TestDataFactory.CreateLeads(1)[0];
         insert leadRecord;
@@ -525,13 +552,16 @@ public class TestLeadTriggerHandler {
             Boolean expectedExceptionThrown =  e.getMessage().contains('The selected Industry value does not match the Primary Employment Type (Unemployed) selected') ? true : false;       
             System.AssertEquals(expectedExceptionThrown, true, 'Error message was thrown!');
         }
-        
+        }
         Test.stopTest();
     }
     
     @isTest
     public static void shouldValidateIndustryTypeWhenSelfemployed(){
         Test.startTest();
+                User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
+        System.runAs(newUser){
         //Create new lead record
         Lead leadRecord = TestDataFactory.CreateLeads(1)[0];
         insert leadRecord;
@@ -548,13 +578,16 @@ public class TestLeadTriggerHandler {
         }
         
         Test.stopTest();
+        }
     }
 	    
     @isTest
     public static void shouldCreateEmploymentOnConversion(){
         Account acc = TestDataFactory.CreateBasicAccounts(1, 'lastName')[0];
         insert acc;
-        
+                User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
+        System.runAs(newUser){
         Opportunity opp = TestDataFactory.CreateOpportunities(1)[0];
         opp.AccountId = acc.Id;
         opp.Last_Contact_Made__c = System.now();
@@ -563,9 +596,6 @@ public class TestLeadTriggerHandler {
         
         Lead leadRecord = TestDataFactory.CreateLeads(1)[0];
         insert leadRecord;
-        
-        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
-        System.assert(newUser!=null, 'User is empty');
         
         Task tsk = TestDataFactory.CreateTask(newUser.Id, leadRecord.Id);
         tsk.Result__c = 'Contact Made';
@@ -601,28 +631,35 @@ public class TestLeadTriggerHandler {
         leadRecord.Name_of_Previous_Employer__c = 'John Smalls';
         update leadRecord;
         
-        test.stopTest();       
+        test.stopTest(); 
+        }
     }
     
     @isTest
     public static void shouldleadActivityEvent(){
         Test.startTest();
-
+                User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
+        System.runAs(newUser){
         Lead leadRecord = TestDataFactory.CreateLeads(1)[0];
         leadRecord.Preferred_Time_of_Contact__c = Time.newInstance(0, 1, 3, 0);
         leadRecord.Preferred_Date_of_Contact__c = Date.newInstance(2020, 5, 16);
         leadRecord.Preferred_Contact_Method__c = 'Email';
         insert leadRecord;
-        		
+        }
         Test.stopTest();
     }
     
     @isTest
     public static void shouldcreateDateTime(){
+                        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
+        System.runAs(newUser){
         Lead leadRecord = TestDataFactory.CreateLeads(1)[0];
         leadRecord.Preferred_Time_of_Contact__c = Time.newInstance(0, 1, 3, 0);
         leadRecord.Preferred_Date_of_Contact__c = Date.newInstance(2020, 5, 16);
         insert leadRecord;
+        }
     }
 
     
@@ -634,7 +671,10 @@ public class TestLeadTriggerHandler {
         
         Account acc = TestDataFactory.CreateBasicAccounts(1, 'lastName')[0];
         insert acc;
-        
+                User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
+        System.runAs(newUser){
+            
         Account e_acc = new Account();
         e_acc.FirstName = 'Travis';
         e_acc.LastName = 'Allen';
@@ -677,8 +717,6 @@ public class TestLeadTriggerHandler {
         
         System.assert(relatedLead != null, 'Ooops the related lead is empty');
         
-        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
-        System.assert(newUser!=null, 'User is empty');
         
         Task tsk = TestDataFactory.CreateTask(newUser.Id, leadRecord.Id);
         tsk.Result__c = 'Contact Made';
@@ -698,6 +736,7 @@ public class TestLeadTriggerHandler {
         Database.LeadConvertResult lcr = Database.convertLead(lc);
         
         test.stopTest();
+        }
     }
     
     @isTest
@@ -705,7 +744,9 @@ public class TestLeadTriggerHandler {
         
         Map<String, Id> recordTypeids = Util.getRecordTypeids('Account');
         Id personAccountId = recordTypeids.get('PersonAccount');
-        
+                User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
+        System.runAs(newUser){
         Account acc = TestDataFactory.CreateBasicAccounts(1, 'lastName')[0];
         insert acc;
         
@@ -751,8 +792,6 @@ public class TestLeadTriggerHandler {
         
         System.assert(relatedLead != null, 'Ooops the related lead is empty');
         
-        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
-        System.assert(newUser!=null, 'User is empty');
         
         Task tsk = TestDataFactory.CreateTask(newUser.Id, leadRecord.Id);
         tsk.Result__c = 'Contact Made';
@@ -772,6 +811,7 @@ public class TestLeadTriggerHandler {
         Database.LeadConvertResult lcr = Database.convertLead(lc);
         
         test.stopTest();
+        }
     }
     
     @isTest
@@ -779,7 +819,10 @@ public class TestLeadTriggerHandler {
         
         Map<String, Id> recordTypeids = Util.getRecordTypeids('Account');
         Id personAccountId = recordTypeids.get('PersonAccount');
+                User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
+        System.assert(newUser!=null, 'User is empty');
         
+        System.runAs(newUser){
         Account acc = TestDataFactory.CreateBasicAccounts(1, 'lastName')[0];
         insert acc;
         
@@ -825,9 +868,6 @@ public class TestLeadTriggerHandler {
         
         System.assert(relatedLead != null, 'Ooops the related lead is empty');
         
-        User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
-        System.assert(newUser!=null, 'User is empty');
-        
         Task tsk = TestDataFactory.CreateTask(newUser.Id, leadRecord.Id);
         tsk.Result__c = 'Contact Made';
         insert tsk;
@@ -846,6 +886,7 @@ public class TestLeadTriggerHandler {
         Database.LeadConvertResult lcr = Database.convertLead(lc);
         
         test.stopTest();
+        }
     }
 
 	@isTest
@@ -858,7 +899,7 @@ public class TestLeadTriggerHandler {
         User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
         System.assert(newUser!=null, 'User is empty');
         
-        //System.runAs(newUser){  
+        System.runAs(newUser){  
         //Create new lead record
         Lead leadRecord = TestDataFactory.CreateLeads(1)[0];
         leadRecord.Service_of_Interest__c = 'JN Bank Mortgage Loan';
@@ -902,7 +943,7 @@ public class TestLeadTriggerHandler {
         Database.LeadConvertResult lcr = Database.convertLead(lc);
         System.assert(lcr.isSuccess());
         update leadRecord;
-        
+        }
         
         Test.stopTest();
         
@@ -919,7 +960,7 @@ public class TestLeadTriggerHandler {
         User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
         System.assert(newUser!=null, 'User is empty');
         
-        //System.runAs(newUser){  
+        System.runAs(newUser){  
         //Create new lead record
         Lead leadRecord = TestDataFactory.CreateLeads(1)[0];
         leadRecord.Service_of_Interest__c = 'JN Bank Deposit Account';
@@ -963,7 +1004,7 @@ public class TestLeadTriggerHandler {
         Database.LeadConvertResult lcr = Database.convertLead(lc);
         System.assert(lcr.isSuccess());
         update leadRecord;
-        
+        }
         Test.stopTest();
     }       
 }
