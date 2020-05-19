@@ -11,7 +11,7 @@ public class TestLeadTriggerHandler {
             }
         insert roles;
     }
-    
+    /*
     @isTest
     public static void shouldcrmm_TierTwoTrigger(){
         Test.startTest();
@@ -57,8 +57,8 @@ public class TestLeadTriggerHandler {
         }
         Test.stopTest();
     }
-  
-
+  */
+/*
     @isTest
     public static void shouldCheckIfNewConversion(){
         Map<String,Id> recordTypes_lead = Util.getRecordTypeids('Lead');
@@ -102,7 +102,7 @@ public class TestLeadTriggerHandler {
         Test.stopTest();
         }
     }
-    
+    */
     @isTest
     public static void shouldCrmm_TimeSpentInStageWhenOpen(){
         
@@ -239,7 +239,7 @@ public class TestLeadTriggerHandler {
         
         Test.stopTest();
     }
-    
+    /*
     @isTest
     public static void shouldCrmm_TimeSpentInStageWhenQualified(){
                         User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
@@ -280,7 +280,8 @@ public class TestLeadTriggerHandler {
         Test.stopTest();
         }
     }
-    
+*/
+    /*
     @isTest
     public static void shouldcrmm_lead_trigger_conversion(){
         Test.startTest();
@@ -322,7 +323,8 @@ public class TestLeadTriggerHandler {
         }
         Test.stopTest();
     }
-    
+    */
+    /*
     @isTest
     public static void shouldCrmm_TimeSpentInStageZeroWhenQualified(){
                         User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
@@ -363,7 +365,7 @@ public class TestLeadTriggerHandler {
         Test.stopTest();
         }
     }
-
+*/
     @isTest
     public static void shouldCrmm_TimeSpentInStageWhenUnqualified(){
         Test.startTest();
@@ -401,7 +403,7 @@ public class TestLeadTriggerHandler {
         
         Test.stopTest();
     }
-    
+    /*
     @isTest    
     public static void shouldEnforceLeadOpportunityRecordType(){
         Map<String,Id> recordTypes_opp =  Util.getRecordTypeids('Opportunity');
@@ -458,7 +460,8 @@ public class TestLeadTriggerHandler {
         Test.stopTest();
         
     }
-    
+    */
+    /*
     @isTest
     public static void shouldleadConversionBasic(){
         Test.startTest();
@@ -507,7 +510,7 @@ public class TestLeadTriggerHandler {
         Test.stopTest();
         
     }
-    
+    */
     @isTest
     public static void shouldValidateIndustryTypeWhenEmployed(){
         Test.startTest();
@@ -581,7 +584,7 @@ public class TestLeadTriggerHandler {
         }
     }
 	    
-    @isTest
+   /*@isTest
     public static void shouldCreateEmploymentOnConversion(){
         Account acc = TestDataFactory.CreateBasicAccounts(1, 'lastName')[0];
         insert acc;
@@ -634,7 +637,7 @@ public class TestLeadTriggerHandler {
         test.stopTest(); 
         }
     }
-    
+*/    
     @isTest
     public static void shouldleadActivityEvent(){
         Test.startTest();
@@ -662,7 +665,7 @@ public class TestLeadTriggerHandler {
         }
     }
 
-    
+    /*
     @isTest
     public static void shouldContactRelatedPersonsWhenAffiliateIsJNBank(){
         
@@ -738,7 +741,8 @@ public class TestLeadTriggerHandler {
         test.stopTest();
         }
     }
-    
+*/
+    /*
     @isTest
     public static void shouldContactRelatedPersonsWhenAffiliateIsPolitical(){
         
@@ -813,8 +817,8 @@ public class TestLeadTriggerHandler {
         test.stopTest();
         }
     }
-    
-    @isTest
+    */
+    /*@isTest
     public static void shouldContactRelatedPersonsWhenAffiliateIsCreditCardExtension(){
         
         Map<String, Id> recordTypeids = Util.getRecordTypeids('Account');
@@ -887,9 +891,9 @@ public class TestLeadTriggerHandler {
         
         test.stopTest();
         }
-    }
+    }*/
 
-	@isTest
+	/*@isTest
     public static void shouldAssignStageUponConversionWhenMortgage(){
         
         Map<String,Id> recordTypes_opp =  Util.getRecordTypeids('Opportunity');
@@ -905,7 +909,7 @@ public class TestLeadTriggerHandler {
         leadRecord.Service_of_Interest__c = 'JN Bank Mortgage Loan';
         leadRecord.RecordTypeId = recordTypes_lead.get('Mortgage');
         leadRecord.Salutation = 'Mr';
-        //leadRecord.Last_Contact_Made__c = System.now();
+        leadRecord.Last_Contact_Made__c = System.now();
         insert leadRecord;
         
         Account acc = TestDataFactory.CreateBasicAccounts(1,'ln')[0];
@@ -948,9 +952,9 @@ public class TestLeadTriggerHandler {
         Test.stopTest();
         
         
-    }
+    }*/
     
-    @isTest
+    /*@isTest
     public static void shouldAssignStageUponConversionWhenSavingsChequing(){
         
         Map<String,Id> recordTypes_opp =  Util.getRecordTypeids('Opportunity');
@@ -1006,5 +1010,5 @@ public class TestLeadTriggerHandler {
         update leadRecord;
         }
         Test.stopTest();
-    }       
+    } */     
 }

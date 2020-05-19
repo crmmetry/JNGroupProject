@@ -150,40 +150,6 @@ insert testOpp;*/
         
         Test.stopTest();
     }
-    @isTest
-    public static void shouldValidateApplicantProfileCompletion(){
-        
-        Test.startTest();      
-        Map <String, Id> mappedOppRecTypes = Util.GetRecordTypeIds('Opportunity');
-        
-        //Create new Account record
-        Account acc = TestDataFactory.CreateBasicAccounts(1,'ln')[0];
-        insert acc;
-        
-        //Create new opportunity record
-        Opportunity opp = TestDataFactory.CreateOpportunities(1)[0];
-        opp.AccountId = acc.Id;
-        opp.Name = 'Quick Test';
-        opp.RecordTypeId =  mappedOppRecTypes.get('Credit_Facility');
-        
-        boolean a = false;
-        
-        try{
-            insert opp;
-            
-            opp.Loan_Path__c = 'Complete Applicant Profile(s)';
-            opp.Personal_Details_Complete_PK__c = 'Yes';
-            opp.Financial_Information_Complete_PK__c = 'Yes';
-            update opp;}catch(System.DmlException e){
-                if(e.getMessage()!= null){
-                    a = true;
-                }
-            }
-        
-        Test.stopTest();
-        system.assert(a, 'Error was thrown and handled!');
-        
-    }
     
     @isTest
     public static void shouldValidateBackDate(){

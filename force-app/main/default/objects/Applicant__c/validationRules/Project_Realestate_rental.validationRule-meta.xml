@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Project_Realestate_rental</fullName>
-    <active>true</active>
-    <errorConditionFormula>AND(INCLUDES(Applicable_sources_of_income__c , &quot;Property Rental&quot;),ISBLANK(Projected_Real_Estate_Rental__c))</errorConditionFormula>
-    <errorMessage>Projected Realestate  information is required</errorMessage>
-</ValidationRule>
