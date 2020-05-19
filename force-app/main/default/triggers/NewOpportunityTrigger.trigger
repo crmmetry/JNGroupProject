@@ -26,11 +26,11 @@ trigger NewOpportunityTrigger on Opportunity (before insert, after insert,after 
             }
         }
         OpportunityTriggerHandler.setOpportunityAmountOnLead(Trigger.isAfter, Trigger.isUpdate, Trigger.isInsert);// causing last contact made issues
-        if(oppid.size()>0){
+        /*if(oppid.size()>0){
             if(CreditScoreHelper.FirstRun)
                 return;
             CreditScoreHelper cs = new CreditScoreHelper();
             cs.CreditScoreFromOpp(oppid);
-        }
+        }*/
     
 }
