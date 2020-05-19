@@ -1,28 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
-        <members>ObjectName</members>
-        <name>Workflow</name>
-    </types>  
-    <types>
-        <members>ObjectName.WorkflowRuleName</members>
-        <name>WorkflowRule</name>
+        <members>*</members>
+        <name>CustomField</name>
     </types>
     <types>
-        <members>ObjectName.FieldUpdateName</members>
-        <name>WorkflowFieldUpdate</name>
+        <members>*</members>
+        <name>Profile</name>
     </types>
-    <types>
-        <members>ObjectName.EmailAlertName</members>
-        <name>WorkflowAlert</name>
-    </types>
-    <types>
-        <members>ObjectName.OutboundMessageName</members>
-        <name>WorkflowOutboundMessage</name>
-    </types>
-    <types>
-        <members>ObjectName.TaskName</members>
-        <name>WorkflowTask</name>
-    </types>
-<version>46.0</version>
+    <version>48.0</version>
 </Package>
