@@ -3,28 +3,22 @@
     <fullName>Auto_Loan_Purpose__c</fullName>
     <externalId>false</externalId>
     <label>Auto Loan Purpose</label>
+    <picklist>
+        <picklistValues>
+            <fullName>Purchase a Motor Vehicle</fullName>
+            <default>false</default>
+        </picklistValues>
+        <picklistValues>
+            <fullName>Refinance existing Auto Loan</fullName>
+            <default>false</default>
+        </picklistValues>
+        <picklistValues>
+            <fullName>Equity in a Motor Vehicle</fullName>
+            <default>false</default>
+        </picklistValues>
+        <sorted>false</sorted>
+    </picklist>
     <required>false</required>
     <trackHistory>false</trackHistory>
-    <trackTrending>false</trackTrending>
     <type>Picklist</type>
-    <valueSet>
-        <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>Purchase a Motor Vehicle</fullName>
-                <default>false</default>
-                <label>Purchase a Motor Vehicle</label>
-            </value>
-            <value>
-                <fullName>Refinance existing Auto Loan</fullName>
-                <default>false</default>
-                <label>Refinance existing Auto Loan</label>
-            </value>
-            <value>
-                <fullName>Equity in a Motor Vehicle</fullName>
-                <default>false</default>
-                <label>Equity in a Motor Vehicle</label>
-            </value>
-        </valueSetDefinition>
-    </valueSet>
 </CustomField>

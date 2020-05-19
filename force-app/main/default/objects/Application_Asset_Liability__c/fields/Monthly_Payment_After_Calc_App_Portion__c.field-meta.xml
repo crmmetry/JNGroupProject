@@ -13,6 +13,5 @@ Percent Applicant Portion x Monthly Payment After</inlineHelpText>
     <required>false</required>
     <scale>2</scale>
     <trackHistory>false</trackHistory>
-    <trackTrending>false</trackTrending>
     <type>Currency</type>
 </CustomField>

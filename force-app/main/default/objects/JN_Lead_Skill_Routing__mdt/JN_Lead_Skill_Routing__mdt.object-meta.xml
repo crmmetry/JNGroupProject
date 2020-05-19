@@ -3,5 +3,4 @@
     <description>Defines the tier and levels per tier during skill routing.</description>
     <label>JN Lead Skill Routing</label>
     <pluralLabel>JN Leads Skill Routing</pluralLabel>
-    <visibility>Public</visibility>
 </CustomObject>

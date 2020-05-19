@@ -3,29 +3,23 @@
     <fullName>Treatment_of_Credit__c</fullName>
     <externalId>false</externalId>
     <label>Treatment of Credit</label>
+    <picklist>
+        <picklistValues>
+            <fullName>Repay</fullName>
+            <default>false</default>
+        </picklistValues>
+        <picklistValues>
+            <fullName>Close</fullName>
+            <default>false</default>
+        </picklistValues>
+        <picklistValues>
+            <fullName>Will Remain</fullName>
+            <default>false</default>
+        </picklistValues>
+        <restrictedPicklist>true</restrictedPicklist>
+        <sorted>false</sorted>
+    </picklist>
     <required>false</required>
     <trackHistory>false</trackHistory>
-    <trackTrending>false</trackTrending>
     <type>Picklist</type>
-    <valueSet>
-        <restricted>true</restricted>
-        <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>Repay</fullName>
-                <default>false</default>
-                <label>Repay</label>
-            </value>
-            <value>
-                <fullName>Close</fullName>
-                <default>false</default>
-                <label>Close</label>
-            </value>
-            <value>
-                <fullName>Will Remain</fullName>
-                <default>false</default>
-                <label>Will Remain</label>
-            </value>
-        </valueSetDefinition>
-    </valueSet>
 </CustomField>

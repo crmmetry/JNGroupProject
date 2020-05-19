@@ -3,29 +3,23 @@
     <fullName>Type_of_Life_Insurance_to_be_Applied__c</fullName>
     <externalId>false</externalId>
     <label>Type of Life Insurance to be Applied</label>
+    <picklist>
+        <picklistValues>
+            <fullName>None</fullName>
+            <default>false</default>
+        </picklistValues>
+        <picklistValues>
+            <fullName>JN Life Single Life Coverage</fullName>
+            <default>false</default>
+        </picklistValues>
+        <picklistValues>
+            <fullName>Assigned Life Insurance Policy</fullName>
+            <default>false</default>
+        </picklistValues>
+        <restrictedPicklist>true</restrictedPicklist>
+        <sorted>false</sorted>
+    </picklist>
     <required>false</required>
     <trackHistory>false</trackHistory>
-    <trackTrending>false</trackTrending>
     <type>Picklist</type>
-    <valueSet>
-        <restricted>true</restricted>
-        <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>None</fullName>
-                <default>false</default>
-                <label>None</label>
-            </value>
-            <value>
-                <fullName>JN Life Single Life Coverage</fullName>
-                <default>false</default>
-                <label>JN Life Single Life Coverage</label>
-            </value>
-            <value>
-                <fullName>Assigned Life Insurance Policy</fullName>
-                <default>false</default>
-                <label>Assigned Life Insurance Policy</label>
-            </value>
-        </valueSetDefinition>
-    </valueSet>
 </CustomField>

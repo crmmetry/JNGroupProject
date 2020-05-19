@@ -14,6 +14,5 @@ IF (  RecordType.Name = &quot;Full Details Of Income/Living Expenses&quot;,
     <required>false</required>
     <scale>2</scale>
     <trackHistory>false</trackHistory>
-    <trackTrending>false</trackTrending>
     <type>Currency</type>
 </CustomField>

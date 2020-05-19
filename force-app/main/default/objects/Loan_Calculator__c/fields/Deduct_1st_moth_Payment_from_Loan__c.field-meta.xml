@@ -3,26 +3,21 @@
     <fullName>Deduct_1st_moth_Payment_from_Loan__c</fullName>
     <externalId>false</externalId>
     <label>Deduct 1st month Payment from Loan</label>
+    <picklist>
+        <picklistValues>
+            <fullName>Yes</fullName>
+            <color>#FFFFFF</color>
+            <default>false</default>
+        </picklistValues>
+        <picklistValues>
+            <fullName>No</fullName>
+            <color>#FFFFFF</color>
+            <default>false</default>
+        </picklistValues>
+        <restrictedPicklist>true</restrictedPicklist>
+        <sorted>false</sorted>
+    </picklist>
     <required>false</required>
     <trackHistory>false</trackHistory>
-    <trackTrending>false</trackTrending>
     <type>Picklist</type>
-    <valueSet>
-        <restricted>true</restricted>
-        <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>Yes</fullName>
-                <color>#FFFFFF</color>
-                <default>false</default>
-                <label>Yes</label>
-            </value>
-            <value>
-                <fullName>No</fullName>
-                <color>#FFFFFF</color>
-                <default>false</default>
-                <label>No</label>
-            </value>
-        </valueSetDefinition>
-    </valueSet>
 </CustomField>

@@ -5,10 +5,5 @@
     <label>Repayment Method Auto</label>
     <required>false</required>
     <trackHistory>false</trackHistory>
-    <trackTrending>false</trackTrending>
     <type>Picklist</type>
-    <valueSet>
-        <restricted>true</restricted>
-        <valueSetName>Repayment_Method</valueSetName>
-    </valueSet>
 </CustomField>

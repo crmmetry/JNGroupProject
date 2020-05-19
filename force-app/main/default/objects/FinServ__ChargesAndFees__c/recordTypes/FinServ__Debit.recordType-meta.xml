@@ -5,34 +5,4 @@
     <compactLayoutAssignment>FinServ__CompactLayoutDebit</compactLayoutAssignment>
     <description>Fees and rates for a deposit account</description>
     <label>Debit</label>
-    <picklistValues>
-        <picklist>FinServ__APRType__c</picklist>
-        <values>
-            <fullName>Fixed</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Variable</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>FinServ__CashAPRType__c</picklist>
-        <values>
-            <fullName>Fixed</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Variable</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
 </RecordType>

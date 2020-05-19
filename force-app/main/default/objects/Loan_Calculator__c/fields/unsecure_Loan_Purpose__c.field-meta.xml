@@ -3,49 +3,39 @@
     <fullName>unsecure_Loan_Purpose__c</fullName>
     <externalId>false</externalId>
     <label>Unsecure Loan Purpose</label>
+    <picklist>
+        <picklistValues>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </picklistValues>
+        <picklistValues>
+            <fullName>Asset Acquisition</fullName>
+            <default>false</default>
+        </picklistValues>
+        <picklistValues>
+            <fullName>Auto Repairs</fullName>
+            <default>false</default>
+        </picklistValues>
+        <picklistValues>
+            <fullName>Debt Consolidation</fullName>
+            <default>false</default>
+        </picklistValues>
+        <picklistValues>
+            <fullName>Education</fullName>
+            <default>false</default>
+        </picklistValues>
+        <picklistValues>
+            <fullName>Home Improvement</fullName>
+            <default>false</default>
+        </picklistValues>
+        <picklistValues>
+            <fullName>Medical Expenses</fullName>
+            <default>false</default>
+        </picklistValues>
+        <restrictedPicklist>true</restrictedPicklist>
+        <sorted>false</sorted>
+    </picklist>
     <required>false</required>
     <trackHistory>false</trackHistory>
-    <trackTrending>false</trackTrending>
     <type>Picklist</type>
-    <valueSet>
-        <restricted>true</restricted>
-        <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>Other</fullName>
-                <default>false</default>
-                <label>Other</label>
-            </value>
-            <value>
-                <fullName>Asset Acquisition</fullName>
-                <default>false</default>
-                <label>Asset Acquisition</label>
-            </value>
-            <value>
-                <fullName>Auto Repairs</fullName>
-                <default>false</default>
-                <label>Auto Repairs</label>
-            </value>
-            <value>
-                <fullName>Debt Consolidation</fullName>
-                <default>false</default>
-                <label>Debt Consolidation</label>
-            </value>
-            <value>
-                <fullName>Education</fullName>
-                <default>false</default>
-                <label>Education</label>
-            </value>
-            <value>
-                <fullName>Home Improvement</fullName>
-                <default>false</default>
-                <label>Home Improvement</label>
-            </value>
-            <value>
-                <fullName>Medical Expenses</fullName>
-                <default>false</default>
-                <label>Medical Expenses</label>
-            </value>
-        </valueSetDefinition>
-    </valueSet>
 </CustomField>

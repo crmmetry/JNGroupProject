@@ -3,49 +3,39 @@
     <fullName>Coverage_Type__c</fullName>
     <externalId>false</externalId>
     <label>Coverage Type</label>
+    <picklist>
+        <picklistValues>
+            <fullName>Applicant 1 Only</fullName>
+            <default>false</default>
+        </picklistValues>
+        <picklistValues>
+            <fullName>No Suitable Applicants</fullName>
+            <default>false</default>
+        </picklistValues>
+        <picklistValues>
+            <fullName>Applicant 2 Only</fullName>
+            <default>false</default>
+        </picklistValues>
+        <picklistValues>
+            <fullName>Applicant 3 Only</fullName>
+            <default>false</default>
+        </picklistValues>
+        <picklistValues>
+            <fullName>Applicant 1 &amp; Applicant 2</fullName>
+            <default>false</default>
+        </picklistValues>
+        <picklistValues>
+            <fullName>Applicant 1 &amp; Applicant 3</fullName>
+            <default>false</default>
+        </picklistValues>
+        <picklistValues>
+            <fullName>Applicant 2 &amp; Applicant 3</fullName>
+            <default>false</default>
+        </picklistValues>
+        <restrictedPicklist>true</restrictedPicklist>
+        <sorted>false</sorted>
+    </picklist>
     <required>false</required>
     <trackHistory>false</trackHistory>
-    <trackTrending>false</trackTrending>
     <type>Picklist</type>
-    <valueSet>
-        <restricted>true</restricted>
-        <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>Applicant 1 Only</fullName>
-                <default>false</default>
-                <label>Applicant 1 Only</label>
-            </value>
-            <value>
-                <fullName>No Suitable Applicants</fullName>
-                <default>false</default>
-                <label>No Suitable Applicants</label>
-            </value>
-            <value>
-                <fullName>Applicant 2 Only</fullName>
-                <default>false</default>
-                <label>Applicant 2 Only</label>
-            </value>
-            <value>
-                <fullName>Applicant 3 Only</fullName>
-                <default>false</default>
-                <label>Applicant 3 Only</label>
-            </value>
-            <value>
-                <fullName>Applicant 1 &amp; Applicant 2</fullName>
-                <default>false</default>
-                <label>Applicant 1 &amp; Applicant 2</label>
-            </value>
-            <value>
-                <fullName>Applicant 1 &amp; Applicant 3</fullName>
-                <default>false</default>
-                <label>Applicant 1 &amp; Applicant 3</label>
-            </value>
-            <value>
-                <fullName>Applicant 2 &amp; Applicant 3</fullName>
-                <default>false</default>
-                <label>Applicant 2 &amp; Applicant 3</label>
-            </value>
-        </valueSetDefinition>
-    </valueSet>
 </CustomField>
