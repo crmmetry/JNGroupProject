@@ -1997,7 +1997,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>FinServ__Employment__c.Income_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
