@@ -15,7 +15,6 @@
     <enableS1BrowserEnabled>true</enableS1BrowserEnabled>
     <enableS1DesktopEnabled>true</enableS1DesktopEnabled>
     <enableS1UiLoggingEnabled>true</enableS1UiLoggingEnabled>
-    <enableSparkAllUsers>false</enableSparkAllUsers>
     <enableSparkConversationEnabled>false</enableSparkConversationEnabled>
     <enableSplitViewOnStandard>false</enableSplitViewOnStandard>
     <enableTryLightningOptOut>false</enableTryLightningOptOut>

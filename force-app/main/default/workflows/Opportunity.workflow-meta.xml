@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Opportunity_Reassignment</fullName>
+        <description>Opportunity Reassignment</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>DefaultWorkflowUser</senderType>
+        <template>unfiled$public/Simple_Reassignment_Opportunity</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Update_Loan_Path</fullName>
+        <field>Loan_Path__c</field>
+        <literalValue>Conduct Customer Background Checks</literalValue>
+        <name>Update Loan Path</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>update_stage_to_propose_product</fullName>
+        <description>Updates the stage to propose product</description>
+        <field>StageName</field>
+        <literalValue>Propose Product</literalValue>
+        <name>update stage to propose product</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <rules>
+        <fullName>Change Savings and chequings s status</fullName>
+        <actions>
+            <name>update_stage_to_propose_product</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <description>This is a quickfix to change the record type opportunity</description>
+        <formula>AND 
+(
+ISPICKVAL(StageName, &#39;Qualification&#39;),
+$RecordType.DeveloperName= &quot;Savings_Chequing&quot;
+)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Credit Facilities Null Value on Converstion</fullName>
+        <actions>
+            <name>Update_Loan_Path</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Issue with populating on conversation so we created this workflow</description>
+        <formula>AND 
+(
+ISPICKVAL(StageName, &quot;Customer Interview&#39;&quot;),
+$RecordType.DeveloperName= &quot;Credit_Facility&quot;
+)</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>
