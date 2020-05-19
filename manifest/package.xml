@@ -6,7 +6,7 @@
 <members>unfiled$public/Simple_Reassignment_Lead</members>
 <members>Email_Templates/Notification_with_header</members>
 <members>unfiled$public/Simple_Reassignment_Opportunity</members>
-<name>WorkflowAlert</name>
+<name>EmailTemplate</name>
 </types>
 <version>46.0</version>
 </Package>

@@ -1,0 +1,12 @@
+Hi {!Lead.OwnerFirstName}:
+
+JN Bank has just welcomed a new lead. Congratulations, {!Lead.FirstName} {!Lead.LastName} was assigned to you on {!Lead.LastModifiedDate}.
+
+Mobile Phone - {!Lead.MobilePhone}
+
+Email Address (if applicable) - {!Lead.Email}
+
+Please extend the usual JN Hospitality.
+
+Thanks,
+Salesforce Admin

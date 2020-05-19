@@ -62,16 +62,6 @@
         <senderType>CurrentUser</senderType>
         <template>unfiled$public/Simple_Reassignment_Lead</template>
     </alerts>
-    <alerts>
-        <fullName>crmm_Lead_Owner_Change_Alert</fullName>
-        <description>Lead Owner Change Alert</description>
-        <protected>false</protected>
-        <recipients>
-            <type>owner</type>
-        </recipients>
-        <senderType>CurrentUser</senderType>
-        <template>Email_Templates/Notification_with_header</template>
-    </alerts>
     <rules>
         <fullName>Send Email</fullName>
         <active>true</active>

@@ -2,14 +2,6 @@
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <name>Sales Development Team</name>
-    <queueMembers>
-        <users>
-            <user>robinsonb@jngroup.com</user>
-            <user>dparchment@jngroup.com</user>
-            <user>jordan.baskett@crmmetry.com.salesperson1</user>
-            <user>nico.patterson@crmmetry.comsalesuser2</user>
-        </users>
-    </queueMembers>
     <queueRoutingConfig>Sales_Development_Team</queueRoutingConfig>
     <queueSobject>
         <sobjectType>Lead</sobjectType>
