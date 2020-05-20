@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>Edit</caseAccessLevel>
+    <contactAccessLevel>Edit</contactAccessLevel>
+    <description>Assistant Banking Mobile Banking</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>Assistant Banking Mobile Banking</name>
+    <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    <parentRole>Head_of_Moblle_Banking</parentRole>
+</Role>
