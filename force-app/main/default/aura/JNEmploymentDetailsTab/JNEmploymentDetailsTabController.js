@@ -132,5 +132,15 @@
     let siteLead = component.get("v.SiteLeadSelfEmployed");
     siteLead["Type_of_Business__c"] = selected;
     component.set("v.SiteLeadSelfEmployed", siteLead);
+  },
+  checkDateValidity: function(component, event, helper) {
+    let cmp = event.getSource();
+    let currentDateValue = cmp.get("v.value");
+    if (new Date(currentDateValue).getTime() > new Date().getTime()) {
+      cmp.setCustomValidity("Date cannot greater than today");
+    } else {
+      cmp.setCustomValidity("");
+    }
+    cmp.reportValidity();
   }
 });

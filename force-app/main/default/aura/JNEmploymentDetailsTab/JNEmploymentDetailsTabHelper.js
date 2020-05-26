@@ -27,14 +27,13 @@
         component.set("v.businessTypes", values["Type_of_Business__c"]);
         component.set("v.businessNatures", values["Nature_of_Engagement__c"]);
       } else {
-        console.info(JSON.parse(JSON.stringify(response.getError())));
+        console.error(JSON.parse(JSON.stringify(reponse.getError())));
       }
     });
     $A.enqueueAction(action);
   },
   updateApplicantInfo: function(component) {
     const action = component.get("c.updateApplicantTextInfo");
-    console.log(JSON.parse(JSON.stringify(this.getEmploymentDetails(component))));
     action.setParams({
       applicantDetails: this.getEmploymentDetails(component),
       leadId: component.get("v.leadId")
@@ -43,12 +42,10 @@
     action.setCallback(this, function(response) {
       this.sendEvents(component, ["disableShowLoading"]);
       const state = response.getState();
-      if (state === "SUCCESS") {
-        console.info(JSON.parse(JSON.stringify(response.getReturnValue())));
-
+      if (state === "SUCCESS") {        
         this.sendEvents(component, ["navigateNext"], {});
       } else {
-        console.log(JSON.parse(JSON.stringify(reponse.getError())));
+        console.error(JSON.parse(JSON.stringify(reponse.getError())));
       }
     });
     $A.enqueueAction(action);

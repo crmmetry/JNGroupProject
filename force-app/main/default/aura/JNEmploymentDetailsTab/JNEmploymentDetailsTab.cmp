@@ -501,6 +501,7 @@
                                          value="{!v.SiteLeadSelfEmployed.Date_of_Incorporation__c}"
                                          required="true"
                                          type="date"
+                                         onblur ="{!c.checkDateValidity }"
                                          />
                     </div>
                 </div>
