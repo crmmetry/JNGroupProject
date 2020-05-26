@@ -11,7 +11,7 @@ public class TestLeadTriggerHandler {
             }
         insert roles;
     }
-/*
+    
     @isTest
     public static void shouldcrmm_TierTwoTrigger(){
         Test.startTest();
@@ -31,7 +31,6 @@ public class TestLeadTriggerHandler {
         
         //Create new lead record
         Lead leadRecord = TestDataFactory.CreateLeads(1)[0];
-		leadRecord.Last_Contact_Made__c = System.now();
         insert leadRecord;
         
         
@@ -58,7 +57,8 @@ public class TestLeadTriggerHandler {
         }
         Test.stopTest();
     }
-*/
+  
+
     @isTest
     public static void shouldCheckIfNewConversion(){
         Map<String,Id> recordTypes_lead = Util.getRecordTypeids('Lead');
@@ -79,7 +79,6 @@ public class TestLeadTriggerHandler {
         leadRecord.Industry = 'ICT';
         leadRecord.Primary_Employment_Type__c = 'Employed';
         leadRecord.RecordTypeId = recordTypes_lead.get('Loan');
-leadRecord.Last_Contact_Made__c = System.now();
         insert leadRecord;
         
         
@@ -103,7 +102,7 @@ leadRecord.Last_Contact_Made__c = System.now();
         Test.stopTest();
         }
     }
-
+    
     @isTest
     public static void shouldCrmm_TimeSpentInStageWhenOpen(){
         
@@ -240,7 +239,7 @@ leadRecord.Last_Contact_Made__c = System.now();
         
         Test.stopTest();
     }
-
+    
     @isTest
     public static void shouldCrmm_TimeSpentInStageWhenQualified(){
                         User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
@@ -257,7 +256,6 @@ leadRecord.Last_Contact_Made__c = System.now();
         
         Lead leadRecord = TestDataFactory.CreateLeads(1)[0];
         leadRecord.Time_in_Qualified__c = 500000;
-leadRecord.Last_Contact_Made__c = System.now();
         insert leadRecord;
       
         
@@ -282,7 +280,7 @@ leadRecord.Last_Contact_Made__c = System.now();
         Test.stopTest();
         }
     }
-
+    
     @isTest
     public static void shouldcrmm_lead_trigger_conversion(){
         Test.startTest();
@@ -302,7 +300,6 @@ leadRecord.Last_Contact_Made__c = System.now();
         
         //Create new lead record
         Lead leadRecord = TestDataFactory.CreateLeads(1)[0];
-leadRecord.Last_Contact_Made__c = System.now();
         insert leadRecord;
         
         Task tsk = TestDataFactory.CreateTask(newUser.Id, leadRecord.Id);
@@ -325,8 +322,7 @@ leadRecord.Last_Contact_Made__c = System.now();
         }
         Test.stopTest();
     }
-
-
+    
     @isTest
     public static void shouldCrmm_TimeSpentInStageZeroWhenQualified(){
                         User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
@@ -342,7 +338,6 @@ leadRecord.Last_Contact_Made__c = System.now();
         insert opp;
         
         Lead leadRecord = TestDataFactory.CreateLeads(1)[0];
-        leadRecord.Last_Contact_Made__c = System.now();
         insert leadRecord;
 
         
@@ -406,7 +401,7 @@ leadRecord.Last_Contact_Made__c = System.now();
         
         Test.stopTest();
     }
-
+    
     @isTest    
     public static void shouldEnforceLeadOpportunityRecordType(){
         Map<String,Id> recordTypes_opp =  Util.getRecordTypeids('Opportunity');
@@ -422,7 +417,7 @@ leadRecord.Last_Contact_Made__c = System.now();
         leadRecord.Service_of_Interest__c = 'JN Bank Auto Loan';
         leadRecord.RecordTypeId = recordTypes_lead.get('Loan');
         leadRecord.Salutation = 'Mr';
-        leadRecord.Last_Contact_Made__c = System.now();
+        //leadRecord.Last_Contact_Made__c = System.now();
         insert leadRecord;
         
         Account acc = TestDataFactory.CreateBasicAccounts(1,'ln')[0];
@@ -463,7 +458,7 @@ leadRecord.Last_Contact_Made__c = System.now();
         Test.stopTest();
         
     }
- 
+    
     @isTest
     public static void shouldleadConversionBasic(){
         Test.startTest();
@@ -483,7 +478,6 @@ leadRecord.Last_Contact_Made__c = System.now();
         
         //Create new lead record
         Lead leadRecord = TestDataFactory.CreateLeads(1)[0];
-leadRecord.Last_Contact_Made__c = System.now();
         insert leadRecord;
         
         
@@ -513,7 +507,7 @@ leadRecord.Last_Contact_Made__c = System.now();
         Test.stopTest();
         
     }
-   
+    
     @isTest
     public static void shouldValidateIndustryTypeWhenEmployed(){
         Test.startTest();
@@ -587,7 +581,7 @@ leadRecord.Last_Contact_Made__c = System.now();
         }
     }
 	    
- @isTest
+    @isTest
     public static void shouldCreateEmploymentOnConversion(){
         Account acc = TestDataFactory.CreateBasicAccounts(1, 'lastName')[0];
         insert acc;
@@ -601,7 +595,6 @@ leadRecord.Last_Contact_Made__c = System.now();
         insert opp;
         
         Lead leadRecord = TestDataFactory.CreateLeads(1)[0];
-leadRecord.Last_Contact_Made__c = System.now();
         insert leadRecord;
         
         Task tsk = TestDataFactory.CreateTask(newUser.Id, leadRecord.Id);
@@ -669,6 +662,7 @@ leadRecord.Last_Contact_Made__c = System.now();
         }
     }
 
+    
     @isTest
     public static void shouldContactRelatedPersonsWhenAffiliateIsJNBank(){
         
@@ -702,7 +696,6 @@ leadRecord.Last_Contact_Made__c = System.now();
         leadRecord.Emergency_Contact_Last_Name__c = 'Allen';
         leadRecord.Emergency_Contact_Personal_Email__c = 'leadtester@test.com';
         leadRecord.Emergency_Contact_Mobile__c = TestDataFactory.PHONE;
-leadRecord.Last_Contact_Made__c = System.now();
         insert leadRecord;
         
         Lead_Related_Person__c relatedLead = new Lead_Related_Person__c();
@@ -745,8 +738,7 @@ leadRecord.Last_Contact_Made__c = System.now();
         test.stopTest();
         }
     }
-
-   
+    
     @isTest
     public static void shouldContactRelatedPersonsWhenAffiliateIsPolitical(){
         
@@ -779,7 +771,6 @@ leadRecord.Last_Contact_Made__c = System.now();
         leadRecord.Emergency_Contact_Last_Name__c = 'Allen';
         leadRecord.Emergency_Contact_Personal_Email__c = 'leadtester@test.com';
         leadRecord.Emergency_Contact_Mobile__c = TestDataFactory.PHONE;
-leadRecord.Last_Contact_Made__c = System.now();
         insert leadRecord;
         
         Lead_Related_Person__c relatedLead = new Lead_Related_Person__c();
@@ -822,7 +813,7 @@ leadRecord.Last_Contact_Made__c = System.now();
         test.stopTest();
         }
     }
-
+    
     @isTest
     public static void shouldContactRelatedPersonsWhenAffiliateIsCreditCardExtension(){
         
@@ -846,7 +837,7 @@ leadRecord.Last_Contact_Made__c = System.now();
         
         Opportunity opp = TestDataFactory.CreateOpportunities(1)[0];
         opp.AccountId = acc.Id;
-        //opp.Last_Contact_Made__c = System.now();
+        opp.Last_Contact_Made__c = System.now();
         opp.StageName = 'Prospecting';
         insert opp;
         
@@ -856,7 +847,6 @@ leadRecord.Last_Contact_Made__c = System.now();
         leadRecord.Emergency_Contact_Last_Name__c = 'Allen';
         leadRecord.Emergency_Contact_Personal_Email__c = 'leadtester@test.com';
         leadRecord.Emergency_Contact_Mobile__c = TestDataFactory.PHONE;
-        leadRecord.Last_Contact_Made__c = System.now();
         insert leadRecord;
         
         Lead_Related_Person__c relatedLead = new Lead_Related_Person__c();
@@ -915,7 +905,7 @@ leadRecord.Last_Contact_Made__c = System.now();
         leadRecord.Service_of_Interest__c = 'JN Bank Mortgage Loan';
         leadRecord.RecordTypeId = recordTypes_lead.get('Mortgage');
         leadRecord.Salutation = 'Mr';
-        leadRecord.Last_Contact_Made__c = System.now();
+        //leadRecord.Last_Contact_Made__c = System.now();
         insert leadRecord;
         
         Account acc = TestDataFactory.CreateBasicAccounts(1,'ln')[0];
@@ -976,7 +966,7 @@ leadRecord.Last_Contact_Made__c = System.now();
         leadRecord.Service_of_Interest__c = 'JN Bank Deposit Account';
         leadRecord.RecordTypeId = recordTypes_lead.get('Savings_Chequing');
         leadRecord.Salutation = 'Mr';
-        leadRecord.Last_Contact_Made__c = System.now();
+        //leadRecord.Last_Contact_Made__c = System.now();
         insert leadRecord;
         
         Account acc = TestDataFactory.CreateBasicAccounts(1,'ln')[0];
@@ -1016,5 +1006,5 @@ leadRecord.Last_Contact_Made__c = System.now();
         update leadRecord;
         }
         Test.stopTest();
-    }     
+    }       
 }

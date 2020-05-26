@@ -1,0 +1,47 @@
+.THIS * {
+    font-size: 16px;
+    box-sizing: border-box;
+}
+.THIS .navbar-top {
+    background-color: #074986;
+    height: 60px;
+    overflow: hidden;
+}
+
+.THIS .navbar-top .hover{
+    cursor: pointer;
+}
+
+.THIS .navbar-top .logo-container {
+    background-color: #ff0;
+    width: 200px;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    height: 60px;
+}
+
+.THIS .navbar-bottom {
+    height: 90px;
+    webkit-box-shadow: 0 2px 3px rgba(0,0,0,.03);
+    box-shadow: 0 2px 3px rgba(0,0,0,.03);
+}
+.THIS .navbar-bottom .contents {
+    display: table-cell;
+    vertical-align: middle;
+    height: 90px;
+    padding-left: 20px;
+}
+.THIS h3 {
+    font-size: 1.75rem;
+}
+.THIS .slds-card__footer {
+    padding: .75rem 1rem;
+    margin-top: .75rem;
+    text-align: center;
+    font-size: .8125rem;
+    border-top: 1px solid #dddbda;
+}
+.THIS li a.slds-tabs_default__link{
+    text-decoration: none !important;
+}

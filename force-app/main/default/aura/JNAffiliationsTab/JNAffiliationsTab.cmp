@@ -1,0 +1,58 @@
+<aura:component access="GLOBAL" controller="JNSiteController">
+  <aura:handler
+    name="jnEvent"
+    event="c:JNComponentEvent"
+    action="{!c.removeAffiliate}"
+  />
+  <aura:registerEvent type="c:JNComponentEvent" name="jnEvent" />
+  <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+  <aura:attribute name="affiliateList" type="Map[]" />
+  <aura:attribute name="SiteLead" type="Map" />
+  <aura:attribute name="leadId" type="String" />
+  <aura:attribute name="showLoading" type="Boolean" default="false" />
+
+  <aura:method
+    name="createDetails"
+    action="{!c.createDetails}"
+    access="public"
+  />
+  <aura:method
+    name="validateTabFields"
+    action="{!c.validateTabFields}"
+    access="public"
+  />
+
+  <lightning:layout>
+    <lightning:layoutItem size="12">
+      <div class="slds-grid slds-grid_align-spread">
+        <!-- Text -->
+        <div class="slds-col">
+          <div class="slds-text-heading_medium">
+            <b>Do you have any JN Bank or any political affiliations?</b>
+          </div>
+        </div>
+        <!-- Button -->
+        <div class="slds-col">
+          <lightning:button
+            variant="success"
+            label="Add Affiliate"
+            title="Add Affiliate"
+            onclick="{! c.addAffiliate }"
+          />
+        </div>
+      </div>
+    </lightning:layoutItem>
+  </lightning:layout>
+  <lightning:layout>
+    <!-- List all affiliates -->
+    <lightning:layoutItem size="12" class="slds-m-top_medium">
+      <aura:iteration
+        items="{!v.affiliateList}"
+        var="affiliate"
+        indexVar="index"
+      >
+        <c:JNAffiliationLayout layoutId="{!index}" aura:id="layout" leadId="{!v.leadId}" />
+      </aura:iteration>
+    </lightning:layoutItem>
+  </lightning:layout>
+</aura:component>

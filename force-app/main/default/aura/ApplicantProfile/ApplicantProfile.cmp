@@ -1,0 +1,807 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <aura:attribute name="ASSETSANDLIABILITIESOptions" type="List" default="[
+                                                                            {'label': 'REAL ESTATE HOLDING(S)', 'value': 'REALESTATE'},
+                                                                            {'label': 'MOTOR VEHICLE(S)', 'value': 'MOTORVEHICLE'},
+                                                                            {'label': 'OTHER ASSET(S)', 'value': 'OTHERASSET'},
+                                                                            {'label': 'OTHER LOAN(S)', 'value': 'OTHERLOAN'},
+                                                                            {'label': 'CREDIT CARD(S)', 'value': 'CREDITCARD'},
+                                                                            {'label': 'LINE(S) OF CREDIT', 'value': 'LINEOFCREDIT'},
+                                                                            {'label': 'SAVING/CURRENT ACCOUNTS &amp; INVESTMENTS', 'value': 'ACCOUNTSINVESTMENTS'},
+                                                                            {'label': 'LIFE INSURANCE POLICIES HELD', 'value': 'LIFEINSURANCEPOLICIESHELD'},
+                                                                            {'label': 'PENSION CONTRIBUTIONS', 'value': 'PENSIONCONTRIBUTIONS'},
+                                                                            ]"/>
+    <aura:attribute name="ASSETSANDLIABILITIESselection" type="List" />
+    
+    <aura:attribute name="MONTHLYINCOMEDETAILSoption" type="List" default="[
+                                                                           {'label': 'Salary', 'value': 'Salary'},
+                                                                           {'label': 'Net Profit - Sole Trader', 'value': 'NetProfitSoleTrader'},
+                                                                           {'label': 'Directors Emoluments - Director', 'value': 'DirectorsEmolumentsDirector'},
+                                                                           {'label': 'Share of Profit - Partnership', 'value': 'ShareofProfitPartnership'},
+                                                                           {'label': 'Share of Profit - Shareholder', 'value': 'ShareofProfitShareholder'},
+                                                                           {'label': 'Pension', 'value': 'Pension'},
+                                                                           {'label': 'Property Renal', 'value': 'PropertyRenal'},
+                                                                           {'label': 'Other', 'value': 'Other'},
+                                                                           ]"/>
+    <aura:attribute name="MONTHLYINCOMEDETAILSselection" type="List" />
+    
+    
+    <form class="slds-form ">
+        <!-- Section 1 start -->
+        <div>
+            <div style="color:black;background-color: #CBF0FF;font-size: large;font-weight: bold;padding-left: 10px;"> SECTION 1: PERSONAL DETAILS </div>
+            <div  class="slds-section__title slds-border_bottom" style="margin-top:10px;color:#0ea8f3;font-weight: bold;">GENERAL DETAILS</div>
+            <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="Title*" name="Title"  aura:id="Title" required="true" onchange="{! c.Title }">
+                        <option value="0">Mr.</option>
+                        <option value="1">Miss</option>
+                        <option value="2">Ms.</option>
+                        <option value="3">Mrs.</option>
+                        <option value="4">Dr.</option>
+                        <option value="5">Prof.</option>
+                        <option value="6">Rev.</option>
+                        <option value="7">Other:</option>
+                    </lightning:select>
+                </div> 
+                
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Last Name*" type="text" name="Last Name" aura:id="LastName" required="true"/>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="First Name*" type="text" name="First Name" aura:id="FirstName" required="true"/>
+                </div>  
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Middle Name" type="text" name="Middle Name" aura:id="MiddleName"/>
+                </div>  
+            </div>
+            
+            <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="Suffix" name="Suffix" aura:id="Suffix">
+                        <option value="0">Jnr</option>
+                        <option value="1">Snr</option>
+                        <option value="2">Other:</option>
+                    </lightning:select>
+                </div> 
+                
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="Gender*" name="Gender" aura:id="Gender" required="true">
+                        <option value="0">Female</option>
+                        <option value="1">Male</option>
+                    </lightning:select>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="Marital Status*" name="Marital Status" aura:id="MaritalStatus" required="true">
+                        <option value="0">Married</option>
+                        <option value="1">Common Law</option>
+                        <option value="2">Widowed</option>
+                        <option value="3">Separated</option>
+                        <option value="4">Divorced</option>
+                        <option value="5">Not Married</option>
+                    </lightning:select>
+                </div>  
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Date of Birth (MM/DD/YYYY)*" name="Date of Birth (MM/DD/YYYY)" aura:id="dob" type="Date" required="true"/>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Mother's Maiden Name*" name="Mother's Maiden Name" aura:id="MothersMaidenName" type="text" required="true"/>
+                </div>  
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Number of Dependent(s) Adult*" name="Number of Dependent(s) Adult" aura:id="DependentAdult" type="text" required="true"/>
+                </div> 
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Number of Dependent(s) Children*" name="Number of Dependent(s) Children" aura:id="DependentChildren" type="text" required="true"/>
+                </div> 
+            </div>
+            
+            <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Place of Birth*" name="Place of Birth" aura:id="PlaceofBirth" type="text" required="true"/>
+                </div> 
+                
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="Country of Citizenship*" name="Country of Citizenship"  aura:id="CountryofCitizenship" required="true">
+                        <option value="0">Mr.</option>
+                        <option value="1">Miss</option>
+                        <option value="2">Ms.</option>
+                        <option value="3">Mrs.</option>
+                        <option value="4">Dr.</option>
+                        <option value="5">Prof.</option>
+                        <option value="6">Rev.</option>
+                        <option value="7">Other:</option>
+                    </lightning:select>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="Country of Residence*" name="Country of Residence"  aura:id="TiCountryofResidencetle" required="true">
+                        <option value="0">Mr.</option>
+                        <option value="1">Miss</option>
+                        <option value="2">Ms.</option>
+                        <option value="3">Mrs.</option>
+                        <option value="4">Dr.</option>
+                        <option value="5">Prof.</option>
+                        <option value="6">Rev.</option>
+                        <option value="7">Other:</option>
+                    </lightning:select>
+                </div>  
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="Highest level of education attained?*" name="Highest level of education attained?*"  aura:id="Highestlevelofeducationattained" required="true">
+                        <option value="0">Mr.</option>
+                        <option value="1">Miss</option>
+                        <option value="2">Ms.</option>
+                        <option value="3">Mrs.</option>
+                        <option value="4">Dr.</option>
+                        <option value="5">Prof.</option>
+                        <option value="6">Rev.</option>
+                        <option value="7">Other:</option>
+                    </lightning:select>
+                </div>  
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="Primary Type of Employment*" name="Primary Type of Employment"  aura:id="PrimaryTypeofEmployment" required="true">
+                        <option value="0">Mr.</option>
+                        <option value="1">Miss</option>
+                        <option value="2">Ms.</option>
+                        <option value="3">Mrs.</option>
+                        <option value="4">Dr.</option>
+                        <option value="5">Prof.</option>
+                        <option value="6">Rev.</option>
+                        <option value="7">Other:</option>
+                    </lightning:select>
+                </div> 
+            </div>
+            
+            <div  class="slds-section__title slds-border_bottom" style="margin-top:10px;color:#0ea8f3;font-weight: bold;">IDENTIFICATION DETAILS</div>
+            <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="Identification Type*" name="Identification Type" aura:id="IdentificationType" required="true">
+                        <option value="0">Female</option>
+                        <option value="1">Male</option>
+                    </lightning:select>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Identification Number*" name="Identification Number" aura:id="IdentificationNumber" type="text" required="true"/>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Expiration Date (MM/DD/YYYY)*" name="Expiration Date (MM/DD/YYYY)" aura:id="ExpirationDate" type="Date" required="true"/>
+                </div>
+                
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="Country of Issue*" name="Country of Issue" aura:id="CountryofIssue" required="true">
+                        <option value="0">Married</option>
+                        <option value="1">Common Law</option>
+                        <option value="2">Widowed</option>
+                        <option value="3">Separated</option>
+                        <option value="4">Divorced</option>
+                        <option value="5">Not Married</option>
+                    </lightning:select>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Jamaican Tax Registration Number*" name="Jamaican Tax Registration Number" aura:id="JamaicanTaxRegistrationNumber" type="text" required="true"/>
+                </div> 
+            </div>
+            
+            <div  class="slds-section__title slds-border_bottom" style="margin-top:10px;color:#0ea8f3;font-weight: bold;">CONTACT DETAILS</div>
+            <div  style="margin-top: 10px;text-decoration: underline;font-weight: bold;">PHYSICAL ADDRESS</div>
+            <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Street 1*" name="Street 1" aura:id="Street1" type="text" required="true"/>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Street 2" name="Street 2" aura:id="Street2" type="text" required="false"/>
+                </div>
+                
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Street 3" name="Street 3" aura:id="Street3" type="text" required="false"/>
+                </div> 
+            </div>
+            <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="City/Town*" name="City/Town" aura:id="CityTown" type="text" required="true"/>
+                </div> 
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Residential Area/District" name="Residential Area/District" aura:id="ResidentialAreaDistrict" type="text" required="false"/>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Post Office/Zip Code" name="Post Office/Zip Code" aura:id="ZipCode" type="Text" required="false"/>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Province/Parish/State*" name="Province/Parish/State" aura:id="ProvinceParishState" type="text" required="true"/>
+                </div> 
+                
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="Country*" name="Country" aura:id="Country" required="true">
+                        <option value="0">Married</option>
+                        <option value="1">Common Law</option>
+                        <option value="2">Widowed</option>
+                        <option value="3">Separated</option>
+                        <option value="4">Divorced</option>
+                        <option value="5">Not Married</option>
+                    </lightning:select>
+                </div>
+                
+            </div>
+            <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                <lightning:select label="Status of Address*" name="Status of Address" aura:id="StatusofAddress" required="true">
+                    <option value="Own (with mortgage)">Own (with mortgage)</option>
+                    <option value="Own (without mortgage)">Own (without mortgage)</option>
+                    <option value="Company">Company</option>
+                    <option value="Family">Family</option>
+                    <option value="Rent">Rent</option>
+                    <option value="Other">Other</option>
+                </lightning:select>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="How long have you resided at this address? Year*" name="How long have you resided at this address? Year" aura:id="HowlongaddressYear" type="text" required="True"/>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="How long have you resided at this address? Month*" name="How long have you resided at this address? Month" aura:id="HowlongaddressMonth" type="Text" required="True"/>
+                </div>  
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="Mailing address differs from physical address?*" name="Mailing address differs from physical address?" aura:id="Mailingaddressdiffersfromphysicaladdress" required="true">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </lightning:select>
+                </div>
+                
+            </div>
+            <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Mobile Number*" name="Mobile Number" aura:id="MobileNumber" type="text" required="true"/>
+                </div> 
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Home Number" name="Home Number" aura:id="HomeNumber" type="text" required="false"/>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Business Number" name="Business Number" aura:id="BusinessNumber" type="Text" required="false"/>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Other Number" name="Other Number" aura:id="OtherNumber" type="text" required="false"/>
+                </div> 
+                
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Personal Email*" name="Personal Email" aura:id="PersonalEmail" type="text" required="true"/>
+                </div>
+                
+            </div>
+            
+            <div  class="slds-section__title slds-border_bottom" style="margin-top:10px;color:#0ea8f3;font-weight: bold;">EMERGENCY CONTACT</div>
+            <div  style="margin-top: 10px;text-decoration: underline;font-weight: bold;">Contact 1</div>
+            <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Street 1*" name="Street 1" aura:id="Street1" type="text" required="true"/>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Street 2" name="Street 2" aura:id="Street2" type="text" required="false"/>
+                </div>
+                
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Street 3" name="Street 3" aura:id="Street3" type="text" required="false"/>
+                </div> 
+            </div>
+            <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="City/Town*" name="City/Town" aura:id="CityTown" type="text" required="true"/>
+                </div> 
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Residential Area/District" name="Residential Area/District" aura:id="ResidentialAreaDistrict" type="text" required="false"/>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Post Office/Zip Code" name="Post Office/Zip Code" aura:id="ZipCode" type="Text" required="false"/>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Province/Parish/State*" name="Province/Parish/State" aura:id="ProvinceParishState" type="text" required="true"/>
+                </div> 
+                
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="Country*" name="Country" aura:id="Country" required="true">
+                        <option value="0">Married</option>
+                        <option value="1">Common Law</option>
+                        <option value="2">Widowed</option>
+                        <option value="3">Separated</option>
+                        <option value="4">Divorced</option>
+                        <option value="5">Not Married</option>
+                    </lightning:select>
+                </div>
+                
+            </div>
+            <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Mobile Number*" name="Mobile Number" aura:id="MobileNumber" type="text" required="true"/>
+                </div> 
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Home Number" name="Home Number" aura:id="HomeNumber" type="text" required="false"/>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Business Number" name="Business Number" aura:id="BusinessNumber" type="Text" required="false"/>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Personal Email*" name="Personal Email" aura:id="PersonalEmail" type="text" required="true"/>
+                </div>
+                
+            </div>
+            <div  style="margin-top: 10px;text-decoration: underline;font-weight: bold;">Contact 1</div>
+            <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Street 1*" name="Street 1" aura:id="Street1" type="text" required="true"/>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Street 2" name="Street 2" aura:id="Street2" type="text" required="false"/>
+                </div>
+                
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Street 3" name="Street 3" aura:id="Street3" type="text" required="false"/>
+                </div> 
+            </div>
+            <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="City/Town*" name="City/Town" aura:id="CityTown" type="text" required="true"/>
+                </div> 
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Residential Area/District" name="Residential Area/District" aura:id="ResidentialAreaDistrict" type="text" required="false"/>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Post Office/Zip Code" name="Post Office/Zip Code" aura:id="ZipCode" type="Text" required="false"/>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Province/Parish/State*" name="Province/Parish/State" aura:id="ProvinceParishState" type="text" required="true"/>
+                </div> 
+                
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="Country*" name="Country" aura:id="Country" required="true">
+                        <option value="0">Married</option>
+                        <option value="1">Common Law</option>
+                        <option value="2">Widowed</option>
+                        <option value="3">Separated</option>
+                        <option value="4">Divorced</option>
+                        <option value="5">Not Married</option>
+                    </lightning:select>
+                </div>
+                
+            </div>
+            <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Mobile Number*" name="Mobile Number" aura:id="MobileNumber" type="text" required="true"/>
+                </div> 
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Home Number" name="Home Number" aura:id="HomeNumber" type="text" required="false"/>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Business Number" name="Business Number" aura:id="BusinessNumber" type="Text" required="false"/>
+                </div>  
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Personal Email*" name="Personal Email" aura:id="PersonalEmail" type="text" required="true"/>
+                </div>
+                
+            </div>
+            
+            <div  class="slds-section__title slds-border_bottom" style="margin-top:10px;color:#0ea8f3;font-weight: bold;">EMPLOYMENT DETAILS</div>
+            <div  class="slds-section__title slds-border_bottom" style="margin-top:10px;color:#0ea8f3;font-weight: bold;">POLITICAL EXPOSURE</div>
+            <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <p>Do you or any member of your immediate family currently hold or have ever held a prominent public function (whether in Jamaica or any foreign county), such as Head of State, Head of Opposition Political Party, Senior Member of the Judiciary, Head of Military or Police Force, CEO of Statutory Body/ Government Body or Agency or are you a personal/professional associate of any of the foregoing public officials?*</p>
+                </div> 
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="" name="" aura:id="POLITICALEXPOSURE" required="true">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </lightning:select>
+                </div> 
+            </div>
+            
+            <div  class="slds-section__title slds-border_bottom" style="margin-top:10px;color:#0ea8f3;font-weight: bold;">JN BANK AFFILIATION</div>
+            <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <p>Do you have any immediate relative(s) employed to any JN Bank?*</p>
+                </div> 
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="" name="" aura:id="JNBANKAFFILIATION" required="true">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </lightning:select>
+                </div> 
+            </div>
+            
+            <div  class="slds-section__title slds-border_bottom" style="margin-top:10px;color:#0ea8f3;font-weight: bold;">OTHER APPLICANT DETAILS</div>
+            <div  style="margin-top: 10px;text-decoration: underline;font-weight: bold;">CREDIT BUREAU REPORTING</div>
+            <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="CRIF Rating*" name="CRIF Rating" aura:id="CRIFRating" required="true">
+                        <option value="0">Married</option>
+                        <option value="1">Common Law</option>
+                        <option value="2">Widowed</option>
+                        <option value="3">Separated</option>
+                        <option value="4">Divorced</option>
+                        <option value="5">Not Married</option>
+                    </lightning:select>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="CreditInfo Rating*" name="CreditInfo Rating" aura:id="CreditInfoRating" required="true">
+                        <option value="0">Married</option>
+                        <option value="1">Common Law</option>
+                        <option value="2">Widowed</option>
+                        <option value="3">Separated</option>
+                        <option value="4">Divorced</option>
+                        <option value="5">Not Married</option>
+                    </lightning:select>
+                </div>
+                
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Overall Credit Bureau Rating" name="Overall Credit Bureau Rating" aura:id="OverallCreditBureauRating" value="TBD" type="text" disabled="true" required="false"/>
+                </div> 
+            </div>
+            <div  style="margin-top: 10px;text-decoration: underline;font-weight: bold;">FINANCIAL AND LEGAL ASSESSMENT</div>
+            <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="Credit History in the last 24 months*" name="Credit History in the last 24 months" aura:id="CreditHistorylast24months" required="true">
+                        <option value="0">Married</option>
+                        <option value="1">Common Law</option>
+                        <option value="2">Widowed</option>
+                        <option value="3">Separated</option>
+                        <option value="4">Divorced</option>
+                        <option value="5">Not Married</option>
+                    </lightning:select>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="Assessment of Applicant's Net Worth*" name="Assessment of Applicant's Net Worth" aura:id="AssessmentofApplicantsNetWorth" required="true">
+                        <option value="0">Married</option>
+                        <option value="1">Common Law</option>
+                        <option value="2">Widowed</option>
+                        <option value="3">Separated</option>
+                        <option value="4">Divorced</option>
+                        <option value="5">Not Married</option>
+                    </lightning:select>
+                </div>
+                
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="Judgements filed?*" name="Judgements filed?" aura:id="Judgementsfiled" required="true">
+                        <option value="0">Married</option>
+                        <option value="1">Common Law</option>
+                        <option value="2">Widowed</option>
+                        <option value="3">Separated</option>
+                        <option value="4">Divorced</option>
+                        <option value="5">Not Married</option>
+                    </lightning:select>
+                </div> 
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="Bankrupt in last 7 years?*" name="Bankrupt in last 7 years?" aura:id="Bankruptinlast7years" required="true">
+                        <option value="0">Married</option>
+                        <option value="1">Common Law</option>
+                        <option value="2">Widowed</option>
+                        <option value="3">Separated</option>
+                        <option value="4">Divorced</option>
+                        <option value="5">Not Married</option>
+                    </lightning:select>
+                </div> 
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="Lawsuits or Claims?*" name="Lawsuits or Claims?" aura:id="LawsuitsorClaims" required="true">
+                        <option value="0">Married</option>
+                        <option value="1">Common Law</option>
+                        <option value="2">Widowed</option>
+                        <option value="3">Separated</option>
+                        <option value="4">Divorced</option>
+                        <option value="5">Not Married</option>
+                    </lightning:select>
+                </div> 
+            </div>
+            <div  style="margin-top: 10px;text-decoration: underline;font-weight: bold;">JN BANK DETAILS</div>
+            <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="Is the Applicant KYC Compliant?*" name="Is the Applicant KYC Compliant?" aura:id="ApplicantKYCCompliant" required="true">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </lightning:select>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="RIM Number*" name="RIM Number" aura:id="RIMNumber" type="text" required="true"/>
+                </div>
+                
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Time as Member Year*" name="Time as Member Year" aura:id="TimeasMemberYear" type="text" required="true"/>
+                </div> 
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="Time as MemberMonth*" name="Time as Member Month" aura:id="TimeasMemberMonth" type="text" required="true"/>
+                </div> 
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="Affiliation Type*" name="Affiliation Type" aura:id="AffiliationType" required="true">
+                        <option value="0">Married</option>
+                        <option value="1">Common Law</option>
+                        <option value="2">Widowed</option>
+                        <option value="3">Separated</option>
+                        <option value="4">Divorced</option>
+                        <option value="5">Not Married</option>
+                    </lightning:select>
+                </div> 
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="Primary Relationship Tier*" name="Primary Relationship Tier" aura:id="PrimaryRelationshipTier" required="true">
+                        <option value="0">Married</option>
+                        <option value="1">Common Law</option>
+                        <option value="2">Widowed</option>
+                        <option value="3">Separated</option>
+                        <option value="4">Divorced</option>
+                        <option value="5">Not Married</option>
+                    </lightning:select>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="Sanction screening completed?*" name="Sanction screening completed?" aura:id="Sanctionscreeningcompleted" required="true">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </lightning:select>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:select label="JN Group Employee?*" name="JN Group Employee?" aura:id="JNGroupEmployee" required="true">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </lightning:select>
+                </div>
+            </div>
+        </div>
+        <!-- Section 1 end -->
+        <!-- Section 2 start -->
+        <div>
+            <div style="color:black;background-color: #CBF0FF;font-size: large;font-weight: bold;padding-left: 10px;"> SECTION 1: PERSONAL DETAILS </div>
+            <div class="slds-grid slds-wrap" style="margin-top:5px;">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <p>Indicate the currency of each Applicant's Income and expenses*</p>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
+                    <lightning:input label="" name="" aura:id="jmd" value="TBD" type="text" disabled="true" required="false"/>
+                </div> 
+            </div>
+            
+            
+            <div  class="slds-section__title slds-border_bottom" style="margin-top:10px;color:#0ea8f3;font-weight: bold;">ASSETS AND LIABILITIES</div>
+            <lightning:checkboxGroup class="slds-form-element__control slds-checkbox" aura:id="mygroup"
+                                     name="checkboxGroup1"
+                                     label="Select the applicable Assets and Liabilities for the Applicant*"
+                                     options="{! v.ASSETSANDLIABILITIESOptions }"
+                                     value="{! v.ASSETSANDLIABILITIESselection }"
+                                     onchange="{! c.checkboxGrouphandleChange }"
+                                     required="true"
+                                     style="margin-top: 5px; display: inline-flex;"/>
+            
+            <div  class="slds-section__title slds-border_bottom" style="margin-top:10px;color:#0ea8f3;font-weight: bold;">MONTHLY INCOME DETAILS</div>
+            <lightning:checkboxGroup class="slds-form-element__control slds-checkbox " aura:id="mygroup"
+                                     name="checkboxGroup1"
+                                     label="Select the applicable source(s) of income for the Applicant(s)*"
+                                     options="{! v.MONTHLYINCOMEDETAILSoption }"
+                                     value="{! v.MONTHLYINCOMEDETAILSselection }"
+                                     onchange="{! c.checkboxGrouphandleChange1 }"
+                                     required="true"
+                                     style="margin-top: 5px; display: inline-flex;"/>
+            
+            <div  class="slds-section__title slds-border_bottom" style="margin-top:10px;color:#0ea8f3;font-weight: bold;">MONTHLY LIVING EXPENSES</div>
+            <div class="slds-grid ">
+                <!-- put class="slds-scrollable"-->
+                
+                    <div  style="width:100%;margin-top:10px;">
+                        <table class="slds-table slds-table_bordered">
+                            <thead>
+                                <tr>
+                                    <!--<th scope="col" style="width:5%">
+                                        <div class="" title="index"></div>
+                                    </th>-->
+                                    <th scope="col" colspan="2">
+                                        <div class=" textcenter" title="INTEREST RATE">Expense Details <br/>
+                                            (Note For accuracy,<br/> compute ANNUAL <br/>and divide by 12)</div>
+                                    </th>
+                                    <th scope="col" >
+                                        <div class="textcenter" title="LOAN TERM" >Monthly Payment <br/>
+                                            (Prior to loan)</div>
+                                    </th>
+                                    <th scope="col"  >
+                                        <div class="textcenter" title="LOAN AMOUNT">Monthly Payment <br/>
+                                            (After loan)</div>
+                                    </th>
+                                    
+                                    <!--<th scope="col" style="width:5%">
+                                        <div class="" title="index"></div>
+                                    </th>-->
+                                    <th scope="col" colspan="2">
+                                        <div class="textcenter" title="INTEREST RATE">Expense Details <br/>
+                                            (Note For accuracy,<br/> compute ANNUAL <br/>and divide by 12)</div>
+                                    </th>
+                                    <th scope="col" >
+                                        <div class="textcenter" title="LOAN TERM" >Monthly Payment <br/>
+                                            (Prior to loan)</div>
+                                    </th>
+                                    <th scope="col"  >
+                                        <div class="textcenter" title="LOAN AMOUNT">Monthly Payment <br/>
+                                            (After loan)</div>
+                                    </th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="4">&nbsp;</td> <!--class="tfm" -->
+                                    <td>Income Tax</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    
+                                    <td rowspan="4">&nbsp;</td>
+                                    <td>Electricity</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                </tr>
+                                <tr>
+                                    <!--<td>&nbsp;</td>-->
+                                    <td>NIS Contributions</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    
+                                    <!--<td>&nbsp;</td>-->
+                                    <td>Water</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                </tr>
+                                <tr>
+                                    <!--<td>&nbsp;</td>-->
+                                    <td>NHT Contributions</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    
+                                    <!--<td>&nbsp;</td>-->
+                                    <td>Cell Phone/Landline</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                </tr>
+                                <tr>
+                                    <!--<td>&nbsp;</td>-->
+                                    <td>Education Tax</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    
+                                    <!--<td>&nbsp;</td>-->
+                                    <td>Internet/Cable</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>Rent/Board</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    
+                                    <td>&nbsp;</td>
+                                    <td>Cooking Gas</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>Strata Maintenance</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    
+                                    <td>&nbsp;</td>
+                                    <td>House Keeping Costs</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>Property Tax</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    
+                                    <td>&nbsp;</td>
+                                    <td>Other Utilities</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>Property Insurance</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    
+                                    <td>&nbsp;</td>
+                                    <td>Fares</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>Property Maintenance</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    
+                                    <td>&nbsp;</td>
+                                    <td>Petrol/Fuel</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>Personal Expenses</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    
+                                    <td>&nbsp;</td>
+                                    <td>Toll Fees</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>Food Costs</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    
+                                    <td>&nbsp;</td>
+                                    <td>Motor Vehicle Insurance</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>Child Care Costs</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    
+                                    <td>&nbsp;</td>
+                                    <td>Motor Vehicle Registration</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>School Costs</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    
+                                    <td>&nbsp;</td>
+                                    <td>Motor Vehicle Fitness</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>Health Costs</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    
+                                    <td>&nbsp;</td>
+                                    <td>Motor Vehicle Maintenance</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>Other Personal/Family Costs</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    
+                                    <td>&nbsp;</td>
+                                    <td>Other Transportation Costs</td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                    <td><lightning:input label="" name="" aura:id="RIMNumber" type="text" required="false"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                <br/>
+                
+            </div>
+        </div>
+        <div>
+                <div class="rTable">
+<div class="rTableRow">
+<div class="rTableHead"><strong>Name</strong></div>
+<div class="rTableHead"><span style="font-weight: bold;">Telephone</span></div>
+<div class="rTableHead">&nbsp;</div>
+</div>
+<div class="rTableRow">
+<div class="rTableCell">John</div>
+<div class="rTableCell"><a href="tel:0123456785">0123 456 785</a></div>
+<div class="rTableCell"><img src="images/check.gif" alt="checked" /></div>
+</div>
+<div class="rTableRow">
+<div class="rTableCell">Cassie</div>
+<div class="rTableCell"><a href="tel:9876532432">9876 532 432</a></div>
+<div class="rTableCell"><img src="images/check.gif" alt="checked" /></div>
+</div>
+</div>
+                </div>
+        <!-- Section 2 end -->
+    </form>
+    
+</aura:component>

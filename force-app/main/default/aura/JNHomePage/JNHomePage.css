@@ -1,0 +1,55 @@
+.THIS * {
+    box-sizing: border-box;
+    font-size: 16px;
+}
+.THIS .jumbotron {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    background-color: #e9ecef;
+    border-radius: .3rem;
+}
+.THIS img#logo {
+    height: 60px;
+}
+.THIS p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+.THIS h1 {
+    font-size: 2.5rem;
+    margin-top: 0;
+    margin-bottom: .5rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+.THIS H4 {
+    font-size: 1.5rem
+}
+.THIS h5 {
+    font-size: 1.25rem;
+    margin-bottom: .5rem;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-top: 0;
+}
+.THIS .service.active {
+    background: #f7f7f7;
+}
+.THIS .service-icon {
+    height: 170px;
+    margin-left: 25%;
+    margin-top: 30px;
+}
+.THIS .service-desc {
+    margin-top: 30px;
+    width: 70%;
+    margin-left: 15%;
+    text-align: center;
+}
+.THIS.dnone {
+    display: none;
+}
+
+.THIS .navbar-top .logo-container img{
+    height: 40px;
+}

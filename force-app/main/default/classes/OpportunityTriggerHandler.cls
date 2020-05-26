@@ -100,7 +100,7 @@ public class OpportunityTriggerHandler {
     }
     public static void creditScoreOppHandler() {
         if(!Util.IsExecuted('creditScoreOppHandler')){
-            /*system.debug('Trigger called=====================>');
+            system.debug('Trigger called=====================>');
             CreditScoreHelper cs = new CreditScoreHelper();
             Set<id> oppid = new set<id>();   
             if(Trigger.isAfter){      
@@ -110,7 +110,7 @@ public class OpportunityTriggerHandler {
             }
             if(oppid.size()>0){
                 cs.CreditScoreFromOpp(oppid);
-            }*/
+            }
         }
     }
     public static void lockRecordsForEditing(){        

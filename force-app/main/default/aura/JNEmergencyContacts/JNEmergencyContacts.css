@@ -1,0 +1,33 @@
+.THIS .custom-radio-group {
+    margin: 2rem auto;
+    max-width: 600px;
+    min-width: 500px;
+    width: 100%;
+    padding: 0 2rem .5rem;
+}
+
+.THIS .custom-radio-group .custom-radio {
+    border: 1px solid rgb(217, 219, 221);
+    border-radius: .25rem;
+    margin-bottom: .5rem;
+}
+.THIS .custom-radio-group .custom-radio {
+    border: 1px solid rgb(217, 219, 221);
+    border-radius: .25rem;
+    margin-bottom: .5rem;
+}
+
+.THIS .header {
+    padding-bottom: .75rem;
+    word-wrap: break-word;
+    margin: 0;
+    border-bottom: 1px solid rgb(217, 219, 221);
+}
+
+.THIS .custom-radio-group .choiceheader {
+    padding-bottom: 1.2rem;
+    font-size: 1.2rem;
+}
+.THIS .slds-sceope .slds-card__body_inner {
+    padding: 0 !important;
+}

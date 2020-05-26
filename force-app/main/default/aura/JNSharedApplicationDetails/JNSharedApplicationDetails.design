@@ -1,0 +1,3 @@
+<design:component label="Shared Application Component">
+    <design:attribute name="applicantId" label="Applicant Id" description="Applicant id"/>
+</design:component>
