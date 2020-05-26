@@ -269,6 +269,7 @@
                                          aura:id="validation"
                                          label="Years at this address?"
                                          value="{!v.SiteLead.Years_at_Residence__c}"
+                                         required="true"
                                          />
                     </div>
                 </div>
@@ -415,6 +416,7 @@
                                              aura:id="validation"
                                              label="Years at this address?"
                                              value="{!v.SiteLead.Mailing_Years_at_Residence__c}"
+                                             required="true"
                                              />
                         </div>
                     </div>

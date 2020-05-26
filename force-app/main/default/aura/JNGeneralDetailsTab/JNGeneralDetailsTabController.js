@@ -16,15 +16,12 @@
             Country_of_Citizenship__c: "Jamaica",
             Country_of_Residence__c: "Jamaica",
             Highest_Level_of_Education_Attained__c: "",
-            Jamaican_Tax_Registration_Number__c: 0,
+            Jamaican_Tax_Registration_Number__c: null,
             Service_of_Interest__c:""
         };
-        let current_datetime = new Date()
-        let formatted_date = current_datetime.getFullYear()-18 + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
-        component.set("v.maxdate", formatted_date);
+
         Object.assign(siteLead, component.get("v.SiteLead"));
         component.set("v.SiteLead", siteLead);
-        component.set("v.SiteLead.Date_of_Birth__c", formatted_date);
         helper.getPickListValues(component);
     },
     getTitle: function(component, event, helper) {
@@ -82,5 +79,20 @@
     },
     createDetails: function(component, event, helper) {
         helper.createLead(component);
+    },
+    checkDateValidity: function(component, event, helper) {
+            let cmp = event.getSource();
+            let currentDateValue = cmp.get("v.value");
+            let currentDateTime = new Date(currentDateValue).getTime();
+            let now = new Date();
+            now.setFullYear(now.getFullYear()-18);
+            let maxDateTime = now.getTime();
+            if(currentDateTime > maxDateTime){
+                cmp.setCustomValidity("You must 18+ years or older");
+            } else {
+                cmp.setCustomValidity("");
+            }
+            
+            cmp.reportValidity();
     }
 });

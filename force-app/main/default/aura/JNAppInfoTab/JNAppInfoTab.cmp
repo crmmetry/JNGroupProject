@@ -27,6 +27,7 @@
               value="{!v.SiteLead.Estimated_Amount__c}"
               formatter="currency"
               type="number"
+              min="0"
             />
             <!-- Proposed card limit-->
             <aura:set attribute="else">
@@ -38,6 +39,7 @@
                 value="{!v.SiteLead.Estimated_Amount__c}"
                 formatter="currency"
                 type="number"
+                min="0"
               />
             </aura:set>
           </aura:if>
@@ -93,6 +95,7 @@
             required="true"
             value="{!v.SiteLead.Gross_Monthly_Income__c}"
             formatter="currency"
+            min="0"
           />
         </div>
         <!-- Gross Monthly Expenses -->
@@ -105,6 +108,7 @@
             required="true"
             value="{!v.SiteLead.Gross_Monthly_Expenses__c}"
             formatter="currency"
+            min="0"
           />
         </div>
         <!-- Loan Purpose -->

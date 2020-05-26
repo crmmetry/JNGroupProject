@@ -1,14 +1,14 @@
 ({
   doInit: function(component, event, helper) {
     const sitelead = {
-      Estimated_Amount__c: 0,
-      Proposed_Card_Limit__c: 0,
+      Estimated_Amount__c: null,
+      Proposed_Card_Limit__c: null,
       Preferred_Date_of_Contact__c: "",
       Preferred_Time_of_Contact__c: "",
       Preferred_Location__c: "",
       Loan_Purpose_UL__c: "",
-      Gross_Monthly_Income__c: 0,
-      Gross_Monthly_Expenses__c: 0
+      Gross_Monthly_Income__c: null,
+      Gross_Monthly_Expenses__c: null
     };
       let current_datetime = new Date()
       let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
