@@ -63,6 +63,10 @@
           component.set("v.homeNumberRequired", false);
         break;
       }
+      default: {
+        component.set("v.businessNumberRequired", false);
+        component.set("v.homeNumberRequired", false);
+      }
     }
   }
 });
