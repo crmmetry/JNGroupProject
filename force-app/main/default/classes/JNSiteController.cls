@@ -126,7 +126,6 @@ public class JNSiteController {
         } else {
             newLead.RecordTypeId = recordTypes.get('Unsecured_Loan_Super_Lead');
         }
-        newLead.Proposed_Card_Limit__c = Decimal.valueOf(applicantDetails.get('Proposed_Card_Limit__c'));
         newLead.Preferred_Date_of_Contact__c = Date.valueOf(applicantDetails.get('Preferred_Date_of_Contact__c'));
         newLead.Preferred_Time_of_Contact__c= updateTime(applicantDetails.get('Preferred_Time_of_Contact__c'));
         newLead.Preferred_Location__c = applicantDetails.get('Preferred_Location__c');

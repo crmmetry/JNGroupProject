@@ -67,7 +67,7 @@
                     {"Id": siteLead.Id}
                 );
             } else {
-                const commonError = "You're creating a duplicate record with First and Last name.";
+                const commonError = "You're creating a duplicate record with an existing First and Last name.";
                 this.showToast(component, {
                     severity: "error",
                     message: commonError

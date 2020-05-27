@@ -2,7 +2,6 @@
   doInit: function(component, event, helper) {
     const sitelead = {
       Estimated_Amount__c: null,
-      Proposed_Card_Limit__c: null,
       Preferred_Date_of_Contact__c: "",
       Preferred_Time_of_Contact__c: "",
       Preferred_Location__c: "",
