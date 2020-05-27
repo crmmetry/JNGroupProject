@@ -4,7 +4,6 @@
     <aura:handler event="c:DocumentCriteriaEvent" action="{!c.downloadDocument}"/>
     <aura:attribute name="Locationoptions" type="List" />
     <aura:attribute name="selectedValue" type="String" default="choose one..."/>
-    <aura:attribute name="requiredFields" type="Set"/>
     <aura:attribute name="optionsunsecured" type="List" default="[
                                                                  {'label': 'Education', 'value': 'Education'},
                                                                  {'label': 'Debt', 'value': 'Debt'},
@@ -55,8 +54,11 @@
                 </legend>
                 <div class="slds-grid slds-wrap">
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
-                        <lightning:select label="Select the application product combination" name="Selectcombination"  aura:id="Selectcombination" required="true" onchange="{! c.showhideONSelectcombination }">
-                            <option value="0">choose one...</option>
+                        <lightning:select label="Select the application product combination" 
+                        name="Selectcombination"  aura:id="Selectcombination" 
+                        required="true" onchange="{! c.showhideONSelectcombination }"
+                        messageWhenValueMissing="Choose one...">
+                            <option value="">choose one...</option>
                             <option value="1">Auto Loan</option>
                             <option value="2">Unsecured Loan</option>
                             <option value="3">Credit Card</option>
@@ -79,16 +81,18 @@
                     <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">AUTO LOAN CRITERIA</div>
                     <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                            <lightning:select label="Loan Purpose" name="Loan Purpose"  aura:id="LoanPurpose" required="true" onchange="{! c.OnChangeLoanPurpose }">
-                                <option value="0">choose one...</option>
+                            <lightning:select label="Loan Purpose" name="Loan Purpose"  aura:id="LoanPurpose" 
+                            required="true" onchange="{! c.OnChangeLoanPurpose }" messageWhenValueMissing="Choose one...">
+                                <option value="">choose one...</option>
                                 <option value="1">Purchase a Motor Vehicle</option>
                                 <option value="2">Refinance Existing Auto Loan</option>
                                 <option value="3">Equity in a Motor Vehicle</option>
                             </lightning:select>
                         </div>
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
-                            <lightning:select label="Vehicle Classification" name="Vehicle Classification"  aura:id="VehicleClassification" required="true">
-                                <option value="0">choose one...</option>
+                            <lightning:select label="Vehicle Classification" name="Vehicle Classification"  
+                            aura:id="VehicleClassification" required="true" messageWhenValueMissing="Choose one...">
+                                <option value="">choose one...</option>
                                 <aura:if isTrue="{!v.LoanPurposeNew}">
                                     <option value="1">New</option>
                                     <option value="2">Used (Imported)</option>
@@ -99,8 +103,10 @@
                             </lightning:select>
                         </div>
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12" style="padding-right: 5px;padding-left: 5px;">
-                            <lightning:select label="Interested in the JNGI Sure Cover Programme?" name="Interested in the JNGI Sure Cover Programme?"  aura:id="InterestedinJNGIProgramme" required="true">
-                                <option value="0">choose one...</option>
+                            <lightning:select label="Interested in the JNGI Sure Cover Programme?" 
+                            name="Interested in the JNGI Sure Cover Programme?"  aura:id="InterestedinJNGIProgramme" 
+                            required="true" messageWhenValueMissing="Choose one...">
+                                <option value="">choose one...</option>
                                 <option value="1">Yes</option>
                                 <option value="2">No</option>
                             </lightning:select>
@@ -122,8 +128,9 @@
                     <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">CREDIT CARD CRITERIA</div>
                     <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                            <lightning:select label="Collateral Type" name="Collateral Type"  aura:id="CollateralTypeCredit" required="true">
-                                <option value="0">choose one...</option>
+                            <lightning:select label="Collateral Type" name="Collateral Type"  
+                            aura:id="CollateralTypeCredit" required="true" messageWhenValueMissing="Choose one...">
+                                <option value="">choose one...</option>
                                 <option value="1">None</option>
                                 <option value="2">Cash/Investment</option>
                             </lightning:select>
@@ -135,8 +142,9 @@
                     <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">LINE OF CREDIT CRITERIA</div>
                     <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                            <lightning:select label="Collateral Type" name="Collateral Type"  aura:id="CollateralTypeLineofCredit" required="true" onchange="{! c.OnChangeCollateralTypeLOC }">
-                                <option value="0">choose one...</option>
+                            <lightning:select label="Collateral Type" name="Collateral Type" messageWhenValueMissing="Choose one..."  
+                            aura:id="CollateralTypeLineofCredit" required="true" onchange="{! c.OnChangeCollateralTypeLOC }">
+                                <option value="">choose one...</option>
                                 <option value="1">None</option>
                                 <option value="2">Cash/Investment</option>
                                 <option value="3">Real-Estate</option>
@@ -144,8 +152,9 @@
                             
                         </div>
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;" aura:id="Ispropertystrata1">
-                            <lightning:select label="Is this property a strata?" name="Is this property a strata?"  aura:id="Ispropertystrata" required="true">
-                                <option value="0">choose one...</option>
+                            <lightning:select label="Is this property a strata?"  messageWhenValueMissing="Choose one..."
+                            name="Is this property a strata?"  aura:id="Ispropertystrata" required="true">
+                                <option value="">choose one...</option>
                                 <option value="1">Yes</option>
                                 <option value="2">No</option>
                             </lightning:select>
@@ -205,8 +214,9 @@
                     <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">KYC COMPLIANCE STATUS</div>
                     <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12" style="padding-right: 5px;padding-left: 5px;">
-                            <lightning:select label="Indicate the Membership Status for the Applicant(s)" name="Indicate the Membership Status for the Applicant(s)"  aura:id="MembershipStatusApplicant" required="true" onchange="{! c.OnChangeMembershipStatusApplicant }">
-                                <option value="0">choose one...</option>
+                            <lightning:select label="Indicate the Membership Status for the Applicant(s)" messageWhenValueMissing="Choose one..."
+                            name="Indicate the Membership Status for the Applicant(s)"  aura:id="MembershipStatusApplicant" required="true" onchange="{! c.OnChangeMembershipStatusApplicant }">
+                                <option value="">choose one...</option>
                                 <option value="1">New Customer(s)</option>
                                 <option value="2">Existing Member(s) - KYC Compliant</option>
                                 <option value="3">Existing Member(s) - KYC Non-Compliant</option>
@@ -234,10 +244,12 @@
                 <div class="slds-grid slds-wrap">
                     
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                        <lightning:select label="Location" name="Location"  aura:id="officerLocation" required="true" value="{!v.selectedValue}">
-                            <aura:iteration items="{!v.Locationoptions}" var="item">
-                                <option text="{!item}" value="{!item}" selected="{!item}"/>
-        </aura:iteration>
+                        <lightning:select label="Location" name="Location"  aura:id="officerLocation"  
+                        required="true" value="{!v.selectedValue}" messageWhenValueMissing="choose one..." >
+                            <option value="">choose one...</option>
+                        <aura:iteration items="{!v.Locationoptions}" var="item">
+                                <option text="{!item}" value="{!item}" />
+                         </aura:iteration>
     </lightning:select>
                     </div>
                 </div>

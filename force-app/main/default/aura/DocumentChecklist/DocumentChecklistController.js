@@ -1,8 +1,5 @@
 ({
     doInit : function(cmp, event, helper) {
-        // set required fields for form validation
-        requiredFields = ["Selectcombination"];
-        cmp.set("v.requiredFields", requiredFields);
         $A.util.addClass(cmp.find("payslipyes"),"slds-hide");
         $A.util.addClass(cmp.find("payslipyes1"),"slds-hide");
         $A.util.addClass(cmp.find("mycheckboxgroupkyc"),"slds-hide");
@@ -15,7 +12,6 @@
         var action = cmp.get("c.getLocationValues");
         action.setCallback(this, function(response) {
                 var Locations = response.getReturnValue();
-            console.log('Locations========'+Locations);
             var state = response.getState();
                 if (state === "SUCCESS") {
                      cmp.set("v.Locationoptions", Locations);
@@ -23,7 +19,7 @@
                 }
             });
             $A.enqueueAction(action);
-        cmp.find("officerLocation").set("v.value", 'choose one..');
+            
     },
     showhideONSelectcombination: function(cmp, evt, helper){
         var acMethod = cmp.find("Selectcombination").get("v.value");
@@ -212,7 +208,7 @@
         
     },
     documentChecklistDoc: function(cmp, event, helper){
-        const validForm = helper.validateForm(cmp);
+       let validForm = helper.validateForm(cmp);
         if(validForm == false){
 			//show toast
 			const toastEvent = $A.get("e.force:showToast");
@@ -223,19 +219,18 @@
 			});
 			toastEvent.fire();
 		} else {
-        var ctarget = event.currentTarget;
-    var id_str = ctarget.dataset.value;
-
-        if(id_str=="Applicant"){
-        var url='?incr='+cmp.get("v.checkboxGroupValueapplicant")+'&kycdone='+cmp.find("MembershipStatusApplicant").get("v.value")+'&kyc='+cmp.get("v.checkboxGroupValuekyc")+'&autolp='+cmp.find("LoanPurpose").get("v.value")+'&autovc='+cmp.find("VehicleClassification").get("v.value")+'&autoin='+cmp.find("InterestedinJNGIProgramme").get("v.value")+'&uns='+cmp.get("v.checkboxGroupValue")+'&credit='+cmp.find("CollateralTypeCredit").get("v.value")+'&loc='+cmp.find("CollateralTypeLineofCredit").get("v.value")+'&isloc='+cmp.find("Ispropertystrata").get("v.value")+'&payslip='+cmp.find("Doesreceivepayslips").get("v.value")+'&commision='+cmp.get("v.checkboxGroupValuepayslip")+'&location='+cmp.get("v.selectedValue");
-        console.log('==='+url);
-        window.open(""+window.location.origin+"/apex/DocumentCriteriaApplicant"+url+""+"&CalType="+cmp.find("Selectcombination").get("v.value"));
+            var ctarget = event.currentTarget;
+            var id_str = ctarget.dataset.value;
+            if(id_str=="Applicant"){
+            var url='?incr='+cmp.get("v.checkboxGroupValueapplicant")+'&kycdone='+cmp.find("MembershipStatusApplicant").get("v.value")+'&kyc='+cmp.get("v.checkboxGroupValuekyc")+'&autolp='+cmp.find("LoanPurpose").get("v.value")+'&autovc='+cmp.find("VehicleClassification").get("v.value")+'&autoin='+cmp.find("InterestedinJNGIProgramme").get("v.value")+'&uns='+cmp.get("v.checkboxGroupValue")+'&credit='+cmp.find("CollateralTypeCredit").get("v.value")+'&loc='+cmp.find("CollateralTypeLineofCredit").get("v.value")+'&isloc='+cmp.find("Ispropertystrata").get("v.value")+'&payslip='+cmp.find("Doesreceivepayslips").get("v.value")+'&commision='+cmp.get("v.checkboxGroupValuepayslip")+'&location='+cmp.get("v.selectedValue");
+            console.log('==='+url);
+            window.open(""+window.location.origin+"/apex/DocumentCriteriaApplicant"+url+""+"&CalType="+cmp.find("Selectcombination").get("v.value"));
+            }
+            else{    
+            var url='?incr='+cmp.get("v.checkboxGroupValueapplicant")+'&kycdone='+cmp.find("MembershipStatusApplicant").get("v.value")+'&kyc='+cmp.get("v.checkboxGroupValuekyc")+'&autolp='+cmp.find("LoanPurpose").get("v.value")+'&autovc='+cmp.find("VehicleClassification").get("v.value")+'&autoin='+cmp.find("InterestedinJNGIProgramme").get("v.value")+'&uns='+cmp.get("v.checkboxGroupValue")+'&credit='+cmp.find("CollateralTypeCredit").get("v.value")+'&loc='+cmp.find("CollateralTypeLineofCredit").get("v.value")+'&isloc='+cmp.find("Ispropertystrata").get("v.value")+'&payslip='+cmp.find("Doesreceivepayslips").get("v.value")+'&commision='+cmp.get("v.checkboxGroupValuepayslip")+'&location='+cmp.get("v.selectedValue");
+            console.log('==='+url);
+            window.open(""+window.location.origin+"/apex/DocumentCriteriaOfficer"+url+""+"&CalType="+cmp.find("Selectcombination").get("v.value"));
         }
-        else{    
-        var url='?incr='+cmp.get("v.checkboxGroupValueapplicant")+'&kycdone='+cmp.find("MembershipStatusApplicant").get("v.value")+'&kyc='+cmp.get("v.checkboxGroupValuekyc")+'&autolp='+cmp.find("LoanPurpose").get("v.value")+'&autovc='+cmp.find("VehicleClassification").get("v.value")+'&autoin='+cmp.find("InterestedinJNGIProgramme").get("v.value")+'&uns='+cmp.get("v.checkboxGroupValue")+'&credit='+cmp.find("CollateralTypeCredit").get("v.value")+'&loc='+cmp.find("CollateralTypeLineofCredit").get("v.value")+'&isloc='+cmp.find("Ispropertystrata").get("v.value")+'&payslip='+cmp.find("Doesreceivepayslips").get("v.value")+'&commision='+cmp.get("v.checkboxGroupValuepayslip")+'&location='+cmp.get("v.selectedValue");
-        console.log('==='+url);
-        window.open(""+window.location.origin+"/apex/DocumentCriteriaOfficer"+url+""+"&CalType="+cmp.find("Selectcombination").get("v.value"));
-        }
-    }
+   }
     },
 })
