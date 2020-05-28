@@ -199,7 +199,6 @@
         //alert(cmp.get("v.checkboxGroupValuekyc"));
     },
     downloadDocument: function(cmp, evt, helper){
-        alert(2);
         var appEvent = $A.get("e.c:DocumentCriteriaEvent1"); 
         //Set event attribute value
         appEvent.setParams({"message1" : "Welcome pavit"}); 
