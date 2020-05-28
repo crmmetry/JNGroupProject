@@ -182,8 +182,10 @@
                                              style="margin-top: 5px;"/>
                     <div class="slds-grid slds-wrap" style="margin-top: 5px;">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12" style="padding-right: 5px;padding-left: 5px;" aura:id="choosepayslip">
-                            <lightning:select label="Does the Applicant(s) receive payslips?" name="Does the Applicant(s) receive payslips"  aura:id="Doesreceivepayslips" required="true"  onchange="{! c.OnChangerecievepayslip}">
-                                <option value="0">choose one...</option>
+                            <lightning:select label="Does the Applicant(s) receive payslips?" name="Does the Applicant(s) receive payslips"  
+                            aura:id="Doesreceivepayslips" required="true"  onchange="{! c.OnChangerecievepayslip}"
+                            messageWhenValueMissing="Choose one...">
+                                <option value="">choose one...</option>
                                 <option value="1">Yes</option>
                                 <option value="2">No</option>
                             </lightning:select>
@@ -191,8 +193,9 @@
                         </div>
                         
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12" style="padding-right: 5px;padding-left: 5px;" aura:id="payslipyes">
-                            <lightning:select label="Is all the Applicant(s) income reflected on the payslip?" name="Is all the Applicant(s) income reflected on the payslip"  aura:id="Isincomereflectedonthepayslip" required="true">
-                                <option value="0">choose one...</option>
+                            <lightning:select label="Is all the Applicant(s) income reflected on the payslip?"  messageWhenValueMissing="Choose one..."
+                            name="Is all the Applicant(s) income reflected on the payslip"  aura:id="Isincomereflectedonthepayslip" required="true">
+                                <option value="">choose one...</option>
                                 <option value="1">Yes</option>
                                 <option value="2">No</option>
                             </lightning:select>

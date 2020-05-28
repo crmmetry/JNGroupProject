@@ -163,16 +163,15 @@
     },
     checkboxGrouphandleChangeApplicant: function(cmp, evt, helper){
         var checkboxGroupapplicant=cmp.get("v.checkboxGroupValueapplicant");
-        if(checkboxGroupapplicant.includes("Salaried")){
-            $A.util.removeClass(cmp.find("choosepayslip"),"slds-hide");
-            
-        }
-        else{
+
+        if(checkboxGroupapplicant.includes("Salaried")) {
+            $A.util.removeClass(cmp.find("choosepayslip"),"slds-hide"); 
+            $A.enqueueAction(cmp.get("c.OnChangerecievepayslip"));      
+        } else {
             $A.util.addClass(cmp.find("payslipyes"),"slds-hide");
             $A.util.addClass(cmp.find("payslipyes1"),"slds-hide");
             $A.util.addClass(cmp.find("choosepayslip"),"slds-hide");
-            }
-            
+        }            
         
     },
     checkboxGrouphandleChangepayslip: function(cmp, evt, helper){
