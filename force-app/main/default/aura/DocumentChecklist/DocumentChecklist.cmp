@@ -40,7 +40,7 @@
     <aura:attribute name="checkboxGroupValuepayslip" type="List"/>
     <aura:attribute name="LoanPurposeNew" type="boolean" default="false"/>
     <aura:attribute name="LoanPurposeUsed" type="boolean" default="false"/>
-    
+    <aura:attribute name="requiredFields" type="String[]" default="[]"/>
     <form class="slds-form ">
         <fieldset  class="slds-box slds-theme--default slds-container--large" style="padding-right: 5px;">
             <legend class="slds-text-heading--large

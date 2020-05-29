@@ -144,9 +144,10 @@
     },
     OnChangeCollateralTypeLOC: function(cmp, evt, helper){
         cmp.find("Ispropertystrata").set("v.value", '0');
-        if(cmp.find("CollateralTypeLineofCredit").get("v.value")=='3')
+        if(cmp.find("CollateralTypeLineofCredit").get("v.value")=='3'){
             $A.util.removeClass(cmp.find("Ispropertystrata1"),"slds-hide");
-        else
+           
+        } else
             $A.util.addClass(cmp.find("Ispropertystrata1"),"slds-hide");
         
     },
@@ -166,7 +167,7 @@
 
         if(checkboxGroupapplicant.includes("Salaried")) {
             $A.util.removeClass(cmp.find("choosepayslip"),"slds-hide"); 
-            $A.enqueueAction(cmp.get("c.OnChangerecievepayslip"));      
+            $A.enqueueAction(cmp.get("c.OnChangerecievepayslip"));   
         } else {
             $A.util.addClass(cmp.find("payslipyes"),"slds-hide");
             $A.util.addClass(cmp.find("payslipyes1"),"slds-hide");
