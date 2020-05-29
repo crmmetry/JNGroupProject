@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Lead</entityName>
+    <fieldName>Lead_Path__c</fieldName>
+    <masterLabel>Savings / Checking Lead Path</masterLabel>
+    <pathAssistantSteps>
+        <fieldNames>Contact_Made__c</fieldNames>
+        <fieldNames>Status</fieldNames>
+        <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Look at Dupliction Object (Yellow Arrow) to determin if this is a duplate lead or customer&lt;/span&gt;&lt;/p&gt;</info>
+        <picklistValueName>Pre-Qualify Customer(s)</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>Savings_Chequing</recordTypeName>
+</PathAssistant>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Opportunity</entityName>
+    <fieldName>Mortgage_Path__c</fieldName>
+    <masterLabel>Mortgage Path Opportunity</masterLabel>
+    <pathAssistantSteps>
+        <fieldNames>Record__c</fieldNames>
+        <picklistValueName>Adjudication: Await Credit Decision</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Closed_Status__c</fieldNames>
+        <picklistValueName>Closing Step</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Collect_check_Customer_PK__c</fieldNames>
+        <fieldNames>Schedule_Interview_to_Determine_PK__c</fieldNames>
+        <fieldNames>Conduct_Interview_PK__c</fieldNames>
+        <fieldNames>Complete_Internal_Review_PK__c</fieldNames>
+        <fieldNames>Perform_Loan_Calculations_PK__c</fieldNames>
+        <picklistValueName>Develop &amp; Interview</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Receive_Review_Upload_Suspension_Memo__c</fieldNames>
+        <fieldNames>Contact_Customer_PK__c</fieldNames>
+        <fieldNames>Amend_Application_Document_PK__c</fieldNames>
+        <fieldNames>Resubmit_Application_Supporting_Docs__c</fieldNames>
+        <picklistValueName>Post Submission Contact- Re-Sumbit Loan</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Contact_Customer_to_Sign_Security_Docs__c</fieldNames>
+        <fieldNames>Submit_Security_Documentation_to_CRMU__c</fieldNames>
+        <picklistValueName>Processing</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Scan_And_Upload_Documents__c</fieldNames>
+        <fieldNames>Submit_Loan_To_Adjudication__c</fieldNames>
+        <picklistValueName>Submit Loan</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>Mortgage</recordTypeName>
+</PathAssistant>

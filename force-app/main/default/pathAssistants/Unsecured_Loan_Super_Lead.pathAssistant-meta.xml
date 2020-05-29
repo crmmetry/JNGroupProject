@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Lead</entityName>
+    <fieldName>Lead_Path__c</fieldName>
+    <masterLabel>Unsecured Loan Super Lead</masterLabel>
+    <pathAssistantSteps>
+        <fieldNames>Status</fieldNames>
+        <fieldNames>Contact_Made__c</fieldNames>
+        <fieldNames>Run_Loan_Scenarios__c</fieldNames>
+        <fieldNames>Generate_C__c</fieldNames>
+        <fieldNames>Review_Sales_Person_Document_Checklit__c</fieldNames>
+        <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Look at Duplication Object (Yellow Arrow) to determine if this is a duplicate lead or customer.&lt;/span&gt;&lt;/p&gt;</info>
+        <picklistValueName>Pre-Qualify Customer(s)</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>Unsecured_Loan_Super_Lead</recordTypeName>
+</PathAssistant>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Account</entityName>
+    <fieldName>Applicant_Path__c</fieldName>
+    <masterLabel>Application Path Person Account</masterLabel>
+    <pathAssistantSteps>
+        <info>&lt;ul&gt;&lt;li&gt;Does the client have a Political Affliaton? If so, please connect to this Applicant.&lt;/li&gt;&lt;li&gt;Does the client have a JN Affliaton? If so, please connect to this Applicant.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>Affiliation Details</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Are_Application_Details_Complete__c</fieldNames>
+        <info>&lt;ul&gt;&lt;li&gt;Have you completed the Applicaiton Details Object?&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Application Details</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Are_Assets_And_Liabilities_CompleteC__c</fieldNames>
+        <info>&lt;ul&gt;&lt;li&gt;Does this Applicant have Assets and Liablilites? Please go to the Asset And Liablities object.&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Assets And Liablities</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Are_Emergency_Contacts_Done__c</fieldNames>
+        <fieldNames>Are_your_contact_detail_complete__c</fieldNames>
+        <info>&lt;ul&gt;&lt;li&gt;Emergency Time: Confirm you have the correct number of emergency contacts created through relationships.&lt;/li&gt;&lt;li&gt;Contact Details: Street 1, City/Town, Provience/Parish,State,Country,Status Of Address, How log hve you resided at this address?, Mailing Address differ from Physical Address?, Mobile Numbrer, Personal Email&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Contact Details &amp; Emergency Contact Details</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Are_Employment_Details_Complete__c</fieldNames>
+        <picklistValueName>Employment Details</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Are_General_Details_Complete__c</fieldNames>
+        <info>&lt;ul&gt;&lt;li&gt;Required General Information : Title, Last Name, First Name, Gender, Marital Status , Birthdate, Mother&amp;#39;s Madien Name , Number of Dependants(s) , Place of birth, County of Citizenship, Country of Residence, Highest Level of Education Attained, Primary Type of Employment&lt;/li&gt;&lt;li&gt;Required ID Documents: Idenitication Type, Identification Number, Expiration Date, Country of Issue, Jamaican Tax Registration Number&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>General Details &amp; ID Information</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>PersonAccount</recordTypeName>
+</PathAssistant>
