@@ -340,7 +340,7 @@
                 </div>
                 <div style="margin-top:10px;" ><b style="padding-left:10px;">- Proof of Property Insurance</b><br/>
                 </div>
-                <apex:outputPanel rendered="{!if(isloc=='3',true,false)}">
+                <apex:outputPanel rendered="{!if(isloc=='1' && loc=='3',true,false)}">
                     <div style="margin-top:10px;" ><b style="padding-left:10px;">- Strata Related Property Documents</b><br/>
                     <div style="padding-left:20px; line-height:20px;">
                         - Insurance Cover Note, Water receipt, Confirmation of Maintenance Payments            

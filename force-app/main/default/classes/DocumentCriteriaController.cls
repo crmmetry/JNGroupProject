@@ -43,7 +43,7 @@ public class DocumentCriteriaController{
     public string ophone{get;set;}
     public string kycdone{get;set;}
     public string officerlocation{get;set;}
-    
+    public string isNone {get;set;}
     
     
     
@@ -111,6 +111,9 @@ public class DocumentCriteriaController{
 oemail=Apexpages.currentPage().getParameters().get('oemail');
 if(Apexpages.currentPage().getParameters().get('ophone')!=null)
 ophone=Apexpages.currentPage().getParameters().get('ophone');*/
+        if(Apexpages.currentPage().getParameters().get('isNone')!=null){
+            isNone = Apexpages.currentPage().getParameters().get('isNone');
+        }
         
         if(Apexpages.currentPage().getParameters().get('loc')!=null)
             loc=Apexpages.currentPage().getParameters().get('loc');
