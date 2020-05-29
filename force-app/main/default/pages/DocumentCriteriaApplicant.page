@@ -211,8 +211,10 @@
             <h5 style="font-size:16px; color:black;background-color: #92d5f0; height:30px; padding-top:15px;"><b>
                 &nbsp;PERSONAL CREDIT CARD
                 </b>
-            </h5>                                           
-            <div ><b style="padding-left:10px;">- Original Certificate of Deposit</b><br/></div>
+            </h5>
+            <apex:outputPanel rendered="{!if(credit!='1',true,false)}">                                       
+                <div ><b style="padding-left:10px;">- Original Certificate of Deposit</b><br/></div>
+            </apex:outputPanel>    
         </apex:outputPanel>
         </apex:outputPanel>
         <apex:outputPanel rendered="{!if(CalType=='4' || CalType=='9' || CalType=='10' || CalType=='12' || CalType=='13' || CalType=='14' || CalType=='15',true,false)}">
