@@ -247,58 +247,9 @@ public class JNSiteController {
                                 ,0);  
         
     }
-    /* Making callout to the UI API to get the list of available picklist values based on the selected recordtype  */
-    @AuraEnabled
-    public static string[] getPicklistValuesUIApi(string recordTypeId, string ObjectApiName,string fieldApiName){
-        
-        string[] piclistValues=new string[]{};
-            string BaseUrl=system.Url.getOrgDomainUrl().toExternalForm();
-        
-        httprequest request= new httprequest();
-        request.setMethod('GET');
-        request.setEndpoint(BaseUrl+'/services/data/v47.0/ui-api/object-info/'+ObjectApiName+'/picklist-values/'+recordTypeId+'/'+fieldApiName);
-        request.setHeader('Content-Type','application/json; charset=UTF-8');
-        request.setHeader('Accept','application/json');
-        request.setHeader('Authorization', 'Bearer ' +  getSessionIdFromVfPage());
-        
-        
-        http http = new http();
-        httpresponse response=http.send(request);
-        picklistWrapper obj=new picklistWrapper();
-        System.debug('Wrapper ' + UserInfo.getSessionId());
-        //obj=(picklistWrapper)JSON.deserialize(response.getBody(), picklistWrapper.class);
-        
-        // for(piclistValues pickVal:obj.values){
-        //  piclistValues.add(pickVal.value);
-        // }
-        return null;
-    }
-    //Wrapper class to handle the JSON response
-    
-    public class picklistWrapper{
-        @AuraEnabled public pickListValues[] values;
-    }
-    
-    public class pickListValues {
-        @AuraEnabled public String label;	
-        @AuraEnabled public String value;
-    }
+
     @AuraEnabled 
     public static String getRecordTypeId(String recordTypeName) {
         return [SELECT id FROM RecordType WHERE DeveloperName = :recordTypeName].Id;
-    }
-    //Getting the session Id from the VF page to make the callouts
-    private static string getSessionIdFromVfPage(){
-        PageReference visualforcePage = Page.SessionIdPage;
-        String content;
-        try{
-            content = visualforcePage.getContent().toString();
-        }
-        catch(VisualforceException e){
-            content ='ID'+userinfo.getSessionId()+'END';
-        }
-        Integer s = content.indexOf('ID') + 'ID'.length();
-        Integer e = content.indexOf('END');
-        return content.substring(s, e);
     }
 }
