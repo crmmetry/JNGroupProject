@@ -1,16 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-    <types>
-        <members>*</members>
-        <name>CustomObject</name>
-    </types>
-    <types>
-        <members>*</members>
-        <name>Profile</name>
-    </types>
-    <types>
-        <members>Lead</members>
-        <name>RecordType</name>
-    </types>
-    <version>26.0</version>
+	<types>
+		<members>JNPage</members>
+		<name>ApexPage</name>
+	</types>
+	<version>48.0</version>
 </Package>

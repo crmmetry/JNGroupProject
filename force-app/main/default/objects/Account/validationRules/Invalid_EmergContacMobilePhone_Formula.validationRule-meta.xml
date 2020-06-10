@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Invalid_EmergContacMobilePhone_Formula</fullName>
-    <active>true</active>
-    <description>Ensures that the emergency contact mobile phone field is properly validated.</description>
-    <errorConditionFormula>IF( OR(ISCHANGED(Emergency_Contact_Mobile__pc) &amp;&amp; NOT(ISNULL(Emergency_Contact_Mobile__pc)) &amp;&amp; NOT(ISBLANK(Emergency_Contact_Mobile__pc)) &amp;&amp; !REGEX(Emergency_Contact_Mobile__pc ,&#39;^\\d{10,25}$&#39;), ISNEW() &amp;&amp; NOT(ISNULL(Emergency_Contact_Mobile__pc)) &amp;&amp; NOT(ISBLANK(Emergency_Contact_Mobile__pc)) &amp;&amp; !REGEX(Emergency_Contact_Mobile__pc,&#39;^\\d{10,25}$&#39;)),true,false)</errorConditionFormula>
-    <errorDisplayField>Emergency_Contact_Mobile__pc</errorDisplayField>
-    <errorMessage>Invalid format entered for emergency contact mobile phone. The minimum number of digits should be 10</errorMessage>
-</ValidationRule>

@@ -1,0 +1,167 @@
+<aura:component access="GLOBAL" controller="JNSiteController">
+    <aura:registerEvent type="c:JNComponentEvent" name="jnEvent" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="jnEvent" action="{!c.handleEvent}" />
+    <aura:attribute name="loan_type" type="String" />
+    <aura:handler name="change" value="{!v.loan_type}" action="{!c.handleLoanTypeChange}"/>
+    <aura:attribute name="tabId" type="String" />
+    <aura:attribute name="allTabs" type="String[]" />
+    <aura:attribute name="validatedTabs" type="Object" />
+    <aura:attribute name="unsecuredLoanTabs" type="String[]" />
+    <aura:attribute name="creditCardTabs" type="String[]" />
+    <aura:attribute name="formBtnText" type="String" default="Next" />
+    <aura:attribute name="showLoading" type="Boolean" default="false" />
+    <aura:attribute name="SiteLead" type="Map" />
+    <aura:handler
+                  name="change"
+                  value="{!v.tabId}"
+                  action="{!c.handleTabChange}"
+                  />
+    <lightning:layout>
+        <lightning:layoutItem size="12">
+            <c:JnToast aura:id="toastContainer"/>
+            <c:JNModal aura:id="JNModal" postiveBtnClick="{!c.postiveBtnClick}"/>
+            <div class="navbar-top">
+                <div class="navbar-top">
+                    <div class="hover logo-container" onclick="{!c.navigateBack}">
+                        <img src="{!$Resource.JNAssets + '/images/jn-img1.png'}" />
+                    </div>
+                </div>
+            </div>
+            <div class="navbar-bottom">
+                <div class="contents">
+                    <h3
+                        >{!v.loan_type == 'credit_card'? 'Credit Card Application'
+                        :'Unsecured Loan Application'}</h3
+                        >
+                </div>
+            </div>
+            <lightning:layoutItem padding="around-small">
+                <div class="form-container">
+                    <p>Complete the application below to apply for your loan.</p>
+                    <article class="slds-card">
+                        <div class="slds-card__header slds-grid">
+                            <lightning:tabset aura:id="tabs" selectedTabId="{!v.tabId}">
+                                <aura:if isTrue="{!v.showLoading}">
+                                    <div class="slds-spinner_container">
+                                        <div
+                                             role="status"
+                                             class="slds-spinner slds-spinner_large slds-spinner_brand"
+                                             >
+                                            <span class="slds-assistive-text">Loading</span>
+                                            <div class="slds-spinner__dot-a"></div>
+                                            <div class="slds-spinner__dot-b"></div>
+                                        </div>
+                                    </div>
+                                </aura:if>
+                                <lightning:tab label="Getting Started" id="Getting_Started_Tab">
+                                    <div class="slds-align_absolute-center" >
+                                        <c:JNGettingStartedTab aura:id="Getting_Started"/>
+                                    </div>
+                                </lightning:tab>
+                                <lightning:tab
+                                               label="Application Information"
+                                               id="Application_Information_Tab"
+                                               >
+                                    <div class="slds-card__body slds-card__body_inner">
+                                        <c:JNAppInfoTab
+                                                        loan_type="{!v.loan_type}"
+                                                        aura:id="Application_Information"
+                                                        />
+                                    </div>
+                                </lightning:tab>
+                                <lightning:tab
+                                               label="General Details"
+                                               id="General_Details_Tab"
+                                               >
+                                    <div class="slds-card__body slds-card__body_inner">
+                                        <c:JNGeneralDetailsTab
+                                                               aura:id="General_Details"
+                                                               loan_type="{!v.loan_type}"
+                                                               SiteLead="{!v.SiteLead}"
+                                                               />
+                                    </div>
+                                </lightning:tab>
+                                <lightning:tab
+                                               label="Identification Details"
+                                               id="Identification_Details_Tab"
+                                               >
+                                    <div class="slds-card__body slds-card__body_inner">
+                                        <c:JNIdentificationDetailsTab
+                                                                      aura:id="Identification_Details"
+                                                                      leadId="{!v.SiteLead.Id}"
+                                                                      />
+                                    </div>
+                                </lightning:tab>
+                                <lightning:tab
+                                               label="Contact Details"
+                                               id="Contact_Details_Tab"
+                                               >
+                                    <c:JNContactDetailsTab aura:id="Contact_Details" leadId="{!v.SiteLead.Id}"/>
+                                </lightning:tab>
+                                <lightning:tab
+                                               label="Emergency Contact"
+                                               id="Emergency_Contact_Tab"
+                                               >
+                                    <c:JNEmergencyContactDetailsTab aura:id="Emergency_Contact" leadId="{!v.SiteLead.Id}" />
+                                </lightning:tab>
+                                <lightning:tab
+                                               label="Employment Details"
+                                               id="Employment_Details_Tab"
+                                               >
+                                    <c:JNEmploymentDetailsTab aura:id="Employment_Details" leadId="{!v.SiteLead.Id}" />
+                                </lightning:tab>
+                                <lightning:tab label="Affiliations" id="Affiliations_Tab">
+                                    <div class="slds-card__body slds-card__body_inner">
+                                        <c:JNAffiliationsTab
+                                                             aura:id="Affiliations"
+                                                             leadId="{!v.SiteLead.Id}"
+                                                             />
+                                    </div>
+                                </lightning:tab>
+                                <aura:if isTrue="{!v.loan_type == 'credit_card'}">
+                                    <div class="slds-card__body slds-card__body_inner">
+                                        <lightning:tab label="Supplementary Card Holder" id="Extensions_Tab">
+                                            <c:JNExtensionsTab
+                                                               aura:id="Extensions"
+                                                               leadId="{!v.SiteLead.Id}"
+                                                               />
+                                        </lightning:tab>
+                                    </div>
+                                </aura:if>
+                                <lightning:tab
+                                               label="Document Upload"
+                                               id="Document_Upload_Tab"
+                                               >
+                                    <div class="slds-card__body slds-card__body_inner">
+                                        <c:JNDocumentUploadTab aura:id="Document_Upload" leadId="{!v.SiteLead.Id}"/>
+                                    </div>
+                                </lightning:tab>
+                            </lightning:tabset>
+                        </div>
+                        
+                        <footer class="slds-card__footer">
+                            <div class="slds-grid slds-grid_align-spread">
+                                <div class="slds-col">
+                                    <lightning:button
+                                                      label="Previous"
+                                                      title="Previous"
+                                                      onclick="{! c.tabPrevious }"
+                                                      />
+                                </div>
+                                <div class="slds-col">
+                                    <lightning:button
+                                                      variant="brand"
+                                                      label="{!v.formBtnText}"
+                                                      title="Next"
+                                                      onclick="{! c.tabNext }"
+                                                      />
+                                </div>
+                            </div>
+                        </footer>
+                    </article>
+                </div>
+            </lightning:layoutItem>
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Invalid_BusinessNumber2_Formula</fullName>
-    <active>true</active>
-    <description>Ensures that the business number 2 field is properly validated.</description>
-    <errorConditionFormula>IF( OR(ISCHANGED(Business_Number__pc ) &amp;&amp; NOT(ISNULL(Business_Number__pc)) &amp;&amp; NOT(ISBLANK(Business_Number__pc)) &amp;&amp; !REGEX(Business_Number__pc ,&#39;^\\d{10,25}$&#39;), ISNEW() &amp;&amp; NOT(ISNULL(Business_Number__pc)) &amp;&amp; NOT(ISBLANK(Business_Number__pc )) &amp;&amp; !REGEX(Business_Number__pc ,&#39;^\\d{10,25}$&#39;)),true,false)</errorConditionFormula>
-    <errorDisplayField>Business_Number__pc</errorDisplayField>
-    <errorMessage>Invalid format entered for business number 2 . The minimum number of digits should be 10</errorMessage>
-</ValidationRule>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>FinServ__AccountRole</fullName>
-    <active>true</active>
-    <description>Role occupied by an organizational entity, such as a corporation or LLC</description>
-    <label>Account Role</label>
-</RecordType>

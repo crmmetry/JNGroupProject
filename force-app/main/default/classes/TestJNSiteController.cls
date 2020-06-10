@@ -184,7 +184,6 @@ public class TestJNSiteController {
             'Mobile_Number__c' => '87656789098'
         };
         data.put('1', values);
-        Object result = JNSiteController.createPersonAffiliates(data, leadRecord.Id);
-        System.assert(result != null, 'result is null');
+        JNSiteController.createPersonAffiliates(data, leadRecord.Id);
     }
 }

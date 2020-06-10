@@ -1,0 +1,108 @@
+<aura:component access="GLOBAL" controller="JNSiteController">
+  <aura:registerEvent type="c:JNComponentEvent" name="jnEvent" />
+  <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+  <aura:attribute name="relationships" type="String[]" />
+  <aura:attribute name="titles" type="String[]" />
+  <aura:attribute name="layoutId" type="Integer" />
+  <aura:attribute name="SiteLead" type="Map" />
+  <aura:method
+    name="validateTabFields"
+    action="{!c.validateTabFields}"
+    access="public"
+  />
+  <lightning:card>
+    <lightning:layout>
+      <lightning:layoutItem size="12" class="slds-m-bottom_medium">
+        <!-- first row -->
+        <div class="slds-grid slds-gutters">
+          <!-- First Name -->
+          <div class="slds-col slds-size_4-of-12">
+            <lightning:input
+              name="first_name"
+              label="First Name"
+              required="true"
+              aura:id="validation"
+              value="{!v.SiteLead.First_Name__c}"
+            />
+          </div>
+          <!-- Last Name -->
+          <div class="slds-col slds-size_4-of-12">
+            <lightning:input
+              name="last_name"
+              label="Last Name"
+              required="true"
+              aura:id="validation"
+              value="{!v.SiteLead.Last_Name__c}"
+            />
+          </div>
+          <!-- Middle Name -->
+          <div class="slds-col slds-size_4-of-12">
+            <lightning:input
+              name="middle_name"
+              label="Middle Name"
+              required="false"
+              aura:id="validation"
+              value="{!v.SiteLead.Middle_Name__c}"
+            />
+          </div>
+        </div>
+        <!-- second row -->
+        <div class="slds-grid slds-gutters">
+          <div class="slds-col slds-size_4-of-12">
+            <!-- Title -->
+            <lightning:select
+              name="title"
+              label="Title"
+              required="true"
+              aura:id="validation"
+              onchange="{!c.getTitle}"
+            >
+              <option value="">select one...</option>
+              <aura:iteration items="{!v.titles}" var="item">
+                <option value="{!item}">{!item}</option>
+              </aura:iteration>
+            </lightning:select>
+          </div>
+          <div class="slds-col slds-size_4-of-12">
+            <!-- Relationship -->
+            <lightning:select
+              name="relationship"
+              label="Relationship"
+              required="true"
+              aura:id="validation"
+              onchange="{!c.getRelationship}"
+            >
+              <option value="">select one...</option>
+              <aura:iteration items="{!v.relationships}" var="item">
+                <option value="{!item}">{!item}</option>
+              </aura:iteration>
+            </lightning:select>
+          </div>
+          <div class="slds-col slds-size_4-of-12">
+            <!-- Tax Registration Number -->
+            <lightning:input
+              name="tax_registration_number"
+              label="Tax Registration Number"
+              required="true"
+              aura:id="validation"
+              value="{!v.SiteLead.TRN__c }"
+              minLength="9"
+              messageWhenPatternMismatch="please enter a valid trn number"
+              pattern="^(?:(?:[0-9]{3}[0-9]{3}[0-9]{3})|(?:[0-9]{3}-[0-9]{3}-[0-9]{3}))$"
+            />
+          </div>
+        </div>
+        <div class="slds-grid slds-grid_align-end slds-m-top_small">
+          <div class="slds-col">
+            <lightning:button
+              variant="destructive"
+              label="Remove Extension"
+              title="Remove Extension"
+              onclick="{! c.removeExtension }"
+            />
+          </div>
+        </div>
+      </lightning:layoutItem>
+    </lightning:layout>
+  </lightning:card>
+</aura:component>

@@ -1,9 +1,0 @@
-Hi {!Account.OwnerFirstName}:
-
-JN Bank has just welcomed a new lead, . Congratulations, {!Account.Name}} was assigned to you on {!Account.LastModifiedDate}}.
-
-
-Please extend the usual JN Hospitality.
-
-Thanks,
-Salesforce Admin

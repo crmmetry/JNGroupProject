@@ -84,6 +84,13 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <componentInstances>
+            <componentName>DocumentChecklist</componentName>
+        </componentInstances>
+        <name>Facet-23b23588-8264-4bbc-914e-f0df587f0278</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <componentInstances>
             <componentInstanceProperties>
                 <name>active</name>
                 <value>true</value>
@@ -139,6 +146,17 @@
             <componentInstanceProperties>
                 <name>title</name>
                 <value>Simple Loan Calculator</value>
+            </componentInstanceProperties>
+            <componentName>flexipage:tab</componentName>
+        </componentInstances>
+        <componentInstances>
+            <componentInstanceProperties>
+                <name>body</name>
+                <value>Facet-23b23588-8264-4bbc-914e-f0df587f0278</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>title</name>
+                <value>Document Checklist</value>
             </componentInstanceProperties>
             <componentName>flexipage:tab</componentName>
         </componentInstances>

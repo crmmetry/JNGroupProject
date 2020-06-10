@@ -171,6 +171,7 @@ public class JNSiteController {
             }            
             return persons;
         } catch(Exception e){
+            System.debug(e.getMessage());
             return e;
         }
     }
@@ -200,6 +201,7 @@ public class JNSiteController {
             }            
             return persons;
         } catch(Exception e){
+            System.debug(e.getMessage());
             return e;
         }
     }

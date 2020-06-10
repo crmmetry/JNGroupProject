@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>FinServ__TreasuryService</fullName>
-    <active>true</active>
-    <description>Accounts that provide transaction or investment services for chief financial officers or treasurers.</description>
-    <label>Treasury Service</label>
-</RecordType>

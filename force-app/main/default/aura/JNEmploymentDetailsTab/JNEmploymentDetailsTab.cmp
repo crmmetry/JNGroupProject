@@ -1,0 +1,686 @@
+<aura:component access="GLOBAL" controller="JNSiteController">
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+    <aura:registerEvent type="c:JNComponentEvent" name="jnEvent" />
+    <aura:attribute name="employmentTypes" type="String[]" />
+    <aura:attribute name="SiteLead" type="Map" />
+    <aura:attribute name="SiteLeadUnemployed" type="Map" />
+    <aura:attribute name="SiteLeadSelfEmployed" type="Map" />
+    <aura:attribute name="leadId" type="String" />
+    <aura:attribute name="addressStatuses" type="String[]" />
+    <aura:attribute name="employmentStatuses" type="String[]" />
+    <aura:attribute name="unEmploymentStatuses" type="String[]" />
+    <aura:attribute name="countries" type="String[]" />
+    
+    <aura:attribute name="businessNatures" type="String[]" />
+        <aura:attribute name="businessTypes" type="String[]" />
+    <aura:attribute name="employmentIndustries" type="String[]" default="[]"/>
+     <aura:attribute name="employedIndustries" type="String[]" default="[]"/>
+     <aura:attribute name="unEmployedIndustries" type="String[]" default="[]"/>
+     <aura:attribute name="selfEmployedIndustries" type="String[]" default="[]"/>
+
+    <aura:attribute name="emailRegex" type="String"  default="^[a-zA-Z0-9_\-.]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"/>
+        <aura:attribute
+                    name="phoneRegex"
+                    type="String"
+                    default="^\d{10,25}$"
+                    />
+    <aura:method
+                 name="validateTabFields"
+                 action="{!c.validateTabFields}"
+                 access="public"
+                 />
+        <aura:method
+                 name="createDetails"
+                 action="{!c.createDetails}"
+                 access="public"
+                 />
+    <lightning:layout>
+        <lightning:layoutItem size="12">
+            <div class="slds-grid slds-gutters">
+                <!-- Employment Type -->
+                <div class="slds-col slds-size_3-of-12">
+                    <lightning:select
+                                      name="employment_type"
+                                      label="Employment Type"
+                                      required="true"
+                                      aura:id="validation"
+                                      onchange="{!c.getEmploymentType}"
+                                      >
+                        <option value="">select one...</option>
+                        <aura:iteration items="{!v.employmentTypes}" var="item">
+                            <option value="{!item}">{!item}</option>
+                        </aura:iteration>
+                    </lightning:select>
+                </div>
+            </div>
+            <!-- employed -->
+            <aura:if isTrue="{!v.SiteLead.Primary_Employment_Type__c == 'Employed'}">
+                <div class="slds-grid slds-gutters">
+                    <!-- Name of employer -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="employer_name"
+                                         label="Name of employer"
+                                         required="true"
+                                         aura:id="validation"
+                                         value="{!v.SiteLead.FinServ__Employer__c}"
+                                         />
+                    </div>
+                    <!-- Current Position Held -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="current_position_held"
+                                         label="Current Position Held"
+                                         required="true"
+                                         aura:id="validation"
+                                         value="{!v.SiteLead.Position__c}"
+                                         />
+                        
+                    </div>
+                    <!-- Time employed with Current Employer   -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="time_with_current_employer"
+                                         label="Time employed with Current Employer"
+                                         required="true"
+                                         aura:id="validation"
+                                         value="{!v.SiteLead.Time_with_Current_Employer__c}"
+                                         type="number"
+                                         max="70"                       
+                                         />
+                        
+                    </div>
+                    
+                    
+                    <div class="slds-col slds-size_3-of-12">
+                        <!-- Industry of Employment -->
+                        <lightning:select
+                                          name="industry_of_employment"
+                                          label="Industry of Employment"
+                                          required="true"
+                                          aura:id="validation"
+                                          onchange="{!c.getIndustryEmployment}"
+                                          >
+                            <option value="">select one...</option>
+                            <aura:iteration items="{!v.employedIndustries}" var="item">
+                                <option value="{!item}">{!item}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_3-of-12">
+                        <!-- Time Employed in Present Industry -->
+                        <lightning:input
+                                         name="time_with_current_industry"
+                                         label="Time Employed in Present Industry"
+                                         required="true"
+                                         aura:id="validation"
+                                         value="{!v.SiteLead.Time_in_Industry__c}"
+                                         type="number"
+                                         max="70"                       
+                                         />
+                    </div>
+                    <div class="slds-col slds-size_3-of-12">
+                        <!-- Employment Status -->
+                        <lightning:select
+                                          name="employment_status"
+                                          label="Employment Status"
+                                          required="true"
+                                          aura:id="validation"
+                                          onchange="{!c.getEmploymentStatus}"
+                                          >
+                            <option value="">select one...</option>
+                            <aura:iteration items="{!v.employmentStatuses}" var="item">
+                                <option value="{!item}">{!item}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>                    
+                    <div class="slds-col slds-size_3-of-12">
+                        <!-- Employment Description  -->
+                        <lightning:textarea
+                                            name="employment_description"
+                                            label="Employment Description"
+                                            required="true"
+                                            aura:id="validation"
+                                            value="{!v.SiteLead.Employment_Description__c }"                     
+                                            />
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters">
+                    <!-- Street 1 -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="street_1"
+                                         label="Street 1"
+                                         aura:id="validation"
+                                         value="{!v.SiteLead.Employer_Address_Street_1__c}"
+                                         required="true"
+                                         />
+                    </div>
+                    <!-- Street 2 -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="street_2"
+                                         label="Street 2"
+                                         aura:id="validation"
+                                         value="{!v.SiteLead.Employer_Address_Street_2__c}"
+                                         required="true"
+                                         />
+                    </div>
+                    <!-- Street 3 -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="street_3"
+                                         label="Street 3"
+                                         aura:id="validation"
+                                         value="{!v.SiteLead.Employer_Address_Street_3__c}"
+                                         />
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters">
+                    <!-- City -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="city"
+                                         label="City"
+                                         aura:id="validation"
+                                         value="{!v.SiteLead.Employer_City_Town__c}"
+                                         required="true"
+                                         />
+                    </div>
+                    <!-- Residential Area/District -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="residential_area_district"
+                                         aura:id="validation"
+                                         label="Residential Area/District"
+                                         value="{!v.SiteLead.Employer_Area_District__c }"
+                                         />
+                    </div>
+                    <!-- Post Office/Zip Code -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="post_office_zip_code"
+                                         aura:id="validation"
+                                         label="Post Office/Zip Code"
+                                         value="{!v.SiteLead.Employer_Post_Office_Zip_Code__c}"
+                                         />
+                    </div>
+                    <!-- Parish/Province/State -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="parish_province_state"
+                                         aura:id="validation"
+                                         label="Parish/Province/State"
+                                         value="{!v.SiteLead.Employer_Province_Parish_State__c}"
+                                         required="true"
+                                         />
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters">
+                    <!-- Address Status 
+                    <div  class="slds-col slds-size_3-of-12">
+                        
+                        <lightning:select
+                                          name="address_status"
+                                          label="Address Status"
+                                          required="true"
+                                          aura:id="validation"
+                                          onchange="{!c.getAddressStatus}"
+                                          >
+                            <option value="">select one...</option>
+                            <aura:iteration items="{!v.addressStatuses}" var="item">
+                                <option value="{!item}">{!item}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>-->
+                    <div  class="slds-col slds-size_3-of-12">
+                        <!-- Employer Country -->
+                        <lightning:select
+                                          name="employer_country"
+                                          label="Employer Country"
+                                          required="true"
+                                          aura:id="validation"
+                                          onchange="{!c.getCountry}"
+                                          >
+                            <option value="">select one...</option>
+                            <aura:iteration items="{!v.countries}" var="item">
+                                <option value="{!item}">{!item}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                    <!-- Business Number 1 -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         type="tel"
+                                         label="Business Number 1"
+                                         name="business_number1"
+                                         value="{!v.SiteLead.Employer_Phone_1__c}"
+                                         aura:id="validation"
+                                         pattern="{!v.phoneRegex}"
+                                         required="true"
+                                         messageWhenPatternMismatch="Enter a valid number"
+                                         />
+                    </div>
+                    <!-- Business Number 2 -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         type="tel"
+                                         label="Business Number 2"
+                                         name="business_number2"
+                                         value="{!v.SiteLead.Employer_Phone_2__c}"
+                                         aura:id="validation"
+                                         pattern="{!v.phoneRegex}"
+                                         messageWhenPatternMismatch="Enter a valid number"
+                                         />
+                    </div>
+                </div>
+            </aura:if>
+            <!-- unemployed -->
+            <aura:if isTrue="{!v.SiteLead.Primary_Employment_Type__c == 'Unemployed'}">
+                <div class="slds-grid slds-gutters">
+                    <!-- Name of Previous Employer -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="name_previous_employer"
+                                         label="Name of Previous Employer"
+                                         required="true"
+                                         aura:id="validation"
+                                         value="{!v.SiteLeadUnemployed.FinServ__Employer__c}"
+                                         />
+                    </div>
+                    <!-- Last Position Held -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="last_position_held"
+                                         label="Last Position Held"
+                                         required="true"
+                                         aura:id="validation"
+                                         value="{!v.SiteLeadUnemployed.Position__c}"
+                                         />
+                        
+                    </div>
+                    <!-- Industry of Business  -->
+                    
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:select
+                                          name="industry_of_business"
+                                          label="Industry of Business"
+                                          required="true"
+                                          aura:id="validation"
+                                          onchange="{!c.getIndustryBusiness}"
+                                          >
+                            <option value="">select one...</option>
+                            <aura:iteration items="{!v.unEmployedIndustries}" var="item">
+                                <option value="{!item}">{!item}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                    <div class="slds-col slds-size_3-of-12">
+                        <!-- UnEmployment Status -->
+                        <lightning:select
+                                          name="unemployment_status"
+                                          label="Unemployment Status"
+                                          required="true"
+                                          aura:id="validation"
+                                          onchange="{!c.getEmploymentStatus}"
+                                          >
+                            <option value="">select one...</option>
+                            <aura:iteration items="{!v.unEmploymentStatuses}" var="item">
+                                <option value="{!item}">{!item}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div> 
+                </div>
+                <div class="slds-grid slds-gutters">
+                    <!-- Street 1 -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="street_1"
+                                         label="Street 1"
+                                         aura:id="validation"
+                                         value="{!v.SiteLeadUnemployed.Employer_Address_Street_1__c}"
+                                         required="true"
+                                         />
+                    </div>
+                    <!-- Street 2 -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="street_2"
+                                         label="Street 2"
+                                         aura:id="validation"
+                                         value="{!v.SiteLeadUnemployed.Employer_Address_Street_2__c}"
+                                         required="true"
+                                         />
+                    </div>
+                    <!-- Street 3 -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="street_3"
+                                         label="Street 3"
+                                         aura:id="validation"
+                                         value="{!v.SiteLeadUnemployed.Employer_Address_Street_3__c}"
+                                         />
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters">
+                    <!-- City -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="city"
+                                         label="City"
+                                         aura:id="validation"
+                                         value="{!v.SiteLeadUnemployed.Employer_City_Town__c}"
+                                         required="true"
+                                         />
+                    </div>
+                    <!-- Residential Area/District -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="residential_area_district"
+                                         aura:id="validation"
+                                         label="Residential Area/District"
+                                         value="{!v.SiteLeadUnemployed.Employer_Area_District__c }"
+                                         />
+                    </div>
+                    <!-- Post Office/Zip Code -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="post_office_zip_code"
+                                         aura:id="validation"
+                                         label="Post Office/Zip Code"
+                                         value="{!v.SiteLeadUnemployed.Employer_Post_Office_Zip_Code__c}"
+                                         />
+                    </div>
+                    <!-- Parish/Province/State -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="parish_province_state"
+                                         aura:id="validation"
+                                         label="Parish/Province/State"
+                                         value="{!v.SiteLeadUnemployed.Employer_Province_Parish_State__c}"
+                                         required="true"
+                                         />
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters">
+                    <!-- Address Status 
+                    <div  class="slds-col slds-size_3-of-12">
+                        
+                        <lightning:select
+                                          name="address_status"
+                                          label="Address Status"
+                                          required="true"
+                                          aura:id="validation"
+                                          onchange="{!c.getUnemployedAddressStatus}"
+                                          >
+                            <option value="">select one...</option>
+                            <aura:iteration items="{!v.addressStatuses}" var="item">
+                                <option value="{!item}">{!item}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>-->
+                    <div  class="slds-col slds-size_3-of-12">
+                        <!-- Employer Country -->
+                        <lightning:select
+                                          name="employer_country"
+                                          label="Employer Country"
+                                          required="true"
+                                          aura:id="validation"
+                                          onchange="{!c.getUnemployedCountry}"
+                                          >
+                            <option value="">select one...</option>
+                            <aura:iteration items="{!v.countries}" var="item">
+                                <option value="{!item}">{!item}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                    <!-- Business Number 1 -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         type="tel"
+                                         label="Business Number 1"
+                                         name="business_number1"
+                                         value="{!v.SiteLeadUnemployed.Employer_Phone_1__c}"
+                                         aura:id="validation"
+                                         pattern="{!v.phoneRegex}"
+                                         required="true"
+                                         messageWhenPatternMismatch="Enter a valid number"
+                                         />
+                    </div>
+                    <!-- Business Number 2 -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         type="tel"
+                                         label="Business Number 2"
+                                         name="business_number2"
+                                         value="{!v.SiteLeadUnemployed.Employer_Phone_2__c}"
+                                         aura:id="validation"
+                                         pattern="{!v.phoneRegex}"
+                                         messageWhenPatternMismatch="Enter a valid number"
+                                         />
+                    </div>
+                </div>
+            </aura:if>
+            <!-- self employed -->
+            <aura:if isTrue="{!v.SiteLead.Primary_Employment_Type__c == 'Self-Employed'}">
+                <div class="slds-grid slds-gutters">
+                    <!-- Name of Business -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="name_of_business"
+                                         label="Name of Business"
+                                         required="true"
+                                         aura:id="validation"
+                                         value="{!v.SiteLeadSelfEmployed.FinServ__Employer__c}"
+                                         />
+                    </div>
+                    <!-- Business Type -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:select
+                                          name="business_type"
+                                          label="Business Type"
+                                          required="true"
+                                          aura:id="validation"
+                                          onchange="{!c.getBusinessType}"
+                                          >
+                            <option value="">select one...</option>
+                            <aura:iteration items="{!v.businessTypes}" var="item">
+                                <option value="{!item}">{!item}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                        
+                    </div>
+                    <!-- Date of Incorporation  -->                    
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="date_of_incorporation"
+                                         label="Date of Incorporation"
+                                         aura:id="validation"
+                                         value="{!v.SiteLeadSelfEmployed.Date_of_Incorporation__c}"
+                                         required="true"
+                                         type="date"
+                                         onblur ="{!c.checkDateValidity }"
+                                         />
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters">
+                    <!-- Industry of Business -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:select
+                                          name="industry_of_business"
+                                          label="Industry of Business"
+                                          required="true"
+                                          aura:id="validation"
+                                          onchange="{!c.getSelfEmployedIndustry}"
+                                          >
+                            <option value="">select one...</option>
+                            <aura:iteration items="{!v.selfEmployedIndustries}" var="item">
+                                <option value="{!item}">{!item}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                        
+                    </div>
+                    <div class="slds-col slds-size_3-of-12">
+                        
+                        <!-- Business Nature -->
+                        <lightning:select
+                                          name="business_nature"
+                                          label="Business Nature"
+                                          required="true"
+                                          aura:id="validation"
+                                          onchange="{!c.getBusinessNature}"
+                                          >
+                            <option value="">select one...</option>
+                            <aura:iteration items="{!v.businessNatures}" var="item">
+                                <option value="{!item}">{!item}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                    
+                    <div class="slds-col slds-size_3-of-12">
+                        <!-- Time Employed? (months) -->
+                        <lightning:input
+                                         name="street_2"
+                                         label="Time Employed in Present Industry"
+                                         aura:id="validation"
+                                         value="{!v.SiteLeadSelfEmployed.Time_in_Industry__c}"
+                                         required="true"
+                                         type="number"
+                                         />
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters">
+                    <!-- Street 1 -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="street_1"
+                                         label="Street 1"
+                                         aura:id="validation"
+                                         value="{!v.SiteLeadSelfEmployed.Employer_Address_Street_1__c}"
+                                         required="true"
+                                         />
+                    </div>
+                    <!-- Street 2 -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="street_2"
+                                         label="Street 2"
+                                         aura:id="validation"
+                                         value="{!v.SiteLeadSelfEmployed.Employer_Address_Street_2__c}"
+                                         required="true"
+                                         />
+                    </div>
+                    <!-- Street 3 -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="street_3"
+                                         label="Street 3"
+                                         aura:id="validation"
+                                         value="{!v.SiteLeadSelfEmployed.Employer_Address_Street_3__c}"
+                                         />
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters">
+                    <!-- City -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="city"
+                                         label="City"
+                                         aura:id="validation"
+                                         value="{!v.SiteLeadSelfEmployed.Employer_City_Town__c}"
+                                         required="true"
+                                         />
+                    </div>
+                    <!-- Residential Area/District -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="residential_area_district"
+                                         aura:id="validation"
+                                         label="Residential Area/District"
+                                         value="{!v.SiteLeadSelfEmployed.Employer_Area_District__c }"
+                                         />
+                    </div>
+                    <!-- Post Office/Zip Code -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="post_office_zip_code"
+                                         aura:id="validation"
+                                         label="Post Office/Zip Code"
+                                         value="{!v.SiteLeadSelfEmployed.Employer_Post_Office_Zip_Code__c}"
+                                         />
+                    </div>
+                    <!-- Parish/Province/State -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         name="parish_province_state"
+                                         aura:id="validation"
+                                         label="Parish/Province/State"
+                                         value="{!v.SiteLeadSelfEmployed.Employer_Province_Parish_State__c}"
+                                         required="true"
+                                         />
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters">
+                    <!-- Address Status 
+                    <div  class="slds-col slds-size_3-of-12">
+                        
+                        <lightning:select
+                                          name="address_status"
+                                          label="Address Status"
+                                          required="true"
+                                          aura:id="validation"
+                                          onchange="{!c.getSelfEmployedAddressStatus}"
+                                          >
+                            <option value="">select one...</option>
+                            <aura:iteration items="{!v.addressStatuses}" var="item">
+                                <option value="{!item}">{!item}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>-->
+                    <div  class="slds-col slds-size_3-of-12">
+                        <!-- self Employed Country -->
+                        <lightning:select
+                                          name="employer_country"
+                                          label="Employer Country"
+                                          required="true"
+                                          aura:id="validation"
+                                          onchange="{!c.getSelfEmployedCountry}"
+                                          >
+                            <option value="">select one...</option>
+                            <aura:iteration items="{!v.countries}" var="item">
+                                <option value="{!item}">{!item}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                    <!-- Business Number 1 -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         type="tel"
+                                         label="Business Number 1"
+                                         name="business_number1"
+                                         value="{!v.SiteLeadSelfEmployed.Employer_Phone_1__c}"
+                                         aura:id="validation"
+                                         pattern="{!v.phoneRegex}"
+                                         required="true"
+                                         messageWhenPatternMismatch="Enter a valid number"
+                                         />
+                    </div>
+                    <!-- Business Number 2 -->
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:input
+                                         type="tel"
+                                         label="Business Number 2"
+                                         name="business_number2"
+                                         value="{!v.SiteLeadSelfEmployed.Employer_Phone_2__c}"
+                                         aura:id="validation"
+                                         pattern="{!v.phoneRegex}"
+                                         messageWhenPatternMismatch="Enter a valid number"
+                                         />
+                    </div>
+                </div>
+            </aura:if>
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

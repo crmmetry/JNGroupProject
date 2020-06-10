@@ -1,0 +1,121 @@
+<aura:component access="GLOBAL" controller="JNSiteController">
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+    <aura:registerEvent type="c:JNComponentEvent" name="jnEvent" />
+    <aura:attribute name="SiteLead" type="Map" />
+    <aura:attribute name="applicantRelationships" type="String[]" />
+    <aura:method name="createDetails" action="{!c.createDetails}" access="public"/>
+    <aura:attribute name="leadId" type="String" />
+    <aura:attribute name="phoneRegex" type="String" default="^\d{10,25}$"/>
+    <aura:attribute name="emailRegex" type="String"  default="^[a-zA-Z0-9_\-.]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"/>
+    <aura:method name="validateTabFields" action="{!c.validateTabFields}" access="public"/>
+    <lightning:layout>
+        <lightning:layoutItem size="12">
+            <!-- first row -->
+            <div class="slds-grid slds-gutters">
+                <!-- First Name -->
+                <div class="slds-col slds-size_3-of-12">
+                    <lightning:input
+                                     name="first_name"
+                                     label="First Name"
+                                     required="true"
+                                     aura:id="validation"
+                                     value="{!v.SiteLead.Emergency_Contact_First_Name__c}"
+                                     />
+                </div>
+                <!-- Last Name -->
+                <div class="slds-col slds-size_3-of-12">
+                    <lightning:input name="last_name" 
+                                     label="Last Name" 
+                                     required="true"
+                                     aura:id="validation"
+                                     value="{!v.SiteLead.Emergency_Contact_Last_Name__c}"/>
+                </div>
+                <!-- Middle Inital -->
+                <div class="slds-col slds-size_3-of-12">
+                    <lightning:input
+                                     name="middle_inital"
+                                     label="Middle Inital"
+                                     required="false"
+                                     aura:id="validation"
+                                     value="{!v.SiteLead.Emergency_Contact_Middle_Initial__c}"
+                                     maxlength="1"
+                                     pattern="^([a-z]|[A-Z]){1}$"
+                                     messageWhenPatternMismatch="can only have alphabetic character"
+                                     messageWhenTooLong="You have exceeded the limit of 1 characters!"
+                                     
+                                     />
+                </div>
+                <!-- Relationship to Applicant -->
+                <div class="slds-col slds-size_3-of-12">
+                    <lightning:select
+                                      name="relationship_to_applicant"
+                                      label="Relationship to Applicant"
+                                      required="true"
+                                      onchange="{!c.getApplicantRelationship}"
+                                      aura:id="validation"
+                                      >
+                        <option value="">select one...</option>
+                        <aura:iteration items="{!v.applicantRelationships}" var="item">
+                            <option value="{!item}">{!item}</option>
+                        </aura:iteration>
+                    </lightning:select>
+                </div>
+            </div>
+            <!-- second row -->
+            <div class="slds-grid slds-gutters">
+                <!-- Mobile Number -->
+                <div class="slds-col slds-size_3-of-12">
+                    <lightning:input
+                                     name="mobile_number"
+                                     type="tel"
+                                     label="Mobile Number"
+                                     required="true"
+                                     aura:id="validation"
+                                     value="{!v.SiteLead.Emergency_Contact_Mobile__c}"
+                                     pattern="{!v.phoneRegex}"
+                                     messageWhenPatternMismatch="Enter a valid number"
+                                     />
+                </div>
+                <!-- Home Number -->
+                <div class="slds-col slds-size_3-of-12">
+                    <lightning:input
+                                     name="home_number"
+                                     type="tel"
+                                     label="Home Number"
+                                     required="false"
+                                     aura:id="validation"
+                                     value="{!v.SiteLead.Emergency_Contact_Home_Phone__c}"
+                                     pattern="{!v.phoneRegex}"
+                                     messageWhenPatternMismatch="Enter a valid number"
+                                     />
+                </div>
+                <!-- Business Number -->
+                <div class="slds-col slds-size_3-of-12">
+                    <lightning:input
+                                     name="business_number"
+                                     label="Business Number"
+                                     type="tel"
+                                     required="false"
+                                     aura:id="validation"
+                                     value="{!v.SiteLead.Emergency_Contact_Business_Phone__c}"
+                                     pattern="{!v.phoneRegex}"
+                                     messageWhenPatternMismatch="Enter a valid number"
+                                     />
+                </div>
+                <!-- Personal Email -->
+                <div class="slds-col slds-size_3-of-12">
+                    <lightning:input
+                                     name="personal_email"
+                                     type="email"
+                                     label="Personal Email"
+                                     required="true"
+                                     aura:id="validation"
+                                     value="{!v.SiteLead.Emergency_Contact_Personal_Email__c}"
+                                     pattern="{!v.emailRegex}"
+                                     messageWhenPatternMismatch="Enter a valid email"
+                                     />
+                </div>
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Invalid_SelfEmployedPhone2_Formula</fullName>
-    <active>true</active>
-    <description>Ensures that the self employed phone 2 field is properly validated.</description>
-    <errorConditionFormula>IF( OR(ISCHANGED(Self_Employed_Phone_2__c) &amp;&amp; NOT(ISNULL(Self_Employed_Phone_2__c)) &amp;&amp; NOT(ISBLANK(Self_Employed_Phone_2__c)) &amp;&amp; !REGEX(Self_Employed_Phone_2__c ,&#39;^\\d{10,25}$&#39;), ISNEW() &amp;&amp; NOT(ISNULL(Self_Employed_Phone_2__c)) &amp;&amp; NOT(ISBLANK(Self_Employed_Phone_2__c)) &amp;&amp; !REGEX(Self_Employed_Phone_2__c ,&#39;^\\d{10,25}$&#39;)),true,false)</errorConditionFormula>
-    <errorDisplayField>Self_Employed_Phone_2__c</errorDisplayField>
-    <errorMessage>Invalid format entered for self employed phone 2. The minimum number of digits should be 10</errorMessage>
-</ValidationRule>
