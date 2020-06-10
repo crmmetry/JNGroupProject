@@ -1,6 +1,6 @@
 @isTest
 public class TestJNSiteController {
-
+    
     @testSetup static void setup(){
         User newUser = TestDataFactory.CreateUser('leadtester@test.com');
         insert newUser;
@@ -10,6 +10,7 @@ public class TestJNSiteController {
                 roles.add(TestDataFactory.CreateRole(roleName));
             }
         insert roles;
+        insert TestDataFactory.CreateBasicAccounts(1, 'ln');
     }
     
     @isTest
@@ -20,11 +21,13 @@ public class TestJNSiteController {
         acc.Type = 'Analyst';
         insert acc;
         
+        System.assert(acc.Type!=null, 'Account Type field is empty.');
+        
         JNSiteController.getPickListValues('Account', 'Type');
         
         Test.stopTest();
     }
-
+    
     @isTest
     public static void shouldGetPickListValuesList(){
         Test.startTest();
@@ -44,24 +47,74 @@ public class TestJNSiteController {
         
         Test.stopTest();
     }
-
-    /*public static void shouldUpdateApplicantTextInfo(){
-        Account acc = TestDataFactory.CreateBasicAccounts(1, 'Rivka')[0];
-        insert acc;
-        Opportunity opp = TestDataFactory.CreateOpportunities(1)[0];
-        opp.AccountId = acc.Id;
-        insert opp;
+    
+    @isTest
+    public static void shouldUpdateApplicantTextInfo(){
         
-        Applicant__c newApplicant = TestDataFactory.CreateApplicant(acc.Id, opp.Id);
-        insert newApplicant;
-
-        List<Lead> leads = new List<Lead>();
-        leads.add(TestDataFactory.CreateLeads(1));
+        Map<String, String> applicantDetails = new Map<String, String>{
+            'Different_Mailing_Address__c' => 'No',
+                'JN_Site_Form_Completed_Flag__c' =>'Yes',
+                'Mailing_Years_at_Residence__c' => '4',
+                'Years_at_Residence__c' => '5',
+                'Time_with_Current_Employer__c' => '3',
+                'Time_in_Industry__c' => '6',
+                'Preferred_Date_of_Contact__c' => '08/07/2020',
+                'Date_of_Birth__c' => '04/12/1992',
+                'Identification_Type_Expiration__c' => '15/03/2024',
+                'Date_of_Incorporation__c' => '30/01/2020'
+                };               
+                    
+                    List<Lead> leads = TestDataFactory.CreateLeads(2);
         insert leads;
-
-        JNSiteController.updateApplicantTextInfo(newApplicant, leads[0].Id);
-
-    }*/
+        
+        System.assert(leads!=null, 'Lead was not added.');
+        JNSiteController.updateApplicantTextInfo(applicantDetails, leads[0].Id);
+        
+    }
+    
+    @isTest
+    public static void shouldGetRecordTypeId(){
+        Test.startTest();
+        
+        Account acc = TestDataFactory.CreateBasicAccounts(1, 'Walters')[0];
+        insert acc;
+        
+        String devName;
+        Map<String, Id> recordTypeId = Util.getRecordTypeids('Account');
+        
+        for(String key: recordTypeId.keySet()){
+            if(acc.RecordTypeId == recordTypeId.get(key)){
+                devName = key;
+            }
+        }
+        
+        System.assert(devName!=null, 'Developer Name is null.');
+        
+        JNSiteController.getRecordTypeId(devName);
+        
+        
+        Test.stopTest();
+    }
+    @isTest
+    public static void shouldSaveFile(){
+        String base64 ='iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==';
+        Account newAcc = [SELECT Id, Name FROM Account WHERE LastName LIKE '%ln%' LIMIT 1];
+        System.debug('Account:'+newAcc);
+        Object result = JNSiteController.saveFile(newAcc.Id, 'TestFile.png', base64, 'png', 'Birth Certificate');
+        System.assert(result != null, 'save file result is null');
+    }
+    @isTest
+    public static void shouldNotSaveFile(){
+        String base64 ='data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==';
+        Account newAcc = [SELECT Id, Name FROM Account WHERE LastName LIKE '%ln%' LIMIT 1];
+        System.debug('Account:'+newAcc);
+        try {
+            Object result = JNSiteController.saveFile( newAcc.Id, 'TestFile.png', base64, 'png', 'Birth Certificate');
+            System.assert(result != null, 'save file result is null');
+        } catch (Exception e) {
+            System.assert(e.getMessage().length() > 0, 'no error');
+        }
+    }
 
     @isTest
     public static void shouldCreateLeadReferral(){
