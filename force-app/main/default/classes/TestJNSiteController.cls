@@ -19,6 +19,8 @@ public class TestJNSiteController {
         Account acc = TestDataFactory.CreateBasicAccounts(1, 'Boswell')[0];
         acc.Type = 'Analyst';
         insert acc;
+
+        System.assert(acc.Type!=null, 'Account Type field is empty.');
         
         JNSiteController.getPickListValues('Account', 'Type');
         
@@ -45,24 +47,22 @@ public class TestJNSiteController {
         Test.stopTest();
     }
 
-    /*@isTest
+    @isTest
     public static void shouldUpdateApplicantTextInfo(){
-        Account acc = TestDataFactory.CreateBasicAccounts(1, 'Rivka')[0];
-        insert acc;
-        Opportunity opp = TestDataFactory.CreateOpportunities(1)[0];
-        opp.AccountId = acc.Id;
-        insert opp;
-        
-        Applicant__c newApplicant = TestDataFactory.CreateApplicant(acc.Id, opp.Id);
-        insert newApplicant;
+
+        Map<String, String> applicantDetails = new Map<String, String>{
+            
+                };
+                                                                    
 
         List<Lead> leads = new List<Lead>();
         leads.add(TestDataFactory.CreateLeads(1));
         insert leads;
 
-        JNSiteController.updateApplicantTextInfo(newApplicant, leads[0].Id);
+        System.assert(leads!=null, 'Lead was not added.');
+        JNSiteController.updateApplicantTextInfo(applicantDetails, leads[0].Id);
 
-    }*/
+    }
 
     @isTest
     public static void shouldGetRecordTypeId(){
