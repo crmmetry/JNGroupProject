@@ -12,6 +12,7 @@ public class TestJNSiteController {
         insert roles;
     }
     
+    @isTest
     public static void shouldGetPickListValues(){
         Test.startTest();
         
@@ -24,6 +25,7 @@ public class TestJNSiteController {
         Test.stopTest();
     }
 
+    @isTest
     public static void shouldGetPickListValuesList(){
         Test.startTest();
         
@@ -43,6 +45,7 @@ public class TestJNSiteController {
         Test.stopTest();
     }
 
+    /*@isTest
     public static void shouldUpdateApplicantTextInfo(){
         Account acc = TestDataFactory.CreateBasicAccounts(1, 'Rivka')[0];
         insert acc;
@@ -59,5 +62,29 @@ public class TestJNSiteController {
 
         JNSiteController.updateApplicantTextInfo(newApplicant, leads[0].Id);
 
+    }*/
+
+    @isTest
+    public static void shouldGetRecordTypeId(){
+        Test.startTest();
+        
+        Account acc = TestDataFactory.CreateBasicAccounts(1, 'Walters')[0];
+        insert acc;
+        
+        String devName;
+        Map<String, Id> recordTypeId = Util.getRecordTypeids('Account');
+        
+        for(String key: recordTypeId.keySet()){
+            if(acc.RecordTypeId == recordTypeId.get(key)){
+                devName = key;
+            }
+        }
+                
+        System.assert(devName!=null, 'Developer Name is null.');
+
+        JNSiteController.getRecordTypeId(devName);
+        
+        
+        Test.stopTest();
     }
 }
