@@ -44,7 +44,7 @@ public class TestJNSiteController {
     }
 
     public static void shouldUpdateApplicantTextInfo(){
-        Account acc = TestDataFactory.CreateBasicAccounts(1, 'Richards')[0];
+        Account acc = TestDataFactory.CreateBasicAccounts(1, 'Rivka')[0];
         insert acc;
         Opportunity opp = TestDataFactory.CreateOpportunities(1)[0];
         opp.AccountId = acc.Id;
@@ -57,7 +57,7 @@ public class TestJNSiteController {
         leads.add(TestDataFactory.CreateLeads(1));
         insert leads;
 
-        JNSiteController.updateApplicantTextInfo(newApplicant, newLead.Id);
+        JNSiteController.updateApplicantTextInfo(newApplicant, leads[0].Id);
 
     }
 }
