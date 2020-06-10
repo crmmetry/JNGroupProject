@@ -51,12 +51,19 @@ public class TestJNSiteController {
     public static void shouldUpdateApplicantTextInfo(){
 
         Map<String, String> applicantDetails = new Map<String, String>{
-            
-                };
-                                                                    
+            'Different_Mailing_Address__c' => 'No',
+            'JN_Site_Form_Completed_Flag__c' =>'Yes',
+            'Mailing_Years_at_Residence__c' => '4',
+            'Years_at_Residence__c' => '5',
+            'Time_with_Current_Employer__c' => '3',
+            'Time_in_Industry__c' => '6',
+            'Preferred_Date_of_Contact__c' => '08/07/2020',
+            'Date_of_Birth__c' => '04/12/1992',
+            'Identification_Type_Expiration__c' => '15/03/2024',
+            'Date_of_Incorporation__c' => '30/01/2020'
+        };               
 
-        List<Lead> leads = new List<Lead>();
-        leads.add(TestDataFactory.CreateLeads(1));
+        List<Lead> leads = TestDataFactory.CreateLeads(2);
         insert leads;
 
         System.assert(leads!=null, 'Lead was not added.');
