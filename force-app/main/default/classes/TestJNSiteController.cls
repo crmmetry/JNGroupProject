@@ -65,26 +65,26 @@ public class TestJNSiteController {
 
     @isTest
     public static void shouldCreateLeadReferral(){
-        Map<String,String> applicantDetails = new Map<String,String>('FirstName'=>'Travis',
+        Map<String,String> applicantDetails = new Map<String,String>{'FirstName'=>'Travis',
                                                                     'MiddleName'=>'Junior',
                                                                     'Lastname'=>'Allen',
-                                                                    'Estimated_Amount__c'=> 5000.00,
+                                                                    'Estimated_Amount__c'=> '5000.00',
                                                                     'Service_of_Interest__c'=>'JN Bank Credit Card',
                                                                     'Lead_Title__c'=>'Mr.',
                                                                     'Suffix__c'=>'Jnr',
                                                                     'Gender__c'=>'Male',
                                                                     'Marital_Status__c'=>'Married',
-                                                                    'Date_of_Birth__c'=>Date.Today(),
+                                                                    'Date_of_Birth__c'=>'05/05/1997',
                                                                     'Place_of_Birth__c'=>'Kingston',
                                                                     'Mother_s_Maiden_Name__c'=>'Johnson',
-                                                                    'Number_of_Dependent_Adults__c'=>5,
-                                                                    'Number_of_Dependent_Children__c'=>2,
+                                                                    'Number_of_Dependent_Adults__c'=>'5',
+                                                                    'Number_of_Dependent_Children__c'=>'2',
                                                                     'Country_of_Citizenship__c'=>'Jamaica',
                                                                     'Country_of_Residence__c'=>'Jamaica',
                                                                     'Highest_Level_of_Education_Attained__c'=>'University: Post Graduate',
-                                                                    'Jamaican_Tax_Registration_Number__c'=>'123456789');
+                                                                    'Jamaican_Tax_Registration_Number__c'=>'123456789'};
             Lead leadRecord = new Lead();
-            leadRecord = JNSiteController.creaLeadReferral(applicantDetails);
+            leadRecord = JNSiteController.createLeadReferral(applicantDetails);
                                                                     
     }
 }
