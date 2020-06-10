@@ -15,7 +15,7 @@ public class TestJNSiteController {
     public static void shouldGetPickListValues(){
         Test.startTest();
         
-        Account acc = TestDataFactory.CreateBasicAccount(1, 'Boswell')[0];
+        Account acc = TestDataFactory.CreateBasicAccounts(1, 'Boswell')[0];
         acc.Type = 'Analyst';
         insert acc;
         
@@ -27,7 +27,7 @@ public class TestJNSiteController {
     public static void shouldGetPickListValuesList(){
         Test.startTest();
         
-        Account acc = TestDataFactory.CreateBasicAccount(1, 'Holloway')[0];
+        Account acc = TestDataFactory.CreateBasicAccounts(1, 'Holloway')[0];
         acc.Type = 'Analyst';
         acc.Rating = 'Warm';
         insert acc;
@@ -53,8 +53,9 @@ public class TestJNSiteController {
         Applicant__c newApplicant = TestDataFactory.CreateApplicant(acc.Id, opp.Id);
         insert newApplicant;
 
-        Lead newLead = TestDataFactory.CreateLeads(1);
-        insert newLead;
+        List<Lead> leads = new List<Lead>();
+        leads.add(TestDataFactory.CreateLeads(1));
+        insert leads;
 
         JNSiteController.updateApplicantTextInfo(newApplicant, newLead.Id);
 
