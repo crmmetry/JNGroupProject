@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 	<types>
-		<members>*</members>
-		<name>Workflow</name>
-	</types>
-	<types>
-		<members>Lead.Send_Email</members>
-		<name>WorkflowAlert</name>
-	</types>
-
-	<types>
-		<members>Lead.Send Email</members>
-		<name>WorkflowRule</name>
+		<members>FinServ__Employment__c-Employed</members>
+		<members>FinServ__Employment__c-Employment Layout</members>
+		<members>FinServ__Employment__c-Self-Employed</members>
+		<members>FinServ__Employment__c-Unemployed</members>
+		<name>Layout</name>
 	</types>
 	<version>48.0</version>
 </Package>
