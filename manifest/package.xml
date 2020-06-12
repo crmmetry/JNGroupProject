@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 	<types>
+		<members>FinServ__Employment__c</members>
+		<name>CustomObject</name>
+	</types>
+	<types>
+		<members>FinServ__Employment__c-Employed</members>
+		<members>FinServ__Employment__c-Self-Employed</members>
+		<members>FinServ__Employment__c-Unemployed</members>
+		<name>Layout</name>
+	</types>
+	<types>
+		<members>Admin</members>
+		<members>Call Centre - Sales</members>
+		<members>JN - Sales Support</members>
+		<members>JN Bank - Sales Support</members>
+		<members>Sales - All Products</members>
+		<name>Profile</name>
+	</types>
+	<types>
 		<members>FinServ__Employment__c.Employed</members>
 		<members>FinServ__Employment__c.Self_Employed</members>
 		<members>FinServ__Employment__c.Unemployed</members>
