@@ -503,6 +503,11 @@
                 var productType = cmp.find("prodTypeSecured").get("v.value");
                 var collateral = '';
                 var ct = cmp.find("colleteral").get("v.value");
+                var validationArray = [productType, ct];
+                validationArray.reduce(function(validSoFar, inputCmp){
+                    inputCmp.showHelpMessageIfInvalid();
+                    return validSoFar && inputCmp.get("v.validity").value;
+                }, true);
                 console.log("ct="+ct); 
                 switch(ct){
                     case "1":
