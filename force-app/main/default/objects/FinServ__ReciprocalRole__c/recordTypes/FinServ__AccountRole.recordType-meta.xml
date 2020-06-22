@@ -4,4 +4,11 @@
     <active>true</active>
     <description>Roles associated with Account-Account Relationships</description>
     <label>Account Role</label>
+    <picklistValues>
+        <picklist>FinServ__RelationshipType__c</picklist>
+        <values>
+            <fullName>Account Account Relation</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
 </RecordType>

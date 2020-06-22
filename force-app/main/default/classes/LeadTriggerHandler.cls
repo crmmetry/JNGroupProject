@@ -594,7 +594,7 @@ Encourage client to add start and end date to employment
                             employment.Date_of_Incorporation__c = record.Date_of_Incorporation__c;
                             employment.Industry__c = record.Industry;
                             employment.Nature_of_Engagement__c = record.Nature_of_Engagement__c;
-                            employment.Time_in_Industry__c = record.Self_Employed_Time_in_Present_Industry__c;
+                            employment.Time_in_Industry__c = record.Time_in_Industry__c;
                             employment.Street_1__c = record.Employer_Address_Street_1__c;
                             employment.Street_2__c = record.Employer_Address_Street_2__c;
                             employment.Street_3__c = record.Employer_Address_Street_3__c;
