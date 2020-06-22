@@ -3,39 +3,49 @@
     <fullName>Credit_History_in_last_24_Months__c</fullName>
     <externalId>false</externalId>
     <label>Credit History in last 24 Months</label>
-    <picklist>
-        <picklistValues>
-            <fullName>No Delinquency</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>1 - 10 Days Delinquent</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>11 - 30 Days Delinquent</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>31 - 60 Days Delinquent</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>61 - 90 Days Delinquent</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>Over 90 Days Delinquent</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>No Credit History</fullName>
-            <default>false</default>
-        </picklistValues>
-        <restrictedPicklist>true</restrictedPicklist>
-        <sorted>false</sorted>
-    </picklist>
     <required>false</required>
     <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
     <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>No Delinquency</fullName>
+                <default>false</default>
+                <label>No Delinquency</label>
+            </value>
+            <value>
+                <fullName>1 - 10 Days Delinquent</fullName>
+                <default>false</default>
+                <label>1 - 10 Days Delinquent</label>
+            </value>
+            <value>
+                <fullName>11 - 30 Days Delinquent</fullName>
+                <default>false</default>
+                <label>11 - 30 Days Delinquent</label>
+            </value>
+            <value>
+                <fullName>31 - 60 Days Delinquent</fullName>
+                <default>false</default>
+                <label>31 - 60 Days Delinquent</label>
+            </value>
+            <value>
+                <fullName>61 - 90 Days Delinquent</fullName>
+                <default>false</default>
+                <label>61 - 90 Days Delinquent</label>
+            </value>
+            <value>
+                <fullName>Over 90 Days Delinquent</fullName>
+                <default>false</default>
+                <label>Over 90 Days Delinquent</label>
+            </value>
+            <value>
+                <fullName>No Credit History</fullName>
+                <default>false</default>
+                <label>No Credit History</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>

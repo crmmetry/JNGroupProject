@@ -5,4 +5,34 @@
     <compactLayoutAssignment>FinServ__CompactLayoutCredit</compactLayoutAssignment>
     <description>Fees and rates for a line of credit</description>
     <label>Credit</label>
+    <picklistValues>
+        <picklist>FinServ__APRType__c</picklist>
+        <values>
+            <fullName>Fixed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Variable</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>FinServ__CashAPRType__c</picklist>
+        <values>
+            <fullName>Fixed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Variable</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
 </RecordType>

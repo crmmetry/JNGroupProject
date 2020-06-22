@@ -65,6 +65,10 @@
                 <behavior>Edit</behavior>
                 <field>Unsecure_Monthly_JN_Life_Premium__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>CurrencyIsoCode</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

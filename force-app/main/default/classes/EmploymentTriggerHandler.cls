@@ -39,10 +39,10 @@ public class EmploymentTriggerHandler {
                 }   
             }
             system.debug('oppIdSet======'+oppIdSet);
-            /*if(oppIdSet.size()>0){
+            if(oppIdSet.size()>0){
                 CreditScoreHelper cs = new CreditScoreHelper();
                 cs.CreditScoreFromOpp(oppIdSet);
-            }*/
+            }
         }
     }
     // makes sure only employment record can be current

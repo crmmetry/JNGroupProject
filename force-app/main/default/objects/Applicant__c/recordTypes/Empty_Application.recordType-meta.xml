@@ -5,7 +5,7 @@
     <description>Represents an application that is blank and contains no info</description>
     <label>Empty Application</label>
     <picklistValues>
-        <picklist>Affiliation_Type</picklist>
+        <picklist>Affiliation_Type__c</picklist>
         <values>
             <fullName>Immediate relative of JN Bank Director</fullName>
             <default>false</default>
@@ -101,6 +101,68 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>CRIF_Rating__c</picklist>
+        <values>
+            <fullName>Applicant too new to rate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Average Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>High Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Score too low to rate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very High Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very Low Risk</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CreditInfo_Rating__c</picklist>
+        <values>
+            <fullName>Applicant too new to rate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Average Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>High Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Score too low to rate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very High Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very Low Risk</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Credit_History_in_last_24_Months__c</picklist>
         <values>
             <fullName>1 - 10 Days Delinquent</fullName>
@@ -176,7 +238,7 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Primary_Relationship_Teir</picklist>
+        <picklist>Primary_Relationship_Tier__c</picklist>
         <values>
             <fullName>JN Blue Mahoe Club</fullName>
             <default>false</default>
@@ -191,37 +253,6 @@
         </values>
         <values>
             <fullName>Not Applicable</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Risk_Rating_Scale</picklist>
-        <values>
-            <fullName>Applicant too new to rate</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Average Risk</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>High Risk</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Low Risk</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Score too low to rate</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Very High Risk</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Very Low Risk</fullName>
             <default>false</default>
         </values>
     </picklistValues>

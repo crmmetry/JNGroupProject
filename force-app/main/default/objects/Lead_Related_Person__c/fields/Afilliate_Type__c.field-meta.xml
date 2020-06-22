@@ -3,23 +3,29 @@
     <fullName>Afilliate_Type__c</fullName>
     <externalId>false</externalId>
     <label>Afilliate Type</label>
-    <picklist>
-        <picklistValues>
-            <fullName>JN Bank</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>Political</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>Credit Card Extension</fullName>
-            <default>false</default>
-        </picklistValues>
-        <restrictedPicklist>true</restrictedPicklist>
-        <sorted>false</sorted>
-    </picklist>
     <required>false</required>
     <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
     <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>JN Bank</fullName>
+                <default>false</default>
+                <label>JN Bank</label>
+            </value>
+            <value>
+                <fullName>Political</fullName>
+                <default>false</default>
+                <label>Political</label>
+            </value>
+            <value>
+                <fullName>Credit Card Extension</fullName>
+                <default>false</default>
+                <label>Credit Card Extension</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>

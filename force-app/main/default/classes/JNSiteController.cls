@@ -1,5 +1,4 @@
 public class JNSiteController {
-    
     @AuraEnabled
     public static List<String> getPickListValues(String objectApiName, String fieldApiName){
         String recordTypeId;
@@ -171,6 +170,7 @@ public class JNSiteController {
             }            
             return persons;
         } catch(Exception e){
+            System.debug(e.getMessage());
             return e;
         }
     }
@@ -200,6 +200,7 @@ public class JNSiteController {
             }            
             return persons;
         } catch(Exception e){
+            System.debug(e.getMessage());
             return e;
         }
     }
@@ -283,6 +284,7 @@ public class JNSiteController {
         @AuraEnabled public String label;	
         @AuraEnabled public String value;
     }
+
     @AuraEnabled 
     public static String getRecordTypeId(String recordTypeName) {
         return [SELECT id FROM RecordType WHERE DeveloperName = :recordTypeName].Id;

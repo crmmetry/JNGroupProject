@@ -5,5 +5,10 @@
     <label>Financial Institution</label>
     <required>false</required>
     <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
     <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>Financial_Institution_Secured_Line</valueSetName>
+    </valueSet>
 </CustomField>

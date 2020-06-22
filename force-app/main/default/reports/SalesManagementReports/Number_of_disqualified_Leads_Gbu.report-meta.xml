@@ -24,6 +24,7 @@
     <columns>
         <field>RATING</field>
     </columns>
+    <currency>JMD</currency>
     <filter>
         <criteriaItems>
             <column>STATUS</column>

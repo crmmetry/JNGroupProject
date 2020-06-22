@@ -3,27 +3,34 @@
     <fullName>PC_Type_of_Cash_Secured_Collateral__c</fullName>
     <externalId>false</externalId>
     <label>PC Type of Cash-Secured Collateral</label>
-    <picklist>
-        <picklistValues>
-            <fullName>JN Bank - High Yield Account</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>JN Bank - Direct Gain Account</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>JNFM - Repurchase Agreement</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>JNFM - Mutual Fund</fullName>
-            <default>false</default>
-        </picklistValues>
-        <restrictedPicklist>true</restrictedPicklist>
-        <sorted>false</sorted>
-    </picklist>
     <required>false</required>
     <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
     <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>JN Bank - High Yield Account</fullName>
+                <default>false</default>
+                <label>JN Bank - High Yield Account</label>
+            </value>
+            <value>
+                <fullName>JN Bank - Direct Gain Account</fullName>
+                <default>false</default>
+                <label>JN Bank - Direct Gain Account</label>
+            </value>
+            <value>
+                <fullName>JNFM - Repurchase Agreement</fullName>
+                <default>false</default>
+                <label>JNFM - Repurchase Agreement</label>
+            </value>
+            <value>
+                <fullName>JNFM - Mutual Fund</fullName>
+                <default>false</default>
+                <label>JNFM - Mutual Fund</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>

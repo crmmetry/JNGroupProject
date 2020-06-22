@@ -29,6 +29,7 @@
         <aggregateTypes>Sum</aggregateTypes>
         <field>Lead.Time_in_Qualified__c</field>
     </columns>
+    <currency>JMD</currency>
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>

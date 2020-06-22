@@ -5,6 +5,40 @@
     <description>Default event record type for Client Associate profile</description>
     <label>Client Associate Event</label>
     <picklistValues>
+        <picklist>FinServ__Regarding__c</picklist>
+        <values>
+            <fullName>Client Retention</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Onboarding</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prospecting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Result__c</picklist>
+        <values>
+            <fullName>Contact Made</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Contact</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Contact - Left Voicemail</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Subject</picklist>
         <values>
             <fullName>Call</fullName>

@@ -3,44 +3,55 @@
     <fullName>Applicable_sources_of_income__c</fullName>
     <externalId>false</externalId>
     <label>Applicable sources of income</label>
-    <picklist>
-        <picklistValues>
-            <fullName>Salary</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>Net Profit (Sole Trader)</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>Director&#39;s Emoluments (Director)</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>Share of Profits (Partnership)</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>Share of Profit (Shareholder)</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>Pension</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>Property Rental</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </picklistValues>
-        <restrictedPicklist>true</restrictedPicklist>
-        <sorted>false</sorted>
-    </picklist>
     <required>false</required>
     <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Salary</fullName>
+                <default>false</default>
+                <label>Salary</label>
+            </value>
+            <value>
+                <fullName>Net Profit (Sole Trader)</fullName>
+                <default>false</default>
+                <label>Net Profit (Sole Trader)</label>
+            </value>
+            <value>
+                <fullName>Director&apos;s Emoluments (Director)</fullName>
+                <default>false</default>
+                <label>Director&apos;s Emoluments (Director)</label>
+            </value>
+            <value>
+                <fullName>Share of Profits (Partnership)</fullName>
+                <default>false</default>
+                <label>Share of Profits (Partnership)</label>
+            </value>
+            <value>
+                <fullName>Share of Profit (Shareholder)</fullName>
+                <default>false</default>
+                <label>Share of Profit (Shareholder)</label>
+            </value>
+            <value>
+                <fullName>Pension</fullName>
+                <default>false</default>
+                <label>Pension</label>
+            </value>
+            <value>
+                <fullName>Property Rental</fullName>
+                <default>false</default>
+                <label>Property Rental</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
     <visibleLines>4</visibleLines>
 </CustomField>
