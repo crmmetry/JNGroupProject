@@ -3,19 +3,24 @@
     <fullName>Product_Type__c</fullName>
     <externalId>false</externalId>
     <label>Product Type</label>
-    <picklist>
-        <picklistValues>
-            <fullName>Credit Card</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>Line of Credit</fullName>
-            <default>false</default>
-        </picklistValues>
-        <restrictedPicklist>true</restrictedPicklist>
-        <sorted>false</sorted>
-    </picklist>
     <required>false</required>
     <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
     <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+                <label>Credit Card</label>
+            </value>
+            <value>
+                <fullName>Line of Credit</fullName>
+                <default>false</default>
+                <label>Line of Credit</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>

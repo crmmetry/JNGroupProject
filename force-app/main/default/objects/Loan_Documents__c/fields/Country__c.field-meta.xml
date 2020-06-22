@@ -5,5 +5,10 @@
     <label>Country</label>
     <required>false</required>
     <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
     <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>FinServ__Countries</valueSetName>
+    </valueSet>
 </CustomField>

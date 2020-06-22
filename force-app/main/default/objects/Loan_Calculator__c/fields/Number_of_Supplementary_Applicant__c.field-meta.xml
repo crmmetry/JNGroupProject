@@ -3,31 +3,39 @@
     <fullName>Number_of_Supplementary_Applicant__c</fullName>
     <externalId>false</externalId>
     <label>Number of Supplementary Applicant</label>
-    <picklist>
-        <picklistValues>
-            <fullName>1 Supplementary Cardholder</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>2 Supplementary Cardholder</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>3 Supplementary Cardholder</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>4 Supplementary Cardholder</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>5 Supplementary Cardholder</fullName>
-            <default>false</default>
-        </picklistValues>
-        <restrictedPicklist>true</restrictedPicklist>
-        <sorted>false</sorted>
-    </picklist>
     <required>false</required>
     <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
     <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1 Supplementary Cardholder</fullName>
+                <default>false</default>
+                <label>1 Supplementary Cardholder</label>
+            </value>
+            <value>
+                <fullName>2 Supplementary Cardholder</fullName>
+                <default>false</default>
+                <label>2 Supplementary Cardholder</label>
+            </value>
+            <value>
+                <fullName>3 Supplementary Cardholder</fullName>
+                <default>false</default>
+                <label>3 Supplementary Cardholder</label>
+            </value>
+            <value>
+                <fullName>4 Supplementary Cardholder</fullName>
+                <default>false</default>
+                <label>4 Supplementary Cardholder</label>
+            </value>
+            <value>
+                <fullName>5 Supplementary Cardholder</fullName>
+                <default>false</default>
+                <label>5 Supplementary Cardholder</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>

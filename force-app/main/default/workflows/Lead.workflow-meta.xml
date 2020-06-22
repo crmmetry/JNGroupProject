@@ -48,7 +48,7 @@
             <field>Email</field>
             <type>email</type>
         </recipients>
-        <senderAddress>remario.richards@crmmetry.com</senderAddress>
+        <senderAddress>trishana.russell@crmmetry.com</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>unfiled$public/Application_Form_Lead_has_been_received</template>
     </alerts>
@@ -61,6 +61,16 @@
         </recipients>
         <senderType>CurrentUser</senderType>
         <template>unfiled$public/Simple_Reassignment_Lead</template>
+    </alerts>
+    <alerts>
+        <fullName>crmm_Lead_Owner_Change_Alert</fullName>
+        <description>Lead Owner Change Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Email_Templates/Notification_with_header</template>
     </alerts>
     <rules>
         <fullName>Send Email</fullName>
@@ -76,5 +86,13 @@
             <value>True</value>
         </criteriaItems>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Send_Email</name>
+                <type>Alert</type>
+            </actions>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
     </rules>
 </Workflow>

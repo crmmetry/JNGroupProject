@@ -4,6 +4,61 @@
     <active>true</active>
     <label>Revolving Credit Limit Secured</label>
     <picklistValues>
+        <picklist>Account_Type__c</picklist>
+        <values>
+            <fullName>CHQ - Chequing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CSV - Savings</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Direct Gain</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hight Yield</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IL - Auto Loan%2C Unsecured Loan%2C Term Share Loan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JNC - Credit Card</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LOC - Personal Line of Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MLF -Mortgage Loan Foreign</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MLL - Mortgage Loan Local</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mutual Fund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RSV - Savings</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Repo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>STM - Savings</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Auto_Loan_Purpose__c</picklist>
         <values>
             <fullName>Equity in a Motor Vehicle</fullName>
@@ -61,25 +116,6 @@
         </values>
         <values>
             <fullName>Applicant 3 Only</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Currency</picklist>
-        <values>
-            <fullName>CAD</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>GBP</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>JMD</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>USD</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -150,7 +186,22 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Financial_Institution_Secured_Line</picklist>
+        <picklist>Financial_Institution_LOC__c</picklist>
+        <values>
+            <fullName>JN Bank Limited</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JN Fund Managers Limited</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Financial_Institution__c</picklist>
         <values>
             <fullName>JN Bank Limited</fullName>
             <default>false</default>
@@ -275,68 +326,32 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>JN_Bank_Deposit_Account_Type</picklist>
-        <values>
-            <fullName>CHQ - Chequing</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>CSV - Savings</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Direct Gain</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>High Yield</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>IL - Auto Loan%2C Unsecured Loan%2C Term Share Loan</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>JNC - Credit Card</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LOC - Personal Line of Credit</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>MLF -Mortgage Loan Foreign</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>MLL - Mortgage Loan Local</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Mutual Fund</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>RSV - Savings</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Repo</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>STM - Savings</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Legal_Related_Activities</picklist>
+        <picklist>Legal_Related_Activities__c</picklist>
         <values>
             <fullName>External Panel Attorney</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Legal Unit</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Market_currency_of_vehicle__c</picklist>
+        <values>
+            <fullName>CAD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GBP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JMD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>USD</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -405,7 +420,7 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Occupancy_Type</picklist>
+        <picklist>Occupancy_Type__c</picklist>
         <values>
             <fullName>Owner Occupied</fullName>
             <default>false</default>
@@ -434,6 +449,63 @@
         </values>
         <values>
             <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PCL_Collateral_Type__c</picklist>
+        <values>
+            <fullName>Cash%2FInvestment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real-Estate</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PCL_Currency__c</picklist>
+        <values>
+            <fullName>CAD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GBP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JMD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>USD</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PCL_Hypothecated_Currency__c</picklist>
+        <values>
+            <fullName>CAD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GBP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JMD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>USD</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -468,6 +540,44 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>PC_Collateral_Type__c</picklist>
+        <values>
+            <fullName>Cash%2FInvestment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real-Estate</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PC_Credit_Limit__c</picklist>
+        <values>
+            <fullName>CAD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GBP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JMD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>USD</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>PC_Type_of_Cash_Secured_Collateral__c</picklist>
         <values>
             <fullName>JN Bank - Direct Gain Account</fullName>
@@ -487,6 +597,25 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>PLC_Credit_Limit_Currency__c</picklist>
+        <values>
+            <fullName>CAD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GBP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JMD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>USD</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Product_Type__c</picklist>
         <values>
             <fullName>Credit Card</fullName>
@@ -498,14 +627,59 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Property_Type</picklist>
+        <picklist>Property_Classification__c</picklist>
         <values>
             <fullName>Residential</fullName>
             <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Repayment_Method</picklist>
+        <picklist>Repayment_Method_Auto__c</picklist>
+        <values>
+            <fullName>Over The Counter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salary Deduction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standing Order</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Repayment_Method_CC__c</picklist>
+        <values>
+            <fullName>Over The Counter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salary Deduction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standing Order</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Repayment_Method_LOC__c</picklist>
+        <values>
+            <fullName>Over The Counter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salary Deduction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standing Order</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Repayment_Method_UL__c</picklist>
         <values>
             <fullName>Over The Counter</fullName>
             <default>false</default>
@@ -527,25 +701,6 @@
         </values>
         <values>
             <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Type_of_Collateral</picklist>
-        <values>
-            <fullName>Cash%2FInvestment</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>None</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Real-Estate</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -614,6 +769,25 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Unsecure_Loan_Savings_currency__c</picklist>
+        <values>
+            <fullName>CAD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GBP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JMD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>USD</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Unsecure_Waive_Processing_Fee__c</picklist>
         <values>
             <fullName>No</fullName>
@@ -625,7 +799,7 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Vehicle_Classification</picklist>
+        <picklist>Vehicle_Classification__c</picklist>
         <values>
             <fullName>New</fullName>
             <default>false</default>

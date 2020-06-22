@@ -55,6 +55,10 @@
                 <behavior>Readonly</behavior>
                 <field>Loan_Balance_After_Calc_App_Portion__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>CurrencyIsoCode</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

@@ -1,5 +1,8 @@
 public class JNSiteController {
+<<<<<<< HEAD
     
+=======
+>>>>>>> 22abfcddcdf2828cbea137280c04de72be2532a0
     @AuraEnabled
     public static List<String> getPickListValues(String objectApiName, String fieldApiName){
         String recordTypeId;
@@ -171,6 +174,10 @@ public class JNSiteController {
             }            
             return persons;
         } catch(Exception e){
+<<<<<<< HEAD
+=======
+            System.debug(e.getMessage());
+>>>>>>> 22abfcddcdf2828cbea137280c04de72be2532a0
             return e;
         }
     }
@@ -200,6 +207,10 @@ public class JNSiteController {
             }            
             return persons;
         } catch(Exception e){
+<<<<<<< HEAD
+=======
+            System.debug(e.getMessage());
+>>>>>>> 22abfcddcdf2828cbea137280c04de72be2532a0
             return e;
         }
     }
@@ -247,6 +258,7 @@ public class JNSiteController {
                                 ,0);  
         
     }
+<<<<<<< HEAD
     /* Making callout to the UI API to get the list of available picklist values based on the selected recordtype  */
     @AuraEnabled
     public static string[] getPicklistValuesUIApi(string recordTypeId, string ObjectApiName,string fieldApiName){
@@ -283,10 +295,14 @@ public class JNSiteController {
         @AuraEnabled public String label;	
         @AuraEnabled public String value;
     }
+=======
+
+>>>>>>> 22abfcddcdf2828cbea137280c04de72be2532a0
     @AuraEnabled 
     public static String getRecordTypeId(String recordTypeName) {
         return [SELECT id FROM RecordType WHERE DeveloperName = :recordTypeName].Id;
     }
+<<<<<<< HEAD
     //Getting the session Id from the VF page to make the callouts
     private static string getSessionIdFromVfPage(){
         PageReference visualforcePage = Page.SessionIdPage;
@@ -301,4 +317,6 @@ public class JNSiteController {
         Integer e = content.indexOf('END');
         return content.substring(s, e);
     }
+=======
+>>>>>>> 22abfcddcdf2828cbea137280c04de72be2532a0
 }

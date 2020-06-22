@@ -3,19 +3,24 @@
     <fullName>Sanction_Screening_Completed__c</fullName>
     <externalId>false</externalId>
     <label>Sanction Screening Completed</label>
-    <picklist>
-        <picklistValues>
-            <fullName>Yes</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>No</fullName>
-            <default>false</default>
-        </picklistValues>
-        <restrictedPicklist>true</restrictedPicklist>
-        <sorted>false</sorted>
-    </picklist>
     <required>false</required>
     <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
     <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Yes</fullName>
+                <default>false</default>
+                <label>Yes</label>
+            </value>
+            <value>
+                <fullName>No</fullName>
+                <default>false</default>
+                <label>No</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>

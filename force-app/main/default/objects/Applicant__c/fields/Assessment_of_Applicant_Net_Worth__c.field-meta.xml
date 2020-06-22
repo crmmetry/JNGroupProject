@@ -3,27 +3,34 @@
     <fullName>Assessment_of_Applicant_Net_Worth__c</fullName>
     <externalId>false</externalId>
     <label>Assessment of Applicant Net Worth</label>
-    <picklist>
-        <picklistValues>
-            <fullName>Strong net worth</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>Reasonable net worth</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>Low Net Worth</fullName>
-            <default>false</default>
-        </picklistValues>
-        <picklistValues>
-            <fullName>New worth not commensurate with age and earning</fullName>
-            <default>false</default>
-        </picklistValues>
-        <restrictedPicklist>true</restrictedPicklist>
-        <sorted>false</sorted>
-    </picklist>
     <required>false</required>
     <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
     <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Strong net worth</fullName>
+                <default>false</default>
+                <label>Strong net worth</label>
+            </value>
+            <value>
+                <fullName>Reasonable net worth</fullName>
+                <default>false</default>
+                <label>Reasonable net worth</label>
+            </value>
+            <value>
+                <fullName>Low Net Worth</fullName>
+                <default>false</default>
+                <label>Low Net Worth</label>
+            </value>
+            <value>
+                <fullName>New worth not commensurate with age and earning</fullName>
+                <default>false</default>
+                <label>New worth not commensurate with age and earning</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>

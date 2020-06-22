@@ -5,6 +5,25 @@
     <description>Default task record type for Advisor profile</description>
     <label>Advisor Task</label>
     <picklistValues>
+        <picklist>FinServ__Regarding__c</picklist>
+        <values>
+            <fullName>Client Retention</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Onboarding</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prospecting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Priority</picklist>
         <values>
             <fullName>High</fullName>
@@ -17,6 +36,21 @@
         <values>
             <fullName>Normal</fullName>
             <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Result__c</picklist>
+        <values>
+            <fullName>Contact Made</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Contact</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Contact - Left Voicemail</fullName>
+            <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
