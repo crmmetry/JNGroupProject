@@ -496,13 +496,21 @@
                 console.log('Revolving Credit Limit Secured===========>'); 
                 helper.SetDefaultVal(cmp.find("requestedlimitRCLsecure"),0);
                 helper.SetDefaultVal(cmp.find("interestRateprocal"),0);
-                console.log("firedm"); 
+                console.log("fired"); 
                 helper.SetDefaultVal(cmp.find("proposeStartingLimit"),0);
                 helper.SetDefaultVal(cmp.find("valueofSecurity"),0);
-                
+
+
                 var productType = cmp.find("prodTypeSecured").get("v.value");
                 var collateral = '';
                 var ct = cmp.find("colleteral").get("v.value");
+
+                var validationArray = [cmp.find("prodTypeSecured"), cmp.find("colleteral")];
+                var notValid = validationArray.reduce(function(validSoFar, inputCmp){
+                    inputCmp.showHelpMessageIfInvalid();
+                    return validSoFar && inputCmp.get("v.validity").value;
+                }, true);
+            
                 console.log("ct="+ct); 
                 switch(ct){
                     case "1":
