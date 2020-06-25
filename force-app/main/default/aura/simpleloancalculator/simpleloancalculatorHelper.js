@@ -31,7 +31,7 @@
 
         return parseFloat(pmt / rate * (1 - Math.pow(1 + rate, nper)));
     },
-    SetDefaultVal: function (obj, val = 0) {
+    SetDefaultVal: function (obj, val) {
         if (obj.get("v.value")) {
             obj.set("v.value", obj.get("v.value"));
             return true;
@@ -55,8 +55,8 @@
                 let toastEvent = $A.get("e.force:showToast");
                 toastEvent.setParams({
                     title: 'Success',
-                    message: `The record has been saved successfully, loan calculation id: ${result}`,
-                    duration: ' 5000',
+                    message: `The record has been saved successfully, loan calculation name: ${result}`,
+                    duration: ' 12000',
                     key: 'info_alt',
                     type: 'success',
                     mode: 'pester'

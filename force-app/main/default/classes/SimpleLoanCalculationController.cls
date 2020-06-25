@@ -16,13 +16,15 @@ public class SimpleLoanCalculationController {
                 Id rtID = Schema.SObjectType.Loan_Calculator__c.getRecordTypeInfosByName().get(rtMap.get(radioGrpName)).getRecordTypeId();
                 LoanObj.recordTypeId =rtID; 
                 insert LoanObj;
-                return LoanObj.Id;
+                
+                return [SELECT Name FROM Loan_Calculator__c WHERE Id =:LoanObj.Id].Name;
             }
         }
         catch(Exception ex){
             System.debug(TAG + '' +ex.getMessage());
             return new AuraException(ex.getMessage());
         }
+        return 'Saved';
     }
 
 }
