@@ -34,7 +34,6 @@
             <value>
                 <fullName>Real-Estate</fullName>
                 <default>false</default>
-                <isActive>false</isActive>
                 <label>Real-Estate</label>
             </value>
         </valueSetDefinition>

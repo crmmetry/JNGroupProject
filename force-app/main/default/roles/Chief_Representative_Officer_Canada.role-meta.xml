@@ -2,8 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>Edit</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
+    <description>Chief Representative Officer - Canada</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Chief Representative Officer - Canada</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>Chief_of_Marketing_Product_Development</parentRole>
+    <parentRole>Executive_Assistant_Branch_Division</parentRole>
 </Role>

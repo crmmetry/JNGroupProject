@@ -4,11 +4,10 @@
         action.setParams({
             objectApiName: "Lead",
             fieldApiNames: [
-                "Lead_Title__c",
+                "Salutation",
                 "Gender__c",
                 "Marital_Status__c",
                 "Country__c",
-                "Suffix__c",
                 "Highest_Level_of_Education_Attained__c"
             ]
         });
@@ -16,14 +15,13 @@
             const state = response.getState();
             if (state === "SUCCESS") {
                 const mappedList = response.getReturnValue();
-                component.set("v.titles", mappedList["Lead_Title__c"]);
+                component.set("v.titles", mappedList["Salutation"]);
                 component.set("v.genders", mappedList["Gender__c"]);
                 component.set("v.maritalStatuses", mappedList["Marital_Status__c"]);
                 const countries = mappedList["Country__c"].filter(function(country) {
                     return country !== "Jamaica";
                 });
                 component.set("v.countries", countries);
-                component.set("v.suffixes", mappedList["Suffix__c"]);
                 component.set(
                     "v.educationLevels",
                     mappedList["Highest_Level_of_Education_Attained__c"]

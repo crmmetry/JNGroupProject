@@ -211,6 +211,7 @@
         </inputAssignments>
         <object>Lead</object>
     </recordUpdates>
+    <runInMode>DefaultMode</runInMode>
     <start>
         <locationX>50</locationX>
         <locationY>3</locationY>

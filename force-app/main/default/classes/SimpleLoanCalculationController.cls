@@ -1,30 +1,30 @@
 public class SimpleLoanCalculationController {
-    
+    private static final String TAG = 'SimpleLoanCalculationController';
     @AuraEnabled
-    Public static string SaveLoanCalculation(string CalculationData,string radioGrpName){
-        system.debug('SaveLoanCalculation called============'+CalculationData +'...radioGrpName==>'+radioGrpName);
-        string returnStr='';
+    Public static Object SaveLoanCalculation(String CalculationData,String radioGrpName){
+        String returnStr='';
         try{
-            Map<string,string> rtMap = new Map<string,string>();
+            Map<String,String> rtMap = new Map<String,String>();
             rtMap.put('AffordabilityCalculator', 'Installment Affordability Calculator');
             rtMap.put('InstallmentPayment', 'Installment Payment');
             rtMap.put('RevolvingCreditLimitUnsecured', 'Revolving Credit Limit Unsecured');   
             rtMap.put('RevolvingCreditLimitSecured', 'Revolving Credit Limit Secured');
             //rtMap.put('MultiProductCalculator', value);
             
-            Loan_Calculator__c LoanObj = (Loan_Calculator__c) Json.deserialize(CalculationData, Loan_Calculator__c.class);
+            Loan_Calculator__c LoanObj = (Loan_Calculator__c) JSON.deserialize(CalculationData, Loan_Calculator__c.class);
             if(LoanObj != null){
                 Id rtID = Schema.SObjectType.Loan_Calculator__c.getRecordTypeInfosByName().get(rtMap.get(radioGrpName)).getRecordTypeId();
                 LoanObj.recordTypeId =rtID; 
                 insert LoanObj;
-                returnStr='Save';
+                
+                return [SELECT Name FROM Loan_Calculator__c WHERE Id =:LoanObj.Id].Name;
             }
         }
         catch(Exception ex){
-            returnStr=ex.getMessage();
-            system.debug('Exception =>'+ex.getMessage() +'  Line Number => '+ex.getLineNumber());
+            System.debug(TAG + '' +ex.getMessage());
+            return new AuraException(ex.getMessage());
         }
-        return returnStr;
+        return 'Saved';
     }
 
 }

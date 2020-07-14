@@ -43,7 +43,7 @@
         return list.map(function (comp) {
             return cmp.find(comp);
         }).filter(function (comp) {
-            return comp != null && !$A.util.hasClass(comp, "slds-hide")
+            return comp != null && !$A.util.hasClass(comp, "slds-hide");
         });
     },
     validateComponents: function (comps) {
@@ -60,7 +60,7 @@
         }
         cmp.set("v.requiredFields", Array.from(new Set(requiredFields)));
     },
-    validateCalateralType:function (cmp) {
+    validateCalateralType: function (cmp) {
         let isNone = false;
         const ids = ["CollateralTypeLineofCredit","CollateralTypeCredit"];
         const comps = this.findComponents(cmp, ids);

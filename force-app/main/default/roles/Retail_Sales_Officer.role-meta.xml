@@ -5,5 +5,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Retail Sales Officer</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>Assistant_Banking_Mobile_Banking</parentRole>
+    <parentRole>Assistant_Manager_Mobile_Banking</parentRole>
 </Role>

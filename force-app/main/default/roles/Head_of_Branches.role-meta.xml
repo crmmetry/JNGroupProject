@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Head of Branches</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>Chief_of_Channels</parentRole>
+    <parentRole>Executive_Assistant_Branch_Division</parentRole>
 </Role>

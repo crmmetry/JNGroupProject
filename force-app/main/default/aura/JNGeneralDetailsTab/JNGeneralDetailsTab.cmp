@@ -23,8 +23,8 @@
         <div class="slds-col slds-size_3-of-12">
           <lightning:select
             name="title"
-            label="Title"
-            onchange="{!c.getTitle}"
+            label="Salutation"
+            onchange="{!c.getSalutation}"
             required="false"
             aura:id="validation"
           >
@@ -72,18 +72,14 @@
       <div class="slds-grid slds-gutters">
         <!-- Suffix -->
         <div class="slds-col slds-size_3-of-12">
-          <lightning:select
+          <lightning:input
             name="suffix"
             label="Suffix"
-            onchange="{!c.getSuffix}"
             required="false"
             aura:id="validation"
-          >
-            <option value="">select one...</option>
-            <aura:iteration items="{!v.suffixes}" var="item">
-              <option value="{!item}">{!item}</option>
-            </aura:iteration>
-          </lightning:select>
+            value="{!v.SiteLead.Suffix}"
+            maxlength="40"
+          />
         </div>
         <!-- Gender -->
         <div class="slds-col slds-size_3-of-12">

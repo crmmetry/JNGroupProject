@@ -10,4 +10,18 @@
         <senderType>DefaultWorkflowUser</senderType>
         <template>unfiled$public/Simple_Reassignment_Account</template>
     </alerts>
+    <rules>
+        <fullName>Account Reassignment</fullName>
+        <actions>
+            <name>Account_Reassignement</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.IsPersonAccount</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
 </Workflow>

@@ -104,9 +104,9 @@ public class JNSiteController {
         newLead.LastName=applicantDetails.get('LastName');
         newLead.Estimated_Amount__c = Decimal.valueOf(applicantDetails.get('Estimated_Amount__c')); 
         newLead.Service_of_Interest__c = applicantDetails.get('Service_of_Interest__c');
-        newLead.Lead_Title__c =  applicantDetails.get('Lead_Title__c');
+        newLead.Salutation =  applicantDetails.get('Salutation');
         newLead.MiddleName = applicantDetails.get('MiddleName');
-        newLead.Suffix__c= applicantDetails.get('Suffix__c');
+        newLead.Suffix= applicantDetails.get('Suffix');
         newLead.Gender__c= applicantDetails.get('Gender__c');
         newLead.Marital_Status__c =applicantDetails.get('Marital_Status__c');
         newLead.Date_of_Birth__c = Date.valueOf(applicantDetails.get('Date_of_Birth__c'));
@@ -283,10 +283,12 @@ public class JNSiteController {
         @AuraEnabled public String label;	
         @AuraEnabled public String value;
     }
+
     @AuraEnabled 
     public static String getRecordTypeId(String recordTypeName) {
         return [SELECT id FROM RecordType WHERE DeveloperName = :recordTypeName].Id;
     }
+
     //Getting the session Id from the VF page to make the callouts
     private static string getSessionIdFromVfPage(){
         PageReference visualforcePage = Page.SessionIdPage;
@@ -301,4 +303,5 @@ public class JNSiteController {
         Integer e = content.indexOf('END');
         return content.substring(s, e);
     }
+
 }

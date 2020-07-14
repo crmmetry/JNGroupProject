@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Sales Officer Public Sector Engagement</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>Assistant_Manager_Public_Sector_Engagement</parentRole>
+    <parentRole>Administrator_Public_Sector_Engagement</parentRole>
 </Role>

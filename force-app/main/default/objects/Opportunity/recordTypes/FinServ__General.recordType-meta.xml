@@ -860,15 +860,31 @@
     <picklistValues>
         <picklist>Loan_Purpose_ULR__c</picklist>
         <values>
-            <fullName>Equity</fullName>
+            <fullName>Asset Acquisition</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Purchase of Motor Vehicle</fullName>
+            <fullName>Auto Repairs</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Refinance of Motor Vehicle</fullName>
+            <fullName>Debt Consolidation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Education</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Improvement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medical Expenses</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
             <default>false</default>
         </values>
     </picklistValues>

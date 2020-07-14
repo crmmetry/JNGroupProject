@@ -4,8 +4,10 @@
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
     <label>Employment Description</label>
+    <length>100</length>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
-    <type>TextArea</type>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

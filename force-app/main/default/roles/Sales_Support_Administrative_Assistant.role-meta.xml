@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Sales Support Administrative Assistant</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>Sales_Support</parentRole>
+    <parentRole>Manager_Sales_Support_Unit</parentRole>
 </Role>

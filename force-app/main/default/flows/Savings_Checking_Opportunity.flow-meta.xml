@@ -129,7 +129,7 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.StageName</leftValueReference>
+                <leftValueReference>myVariable_current.Savings__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Propose Product</stringValue>
@@ -497,7 +497,7 @@
         </rules>
     </decisions>
     <description>Added an additional recordtype criteria</description>
-    <interviewLabel>Savings_Checking_Opportunity-12_InterviewLabel</interviewLabel>
+    <interviewLabel>Savings_Checking_Opportunity-14_InterviewLabel</interviewLabel>
     <label>Savings/Chequing Opportunity Path</label>
     <processMetadataValues>
         <name>ObjectType</name>

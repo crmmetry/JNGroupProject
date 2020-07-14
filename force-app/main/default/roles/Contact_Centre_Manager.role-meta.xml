@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Contact Centre Manager</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>Executive_Team</parentRole>
+    <parentRole>Deputy_Managing_Director</parentRole>
 </Role>

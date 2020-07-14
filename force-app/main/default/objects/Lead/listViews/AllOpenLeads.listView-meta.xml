@@ -14,5 +14,10 @@
     <columns>Preferred_Time_of_Contact__c</columns>
     <columns>Preferred_Date_of_Contact__c</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>LEAD.STATUS</field>
+        <operation>equals</operation>
+        <value>New,Open</value>
+    </filters>
     <label>All Open Leads and Referrals</label>
 </ListView>

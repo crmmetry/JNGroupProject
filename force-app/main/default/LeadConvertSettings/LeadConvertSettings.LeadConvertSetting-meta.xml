@@ -4,46 +4,6 @@
     <objectMapping>
         <inputObject>Lead</inputObject>
         <mappingFields>
-            <inputField>City_Town__c</inputField>
-            <outputField>City_Town__c</outputField>
-        </mappingFields>
-        <mappingFields>
-            <inputField>Country__c</inputField>
-            <outputField>Country__c</outputField>
-        </mappingFields>
-        <mappingFields>
-            <inputField>Country_of_Residence__c</inputField>
-            <outputField>Country_of_Residence__c</outputField>
-        </mappingFields>
-        <mappingFields>
-            <inputField>Date_of_Birth__c</inputField>
-            <outputField>Date_of_Birth__c</outputField>
-        </mappingFields>
-        <mappingFields>
-            <inputField>Different_Mailing_Address__c</inputField>
-            <outputField>Different_Mailing_Address__c</outputField>
-        </mappingFields>
-        <mappingFields>
-            <inputField>Employment_Status__c</inputField>
-            <outputField>Primary_Employment_Type__c</outputField>
-        </mappingFields>
-        <mappingFields>
-            <inputField>FinServ__ReferredByContact__c</inputField>
-            <outputField>FinServ__ReferredByContact__c</outputField>
-        </mappingFields>
-        <mappingFields>
-            <inputField>Gender__c</inputField>
-            <outputField>Gender__c</outputField>
-        </mappingFields>
-        <mappingFields>
-            <inputField>Highest_Level_of_Education_Attained__c</inputField>
-            <outputField>Highest_Level_of_Education__c</outputField>
-        </mappingFields>
-        <mappingFields>
-            <inputField>Home_Phone__c</inputField>
-            <outputField>Home_Number__c</outputField>
-        </mappingFields>
-        <mappingFields>
             <inputField>Identification_Number__c</inputField>
             <outputField>Identification_Number__c</outputField>
         </mappingFields>
@@ -62,6 +22,10 @@
         <mappingFields>
             <inputField>FinServ__ReferredByUser__c</inputField>
             <outputField>FinServ__ReferredByUser__c</outputField>
+        </mappingFields>
+        <mappingFields>
+            <inputField>Lead_Title__c</inputField>
+            <outputField>Title__c</outputField>
         </mappingFields>
         <mappingFields>
             <inputField>Marital_Status__c</inputField>
@@ -102,6 +66,46 @@
         <mappingFields>
             <inputField>Street_3__c</inputField>
             <outputField>Street_3__c</outputField>
+        </mappingFields>
+        <mappingFields>
+            <inputField>City_Town__c</inputField>
+            <outputField>City_Town__c</outputField>
+        </mappingFields>
+        <mappingFields>
+            <inputField>Country__c</inputField>
+            <outputField>Country__c</outputField>
+        </mappingFields>
+        <mappingFields>
+            <inputField>Country_of_Residence__c</inputField>
+            <outputField>Country_of_Residence__c</outputField>
+        </mappingFields>
+        <mappingFields>
+            <inputField>Date_of_Birth__c</inputField>
+            <outputField>Date_of_Birth__c</outputField>
+        </mappingFields>
+        <mappingFields>
+            <inputField>Different_Mailing_Address__c</inputField>
+            <outputField>Different_Mailing_Address__c</outputField>
+        </mappingFields>
+        <mappingFields>
+            <inputField>Employment_Status__c</inputField>
+            <outputField>Primary_Employment_Type__c</outputField>
+        </mappingFields>
+        <mappingFields>
+            <inputField>FinServ__ReferredByContact__c</inputField>
+            <outputField>FinServ__ReferredByContact__c</outputField>
+        </mappingFields>
+        <mappingFields>
+            <inputField>Gender__c</inputField>
+            <outputField>Gender__c</outputField>
+        </mappingFields>
+        <mappingFields>
+            <inputField>Highest_Level_of_Education_Attained__c</inputField>
+            <outputField>Highest_Level_of_Education__c</outputField>
+        </mappingFields>
+        <mappingFields>
+            <inputField>Home_Phone__c</inputField>
+            <outputField>Home_Number__c</outputField>
         </mappingFields>
         <outputObject>Account</outputObject>
     </objectMapping>
@@ -184,10 +188,6 @@
             <outputField>FinServ__CurrentEmployer__c</outputField>
         </mappingFields>
         <mappingFields>
-            <inputField>Employment_Status__c</inputField>
-            <outputField>Employment_Status__c</outputField>
-        </mappingFields>
-        <mappingFields>
             <inputField>Gender__c</inputField>
             <outputField>FinServ__Gender__c</outputField>
         </mappingFields>
@@ -202,6 +202,10 @@
         <mappingFields>
             <inputField>Identification_Type_Country_of_issue__c</inputField>
             <outputField>Identification_Type_Country_of_issue__c</outputField>
+        </mappingFields>
+        <mappingFields>
+            <inputField>Identification_Type_Expiration__c</inputField>
+            <outputField>Identification_Type_Expiration__c</outputField>
         </mappingFields>
         <mappingFields>
             <inputField>FinServ__ReferredByUser__c</inputField>
@@ -312,6 +316,10 @@
             <outputField>Status_of_Address__c</outputField>
         </mappingFields>
         <mappingFields>
+            <inputField>Employment_Status__c</inputField>
+            <outputField>Employment_Status__c</outputField>
+        </mappingFields>
+        <mappingFields>
             <inputField>Street_1__c</inputField>
             <outputField>Street_1__c</outputField>
         </mappingFields>
@@ -326,10 +334,6 @@
         <mappingFields>
             <inputField>Suffix__c</inputField>
             <outputField>Suffix__c</outputField>
-        </mappingFields>
-        <mappingFields>
-            <inputField>Identification_Type_Expiration__c</inputField>
-            <outputField>Identification_Type_Expiration__c</outputField>
         </mappingFields>
         <mappingFields>
             <inputField>Years_at_Residence__c</inputField>
@@ -368,10 +372,6 @@
             <outputField>Last_Contact_Made__c</outputField>
         </mappingFields>
         <mappingFields>
-            <inputField>Lead_Estimated_Close_Date__c</inputField>
-            <outputField>Estimated_Close_Date__c</outputField>
-        </mappingFields>
-        <mappingFields>
             <inputField>Preferred_Location__c</inputField>
             <outputField>Preferred_Location__c</outputField>
         </mappingFields>
@@ -386,6 +386,10 @@
         <mappingFields>
             <inputField>RIM_Number__c</inputField>
             <outputField>Rim_Number__c</outputField>
+        </mappingFields>
+        <mappingFields>
+            <inputField>Lead_Estimated_Close_Date__c</inputField>
+            <outputField>Estimated_Close_Date__c</outputField>
         </mappingFields>
         <outputObject>Opportunity</outputObject>
     </objectMapping>

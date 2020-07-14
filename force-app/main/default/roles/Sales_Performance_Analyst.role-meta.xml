@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Sales Performance Analyst</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>Assistant_Manger_Sales_Quality_Reporting</parentRole>
+    <parentRole>Sales_Reporting_Coordinator</parentRole>
 </Role>

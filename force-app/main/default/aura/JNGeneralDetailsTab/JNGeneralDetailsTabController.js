@@ -3,9 +3,9 @@
         const siteLead = {
             FirstName: "",
             LastName: "",
-            Lead_Title__c: "",
+            Salutation: "",
             MiddleName: "",
-            Suffix__c: "",
+            Suffix: "",
             Gender__c: "",
             Marital_Status__c: "",
             Date_of_Birth__c: new Date(),
@@ -24,10 +24,10 @@
         component.set("v.SiteLead", siteLead);
         helper.getPickListValues(component);
     },
-    getTitle: function(component, event, helper) {
+    getSalutation: function(component, event, helper) {
         const selected = event.getSource().get("v.value");
         let siteLead = component.get("v.SiteLead");
-        siteLead["Lead_Title__c"] = selected;
+        siteLead["Salutation"] = selected;
         component.set("v.SiteLead", siteLead);
     },
     getCountryofCitizenship: function(component, event, helper) {
@@ -45,7 +45,7 @@
     getSuffix: function(component, event, helper) {
         const selected = event.getSource().get("v.value");
         let siteLead = component.get("v.SiteLead");
-        siteLead["Suffix__c"] = selected;
+        siteLead["Suffix"] = selected;
         component.set("v.SiteLead", siteLead);
     },
     getEducationLevel: function(component, event, helper) {

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <excludeButtons>DataDotComAccountInsights</excludeButtons>
+    <excludeButtons>DataDotComClean</excludeButtons>
+    <excludeButtons>DataDotComCompanyHierarchy</excludeButtons>
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -8,8 +11,16 @@
         <label>Account Information</label>
         <layoutColumns>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Title__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Required</behavior>
                 <field>Name</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Suffix__pc</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -42,6 +53,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Industry</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>CurrencyIsoCode</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -82,10 +97,6 @@
         <editHeading>true</editHeading>
         <label>General Details</label>
         <layoutColumns>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Suffix__pc</field>
-            </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>FinServ__ContactPreference__pc</field>
@@ -204,6 +215,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>PersonEmail</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Other_Email__pc</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -617,7 +632,7 @@
         <relatedList>FinServ__ContactContactRelation__c.FinServ__RelatedContact__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <relatedList>RelatedNoteList</relatedList>
+        <relatedList>RelatedFileList</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>OPPORTUNITY.NAME</fields>

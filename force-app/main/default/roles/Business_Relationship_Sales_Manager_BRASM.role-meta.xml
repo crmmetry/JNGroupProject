@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Business Relationship &amp; Sales Manager BRASM</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>Head_of_Branches</parentRole>
+    <parentRole>Administrative_Assistant_Channels_Management</parentRole>
 </Role>

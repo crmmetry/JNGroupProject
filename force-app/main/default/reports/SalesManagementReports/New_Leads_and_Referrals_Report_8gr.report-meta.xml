@@ -15,6 +15,7 @@
     <columns>
         <field>STREET</field>
     </columns>
+    <currency>JMD</currency>
     <filter>
         <criteriaItems>
             <column>Lead.Service_of_Interest__c</column>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AccountReassignment__c</fullName>
+    <description>Used to assist with the reassignment of Accounts  based on https://help.salesforce.com/articleView?id=000334427&amp;type=1&amp;mode=1&amp;language=en_US.</description>
+    <encryptionScheme>None</encryptionScheme>
+    <externalId>false</externalId>
+    <label>AccountReassignment</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Email</type>
+    <unique>false</unique>
+</CustomField>

@@ -2,8 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>Edit</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
+    <description>Manager Business Banking (Central &amp; Eastern)</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Manager Business Banking (Central &amp; Eastern)</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>Chief_Business_Banking_Public_Sector_Engagement</parentRole>
+    <parentRole>Executive_Assistant_Business_Banking</parentRole>
 </Role>

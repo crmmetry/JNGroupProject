@@ -48,7 +48,7 @@
             <field>Email</field>
             <type>email</type>
         </recipients>
-        <senderAddress>remario.richards@crmmetry.com</senderAddress>
+        <senderAddress>trishana.russell@crmmetry.com</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>unfiled$public/Application_Form_Lead_has_been_received</template>
     </alerts>
@@ -62,6 +62,27 @@
         <senderType>CurrentUser</senderType>
         <template>unfiled$public/Simple_Reassignment_Lead</template>
     </alerts>
+    <alerts>
+        <fullName>crmm_Lead_Owner_Change_Alert</fullName>
+        <description>Lead Owner Change Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Email_Templates/Notification_with_header</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Update_Field</fullName>
+        <description>Custom field created to track date/time</description>
+        <field>Make_Customer_Contact_Date_Time_text__c</field>
+        <formula>Contact_Made__c</formula>
+        <name>Update Field</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
     <rules>
         <fullName>Send Email</fullName>
         <active>true</active>
@@ -76,5 +97,13 @@
             <value>True</value>
         </criteriaItems>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Send_Email</name>
+                <type>Alert</type>
+            </actions>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
     </rules>
 </Workflow>

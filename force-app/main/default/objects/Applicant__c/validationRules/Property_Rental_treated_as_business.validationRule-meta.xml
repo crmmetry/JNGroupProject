@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Property_Rental_treated_as_business</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(INCLUDES(Applicable_sources_of_income__c , &quot;Property Rental&quot;),ISBLANK(Existing_Real_estate_Rental_II__c))</errorConditionFormula>
+    <errorMessage>Existing Realestate Rental II information is required</errorMessage>
+</ValidationRule>

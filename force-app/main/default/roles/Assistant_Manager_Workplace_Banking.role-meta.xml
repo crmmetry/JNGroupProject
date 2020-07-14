@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Assistant Manager - Workplace Banking</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>Manager_Workplace_Banking</parentRole>
+    <parentRole>Administrative_Assistant_JNRS_IPF_WPB</parentRole>
 </Role>

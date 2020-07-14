@@ -91,6 +91,10 @@
             <fullName>Cash-JNFM-Repo Agreement</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Real-Estate</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Coverage_Type__c</picklist>
