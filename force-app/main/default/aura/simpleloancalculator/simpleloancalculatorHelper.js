@@ -47,17 +47,14 @@
             CalculationData: calculatedData,
             radioGrpName : radioGrpValue
         }); 
-        var self = this;
         action.setCallback(this, function(response) {
             var state = response.getState();
             if (state === "SUCCESS") {
-                var msg = response.getReturnValue();
-                console.log("msg = "+msg); 
-                if(msg==="Save"){
+                    let result = response.getReturnValue();
                     var toastEvent = $A.get("e.force:showToast");
                     toastEvent.setParams({
                         title : 'Success',
-                        message: 'The record has been saved successfully.',
+                        message: `The record has been saved successfully, loan calculation name: ${result}`,
                         duration:' 5000',
                         key: 'info_alt',
                         type: 'success',
@@ -74,26 +71,10 @@
                     }else if(radioGrpValue =="RevolvingCreditLimitSecured"){
                         this.clearRevolvingCreditLimitSecuredFields(component,event);
                     }       
-                }
-                else{
-                    var toastEvent = $A.get("e.force:showToast");
-                    toastEvent.setParams({
-                        title : 'Error',
-                        message:msg,
-                        duration:' 5000',
-                        key: 'info_alt',
-                        type: 'error',
-                        mode: 'pester'
-                    });
-                    toastEvent.fire();
-                }
-                
-                
-                
             }
             else if (state === "ERROR")  
             { 
-                console.log(response.getReturnValue()); 
+                console.log(JSON.parse(JSON.stringify(response.getError()))); 
                 var toastEvent = $A.get("e.force:showToast");
                 toastEvent.setParams({
                     title : 'Error',
