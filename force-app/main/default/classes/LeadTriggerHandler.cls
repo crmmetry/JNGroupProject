@@ -108,7 +108,8 @@ public class LeadTriggerHandler {
                                     WHERE Queue.Type ='Queue' AND Queue.Name ='Sales Team' Limit 1];
             if( leadObj.Escalate_to_Tier2__c==true && leadObjOld.Escalate_to_Tier2__c==false ){
                 leadObj.Escalated_By__c = UserInfo.getUserId();
-                leadObj.OwnerId= QueueID.Queue.Id; 
+                leadObj.OwnerId = QueueID.Queue.Id;
+                leadObj.Time_Escalated_to_Tier_2__c = System.now();
             } 
         } 
     }
