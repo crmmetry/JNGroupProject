@@ -15,24 +15,48 @@ public class TestOpportunityHandler {
     
     
     @isTest
-    public static void shouldCalcValidBackDate(){
+    public static void shouldValidateBackDate(){
+        Test.startTest();
         DateTime now =System.now();
-        Map<String,Id> recordTypes =  Util.getRecordTypeids('Opportunity');
-        Map<String,Object> info = new Map<String,Object>();
-        info.put('RecordTypeId', recordTypes.get('Credit_Facility'));
-        List<Account> accounts  = TestDataFactory.CreateBasicAccounts(1, 'testlastname');
-        Map<String, Id> recordTypesMap = Util.getRecordTypeids('Account');
-        accounts.get(0).RecordTypeId = recordTypesMap.get('PersonAccount');
-        insert accounts;
-        Opportunity record = (Opportunity)TestDataFactory.CreateMappedRecord(info, 'Opportunity');
-        record.AccountId = accounts.get(0).Id;
-        record.StageName = 'Qualification';
-        record.CloseDate = Date.newInstance(now.year(), now.month(), now.day());
-        record.Product_of_Interest__c = 'JN Bank Credit Card';
-        insert record;
+        // current date
+        Date currentDate = Date.newInstance(2020, 8, 7);
+        // valid backdated date
+        Date validBackDate = Date.newInstance(2020, 8, 6);
+        // valid previous month backdated date
+        Date validPrevBackDate = Date.newInstance(2020, 7, 30);
         
-        Date todayDate = Date.newInstance(2019, 12, 18);
+        // populate values
+        List<Opportunity> opps = new  List<Opportunity>();
+        for(Opportunity record: TestDataFactory.CreateOpportunities(4)){
+            record.CloseDate = Date.newInstance(2020,7, 10);
+            record.StageName = 'Closed Lost';
+            opps.add(record);
+        }
+        //insert opps;
+        Map<Id,Opportunity> mappedOpps = new Map<Id,Opportunity>();
         
+        // scenario one: close date greater than current date
+        opps[2].CloseDate = Date.newInstance(2020,8, 8);
+        OpportunityTriggerHandler.init(new List<Opportunity>{opps[2]}, mappedOpps, mappedOpps);
+        OpportunityTriggerHandler.validateCloseBackDate(2, 7, currentDate); 
+        
+        // scenario two: close date less than current date and greater than back max prev days
+        opps[1].CloseDate = Date.newInstance(2020,8, 2);
+        // acceptable date: (2020,8, 3)
+        Date d1 = Date.newInstance(2020, 8, 11);
+        OpportunityTriggerHandler.init(new List<Opportunity>{opps[1]}, mappedOpps, mappedOpps);
+        OpportunityTriggerHandler.validateCloseBackDate(2, 7, d1);
+        
+        // scenario three: close date less than current date and falls in previous month and greater than max backdated days
+        opps[2].CloseDate = Date.newInstance(2020,7, 29);
+        OpportunityTriggerHandler.init(new List<Opportunity>{opps[2]}, mappedOpps, mappedOpps);
+        OpportunityTriggerHandler.validateCloseBackDate(2, 7, currentDate); 
+        
+        //scenario 4: years are different
+        opps[3].CloseDate = Date.newInstance(2019,8, 8);
+        OpportunityTriggerHandler.init(new List<Opportunity>{opps[3]}, mappedOpps, mappedOpps);
+        OpportunityTriggerHandler.validateCloseBackDate(2, 7, currentDate);         
+        Test.stopTest(); 
     }
     
     @isTest
@@ -182,43 +206,6 @@ insert testOpp;*/
         
         Test.stopTest();
         system.assert(a, 'Error was thrown and handled!');
-        
-    }
-    
-    @isTest
-    public static void shouldValidateBackDate(){
-        Map<Id,Opportunity> m = new Map<Id,Opportunity>();
-        List<Account> accounts = [SELECT Name, Id FROM Account];
-        System.assert(accounts.size() > 0 , 'Accounts list empty');
-        List<Opportunity> opps = [SELECT Name, Id , AccountId, StageName,CloseDate,CreatedDate FROM Opportunity];
-        System.assert(opps.size() > 0 , 'Opportunities list empty');
-        // init records
-        OpportunityTriggerHandler.init(opps, m, m);
-        Test.startTest();
-        String err1 = 'The Closed Date cannot be this far back in the past. Please contact Sales Support.';
-        String err2 = 'The Closed Date cannot be less than the last 2 days within this month. Please contact Sales Support.';
-        String err3 = 'The Closed Date cannot be greater than today. Please contact Sales Support.';
-        // scenario 1
-        // 	a) update a opportunity with a close date greater than today date
-        Opportunity opp1 = opps[0];
-        opp1.CloseDate = Date.newInstance(2020, 04, 23);
-         OpportunityTriggerHandler.validateCloseBackDate(0, 0, Date.newInstance(2020, 04, 23));
-        try {
-            // b) update a opportunity with a close date equal to today date
-            OpportunityTriggerHandler.validateCloseBackDate(0, 0, Date.newInstance(2020, 04, 25));
-        } catch(Exception e){
-            System.assert(e.getMessage().length() > 0);
-            System.assertEquals(err3, e.getMessage(), e.getMessage());
-        }
-        
-        //scenario 2 
-         // a) the closedate is less than today, so the closedate cant be greater than maxPrevDays, default = 2
-         Integer maxPrevDays = 2;
-         Date d0 = Date.newInstance(2020, 04, 23);
-         Date d1 = Util.GetBackDatedDate(d0, maxPrevDays);
-         System.assertEquals(d1, Date.newInstance(2020, 04, 22),d1 + ' wrong backdate with ' + maxPrevDays);
-         
-        Test.stopTest();
         
     }
     

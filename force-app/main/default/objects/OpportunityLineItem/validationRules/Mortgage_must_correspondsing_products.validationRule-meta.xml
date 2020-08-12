@@ -7,8 +7,8 @@
 (
 Opportunity.RecordType.DeveloperName= &quot;Mortgage&quot;,
 NOT(ISPICKVAL(Product2.Family, &quot;JN Bank Mortgage Loan&quot;)),
-NOT(ISPICKVAL(Product2.Family, &quot;JN Bank Insurance Premium Financing&quot;))
-
+NOT(ISPICKVAL(Product2.Family, &quot;JN Bank Insurance Premium Financing&quot;)),
+NOT(ISPICKVAL(Product2.Family, &apos;JN Bank Cash Secured Loan&apos;))
 )</errorConditionFormula>
-    <errorMessage>This product is not apart of the Mortgage Line of Products. Please add a product corresponding to the mortgage&#39;s lines of product or create a new opportunity with a different record type that matches the line of product.</errorMessage>
+    <errorMessage>This product is not apart of the Mortgage Line of Products. Please add a product corresponding to the mortgage&apos;s lines of product or create a new opportunity with a different record type that matches the line of product.</errorMessage>
 </ValidationRule>

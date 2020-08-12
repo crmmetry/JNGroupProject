@@ -92,13 +92,14 @@ public with sharing class Util {
     }
     public static Date GetBackDatedDate(Date currentDate, Integer days){
         while(days > 0){
-               DateTime dt = DateTime.newInstance(currentDate.year(),currentDate.month(),currentDate.day());
+            DateTime dt = DateTime.newInstance(currentDate.year(),currentDate.month(),currentDate.day());
             String day = dt.format('E');
-            System.debug(currentDate.day());
             if(day != 'Sat' && day != 'Sun'){              
                 days-=1;
             }
-            currentDate = currentDate.addDays(-1);
+            if (days > 0) {
+                currentDate = currentDate.addDays(-1);
+            }          
         }
         return currentDate;
     }
@@ -148,5 +149,12 @@ public with sharing class Util {
                 return true;
         }
         return false;
+    }
+    /**
+     * returns the previous month last day
+     * @param {Date} current - current date
+     */
+    public static Date GetPrevMonthLastDay(Date current){
+        return Date.newInstance(current.year(), current.month(), Date.daysInMonth(current.year(), current.month()));
     }
 }
