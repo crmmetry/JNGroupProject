@@ -247,62 +247,65 @@ Encourage client to add start and end date to employment
     public static void leadConversionBasic(){
         // can only execute only per execution context
         if(!Util.IsExecuted('leadConversionBasic')){
-            List<Account> accounts = new List<Account>();
-            List<Contact> contacts = new List<Contact>();
+            Map<Id, Account> accounts = new Map<Id, Account>();
+            Map<Id,Contact> contacts = new Map<Id,Contact>();
             List<sObject> all = new List<sObject>();
             DateTime dt;
             for(Lead newRecord: leads){
                 // only converted leads
-                if(newRecord.IsConverted) {
-                    // Account Fields
-                    Account account = new Account();
-                    account.Id = newRecord.ConvertedAccountId;
-                    account.FinServ__Citizenship__pc = newRecord.Country_of_Citizenship__c;
-                    account.FinServ__ContactPreference__pc = newRecord.Preferred_Contact_Method__c;
-                    account.Place_of_Birth__pc = newRecord.Place_of_Birth__c;
-                    account.FinServ__CountryOfResidence__pc = newRecord.Country_of_Residence__c;
-                    account.FinServ__CurrentEmployer__pc = newRecord.Name_of_Current_Employer__c;
-                    account.FinServ__Gender__pc = newRecord.Gender__c;
-                    account.FinServ__HomeOwnership__pc = newRecord.Status_of_Address__c;
-                    //dt = newRecord.Last_Contact_Made__c;
-                    //account.FinServ__LastInteraction__c = dt.date();
-                    account.FinServ__MaritalStatus__pc = newRecord.Marital_Status__c;
-                    account.FinServ__MotherMaidenName__pc = newRecord.Mother_s_Maiden_Name__c;
-                    account.FinServ__Occupation__pc = newRecord.Occupation__c;
-                    account.PersonBirthdate = newRecord.Date_of_Birth__c;
-                    account.PersonHomePhone = newRecord.Home_Phone__c;
-                    account.Preferred_time_of_contact__pc = newRecord.Preferred_Time_of_Contact__c;
-                    account.Other_Number__c = newRecord.Other_Number__c;
-                    account.Other_Email__pc = newRecord.Other_Email__c;
-                    account.Industry = newRecord.Industry;
-                    accounts.add(account); //add account
-                    
+                if(checkIfNewConversion(newRecord)) {
+                    if(newRecord.ConvertedAccountId != null){
+                        // Account Fields
+                        Account account = new Account();
+                        account.Id = newRecord.ConvertedAccountId;
+                        account.FinServ__Citizenship__pc = newRecord.Country_of_Citizenship__c;
+                        account.FinServ__ContactPreference__pc = newRecord.Preferred_Contact_Method__c;
+                        account.Place_of_Birth__pc = newRecord.Place_of_Birth__c;
+                        account.FinServ__CountryOfResidence__pc = newRecord.Country_of_Residence__c;
+                        account.FinServ__CurrentEmployer__pc = newRecord.Name_of_Current_Employer__c;
+                        account.FinServ__Gender__pc = newRecord.Gender__c;
+                        account.FinServ__HomeOwnership__pc = newRecord.Status_of_Address__c;
+                        //dt = newRecord.Last_Contact_Made__c;
+                        //account.FinServ__LastInteraction__c = dt.date();
+                        account.FinServ__MaritalStatus__pc = newRecord.Marital_Status__c;
+                        account.FinServ__MotherMaidenName__pc = newRecord.Mother_s_Maiden_Name__c;
+                        account.FinServ__Occupation__pc = newRecord.Occupation__c;
+                        account.PersonBirthdate = newRecord.Date_of_Birth__c;
+                        account.PersonHomePhone = newRecord.Home_Phone__c;
+                        account.Preferred_time_of_contact__pc = newRecord.Preferred_Time_of_Contact__c;
+                        account.Other_Number__c = newRecord.Other_Number__c;
+                        account.Other_Email__pc = newRecord.Other_Email__c;
+                        account.Industry = newRecord.Industry;
+                        accounts.put(account.Id, account); //add account
+                    }
                     //Contact fields
-                    Contact contact = new Contact();
-                    contact.Id = newRecord.ConvertedContactId;
-                    contact.Birthdate = newRecord.Date_of_Birth__c;
-                    contact.FinServ__Citizenship__c = newRecord.Country_of_Citizenship__c;
-                    contact.FinServ__ContactPreference__c = newRecord.Preferred_Contact_Method__c;
-                    contact.FinServ__CountryOfBirth__c = newRecord.Place_of_Birth__c;
-                    contact.FinServ__CountryOfResidence__c = newRecord.Country_of_Residence__c;
-                    contact.FinServ__CurrentEmployer__c = newRecord.Name_of_Current_Employer__c;
-                    contact.FinServ__Gender__c = newRecord.Gender__c;
-                    contact.FinServ__HomeOwnership__c = newRecord.Status_of_Address__c;
-                    contact.FinServ__MaritalStatus__c = newRecord.Marital_Status__c;
-                    contact.FinServ__MotherMaidenName__c = newRecord.Mother_s_Maiden_Name__c;
-                    contact.FinServ__Occupation__c = newRecord.Occupation__c;
-                    contact.FirstName = newRecord.FirstName;
-                    contact.HomePhone  = newRecord.Home_Phone__c;
-                    contact.LastName  = newRecord.LastName;
-                    contact.MiddleName = newRecord.MiddleName;
-                    contact.Birthdate = newRecord.Date_of_Birth__c;
-                    contact.Title = newRecord.Job_Title__c;
-                    contacts.add(contact); //add contact
+                    if(newRecord.ConvertedContactId != null){
+                        Contact contact = new Contact();
+                        contact.Id = newRecord.ConvertedContactId;
+                        contact.Birthdate = newRecord.Date_of_Birth__c;
+                        contact.FinServ__Citizenship__c = newRecord.Country_of_Citizenship__c;
+                        contact.FinServ__ContactPreference__c = newRecord.Preferred_Contact_Method__c;
+                        contact.FinServ__CountryOfBirth__c = newRecord.Place_of_Birth__c;
+                        contact.FinServ__CountryOfResidence__c = newRecord.Country_of_Residence__c;
+                        contact.FinServ__CurrentEmployer__c = newRecord.Name_of_Current_Employer__c;
+                        contact.FinServ__Gender__c = newRecord.Gender__c;
+                        contact.FinServ__HomeOwnership__c = newRecord.Status_of_Address__c;
+                        contact.FinServ__MaritalStatus__c = newRecord.Marital_Status__c;
+                        contact.FinServ__MotherMaidenName__c = newRecord.Mother_s_Maiden_Name__c;
+                        contact.FinServ__Occupation__c = newRecord.Occupation__c;
+                        contact.FirstName = newRecord.FirstName;
+                        contact.HomePhone  = newRecord.Home_Phone__c;
+                        contact.LastName  = newRecord.LastName;
+                        contact.MiddleName = newRecord.MiddleName;
+                        contact.Birthdate = newRecord.Date_of_Birth__c;
+                        contact.Title = newRecord.Job_Title__c;
+                        contacts.put(contact.Id, contact); //add contact
+                    }
                 }
             }
             
-            all.addAll(accounts);
-            all.addAll(contacts);
+            all.addAll(accounts.values());
+            all.addAll(contacts.values());
             Database.SaveResult[] updateResult = Database.update(all, false);
             for (Database.SaveResult sr : updateResult) {           
                 if (sr.isSuccess()) {               
@@ -650,10 +653,10 @@ Encourage client to add start and end date to employment
     }
     
     private static Boolean checkIfNewConversion(Lead record){
-        if(record.ConvertedOpportunityId != null
+        if(record.IsConverted == true
            && record.ConvertedAccountId != null && record.ConvertedDate != null){
                Lead oldLead = OldMap.get(record.Id);
-               if(oldLead.ConvertedOpportunityId == null
+               if(oldLead.IsConverted == false
                   && oldLead.ConvertedAccountId == null && oldLead.ConvertedDate == null){
                       return true;
                   }
