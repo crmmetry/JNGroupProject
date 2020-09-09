@@ -90,11 +90,30 @@ public with sharing class Util {
     public static Long getNameHash(List<String> values){     
         return String.join(Values, ':').hashCode();
     }
+    /**
+     * Checks whether or not a date is a public holiday.
+     * @param {DateTime} date - Date to be checked.
+     * @return Boolean
+     */
+    private static Boolean checkHoliday(DateTime dateRecord) {
+        Boolean result = false;
+        List<Holiday> holidays=[SELECT h.StartTimeInMinutes, h.Name, h.ActivityDate FROM Holiday h];
+        for(Holiday hDay : holidays){
+            if(hDay.ActivityDate == dateRecord){
+                result = true;
+                return result;
+            }
+        }
+        return result;
+    }
+
     public static Date GetBackDatedDate(Date currentDate, Integer days){
+        Boolean isHoliday;
         while(days > 0){
             DateTime dt = DateTime.newInstance(currentDate.year(),currentDate.month(),currentDate.day());
+            isHoliday = checkHoliday(currentDate);
             String day = dt.format('E');
-            if(day != 'Sat' && day != 'Sun'){              
+            if(day != 'Sat' && day != 'Sun' && !isHoliday){              
                 days-=1;
             }
             if (days > 0) {
