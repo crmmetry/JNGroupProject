@@ -11,9 +11,9 @@
         <label>Barbican</label>
     </customValue>
     <customValue>
-        <fullName>Brown&#39;s Town</fullName>
+        <fullName>Brown&apos;s Town</fullName>
         <default>false</default>
-        <label>Brown&#39;s Town</label>
+        <label>Brown&apos;s Town</label>
     </customValue>
     <customValue>
         <fullName>Catherine Hall</fullName>
@@ -141,7 +141,7 @@
         <label>Santa Cruz</label>
     </customValue>
     <customValue>
-        <fullName>Sav-la-mar</fullName>
+        <fullName>Savanna-La-Mar</fullName>
         <default>false</default>
         <label>Savanna-La-Mar</label>
     </customValue>
@@ -151,9 +151,9 @@
         <label>Spanish Town</label>
     </customValue>
     <customValue>
-        <fullName>St. Ann&#39;s Bay</fullName>
+        <fullName>St. Ann&apos;s Bay</fullName>
         <default>false</default>
-        <label>St. Ann&#39;s Bay</label>
+        <label>St. Ann&apos;s Bay</label>
     </customValue>
     <customValue>
         <fullName>Tivoli</fullName>

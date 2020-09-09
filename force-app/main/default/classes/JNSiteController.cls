@@ -53,28 +53,28 @@ public class JNSiteController {
         try {
             Map<String, String> booleanFields = new Map<String, String>{
                 'Different_Mailing_Address__c' => 'Different_Mailing_Address__c',
-                'JN_Site_Form_Completed_Flag__c' =>'JN_Site_Form_Completed_Flag__c'
+                    'JN_Site_Form_Completed_Flag__c' =>'JN_Site_Form_Completed_Flag__c'
                     };
-            Map<String, String> decimalFields = new Map<String, String>{
-                	'Mailing_Years_at_Residence__c' => 'Mailing_Years_at_Residence__c',
-                    'Years_at_Residence__c' => 'Years_at_Residence__c',
-                    'Time_with_Current_Employer__c' => 'Time_with_Current_Employer__c',
-                    'Time_in_Industry__c' => 'Time_in_Industry__c'
-                    };
-                        Map<String, String> dateFields = new Map<String, String>{
-                            'Preferred_Date_of_Contact__c' => 'Preferred_Date_of_Contact__c',
-                                'Date_of_Birth__c' => 'Date_of_Birth__c',
-                                'Identification_Type_Expiration__c' => 'Identification_Type_Expiration__c',
-                                'Date_of_Incorporation__c' => 'Date_of_Incorporation__c'
+                        Map<String, String> decimalFields = new Map<String, String>{
+                            'Mailing_Years_at_Residence__c' => 'Mailing_Years_at_Residence__c',
+                                'Years_at_Residence__c' => 'Years_at_Residence__c',
+                                'Time_with_Current_Employer__c' => 'Time_with_Current_Employer__c',
+                                'Time_in_Industry__c' => 'Time_in_Industry__c'
                                 };
-            Lead newLead = new Lead(Id=leadId);
+                                    Map<String, String> dateFields = new Map<String, String>{
+                                        'Preferred_Date_of_Contact__c' => 'Preferred_Date_of_Contact__c',
+                                            'Date_of_Birth__c' => 'Date_of_Birth__c',
+                                            'Identification_Type_Expiration__c' => 'Identification_Type_Expiration__c',
+                                            'Date_of_Incorporation__c' => 'Date_of_Incorporation__c'
+                                            };
+                                                Lead newLead = new Lead(Id=leadId);
             for(String field: applicantDetails.keySet()){ 
                 if(dateFields.containsKey(field)){
                     newLead.put(field, Date.valueOf(applicantDetails.get(field)));
                 } else if(decimalFields.containsKey(field)){
                     newLead.put(field, Decimal.valueOf(applicantDetails.get(field)));
                 } else if(booleanFields.containsKey(field)){
-                     newLead.put(field, Boolean.valueOf(applicantDetails.get(field)));
+                    newLead.put(field, Boolean.valueOf(applicantDetails.get(field)));
                 }else {
                     newLead.put(field, applicantDetails.get(field));
                 }
@@ -162,7 +162,7 @@ public class JNSiteController {
                 }
                 newPerson.JN_Location__c  = String.valueOf(oldPerson.get('JN_Location__c'));
                 newPerson.Mobile_Number__c  = String.valueOf(oldPerson.get('Mobile_Number__c'));
-				newPerson.Lead_and_Referral__c  = String.valueOf(oldPerson.get('Lead_and_Referral__c'));
+                newPerson.Lead_and_Referral__c  = String.valueOf(oldPerson.get('Lead_and_Referral__c'));
                 persons.add(newPerson);
             }
             if(!persons.isEmpty()){
@@ -205,31 +205,28 @@ public class JNSiteController {
     }
     @AuraEnabled
     public static Object saveFile(Id parentId, String fileName, String base64Data, String contentType, String tabTitle) {
-        ContentVersion conVer = new ContentVersion();
+        
         try {
-            String extension = fileName.substring(fileName.lastIndexOf('.')+1);
-            String name = fileName.substring(0, fileName.lastIndexOf('.'));
+            ContentVersion conVer = new ContentVersion();
             conVer.ContentLocation = 'S'; // S specify this document is in SF, use E for external files
             conVer.PathOnClient = fileName; // The files name, extension is very important here which will help the file in preview.
             conVer.Title = tabTitle; // Display name of the files
             //conVer.Description = description;
             conVer.VersionData = EncodingUtil.base64Decode(base64Data); // converting your binary string to Blog
             insert conVer;
-            
+
             // First get the content document Id from ContentVersion
             List<ContentVersion> contentVersions = [SELECT ContentDocumentId FROM ContentVersion WHERE Id =:conVer.Id];
-            if(!contentVersions.isEmpty()){
-                Id conDoc = contentVersions.get(0).ContentDocumentId;
-                //Create ContentDocumentLink
-                ContentDocumentLink cDe = new ContentDocumentLink();
-                cDe.ContentDocumentId = conDoc;
-                cDe.LinkedEntityId = parentId; // you can use objectId,GroupId etc
-                cDe.ShareType = 'I'; // Inferred permission, checkout description of ContentDocumentLink object for more details
-                
-                insert cDe;
-                return cDe.Id;
-            } 
-            return null;
+            Id conDoc = contentVersions.get(0).ContentDocumentId;
+            //Create ContentDocumentLink
+            ContentDocumentLink cDe = new ContentDocumentLink();
+            cDe.ContentDocumentId = conDoc;
+            cDe.LinkedEntityId = parentId; // you can use objectId,GroupId etc
+            cDe.ShareType = 'I'; // Inferred permission, checkout description of ContentDocumentLink object for more details
+            
+            insert cDe;
+            return cDe.Id;
+            
             
         } catch(Exception e) {
             System.debug(e);
@@ -283,12 +280,12 @@ public class JNSiteController {
         @AuraEnabled public String label;	
         @AuraEnabled public String value;
     }
-
+    
     @AuraEnabled 
     public static String getRecordTypeId(String recordTypeName) {
         return [SELECT id FROM RecordType WHERE DeveloperName = :recordTypeName].Id;
     }
-
+    
     //Getting the session Id from the VF page to make the callouts
     private static string getSessionIdFromVfPage(){
         PageReference visualforcePage = Page.SessionIdPage;
@@ -303,5 +300,5 @@ public class JNSiteController {
         Integer e = content.indexOf('END');
         return content.substring(s, e);
     }
-
+    
 }

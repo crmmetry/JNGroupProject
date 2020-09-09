@@ -150,8 +150,7 @@ public with sharing class Util {
         }
         return false;
     }
-    /**
-     * returns the previous month last day
+         /* returns the previous month last day
      * @param {Date} current - current date
      */
     public static Date GetPrevMonthLastDay(Date current){

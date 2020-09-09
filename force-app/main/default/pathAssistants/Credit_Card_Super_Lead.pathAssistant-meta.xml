@@ -7,7 +7,7 @@
     <pathAssistantSteps>
         <fieldNames>Status</fieldNames>
         <fieldNames>Contact_Made__c</fieldNames>
-        <fieldNames>Run_Loan_Scenarios__c</fieldNames>
+        <fieldNames>Run_Loan_Scenarios_PK__c</fieldNames>
         <fieldNames>Generate_C__c</fieldNames>
         <fieldNames>Review_Sales_Person_Document_Checklist__c</fieldNames>
         <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Look at Duplication Object (Yellow Arrow) to determine if this is a duplicate lead or customer.&lt;/span&gt;&lt;/p&gt;</info>

@@ -95,12 +95,15 @@
         // set call back
         action.setCallback(this, function(response) {
           helper.disableProgress(component, cmpName);
-            if(response.getState() == 'SUCCESS'){
+          console.log(JSON.parse(JSON.stringify(response.getReturnValue())));
+            if(response.getState() === 'SUCCESS'){
+                console.log(JSON.parse(JSON.stringify(response.getReturnValue())));
                 helper.showToast(component, {
                     severity: "confirm",
                     message: "Your document was successfully uploaded."
                 });
             } else {
+                 console.log(JSON.parse(JSON.stringify(response.getError())));
                helper.showToast(component, {
                     severity: "error",
                     message: "There was a error uploading this document."

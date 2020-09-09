@@ -5354,6 +5354,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Lead_Disqualified__c</picklist>
+        <values>
+            <fullName>NO</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>YES</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Lead_Path__c</picklist>
         <values>
             <fullName>Pre-Qualify Customer%28s%29</fullName>
@@ -6747,7 +6758,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Sav-la-mar</fullName>
+            <fullName>Savanna-La-Mar</fullName>
             <default>false</default>
         </values>
         <values>

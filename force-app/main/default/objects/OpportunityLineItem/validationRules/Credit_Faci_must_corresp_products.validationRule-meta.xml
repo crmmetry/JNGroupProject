@@ -7,13 +7,13 @@
 (
 Opportunity.RecordType.DeveloperName= &quot;Credit_Facility&quot;,
 
-NOT(ISPICKVAL(Product2.Family, &#39;JN Bank Credit Card&#39;)),
-NOT(ISPICKVAL(Product2.Family, &#39;JN Bank Auto Loan&#39;)),
-NOT(ISPICKVAL(Product2.Family, &#39;JN Bank Commercial Auto Loan&#39;)),
-NOT(ISPICKVAL(Product2.Family, &#39;JN Bank Line Of Credit&#39;)),
-NOT(ISPICKVAL(Product2.Family, &#39;JN Bank Unsecured Loan&#39;)),
-NOT(ISPICKVAL(Product2.Family, &#39;JN Bank 12 to 1 Loan (Supersize Loan)&#39;)),
-NOT(ISPICKVAL(Product2.Family, &#39;JN Bank Cash Secured Loan&#39;))
+NOT(ISPICKVAL(Product2.Family, &apos;JN Bank Credit Card&apos;)),
+NOT(ISPICKVAL(Product2.Family, &apos;JN Bank Auto Loan&apos;)),
+NOT(ISPICKVAL(Product2.Family, &apos;JN Bank Commercial Auto Loan&apos;)),
+NOT(ISPICKVAL(Product2.Family, &apos;JN Bank Line Of Credit&apos;)),
+NOT(ISPICKVAL(Product2.Family, &apos;JN Bank Unsecured Loan&apos;)),
+NOT(ISPICKVAL(Product2.Family, &apos;JN Bank 12 to 1 Loan (Supersize Loan)&apos;))
+
 
 
 
