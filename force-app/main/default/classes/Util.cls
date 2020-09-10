@@ -90,6 +90,19 @@ public with sharing class Util {
     public static Long getNameHash(List<String> values){     
         return String.join(Values, ':').hashCode();
     }
+
+    /**
+     * Gets all the holidays in the system and returns a map.
+     * @return Map<Date,Holiday>
+     */
+    private static Map<Date,Holiday> getHolidays(){
+        Map<Date, Holiday> mappedHolidays = new Map<Date, Holiday>();
+        for(Holiday hDay : [SELECT h.StartTimeInMinutes, h.Name, h.ActivityDate FROM Holiday h]){
+            mappedHolidays.put(hDay.ActivityDate, hDay);
+        }
+        return mappedHolidays;
+    }
+
     /**
      * Checks whether or not a date is a public holiday.
      * @param {DateTime} date - Date to be checked.
@@ -97,11 +110,13 @@ public with sharing class Util {
      */
     private static Boolean checkHoliday(DateTime dateRecord) {
         Boolean result = false;
-        List<Holiday> holidays=[SELECT h.StartTimeInMinutes, h.Name, h.ActivityDate FROM Holiday h];
-        for(Holiday hDay : holidays){
-            if(hDay.ActivityDate == dateRecord){
-                result = true;
-                return result;
+        Map<Date, Holiday> mappedHolidays = getHolidays();
+        if(mappedHolidays.size()>0){
+            for(Date hDate : mappedHolidays.keySet()){
+                if(hDate == dateRecord){
+                    result = true;
+                    return result;
+                }
             }
         }
         return result;
