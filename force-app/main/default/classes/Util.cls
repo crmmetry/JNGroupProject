@@ -108,12 +108,12 @@ public with sharing class Util {
      * @param {DateTime} date - Date to be checked.
      * @return Boolean
      */
-    private static Boolean checkHoliday(DateTime dateRecord) {
+    private static Boolean checkHoliday(Date dateRecord) {
         Boolean result = false;
         Map<Date, Holiday> mappedHolidays = getHolidays();
         if(mappedHolidays.size()>0){
             for(Date hDate : mappedHolidays.keySet()){
-                if(hDate == dateRecord){
+                if(mappedHolidays.containsKey(dateRecord)){
                     result = true;
                     return result;
                 }
