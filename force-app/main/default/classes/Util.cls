@@ -112,12 +112,10 @@ public with sharing class Util {
         Boolean result = false;
         Map<Date, Holiday> mappedHolidays = getHolidays();
         if(mappedHolidays.size()>0){
-            for(Date hDate : mappedHolidays.keySet()){
                 if(mappedHolidays.containsKey(dateRecord)){
                     result = true;
                     return result;
                 }
-            }
         }
         return result;
     }
