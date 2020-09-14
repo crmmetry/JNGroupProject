@@ -19,15 +19,13 @@ public class TestOpportunityHandler {
         Test.startTest();
         DateTime now =System.now();
         // current date
-        Date currentDate = Date.newInstance(2020, 8, 6);
+        Date currentDate = Date.newInstance(2020, 8, 7);
         // valid backdated date
         Date validBackDate = Date.newInstance(2020, 8, 6);
         // valid previous month backdated date
         Date validPrevBackDate = Date.newInstance(2020, 7, 30);
 
-        Holiday hol = new Holiday();
-        hol.Name ='Test holiday';
-        hol.ActivityDate = Date.newInstance(2020, 8, 6);
+        Holiday hol = TestDataFactory.CreateHoliday(Date.newInstance(2020, 8, 6),'Test Holiday');
         insert hol;
         
         // populate values
@@ -65,7 +63,7 @@ public class TestOpportunityHandler {
         //scenario 5: a public date falls between current date and prospective backedDate
         opps[4].CloseDate = Date.newInstance(2020,7, 29);
         OpportunityTriggerHandler.init(new List<Opportunity>{opps[4]}, mappedOpps, mappedOpps);
-        OpportunityTriggerHandler.validateCloseBackDate(2, 7, currentDate);
+        OpportunityTriggerHandler.validateCloseBackDate(2, 7, currentDate.addDays(-1));
         Test.stopTest(); 
     }
     

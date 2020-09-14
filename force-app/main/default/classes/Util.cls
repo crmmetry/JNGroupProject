@@ -104,11 +104,45 @@ public with sharing class Util {
     }
 
     /**
+     * Queries active business business hours.
+     * @return BusinessHour
+     */
+
+     public static BusinessHours getActiveBusinessHours(String name) {
+        return [SELECT id,
+                FridayStartTime,
+                FridayEndTime,
+                ThursdayStartTime,
+                ThursdayEndTime,
+                WednesdayStartTime,
+                WednesdayEndTime,
+                TuesdayStartTime,
+                TuesdayEndTime,
+                MondayStartTime,
+                MondayEndTime
+               FROM businesshours 
+               WHERE Name = :name];
+     }
+
+
+    /**
+     * Checks whether or not a datetime is within business hours
+     * @param {DateTime} date - Datetime to be checked.
+     * @return Boolean
+     */
+
+     public static Boolean isWithinBusinessHours(Datetime currentDateTime){
+        BusinessHours bh = getActiveBusinessHours('JN Default Business Hours');
+        return BusinessHours.isWithin(bh.Id, currentDateTime);
+     }
+                 
+
+    /**
      * Checks whether or not a date is a public holiday.
      * @param {DateTime} date - Date to be checked.
      * @return Boolean
      */
-    private static Boolean checkHoliday(Date dateRecord) {
+    public static Boolean checkHoliday(Date dateRecord) {
         Boolean result = false;
         Map<Date, Holiday> mappedHolidays = getHolidays();
         if(mappedHolidays.size()>0){
