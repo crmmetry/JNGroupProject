@@ -108,21 +108,21 @@ public with sharing class Util {
      * @return BusinessHour
      */
 
-     public static BusinessHours getActiveBusinessHours(String name) {
-        return [SELECT id,
-                FridayStartTime,
-                FridayEndTime,
-                ThursdayStartTime,
-                ThursdayEndTime,
-                WednesdayStartTime,
-                WednesdayEndTime,
-                TuesdayStartTime,
-                TuesdayEndTime,
-                MondayStartTime,
-                MondayEndTime
-               FROM businesshours 
-               WHERE Name = :name];
-     }
+    //  public static BusinessHours getActiveBusinessHours(String name) {
+    //     return [SELECT id,
+    //             FridayStartTime,
+    //             FridayEndTime,
+    //             ThursdayStartTime,
+    //             ThursdayEndTime,
+    //             WednesdayStartTime,
+    //             WednesdayEndTime,
+    //             TuesdayStartTime,
+    //             TuesdayEndTime,
+    //             MondayStartTime,
+    //             MondayEndTime
+    //            FROM businesshours 
+    //            WHERE Name = :name];
+    //  }
 
 
     /**
@@ -132,7 +132,7 @@ public with sharing class Util {
      */
 
      public static Boolean isWithinBusinessHours(Datetime currentDateTime){
-        BusinessHours bh = getActiveBusinessHours('JN Default Business Hours');
+        BusinessHours bh = GetActiveBusinessHours('JN Default Business Hours');
         return BusinessHours.isWithin(bh.Id, currentDateTime);
      }
                  
