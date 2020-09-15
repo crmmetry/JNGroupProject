@@ -258,4 +258,16 @@ public class TestUtil {
 
     }
 
+    @isTest
+    public static void shouldLeadWithinTimeLimit(){
+        Integer hours = 8;
+        Datetime assignmentTime  = DateTime.newInstance(2020, 09, 14, 13, 0, 0);
+        String businessHoursName = 'JN Default Business Hours';
+        Datetime currentTime;
+        Boolean within;
+        //scenario 1: currentTime is on same day before end time
+        currentTime  = DateTime.newInstance(2020, 09, 14, 14, 0, 0);
+        within = Util.LeadWithinTimeLimit(hours, assignmentTime, currentTime, businessHoursName);
+        System.assertEquals(true, within, 'Current time '+ currentTime + ' not withing ');
+    }
 }
