@@ -150,10 +150,129 @@ public with sharing class Util {
         }
         return false;
     }
-         /* returns the previous month last day
+    /**
+     * @param {String} name - name of business hour
+     * Queries active business business hours.
+     * @return BusinessHour
+     */
+    public static BusinessHours GetActiveBusinessHours(String name) {
+        return [SELECT Id,
+                FridayStartTime,
+                FridayEndTime,
+                ThursdayStartTime,
+                ThursdayEndTime,
+                WednesdayStartTime,
+                WednesdayEndTime,
+                TuesdayStartTime,
+                TuesdayEndTime,
+                MondayStartTime,
+                MondayEndTime
+               FROM BusinessHours 
+               WHERE Name = :name];
+     }
+    /**  returns the previous month last day
      * @param {Date} current - current date
      */
     public static Date GetPrevMonthLastDay(Date current){
         return Date.newInstance(current.year(), current.month(), Date.daysInMonth(current.year(), current.month()));
+    }
+
+    /**
+     * get the remaining hours for a lead to to disqualified if not contacted within x amount of hours
+     * @param {Integer} hours - the max amount of hours
+     * @param {DateTime} assignmentTime - time the lead was assigned
+     * @param {currentTime} - current date/time
+     * @param {businessHoursName} - name of business hours to use
+     * @param {Boolean} true if current > max time
+     */
+    public static Boolean LeadWithinTimeLimit(Integer hours, Datetime assignmentTime, DateTime currentTime, String businessHoursName){
+        //1. get the business hours , ensure that that the assignmentTime is not > business hour day end time
+        //2. get current business hours day
+        BusinessHours businessHour = GetActiveBusinessHours(businessHoursName);
+        String assignmentTimeDay = assignmentTime.format('E');
+        DateTime diff, paddedDateTime;
+        Integer endHoursDiff;
+        switch on assignmentTimeDay {
+            when 'Mon' {
+              endHoursDiff = GetHoursBetweenDates(assignmentTime, CreateDateTimeFromTime(businessHour.MondayEndTime, currentTime)); 
+              paddedDateTime = AddHoursToStartDate(endHoursDiff, currentTime, businessHour);             
+                
+            }
+            when 'Tue' {
+                endHoursDiff = GetHoursBetweenDates(assignmentTime, CreateDateTimeFromTime(businessHour.TuesdayEndTime, currentTime));
+                paddedDateTime = AddHoursToStartDate(endHoursDiff, currentTime, businessHour);   
+                
+            }
+            when 'Wed' {
+                endHoursDiff = GetHoursBetweenDates(assignmentTime, CreateDateTimeFromTime(businessHour.WednesdayEndTime, currentTime));
+                paddedDateTime = AddHoursToStartDate(endHoursDiff, currentTime, businessHour);   
+                
+            }
+            when 'Thu' {
+                endHoursDiff = GetHoursBetweenDates(assignmentTime, CreateDateTimeFromTime(businessHour.ThursdayEndTime, currentTime));
+                paddedDateTime = AddHoursToStartDate(endHoursDiff, currentTime, businessHour);   
+                
+            }
+            when 'Fri' {
+                endHoursDiff = GetHoursBetweenDates(assignmentTime, CreateDateTimeFromTime(businessHour.FridayEndTime, currentTime));
+                paddedDateTime = AddHoursToStartDate(endHoursDiff, currentTime, businessHour);  
+                
+            }
+        }
+        return currentTime > paddedDateTime;
+    }
+    /**
+     * gets the number of hours between two dates
+     * @param {Datetime} assignmentTime
+     * @param {Datetime} endTime
+     * @return {Integer} hours
+     */
+    public static Integer GetHoursBetweenDates(Datetime assignmentTime, DateTime endTime){
+        Long first = assignmentTime.getTime();
+        Long second = endTime.getTime();
+        //return (second - first / 1000.0) / 60.0 / 60.0; // milliseconds / seconds / minutes / hours
+        return (Integer)(second - first);
+    }
+    /**
+     * based on the current business day, add hours to start time
+     * @param {Decimal} hours - hours to add
+     * @param {DateTime} currentTime - current date/time
+     * @param {BusinessHours} - businessHour
+     * @return {DateTime}
+     */
+    public static DateTime AddHoursToStartDate(Integer milli, DateTime currentTime, BusinessHours businessHour){
+        String currentTimeDay = currentTime.format('E');
+        DateTime paddedDateTime;
+        switch on currentTimeDay {
+            when 'Mon' {
+                paddedDateTime = CreateDateTimeFromTime(businessHour.MondayStartTime.addMilliseconds(milli),currentTime);
+                
+            }
+            when 'Tue' {
+                paddedDateTime = CreateDateTimeFromTime(businessHour.TuesdayStartTime.addMilliseconds(milli),currentTime);
+                
+            }
+            when 'Wed' {
+                paddedDateTime = CreateDateTimeFromTime(businessHour.WednesdayStartTime.addMilliseconds(milli),currentTime);
+                
+            }
+            when 'Thu' {
+                paddedDateTime = CreateDateTimeFromTime(businessHour.ThursdayStartTime.addMilliseconds(milli),currentTime);
+                
+            }
+            when 'Fri' {
+                paddedDateTime = CreateDateTimeFromTime(businessHour.FridayStartTime.addMilliseconds(milli), currentTime);
+                
+            }
+        }
+        return paddedDateTime;
+    }
+    /**
+     * create datetime from time
+     * @param {Time} - currentTime
+     * @param {DateTime} - currentDateTime
+     */
+    public static DateTime CreateDateTimeFromTime(Time currentTime, Datetime currentDateTime){
+        return Datetime.newInstance(currentDateTime.year(), currentDateTime.year(), currentDateTime.day(), currentTime.hour(), currentTime.minute(), currentTime.second());
     }
 }
