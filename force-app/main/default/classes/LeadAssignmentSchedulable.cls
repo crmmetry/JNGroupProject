@@ -1,8 +1,9 @@
 global with sharing class LeadAssignmentSchedulable implements Schedulable {
    private BusinessHours businessHours;
    private Datetime currentTime;
-   global LeadAssignmentSchedulable(String businessHoursName){
+   global LeadAssignmentSchedulable(String businessHoursName, Datetime currentTime){
     this.businessHours = Util.GetActiveBusinessHours(businessHoursName);
+    this.currentTime = currentTime;
    }
    global LeadAssignmentSchedulable(){
        this.businessHours = Util.GetActiveBusinessHours('JN Default Business Hours');
