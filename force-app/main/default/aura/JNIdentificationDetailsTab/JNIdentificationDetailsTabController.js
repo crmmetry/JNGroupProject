@@ -32,6 +32,6 @@
     }, true);
   },
          createDetails: function(component, event, helper) {
-         helper.updateApplicant(component);
+         //helper.updateApplicant(component);
      }
 });

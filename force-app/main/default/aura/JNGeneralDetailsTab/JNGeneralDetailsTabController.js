@@ -78,7 +78,7 @@
         }, true);
     },
     createDetails: function(component, event, helper) {
-        helper.createLead(component);
+        //helper.createLead(component);
     },
     checkDateValidity: function(component, event, helper) {
             let cmp = event.getSource();

@@ -105,6 +105,16 @@
               currentCmp.createDetails();
               break;
             }
+            case "General_Details": {
+              helper.setSiteLeadInfo(component, currentCmp);
+              helper.navigateNext(component);
+              break;
+            }
+            case "Identification_Details": {
+              helper.setSiteLeadInfo(component, currentCmp);
+              helper.navigateNext(component);
+              break;
+            }
 
             default: {
               if (typeof currentCmp.createDetails === "function") {

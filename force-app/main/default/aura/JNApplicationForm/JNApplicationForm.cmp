@@ -90,6 +90,7 @@
                                         <c:JNIdentificationDetailsTab
                                                                       aura:id="Identification_Details"
                                                                       leadId="{!v.SiteLead.Id}"
+                                                                      SiteLead="{!v.SiteLead}"
                                                                       />
                                     </div>
                                 </lightning:tab>
