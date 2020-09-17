@@ -90,11 +90,77 @@ public with sharing class Util {
     public static Long getNameHash(List<String> values){     
         return String.join(Values, ':').hashCode();
     }
+
+    /**
+     * Gets all the holidays in the system and returns a map.
+     * @return Map<Date,Holiday>
+     */
+    private static Map<Date,Holiday> getHolidays(){
+        Map<Date, Holiday> mappedHolidays = new Map<Date, Holiday>();
+        for(Holiday hDay : [SELECT h.StartTimeInMinutes, h.Name, h.ActivityDate FROM Holiday h]){
+            mappedHolidays.put(hDay.ActivityDate, hDay);
+        }
+        return mappedHolidays;
+    }
+
+    /**
+     * Queries active business business hours.
+     * @return BusinessHour
+     */
+
+    //  public static BusinessHours getActiveBusinessHours(String name) {
+    //     return [SELECT id,
+    //             FridayStartTime,
+    //             FridayEndTime,
+    //             ThursdayStartTime,
+    //             ThursdayEndTime,
+    //             WednesdayStartTime,
+    //             WednesdayEndTime,
+    //             TuesdayStartTime,
+    //             TuesdayEndTime,
+    //             MondayStartTime,
+    //             MondayEndTime
+    //            FROM businesshours 
+    //            WHERE Name = :name];
+    //  }
+
+
+    /**
+     * Checks whether or not a datetime is within business hours
+     * @param {DateTime} date - Datetime to be checked.
+     * @return Boolean
+     */
+
+     public static Boolean isWithinBusinessHours(Datetime currentDateTime){
+        BusinessHours bh = GetActiveBusinessHours('JN Default Business Hours');
+        return BusinessHours.isWithin(bh.Id, currentDateTime);
+     }
+                 
+
+    /**
+     * Checks whether or not a date is a public holiday.
+     * @param {DateTime} date - Date to be checked.
+     * @return Boolean
+     */
+    public static Boolean checkHoliday(Date dateRecord) {
+        Boolean result = false;
+        Map<Date, Holiday> mappedHolidays = getHolidays();
+        if(mappedHolidays.size()>0){
+                if(mappedHolidays.containsKey(dateRecord)){
+                    result = true;
+                    return result;
+                }
+        }
+        return result;
+    }
+
     public static Date GetBackDatedDate(Date currentDate, Integer days){
+        Boolean isHoliday;
         while(days > 0){
             DateTime dt = DateTime.newInstance(currentDate.year(),currentDate.month(),currentDate.day());
+            isHoliday = checkHoliday(currentDate);
             String day = dt.format('E');
-            if(day != 'Sat' && day != 'Sun'){              
+            if(day != 'Sat' && day != 'Sun' && !isHoliday){              
                 days-=1;
             }
             if (days > 0) {

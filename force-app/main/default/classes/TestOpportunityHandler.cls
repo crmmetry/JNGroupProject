@@ -24,11 +24,14 @@ public class TestOpportunityHandler {
         Date validBackDate = Date.newInstance(2020, 8, 6);
         // valid previous month backdated date
         Date validPrevBackDate = Date.newInstance(2020, 7, 30);
+
+        Holiday hol = TestDataFactory.CreateHoliday(Date.newInstance(2020, 8, 6),'Test Holiday');
+        insert hol;
         
         // populate values
         List<Opportunity> opps = new  List<Opportunity>();
-        for(Opportunity record: TestDataFactory.CreateOpportunities(4)){
-            record.CloseDate = Date.newInstance(2020,7, 10);
+        for(Opportunity record: TestDataFactory.CreateOpportunities(5)){
+            record.CloseDate = Date.newInstance(2020, 8, 4);
             record.StageName = 'Closed Lost';
             opps.add(record);
         }
@@ -55,7 +58,12 @@ public class TestOpportunityHandler {
         //scenario 4: years are different
         opps[3].CloseDate = Date.newInstance(2019,8, 8);
         OpportunityTriggerHandler.init(new List<Opportunity>{opps[3]}, mappedOpps, mappedOpps);
-        OpportunityTriggerHandler.validateCloseBackDate(2, 7, currentDate);         
+        OpportunityTriggerHandler.validateCloseBackDate(2, 7, currentDate); 
+        
+        //scenario 5: a public date falls between current date and prospective backedDate
+        opps[4].CloseDate = Date.newInstance(2020,7, 29);
+        OpportunityTriggerHandler.init(new List<Opportunity>{opps[4]}, mappedOpps, mappedOpps);
+        OpportunityTriggerHandler.validateCloseBackDate(2, 7, currentDate.addDays(-1));
         Test.stopTest(); 
     }
     

@@ -11,6 +11,14 @@ public class TestDataFactory {
         }
         return contacts;
     }
+   
+    public static Holiday CreateHoliday(Datetime holidate, String holidayName){
+        Holiday hol = new Holiday();
+        hol.Name =holidayName;
+        hol.ActivityDate = holidate.date();
+        return hol;
+    }
+    
     public static Sobject CreateMappedRecord(Map<String,Object> info, String typeOfObject){
         Sobject c = getNewSobject(typeOfObject);
         for(String key: info.keySet()){          
