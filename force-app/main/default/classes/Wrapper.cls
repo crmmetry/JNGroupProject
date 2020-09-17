@@ -44,9 +44,9 @@ public with sharing class Wrapper {
     @AuraEnabled
     public String maidenName;
     @AuraEnabled
-    public String dependentAdultNum;
+    public Decimal dependentAdultNum;
     @AuraEnabled
-    public String dependentChildNum;
+    public Decimal dependentChildNum;
     @AuraEnabled
     public String citizenCountry;
     @AuraEnabled
@@ -56,9 +56,9 @@ public with sharing class Wrapper {
     @AuraEnabled
     public String trn;
     @AuraEnabled
-    public Date prefferedContactDate;
+    public Date preferredContactDate;
     @AuraEnabled
-    public Time prefferedContactTime;
+    public Time preferredContactTime;
     @AuraEnabled
     public String preferredLocation;
     @AuraEnabled
@@ -68,11 +68,11 @@ public with sharing class Wrapper {
     @AuraEnabled
     public Decimal grossMonthlyExpenses;
     @AuraEnabled
-    public Decimal recordTypeId;
+    public Id recordTypeId;
 
     public LeadWrapper(Lead record) {
       if (record == null) {
-        Wrappers.throwNullException('Record type record cannot be null');
+        Wrapper.throwNullException('Record type record cannot be null');
       }
       this.leadId = record.Id;
       this.leadSource = record.LeadSource;
@@ -83,7 +83,7 @@ public with sharing class Wrapper {
       this.salutation = record.Salutation;
       this.middleName = record.MiddleName;
       this.suffix = record.Suffix;
-      this.gender = record.Gender;
+      this.gender = record.Gender__c;
       this.maritalStatus = record.Marital_Status__c;
       this.dob = record.Date_of_Birth__c;
       this.birthPlace = record.Place_of_Birth__c;
@@ -94,9 +94,9 @@ public with sharing class Wrapper {
       this.residentCountry = record.Country_of_Residence__c;
       this.educationLevel = record.Highest_Level_of_Education_Attained__c;
       this.trn = record.Jamaican_Tax_Registration_Number__c;
-      this.prefferedContactDate = record.Preferred_Date_of_Contact__c;
-      this.prefferedContactTime = record.Preferred_Time_of_Contact__c;
-      this.prefferedLocation = record.Preferred_Location__c;
+      this.preferredContactDate = record.Preferred_Date_of_Contact__c;
+      this.preferredContactTime = record.Preferred_Time_of_Contact__c;
+      this.preferredLocation = record.Preferred_Location__c;
       this.loanPurposeUL = record.Loan_Purpose_UL__c;
       this.grossMonthlyIncome = record.Gross_Monthly_Income__c;
       this.grossMonthlyExpenses = record.Gross_Monthly_Expenses__c;
@@ -112,20 +112,20 @@ public with sharing class Wrapper {
     public Lead lead;
 
     public LeadUnwrapper(LeadWrapper leadWrapper) {
-        if (record == null) {
-          Wrappers.throwNullException('TransactionWrapper record cannot be null');
+        if (leadWrapper == null) {
+          Wrapper.throwNullException('TransactionWrapper record cannot be null');
         }
         this.lead = new Lead();
         this.lead.Id = leadWrapper.leadId;
         this.lead.LeadSource = leadWrapper.leadSource;
         this.lead.FirstName = leadWrapper.firstName;
-        this.lead.LastName - leadWrapper.lastName;
+        this.lead.LastName = leadWrapper.lastName;
         this.lead.Estimated_Amount__c = leadWrapper.estimatedAmount;
         this.lead.Service_of_Interest__c = leadWrapper.serviceOfInterest;
         this.lead.Salutation = leadWrapper.salutation;
         this.lead.MiddleName = leadWrapper.middleName;
         this.lead.Suffix = leadWrapper.suffix;
-        this.lead.Gender = leadWrapper.gender;
+        this.lead.Gender__c = leadWrapper.gender;
         this.lead.Marital_Status__c = leadWrapper.maritalStatus;
         this.lead.Date_of_Birth__c = leadWrapper.dob;
         this.lead.Place_of_Birth__c = leadWrapper.birthPlace;
@@ -136,8 +136,8 @@ public with sharing class Wrapper {
         this.lead.Country_of_Residence__c = leadWrapper.residentCountry;
         this.lead.Highest_Level_of_Education_Attained__c = leadWrapper.educationLevel;
         this.lead.Jamaican_Tax_Registration_Number__c = leadWrapper.trn;
-        this.lead.Preferred_Date_of_Contact__c = leadWrapper.prefferedContactDate;
-        this.lead.Preferred_Time_of_Contact__c = leadWrapper.prefferedContactTime;
+        this.lead.Preferred_Date_of_Contact__c = leadWrapper.preferredContactDate;
+        this.lead.Preferred_Time_of_Contact__c = leadWrapper.preferredContactTime;
         this.lead.Preferred_Location__c = leadWrapper.preferredLocation;
         this.lead.Loan_Purpose_UL__c = leadWrapper.loanPurposeUL;
         this.lead.Gross_Monthly_Income__c = leadWrapper.grossMonthlyIncome;
@@ -176,7 +176,7 @@ public with sharing class Wrapper {
 
     public LeadRelatedPersonWrapper(Lead_Related_Person__c record) {
       if (record == null) {
-        Wrappers.throwNullException('Record type record cannot be null');
+        Wrapper.throwNullException('Record type record cannot be null');
       }
       this.leadRelatedPersonId = record.Id;
       this.firstName = record.First_Name__c;
