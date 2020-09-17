@@ -243,6 +243,7 @@ public class TestUtil {
         String businessHoursName = 'JN Default Business Hours';
         Datetime currentTime;
         Boolean within;
+        BusinessHours businessHours = Util.GetActiveBusinessHours(businessHoursName);
         //scenario 1: currentTime is on same day before end time
         /**
          *  assigned sep 14 2020 at 1:15PM
@@ -257,17 +258,27 @@ public class TestUtil {
          * within limit
          */
         currentTime  = DateTime.newInstance(2020, 09, 14, 16, 15, 0);
-        within = Util.LeadWithinTimeLimit(hours, assignmentTime, currentTime, businessHoursName);
+        within = Util.LeadWithinTimeLimit(hours, assignmentTime, currentTime, businessHours);
         System.assertEquals(false, within, 'Current time '+ currentTime + ' not withing ');
         
         //scenario 2: currentTime is on different day limit not exceeded
         currentTime  = DateTime.newInstance(2020, 09, 15, 11, 00, 0);
-        within = Util.LeadWithinTimeLimit(hours, assignmentTime, currentTime, businessHoursName);
+        within = Util.LeadWithinTimeLimit(hours, assignmentTime, currentTime, businessHours);
         System.assertEquals(false, within, 'Current time '+ currentTime + ' not withing ');
 
-         //scenario 3: currentTime is on different day limit  exceeded
-         currentTime  = DateTime.newInstance(2020, 09, 15, 1, 15, 0);
-         within = Util.LeadWithinTimeLimit(hours, assignmentTime, currentTime, businessHoursName);
+         //scenario 3: currentTime is on different day on the exact limit
+         currentTime  = DateTime.newInstance(2020, 09, 15, 13, 15, 0);
+         within = Util.LeadWithinTimeLimit(hours, assignmentTime, currentTime, businessHours);
+         System.assertEquals(false, within, 'Current time '+ currentTime + ' not withing ');
+        
+         //scenario 4: currentTime is on different day one minute over limit
+         currentTime  = DateTime.newInstance(2020, 09, 15, 13, 16, 0);
+         within = Util.LeadWithinTimeLimit(hours, assignmentTime, currentTime, businessHours);
+         System.assertEquals(true, within, 'Current time '+ currentTime + ' not withing ');
+        
+         //scenario 5: currentTime is on different day + 1,
+         currentTime  = DateTime.newInstance(2020, 09, 15, 13, 16, 0);
+         within = Util.LeadWithinTimeLimit(hours, assignmentTime, currentTime, businessHours);
          System.assertEquals(true, within, 'Current time '+ currentTime + ' not withing ');
     }
 }

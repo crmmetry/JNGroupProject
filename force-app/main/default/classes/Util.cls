@@ -259,7 +259,7 @@ public with sharing class Util {
             }
             when 'Tue' {
                 paddedDateTime = CreateDateTimeFromTime(businessHour.TuesdayStartTime.addMilliseconds(milli),currentTime);
-                if(paddedDateTime <= CreateDateTimeFromTime(businessHour.TuesdayEndTime, currentTime))){
+                if(paddedDateTime <= CreateDateTimeFromTime(businessHour.TuesdayEndTime, currentTime)){
                     if(currentTime > paddedDateTime){
                         return true;
                     }
