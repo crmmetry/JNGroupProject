@@ -12,7 +12,7 @@
   1.0    7/19/2019, 11:31:36 AM   jermaine     Initial Version 
 -->
 <aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId" controller="SimpleLoanCalculationController"  > 
-    <aura:attribute name="isHomePage" type="Boolean"/>
+    <aura:attribute name="isHomePage" type="String"/>
     <aura:attribute name="options" type="List"  default="[
                                                          {'label': 'Installment Affordability', 'value': 'AffordabilityCalculator'},
                                                          {'label': 'Installment Payment', 'value': 'InstallmentPayment'},
@@ -107,11 +107,11 @@
                                                 </aura:renderIf>
                                                 <div class="slds-grid slds-wrap"> 
                                                     <!--<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1"><label>Loan Term</label></div> -->
-                                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 paddingR mrgBottom">
+                                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1 mrgBottom">
                                                         <lightning:input type="number" required="true" placeholder="Year" label="Loan Term" aura:id="loanTermYr" name="loanTermYr"/>
                                                     </div>
-                                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 paddingL mrgBottom">
-                                                        <lightning:input type="number" placeholder="Month" class="mrgTop" aura:id="loanTermMth" name="loanTermMth"/>
+                                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1 mrgBottom">
+                                                        <lightning:input type="number" placeholder="Month" aura:id="loanTermMth" name="loanTermMth"/>
                                                     </div>
                                                     <aura:renderIf isTrue="{!v.showErrorLT}">
                                                         <div id="error">
@@ -161,11 +161,11 @@
                                                     </div>
                                                 </aura:renderIf>
                                                 <div class="slds-grid slds-wrap mrgBottom"> 
-                                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 paddingR">
+                                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1 ">
                                                         <lightning:input label="Loan Term" type="number" placeholder="Year" aura:id="loanTermYrPayment" name="loanTermYrPayment" required="true"/>
                                                     </div>
-                                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 paddingL">
-                                                        <lightning:input label="" type="number" placeholder="Month" class="mrgTop" aura:id="loanTermMthPayment" name="loanTermMthPayment"/> 
+                                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1 ">
+                                                        <lightning:input label="" type="number" placeholder="Month" aura:id="loanTermMthPayment" name="loanTermMthPayment"/> 
                                                     </div>
                                                     <aura:renderIf isTrue="{!v.showErrorIP_LT}">
                                                         <div id="error">
@@ -277,12 +277,7 @@
                 </lightning:layout>
             </lightning:layoutItem>
             
-            
-            
-            
-         
-            
-            
+                      
             
         </lightning:layout>
     </div>
