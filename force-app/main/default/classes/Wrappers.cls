@@ -1,4 +1,4 @@
-public with sharing class Wrapper {
+public with sharing class Wrappers {
    /**
    * throws a null pointer exception with custom message
    * @param {String} - msg exception text
@@ -72,7 +72,7 @@ public with sharing class Wrapper {
 
     public LeadWrapper(Lead record) {
       if (record == null) {
-        Wrapper.throwNullException('Record type record cannot be null');
+        Wrappers.throwNullException('Lead record cannot be null');
       }
       this.leadId = record.Id;
       this.leadSource = record.LeadSource;
@@ -113,7 +113,7 @@ public with sharing class Wrapper {
 
     public LeadUnwrapper(LeadWrapper leadWrapper) {
         if (leadWrapper == null) {
-          Wrapper.throwNullException('TransactionWrapper record cannot be null');
+          Wrappers.throwNullException('LeadWrapper record cannot be null');
         }
         this.lead = new Lead();
         this.lead.Id = leadWrapper.leadId;
@@ -176,7 +176,7 @@ public with sharing class Wrapper {
 
     public LeadRelatedPersonWrapper(Lead_Related_Person__c record) {
       if (record == null) {
-        Wrapper.throwNullException('Record type record cannot be null');
+        Wrappers.throwNullException('Lead Related Person record cannot be null');
       }
       this.leadRelatedPersonId = record.Id;
       this.firstName = record.First_Name__c;
