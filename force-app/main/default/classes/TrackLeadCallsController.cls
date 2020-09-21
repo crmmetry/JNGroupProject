@@ -5,11 +5,14 @@ public with sharing class TrackLeadCallsController implements Queueable {
     this.businessHours = businessHours;
   }
   public void execute(QueueableContext context) {
-    Map<Id, Lead> mappedLeadsToUpdate = new Map<Id, Lead>();
+    Map<Id, Lead> mappedLeadsToUpdate;
     List<Lead> leads = [
       SELECT Id, Assignment_Timestamp__c
       FROM Lead
-      WHERE Disqualified_Flag__C = FALSE AND Disqualified_Timestamp__c = NULL
+      WHERE
+        Disqualified_Flag__c = FALSE
+        AND Disqualified_Timestamp__c = NULL
+        AND Owner.Profile.Name = 'Call Centre - Sales'
     ];
     mappedLeadsToUpdate = updateDisqualifiedLeads(leads, System.now());
     try {
