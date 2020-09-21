@@ -14,7 +14,7 @@ public class TestLeadTriggerHandler {
     
     @isTest
     public static void shouldcrmm_TierTwoTrigger(){
-        Test.startTest();
+        
                         User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
         System.assert(newUser!=null, 'User is empty');
         System.runAs(newUser){
@@ -38,7 +38,7 @@ public class TestLeadTriggerHandler {
         tsk.Result__c = 'Contact Made';
         insert tsk;
         System.assert(tsk!=null, 'Task is empty');
-        
+		Test.startTest();        
         //Create a convert lead
         Database.LeadConvert lc = new Database.LeadConvert();
         lc.setLeadId(leadRecord.id);
@@ -283,7 +283,7 @@ public class TestLeadTriggerHandler {
     
     @isTest
     public static void shouldcrmm_lead_trigger_conversion(){
-        Test.startTest();
+        
                         User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
         System.assert(newUser!=null, 'User is empty');
         System.runAs(newUser){
@@ -306,7 +306,7 @@ public class TestLeadTriggerHandler {
         tsk.Result__c = 'Contact Made';
         insert tsk;
         System.assert(tsk!=null, 'Task is empty');
-        
+        Test.startTest();
         //Create a convert lead
         Database.LeadConvert lc = new Database.LeadConvert();
         lc.setLeadId(leadRecord.id);
@@ -461,7 +461,7 @@ public class TestLeadTriggerHandler {
     
     @isTest
     public static void shouldleadConversionBasic(){
-        Test.startTest();
+        
                         User newUser = [SELECT Id FROM User WHERE UserName = 'leadtester@test.com'];
         System.assert(newUser!=null, 'User is empty');
         System.runAs(newUser){
@@ -485,7 +485,7 @@ public class TestLeadTriggerHandler {
         tsk.Result__c = 'Contact Made';
         insert tsk;
         System.assert(tsk!=null, 'Task is empty');
-        
+        Test.startTest();
         //Create a convert lead
         Database.LeadConvert lc = new Database.LeadConvert();
         lc.setLeadId(leadRecord.id);
