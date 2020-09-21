@@ -345,14 +345,16 @@
         if (
           cmp.find("desiredMonthly").get("v.value") > 0 &&
           acMethodCal == "2" &&
-          cmp.find("maximumLoanamt").get("v.value") > 0
+          cmp.find("maximumLoanamt").get("v.value") > 0 &&
+          cmp.get("v.isHomePage") == "Lead"
         ) {
           $A.util.removeClass(cmp.find("affordablitySave"), "slds-hide");
         } else if (
           cmp.find("existingMthlyPayment").get("v.value") > 0 &&
           cmp.find("GrossIncome").get("v.value") > 0 &&
           acMethodCal == "3" &&
-          cmp.find("maximumLoanamt").get("v.value") > 0
+          cmp.find("maximumLoanamt").get("v.value") > 0 &&
+          cmp.get("v.isHomePage") == "Lead"
         ) {
           $A.util.removeClass(cmp.find("affordablitySave"), "slds-hide");
         } else {
@@ -405,7 +407,8 @@
             ipInterest > 0 &&
             ipTerm > 0 &&
             iploanAmtPayment > 0 &&
-            cmp.find("maximumLoanamtPayment").get("v.value") > 0
+            cmp.find("maximumLoanamtPayment").get("v.value") > 0 &&
+            cmp.get("v.isHomePage") == "Lead"
           ) {
             $A.util.removeClass(cmp.find("affordablitySave"), "slds-hide");
           } else {
@@ -559,7 +562,8 @@
                 .set("v.value", helper.RoundTo(proposedStartingLimit, 10000));
               break;
           }
-          if (cmp.find("totalmonthlyPaymentUnsecure").get("v.value") > 0) {
+          if (cmp.find("totalmonthlyPaymentUnsecure").get("v.value") > 0 &&
+             cmp.get("v.isHomePage") == "Lead") {
             $A.util.removeClass(cmp.find("affordablitySave"), "slds-hide");
           } else {
             $A.util.addClass(cmp.find("affordablitySave"), "slds-hide");
@@ -775,7 +779,8 @@
               console.log("proposeStartingLimit: x:" + proposedStartingLimit);
               break;
           }
-          if (cmp.find("proposeStartingLimit").get("v.value") > 0) {
+          if (cmp.find("proposeStartingLimit").get("v.value") > 0 &&
+              cmp.get("v.isHomePage") == "Lead") {
             $A.util.removeClass(cmp.find("affordablitySave"), "slds-hide");
           } else {
             $A.util.addClass(cmp.find("affordablitySave"), "slds-hide");
