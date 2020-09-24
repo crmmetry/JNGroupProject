@@ -1,0 +1,307 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId">
+    <aura:attribute name="options" type="List" default="[
+    {'label': 'Percentage(%)', 'value': 'percent'},
+    {'label': 'Amount(JMD)', 'value': 'amount'}
+    ]"/>
+    <aura:attribute name="value" type="String" default=""/>
+    <aura:attribute name="percent" type="String" default="percent"/>
+    <aura:attribute name="amount" type="String" default="amount"/>
+
+  <lightning:layout>
+    <lightning:card>
+        <lightning:layoutItem size="12" padding="around-small"> 
+                <fieldset class="slds-box slds-theme_default">
+                    <legend id="productdetailsform" class="slds-text-heading_medium slds-p-vertical_medium">PRODUCT DETAILS</legend> 
+                    <form class="slds-form_stacked">
+                    <lightning:layout multipleRows="true">
+                    <lightning:layoutItem size="12">
+                        <label class="slds-form-element__legend slds-text-heading_small">Product Selection &amp; Applicant Details</label>
+                          <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <lightning:select label="Select the application product combination" name="selectapplicant" aura:id="selectapplicant" required="true" onchange="{! c.showhideONmethod }" disabled="{!v.isProductDetail}">
+                                    <option value="0">choose one...</option>
+                                    <option value="1">Auto Loan</option>
+                                    <option value="2">Unsecured Loan</option>
+                                    <option value="3">Credit Card</option>
+                                    <option value="4">Line of Credit</option>
+                                    <option value="5">Auto Loan &amp; Unsecured Loan</option>
+                                    <option value="6">Auto Loan &amp; Credit Card</option>
+                                    <option value="7">Auto Loan &amp; Line of Credit</option>
+                                    <option value="8">Unsecured Loan &amp; Credit Card</option>
+                                    <option value="9">Unsecured Loan &amp; Line of Credit</option>
+                                    <option value="10">Credit Card &amp; Line of Credit</option>
+                                    <option value="11">Auto Loan, Unsecured Loan &amp; Credit Card</option>
+                                    <option value="12">Auto Loan, Unsecured Loan &amp; Line of Credit</option>
+                                    <option value="13">Auto Loan, Credit Card &amp; Line of Credit</option>
+                                    <option value="14">Unsecured Loan, Credit Card &amp; Line of Credit</option>
+                                    <option value="15">Auto Loan, Unsecured Loan, Credit Card &amp; Line of Credit</option>
+                                </lightning:select>
+                            </div>
+                          </div>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem size="12">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__legend slds-text-heading_small">Personal Unsecured Loan Request</label>
+                            <div class="slds-form-element__control">
+                                <label class="slds-form-element__label" style="font-weight: bold;">CURRENT PROMOTION</label>
+                                <lightning:input aura:id="enter-search" name="enter-search" label="Indicate the JN Bank Promotion" type="search" placeholder="Search Campaign"/>
+                                </div>
+                        </div>
+                    </lightning:layoutItem>
+                    </lightning:layout>
+                    </form>
+                  
+        
+                  <!--Unsecured Loan Features Section-->
+                  <fieldset class="slds-box slds-theme_default">
+                    <legend id="productdetailsform" class="slds-text-heading_medium slds-p-vertical_medium">Unsecured Loan Features</legend>
+                    <form class="slds-form_stacked">
+                        <lightning:layout multipleRows="true">
+                        <lightning:layoutItem size="12">
+                            <label class="slds-form-element__legend slds-text-heading_small">JN LIFE CREDIT LIFE INSURANCE</label>
+                        </lightning:layoutItem>
+                            <lightning:layoutItem size="4" smallDeviceSize="12">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <lightning:select name="select1" label="Interested in Creditor Life?" required="true">
+                                        <option value="">choose one...</option>
+                                        <option value="1">one</option>
+                                        <option value="2">two</option>
+                                        <option value="3">three</option>
+                                    </lightning:select>
+                                </div>
+                              </div>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="4" smallDeviceSize="12">
+                            <div class="slds-form-element">
+                              <div class="slds-form-element__control">
+                                <lightning:select name="select1" label="Coverage Type" required="true">
+                                    <option value="">choose one...</option>
+                                    <option value="1">one</option>
+                                    <option value="2">two</option>
+                                    <option value="3">three</option>
+                                </lightning:select>
+                              </div>
+                            </div>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="4" smallDeviceSize="12">
+                            <div class="slds-form-element">
+                              <div class="slds-form-element__control">
+                                <lightning:select name="select1" label="Include in Loan Amount" required="true">
+                                    <option value="">choose one...</option>
+                                    <option value="1">one</option>
+                                    <option value="2">two</option>
+                                    <option value="3">three</option>
+                                </lightning:select>
+                              </div>
+                            </div>
+                            </lightning:layoutItem>
+                        <lightning:layoutItem size="12">
+                            <label class="slds-form-element__label" style="font-weight: bold;">PROGRESSIVE FEE</label>
+                        </lightning:layoutItem>
+                            <lightning:layoutItem size="4" smallDeviceSize="12">
+                                <div class="slds-form-element">
+                                  <div class="slds-form-element__control">
+                                      <lightning:select name="select1" label="Wave Processing Fee?" required="true">
+                                          <option value="">choose one...</option>
+                                          <option value="1">one</option>
+                                          <option value="2">two</option>
+                                          <option value="3">three</option>
+                                      </lightning:select>
+                                  </div>
+                                </div>
+                                </lightning:layoutItem>
+                                <lightning:layoutItem size="4" smallDeviceSize="12">
+                                <div class="slds-form-element">
+                                  <div class="slds-form-element__control">
+                                      <lightning:select name="select1" label="Include Loan Amount" required="true">
+                                          <option value="">choose one...</option>
+                                          <option value="1">one</option>
+                                          <option value="2">two</option>
+                                          <option value="3">three</option>
+                                      </lightning:select>
+                                  </div>
+                                </div>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="4" smallDeviceSize="12">
+                                <div class="slds-form-element">
+                                  <div class="slds-form-element__control">
+                                    <lightning:input type="number" label="Indicate Applicable Processing Fees(%)" name="Indicate Applicable Processing Fees(%)" formatter="percent" step="0.01"/>
+                                  </div>
+                                </div>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="12">
+                            <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <lightning:select name="select1" label="Deduct the 1st month repayment from loan proceeds?" required="true">
+                                            <option value="">choose one...</option>
+                                            <option value="1">one</option>
+                                            <option value="2">two</option>
+                                            <option value="3">three</option>
+                                        </lightning:select>                           
+                                    </div>
+                            </div>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="12">
+                            <label class="slds-form-element__label" style="font-weight: bold;">CREDIT REPAYMENT</label>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="6" smallDeviceSize="12">
+                              <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <lightning:select name="select1" label="Indicate repayment method " required="true">
+                                        <option value="">choose one...</option>
+                                        <option value="1">one</option>
+                                        <option value="2">two</option>
+                                        <option value="3">three</option>
+                                    </lightning:select>
+                                </div>
+                              </div>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6" smallDeviceSize="12">
+                                <div class="slds-form-element">
+                                  <div class="slds-form-element__control">
+                                    <lightning:input label="Dedicated monthly repayment date" type="number" name="input1" max="30"/>
+                                  </div>
+                                </div>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="12">
+                            <label class="slds-form-element__label" style="font-weight: bold;">CREDIT RISK PRE-ASSESSMENT</label>
+                        </lightning:layoutItem>
+                            <lightning:layoutItem size="6" smallDeviceSize="12">
+                              <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <lightning:input label="Credit Risk Score prior to application" type="number" name="input1" />
+                                </div>
+                              </div>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6" smallDeviceSize="12">
+                                <div class="slds-form-element">
+                                  <div class="slds-form-element__control">
+                                    <lightning:input label="Credit Risk Rating prior to application" type="text" name="input1"/>
+                                  </div>
+                                </div>
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                    </form>
+                  </fieldset>
+                  <!--Requested Details-->
+                  <fieldset class="slds-box slds-theme_default">
+                    <legend id="productdetailsform" class="slds-text-heading_medium slds-m-vertical_medium">Requested Details</legend>
+                    <form class="slds-form_stacked">
+                    <lightning:layout multipleRows="true">
+                    <div class="slds-form-element__control">
+                        <!--Layout for Headings-->
+                        <lightning:layout multipleRows="true">
+                            <lightning:layoutItem size="4" ><h3 class="slds-section-title--divider">Interest Rate(%)*</h3>
+                                        <lightning:input type="number" label="Market" name="Market" formatter="percent" step="0.01"/>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="4"><h3 class="slds-section-title--divider">Loan Term*</h3>
+                                <lightning:layout>
+                                    <lightning:layoutItem size="6">
+                                        <lightning:input type="number" label="Years" name="number"/>
+                                    </lightning:layoutItem>
+                                    <lightning:layoutItem size="6">
+                                    <lightning:input type="number" label="Months" name="number"/>
+                                </lightning:layoutItem>
+                                </lightning:layout>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="4"><h3 class="slds-section-title--divider">Loan Amount (JMD)*</h3>
+                                      <lightning:input type="number" label="Amount" name="number" formatter="currency" step="0.01"/>
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                            <lightning:layoutItem size="12" class="slds-m-vertical_medium">
+                            <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <lightning:select name="select1" label="Loan Purpose" required="true">
+                                            <option value="">choose one...</option>
+                                            <option value="1">one</option>
+                                            <option value="2">two</option>
+                                            <option value="3">three</option>
+                                        </lightning:select>                           
+                                    </div>
+                            </div>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="12">
+                            <label class="slds-form-element__label" style="font-weight: bold;">EXCEPTION DETAILS</label>
+                            <div class="slds-form-element slds-m-vertical_small">
+                                    <div class="slds-form-element__control">
+                                        <lightning:select name="select1" label="Was an exception granted for this credit card?" required="true">
+                                            <option value="">choose one...</option>
+                                            <option value="1">one</option>
+                                            <option value="2">two</option>
+                                            <option value="3">three</option>
+                                        </lightning:select>                           
+                                    </div>
+                            </div>
+                        </lightning:layoutItem>
+                            <lightning:layoutItem size="12" class="slds-m-vertical_medium">
+                                <label class="slds-form-element__label" style="font-weight: bold;">LOAN SAVINGS</label>
+                                <lightning:radioGroup name="radioGroupRequired"
+                                    label="Proposed Savings"
+                                    options="{! v.options }"
+                                    value="{! v.value }"
+                                    type="radio"
+                                    required="true"/>
+                            </lightning:layoutItem>
+                            <aura:if isTrue="{!v.value == v.percent}">
+                                <lightning:layoutItem size="12">
+                                <lightning:input type="number" label="Savings(%)" formatter="percent" step="0.01"/>
+                            </lightning:layoutItem>
+                            </aura:if> 
+                            <aura:if isTrue="{!v.value == v.amount}">
+                                <lightning:layoutItem size="12">
+                                <lightning:input type="number" label="Amount(JMD)" formatter="currency" step="0.01"/>
+                            </lightning:layoutItem>   
+                            </aura:if>
+                                
+                    </div>
+                    </lightning:layout>
+                    </form>
+                  </fieldset>
+                  <c:CreditCalculationsLineItemComponent></c:CreditCalculationsLineItemComponent>
+                </fieldset>
+        </lightning:layoutItem>
+    </lightning:card>
+  </lightning:layout>
+        <!--<lightning:layout>
+        <lightning:card>
+        <lightning:layoutItem size="12" padding="around-small">
+        <fieldset class="slds-box slds-theme_default slds-container_small">
+            <legend id="productdetailsform" class="slds-text-heading_medium slds-p-vertical_medium">PRODUCT DETAILS</legend>
+            <form class="slds-form_stacked">
+                <label class="slds-form-element__legend slds-text-heading_small" style="font-style: italic;">Product Selection &amp; Applicant Details</label>
+                <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                        <lightning:select label="Select the application product combination" name="selectapplicant" aura:id="selectapplicant" required="true" onchange="{! c.showhideONmethod }" disabled="{!v.isProductDetail}">
+                            <option value="0">choose one...</option>
+                            <option value="1">Auto Loan</option>
+                            <option value="2">Unsecured Loan</option>
+                            <option value="3">Credit Card</option>
+                            <option value="4">Line of Credit</option>
+                            <option value="5">Auto Loan &amp; Unsecured Loan</option>
+                            <option value="6">Auto Loan &amp; Credit Card</option>
+                            <option value="7">Auto Loan &amp; Line of Credit</option>
+                            <option value="8">Unsecured Loan &amp; Credit Card</option>
+                            <option value="9">Unsecured Loan &amp; Line of Credit</option>
+                            <option value="10">Credit Card &amp; Line of Credit</option>
+                            <option value="11">Auto Loan, Unsecured Loan &amp; Credit Card</option>
+                            <option value="12">Auto Loan, Unsecured Loan &amp; Line of Credit</option>
+                            <option value="13">Auto Loan, Credit Card &amp; Line of Credit</option>
+                            <option value="14">Unsecured Loan, Credit Card &amp; Line of Credit</option>
+                            <option value="15">Auto Loan, Unsecured Loan, Credit Card &amp; Line of Credit</option>
+                        </lightning:select>
+                    </div>
+                </div>
+                <label class="slds-form-element__legend slds-text-heading_small" style="font-style: italic;">Personal Unsecured Loan Request</label>
+                <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                        <label class="slds-form-element__label" style="font-weight: bold;">CURRENT PROMOTION</label>
+                        <lightning:input aura:id="enter-search" name="enter-search" label="Indicate the JN Bank Promotion" type="search" placeholder="Search Campaign"/>
+                    </div>
+                </div>
+              </form>
+            </fieldset> 
+        </lightning:layoutItem> 
+</lightning:card>
+</lightning:layout>-->
+</aura:component>	
