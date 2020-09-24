@@ -5,44 +5,44 @@
         <lightning:layout multipleRows="true">
             <lightning:layoutItem size="6" padding="around-small">
                 <label class="slds-form-element__label" style="font-weight: bold;">Total Financing</label>
-                <lightning:input type="number" label="Loan Amount Market(JMD)" name="number" formatter="currency" step="0.01"/>
+                <lightning:input type="number" label="Loan Amount Market" name="number" formatter="currency" step="0.01"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
                 <label class="slds-form-element__label" style="font-weight: bold;">Total Loan Payment</label>
-                <lightning:input type="number" label="Monthly Loan Payment Market(JMD)" name="number" formatter="currency" step="0.01"/>
+                <lightning:input type="number" label="Monthly Loan Payment Market" name="number" formatter="currency" step="0.01"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="JN Life Creditor Life Premium(JMD)" name="number" formatter="currency" step="0.01"/>
+                <lightning:input type="number" label="JN Life Creditor Life Premium" name="number" formatter="currency" step="0.01"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="Monthly JN Life Creditor Life Premium(JMD)" name="number" formatter="currency" step="0.01"/>
+                <lightning:input type="number" label="Monthly JN Life Creditor Life Premium" name="number" formatter="currency" step="0.01"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="Total Loan amount(JMD)" name="number" formatter="currency" step="0.01"/>
+                <lightning:input type="number" label="Total Loan amount" name="number" formatter="currency" step="0.01"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="Monthly Loan Payment(JMD)" name="number" formatter="currency" step="0.01"/>
+                <lightning:input type="number" label="Monthly Loan Payment" name="number" formatter="currency" step="0.01"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="Monthly Loan Savings(JMD)" name="number" formatter="currency" step="0.01"/>
+                <lightning:input type="number" label="Monthly Loan Savings" name="number" formatter="currency" step="0.01"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="Monthly Loan Payment + Monthly Loan Savings(JMD)" name="number" formatter="currency" step="0.01"/>
+                <lightning:input type="number" label="Monthly Loan Payment + Monthly Loan Savings" name="number" formatter="currency" step="0.01"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="Total Loan Savings Balance(Over Repayment Period)(JMD)" name="number" formatter="currency" step="0.01"/>
+                <lightning:input type="number" label="Total Loan Savings Balance(Over Repayment Period)" name="number" formatter="currency" step="0.01"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="Total Interest Payment(Over Repayment Period)(JMD)" name="number" formatter="currency" step="0.01"/>
+                <lightning:input type="number" label="Total Interest Payment(Over Repayment Period)" name="number" formatter="currency" step="0.01"/>
             </lightning:layoutItem>
             <label class="slds-form-element__label" style="font-weight: bold;">Credit Repayment Allocation</label>
             <p>Please allocate the proposed loan amount and monthly payments among the Applicant(s)</p>
             <label class="slds-form-element__label" style="font-weight: bold;">Fees and Charges</label>
             <lightning:layoutItem size="12">
-                <lightning:input type="number" label="Legal Fees(including GCT)(JMD)" name="number" formatter="currency" step="0.01"/>
+                <lightning:input type="number" label="Legal Fees(including GCT)" name="number" formatter="currency" step="0.01"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="12">
-                <lightning:input type="number" label="Stamp Duty(Security Documents)(JMD)" name="number" formatter="currency" step="0.01"/>
+                <lightning:input type="number" label="Stamp Duty(Security Documents)" name="number" formatter="currency" step="0.01"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="12">
                 <lightning:input type="number" label="Unsecured Loan Fees &amp; Charges" name="number" formatter="currency" step="0.01"/>
