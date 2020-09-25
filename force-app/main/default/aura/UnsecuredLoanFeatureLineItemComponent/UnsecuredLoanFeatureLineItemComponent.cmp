@@ -4,9 +4,9 @@
         <form class="slds-form_stacked">
             <lightning:layout multipleRows="true">
             <lightning:layoutItem size="12">
-                <label class="slds-form-element__legend slds-text-heading_small">JN LIFE CREDIT LIFE INSURANCE</label>
+                <h2 class="slds-section-title--divider">Jn Life Credit Life Insurance</h2>
             </lightning:layoutItem>
-                <lightning:layoutItem size="4" smallDeviceSize="12">
+                <lightning:layoutItem size="4" smallDeviceSize="12" padding="around-small">
                 <div class="slds-form-element">
                     <div class="slds-form-element__control">
                         <lightning:select name="select1" label="Interested in Creditor Life?" required="true">
@@ -18,7 +18,7 @@
                     </div>
                   </div>
                 </lightning:layoutItem>
-                <lightning:layoutItem size="4" smallDeviceSize="12">
+                <lightning:layoutItem size="4" smallDeviceSize="12" padding="horizontal-small">
                 <div class="slds-form-element">
                   <div class="slds-form-element__control">
                     <lightning:select name="select1" label="Coverage Type" required="true">
@@ -30,7 +30,7 @@
                   </div>
                 </div>
                 </lightning:layoutItem>
-                <lightning:layoutItem size="4" smallDeviceSize="12">
+                <lightning:layoutItem size="4" smallDeviceSize="12" padding="around-small">
                 <div class="slds-form-element">
                   <div class="slds-form-element__control">
                     <lightning:select name="select1" label="Include in Loan Amount" required="true">
@@ -43,9 +43,9 @@
                 </div>
                 </lightning:layoutItem>
             <lightning:layoutItem size="12">
-                <label class="slds-form-element__label" style="font-weight: bold;">PROGRESSIVE FEE</label>
+                <h2 class="slds-section-title--divider">Progressive Fee</h2>
             </lightning:layoutItem>
-                <lightning:layoutItem size="4" smallDeviceSize="12">
+                <lightning:layoutItem size="4" smallDeviceSize="12" padding="around-small">
                     <div class="slds-form-element">
                       <div class="slds-form-element__control">
                           <lightning:select name="select1" label="Wave Processing Fee?" required="true">
@@ -57,7 +57,7 @@
                       </div>
                     </div>
                     </lightning:layoutItem>
-                    <lightning:layoutItem size="4" smallDeviceSize="12">
+                    <lightning:layoutItem size="4" smallDeviceSize="12" padding="horizontal-small">
                     <div class="slds-form-element">
                       <div class="slds-form-element__control">
                           <lightning:select name="select1" label="Include Loan Amount" required="true">
@@ -69,14 +69,14 @@
                       </div>
                     </div>
                 </lightning:layoutItem>
-                <lightning:layoutItem size="4" smallDeviceSize="12">
+                <lightning:layoutItem size="4" smallDeviceSize="12" padding="around-small">
                     <div class="slds-form-element">
                       <div class="slds-form-element__control">
                         <lightning:input type="number" label="Indicate Applicable Processing Fees(%)" name="Indicate Applicable Processing Fees(%)" formatter="percent" step="0.01"/>
                       </div>
                     </div>
                 </lightning:layoutItem>
-                <lightning:layoutItem size="12">
+                <lightning:layoutItem size="12" padding="horizontal-small" class="slds-p-bottom_small">
                 <div class="slds-form-element">
                         <div class="slds-form-element__control">
                             <lightning:select name="select1" label="Deduct the 1st month repayment from loan proceeds?" required="true">
@@ -89,9 +89,9 @@
                 </div>
             </lightning:layoutItem>
             <lightning:layoutItem size="12">
-                <label class="slds-form-element__label" style="font-weight: bold;">CREDIT REPAYMENT</label>
+                <h2 class="slds-section-title--divider">Credit Payment</h2>
             </lightning:layoutItem>
-            <lightning:layoutItem size="6" smallDeviceSize="12">
+            <lightning:layoutItem size="6" smallDeviceSize="12" padding="horizontal-small" class="slds-p-top_small">
                   <div class="slds-form-element">
                     <div class="slds-form-element__control">
                         <lightning:select name="select1" label="Indicate repayment method " required="true">
@@ -103,7 +103,7 @@
                     </div>
                   </div>
                 </lightning:layoutItem>
-                <lightning:layoutItem size="6" smallDeviceSize="12">
+                <lightning:layoutItem size="6" smallDeviceSize="12" padding="around-small">
                     <div class="slds-form-element">
                       <div class="slds-form-element__control">
                         <lightning:input label="Dedicated monthly repayment date" type="number" name="input1" max="30"/>
@@ -111,16 +111,16 @@
                     </div>
                 </lightning:layoutItem>
                 <lightning:layoutItem size="12">
-                <label class="slds-form-element__label" style="font-weight: bold;">CREDIT RISK PRE-ASSESSMENT</label>
+                    <h2 class="slds-section-title--divider">Credit Risk Pre-assessment</h2>
             </lightning:layoutItem>
-                <lightning:layoutItem size="6" smallDeviceSize="12">
+                <lightning:layoutItem size="6" smallDeviceSize="12" padding="around-small">
                   <div class="slds-form-element">
                     <div class="slds-form-element__control">
                         <lightning:input label="Credit Risk Score prior to application" type="number" name="input1" />
                     </div>
                   </div>
                 </lightning:layoutItem>
-                <lightning:layoutItem size="6" smallDeviceSize="12">
+                <lightning:layoutItem size="6" smallDeviceSize="12" padding="horizontal-small">
                     <div class="slds-form-element">
                       <div class="slds-form-element__control">
                         <lightning:input label="Credit Risk Rating prior to application" type="text" name="input1"/>

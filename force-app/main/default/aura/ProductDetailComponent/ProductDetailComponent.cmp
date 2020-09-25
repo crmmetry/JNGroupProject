@@ -15,7 +15,9 @@
                     <form class="slds-form_stacked">
                     <lightning:layout multipleRows="true">
                     <lightning:layoutItem size="12">
-                        <label class="slds-form-element__legend slds-text-heading_small">Product Selection &amp; Applicant Details</label>
+                        <h2 class="slds-section-title--divider">Product Selection &amp; Applicant Details</h2>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem size="12" padding="around-small">
                           <div class="slds-form-element">
                             <div class="slds-form-element__control">
                                 <lightning:select label="Select the application product combination" name="selectapplicant" aura:id="selectapplicant" required="true" onchange="{! c.showhideONmethod }" disabled="{!v.isProductDetail}">
@@ -39,15 +41,18 @@
                             </div>
                           </div>
                     </lightning:layoutItem>
-                    <lightning:layoutItem size="12">
-                        <div class="slds-form-element">
-                            <label class="slds-form-element__legend slds-text-heading_small">Personal Unsecured Loan Request</label>
-                            <div class="slds-form-element__control">
-                                <label class="slds-form-element__label" style="font-weight: bold;">CURRENT PROMOTION</label>
-                                <lightning:input aura:id="enter-search" name="enter-search" label="Indicate the JN Bank Promotion" type="search" placeholder="Search Campaign"/>
-                                </div>
+                    <lightning:layoutItem size="12" padding="horizontal-small">
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <lightning:select name="select1" label="Loan Purpose" required="true">
+                                <option value="">choose one...</option>
+                                <option value="1">one</option>
+                                <option value="2">two</option>
+                                <option value="3">three</option>
+                            </lightning:select>                           
                         </div>
-                    </lightning:layoutItem>
+                </div>
+            </lightning:layoutItem>
                     </lightning:layout>
                     </form>
                   <!--Unsecured Loan Features Section-->
