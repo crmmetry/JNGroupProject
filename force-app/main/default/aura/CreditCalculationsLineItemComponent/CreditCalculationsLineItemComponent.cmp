@@ -35,9 +35,9 @@
             <lightning:layoutItem size="6" padding="around-small">
                 <lightning:input type="number" label="Total Interest Payment(Over Repayment Period)" name="number" formatter="currency" step="0.01" readonly="true"/>
             </lightning:layoutItem>
-            <label class="slds-form-element__label" style="font-weight: bold;">Credit Repayment Allocation</label>
-            <p>Please allocate the proposed loan amount and monthly payments among the Applicant(s)</p>
-            <label class="slds-form-element__label" style="font-weight: bold;">Fees and Charges</label>
+            <lightning:layoutItem size="12"><label class="slds-form-element__label" style="font-weight: bold;">Credit Repayment Allocation</label></lightning:layoutItem>
+            <lightning:layoutItem size="12"><label class="slds-form-element__label">Please allocate the proposed loan amount and monthly payments among the Applicant(s)</label></lightning:layoutItem>
+            <lightning:layoutItem size="12"><label class="slds-form-element__label" style="font-weight: bold;">Fees and Charges</label></lightning:layoutItem>
             <lightning:layoutItem size="12">
                 <lightning:input type="number" label="Legal Fees(including GCT)" name="number" formatter="currency" step="0.01"/>
             </lightning:layoutItem>
