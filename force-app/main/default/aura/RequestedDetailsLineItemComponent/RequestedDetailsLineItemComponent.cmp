@@ -1,0 +1,74 @@
+<aura:component>
+    <fieldset class="slds-box slds-theme_default">
+        <legend id="productdetailsform" class="slds-text-heading_medium slds-m-vertical_medium">Requested Details</legend>
+        <form class="slds-form_stacked">
+        <lightning:layout multipleRows="true">
+        <div class="slds-form-element__control">
+            <!--Layout for Headings-->
+            <lightning:layout multipleRows="true">
+                <lightning:layoutItem size="4" ><h3 class="slds-section-title--divider">Interest Rate(%)*</h3>
+                            <lightning:input type="number" label="Market" name="Market" formatter="percent" step="0.01"/>
+                </lightning:layoutItem>
+                <lightning:layoutItem size="4"><h3 class="slds-section-title--divider">Loan Term*</h3>
+                    <lightning:layout>
+                        <lightning:layoutItem size="6">
+                            <lightning:input type="number" label="Years" name="number"/>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="6">
+                        <lightning:input type="number" label="Months" name="number"/>
+                    </lightning:layoutItem>
+                    </lightning:layout>
+                </lightning:layoutItem>
+                <lightning:layoutItem size="4"><h3 class="slds-section-title--divider">Loan Amount (JMD)*</h3>
+                          <lightning:input type="number" label="Amount" name="number" formatter="currency" step="0.01"/>
+                </lightning:layoutItem>
+            </lightning:layout>
+                <lightning:layoutItem size="12" class="slds-m-vertical_medium">
+                <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <lightning:select name="select1" label="Loan Purpose" required="true">
+                                <option value="">choose one...</option>
+                                <option value="1">one</option>
+                                <option value="2">two</option>
+                                <option value="3">three</option>
+                            </lightning:select>                           
+                        </div>
+                </div>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="12">
+                <label class="slds-form-element__label" style="font-weight: bold;">EXCEPTION DETAILS</label>
+                <div class="slds-form-element slds-m-vertical_small">
+                        <div class="slds-form-element__control">
+                            <lightning:select name="select1" label="Was an exception granted for this credit card?" required="true">
+                                <option value="">choose one...</option>
+                                <option value="1">one</option>
+                                <option value="2">two</option>
+                                <option value="3">three</option>
+                            </lightning:select>                           
+                        </div>
+                </div>
+            </lightning:layoutItem>
+                <lightning:layoutItem size="12" class="slds-m-vertical_medium">
+                    <label class="slds-form-element__label" style="font-weight: bold;">LOAN SAVINGS</label>
+                    <lightning:radioGroup name="radioGroupRequired"
+                        label="Proposed Savings"
+                        options="{! v.options }"
+                        value="{! v.value }"
+                        type="radio"
+                        required="true"/>
+                </lightning:layoutItem>
+                <aura:if isTrue="{!v.value == v.percent}">
+                    <lightning:layoutItem size="12">
+                    <lightning:input type="number" label="Savings(%)" formatter="percent" step="0.01"/>
+                </lightning:layoutItem>
+                </aura:if> 
+                <aura:if isTrue="{!v.value == v.amount}">
+                    <lightning:layoutItem size="12">
+                    <lightning:input type="number" label="Amount(JMD)" formatter="currency" step="0.01"/>
+                </lightning:layoutItem>   
+                </aura:if>        
+        </div>
+        </lightning:layout>
+        </form>
+      </fieldset>
+</aura:component>	
