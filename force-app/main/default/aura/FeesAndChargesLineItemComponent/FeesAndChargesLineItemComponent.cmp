@@ -1,0 +1,34 @@
+<aura:component>
+    <lightning:layoutItem size="12">
+        <lightning:layoutItem size="12">
+            <h2 class="slds-section-title--divider">Fees and Charges</h2>
+        </lightning:layoutItem>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="Legal Fees(including GCT)" name="number" formatter="currency" step="0.01"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="Stamp Duty(Security Documents)" name="number" formatter="currency" step="0.01"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="Unsecured Loan Fees &amp; Charges" name="number" formatter="currency" step="0.01"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="Processing Fees (include GCT)" name="number" formatter="currency" step="0.01"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="JN Creditor Life Insurance Premium" name="number" formatter="currency" step="0.01"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="1st Month's Installment Payable" name="number" formatter="currency" step="0.01"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="Total Closing Costs" name="number" formatter="currency" step="0.01"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="Total Closing Costs Financed By JN" name="number" formatter="currency" step="0.01"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="Total Closing Costs Payable by Applicant" name="number" formatter="currency" step="0.01"/>
+            </lightning:layoutItem>
+</aura:component>	
