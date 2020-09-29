@@ -10,9 +10,9 @@ public with sharing class TrackLeadCallsController implements Queueable {
       SELECT Id, Assignment_Timestamp__c
       FROM Lead
       WHERE
-        Disqualified_Flag__c = FALSE
+        Owner.Profile.Name = 'Call Centre - Sales'
+        AND Disqualified_Flag__c = FALSE
         AND Disqualified_Timestamp__c = NULL
-        AND Owner.Profile.Name = 'Call Centre - Sales'
     ];
     mappedLeadsToUpdate = updateDisqualifiedLeads(leads, System.now());
     try {
