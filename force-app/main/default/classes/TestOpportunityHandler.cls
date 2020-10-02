@@ -19,13 +19,13 @@ public class TestOpportunityHandler {
         Test.startTest();
         DateTime now =System.now();
         // current date
-        Date currentDate = Date.newInstance(2020, 8, 7);
+        Date currentDate = Date.newInstance(2020, 10, 2);
         // valid backdated date
         Date validBackDate = Date.newInstance(2020, 8, 6);
         // valid previous month backdated date
         Date validPrevBackDate = Date.newInstance(2020, 7, 30);
 
-        Holiday hol = TestDataFactory.CreateHoliday(Date.newInstance(2020, 8, 6),'Test Holiday');
+        Holiday hol = TestDataFactory.CreateHoliday(Date.newInstance(2020, 10, 4),'Test Holiday');
         insert hol;
         
         // populate values
@@ -38,33 +38,45 @@ public class TestOpportunityHandler {
         //insert opps;
         Map<Id,Opportunity> mappedOpps = new Map<Id,Opportunity>();
         
-        // scenario one: close date greater than current date
-        opps[2].CloseDate = Date.newInstance(2020,8, 8);
+        //scenario one: close date greater than current date
+        opps[2].CloseDate = Date.newInstance(2020,10,3);
         OpportunityTriggerHandler.init(new List<Opportunity>{opps[2]}, mappedOpps, mappedOpps);
-        OpportunityTriggerHandler.validateCloseBackDate(2, 7, currentDate); 
+        OpportunityTriggerHandler.validateCloseBackDate(2, 7, currentDate, 'JN Default Business Hours'); 
         
         // scenario two: close date less than current date and greater than back max prev days
-        opps[1].CloseDate = Date.newInstance(2020,8, 2);
+        opps[1].CloseDate = Date.newInstance(2020,10, 5);
         // acceptable date: (2020,8, 3)
-        Date d1 = Date.newInstance(2020, 8, 11);
+        Date d1 = Date.newInstance(2020, 10, 15);
         OpportunityTriggerHandler.init(new List<Opportunity>{opps[1]}, mappedOpps, mappedOpps);
-        OpportunityTriggerHandler.validateCloseBackDate(2, 7, d1);
+        OpportunityTriggerHandler.validateCloseBackDate(2, 7, d1, 'JN Default Business Hours');
         
         // scenario three: close date less than current date and falls in previous month and greater than max backdated days
-        opps[2].CloseDate = Date.newInstance(2020,7, 29);
+        opps[2].CloseDate = Date.newInstance(2020,9, 28);
         OpportunityTriggerHandler.init(new List<Opportunity>{opps[2]}, mappedOpps, mappedOpps);
-        OpportunityTriggerHandler.validateCloseBackDate(2, 7, currentDate); 
+        OpportunityTriggerHandler.validateCloseBackDate(2, 7, currentDate, 'JN Default Business Hours'); 
+
+        // **scenario three: close date less than current date and falls in previous month and less than max backdated days
+        opps[2].CloseDate = Date.newInstance(2020,9, 29);
+        OpportunityTriggerHandler.init(new List<Opportunity>{opps[2]}, mappedOpps, mappedOpps);
+        OpportunityTriggerHandler.validateCloseBackDate(2, 7, currentDate, 'JN Default Business Hours'); 
         
         //scenario 4: years are different
         opps[3].CloseDate = Date.newInstance(2019,8, 8);
         OpportunityTriggerHandler.init(new List<Opportunity>{opps[3]}, mappedOpps, mappedOpps);
-        OpportunityTriggerHandler.validateCloseBackDate(2, 7, currentDate); 
+        OpportunityTriggerHandler.validateCloseBackDate(2, 7, currentDate, 'JN Default Business Hours'); 
         
-        //scenario 5: a public date falls between current date and prospective backedDate
-        opps[4].CloseDate = Date.newInstance(2020,7, 29);
+        //**scenario 5: a public holiday falls between current date and prospective backedDate and less than max prev days
+        opps[4].CloseDate = Date.newInstance(2020,9, 29);
         OpportunityTriggerHandler.init(new List<Opportunity>{opps[4]}, mappedOpps, mappedOpps);
-        OpportunityTriggerHandler.validateCloseBackDate(2, 7, currentDate.addDays(-1));
+        OpportunityTriggerHandler.validateCloseBackDate(2, 7, currentDate.addDays(5), 'JN Default Business Hours');
+
+        //**scenario 6: close date falls on a public hoiliday
+        opps[4].CloseDate = Date.newInstance(2020,10, 3);
+        OpportunityTriggerHandler.init(new List<Opportunity>{opps[4]}, mappedOpps, mappedOpps);
+        OpportunityTriggerHandler.validateCloseBackDate(2, 7, currentDate.addDays(5), 'JN Default Business Hours');
         Test.stopTest(); 
+        
+        
     }
     
     @isTest

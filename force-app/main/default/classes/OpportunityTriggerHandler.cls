@@ -166,23 +166,29 @@ public class OpportunityTriggerHandler {
 * @param {DateTime} now - represents the current date and time 
 * @return Void
 */   
-    public static void validateCloseBackDate(Integer backdatedDays, Integer maxPrevDays, Date now){
+    public static void validateCloseBackDate(Integer backdatedDays, Integer maxPrevDays, Date now, String bhName){
         String err1 = 'The Closed Date cannot be this far back in the past for this month. Please contact Sales Support.';
         String err2 = 'The Closed Date cannot be this far back in the past. Please contact Sales Support.';
         String err3 = 'The Closed Date cannot be greater than today. Please contact Sales Support.';
         String err4 = 'The Closed Date year cannot be less this year. Please contact Sales Support.';
+        String err5 = 'The CLosed Date cannot be a holiday';
         
+        Map<Date, Holiday> mappedHolidays = Util.getHolidays();
+        BusinessHours bh = [SELECT Id FROM BusinessHours WHERE Name =:bhName];
         Date minDate = Date.newinstance(now.year(), now.month(), now.day());
         Date todayDate = Date.newinstance(now.year(), now.month(), now.day());
         Integer currentMonth = minDate.month();
         System.debug('M ' + minDate);
-        minDate = Util.GetBackDatedDate(minDate, maxPrevDays);
+        minDate = Util.GetBackDatedDate(minDate, maxPrevDays, bh, mappedHolidays);
         System.debug('Min ' + minDate);
         for(Opportunity record: newRecords ) {
             if(record.StageName == 'Closed Lost' || record.StageName == 'Closed Won' ) {
                 Date closeDate = Date.newinstance(record.CloseDate.year(), record.CloseDate.month(), record.CloseDate.day());
                 Integer closeDateMonth = record.CloseDate.month();
-                if(closeDate.year() < todayDate.year()){
+                if(Util.checkHoliday(closeDate, mappedHolidays)){
+                    record.CloseDate.addError(err5);
+                }
+                else if(closeDate.year() < todayDate.year()){
                     record.CloseDate.addError(err4);
                 } else {
                     if (closeDate > todayDate) {
@@ -199,7 +205,7 @@ public class OpportunityTriggerHandler {
                             // close date is in previous month
                             Date lastMonthDate = Date.newInstance(todayDate.year(), closeDateMonth, 1);
                             System.debug('Prev ' + Util.GetPrevMonthLastDay(lastMonthDate));
-                            Date acceptedDate = Util.GetBackDatedDate(Util.GetPrevMonthLastDay(lastMonthDate), backdatedDays);
+                            Date acceptedDate = Util.GetBackDatedDate(Util.GetPrevMonthLastDay(lastMonthDate), backdatedDays, bh, mappedHolidays);
                             System.debug(' acceptedDate ' +  acceptedDate);
                             if(closeDate < acceptedDate){
                                 record.CloseDate.addError(err2);  

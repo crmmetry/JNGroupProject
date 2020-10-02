@@ -137,7 +137,7 @@ public with sharing class Util {
    * Gets all the holidays in the system and returns a map.
    * @return Map<Date,Holiday>
    */
-  private static Map<Date, Holiday> getHolidays() {
+  public static Map<Date, Holiday> getHolidays() {
     Map<Date, Holiday> mappedHolidays = new Map<Date, Holiday>();
     for (Holiday hDay : [
       SELECT h.StartTimeInMinutes, h.Name, h.ActivityDate
@@ -164,9 +164,9 @@ public with sharing class Util {
    * @param {DateTime} date - Date to be checked.
    * @return Boolean
    */
-  public static Boolean checkHoliday(Date dateRecord) {
+  public static Boolean checkHoliday(Date dateRecord, Map<Date, Holiday> mappedHolidays) {
     Boolean result = false;
-    Map<Date, Holiday> mappedHolidays = getHolidays();
+    //Map<Date, Holiday> mappedHolidays = getHolidays();
     if (mappedHolidays.size() > 0) {
       if (mappedHolidays.containsKey(dateRecord)) {
         result = true;
@@ -176,17 +176,42 @@ public with sharing class Util {
     return result;
   }
 
-  public static Date GetBackDatedDate(Date currentDate, Integer days) {
+  // public static Date GetBackDatedDate(Date currentDate, Integer days) {
+  //   Boolean isHoliday;
+  //   while (days > 0) {
+  //     DateTime dt = DateTime.newInstance(
+  //       currentDate.year(),
+  //       currentDate.month(),
+  //       currentDate.day()
+  //     );
+  //     isHoliday = checkHoliday(currentDate);
+  //     String day = dt.format('E');
+  //     if (day != 'Sat' && day != 'Sun' && !isHoliday) {
+  //       days -= 1;
+  //     }
+  //     if (days > 0) {
+  //       currentDate = currentDate.addDays(-1);
+  //     }
+  //   }
+  //   return currentDate;
+  // }
+
+  public static Date GetBackDatedDate(Date currentDate, Integer days, BusinessHours bh, Map<Date, Holiday> mappedHolidays) {
     Boolean isHoliday;
+    Boolean isBusinessHour;
+    System.debug('BH: ' + bh);
+    //Map<Date, Holiday> mappedHolidays = getHolidays();
     while (days > 0) {
       DateTime dt = DateTime.newInstance(
         currentDate.year(),
         currentDate.month(),
-        currentDate.day()
+        currentDate.day(),
+        12,0,0
       );
-      isHoliday = checkHoliday(currentDate);
-      String day = dt.format('E');
-      if (day != 'Sat' && day != 'Sun' && !isHoliday) {
+      //isHoliday = checkHoliday(currentDate, mappedHolidays);
+      isBusinessHour = BusinessHours.isWithin(bh.Id, dt);
+      System.debug('BH and Holidays: ' + isHoliday +' '+ isBusinessHour);
+      if (isBusinessHour) {
         days -= 1;
       }
       if (days > 0) {
