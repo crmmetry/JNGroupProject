@@ -39,7 +39,7 @@ public class TestOpportunityHandler {
         Map<Id,Opportunity> mappedOpps = new Map<Id,Opportunity>();
         
         //scenario one: close date greater than current date
-        opps[2].CloseDate = Date.newInstance(2020,10,3);
+        opps[2].CloseDate = Date.newInstance(2020,10,4);
         OpportunityTriggerHandler.init(new List<Opportunity>{opps[2]}, mappedOpps, mappedOpps);
         OpportunityTriggerHandler.validateCloseBackDate(2, 7, currentDate, 'JN Default Business Hours'); 
         
