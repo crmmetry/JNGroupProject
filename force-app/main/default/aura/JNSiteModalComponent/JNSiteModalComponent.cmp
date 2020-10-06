@@ -1,0 +1,85 @@
+<aura:component
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome"
+    access="GLOBAL">
+    <section
+    role="dialog"
+    tabindex="-1"
+    class="slds-modal slds-modal_small"
+    aria-labelledby="modal-heading-01"
+    aria-modal="true"
+    aria-describedby="modal-content-id-1"
+    aura:id="jnSiteModal"
+  >
+    <div class="slds-modal__container">
+        <header class="slds-modal__header">
+          <button
+            class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+            title="Close"
+          >
+            <span class="slds-assistive-text">Close</span>
+          </button>
+          <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+            Application Form Details
+          </h2>
+        </header>
+        <div
+          class="slds-modal__content slds-p-around_medium"
+          id="modal-content-id-1"
+        >
+    <lightning:accordion
+      allowMultipleSectionsOpen="true"
+      onsectiontoggle="{! c.handleSectionToggle }"
+      activeSectionName="{! v.activeSections }"
+    >
+      <lightning:accordionSection name="application-info" label="Applicant Information">
+        <c:JNAppInfoTab
+        />
+      </lightning:accordionSection>
+      <lightning:accordionSection
+        name="general-tab-info"
+        label="General Details"
+      >
+        <c:JNGeneralDetailsTab
+        />
+      </lightning:accordionSection>
+      <lightning:accordionSection
+        name="id-details"
+        label="Identification Details"
+      >
+        <c:JNIdentificationDetailsTab
+        />
+      </lightning:accordionSection>
+      <lightning:accordionSection
+        name="contact-details"
+        label="Contact Details"
+      >
+        <c:JNContactDetailsTab
+        />
+      </lightning:accordionSection>
+      <lightning:accordionSection
+        name="employment-details"
+        label="Employment Details"
+      >
+        <c:JNEmploymentDetailsTab
+        />
+      </lightning:accordionSection>
+    </lightning:accordion>
+</div>
+<footer class="slds-modal__footer">
+  <lightning:button
+    class="button-class"
+    variant="success"
+    label="Submit"
+    title="Save action"
+    onclick="{! c.saveLead }"
+  />
+  <lightning:button
+    class="button-class"
+    label="Cancel"
+    title="Cancel action"
+    onclick="{! c.cancelLead }"
+  />
+</footer>
+</div>
+</section>
+</aura:component>	

@@ -1,4 +1,7 @@
-<aura:component access="GLOBAL" controller="JNSiteController">
+<aura:component 
+  implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome"
+  access="GLOBAL" 
+  controller="JNSiteController">
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
   <aura:registerEvent type="c:JNComponentEvent" name="jnEvent" />
   <aura:attribute name="employmentTypes" type="String[]" />

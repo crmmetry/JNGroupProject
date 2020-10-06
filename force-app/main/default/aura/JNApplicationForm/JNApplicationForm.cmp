@@ -1,4 +1,6 @@
-<aura:component access="GLOBAL" controller="JNSiteController">
+<aura:component access="GLOBAL" controller="JNSiteController"
+    implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome"
+>
     <aura:registerEvent type="c:JNComponentEvent" name="jnEvent" />
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
     <aura:handler name="jnEvent" action="{!c.handleEvent}" />
