@@ -1,85 +1,47 @@
 <aura:component
     implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome"
     access="GLOBAL">
-    <section
-    role="dialog"
-    tabindex="-1"
-    class="slds-modal slds-modal_small"
-    aria-labelledby="modal-heading-01"
-    aria-modal="true"
-    aria-describedby="modal-content-id-1"
-    aura:id="jnSiteModal"
-  >
-    <div class="slds-modal__container">
+    <aura:attribute name="readonlyFlag" type="Boolean" default="true" />
+        <section aura:id="myModal" role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-modal_large">
+        <div class="slds-modal__container">
         <header class="slds-modal__header">
-          <button
-            class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
-            title="Close"
-          >
-            <span class="slds-assistive-text">Close</span>
-          </button>
-          <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
-            Application Form Details
-          </h2>
+        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+        <span class="slds-assistive-text">Close</span>
+        </button>
+        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Applicant Form</h2>
         </header>
-        <div
-          class="slds-modal__content slds-p-around_medium"
-          id="modal-content-id-1"
-        >
-    <lightning:accordion
-      allowMultipleSectionsOpen="true"
-      onsectiontoggle="{! c.handleSectionToggle }"
-      activeSectionName="{! v.activeSections }"
-    >
-      <lightning:accordionSection name="application-info" label="Applicant Information">
-        <c:JNAppInfoTab
-        />
-      </lightning:accordionSection>
-      <lightning:accordionSection
-        name="general-tab-info"
-        label="General Details"
-      >
-        <c:JNGeneralDetailsTab
-        />
-      </lightning:accordionSection>
-      <lightning:accordionSection
-        name="id-details"
-        label="Identification Details"
-      >
-        <c:JNIdentificationDetailsTab
-        />
-      </lightning:accordionSection>
-      <lightning:accordionSection
-        name="contact-details"
-        label="Contact Details"
-      >
-        <c:JNContactDetailsTab
-        />
-      </lightning:accordionSection>
-      <lightning:accordionSection
-        name="employment-details"
-        label="Employment Details"
-      >
-        <c:JNEmploymentDetailsTab
-        />
-      </lightning:accordionSection>
-    </lightning:accordion>
-</div>
-<footer class="slds-modal__footer">
-  <lightning:button
-    class="button-class"
-    variant="success"
-    label="Submit"
-    title="Save action"
-    onclick="{! c.saveLead }"
-  />
-  <lightning:button
-    class="button-class"
-    label="Cancel"
-    title="Cancel action"
-    onclick="{! c.cancelLead }"
-  />
-</footer>
-</div>
-</section>
+        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+        <strong><h2 style="background-color: blue; color: gold;" class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
+            Applicant Information
+        </h2></strong>
+        <c:JNAppInfoTab readonlyFlag="{!v.readonlyFlag}"/>
+        <strong><h2 style="background-color: blue; color: gold;" class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
+            General Details
+      </h2></strong>
+        <c:JNGeneralDetailsTab readonlyFlag="{!v.readonlyFlag}"/>
+        <strong><h2 style="background-color: blue; color: gold;" class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
+            Identification Details
+      </h2></strong>
+        <c:JNIdentificationDetailsTab readonlyFlag="{!v.readonlyFlag}"/>
+        <strong><h2 style="background-color: blue; color: gold;" class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
+            Contact Details
+      </h2></strong>
+        <c:JNContactDetailsTab readonlyFlag="{!v.readonlyFlag}"/>
+        <strong><h2 style="background-color: blue; color: gold;" class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
+            Emergency Contact
+      </h2></strong>
+        <c:JNEmergencyContactDetailsTab readonlyFlag="{!v.readonlyFlag}"/>
+        <strong><h2 style="background-color: blue; color: gold;" class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
+            Employment Details
+      </h2></strong>
+        <c:JNEmploymentDetailsTab readonlyFlag="{!v.readonlyFlag}"/>
+        </div>
+        <footer class="slds-modal__footer">
+        <button class="slds-button slds-button_neutral" onclick="{!c.closeModal}">Cancel</button>
+        <button class="slds-button slds-button_brand">Save</button>
+        </footer>
+        </div>
+        </section>
+    <div class="slds-backdrop " aura:id="myModal-Back"></div>
+    <lightning:button onclick="{!c.openModal}">show modal</lightning:button>
 </aura:component>	

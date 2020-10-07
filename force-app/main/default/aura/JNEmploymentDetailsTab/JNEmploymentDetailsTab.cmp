@@ -13,7 +13,7 @@
   <aura:attribute name="employmentStatuses" type="String[]" />
   <aura:attribute name="unEmploymentStatuses" type="String[]" />
   <aura:attribute name="countries" type="String[]" />
-
+  <aura:attribute name="readonlyFlag" type="Boolean" default="false" />
   <aura:attribute name="businessNatures" type="String[]" />
   <aura:attribute name="businessTypes" type="String[]" />
   <aura:attribute name="employmentIndustries" type="String[]" default="[]" />
@@ -48,6 +48,7 @@
             required="true"
             aura:id="validation"
             onchange="{!c.getEmploymentType}"
+            readonly="{!v.readonlyFlag}"
           >
             <option value="">select one...</option>
             <aura:iteration items="{!v.employmentTypes}" var="item">
@@ -58,7 +59,7 @@
       </div>
       <!-- employed -->
       <aura:if isTrue="{!v.SiteLead.Primary_Employment_Type__c == 'Employed'}">
-        <div class="slds-grid slds-gutters">
+        <div class="slds-grid slds-gutters slds-m-top_large">
           <!-- Name of employer -->
           <div class="slds-col slds-size_3-of-12">
             <lightning:input
@@ -67,6 +68,7 @@
               required="true"
               aura:id="validation"
               value="{!v.SiteLead.FinServ__Employer__c}"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
           <!-- Current Position Held -->
@@ -77,6 +79,7 @@
               required="true"
               aura:id="validation"
               value="{!v.SiteLead.Position__c}"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
           <!-- Time employed with Current Employer   -->
@@ -89,6 +92,7 @@
               value="{!v.SiteLead.Time_with_Current_Employer__c}"
               type="number"
               max="70"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
 
@@ -100,6 +104,7 @@
               required="true"
               aura:id="validation"
               onchange="{!c.getIndustryEmployment}"
+              readonly="{!v.readonlyFlag}"
             >
               <option value="">select one...</option>
               <aura:iteration items="{!v.employedIndustries}" var="item">
@@ -108,7 +113,7 @@
             </lightning:select>
           </div>
         </div>
-        <div class="slds-grid slds-gutters">
+        <div class="slds-grid slds-gutters slds-m-top_large">
           <div class="slds-col slds-size_3-of-12">
             <!-- Time Employed in Present Industry -->
             <lightning:input
@@ -119,6 +124,7 @@
               value="{!v.SiteLead.Time_in_Industry__c}"
               type="number"
               max="70"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
           <div class="slds-col slds-size_3-of-12">
@@ -129,6 +135,7 @@
               required="true"
               aura:id="validation"
               onchange="{!c.getEmploymentStatus}"
+              readonly="{!v.readonlyFlag}"
             >
               <option value="">select one...</option>
               <aura:iteration items="{!v.employmentStatuses}" var="item">
@@ -145,10 +152,11 @@
               aura:id="validation"
               value="{!v.SiteLead.Employment_Description__c }"
               maxlength="100"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
         </div>
-        <div class="slds-grid slds-gutters">
+        <div class="slds-grid slds-gutters slds-m-top_large">
           <!-- Street 1 -->
           <div class="slds-col slds-size_3-of-12">
             <lightning:input
@@ -157,6 +165,7 @@
               aura:id="validation"
               value="{!v.SiteLead.Employer_Address_Street_1__c}"
               required="true"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
           <!-- Street 2 -->
@@ -167,6 +176,7 @@
               aura:id="validation"
               value="{!v.SiteLead.Employer_Address_Street_2__c}"
               required="true"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
           <!-- Street 3 -->
@@ -176,10 +186,11 @@
               label="Street 3"
               aura:id="validation"
               value="{!v.SiteLead.Employer_Address_Street_3__c}"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
         </div>
-        <div class="slds-grid slds-gutters">
+        <div class="slds-grid slds-gutters slds-m-top_large">
           <!-- City -->
           <div class="slds-col slds-size_3-of-12">
             <lightning:input
@@ -188,6 +199,7 @@
               aura:id="validation"
               value="{!v.SiteLead.Employer_City_Town__c}"
               required="true"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
           <!-- Residential Area/District -->
@@ -197,6 +209,7 @@
               aura:id="validation"
               label="Residential Area/District"
               value="{!v.SiteLead.Employer_Area_District__c }"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
           <!-- Post Office/Zip Code -->
@@ -206,6 +219,7 @@
               aura:id="validation"
               label="Post Office/Zip Code"
               value="{!v.SiteLead.Employer_Post_Office_Zip_Code__c}"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
           <!-- Parish/Province/State -->
@@ -216,10 +230,11 @@
               label="Parish/Province/State"
               value="{!v.SiteLead.Employer_Province_Parish_State__c}"
               required="true"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
         </div>
-        <div class="slds-grid slds-gutters">
+        <div class="slds-grid slds-gutters slds-m-top_large">
           <!-- Address Status 
                     <div  class="slds-col slds-size_3-of-12">
                         
@@ -244,6 +259,7 @@
               required="true"
               aura:id="validation"
               onchange="{!c.getCountry}"
+              readonly="{!v.readonlyFlag}"
             >
               <option value="">select one...</option>
               <aura:iteration items="{!v.countries}" var="item">
@@ -262,6 +278,7 @@
               pattern="{!v.phoneRegex}"
               required="true"
               messageWhenPatternMismatch="Enter a valid number"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
           <!-- Business Number 2 -->
@@ -274,6 +291,7 @@
               aura:id="validation"
               pattern="{!v.phoneRegex}"
               messageWhenPatternMismatch="Enter a valid number"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
         </div>
@@ -282,7 +300,7 @@
       <aura:if
         isTrue="{!v.SiteLead.Primary_Employment_Type__c == 'Unemployed'}"
       >
-        <div class="slds-grid slds-gutters">
+        <div class="slds-grid slds-gutters slds-m-top_large">
           <!-- Name of Previous Employer -->
           <div class="slds-col slds-size_3-of-12">
             <lightning:input
@@ -291,6 +309,7 @@
               required="true"
               aura:id="validation"
               value="{!v.SiteLeadUnemployed.FinServ__Employer__c}"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
           <!-- Last Position Held -->
@@ -301,6 +320,7 @@
               required="true"
               aura:id="validation"
               value="{!v.SiteLeadUnemployed.Position__c}"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
           <!-- Industry of Business  -->
@@ -312,6 +332,7 @@
               required="true"
               aura:id="validation"
               onchange="{!c.getIndustryBusiness}"
+              readonly="{!v.readonlyFlag}"
             >
               <option value="">select one...</option>
               <aura:iteration items="{!v.unEmployedIndustries}" var="item">
@@ -327,6 +348,7 @@
               required="true"
               aura:id="validation"
               onchange="{!c.getEmploymentStatus}"
+              readonly="{!v.readonlyFlag}"
             >
               <option value="">select one...</option>
               <aura:iteration items="{!v.unEmploymentStatuses}" var="item">
@@ -335,7 +357,7 @@
             </lightning:select>
           </div>
         </div>
-        <div class="slds-grid slds-gutters">
+        <div class="slds-grid slds-gutters slds-m-top_large">
           <!-- Street 1 -->
           <div class="slds-col slds-size_3-of-12">
             <lightning:input
@@ -344,6 +366,7 @@
               aura:id="validation"
               value="{!v.SiteLeadUnemployed.Employer_Address_Street_1__c}"
               required="true"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
           <!-- Street 2 -->
@@ -354,6 +377,7 @@
               aura:id="validation"
               value="{!v.SiteLeadUnemployed.Employer_Address_Street_2__c}"
               required="true"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
           <!-- Street 3 -->
@@ -363,10 +387,11 @@
               label="Street 3"
               aura:id="validation"
               value="{!v.SiteLeadUnemployed.Employer_Address_Street_3__c}"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
         </div>
-        <div class="slds-grid slds-gutters">
+        <div class="slds-grid slds-gutters slds-m-top_large">
           <!-- City -->
           <div class="slds-col slds-size_3-of-12">
             <lightning:input
@@ -374,6 +399,7 @@
               label="City"
               aura:id="validation"
               value="{!v.SiteLeadUnemployed.Employer_City_Town__c}"
+              readonly="{!v.readonlyFlag}"
               required="true"
             />
           </div>
@@ -384,6 +410,7 @@
               aura:id="validation"
               label="Residential Area/District"
               value="{!v.SiteLeadUnemployed.Employer_Area_District__c }"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
           <!-- Post Office/Zip Code -->
@@ -393,6 +420,7 @@
               aura:id="validation"
               label="Post Office/Zip Code"
               value="{!v.SiteLeadUnemployed.Employer_Post_Office_Zip_Code__c}"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
           <!-- Parish/Province/State -->
@@ -403,10 +431,11 @@
               label="Parish/Province/State"
               value="{!v.SiteLeadUnemployed.Employer_Province_Parish_State__c}"
               required="true"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
         </div>
-        <div class="slds-grid slds-gutters">
+        <div class="slds-grid slds-gutters slds-m-top_large">
           <!-- Address Status 
                     <div  class="slds-col slds-size_3-of-12">
                         
@@ -431,6 +460,7 @@
               required="true"
               aura:id="validation"
               onchange="{!c.getUnemployedCountry}"
+              readonly="{!v.readonlyFlag}"
             >
               <option value="">select one...</option>
               <aura:iteration items="{!v.countries}" var="item">
@@ -449,6 +479,7 @@
               pattern="{!v.phoneRegex}"
               required="true"
               messageWhenPatternMismatch="Enter a valid number"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
           <!-- Business Number 2 -->
@@ -461,6 +492,7 @@
               aura:id="validation"
               pattern="{!v.phoneRegex}"
               messageWhenPatternMismatch="Enter a valid number"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
         </div>
@@ -469,7 +501,7 @@
       <aura:if
         isTrue="{!v.SiteLead.Primary_Employment_Type__c == 'Self-Employed'}"
       >
-        <div class="slds-grid slds-gutters">
+        <div class="slds-grid slds-gutters slds-m-top_large">
           <!-- Name of Business -->
           <div class="slds-col slds-size_3-of-12">
             <lightning:input
@@ -478,6 +510,7 @@
               required="true"
               aura:id="validation"
               value="{!v.SiteLeadSelfEmployed.FinServ__Employer__c}"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
           <!-- Business Type -->
@@ -488,6 +521,7 @@
               required="true"
               aura:id="validation"
               onchange="{!c.getBusinessType}"
+              readonly="{!v.readonlyFlag}"
             >
               <option value="">select one...</option>
               <aura:iteration items="{!v.businessTypes}" var="item">
@@ -505,10 +539,11 @@
               required="true"
               type="date"
               onblur="{!c.checkDateValidity }"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
         </div>
-        <div class="slds-grid slds-gutters">
+        <div class="slds-grid slds-gutters slds-m-top_large">
           <!-- Industry of Business -->
           <div class="slds-col slds-size_3-of-12">
             <lightning:select
@@ -517,6 +552,7 @@
               required="true"
               aura:id="validation"
               onchange="{!c.getSelfEmployedIndustry}"
+              readonly="{!v.readonlyFlag}"
             >
               <option value="">select one...</option>
               <aura:iteration items="{!v.selfEmployedIndustries}" var="item">
@@ -532,6 +568,7 @@
               required="true"
               aura:id="validation"
               onchange="{!c.getBusinessNature}"
+              readonly="{!v.readonlyFlag}"
             >
               <option value="">select one...</option>
               <aura:iteration items="{!v.businessNatures}" var="item">
@@ -549,10 +586,11 @@
               value="{!v.SiteLeadSelfEmployed.Time_in_Industry__c}"
               required="true"
               type="number"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
         </div>
-        <div class="slds-grid slds-gutters">
+        <div class="slds-grid slds-gutters slds-m-top_large">
           <!-- Street 1 -->
           <div class="slds-col slds-size_3-of-12">
             <lightning:input
@@ -561,6 +599,7 @@
               aura:id="validation"
               value="{!v.SiteLeadSelfEmployed.Employer_Address_Street_1__c}"
               required="true"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
           <!-- Street 2 -->
@@ -571,6 +610,7 @@
               aura:id="validation"
               value="{!v.SiteLeadSelfEmployed.Employer_Address_Street_2__c}"
               required="true"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
           <!-- Street 3 -->
@@ -580,10 +620,11 @@
               label="Street 3"
               aura:id="validation"
               value="{!v.SiteLeadSelfEmployed.Employer_Address_Street_3__c}"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
         </div>
-        <div class="slds-grid slds-gutters">
+        <div class="slds-grid slds-gutters slds-m-top_large">
           <!-- City -->
           <div class="slds-col slds-size_3-of-12">
             <lightning:input
@@ -592,6 +633,7 @@
               aura:id="validation"
               value="{!v.SiteLeadSelfEmployed.Employer_City_Town__c}"
               required="true"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
           <!-- Residential Area/District -->
@@ -601,6 +643,7 @@
               aura:id="validation"
               label="Residential Area/District"
               value="{!v.SiteLeadSelfEmployed.Employer_Area_District__c }"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
           <!-- Post Office/Zip Code -->
@@ -610,6 +653,7 @@
               aura:id="validation"
               label="Post Office/Zip Code"
               value="{!v.SiteLeadSelfEmployed.Employer_Post_Office_Zip_Code__c}"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
           <!-- Parish/Province/State -->
@@ -620,10 +664,11 @@
               label="Parish/Province/State"
               value="{!v.SiteLeadSelfEmployed.Employer_Province_Parish_State__c}"
               required="true"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
         </div>
-        <div class="slds-grid slds-gutters">
+        <div class="slds-grid slds-gutters slds-m-top_large">
           <!-- Address Status 
                     <div  class="slds-col slds-size_3-of-12">
                         
@@ -648,6 +693,7 @@
               required="true"
               aura:id="validation"
               onchange="{!c.getSelfEmployedCountry}"
+              readonly="{!v.readonlyFlag}"
             >
               <option value="">select one...</option>
               <aura:iteration items="{!v.countries}" var="item">
@@ -666,6 +712,7 @@
               pattern="{!v.phoneRegex}"
               required="true"
               messageWhenPatternMismatch="Enter a valid number"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
           <!-- Business Number 2 -->
@@ -678,6 +725,7 @@
               aura:id="validation"
               pattern="{!v.phoneRegex}"
               messageWhenPatternMismatch="Enter a valid number"
+              readonly="{!v.readonlyFlag}"
             />
           </div>
         </div>
