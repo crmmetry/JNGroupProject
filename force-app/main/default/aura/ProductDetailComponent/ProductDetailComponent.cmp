@@ -17,7 +17,7 @@
                     <lightning:layoutItem size="12">
                         <h2 class="slds-section-title--divider">Product Selection &amp; Applicant Details</h2>
                     </lightning:layoutItem>
-                    <lightning:layoutItem size="12" padding="around-small">
+                    <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
                           <div class="slds-form-element">
                             <div class="slds-form-element__control">
                                 <lightning:select label="Select the application product combination" name="selectapplicant" aura:id="selectapplicant" required="true" onchange="{! c.showhideONmethod }" disabled="{!v.isProductDetail}">
@@ -41,7 +41,7 @@
                             </div>
                           </div>
                     </lightning:layoutItem>
-                    <lightning:layoutItem size="12" padding="horizontal-small">
+                    <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
                     <div class="slds-form-element">
                         <div class="slds-form-element__control">
                             <lightning:select name="select1" label="Loan Purpose" required="true">
