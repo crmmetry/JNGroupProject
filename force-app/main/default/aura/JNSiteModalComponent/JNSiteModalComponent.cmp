@@ -11,27 +11,27 @@
         <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Applicant Form</h2>
         </header>
         <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-        <strong><h2 style="background-color: blue; color: gold;" class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
+        <strong><h2 class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
             Applicant Information
         </h2></strong>
         <c:JNAppInfoTab readonlyFlag="{!v.readonlyFlag}"/>
-        <strong><h2 style="background-color: blue; color: gold;" class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
+        <strong><h2 class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
             General Details
       </h2></strong>
         <c:JNGeneralDetailsTab readonlyFlag="{!v.readonlyFlag}"/>
-        <strong><h2 style="background-color: blue; color: gold;" class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
+        <strong><h2 class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
             Identification Details
       </h2></strong>
         <c:JNIdentificationDetailsTab readonlyFlag="{!v.readonlyFlag}"/>
-        <strong><h2 style="background-color: blue; color: gold;" class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
+        <strong><h2 class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
             Contact Details
       </h2></strong>
         <c:JNContactDetailsTab readonlyFlag="{!v.readonlyFlag}"/>
-        <strong><h2 style="background-color: blue; color: gold;" class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
+        <strong><h2 class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
             Emergency Contact
       </h2></strong>
         <c:JNEmergencyContactDetailsTab readonlyFlag="{!v.readonlyFlag}"/>
-        <strong><h2 style="background-color: blue; color: gold;" class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
+        <strong><h2 class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
             Employment Details
       </h2></strong>
         <c:JNEmploymentDetailsTab readonlyFlag="{!v.readonlyFlag}"/>
