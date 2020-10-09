@@ -11,6 +11,7 @@
   <aura:attribute name="maxdate" type="Date" />
   <aura:attribute name="mindate" type="Date" />
   <aura:attribute name="loan_type" type="String" />
+  <aura:attribute name="readonlyFlag" type="Boolean" default="false" />
   <aura:method name="validateTabFields" action="{!c.validateTabFields}" access="public"/>
   <aura:method name="createDetails" action="{!c.createDetails}" access="public"/>
 
@@ -27,6 +28,7 @@
             onchange="{!c.getSalutation}"
             required="false"
             aura:id="validation"
+            readonly="{!v.readonlyFlag}"
           >
             <option value="">select one...</option>
             <aura:iteration items="{!v.titles}" var="item">
@@ -42,7 +44,7 @@
             required="true"
             value="{!v.SiteLead.FirstName }"
             aura:id="validation"
-            readonly="{!v.SiteLead.Id}"
+            readonly="{!v.readonlyFlag}"
           />
         </div>
         <!-- Middle Name -->
@@ -53,7 +55,7 @@
             required="false"
             value="{!v.SiteLead.MiddleName }"
             aura:id="validation"
-            readonly="{!v.SiteLead.Id}"
+            readonly="{!v.readonlyFlag}"
           />
         </div>
         <!-- Last Name -->
@@ -64,12 +66,12 @@
             required="true"
             value="{!v.SiteLead.LastName }"
             aura:id="validation"
-            readonly="{!v.SiteLead.Id}"
+            readonly="{!v.readonlyFlag}"
           />
         </div>
       </div>
       <!-- second row -->
-      <div class="slds-grid slds-gutters">
+      <div class="slds-grid slds-gutters slds-m-top_large">
         <!-- Suffix -->
         <div class="slds-col slds-size_3-of-12">
           <lightning:input
@@ -79,6 +81,7 @@
             aura:id="validation"
             value="{!v.SiteLead.Suffix}"
             maxlength="40"
+            readonly="{!v.readonlyFlag}"
           />
         </div>
         <!-- Gender -->
@@ -89,6 +92,7 @@
             onchange="{!c.getGender}"
             required="true"
             aura:id="validation"
+            readonly="{!v.readonlyFlag}"
           >
             <option value="">select one...</option>
             <aura:iteration items="{!v.genders}" var="item">
@@ -104,6 +108,7 @@
             required="true"
             onchange="{!c.getMaritalStatus}"
             aura:id="validation"
+            readonly="{!v.readonlyFlag}"
           >
             <option value="">select one...</option>
             <aura:iteration items="{!v.maritalStatuses}" var="item">
@@ -122,18 +127,19 @@
             value="{!v.SiteLead.Date_of_Birth__c }"
             aura:id="validation"
             onblur ="{!c.checkDateValidity }"
+            readonly="{!v.readonlyFlag}"
           />
         </div>
       </div>
 
       <!-- third row -->
-      <div class="slds-grid slds-gutters">
+      <div class="slds-grid slds-gutters slds-m-top_large">
         <!-- Place of Birth -->
         <div class="slds-col slds-size_3-of-12">
           <lightning:input
             name="place_of_birth"
             label="Place of Birth"
-           
+            readonly="{!v.readonlyFlag}"
             required="true"
             value="{!v.SiteLead.Place_of_Birth__c }"
             aura:id="validation"
@@ -147,6 +153,7 @@
             required="true"
             value="{!v.SiteLead.Mother_s_Maiden_Name__c}"
             aura:id="validation"
+            readonly="{!v.readonlyFlag}"
           />
         </div>
         <!-- Number of Dependents (Adults)-->
@@ -158,6 +165,7 @@
             required="true"
             value="{!v.SiteLead.Number_of_Dependent_Adults__c}"
             aura:id="validation"
+            readonly="{!v.readonlyFlag}"
           />
         </div>
         <!-- Number of Dependents (Children)-->
@@ -169,19 +177,20 @@
             required="true"
             value="{!v.SiteLead.Number_of_Dependent_Children__c}"
             aura:id="validation"
+            readonly="{!v.readonlyFlag}"
           />
         </div>
       </div>
 
       <!-- fourth row -->
-      <div class="slds-grid slds-gutters">
+      <div class="slds-grid slds-gutters slds-m-top_large">
         <!-- Country of Citizenship -->
         <div class="slds-col slds-size_3-of-12">
           <lightning:select
             name="country_of_citizenship"
             label="Country of Citizenship"
             required="true"
-            
+            readonly="{!v.readonlyFlag}"
             onchange="{!c.getCountryofCitizenship}"
             aura:id="validation"
           >
@@ -199,6 +208,7 @@
             required="true"
             onchange="{!c.getCountryofResidence}"
             aura:id="validation"
+            readonly="{!v.readonlyFlag}"
           >
           <option value="Jamaica">Jamaica</option>
             <aura:iteration items="{!v.countries}" var="item">
@@ -214,6 +224,7 @@
             required="true"
             onchange="{!c.getEducationLevel}"
             aura:id="validation"
+            readonly="{!v.readonlyFlag}"
           >
             <option value="">select one...</option>
             <aura:iteration items="{!v.educationLevels}" var="item">
@@ -233,6 +244,7 @@
             pattern="^[0-9]{3}[0-9]{3}[0-9]{3}$"
             value="{!v.SiteLead.Jamaican_Tax_Registration_Number__c}"
             aura:id="validation"
+            readonly="{!v.readonlyFlag}"
           />
         </div>
       </div>
