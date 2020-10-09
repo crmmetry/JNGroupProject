@@ -3,6 +3,7 @@
     const siteLead = {
       Primary_Employment_Type__c: ""
     };
+    Object.assign(siteLead, component.get("v.SiteLead"));
     component.set("v.SiteLead", siteLead);
     component.set("v.SiteLeadUnemployed", siteLead);
     component.set("v.SiteLeadSelfEmployed", siteLead);
@@ -36,8 +37,6 @@
     ]);
     component.set("v.employmentStatuses", ["Permanent","Contractual"]);
     component.set("v.unEmploymentStatuses", ["Unemployed"]);
-    Object.assign(siteLead, component.get("v.SiteLead"));
-    component.set("v.SiteLead", siteLead);
     helper.getPickListValues(component);
   },
   getEmploymentType: function(component, event, helper) {

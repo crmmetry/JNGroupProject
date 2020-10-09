@@ -26,7 +26,6 @@
   },
   setSiteLeadInfo: function(component, currentCmp) {
     let siteLead = component.get("v.SiteLead");
-    console.table(JSON.parse(JSON.stringify(siteLead)));
     Object.assign(siteLead, currentCmp.get("v.SiteLead"));
     component.set("v.SiteLead", siteLead);
     console.table(JSON.parse(JSON.stringify(siteLead)));
@@ -105,5 +104,34 @@
 	 }
       let message = `Please complete the following tab(s) first ${missingSteps.join(',')}`;
       return {error, message};
-  }
+  },
+  createLead: function(component) {
+    const action = component.get("c.createLeadReferral");
+    action.setParams({
+        "applicantDetails": component.get("v.SiteLead")
+    });
+    this.sendEvents(component, ["showLoading"]);
+    action.setCallback(this, function(response) {
+        this.sendEvents(component, ["disableShowLoading"]);
+        const state = response.getState();
+        if (state === "SUCCESS") {
+            console.log("Server call successful");
+            let siteLead = component.get("v.SiteLead");               
+            Object.assign(siteLead, response.getReturnValue());
+            component.set("v.SiteLead", siteLead);
+            this.sendEvents(
+                component,
+                [ "setLeadInfo", "navigateNext"],
+                {"Id": siteLead.Id}
+            );
+        } else {
+            const commonError = "You're creating a duplicate record with an existing First and Last name.";
+            this.showToast(component, {
+                severity: "error",
+                message: commonError
+            });
+        }
+    });
+    $A.enqueueAction(action);
+}
 });

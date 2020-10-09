@@ -83,7 +83,8 @@
     const validatedTabs = component.get("v.validatedTabs");
     const currentCmp = component.find(tabName);
     if (component.get("v.formBtnText") === "Finish") {
-      helper.showModal(component);
+      //helper.showModal(component);
+      helper.createLead(component);
     } else {
       if (typeof currentCmp.validateTabFields === "function") {
         if (currentCmp.validateTabFields() === true) {
@@ -119,6 +120,11 @@
                 currentCmp.setMailingAddress();
               }
               //currentCmp.createDetails();
+              helper.setSiteLeadInfo(component, currentCmp);
+              helper.navigateNext(component);
+              break;
+            }
+            case "Employment_Details": {
               helper.setSiteLeadInfo(component, currentCmp);
               helper.navigateNext(component);
               break;

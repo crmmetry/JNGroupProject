@@ -19,9 +19,18 @@
             Jamaican_Tax_Registration_Number__c: null,
             Service_of_Interest__c:""
         };
-
         Object.assign(siteLead, component.get("v.SiteLead"));
         component.set("v.SiteLead", siteLead);
+
+        console.log('loan type= ', component.get("v.loan_type"))
+        let serviceofInterest;
+        if (component.get("v.loan_type") == "credit_card") {
+        serviceofInterest = "JN Bank Credit Card";
+        } else {
+        serviceofInterest = "JN Bank Unsecured Loan";
+        }
+        component.set("v.SiteLead.Service_of_Interest__c", serviceofInterest);
+
         helper.getPickListValues(component);
     },
     getSalutation: function(component, event, helper) {
