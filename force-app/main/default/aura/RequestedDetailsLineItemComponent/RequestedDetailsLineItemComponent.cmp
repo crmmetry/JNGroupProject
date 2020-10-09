@@ -7,7 +7,7 @@
     <aura:attribute name="percent" type="String" default="percent"/>
     <aura:attribute name="amount" type="String" default="amount"/>
     <fieldset class="slds-box slds-theme_default">
-        <legend id="productdetailsform" class="slds-text-heading_medium slds-m-vertical_medium">Requested Details</legend>
+        <legend id="productdetailsform" class="slds-text-heading_medium slds-p-vertical_medium">Requested Details</legend>
         <form class="slds-form_stacked">
         <lightning:layout multipleRows="true">
             <!--Layout for Headings-->
