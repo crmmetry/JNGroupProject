@@ -36,6 +36,8 @@
     ]);
     component.set("v.employmentStatuses", ["Permanent","Contractual"]);
     component.set("v.unEmploymentStatuses", ["Unemployed"]);
+    Object.assign(siteLead, component.get("v.SiteLead"));
+    component.set("v.SiteLead", siteLead);
     helper.getPickListValues(component);
   },
   getEmploymentType: function(component, event, helper) {
@@ -58,9 +60,10 @@
       return validSoFar && inputCmp.get("v.validity").valid;
     }, true);
   },
-  createDetails: function(component, event, helper) {
-    helper.updateApplicantInfo(component);
-  },
+  // createDetails: function(component, event, helper) {
+  //   //helper.updateApplicantInfo(component);
+  //   helper.createLead(component);
+  // },
   getAddressStatus: function(component, event, helper) {
     const selected = event.getSource().get("v.value");
     let siteLead = component.get("v.SiteLead");

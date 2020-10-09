@@ -77,9 +77,9 @@
             return validSoFar && inputCmp.get("v.validity").valid;
         }, true);
     },
-    createDetails: function(component, event, helper) {
-        helper.createLead(component);
-    },
+    // createDetails: function(component, event, helper) {
+    //     helper.createLead(component);
+    // },
     checkDateValidity: function(component, event, helper) {
             let cmp = event.getSource();
             let currentDateValue = cmp.get("v.value");

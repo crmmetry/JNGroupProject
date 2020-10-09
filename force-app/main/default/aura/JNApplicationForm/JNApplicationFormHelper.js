@@ -26,8 +26,10 @@
   },
   setSiteLeadInfo: function(component, currentCmp) {
     let siteLead = component.get("v.SiteLead");
+    console.table(JSON.parse(JSON.stringify(siteLead)));
     Object.assign(siteLead, currentCmp.get("v.SiteLead"));
     component.set("v.SiteLead", siteLead);
+    console.table(JSON.parse(JSON.stringify(siteLead)));
   },
   showModal: function(component) {
     let childCmp = component.find("JNModal");

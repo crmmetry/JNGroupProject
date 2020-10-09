@@ -96,13 +96,31 @@
             case "Application_Information": {
               helper.setSiteLeadInfo(component, currentCmp);
               helper.navigateNext(component);
+              console.log("navigate success");
+              break;
+            }
+            case "General_Details": {
+              helper.setSiteLeadInfo(component, currentCmp);
+              helper.navigateNext(component);
+              break;
+            }
+            case "Identification_Details": {
+              helper.setSiteLeadInfo(component, currentCmp);
+              helper.navigateNext(component);
+              break;
+            }
+            case "Emergency_Contact": {
+              helper.setSiteLeadInfo(component, currentCmp);
+              helper.navigateNext(component);
               break;
             }
             case "Contact_Details": {
               if (!currentCmp.get("v.shouldShow")) {
                 currentCmp.setMailingAddress();
               }
-              currentCmp.createDetails();
+              //currentCmp.createDetails();
+              helper.setSiteLeadInfo(component, currentCmp);
+              helper.navigateNext(component);
               break;
             }
 
