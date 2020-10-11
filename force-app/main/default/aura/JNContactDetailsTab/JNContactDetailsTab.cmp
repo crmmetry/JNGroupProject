@@ -11,7 +11,8 @@
     <aura:attribute name="businessNumberRequired" type="Boolean" default="false"/>
     <aura:attribute name="preferredContactMethods" type="String[]" />
     <aura:attribute name="emailRegex" type="String"  default="^[a-zA-Z0-9_\-.]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"/>
-    
+    <aura:attribute name="readonlyFlag" type="Boolean" default="false" />
+
     <aura:method
                  name="createDetails"
                  action="{!c.createDetails}"
@@ -49,6 +50,7 @@
                                      required="true"
                                      pattern="{!v.phoneRegex}"
                                      messageWhenPatternMismatch="Enter a valid number"
+                                     readonly="{!v.readonlyFlag}"
                                      />
                 </div>
                 <!-- Home Number -->
@@ -62,6 +64,7 @@
                                      pattern="{!v.phoneRegex}"
                                      required="{!v.homeNumberRequired}"
                                      messageWhenPatternMismatch="Enter a valid number"
+                                     readonly="{!v.readonlyFlag}"
                                      />
                 </div>
                 <!-- Business Number -->
@@ -75,6 +78,7 @@
                                      pattern="{!v.phoneRegex}"
                                      required="{!v.businessNumberRequired}"
                                      messageWhenPatternMismatch="Enter a valid number"
+                                     readonly="{!v.readonlyFlag}"
                                      />
                 </div>
                 <!-- Other Number -->
@@ -87,12 +91,13 @@
                                      aura:id="validation"
                                      pattern="{!v.phoneRegex}"
                                      messageWhenPatternMismatch="Enter a valid number"
+                                     readonly="{!v.readonlyFlag}"
                                      />
                 </div>
             </div>
             <!-- second row -->
             
-            <div class="slds-grid slds-gutters">
+            <div class="slds-grid slds-gutters slds-m-top_large">
                 <!-- Personal Email -->
                 <div class="slds-col slds-size_3-of-12">
                     <lightning:input
@@ -104,6 +109,7 @@
                                      aura:id="validation"
                                      pattern="{!v.emailRegex}"
                                      messageWhenPatternMismatch="Enter a valid email"
+                                     readonly="{!v.readonlyFlag}"
                                      />
                 </div>
                 <!-- Other Email -->
@@ -117,6 +123,7 @@
                                      aura:id="validation"
                                      pattern="{!v.emailRegex}"
                                      messageWhenPatternMismatch="Enter a valid email"
+                                     readonly="{!v.readonlyFlag}"
                                      />
                 </div>
                 <div class="slds-col slds-size_3-of-12">
@@ -127,6 +134,7 @@
                                           required="true"
                                           aura:id="validation"
                                           onchange="{!c.getPreferredContactMethod}"
+                                          readonly="{!v.readonlyFlag}"
                                           >
                             <option value="">select one...</option>
                             <aura:iteration items="{!v.preferredContactMethods}" var="item">
@@ -150,6 +158,7 @@
                                          aura:id="validation"
                                          value="{!v.SiteLead.Street_1__c}"
                                          required="true"
+                                         readonly="{!v.readonlyFlag}"
                                          />
                     </div>
                     <!-- Street 2 -->
@@ -160,6 +169,7 @@
                                          aura:id="validation"
                                          value="{!v.SiteLead.Street_2__c}"
                                          required="true"
+                                         readonly="{!v.readonlyFlag}"
                                          />
                     </div>
                     <!-- Street 3 -->
@@ -169,11 +179,12 @@
                                          label="Street 3"
                                          aura:id="validation"
                                          value="{!v.SiteLead.Street_3__c}"
+                                         readonly="{!v.readonlyFlag}"
                                          />
                     </div>
                 </div>
                 <!-- second row -->
-                <div class="slds-grid slds-gutters">
+                <div class="slds-grid slds-gutters slds-m-top_large">
                     <!-- City -->
                     <div class="slds-col slds-size_3-of-12">
                         <lightning:input
@@ -182,6 +193,7 @@
                                          aura:id="validation"
                                          value="{!v.SiteLead.City_Town__c}"
                                          required="true"
+                                         readonly="{!v.readonlyFlag}"
                                          />
                     </div>
                     <!-- Residential Area/District -->
@@ -191,6 +203,7 @@
                                          aura:id="validation"
                                          label="Residential Area/District"
                                          value="{!v.SiteLead.Residential_Area_District__c}"
+                                         readonly="{!v.readonlyFlag}"
                                          />
                     </div>
                     <!-- Post Office/Zip Code -->
@@ -200,6 +213,7 @@
                                          aura:id="validation"
                                          label="Post Office/Zip Code"
                                          value="{!v.SiteLead.Post_Office_Zip_Code__c}"
+                                         readonly="{!v.readonlyFlag}"
                                          />
                     </div>
                     <!-- Parish/Province/State -->
@@ -210,11 +224,12 @@
                                          label="Parish/Province/State"
                                          value="{!v.SiteLead.Province_Parish_State__c}"
                                          required="true"
+                                         readonly="{!v.readonlyFlag}"
                                          />
                     </div>
                 </div>
                 <!-- third row -->
-                <div class="slds-grid slds-gutters">
+                <div class="slds-grid slds-gutters slds-m-top_large">
                     <div class="slds-col slds-size_3-of-12">
                         <!-- Country -->
                         <lightning:select
@@ -224,6 +239,7 @@
                                           required="false"
                                           onchange="{!c.getCountry}"
                                           disabled="true"
+                                          readonly="{!v.readonlyFlag}"
                                           >
                             <option value="Jamaica">Jamaica</option>
                             <aura:iteration items="{!v.countries}" var="item">
@@ -239,6 +255,7 @@
                                           required="true"
                                           aura:id="validation"
                                           onchange="{!c.getAddressStatus}"
+                                          readonly="{!v.readonlyFlag}"
                                           >
                             <option value="">select one...</option>
                             <aura:iteration items="{!v.addressStatuses}" var="item">
@@ -254,6 +271,7 @@
                                           required="true"
                                           aura:id="validation"
                                           onchange="{!c.getAddressType}"
+                                          readonly="{!v.readonlyFlag}"
                                           >
                             <option value="">select one...</option>
                             <aura:iteration items="{!v.addressTypes}" var="item">
@@ -270,6 +288,7 @@
                                          label="Years at this address?"
                                          value="{!v.SiteLead.Years_at_Residence__c}"
                                          required="true"
+                                         readonly="{!v.readonlyFlag}"
                                          />
                     </div>
                 </div>
@@ -281,6 +300,7 @@
                                  name="different_address"
                                  checked="{!v.SiteLead.Different_Mailing_Address__c}"
                                  class="slds-m-vertical_large"
+                                 readonly="{!v.readonlyFlag}"
                                  />
             </div>
             <aura:if isTrue="{!v.SiteLead.Different_Mailing_Address__c}">
@@ -298,6 +318,7 @@
                                              aura:id="validation"
                                              value="{!v.SiteLead.Mailing_Street_1__c}"
                                              required="true"
+                                             readonly="{!v.readonlyFlag}"
                                              />
                         </div>
                         <!-- Street 2 -->
@@ -308,6 +329,7 @@
                                              aura:id="validation"
                                              value="{!v.SiteLead.Mailing_Street_2__c}"
                                              required="true"
+                                             readonly="{!v.readonlyFlag}"
                                              />
                         </div>
                         <!-- Street 3 -->
@@ -317,11 +339,12 @@
                                              label="Street 3"
                                              aura:id="validation"
                                              value="{!v.SiteLead.Mailing_Street_3__c}"
+                                             readonly="{!v.readonlyFlag}"
                                              />
                         </div>
                     </div>
                     <!-- second row -->
-                    <div class="slds-grid slds-gutters">
+                    <div class="slds-grid slds-gutters slds-m-top_large">
                         <!-- City -->
                         <div class="slds-col slds-size_3-of-12">
                             <lightning:input
@@ -330,6 +353,7 @@
                                              aura:id="validation"
                                              value="{!v.SiteLead.Mailing_City_Town__c}"
                                              required="true"
+                                             readonly="{!v.readonlyFlag}"
                                              />
                         </div>
                         <!-- Residential Area/District -->
@@ -339,6 +363,7 @@
                                              aura:id="validation"
                                              label="Residential Area/District"
                                              value="{!v.SiteLead.Mailing_Residential_Area_District__c}"
+                                             readonly="{!v.readonlyFlag}"
                                              />
                         </div>
                         <!-- Post Office/Zip Code -->
@@ -348,6 +373,7 @@
                                              aura:id="validation"
                                              label="Post Office/Zip Code"
                                              value="{!v.SiteLead.Mailing_Post_Office_Zip_Code__c}"
+                                             readonly="{!v.readonlyFlag}"
                                              />
                         </div>
                         <!-- Parish/Province/State -->
@@ -358,11 +384,12 @@
                                              label="Parish/Province/State"
                                              value="{!v.SiteLead.Mailing_Province_Parish_State__c}"
                                              required="true"
+                                             readonly="{!v.readonlyFlag}"
                                              />
                         </div>
                     </div>
                     <!-- third row -->
-                    <div class="slds-grid slds-gutters">
+                    <div class="slds-grid slds-gutters slds-m-top_large">
                         <div class="slds-col slds-size_3-of-12">
                             <!-- Country -->
                             <lightning:select
@@ -371,6 +398,7 @@
                                               aura:id="validation"
                                               required="true"
                                               onchange="{!c.getCountryMailing}"
+                                              readonly="{!v.readonlyFlag}"
                                               >
                                 <option value="Jamaica">Jamaica</option>
                                 <aura:iteration items="{!v.countries}" var="item">
@@ -386,6 +414,7 @@
                                               required="true"
                                               aura:id="validation"
                                               onchange="{!c.getAddresstatusMailing}"
+                                              readonly="{!v.readonlyFlag}"
                                               >
                                 <option value="">select one...</option>
                                 <aura:iteration items="{!v.addressStatuses}" var="item">
@@ -401,6 +430,7 @@
                                               required="true"
                                               aura:id="validation"
                                               onchange="{!c.getAddressTypeMailing}"
+                                              readonly="{!v.readonlyFlag}"
                                               >
                                 <option value="">select one...</option>
                                 <aura:iteration items="{!v.addressTypes}" var="item">
@@ -417,6 +447,7 @@
                                              label="Years at this address?"
                                              value="{!v.SiteLead.Mailing_Years_at_Residence__c}"
                                              required="true"
+                                             readonly="{!v.readonlyFlag}"
                                              />
                         </div>
                     </div>
