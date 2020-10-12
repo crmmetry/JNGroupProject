@@ -18,12 +18,11 @@
     <aura:attribute name="multiple" type="Boolean" default="true" />
     <aura:attribute name="disabled" type="Boolean" default="false" />
     <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
-    
-    <lightning:layout>
-        <lightning:layoutItem size="12" padding="around-small">
-            <aura:if isTrue="{!v.showJnSiteModal}">
+    <aura:if isTrue="{!v.showJnSiteModal}">
                 <c:JNSiteModalComponent />
             </aura:if>
+    <lightning:layout>
+        <lightning:layoutItem size="12" padding="around-small">
             <c:JnToast aura:id="toastContainer"/>
 
             <div

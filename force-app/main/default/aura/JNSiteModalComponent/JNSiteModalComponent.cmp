@@ -2,7 +2,7 @@
     implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome"
     access="GLOBAL">
     <aura:attribute name="readonlyFlag" type="Boolean" default="true" />
-        <section aura:id="myModal" role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_large">
+        <section aura:id="myModal" role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-modal_large slds-fade-in-open">
         <div class="slds-modal__container">
         <header class="slds-modal__header">
         <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
@@ -11,27 +11,27 @@
         <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Applicant Form</h2>
         </header>
         <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-        <strong><h2 class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
+        <strong><h2 class="slds-section-title--divider headings">
             Applicant Information
         </h2></strong>
         <c:JNAppInfoTab readonlyFlag="{!v.readonlyFlag}"/>
-        <strong><h2 class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
+        <strong><h2 class="slds-section-title--divider headings">
             General Details
       </h2></strong>
         <c:JNGeneralDetailsTab readonlyFlag="{!v.readonlyFlag}"/>
-        <strong><h2 class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
+        <strong><h2 class="slds-section-title--divider headings">
             Identification Details
       </h2></strong>
         <c:JNIdentificationDetailsTab readonlyFlag="{!v.readonlyFlag}"/>
-        <strong><h2 class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
+        <strong><h2 class="slds-section-title--divider headings">
             Contact Details
       </h2></strong>
         <c:JNContactDetailsTab readonlyFlag="{!v.readonlyFlag}"/>
-        <strong><h2 class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
+        <strong><h2 class="slds-section-title--divider headings">
             Emergency Contact
       </h2></strong>
         <c:JNEmergencyContactDetailsTab readonlyFlag="{!v.readonlyFlag}"/>
-        <strong><h2 class="slds-section-title--divider slds-m-vertical_medium slds-text-heading--small">
+        <strong><h2 class="slds-section-title--divider headings">
             Employment Details
       </h2></strong>
         <c:JNEmploymentDetailsTab readonlyFlag="{!v.readonlyFlag}"/>
@@ -42,6 +42,6 @@
         </footer>
         </div>
         </section>
-    <div class="slds-backdrop " aura:id="myModal-Back"></div>
+    <div class="slds-backdrop slds-backdrop_open" aura:id="myModal-Back"></div>
     <lightning:button onclick="{!c.openModal}">show modal</lightning:button>
 </aura:component>	

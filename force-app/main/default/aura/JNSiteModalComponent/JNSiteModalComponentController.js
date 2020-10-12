@@ -16,6 +16,6 @@
          
          // Now add and remove class
          $A.util.removeClass(modal, 'slds-fade-in-open');
-         $A.util.removeClass(modalBackdrop, 'slds-fade-in-open');
+         $A.util.removeClass(modalBackdrop, 'slds-backdrop_open');
      }
 })
