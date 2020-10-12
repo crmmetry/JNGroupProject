@@ -51,10 +51,11 @@
     const MAX_FILE_SIZE = 5000000;
     let fileName = "No File Selected..";
       if(!component.get("v.leadId")){
+        component.set("v.showJnSiteModal", true);
            helper.showToast(component, {
                     severity: "error",
                     message: "Please complete step 2 & 3 before attempting a document upload."
-            });
+           });
           return;
       }
     if (event.getSource().get("v.files").length > 0) {

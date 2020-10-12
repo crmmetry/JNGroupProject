@@ -2,7 +2,7 @@
     implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome"
     access="GLOBAL">
     <aura:attribute name="readonlyFlag" type="Boolean" default="true" />
-        <section aura:id="myModal" role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-modal_large">
+        <section aura:id="myModal" role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_large">
         <div class="slds-modal__container">
         <header class="slds-modal__header">
         <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
