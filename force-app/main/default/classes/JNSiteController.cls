@@ -87,88 +87,31 @@ public class JNSiteController {
         }
     }
     @AuraEnabled
-    public static Object createLeadReferral(Map<String, Object> applicantDetails ){
-        
-        System.debug('Applicant Details: ' + applicantDetails);
-        List<Lead> leads = [SELECT Id FROM Lead WHERE  
-                            FirstName = :(String)applicantDetails.get('FirstName')
-                            AND MiddleName = :(String)applicantDetails.get('MiddleName')
-                            AND LastName = :(String)applicantDetails.get('LastName')];
-        Id leadId;
-        if(!leads.isEmpty()){
+    public static Object createLeadReferral(Lead applicantDetails ){
+        System.assert(applicantDetails != null, 'Application Details should not be null');
+        List<Lead> duplicateLeads = [SELECT Id FROM Lead WHERE  
+                            FirstName = :String.escapeSingleQuotes(applicantDetails.get('FirstName'))
+                            AND MiddleName = :String.escapeSingleQuotes(applicantDetails.get('MiddleName'))
+                            AND LastName = :String.escapeSingleQuotes(applicantDetails.get('LastName'))];
+        if(!duplicateLeads.isEmpty()){
             throw new AuraHandledException('A user already exist with the supplied first and last name');
-            //return error
         }
-        // try {
-        //     String jsonValues = JSON.serialize(applicantDetails);
-        //     Wrappers.LeadWrapper record = (Wrappers.LeadWrapper) JSON.deserialize(
-        //       jsonValues,
-        //       Wrappers.LeadWrapper.class
-        //     );
-        //     Wrappers.LeadUnwrapper leadUnwrapper = new Wrappers.LeadUnwrapper(
-        //       record
-        //     );
-        //     Lead leadRecord = leadUnwrapper.lead;
-        //     Map<String,Id> recordTypes = util.getRecordTypeids('Lead');
-        //     if(leadRecord.Service_of_Interest__c == 'JN Bank Credit Card'){ //credit_card
-        //         leadRecord.RecordTypeId = recordTypes.get('Credit_Card_Super_Lead');
-        //     } else {
-        //         leadRecord.RecordTypeId = recordTypes.get('Unsecured_Loan_Super_Lead');
-        //     }
-           
-        //     System.debug('new lead' + leadRecord);
-        //     insert leadRecord;
-        //     return leadRecord;
-        //   } catch (Exception e) {
-        //     System.debug(e.getMessage());
-        //     return new AuraException(e.getMessage());
-        //   }
-        Lead newLead = new Lead();
-        newLead.LeadSource = 'Online Application Form';
-        newLead.FirstName=applicantDetails.get('FirstName');
-        newLead.LastName=applicantDetails.get('LastName');
-        newLead.Estimated_Amount__c = Decimal.valueOf(applicantDetails.get('Estimated_Amount__c')); 
-        newLead.Service_of_Interest__c = applicantDetails.get('Service_of_Interest__c');
-        newLead.Salutation =  applicantDetails.get('Salutation');
-        newLead.MiddleName = applicantDetails.get('MiddleName');
-        newLead.Suffix= applicantDetails.get('Suffix');
-        newLead.Gender__c= applicantDetails.get('Gender__c');
-        newLead.Marital_Status__c =applicantDetails.get('Marital_Status__c');
-        newLead.Date_of_Birth__c = Date.valueOf(applicantDetails.get('Date_of_Birth__c'));
-        newLead.Place_of_Birth__c= applicantDetails.get('Place_of_Birth__c');
-        newLead.Mother_s_Maiden_Name__c= applicantDetails.get('Mother_s_Maiden_Name__c');
-        newLead.Number_of_Dependent_Adults__c= Decimal.valueOf(applicantDetails.get('Number_of_Dependent_Adults__c'));
-        newLead.Number_of_Dependent_Children__c= Decimal.valueOf(applicantDetails.get('Number_of_Dependent_Children__c'));
-        newLead.Country_of_Citizenship__c = applicantDetails.get('Country_of_Citizenship__c');
-        newLead.Country_of_Residence__c = applicantDetails.get('Country_of_Residence__c');
-        newLead.Highest_Level_of_Education_Attained__c = applicantDetails.get('Highest_Level_of_Education_Attained__c');
-        newLead.Jamaican_Tax_Registration_Number__c = applicantDetails.get('Jamaican_Tax_Registration_Number__c');
-        newLead.Service_of_Interest__c = applicantDetails.get('Service_of_Interest__c');
-        
+
         Map<String,Id> recordTypes = util.getRecordTypeids('Lead');
-        if(newLead.Service_of_Interest__c == 'JN Bank Credit Card'){ //credit_card
-            newLead.RecordTypeId = recordTypes.get('Credit_Card_Super_Lead');
+        if(applicantDetails.Service_of_Interest__c == 'JN Bank Credit Card'){ //credit_card
+            applicantDetails.RecordTypeId = recordTypes.get('Credit_Card_Super_Lead');
         } else {
-            newLead.RecordTypeId = recordTypes.get('Unsecured_Loan_Super_Lead');
+            applicantDetails.RecordTypeId = recordTypes.get('Unsecured_Loan_Super_Lead');
         }
-        
-        newLead.Preferred_Date_of_Contact__c = Date.valueOf(applicantDetails.get('Preferred_Date_of_Contact__c'));
-        newLead.Preferred_Time_of_Contact__c= updateTime(applicantDetails.get('Preferred_Time_of_Contact__c'));
-        newLead.Preferred_Location__c = applicantDetails.get('Preferred_Location__c');
-        newLead.Loan_Purpose_UL__c = applicantDetails.get('Loan_Purpose_UL__c');
-        newLead.Gross_Monthly_Income__c = Decimal.valueOf(applicantDetails.get('Gross_Monthly_Income__c'));
-        newLead.Gross_Monthly_Expenses__c = Decimal.valueOf(applicantDetails.get('Gross_Monthly_Expenses__c'));
+        applicantDetails.LeadSource = 'Online Application Form';
         try{
-            System.debug('new lead: ' + newLead);
-            insert newLead; //return a error duplicate
-            return newLead;
+            System.debug('Applicant Details' + applicantDetails);
+            insert applicantDetails; //return a error duplicate
+            return applicantDetails;
         }catch (Exception e) {
             System.debug(e.getMessage());
             return new AuraException(e.getMessage());
         }
-        
-        
-        
     }
     @AuraEnabled
     public static Object createPersonAffiliates(Map<String, Object> values , String leadId){
