@@ -90,11 +90,11 @@ public class JNSiteController {
     public static Object createLeadReferral(Lead applicantDetails ){
         System.assert(applicantDetails != null, 'Application Details should not be null');
         List<Lead> duplicateLeads = [SELECT Id FROM Lead WHERE  
-                            FirstName = :String.escapeSingleQuotes(applicantDetails.get('FirstName'))
-                            AND MiddleName = :String.escapeSingleQuotes(applicantDetails.get('MiddleName'))
-                            AND LastName = :String.escapeSingleQuotes(applicantDetails.get('LastName'))];
+                            FirstName = :applicantDetails.FirstName
+                            AND MiddleName = :applicantDetails.MiddleName
+                            AND LastName = :applicantDetails.LastName];
         if(!duplicateLeads.isEmpty()){
-            throw new AuraHandledException('A user already exist with the supplied first and last name');
+            throw new AuraHandledException('Youre creating a duplicate record with an existing First and Last name.');
         }
 
         Map<String,Id> recordTypes = util.getRecordTypeids('Lead');

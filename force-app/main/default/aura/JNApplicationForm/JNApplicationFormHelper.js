@@ -125,13 +125,27 @@
                 {"Id": siteLead.Id}
             );
         } else {
-            const commonError = "You're creating a duplicate record with an existing First and Last name.";
+          let errors = response.getError();
+          let message = 'Unknown error'; // Default error message
+          // Retrieve the error message sent by the server
+          if (errors && Array.isArray(errors) && errors.length > 0) {
+              message = errors[0].message;
+          }    
             this.showToast(component, {
                 severity: "error",
-                message: commonError
+                message: message
             });
         }
     });
     $A.enqueueAction(action);
-}
+},
+showToast: function(component, data) {  
+  //user must complete step 2 and 3 first
+  const severity = data.severity; 
+  const title = data.title; 
+  const message = data.message; 
+  const toastContainer = component.find("toastContainer");
+  toastContainer.displayMessage(severity, title, message);
+  
+},
 });
