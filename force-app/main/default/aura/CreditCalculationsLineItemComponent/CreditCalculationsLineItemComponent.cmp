@@ -1,0 +1,74 @@
+<aura:component>
+    <!--<label class="slds-form-element__label" style="font-weight: bold;">Credit Calculations</label>-->
+    <fieldset class="slds-box slds-theme_default">
+        <legend id="creditCalcualtions" class="slds-text-heading_medium slds-p-vertical_medium">Personal Unsecured Loan</legend> 
+        <lightning:layout multipleRows="true">
+            <lightning:layoutItem size="6">
+                <h2 class="slds-section-title--divider">Total Financing</h2>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6">
+                <h2 class="slds-section-title--divider">Total Loan Payment</h2>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="Loan Amount Market" name="number" formatter="currency" step="0.01" readonly="true"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="Monthly P&amp;I Loan Amount" name="number" formatter="currency" step="0.01"  readonly="true"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="JN Life Creditor Life Premium" name="number" formatter="currency" step="0.01" readonly="true"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="Monthly JN Creditor Life P&amp;I Life Insurance Premium" name="number" formatter="currency" step="0.01" readonly="true"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="Total Loan amount" name="number" formatter="currency" step="0.01" readonly="true"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="Monthly Loan Payment" name="number" formatter="currency" step="0.01" readonly="true"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="Monthly Loan Savings" name="number" formatter="currency" step="0.01" readonly="true"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="Monthly Loan Payment + Monthly Loan Savings" name="number" formatter="currency" step="0.01" readonly="true"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="Total Loan Savings Balance(Over Repayment Period)" name="number" formatter="currency" step="0.01" readonly="true"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="Total Interest Payment(Over Repayment Period)" name="number" formatter="currency" step="0.01" readonly="true"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="12"><h2 class="slds-section-title--divider">Credit Repayment Allocation</h2></lightning:layoutItem>
+            <lightning:layoutItem size="12"><label class="slds-form-element__label">Please allocate the proposed loan amount and monthly payments among the Applicant(s)</label></lightning:layoutItem>
+            <lightning:layoutItem size="12"><b><h2 class="slds-form-element__label">Applicant 1</h2></b></lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="Loan Amount(%)" name="Market" formatter="percent" step="0.01"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="Loan Amount($)" name="Market" formatter="currency" step="0.01" readonly="true"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="Monthly Payment(%)" name="Market" formatter="percent" step="0.01"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="Monthly Payment($)" name="Market" formatter="currency" step="0.01" readonly="true"/>
+            </lightning:layoutItem>
+    <c:FeesAndChargesLineItemComponent></c:FeesAndChargesLineItemComponent> 
+    </lightning:layout>       
+    </fieldset>
+    <fieldset class="slds-box slds-theme_default slds-p-top_medium">
+    <legend class="slds-text-heading_medium slds-p-top_small">Total Debt Service Ratio</legend>
+    <lightning:layout multipleRows="true">
+    <lightning:layoutItem size="12" mediumDeviceSize="4" padding="horizontal-small">
+        <lightning:input type="number" label="Policy Limit" name="Market" formatter="percent" step="0.01" readonly="true"/>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="12" mediumDeviceSize="4" padding="horizontal-small">
+        <lightning:input type="number" label="Prior to Proposed Credit(s)" name="Market" formatter="percent" step="0.01" readonly="true"/>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="12" mediumDeviceSize="4" padding="horizontal-small">
+        <lightning:input type="number" label="After Proposed Credit(s)" name="Market" formatter="percent" step="0.01" readonly="true"/>
+    </lightning:layoutItem>
+</lightning:layout>
+</fieldset>
+</aura:component>	

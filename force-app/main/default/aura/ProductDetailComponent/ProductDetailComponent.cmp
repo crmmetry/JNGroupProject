@@ -1,0 +1,68 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId">
+    <aura:attribute name="options" type="List" default="[
+    {'label': 'Percentage(%)', 'value': 'percent'},
+    {'label': 'Amount(JMD)', 'value': 'amount'}
+    ]"/>
+    <aura:attribute name="value" type="String" default=""/>
+    <aura:attribute name="percent" type="String" default="percent"/>
+    <aura:attribute name="amount" type="String" default="amount"/>
+
+  <lightning:layout>
+    <lightning:card>
+        <lightning:layoutItem size="12" padding="around-small"> 
+                <fieldset class="slds-box slds-theme_default">
+                    <legend id="productdetailsform" class="slds-text-heading_medium slds-p-vertical_medium">PRODUCT DETAILS</legend> 
+                    <form class="slds-form_stacked">
+                    <lightning:layout multipleRows="true">
+                    <lightning:layoutItem size="12">
+                        <h2 class="slds-section-title--divider">Product Selection &amp; Applicant Details</h2>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
+                          <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <lightning:select label="Select the application product combination" name="selectapplicant" aura:id="selectapplicant" required="true" onchange="{! c.showhideONmethod }" disabled="{!v.isProductDetail}">
+                                    <option value="0">choose one...</option>
+                                    <option value="1">Auto Loan</option>
+                                    <option value="2">Unsecured Loan</option>
+                                    <option value="3">Credit Card</option>
+                                    <option value="4">Line of Credit</option>
+                                    <option value="5">Auto Loan &amp; Unsecured Loan</option>
+                                    <option value="6">Auto Loan &amp; Credit Card</option>
+                                    <option value="7">Auto Loan &amp; Line of Credit</option>
+                                    <option value="8">Unsecured Loan &amp; Credit Card</option>
+                                    <option value="9">Unsecured Loan &amp; Line of Credit</option>
+                                    <option value="10">Credit Card &amp; Line of Credit</option>
+                                    <option value="11">Auto Loan, Unsecured Loan &amp; Credit Card</option>
+                                    <option value="12">Auto Loan, Unsecured Loan &amp; Line of Credit</option>
+                                    <option value="13">Auto Loan, Credit Card &amp; Line of Credit</option>
+                                    <option value="14">Unsecured Loan, Credit Card &amp; Line of Credit</option>
+                                    <option value="15">Auto Loan, Unsecured Loan, Credit Card &amp; Line of Credit</option>
+                                </lightning:select>
+                            </div>
+                          </div>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <lightning:select name="select1" label="Loan Purpose" required="true">
+                                <option value="">choose one...</option>
+                                <option value="1">one</option>
+                                <option value="2">two</option>
+                                <option value="3">three</option>
+                            </lightning:select>                           
+                        </div>
+                </div>
+            </lightning:layoutItem>
+                    </lightning:layout>
+                    </form>
+                  <!--Unsecured Loan Features Section-->
+                  <c:UnsecuredLoanFeatureLineItemComponent></c:UnsecuredLoanFeatureLineItemComponent>
+                  <!--Requested Details-->
+                  <c:RequestedDetailsLineItemComponent></c:RequestedDetailsLineItemComponent>
+                  <!--Credit Calculations-->
+                  <c:CreditCalculationsLineItemComponent></c:CreditCalculationsLineItemComponent>
+                </fieldset>
+        </lightning:layoutItem>
+    </lightning:card>
+  </lightning:layout>
+</aura:component>	
