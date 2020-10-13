@@ -109,6 +109,22 @@
             <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
                 <lightning:input type="text" name="make-model" label="Make and Model of Vehicle" />
             </lightning:layoutItem>
+            <lightning:layoutItem size="12" mediumDeviceSize="4"><h3 class="slds-section-title--divider">Interest Rate(%)*</h3>
+                        <div class="slds-p-top_medium"><lightning:input type="number" label="Market" name="Market" formatter="percent" step="0.01"/></div>    
+                </lightning:layoutItem>
+                <lightning:layoutItem size="12" mediumDeviceSize="4"><h3 class="slds-section-title--divider">Loan Term*</h3>
+                    <lightning:layout>
+                        <lightning:layoutItem size="6">
+                            <div class="slds-p-top_medium"></div><lightning:input type="number" label="Years" name="number"/>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="6">
+                        <div class="slds-p-top_medium"><lightning:input type="number" label="Months" name="number"/></div>
+                    </lightning:layoutItem>
+                    </lightning:layout>
+                </lightning:layoutItem>
+                <lightning:layoutItem size="12" mediumDeviceSize="4"><h3 class="slds-section-title--divider">Loan Amount (JMD)*</h3>
+                          <div class="slds-p-top_medium"></div><lightning:input type="number" label="Amount" name="number" formatter="currency" step="0.01"/>
+                </lightning:layoutItem>
             </lightning:layout>
         <!-- </lightning:layoutItem>
             </lightning:layout> -->
