@@ -55,6 +55,8 @@
             </lightning:layoutItem>
                     </lightning:layout>
                     </form>
+                  <!--Auto Loan Features-->
+                  <c:AutoLoanFeaturesLineItemComponent></c:AutoLoanFeaturesLineItemComponent>
                   <!--Unsecured Loan Features Section-->
                   <c:UnsecuredLoanFeatureLineItemComponent></c:UnsecuredLoanFeatureLineItemComponent>
                   <!--Requested Details-->
