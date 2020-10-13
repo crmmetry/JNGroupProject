@@ -2,6 +2,8 @@
     implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome"
     access="GLOBAL">
     <aura:attribute name="readonlyFlag" type="Boolean" default="true" />
+    <aura:attribute name="SiteLead" type="Map" />
+    <aura:handler name="init" action="{!c.init}" value="{!this}" />
         <section aura:id="myModal" role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-modal_large slds-fade-in-open">
         <div class="slds-modal__container">
         <header class="slds-modal__header">
@@ -10,28 +12,28 @@
         </button>
         <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Applicant Form</h2>
         </header>
-        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-        <strong><h2 class="slds-section-title--divider headings">
+        <div class="slds-modal__content slds-p-around_medium " id="modal-content-id-1">
+        <strong><h2 class="slds-section-title--divider slds-m-vertical_medium headings headings">
             Applicant Information
         </h2></strong>
         <c:JNAppInfoTab readonlyFlag="{!v.readonlyFlag}"/>
-        <strong><h2 class="slds-section-title--divider headings">
+        <strong><h2 class="slds-section-title--divider slds-m-vertical_medium headings">
             General Details
       </h2></strong>
-        <c:JNGeneralDetailsTab readonlyFlag="{!v.readonlyFlag}"/>
-        <strong><h2 class="slds-section-title--divider headings">
+        <c:JNGeneralDetailsTab readonlyFlag="{!v.readonlyFlag}" SiteLead="{!v.Sitelead}"/>
+        <strong><h2 class="slds-section-title--divider slds-m-vertical_medium headings">
             Identification Details
       </h2></strong>
         <c:JNIdentificationDetailsTab readonlyFlag="{!v.readonlyFlag}"/>
-        <strong><h2 class="slds-section-title--divider headings">
+        <strong><h2 class="slds-section-title--divider slds-m-vertical_medium headings">
             Contact Details
       </h2></strong>
         <c:JNContactDetailsTab readonlyFlag="{!v.readonlyFlag}"/>
-        <strong><h2 class="slds-section-title--divider headings">
+        <strong><h2 class="slds-section-title--divider slds-m-vertical_medium headings">
             Emergency Contact
       </h2></strong>
         <c:JNEmergencyContactDetailsTab readonlyFlag="{!v.readonlyFlag}"/>
-        <strong><h2 class="slds-section-title--divider headings">
+        <strong><h2 class="slds-section-title--divider slds-m-vertical-medium headings">
             Employment Details
       </h2></strong>
         <c:JNEmploymentDetailsTab readonlyFlag="{!v.readonlyFlag}"/>

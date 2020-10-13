@@ -136,7 +136,7 @@
                                                id="Document_Upload_Tab"
                                                >
                                     <div class="slds-card__body slds-card__body_inner">
-                                        <c:JNDocumentUploadTab aura:id="Document_Upload" leadId="{!v.SiteLead.Id}"/>
+                                        <c:JNDocumentUploadTab aura:id="Document_Upload" SiteLead="{!v.SiteLead}" leadId="{!v.SiteLead.Id}"/>
                                     </div>
                                 </lightning:tab>
                             </lightning:tabset>

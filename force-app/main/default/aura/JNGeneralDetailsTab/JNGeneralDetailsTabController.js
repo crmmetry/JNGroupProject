@@ -1,37 +1,40 @@
 ({
     doInit: function(component, event, helper) {
-        const siteLead = {
-            FirstName: "",
-            LastName: "",
-            Salutation: "",
-            MiddleName: "",
-            Suffix: "",
-            Gender__c: "",
-            Marital_Status__c: "",
-            Date_of_Birth__c: new Date(),
-            Place_of_Birth__c: "",
-            Mother_s_Maiden_Name__c: "",
-            Number_of_Dependent_Adults__c: 0,
-            Number_of_Dependent_Children__c: 0,
-            Country_of_Citizenship__c: "Jamaica",
-            Country_of_Residence__c: "Jamaica",
-            Highest_Level_of_Education_Attained__c: "",
-            Jamaican_Tax_Registration_Number__c: null,
-            Service_of_Interest__c:""
-        };
-        Object.assign(siteLead, component.get("v.SiteLead"));
-        component.set("v.SiteLead", siteLead);
+            console.log("PASSED");
+            console.log(component.get("v.SiteLead"));
+            const siteLead = {
+                FirstName: "",
+                LastName: "",
+                Salutation: "",
+                MiddleName: "",
+                Suffix: "",
+                Gender__c: "",
+                Marital_Status__c: "",
+                Date_of_Birth__c: new Date(),
+                Place_of_Birth__c: "",
+                Mother_s_Maiden_Name__c: "",
+                Number_of_Dependent_Adults__c: 0,
+                Number_of_Dependent_Children__c: 0,
+                Country_of_Citizenship__c: "Jamaica",
+                Country_of_Residence__c: "Jamaica",
+                Highest_Level_of_Education_Attained__c: "",
+                Jamaican_Tax_Registration_Number__c: null,
+                Service_of_Interest__c:""
+            };
+            Object.assign(siteLead, component.get("v.SiteLead"));
+            component.set("v.SiteLead", siteLead);
+        
+            console.log('loan type= ', component.get("v.loan_type"))
+            let serviceofInterest;
+            if (component.get("v.loan_type") == "credit_card") {
+            serviceofInterest = "JN Bank Credit Card";
+            } else {
+            serviceofInterest = "JN Bank Unsecured Loan";
+            }
+            component.set("v.SiteLead.Service_of_Interest__c", serviceofInterest);
 
-        console.log('loan type= ', component.get("v.loan_type"))
-        let serviceofInterest;
-        if (component.get("v.loan_type") == "credit_card") {
-        serviceofInterest = "JN Bank Credit Card";
-        } else {
-        serviceofInterest = "JN Bank Unsecured Loan";
-        }
-        component.set("v.SiteLead.Service_of_Interest__c", serviceofInterest);
-
-        helper.getPickListValues(component);
+            helper.getPickListValues(component);
+        
     },
     getSalutation: function(component, event, helper) {
         const selected = event.getSource().get("v.value");

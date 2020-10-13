@@ -9,6 +9,7 @@
     <aura:attribute name="showLoadingSpinner" type="boolean" default="false" />
     <!-- 'fileName' attribute for display the selected file name -->
     <aura:attribute name="fileName" type="String" default="No File Selected.." />
+    <aura:attribute name="SiteLead" type="Map" />
     
     <aura:attribute
                     name="accept"
@@ -19,7 +20,7 @@
     <aura:attribute name="disabled" type="Boolean" default="false" />
     <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
     <aura:if isTrue="{!v.showJnSiteModal}">
-                <c:JNSiteModalComponent />
+                <c:JNSiteModalComponent SiteLead="{!v.SiteLead}"/>
             </aura:if>
     <lightning:layout>
         <lightning:layoutItem size="12" padding="around-small">

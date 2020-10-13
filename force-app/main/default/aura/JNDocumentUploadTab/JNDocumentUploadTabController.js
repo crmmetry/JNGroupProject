@@ -45,6 +45,7 @@
     ];
     component.set("v.documentTypeList", documentTypeList);
     component.set("v.maxSize", 30);
+    console.table(JSON.parse(JSON.stringify(component.get('v.SiteLead'))));
   },
   handleFilesChange: function(component, event, helper) {
     
