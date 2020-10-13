@@ -13,13 +13,13 @@
                 <lightning:input type="number" label="Loan Amount Market" name="number" formatter="currency" step="0.01" readonly="true"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="Monthly Loan Payment Market" name="number" formatter="currency" step="0.01"  readonly="true"/>
+                <lightning:input type="number" label="Monthly P&amp;I Loan Amount" name="number" formatter="currency" step="0.01"  readonly="true"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
                 <lightning:input type="number" label="JN Life Creditor Life Premium" name="number" formatter="currency" step="0.01" readonly="true"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="Monthly JN Life Creditor Life Premium" name="number" formatter="currency" step="0.01" readonly="true"/>
+                <lightning:input type="number" label="Monthly JN Creditor Life P&amp;I Life Insurance Premium" name="number" formatter="currency" step="0.01" readonly="true"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
                 <lightning:input type="number" label="Total Loan amount" name="number" formatter="currency" step="0.01" readonly="true"/>
