@@ -15,6 +15,7 @@
     <aura:attribute name="vehicleClassification" type="List" default="['New','Old','Used']"/>
     <aura:attribute name="vehicleYear" type="Integer" default=""/>
     <aura:attribute name="makeandModel" type="String" default=""/>
+    <aura:attribute name="market" type="Decimal" default=""/>
     <aura:attribute name="years" type="Integer" default=""/>
     <aura:attribute name="months" type="Integer" default=""/>
     <aura:attribute name="loanAmount" type="Decimal" default=""/>
