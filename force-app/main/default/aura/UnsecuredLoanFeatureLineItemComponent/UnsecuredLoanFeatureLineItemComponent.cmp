@@ -110,7 +110,7 @@
                 <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
                     <div class="slds-form-element">
                       <div class="slds-form-element__control">
-                        <lightning:input label="Dedicated monthly repayment date" value="{!v.monthlyRepaymentDate}" type="number" name="input1" max="30"/>
+                        <lightning:input label="Desired monthly repayment date" value="{!v.monthlyRepaymentDate}" type="number" name="input1" max="30"/>
                       </div>
                     </div>
                 </lightning:layoutItem>

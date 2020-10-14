@@ -61,6 +61,8 @@
             </lightning:layoutItem>
                     </lightning:layout>
                     </form>
+                    <!--Credit Card Other Details-->
+                    <c:CreditCardOtherDetailsLineComponent></c:CreditCardOtherDetailsLineComponent>
                   <!--Auto Loan Features-->
                   <c:AutoLoanFeaturesLineItemComponent></c:AutoLoanFeaturesLineItemComponent>
                   <!--Personal Auto Loan Request -->
@@ -71,6 +73,8 @@
                   <c:RequestedDetailsLineItemComponent></c:RequestedDetailsLineItemComponent>
                   <!--Credit Calculations-->
                   <c:CreditCalculationsLineItemComponent></c:CreditCalculationsLineItemComponent>
+                  <!--Total Debt Service Ratio-->
+                  <c:TotalDebtServiceRatioLineItemComponent></c:TotalDebtServiceRatioLineItemComponent>
                 </fieldset>
         </lightning:layoutItem>
     </lightning:card>
