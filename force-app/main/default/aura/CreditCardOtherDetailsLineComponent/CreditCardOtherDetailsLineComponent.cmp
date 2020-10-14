@@ -24,7 +24,7 @@
                 <lightning:layoutItem size="12">
                 <h2 class="slds-section-title--divider">Life Insurance Coverage</h2>
             </lightning:layoutItem>
-            <lightning:layoutItem size="12" mediumDeviceSize="8">
+            <lightning:layoutItem size="12" mediumDeviceSize="8" padding="around-small">
             <lightning:select name="select1" label="Will the Applicant be interested in JN Life Credit Card Creditor Life Insurance?" required="true" onchange="{!c.onCollateralTypeChange}">
                 <option value="">select one...</option>
                 <aura:iteration items="{!v.collateralType}" var="item">
@@ -32,7 +32,7 @@
                 </aura:iteration>
               </lightning:select>
             </lightning:layoutItem>
-            <lightning:layoutItem size="12" mediumDeviceSize="4">
+            <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
                 <lightning:select name="select1" label="Coverage Type" required="true" onchange="{!c.onCoverageTypeChange}">
                       <option value="">select one...</option>
                       <aura:iteration items="{!v.coverageType}" var="item">
