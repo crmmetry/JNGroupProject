@@ -22,6 +22,7 @@
                       </lightning:select>
                 </lightning:layoutItem>
                 <lightning:layoutItem size="12">
+                <c:CashInvestmentsDetailsLineComponent></c:CashInvestmentsDetailsLineComponent>
                 <h2 class="slds-section-title--divider">Life Insurance Coverage</h2>
             </lightning:layoutItem>
             <lightning:layoutItem size="12" mediumDeviceSize="8" padding="around-small">

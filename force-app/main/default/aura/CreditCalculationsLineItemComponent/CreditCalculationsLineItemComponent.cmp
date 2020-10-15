@@ -35,17 +35,6 @@
             <lightning:layoutItem size="6" padding="around-small">
                 <lightning:input type="number" label="Monthly P&amp;I Loan Amount" value="{!v.monthly_PI_LoanAmount}" name="number" formatter="currency" step="0.01"  readonly="true"/>
             </lightning:layoutItem>
-            <!--Auto Loan Product fields only-->
-            <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="JNGI Motor Premium (1st Year)" value="{!v.jngiMotorPremium}" name="number" formatter="currency" step="0.01"  readonly="true"/>
-            </lightning:layoutItem> 
-            <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="Monthly JNGI Motor Premium (1st Year)" value="{!v.monthlyJNGIMotorPremium}" name="number" formatter="currency" step="0.01"  readonly="true"/>
-            </lightning:layoutItem> 
-            <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="Monthly JNGI Motor Premium (1/12 Payment)" value="{!v.monthlyJNGIMotorPremium_1_12}" name="number" formatter="currency" step="0.01"  readonly="true"/>
-            </lightning:layoutItem>
-            <!--******************************-->
             <lightning:layoutItem size="6" padding="around-small">
                 <lightning:input type="number" label="JN Life Creditor Life Premium" value="{!v.jnLifeCreditorPremium}" name="number" formatter="currency" step="0.01" readonly="true"/>
             </lightning:layoutItem>

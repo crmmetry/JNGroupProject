@@ -7,11 +7,6 @@
     <aura:attribute name="stampDutyAndAdminCharges" type="Decimal" />
     <aura:attribute name="payableInstallment" type="Decimal" />
     <aura:attribute name="totalClosingCosts" type="Decimal" />
-    <aura:attribute name="legalFees" type="Decimal" />
-    <aura:attribute name="legalFees" type="Decimal" />
-    <aura:attribute name="legalFees" type="Decimal" />
-    <aura:attribute name="legalFees" type="Decimal" />
-    <aura:attribute name="legalFees" type="Decimal" />
 
     <lightning:layoutItem size="12">
         <lightning:layoutItem size="12">
@@ -30,14 +25,6 @@
             <lightning:layoutItem size="6" padding="around-small">
                 <lightning:input type="number" label="JN Creditor Life Insurance Premium" value="{!v.jnCreditorLifePremium}" name="number" formatter="currency" step="0.01" readonly="true"/>
             </lightning:layoutItem>
-            <!--Auto Loans Product Only-->
-            <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="JNGI Motor Premium (1st Year)" value="{!v.jngiMotorPremium}" name="number" formatter="currency" step="0.01" readonly="true"/>
-            </lightning:layoutItem>
-            <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="NSIPP Registration Fees" value="{!v.nsippFees}" name="number" formatter="currency" step="0.01" readonly="true"/>
-            </lightning:layoutItem>
-            <!--***********************-->
             <lightning:layoutItem size="6" padding="around-small">
                 <lightning:input type="number" label="Assignment Fee" value="{!v.assignmentFee}" name="number" formatter="currency" step="0.01" readonly="true"/>
             </lightning:layoutItem>

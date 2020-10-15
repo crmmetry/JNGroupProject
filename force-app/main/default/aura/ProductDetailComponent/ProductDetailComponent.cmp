@@ -69,6 +69,8 @@
                   <c:AutoLoanFeaturesLineItemComponent></c:AutoLoanFeaturesLineItemComponent>
                   <!--Personal Auto Loan Request -->
                   <c:PersonalAutoLoanRequestLineItemComponent></c:PersonalAutoLoanRequestLineItemComponent>
+                  <!--Auto Loan fees and Charges -->
+                  <c:AutoLoanCreditCalculationsLineComponent></c:AutoLoanCreditCalculationsLineComponent>
                   <!--Unsecured Loan Features Section-->
                   <c:UnsecuredLoanFeatureLineItemComponent></c:UnsecuredLoanFeatureLineItemComponent>
                   <!--Requested Details-->

@@ -1,5 +1,4 @@
 <aura:component>
-    <aura:component>
     <aura:attribute name="legalFees" type="Decimal" />
     <aura:attribute name="stampDuty" type="Decimal" />
     <aura:attribute name="unsecuredLoanFees" type="Decimal" />
@@ -10,11 +9,6 @@
     <aura:attribute name="stampDutyAndAdminCharges" type="Decimal" />
     <aura:attribute name="payableInstallment" type="Decimal" />
     <aura:attribute name="totalClosingCosts" type="Decimal" />
-    <aura:attribute name="legalFees" type="Decimal" />
-    <aura:attribute name="legalFees" type="Decimal" />
-    <aura:attribute name="legalFees" type="Decimal" />
-    <aura:attribute name="legalFees" type="Decimal" />
-    <aura:attribute name="legalFees" type="Decimal" />
 
     <lightning:layoutItem size="12">
         <lightning:layoutItem size="12">
@@ -59,6 +53,5 @@
             <lightning:layoutItem size="6" padding="around-small">
                 <lightning:input type="number" label="Total Closing Costs Payable by Applicant" value="{!v.totalClosingCostsApplicantPayable}" name="number" formatter="currency" step="0.01" readonly="true"/>
             </lightning:layoutItem>
-</aura:component>	
 
 </aura:component>	
