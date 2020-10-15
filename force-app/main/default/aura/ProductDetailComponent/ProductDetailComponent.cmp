@@ -65,6 +65,8 @@
                     <c:CreditCardOtherDetailsLineComponent></c:CreditCardOtherDetailsLineComponent>
                     <!--Credit Card Credit Calculations-->
                     <c:CreditCreditCardCreditCalculations></c:CreditCreditCardCreditCalculations>
+                    <!--Line of Credit Calcualtions-->
+                    <c:LineOfCreditCreditCalculationsLineComponent></c:LineOfCreditCreditCalculationsLineComponent>
                   <!--Auto Loan Features-->
                   <c:AutoLoanFeaturesLineItemComponent></c:AutoLoanFeaturesLineItemComponent>
                   <!--Personal Auto Loan Request -->

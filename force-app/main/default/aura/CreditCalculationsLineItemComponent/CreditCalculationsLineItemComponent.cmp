@@ -24,10 +24,10 @@
         <legend id="creditCalcualtions" class="slds-text-heading_medium slds-p-vertical_medium">Personal Unsecured Loan</legend> 
         <lightning:layout multipleRows="true">
             <lightning:layoutItem size="6">
-                <h2 class="slds-section-title--divider">Total Financing</h2>
+                <h2 class="slds-section-title--divider">Financing</h2>
             </lightning:layoutItem>
             <lightning:layoutItem size="6">
-                <h2 class="slds-section-title--divider">Total Loan Payment</h2>
+                <h2 class="slds-section-title--divider">Loan Payment</h2>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
                 <lightning:input type="number" label="Loan Amount Market" value="{!v.loanAmount}" name="number" formatter="currency" required="true" readonly="true"/>
@@ -47,6 +47,13 @@
             <lightning:layoutItem size="6" padding="around-small">
                 <lightning:input type="number" label="Monthly P&amp;I Processing Fee" value="{!v.monthly_PI_ProcessingFees}" name="number" formatter="currency" required="true" readonly="true"/>
             </lightning:layoutItem>
+            <lightning:layoutItem size="12" mediumDeviceSize="6"></lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="Total Compulsory Savings Balance(Over Repayment Period)" value="{!v.totalCompulsorySavingsBalance}" name="number" formatter="currency" required="true" readonly="true"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="12">
+                <h2 class="slds-section-title--divider">Total</h2>
+            </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
                 <lightning:input type="number" label="Total Loan amount" value="{!v.totalLoanAmount}" name="number" formatter="currency" required="true" readonly="true"/>
             </lightning:layoutItem>
@@ -61,9 +68,6 @@
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
                 <lightning:input type="number" label="Total Monthly Loan Payment + Monthly Loan Savings" value="{!v.totalMonthlyLoanPaymentAndSavings}" name="number" formatter="currency" required="true" readonly="true"/>
-            </lightning:layoutItem>
-            <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="Total Compulsory Savings Balance(Over Repayment Period)" value="{!v.totalCompulsorySavingsBalance}" name="number" formatter="currency" required="true" readonly="true"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
                 <lightning:input type="number" label="Total Interest Payment(Over Repayment Period)" value="{!v.totalInterestPaymentBalance}" name="number" formatter="currency" required="true" readonly="true"/>

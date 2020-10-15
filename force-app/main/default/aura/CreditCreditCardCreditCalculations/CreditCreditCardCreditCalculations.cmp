@@ -30,7 +30,7 @@
                         <lightning:input label="Annual Membership (Primary Applicant)" value="{!v.primaryApplicantAnnualMembership}" type="number" name="input1" formatter="currency" required="true" readonly="true"/>
                 </lightning:layoutItem>
                 <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-                        <lightning:input label="Annual Membership (Supplementary Applicant(s))" value="{!v.supplementaryApplicantAnnualMembership}" type="number" name="input1" formatter="currency" required="true" readonly="true"/>
+                        <lightning:input label="Annual Membership (Supplementary Cardholder(s))" value="{!v.supplementaryApplicantAnnualMembership}" type="number" name="input1" formatter="currency" required="true" readonly="true"/>
                 </lightning:layoutItem>
                 <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
                         <lightning:input label="Annual Creditor Life Fee" value="{!v.annualCreditorLifeFee}" type="number" name="input1" formatter="currency" required="true" readonly="true"/>
