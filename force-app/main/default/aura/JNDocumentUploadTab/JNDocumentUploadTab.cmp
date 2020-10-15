@@ -1,5 +1,6 @@
 <aura:component access="GLOBAL" controller="JNSiteController">
     <aura:attribute name="currentSize" type="Integer" default="0" />
+    <aura:attribute name="showJnSiteModal" type="Boolean" default="false" />
     <aura:attribute name="maxSize" type="Integer" default="0" />
     <aura:attribute name="documentTypeList" type="Map[]" />
     <!-- 'parentId' Aura Attribute for store the Id for Parent Record where we are attach our file -->
@@ -8,6 +9,7 @@
     <aura:attribute name="showLoadingSpinner" type="boolean" default="false" />
     <!-- 'fileName' attribute for display the selected file name -->
     <aura:attribute name="fileName" type="String" default="No File Selected.." />
+    <aura:attribute name="SiteLead" type="Map" />
     
     <aura:attribute
                     name="accept"
@@ -17,7 +19,9 @@
     <aura:attribute name="multiple" type="Boolean" default="true" />
     <aura:attribute name="disabled" type="Boolean" default="false" />
     <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
-    
+    <aura:if isTrue="{!v.showJnSiteModal}">
+                <c:JNSiteModalComponent SiteLead="{!v.SiteLead}"/>
+            </aura:if>
     <lightning:layout>
         <lightning:layoutItem size="12" padding="around-small">
             <c:JnToast aura:id="toastContainer"/>

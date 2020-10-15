@@ -10,6 +10,7 @@
         Emergency_Contact_Business_Phone__c:'',
         Emergency_Contact_Personal_Email__c:''
     };
+    Object.assign(siteLead, component.get("v.SiteLead"));
     component.set("v.SiteLead", siteLead);
     helper.getPickListValues(component);
   },

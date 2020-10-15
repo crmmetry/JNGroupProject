@@ -1,4 +1,7 @@
 ({
+    init : function(component, event, helper){
+        console.table('Site lead from modal ', JSON.parse(JSON.stringify(component.get("v.SiteLead"))));
+    },
     openModal : function(component, event, helper) {
         //find modal using aura id
          var modal = component.find("myModal");
@@ -16,6 +19,6 @@
          
          // Now add and remove class
          $A.util.removeClass(modal, 'slds-fade-in-open');
-         $A.util.removeClass(modalBackdrop, 'slds-fade-in-open');
+         $A.util.removeClass(modalBackdrop, 'slds-backdrop_open');
      }
 })

@@ -9,10 +9,12 @@
       Gross_Monthly_Income__c: null,
       Gross_Monthly_Expenses__c: null
     };
+    console.table('Site Lead', JSON.parse(JSON.stringify(component.get('v.SiteLead'))));
       let current_datetime = new Date()
       let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
     component.set("v.mindate", formatted_date);
     component.set("v.SiteLead", sitelead);
+    console.table(JSON.parse(JSON.stringify(component.get('v.SiteLead'))));
     helper.getPickListValues(component);
   },
   getPreferredLocation: function(component, event, helper) {

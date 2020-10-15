@@ -32,6 +32,7 @@
       Preferred_Contact_Method__c: "",
       Different_Mailing_Address__c: false
     };
+    Object.assign(siteLead, component.get("v.SiteLead"));
     component.set("v.SiteLead", siteLead);
     helper.getPickListValues(component);
   },
