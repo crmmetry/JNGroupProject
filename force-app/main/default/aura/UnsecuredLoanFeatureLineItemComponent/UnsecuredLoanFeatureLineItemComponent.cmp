@@ -87,7 +87,7 @@
                 <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
                     <div class="slds-form-element">
                       <div class="slds-form-element__control">
-                        <lightning:input type="number" label="Indicate Applicable Processing Fees(%)" value="{!v.processingFeePercentagePerAnum}" name="Indicate Applicable Processing Fees(%)" formatter="percent" step="0.01"/>
+                        <lightning:input type="number" label="Indicate Applicable Processing Fees(%)" value="{!v.processingFeePercentagePerAnum}" name="Indicate Applicable Processing Fees(%)" formatter="percent" required="true"/>
                       </div>
                     </div>
                 </lightning:layoutItem>
@@ -109,7 +109,7 @@
                 <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
                     <div class="slds-form-element">
                       <div class="slds-form-element__control">
-                        <lightning:input label="Desired monthly repayment date" value="{!v.monthlyRepaymentDate}" type="number" name="input1" max="30"/>
+                        <lightning:input label="Desired monthly repayment date" value="{!v.monthlyRepaymentDate}" type="number" name="input1" max="30" required="true"/>
                       </div>
                     </div>
                 </lightning:layoutItem>
@@ -138,12 +138,12 @@
                 </lightning:layoutItem>
                 <aura:if isTrue="{!v.value == v.percent}">
                     <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
-                    <lightning:input type="number" label="Savings(%)" value="{!v.savingsPercentage}" formatter="percent" step="0.01"/>
+                    <lightning:input type="number" label="Savings(%)" value="{!v.savingsPercentage}" formatter="percent" required="true"/>
                 </lightning:layoutItem>
                 </aura:if> 
                 <aura:if isTrue="{!v.value == v.amount}">
                     <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
-                    <lightning:input type="number" label="Amount(JMD)" value="{!v.savingsAmount}" formatter="currency" step="0.01"/>
+                    <lightning:input type="number" label="Amount(JMD)" value="{!v.savingsAmount}" formatter="currency" required="true"/>
                 </lightning:layoutItem>   
                 </aura:if>
                 <lightning:layoutItem size="12">
@@ -152,14 +152,14 @@
                 <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
                   <div class="slds-form-element">
                     <div class="slds-form-element__control">
-                        <lightning:input label="Credit Risk Score prior to application" value="{!v.creditRiskScore}" type="number" name="input1" />
+                        <lightning:input label="Credit Risk Score prior to application" value="{!v.creditRiskScore}" type="number" name="input1" readonly="true" required="true"/>
                     </div>
                   </div>
                 </lightning:layoutItem>
                 <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
                     <div class="slds-form-element">
                       <div class="slds-form-element__control">
-                        <lightning:input label="Credit Risk Rating prior to application" value="{!v.creditRiskRating}" type="text" name="input1"/>
+                        <lightning:input label="Credit Risk Rating prior to application" value="{!v.creditRiskRating}" type="number" name="input1" readonly="true" required="true"/>
                       </div>
                     </div>
                 </lightning:layoutItem>

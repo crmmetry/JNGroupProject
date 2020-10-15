@@ -12,28 +12,28 @@
         <form class="slds-form_stacked">
             <lightning:layout multipleRows="true">
                 <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-                        <lightning:input label="Starting Limit" value="{!v.startingLimit}" type="number" name="input1" formatter="currency" step="0.01" readonly="true"/>
+                        <lightning:input label="Starting Limit" value="{!v.startingLimit}" type="number" name="input1" formatter="currency" required="true" readonly="true"/>
                 </lightning:layoutItem>
                 <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-                    <lightning:input label="Type of Card" value="{!v.cardType}" type="text" name="input1" readonly="true"/>
+                    <lightning:input label="Type of Card" value="{!v.cardType}" type="text" name="input1" readonly="true" required="true"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-                <lightning:input label="Minimum Payment as per Credit Limit" value="{!v.minimumPayment}" type="number" name="input1" formatter="currency" step="0.01" readonly="true"/>
+                <lightning:input label="Minimum Payment as per Credit Limit" value="{!v.minimumPayment}" type="number" name="input1" formatter="currency" required="true" readonly="true"/>
         </lightning:layoutItem>
         <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
-                <lightning:input type="number" label="Monthly Creditor Life Premium as per Credit Limit" value="{!v.monthlyCreditorLifePremium}" name="number" formatter="currency" step="0.01" readonly="true"/>
+                <lightning:input type="number" label="Monthly Creditor Life Premium as per Credit Limit" value="{!v.monthlyCreditorLifePremium}" name="number" formatter="currency" required="true" readonly="true"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="12">
                 <h2 class="slds-section-title--divider">Fees and Charges</h2>
             </lightning:layoutItem>
             <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-                        <lightning:input label="Annual Membership (Primary Applicant)" value="{!v.primaryApplicantAnnualMembership}" type="number" name="input1" formatter="currency" step="0.01" readonly="true"/>
+                        <lightning:input label="Annual Membership (Primary Applicant)" value="{!v.primaryApplicantAnnualMembership}" type="number" name="input1" formatter="currency" required="true" readonly="true"/>
                 </lightning:layoutItem>
                 <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-                        <lightning:input label="Annual Membership (Supplementary Applicant(s))" value="{!v.supplementaryApplicantAnnualMembership}" type="number" name="input1" formatter="currency" step="0.01" readonly="true"/>
+                        <lightning:input label="Annual Membership (Supplementary Applicant(s))" value="{!v.supplementaryApplicantAnnualMembership}" type="number" name="input1" formatter="currency" required="true" readonly="true"/>
                 </lightning:layoutItem>
                 <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-                        <lightning:input label="Annual Creditor Life Fee" value="{!v.annualCreditorLifeFee}" type="number" name="input1" formatter="currency" step="0.01" readonly="true"/>
+                        <lightning:input label="Annual Creditor Life Fee" value="{!v.annualCreditorLifeFee}" type="number" name="input1" formatter="currency" required="true" readonly="true"/>
                 </lightning:layoutItem>
             </lightning:layout>
         </form>

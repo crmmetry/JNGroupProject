@@ -14,33 +14,33 @@
         </lightning:layoutItem>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="Legal Fees(including GCT)" value="{!v.legalFees}" name="number" formatter="currency" step="0.01" readonly="true"/>
+                <lightning:input type="number" label="Legal Fees(including GCT)" value="{!v.legalFees}" name="number" formatter="currency" required="true" readonly="true"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="Stamp Duty" value="{!v.stampDuty}" name="number" formatter="currency" step="0.01" readonly="true"/>
+                <lightning:input type="number" label="Stamp Duty" value="{!v.stampDuty}" name="number" formatter="currency" required="true" readonly="true"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="Processing Fees (including GCT)" value="{!v.processingFees}" name="number" formatter="currency" step="0.01" readonly="true"/>
+                <lightning:input type="number" label="Processing Fees (including GCT)" value="{!v.processingFees}" name="number" formatter="currency" required="true" readonly="true"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="JN Creditor Life Insurance Premium" value="{!v.jnCreditorLifePremium}" name="number" formatter="currency" step="0.01" readonly="true"/>
+                <lightning:input type="number" label="JN Creditor Life Insurance Premium" value="{!v.jnCreditorLifePremium}" name="number" formatter="currency" required="true" readonly="true"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="Assignment Fee" value="{!v.assignmentFee}" name="number" formatter="currency" step="0.01" readonly="true"/>
+                <lightning:input type="number" label="Assignment Fee" value="{!v.assignmentFee}" name="number" formatter="currency" required="true" readonly="true"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="Estimated Stamp Duty &amp; Admin Charges" value="{!v.stampDutyAndAdminCharges}" name="number" formatter="currency" step="0.01" readonly="true"/>
+                <lightning:input type="number" label="Estimated Stamp Duty &amp; Admin Charges" value="{!v.stampDutyAndAdminCharges}" name="number" formatter="currency" required="true" readonly="true"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="1st Month's Installment Payable" value="{!v.payableInstallment}" name="number" formatter="currency" step="0.01" readonly="true"/>
+                <lightning:input type="number" label="1st Month's Installment Payable" value="{!v.payableInstallment}" name="number" formatter="currency" required="true" readonly="true"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="Total Closing Costs" value="{!v.totalClosingCosts}" name="number" formatter="currency" step="0.01" readonly="true"/>
+                <lightning:input type="number" label="Total Closing Costs" value="{!v.totalClosingCosts}" name="number" formatter="currency" required="true" readonly="true"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="Total Closing Costs Financed By JN" value="{!v.totalClosingCostsJNFinanced}" name="number" formatter="currency" step="0.01" readonly="true"/>
+                <lightning:input type="number" label="Total Closing Costs Financed By JN" value="{!v.totalClosingCostsJNFinanced}" name="number" formatter="currency" required="true" readonly="true"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="6" padding="around-small">
-                <lightning:input type="number" label="Total Closing Costs Payable by Applicant" value="{!v.totalClosingCostsApplicantPayable}" name="number" formatter="currency" step="0.01" readonly="true"/>
+                <lightning:input type="number" label="Total Closing Costs Payable by Applicant" value="{!v.totalClosingCostsApplicantPayable}" name="number" formatter="currency" required="true" readonly="true"/>
             </lightning:layoutItem>
 </aura:component>	

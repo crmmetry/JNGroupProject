@@ -26,7 +26,7 @@
                 <h2 class="slds-section-title--divider">Life Insurance Coverage</h2>
             </lightning:layoutItem>
             <lightning:layoutItem size="12" mediumDeviceSize="8" padding="around-small">
-            <lightning:select name="select1" label="Will the Applicant be interested in JN Life Credit Card Creditor Life Insurance?" required="true" onchange="{!c.onCollateralTypeChange}">
+            <lightning:select name="select1" label="Will the Applicant be interested in JN Life Creditor Life Insurance?" required="true" onchange="{!c.onCollateralTypeChange}">
                 <option value="">select one...</option>
                 <aura:iteration items="{!v.collateralType}" var="item">
                   <option value="{!item}">{!item}</option>
@@ -59,7 +59,7 @@
                 <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
                     <div class="slds-form-element">
                       <div class="slds-form-element__control">
-                        <lightning:input label="Desired monthly repayment date" value="{!v.monthlyRepaymentDate}" type="number" name="input1" max="30"/>
+                        <lightning:input label="Desired monthly repayment date" value="{!v.monthlyRepaymentDate}" type="number" name="input1" max="30" required="true"/>
                       </div>
                     </div>
                 </lightning:layoutItem>
@@ -69,14 +69,14 @@
                 <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
                   <div class="slds-form-element">
                     <div class="slds-form-element__control">
-                        <lightning:input label="Credit Risk Score prior to application" value="{!v.creditRiskScore}" type="number" name="input1" />
+                        <lightning:input label="Credit Risk Score prior to application" value="{!v.creditRiskScore}" type="number" name="input1" required="true"/>
                     </div>
                   </div>
                 </lightning:layoutItem>
                 <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
                     <div class="slds-form-element">
                       <div class="slds-form-element__control">
-                        <lightning:input label="Credit Risk Rating prior to application" value="{!v.creditRiskRating}" type="text" name="input1"/>
+                        <lightning:input label="Credit Risk Rating prior to application" value="{!v.creditRiskRating}" type="text" name="input1" required="true"/>
                       </div>
                     </div>
                 </lightning:layoutItem>

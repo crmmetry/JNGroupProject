@@ -54,7 +54,7 @@
                     </lightning:select> 
                 </lightning:layoutItem>
                 <lightning:layoutItem size="9">
-                    <lightning:input type="number" label="Purchase Price of Vehicle" value="{!v.purchasePrice}" name="number" formatter="currency" step="0.01"/>
+                    <lightning:input type="number" label="Purchase Price of Vehicle" value="{!v.purchasePrice}" name="number" formatter="currency" required="true"/>
                 </lightning:layoutItem>
             </lightning:layout>
             </lightning:layoutItem>
@@ -66,10 +66,10 @@
                 </lightning:select> 
             </lightning:layoutItem>
             <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small"> 
-                <lightning:input type="number" label="Market Value of Vehicle" value="{!v.marketValue}" name="number" formatter="currency" step="0.01"/>
+                <lightning:input type="number" label="Market Value of Vehicle" value="{!v.marketValue}" name="number" formatter="currency" required="true"/>
                 </lightning:layoutItem>
                 <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-                <lightning:input type="number" label="Minimum(MV,PP)" value="{!v.minimum}" name="number" formatter="currency" step="0.01"/>
+                <lightning:input type="number" label="Minimum(MV,PP)" value="{!v.minimum}" name="number" formatter="currency" required="true"/>
                 </lightning:layoutItem>
                 <lightning:layoutItem size="12" padding="around-small">
                     <lightning:radioGroup name="radioGroupRequired"
@@ -83,10 +83,10 @@
                     <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
                     <lightning:layout>
                     <lightning:layoutItem size="4" mediumDeviceSize="2">
-                        <lightning:input type="number" label="%" value="{!v.depositPercentage}" formatter="percent" step="0.01"/>
+                        <lightning:input type="number" label="%" value="{!v.depositPercentage}" formatter="percent" required="true"/>
                     </lightning:layoutItem>
                     <lightning:layoutItem size="8" mediumDeviceSize="10">
-                        <lightning:input type="number" label="Motor Vehicle Deposit" value="{!v.deposit}" formatter="currency" step="0.01"  readonly="true"/>
+                        <lightning:input type="number" label="Motor Vehicle Deposit" value="{!v.deposit}" formatter="currency" required="true"  readonly="true"/>
                     </lightning:layoutItem> 
                 </lightning:layout>
             </lightning:layoutItem>
@@ -103,7 +103,7 @@
                         </lightning:select> 
                     </lightning:layoutItem>
                     <lightning:layoutItem size="8" mediumDeviceSize="10">
-                        <lightning:input type="number" label="Motor Vehicle Deposit" value="{!v.deposit}" formatter="currency" step="0.01"  readonly="true"/>
+                        <lightning:input type="number" label="Motor Vehicle Deposit" value="{!v.deposit}" formatter="currency" required="true"  readonly="true"/>
                     </lightning:layoutItem>   
                     </lightning:layout>
                     </lightning:layoutItem>
@@ -117,26 +117,26 @@
                 </lightning:select> 
             </lightning:layoutItem>
             <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-                <lightning:input type="number" name="vehicle-year" value="{!v.vehicleYear}" label="Year of Motor Vehicle" />
+                <lightning:input type="number" name="vehicle-year" value="{!v.vehicleYear}" label="Year of Motor Vehicle" required="true"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-                <lightning:input type="text" name="make-model" value="{!v.makeandModel}" label="Make and Model of Vehicle" />
+                <lightning:input type="text" name="make-model" value="{!v.makeandModel}" label="Make and Model of Vehicle" required="true"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="12" mediumDeviceSize="4"><h3 class="slds-section-title--divider">Interest Rate(%)*</h3>
-                        <div class="slds-p-top_medium"><lightning:input type="number" label="Market" name="Market" value="{!v.market}" formatter="percent" step="0.01"/></div>    
+                        <div class="slds-p-top_medium"><lightning:input type="number" label="Market" name="Market" value="{!v.market}" formatter="percent" required="true"/></div>    
                 </lightning:layoutItem>
                 <lightning:layoutItem size="12" mediumDeviceSize="4"><h3 class="slds-section-title--divider">Loan Term*</h3>
                     <lightning:layout>
                         <lightning:layoutItem size="6">
-                            <div class="slds-p-top_medium"></div><lightning:input type="number" label="Years" value="{!v.years}" name="number"/>
+                            <div class="slds-p-top_medium"></div><lightning:input type="number" label="Years" value="{!v.years}" name="number" required="true"/>
                         </lightning:layoutItem>
                         <lightning:layoutItem size="6">
-                        <div class="slds-p-top_medium"><lightning:input type="number" label="Months" value="{!v.months}" name="number"/></div>
+                        <div class="slds-p-top_medium"><lightning:input type="number" label="Months" value="{!v.months}" name="number" required="true"/></div>
                     </lightning:layoutItem>
                     </lightning:layout>
                 </lightning:layoutItem>
                 <lightning:layoutItem size="12" mediumDeviceSize="4"><h3 class="slds-section-title--divider">Loan Amount (JMD)*</h3>
-                          <div class="slds-p-top_medium"></div><lightning:input type="number" label="Amount" value="{!v.loanAmount}" name="number" formatter="currency" step="0.01"/>
+                          <div class="slds-p-top_medium"></div><lightning:input type="number" label="Amount" value="{!v.loanAmount}" name="number" formatter="currency" required="true"/>
                 </lightning:layoutItem>
             </lightning:layout>
         <!-- </lightning:layoutItem>
