@@ -117,10 +117,10 @@
                 </lightning:select> 
             </lightning:layoutItem>
             <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-                <lightning:input type="number" name="vehicle-year" value={!v.vehicleYear} label="Year of Motor Vehicle" />
+                <lightning:input type="number" name="vehicle-year" value="{!v.vehicleYear}" label="Year of Motor Vehicle" />
             </lightning:layoutItem>
             <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-                <lightning:input type="text" name="make-model" value={!v.makeandModel} label="Make and Model of Vehicle" />
+                <lightning:input type="text" name="make-model" value="{!v.makeandModel}" label="Make and Model of Vehicle" />
             </lightning:layoutItem>
             <lightning:layoutItem size="12" mediumDeviceSize="4"><h3 class="slds-section-title--divider">Interest Rate(%)*</h3>
                         <div class="slds-p-top_medium"><lightning:input type="number" label="Market" name="Market" value="{!v.market}" formatter="percent" step="0.01"/></div>    

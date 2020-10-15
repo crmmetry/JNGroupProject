@@ -1,6 +1,10 @@
 <aura:component>
+    <aura:component>
     <aura:attribute name="loanAmount" type="Decimal" />
     <aura:attribute name="monthly_PI_LoanAmount" type="Decimal" />
+    <aura:attribute name="jngiMotorPremium" type="Decimal" />
+    <aura:attribute name="monthlyJNGIMotorPremium" type="Decimal" />
+    <aura:attribute name="monthlyJNGIMotorPremium_1_12" type="Decimal" />
     <aura:attribute name="jnLifeCreditorPremium" type="Decimal" />
     <aura:attribute name="monthlyJnLifeCreditor_PI_Premium" type="Decimal" />
     <aura:attribute name="processingFees" type="Decimal" />
@@ -94,7 +98,9 @@
             <lightning:layoutItem size="6" padding="around-small">
                 <lightning:input type="number" label="Monthly Payment($)" value="{!v.applicantMonthlyLoanAmount}" name="Market" formatter="currency" step="0.01" readonly="true"/>
             </lightning:layoutItem>
-    <c:FeesAndChargesLineItemComponent></c:FeesAndChargesLineItemComponent> 
+    <c:AutoLoanFeesAndChargesLineComponent></c:AutoLoanFeesAndChargesLineComponent>
     </lightning:layout>       
     </fieldset>
+</aura:component>	
+
 </aura:component>	

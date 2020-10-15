@@ -30,7 +30,6 @@
                           <option value="{!item}">{!item}</option>
                         </aura:iteration>
                       </lightning:select>
-                        </lightning:select>
                     </div>
                   </div>
                 </lightning:layoutItem>
@@ -144,7 +143,7 @@
                 </aura:if> 
                 <aura:if isTrue="{!v.value == v.amount}">
                     <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
-                    <lightning:input type="number" label="Amount(JMD)" value"{!v.savingsAmount}" formatter="currency" step="0.01"/>
+                    <lightning:input type="number" label="Amount(JMD)" value="{!v.savingsAmount}" formatter="currency" step="0.01"/>
                 </lightning:layoutItem>   
                 </aura:if>
                 <lightning:layoutItem size="12">

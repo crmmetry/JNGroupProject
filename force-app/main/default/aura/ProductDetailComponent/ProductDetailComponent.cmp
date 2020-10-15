@@ -63,6 +63,8 @@
                     </form>
                     <!--Credit Card Other Details-->
                     <c:CreditCardOtherDetailsLineComponent></c:CreditCardOtherDetailsLineComponent>
+                    <!--Credit Card Credit Calculations-->
+                    <c:CreditCreditCardCreditCalculations></c:CreditCreditCardCreditCalculations>
                   <!--Auto Loan Features-->
                   <c:AutoLoanFeaturesLineItemComponent></c:AutoLoanFeaturesLineItemComponent>
                   <!--Personal Auto Loan Request -->
