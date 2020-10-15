@@ -69,14 +69,14 @@
                 <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
                   <div class="slds-form-element">
                     <div class="slds-form-element__control">
-                        <lightning:input label="Credit Risk Score prior to application" value="{!v.creditRiskScore}" type="number" name="input1" required="true"/>
+                        <lightning:input label="Credit Risk Score prior to application" value="{!v.creditRiskScore}" type="number" name="input1" required="true" readonly="true"/>
                     </div>
                   </div>
                 </lightning:layoutItem>
                 <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
                     <div class="slds-form-element">
                       <div class="slds-form-element__control">
-                        <lightning:input label="Credit Risk Rating prior to application" value="{!v.creditRiskRating}" type="text" name="input1" required="true"/>
+                        <lightning:input label="Credit Risk Rating prior to application" value="{!v.creditRiskRating}" type="text" name="input1" required="true" readonly="true"/>
                       </div>
                     </div>
                 </lightning:layoutItem>
