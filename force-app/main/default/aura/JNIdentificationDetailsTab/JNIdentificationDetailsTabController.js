@@ -1,15 +1,18 @@
 ({
   doInit: function(component, event, helper) {
-    const sitelead = {
+    const siteLead = {
       Identification_Type_Country_of_issue__c: "Jamaica",
       Identification_Type__c: "",
       Identification_Number__c: "",
       Identification_Type_Expiration__c: new Date()
     };
 	let current_datetime = new Date();
-      let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+    let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
     component.set("v.mindate", formatted_date);
-    component.set("v.SiteLead", sitelead);
+    //component.set("v.SiteLead", sitelead);
+    //helper.getPickListValues(component);
+    Object.assign(siteLead, component.get("v.SiteLead"));
+    component.set("v.SiteLead", siteLead);
     helper.getPickListValues(component);
   },
   getIdentificationType: function(component, event, helper) {
@@ -31,7 +34,7 @@
       return validSoFar && inputCmp.get("v.validity").valid;
     }, true);
   },
-         createDetails: function(component, event, helper) {
-         helper.updateApplicant(component);
-     }
+         //createDetails: function(component, event, helper) {
+         //helper.updateApplicant(component);
+     //}
 });

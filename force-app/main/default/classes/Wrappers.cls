@@ -109,6 +109,60 @@ public with sharing class Wrappers {
    */
   public class LeadUnwrapper {
     @AuraEnabled
+    public String leadId;
+    @AuraEnabled
+    public String leadSource;
+    @AuraEnabled
+    public String firstName;
+    @AuraEnabled
+    public String lastName;
+    @AuraEnabled
+    public Decimal estimatedAmount;
+    @AuraEnabled
+    public String serviceOfInterest;
+    @AuraEnabled
+    public String salutation;
+    @AuraEnabled
+    public String middleName;
+    @AuraEnabled
+    public String suffix;
+    @AuraEnabled
+    public String gender;
+    @AuraEnabled
+    public String maritalStatus;
+    @AuraEnabled
+    public Date dob;
+    @AuraEnabled
+    public String birthPlace;
+    @AuraEnabled
+    public String maidenName;
+    @AuraEnabled
+    public Decimal dependentAdultNum;
+    @AuraEnabled
+    public Decimal dependentChildNum;
+    @AuraEnabled
+    public String citizenCountry;
+    @AuraEnabled
+    public String residentCountry;
+    @AuraEnabled
+    public String educationLevel;
+    @AuraEnabled
+    public String trn;
+    @AuraEnabled
+    public Date preferredContactDate;
+    @AuraEnabled
+    public Time preferredContactTime;
+    @AuraEnabled
+    public String preferredLocation;
+    @AuraEnabled
+    public String loanPurposeUL;
+    @AuraEnabled
+    public Decimal grossMonthlyIncome;
+    @AuraEnabled
+    public Decimal grossMonthlyExpenses;
+    @AuraEnabled
+    public Id recordTypeId;
+    @AuraEnabled
     public Lead lead;
 
     public LeadUnwrapper(LeadWrapper leadWrapper) {

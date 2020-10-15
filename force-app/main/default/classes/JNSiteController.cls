@@ -87,55 +87,31 @@ public class JNSiteController {
         }
     }
     @AuraEnabled
-    public static Lead createLeadReferral(Map<String, String> applicantDetails ){
-        
-        List<Lead> leads = [SELECT Id FROM Lead WHERE  
-                            FirstName = :applicantDetails.get('FirstName')
-                            AND MiddleName = :applicantDetails.get('MiddleName')
-                            AND LastName = :applicantDetails.get('LastName')];
-        Id leadId;
-        if(!leads.isEmpty()){
-            throw new AuraHandledException('A user already exist with the supplied first and last name');
-            //return error
+    public static Object createLeadReferral(Lead applicantDetails ){
+        System.assert(applicantDetails != null, 'Application Details should not be null');
+        List<Lead> duplicateLeads = [SELECT Id FROM Lead WHERE  
+                            FirstName = :applicantDetails.FirstName
+                            AND MiddleName = :applicantDetails.MiddleName
+                            AND LastName = :applicantDetails.LastName];
+        if(!duplicateLeads.isEmpty()){
+            throw new AuraHandledException('Youre creating a duplicate record with an existing First and Last name.');
         }
-        Lead newLead = new Lead();
-        newLead.LeadSource = 'Online Application Form';
-        newLead.FirstName=applicantDetails.get('FirstName');
-        newLead.LastName=applicantDetails.get('LastName');
-        newLead.Estimated_Amount__c = Decimal.valueOf(applicantDetails.get('Estimated_Amount__c')); 
-        newLead.Service_of_Interest__c = applicantDetails.get('Service_of_Interest__c');
-        newLead.Salutation =  applicantDetails.get('Salutation');
-        newLead.MiddleName = applicantDetails.get('MiddleName');
-        newLead.Suffix= applicantDetails.get('Suffix');
-        newLead.Gender__c= applicantDetails.get('Gender__c');
-        newLead.Marital_Status__c =applicantDetails.get('Marital_Status__c');
-        newLead.Date_of_Birth__c = Date.valueOf(applicantDetails.get('Date_of_Birth__c'));
-        newLead.Place_of_Birth__c= applicantDetails.get('Place_of_Birth__c');
-        newLead.Mother_s_Maiden_Name__c= applicantDetails.get('Mother_s_Maiden_Name__c');
-        newLead.Number_of_Dependent_Adults__c= Decimal.valueOf(applicantDetails.get('Number_of_Dependent_Adults__c'));
-        newLead.Number_of_Dependent_Children__c= Decimal.valueOf(applicantDetails.get('Number_of_Dependent_Children__c'));
-        newLead.Country_of_Citizenship__c = applicantDetails.get('Country_of_Citizenship__c');
-        newLead.Country_of_Residence__c = applicantDetails.get('Country_of_Residence__c');
-        newLead.Highest_Level_of_Education_Attained__c = applicantDetails.get('Highest_Level_of_Education_Attained__c');
-        newLead.Jamaican_Tax_Registration_Number__c = applicantDetails.get('Jamaican_Tax_Registration_Number__c');
-        newLead.Service_of_Interest__c = applicantDetails.get('Service_of_Interest__c');
-        
+
         Map<String,Id> recordTypes = util.getRecordTypeids('Lead');
-        if(newLead.Service_of_Interest__c == 'JN Bank Credit Card'){ //credit_card
-            newLead.RecordTypeId = recordTypes.get('Credit_Card_Super_Lead');
+        if(applicantDetails.Service_of_Interest__c == 'JN Bank Credit Card'){ //credit_card
+            applicantDetails.RecordTypeId = recordTypes.get('Credit_Card_Super_Lead');
         } else {
-            newLead.RecordTypeId = recordTypes.get('Unsecured_Loan_Super_Lead');
+            applicantDetails.RecordTypeId = recordTypes.get('Unsecured_Loan_Super_Lead');
         }
-        newLead.Preferred_Date_of_Contact__c = Date.valueOf(applicantDetails.get('Preferred_Date_of_Contact__c'));
-        newLead.Preferred_Time_of_Contact__c= updateTime(applicantDetails.get('Preferred_Time_of_Contact__c'));
-        newLead.Preferred_Location__c = applicantDetails.get('Preferred_Location__c');
-        newLead.Loan_Purpose_UL__c = applicantDetails.get('Loan_Purpose_UL__c');
-        newLead.Gross_Monthly_Income__c = Decimal.valueOf(applicantDetails.get('Gross_Monthly_Income__c'));
-        newLead.Gross_Monthly_Expenses__c = Decimal.valueOf(applicantDetails.get('Gross_Monthly_Expenses__c'));
-        insert newLead; //return a error duplicate
-        return newLead;
-        
-        
+        applicantDetails.LeadSource = 'Online Application Form';
+        try{
+            System.debug('Applicant Details' + applicantDetails);
+            insert applicantDetails; //return a error duplicate
+            return applicantDetails;
+        }catch (Exception e) {
+            System.debug(e.getMessage());
+            return new AuraException(e.getMessage());
+        }
     }
     @AuraEnabled
     public static Object createPersonAffiliates(Map<String, Object> values , String leadId){

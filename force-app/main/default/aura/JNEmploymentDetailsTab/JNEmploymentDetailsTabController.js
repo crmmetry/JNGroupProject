@@ -3,6 +3,7 @@
     const siteLead = {
       Primary_Employment_Type__c: ""
     };
+    Object.assign(siteLead, component.get("v.SiteLead"));
     component.set("v.SiteLead", siteLead);
     component.set("v.SiteLeadUnemployed", siteLead);
     component.set("v.SiteLeadSelfEmployed", siteLead);
@@ -58,9 +59,10 @@
       return validSoFar && inputCmp.get("v.validity").valid;
     }, true);
   },
-  createDetails: function(component, event, helper) {
-    helper.updateApplicantInfo(component);
-  },
+  // createDetails: function(component, event, helper) {
+  //   //helper.updateApplicantInfo(component);
+  //   helper.createLead(component);
+  // },
   getAddressStatus: function(component, event, helper) {
     const selected = event.getSource().get("v.value");
     let siteLead = component.get("v.SiteLead");
