@@ -10,6 +10,11 @@
     <aura:attribute name="percent" type="String" default="percent"/>
     <aura:attribute name="amount" type="String" default="amount"/>
     <aura:attribute name="recordId" type="Id" default="amount"/>
+    <aura:attribute name="autoFlag" type="Boolean" default="false"/>
+    <aura:attribute name="unsecuredFlag" type="Boolean" default="false"/>
+    <aura:attribute name="creditCardFlag" type="Boolean" default="false"/>
+    <aura:attribute name="locFlag" type="Boolean" default="false"/>
+
     <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
 
 
@@ -26,40 +31,20 @@
                     <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
                           <lightning:input label="Product Selection" type="text" aura:id="selectProduct" id="productSelectionElement" value="{!v.productSelection.productFamily}" disabled="true" required="true"/>
                     </lightning:layoutItem>
-                    <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
-                    <div class="slds-form-element">
-                        <div class="slds-form-element__control">
-                            <lightning:select name="select1" label="Loan Purpose" required="true" onchange="{! c.onLoanPurposeChange }">
-                              <option value="">select one...</option>
-                              <aura:iteration items="{!v.loanPurpose}" var="item">
-                                <option value="{!item}">{!item}</option>
-                              </aura:iteration>
-                            </lightning:select>                           
-                        </div>
-                </div>
-            </lightning:layoutItem>
                     </lightning:layout>
                     </form>
-                    <!--Credit Card Other Details-->
-                    <c:CreditCardOtherDetailsLineComponent></c:CreditCardOtherDetailsLineComponent>
-                    <!--Credit Card Credit Calculations-->
-                    <c:CreditCreditCardCreditCalculations></c:CreditCreditCardCreditCalculations>
-                    <!--Line of Credit Calcualtions-->
-                    <c:LineOfCreditCreditCalculationsLineComponent></c:LineOfCreditCreditCalculationsLineComponent>
-                  <!--Auto Loan Features-->
-                  <c:AutoLoanFeaturesLineItemComponent></c:AutoLoanFeaturesLineItemComponent>
-                  <!--Personal Auto Loan Request -->
-                  <c:PersonalAutoLoanRequestLineItemComponent></c:PersonalAutoLoanRequestLineItemComponent>
-                  <!--Auto Loan fees and Charges -->
-                  <c:AutoLoanCreditCalculationsLineComponent></c:AutoLoanCreditCalculationsLineComponent>
-                  <!--Unsecured Loan Features Section-->
-                  <c:UnsecuredLoanFeatureLineItemComponent></c:UnsecuredLoanFeatureLineItemComponent>
-                  <!--Requested Details-->
-                  <c:RequestedDetailsLineItemComponent></c:RequestedDetailsLineItemComponent>
-                  <!--Credit Calculations-->
-                  <c:CreditCalculationsLineItemComponent></c:CreditCalculationsLineItemComponent>
-                  <!--Total Debt Service Ratio-->
-                  <c:TotalDebtServiceRatioLineItemComponent></c:TotalDebtServiceRatioLineItemComponent>
+                    <aura:if isTrue="{!v.autoFlag}">
+                      <c:AutoLoanContainerComponent></c:AutoLoanContainerComponent>
+                    </aura:if>
+                    <aura:if isTrue="{!v.unsecuredFlag}">
+                      <c:UnsecuredLoanContainerComponent></c:UnsecuredLoanContainerComponent>
+                    </aura:if>
+                    <aura:if isTrue="{!v.creditCardFlag}">
+                      <c:CreditCardContainerComponent></c:CreditCardContainerComponent>
+                    </aura:if>
+                    <aura:if isTrue="{!v.locFlag}">
+                      <c:LineOfCreditContainerComponent></c:LineOfCreditContainerComponent>
+                    </aura:if>
                 </fieldset>
         </lightning:layoutItem>
     </lightning:card>
