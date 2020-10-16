@@ -1,13 +1,16 @@
-<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId">
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId" controller="ProductDetailController">
     <aura:attribute name="options" type="List" default="[
     {'label': 'Percentage(%)', 'value': 'percent'},
     {'label': 'Amount(JMD)', 'value': 'amount'}
     ]"/>
-    <aura:attribute name="products" type="List" default="['Auto Loan', 'Unsecured Loan', Credit Card]"/>
+    <aura:attribute name="products" type="List" default="Auto, Unsecured Loan, Credit Card"/>
     <aura:attribute name="loanPurpose" type="List" default="['Auto','School','Debt']"/>
     <aura:attribute name="value" type="String" default=""/>
     <aura:attribute name="percent" type="String" default="percent"/>
     <aura:attribute name="amount" type="String" default="amount"/>
+    <aura:attribute name="recordId" type="Id" default="amount"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
+
 
   <lightning:layout>
     <lightning:card>
@@ -22,7 +25,7 @@
                     <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
                           <div class="slds-form-element">
                             <div class="slds-form-element__control">
-                                <lightning:select label="Select the application product combination" name="selectapplicant" aura:id="selectapplicant" required="true" onchange="{! c.onProductChange }" disabled="{!v.isProductDetail}">
+                                <lightning:select label="Select the application product combination" name="selectapplicant" aura:id="selectProduct" required="true" disabled="true">
                                   <option value="">select one...</option>
                                   <aura:iteration items="{!v.products}" var="item">
                                     <option value="{!item}">{!item}</option>

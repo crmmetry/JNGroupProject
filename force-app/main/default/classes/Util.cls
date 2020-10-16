@@ -490,4 +490,9 @@ public with sharing class Util {
       currentTime.second()
     );
   }
+
+  public static List<OpportunityLineItem> getOpportunityProducts (Id oppId){
+    List<OpportunityLineItem> oppProducts = [SELECT Id, Product_Family__c, Name FROM OpportunityLineItem WHERE OpportunityId = :oppId];
+    return oppProducts;
+}
 }
