@@ -1,5 +1,5 @@
 ({
-  getPickListValues: function(component) {
+  getPickListValues: function (component) {
     const action = component.get("c.getPickListValuesList");
     action.setParams({
       objectApiName: "Lead",
@@ -10,7 +10,7 @@
         "Preferred_Contact_Method__c"
       ]
     });
-    action.setCallback(this, function(response) {
+    action.setCallback(this, function (response) {
       const state = response.getState();
       if (state === "SUCCESS") {
         const mappedList = response.getReturnValue();
@@ -25,14 +25,14 @@
     });
     $A.enqueueAction(action);
   },
-  updateApplicant: function(component) {
+  updateApplicant: function (component) {
     const action = component.get("c.updateApplicantTextInfo");
     action.setParams({
       applicantDetails: component.get("v.SiteLead"),
       leadId: component.get("v.leadId")
     });
     this.sendEvents(component, ["showLoading"]);
-    action.setCallback(this, function(response) {
+    action.setCallback(this, function (response) {
       this.sendEvents(component, ["disableShowLoading"]);
       const state = response.getState();
       if (state === "SUCCESS") {
@@ -41,7 +41,7 @@
     });
     $A.enqueueAction(action);
   },
-  sendEvents: function(component, events, data) {
+  sendEvents: function (component, events, data) {
     const eventToSend = component.getEvent("jnEvent");
     eventToSend.setParams({
       component: "JNApplicationForm",
@@ -50,17 +50,17 @@
     });
     eventToSend.fire();
   },
-  setPreferredRequiredField: function(component) {
+  setPreferredRequiredField: function (component) {
     let siteLead = component.get("v.SiteLead");
     switch (siteLead["Preferred_Contact_Method__c"]) {
       case "Home Phone": {
-          component.set("v.homeNumberRequired", true);
-          component.set("v.businessNumberRequired", false);
+        component.set("v.homeNumberRequired", true);
+        component.set("v.businessNumberRequired", false);
         break;
       }
       case "Business Phone": {
-          component.set("v.businessNumberRequired", true);
-          component.set("v.homeNumberRequired", false);
+        component.set("v.businessNumberRequired", true);
+        component.set("v.homeNumberRequired", false);
         break;
       }
       default: {
@@ -68,5 +68,13 @@
         component.set("v.homeNumberRequired", false);
       }
     }
+  },
+  mapSiteLeadFields: function (componentSiteLead, siteLead) {
+    Object.keys(componentSiteLead).forEach(function (field) {
+      if (siteLead.hasOwnProperty(field)) {
+        componentSiteLead[field] = siteLead[field];
+      }
+    });
+    return componentSiteLead;
   }
 });

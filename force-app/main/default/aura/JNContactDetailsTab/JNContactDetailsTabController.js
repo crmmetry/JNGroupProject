@@ -1,6 +1,6 @@
 ({
-  doInit: function(component, event, helper) {
-    const siteLead = {
+  doInit: function (component, event, helper) {
+    let siteLead = {
       MobilePhone: "",
       Home_Phone__c: "",
       Business_Phone__c: "",
@@ -32,61 +32,61 @@
       Preferred_Contact_Method__c: "",
       Different_Mailing_Address__c: false
     };
-    Object.assign(siteLead, component.get("v.SiteLead"));
+    siteLead = helper.mapSiteLeadFields(siteLead, component.get("v.SiteLead"));
     component.set("v.SiteLead", siteLead);
     helper.getPickListValues(component);
   },
-  validateTabFields: function(component, event, helper) {
-    return component.find("validation").reduce(function(validSoFar, inputCmp) {
+  validateTabFields: function (component, event, helper) {
+    return component.find("validation").reduce(function (validSoFar, inputCmp) {
       // Displays error messages for invalid fields
       inputCmp.showHelpMessageIfInvalid();
       return validSoFar && inputCmp.get("v.validity").valid;
     }, true);
   },
-  getCountry: function(component, event, helper) {
+  getCountry: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let siteLead = component.get("v.SiteLead");
     siteLead["Country__c"] = selected;
     component.set("v.SiteLead", siteLead);
   },
-  getCountryMailing: function(component, event, helper) {
+  getCountryMailing: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let siteLead = component.get("v.SiteLead");
     siteLead["Mailing_Country__c"] = selected;
     component.set("v.SiteLead", siteLead);
   },
-  getAddressStatus: function(component, event, helper) {
+  getAddressStatus: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let siteLead = component.get("v.SiteLead");
     siteLead["Status_of_Address__c"] = selected;
     component.set("v.SiteLead", siteLead);
   },
-  getPreferredContactMethod: function(component, event, helper) {
+  getPreferredContactMethod: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let siteLead = component.get("v.SiteLead");
     siteLead["Preferred_Contact_Method__c"] = selected;
     component.set("v.SiteLead", siteLead);
     helper.setPreferredRequiredField(component);
   },
-  getAddresstatusMailing: function(component, event, helper) {
+  getAddresstatusMailing: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let siteLead = component.get("v.SiteLead");
     siteLead["Mailing_Status_of_Address__c"] = selected;
     component.set("v.SiteLead", siteLead);
   },
-  getAddressType: function(component, event, helper) {
+  getAddressType: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let siteLead = component.get("v.SiteLead");
     siteLead["Address_Type__c"] = selected;
     component.set("v.SiteLead", siteLead);
   },
-  getAddressTypeMailing: function(component, event, helper) {
+  getAddressTypeMailing: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let siteLead = component.get("v.SiteLead");
     siteLead["Mailing_Address_Type__c"] = selected;
     component.set("v.SiteLead", siteLead);
   },
-  setMailingAddress: function(component, event, helper) {
+  setMailingAddress: function (component, event, helper) {
     let siteLead = component.get("v.SiteLead");
     const validKeys = {
       Street_1__c: "",
@@ -113,7 +113,7 @@
       }
     }
   },
-  createDetails: function(component, event, helper) {
+  createDetails: function (component, event, helper) {
     helper.updateApplicant(component);
-  },
+  }
 });
