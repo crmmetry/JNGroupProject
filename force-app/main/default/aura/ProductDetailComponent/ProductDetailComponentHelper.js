@@ -14,7 +14,6 @@
             if (state === "SUCCESS") {
                 console.log("success");
                 component.set("v.productSelection", result);
-                productSelection.set("v.value", result.productFamily);
             }
         });
 

@@ -203,7 +203,7 @@ public with sharing class Wrappers {
 
     public ProductSelectionWrapper(OpportunityLineItem record) {
       if (record == null) {
-        Wrappers.throwNullException('Lead Related Person record cannot be null');
+        Wrappers.throwNullException('OpportunityLineItem record cannot be null');
       }
       this.productFamily = record.Product_Family__c;
       this.productName = record.Name;

@@ -1,4 +1,10 @@
 public with sharing class ProductDetailController {
+
+    /**
+   * Return a Product Selection Object consisting of an opportunity product name and family.
+   * @param {Id} - oppId
+   * @return Object
+   */
     @AuraEnabled
     public static Object getSingleProductFamilySelection (Id oppId){
         System.debug('Controller');
@@ -7,7 +13,7 @@ public with sharing class ProductDetailController {
             Wrappers.ProductSelectionWrapper selection = new Wrappers.ProductSelectionWrapper(oppProduct); 
             return selection;
         }  
-        return 'None';
+        return Constants.NONE;
     }
     
 }
