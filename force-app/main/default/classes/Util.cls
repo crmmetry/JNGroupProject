@@ -491,8 +491,7 @@ public with sharing class Util {
     );
   }
 
-  public static List<OpportunityLineItem> getOpportunityProducts (Id oppId){
-    List<OpportunityLineItem> oppProducts = [SELECT Id, Product_Family__c, Name FROM OpportunityLineItem WHERE OpportunityId = :oppId];
-    return oppProducts;
-}
+  public static OpportunityLineItem getOpportunityProducts (Id oppId){
+    return [SELECT Id, Product_Family__c, Name FROM OpportunityLineItem WHERE OpportunityId = :oppId];    
+  }
 }

@@ -4,6 +4,7 @@
     {'label': 'Amount(JMD)', 'value': 'amount'}
     ]"/>
     <aura:attribute name="products" type="List" default="Auto, Unsecured Loan, Credit Card"/>
+    <aura:attribute name="productSelection" type="Object" />
     <aura:attribute name="loanPurpose" type="List" default="['Auto','School','Debt']"/>
     <aura:attribute name="value" type="String" default=""/>
     <aura:attribute name="percent" type="String" default="percent"/>
@@ -23,32 +24,7 @@
                         <h2 class="slds-section-title--divider">Product Selection &amp; Applicant Details</h2>
                     </lightning:layoutItem>
                     <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
-                          <div class="slds-form-element">
-                            <div class="slds-form-element__control">
-                                <lightning:select label="Select the application product combination" name="selectapplicant" aura:id="selectProduct" required="true" disabled="true">
-                                  <option value="">select one...</option>
-                                  <aura:iteration items="{!v.products}" var="item">
-                                    <option value="{!item}">{!item}</option>
-                                  </aura:iteration>
-                                    <!-- <option value="0">choose one...</option>
-                                    <option value="1">Auto Loan</option>
-                                    <option value="2">Unsecured Loan</option>
-                                    <option value="3">Credit Card</option>
-                                    <option value="4">Line of Credit</option>
-                                    <option value="5">Auto Loan &amp; Unsecured Loan</option>
-                                    <option value="6">Auto Loan &amp; Credit Card</option>
-                                    <option value="7">Auto Loan &amp; Line of Credit</option>
-                                    <option value="8">Unsecured Loan &amp; Credit Card</option>
-                                    <option value="9">Unsecured Loan &amp; Line of Credit</option>
-                                    <option value="10">Credit Card &amp; Line of Credit</option>
-                                    <option value="11">Auto Loan, Unsecured Loan &amp; Credit Card</option>
-                                    <option value="12">Auto Loan, Unsecured Loan &amp; Line of Credit</option>
-                                    <option value="13">Auto Loan, Credit Card &amp; Line of Credit</option>
-                                    <option value="14">Unsecured Loan, Credit Card &amp; Line of Credit</option>
-                                    <option value="15">Auto Loan, Unsecured Loan, Credit Card &amp; Line of Credit</option> -->
-                                </lightning:select>
-                            </div>
-                          </div>
+                          <lightning:input label="Product Selection" type="text" aura:id="selectProduct" id="productSelectionElement" value="{!v.productSelection.productFamily}" disabled="true" required="true"/>
                     </lightning:layoutItem>
                     <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
                     <div class="slds-form-element">

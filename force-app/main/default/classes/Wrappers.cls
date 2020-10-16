@@ -191,4 +191,22 @@ public with sharing class Wrappers {
       this.mobileNumber = record.Mobile_Number__c;
     }
   }
+/**
+   * Used for wrapping a Opportunity Product
+   * @constructor ProductSelectionWrapper
+   */
+  public class ProductSelectionWrapper {
+    @AuraEnabled
+    public String productFamily;
+    @AuraEnabled
+    public String productName;
+
+    public ProductSelectionWrapper(OpportunityLineItem record) {
+      if (record == null) {
+        Wrappers.throwNullException('Lead Related Person record cannot be null');
+      }
+      this.productFamily = record.Product_Family__c;
+      this.productName = record.Name;
+    }
+  }
 }
