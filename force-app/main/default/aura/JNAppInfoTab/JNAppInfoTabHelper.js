@@ -19,11 +19,8 @@
     $A.enqueueAction(action);
   },
   mapSiteLeadFields: function (componentSiteLead, siteLead) {
-    Object.keys(componentSiteLead).forEach(function (field) {
-      if (siteLead.hasOwnProperty(field)) {
-        componentSiteLead[field] = siteLead[field];
-      }
-    });
-    return componentSiteLead;
+    console.log("Current", JSON.parse(JSON.stringify(componentSiteLead)));
+    console.log("Main", JSON.parse(JSON.stringify(siteLead)));
+    return Object.assign(componentSiteLead, siteLead);
   }
 });

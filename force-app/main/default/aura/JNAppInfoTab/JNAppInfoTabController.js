@@ -9,10 +9,6 @@
       Gross_Monthly_Income__c: null,
       Gross_Monthly_Expenses__c: null
     };
-    console.table(
-      "Site Lead",
-      JSON.parse(JSON.stringify(component.get("v.SiteLead")))
-    );
     let current_datetime = new Date();
     let formatted_date =
       current_datetime.getFullYear() +
@@ -22,7 +18,8 @@
       current_datetime.getDate();
     component.set("v.mindate", formatted_date);
     siteLead = helper.mapSiteLeadFields(siteLead, component.get("v.SiteLead"));
-    console.table(JSON.parse(JSON.stringify(component.get("v.SiteLead"))));
+    component.set("v.SiteLead", siteLead);
+    console.log("Info", JSON.parse(JSON.stringify(siteLead)));
     helper.getPickListValues(component);
   },
   getPreferredLocation: function (component, event, helper) {

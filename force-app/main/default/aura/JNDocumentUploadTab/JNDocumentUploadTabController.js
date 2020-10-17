@@ -45,10 +45,10 @@
     ];
     component.set("v.documentTypeList", documentTypeList);
     component.set("v.maxSize", 30);
-
-    const siteLead = helper.mapSiteLeadFields({}, component.get("v.SiteLead"));
-    component.set("v.SiteLead", siteLead);
-    console.table(JSON.parse(JSON.stringify(component.get("v.SiteLead"))));
+    console.table(
+      "Upload",
+      JSON.parse(JSON.stringify(component.get("v.SiteLead")))
+    );
   },
   handleFilesChange: function (component, event, helper) {
     const MAX_FILE_SIZE = 5000000;

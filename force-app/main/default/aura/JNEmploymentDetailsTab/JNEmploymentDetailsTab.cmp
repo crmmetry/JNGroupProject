@@ -1,11 +1,12 @@
-<aura:component 
+<aura:component
   implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome"
-  access="GLOBAL" 
-  controller="JNSiteController">
+  access="GLOBAL"
+  controller="JNSiteController"
+>
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
   <aura:registerEvent type="c:JNComponentEvent" name="jnEvent" />
   <aura:attribute name="employmentTypes" type="String[]" />
-  <aura:attribute name="SiteLead" type="Map" />
+  <aura:attribute name="SiteLead" type="Object" />
   <aura:attribute name="SiteLeadUnemployed" type="Map" />
   <aura:attribute name="SiteLeadSelfEmployed" type="Map" />
   <aura:attribute name="leadId" type="String" />

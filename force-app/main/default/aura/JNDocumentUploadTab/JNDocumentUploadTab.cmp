@@ -9,7 +9,7 @@
   <aura:attribute name="showLoadingSpinner" type="boolean" default="false" />
   <!-- 'fileName' attribute for display the selected file name -->
   <aura:attribute name="fileName" type="String" default="No File Selected.." />
-  <aura:attribute name="SiteLead" type="Map" />
+  <aura:attribute name="SiteLead" type="Object" />
 
   <aura:attribute
     name="accept"
@@ -27,11 +27,11 @@
       <c:JnToast aura:id="toastContainer" />
 
       <div
-        class="slds-text-heading_large slds-align_absolute-center slds-m-bottom_medium"
+        class="slds-text-heading_large slds-align_absolute-center slds-var-m-bottom_medium"
       >
         {!v.currentSize}/{!v.maxSize}MB used
       </div>
-      <div class="slds-grid slds-gutters slds-m-bottom_medium">
+      <div class="slds-grid slds-gutters slds-var-m-bottom_medium">
         <aura:iteration
           items="{!v.documentTypeList[0]}"
           indexVar="index"

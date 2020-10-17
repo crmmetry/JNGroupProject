@@ -3,7 +3,7 @@
   access="GLOBAL"
 >
   <aura:attribute name="readonlyFlag" type="Boolean" default="true" />
-  <aura:attribute name="SiteLead" type="Map" default="{}" />
+  <aura:attribute name="SiteLead" type="Object" />
   <aura:handler name="init" action="{!c.init}" value="{!this}" />
   <section
     aura:id="myModal"

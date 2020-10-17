@@ -44,13 +44,5 @@
     const message = data.message;
     const toastContainer = component.find("toastContainer");
     toastContainer.displayMessage(severity, title, message);
-  },
-  mapSiteLeadFields: function (componentSiteLead, siteLead) {
-    Object.keys(componentSiteLead).forEach(function (field) {
-      if (siteLead.hasOwnProperty(field)) {
-        componentSiteLead[field] = siteLead[field];
-      }
-    });
-    return componentSiteLead;
   }
 });

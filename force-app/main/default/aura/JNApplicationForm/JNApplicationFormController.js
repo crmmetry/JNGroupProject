@@ -1,5 +1,5 @@
 ({
-  doInit: function(component, event, helper) {
+  doInit: function (component, event, helper) {
     const creditCardTabs = [
       "Getting_Started_Tab",
       "Application_Information_Tab",
@@ -26,10 +26,10 @@
 
     component.set("v.unsecuredLoanTabs", unsecuredLoanTabs);
     component.set("v.creditCardTabs", creditCardTabs);
-    component.set("v.SiteLead", {});
+    //component.set("v.SiteLead", {});
     component.set("v.tabId", "Getting_Started_Tab");
   },
-  handleLoanTypeChange: function(component, event, helper) {
+  handleLoanTypeChange: function (component, event, helper) {
     const old = event.getParam("oldValue");
     const current = event.getParam("value");
     if (old != current) {
@@ -43,32 +43,36 @@
       const currentTabs = component.get("v.allTabs");
       let validatedTabs = {};
       const tabs = currentTabs
-        .filter(function(tab) {
-          return tab != "Getting_Started_Tab" && tab != "Document_Upload_Tab" && tab != 'Extensions_Tab';
+        .filter(function (tab) {
+          return (
+            tab != "Getting_Started_Tab" &&
+            tab != "Document_Upload_Tab" &&
+            tab != "Extensions_Tab"
+          );
         })
-        .map(function(value, index) {
+        .map(function (value, index) {
           return { [value]: false };
         });
 
-      tabs.forEach(function(body) {
+      tabs.forEach(function (body) {
         Object.assign(validatedTabs, body);
       });
       component.set("v.validatedTabs", validatedTabs);
     }
   },
-  openModal: function(component, event, helper) {
+  openModal: function (component, event, helper) {
     var childCmp = component.find("JNModal");
     var header = "Here is the header I assign";
     var body = "Here is content for the body";
     childCmp.showModal(header, body);
   },
-  navigateBack: function(component, event, helper) {
+  navigateBack: function (component, event, helper) {
     const navEvent = component.getEvent("jnEvent");
     navEvent.setParam("action", "showHomePage");
     navEvent.setParam("component", "JNHomePage");
     navEvent.fire();
   },
-  handleTabChange: function(component, event, helper) {
+  handleTabChange: function (component, event, helper) {
     const tabName = helper.getTabName(component.get("v.tabId"));
     if (tabName === "Document_Upload") {
       component.set("v.formBtnText", "Finish");
@@ -76,7 +80,7 @@
       component.set("v.formBtnText", "Next");
     }
   },
-  tabNext: function(component, event, helper) {
+  tabNext: function (component, event, helper) {
     const siteLead = component.get("v.SiteLead");
     const allTabs = component.get("v.allTabs");
     const tabName = helper.getTabName(component.get("v.tabId"));
@@ -90,8 +94,8 @@
         if (currentCmp.validateTabFields() === true) {
           const tab = component.get("v.tabId");
           if (validatedTabs.hasOwnProperty(tab)) {
-              validatedTabs[tab] = true;
-              component.set("v.validatedTabs", validatedTabs);
+            validatedTabs[tab] = true;
+            component.set("v.validatedTabs", validatedTabs);
           }
           switch (tabName) {
             case "Application_Information": {
@@ -142,7 +146,7 @@
       }
     }
   },
-  tabPrevious: function(component, event, helper) {
+  tabPrevious: function (component, event, helper) {
     const allTabs = component.get("v.allTabs");
     const index = allTabs.indexOf(component.get("v.tabId"));
     //can go next
@@ -151,13 +155,13 @@
       component.set("v.tabId", tab);
     }
   },
-  handleEvent: function(component, event, helper) {
+  handleEvent: function (component, event, helper) {
     const eventAction = event.getParam("action");
     const eventComponent = event.getParam("component");
     const eventData = event.getParam("data");
     if (eventComponent === "JNApplicationForm") {
       if (Array.isArray(eventAction)) {
-        eventAction.forEach(function(action) {
+        eventAction.forEach(function (action) {
           switch (action) {
             case "showLoading": {
               component.set("v.showLoading", true);
@@ -181,8 +185,8 @@
       }
     }
   },
-  postiveBtnClick: function(component, event, helper) {
-    const {error, message} = helper.createCompoundErrorMessage(component)     
+  postiveBtnClick: function (component, event, helper) {
+    const { error, message } = helper.createCompoundErrorMessage(component);
     helper.closeModal(component);
     const siteLead = component.get("v.SiteLead");
     if (error) {

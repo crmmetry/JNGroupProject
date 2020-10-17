@@ -1,7 +1,5 @@
 ({
   doInit: function (component, event, helper) {
-    console.log("PASSED");
-    console.log(component.get("v.SiteLead"));
     let siteLead = {
       FirstName: "",
       LastName: "",
@@ -10,7 +8,7 @@
       Suffix: "",
       Gender__c: "",
       Marital_Status__c: "",
-      Date_of_Birth__c: new Date(),
+      Date_of_Birth__c: null,
       Place_of_Birth__c: "",
       Mother_s_Maiden_Name__c: "",
       Number_of_Dependent_Adults__c: 0,
@@ -23,8 +21,8 @@
     };
     siteLead = helper.mapSiteLeadFields(siteLead, component.get("v.SiteLead"));
     component.set("v.SiteLead", siteLead);
+    console.log("Info", JSON.parse(JSON.stringify(siteLead)));
 
-    console.log("loan type= ", component.get("v.loan_type"));
     let serviceofInterest;
     if (component.get("v.loan_type") == "credit_card") {
       serviceofInterest = "JN Bank Credit Card";
@@ -32,8 +30,11 @@
       serviceofInterest = "JN Bank Unsecured Loan";
     }
     component.set("v.SiteLead.Service_of_Interest__c", serviceofInterest);
-
     helper.getPickListValues(component);
+  },
+  onSiteLeadChange: function (component, event, helper) {
+    console.log("Old", JSON.parse(JSON.stringify(event.getParam("oldValue"))));
+    console.log("New", JSON.parse(JSON.stringify(event.getParam("value"))));
   },
   getSalutation: function (component, event, helper) {
     const selected = event.getSource().get("v.value");

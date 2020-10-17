@@ -19,7 +19,7 @@
   <aura:attribute name="creditCardTabs" type="String[]" />
   <aura:attribute name="formBtnText" type="String" default="Next" />
   <aura:attribute name="showLoading" type="Boolean" default="false" />
-  <aura:attribute name="SiteLead" type="Map" default="{}" />
+  <aura:attribute name="SiteLead" type="Object" default="{}" />
   <aura:handler
     name="change"
     value="{!v.tabId}"
