@@ -23,76 +23,66 @@
         >
           <span class="slds-assistive-text">Close</span>
         </button>
-        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+        <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
           Applicant Form
-        </h2>
+        </h1>
       </header>
       <div
         class="slds-modal__content slds-var-p-around_medium"
         id="modal-content-id-1"
       >
-        <strong
-          ><h2
-            class="slds-section-title--divider slds-var-m-vertical_medium headings headings"
-          >
-            Applicant Information
-          </h2></strong
+        <h1
+          class="slds-section-title--divider slds-var-m-vertical_medium heading slds-size_full"
         >
+          Applicant Information
+        </h1>
+
         <c:JNAppInfoTab
           readonlyFlag="{!v.readonlyFlag}"
           SiteLead="{!v.SiteLead}"
         />
-        <strong
-          ><h2
-            class="slds-section-title--divider slds-m-vertical_medium headings"
-          >
-            General Details
-          </h2></strong
+        <h1
+          class="slds-section-title--divider slds-var-m-vertical_medium heading slds-size_full"
         >
+          General Details
+        </h1>
+
         <c:JNGeneralDetailsTab
           readonlyFlag="{!v.readonlyFlag}"
           SiteLead="{!v.SiteLead}"
         />
-        <strong
-          ><h2
-            class="slds-section-title--divider slds-m-vertical_medium headings"
-          >
-            Identification Details
-          </h2></strong
+        <h1
+          class="slds-section-title--divider slds-var-m-vertical_medium heading slds-size_full"
         >
+          Identification Details
+        </h1>
         <c:JNIdentificationDetailsTab
           readonlyFlag="{!v.readonlyFlag}"
           SiteLead="{!v.SiteLead}"
         />
-        <strong
-          ><h2
-            class="slds-section-title--divider slds-m-vertical_medium headings"
-          >
-            Contact Details
-          </h2></strong
+        <h1
+          class="slds-section-title--divider slds-var-m-vertical_medium heading slds-size_full"
         >
+          Contact Details
+        </h1>
         <c:JNContactDetailsTab
           readonlyFlag="{!v.readonlyFlag}"
           SiteLead="{!v.SiteLead}"
         />
-        <strong
-          ><h2
-            class="slds-section-title--divider slds-m-vertical_medium headings"
-          >
-            Emergency Contact
-          </h2></strong
+        <h1
+          class="slds-section-title--divider slds-var-m-vertical_medium heading slds-size_full"
         >
+          Emergency Contact
+        </h1>
         <c:JNEmergencyContactDetailsTab
           readonlyFlag="{!v.readonlyFlag}"
           SiteLead="{!v.SiteLead}"
         />
-        <strong
-          ><h2
-            class="slds-section-title--divider slds-var-m-vertical_medium headings"
-          >
-            Employment Details
-          </h2></strong
+        <h1
+          class="slds-section-title--divider slds-var-m-vertical_medium heading slds-size_full"
         >
+          Employment Details
+        </h1>
         <c:JNEmploymentDetailsTab
           readonlyFlag="{!v.readonlyFlag}"
           SiteLead="{!v.SiteLead}"
