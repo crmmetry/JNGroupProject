@@ -2,6 +2,7 @@
   implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome"
   access="GLOBAL"
 >
+  <aura:registerEvent type="c:JNComponentEvent" name="jnEvent" />
   <aura:attribute name="readonlyFlag" type="Boolean" default="true" />
   <aura:attribute name="SiteLead" type="Object" />
   <aura:handler name="init" action="{!c.init}" value="{!this}" />
@@ -12,7 +13,7 @@
     aria-labelledby="modal-heading-01"
     aria-modal="true"
     aria-describedby="modal-content-id-1"
-    class="slds-modal slds-modal_large slds-fade-in-open"
+    class="slds-modal slds-modal_large"
   >
     <div class="slds-modal__container">
       <header class="slds-modal__header">
@@ -99,5 +100,5 @@
       </footer>
     </div>
   </section>
-  <div class="slds-backdrop slds-backdrop_open" aura:id="myModal-Back"></div>
+  <div class="slds-backdrop" aura:id="myModal-Back"></div>
 </aura:component>

@@ -10,6 +10,11 @@
   <!-- 'fileName' attribute for display the selected file name -->
   <aura:attribute name="fileName" type="String" default="No File Selected.." />
   <aura:attribute name="SiteLead" type="Object" />
+  <aura:handler
+    name="jnEvent"
+    action="{!c.handleEvent}"
+    event="c:JNComponentEvent"
+  />
 
   <aura:attribute
     name="accept"
@@ -38,7 +43,7 @@
           var="document"
         >
           <div class="slds-col slds-size_4-of-12">
-            <div class="slds-box slds-p-small slds-is-relative">
+            <div class="slds-box slds-var-p-around_small slds-is-relative">
               <aura:if isTrue="{!document.active}">
                 <div class="slds-spinner_container">
                   <div
@@ -65,7 +70,7 @@
               />
 
               <!-- Subtitle -->
-              <p class="slds-text-heading_small slds-m-top_small">
+              <p class="slds-text-heading_small slds-var-m-top_small">
                 {!document.sub_title}
               </p>
               <!-- Body -->
@@ -81,7 +86,7 @@
           var="document"
         >
           <div class="slds-col slds-size_4-of-12">
-            <div class="slds-box slds-p-small slds-is-relative">
+            <div class="slds-box slds-var-p-around_small slds-is-relative">
               <aura:if isTrue="{!document.active}">
                 <div class="slds-spinner_container">
                   <div
@@ -107,7 +112,7 @@
               />
 
               <!-- Subtitle -->
-              <p class="slds-text-heading_small slds-m-top_small">
+              <p class="slds-text-heading_small slds-var-m-top_small">
                 {!document.sub_title}
               </p>
 

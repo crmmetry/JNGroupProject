@@ -3,8 +3,6 @@
     let siteLead = {
       Primary_Employment_Type__c: ""
     };
-    component.set("v.SiteLeadUnemployed", siteLead);
-    component.set("v.SiteLeadSelfEmployed", siteLead);
     component.set("v.employedIndustries", [
       "Manufacturing",
       "Tourism",
@@ -42,11 +40,6 @@
   getEmploymentType: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     component.set("v.SiteLead.Primary_Employment_Type__c", selected);
-    component.set("v.SiteLeadUnemployed.Primary_Employment_Type__c", selected);
-    component.set(
-      "v.SiteLeadSelfEmployed.Primary_Employment_Type__c",
-      selected
-    );
   },
   validateTabFields: function (component, event, helper) {
     let fields = component.find("validation");
@@ -71,15 +64,15 @@
   },
   getUnemployedAddressStatus: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    let siteLead = component.get("v.SiteLeadUnemployed");
+    let siteLead = component.get("v.SiteLead");
     siteLead["Unemployed_Address_Status_PK__c"] = selected;
-    component.set("v.SiteLeadUnemployed", siteLead);
+    component.set("v.SiteLead", siteLead);
   },
   getSelfEmployedAddressStatus: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    let siteLead = component.get("v.SiteLeadSelfEmployed");
+    let siteLead = component.get("v.SiteLead");
     siteLead["Self_Employed_Address_Status_PK__c"] = selected;
-    component.set("v.SiteLeadSelfEmployed", siteLead);
+    component.set("v.SiteLead", siteLead);
   },
   getIndustryEmployment: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
@@ -89,15 +82,15 @@
   },
   getSelfEmployedIndustry: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    let siteLead = component.get("v.SiteLeadSelfEmployed");
+    let siteLead = component.get("v.SiteLead");
     siteLead["Industry"] = selected;
-    component.set("v.SiteLeadSelfEmployed", siteLead);
+    component.set("v.SiteLead", siteLead);
   },
   getBusinessNature: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    let siteLead = component.get("v.SiteLeadSelfEmployed");
+    let siteLead = component.get("v.SiteLead");
     siteLead["Nature_of_Engagement__c"] = selected;
-    component.set("v.SiteLeadSelfEmployed", siteLead);
+    component.set("v.SiteLead", siteLead);
   },
   getEmploymentStatus: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
@@ -113,27 +106,27 @@
   },
   getSelfEmployedCountry: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    let siteLead = component.get("v.SiteLeadSelfEmployed");
+    let siteLead = component.get("v.SiteLead");
     siteLead["Employer_Country__c"] = selected;
-    component.set("v.SiteLeadSelfEmployed", siteLead);
+    component.set("v.SiteLead", siteLead);
   },
   getUnemployedCountry: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    let siteLead = component.get("v.SiteLeadUnemployed");
+    let siteLead = component.get("v.SiteLead");
     siteLead["Employer_Country__c"] = selected;
-    component.set("v.SiteLeadUnemployed", siteLead);
+    component.set("v.SiteLead", siteLead);
   },
   getIndustryBusiness: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    let siteLead = component.get("v.SiteLeadUnemployed");
+    let siteLead = component.get("v.SiteLead");
     siteLead["Industry"] = selected;
-    component.set("v.SiteLeadUnemployed", siteLead);
+    component.set("v.SiteLead", siteLead);
   },
   getBusinessType: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    let siteLead = component.get("v.SiteLeadSelfEmployed");
+    let siteLead = component.get("v.SiteLead");
     siteLead["Type_of_Business__c"] = selected;
-    component.set("v.SiteLeadSelfEmployed", siteLead);
+    component.set("v.SiteLead", siteLead);
   },
   checkDateValidity: function (component, event, helper) {
     let cmp = event.getSource();

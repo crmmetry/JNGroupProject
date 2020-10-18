@@ -28,11 +28,16 @@
             required="true"
             onchange="{!c.getIdentificationType}"
             aura:id="validation"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           >
             <option value="">select one...</option>
             <aura:iteration items="{!v.identificationTypes}" var="item">
-              <option value="{!item}">{!item}</option>
+              <option
+                value="{!item}"
+                selected="{!v.SiteLead.Identification_Type__c == item}"
+              >
+                {!item}
+              </option>
             </aura:iteration>
           </lightning:select>
         </div>
@@ -45,7 +50,7 @@
             required="true"
             value="{!v.SiteLead.Identification_Number__c}"
             aura:id="validation"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           />
         </div>
         <!-- Expiration Date -->
@@ -58,7 +63,7 @@
             min="{!v.mindate}"
             value="{!v.SiteLead.Identification_Type_Expiration__c}"
             aura:id="validation"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           />
         </div>
         <!-- Country of Issue -->
@@ -69,11 +74,16 @@
             required="true"
             onchange="{!c.getCountryofIssue}"
             aura:id="validation"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           >
             <option value="Jamaica">Jamaica</option>
             <aura:iteration items="{!v.countries}" var="item">
-              <option value="{!item}">{!item}</option>
+              <option
+                value="{!item}"
+                selected="{!v.SiteLead.Identification_Type_Country_of_issue__c == item}"
+              >
+                {!item}
+              </option>
             </aura:iteration>
           </lightning:select>
         </div>

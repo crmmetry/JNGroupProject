@@ -119,5 +119,20 @@
 
       objFileReader.readAsDataURL(file);
     }
+  },
+  handleEvent: function (component, event, helper) {
+    console.info("hide modal event");
+    const eventAction = event.getParam("action");
+    const eventComponent = event.getParam("component");
+    const eventData = event.getParam("data");
+    if (eventComponent === "JNDocumentUploadTab") {
+      switch (eventAction) {
+        case "hideModal": {
+          component.set("v.showJnSiteModal", false);
+          break;
+        }
+      }
+    }
+    console.warn("Modal", component.get("v.showJnSiteModal"));
   }
 });

@@ -33,7 +33,7 @@
             required="true"
             aura:id="validation"
             value="{!v.SiteLead.Emergency_Contact_First_Name__c}"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           />
         </div>
         <!-- Last Name -->
@@ -44,7 +44,7 @@
             required="true"
             aura:id="validation"
             value="{!v.SiteLead.Emergency_Contact_Last_Name__c}"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           />
         </div>
         <!-- Middle Inital -->
@@ -59,7 +59,7 @@
             pattern="^([a-z]|[A-Z]){1}$"
             messageWhenPatternMismatch="can only have alphabetic character"
             messageWhenTooLong="You have exceeded the limit of 1 characters!"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           />
         </div>
         <!-- Relationship to Applicant -->
@@ -70,17 +70,22 @@
             required="true"
             onchange="{!c.getApplicantRelationship}"
             aura:id="validation"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           >
             <option value="">select one...</option>
             <aura:iteration items="{!v.applicantRelationships}" var="item">
-              <option value="{!item}">{!item}</option>
+              <option
+                value="{!item}"
+                selected="{!v.SiteLead.Emergency_Contact_Relationship__c == item}"
+              >
+                {!item}
+              </option>
             </aura:iteration>
           </lightning:select>
         </div>
       </div>
       <!-- second row -->
-      <div class="slds-grid slds-gutters slds-m-top_large">
+      <div class="slds-grid slds-gutters slds-var-m-top_large">
         <!-- Mobile Number -->
         <div class="slds-col slds-size_3-of-12">
           <lightning:input
@@ -92,7 +97,7 @@
             value="{!v.SiteLead.Emergency_Contact_Mobile__c}"
             pattern="{!v.phoneRegex}"
             messageWhenPatternMismatch="Enter a valid number"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           />
         </div>
         <!-- Home Number -->
@@ -106,7 +111,7 @@
             value="{!v.SiteLead.Emergency_Contact_Home_Phone__c}"
             pattern="{!v.phoneRegex}"
             messageWhenPatternMismatch="Enter a valid number"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           />
         </div>
         <!-- Business Number -->
@@ -120,7 +125,7 @@
             value="{!v.SiteLead.Emergency_Contact_Business_Phone__c}"
             pattern="{!v.phoneRegex}"
             messageWhenPatternMismatch="Enter a valid number"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           />
         </div>
         <!-- Personal Email -->
@@ -134,7 +139,7 @@
             value="{!v.SiteLead.Emergency_Contact_Personal_Email__c}"
             pattern="{!v.emailRegex}"
             messageWhenPatternMismatch="Enter a valid email"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           />
         </div>
       </div>
