@@ -36,9 +36,6 @@
     component.set("v.documentTypeList", list);
   },
   showToast: function (component, data) {
-    const siteLead = component.get("v.SiteLead");
-
-    //user must complete step 2 and 3 first
     const severity = data.severity;
     const title = data.title;
     const message = data.message;

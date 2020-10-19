@@ -45,10 +45,14 @@
     ];
     component.set("v.documentTypeList", documentTypeList);
     component.set("v.maxSize", 30);
-    console.table(
-      "Upload",
-      JSON.parse(JSON.stringify(component.get("v.SiteLead")))
-    );
+    //show toast message
+    // if (!component.get("v.SiteLead.Id")) {
+    //   helper.showToast(component, {
+    //     severity: 'confirm',
+    //     message: 'change',
+    //     title: 'error'
+    //   });
+    // }
   },
   handleFilesChange: function (component, event, helper) {
     const MAX_FILE_SIZE = 5000000;
@@ -134,5 +138,6 @@
       }
     }
     console.warn("Modal", component.get("v.showJnSiteModal"));
-  }
+  },
+  handleJNSiteModalOkClick: function (component, event, helper) {}
 });

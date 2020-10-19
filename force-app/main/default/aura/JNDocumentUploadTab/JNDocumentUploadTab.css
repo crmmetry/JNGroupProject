@@ -1,4 +1,7 @@
 .THIS * {
-    font-size: 16px;
-    box-sizing: border-box;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+.THIS .disabled-elements {
+  pointer-events: none !important;
 }

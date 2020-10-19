@@ -23,10 +23,17 @@
       "Affiliations_Tab",
       "Document_Upload_Tab"
     ];
-
+    const mandatoryTabs = [
+      "Application_Information_Tab",
+      "General_Details_Tab",
+      "Identification_Details_Tab",
+      "Contact_Details_Tab",
+      "Emergency_Contact_Tab",
+      "Employment_Details_Tab"
+    ];
+    component.set("v.mandatoryTabs", mandatoryTabs);
     component.set("v.unsecuredLoanTabs", unsecuredLoanTabs);
     component.set("v.creditCardTabs", creditCardTabs);
-    //component.set("v.SiteLead", {});
     component.set("v.tabId", "Getting_Started_Tab");
   },
   handleLoanTypeChange: function (component, event, helper) {
@@ -45,9 +52,9 @@
       const tabs = currentTabs
         .filter(function (tab) {
           return (
-            tab != "Getting_Started_Tab" &&
-            tab != "Document_Upload_Tab" &&
-            tab != "Extensions_Tab"
+            tab !== "Getting_Started_Tab" &&
+            tab !== "Document_Upload_Tab" &&
+            tab !== "Extensions_Tab"
           );
         })
         .map(function (value, index) {
@@ -75,14 +82,13 @@
   handleTabChange: function (component, event, helper) {
     const tabName = helper.getTabName(component.get("v.tabId"));
     if (tabName === "Document_Upload") {
-      component.set("v.formBtnText", "Finish");
+      component.set("v.formBtnText", "Submit Application");
     } else {
       component.set("v.formBtnText", "Next");
     }
+    helper.enableCreateAppBtn(component);
   },
   tabNext: function (component, event, helper) {
-    const siteLead = component.get("v.SiteLead");
-    const allTabs = component.get("v.allTabs");
     const tabName = helper.getTabName(component.get("v.tabId"));
     const validatedTabs = component.get("v.validatedTabs");
     const currentCmp = component.find(tabName);
@@ -200,6 +206,19 @@
     } else {
       const applicant = { JN_Site_Form_Completed_Flag__c: true };
       helper.updateLeadInfo(component, applicant, siteLead["Id"]);
+    }
+  },
+  createApplication: function (component, event, helper) {
+    // check if the mandatory tabs are completed in full
+    const { valid, message } = helper.validateMandatoryTabs(component);
+    if (valid === false) {
+      //user must complete all required steps first
+      helper.showErrorToast(component, {
+        severity: "error",
+        message: message,
+        title: "Mandatory Application Tabs"
+      });
+      return;
     }
   }
 });

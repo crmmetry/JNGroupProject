@@ -6,6 +6,7 @@
   <aura:attribute name="readonlyFlag" type="Boolean" default="true" />
   <aura:attribute name="SiteLead" type="Object" />
   <aura:handler name="init" action="{!c.init}" value="{!this}" />
+  <aura:attribute name="postiveBtnClick" type="Aura.Action" />
   <section
     aura:id="myModal"
     role="dialog"
@@ -96,7 +97,12 @@
         >
           Cancel
         </button>
-        <button class="slds-button slds-button_brand">Save</button>
+        <button
+          class="slds-button slds-button_brand"
+          onclick="{!v.postiveBtnClick}"
+        >
+          Save
+        </button>
       </footer>
     </div>
   </section>

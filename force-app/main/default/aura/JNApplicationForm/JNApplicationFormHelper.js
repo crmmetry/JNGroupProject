@@ -145,5 +145,33 @@
     const message = data.message;
     const toastContainer = component.find("toastContainer");
     toastContainer.displayMessage(severity, title, message);
+  },
+  validateMandatoryTabs: function (component) {
+    const mandatoryTabs = component.get("v.mandatoryTabs");
+    const uncompletedTabs = [];
+    mandatoryTabs.forEach(function (tab) {
+      const cmp = component.find(tab);
+      if (typeof cmp.validateTabFields === "function") {
+        if (cmp.validateTabFields() === false) {
+          uncompletedTabs.push(this.formatTabName(tab));
+        }
+      }
+    });
+    let message = `Please complete the following tab(s) must be fully completed: ${uncompletedTabs.join(
+      ", "
+    )}`;
+    return { valid: uncompletedTabs.length === 0, message };
+  },
+  enableCreateAppBtn: function (component) {
+    const siteLead = component.get("v.SiteLead");
+    const currentTab = this.getTabName(component.get("v.tabId"));
+    if (!siteLead.hasOwnProperty("Id") && currentTab === "Document_Upload") {
+      component.set("v.showCreateAppBtn", true);
+      return;
+    }
+    if (!siteLead.hasOwnProperty("Id") && currentTab !== "Document_Upload") {
+      component.set("v.showCreateAppBtn", false);
+      return;
+    }
   }
 });

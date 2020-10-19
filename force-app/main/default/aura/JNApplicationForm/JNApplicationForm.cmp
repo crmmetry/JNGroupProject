@@ -16,10 +16,12 @@
   <aura:attribute name="allTabs" type="String[]" />
   <aura:attribute name="validatedTabs" type="Object" />
   <aura:attribute name="unsecuredLoanTabs" type="String[]" />
+  <aura:attribute name="mandatoryTabs" type="String[]" />
   <aura:attribute name="creditCardTabs" type="String[]" />
   <aura:attribute name="formBtnText" type="String" default="Next" />
   <aura:attribute name="showLoading" type="Boolean" default="false" />
   <aura:attribute name="SiteLead" type="Object" default="{}" />
+  <aura:attribute name="showCreateAppBtn" type="Boolean" default="false" />
   <aura:handler
     name="change"
     value="{!v.tabId}"
@@ -164,6 +166,16 @@
                     onclick="{! c.tabPrevious }"
                   />
                 </div>
+                <aura:if isTrue="{!v.showCreateAppBtn}">
+                  <div class="slds-col">
+                    <lightning:button
+                      variant="brand"
+                      label="Create Application"
+                      title="Create Application"
+                      onclick="{! c.createApplication }"
+                    />
+                  </div>
+                </aura:if>
                 <div class="slds-col">
                   <lightning:button
                     variant="brand"

@@ -25,17 +25,33 @@
   <aura:attribute name="disabled" type="Boolean" default="false" />
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
   <aura:if isTrue="{!v.showJnSiteModal}">
-    <c:JNSiteModalComponent SiteLead="{!v.SiteLead}" />
+    <c:JNSiteModalComponent
+      SiteLead="{!v.SiteLead}"
+      postiveBtnClick="{!c.handleJNSiteModalOkClick}"
+    />
   </aura:if>
-  <lightning:layout>
-    <lightning:layoutItem size="12" padding="around-small">
-      <c:JnToast aura:id="toastContainer" />
 
-      <div
-        class="slds-text-heading_large slds-align_absolute-center slds-var-m-bottom_medium"
-      >
-        {!v.currentSize}/{!v.maxSize}MB used
+  <lightning:layout>
+    <c:JnToast aura:id="toastContainer" autoHide="false" />
+    <lightning:layoutItem
+      size="12"
+      padding="around-small"
+      class="{! or(empty(v.SiteLead.Id), empty(v.SiteLead)) ? 'disabled-elements' : '' }"
+    >
+      <div class="slds-align_absolute-center slds-var-m-bottom_medium">
+        <aura:if isTrue="{!or(empty(v.SiteLead.Id), empty(v.SiteLead))}">
+          <p class="slds-text-heading_medium slds-text-color_default">
+            To able to upload documents, you must first commit your application,
+            using the <i>Create Application</i> button below.
+          </p>
+          <aura:set attribute="else">
+            <p class="slds-text-heading_large">
+              {!v.currentSize}/{!v.maxSize}MB used
+            </p>
+          </aura:set>
+        </aura:if>
       </div>
+
       <div class="slds-grid slds-gutters slds-var-m-bottom_medium">
         <aura:iteration
           items="{!v.documentTypeList[0]}"

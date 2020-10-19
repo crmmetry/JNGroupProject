@@ -237,7 +237,7 @@
           </div>
         </div>
         <!-- third row -->
-        <div class="slds-grid slds-gutters slds-m-top_large">
+        <div class="slds-grid slds-gutters slds-var-m-top_large">
           <div class="slds-col slds-size_3-of-12">
             <!-- Country -->
             <lightning:select
@@ -246,7 +246,6 @@
               aura:id="validation"
               required="false"
               onchange="{!c.getCountry}"
-              disabled="true"
               disabled="{!v.readonlyFlag}"
             >
               <option value="Jamaica">Jamaica</option>
