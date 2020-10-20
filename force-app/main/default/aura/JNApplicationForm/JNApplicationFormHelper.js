@@ -6,18 +6,18 @@
     return tabId.replace("_Tab", "").replace("_", " ");
   },
   navigateNext: function (component) {
-    const allTabs = component.get("v.allTabs");
-    const index = allTabs.indexOf(component.get("v.tabId"));
+    let allTabs = component.get("v.allTabs");
+    let index = allTabs.indexOf(component.get("v.tabId"));
 
     //can go next
     if (index + 1 <= allTabs.length - 1) {
-      const tab = allTabs[index + 1];
+      let tab = allTabs[index + 1];
       component.set("v.tabId", tab);
     }
   },
   getTabPrevious: function (component) {
-    const allTabs = component.get("v.allTabs");
-    const index = allTabs.indexOf(component.get("v.tabId"));
+    let allTabs = component.get("v.allTabs");
+    let index = allTabs.indexOf(component.get("v.tabId"));
     //can go previous
     if (index - 1 >= 0) {
       return index - 1;
@@ -41,7 +41,7 @@
     childCmp.hideModal();
   },
   updateLeadInfo: function (component, applicant, leadId) {
-    const action = component.get("c.updateApplicantTextInfo");
+    let action = component.get("c.updateApplicantTextInfo");
     action.setParams({
       applicantDetails: applicant,
       leadId: leadId
@@ -49,7 +49,7 @@
     component.set("v.showLoading", true);
     action.setCallback(this, function (response) {
       component.set("v.showLoading", false);
-      const state = response.getState();
+      let state = response.getState();
       if (state === "SUCCESS") {
         // display successful toast
         this.showSuccessToast(component, {
@@ -66,22 +66,22 @@
     $A.enqueueAction(action);
   },
   showErrorToast: function (component, data) {
-    const severity = data.severity; //"error"; //it could be 'confirm' or null
-    const title = data.title; //"An error has occurred";
-    const message = data.message; //"You must first complete step 2 and 3 before";
-    const toastContainer = component.find("toastContainer");
+    let severity = data.severity; //"error"; //it could be 'confirm' or null
+    let title = data.title; //"An error has occurred";
+    let message = data.message; //"You must first complete step 2 and 3 before";
+    let toastContainer = component.find("toastContainer");
     toastContainer.displayMessage(severity, title, message);
   },
   showSuccessToast: function (component, data) {
-    const siteLead = component.get("v.SiteLead");
-    const severity = data.severity;
-    const title = data.title;
-    const message = data.message;
-    const toastContainer = component.find("toastContainer");
+    let siteLead = component.get("v.SiteLead");
+    let severity = data.severity;
+    let title = data.title;
+    let message = data.message;
+    let toastContainer = component.find("toastContainer");
     toastContainer.displayMessage(severity, title, message);
   },
   sendEvents: function (component, cmpName, events, data) {
-    const eventToSend = component.getEvent("jnEvent");
+    let eventToSend = component.getEvent("jnEvent");
     eventToSend.setParams({
       component: cmpName,
       action: events,
@@ -89,11 +89,11 @@
     });
     eventToSend.fire();
   },
-  createCompoundErrorMessage: function (component) {
-    const validatedTabs = component.get("v.validatedTabs");
+  validateMandatoryTabs: function (component) {
+    let validatedTabs = component.get("v.validatedTabs");
     let missingSteps = [];
     let error = false;
-    for (const key in validatedTabs) {
+    for (let key in validatedTabs) {
       if (validatedTabs.hasOwnProperty(key)) {
         if (validatedTabs[key] == false) {
           missingSteps.push(this.formatTabName(key));
@@ -101,20 +101,20 @@
         }
       }
     }
-    let message = `Please complete the following tab(s) first ${missingSteps.join(
-      ","
+    let message = `The following mandatory tab(s) must be completed in full first ${missingSteps.join(
+      ", "
     )}`;
     return { error, message };
   },
   createLead: function (component) {
-    const action = component.get("c.createLeadReferral");
+    let action = component.get("c.createLeadReferral");
     action.setParams({
       applicantDetails: component.get("v.SiteLead")
     });
     this.sendEvents(component, ["showLoading"]);
     action.setCallback(this, function (response) {
       this.sendEvents(component, ["disableShowLoading"]);
-      const state = response.getState();
+      let state = response.getState();
       if (state === "SUCCESS") {
         console.log("Server call successful");
         let siteLead = component.get("v.SiteLead");
@@ -140,38 +140,108 @@
   },
   showToast: function (component, data) {
     //user must complete step 2 and 3 first
-    const severity = data.severity;
-    const title = data.title;
-    const message = data.message;
-    const toastContainer = component.find("toastContainer");
+    let severity = data.severity;
+    let title = data.title;
+    let message = data.message;
+    let toastContainer = component.find("toastContainer");
     toastContainer.displayMessage(severity, title, message);
   },
-  validateMandatoryTabs: function (component) {
-    const mandatoryTabs = component.get("v.mandatoryTabs");
-    const uncompletedTabs = [];
-    mandatoryTabs.forEach(function (tab) {
-      const cmp = component.find(tab);
-      if (typeof cmp.validateTabFields === "function") {
-        if (cmp.validateTabFields() === false) {
-          uncompletedTabs.push(this.formatTabName(tab));
-        }
-      }
-    });
-    let message = `Please complete the following tab(s) must be fully completed: ${uncompletedTabs.join(
-      ", "
-    )}`;
-    return { valid: uncompletedTabs.length === 0, message };
-  },
   enableCreateAppBtn: function (component) {
-    const siteLead = component.get("v.SiteLead");
-    const currentTab = this.getTabName(component.get("v.tabId"));
+    let siteLead = component.get("v.SiteLead");
+    let currentTab = this.getTabName(component.get("v.tabId"));
     if (!siteLead.hasOwnProperty("Id") && currentTab === "Document_Upload") {
       component.set("v.showCreateAppBtn", true);
-      return;
-    }
-    if (!siteLead.hasOwnProperty("Id") && currentTab !== "Document_Upload") {
+    } else if (currentTab !== "Document_Upload") {
       component.set("v.showCreateAppBtn", false);
-      return;
+    }
+  },
+  handleAutoTab: function (component, currentTab, prevTab) {
+    let mandatoryTabs = component.get("v.mandatoryTabs");
+    let included = mandatoryTabs.some((tab) => tab === prevTab);
+    if (included) {
+      setTimeout(
+        $A.getCallback(() => {
+          let tabName = this.getTabName(prevTab);
+          console.info("Current Tab", tabName, prevTab);
+          let currentCmp = component.find(tabName);
+          console.warn("currentCmp", currentCmp);
+          if (
+            currentCmp &&
+            typeof currentCmp.validateTabFields === "function"
+          ) {
+            if (currentCmp.validateTabFields() === true) {
+              let validatedTabs = component.get("v.validatedTabs");
+              validatedTabs[prevTab] = true;
+              component.set("v.validatedTabs", validatedTabs);
+            }
+          }
+        }),
+        1500
+      );
+    }
+  },
+  handleTab: function (component) {
+    let tabName = this.getTabName(component.get("v.tabId"));
+    let validatedTabs = component.get("v.validatedTabs");
+    let currentCmp = component.find(tabName);
+    if (component.get("v.formBtnText") === "Finish") {
+      //this.showModal(component);
+      this.createLead(component);
+    } else {
+      if (typeof currentCmp.validateTabFields === "function") {
+        if (currentCmp.validateTabFields() === true) {
+          let tab = component.get("v.tabId");
+          if (validatedTabs.hasOwnProperty(tab)) {
+            validatedTabs[tab] = true;
+            component.set("v.validatedTabs", validatedTabs);
+          }
+          switch (tabName) {
+            case "Application_Information": {
+              this.setSiteLeadInfo(component, currentCmp);
+              this.navigateNext(component);
+              console.log("navigate success");
+              break;
+            }
+            case "General_Details": {
+              this.setSiteLeadInfo(component, currentCmp);
+              this.navigateNext(component);
+              break;
+            }
+            case "Identification_Details": {
+              this.setSiteLeadInfo(component, currentCmp);
+              this.navigateNext(component);
+              break;
+            }
+            case "Emergency_Contact": {
+              this.setSiteLeadInfo(component, currentCmp);
+              this.navigateNext(component);
+              break;
+            }
+            case "Contact_Details": {
+              if (!currentCmp.get("v.shouldShow")) {
+                currentCmp.setMailingAddress();
+              }
+              //currentCmp.createDetails();
+              this.setSiteLeadInfo(component, currentCmp);
+              this.navigateNext(component);
+              break;
+            }
+            case "Employment_Details": {
+              this.setSiteLeadInfo(component, currentCmp);
+              this.navigateNext(component);
+              break;
+            }
+
+            default: {
+              if (typeof currentCmp.createDetails === "function") {
+                currentCmp.createDetails();
+              }
+            }
+          }
+        }
+      } else {
+        this.navigateNext(component);
+      }
     }
   }
 });

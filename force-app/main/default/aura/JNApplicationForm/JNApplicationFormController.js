@@ -54,7 +54,8 @@
           return (
             tab !== "Getting_Started_Tab" &&
             tab !== "Document_Upload_Tab" &&
-            tab !== "Extensions_Tab"
+            tab !== "Extensions_Tab" &&
+            tab !== "Affiliations_Tab"
           );
         })
         .map(function (value, index) {
@@ -80,6 +81,8 @@
     navEvent.fire();
   },
   handleTabChange: function (component, event, helper) {
+    const old = event.getParam("oldValue");
+    const current = event.getParam("value");
     const tabName = helper.getTabName(component.get("v.tabId"));
     if (tabName === "Document_Upload") {
       component.set("v.formBtnText", "Submit Application");
@@ -87,70 +90,11 @@
       component.set("v.formBtnText", "Next");
     }
     helper.enableCreateAppBtn(component);
+    //handle tab changes
+    helper.handleAutoTab(component, current, old);
   },
   tabNext: function (component, event, helper) {
-    const tabName = helper.getTabName(component.get("v.tabId"));
-    const validatedTabs = component.get("v.validatedTabs");
-    const currentCmp = component.find(tabName);
-    if (component.get("v.formBtnText") === "Finish") {
-      //helper.showModal(component);
-      helper.createLead(component);
-    } else {
-      if (typeof currentCmp.validateTabFields === "function") {
-        if (currentCmp.validateTabFields() === true) {
-          const tab = component.get("v.tabId");
-          if (validatedTabs.hasOwnProperty(tab)) {
-            validatedTabs[tab] = true;
-            component.set("v.validatedTabs", validatedTabs);
-          }
-          switch (tabName) {
-            case "Application_Information": {
-              helper.setSiteLeadInfo(component, currentCmp);
-              helper.navigateNext(component);
-              console.log("navigate success");
-              break;
-            }
-            case "General_Details": {
-              helper.setSiteLeadInfo(component, currentCmp);
-              helper.navigateNext(component);
-              break;
-            }
-            case "Identification_Details": {
-              helper.setSiteLeadInfo(component, currentCmp);
-              helper.navigateNext(component);
-              break;
-            }
-            case "Emergency_Contact": {
-              helper.setSiteLeadInfo(component, currentCmp);
-              helper.navigateNext(component);
-              break;
-            }
-            case "Contact_Details": {
-              if (!currentCmp.get("v.shouldShow")) {
-                currentCmp.setMailingAddress();
-              }
-              //currentCmp.createDetails();
-              helper.setSiteLeadInfo(component, currentCmp);
-              helper.navigateNext(component);
-              break;
-            }
-            case "Employment_Details": {
-              helper.setSiteLeadInfo(component, currentCmp);
-              helper.navigateNext(component);
-              break;
-            }
-
-            default: {
-              if (typeof currentCmp.createDetails === "function") {
-                currentCmp.createDetails();
-              }
-            }
-          }
-        }
-      } else {
-        helper.navigateNext(component);
-      }
-    }
+    helper.handleTab(component);
   },
   tabPrevious: function (component, event, helper) {
     const allTabs = component.get("v.allTabs");
@@ -209,9 +153,10 @@
     }
   },
   createApplication: function (component, event, helper) {
+    console.info("check if the mandatory tabs are completed in full");
     // check if the mandatory tabs are completed in full
-    const { valid, message } = helper.validateMandatoryTabs(component);
-    if (valid === false) {
+    const { error, message } = helper.validateMandatoryTabs(component);
+    if (error === true) {
       //user must complete all required steps first
       helper.showErrorToast(component, {
         severity: "error",
