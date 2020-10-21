@@ -1,6 +1,9 @@
 ({
     onCollateralTypeChange: function(component, event, helper) {
         const selected = event.getSource().get("v.value");
+        if(selected==''){
+            component.set("v.cashInvestmentFlag", true);
+        }
         console.log(selected);
     },
 

@@ -15,9 +15,9 @@
         <form class="slds-form_stacked">
         <lightning:layout multipleRows="true">
             <!--Layout for Headings-->
-                <lightning:layoutItem size="12" mediumDeviceSize="4"><h3 class="slds-section-title--divider">Interest Rate(%)*</h3>
-                        <div class="slds-p-top_medium"><lightning:input type="number" label="Market" value="{!v.market}" name="Market" formatter="percent" required="true"/></div>    
-                </lightning:layoutItem>
+            <lightning:layoutItem size="12" mediumDeviceSize="4"><h3 class="slds-section-title--divider">Loan Amount (JMD)*</h3>
+                <div class="slds-p-top_medium"></div><lightning:input type="number" label="Amount" value="{!v.loanAmount}" name="number" formatter="currency" required="true"/>
+            </lightning:layoutItem>
                 <lightning:layoutItem size="12" mediumDeviceSize="4"><h3 class="slds-section-title--divider">Loan Term*</h3>
                     <lightning:layout>
                         <lightning:layoutItem size="6">
@@ -28,8 +28,8 @@
                     </lightning:layoutItem>
                     </lightning:layout>
                 </lightning:layoutItem>
-                <lightning:layoutItem size="12" mediumDeviceSize="4"><h3 class="slds-section-title--divider">Loan Amount (JMD)*</h3>
-                          <div class="slds-p-top_medium"></div><lightning:input type="number" label="Amount" value="{!v.loanAmount}" name="number" formatter="currency" required="true"/>
+                <lightning:layoutItem size="12" mediumDeviceSize="4"><h3 class="slds-section-title--divider">Interest Rate(%)*</h3>
+                        <div class="slds-p-top_medium"><lightning:input type="number" label="Market" value="{!v.market}" name="Market" formatter="percent" required="true"/></div>    
                 </lightning:layoutItem>
                 <!-- <lightning:layoutItem size="12" class="slds-p-top_medium">
                     <h2 class="slds-section-title- -divider">Exception Details</h2>

@@ -5,6 +5,7 @@
     <aura:attribute name="monthlyRepaymentDate" type="Date" default=""/>
     <aura:attribute name="creditRiskScore" type="Decimal" default=""/>  
     <aura:attribute name="creditRiskRating" type="Decimal" default=""/>
+    <aura:attribute name="cashInvestmentFlag" type="Boolean" default=""/>
 
     <fieldset class="slds-box slds-theme_default">
         <legend id="productdetailsform" class="slds-text-heading_medium slds-p-vertical_medium">Other Details</legend>
@@ -22,7 +23,9 @@
                       </lightning:select>
                 </lightning:layoutItem>
                 <lightning:layoutItem size="12">
-                <c:CashInvestmentsDetailsLineComponent></c:CashInvestmentsDetailsLineComponent>
+                  <!-- <aura:if isTrue="{!v.cashInvestmentFlag}">
+                    <c:CashInvestmentsDetailsLineComponent></c:CashInvestmentsDetailsLineComponent>
+                  </aura:if> -->
                 <h2 class="slds-section-title--divider">Life Insurance Coverage</h2>
             </lightning:layoutItem>
             <lightning:layoutItem size="12" mediumDeviceSize="8" padding="around-small">

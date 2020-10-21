@@ -19,7 +19,7 @@
         <form class="slds-form_stacked">
             <lightning:layout multipleRows="true">
             <lightning:layoutItem size="12">
-                <h2 class="slds-section-title--divider">Jn Life Credit Life Insurance</h2>
+                <h2 class="slds-section-title--divider">Jn Life Creditor Life Insurance</h2>
             </lightning:layoutItem>
                 <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
                 <div class="slds-form-element">
@@ -58,12 +58,12 @@
                 </div>
                 </lightning:layoutItem>
             <lightning:layoutItem size="12">
-                <h2 class="slds-section-title--divider">Progressive Fee</h2>
+                <h2 class="slds-section-title--divider">Processing Fees</h2>
             </lightning:layoutItem>
                 <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
                     <div class="slds-form-element">
                       <div class="slds-form-element__control">
-                        <lightning:select name="select1" label="Wave Processing Fee?" required="true" onchange="{!c.onWaveProcessingFeeChange}">
+                        <lightning:select name="select1" label="Waive Processing Fee?" required="true" onchange="{!c.onWaveProcessingFeeChange}">
                           <option value="">select one...</option>
                           <aura:iteration items="{!v.waveProcessingFee}" var="item">
                             <option value="{!item}">{!item}</option>
