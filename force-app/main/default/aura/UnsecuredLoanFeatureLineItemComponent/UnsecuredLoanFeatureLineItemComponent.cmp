@@ -1,5 +1,16 @@
 <aura:component>
   <aura:attribute
+    name="options"
+    type="List"
+    default="[
+    {'label': 'Percentage(%)', 'value': 'percent'},
+    {'label': 'Amount(JMD)', 'value': 'amount'}
+    ]"
+  />
+  <aura:attribute name="value" type="String" default="" />
+  <aura:attribute name="percent" type="String" default="percent" />
+  <aura:attribute name="amount" type="String" default="amount" />
+  <aura:attribute
     name="interestedInCreditorLife"
     type="List"
     default="['Yes','No']"

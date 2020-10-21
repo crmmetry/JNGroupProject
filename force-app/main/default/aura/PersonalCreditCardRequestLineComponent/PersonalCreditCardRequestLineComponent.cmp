@@ -1,4 +1,9 @@
 <aura:component>
+  <aura:attribute
+    name="creditLimitCurrency"
+    type="List"
+    default="['JMD','USD']"
+  />
   <lightning:layout multipleRows="true">
     <lightning:layoutItem size="12">
       <h2 class="slds-section-title--divider">Personal Credit Card Request</h2>
