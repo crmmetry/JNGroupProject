@@ -3,6 +3,23 @@
     {'label': 'Percentage(%)', 'value': 'percent'},
     {'label': 'Amount($)', 'value': 'amount'}
     ]"/>
+    <aura:attribute name="loanPurpose" type="List" default="['Auto','School','Debt']"/>
+    <aura:attribute name="purchasePriceCurrency" type="List" default="['JMD','USD','GBP','YEN']"/>
+    <aura:attribute name="marketCurrency" type="List" default="['JMD','USD','GBP','YEN']"/>
+    <aura:attribute name="purchasePrice" type="Decimal" default=""/>
+    <aura:attribute name="marketValue" type="Decimal" default=""/>
+    <aura:attribute name="minimum" type="Decimal" default=""/>
+    <aura:attribute name="depositPercentage" type="Decimal" default=""/>
+    <aura:attribute name="deposit" type="Decimal" default=""/>
+    <aura:attribute name="depositCurrency" type="List" default="['JMD','USD','GBP','YEN']"/>
+    <aura:attribute name="vehicleClassification" type="List" default="['New','Old','Used']"/>
+    <aura:attribute name="vehicleYear" type="Integer" default=""/>
+    <aura:attribute name="makeandModel" type="String" default=""/>
+    <aura:attribute name="market" type="Decimal" default=""/>
+    <aura:attribute name="years" type="Integer" default=""/>
+    <aura:attribute name="months" type="Integer" default=""/>
+    <aura:attribute name="loanAmount" type="Decimal" default=""/>
+
     <aura:attribute name="value" type="String" default=""/>
     <aura:attribute name="percent" type="String" default="percent"/>
     <aura:attribute name="amount" type="String" default="amount"/>
@@ -18,11 +35,11 @@
                 <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
                     <div class="slds-form-element">
                         <div class="slds-form-element__control">
-                            <lightning:select name="select1" label="Loan Purpose" required="true">
-                                <option value="">choose one...</option>
-                                <option value="1">one</option>
-                                <option value="2">two</option>
-                                <option value="3">three</option>
+                            <lightning:select name="select1" label="Loan Purpose" required="true" onchange="{! c.onLoanPurposeChange }">
+                              <option value="">select one...</option>
+                              <aura:iteration items="{!v.loanPurpose}" var="item">
+                                <option value="{!item}">{!item}</option>
+                              </aura:iteration>
                             </lightning:select>                           
                         </div>
                 </div>
@@ -30,31 +47,29 @@
             <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
                 <lightning:layout>
                 <lightning:layoutItem size="3" mediumDeviceSize="3">
-                    <lightning:select name="select1" label="$" required="true">
-                                <option value="">JMD</option>
-                                <option value="1">USD</option>
-                                <option value="2">EUR</option>
-                                <option value="3">GBP</option>
+                    <lightning:select name="select1" label="$" required="true" onchange="{!c.onPurchasePriceCurrencyChange}">
+                        <aura:iteration items="{!v.purchasePriceCurrency}" var="item">
+                          <option value="{!item}">{!item}</option>
+                        </aura:iteration>
                     </lightning:select> 
                 </lightning:layoutItem>
                 <lightning:layoutItem size="9">
-                    <lightning:input type="number" label="Purchase Price of Vehicle" name="number" formatter="currency" step="0.01"/>
+                    <lightning:input type="number" label="Purchase Price of Vehicle" value="{!v.purchasePrice}" name="number" formatter="currency" required="true"/>
                 </lightning:layoutItem>
             </lightning:layout>
             </lightning:layoutItem>
             <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-                <lightning:select name="select1" label="Market Currency of Vehicle" required="true">
-                            <option value="">JMD</option>
-                            <option value="1">USD</option>
-                            <option value="2">EUR</option>
-                            <option value="3">GBP</option>
+                <lightning:select name="select1" label="Market Currency of Vehicle" required="true" onchange="{!c.onMarketCurrencyChange}">
+                    <aura:iteration items="{!v.marketCurrency}" var="item">
+                        <option value="{!item}">{!item}</option>
+                      </aura:iteration>
                 </lightning:select> 
             </lightning:layoutItem>
             <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small"> 
-                <lightning:input type="number" label="Market Value of Vehicle" name="number" formatter="currency" step="0.01"/>
+                <lightning:input type="number" label="Market Value of Vehicle" value="{!v.marketValue}" name="number" formatter="currency" required="true"/>
                 </lightning:layoutItem>
                 <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-                <lightning:input type="number" label="Minimun(MV,PP)" name="number" formatter="currency" step="0.01"/>
+                <lightning:input type="number" label="Minimum(MV,PP)" value="{!v.minimum}" name="number" formatter="currency" required="true"/>
                 </lightning:layoutItem>
                 <lightning:layoutItem size="12" padding="around-small">
                     <lightning:radioGroup name="radioGroupRequired"
@@ -68,10 +83,10 @@
                     <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
                     <lightning:layout>
                     <lightning:layoutItem size="4" mediumDeviceSize="2">
-                        <lightning:input type="number" label="%" formatter="percent" step="0.01"/>
+                        <lightning:input type="number" label="%" value="{!v.depositPercentage}" formatter="percent" required="true"/>
                     </lightning:layoutItem>
                     <lightning:layoutItem size="8" mediumDeviceSize="10">
-                        <lightning:input type="number" label="Motor Vehicle Deposit" formatter="currency" step="0.01"  readonly="true"/>
+                        <lightning:input type="number" label="Motor Vehicle Deposit" value="{!v.deposit}" formatter="currency" required="true"  readonly="true"/>
                     </lightning:layoutItem> 
                 </lightning:layout>
             </lightning:layoutItem>
@@ -81,49 +96,47 @@
                     <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
                     <lightning:layout>
                     <lightning:layoutItem size="4" mediumDeviceSize="2">
-                        <lightning:select name="select1" label="$" required="true">
-                            <option value="">JMD</option>
-                            <option value="1">USD</option>
-                            <option value="2">EUR</option>
-                            <option value="3">GBP</option>
+                        <lightning:select name="select1" label="$" required="true" onchange="{!v.onDepositCurrencyChange}">
+                            <aura:iteration items="{!v.depositCurrency}" var="item">
+                                <option value="{!item}">{!item}</option>
+                            </aura:iteration>
                         </lightning:select> 
                     </lightning:layoutItem>
                     <lightning:layoutItem size="8" mediumDeviceSize="10">
-                        <lightning:input type="number" label="Motor Vehicle Deposit" formatter="currency" step="0.01"  readonly="true"/>
+                        <lightning:input type="number" label="Motor Vehicle Deposit" value="{!v.deposit}" formatter="currency" required="true"  readonly="true"/>
                     </lightning:layoutItem>   
                     </lightning:layout>
                     </lightning:layoutItem>
                     <lightning:layoutItem size="12" mediumDeviceSize="6"></lightning:layoutItem>
                 </aura:if>
                 <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-                <lightning:select name="select1" label="Vehicle Classification" required="true">
-                            <option value="">New</option>
-                            <option value="1"></option>
-                            <option value="2"></option>
-                            <option value="3"></option>
+                <lightning:select name="select1" label="Vehicle Classification" required="true" onchange="{!c.onVehicleClassificationChange}">
+                    <aura:iteration items="{!v.vehicleClassification}" var="item">
+                        <option value="{!item}">{!item}</option>
+                    </aura:iteration>
                 </lightning:select> 
             </lightning:layoutItem>
             <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-                <lightning:input type="date" name="vehicle-year" label="Year of Motor Vehicle" />
+                <lightning:input type="number" name="vehicle-year" value="{!v.vehicleYear}" label="Year of Motor Vehicle" required="true"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-                <lightning:input type="text" name="make-model" label="Make and Model of Vehicle" />
+                <lightning:input type="text" name="make-model" value="{!v.makeandModel}" label="Make and Model of Vehicle" required="true"/>
             </lightning:layoutItem>
             <lightning:layoutItem size="12" mediumDeviceSize="4"><h3 class="slds-section-title--divider">Interest Rate(%)*</h3>
-                        <div class="slds-p-top_medium"><lightning:input type="number" label="Market" name="Market" formatter="percent" step="0.01"/></div>    
+                        <div class="slds-p-top_medium"><lightning:input type="number" label="Market" name="Market" value="{!v.market}" formatter="percent" required="true"/></div>    
                 </lightning:layoutItem>
                 <lightning:layoutItem size="12" mediumDeviceSize="4"><h3 class="slds-section-title--divider">Loan Term*</h3>
                     <lightning:layout>
                         <lightning:layoutItem size="6">
-                            <div class="slds-p-top_medium"></div><lightning:input type="number" label="Years" name="number"/>
+                            <div class="slds-p-top_medium"></div><lightning:input type="number" label="Years" value="{!v.years}" name="number" required="true"/>
                         </lightning:layoutItem>
                         <lightning:layoutItem size="6">
-                        <div class="slds-p-top_medium"><lightning:input type="number" label="Months" name="number"/></div>
+                        <div class="slds-p-top_medium"><lightning:input type="number" label="Months" value="{!v.months}" name="number" required="true"/></div>
                     </lightning:layoutItem>
                     </lightning:layout>
                 </lightning:layoutItem>
                 <lightning:layoutItem size="12" mediumDeviceSize="4"><h3 class="slds-section-title--divider">Loan Amount (JMD)*</h3>
-                          <div class="slds-p-top_medium"></div><lightning:input type="number" label="Amount" name="number" formatter="currency" step="0.01"/>
+                          <div class="slds-p-top_medium"></div><lightning:input type="number" label="Amount" value="{!v.loanAmount}" name="number" formatter="currency" required="true"/>
                 </lightning:layoutItem>
             </lightning:layout>
         <!-- </lightning:layoutItem>
