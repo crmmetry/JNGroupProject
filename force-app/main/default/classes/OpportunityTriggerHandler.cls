@@ -211,7 +211,8 @@ public class OpportunityTriggerHandler {
    * validates if a opportunity can be closed given the close date
    * @param {integer} backdatedDays - the maximum number of (business)days in the previous month the close date can be backdated
    * @param {Integer} maxPrevDays - the maximum number of (business)days in the current month the close date can be backdated
-   * @param {DateTime} now - represents the current date and time
+   * @param {Date} now - represents the current date and time
+   * @param {String} bh - business hours name
    * @return Void
    */
   public static void validateCloseBackDate(
