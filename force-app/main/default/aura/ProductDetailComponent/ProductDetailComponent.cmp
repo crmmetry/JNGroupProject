@@ -13,7 +13,7 @@
     <aura:attribute name="autoFlag" type="Boolean" default="false"/>
     <aura:attribute name="unsecuredFlag" type="Boolean" default="false"/>
     <aura:attribute name="creditCardFlag" type="Boolean" default="false"/>
-    <aura:attribute name="locFlag" type="Boolean" default="false"/>
+    <aura:attribute name="lineOfCreditFlag" type="Boolean" default="false"/>
 
     <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
 
@@ -42,7 +42,7 @@
                     <aura:if isTrue="{!v.creditCardFlag}">
                       <c:CreditCardContainerComponent></c:CreditCardContainerComponent>
                     </aura:if>
-                    <aura:if isTrue="{!v.locFlag}">
+                    <aura:if isTrue="{!v.lineOfCreditFlag}">
                       <c:LineOfCreditContainerComponent></c:LineOfCreditContainerComponent>
                     </aura:if>
                 </fieldset>

@@ -36,7 +36,7 @@
             console.log("autoflag set ")
         }
         if (selectedFlag.includes('Line Of Credit')){
-            component.set("v.locFlag", true);
+            component.set("v.lineOfCreditFlag", true);
             console.log("autoflag set ")
         }
     }
