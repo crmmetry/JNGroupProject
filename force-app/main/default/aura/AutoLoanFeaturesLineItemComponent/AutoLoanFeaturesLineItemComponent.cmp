@@ -1,208 +1,412 @@
 <aura:component>
-    <aura:attribute name="options" type="List" default="[
+  <aura:attribute
+    name="options"
+    type="List"
+    default="[
     {'label': 'Percentage(%)', 'value': 'percent'},
     {'label': 'Amount(JMD)', 'value': 'amount'}
-    ]"/>
-    <aura:attribute name="interestedInCreditorLife" type="List" default="['Yes','No']"/>
-    <aura:attribute name="interestedInJNGI" type="List" default="['Yes','No']"/>
-    <aura:attribute name="includePremium" type="List" default="['Yes','No']"/>
-    <aura:attribute name="monthlyPremium" type="Decimal" default=""/>
-    <aura:attribute name="coverageType" type="List" default="['Full','Partial']"/>
-    <aura:attribute name="includeCoverage" type="List" default="['Yes','No']"/>
-    <aura:attribute name="waveProcessingFee" type="List" default="['Yes','No']"/>
-    <aura:attribute name="includeWaveProcessingFee" type="List" default="['Yes','No']"/>
-    <aura:attribute name="processingFeePercentagePerAnum" type="Decimal" default=""/>
-    <aura:attribute name="repaymentMethod" type="List" default="['Card','Bank']"/>
-    <aura:attribute name="monthlyRepaymentDate" type="Date" default=""/>
-    <aura:attribute name="deductFirstMonthRepayment" type="List" default="['Yes','No']"/>
-    <aura:attribute name="savingsPercentage" type="Decimal" default=""/>
-    <aura:attribute name="savingsAmount" type="Decimal" default=""/>
-    <aura:attribute name="creditRiskScore" type="Decimal" default=""/>  
-    <aura:attribute name="creditRiskRating" type="Decimal" default=""/>
+    ]"
+  />
+  <aura:attribute
+    name="interestedInCreditorLife"
+    type="List"
+    default="['Yes','No']"
+  />
+  <aura:attribute name="interestedInJNGI" type="List" default="['Yes','No']" />
+  <aura:attribute name="includePremium" type="List" default="['Yes','No']" />
+  <aura:attribute name="monthlyPremium" type="Decimal" default="" />
+  <aura:attribute
+    name="coverageType"
+    type="List"
+    default="['Full','Partial']"
+  />
+  <aura:attribute name="includeCoverage" type="List" default="['Yes','No']" />
+  <aura:attribute name="waveProcessingFee" type="List" default="['Yes','No']" />
+  <aura:attribute
+    name="includeWaveProcessingFee"
+    type="List"
+    default="['Yes','No']"
+  />
+  <aura:attribute
+    name="processingFeePercentagePerAnum"
+    type="Decimal"
+    default=""
+  />
+  <aura:attribute
+    name="repaymentMethod"
+    type="List"
+    default="['Card','Bank']"
+  />
+  <aura:attribute name="monthlyRepaymentDate" type="Date" default="" />
+  <aura:attribute
+    name="deductFirstMonthRepayment"
+    type="List"
+    default="['Yes','No']"
+  />
+  <aura:attribute name="savingsPercentage" type="Decimal" default="" />
+  <aura:attribute name="savingsAmount" type="Decimal" default="" />
+  <aura:attribute name="creditRiskScore" type="Decimal" default="" />
+  <aura:attribute name="creditRiskRating" type="Decimal" default="" />
 
-    <aura:attribute name="value" type="String" default=""/>
-    <aura:attribute name="percent" type="String" default="percent"/>
-    <aura:attribute name="amount" type="String" default="amount"/>
-    <fieldset class="slds-box slds-theme_default">
-        <legend id="productdetailsform" class="slds-text-heading_medium slds-p-vertical_medium">Auto Loan Features</legend>
-        <form class="slds-form_stacked">
-            <lightning:layout multipleRows="true">
-            <lightning:layoutItem size="12">
-                <h2 class="slds-section-title--divider">JNGI Sure Cover Programme</h2>
-            </lightning:layoutItem>
-                <lightning:layoutItem size="12" mediumDeviceSize="3" padding="around-small">
-                <div class="slds-form-element">
-                    <div class="slds-form-element__control">
-                        <lightning:select name="select1" label="Interested in Programme?" required="true" onchange="{!c.onInterestedInJNGIChange}">
-                          <option value="">select one...</option>
-                          <aura:iteration items="{!v.interestedInJNGI}" var="item">
-                            <option value="{!item}">{!item}</option>
-                          </aura:iteration>
-                        </lightning:select>
-                    </div>
-                  </div>
-                </lightning:layoutItem>
-                <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
-                <div class="slds-form-element">
-                    <div class="slds-form-element__control">
-                        <lightning:select name="select1" label="Include First Year Premium in Loan Amount?" required="true" onchange="{!c.onIncludePremiumChange}">
-                            <option value="">select one...</option>
-                          <aura:iteration items="{!v.includePremium}" var="item">
-                            <option value="{!item}">{!item}</option>
-                          </aura:iteration>
-                        </lightning:select>
-                    </div>
-                  </div>
-                </lightning:layoutItem>
-                <lightning:layoutItem size="12" mediumDeviceSize="3" padding="around-small">
-                    <lightning:input type="number" label="Monthly Premium" value="{!v.monthlyPremium}" name="number" formatter="currency" required="true"/>
-                </lightning:layoutItem>
-            <lightning:layoutItem size="12">
-                <h2 class="slds-section-title--divider">Jn Life Credit Life Insurance</h2>
-            </lightning:layoutItem>
-                <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-                <div class="slds-form-element">
-                    <div class="slds-form-element__control">
-                        <lightning:select name="select1" label="Interested in Creditor Life?" required="true" onchange="{!c.onInterestedInCreditorLifeChange}">
-                          <option value="">select one...</option>
-                          <aura:iteration items="{!v.interestedInCreditorLife}" var="item">
-                            <option value="{!item}">{!item}</option>
-                          </aura:iteration>
-                        </lightning:select>
-                    </div>
-                  </div>
-                </lightning:layoutItem>
-                <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-                <div class="slds-form-element">
-                  <div class="slds-form-element__control">
-                    <lightning:select name="select1" label="Coverage Type" required="true" onchange="{!c.onCoverageTypeChange}">
-                      <option value="">select one...</option>
-                      <aura:iteration items="{!v.coverageType}" var="item">
-                        <option value="{!item}">{!item}</option>
-                      </aura:iteration>
-                    </lightning:select>
-                  </div>
-                </div>
-                </lightning:layoutItem>
-                <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-                <div class="slds-form-element">
-                  <div class="slds-form-element__control">
-                    <lightning:select name="select1" label="Include in Loan Amount" required="true" onchange="{!c.onIncludeCoverageChange}">
-                      <option value="">select one...</option>
-                      <aura:iteration items="{!v.includeCoverage}" var="item">
-                        <option value="{!item}">{!item}</option>
-                      </aura:iteration>
-                    </lightning:select>
-                  </div>
-                </div>
-                </lightning:layoutItem>
-            <lightning:layoutItem size="12">
-                <h2 class="slds-section-title--divider">Processing Fees</h2>
-            </lightning:layoutItem>
-                <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-                    <div class="slds-form-element">
-                      <div class="slds-form-element__control">
-                          <lightning:select name="select1" label="Wave Processing Fee?" required="true" onchange="{!c.onWaveProcessingFeeChange}">
-                            <option value="">select one...</option>
-                            <aura:iteration items="{!v.waveProcessingFee}" var="item">
-                              <option value="{!item}">{!item}</option>
-                            </aura:iteration>
-                          </lightning:select>
-                      </div>
-                    </div>
-                    </lightning:layoutItem>
-                    <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-                    <div class="slds-form-element">
-                      <div class="slds-form-element__control">
-                          <lightning:select name="select1" label="Include Loan Amount" required="true" onchange="{!c.onIncludeWaveProcessingFeeChange}">
-                            <option value="">select one...</option>
-                              <aura:iteration items="{!v.includeWaveProcessingFee}" var="item">
-                              <option value="{!item}">{!item}</option>
-                            </aura:iteration>
-                          </lightning:select>
-                      </div>
-                    </div>
-                </lightning:layoutItem>
-                <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-                    <div class="slds-form-element">
-                      <div class="slds-form-element__control">
-                        <lightning:input type="number" label="Indicate Applicable Processing Fees(%)" value="{!v.processingFeePercentagePerAnum}" name="Indicate Applicable Processing Fees(%)" formatter="percent" required="true"/>
-                      </div>
-                    </div>
-                </lightning:layoutItem>
-            <lightning:layoutItem size="12">
-                <h2 class="slds-section-title--divider">Credit Repayment</h2>
-            </lightning:layoutItem>
-            <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
-                  <div class="slds-form-element">
-                    <div class="slds-form-element__control">
-                        <lightning:select name="select1" label="Indicate repayment method " required="true" onchange="{!c.onRepaymentMethodChange}">
-                          <option value="">select one...</option>
-                          <aura:iteration items="{!v.repaymentMethod}" var="item">
-                          <option value="{!item}">{!item}</option>
-                        </aura:iteration>
-                        </lightning:select>
-                    </div>
-                  </div>
-                </lightning:layoutItem>
-                <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
-                    <div class="slds-form-element">
-                      <div class="slds-form-element__control">
-                        <lightning:input label="Dedicated monthly repayment date" value="{!v.monthlyRepaymentDate}" type="date" name="input1" max="30" required="true"/>
-                      </div>
-                    </div>
-                </lightning:layoutItem>
-                <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
-                <div class="slds-form-element">
-                        <div class="slds-form-element__control">
-                            <lightning:select name="select1" label="Deduct the 1st month repayment from loan proceeds?" required="true"  onchange="{!c.onDeductFirstMonthRepaymentChange}">
-                            <option value="">select one...</option>
-                            <aura:iteration items="{!v.deductFirstMonthRepayment}" var="item">
-                            <option value="{!item}">{!item}</option>
-                        </aura:iteration>
-                            </lightning:select>                           
-                        </div>
-                </div>
-            </lightning:layoutItem>
-            <lightning:layoutItem size="12">
-                    <h2 class="slds-section-title--divider">Loan Savings</h2>
-                </lightning:layoutItem>
-                <lightning:layoutItem size="12" padding="around-small">
-                    <lightning:radioGroup name="radioGroupRequired"
-                        label="Proposed Savings"
-                        options="{! v.options }"
-                        value="{! v.value }"
-                        type="radio"
-                        required="true"/>
-                </lightning:layoutItem>
-                <aura:if isTrue="{!v.value == v.percent}">
-                    <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
-                    <lightning:input type="number" label="Savings(%)" value="{!v.savingsPercentage}" formatter="percent" required="true"/>
-                </lightning:layoutItem>
-                </aura:if> 
-                <aura:if isTrue="{!v.value == v.amount}">
-                    <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
-                    <lightning:input type="number" label="Amount(JMD)" value="{!v.savingsAmount}" formatter="currency" required="true"/>
-                </lightning:layoutItem>   
-                </aura:if>
-                <lightning:layoutItem size="12">
-                    <h2 class="slds-section-title--divider">Credit Risk Pre-assessment</h2>
-            </lightning:layoutItem>
-                <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
-                  <div class="slds-form-element">
-                    <div class="slds-form-element__control">
-                        <lightning:input label="Credit Risk Score prior to application" value="{!v.creditRiskScore}" type="number" name="input1" required="true" readonly="true"/>
-                    </div>
-                  </div>
-                </lightning:layoutItem>
-                <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
-                    <div class="slds-form-element">
-                      <div class="slds-form-element__control">
-                        <lightning:input label="Credit Risk Rating prior to application" value="{!v.creditRiskRating}" type="text" name="input1" required="true" readonly="true"/>
-                      </div>
-                    </div>
-                </lightning:layoutItem>
-            </lightning:layout>
-        </form>
-      </fieldset>
-</aura:component>	
+  <aura:attribute name="value" type="String" default="" />
+  <aura:attribute name="percent" type="String" default="percent" />
+  <aura:attribute name="amount" type="String" default="amount" />
+  <fieldset class="slds-box slds-theme_default">
+    <legend
+      id="productdetailsform"
+      class="slds-text-heading_medium slds-p-vertical_medium"
+    >
+      Auto Loan Features
+    </legend>
+    <form class="slds-form_stacked">
+      <lightning:layout multipleRows="true">
+        <lightning:layoutItem size="12">
+          <h2 class="slds-section-title--divider">JNGI Sure Cover Programme</h2>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="3"
+          padding="around-small"
+        >
+          <div class="slds-form-element">
+            <div class="slds-form-element__control">
+              <lightning:select
+                name="select1"
+                label="Interested in Programme?"
+                required="true"
+                onchange="{!c.onInterestedInJNGIChange}"
+              >
+                <option value="">select one...</option>
+                <aura:iteration items="{!v.interestedInJNGI}" var="item">
+                  <option value="{!item}">{!item}</option>
+                </aura:iteration>
+              </lightning:select>
+            </div>
+          </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="6"
+          padding="around-small"
+        >
+          <div class="slds-form-element">
+            <div class="slds-form-element__control">
+              <lightning:select
+                name="select1"
+                label="Include First Year Premium in Loan Amount?"
+                required="true"
+                onchange="{!c.onIncludePremiumChange}"
+              >
+                <option value="">select one...</option>
+                <aura:iteration items="{!v.includePremium}" var="item">
+                  <option value="{!item}">{!item}</option>
+                </aura:iteration>
+              </lightning:select>
+            </div>
+          </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="3"
+          padding="around-small"
+        >
+          <lightning:input
+            type="number"
+            label="Monthly Premium"
+            value="{!v.monthlyPremium}"
+            name="number"
+            formatter="currency"
+            required="true"
+          />
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12">
+          <h2 class="slds-section-title--divider">
+            Jn Life Creditor Life Insurance
+          </h2>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <div class="slds-form-element">
+            <div class="slds-form-element__control">
+              <lightning:select
+                name="select1"
+                label="Interested in Creditor Life?"
+                required="true"
+                onchange="{!c.onInterestedInCreditorLifeChange}"
+              >
+                <option value="">select one...</option>
+                <aura:iteration
+                  items="{!v.interestedInCreditorLife}"
+                  var="item"
+                >
+                  <option value="{!item}">{!item}</option>
+                </aura:iteration>
+              </lightning:select>
+            </div>
+          </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <div class="slds-form-element">
+            <div class="slds-form-element__control">
+              <lightning:select
+                name="select1"
+                label="Coverage Type"
+                required="true"
+                onchange="{!c.onCoverageTypeChange}"
+              >
+                <option value="">select one...</option>
+                <aura:iteration items="{!v.coverageType}" var="item">
+                  <option value="{!item}">{!item}</option>
+                </aura:iteration>
+              </lightning:select>
+            </div>
+          </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <div class="slds-form-element">
+            <div class="slds-form-element__control">
+              <lightning:select
+                name="select1"
+                label="Include in Loan Amount"
+                required="true"
+                onchange="{!c.onIncludeCoverageChange}"
+              >
+                <option value="">select one...</option>
+                <aura:iteration items="{!v.includeCoverage}" var="item">
+                  <option value="{!item}">{!item}</option>
+                </aura:iteration>
+              </lightning:select>
+            </div>
+          </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12">
+          <h2 class="slds-section-title--divider">Processing Fees</h2>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <div class="slds-form-element">
+            <div class="slds-form-element__control">
+              <lightning:select
+                name="select1"
+                label="Waive Processing Fee?"
+                required="true"
+                onchange="{!c.onWaveProcessingFeeChange}"
+              >
+                <option value="">select one...</option>
+                <aura:iteration items="{!v.waveProcessingFee}" var="item">
+                  <option value="{!item}">{!item}</option>
+                </aura:iteration>
+              </lightning:select>
+            </div>
+          </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <div class="slds-form-element">
+            <div class="slds-form-element__control">
+              <lightning:select
+                name="select1"
+                label="Include Loan Amount"
+                required="true"
+                onchange="{!c.onIncludeWaveProcessingFeeChange}"
+              >
+                <option value="">select one...</option>
+                <aura:iteration
+                  items="{!v.includeWaveProcessingFee}"
+                  var="item"
+                >
+                  <option value="{!item}">{!item}</option>
+                </aura:iteration>
+              </lightning:select>
+            </div>
+          </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <div class="slds-form-element">
+            <div class="slds-form-element__control">
+              <lightning:input
+                type="number"
+                label="Indicate Applicable Processing Fees(%)"
+                value="{!v.processingFeePercentagePerAnum}"
+                name="Indicate Applicable Processing Fees(%)"
+                formatter="percent"
+                required="true"
+              />
+            </div>
+          </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12">
+          <h2 class="slds-section-title--divider">Credit Repayment</h2>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="6"
+          padding="around-small"
+        >
+          <div class="slds-form-element">
+            <div class="slds-form-element__control">
+              <lightning:select
+                name="select1"
+                label="Indicate repayment method "
+                required="true"
+                onchange="{!c.onRepaymentMethodChange}"
+              >
+                <option value="">select one...</option>
+                <aura:iteration items="{!v.repaymentMethod}" var="item">
+                  <option value="{!item}">{!item}</option>
+                </aura:iteration>
+              </lightning:select>
+            </div>
+          </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="6"
+          padding="around-small"
+        >
+          <div class="slds-form-element">
+            <div class="slds-form-element__control">
+              <lightning:input
+                label="Dedicated monthly repayment date"
+                value="{!v.monthlyRepaymentDate}"
+                type="date"
+                name="input1"
+                max="30"
+                required="true"
+              />
+            </div>
+          </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="6"
+          padding="around-small"
+        >
+          <div class="slds-form-element">
+            <div class="slds-form-element__control">
+              <lightning:select
+                name="select1"
+                label="Deduct the 1st month repayment from loan proceeds?"
+                required="true"
+                onchange="{!c.onDeductFirstMonthRepaymentChange}"
+              >
+                <option value="">select one...</option>
+                <aura:iteration
+                  items="{!v.deductFirstMonthRepayment}"
+                  var="item"
+                >
+                  <option value="{!item}">{!item}</option>
+                </aura:iteration>
+              </lightning:select>
+            </div>
+          </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12">
+          <h2 class="slds-section-title--divider">Loan Savings</h2>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12" padding="around-small">
+          <lightning:radioGroup
+            name="radioGroupRequired"
+            label="Proposed Savings"
+            options="{! v.options }"
+            value="{! v.value }"
+            type="radio"
+            required="true"
+          />
+        </lightning:layoutItem>
+        <aura:if isTrue="{!v.value == v.percent}">
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="6"
+            padding="around-small"
+          >
+            <lightning:input
+              type="number"
+              label="Savings(%)"
+              value="{!v.savingsPercentage}"
+              formatter="percent"
+              required="true"
+            />
+          </lightning:layoutItem>
+        </aura:if>
+        <aura:if isTrue="{!v.value == v.amount}">
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="6"
+            padding="around-small"
+          >
+            <lightning:input
+              type="number"
+              label="Amount(JMD)"
+              value="{!v.savingsAmount}"
+              formatter="currency"
+              required="true"
+            />
+          </lightning:layoutItem>
+        </aura:if>
+        <lightning:layoutItem size="12">
+          <h2 class="slds-section-title--divider">
+            Credit Risk Pre-assessment
+          </h2>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="6"
+          padding="around-small"
+        >
+          <div class="slds-form-element">
+            <div class="slds-form-element__control">
+              <lightning:input
+                label="Credit Risk Score prior to application"
+                value="{!v.creditRiskScore}"
+                type="number"
+                name="input1"
+                required="true"
+                readonly="true"
+              />
+            </div>
+          </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="6"
+          padding="around-small"
+        >
+          <div class="slds-form-element">
+            <div class="slds-form-element__control">
+              <lightning:input
+                label="Credit Risk Rating prior to application"
+                value="{!v.creditRiskRating}"
+                type="text"
+                name="input1"
+                required="true"
+                readonly="true"
+              />
+            </div>
+          </div>
+        </lightning:layoutItem>
+      </lightning:layout>
+    </form>
+  </fieldset>
+</aura:component>

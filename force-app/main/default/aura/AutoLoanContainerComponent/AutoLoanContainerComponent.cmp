@@ -1,0 +1,6 @@
+<aura:component>
+  <c:PersonalAutoLoanRequestLineItemComponent></c:PersonalAutoLoanRequestLineItemComponent>
+  <c:AutoLoanFeaturesLineItemComponent></c:AutoLoanFeaturesLineItemComponent>
+  <c:AutoLoanCreditCalculationsLineComponent></c:AutoLoanCreditCalculationsLineComponent>
+  <c:TotalDebtServiceRatioLineItemComponent></c:TotalDebtServiceRatioLineItemComponent>
+</aura:component>
