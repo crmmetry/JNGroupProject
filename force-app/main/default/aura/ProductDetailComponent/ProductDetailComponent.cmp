@@ -1,13 +1,13 @@
 <aura:component
-  implements="flexipage:availableForAllPageTypes,force:hasRecordId"
+  implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
   controller="ProductDetailController"
 >
   <aura:attribute
     name="options"
     type="List"
     default="[
-    {'label': 'Percentage(%)', 'value': 'percent'},
-    {'label': 'Amount(JMD)', 'value': 'amount'}
+    {'label': 'Percentage (%)', 'value': 'percent'},
+    {'label': 'Amount (JMD)', 'value': 'amount'}
     ]"
   />
   <aura:attribute
