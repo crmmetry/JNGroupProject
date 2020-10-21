@@ -4,6 +4,8 @@
     <aura:attribute name="unsecuredLoanFees" type="Decimal" />
     <aura:attribute name="processingFees" type="Decimal" />
     <aura:attribute name="jnCreditorLifePremium" type="Decimal" />
+    <aura:attribute name="jngiMotorPremium" type="Decimal" />
+    <aura:attribute name="nsippFees" type="Decimal" />
     <aura:attribute name="stampDutyAndAdminCharges" type="Decimal" />
     <aura:attribute name="payableInstallment" type="Decimal" />
     <aura:attribute name="totalClosingCosts" type="Decimal" />
@@ -25,6 +27,14 @@
             <lightning:layoutItem size="6" padding="around-small">
                 <lightning:input type="number" label="JN Creditor Life Insurance Premium" value="{!v.jnCreditorLifePremium}" name="number" formatter="currency" required="true" readonly="true"/>
             </lightning:layoutItem>
+            <!--Auto Loans Product Only-->
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="JNGI Motor Premium (1st Year)" value="{!v.jngiMotorPremium}" name="number" formatter="currency" required="true" readonly="true"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input type="number" label="NSIPP Registration Fees" value="{!v.nsippFees}" name="number" formatter="currency" required="true" readonly="true"/>
+            </lightning:layoutItem>
+            <!--***********************-->
             <lightning:layoutItem size="6" padding="around-small">
                 <lightning:input type="number" label="Assignment Fee" value="{!v.assignmentFee}" name="number" formatter="currency" required="true" readonly="true"/>
             </lightning:layoutItem>
@@ -43,4 +53,5 @@
             <lightning:layoutItem size="6" padding="around-small">
                 <lightning:input type="number" label="Total Closing Costs Payable by Applicant" value="{!v.totalClosingCostsApplicantPayable}" name="number" formatter="currency" required="true" readonly="true"/>
             </lightning:layoutItem>
+
 </aura:component>	
