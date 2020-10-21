@@ -153,7 +153,6 @@
     }
   },
   createApplication: function (component, event, helper) {
-    console.info("check if the mandatory tabs are completed in full");
     // check if the mandatory tabs are completed in full
     const { error, message } = helper.validateMandatoryTabs(component);
     if (error === true) {
@@ -165,5 +164,6 @@
       });
       return;
     }
+    //show jn site modal
   }
 });
