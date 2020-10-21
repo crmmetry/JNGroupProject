@@ -139,11 +139,11 @@ public with sharing class Util {
    */
   public static Map<Date, Holiday> getHolidays() {
     Map<Date, Holiday> mappedHolidays = new Map<Date, Holiday>();
-    for (Holiday hDay : [
-      SELECT h.StartTimeInMinutes, h.Name, h.ActivityDate
-      FROM Holiday h
+    for (Holiday record : [
+      SELECT StartTimeInMinutes, Name, ActivityDate
+      FROM Holiday
     ]) {
-      mappedHolidays.put(hDay.ActivityDate, hDay);
+      mappedHolidays.put(record.ActivityDate, record);
     }
     return mappedHolidays;
   }
