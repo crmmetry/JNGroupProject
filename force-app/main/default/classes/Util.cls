@@ -490,4 +490,17 @@ public with sharing class Util {
       currentTime.second()
     );
   }
+
+  /**
+   * Get all opportunity products related to an opportunity
+   * @param {Id} - oppId
+   * @return OpportunityLineItem
+   */
+  public static OpportunityLineItem getOpportunityProducts(Id oppId) {
+    return [
+      SELECT Id, Product_Family__c, Name
+      FROM OpportunityLineItem
+      WHERE OpportunityId = :oppId
+    ];
+  }
 }

@@ -1,5 +1,5 @@
 public with sharing class Wrappers {
-   /**
+  /**
    * throws a null pointer exception with custom message
    * @param {String} - msg exception text
    * @return Void
@@ -166,38 +166,38 @@ public with sharing class Wrappers {
     public Lead lead;
 
     public LeadUnwrapper(LeadWrapper leadWrapper) {
-        if (leadWrapper == null) {
-          Wrappers.throwNullException('LeadWrapper record cannot be null');
-        }
-        this.lead = new Lead();
-        this.lead.Id = leadWrapper.leadId;
-        this.lead.LeadSource = leadWrapper.leadSource;
-        this.lead.FirstName = leadWrapper.firstName;
-        this.lead.LastName = leadWrapper.lastName;
-        this.lead.Estimated_Amount__c = leadWrapper.estimatedAmount;
-        this.lead.Service_of_Interest__c = leadWrapper.serviceOfInterest;
-        this.lead.Salutation = leadWrapper.salutation;
-        this.lead.MiddleName = leadWrapper.middleName;
-        this.lead.Suffix = leadWrapper.suffix;
-        this.lead.Gender__c = leadWrapper.gender;
-        this.lead.Marital_Status__c = leadWrapper.maritalStatus;
-        this.lead.Date_of_Birth__c = leadWrapper.dob;
-        this.lead.Place_of_Birth__c = leadWrapper.birthPlace;
-        this.lead.Mother_s_Maiden_Name__c =leadWrapper.maidenName;
-        this.lead.Number_of_Dependent_Adults__c = leadWrapper.dependentAdultNum;
-        this.lead.Number_of_Dependent_Children__c = leadWrapper.dependentChildNum;
-        this.lead.Country_of_Citizenship__c = leadWrapper.citizenCountry;
-        this.lead.Country_of_Residence__c = leadWrapper.residentCountry;
-        this.lead.Highest_Level_of_Education_Attained__c = leadWrapper.educationLevel;
-        this.lead.Jamaican_Tax_Registration_Number__c = leadWrapper.trn;
-        this.lead.Preferred_Date_of_Contact__c = leadWrapper.preferredContactDate;
-        this.lead.Preferred_Time_of_Contact__c = leadWrapper.preferredContactTime;
-        this.lead.Preferred_Location__c = leadWrapper.preferredLocation;
-        this.lead.Loan_Purpose_UL__c = leadWrapper.loanPurposeUL;
-        this.lead.Gross_Monthly_Income__c = leadWrapper.grossMonthlyIncome;
-        this.lead.Gross_Monthly_Expenses__c = leadWrapper.grossMonthlyExpenses;
-        this.lead.RecordTypeId = leadWrapper.recordTypeId;
+      if (leadWrapper == null) {
+        Wrappers.throwNullException('LeadWrapper record cannot be null');
       }
+      this.lead = new Lead();
+      this.lead.Id = leadWrapper.leadId;
+      this.lead.LeadSource = leadWrapper.leadSource;
+      this.lead.FirstName = leadWrapper.firstName;
+      this.lead.LastName = leadWrapper.lastName;
+      this.lead.Estimated_Amount__c = leadWrapper.estimatedAmount;
+      this.lead.Service_of_Interest__c = leadWrapper.serviceOfInterest;
+      this.lead.Salutation = leadWrapper.salutation;
+      this.lead.MiddleName = leadWrapper.middleName;
+      this.lead.Suffix = leadWrapper.suffix;
+      this.lead.Gender__c = leadWrapper.gender;
+      this.lead.Marital_Status__c = leadWrapper.maritalStatus;
+      this.lead.Date_of_Birth__c = leadWrapper.dob;
+      this.lead.Place_of_Birth__c = leadWrapper.birthPlace;
+      this.lead.Mother_s_Maiden_Name__c = leadWrapper.maidenName;
+      this.lead.Number_of_Dependent_Adults__c = leadWrapper.dependentAdultNum;
+      this.lead.Number_of_Dependent_Children__c = leadWrapper.dependentChildNum;
+      this.lead.Country_of_Citizenship__c = leadWrapper.citizenCountry;
+      this.lead.Country_of_Residence__c = leadWrapper.residentCountry;
+      this.lead.Highest_Level_of_Education_Attained__c = leadWrapper.educationLevel;
+      this.lead.Jamaican_Tax_Registration_Number__c = leadWrapper.trn;
+      this.lead.Preferred_Date_of_Contact__c = leadWrapper.preferredContactDate;
+      this.lead.Preferred_Time_of_Contact__c = leadWrapper.preferredContactTime;
+      this.lead.Preferred_Location__c = leadWrapper.preferredLocation;
+      this.lead.Loan_Purpose_UL__c = leadWrapper.loanPurposeUL;
+      this.lead.Gross_Monthly_Income__c = leadWrapper.grossMonthlyIncome;
+      this.lead.Gross_Monthly_Expenses__c = leadWrapper.grossMonthlyExpenses;
+      this.lead.RecordTypeId = leadWrapper.recordTypeId;
+    }
   }
 
   /**
@@ -230,7 +230,9 @@ public with sharing class Wrappers {
 
     public LeadRelatedPersonWrapper(Lead_Related_Person__c record) {
       if (record == null) {
-        Wrappers.throwNullException('Lead Related Person record cannot be null');
+        Wrappers.throwNullException(
+          'Lead Related Person record cannot be null'
+        );
       }
       this.leadRelatedPersonId = record.Id;
       this.firstName = record.First_Name__c;
@@ -243,6 +245,26 @@ public with sharing class Wrappers {
       this.title = record.Title__c;
       this.middleName = record.Middle_Name__c;
       this.mobileNumber = record.Mobile_Number__c;
+    }
+  }
+  /**
+   * Used for wrapping a Opportunity Product
+   * @constructor ProductSelectionWrapper
+   */
+  public class ProductSelectionWrapper {
+    @AuraEnabled
+    public String productFamily;
+    @AuraEnabled
+    public String productName;
+
+    public ProductSelectionWrapper(OpportunityLineItem record) {
+      if (record == null) {
+        Wrappers.throwNullException(
+          'OpportunityLineItem record cannot be null'
+        );
+      }
+      this.productFamily = record.Product_Family__c;
+      this.productName = record.Name;
     }
   }
 }
