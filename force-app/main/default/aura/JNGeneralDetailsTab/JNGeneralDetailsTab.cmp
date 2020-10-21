@@ -7,17 +7,25 @@
   <aura:attribute name="educationLevels" type="String[]" />
   <aura:attribute name="countries" type="String[]" />
   <aura:attribute name="titles" type="String[]" />
-  <aura:attribute name="SiteLead" type="Map" />
+  <aura:attribute name="SiteLead" type="Object" />
   <aura:attribute name="maxdate" type="Date" />
   <aura:attribute name="mindate" type="Date" />
   <aura:attribute name="loan_type" type="String" />
   <aura:attribute name="readonlyFlag" type="Boolean" default="false" />
-  <aura:method name="validateTabFields" action="{!c.validateTabFields}" access="public"/>
-  <aura:method name="createDetails" action="{!c.createDetails}" access="public"/>
-
-  <lightning:layout  >
+  <aura:method
+    name="validateTabFields"
+    action="{!c.validateTabFields}"
+    access="public"
+  />
+  <aura:method
+    name="createDetails"
+    action="{!c.createDetails}"
+    access="public"
+  />
+  <!-- <aura:handler name="change" value="{!v.SiteLead}" action="{!c.onSiteLeadChange}"/> -->
+  <lightning:layout>
     <lightning:layoutItem size="12">
-        <c:JnToast aura:id="toastContainer"/>
+      <c:JnToast aura:id="toastContainer" />
       <!-- first row -->
       <div class="slds-grid slds-gutters">
         <!-- Title -->
@@ -28,11 +36,16 @@
             onchange="{!c.getSalutation}"
             required="false"
             aura:id="validation"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           >
             <option value="">select one...</option>
             <aura:iteration items="{!v.titles}" var="item">
-              <option value="{!item}">{!item}</option>
+              <option
+                value="{!item}"
+                selected="{!v.SiteLead.Salutation == item}"
+              >
+                {!item}
+              </option>
             </aura:iteration>
           </lightning:select>
         </div>
@@ -44,7 +57,7 @@
             required="true"
             value="{!v.SiteLead.FirstName }"
             aura:id="validation"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           />
         </div>
         <!-- Middle Name -->
@@ -55,7 +68,7 @@
             required="false"
             value="{!v.SiteLead.MiddleName }"
             aura:id="validation"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           />
         </div>
         <!-- Last Name -->
@@ -66,7 +79,7 @@
             required="true"
             value="{!v.SiteLead.LastName }"
             aura:id="validation"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           />
         </div>
       </div>
@@ -81,7 +94,7 @@
             aura:id="validation"
             value="{!v.SiteLead.Suffix}"
             maxlength="40"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           />
         </div>
         <!-- Gender -->
@@ -92,14 +105,19 @@
             onchange="{!c.getGender}"
             required="true"
             aura:id="validation"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           >
             <option value="">select one...</option>
             <aura:iteration items="{!v.genders}" var="item">
-              <option value="{!item}">{!item}</option>
+              <option
+                value="{!item}"
+                selected="{!v.SiteLead.Gender__c == item}"
+              >
+                {!item}
+              </option>
             </aura:iteration>
-          </lightning:select></div
-        >
+          </lightning:select>
+        </div>
         <!-- Marital Status -->
         <div class="slds-col slds-size_3-of-12">
           <lightning:select
@@ -108,14 +126,19 @@
             required="true"
             onchange="{!c.getMaritalStatus}"
             aura:id="validation"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           >
             <option value="">select one...</option>
             <aura:iteration items="{!v.maritalStatuses}" var="item">
-              <option value="{!item}">{!item}</option>
+              <option
+                value="{!item}"
+                selected="{!v.SiteLead.Marital_Status__c == item}"
+              >
+                {!item}
+              </option>
             </aura:iteration>
-          </lightning:select></div
-        >
+          </lightning:select>
+        </div>
         <!-- Date of Birth -->
         <div class="slds-col slds-size_3-of-12">
           <lightning:input
@@ -126,8 +149,8 @@
             required="true"
             value="{!v.SiteLead.Date_of_Birth__c }"
             aura:id="validation"
-            onblur ="{!c.checkDateValidity }"
-            readonly="{!v.readonlyFlag}"
+            onblur="{!c.checkDateValidity }"
+            disabled="{!v.readonlyFlag}"
           />
         </div>
       </div>
@@ -139,7 +162,7 @@
           <lightning:input
             name="place_of_birth"
             label="Place of Birth"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
             required="true"
             value="{!v.SiteLead.Place_of_Birth__c }"
             aura:id="validation"
@@ -153,7 +176,7 @@
             required="true"
             value="{!v.SiteLead.Mother_s_Maiden_Name__c}"
             aura:id="validation"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           />
         </div>
         <!-- Number of Dependents (Adults)-->
@@ -165,7 +188,7 @@
             required="true"
             value="{!v.SiteLead.Number_of_Dependent_Adults__c}"
             aura:id="validation"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           />
         </div>
         <!-- Number of Dependents (Children)-->
@@ -177,7 +200,7 @@
             required="true"
             value="{!v.SiteLead.Number_of_Dependent_Children__c}"
             aura:id="validation"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           />
         </div>
       </div>
@@ -190,13 +213,18 @@
             name="country_of_citizenship"
             label="Country of Citizenship"
             required="true"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
             onchange="{!c.getCountryofCitizenship}"
             aura:id="validation"
           >
             <option value="Jamaica">Jamaica</option>
             <aura:iteration items="{!v.countries}" var="item">
-              <option value="{!item}">{!item}</option>
+              <option
+                value="{!item}"
+                selected="{!v.SiteLead.Country_of_Citizenship__c == item}"
+              >
+                {!item}
+              </option>
             </aura:iteration>
           </lightning:select>
         </div>
@@ -208,14 +236,19 @@
             required="true"
             onchange="{!c.getCountryofResidence}"
             aura:id="validation"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           >
-          <option value="Jamaica">Jamaica</option>
+            <option value="Jamaica">Jamaica</option>
             <aura:iteration items="{!v.countries}" var="item">
-              <option value="{!item}">{!item}</option>
+              <option
+                value="{!item}"
+                selected="{!v.SiteLead.Country_of_Residence__c == item}"
+              >
+                {!item}
+              </option>
             </aura:iteration>
-          </lightning:select></div
-        >
+          </lightning:select>
+        </div>
         <!-- Highest Education Level -->
         <div class="slds-col slds-size_3-of-12">
           <lightning:select
@@ -224,14 +257,19 @@
             required="true"
             onchange="{!c.getEducationLevel}"
             aura:id="validation"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           >
             <option value="">select one...</option>
             <aura:iteration items="{!v.educationLevels}" var="item">
-              <option value="{!item}">{!item}</option>
+              <option
+                value="{!item}"
+                selected="{!v.SiteLead.Highest_Level_of_Education_Attained__c == item}"
+              >
+                {!item}
+              </option>
             </aura:iteration>
-          </lightning:select></div
-        >
+          </lightning:select>
+        </div>
         <!-- TRN Number -->
         <div class="slds-col slds-size_3-of-12">
           <lightning:input
@@ -244,7 +282,7 @@
             pattern="^[0-9]{3}[0-9]{3}[0-9]{3}$"
             value="{!v.SiteLead.Jamaican_Tax_Registration_Number__c}"
             aura:id="validation"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           />
         </div>
       </div>

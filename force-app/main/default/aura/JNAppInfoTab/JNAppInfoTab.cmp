@@ -29,7 +29,7 @@
               formatter="currency"
               type="number"
               min="0"
-              readonly="{!v.readonlyFlag}"
+              disabled="{!v.readonlyFlag}"
             />
             <!-- Proposed card limit-->
             <aura:set attribute="else">
@@ -42,7 +42,7 @@
                 formatter="currency"
                 type="number"
                 min="0"
-                readonly="{!v.readonlyFlag}"
+                disabled="{!v.readonlyFlag}"
               />
             </aura:set>
           </aura:if>
@@ -55,11 +55,16 @@
             label="Preferred Location"
             required="true"
             onchange="{!c.getPreferredLocation}"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           >
             <option value="">select one...</option>
             <aura:iteration items="{!v.preferredLocations}" var="item">
-              <option value="{!item}">{!item}</option>
+              <option
+                value="{!item}"
+                selected="{! v.SiteLead.Preferred_Location__c == item}"
+              >
+                {!item}
+              </option>
             </aura:iteration>
           </lightning:select>
         </div>
@@ -73,7 +78,7 @@
             label="Preferred Date of Contact"
             required="true"
             value="{!v.SiteLead.Preferred_Date_of_Contact__c }"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           />
         </div>
         <!-- Preferred Date of Contact -->
@@ -85,7 +90,7 @@
             label="Preferred Time of Contact"
             required="true"
             value="{!v.SiteLead.Preferred_Time_of_Contact__c }"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           />
         </div>
       </div>
@@ -102,7 +107,7 @@
             value="{!v.SiteLead.Gross_Monthly_Income__c}"
             formatter="currency"
             min="0"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           />
         </div>
         <!-- Gross Monthly Expenses -->
@@ -116,7 +121,7 @@
             value="{!v.SiteLead.Gross_Monthly_Expenses__c}"
             formatter="currency"
             min="0"
-            readonly="{!v.readonlyFlag}"
+            disabled="{!v.readonlyFlag}"
           />
         </div>
         <!-- Loan Purpose -->
@@ -128,7 +133,7 @@
               label="Loan Purpose"
               required="true"
               onchange="{!c.getLoanPurpose}"
-              readonly="{!v.readonlyFlag}"
+              disabled="{!v.readonlyFlag}"
             >
               <option value="">select one...</option>
               <aura:iteration items="{!v.loanPurposes}" var="item">

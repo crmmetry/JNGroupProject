@@ -1,2 +1,6 @@
-.THIS {
+.THIS .heading {
+  color: yellow !important;
+  background-color: #6ab7ff !important;
+  border-top-left-radius: 5.5px;
+  border-bottom-right-radius: 5.5px;
 }

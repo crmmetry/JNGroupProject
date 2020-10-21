@@ -496,7 +496,11 @@ public with sharing class Util {
    * @param {Id} - oppId
    * @return OpportunityLineItem
    */
-  public static OpportunityLineItem getOpportunityProducts (Id oppId){
-    return [SELECT Id, Product_Family__c, Name FROM OpportunityLineItem WHERE OpportunityId = :oppId];    
+  public static OpportunityLineItem getOpportunityProducts(Id oppId) {
+    return [
+      SELECT Id, Product_Family__c, Name
+      FROM OpportunityLineItem
+      WHERE OpportunityId = :oppId
+    ];
   }
 }

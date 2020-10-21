@@ -1,5 +1,5 @@
 ({
-  doInit: function(component, event, helper) {
+  doInit: function (component, event, helper) {
     const documentTypeList = [
       [
         {
@@ -45,32 +45,40 @@
     ];
     component.set("v.documentTypeList", documentTypeList);
     component.set("v.maxSize", 30);
+    //show toast message
+    // if (!component.get("v.SiteLead.Id")) {
+    //   helper.showToast(component, {
+    //     severity: 'confirm',
+    //     message: 'change',
+    //     title: 'error'
+    //   });
+    // }
   },
-  handleFilesChange: function(component, event, helper) {
-    
+  handleFilesChange: function (component, event, helper) {
     const MAX_FILE_SIZE = 5000000;
     let fileName = "No File Selected..";
-      if(!component.get("v.leadId")){
-           helper.showToast(component, {
-                    severity: "error",
-                    message: "Please complete step 2 & 3 before attempting a document upload."
-            });
-          return;
-      }
+    if (!component.get("v.leadId")) {
+      component.set("v.showJnSiteModal", true);
+      //  helper.showToast(component, {
+      //           severity: "error",
+      //           message: "Please complete step 2 & 3 before attempting a document upload."
+      //  });
+      return;
+    }
     if (event.getSource().get("v.files").length > 0) {
       fileName = event.getSource().get("v.files")[0]["name"];
       const cmpName = event.getSource().get("v.name");
-      
+
       const tabTitle = helper.getTabTitle(component, cmpName);
       component.set("v.fileName", fileName);
       let fileInput = event.getSource().get("v.files")[0];
       // get the first file using array index[0]
       let file = fileInput;
       if (file.size > MAX_FILE_SIZE) {
-            helper.showToast(component, {
-                    severity: "error",
-                    message: "5MB is the max allowed upload size."
-            });
+        helper.showToast(component, {
+          severity: "error",
+          message: "5MB is the max allowed upload size."
+        });
         return;
       }
       helper.enableProgress(component, cmpName);
@@ -79,7 +87,7 @@
       // create a FileReader object
       let objFileReader = new FileReader();
       // set onload function of FileReader object
-      objFileReader.onload = $A.getCallback(function() {
+      objFileReader.onload = $A.getCallback(function () {
         let fileContents = objFileReader.result;
         let base64result = fileContents.split(",")[1];
 
@@ -89,32 +97,47 @@
           fileName: file.name,
           base64Data: base64result,
           contentType: file.type,
-          tabTitle:tabTitle,
+          tabTitle: tabTitle
         });
 
         // set call back
-        action.setCallback(this, function(response) {
+        action.setCallback(this, function (response) {
           helper.disableProgress(component, cmpName);
           console.log(JSON.parse(JSON.stringify(response.getReturnValue())));
-            if(response.getState() === 'SUCCESS'){
-                console.log(JSON.parse(JSON.stringify(response.getReturnValue())));
-                helper.showToast(component, {
-                    severity: "confirm",
-                    message: "Your document was successfully uploaded."
-                });
-            } else {
-                 console.log(JSON.parse(JSON.stringify(response.getError())));
-               helper.showToast(component, {
-                    severity: "error",
-                    message: "There was a error uploading this document."
-          	   });
-            }
-           
+          if (response.getState() === "SUCCESS") {
+            console.log(JSON.parse(JSON.stringify(response.getReturnValue())));
+            helper.showToast(component, {
+              severity: "confirm",
+              message: "Your document was successfully uploaded."
+            });
+          } else {
+            console.log(JSON.parse(JSON.stringify(response.getError())));
+            helper.showToast(component, {
+              severity: "error",
+              message: "There was a error uploading this document."
+            });
+          }
         });
         $A.enqueueAction(action);
       });
 
       objFileReader.readAsDataURL(file);
     }
-  }
+  },
+  handleEvent: function (component, event, helper) {
+    console.info("hide modal event");
+    const eventAction = event.getParam("action");
+    const eventComponent = event.getParam("component");
+    const eventData = event.getParam("data");
+    if (eventComponent === "JNDocumentUploadTab") {
+      switch (eventAction) {
+        case "hideModal": {
+          component.set("v.showJnSiteModal", false);
+          break;
+        }
+      }
+    }
+    console.warn("Modal", component.get("v.showJnSiteModal"));
+  },
+  handleJNSiteModalOkClick: function (component, event, helper) {}
 });
