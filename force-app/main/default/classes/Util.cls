@@ -164,16 +164,14 @@ public with sharing class Util {
    * @param {DateTime} date - Date to be checked.
    * @return Boolean
    */
-  public static Boolean checkHoliday(Date dateRecord, Map<Date, Holiday> mappedHolidays) {
-    Boolean result = false;
-    //Map<Date, Holiday> mappedHolidays = getHolidays();
-    if (mappedHolidays.size() > 0) {
-      if (mappedHolidays.containsKey(dateRecord)) {
-        result = true;
-        return result;
-      }
+  public static Boolean checkHoliday(
+    Date dateRecord,
+    Map<Date, Holiday> mappedHolidays
+  ) {
+    if (mappedHolidays != null) {
+      return mappedHolidays.containsKey(dateRecord);
     }
-    return result;
+    return false;
   }
 
   // public static Date GetBackDatedDate(Date currentDate, Integer days) {
@@ -196,22 +194,28 @@ public with sharing class Util {
   //   return currentDate;
   // }
 
-  public static Date GetBackDatedDate(Date currentDate, Integer days, BusinessHours bh, Map<Date, Holiday> mappedHolidays) {
+  public static Date GetBackDatedDate(
+    Date currentDate,
+    Integer days,
+    BusinessHours bh,
+    Map<Date, Holiday> mappedHolidays
+  ) {
     Boolean isHoliday;
     Boolean isBusinessHour;
     System.debug('BH: ' + bh);
-    //Map<Date, Holiday> mappedHolidays = getHolidays();
     while (days > 0) {
       DateTime dt = DateTime.newInstance(
         currentDate.year(),
         currentDate.month(),
         currentDate.day(),
-        12,0,0
+        12,
+        0,
+        0
       );
-      //isHoliday = checkHoliday(currentDate, mappedHolidays);
+      isHoliday = checkHoliday(currentDate, mappedHolidays);
       isBusinessHour = BusinessHours.isWithin(bh.Id, dt);
-      System.debug('BH and Holidays: ' + isHoliday +' '+ isBusinessHour);
-      if (isBusinessHour) {
+      System.debug('BH and Holidays: ' + isHoliday + ' ' + isBusinessHour);
+      if (isBusinessHour && isHoliday == false) {
         days -= 1;
       }
       if (days > 0) {
