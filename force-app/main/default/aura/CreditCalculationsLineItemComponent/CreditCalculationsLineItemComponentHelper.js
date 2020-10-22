@@ -1,46 +1,51 @@
 ({
-  calculateMonthlyP_ILoanAmount: function (component, requestDetailMap) {
+  calculateMonthlyP_ILoanAmount: function (component, RequestedDetails) {
     let rate;
     let totalMonths;
     let pmtResult;
-    if (requestedDetailMap != null) {
-      const fields = [
-        { name: "loanAmount", valid: false },
-        { name: "years", valid: false },
-        { name: "months", valid: false },
-        { name: "market", valid: false }
-      ];
-      fields.forEach((field, index) => {
-        console.log("success foreach");
-        if (requestedDetailMap.hasOwnProperty(field.name)) {
-          if (!isEmpty(requestedDetailMap[field])) {
-            fields[index].valid = true;
+    if (RequestedDetails != null) {
+      const fields = {
+        loanAmount: false,
+        months: false,
+        years: false,
+        market: false
+      };
+      Object.keys(fields).forEach((field) => {
+        if (RequestedDetails.hasOwnProperty(field)) {
+          if (isEmpty(RequestedDetails[field]) === false) {
+            fields[field] = true;
           }
         }
       });
-      //Calculations
+      console.info(fields);
       //Calculate Percentage
-      if (fields[3].valid) {
-        rate = calculateRatePerPeriod(requestedDetailMap.market);
+      if (fields.market) {
+        rate = calculateRatePerPeriod(RequestedDetails.market);
+        console.log("rate", rate);
       }
-      if (fields[2].valid && fields[1].valid) {
+      if (fields.years && fields.months) {
         totalMonths = calculateMonths(
-          requestDetailMap.years,
-          requestDetailMap.months
+          RequestedDetails.years,
+          RequestedDetails.months
         );
+        console.log("totalMonths", totalMonths);
       }
 
-      if (rate && totalMonths && requestDetailMap.loanAmount) {
+      if (rate && totalMonths && RequestedDetails.loanAmount) {
         pmtResult = calculatePMT(
           rate,
           totalMonths,
-          -requestDetailMap.loanAmount,
+          -RequestedDetails.loanAmount,
           0,
           0
         );
+        console.log("pmtResult", pmtResult);
         pmtResult = parseFloat(pmtResult).toFixed(2);
         component.set("v.monthly_PI_LoanAmount", pmtResult);
+        return;
       }
+      //default
+      component.set("v.monthly_PI_LoanAmount", 0);
     }
   }
 });

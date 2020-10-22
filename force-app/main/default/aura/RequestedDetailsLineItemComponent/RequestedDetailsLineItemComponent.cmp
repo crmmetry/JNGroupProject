@@ -15,7 +15,12 @@
   <aura:attribute name="percent" type="String" default="percent" />
   <aura:attribute name="amount" type="String" default="amount" />
   <aura:attribute name="RequestedDetails" type="Map" />
-
+  <aura:attribute name="RequestedDetailsContainer" type="Map" default="{}" />
+  <aura:handler
+    name="change"
+    action="{!c.onRequestedDetailsChange}"
+    value="{!v.RequestedDetails}"
+  />
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
 
   <fieldset class="slds-box slds-theme_default">
@@ -62,8 +67,7 @@
                   value="{!v.RequestedDetails.months}"
                   name="number"
                   required="true"
-                  min="1"
-                  max="12"
+                  min="0"
                 />
               </div>
             </lightning:layoutItem>

@@ -8,5 +8,12 @@
       market: null
     };
     component.set("v.RequestedDetails", requestedDetails);
+  },
+  onRequestedDetailsChange: function (component, event, helper) {
+    const data = Object.assign(
+      component.get("v.RequestedDetailsContainer"),
+      component.get("v.RequestedDetails")
+    );
+    component.set("v.RequestedDetailsContainer", data);
   }
 });
