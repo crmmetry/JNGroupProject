@@ -22,7 +22,7 @@
     action="{!c.onRequestedDetailsChange}"
     value="{!v.RequestedDetails}"
   />
-  <ltng:require scripts="{!$Resource.calculations + '/calculations.js'}" />
+  <ltng:require scripts="{!$Resource.calculations}" />
   <!--<label class="slds-form-element__label" style="font-weight: bold;">Credit Calculations</label>-->
   <fieldset class="slds-box slds-theme_default">
     <legend
