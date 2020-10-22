@@ -16,7 +16,13 @@
   <aura:attribute name="applicantLoanAmount" type="Decimal" />
   <aura:attribute name="applicantMonthlyLoanPercentage" type="Decimal" />
   <aura:attribute name="applicantMonthlyLoanAmount" type="Decimal" />
-
+  <aura:attribute name="RequestedDetails" type="Map" />
+  <aura:handler
+    name="change"
+    action="{!c.onRequestedDetailsChange}"
+    value="{!v.RequestedDetails}"
+  />
+  <ltng:require scripts="{!$Resource.calculations + '/calculations.js'}" />
   <!--<label class="slds-form-element__label" style="font-weight: bold;">Credit Calculations</label>-->
   <fieldset class="slds-box slds-theme_default">
     <legend
@@ -36,7 +42,7 @@
         <lightning:input
           type="number"
           label="Loan Amount Market"
-          value="{!v.loanAmount}"
+          value="{!v.RequestedDetails.loanAmount}"
           name="number"
           formatter="currency"
           required="true"

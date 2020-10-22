@@ -13,6 +13,7 @@
       console.log("Result ", result);
       if (state === "SUCCESS") {
         console.log("success");
+        console.log("Price: ", result.productPrice);
         component.set("v.productSelection", result);
         this.updateProductSelectedFlag(component);
       }
@@ -21,23 +22,23 @@
     $A.enqueueAction(action);
   },
 
-    updateProductSelectedFlag : function(component) {
-        let selectedFlag = component.get("v.productSelection.productFamily");
-        if (selectedFlag.includes('Auto')){
-            component.set("v.autoFlag", true);
-            console.log("autoflag set ")
-        }
-        if (selectedFlag.includes('Unsecured')){
-            component.set("v.unsecuredFlag", true);
-            console.log("unsecuredflag set ")
-        }
-        if (selectedFlag.includes('Credit Card')){
-            component.set("v.creditCardFlag", true);
-            console.log("autoflag set ")
-        }
-        if (selectedFlag.includes('Line Of Credit')){
-            component.set("v.lineOfCreditFlag", true);
-            console.log("autoflag set ")
-        }
+  updateProductSelectedFlag: function (component) {
+    let selectedFlag = component.get("v.productSelection.productFamily");
+    if (selectedFlag.includes("Auto")) {
+      component.set("v.autoFlag", true);
+      console.log("autoflag set ");
     }
+    if (selectedFlag.includes("Unsecured")) {
+      component.set("v.unsecuredFlag", true);
+      console.log("unsecuredflag set ");
+    }
+    if (selectedFlag.includes("Credit Card")) {
+      component.set("v.creditCardFlag", true);
+      console.log("autoflag set ");
+    }
+    if (selectedFlag.includes("Line Of Credit")) {
+      component.set("v.lineOfCreditFlag", true);
+      console.log("autoflag set ");
+    }
+  }
 });

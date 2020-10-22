@@ -1,5 +1,3 @@
 ({
-    myAction : function(component, event, helper) {
-
-    }
-})
+  onRequestedDetailsChange: function (component, event, helper) {}
+});

@@ -1,6 +1,16 @@
 <aura:component>
-  <c:RequestedDetailsLineItemComponent></c:RequestedDetailsLineItemComponent>
+  <aura:attribute name="RequestedDetails" type="Map" />
+  <aura:attribute name="productPrice" type="Decimal" />
+
+  <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
+
+  <c:RequestedDetailsLineItemComponent
+    productPrice="{!v.productPrice}"
+    RequestedDetails="{!v.RequestedDetails}"
+  ></c:RequestedDetailsLineItemComponent>
   <c:UnsecuredLoanFeatureLineItemComponent></c:UnsecuredLoanFeatureLineItemComponent>
-  <c:CreditCalculationsLineItemComponent></c:CreditCalculationsLineItemComponent>
+  <c:CreditCalculationsLineItemComponent
+    RequestedDetails="{!v.RequestedDetails}"
+  ></c:CreditCalculationsLineItemComponent>
   <c:TotalDebtServiceRatioLineItemComponent></c:TotalDebtServiceRatioLineItemComponent>
 </aura:component>
