@@ -1,6 +1,10 @@
 <aura:component>
   <c:PersonalCreditCardRequestLineComponent></c:PersonalCreditCardRequestLineComponent>
   <c:CreditCardOtherDetailsLineComponent></c:CreditCardOtherDetailsLineComponent>
+  <lightning:layoutItem size="12" padding="around-small"
+    ><h2>Credit Calculations</h2>
+    <hr
+  /></lightning:layoutItem>
   <c:CreditCreditCardCreditCalculations></c:CreditCreditCardCreditCalculations>
   <c:TotalDebtServiceRatioLineItemComponent></c:TotalDebtServiceRatioLineItemComponent>
 </aura:component>

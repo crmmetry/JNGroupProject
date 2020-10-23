@@ -161,7 +161,7 @@
             <div class="slds-form-element__control">
               <lightning:select
                 name="select1"
-                label="Include Loan Amount"
+                label="Include in Loan Amount"
                 required="true"
                 onchange="{!c.onIncludeWaveProcessingFeeChange}"
               >
