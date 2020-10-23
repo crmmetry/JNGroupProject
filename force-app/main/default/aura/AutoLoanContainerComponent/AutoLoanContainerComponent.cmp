@@ -1,6 +1,14 @@
 <aura:component>
-  <c:PersonalAutoLoanRequestLineItemComponent></c:PersonalAutoLoanRequestLineItemComponent>
+  <aura:attribute name="productPrice" type="Decimal" />
+  <aura:attribute name="PersonalAutoLoanContainer" type="Map" default="{}" />
+
+  <c:PersonalAutoLoanRequestLineItemComponent
+    productPrice="{!v.productPrice}"
+    PersonalAutoLoanContainer="{!v.PersonalAutoLoanContainer}"
+  ></c:PersonalAutoLoanRequestLineItemComponent>
   <c:AutoLoanFeaturesLineItemComponent></c:AutoLoanFeaturesLineItemComponent>
-  <c:AutoLoanCreditCalculationsLineComponent></c:AutoLoanCreditCalculationsLineComponent>
+  <c:AutoLoanCreditCalculationsLineComponent
+    PersonalAutoLoan="{!v.PersonalAutoLoanContainer}"
+  ></c:AutoLoanCreditCalculationsLineComponent>
   <c:TotalDebtServiceRatioLineItemComponent></c:TotalDebtServiceRatioLineItemComponent>
 </aura:component>

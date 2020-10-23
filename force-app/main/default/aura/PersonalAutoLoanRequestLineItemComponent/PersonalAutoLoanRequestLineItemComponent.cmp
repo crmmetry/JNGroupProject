@@ -27,6 +27,17 @@
   <aura:attribute name="minimum" type="Decimal" default="" />
   <aura:attribute name="depositPercentage" type="Decimal" default="" />
   <aura:attribute name="deposit" type="Decimal" default="" />
+  <aura:attribute name="PersonalAutoLoanContainer" type="Map" default="{}" />
+  <aura:attribute name="PersonalAutoLoan" type="Map" default="{}" />
+  <aura:attribute name="productPrice" type="Decimal" />
+
+  <aura:handler
+    name="change"
+    action="{!c.onPersonalAutoLoanChange}"
+    value="{!v.PersonalAutoLoan}"
+  />
+  <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+
   <aura:attribute
     name="depositCurrency"
     type="List"
@@ -283,7 +294,7 @@
           <lightning:input
             type="number"
             label="Amount"
-            value="{!v.loanAmount}"
+            value="{!v.PersonalAutoLoan.loanAmount}"
             name="number"
             formatter="currency"
             required="true"
@@ -297,7 +308,7 @@
               <lightning:input
                 type="number"
                 label="Years"
-                value="{!v.years}"
+                value="{!v.PersonalAutoLoan.years}"
                 name="number"
                 required="true"
               />
@@ -307,7 +318,7 @@
                 <lightning:input
                   type="number"
                   label="Months"
-                  value="{!v.months}"
+                  value="{!v.PersonalAutoLoan.months}"
                   name="number"
                   required="true"
                 />
@@ -322,8 +333,9 @@
               type="number"
               label="Market"
               name="Market"
-              value="{!v.market}"
-              formatter="percent"
+              value="{!v.PersonalAutoLoan.market}"
+              formatter="percent-fixed"
+              step="0.01"
               required="true"
             />
           </div>

@@ -1,21 +1,49 @@
 <aura:component>
-  <aura:attribute name="loanAmount" type="Decimal" />
-  <aura:attribute name="monthly_PI_LoanAmount" type="Decimal" />
-  <aura:attribute name="jnLifeCreditorPremium" type="Decimal" />
-  <aura:attribute name="monthlyJnLifeCreditor_PI_Premium" type="Decimal" />
-  <aura:attribute name="processingFees" type="Decimal" />
-  <aura:attribute name="monthly_PI_ProcessingFees" type="Decimal" />
-  <aura:attribute name="totalLoanAmount" type="Decimal" />
-  <aura:attribute name="totalMonthlyLoanPayment" type="Decimal" />
-  <aura:attribute name="totalMonthly_PI_LoanPayment" type="Decimal" />
-  <aura:attribute name="monthlyCompulsorySavings" type="Decimal" />
-  <aura:attribute name="totalMonthlyLoanPaymentAndSavings" type="Decimal" />
-  <aura:attribute name="totalCompulsorySavingsBalance" type="Decimal" />
-  <aura:attribute name="totalInterestPaymentBalance" type="Decimal" />
-  <aura:attribute name="applicantLoanPercentage" type="Decimal" />
-  <aura:attribute name="applicantLoanAmount" type="Decimal" />
-  <aura:attribute name="applicantMonthlyLoanPercentage" type="Decimal" />
-  <aura:attribute name="applicantMonthlyLoanAmount" type="Decimal" />
+  <aura:attribute name="loanAmount" type="Decimal" default="0" />
+  <aura:attribute name="monthly_PI_LoanAmount" type="Decimal" default="0" />
+  <aura:attribute name="jnLifeCreditorPremium" type="Decimal" default="0" />
+  <aura:attribute
+    name="monthlyJnLifeCreditor_PI_Premium"
+    type="Decimal"
+    default="0"
+  />
+  <aura:attribute name="processingFees" type="Decimal" default="0" />
+  <aura:attribute name="monthly_PI_ProcessingFees" type="Decimal" default="0" />
+  <aura:attribute name="totalLoanAmount" type="Decimal" default="0" />
+  <aura:attribute name="totalMonthlyLoanPayment" type="Decimal" default="0" />
+  <aura:attribute
+    name="totalMonthly_PI_LoanPayment"
+    type="Decimal"
+    default="0"
+  />
+  <aura:attribute name="monthlyCompulsorySavings" type="Decimal" default="0" />
+  <aura:attribute
+    name="totalMonthlyLoanPaymentAndSavings"
+    type="Decimal"
+    default="0"
+  />
+  <aura:attribute
+    name="totalCompulsorySavingsBalance"
+    type="Decimal"
+    default="0"
+  />
+  <aura:attribute
+    name="totalInterestPaymentBalance"
+    type="Decimal"
+    default="0"
+  />
+  <aura:attribute name="applicantLoanPercentage" type="Decimal" default="0" />
+  <aura:attribute name="applicantLoanAmount" type="Decimal" default="0" />
+  <aura:attribute
+    name="applicantMonthlyLoanPercentage"
+    type="Decimal"
+    default="0"
+  />
+  <aura:attribute
+    name="applicantMonthlyLoanAmount"
+    type="Decimal"
+    default="0"
+  />
   <aura:attribute name="RequestedDetails" type="Map" />
   <aura:handler
     name="change"

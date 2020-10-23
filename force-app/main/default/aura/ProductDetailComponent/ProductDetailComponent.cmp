@@ -66,7 +66,9 @@
             </lightning:layout>
           </form>
           <aura:if isTrue="{!v.autoFlag}">
-            <c:AutoLoanContainerComponent></c:AutoLoanContainerComponent>
+            <c:AutoLoanContainerComponent
+              productPrice="{!v.productSelection.productPrice}"
+            ></c:AutoLoanContainerComponent>
           </aura:if>
           <aura:if isTrue="{!v.unsecuredFlag}">
             <c:UnsecuredLoanContainerComponent
