@@ -19,7 +19,7 @@
     type="Decimal"
     default="0"
   />
-  <aura:attribute name="monthlyCompulsorySavings" type="Decimal" />
+  <aura:attribute name="monthlyCompulsorySavings" type="Decimal" default="0" />
   <aura:attribute
     name="totalMonthlyLoanPaymentAndSavings"
     type="Decimal"

@@ -45,8 +45,8 @@
   />
   <aura:attribute name="savingsPercentage" type="Decimal" default="" />
   <aura:attribute name="savingsAmount" type="Decimal" default="" />
-  <aura:attribute name="creditRiskScore" type="Decimal" default="" />
-  <aura:attribute name="creditRiskRating" type="Decimal" default="" />
+  <aura:attribute name="creditRiskScore" type="Decimal" default="0" />
+  <aura:attribute name="creditRiskRating" type="Decimal" default="0" />
 
   <aura:attribute name="value" type="String" default="" />
   <aura:attribute name="percent" type="String" default="percent" />
