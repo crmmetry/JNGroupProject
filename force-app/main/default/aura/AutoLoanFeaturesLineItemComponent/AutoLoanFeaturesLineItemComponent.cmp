@@ -400,6 +400,7 @@
                 value="{!v.creditRiskRating}"
                 type="text"
                 name="input1"
+                formatter="percent-fixed"
                 required="true"
                 readonly="true"
               />

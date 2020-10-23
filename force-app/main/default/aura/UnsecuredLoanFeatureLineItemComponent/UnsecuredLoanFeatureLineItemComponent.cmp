@@ -337,6 +337,7 @@
                 label="Credit Risk Rating prior to application"
                 value="{!v.creditRiskRating}"
                 type="number"
+                formatter="percent-fixed"
                 name="input1"
                 readonly="true"
                 required="true"
