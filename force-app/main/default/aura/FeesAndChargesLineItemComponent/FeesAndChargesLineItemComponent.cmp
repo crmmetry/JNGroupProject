@@ -59,7 +59,7 @@
   <lightning:layoutItem size="6" padding="around-small">
     <lightning:input
       type="number"
-      label="JN Creditor Life Insurance Premium"
+      label="JN Life Creditor Life Insurance Premium"
       value="{!v.jnCreditorLifePremium}"
       name="number"
       formatter="currency"
