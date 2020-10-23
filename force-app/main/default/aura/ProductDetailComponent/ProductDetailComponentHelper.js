@@ -24,21 +24,17 @@
 
   updateProductSelectedFlag: function (component) {
     let selectedFlag = component.get("v.productSelection.productFamily");
-    if (selectedFlag.includes("Auto")) {
-      component.set("v.autoFlag", true);
-      console.log("autoflag set ");
-    }
-    if (selectedFlag.includes("Unsecured")) {
-      component.set("v.unsecuredFlag", true);
-      console.log("unsecuredflag set ");
-    }
-    if (selectedFlag.includes("Credit Card")) {
-      component.set("v.creditCardFlag", true);
-      console.log("autoflag set ");
-    }
-    if (selectedFlag.includes("Line Of Credit")) {
-      component.set("v.lineOfCreditFlag", true);
-      console.log("autoflag set ");
+    const families = [
+      { name: "Auto", variable: "autoFlag" },
+      { name: "Unsecured", variable: "unsecuredFlag" },
+      { name: "Credit Card", variable: "creditCardFlag" },
+      { name: "Line Of Credit", variable: "lineOfCreditFlag" }
+    ];
+    const family = families.find((family) => {
+      return selectedFlag.includes(family.name);
+    });
+    if (family) {
+      component.set(`v.${family.variable}`, true);
     }
   }
 });
