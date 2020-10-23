@@ -9,6 +9,8 @@
   <aura:attribute name="stampDutyAndAdminCharges" type="Decimal" default="0" />
   <aura:attribute name="payableInstallment" type="Decimal" default="0" />
   <aura:attribute name="totalClosingCosts" type="Decimal" default="0" />
+  <aura:attribute name="assignmentFee" type="Decimal" default="0" />
+
   <aura:attribute
     name="totalClosingCostsJNFinanced"
     type="Decimal"
@@ -61,7 +63,7 @@
   <lightning:layoutItem size="6" padding="around-small">
     <lightning:input
       type="number"
-      label="JN Creditor Life Insurance Premium"
+      label="JN Life Creditor Life Insurance Premium"
       value="{!v.jnCreditorLifePremium}"
       name="number"
       formatter="currency"

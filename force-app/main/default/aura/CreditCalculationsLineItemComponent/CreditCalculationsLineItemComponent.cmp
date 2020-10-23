@@ -57,7 +57,8 @@
       id="creditCalcualtions"
       class="slds-text-heading_medium slds-p-vertical_medium"
     >
-      Personal Unsecured Loan
+      Personal Unsecured Loan -
+      <span class="slds-text-heading_small">Credit Calculations</span>
     </legend>
     <lightning:layout multipleRows="true">
       <lightning:layoutItem size="6">
