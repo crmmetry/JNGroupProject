@@ -10,10 +10,19 @@
   <aura:attribute name="market" type="Decimal" default="" />
   <aura:attribute name="years" type="Integer" default="" />
   <aura:attribute name="months" type="Integer" default="" />
-  <aura:attribute name="loanAmount" type="Decimal" default="" />
+  <aura:attribute name="productPrice" type="Decimal" default="" />
   <aura:attribute name="value" type="String" default="" />
   <aura:attribute name="percent" type="String" default="percent" />
   <aura:attribute name="amount" type="String" default="amount" />
+  <aura:attribute name="RequestedDetails" type="Map" />
+  <aura:attribute name="RequestedDetailsContainer" type="Map" default="{}" />
+  <aura:handler
+    name="change"
+    action="{!c.onRequestedDetailsChange}"
+    value="{!v.RequestedDetails}"
+  />
+  <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+
   <fieldset class="slds-box slds-theme_default">
     <legend
       id="productdetailsform"
@@ -30,9 +39,10 @@
           <lightning:input
             type="number"
             label="Amount"
-            value="{!v.loanAmount}"
+            value="{!v.RequestedDetails.loanAmount}"
             name="number"
             formatter="currency"
+            readonly="true"
             required="true"
           />
         </lightning:layoutItem>
@@ -44,8 +54,9 @@
               <lightning:input
                 type="number"
                 label="Years"
-                value="{!v.years}"
+                value="{!v.RequestedDetails.years}"
                 name="number"
+                min="1"
                 required="true"
               />
             </lightning:layoutItem>
@@ -54,9 +65,10 @@
                 <lightning:input
                   type="number"
                   label="Months"
-                  value="{!v.months}"
+                  value="{!v.RequestedDetails.months}"
                   name="number"
                   required="true"
+                  min="0"
                 />
               </div>
             </lightning:layoutItem>
@@ -68,10 +80,12 @@
             <lightning:input
               type="number"
               label="Market"
-              value="{!v.market}"
+              value="{!v.RequestedDetails.market}"
               name="Market"
-              formatter="percent"
+              formatter="percent-fixed"
+              max="99"
               required="true"
+              step="0.01"
             />
           </div>
         </lightning:layoutItem>

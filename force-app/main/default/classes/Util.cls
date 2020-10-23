@@ -498,7 +498,7 @@ public with sharing class Util {
    */
   public static OpportunityLineItem getOpportunityProducts(Id oppId) {
     return [
-      SELECT Id, Product_Family__c, Name
+      SELECT Id, Product_Family__c, Name, UnitPrice
       FROM OpportunityLineItem
       WHERE OpportunityId = :oppId
     ];

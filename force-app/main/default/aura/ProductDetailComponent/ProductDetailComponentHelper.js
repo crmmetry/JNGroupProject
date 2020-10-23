@@ -13,6 +13,7 @@
       console.log("Result ", result);
       if (state === "SUCCESS") {
         console.log("success");
+        console.log("Price: ", result.productPrice);
         component.set("v.productSelection", result);
         this.updateProductSelectedFlag(component);
       }
@@ -36,7 +37,7 @@
       console.log("autoflag set ");
     }
     if (selectedFlag.includes("Line Of Credit")) {
-      component.set("v.locFlag", true);
+      component.set("v.lineOfCreditFlag", true);
       console.log("autoflag set ");
     }
   }

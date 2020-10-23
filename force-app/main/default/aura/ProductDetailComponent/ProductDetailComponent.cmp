@@ -28,8 +28,7 @@
   <aura:attribute name="autoFlag" type="Boolean" default="false" />
   <aura:attribute name="unsecuredFlag" type="Boolean" default="false" />
   <aura:attribute name="creditCardFlag" type="Boolean" default="false" />
-  <aura:attribute name="locFlag" type="Boolean" default="false" />
-
+  <aura:attribute name="lineOfCreditFlag" type="Boolean" default="false" />
   <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
 
   <lightning:layout>
@@ -67,15 +66,19 @@
             </lightning:layout>
           </form>
           <aura:if isTrue="{!v.autoFlag}">
-            <c:AutoLoanContainerComponent></c:AutoLoanContainerComponent>
+            <c:AutoLoanContainerComponent
+              productPrice="{!v.productSelection.productPrice}"
+            ></c:AutoLoanContainerComponent>
           </aura:if>
           <aura:if isTrue="{!v.unsecuredFlag}">
-            <c:UnsecuredLoanContainerComponent></c:UnsecuredLoanContainerComponent>
+            <c:UnsecuredLoanContainerComponent
+              productPrice="{!v.productSelection.productPrice}"
+            ></c:UnsecuredLoanContainerComponent>
           </aura:if>
           <aura:if isTrue="{!v.creditCardFlag}">
             <c:CreditCardContainerComponent></c:CreditCardContainerComponent>
           </aura:if>
-          <aura:if isTrue="{!v.locFlag}">
+          <aura:if isTrue="{!v.lineOfCreditFlag}">
             <c:LineOfCreditContainerComponent></c:LineOfCreditContainerComponent>
           </aura:if>
         </fieldset>

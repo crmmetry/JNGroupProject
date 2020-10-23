@@ -1,5 +1,70 @@
 <aura:component>
-  <c:PersonalCreditCardRequestLineComponent></c:PersonalCreditCardRequestLineComponent>
+  <aura:attribute
+    name="creditLimitCurrency"
+    type="List"
+    default="['JMD','USD']"
+  />
+  <!--Place Personal Credit Card Request in a standalone component-->
+  <lightning:layout multipleRows="true">
+    <lightning:layoutItem size="12">
+      <h2 class="slds-section-title--divider">Personal Credit Card Request</h2>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
+      <lightning:layout>
+        <lightning:layoutItem size="3" mediumDeviceSize="3">
+          <lightning:select
+            name="select1"
+            label="$"
+            required="true"
+            onchange="{!c.onCreditLimitCurrencyChange}"
+          >
+            <aura:iteration items="{!v.creditLimitCurrency}" var="item">
+              <option value="{!item}">{!item}</option>
+            </aura:iteration>
+          </lightning:select>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="9">
+          <lightning:input
+            type="number"
+            label="Requested Credit Limit"
+            value="{!v.requestedCreditLimit}"
+            name="number"
+            formatter="currency"
+            required="true"
+          />
+        </lightning:layoutItem>
+      </lightning:layout>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
+      <lightning:input
+        type="number"
+        label="Interest Rate"
+        value="{!v.interestRate}"
+        placeholder="per annum"
+        name="interestRate"
+        formatter="percentage"
+        required="true"
+      />
+    </lightning:layoutItem>
+    <!-- <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
+      <div class="slds-form-element">
+        <div class="slds-form-element__control">
+          <lightning:select
+            name="select1"
+            label="Number of Supplementary CardHolder(s)"
+            required="true"
+            onchange="{!c.onNumberOfCardHoldersChange}"
+          >
+            <option value="">select one...</option>
+            <aura:iteration items="{!v.numOfCardholders}" var="item">
+              <option value="{!item}">{!item}</option>
+            </aura:iteration>
+          </lightning:select>
+        </div>
+      </div>
+    </lightning:layoutItem> -->
+  </lightning:layout>
+  <!-- <c:PersonalCreditCardRequestLineComponent></c:PersonalCreditCardRequestLineComponent> -->
   <c:CreditCardOtherDetailsLineComponent></c:CreditCardOtherDetailsLineComponent>
   <c:LineOfCreditCreditCalculationsLineComponent></c:LineOfCreditCreditCalculationsLineComponent>
   <c:TotalDebtServiceRatioLineItemComponent></c:TotalDebtServiceRatioLineItemComponent>

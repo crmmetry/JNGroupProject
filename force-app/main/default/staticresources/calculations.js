@@ -53,7 +53,7 @@ window.calculatePMT = function (
  * @param {Integer} months
  */
 window.calculateMonths = function (years, months) {
-  return years * 12 + months;
+  return parseFloat(years) * 12 + parseFloat(months);
 };
 
 /**
@@ -61,7 +61,7 @@ window.calculateMonths = function (years, months) {
  * @param {rate}
  */
 window.calculateRatePerPeriod = function (rate) {
-  return rate / 100 / 12;
+  return parseFloat(rate) / 100 / 12;
 };
 /**
  * check if field is empty
@@ -70,10 +70,10 @@ window.calculateRatePerPeriod = function (rate) {
  */
 window.isEmpty = function (field) {
   if (
-    !field ||
     typeof field === "undefined" ||
     field === "" ||
-    field === null
+    field === null ||
+    isNaN(field)
   ) {
     return true;
   }
