@@ -79,3 +79,24 @@ window.isEmpty = function (field) {
   }
   return false;
 };
+/**
+ * populate an object given a set of properties and validates whether the parent object has any of the properties
+ * @param {Array<String>} properties
+ * @param {Object} parentObj
+ * @return {Objec}
+ */
+window.enlistAndValidateFields = function (properties, parentObj) {
+  if (!properties || !parentObj) return null;
+  let fields = {};
+  properties.forEach(function (property) {
+    fields[property] = false;
+  });
+  Object.keys(fields).forEach((field) => {
+    if (parentObj.hasOwnProperty(field)) {
+      if (isEmpty(parentObj[field]) === false) {
+        fields[field] = true;
+      }
+    }
+  });
+  return fields;
+};
