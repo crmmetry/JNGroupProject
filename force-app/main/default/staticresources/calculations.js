@@ -69,12 +69,7 @@ window.calculateRatePerPeriod = function (rate) {
  * @return {Boolean}
  */
 window.isEmpty = function (field) {
-  if (
-    typeof field === "undefined" ||
-    field === "" ||
-    field === null ||
-    isNaN(field)
-  ) {
+  if (typeof field === "undefined" || field === "" || field === null) {
     return true;
   }
   return false;
