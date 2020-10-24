@@ -45,8 +45,8 @@
   />
   <aura:attribute name="savingsPercentage" type="Decimal" default="" />
   <aura:attribute name="savingsAmount" type="Decimal" default="" />
-  <aura:attribute name="creditRiskScore" type="Decimal" default="" />
-  <aura:attribute name="creditRiskRating" type="Decimal" default="" />
+  <aura:attribute name="creditRiskScore" type="Decimal" default="0" />
+  <aura:attribute name="creditRiskRating" type="Decimal" default="0" />
 
   <aura:attribute name="value" type="String" default="" />
   <aura:attribute name="percent" type="String" default="percent" />
@@ -223,7 +223,7 @@
             <div class="slds-form-element__control">
               <lightning:select
                 name="select1"
-                label="Include Loan Amount"
+                label="Include in Loan Amount"
                 required="true"
                 onchange="{!c.onIncludeWaveProcessingFeeChange}"
               >
@@ -400,6 +400,7 @@
                 value="{!v.creditRiskRating}"
                 type="text"
                 name="input1"
+                formatter="percent-fixed"
                 required="true"
                 readonly="true"
               />

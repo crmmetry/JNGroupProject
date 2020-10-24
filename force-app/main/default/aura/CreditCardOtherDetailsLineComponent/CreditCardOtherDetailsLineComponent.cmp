@@ -120,7 +120,7 @@
           <div class="slds-form-element">
             <div class="slds-form-element__control">
               <lightning:input
-                label="Desired monthly repayment date"
+                label="Desired Statement Date"
                 value="{!v.monthlyRepaymentDate}"
                 type="number"
                 name="input1"

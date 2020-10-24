@@ -1,6 +1,7 @@
 <aura:component>
   <aura:attribute name="RequestedDetailsContainer" type="Map" default="{}" />
   <aura:attribute name="productPrice" type="Decimal" />
+  <aura:attribute name="loanPurpose" type="List" />
 
   <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
   <aura:handler
@@ -8,6 +9,23 @@
     action="{!c.onRequestedDetailsContainerChange}"
     value="{!v.RequestedDetailsContainer}"
   />
+  <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
+    <div class="slds-form-element">
+      <div class="slds-form-element__control">
+        <lightning:select
+          name="select1"
+          label="Loan Purpose"
+          required="true"
+          onchange="{!c.onLoanPurposeChange}"
+        >
+          <option value="">select one...</option>
+          <aura:iteration items="{!v.loanPurpose}" var="item">
+            <option value="{!item}">{!item}</option>
+          </aura:iteration>
+        </lightning:select>
+      </div>
+    </div>
+  </lightning:layoutItem>
   <c:RequestedDetailsLineItemComponent
     productPrice="{!v.productPrice}"
     RequestedDetailsContainer="{!v.RequestedDetailsContainer}"
