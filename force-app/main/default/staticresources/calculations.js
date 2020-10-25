@@ -99,7 +99,7 @@ window.enlistAndValidateFields = function (properties, parentObj) {
  * helper function used to calculate pmt
  * @param {Array<String>} properties - fields on the parent object
  * @param {Object} parentObj actual object with the fields to pull from
- *                 {marketPercentage, amount, years, months}
+ *                 {market, amount, years, months}
  * @return {Number | Null}
  */
 window.basicPMTCalculator = function (properties, requiredFields, parentObj) {
@@ -109,8 +109,8 @@ window.basicPMTCalculator = function (properties, requiredFields, parentObj) {
   let totalMonths;
   let pmtResult;
   //calculate rate per period
-  if (validatedFields.marketPercentage) {
-    rate = calculateRatePerPeriod(parentObj.marketPercentage);
+  if (validatedFields.market) {
+    rate = calculateRatePerPeriod(parentObj.market);
   }
 
   //calculate total months
