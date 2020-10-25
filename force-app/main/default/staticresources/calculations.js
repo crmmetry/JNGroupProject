@@ -95,3 +95,42 @@ window.enlistAndValidateFields = function (properties, parentObj) {
   });
   return fields;
 };
+/**
+ * helper function used to calculate pmt
+ * @param {Array<String>} properties - fields on the parent object
+ * @param {Object} parentObj actual object with the fields to pull from
+ *                 {marketPercentage, amount, years, months}
+ * @return {Number | Null}
+ */
+window.basicPMTCalculator = function (properties, requiredFields, parentObj) {
+  let validatedFields = enlistAndValidateFields(properties, parentObj);
+  if (!validatedFields) return null;
+  let rate;
+  let totalMonths;
+  let pmtResult;
+  //calculate rate per period
+  if (validatedFields.marketPercentage) {
+    rate = calculateRatePerPeriod(parentObj.marketPercentage);
+  }
+
+  //calculate total months
+  if (validatedFields.years && validatedFields.months) {
+    totalMonths = calculateMonths(
+      parentObj.years,
+      parentObj.months
+    );
+  }
+
+  //actual pmt calculation
+  if (rate && totalMonths && parentObj.amount) {
+    pmtResult = calculatePMT(
+      rate,
+      totalMonths,
+      -parentObj.loanAmount,
+      0,
+      0
+    );
+    return parseFloat(pmtResult).toFixed(2);
+  }
+  return null;
+}

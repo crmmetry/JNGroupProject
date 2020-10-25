@@ -10,6 +10,7 @@
         years: false,
         market: false
       };
+      
       Object.keys(fields).forEach((field) => {
         if (RequestedDetails.hasOwnProperty(field)) {
           if (isEmpty(RequestedDetails[field]) === false) {
