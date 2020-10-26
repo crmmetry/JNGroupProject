@@ -8,7 +8,6 @@
       ["years", "months", "loanAmount", "market"],
       component.get("v.RequestedDetails")
     );
-    console.log("result: ", result);
     if (!result) {
       component.set("v.monthly_PI_LoanAmount", 0);
     } else {

@@ -104,9 +104,7 @@ window.enlistAndValidateFields = function (properties, parentObj) {
  */
 window.basicPMTCalculator = function (properties, parentObj) {
   let validatedFields = enlistAndValidateFields(properties, parentObj);
-  console.log("validated fields ", validatedFields);
   if (!validatedFields) return null;
-  console.log("validated fields success!!! ");
   let rate;
   let totalMonths;
   let pmtResult;
