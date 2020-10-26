@@ -4,9 +4,15 @@
       "Credit Calculations",
       JSON.parse(JSON.stringify(component.get("v.RequestedDetails")))
     );
-    helper.calculateMonthlyP_ILoanAmount(
-      component,
+    const result = basicPMTCalculator(
+      ["years", "months", "loanAmount", "market"],
       component.get("v.RequestedDetails")
     );
+    console.log("result: ", result);
+    if (!result) {
+      component.set("v.monthly_PI_LoanAmount", 0);
+    } else {
+      component.set("v.monthly_PI_LoanAmount", result);
+    }
   }
 });

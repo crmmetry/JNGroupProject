@@ -104,7 +104,9 @@ window.enlistAndValidateFields = function (properties, parentObj) {
  */
 window.basicPMTCalculator = function (properties, parentObj) {
   let validatedFields = enlistAndValidateFields(properties, parentObj);
+  console.log("validated fields ", validatedFields);
   if (!validatedFields) return null;
+  console.log("validated fields success!!! ");
   let rate;
   let totalMonths;
   let pmtResult;
@@ -115,22 +117,13 @@ window.basicPMTCalculator = function (properties, parentObj) {
 
   //calculate total months
   if (validatedFields.years && validatedFields.months) {
-    totalMonths = calculateMonths(
-      parentObj.years,
-      parentObj.months
-    );
+    totalMonths = calculateMonths(parentObj.years, parentObj.months);
   }
 
   //actual pmt calculation
-  if (rate && totalMonths && parentObj.amount) {
-    pmtResult = calculatePMT(
-      rate,
-      totalMonths,
-      -parentObj.loanAmount,
-      0,
-      0
-    );
+  if (rate && totalMonths && parentObj.loanAmount) {
+    pmtResult = calculatePMT(rate, totalMonths, -parentObj.loanAmount, 0, 0);
     return parseFloat(pmtResult).toFixed(2);
   }
   return null;
-}
+};
