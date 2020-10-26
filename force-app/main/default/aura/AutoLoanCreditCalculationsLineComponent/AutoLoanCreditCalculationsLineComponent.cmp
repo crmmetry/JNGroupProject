@@ -145,7 +145,7 @@
       <lightning:layoutItem size="6" padding="around-small">
         <lightning:input
           type="number"
-          label="Monthly JN Creditor Life P&amp;I Premium"
+          label="Monthly JN Life Creditor Life P&amp;I Premium"
           value="{!v.monthlyJnLifeCreditor_PI_Premium}"
           name="number"
           formatter="currency"
