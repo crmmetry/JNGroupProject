@@ -102,7 +102,7 @@ window.enlistAndValidateFields = function (properties, parentObj) {
  *                 {market, amount, years, months}
  * @return {Number | Null}
  */
-window.basicPMTCalculator = function (properties, requiredFields, parentObj) {
+window.basicPMTCalculator = function (properties, parentObj) {
   let validatedFields = enlistAndValidateFields(properties, parentObj);
   if (!validatedFields) return null;
   let rate;
