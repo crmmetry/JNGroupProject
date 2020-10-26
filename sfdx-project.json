@@ -6,13 +6,6 @@
             "package": "Unlocked",
             "versionName": "ver 0.1",
             "versionNumber": "0.1.0.NEXT"
-        },
-        {
-            "path": "packaged",
-            "package": "Dash",
-            "versionName": "ver 0.1",
-            "versionNumber": "0.1.0.NEXT",
-            "default": false
         }
     ],
     "namespace": "",
@@ -20,7 +13,6 @@
     "sourceApiVersion": "49.0",
     "packageAliases": {
         "Unlocked": "0Ho4T000000fxXBSAY",
-        "Unlocked@0.1.0-3": "04t4T000001pu7DQAQ",
-        "Dash": "0Ho6g000000fy8RCAQ"
+        "Unlocked@0.1.0-3": "04t4T000001pu7DQAQ"
     }
 }
