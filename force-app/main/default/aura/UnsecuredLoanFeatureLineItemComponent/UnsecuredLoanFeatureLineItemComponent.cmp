@@ -1,4 +1,6 @@
 <aura:component>
+  <aura:attribute name="CreditRepayment" type="Map" />
+  <aura:attribute name="CreditRepaymentContainer" type="Map" />
   <aura:attribute
     name="options"
     type="List"
@@ -35,9 +37,16 @@
   <aura:attribute
     name="repaymentMethod"
     type="List"
-    default="['Card','Bank']"
+    default="['Salary deduction',
+    'Automatic transfer',
+    'Standing Order',
+    'Over the Counter']"
   />
-  <aura:attribute name="monthlyRepaymentDate" type="Date" default="" />
+  <aura:attribute
+    name="monthlyRepaymentDate"
+    type="List"
+    default="['End of Month', 'Numbers from 1-30']"
+  />
   <aura:attribute
     name="deductFirstMonthRepayment"
     type="List"
@@ -47,6 +56,8 @@
   <aura:attribute name="creditRiskRating" type="Decimal" default="0" />
   <aura:attribute name="savingsPercentag" type="Decimal" default="" />
   <aura:attribute name="savingsAmount" type="Decimal" default="" />
+
+  <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
 
   <fieldset class="slds-box slds-theme_default">
     <legend
@@ -225,14 +236,17 @@
         >
           <div class="slds-form-element">
             <div class="slds-form-element__control">
-              <lightning:input
-                label="Desired monthly repayment date"
-                value="{!v.monthlyRepaymentDate}"
-                type="number"
-                name="input1"
-                max="30"
+              <lightning:select
+                name="select1"
+                label="Dedicated monthly repayment date"
                 required="true"
-              />
+                onchange="{!c.onMonthlyRepaymentDateChange}"
+              >
+                <option value="">select one...</option>
+                <aura:iteration items="{!v.monthlyRepaymentDate}" var="item">
+                  <option value="{!item}">{!item}</option>
+                </aura:iteration>
+              </lightning:select>
             </div>
           </div>
         </lightning:layoutItem>

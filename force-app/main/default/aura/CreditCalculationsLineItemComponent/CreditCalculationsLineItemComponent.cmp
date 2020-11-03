@@ -44,11 +44,18 @@
     type="Decimal"
     default="0"
   />
+  <aura:attribute name="deductRepaymentFlag" type="Boolean" default="false" />
   <aura:attribute name="RequestedDetails" type="Map" />
+  <aura:attribute name="CreditRepayment" type="Map" />
   <aura:handler
     name="change"
     action="{!c.onRequestedDetailsChange}"
     value="{!v.RequestedDetails}"
+  />
+  <aura:handler
+    name="change"
+    action="{!c.onCreditRepaymentChange}"
+    value="{!v.CreditRepayment}"
   />
   <ltng:require scripts="{!$Resource.calculations}" />
   <!--<label class="slds-form-element__label" style="font-weight: bold;">Credit Calculations</label>-->
@@ -271,7 +278,9 @@
           readonly="true"
         />
       </lightning:layoutItem>
-      <c:FeesAndChargesLineItemComponent></c:FeesAndChargesLineItemComponent>
+      <c:FeesAndChargesLineItemComponent
+        deductRepaymentFlag="{!v.deductRepaymentFlag}"
+      ></c:FeesAndChargesLineItemComponent>
     </lightning:layout>
   </fieldset>
 </aura:component>
