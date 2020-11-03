@@ -13,14 +13,6 @@
     component.set("v.CreditRepayment", creditRepaymentMap);
   },
 
-  onCreditRepaymentChange: function (component, event, helper) {
-    const data = Object.assign(
-      component.get("v.CreditRepaymentContainer"),
-      component.get("v.CreditRepayment")
-    );
-    component.set("v.CreditRepayment", data);
-  },
-
   onLoanPurposeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     console.log(selected);
