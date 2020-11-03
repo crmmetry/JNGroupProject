@@ -45,7 +45,8 @@
   <aura:attribute
     name="monthlyRepaymentDate"
     type="List"
-    default="['End of Month', 'Numbers from 1-30']"
+    default="['End of Month', '1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23',
+             '24','25','26','27','28','29','30']"
   />
   <aura:attribute
     name="deductFirstMonthRepayment"
@@ -307,30 +308,6 @@
               >
                 <option value="">select one...</option>
                 <aura:iteration items="{!v.monthlyRepaymentDate}" var="item">
-                  <option value="{!item}">{!item}</option>
-                </aura:iteration>
-              </lightning:select>
-            </div>
-          </div>
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="6"
-          padding="around-small"
-        >
-          <div class="slds-form-element">
-            <div class="slds-form-element__control">
-              <lightning:select
-                name="select1"
-                label="Deduct the 1st month repayment from loan proceeds?"
-                required="true"
-                onchange="{!c.onDeductFirstMonthRepaymentChange}"
-              >
-                <option value="">select one...</option>
-                <aura:iteration
-                  items="{!v.deductFirstMonthRepayment}"
-                  var="item"
-                >
                   <option value="{!item}">{!item}</option>
                 </aura:iteration>
               </lightning:select>

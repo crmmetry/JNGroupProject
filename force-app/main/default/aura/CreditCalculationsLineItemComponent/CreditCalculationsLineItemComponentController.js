@@ -20,9 +20,9 @@
     let creditRepayment = component.get("v.CreditRepayment");
     if (creditRepayment.deductRepayment == "Yes") {
       console.log("flag set to true");
-      component.set("v.deductRepaymentFlag", true);
-    } else {
       component.set("v.deductRepaymentFlag", false);
+    } else {
+      component.set("v.deductRepaymentFlag", true);
     }
   }
 });

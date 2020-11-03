@@ -118,20 +118,6 @@
       readonly="true"
     />
   </lightning:layoutItem>
-  <aura:if isTrue="{!v.deductRepayment}">
-    <lightning:layoutItem size="6" padding="around-small">
-      <lightning:input
-        type="number"
-        label="1st Month's Installment Payable"
-        value="{!v.payableInstallment}"
-        name="number"
-        formatter="currency"
-        required="true"
-        readonly="true"
-      />
-    </lightning:layoutItem>
-  </aura:if>
-
   <lightning:layoutItem size="6" padding="around-small">
     <lightning:input
       type="number"

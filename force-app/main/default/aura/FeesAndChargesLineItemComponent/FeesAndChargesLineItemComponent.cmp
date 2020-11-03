@@ -8,7 +8,7 @@
   <aura:attribute name="payableInstallment" type="Decimal" default="0" />
   <aura:attribute name="totalClosingCosts" type="Decimal" default="0" />
   <aura:attribute name="assignmentFee" type="Decimal" default="0" />
-  <aura:attribute name="deductRepaymentFlag" type="Boolean" default="false" />
+  <aura:attribute name="deductRepaymentFlag" type="Boolean" default="true" />
 
   <aura:attribute
     name="totalClosingCostsJNFinanced"
