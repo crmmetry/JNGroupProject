@@ -64,6 +64,12 @@
 
   <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
 
+  <aura:handler
+    name="change"
+    action="{!c.onCreditRepaymentChange}"
+    value="{!v.CreditRepayment}"
+  />
+
   <fieldset class="slds-box slds-theme_default">
     <legend
       id="productdetailsform"

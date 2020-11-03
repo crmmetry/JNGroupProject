@@ -13,6 +13,14 @@
     component.set("v.CreditRepayment", creditRepaymentMap);
   },
 
+  onCreditRepaymentChange: function (component, event, helper) {
+    const data = Object.assign(
+      component.get("v.CreditRepaymentContainer"),
+      component.get("v.CreditRepayment")
+    );
+    component.set("v.CreditRepayment", data);
+  },
+
   onLoanPurposeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     console.log(selected);
@@ -49,7 +57,7 @@
     let creditRepaymentMap = component.get("v.CreditRepayment");
     creditRepaymentMap.repaymentMethod = selected;
     component.set("v.CreditRepayment", creditRepaymentMap);
-    console.log(component.get("v.CreditRepayment.repaymentMethod"));
+    // console.log(component.get("v.CreditRepayment.repaymentMethod"));
   },
 
   onMonthlyRepaymentDateCHange: function (component, event, helper) {
@@ -57,7 +65,7 @@
     let creditRepaymentMap = component.get("v.CreditRepayment");
     creditRepaymentMap.repaymentDate = selected;
     component.set("v.CreditRepayment", creditRepaymentMap);
-    console.log(component.get("v.CreditRepayment.repaymentDate"));
+    // console.log(component.get("v.CreditRepayment.repaymentDate"));
   },
 
   onDeductFirstMonthRepaymentChange: function (component, event, helper) {
@@ -65,6 +73,6 @@
     let creditRepaymentMap = component.get("v.CreditRepayment");
     creditRepaymentMap.deductRepayment = selected;
     component.set("v.CreditRepayment", creditRepaymentMap);
-    console.log(component.get("v.CreditRepayment.deductRepayment"));
+    // console.log(component.get("v.CreditRepayment.deductRepayment"));
   }
 });

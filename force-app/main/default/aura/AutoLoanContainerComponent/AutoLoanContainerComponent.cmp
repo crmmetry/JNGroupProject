@@ -3,12 +3,6 @@
   <aura:attribute name="PersonalAutoLoanContainer" type="Map" default="{}" />
   <aura:attribute name="CreditRepaymentContainer" type="Map" default="{}" />
 
-  <aura:handler
-    name="change"
-    value="{!v.CreditRepaymentContainer}"
-    action="{!c.doinit}"
-  />
-
   <c:PersonalAutoLoanRequestLineItemComponent
     productPrice="{!v.productPrice}"
     PersonalAutoLoanContainer="{!v.PersonalAutoLoanContainer}"
