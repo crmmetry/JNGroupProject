@@ -1,4 +1,6 @@
 <aura:component>
+  <aura:attribute name="CreditRepayment" type="Map" />
+  <aura:attribute name="CreditRepaymentContainer" type="Map" />
   <aura:attribute
     name="options"
     type="List"
@@ -35,9 +37,17 @@
   <aura:attribute
     name="repaymentMethod"
     type="List"
-    default="['Card','Bank']"
+    default="['Salary deduction',
+              'Automatic transfer',
+              'Standing Order',
+              'Over the Counter']"
   />
-  <aura:attribute name="monthlyRepaymentDate" type="Date" default="" />
+  <aura:attribute
+    name="monthlyRepaymentDate"
+    type="List"
+    default="['End of Month', '1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23',
+             '24','25','26','27','28','29','30']"
+  />
   <aura:attribute
     name="deductFirstMonthRepayment"
     type="List"
@@ -51,6 +61,15 @@
   <aura:attribute name="value" type="String" default="" />
   <aura:attribute name="percent" type="String" default="percent" />
   <aura:attribute name="amount" type="String" default="amount" />
+
+  <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
+
+  <aura:handler
+    name="change"
+    action="{!c.onCreditRepaymentChange}"
+    value="{!v.CreditRepayment}"
+  />
+
   <fieldset class="slds-box slds-theme_default">
     <legend
       id="productdetailsform"
@@ -287,35 +306,14 @@
         >
           <div class="slds-form-element">
             <div class="slds-form-element__control">
-              <lightning:input
-                label="Dedicated monthly repayment date"
-                value="{!v.monthlyRepaymentDate}"
-                type="date"
-                name="input1"
-                max="30"
-                required="true"
-              />
-            </div>
-          </div>
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="6"
-          padding="around-small"
-        >
-          <div class="slds-form-element">
-            <div class="slds-form-element__control">
               <lightning:select
                 name="select1"
-                label="Deduct the 1st month repayment from loan proceeds?"
+                label="Dedicated monthly repayment date"
                 required="true"
-                onchange="{!c.onDeductFirstMonthRepaymentChange}"
+                onchange="{!c.onMonthlyRepaymentDateChange}"
               >
                 <option value="">select one...</option>
-                <aura:iteration
-                  items="{!v.deductFirstMonthRepayment}"
-                  var="item"
-                >
+                <aura:iteration items="{!v.monthlyRepaymentDate}" var="item">
                   <option value="{!item}">{!item}</option>
                 </aura:iteration>
               </lightning:select>
