@@ -1,4 +1,5 @@
 <aura:component>
+  <aura:attribute name="JNGIPremium" type="Map" default="{}" />
   <aura:attribute name="loanAmount" type="Decimal" />
   <aura:attribute name="monthly_PI_LoanAmount" type="Decimal" default="0" />
   <aura:attribute name="jngiMotorPremium" type="Decimal" default="0" />
@@ -53,6 +54,12 @@
     action="{!c.onPersonalAutoLoanChange}"
     value="{!v.PersonalAutoLoan}"
   />
+  <aura:handler
+    name="change"
+    action="{!c.onJNGIPremiumChange}"
+    value="{!v.JNGIPremium}"
+  />
+
   <ltng:require scripts="{!$Resource.calculations}" />
   <!--<label class="slds-form-element__label" style="font-weight: bold;">Credit Calculations</label>-->
   <fieldset class="slds-box slds-theme_default">
@@ -123,7 +130,7 @@
         <lightning:input
           type="number"
           label="Monthly JNGI Motor Premium"
-          value="{!v.monthlyJNGIMotorPremium}"
+          value="{!v.JNGIPremium.premium}"
           name="number"
           formatter="currency"
           required="true"

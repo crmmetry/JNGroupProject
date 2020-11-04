@@ -1,14 +1,18 @@
 <aura:component>
   <aura:attribute name="productPrice" type="Decimal" />
   <aura:attribute name="PersonalAutoLoanContainer" type="Map" default="{}" />
+  <aura:attribute name="JNGIPremiumContainer" type="Map" default="{}" />
 
   <c:PersonalAutoLoanRequestLineItemComponent
     productPrice="{!v.productPrice}"
     PersonalAutoLoanContainer="{!v.PersonalAutoLoanContainer}"
   ></c:PersonalAutoLoanRequestLineItemComponent>
-  <c:AutoLoanFeaturesLineItemComponent></c:AutoLoanFeaturesLineItemComponent>
+  <c:AutoLoanFeaturesLineItemComponent
+    JNGIPremiumContainer="{!v.JNGIPremiumContainer}"
+  ></c:AutoLoanFeaturesLineItemComponent>
   <c:AutoLoanCreditCalculationsLineComponent
     PersonalAutoLoan="{!v.PersonalAutoLoanContainer}"
+    JNGIPremium="{!v.JNGIPremiumContainer}"
   ></c:AutoLoanCreditCalculationsLineComponent>
   <c:TotalDebtServiceRatioLineItemComponent></c:TotalDebtServiceRatioLineItemComponent>
 </aura:component>

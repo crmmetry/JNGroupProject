@@ -13,5 +13,15 @@
     } else {
       component.set("v.monthly_PI_LoanAmount", result);
     }
+    helper.calculateJNGIPMT(component);
+  },
+
+  onJNGIPremiumChange: function (component, event, helper) {
+    let firstYearPremium = helper.calcualateFirstYearPremium(
+      jngiPremium.premium
+    );
+    component.set("v.jngiMotorPremium", firstYearPremium);
+    let jngiPremium = component.get("v.JNGIPremium");
+    helper.calculateJNGIPMT(component);
   }
 });

@@ -1,4 +1,12 @@
 <aura:component>
+  <aura:attribute name="JNGIPremium" type="Map" default="{}" />
+  <aura:attribute name="JNGIPremiumContainer" type="Map" default="{}" />
+  <aura:attribute
+    name="interestedInPremiumFlag"
+    type="Boolean"
+    default="true"
+  />
+
   <aura:attribute
     name="options"
     type="List"
@@ -51,6 +59,14 @@
   <aura:attribute name="value" type="String" default="" />
   <aura:attribute name="percent" type="String" default="percent" />
   <aura:attribute name="amount" type="String" default="amount" />
+
+  <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
+  <aura:handler
+    name="change"
+    value="{!v.JNGIPremium}"
+    action="{!c.onJNGIPremiumChange}"
+  />
+
   <fieldset class="slds-box slds-theme_default">
     <legend
       id="productdetailsform"
@@ -92,10 +108,12 @@
           <div class="slds-form-element">
             <div class="slds-form-element__control">
               <lightning:select
+                aura:id="includePremium"
                 name="select1"
                 label="Include First Year Premium in Loan Amount?"
                 required="true"
                 onchange="{!c.onIncludePremiumChange}"
+                disabled="{!v.interestedInPremiumFlag}"
               >
                 <option value="">select one...</option>
                 <aura:iteration items="{!v.includePremium}" var="item">
@@ -113,9 +131,10 @@
           <lightning:input
             type="number"
             label="Monthly Premium"
-            value="{!v.monthlyPremium}"
+            value="{!v.JNGIPremium.premium}"
             name="number"
             formatter="currency"
+            disabled="{!v.interestedInPremiumFlag}"
             required="true"
           />
         </lightning:layoutItem>
