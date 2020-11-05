@@ -16,4 +16,12 @@ public with sharing class ProductDetailController {
     }
     return Constants.NONE;
   }
+  @AuraEnabled
+  public static JNConfiguration GetJNConfigs(){
+    try {
+      return JNConfigurations.GetDefaultConfiguration();
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
+    }
+  }
 }
