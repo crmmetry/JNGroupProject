@@ -14,6 +14,9 @@
       component.get("v.CreditRepayment")
     );
     component.set("v.CreditRepaymentContainer", data);
+    console.log("onCreditRepaymentChange")
+    helper.toggleShowIndicateApplicableProcessingFees(component, component.get("v.CreditRepayment"));
+    helper.toggleShowIncludeInLoanAmount(component, component.get("v.CreditRepayment"));
   },
 
   onInterestedInJNGIChange: function (component, event, helper) {
@@ -41,14 +44,18 @@
     console.log(selected);
   },
 
-  onWaveProcessingFeeChange: function (component, event, helper) {
+  onWaiveProcessingFeeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    console.log(selected);
+    let creditRepaymentMap = component.get("v.CreditRepayment");
+    creditRepaymentMap.waiveProcessingFeeFlag = (selected === 'Yes');
+    component.set("v.CreditRepayment", creditRepaymentMap);
   },
 
-  onIncludeWaveProcessingFeeChange: function (component, event, helper) {
+  onIncludeWaiveProcessingFeeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    console.log(selected);
+    let creditRepaymentMap = component.get("v.CreditRepayment");
+    creditRepaymentMap.includeInLoanAmountFlag = (selected === 'Yes');
+    component.set("v.CreditRepayment", creditRepaymentMap);
   },
 
   onRepaymentMethodChange: function (component, event, helper) {

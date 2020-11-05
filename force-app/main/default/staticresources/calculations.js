@@ -135,9 +135,11 @@ window.asAllValidDependencies = function (properties, parentObj) {
   if (!parentObj || !properties) return false;
   properties.forEach((field) => {
     if (parentObj.hasOwnProperty(field)) {
-      if (isEmpty(parentObj[field]) === false) {
+      if (isEmpty(parentObj[field])) {
         return false;
       }
+    } else {
+      return false;
     }
   });
   return true;

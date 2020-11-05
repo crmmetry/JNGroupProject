@@ -1,54 +1,29 @@
 ({
-  calculateMonthlyP_ILoanAmount: function (component, PersonalAutoLoan) {
-    console.log("Calculation METHOD");
-    let rate;
-    let totalMonths;
-    let pmtResult;
-    if (PersonalAutoLoan != null) {
-      console.log("AutoLoan not null");
-      const fields = {
-        loanAmount: false,
-        months: false,
-        years: false,
-        market: false
-      };
-      Object.keys(fields).forEach((field) => {
-        if (PersonalAutoLoan.hasOwnProperty(field)) {
-          if (isEmpty(PersonalAutoLoan[field]) === false) {
-            console.log("validity true");
-            fields[field] = true;
-          }
-        }
-      });
-      console.info(fields);
-      //Calculate Percentage
-      if (fields.market) {
-        rate = calculateRatePerPeriod(PersonalAutoLoan.market);
-        console.log("rate", rate);
-      }
-      if (fields.years && fields.months) {
-        totalMonths = calculateMonths(
-          PersonalAutoLoan.years,
-          PersonalAutoLoan.months
-        );
-        console.log("totalMonths", totalMonths);
-      }
-
-      if (rate && totalMonths && PersonalAutoLoan.loanAmount) {
-        pmtResult = calculatePMT(
-          rate,
-          totalMonths,
-          -PersonalAutoLoan.loanAmount,
-          0,
-          0
-        );
-        console.log("pmtResult", pmtResult);
-        pmtResult = parseFloat(pmtResult).toFixed(2);
-        component.set("v.monthly_PI_LoanAmount", pmtResult);
-        return;
-      }
-      //default
+  calculateMonthlyP_ILoanAmount: function (component) {
+    console.log(
+      "Credit Calculations",
+      JSON.parse(JSON.stringify(component.get("v.PersonalAutoLoan")))
+    );
+    const result = basicPMTCalculator(
+      ["years", "months", "loanAmount", "market"],
+      component.get("v.PersonalAutoLoan")
+    );
+    if (!result) {
       component.set("v.monthly_PI_LoanAmount", 0);
+    } else {
+      component.set("v.monthly_PI_LoanAmount", result);
     }
+  },
+  setDeductRepaymentFlag: function (component) {
+    console.log("Repayment deducted");
+    let creditRepayment = component.get("v.CreditRepayment");
+    if (creditRepayment.deductRepayment == "Yes") {
+      component.set("v.deductRepaymentFlag", true);
+    } else {
+      component.set("v.deductRepaymentFlag", false);
+    }
+  },
+  calculateProcessingFee: function (component) {
+    
   }
-});
+})
