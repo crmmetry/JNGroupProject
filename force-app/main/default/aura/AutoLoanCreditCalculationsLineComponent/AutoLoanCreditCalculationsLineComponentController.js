@@ -13,6 +13,7 @@
     } else {
       component.set("v.monthly_PI_LoanAmount", result);
     }
+    helper.calculateSavings(component);
   },
 
   onCreditRepaymentChange: function (component, event, helper) {
@@ -23,5 +24,10 @@
     } else {
       component.set("v.deductRepaymentFlag", false);
     }
+  },
+
+  onLoanSavingsChange: function (component, event, helper) {
+    console.log("SavingsLoan Change");
+    helper.calculateSavings(component);
   }
 });

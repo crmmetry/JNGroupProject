@@ -6,6 +6,11 @@
       deductRepayment: ""
     };
     component.set("v.CreditRepayment", creditRepaymentMap);
+    const loanSavings = {
+      percentage: 0,
+      amount: 0
+    };
+    component.set("v.LoanSavings", loanSavings);
   },
 
   onCreditRepaymentChange: function (component, event, helper) {
@@ -14,6 +19,18 @@
       component.get("v.CreditRepayment")
     );
     component.set("v.CreditRepaymentContainer", data);
+  },
+
+  onProposedSavingsChange: function (component, event, helper) {
+    const selected = component.get("v.value");
+    console.log(selected);
+    let loanSavings = component.get("v.LoanSavings");
+    if (selected === "percent") {
+      loanSavings.amount = 0;
+    } else if (selected === "amount") {
+      loanSavings.percentage = 0;
+    }
+    component.set("v.LoanSavingsContainer", loanSavings);
   },
 
   onInterestedInJNGIChange: function (component, event, helper) {

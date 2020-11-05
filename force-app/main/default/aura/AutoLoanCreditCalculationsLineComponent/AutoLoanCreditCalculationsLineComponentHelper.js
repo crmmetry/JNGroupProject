@@ -50,5 +50,30 @@
       //default
       component.set("v.monthly_PI_LoanAmount", 0);
     }
+  },
+
+  calculateSavings: function (component) {
+    let PIMonthlyPayment = component.get("v.monthly_PI_LoanAmount");
+    let personalAutoLoan = component.get("v.PersonalAutoLoan");
+    let loanSavings = component.get("v.LoanSavings");
+    let tenure = persoanalAutoLoan.years * 12 + personalAutoLoan.months;
+    if (PIMonthlyPayment > 0) {
+      if (loanSavings.percentage > 0) {
+        let monthlyCompulsorySavings = PIMonthlyPayment * loanSavings.percent;
+        let totalCompulsorySavings = monthlyCompulsorySavings * tenure;
+        component.set("v.monthlyCompulsorySavings", monthlyCompulsorySavings);
+        component.set(
+          "v.totalCompulsorySavingsBalance",
+          totalCompulsorySavings
+        );
+      } else if (loanSavings.amount > 0) {
+        component.set("v.monthlyCompulsorySavings", loanSavings.amount);
+        let totalCompulsorySavings = loanSavings.amount * tenure;
+        component.set(
+          "v.totalCompulsorySavingsBalance",
+          totalCompulsorySavings
+        );
+      }
+    }
   }
 });

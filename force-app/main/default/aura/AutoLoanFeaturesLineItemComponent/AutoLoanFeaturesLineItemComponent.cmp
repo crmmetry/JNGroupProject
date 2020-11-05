@@ -9,6 +9,8 @@
     {'label': 'Amount(JMD)', 'value': 'amount'}
     ]"
   />
+  <aura:attribute name="LoanSavings" type="Map" default="{}" />
+  <aura:attribute name="LoanSavingsContainer" type="Map" default="{}" />
   <aura:attribute
     name="interestedInCreditorLife"
     type="List"
@@ -63,6 +65,12 @@
   <aura:attribute name="amount" type="String" default="amount" />
 
   <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
+
+  <aura:handler
+    name="change"
+    action="{!c.onProposedSavingsChange}"
+    value="{!v.value}"
+  />
 
   <aura:handler
     name="change"
@@ -342,7 +350,7 @@
             <lightning:input
               type="number"
               label="Savings(%)"
-              value="{!v.savingsPercentage}"
+              value="{!v.LoanSavings.percentage}"
               formatter="percent"
               required="true"
             />
@@ -357,7 +365,7 @@
             <lightning:input
               type="number"
               label="Amount(JMD)"
-              value="{!v.savingsAmount}"
+              value="{!v.LoanSavings.amount}"
               formatter="currency"
               required="true"
             />

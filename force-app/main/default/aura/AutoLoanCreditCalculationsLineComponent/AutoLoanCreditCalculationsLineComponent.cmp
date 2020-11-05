@@ -49,6 +49,7 @@
   />
   <aura:attribute name="PersonalAutoLoan" type="Map" default="{}" />
   <aura:attribute name="CreditRepayment" type="Map" default="{}" />
+  <aura:attribute name="LoanSavings" type="Map" default="{}" />
   <aura:attribute name="deductRepaymentFlag" type="Boolean" default="false" />
   <aura:handler
     name="change"
@@ -59,6 +60,11 @@
     name="change"
     action="{!c.onCreditRepaymentChange}"
     value="{!v.CreditRepayment}"
+  />
+  <aura:handler
+    name="change"
+    action="{!c.onLoanSavingsChange}"
+    value="{!v.LoanSavings}"
   />
   <ltng:require scripts="{!$Resource.calculations}" />
   <!--<label class="slds-form-element__label" style="font-weight: bold;">Credit Calculations</label>-->
