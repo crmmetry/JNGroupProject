@@ -1,5 +1,15 @@
 <aura:component>
   <aura:attribute name="JNGIPremium" type="Map" default="{}" />
+  <aura:attribute
+    name="showPremiumInFeesAndCharges"
+    type="Boolean"
+    default="true"
+  />
+  <aura:attribute
+    name="showPremiumInCreditCalculations"
+    type="Boolean"
+    default="true"
+  />
   <aura:attribute name="loanAmount" type="Decimal" />
   <aura:attribute name="monthly_PI_LoanAmount" type="Decimal" default="0" />
   <aura:attribute name="jngiMotorPremium" type="Decimal" default="0" />
@@ -100,17 +110,19 @@
         />
       </lightning:layoutItem>
       <!--Auto Loan Product fields only-->
-      <lightning:layoutItem size="6" padding="around-small">
-        <lightning:input
-          type="number"
-          label="JNGI Motor Premium (1st Year)"
-          value="{!v.jngiMotorPremium}"
-          name="number"
-          formatter="currency"
-          required="true"
-          readonly="true"
-        />
-      </lightning:layoutItem>
+      <aura:if isTrue="{!v.showPremiumInCreditCalculations}">
+        <lightning:layoutItem size="6" padding="around-small">
+          <lightning:input
+            type="number"
+            label="JNGI Motor Premium (1st Year)"
+            value="{!v.jngiMotorPremium}"
+            name="number"
+            formatter="currency"
+            required="true"
+            readonly="true"
+          />
+        </lightning:layoutItem>
+      </aura:if>
       <lightning:layoutItem size="6" padding="around-small">
         <lightning:input
           type="number"
@@ -122,10 +134,12 @@
           readonly="true"
         />
       </lightning:layoutItem>
-      <lightning:layoutItem
-        size="12"
-        mediumDeviceSize="6"
-      ></lightning:layoutItem>
+      <aura:if isTrue="{!v.showPremiumInCreditCalculations}">
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="6"
+        ></lightning:layoutItem>
+      </aura:if>
       <lightning:layoutItem size="6" padding="around-small">
         <lightning:input
           type="number"
@@ -320,7 +334,10 @@
           readonly="true"
         />
       </lightning:layoutItem>
-      <c:AutoLoanFeesAndChargesLineComponent></c:AutoLoanFeesAndChargesLineComponent>
+      <c:AutoLoanFeesAndChargesLineComponent
+        jngiMotorPremium="{!v.jngiMotorPremium}"
+        includePremiumFlag="{!v.showPremiumInFeesAndCharges}"
+      ></c:AutoLoanFeesAndChargesLineComponent>
     </lightning:layout>
   </fieldset>
 </aura:component>
