@@ -3,7 +3,8 @@
     const creditRepaymentMap = {
       repaymentMethod: "",
       repaymentDate: "",
-      deductRepayment: ""
+      deductRepayment: "",
+      processingFeePercentagePerAnum: null
     };
     component.set("v.CreditRepayment", creditRepaymentMap);
   },

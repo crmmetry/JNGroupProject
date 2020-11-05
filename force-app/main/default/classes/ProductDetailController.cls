@@ -16,6 +16,10 @@ public with sharing class ProductDetailController {
     }
     return Constants.NONE;
   }
+  /**
+   * retrieves default Jn custom meta data configuration
+   * @return {JNConfiguration}
+   */
   @AuraEnabled
   public static JNConfiguration GetJNConfigs(){
     try {

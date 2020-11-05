@@ -69,7 +69,7 @@ window.calculateRatePerPeriod = function (rate) {
  * @return {Boolean}
  */
 window.isEmpty = function (field) {
-  if (typeof field === "undefined" || field === "" || field === null) {
+  if (typeof field === "undefined" || field == "" || field == null) {
     return true;
   }
   return false;
@@ -144,3 +144,13 @@ window.asAllValidDependencies = function (properties, parentObj) {
   });
   return true;
 }
+
+/**
+ * calculates base GCT percentage
+ * @param {Number} gctPercentage
+ * @return {Number}
+ */
+window.calculateGCT = function (gctPercentage) {
+  return 1 + gctPercentage;
+}
+

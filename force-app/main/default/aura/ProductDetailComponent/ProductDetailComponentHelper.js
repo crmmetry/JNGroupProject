@@ -39,10 +39,8 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         component.set("v.jnDefaultConfigs", result);
-        console.log(JSON.parse(JSON.stringify(result)));
       }
     });
-
     $A.enqueueAction(action);
   },
 

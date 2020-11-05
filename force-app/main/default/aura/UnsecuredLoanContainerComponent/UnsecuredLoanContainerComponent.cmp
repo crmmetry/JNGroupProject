@@ -3,7 +3,7 @@
   <aura:attribute name="productPrice" type="Decimal" />
   <aura:attribute name="loanPurpose" type="List" />
   <aura:attribute name="CreditRepaymentContainer" type="Map" default="{}" />
-
+  <aura:attribute name="jnDefaultConfigs" type="Map"/>
   <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
   <aura:handler
     name="change"

@@ -68,11 +68,13 @@
           <aura:if isTrue="{!v.autoFlag}">
             <c:AutoLoanContainerComponent
               productPrice="{!v.productSelection.productPrice}"
+              jnDefaultConfigs="{!v.jnDefaultConfigs}"
             ></c:AutoLoanContainerComponent>
           </aura:if>
           <aura:if isTrue="{!v.unsecuredFlag}">
             <c:UnsecuredLoanContainerComponent
               productPrice="{!v.productSelection.productPrice}"
+              jnDefaultConfigs="{!v.jnDefaultConfigs}"
             ></c:UnsecuredLoanContainerComponent>
           </aura:if>
           <aura:if isTrue="{!v.creditCardFlag}">
