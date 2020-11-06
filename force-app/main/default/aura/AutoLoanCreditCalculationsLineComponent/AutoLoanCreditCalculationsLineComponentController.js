@@ -29,5 +29,22 @@
   onLoanSavingsChange: function (component, event, helper) {
     console.log("SavingsLoan Change");
     helper.calculateSavings(component);
+    helper.calculateJNGIPMT(component);
+  },
+
+  onJNGIPremiumChange: function (component, event, helper) {
+    let jngiPremium = component.get("v.JNGIPremium");
+    if (jngiPremium.includeInLoan === "No") {
+      component.set("v.showPremiumInFeesAndCharges", true);
+      component.set("v.showPremiumInCreditCalculations", false);
+    } else {
+      component.set("v.showPremiumInCreditCalculations", true);
+      component.set("v.showPremiumInFeesAndCharges", false);
+    }
+    let firstYearPremium = helper.calcualateFirstYearPremium(
+      jngiPremium.premium
+    );
+    component.set("v.jngiMotorPremium", firstYearPremium);
+    helper.calculateJNGIPMT(component);
   }
 });
