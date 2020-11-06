@@ -7,8 +7,9 @@
     };
     component.set("v.CreditRepayment", creditRepaymentMap);
     const loanSavings = {
-      percentage: 0,
-      amount: 0
+      percentage: null,
+      amount: null,
+      selection: null
     };
     component.set("v.LoanSavings", loanSavings);
   },
@@ -26,11 +27,18 @@
     console.log(selected);
     let loanSavings = component.get("v.LoanSavings");
     if (selected === "percent") {
-      loanSavings.amount = 0;
+      loanSavings.amount = null;
+      loanSavings.selection = selected;
     } else if (selected === "amount") {
-      loanSavings.percentage = 0;
+      loanSavings.percentage = null;
+      loanSavings.selection = selected;
     }
-    component.set("v.LoanSavingsContainer", loanSavings);
+    //component.set("v.LoanSavingsContainer", loanSavings);
+    const data = Object.assign(
+      component.get("v.LoanSavingsContainer"),
+      component.get("v.LoanSavings")
+    );
+    component.set("v.LoanSavingsContainer", data);
   },
 
   onInterestedInJNGIChange: function (component, event, helper) {

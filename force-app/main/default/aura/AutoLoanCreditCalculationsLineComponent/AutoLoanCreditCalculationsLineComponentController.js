@@ -11,9 +11,10 @@
     if (!result) {
       component.set("v.monthly_PI_LoanAmount", 0);
     } else {
+      console.log("PMT Calculated");
       component.set("v.monthly_PI_LoanAmount", result);
+      helper.calculateSavings(component);
     }
-    helper.calculateSavings(component);
   },
 
   onCreditRepaymentChange: function (component, event, helper) {
@@ -29,7 +30,7 @@
   onLoanSavingsChange: function (component, event, helper) {
     console.log("SavingsLoan Change");
     helper.calculateSavings(component);
-    helper.calculateJNGIPMT(component);
+    console.log("Saving Calculations done?");
   },
 
   onJNGIPremiumChange: function (component, event, helper) {

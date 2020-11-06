@@ -77,7 +77,7 @@
   <aura:handler
     name="change"
     action="{!c.onProposedSavingsChange}"
-    value="{!v.value}"
+    value="{!v.LoanSavings}"
   />
 
   <aura:handler
@@ -371,7 +371,8 @@
               type="number"
               label="Savings(%)"
               value="{!v.LoanSavings.percentage}"
-              formatter="percent"
+              formatter="percent-fixed"
+              step="0.01"
               required="true"
             />
           </lightning:layoutItem>
