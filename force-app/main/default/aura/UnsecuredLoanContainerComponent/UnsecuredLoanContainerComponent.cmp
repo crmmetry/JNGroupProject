@@ -3,6 +3,7 @@
   <aura:attribute name="productPrice" type="Decimal" />
   <aura:attribute name="loanPurpose" type="List" />
   <aura:attribute name="CreditRepaymentContainer" type="Map" default="{}" />
+  <aura:attribute name="LoanSavingsContainer" type="Map" default="{}" />
 
   <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
   <aura:handler
@@ -33,10 +34,12 @@
   ></c:RequestedDetailsLineItemComponent>
   <c:UnsecuredLoanFeatureLineItemComponent
     CreditRepaymentContainer="{!v.CreditRepaymentContainer}"
+    LoanSavingsContainer="{!v.LoanSavingsContainer}"
   ></c:UnsecuredLoanFeatureLineItemComponent>
   <c:CreditCalculationsLineItemComponent
     RequestedDetails="{!v.RequestedDetailsContainer}"
     CreditRepayment="{!v.CreditRepaymentContainer}"
+    LoanSavings="{!v.LoanSavingsContainer}"
   ></c:CreditCalculationsLineItemComponent>
   <c:TotalDebtServiceRatioLineItemComponent></c:TotalDebtServiceRatioLineItemComponent>
 </aura:component>

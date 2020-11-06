@@ -47,10 +47,17 @@
   <aura:attribute name="deductRepaymentFlag" type="Boolean" default="true" />
   <aura:attribute name="RequestedDetails" type="Map" />
   <aura:attribute name="CreditRepayment" type="Map" />
+  <aura:attribute name="LoanSavings" type="Map" default="{}" />
+
   <aura:handler
     name="change"
     action="{!c.onRequestedDetailsChange}"
     value="{!v.RequestedDetails}"
+  />
+  <aura:handler
+    name="change"
+    action="{!c.onLoanSavingsChange}"
+    value="{!v.LoanSavings}"
   />
   <aura:handler
     name="change"

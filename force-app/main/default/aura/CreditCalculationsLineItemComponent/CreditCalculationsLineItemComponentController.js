@@ -12,7 +12,14 @@
       component.set("v.monthly_PI_LoanAmount", 0);
     } else {
       component.set("v.monthly_PI_LoanAmount", result);
+      helper.calculateSavings(component);
     }
+  },
+
+  onLoanSavingsChange: function (component, event, helper) {
+    console.log("SavingsLoan Change");
+    helper.calculateSavings(component);
+    console.log("Saving Calculations done?");
   },
 
   onCreditRepaymentChange: function (component, event, helper) {
