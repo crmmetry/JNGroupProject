@@ -3,7 +3,7 @@
     const JNGIPremiumMap = {
       interested: "",
       includeInLoan: "",
-      premium: 0
+      premium: null
     };
     component.set("v.JNGIPremium", JNGIPremiumMap);
   },
@@ -26,7 +26,7 @@
       console.log("No");
       component.find("includePremium").set("v.value", null);
       let jngiPremium = component.get("v.JNGIPremium");
-      jngiPremium.premium = 0;
+      jngiPremium.premium = null;
       jngiPremium.includeInLoan = null;
       component.set("v.JNGIPremium", jngiPremium);
       component.set("v.interestedInPremiumFlag", true);

@@ -136,6 +136,7 @@
             formatter="currency"
             disabled="{!v.interestedInPremiumFlag}"
             required="true"
+            min="1"
           />
         </lightning:layoutItem>
         <lightning:layoutItem size="12">
