@@ -1,19 +1,14 @@
 ({
+  /**
+   * //TODO: refactor use only ChildContaier
+   * @param {*} component 
+   * @param {*} event 
+   * @param {*} helper 
+   */
   onPersonalAutoLoanChange: function (component, event, helper) {
-    console.log(
-      "Credit Calculations",
-      JSON.parse(JSON.stringify(component.get("v.PersonalAutoLoan")))
-    );
-    const result = basicPMTCalculator(
-      ["years", "months", "loanAmount", "market"],
-      component.get("v.PersonalAutoLoan")
-    );
-    if (!result) {
-      component.set("v.monthly_PI_LoanAmount", 0);
-    } else {
-      component.set("v.monthly_PI_LoanAmount", result);
-    }
     helper.calculateJNGIPMT(component);
+    helper.calculateMonthlyP_ILoanAmount(component);
+    helper.calculateProcessingFee(component);
   },
 
   onJNGIPremiumChange: function (component, event, helper) {
@@ -30,5 +25,18 @@
     );
     component.set("v.jngiMotorPremium", firstYearPremium);
     helper.calculateJNGIPMT(component);
+    helper.calculateMonthlyP_ILoanAmount(component);
+    helper.calculateProcessingFee(component);
+  },
+/**
+ * //TODO: refactor use only ChildContaier
+ * @param {*} component 
+ * @param {*} event 
+ * @param {*} helper 
+ */
+  onCreditRepaymentChange: function (component, event, helper) {
+    console.log("calculating onCreditRepaymentChange")
+    helper.setDeductRepaymentFlag(component);
+    helper.calculateProcessingFee(component);
   }
 });

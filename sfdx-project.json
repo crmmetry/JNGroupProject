@@ -10,7 +10,7 @@
     ],
     "namespace": "",
     "sfdcLoginUrl": "https://login.salesforce.com",
-    "sourceApiVersion": "49.0",
+    "sourceApiVersion": "50.0",
     "packageAliases": {
         "Unlocked": "0Ho4T000000fxXBSAY",
         "Unlocked@0.1.0-3": "04t4T000001pu7DQAQ"

@@ -16,6 +16,8 @@
     value="{!v.includePremiumFlag}"
     action="{!c.onIncludePremiumChange}"
   />
+  <aura:attribute name="deductRepayment" type="Boolean" default="false" />
+
   <aura:attribute
     name="totalClosingCostsJNFinanced"
     type="Decimal"
@@ -118,17 +120,6 @@
       type="number"
       label="Estimated Stamp Duty &amp; Admin Charges"
       value="{!v.stampDutyAndAdminCharges}"
-      name="number"
-      formatter="currency"
-      required="true"
-      readonly="true"
-    />
-  </lightning:layoutItem>
-  <lightning:layoutItem size="6" padding="around-small">
-    <lightning:input
-      type="number"
-      label="1st Month's Installment Payable"
-      value="{!v.payableInstallment}"
       name="number"
       formatter="currency"
       required="true"

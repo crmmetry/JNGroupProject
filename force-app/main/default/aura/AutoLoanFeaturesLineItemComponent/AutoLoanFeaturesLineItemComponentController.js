@@ -34,22 +34,24 @@
     let jngiPremium = component.get("v.JNGIPremium");
     jngiPremium.interested = selected;
     console.log(selected);
-    // console.log("JNGI PREMIUM: ", JSON.stringify(jngiPremium));
     component.set("v.JNGIPremium", jngiPremium);
-    // //disable fields based on whether applicant is interested in JNGI Programme or not
-    // if(jngiPremium.interested === 'Yes'){
-    //     console.log("DISABLE LOGIC REACHED");
-    //     component.set("v.interestedInPremiumFlag", false);
-    // } else {
-    //     console.log('ELSE BLOCK');
-    //     component.set("v.interestedInPremiumFlag", true);
-    //     component.find("includePremium").set("v.value", ' ');
-    //     let jngiPremium = component.get("v.JNGIPremium");
-    //     jngiPremium.premium = 0;
-    //     jngiPremium.includeInLoan = null;
-    //     component.set("v.JNGIPremium", jngiPremium);
-    // }
-    // console.log(selected);
+  },
+  onProcessingFeePercentagePerAnumChange: function (component, event, helper) {
+    const value = component.get("v.processingFeePercentagePerAnum");
+    let creditRepaymentMap = component.get("v.CreditRepayment");
+    creditRepaymentMap.processingFeePercentagePerAnum = value;
+    component.set("v.CreditRepayment", creditRepaymentMap);
+  },
+  onCreditRepaymentChange: function (component, event, helper) {
+      const data = Object.assign(
+        component.get("v.CreditRepaymentContainer"),
+        component.get("v.CreditRepayment")
+      );
+      component.set("v.CreditRepaymentContainer", data);
+      helper.toggleShowIndicateApplicableProcessingFees(component, component.get("v.CreditRepayment"));
+      helper.toggleShowIncludeInLoanAmount(component, component.get("v.CreditRepayment"));
+      helper.resetProcessingFieldsValues(data, component);
+    
   },
 
   onIncludePremiumChange: function (component, event, helper) {
@@ -75,23 +77,38 @@
     console.log(selected);
   },
 
-  onWaveProcessingFeeChange: function (component, event, helper) {
+  onWaiveProcessingFeeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    console.log(selected);
+    let creditRepaymentMap = component.get("v.CreditRepayment");
+    creditRepaymentMap.waiveProcessingFeeFlag = (selected === 'Yes');
+    component.set("v.CreditRepayment", creditRepaymentMap);
   },
 
-  onIncludeWaveProcessingFeeChange: function (component, event, helper) {
+  onIncludeWaiveProcessingFeeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    console.log(selected);
+    let creditRepaymentMap = component.get("v.CreditRepayment");
+    creditRepaymentMap.includeInLoanAmountFlag = (selected === 'Yes');
+    component.set("v.CreditRepayment", creditRepaymentMap);
   },
 
   onRepaymentMethodChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    console.log(selected);
+    let creditRepaymentMap = component.get("v.CreditRepayment");
+    creditRepaymentMap.repaymentMethod = selected;
+    component.set("v.CreditRepayment", creditRepaymentMap);
+  },
+
+  onMonthlyRepaymentDateChange: function (component, event, helper) {
+    const selected = event.getSource().get("v.value");
+    let creditRepaymentMap = component.get("v.CreditRepayment");
+    creditRepaymentMap.repaymentDate = selected;
+    component.set("v.CreditRepayment", creditRepaymentMap);
   },
 
   onDeductFirstMonthRepaymentChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    console.log(selected);
+    let creditRepaymentMap = component.get("v.CreditRepayment");
+    creditRepaymentMap.deductRepayment = selected;
+    component.set("v.CreditRepayment", creditRepaymentMap);
   }
 });
