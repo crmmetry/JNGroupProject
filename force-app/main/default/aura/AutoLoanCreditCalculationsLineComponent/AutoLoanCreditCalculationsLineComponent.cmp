@@ -76,7 +76,6 @@
     action="{!c.onCreditRepaymentChange}"
     value="{!v.CreditRepayment}"
   />
-
   <aura:attribute name="jnDefaultConfigs" type="Map" default="{}" />
   <aura:attribute name="processingFeesGCT" type="Decimal" default="0" />
   <aura:attribute

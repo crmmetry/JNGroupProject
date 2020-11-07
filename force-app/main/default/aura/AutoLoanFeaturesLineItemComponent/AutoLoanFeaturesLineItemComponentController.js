@@ -6,6 +6,13 @@
       premium: null
     };
     component.set("v.JNGIPremium", JNGIPremiumMap);
+    const creditRepaymentMap = {
+      repaymentMethod: "",
+      repaymentDate: "",
+      deductRepayment: "",
+      processingFeePercentagePerAnum: null
+    };
+    component.set("v.CreditRepayment", creditRepaymentMap);
   },
 
   onJNGIPremiumChange: function (component, event, helper) {
@@ -64,7 +71,6 @@
     let jngiPremium = component.get("v.JNGIPremium");
     jngiPremium.includeInLoan = selected;
     component.set("v.JNGIPremium", jngiPremium);
-    console.log(selected);
   },
 
   onInterestedInCreditorLifeChange: function (component, event, helper) {

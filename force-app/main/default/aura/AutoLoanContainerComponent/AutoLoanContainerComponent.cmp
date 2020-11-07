@@ -4,6 +4,7 @@
   <aura:attribute name="JNGIPremiumContainer" type="Map" default="{}" />
   <aura:attribute name="CreditRepaymentContainer" type="Map" default="{}" />
   <aura:attribute name="jnDefaultConfigs" type="Map" />
+
   <c:PersonalAutoLoanRequestLineItemComponent
     productPrice="{!v.productPrice}"
     PersonalAutoLoanContainer="{!v.PersonalAutoLoanContainer}"
@@ -12,6 +13,7 @@
     CreditRepaymentContainer="{!v.CreditRepaymentContainer}"
     JNGIPremiumContainer="{!v.JNGIPremiumContainer}"
   ></c:AutoLoanFeaturesLineItemComponent>
+
   <c:AutoLoanCreditCalculationsLineComponent
     PersonalAutoLoan="{!v.PersonalAutoLoanContainer}"
     CreditRepayment="{!v.CreditRepaymentContainer}"
