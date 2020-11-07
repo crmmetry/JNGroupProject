@@ -1,9 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Invalid_BusinessPhone3_Formula</fullName>
     <active>true</active>
-    <description>Ensures that the business phone field is properly validated.</description>
-    <errorConditionFormula>IF( OR(ISCHANGED(Business_Phone__pc ) &amp;&amp; NOT(ISNULL(Business_Phone__pc)) &amp;&amp; NOT(ISBLANK(Business_Phone__pc)) &amp;&amp; !REGEX(Business_Phone__pc ,&#39;^\\d{10,25}$&#39;), ISNEW() &amp;&amp; NOT(ISNULL(Business_Phone__pc)) &amp;&amp; NOT(ISBLANK(Business_Phone__pc)) &amp;&amp; !REGEX(Business_Phone__pc,&#39;^\\d{10,25}$&#39;)),true,false)</errorConditionFormula>
+    <description
+  >Ensures that the business phone field is properly validated.</description>
+    <errorConditionFormula
+  >IF( OR(ISCHANGED(Business_Phone__pc ) &amp;&amp; NOT(ISNULL(Business_Phone__pc)) &amp;&amp; NOT(ISBLANK(Business_Phone__pc)) &amp;&amp; !REGEX(Business_Phone__pc ,&#39;^\\d{10,25}$&#39;), ISNEW() &amp;&amp; NOT(ISNULL(Business_Phone__pc)) &amp;&amp; NOT(ISBLANK(Business_Phone__pc)) &amp;&amp; !REGEX(Business_Phone__pc,&#39;^\\d{10,25}$&#39;)),true,false)</errorConditionFormula>
     <errorDisplayField>Business_Phone__pc</errorDisplayField>
-    <errorMessage>Invalid format entered for business phone. The minimum number of digits should be 10</errorMessage>
+    <errorMessage
+  >Invalid format entered for business phone. The minimum number of digits should be 10</errorMessage>
 </ValidationRule>

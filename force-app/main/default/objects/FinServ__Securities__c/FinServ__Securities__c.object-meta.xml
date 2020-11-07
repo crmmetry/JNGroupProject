@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>Accept</actionName>
@@ -144,7 +144,8 @@
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <deprecated>false</deprecated>
-    <description>An asset that is part of a client&#39;s financial holding.</description>
+    <description
+  >An asset that is part of a client&#39;s financial holding.</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
@@ -163,11 +164,14 @@
     </nameField>
     <pluralLabel>Securities</pluralLabel>
     <searchLayouts>
-        <customTabListAdditionalFields>FinServ__SecuritiesName__c</customTabListAdditionalFields>
-        <lookupDialogsAdditionalFields>FinServ__SecuritiesName__c</lookupDialogsAdditionalFields>
+        <customTabListAdditionalFields
+    >FinServ__SecuritiesName__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >FinServ__SecuritiesName__c</lookupDialogsAdditionalFields>
         <searchFilterFields>NAME</searchFilterFields>
         <searchFilterFields>FinServ__SecuritiesName__c</searchFilterFields>
-        <searchResultsAdditionalFields>FinServ__SecuritiesName__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >FinServ__SecuritiesName__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>

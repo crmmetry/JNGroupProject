@@ -19,7 +19,6 @@
       component.set("v.deductRepaymentFlag", false);
     }
   },
-<<<<<<< HEAD
 
   calcualateFirstYearPremium: function (premium) {
     if (premium != null) {
@@ -53,20 +52,36 @@
       component.set("v.monthlyPIJNGIMotorPremium", 0);
       component.set("v.jngiMotorPremium", 0);
     }
-=======
+  },
   calculateProcessingFee: function (component) {
-    console.log("Credit Repayment", JSON.parse(JSON.stringify(component.get("v.CreditRepayment"))), "Auto Loan", JSON.parse(JSON.stringify(component.get("v.PersonalAutoLoan"))));
+    console.log(
+      "Credit Repayment",
+      JSON.parse(JSON.stringify(component.get("v.CreditRepayment"))),
+      "Auto Loan",
+      JSON.parse(JSON.stringify(component.get("v.PersonalAutoLoan")))
+    );
     //TODO: CHANGE LATER TO CHILDCONTAINER, call in the personal auto loan change
-    const combinedFields = Object.assign({}, component.get("v.CreditRepayment"), component.get("v.PersonalAutoLoan"));
-    const { processingFee, monthlyProcessingFee, processingFeeClosingCost } = basicProcessingFeesCalculator(
+    const combinedFields = Object.assign(
+      {},
+      component.get("v.CreditRepayment"),
+      component.get("v.PersonalAutoLoan")
+    );
+    const {
+      processingFee,
+      monthlyProcessingFee,
+      processingFeeClosingCost
+    } = basicProcessingFeesCalculator(
       ["years", "months", "loanAmount", "market"],
       combinedFields,
       ["years", "months", "loanAmount", "market", "includeInLoanAmountFlag"],
-      component.get("v.jnDefaultConfigs.gct"));
+      component.get("v.jnDefaultConfigs.gct")
+    );
 
     component.set("v.processingFeesGCT", processingFee);
-    component.set("v.monthlyPrincipalInterestProcessingFee", monthlyProcessingFee);
+    component.set(
+      "v.monthlyPrincipalInterestProcessingFee",
+      monthlyProcessingFee
+    );
     component.set("v.processingFeeClosingCost", processingFeeClosingCost);
->>>>>>> e99cc447e8b53864784a4d50fae8fe8856638f0c
   }
-})
+});

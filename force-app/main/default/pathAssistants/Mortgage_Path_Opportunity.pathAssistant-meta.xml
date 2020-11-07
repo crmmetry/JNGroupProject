@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
     <active>true</active>
     <entityName>Opportunity</entityName>
@@ -6,7 +6,8 @@
     <masterLabel>Mortgage Path Opportunity</masterLabel>
     <pathAssistantSteps>
         <fieldNames>Record__c</fieldNames>
-        <picklistValueName>Adjudication: Await Credit Decision</picklistValueName>
+        <picklistValueName
+    >Adjudication: Await Credit Decision</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
         <fieldNames>Closed_Status__c</fieldNames>
@@ -25,7 +26,8 @@
         <fieldNames>Contact_Customer_PK__c</fieldNames>
         <fieldNames>Amend_Application_Document_PK__c</fieldNames>
         <fieldNames>Resubmit_Application_Supporting_Docs__c</fieldNames>
-        <picklistValueName>Post Submission Contact- Re-Sumbit Loan</picklistValueName>
+        <picklistValueName
+    >Post Submission Contact- Re-Sumbit Loan</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
         <fieldNames>Contact_Customer_to_Sign_Security_Docs__c</fieldNames>

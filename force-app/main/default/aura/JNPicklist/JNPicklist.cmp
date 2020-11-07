@@ -5,7 +5,7 @@
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
   <aura:attribute name="crmmObjectname" type="String" />
   <aura:attribute name="crmmLabel" type="String" />
-  <aura:attribute name="crmmObjectSelected" type="String" default=""/>
+  <aura:attribute name="crmmObjectSelected" type="String" default="" />
   <aura:attribute name="crmmObjectField" type="String" />
   <aura:attribute name="values" type="String[]" />
   <aura:attribute name="recordTypeId" type="String" />
@@ -29,7 +29,7 @@
             onchange="{!c.setSelectedPicklist}"
             required="true"
             aura:id="picklistChoices"
-                            value="{!v.crmmObjectSelected}"
+            value="{!v.crmmObjectSelected}"
           >
             <option value="">select one...</option>
             <aura:iteration items="{!v.values}" var="item">

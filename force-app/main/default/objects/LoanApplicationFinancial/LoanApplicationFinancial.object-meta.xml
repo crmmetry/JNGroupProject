@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>CancelEdit</actionName>
@@ -130,14 +130,22 @@
     <enableFeeds>false</enableFeeds>
     <externalSharingModel>ControlledByParent</externalSharingModel>
     <searchLayouts>
-        <customTabListAdditionalFields>LoanApplication</customTabListAdditionalFields>
-        <customTabListAdditionalFields>PurchasePriceAmount</customTabListAdditionalFields>
-        <lookupDialogsAdditionalFields>LoanApplication</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>PurchasePriceAmount</lookupDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>LoanApplication</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>PurchasePriceAmount</lookupPhoneDialogsAdditionalFields>
-        <searchResultsAdditionalFields>LoanApplication</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>PurchasePriceAmount</searchResultsAdditionalFields>
+        <customTabListAdditionalFields
+    >LoanApplication</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >PurchasePriceAmount</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >LoanApplication</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >PurchasePriceAmount</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >LoanApplication</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >PurchasePriceAmount</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields
+    >LoanApplication</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >PurchasePriceAmount</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
 </CustomObject>

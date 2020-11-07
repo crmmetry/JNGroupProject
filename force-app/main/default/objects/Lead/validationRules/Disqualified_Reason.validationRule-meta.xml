@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Disqualified_Reason</fullName>
     <active>true</active>
@@ -7,5 +7,6 @@
  ISBLANK(TEXT( Disqualification_Reason__c ) )
 )</errorConditionFormula>
     <errorDisplayField>Disqualification_Reason__c</errorDisplayField>
-    <errorMessage>To Change A Lead TO &quot;Disqualifed&quot; You Need To to Choose A Disqualification Reason</errorMessage>
+    <errorMessage
+  >To Change A Lead TO &quot;Disqualifed&quot; You Need To to Choose A Disqualification Reason</errorMessage>
 </ValidationRule>

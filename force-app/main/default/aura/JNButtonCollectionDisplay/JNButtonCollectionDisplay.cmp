@@ -18,8 +18,9 @@
                 <fieldset class="slds-form-element">
                   <legend
                     class="slds-form-element__label choiceheader slds-text-align_center"
-                    >Please select one of the following applicants</legend
                   >
+                    Please select one of the following applicants
+                  </legend>
                   <div class="slds-grid slds-grid_vertical">
                     <div class="slds-form-element__control">
                       <div class="">

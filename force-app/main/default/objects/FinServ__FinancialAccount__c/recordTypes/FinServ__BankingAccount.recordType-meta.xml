@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FinServ__BankingAccount</fullName>
     <active>true</active>
-    <description>Bank accounts such as savings, checking, and credit</description>
+    <description
+  >Bank accounts such as savings, checking, and credit</description>
     <label>Bank Account</label>
     <picklistValues>
         <picklist>FinServ__ClosureReason__c</picklist>

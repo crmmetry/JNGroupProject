@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>CancelEdit</actionName>
@@ -145,17 +145,26 @@
     <externalSharingModel>Read</externalSharingModel>
     <searchLayouts>
         <customTabListAdditionalFields>NAME</customTabListAdditionalFields>
-        <customTabListAdditionalFields>DESCRIPTION</customTabListAdditionalFields>
-        <customTabListAdditionalFields>CREATEDBY_USER.ALIAS</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >DESCRIPTION</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >CREATEDBY_USER.ALIAS</customTabListAdditionalFields>
         <lookupDialogsAdditionalFields>NAME</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>DESCRIPTION</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>CREATEDBY_USER.ALIAS</lookupDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>NAME</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>DESCRIPTION</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>CREATEDBY_USER.ALIAS</lookupPhoneDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >DESCRIPTION</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >CREATEDBY_USER.ALIAS</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >DESCRIPTION</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >CREATEDBY_USER.ALIAS</lookupPhoneDialogsAdditionalFields>
         <searchResultsAdditionalFields>NAME</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>DESCRIPTION</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>CREATEDBY_USER.ALIAS</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >DESCRIPTION</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >CREATEDBY_USER.ALIAS</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Read</sharingModel>
 </CustomObject>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>CancelEdit</actionName>
@@ -130,12 +130,18 @@
     <enableFeeds>false</enableFeeds>
     <externalSharingModel>Private</externalSharingModel>
     <searchLayouts>
-        <customTabListAdditionalFields>LoanApplication</customTabListAdditionalFields>
-        <customTabListAdditionalFields>LoanApplicant</customTabListAdditionalFields>
-        <customTabListAdditionalFields>HasDeclaredBankruptcy</customTabListAdditionalFields>
-        <searchResultsAdditionalFields>LoanApplication</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>LoanApplicant</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>HasDeclaredBankruptcy</searchResultsAdditionalFields>
+        <customTabListAdditionalFields
+    >LoanApplication</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >LoanApplicant</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >HasDeclaredBankruptcy</customTabListAdditionalFields>
+        <searchResultsAdditionalFields
+    >LoanApplication</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >LoanApplicant</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >HasDeclaredBankruptcy</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
 </CustomObject>

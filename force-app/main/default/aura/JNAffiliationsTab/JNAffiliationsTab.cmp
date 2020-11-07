@@ -51,7 +51,11 @@
         var="affiliate"
         indexVar="index"
       >
-        <c:JNAffiliationLayout layoutId="{!index}" aura:id="layout" leadId="{!v.leadId}" />
+        <c:JNAffiliationLayout
+          layoutId="{!index}"
+          aura:id="layout"
+          leadId="{!v.leadId}"
+        />
       </aura:iteration>
     </lightning:layoutItem>
   </lightning:layout>

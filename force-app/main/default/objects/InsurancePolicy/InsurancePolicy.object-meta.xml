@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>CancelEdit</actionName>
@@ -130,21 +130,34 @@
     <enableFeeds>false</enableFeeds>
     <externalSharingModel>Private</externalSharingModel>
     <searchLayouts>
-        <customTabListAdditionalFields>NameInsured</customTabListAdditionalFields>
-        <customTabListAdditionalFields>ExpirationDate</customTabListAdditionalFields>
-        <customTabListAdditionalFields>PremiumAmount</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >NameInsured</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >ExpirationDate</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >PremiumAmount</customTabListAdditionalFields>
         <customTabListAdditionalFields>Status</customTabListAdditionalFields>
-        <lookupDialogsAdditionalFields>NameInsured</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>ExpirationDate</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>PremiumAmount</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >NameInsured</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >ExpirationDate</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >PremiumAmount</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Status</lookupDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>NameInsured</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>ExpirationDate</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>PremiumAmount</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>Status</lookupPhoneDialogsAdditionalFields>
-        <searchResultsAdditionalFields>NameInsured</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>ExpirationDate</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>PremiumAmount</searchResultsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >NameInsured</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >ExpirationDate</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >PremiumAmount</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >Status</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields
+    >NameInsured</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >ExpirationDate</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >PremiumAmount</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Status</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>

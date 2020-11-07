@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>CancelEdit</actionName>
@@ -130,17 +130,26 @@
     <enableFeeds>false</enableFeeds>
     <externalSharingModel>ControlledByParent</externalSharingModel>
     <searchLayouts>
-        <customTabListAdditionalFields>InsurancePolicy</customTabListAdditionalFields>
-        <customTabListAdditionalFields>PrimaryParticipantAccount</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >InsurancePolicy</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >PrimaryParticipantAccount</customTabListAdditionalFields>
         <customTabListAdditionalFields>Role</customTabListAdditionalFields>
-        <lookupDialogsAdditionalFields>InsurancePolicy</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>PrimaryParticipantAccount</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >InsurancePolicy</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >PrimaryParticipantAccount</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Role</lookupDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>InsurancePolicy</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>PrimaryParticipantAccount</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>Role</lookupPhoneDialogsAdditionalFields>
-        <searchResultsAdditionalFields>InsurancePolicy</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>PrimaryParticipantAccount</searchResultsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >InsurancePolicy</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >PrimaryParticipantAccount</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >Role</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields
+    >InsurancePolicy</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >PrimaryParticipantAccount</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Role</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>

@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FinServ__IndustriesBusiness</fullName>
     <active>true</active>
-    <description>Contact data for an institution or a business account</description>
+    <description
+  >Contact data for an institution or a business account</description>
     <label>Business</label>
     <picklistValues>
         <picklist>Country_of_Citizenship__c</picklist>
@@ -463,7 +464,8 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Korea%2C Democratic People%E2%80%99s Republic of</fullName>
+            <fullName
+      >Korea%2C Democratic People%E2%80%99s Republic of</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1422,7 +1424,8 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Korea%2C Democratic People%E2%80%99s Republic of</fullName>
+            <fullName
+      >Korea%2C Democratic People%E2%80%99s Republic of</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2664,7 +2667,8 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Korea%2C Democratic People%E2%80%99s Republic of</fullName>
+            <fullName
+      >Korea%2C Democratic People%E2%80%99s Republic of</fullName>
             <default>false</default>
         </values>
         <values>

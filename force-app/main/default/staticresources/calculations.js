@@ -143,7 +143,7 @@ window.asAllValidDependencies = function (properties, parentObj) {
     }
   });
   return true;
-}
+};
 
 /**
  * calculates base GCT percentage
@@ -152,40 +152,65 @@ window.asAllValidDependencies = function (properties, parentObj) {
  */
 window.calculateGCT = function (gctPercentage) {
   return 1 + gctPercentage;
-}
+};
 /**
- * calculates 
+ * calculates
  * @param {Array<String>} properties - fields on the parent object
  * @param {Object} parentObj
  * @param {Array<String>} requiredDependencies - required fields
  * @param {Number} gct
  * @return {Boolean}
  */
-window.basicProcessingFeesCalculator = function (properties, parentObj, requiredDependencies, gct) {
-  const shouldWaiveProcessingFee = (parentObj.hasOwnProperty('waiveProcessingFeeFlag') === false || parentObj.waiveProcessingFeeFlag === true)
-  const shouldIncludeInLoanAmountFlag = parentObj.hasOwnProperty('includeInLoanAmountFlag') === true && parentObj.includeInLoanAmountFlag === true;
+window.basicProcessingFeesCalculator = function (
+  properties,
+  parentObj,
+  requiredDependencies,
+  gct
+) {
+  const shouldWaiveProcessingFee =
+    parentObj.hasOwnProperty("waiveProcessingFeeFlag") === false ||
+    parentObj.waiveProcessingFeeFlag === true;
+  const shouldIncludeInLoanAmountFlag =
+    parentObj.hasOwnProperty("includeInLoanAmountFlag") === true &&
+    parentObj.includeInLoanAmountFlag === true;
   gct = calculateGCT(gct);
   if (shouldIncludeInLoanAmountFlag) {
-    if (parentObj.processingFeePercentagePerAnum && parentObj.processingFeePercentagePerAnum >= 0) {
-      parentObj.loanAmount = ((parentObj.processingFeePercentagePerAnum / 100) * gct) * parentObj.loanAmount;
+    if (
+      parentObj.processingFeePercentagePerAnum &&
+      parentObj.processingFeePercentagePerAnum >= 0
+    ) {
+      parentObj.loanAmount =
+        (parentObj.processingFeePercentagePerAnum / 100) *
+        gct *
+        parentObj.loanAmount;
       return {
         processingFee: shouldWaiveProcessingFee ? 0 : parentObj.loanAmount,
-        monthlyProcessingFee: shouldWaiveProcessingFee ? 0 : basicPMTCalculator(properties, parentObj),
+        monthlyProcessingFee: shouldWaiveProcessingFee
+          ? 0
+          : basicPMTCalculator(properties, parentObj),
         processingFeeClosingCost: 0
       };
     } else {
       return {
         processingFee: shouldWaiveProcessingFee ? 0 : parentObj.loanAmount,
-        monthlyProcessingFee: shouldWaiveProcessingFee ? 0 : basicPMTCalculator(properties, parentObj),
+        monthlyProcessingFee: shouldWaiveProcessingFee
+          ? 0
+          : basicPMTCalculator(properties, parentObj),
         processingFeeClosingCost: 0
       };
     }
   } else {
     let processingFeeClosingCost = 0;
     if (!shouldWaiveProcessingFee) {
-      processingFeeClosingCost = ((parentObj.processingFeePercentagePerAnum / 100) * gct) * parentObj.loanAmount;
+      processingFeeClosingCost =
+        (parentObj.processingFeePercentagePerAnum / 100) *
+        gct *
+        parentObj.loanAmount;
     }
-    return { processingFee: 0, monthlyProcessingFee: 0, processingFeeClosingCost: processingFeeClosingCost };
+    return {
+      processingFee: 0,
+      monthlyProcessingFee: 0,
+      processingFeeClosingCost: processingFeeClosingCost
+    };
   }
-}
-
+};

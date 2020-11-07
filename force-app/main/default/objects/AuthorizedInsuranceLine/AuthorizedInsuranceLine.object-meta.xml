@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>CancelEdit</actionName>
@@ -130,18 +130,30 @@
     <enableFeeds>false</enableFeeds>
     <externalSharingModel>Private</externalSharingModel>
     <searchLayouts>
-        <customTabListAdditionalFields>LastModifiedDate</customTabListAdditionalFields>
-        <customTabListAdditionalFields>LastModifiedBy</customTabListAdditionalFields>
-        <customTabListAdditionalFields>LegalEntity</customTabListAdditionalFields>
-        <lookupDialogsAdditionalFields>LastModifiedDate</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>LastModifiedBy</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>LegalEntity</lookupDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>LastModifiedDate</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>LastModifiedBy</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>LegalEntity</lookupPhoneDialogsAdditionalFields>
-        <searchResultsAdditionalFields>LastModifiedDate</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>LastModifiedBy</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>LegalEntity</searchResultsAdditionalFields>
+        <customTabListAdditionalFields
+    >LastModifiedDate</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >LastModifiedBy</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >LegalEntity</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >LastModifiedDate</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >LastModifiedBy</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >LegalEntity</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >LastModifiedDate</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >LastModifiedBy</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >LegalEntity</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields
+    >LastModifiedDate</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >LastModifiedBy</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >LegalEntity</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
 </CustomObject>

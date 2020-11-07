@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <SecuritySettings xmlns="http://soap.sforce.com/2006/04/metadata">
     <canUsersGrantLoginAccess>true</canUsersGrantLoginAccess>
     <enableAdminLoginAsAnyUser>true</enableAdminLoginAsAnyUser>
@@ -27,8 +27,10 @@
         <questionRestriction>DoesNotContainPassword</questionRestriction>
     </passwordPolicies>
     <sessionSettings>
-        <allowUserAuthenticationByCertificate>false</allowUserAuthenticationByCertificate>
-        <canConfirmEmailChangeInLightningCommunities>false</canConfirmEmailChangeInLightningCommunities>
+        <allowUserAuthenticationByCertificate
+    >false</allowUserAuthenticationByCertificate>
+        <canConfirmEmailChangeInLightningCommunities
+    >false</canConfirmEmailChangeInLightningCommunities>
         <canConfirmIdentityBySmsOnly>true</canConfirmIdentityBySmsOnly>
         <disableTimeoutWarning>false</disableTimeoutWarning>
         <enableCSPOnEmail>true</enableCSPOnEmail>
@@ -37,11 +39,13 @@
         <enableCacheAndAutocomplete>false</enableCacheAndAutocomplete>
         <enableClickjackNonsetupSFDC>true</enableClickjackNonsetupSFDC>
         <enableClickjackNonsetupUser>true</enableClickjackNonsetupUser>
-        <enableClickjackNonsetupUserHeaderless>true</enableClickjackNonsetupUserHeaderless>
+        <enableClickjackNonsetupUserHeaderless
+    >true</enableClickjackNonsetupUserHeaderless>
         <enableClickjackSetup>true</enableClickjackSetup>
         <enableContentSniffingProtection>true</enableContentSniffingProtection>
         <enableLightningLogin>false</enableLightningLogin>
-        <enableLightningLoginOnlyWithUserPerm>false</enableLightningLoginOnlyWithUserPerm>
+        <enableLightningLoginOnlyWithUserPerm
+    >false</enableLightningLoginOnlyWithUserPerm>
         <enablePostForSessions>false</enablePostForSessions>
         <enableSMSIdentity>true</enableSMSIdentity>
         <enableU2F>false</enableU2F>
@@ -53,8 +57,10 @@
         <hasRetainedLoginHints>true</hasRetainedLoginHints>
         <hasUserSwitching>true</hasUserSwitching>
         <hstsOnForcecomSites>true</hstsOnForcecomSites>
-        <identityConfirmationOnEmailChange>false</identityConfirmationOnEmailChange>
-        <identityConfirmationOnTwoFactorRegistrationEnabled>true</identityConfirmationOnTwoFactorRegistrationEnabled>
+        <identityConfirmationOnEmailChange
+    >false</identityConfirmationOnEmailChange>
+        <identityConfirmationOnTwoFactorRegistrationEnabled
+    >true</identityConfirmationOnTwoFactorRegistrationEnabled>
         <lockSessionsToDomain>true</lockSessionsToDomain>
         <lockSessionsToIp>false</lockSessionsToIp>
         <lockerServiceCSP>false</lockerServiceCSP>

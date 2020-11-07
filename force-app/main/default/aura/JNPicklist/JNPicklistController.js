@@ -1,8 +1,8 @@
 ({
-  doInit: function(component, event, helper) {
+  doInit: function (component, event, helper) {
     helper.getPickListValues(component);
 
-    component.set("v.validate", function() {
+    component.set("v.validate", function () {
       let userInput = component.find("picklistChoices");
       let value = userInput.get("v.value");
       if (userInput && value === "") {
@@ -15,7 +15,7 @@
       }
     });
   },
-  setSelectedPicklist: function(component, event, helper) {
+  setSelectedPicklist: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     component.set("v.crmmObjectSelected", selected);
   }

@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FinServ__PolicyTerm__c</fullName>
     <deprecated>false</deprecated>
-    <description>Length of time the policyholder pays an insurance premium.</description>
+    <description
+  >Length of time the policyholder pays an insurance premium.</description>
     <externalId>false</externalId>
     <label>Policy Term</label>
     <required>false</required>

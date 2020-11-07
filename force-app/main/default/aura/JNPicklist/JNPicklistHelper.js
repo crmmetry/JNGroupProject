@@ -1,5 +1,5 @@
 ({
-  getPickListValues: function(component) {
+  getPickListValues: function (component) {
     const action = component.get("c.getPickListValues");
     const objName = component.get("v.crmmObjectname");
     const objField = component.get("v.crmmObjectField");
@@ -13,11 +13,13 @@
       recordTypeId: recordTypeId
     });
 
-    action.setCallback(this, function(response) {
+    action.setCallback(this, function (response) {
       const state = response.getState();
       if (state === "SUCCESS") {
         const values = response.getReturnValue();
-        component.find("picklistChoices").set("v.value", component.get("v.crmmObjectSelected"));
+        component
+          .find("picklistChoices")
+          .set("v.value", component.get("v.crmmObjectSelected"));
         component.set("v.values", values);
       }
     });

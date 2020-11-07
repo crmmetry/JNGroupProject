@@ -11,7 +11,7 @@
       componet.set("v.sobjectName", "Opportunity");
       console.log(
         "Opportunity found ===========================" +
-        componet.get("v.sobjectName")
+          componet.get("v.sobjectName")
       );
     }
   },
@@ -67,8 +67,10 @@
           Desired_Monthly_Payments__c: DesiredMonthlyPayments,
           Monthly_Gross_Income__c: MonthlyGrossIncome,
           Existing_Monthly_Payments__c: ExistingMonthlyPayments,
-          Method_Of_Calculation__c: component.find("methodCalucaltion").get("v.value") == "2" ?
-            "Desired Monthly Payment" : "Affordability"
+          Method_Of_Calculation__c:
+            component.find("methodCalucaltion").get("v.value") == "2"
+              ? "Desired Monthly Payment"
+              : "Affordability"
         };
         console.log("newLoan Affordability Calculator==>" + newLoan_Calculator);
         var dataForSave = JSON.stringify(newLoan_Calculator);
@@ -118,8 +120,10 @@
           sObject: "Loan_Calculator__c",
           Lead_and_Referral__c: leadid,
           Opportunity__c: oppid,
-          Product_Type__c: component.find("productType").get("v.value") == "1" ?
-            "Credit Card" : "Line of credit",
+          Product_Type__c:
+            component.find("productType").get("v.value") == "1"
+              ? "Credit Card"
+              : "Line of credit",
           Reqeusted_Limit__c: component
             .find("requestedlimitRCL")
             .get("v.value"),
@@ -173,8 +177,10 @@
           sObject: "Loan_Calculator__c",
           Lead_and_Referral__c: leadid,
           Opportunity__c: oppid,
-          Product_Type__c: component.find("prodTypeSecured").get("v.value") == "1" ?
-            "Credit Card" : "Line of credit",
+          Product_Type__c:
+            component.find("prodTypeSecured").get("v.value") == "1"
+              ? "Credit Card"
+              : "Line of credit",
           Collateral_Type__c: CollateralType,
           Reqeusted_Limit__c: component
             .find("requestedlimitRCLsecure")
@@ -313,32 +319,32 @@
               else cmp.find("maximumLoanamt").set("v.value", getCalc);
               break;
             }
-            case "3":
-              var isValid = helper.validateAffordabilityCalculator(
-                cmp,
-                evt,
-                acMethod
+          case "3":
+            var isValid = helper.validateAffordabilityCalculator(
+              cmp,
+              evt,
+              acMethod
+            );
+            if (isValid) {
+              console.log("Validation Fail: =====>");
+              break;
+            } else {
+              console.log("Validation Pass: =====>");
+
+              var maxpayment = acGrossIncome * 0.5 - acexistingMthlyPayment;
+              getCalc = helper.RoundTo(
+                helper.SpecialPv(maxpayment, acInterest / 12, acPeriod),
+                rounder
               );
-              if (isValid) {
-                console.log("Validation Fail: =====>");
-                break;
+              getCalc = parseFloat(getCalc);
+              if (isNaN(getCalc)) {
+                cmp.find("maximumLoanamt").set("v.value", "");
               } else {
-                console.log("Validation Pass: =====>");
-
-                var maxpayment = acGrossIncome * 0.5 - acexistingMthlyPayment;
-                getCalc = helper.RoundTo(
-                  helper.SpecialPv(maxpayment, acInterest / 12, acPeriod),
-                  rounder
-                );
-                getCalc = parseFloat(getCalc);
-                if (isNaN(getCalc)) {
-                  cmp.find("maximumLoanamt").set("v.value", "");
-                } else {
-                  cmp.find("maximumLoanamt").set("v.value", getCalc);
-                }
-
-                break;
+                cmp.find("maximumLoanamt").set("v.value", getCalc);
               }
+
+              break;
+            }
         }
 
         var acMethodCal = cmp.find("methodCalucaltion").get("v.value");
@@ -417,378 +423,382 @@
           break;
         }
 
-        case "RevolvingCreditLimitUnsecured":
-          console.log("fired");
-          helper.SetDefaultVal(cmp.find("requestedlimitRCL"), 0);
-          helper.SetDefaultVal(cmp.find("interestrateRCL"), 0);
-          helper.SetDefaultVal(cmp.find("grossmonthlyincomeRCL"), 0);
-          helper.SetDefaultVal(cmp.find("existingmonthlycreditpayment"), 0);
-          var validationArray = [cmp.find("productType")];
-          var notValid = validationArray.reduce(function (validSoFar, inputCmp) {
-            inputCmp.showHelpMessageIfInvalid();
-            return validSoFar && inputCmp.get("v.validity").valid;
-          }, true);
-          if (!notValid) {
-            return
-          }
-          helper.SetDefaultVal(cmp.find("totalmonthlyPaymentUnsecure"), 0);
-          var productType = cmp.find("productType").get("v.value");
-          var requestedlimitRCL = cmp.find("requestedlimitRCL").get("v.value");
-          var interestrateRCL = cmp.find("interestrateRCL").get("v.value");
-          var grossmonthlyincomeRCL = cmp
-            .find("grossmonthlyincomeRCL")
-            .get("v.value");
-          var existingmonthlycreditpayment = cmp
-            .find("existingmonthlycreditpayment")
-            .get("v.value");
-          var grossmonthly = cmp.find("grossmonthlyincomeRCL").get("v.value");
-          var totalmonthlyPaymentUnsecure = cmp
-            .find("totalmonthlyPaymentUnsecure")
-            .get("v.value");
-          console.log("grossmonthly " + grossmonthly);
-          console.log(productType);
-          switch (productType) {
-            case "1":
-              console.log("credit card");
-              var CardInterest = interestrateRCL / 100 / 12;
-              console.log("Card Interest " + CardInterest);
-              var MaximumDebt = grossmonthly * (TDSR / 100);
-              console.log("MaximumDebt " + MaximumDebt);
-              var MinimumPayment = MaximumDebt - existingmonthlycreditpayment;
-              console.log("MinimumPayment " + MinimumPayment);
-              //JN1-2172
-              if (grossmonthly < 250001) {
-                var maxaLimitCalc = 20.0 / 100;
-              } else {
-                var maxaLimitCalc = 30.0 / 100;
-              }
-              console.log("maxaLimitCalc " + maxaLimitCalc);
-              var monthlyPrincipal = 2.5 / 100;
-              var minimumOutstanding = CardInterest + monthlyPrincipal;
-              console.log("minimumOutstanding " + minimumOutstanding);
-              var maxmumlimit_annual = grossmonthly * 12 * maxaLimitCalc;
-              console.log("maxmumlimit_annual " + maxmumlimit_annual);
-              var maximumlimit_payment = helper.RoundTo(
-                MinimumPayment / minimumOutstanding,
-                rounder
-              );
-              console.log("maximumlimit_payment " + maximumlimit_payment);
-              var proposedLimit_beforecredit = Math.min(
-                maxmumlimit_annual,
-                maximumlimit_payment
-              );
-              console.log(
-                "proposedLimit_beforecredit " + proposedLimit_beforecredit
-              );
-              var startingCreditLimit = 66.67 / 100;
-              //JN1-2172 var proposedStartingLimit = Math.min(proposedLimit_beforecredit*startingCreditLimit,requestedlimitRCL);
+      case "RevolvingCreditLimitUnsecured":
+        console.log("fired");
+        helper.SetDefaultVal(cmp.find("requestedlimitRCL"), 0);
+        helper.SetDefaultVal(cmp.find("interestrateRCL"), 0);
+        helper.SetDefaultVal(cmp.find("grossmonthlyincomeRCL"), 0);
+        helper.SetDefaultVal(cmp.find("existingmonthlycreditpayment"), 0);
+        var validationArray = [cmp.find("productType")];
+        var notValid = validationArray.reduce(function (validSoFar, inputCmp) {
+          inputCmp.showHelpMessageIfInvalid();
+          return validSoFar && inputCmp.get("v.validity").valid;
+        }, true);
+        if (!notValid) {
+          return;
+        }
+        helper.SetDefaultVal(cmp.find("totalmonthlyPaymentUnsecure"), 0);
+        var productType = cmp.find("productType").get("v.value");
+        var requestedlimitRCL = cmp.find("requestedlimitRCL").get("v.value");
+        var interestrateRCL = cmp.find("interestrateRCL").get("v.value");
+        var grossmonthlyincomeRCL = cmp
+          .find("grossmonthlyincomeRCL")
+          .get("v.value");
+        var existingmonthlycreditpayment = cmp
+          .find("existingmonthlycreditpayment")
+          .get("v.value");
+        var grossmonthly = cmp.find("grossmonthlyincomeRCL").get("v.value");
+        var totalmonthlyPaymentUnsecure = cmp
+          .find("totalmonthlyPaymentUnsecure")
+          .get("v.value");
+        console.log("grossmonthly " + grossmonthly);
+        console.log(productType);
+        switch (productType) {
+          case "1":
+            console.log("credit card");
+            var CardInterest = interestrateRCL / 100 / 12;
+            console.log("Card Interest " + CardInterest);
+            var MaximumDebt = grossmonthly * (TDSR / 100);
+            console.log("MaximumDebt " + MaximumDebt);
+            var MinimumPayment = MaximumDebt - existingmonthlycreditpayment;
+            console.log("MinimumPayment " + MinimumPayment);
+            //JN1-2172
+            if (grossmonthly < 250001) {
+              var maxaLimitCalc = 20.0 / 100;
+            } else {
+              var maxaLimitCalc = 30.0 / 100;
+            }
+            console.log("maxaLimitCalc " + maxaLimitCalc);
+            var monthlyPrincipal = 2.5 / 100;
+            var minimumOutstanding = CardInterest + monthlyPrincipal;
+            console.log("minimumOutstanding " + minimumOutstanding);
+            var maxmumlimit_annual = grossmonthly * 12 * maxaLimitCalc;
+            console.log("maxmumlimit_annual " + maxmumlimit_annual);
+            var maximumlimit_payment = helper.RoundTo(
+              MinimumPayment / minimumOutstanding,
+              rounder
+            );
+            console.log("maximumlimit_payment " + maximumlimit_payment);
+            var proposedLimit_beforecredit = Math.min(
+              maxmumlimit_annual,
+              maximumlimit_payment
+            );
+            console.log(
+              "proposedLimit_beforecredit " + proposedLimit_beforecredit
+            );
+            var startingCreditLimit = 66.67 / 100;
+            //JN1-2172 var proposedStartingLimit = Math.min(proposedLimit_beforecredit*startingCreditLimit,requestedlimitRCL);
+            var proposedStartingLimit = helper.RoundTo(
+              Math.min(
+                proposedLimit_beforecredit * startingCreditLimit,
+                requestedlimitRCL
+              ),
+              rounder
+            ); //JN1-2172 applied round
+            if (requestedlimitRCL > 0)
               var proposedStartingLimit = helper.RoundTo(
                 Math.min(
                   proposedLimit_beforecredit * startingCreditLimit,
                   requestedlimitRCL
                 ),
                 rounder
+              );
+            //JN1-2172 applied round
+            else
+              var proposedStartingLimit = helper.RoundTo(
+                proposedLimit_beforecredit * startingCreditLimit,
+                rounder
               ); //JN1-2172 applied round
+
+            console.log("proposedStartingLimit " + proposedStartingLimit);
+            cmp
+              .find("totalmonthlyPaymentUnsecure")
+              .set("v.value", proposedStartingLimit);
+            console.log(
+              "xtotalmonthlyPaymentUnsecure: x:" + proposedStartingLimit
+            );
+            break;
+          case "2":
+            console.log("credit line");
+            var CardInterest = interestrateRCL / 100 / 12;
+            console.log("CardInterest" + CardInterest);
+            var MaximumDebt = grossmonthly * TDSR;
+            console.log("MaximumDebt" + MaximumDebt);
+            var MinimumPayment = MaximumDebt - existingmonthlycreditpayment;
+            console.log("MinimumPayment" + MinimumPayment);
+            var monthlyPrincipal = 3.0 / 100;
+            console.log("monthlyPrincipal" + monthlyPrincipal);
+            var minimumOutstanding = CardInterest + monthlyPrincipal;
+            console.log("minimumOutstanding" + minimumOutstanding);
+            var maxaLimitCalc = 30.0 / 100;
+            console.log("maxaLimitCalc" + maxaLimitCalc);
+            var maxmumlimit = grossmonthly * 12 * maxaLimitCalc;
+            console.log("maxmumlimit" + maxmumlimit);
+            var maxmumlimit_annual = grossmonthly * 12 * maxaLimitCalc;
+            console.log("maxmumlimit_annual" + maxmumlimit_annual);
+            var maximumlimit_payment = helper.RoundTo(
+              MinimumPayment / minimumOutstanding,
+              rounder
+            );
+            console.log("maximumlimit_payment" + maximumlimit_payment);
+            var proposedLimit_beforecredit = Math.min(
+              maxmumlimit_annual,
+              maximumlimit_payment
+            );
+            console.log(
+              "proposedLimit_beforecredit" + proposedLimit_beforecredit
+            );
+            var startingCreditLimit = 66.67 / 100;
+            console.log("startingCreditLimit" + startingCreditLimit);
+            var proposedStartingLimit = Math.min(
+              proposedLimit_beforecredit * startingCreditLimit,
+              requestedlimitRCL
+            );
+            if (requestedlimitRCL > 0)
+              proposedStartingLimit = Math.min(
+                proposedLimit_beforecredit * startingCreditLimit,
+                requestedlimitRCL
+              );
+            else
+              proposedStartingLimit =
+                proposedLimit_beforecredit * startingCreditLimit;
+            console.log("proposedStartingLimit" + proposedStartingLimit);
+            cmp
+              .find("totalmonthlyPaymentUnsecure")
+              .set("v.value", helper.RoundTo(proposedStartingLimit, 10000));
+            break;
+        }
+        if (
+          cmp.find("totalmonthlyPaymentUnsecure").get("v.value") > 0 &&
+          cmp.get("v.isHomePage") == "Lead"
+        ) {
+          $A.util.removeClass(cmp.find("affordablitySave"), "slds-hide");
+        } else {
+          $A.util.addClass(cmp.find("affordablitySave"), "slds-hide");
+        }
+
+        break;
+
+      case "RevolvingCreditLimitSecured":
+        helper.SetDefaultVal(cmp.find("requestedlimitRCLsecure"), 0);
+        helper.SetDefaultVal(cmp.find("interestRateprocal"), 0);
+        helper.SetDefaultVal(cmp.find("valueofSecurity"), 0);
+
+        var productType = cmp.find("prodTypeSecured").get("v.value");
+        var collateral = "";
+        var ct = cmp.find("colleteral").get("v.value");
+
+        var validationArray = [
+          cmp.find("prodTypeSecured"),
+          cmp.find("colleteral")
+        ];
+        var notValid = validationArray.reduce(function (validSoFar, inputCmp) {
+          inputCmp.showHelpMessageIfInvalid();
+          return validSoFar && inputCmp.get("v.validity").valid;
+        }, true);
+        if (!notValid) {
+          return;
+        }
+        helper.SetDefaultVal(cmp.find("proposeStartingLimit"), 0);
+        switch (ct) {
+          case "1":
+            collateral = "95";
+            break;
+          case "2":
+            collateral = "95";
+            break;
+          case "3":
+            collateral = "90";
+            break;
+          case "4":
+            collateral = "50";
+            break;
+          case "5":
+            collateral = "70";
+            break;
+        }
+        console.log("collateral=" + collateral);
+        var requestedlimitRCL = cmp
+          .find("requestedlimitRCLsecure")
+          .get("v.value");
+        var interestrateRCL = cmp.find("interestRateprocal").get("v.value");
+        var valueofSecurity = cmp.find("valueofSecurity").get("v.value");
+        var existingmonthlycreditpayment = cmp
+          .find("existingmonthlycreditpayment")
+          .get("v.value");
+
+        switch (productType) {
+          case "1":
+            console.log("credit line");
+            var maximumLineofCredit = 0;
+
+            var CardInterest = interestrateRCL / 100 / 12;
+            console.log("Card Interest " + CardInterest);
+            // var MinimumPayment = MaximumDebt - existingmonthlycreditpayment;
+            //console.log("MinimumPayment "+MinimumPayment);
+            var MaximumlimitCalc_accountbal = collateral / 100;
+            console.log(
+              "MaximumlimitCalc_accountbal " + MaximumlimitCalc_accountbal
+            );
+            var monthlyPrincpalPayment = 2.5 / 100;
+            console.log("monthlyPrincpalPayment " + monthlyPrincpalPayment);
+            var MinpaymentOfOutstandingBalance =
+              CardInterest + monthlyPrincpalPayment;
+            console.log(
+              "MinpaymentOfOutstandingBalance " + MinpaymentOfOutstandingBalance
+            );
+            var MaximumLoanPosssible =
+              MaximumlimitCalc_accountbal * valueofSecurity;
+            console.log("MaximumLoanPosssible " + MaximumLoanPosssible);
+            var maximumlimit_payment = helper.RoundTo(
+              MaximumLoanPosssible / MinpaymentOfOutstandingBalance,
+              rounder
+            );
+            console.log("maximumlimit_payment " + maximumlimit_payment);
+            var proposedLimit_beforecredit = Math.min(
+              MaximumLoanPosssible,
+              maximumlimit_payment
+            );
+            console.log(
+              "proposedLimit_beforecredit " + proposedLimit_beforecredit
+            );
+            var startingCreditLimit = 66.67 / 100;
+            if (collateral == "70") {
+              var proposedStartingLimit = Math.min(
+                proposedLimit_beforecredit,
+                maximumLineofCredit,
+                requestedlimitRCL
+              );
               if (requestedlimitRCL > 0)
-                var proposedStartingLimit = helper.RoundTo(
+                proposedStartingLimit = helper.RoundTo(
                   Math.min(
-                    proposedLimit_beforecredit * startingCreditLimit,
+                    proposedLimit_beforecredit,
+                    maximumLineofCredit,
                     requestedlimitRCL
                   ),
                   rounder
                 );
-              //JN1-2172 applied round
               else
-                var proposedStartingLimit = helper.RoundTo(
-                  proposedLimit_beforecredit * startingCreditLimit,
+                proposedStartingLimit = helper.RoundTo(
+                  proposedLimit_beforecredit,
                   rounder
-                ); //JN1-2172 applied round
-
-              console.log("proposedStartingLimit " + proposedStartingLimit);
-              cmp
-                .find("totalmonthlyPaymentUnsecure")
-                .set("v.value", proposedStartingLimit);
-              console.log(
-                "xtotalmonthlyPaymentUnsecure: x:" + proposedStartingLimit
-              );
-              break;
-            case "2":
-              console.log("credit line");
-              var CardInterest = interestrateRCL / 100 / 12;
-              console.log("CardInterest" + CardInterest);
-              var MaximumDebt = grossmonthly * TDSR;
-              console.log("MaximumDebt" + MaximumDebt);
-              var MinimumPayment = MaximumDebt - existingmonthlycreditpayment;
-              console.log("MinimumPayment" + MinimumPayment);
-              var monthlyPrincipal = 3.0 / 100;
-              console.log("monthlyPrincipal" + monthlyPrincipal);
-              var minimumOutstanding = CardInterest + monthlyPrincipal;
-              console.log("minimumOutstanding" + minimumOutstanding);
-              var maxaLimitCalc = 30.0 / 100;
-              console.log("maxaLimitCalc" + maxaLimitCalc);
-              var maxmumlimit = grossmonthly * 12 * maxaLimitCalc;
-              console.log("maxmumlimit" + maxmumlimit);
-              var maxmumlimit_annual = grossmonthly * 12 * maxaLimitCalc;
-              console.log("maxmumlimit_annual" + maxmumlimit_annual);
-              var maximumlimit_payment = helper.RoundTo(
-                MinimumPayment / minimumOutstanding,
-                rounder
-              );
-              console.log("maximumlimit_payment" + maximumlimit_payment);
-              var proposedLimit_beforecredit = Math.min(
-                maxmumlimit_annual,
-                maximumlimit_payment
-              );
-              console.log(
-                "proposedLimit_beforecredit" + proposedLimit_beforecredit
-              );
-              var startingCreditLimit = 66.67 / 100;
-              console.log("startingCreditLimit" + startingCreditLimit);
+                );
+            } else {
               var proposedStartingLimit = Math.min(
-                proposedLimit_beforecredit * startingCreditLimit,
+                proposedLimit_beforecredit,
                 requestedlimitRCL
               );
               if (requestedlimitRCL > 0)
-                proposedStartingLimit = Math.min(
-                  proposedLimit_beforecredit * startingCreditLimit,
-                  requestedlimitRCL
+                proposedStartingLimit = helper.RoundTo(
+                  Math.min(proposedLimit_beforecredit, requestedlimitRCL),
+                  rounder
                 );
               else
-                proposedStartingLimit =
-                proposedLimit_beforecredit * startingCreditLimit;
-              console.log("proposedStartingLimit" + proposedStartingLimit);
-              cmp
-                .find("totalmonthlyPaymentUnsecure")
-                .set("v.value", helper.RoundTo(proposedStartingLimit, 10000));
-              break;
-          }
-          if (cmp.find("totalmonthlyPaymentUnsecure").get("v.value") > 0 &&
-             cmp.get("v.isHomePage") == "Lead") {
-            $A.util.removeClass(cmp.find("affordablitySave"), "slds-hide");
-          } else {
-            $A.util.addClass(cmp.find("affordablitySave"), "slds-hide");
-          }
-
-          break;
-
-        case "RevolvingCreditLimitSecured":
-          helper.SetDefaultVal(cmp.find("requestedlimitRCLsecure"), 0);
-          helper.SetDefaultVal(cmp.find("interestRateprocal"), 0);
-          helper.SetDefaultVal(cmp.find("valueofSecurity"), 0);
-
-          var productType = cmp.find("prodTypeSecured").get("v.value");
-          var collateral = "";
-          var ct = cmp.find("colleteral").get("v.value");
-
-          var validationArray = [
-            cmp.find("prodTypeSecured"),
-            cmp.find("colleteral")
-          ];
-          var notValid = validationArray.reduce(function (validSoFar, inputCmp) {
-            inputCmp.showHelpMessageIfInvalid();
-            return validSoFar && inputCmp.get("v.validity").valid;
-          }, true);
-          if (!notValid) {
-            return
-          }
-          helper.SetDefaultVal(cmp.find("proposeStartingLimit"), 0);
-          switch (ct) {
-            case "1":
-              collateral = "95";
-              break;
-            case "2":
-              collateral = "95";
-              break;
-            case "3":
-              collateral = "90";
-              break;
-            case "4":
-              collateral = "50";
-              break;
-            case "5":
-              collateral = "70";
-              break;
-          }
-          console.log("collateral=" + collateral);
-          var requestedlimitRCL = cmp
-            .find("requestedlimitRCLsecure")
-            .get("v.value");
-          var interestrateRCL = cmp.find("interestRateprocal").get("v.value");
-          var valueofSecurity = cmp.find("valueofSecurity").get("v.value");
-          var existingmonthlycreditpayment = cmp
-            .find("existingmonthlycreditpayment")
-            .get("v.value");
-
-          switch (productType) {
-            case "1":
-              console.log("credit line");
-              var maximumLineofCredit = 0;
-
-              var CardInterest = interestrateRCL / 100 / 12;
-              console.log("Card Interest " + CardInterest);
-              // var MinimumPayment = MaximumDebt - existingmonthlycreditpayment;
-              //console.log("MinimumPayment "+MinimumPayment);
-              var MaximumlimitCalc_accountbal = collateral / 100;
-              console.log(
-                "MaximumlimitCalc_accountbal " + MaximumlimitCalc_accountbal
-              );
-              var monthlyPrincpalPayment = 2.5 / 100;
-              console.log("monthlyPrincpalPayment " + monthlyPrincpalPayment);
-              var MinpaymentOfOutstandingBalance =
-                CardInterest + monthlyPrincpalPayment;
-              console.log(
-                "MinpaymentOfOutstandingBalance " + MinpaymentOfOutstandingBalance
-              );
-              var MaximumLoanPosssible =
-                MaximumlimitCalc_accountbal * valueofSecurity;
-              console.log("MaximumLoanPosssible " + MaximumLoanPosssible);
-              var maximumlimit_payment = helper.RoundTo(
-                MaximumLoanPosssible / MinpaymentOfOutstandingBalance,
-                rounder
-              );
-              console.log("maximumlimit_payment " + maximumlimit_payment);
-              var proposedLimit_beforecredit = Math.min(
-                MaximumLoanPosssible,
-                maximumlimit_payment
-              );
-              console.log(
-                "proposedLimit_beforecredit " + proposedLimit_beforecredit
-              );
-              var startingCreditLimit = 66.67 / 100;
-              if (collateral == "70") {
-                var proposedStartingLimit = Math.min(
+                proposedStartingLimit = helper.RoundTo(
                   proposedLimit_beforecredit,
-                  maximumLineofCredit,
-                  requestedlimitRCL
+                  rounder
                 );
-                if (requestedlimitRCL > 0)
-                  proposedStartingLimit = helper.RoundTo(
-                    Math.min(
-                      proposedLimit_beforecredit,
-                      maximumLineofCredit,
-                      requestedlimitRCL
-                    ),
-                    rounder
-                  );
-                else
-                  proposedStartingLimit = helper.RoundTo(
-                    proposedLimit_beforecredit,
-                    rounder
-                  );
-              } else {
-                var proposedStartingLimit = Math.min(
-                  proposedLimit_beforecredit,
-                  requestedlimitRCL
-                );
-                if (requestedlimitRCL > 0)
-                  proposedStartingLimit = helper.RoundTo(
-                    Math.min(proposedLimit_beforecredit, requestedlimitRCL),
-                    rounder
-                  );
-                else
-                  proposedStartingLimit = helper.RoundTo(
-                    proposedLimit_beforecredit,
-                    rounder
-                  );
-              }
-              console.log("proposeStartingLimit " + proposedStartingLimit);
-              cmp
-                .find("proposeStartingLimit")
-                .set("v.value", proposedStartingLimit);
-              console.log("proposeStartingLimit: x:" + proposedStartingLimit);
-              break;
-            case "2":
-              console.log("Line of credit");
-              var maximumLineofCredit = 5000000;
+            }
+            console.log("proposeStartingLimit " + proposedStartingLimit);
+            cmp
+              .find("proposeStartingLimit")
+              .set("v.value", proposedStartingLimit);
+            console.log("proposeStartingLimit: x:" + proposedStartingLimit);
+            break;
+          case "2":
+            console.log("Line of credit");
+            var maximumLineofCredit = 5000000;
 
-              var CardInterest = interestrateRCL / 100 / 12;
-              console.log("Card Interest " + CardInterest);
-              var MinimumPayment = MaximumDebt - existingmonthlycreditpayment;
-              console.log("MinimumPayment " + MinimumPayment);
-              var MaximumlimitCalc_accountbal = collateral / 100;
-              console.log(
-                "MaximumlimitCalc_accountbal " + MaximumlimitCalc_accountbal
-              );
-              var monthlyPrincpalPayment = 3.0 / 100;
-              console.log("monthlyPrincpalPayment " + monthlyPrincpalPayment);
-              var MinpaymentOfOutstandingBalance =
-                parseFloat(CardInterest) + parseFloat(monthlyPrincpalPayment);
-              console.log(
-                "MinpaymentOfOutstandingBalance " + MinpaymentOfOutstandingBalance
-              );
-              //var MaximumLoanPosssible = (parseFloat(MaximumlimitCalc_accountbal)+parseFloat(valueofSecurity));
-              var MaximumLoanPosssible =
-                parseFloat(MaximumlimitCalc_accountbal) *
-                parseFloat(valueofSecurity); //Updated by NS
-              console.log("MaximumLoanPosssible " + MaximumLoanPosssible);
-              //var maximumlimit_payment=helper.RoundTo((parseFloat(MinimuMaximumLoanPosssiblemPayment)/parseFloat(MinpaymentOfOutstandingBalance)),10000);
-              var maximumlimit_payment = helper.RoundTo(
-                parseFloat(MaximumLoanPosssible) /
+            var CardInterest = interestrateRCL / 100 / 12;
+            console.log("Card Interest " + CardInterest);
+            var MinimumPayment = MaximumDebt - existingmonthlycreditpayment;
+            console.log("MinimumPayment " + MinimumPayment);
+            var MaximumlimitCalc_accountbal = collateral / 100;
+            console.log(
+              "MaximumlimitCalc_accountbal " + MaximumlimitCalc_accountbal
+            );
+            var monthlyPrincpalPayment = 3.0 / 100;
+            console.log("monthlyPrincpalPayment " + monthlyPrincpalPayment);
+            var MinpaymentOfOutstandingBalance =
+              parseFloat(CardInterest) + parseFloat(monthlyPrincpalPayment);
+            console.log(
+              "MinpaymentOfOutstandingBalance " + MinpaymentOfOutstandingBalance
+            );
+            //var MaximumLoanPosssible = (parseFloat(MaximumlimitCalc_accountbal)+parseFloat(valueofSecurity));
+            var MaximumLoanPosssible =
+              parseFloat(MaximumlimitCalc_accountbal) *
+              parseFloat(valueofSecurity); //Updated by NS
+            console.log("MaximumLoanPosssible " + MaximumLoanPosssible);
+            //var maximumlimit_payment=helper.RoundTo((parseFloat(MinimuMaximumLoanPosssiblemPayment)/parseFloat(MinpaymentOfOutstandingBalance)),10000);
+            var maximumlimit_payment = helper.RoundTo(
+              parseFloat(MaximumLoanPosssible) /
                 parseFloat(MinpaymentOfOutstandingBalance),
-                rounder
-              ); //Updated by NS
-              console.log("maximumlimit_payment " + maximumlimit_payment);
-              var proposedLimit_beforecredit = Math.min(
-                MaximumLoanPosssible,
-                maximumlimit_payment
+              rounder
+            ); //Updated by NS
+            console.log("maximumlimit_payment " + maximumlimit_payment);
+            var proposedLimit_beforecredit = Math.min(
+              MaximumLoanPosssible,
+              maximumlimit_payment
+            );
+            console.log(
+              "proposedLimit_beforecredit " + proposedLimit_beforecredit
+            );
+            var startingCreditLimit = 66.67 / 100;
+            if (collateral == "70") {
+              var proposedStartingLimit = Math.min(
+                proposedLimit_beforecredit,
+                maximumLineofCredit,
+                requestedlimitRCL
               );
-              console.log(
-                "proposedLimit_beforecredit " + proposedLimit_beforecredit
+              if (requestedlimitRCL > 0)
+                proposedStartingLimit = helper.RoundTo(
+                  Math.min(
+                    proposedLimit_beforecredit,
+                    maximumLineofCredit,
+                    requestedlimitRCL
+                  ),
+                  rounder
+                );
+              else
+                proposedStartingLimit = helper.RoundTo(
+                  proposedLimit_beforecredit,
+                  rounder
+                );
+            } else {
+              var proposedStartingLimit = Math.min(
+                proposedLimit_beforecredit,
+                requestedlimitRCL
               );
-              var startingCreditLimit = 66.67 / 100;
-              if (collateral == "70") {
-                var proposedStartingLimit = Math.min(
-                  proposedLimit_beforecredit,
-                  maximumLineofCredit,
-                  requestedlimitRCL
+              if (requestedlimitRCL > 0)
+                proposedStartingLimit = helper.RoundTo(
+                  Math.min(proposedLimit_beforecredit, requestedlimitRCL),
+                  rounder
                 );
-                if (requestedlimitRCL > 0)
-                  proposedStartingLimit = helper.RoundTo(
-                    Math.min(
-                      proposedLimit_beforecredit,
-                      maximumLineofCredit,
-                      requestedlimitRCL
-                    ),
-                    rounder
-                  );
-                else
-                  proposedStartingLimit = helper.RoundTo(
-                    proposedLimit_beforecredit,
-                    rounder
-                  );
-              } else {
-                var proposedStartingLimit = Math.min(
+              else
+                proposedStartingLimit = helper.RoundTo(
                   proposedLimit_beforecredit,
-                  requestedlimitRCL
+                  rounder
                 );
-                if (requestedlimitRCL > 0)
-                  proposedStartingLimit = helper.RoundTo(
-                    Math.min(proposedLimit_beforecredit, requestedlimitRCL),
-                    rounder
-                  );
-                else
-                  proposedStartingLimit = helper.RoundTo(
-                    proposedLimit_beforecredit,
-                    rounder
-                  );
-              }
-              console.log("proposedStartingLimit " + proposedStartingLimit);
-              cmp
-                .find("proposeStartingLimit")
-                .set("v.value", proposedStartingLimit);
-              console.log("proposeStartingLimit: x:" + proposedStartingLimit);
-              break;
-          }
-          if (cmp.find("proposeStartingLimit").get("v.value") > 0 &&
-              cmp.get("v.isHomePage") == "Lead") {
-            $A.util.removeClass(cmp.find("affordablitySave"), "slds-hide");
-          } else {
-            $A.util.addClass(cmp.find("affordablitySave"), "slds-hide");
-          }
+            }
+            console.log("proposedStartingLimit " + proposedStartingLimit);
+            cmp
+              .find("proposeStartingLimit")
+              .set("v.value", proposedStartingLimit);
+            console.log("proposeStartingLimit: x:" + proposedStartingLimit);
+            break;
+        }
+        if (
+          cmp.find("proposeStartingLimit").get("v.value") > 0 &&
+          cmp.get("v.isHomePage") == "Lead"
+        ) {
+          $A.util.removeClass(cmp.find("affordablitySave"), "slds-hide");
+        } else {
+          $A.util.addClass(cmp.find("affordablitySave"), "slds-hide");
+        }
 
-          break;
-        case "MultiProductCalculator":
-          break;
+        break;
+      case "MultiProductCalculator":
+        break;
     }
   }
 });

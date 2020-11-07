@@ -43,15 +43,20 @@
     component.set("v.CreditRepayment", creditRepaymentMap);
   },
   onCreditRepaymentChange: function (component, event, helper) {
-      const data = Object.assign(
-        component.get("v.CreditRepaymentContainer"),
-        component.get("v.CreditRepayment")
-      );
-      component.set("v.CreditRepaymentContainer", data);
-      helper.toggleShowIndicateApplicableProcessingFees(component, component.get("v.CreditRepayment"));
-      helper.toggleShowIncludeInLoanAmount(component, component.get("v.CreditRepayment"));
-      helper.resetProcessingFieldsValues(data, component);
-    
+    const data = Object.assign(
+      component.get("v.CreditRepaymentContainer"),
+      component.get("v.CreditRepayment")
+    );
+    component.set("v.CreditRepaymentContainer", data);
+    helper.toggleShowIndicateApplicableProcessingFees(
+      component,
+      component.get("v.CreditRepayment")
+    );
+    helper.toggleShowIncludeInLoanAmount(
+      component,
+      component.get("v.CreditRepayment")
+    );
+    helper.resetProcessingFieldsValues(data, component);
   },
 
   onIncludePremiumChange: function (component, event, helper) {
@@ -80,14 +85,14 @@
   onWaiveProcessingFeeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let creditRepaymentMap = component.get("v.CreditRepayment");
-    creditRepaymentMap.waiveProcessingFeeFlag = (selected === 'Yes');
+    creditRepaymentMap.waiveProcessingFeeFlag = selected === "Yes";
     component.set("v.CreditRepayment", creditRepaymentMap);
   },
 
   onIncludeWaiveProcessingFeeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let creditRepaymentMap = component.get("v.CreditRepayment");
-    creditRepaymentMap.includeInLoanAmountFlag = (selected === 'Yes');
+    creditRepaymentMap.includeInLoanAmountFlag = selected === "Yes";
     component.set("v.CreditRepayment", creditRepaymentMap);
   },
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
     <excludeButtons>DataDotComAccountInsights</excludeButtons>
     <excludeButtons>DataDotComClean</excludeButtons>
@@ -404,7 +404,7 @@
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
         <label>Description Information</label>
-        <layoutColumns/>
+        <layoutColumns />
         <style>OneColumn</style>
     </layoutSections>
     <layoutSections>
@@ -412,9 +412,9 @@
         <detailHeading>true</detailHeading>
         <editHeading>false</editHeading>
         <label>Custom Links</label>
-        <layoutColumns/>
-        <layoutColumns/>
-        <layoutColumns/>
+        <layoutColumns />
+        <layoutColumns />
+        <layoutColumns />
         <style>CustomLinks</style>
     </layoutSections>
     <platformActionList>
@@ -629,7 +629,8 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
-        <relatedList>FinServ__ContactContactRelation__c.FinServ__RelatedContact__c</relatedList>
+        <relatedList
+    >FinServ__ContactContactRelation__c.FinServ__RelatedContact__c</relatedList>
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedFileList</relatedList>
@@ -655,7 +656,8 @@
         <fields>FinServ__Description__c</fields>
         <fields>FinServ__AssetsAndLiabilitiesType__c</fields>
         <fields>FinServ__Amount__c</fields>
-        <relatedList>FinServ__AssetsAndLiabilities__c.FinServ__PrimaryOwner__c</relatedList>
+        <relatedList
+    >FinServ__AssetsAndLiabilities__c.FinServ__PrimaryOwner__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>

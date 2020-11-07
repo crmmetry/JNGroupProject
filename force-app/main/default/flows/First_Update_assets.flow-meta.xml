@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <decisions>
         <name>isChangedDecision12_myRule_11_Type_of_Loan_c</name>
@@ -6,7 +6,8 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>isChangedDecision15_myRule_14_Type_of_Loan_c</targetReference>
+            <targetReference
+      >isChangedDecision15_myRule_14_Type_of_Loan_c</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
@@ -20,14 +21,17 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>myVariable_old.Assets_and_Liabilities__r.Type_of_Loan__c</leftValueReference>
+                <leftValueReference
+        >myVariable_old.Assets_and_Liabilities__r.Type_of_Loan__c</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <elementReference>myVariable_current.Assets_and_Liabilities__r.Type_of_Loan__c</elementReference>
+                    <elementReference
+          >myVariable_current.Assets_and_Liabilities__r.Type_of_Loan__c</elementReference>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>isChangedDecision15_myRule_14_Type_of_Loan_c</targetReference>
+                <targetReference
+        >isChangedDecision15_myRule_14_Type_of_Loan_c</targetReference>
             </connector>
             <label>isChangedRule_12_myRule_11_Type_of_Loan_c</label>
         </rules>
@@ -38,7 +42,8 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>isChangedDecision26_myRule_25_Type_of_Loan_c</targetReference>
+            <targetReference
+      >isChangedDecision26_myRule_25_Type_of_Loan_c</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
@@ -52,14 +57,17 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>myVariable_old.Assets_and_Liabilities__r.Type_of_Loan__c</leftValueReference>
+                <leftValueReference
+        >myVariable_old.Assets_and_Liabilities__r.Type_of_Loan__c</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <elementReference>myVariable_current.Assets_and_Liabilities__r.Type_of_Loan__c</elementReference>
+                    <elementReference
+          >myVariable_current.Assets_and_Liabilities__r.Type_of_Loan__c</elementReference>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>isChangedDecision26_myRule_25_Type_of_Loan_c</targetReference>
+                <targetReference
+        >isChangedDecision26_myRule_25_Type_of_Loan_c</targetReference>
             </connector>
             <label>isChangedRule_15_myRule_14_Type_of_Loan_c</label>
         </rules>
@@ -70,7 +78,8 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>isChangedDecision29_myRule_28_Type_of_Loan_c</targetReference>
+            <targetReference
+      >isChangedDecision29_myRule_28_Type_of_Loan_c</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
@@ -84,14 +93,17 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>myVariable_old.Assets_and_Liabilities__r.Type_of_Loan__c</leftValueReference>
+                <leftValueReference
+        >myVariable_old.Assets_and_Liabilities__r.Type_of_Loan__c</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <elementReference>myVariable_current.Assets_and_Liabilities__r.Type_of_Loan__c</elementReference>
+                    <elementReference
+          >myVariable_current.Assets_and_Liabilities__r.Type_of_Loan__c</elementReference>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>isChangedDecision29_myRule_28_Type_of_Loan_c</targetReference>
+                <targetReference
+        >isChangedDecision29_myRule_28_Type_of_Loan_c</targetReference>
             </connector>
             <label>isChangedRule_26_myRule_25_Type_of_Loan_c</label>
         </rules>
@@ -116,10 +128,12 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>myVariable_old.Assets_and_Liabilities__r.Type_of_Loan__c</leftValueReference>
+                <leftValueReference
+        >myVariable_old.Assets_and_Liabilities__r.Type_of_Loan__c</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <elementReference>myVariable_current.Assets_and_Liabilities__r.Type_of_Loan__c</elementReference>
+                    <elementReference
+          >myVariable_current.Assets_and_Liabilities__r.Type_of_Loan__c</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -134,7 +148,8 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>isChangedDecision12_myRule_11_Type_of_Loan_c</targetReference>
+            <targetReference
+      >isChangedDecision12_myRule_11_Type_of_Loan_c</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
@@ -148,14 +163,17 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>myVariable_old.Assets_and_Liabilities__r.Type_of_Loan__c</leftValueReference>
+                <leftValueReference
+        >myVariable_old.Assets_and_Liabilities__r.Type_of_Loan__c</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <elementReference>myVariable_current.Assets_and_Liabilities__r.Type_of_Loan__c</elementReference>
+                    <elementReference
+          >myVariable_current.Assets_and_Liabilities__r.Type_of_Loan__c</elementReference>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>isChangedDecision12_myRule_11_Type_of_Loan_c</targetReference>
+                <targetReference
+        >isChangedDecision12_myRule_11_Type_of_Loan_c</targetReference>
             </connector>
             <label>isChangedRule_9_myRule_8_Type_of_Loan_c</label>
         </rules>
@@ -203,7 +221,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Treatment_of_Credit__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Treatment_of_Credit__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Repay</stringValue>
@@ -234,7 +253,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Short_Summary_of_Income</stringValue>
@@ -265,7 +285,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Lines_of_Credit</stringValue>
@@ -296,7 +317,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Credit_Cards</stringValue>
@@ -325,7 +347,8 @@
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
             <name>myRule_11</name>
-            <conditionLogic>1 AND 3 AND 4 AND 5 AND 7 AND (8 OR 9 OR 10 OR 11) AND (2 OR 6)</conditionLogic>
+            <conditionLogic
+      >1 AND 3 AND 4 AND 5 AND 7 AND (8 OR 9 OR 10 OR 11) AND (2 OR 6)</conditionLogic>
             <conditions>
                 <processMetadataValues>
                     <name>inputDataType</name>
@@ -351,7 +374,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Short_Summary_of_Income</stringValue>
@@ -382,7 +406,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.Total_Market_Value__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.Total_Market_Value__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -413,7 +438,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.Lender__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.Lender__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -444,7 +470,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Loan_Balance_Prior__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Loan_Balance_Prior__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -475,7 +502,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Monthly_Payment_Prior__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Monthly_Payment_Prior__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -506,7 +534,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>isChangedRule_12_myRule_11_Type_of_Loan_c</leftValueReference>
+                <leftValueReference
+        >isChangedRule_12_myRule_11_Type_of_Loan_c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -537,7 +566,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Treatment_of_Credit__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Treatment_of_Credit__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Repay</stringValue>
@@ -568,7 +598,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Motor_Vehicle</stringValue>
@@ -599,7 +630,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Real_Estate</stringValue>
@@ -630,7 +662,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Other_Assets</stringValue>
@@ -661,7 +694,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Other_Loans</stringValue>
@@ -690,7 +724,8 @@
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
             <name>myRule_14</name>
-            <conditionLogic>2 AND 5 AND 6 AND 7 AND 1 AND (8 OR 9 OR 10 OR 11) AND (4 OR 3)</conditionLogic>
+            <conditionLogic
+      >2 AND 5 AND 6 AND 7 AND 1 AND (8 OR 9 OR 10 OR 11) AND (4 OR 3)</conditionLogic>
             <conditions>
                 <processMetadataValues>
                     <name>inputDataType</name>
@@ -716,7 +751,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Treatment_of_Credit__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Treatment_of_Credit__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Close</stringValue>
@@ -747,7 +783,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Short_Summary_of_Income</stringValue>
@@ -778,7 +815,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>isChangedRule_15_myRule_14_Type_of_Loan_c</leftValueReference>
+                <leftValueReference
+        >isChangedRule_15_myRule_14_Type_of_Loan_c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -809,7 +847,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.Total_Market_Value__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.Total_Market_Value__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -840,7 +879,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.Lender__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.Lender__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -871,7 +911,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Loan_Balance_Prior__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Loan_Balance_Prior__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -902,7 +943,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Monthly_Payment_Prior__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Monthly_Payment_Prior__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -933,7 +975,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Motor_Vehicle</stringValue>
@@ -964,7 +1007,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Real_Estate</stringValue>
@@ -995,7 +1039,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Other_Assets</stringValue>
@@ -1026,7 +1071,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Other_Loans</stringValue>
@@ -1081,7 +1127,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Treatment_of_Credit__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Treatment_of_Credit__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Repay</stringValue>
@@ -1112,10 +1159,12 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>Full_Details_Of_Income_Living_Expenses</stringValue>
+                    <stringValue
+          >Full_Details_Of_Income_Living_Expenses</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
@@ -1143,7 +1192,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Credit_Cards</stringValue>
@@ -1174,7 +1224,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Lines_of_Credit</stringValue>
@@ -1229,7 +1280,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Treatment_of_Credit__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Treatment_of_Credit__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Close</stringValue>
@@ -1260,10 +1312,12 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>Full_Details_Of_Income_Living_Expenses</stringValue>
+                    <stringValue
+          >Full_Details_Of_Income_Living_Expenses</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
@@ -1291,7 +1345,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Credit_Cards</stringValue>
@@ -1322,7 +1377,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Lines_of_Credit</stringValue>
@@ -1377,7 +1433,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Loan_Repaid_From_Facility__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Loan_Repaid_From_Facility__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -1408,7 +1465,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Lien_on_Asset__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Lien_on_Asset__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -1439,10 +1497,12 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>Full_Details_Of_Income_Living_Expenses</stringValue>
+                    <stringValue
+          >Full_Details_Of_Income_Living_Expenses</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
@@ -1470,7 +1530,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Motor_Vehicle</stringValue>
@@ -1501,7 +1562,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Real_Estate</stringValue>
@@ -1532,7 +1594,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Other_Assets</stringValue>
@@ -1587,7 +1650,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Loan_Repaid_From_Facility__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Loan_Repaid_From_Facility__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -1618,7 +1682,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Lien_on_Asset__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Lien_on_Asset__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -1649,10 +1714,12 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>Full_Details_Of_Income_Living_Expenses</stringValue>
+                    <stringValue
+          >Full_Details_Of_Income_Living_Expenses</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
@@ -1680,7 +1747,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Real_Estate</stringValue>
@@ -1711,7 +1779,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Motor_Vehicle</stringValue>
@@ -1742,7 +1811,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Other_Assets</stringValue>
@@ -1797,7 +1867,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Full_Details_Of_Income</stringValue>
@@ -1828,7 +1899,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>isChangedRule_26_myRule_25_Type_of_Loan_c</leftValueReference>
+                <leftValueReference
+        >isChangedRule_26_myRule_25_Type_of_Loan_c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -1859,7 +1931,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Loan_Repaid_From_Facility__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Loan_Repaid_From_Facility__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -1890,7 +1963,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Other_Assets</stringValue>
@@ -1942,7 +2016,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Full_Details_Of_Income</stringValue>
@@ -1973,7 +2048,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>isChangedRule_29_myRule_28_Type_of_Loan_c</leftValueReference>
+                <leftValueReference
+        >isChangedRule_29_myRule_28_Type_of_Loan_c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -2004,7 +2080,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Other_Assets</stringValue>
@@ -2035,7 +2112,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.Loan_Repaid_from_Facility__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.Loan_Repaid_from_Facility__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -2090,7 +2168,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Treatment_of_Credit__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Treatment_of_Credit__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Close</stringValue>
@@ -2121,7 +2200,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Short_Summary_of_Income</stringValue>
@@ -2152,7 +2232,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Lines_of_Credit</stringValue>
@@ -2183,7 +2264,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Credit_Cards</stringValue>
@@ -2238,7 +2320,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Treatment_of_Credit__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Treatment_of_Credit__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Will Remain</stringValue>
@@ -2269,7 +2352,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Short_Summary_of_Income</stringValue>
@@ -2300,7 +2384,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Lines_of_Credit</stringValue>
@@ -2331,7 +2416,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Credit_Cards</stringValue>
@@ -2360,7 +2446,8 @@
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
             <name>myRule_8</name>
-            <conditionLogic>1 AND 2 AND 5 AND 6 AND 7 AND ( 8 OR 9 OR 10 OR 11) AND (4 OR 3)</conditionLogic>
+            <conditionLogic
+      >1 AND 2 AND 5 AND 6 AND 7 AND ( 8 OR 9 OR 10 OR 11) AND (4 OR 3)</conditionLogic>
             <conditions>
                 <processMetadataValues>
                     <name>inputDataType</name>
@@ -2386,7 +2473,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Treatment_of_Credit__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Treatment_of_Credit__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Will Remain</stringValue>
@@ -2417,7 +2505,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Application__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Short_Summary_of_Income</stringValue>
@@ -2448,7 +2537,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>isChangedRule_9_myRule_8_Type_of_Loan_c</leftValueReference>
+                <leftValueReference
+        >isChangedRule_9_myRule_8_Type_of_Loan_c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -2479,7 +2569,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.Total_Market_Value__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.Total_Market_Value__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -2510,7 +2601,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.Lender__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.Lender__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -2541,7 +2633,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Loan_Balance_Prior__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Loan_Balance_Prior__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -2572,7 +2665,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Monthly_Payment_Prior__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Monthly_Payment_Prior__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -2603,7 +2697,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Motor_Vehicle</stringValue>
@@ -2634,7 +2729,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Real_Estate</stringValue>
@@ -2665,7 +2761,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Other_Assets</stringValue>
@@ -2696,7 +2793,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Other_Loans</stringValue>
@@ -2708,17 +2806,20 @@
             <label>Summary Loans - Will Remain</label>
         </rules>
     </decisions>
-    <description>Update After - Final-ish-ish-ish Validated with Marissa</description>
+    <description
+  >Update After - Final-ish-ish-ish Validated with Marissa</description>
     <formulas>
         <processMetadataValues>
             <name>originalFormula</name>
             <value>
-                <stringValue>[Application_Asset_Liability__c].Assets_and_Liabilities__c.Average_Monthly_Usage__c  * 0.05</stringValue>
+                <stringValue
+        >[Application_Asset_Liability__c].Assets_and_Liabilities__c.Average_Monthly_Usage__c  * 0.05</stringValue>
             </value>
         </processMetadataValues>
         <name>formula_2_myRule_1_A1_0989288501</name>
         <dataType>Currency</dataType>
-        <expression>{!myVariable_current.Assets_and_Liabilities__r.Average_Monthly_Usage__c}  * 0.05</expression>
+        <expression
+    >{!myVariable_current.Assets_and_Liabilities__r.Average_Monthly_Usage__c}  * 0.05</expression>
         <scale>18</scale>
     </formulas>
     <interviewLabel>First_Update_assets-24_InterviewLabel</interviewLabel>
@@ -2815,7 +2916,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -2851,7 +2952,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -2886,7 +2987,8 @@
         <processMetadataValues>
             <name>reference</name>
             <value>
-                <stringValue>[Application_Asset_Liability__c].Assets and Liabilities</stringValue>
+                <stringValue
+        >[Application_Asset_Liability__c].Assets and Liabilities</stringValue>
             </value>
         </processMetadataValues>
         <processMetadataValues>
@@ -2909,7 +3011,8 @@
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>myVariable_current.Assets_and_Liabilities__c</elementReference>
+                <elementReference
+        >myVariable_current.Assets_and_Liabilities__c</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -2934,7 +3037,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -2970,7 +3073,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -3050,7 +3153,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -3085,7 +3188,8 @@
         <processMetadataValues>
             <name>reference</name>
             <value>
-                <stringValue>[Application_Asset_Liability__c].Assets and Liabilities</stringValue>
+                <stringValue
+        >[Application_Asset_Liability__c].Assets and Liabilities</stringValue>
             </value>
         </processMetadataValues>
         <processMetadataValues>
@@ -3108,7 +3212,8 @@
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>myVariable_current.Assets_and_Liabilities__c</elementReference>
+                <elementReference
+        >myVariable_current.Assets_and_Liabilities__c</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -3133,7 +3238,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -3169,7 +3274,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -3249,7 +3354,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -3285,7 +3390,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -3327,7 +3432,8 @@
             <name>referenceTargetField</name>
         </processMetadataValues>
         <name>myRule_17_A1</name>
-        <label>Update after values for Minimum Payment and Asset Credit Balance</label>
+        <label
+    >Update after values for Minimum Payment and Asset Credit Balance</label>
         <locationX>1700</locationX>
         <locationY>200</locationY>
         <connector>
@@ -3368,7 +3474,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -3404,7 +3510,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -3415,7 +3521,8 @@
             </processMetadataValues>
             <field>Minimum_Payment_After__c</field>
             <value>
-                <elementReference>myVariable_current.Minimum_Payment__c</elementReference>
+                <elementReference
+        >myVariable_current.Minimum_Payment__c</elementReference>
             </value>
         </inputAssignments>
         <object>Application_Asset_Liability__c</object>
@@ -3439,7 +3546,8 @@
         <processMetadataValues>
             <name>reference</name>
             <value>
-                <stringValue>[Application_Asset_Liability__c].Assets and Liabilities</stringValue>
+                <stringValue
+        >[Application_Asset_Liability__c].Assets and Liabilities</stringValue>
             </value>
         </processMetadataValues>
         <processMetadataValues>
@@ -3459,7 +3567,8 @@
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>myVariable_current.Assets_and_Liabilities__c</elementReference>
+                <elementReference
+        >myVariable_current.Assets_and_Liabilities__c</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -3484,7 +3593,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -3526,7 +3635,8 @@
             <name>referenceTargetField</name>
         </processMetadataValues>
         <name>myRule_19_A1</name>
-        <label>Update after values for Minimum Payment and Asset Credit Balance</label>
+        <label
+    >Update after values for Minimum Payment and Asset Credit Balance</label>
         <locationX>1900</locationX>
         <locationY>200</locationY>
         <connector>
@@ -3567,7 +3677,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -3603,7 +3713,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -3638,7 +3748,8 @@
         <processMetadataValues>
             <name>reference</name>
             <value>
-                <stringValue>[Application_Asset_Liability__c].Assets and Liabilities</stringValue>
+                <stringValue
+        >[Application_Asset_Liability__c].Assets and Liabilities</stringValue>
             </value>
         </processMetadataValues>
         <processMetadataValues>
@@ -3658,7 +3769,8 @@
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>myVariable_current.Assets_and_Liabilities__c</elementReference>
+                <elementReference
+        >myVariable_current.Assets_and_Liabilities__c</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -3683,7 +3795,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -3763,7 +3875,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -3799,7 +3911,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -3810,7 +3922,8 @@
             </processMetadataValues>
             <field>Minimum_Payment_After__c</field>
             <value>
-                <elementReference>formula_2_myRule_1_A1_0989288501</elementReference>
+                <elementReference
+        >formula_2_myRule_1_A1_0989288501</elementReference>
             </value>
         </inputAssignments>
         <object>Application_Asset_Liability__c</object>
@@ -3882,7 +3995,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -3918,7 +4031,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -3953,7 +4066,8 @@
         <processMetadataValues>
             <name>reference</name>
             <value>
-                <stringValue>[Application_Asset_Liability__c].Assets and Liabilities</stringValue>
+                <stringValue
+        >[Application_Asset_Liability__c].Assets and Liabilities</stringValue>
             </value>
         </processMetadataValues>
         <processMetadataValues>
@@ -3973,7 +4087,8 @@
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>myVariable_current.Assets_and_Liabilities__c</elementReference>
+                <elementReference
+        >myVariable_current.Assets_and_Liabilities__c</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -3998,7 +4113,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -4081,7 +4196,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -4092,7 +4207,8 @@
             </processMetadataValues>
             <field>Loan_Balance_After__c</field>
             <value>
-                <elementReference>myVariable_current.Loan_Balance_Prior__c</elementReference>
+                <elementReference
+        >myVariable_current.Loan_Balance_Prior__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -4117,7 +4233,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -4128,7 +4244,8 @@
             </processMetadataValues>
             <field>Monthly_Payment_After__c</field>
             <value>
-                <elementReference>myVariable_current.Monthly_Payment_Prior__c</elementReference>
+                <elementReference
+        >myVariable_current.Monthly_Payment_Prior__c</elementReference>
             </value>
         </inputAssignments>
         <object>Application_Asset_Liability__c</object>
@@ -4152,7 +4269,8 @@
         <processMetadataValues>
             <name>reference</name>
             <value>
-                <stringValue>[Application_Asset_Liability__c].Assets and Liabilities</stringValue>
+                <stringValue
+        >[Application_Asset_Liability__c].Assets and Liabilities</stringValue>
             </value>
         </processMetadataValues>
         <processMetadataValues>
@@ -4172,7 +4290,8 @@
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>myVariable_current.Assets_and_Liabilities__c</elementReference>
+                <elementReference
+        >myVariable_current.Assets_and_Liabilities__c</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -4197,7 +4316,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -4280,7 +4399,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -4316,7 +4435,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -4351,7 +4470,8 @@
         <processMetadataValues>
             <name>reference</name>
             <value>
-                <stringValue>[Application_Asset_Liability__c].Assets and Liabilities</stringValue>
+                <stringValue
+        >[Application_Asset_Liability__c].Assets and Liabilities</stringValue>
             </value>
         </processMetadataValues>
         <processMetadataValues>
@@ -4371,7 +4491,8 @@
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>myVariable_current.Assets_and_Liabilities__c</elementReference>
+                <elementReference
+        >myVariable_current.Assets_and_Liabilities__c</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -4396,7 +4517,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -4432,7 +4553,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -4515,7 +4636,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -4526,7 +4647,8 @@
             </processMetadataValues>
             <field>Loan_Balance_After__c</field>
             <value>
-                <elementReference>myVariable_current.Loan_Balance_Prior__c</elementReference>
+                <elementReference
+        >myVariable_current.Loan_Balance_Prior__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -4551,7 +4673,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -4562,7 +4684,8 @@
             </processMetadataValues>
             <field>Monthly_Payment_After__c</field>
             <value>
-                <elementReference>myVariable_current.Monthly_Payment_Prior__c</elementReference>
+                <elementReference
+        >myVariable_current.Monthly_Payment_Prior__c</elementReference>
             </value>
         </inputAssignments>
         <object>Application_Asset_Liability__c</object>
@@ -4586,7 +4709,8 @@
         <processMetadataValues>
             <name>reference</name>
             <value>
-                <stringValue>[Application_Asset_Liability__c].Assets and Liabilities</stringValue>
+                <stringValue
+        >[Application_Asset_Liability__c].Assets and Liabilities</stringValue>
             </value>
         </processMetadataValues>
         <processMetadataValues>
@@ -4606,7 +4730,8 @@
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>myVariable_current.Assets_and_Liabilities__c</elementReference>
+                <elementReference
+        >myVariable_current.Assets_and_Liabilities__c</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -4631,7 +4756,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -4667,7 +4792,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -4747,7 +4872,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -4783,7 +4908,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -4825,7 +4950,8 @@
             <name>referenceTargetField</name>
         </processMetadataValues>
         <name>myRule_6_A1</name>
-        <label>Update minimum payment after and Asset Credit Balance After</label>
+        <label
+    >Update minimum payment after and Asset Credit Balance After</label>
         <locationX>600</locationX>
         <locationY>200</locationY>
         <filters>
@@ -4863,7 +4989,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -4874,7 +5000,8 @@
             </processMetadataValues>
             <field>Asset_Credit_Balance_After__c</field>
             <value>
-                <elementReference>myVariable_current.Asset_Credit_Balance__c</elementReference>
+                <elementReference
+        >myVariable_current.Asset_Credit_Balance__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -4899,7 +5026,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -4910,7 +5037,8 @@
             </processMetadataValues>
             <field>Minimum_Payment_After__c</field>
             <value>
-                <elementReference>myVariable_current.Minimum_Payment__c</elementReference>
+                <elementReference
+        >myVariable_current.Minimum_Payment__c</elementReference>
             </value>
         </inputAssignments>
         <object>Application_Asset_Liability__c</object>
@@ -4982,7 +5110,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -4993,7 +5121,8 @@
             </processMetadataValues>
             <field>Loan_Balance_After__c</field>
             <value>
-                <elementReference>myVariable_current.Loan_Balance_Prior__c</elementReference>
+                <elementReference
+        >myVariable_current.Loan_Balance_Prior__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -5018,7 +5147,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -5029,7 +5158,8 @@
             </processMetadataValues>
             <field>Monthly_Payment_After__c</field>
             <value>
-                <elementReference>myVariable_current.Monthly_Payment_Prior__c</elementReference>
+                <elementReference
+        >myVariable_current.Monthly_Payment_Prior__c</elementReference>
             </value>
         </inputAssignments>
         <object>Application_Asset_Liability__c</object>
@@ -5053,7 +5183,8 @@
         <processMetadataValues>
             <name>reference</name>
             <value>
-                <stringValue>[Application_Asset_Liability__c].Assets and Liabilities</stringValue>
+                <stringValue
+        >[Application_Asset_Liability__c].Assets and Liabilities</stringValue>
             </value>
         </processMetadataValues>
         <processMetadataValues>
@@ -5073,7 +5204,8 @@
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>myVariable_current.Assets_and_Liabilities__c</elementReference>
+                <elementReference
+        >myVariable_current.Assets_and_Liabilities__c</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -5098,7 +5230,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -5134,7 +5266,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -5150,7 +5282,8 @@
         </inputAssignments>
         <object>FinServ__AssetsAndLiabilities__c</object>
     </recordUpdates>
-    <startElementReference>isChangedDecision9_myRule_8_Type_of_Loan_c</startElementReference>
+    <startElementReference
+  >isChangedDecision9_myRule_8_Type_of_Loan_c</startElementReference>
     <status>Active</status>
     <variables>
         <name>myVariable_current</name>

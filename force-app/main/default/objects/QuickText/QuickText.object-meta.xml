@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>CancelEdit</actionName>
@@ -161,19 +161,26 @@
         <customTabListAdditionalFields>Message</customTabListAdditionalFields>
         <customTabListAdditionalFields>Category</customTabListAdditionalFields>
         <customTabListAdditionalFields>Channel</customTabListAdditionalFields>
-        <customTabListAdditionalFields>IsInsertable</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >IsInsertable</customTabListAdditionalFields>
         <lookupDialogsAdditionalFields>Message</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Category</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Channel</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>IsInsertable</lookupDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>Message</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>Category</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>Channel</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>IsInsertable</lookupPhoneDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >IsInsertable</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >Message</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >Category</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >Channel</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >IsInsertable</lookupPhoneDialogsAdditionalFields>
         <searchResultsAdditionalFields>Message</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Category</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Channel</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>IsInsertable</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >IsInsertable</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
 </CustomObject>

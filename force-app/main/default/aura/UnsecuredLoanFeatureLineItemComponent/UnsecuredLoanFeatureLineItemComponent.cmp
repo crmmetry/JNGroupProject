@@ -60,14 +60,26 @@
 
   <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
   <!-- toggling attributes-->
-  <aura:attribute name="showIncludeInLoanAmount" type="Boolean" default="true" />
-  <aura:attribute name="showIndicateApplicableProcessingFees" type="Boolean" default="true" />
+  <aura:attribute
+    name="showIncludeInLoanAmount"
+    type="Boolean"
+    default="true"
+  />
+  <aura:attribute
+    name="showIndicateApplicableProcessingFees"
+    type="Boolean"
+    default="true"
+  />
   <aura:handler
     name="change"
     value="{!v.CreditRepayment}"
     action="{!c.onCreditRepaymentChange}"
   />
-  <aura:handler name="change" value="{!v.processingFeePercentagePerAnum}" action="{!c.onProcessingFeePercentagePerAnumChange}"/>
+  <aura:handler
+    name="change"
+    value="{!v.processingFeePercentagePerAnum}"
+    action="{!c.onProcessingFeePercentagePerAnumChange}"
+  />
 
   <fieldset class="slds-box slds-theme_default">
     <legend

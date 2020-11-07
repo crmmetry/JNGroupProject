@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Assessment_of_Business__c</fullName>
     <description>Self employed</description>
@@ -12,12 +12,14 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Good growth and profit trends for 3 - 4 years</fullName>
+                <fullName
+        >Good growth and profit trends for 3 - 4 years</fullName>
                 <default>false</default>
                 <label>Good growth and profit trends for 3 - 4 years</label>
             </value>
             <value>
-                <fullName>Good growth and profit trends for up to 2 years</fullName>
+                <fullName
+        >Good growth and profit trends for up to 2 years</fullName>
                 <default>false</default>
                 <label>Good growth and profit trends for up to 2 years</label>
             </value>

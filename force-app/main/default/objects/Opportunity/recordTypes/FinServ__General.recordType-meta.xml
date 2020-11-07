@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FinServ__General</fullName>
     <active>true</active>
@@ -23,7 +23,8 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>IL - Auto Loan%2C Unsecured Loan%2C Term Share Loan</fullName>
+            <fullName
+      >IL - Auto Loan%2C Unsecured Loan%2C Term Share Loan</fullName>
             <default>false</default>
         </values>
         <values>
@@ -70,7 +71,8 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>IL - Auto Loan%2C Unsecured Loan%2C Term Share Loan</fullName>
+            <fullName
+      >IL - Auto Loan%2C Unsecured Loan%2C Term Share Loan</fullName>
             <default>false</default>
         </values>
         <values>
@@ -146,7 +148,8 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>IL - Auto Loan%2C Unsecured Loan%2C Term Share Loan</fullName>
+            <fullName
+      >IL - Auto Loan%2C Unsecured Loan%2C Term Share Loan</fullName>
             <default>false</default>
         </values>
         <values>
@@ -432,7 +435,8 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>IL - Auto Loan%2C Unsecured Loan%2C Term Share Loan</fullName>
+            <fullName
+      >IL - Auto Loan%2C Unsecured Loan%2C Term Share Loan</fullName>
             <default>false</default>
         </values>
         <values>
@@ -782,7 +786,8 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>IL - Auto Loan%2C Unsecured Loan%2C Term Share Loan</fullName>
+            <fullName
+      >IL - Auto Loan%2C Unsecured Loan%2C Term Share Loan</fullName>
             <default>false</default>
         </values>
         <values>
@@ -841,7 +846,8 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Post Submission Contact %E2%80%93 CUSTOMER SIGN PROCESSING DOCUMENTS</fullName>
+            <fullName
+      >Post Submission Contact %E2%80%93 CUSTOMER SIGN PROCESSING DOCUMENTS</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1076,7 +1082,8 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>IL - Auto Loan%2C Unsecured Loan%2C Term Share Loan</fullName>
+            <fullName
+      >IL - Auto Loan%2C Unsecured Loan%2C Term Share Loan</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1906,7 +1913,8 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>JN Life - Single Premium Creditor Life Insurance</fullName>
+            <fullName
+      >JN Life - Single Premium Creditor Life Insurance</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1921,7 +1929,8 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>IL - Auto Loan%2C Unsecured Loan%2C Term Share Loan</fullName>
+            <fullName
+      >IL - Auto Loan%2C Unsecured Loan%2C Term Share Loan</fullName>
             <default>false</default>
         </values>
         <values>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Loan_Path__c</fullName>
     <externalId>false</externalId>
@@ -58,9 +58,11 @@
                 <label>Post Submission Contact - RESUBMIT LOAN</label>
             </value>
             <value>
-                <fullName>Post Submission Contact – CUSTOMER SIGN PROCESSING DOCUMENTS</fullName>
+                <fullName
+        >Post Submission Contact – CUSTOMER SIGN PROCESSING DOCUMENTS</fullName>
                 <default>false</default>
-                <label>Post Submission Contact – CUSTOMER SIGN PROCESSING DOCUMENTS</label>
+                <label
+        >Post Submission Contact – CUSTOMER SIGN PROCESSING DOCUMENTS</label>
             </value>
             <value>
                 <fullName>Closing Step</fullName>

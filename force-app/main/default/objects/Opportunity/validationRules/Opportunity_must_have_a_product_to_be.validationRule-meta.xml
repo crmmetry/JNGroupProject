@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Opportunity_must_have_a_product_to_be</fullName>
     <active>true</active>
@@ -13,5 +13,6 @@ Line_Of_Credit__c = FALSE,
 Unsecure_Loan__c = FALSE
 
 )</errorConditionFormula>
-    <errorMessage>Please add a product to this Opportunity. All opportunities must have a product to be closed won</errorMessage>
+    <errorMessage
+  >Please add a product to this Opportunity. All opportunities must have a product to be closed won</errorMessage>
 </ValidationRule>

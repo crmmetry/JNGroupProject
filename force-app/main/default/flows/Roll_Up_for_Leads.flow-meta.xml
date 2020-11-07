@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <decisions>
         <processMetadataValues>
@@ -43,7 +43,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Result__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Result__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>No Contact</stringValue>
@@ -74,7 +75,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Result__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Result__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>No Contact - Left Voicemail</stringValue>
@@ -111,7 +113,8 @@
                         <stringValue>ID</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.WhoId</leftValueReference>
+                <leftValueReference
+        >myVariable_current.WhoId</leftValueReference>
                 <operator>StartsWith</operator>
                 <rightValue>
                     <stringValue>00Q</stringValue>
@@ -163,7 +166,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Result__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Result__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Contact Made</stringValue>
@@ -200,7 +204,8 @@
                         <stringValue>ID</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.WhoId</leftValueReference>
+                <leftValueReference
+        >myVariable_current.WhoId</leftValueReference>
                 <operator>StartsWith</operator>
                 <rightValue>
                     <stringValue>00Q</stringValue>
@@ -307,7 +312,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -318,7 +323,8 @@
             </processMetadataValues>
             <field>Last_Call_Attempt__c</field>
             <value>
-                <elementReference>myVariable_current.LastModifiedDate</elementReference>
+                <elementReference
+        >myVariable_current.LastModifiedDate</elementReference>
             </value>
         </inputAssignments>
         <object>Lead</object>
@@ -387,7 +393,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -436,7 +442,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -519,7 +525,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -530,7 +536,8 @@
             </processMetadataValues>
             <field>Last_Call_Attempt__c</field>
             <value>
-                <elementReference>myVariable_current.LastModifiedDate</elementReference>
+                <elementReference
+        >myVariable_current.LastModifiedDate</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -555,7 +562,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -566,7 +573,8 @@
             </processMetadataValues>
             <field>Last_Contact_Made__c</field>
             <value>
-                <elementReference>myVariable_current.LastModifiedDate</elementReference>
+                <elementReference
+        >myVariable_current.LastModifiedDate</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -591,7 +599,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -671,7 +679,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -720,7 +728,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>

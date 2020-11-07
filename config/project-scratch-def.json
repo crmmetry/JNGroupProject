@@ -1,13 +1,17 @@
 {
   "orgName": "remario Company",
   "edition": "Enterprise",
-  "features": ["PersonAccounts","ContactsToMultipleAccounts", "FinancialServicesUser:5"],
+  "features": [
+    "PersonAccounts",
+    "ContactsToMultipleAccounts",
+    "FinancialServicesUser:5"
+  ],
   "settings": {
     "lightningExperienceSettings": {
-        "enableS1DesktopEnabled": true
+      "enableS1DesktopEnabled": true
     },
     "omniChannelSettings": {
-        "enableOmniChannel": true
+      "enableOmniChannel": true
     }
   }
 }

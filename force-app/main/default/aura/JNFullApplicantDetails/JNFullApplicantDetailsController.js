@@ -1,9 +1,9 @@
 ({
-	  doInit: function(component, event, helper) {
+  doInit: function (component, event, helper) {
     //helper.getPickListValues(component);
     helper.getApplicant(component);
-    component.set("v.validate", function() {
-        helper.updateApplicant(component);
+    component.set("v.validate", function () {
+      helper.updateApplicant(component);
       /*if (helper.validateFields(component)) {
 
         return { isValid: true };
@@ -13,6 +13,6 @@
           errorMessage: "Please complete the form to continue."
         };
       }*/
-    })
+    });
   }
-})
+});

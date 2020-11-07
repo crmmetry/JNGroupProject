@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>CancelEdit</actionName>
@@ -130,14 +130,22 @@
     <enableFeeds>false</enableFeeds>
     <externalSharingModel>Private</externalSharingModel>
     <searchLayouts>
-        <customTabListAdditionalFields>LoanApplication</customTabListAdditionalFields>
-        <customTabListAdditionalFields>BorrowerType</customTabListAdditionalFields>
-        <lookupDialogsAdditionalFields>LoanApplication</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>BorrowerType</lookupDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>LoanApplication</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>BorrowerType</lookupPhoneDialogsAdditionalFields>
-        <searchResultsAdditionalFields>LoanApplication</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>BorrowerType</searchResultsAdditionalFields>
+        <customTabListAdditionalFields
+    >LoanApplication</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >BorrowerType</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >LoanApplication</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >BorrowerType</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >LoanApplication</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >BorrowerType</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields
+    >LoanApplication</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >BorrowerType</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
 </CustomObject>

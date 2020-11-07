@@ -1,17 +1,10 @@
 <apex:page showHeader="false" sidebar="false">
-      <apex:includeLightning />
-    
-    <div id="app" />
-    <script>
-        $Lightning.use("c:JNAppContainer", function() {
-            $Lightning.createComponent("c:JNHomePage",
-                {},
-                "app",
-                function(cmp) {},                                    
-            );         
-        });
-        
-    </script>
-    
+  <apex:includeLightning />
 
+  <div id="app" />
+  <script>
+    $Lightning.use("c:JNAppContainer", function () {
+      $Lightning.createComponent("c:JNHomePage", {}, "app", function (cmp) {});
+    });
+  </script>
 </apex:page>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <UserEngagementSettings xmlns="http://soap.sforce.com/2006/04/metadata">
     <canGovCloudUseAdoptionApps>false</canGovCloudUseAdoptionApps>
     <doesScheduledSwitcherRunDaily>false</doesScheduledSwitcherRunDaily>
@@ -23,10 +23,13 @@
     <enableShowSalesforceUserAssist>true</enableShowSalesforceUserAssist>
     <isAutoTransitionDelayed>false</isAutoTransitionDelayed>
     <isCrucNotificationDisabled>false</isCrucNotificationDisabled>
-    <isCustomProfileAutoTransitionDelayed>false</isCustomProfileAutoTransitionDelayed>
+    <isCustomProfileAutoTransitionDelayed
+  >false</isCustomProfileAutoTransitionDelayed>
     <isLEXWelcomeMatDisabled>false</isLEXWelcomeMatDisabled>
-    <isMeetTheAssistantDisabledInClassic>false</isMeetTheAssistantDisabledInClassic>
-    <isMeetTheAssistantDisabledInLightning>false</isMeetTheAssistantDisabledInLightning>
+    <isMeetTheAssistantDisabledInClassic
+  >false</isMeetTheAssistantDisabledInClassic>
+    <isMeetTheAssistantDisabledInLightning
+  >false</isMeetTheAssistantDisabledInLightning>
     <isSmartNudgesDisabled>false</isSmartNudgesDisabled>
     <optimizerAppEnabled>false</optimizerAppEnabled>
 </UserEngagementSettings>

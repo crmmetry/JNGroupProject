@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
     <alerts>
         <fullName>Opportunity_Reassignment</fullName>
@@ -36,7 +36,8 @@
             <type>FieldUpdate</type>
         </actions>
         <active>false</active>
-        <description>This is a quickfix to change the record type opportunity</description>
+        <description
+    >This is a quickfix to change the record type opportunity</description>
         <formula>AND 
 (
 ISPICKVAL(StageName, &#39;Qualification&#39;),
@@ -51,7 +52,8 @@ $RecordType.DeveloperName= &quot;Savings_Chequing&quot;
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <description>Issue with populating on conversation so we created this workflow</description>
+        <description
+    >Issue with populating on conversation so we created this workflow</description>
         <formula>AND 
 (
 ISPICKVAL(StageName, &quot;Customer Interview&#39;&quot;),
