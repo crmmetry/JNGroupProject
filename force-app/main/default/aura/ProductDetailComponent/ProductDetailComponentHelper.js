@@ -1,8 +1,6 @@
 ({
   updateProductSelection: function (component) {
     let oppId = component.get("v.recordId");
-    console.log("oppId ", oppId);
-    let productSelection = component.find("selectProduct");
     let action = component.get("c.getSingleProductFamilySelection");
     action.setParams({
       oppId: oppId
@@ -10,10 +8,7 @@
     action.setCallback(this, function (response) {
       let state = response.getState(); //Checking response status
       let result = response.getReturnValue();
-      console.log("Result ", result);
       if (state === "SUCCESS") {
-        console.log("success");
-        console.log("Price: ", result.productPrice);
         component.set("v.productSelection", result);
         this.updateProductSelectedFlag(component);
       }
@@ -36,5 +31,17 @@
     if (family) {
       component.set(`v.${family.variable}`, true);
     }
-  }
+  },
+  getJNConfigurations: function (component) {
+    let action = component.get("c.GetJNConfigs");
+    action.setCallback(this, function (response) {
+      let state = response.getState(); //Checking response status
+      let result = response.getReturnValue();
+      if (state === "SUCCESS") {
+        component.set("v.jnDefaultConfigs", result);
+      }
+    });
+    $A.enqueueAction(action);
+  },
+
 });
