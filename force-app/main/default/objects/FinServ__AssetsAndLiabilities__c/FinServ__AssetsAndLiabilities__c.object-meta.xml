@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>Accept</actionName>
@@ -144,7 +144,8 @@
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <deprecated>false</deprecated>
-    <description>Assets or liabilities that are not represented in a client&#39;s financial accounts, such as real estate or collectibles.</description>
+    <description
+  >Assets or liabilities that are not represented in a client&#39;s financial accounts, such as real estate or collectibles.</description>
     <enableActivities>true</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
@@ -163,12 +164,18 @@
     </nameField>
     <pluralLabel>Assets and Liabilities</pluralLabel>
     <searchLayouts>
-        <customTabListAdditionalFields>FinServ__Description__c</customTabListAdditionalFields>
-        <customTabListAdditionalFields>FinServ__Amount__c</customTabListAdditionalFields>
-        <lookupDialogsAdditionalFields>FinServ__Description__c</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>FinServ__Amount__c</lookupDialogsAdditionalFields>
-        <searchResultsAdditionalFields>FinServ__Description__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>FinServ__Amount__c</searchResultsAdditionalFields>
+        <customTabListAdditionalFields
+    >FinServ__Description__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >FinServ__Amount__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >FinServ__Description__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >FinServ__Amount__c</lookupDialogsAdditionalFields>
+        <searchResultsAdditionalFields
+    >FinServ__Description__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >FinServ__Amount__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
     <visibility>Public</visibility>

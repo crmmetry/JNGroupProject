@@ -14,7 +14,7 @@
   <aura:attribute name="activeStages" type="String[]" />
   <aura:attribute name="currentStage" type="String" />
   <aura:attribute name="stages" type="String[]" />
-<aura:attribute name="stageType" type="String" default="applicant"/>
+  <aura:attribute name="stageType" type="String" default="applicant" />
   <aura:handler name="init" value="{!this}" action="{!c.init}" />
   <lightning:progressIndicator
     aura:id="progressIndicator"

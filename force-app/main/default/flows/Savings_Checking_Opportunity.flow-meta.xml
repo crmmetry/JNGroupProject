@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <decisions>
         <processMetadataValues>
@@ -43,7 +43,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Savings_Chequing</stringValue>
@@ -74,7 +75,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Savings__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Savings__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -129,7 +131,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Savings__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Savings__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Propose Product</stringValue>
@@ -160,7 +163,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Discuss_Account_Opening_and_KYC_Requirem__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Discuss_Account_Opening_and_KYC_Requirem__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -191,7 +195,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Schedule_Proceed_with_Account_Opening__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Schedule_Proceed_with_Account_Opening__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -222,7 +227,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Savings_Chequing</stringValue>
@@ -277,7 +283,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Savings__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Savings__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Close Sale And Open Account</stringValue>
@@ -308,7 +315,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Collect_and_Scan_KYC_documents_OnBase__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Collect_and_Scan_KYC_documents_OnBase__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -339,7 +347,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Savings_Chequing</stringValue>
@@ -391,7 +400,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Phoenix_Account_Number__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Phoenix_Account_Number__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -422,7 +432,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Savings__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Savings__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Closing Steps</stringValue>
@@ -453,7 +464,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Savings_Chequing</stringValue>
@@ -484,7 +496,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Rim_Number__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Rim_Number__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -497,7 +510,8 @@
         </rules>
     </decisions>
     <description>Added an additional recordtype criteria</description>
-    <interviewLabel>Savings_Checking_Opportunity-14_InterviewLabel</interviewLabel>
+    <interviewLabel
+  >Savings_Checking_Opportunity-14_InterviewLabel</interviewLabel>
     <label>Savings/Chequing Opportunity Path</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -591,7 +605,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -627,7 +641,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -638,7 +652,8 @@
             </processMetadataValues>
             <field>StageName</field>
             <value>
-                <stringValue>Discuss Account Opening and KYC Requirements</stringValue>
+                <stringValue
+        >Discuss Account Opening and KYC Requirements</stringValue>
             </value>
         </inputAssignments>
         <object>Opportunity</object>
@@ -710,7 +725,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -746,7 +761,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -757,7 +772,8 @@
             </processMetadataValues>
             <field>StageName</field>
             <value>
-                <stringValue>Discuss Account Opening and KYC Requirements</stringValue>
+                <stringValue
+        >Discuss Account Opening and KYC Requirements</stringValue>
             </value>
         </inputAssignments>
         <object>Opportunity</object>
@@ -829,7 +845,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -909,7 +925,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>

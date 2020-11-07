@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FinServ__Age__c</fullName>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
-    <formula>if(And(Month(Today())&gt;= month(Birthdate), Day(Today()) &gt;=  Day(Birthdate)),
+    <formula
+  >if(And(Month(Today())&gt;= month(Birthdate), Day(Today()) &gt;=  Day(Birthdate)),
 Year(Today())- Year(Birthdate) +
 (Month(Today())-Month(Birthdate))/12,
 if(And(month(Today())&lt; month(Birthdate), Day(Today())&gt;= Day(Birthdate)),

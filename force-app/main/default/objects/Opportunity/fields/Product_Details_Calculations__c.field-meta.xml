@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Product_Details_Calculations__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
@@ -6,7 +6,8 @@
     <label>Product Details Calculations</label>
     <lookupFilter>
         <active>true</active>
-        <errorMessage>Loan Calculation must be Product details Record Type</errorMessage>
+        <errorMessage
+    >Loan Calculation must be Product details Record Type</errorMessage>
         <filterItems>
             <field>Loan_Calculator__c.RecordTypeId</field>
             <operation>equals</operation>
@@ -15,7 +16,8 @@
         <isOptional>false</isOptional>
     </lookupFilter>
     <referenceTo>Loan_Calculator__c</referenceTo>
-    <relationshipLabel>Opportunities (Product Details Calculations)</relationshipLabel>
+    <relationshipLabel
+  >Opportunities (Product Details Calculations)</relationshipLabel>
     <relationshipName>Opportunities1</relationshipName>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>

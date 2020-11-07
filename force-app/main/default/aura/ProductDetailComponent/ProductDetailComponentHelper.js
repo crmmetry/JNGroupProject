@@ -42,6 +42,5 @@
       }
     });
     $A.enqueueAction(action);
-  },
-
+  }
 });

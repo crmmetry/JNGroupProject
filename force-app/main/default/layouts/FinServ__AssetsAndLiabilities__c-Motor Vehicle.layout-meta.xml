@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
@@ -67,7 +67,7 @@
                 <field>Monthly_Payment_Prior__c</field>
             </layoutItems>
         </layoutColumns>
-        <layoutColumns/>
+        <layoutColumns />
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
@@ -97,7 +97,7 @@
                 <field>Loan_Repaid_from_Facility__c</field>
             </layoutItems>
         </layoutColumns>
-        <layoutColumns/>
+        <layoutColumns />
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
@@ -115,7 +115,7 @@
                 <field>Monthly_Payment__c</field>
             </layoutItems>
         </layoutColumns>
-        <layoutColumns/>
+        <layoutColumns />
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
@@ -123,9 +123,9 @@
         <detailHeading>false</detailHeading>
         <editHeading>true</editHeading>
         <label>Custom Links</label>
-        <layoutColumns/>
-        <layoutColumns/>
-        <layoutColumns/>
+        <layoutColumns />
+        <layoutColumns />
+        <layoutColumns />
         <style>CustomLinks</style>
     </layoutSections>
     <platformActionList>
@@ -205,7 +205,8 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
-        <relatedList>Application_Asset_Liability__c.Assets_and_Liabilities__c</relatedList>
+        <relatedList
+    >Application_Asset_Liability__c.Assets_and_Liabilities__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>OPPORTUNITY.NAME</fields>
@@ -217,19 +218,22 @@
         <fields>OPPORTUNITY.NAME</fields>
         <fields>ACCOUNT.NAME</fields>
         <fields>OPPORTUNITY.CLOSE_DATE</fields>
-        <relatedList>Opportunity.Collateral_Personal_Credit_Card__c</relatedList>
+        <relatedList
+    >Opportunity.Collateral_Personal_Credit_Card__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>OPPORTUNITY.NAME</fields>
         <fields>ACCOUNT.NAME</fields>
         <fields>OPPORTUNITY.CLOSE_DATE</fields>
-        <relatedList>Opportunity.Collateral_Personal_Line_of_Credit__c</relatedList>
+        <relatedList
+    >Opportunity.Collateral_Personal_Line_of_Credit__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>OPPORTUNITY.NAME</fields>
         <fields>ACCOUNT.NAME</fields>
         <fields>OPPORTUNITY.CLOSE_DATE</fields>
-        <relatedList>Opportunity.Unsecured_Assets_and_Liabilities__c</relatedList>
+        <relatedList
+    >Opportunity.Unsecured_Assets_and_Liabilities__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>

@@ -1,9 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Invalid_HomePhone_Formula</fullName>
     <active>true</active>
-    <description>Ensures that the home phone field is properly validated.</description>
-    <errorConditionFormula>IF( OR(ISCHANGED(PersonHomePhone) &amp;&amp; NOT(ISNULL(PersonHomePhone)) &amp;&amp; NOT(ISBLANK(PersonHomePhone)) &amp;&amp; !REGEX(PersonHomePhone ,&#39;^\\d{10,25}$&#39;), ISNEW() &amp;&amp; NOT(ISNULL(PersonHomePhone)) &amp;&amp; NOT(ISBLANK(PersonHomePhone)) &amp;&amp; !REGEX(PersonHomePhone,&#39;^\\d{10,25}$&#39;)),true,false)</errorConditionFormula>
+    <description
+  >Ensures that the home phone field is properly validated.</description>
+    <errorConditionFormula
+  >IF( OR(ISCHANGED(PersonHomePhone) &amp;&amp; NOT(ISNULL(PersonHomePhone)) &amp;&amp; NOT(ISBLANK(PersonHomePhone)) &amp;&amp; !REGEX(PersonHomePhone ,&#39;^\\d{10,25}$&#39;), ISNEW() &amp;&amp; NOT(ISNULL(PersonHomePhone)) &amp;&amp; NOT(ISBLANK(PersonHomePhone)) &amp;&amp; !REGEX(PersonHomePhone,&#39;^\\d{10,25}$&#39;)),true,false)</errorConditionFormula>
     <errorDisplayField>PersonHomePhone</errorDisplayField>
-    <errorMessage>Invalid format entered for home phone. The minimum number of digits should be 10</errorMessage>
+    <errorMessage
+  >Invalid format entered for home phone. The minimum number of digits should be 10</errorMessage>
 </ValidationRule>

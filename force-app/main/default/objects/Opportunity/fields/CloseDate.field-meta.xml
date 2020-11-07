@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CloseDate</fullName>
-    <inlineHelpText>This is the expected close date until you close the opportunity. Then it&#39;s to be updated to the actual close date.</inlineHelpText>
+    <inlineHelpText
+  >This is the expected close date until you close the opportunity. Then it&#39;s to be updated to the actual close date.</inlineHelpText>
     <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

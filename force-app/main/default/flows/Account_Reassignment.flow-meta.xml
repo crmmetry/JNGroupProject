@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
         <processMetadataValues>
@@ -43,7 +43,8 @@
                 <leftValueReference>myVariable_old.OwnerId</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <elementReference>myVariable_current.OwnerId</elementReference>
+                    <elementReference
+          >myVariable_current.OwnerId</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -98,7 +99,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>isChangedRule_2_myRule_1_OwnerId</leftValueReference>
+                <leftValueReference
+        >isChangedRule_2_myRule_1_OwnerId</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -129,7 +131,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.CreatedDate</leftValueReference>
+                <leftValueReference
+        >myVariable_current.CreatedDate</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -169,7 +172,8 @@
         </value>
     </processMetadataValues>
     <processType>Workflow</processType>
-    <startElementReference>isChangedDecision2_myRule_1_OwnerId</startElementReference>
+    <startElementReference
+  >isChangedDecision2_myRule_1_OwnerId</startElementReference>
     <status>Draft</status>
     <variables>
         <name>myVariable_current</name>

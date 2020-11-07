@@ -21,7 +21,7 @@ public with sharing class ProductDetailController {
    * @return {JNConfiguration}
    */
   @AuraEnabled
-  public static JNConfiguration GetJNConfigs(){
+  public static JNConfiguration GetJNConfigs() {
     try {
       return JNConfigurations.GetDefaultConfiguration();
     } catch (Exception e) {

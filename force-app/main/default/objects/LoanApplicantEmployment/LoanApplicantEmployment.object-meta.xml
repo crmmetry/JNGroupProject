@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>CancelEdit</actionName>
@@ -130,22 +130,36 @@
     <enableFeeds>false</enableFeeds>
     <externalSharingModel>Private</externalSharingModel>
     <searchLayouts>
-        <customTabListAdditionalFields>LoanApplication</customTabListAdditionalFields>
-        <customTabListAdditionalFields>LoanApplicant</customTabListAdditionalFields>
-        <customTabListAdditionalFields>EmployerName</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >LoanApplication</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >LoanApplicant</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >EmployerName</customTabListAdditionalFields>
         <customTabListAdditionalFields>JobTitle</customTabListAdditionalFields>
-        <lookupDialogsAdditionalFields>LoanApplication</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>LoanApplicant</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>EmployerName</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >LoanApplication</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >LoanApplicant</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >EmployerName</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>JobTitle</lookupDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>LoanApplication</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>LoanApplicant</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>EmployerName</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>JobTitle</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>EmployerPhone</lookupPhoneDialogsAdditionalFields>
-        <searchResultsAdditionalFields>LoanApplication</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>LoanApplicant</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>EmployerName</searchResultsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >LoanApplication</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >LoanApplicant</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >EmployerName</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >JobTitle</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >EmployerPhone</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields
+    >LoanApplication</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >LoanApplicant</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >EmployerName</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>JobTitle</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>

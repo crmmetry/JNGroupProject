@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>CancelEdit</actionName>
@@ -130,27 +130,42 @@
     <enableFeeds>false</enableFeeds>
     <externalSharingModel>Private</externalSharingModel>
     <searchLayouts>
-        <customTabListAdditionalFields>LastModifiedDate</customTabListAdditionalFields>
-        <customTabListAdditionalFields>LastModifiedBy</customTabListAdditionalFields>
-        <customTabListAdditionalFields>AuthorizedInsuranceLine</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >LastModifiedDate</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >LastModifiedBy</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >AuthorizedInsuranceLine</customTabListAdditionalFields>
         <customTabListAdditionalFields>License</customTabListAdditionalFields>
         <customTabListAdditionalFields>Account</customTabListAdditionalFields>
         <customTabListAdditionalFields>Contact</customTabListAdditionalFields>
-        <lookupDialogsAdditionalFields>LastModifiedDate</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>LastModifiedBy</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>AuthorizedInsuranceLine</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >LastModifiedDate</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >LastModifiedBy</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >AuthorizedInsuranceLine</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>License</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Account</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Contact</lookupDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>LastModifiedDate</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>LastModifiedBy</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>AuthorizedInsuranceLine</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>License</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>Account</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>Contact</lookupPhoneDialogsAdditionalFields>
-        <searchResultsAdditionalFields>LastModifiedDate</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>LastModifiedBy</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>AuthorizedInsuranceLine</searchResultsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >LastModifiedDate</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >LastModifiedBy</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >AuthorizedInsuranceLine</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >License</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >Account</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >Contact</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields
+    >LastModifiedDate</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >LastModifiedBy</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >AuthorizedInsuranceLine</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>License</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Account</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Contact</searchResultsAdditionalFields>

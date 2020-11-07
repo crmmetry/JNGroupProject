@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
         <componentInstances>
@@ -42,7 +42,8 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <componentInstances>
-            <componentName>runtime_sales_activities:activityPanel</componentName>
+            <componentName
+      >runtime_sales_activities:activityPanel</componentName>
         </componentInstances>
         <mode>Replace</mode>
         <name>activityTabContent</name>
@@ -186,7 +187,8 @@
                 <name>displayOption</name>
                 <value>BOTH</value>
             </componentInstanceProperties>
-            <componentName>runtime_sales_merge:mergeCandidatesPreviewCard</componentName>
+            <componentName
+      >runtime_sales_merge:mergeCandidatesPreviewCard</componentName>
         </componentInstances>
         <componentInstances>
             <componentName>simpleloancalculator</componentName>
@@ -199,7 +201,8 @@
             <componentName>force:relatedListContainer</componentName>
         </componentInstances>
         <componentInstances>
-            <componentName>runtime_sales_activities:activityPanel</componentName>
+            <componentName
+      >runtime_sales_activities:activityPanel</componentName>
         </componentInstances>
         <mode>Replace</mode>
         <name>sidebar</name>

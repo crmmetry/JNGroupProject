@@ -21,17 +21,27 @@
   },
   calculateProcessingFee: function (component) {
     //TODO: CHANGE LATER TO CHILDCONTAINER, call in the personal auto loan change
-    const combinedFields = Object.assign({},
+    const combinedFields = Object.assign(
+      {},
       component.get("v.CreditRepayment"),
-      component.get("v.RequestedDetails"));
-    const { processingFee, monthlyProcessingFee, processingFeeClosingCost } = basicProcessingFeesCalculator(
+      component.get("v.RequestedDetails")
+    );
+    const {
+      processingFee,
+      monthlyProcessingFee,
+      processingFeeClosingCost
+    } = basicProcessingFeesCalculator(
       ["years", "months", "loanAmount", "market"],
       combinedFields,
       ["years", "months", "loanAmount", "market", "includeInLoanAmountFlag"],
-      component.get("v.jnDefaultConfigs.gct"));
+      component.get("v.jnDefaultConfigs.gct")
+    );
 
     component.set("v.processingFeesGCT", processingFee);
-    component.set("v.monthlyPrincipalInterestProcessingFee", monthlyProcessingFee);
+    component.set(
+      "v.monthlyPrincipalInterestProcessingFee",
+      monthlyProcessingFee
+    );
     component.set("v.processingFeeClosingCost", processingFeeClosingCost);
   }
-})
+});

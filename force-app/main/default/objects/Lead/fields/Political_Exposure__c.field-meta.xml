@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Political_Exposure__c</fullName>
     <defaultValue>false</defaultValue>
-    <description>Do you or any member of your immediate family currently hold or have ever held a prominent public function (whether in Jamaica or any foreign county), such as Head of State, Head of Opposition Political Party, Senior Member of the Judiciary, Head of Military or Police Force, CEO of Statutory Body/ Government Body or Agency or are you a personal/professional associate of any of the foregoing public officials?*</description>
+    <description
+  >Do you or any member of your immediate family currently hold or have ever held a prominent public function (whether in Jamaica or any foreign county), such as Head of State, Head of Opposition Political Party, Senior Member of the Judiciary, Head of Military or Police Force, CEO of Statutory Body/ Government Body or Agency or are you a personal/professional associate of any of the foregoing public officials?*</description>
     <externalId>false</externalId>
     <label>Political Exposure</label>
     <trackFeedHistory>false</trackFeedHistory>

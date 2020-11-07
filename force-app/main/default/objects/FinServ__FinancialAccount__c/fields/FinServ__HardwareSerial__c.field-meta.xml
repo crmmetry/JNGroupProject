@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FinServ__HardwareSerial__c</fullName>
     <deprecated>false</deprecated>
-    <description>The serial number of hardware associated with the account.</description>
+    <description
+  >The serial number of hardware associated with the account.</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
     <label>Hardware Serial</label>

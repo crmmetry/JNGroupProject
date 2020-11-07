@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>CancelEdit</actionName>
@@ -132,14 +132,20 @@
     <searchLayouts>
         <customTabListAdditionalFields>Unit</customTabListAdditionalFields>
         <customTabListAdditionalFields>Offset</customTabListAdditionalFields>
-        <customTabListAdditionalFields>PreferredTimeStart</customTabListAdditionalFields>
-        <customTabListAdditionalFields>PreferredTimeEnd</customTabListAdditionalFields>
-        <customTabListAdditionalFields>PreferredTimeZone</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >PreferredTimeStart</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >PreferredTimeEnd</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >PreferredTimeZone</customTabListAdditionalFields>
         <searchResultsAdditionalFields>Unit</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Offset</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>PreferredTimeStart</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>PreferredTimeEnd</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>PreferredTimeZone</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >PreferredTimeStart</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >PreferredTimeEnd</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >PreferredTimeZone</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
 </CustomObject>
