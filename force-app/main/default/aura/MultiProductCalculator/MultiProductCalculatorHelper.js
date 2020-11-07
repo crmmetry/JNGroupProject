@@ -1858,7 +1858,7 @@
         break;
     }
   },
-  SetDefaultVal: function (obj, val = 0) {
+  SetDefaultVal: function (obj, val=0) {
     if (obj.get("v.value")) {
       obj.set("v.value", obj.get("v.value"));
       return true;
