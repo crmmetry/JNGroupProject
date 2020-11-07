@@ -8,16 +8,22 @@
     };
     component.set("v.CreditRepayment", creditRepaymentMap);
   },
-
+  onProcessingFeePercentagePerAnumChange: function (component, event, helper) {
+    const value = component.get("v.processingFeePercentagePerAnum");
+    let creditRepaymentMap = component.get("v.CreditRepayment");
+    creditRepaymentMap.processingFeePercentagePerAnum = value;
+    component.set("v.CreditRepayment", creditRepaymentMap);
+  },
   onCreditRepaymentChange: function (component, event, helper) {
-    const data = Object.assign(
-      component.get("v.CreditRepaymentContainer"),
-      component.get("v.CreditRepayment")
-    );
-    component.set("v.CreditRepaymentContainer", data);
-    console.log("onCreditRepaymentChange")
-    helper.toggleShowIndicateApplicableProcessingFees(component, component.get("v.CreditRepayment"));
-    helper.toggleShowIncludeInLoanAmount(component, component.get("v.CreditRepayment"));
+      const data = Object.assign(
+        component.get("v.CreditRepaymentContainer"),
+        component.get("v.CreditRepayment")
+      );
+      component.set("v.CreditRepaymentContainer", data);
+      helper.toggleShowIndicateApplicableProcessingFees(component, component.get("v.CreditRepayment"));
+      helper.toggleShowIncludeInLoanAmount(component, component.get("v.CreditRepayment"));
+      helper.resetProcessingFieldsValues(data, component);
+    
   },
 
   onInterestedInJNGIChange: function (component, event, helper) {

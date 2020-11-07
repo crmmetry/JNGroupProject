@@ -63,6 +63,7 @@
   <aura:attribute name="jnDefaultConfigs" type="Map" default="{}"/>
   <aura:attribute name="processingFeesGCT" type="Decimal" default="0" />
   <aura:attribute name="monthlyPrincipalInterestProcessingFee" type="Decimal" default="0" />
+  <aura:attribute name="processingFeeClosingCost" type="Decimal"/>
   <ltng:require scripts="{!$Resource.calculations}" />
   <fieldset class="slds-box slds-theme_default">
     <legend
@@ -323,6 +324,7 @@
         />
       </lightning:layoutItem>
       <c:AutoLoanFeesAndChargesLineComponent
+        processingFees="{!v.processingFeeClosingCost}"
         deductRepayment="{!v.deductRepaymentFlag}"
       ></c:AutoLoanFeesAndChargesLineComponent>
     </lightning:layout>

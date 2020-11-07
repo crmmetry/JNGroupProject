@@ -20,25 +20,17 @@
     }
   },
   calculateProcessingFee: function (component) {
-    const requiredDependencies = ["years", "months", "loanAmount", "market", "includeInLoanAmountFlag"];
+    console.log("Credit Repayment", JSON.parse(JSON.stringify(component.get("v.CreditRepayment"))), "Auto Loan", JSON.parse(JSON.stringify(component.get("v.PersonalAutoLoan"))));
     //TODO: CHANGE LATER TO CHILDCONTAINER, call in the personal auto loan change
     const combinedFields = Object.assign({}, component.get("v.CreditRepayment"), component.get("v.PersonalAutoLoan"));
-    const allValid = asAllValidDependencies(requiredDependencies, combinedFields);
-    console.info("combinedFields", combinedFields, "allValid", allValid);
-    if (allValid) {
-      let pmtResult = 0;
-      if (combinedFields.includeInLoanAmountFlag && combinedFields.processingFeePercentagePerAnum) {
-        const gct = calculateGCT(component.get("v.jnDefaultConfigs.gct"));
-        combinedFields.loanAmount = (((combinedFields.processingFeePercentagePerAnum / 100) + gct) * combinedFields.loanAmount);
-        pmtResult = basicPMTCalculator(["years", "months", "loanAmount", "market"], combinedFields);
-      } else {
-        pmtResult = basicPMTCalculator(["years", "months", "loanAmount", "market"], combinedFields);
-      }
-      component.set("v.processingFeesGCT", combinedFields.loanAmount);
-      component.set("v.monthlyPrincipalInterestProcessingFee", pmtResult);
-    } else {
-      component.set("v.processingFeesGCT", 0);
-      component.set("v.monthlyPrincipalInterestProcessingFee", 0);
-    }
+    const { processingFee, monthlyProcessingFee, processingFeeClosingCost } = basicProcessingFeesCalculator(
+      ["years", "months", "loanAmount", "market"],
+      combinedFields,
+      ["years", "months", "loanAmount", "market", "includeInLoanAmountFlag"],
+      component.get("v.jnDefaultConfigs.gct"));
+
+    component.set("v.processingFeesGCT", processingFee);
+    component.set("v.monthlyPrincipalInterestProcessingFee", monthlyProcessingFee);
+    component.set("v.processingFeeClosingCost", processingFeeClosingCost);
   }
 })

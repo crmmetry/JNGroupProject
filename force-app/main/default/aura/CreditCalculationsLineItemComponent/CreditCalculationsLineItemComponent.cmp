@@ -57,12 +57,16 @@
     action="{!c.onCreditRepaymentChange}"
     value="{!v.CreditRepayment}"
   />
+  <aura:attribute name="jnDefaultConfigs" type="Map" default="{}"/>
+  <aura:attribute name="processingFeesGCT" type="Decimal" default="0" />
+  <aura:attribute name="monthlyPrincipalInterestProcessingFee" type="Decimal" default="0" />
+  <aura:attribute name="processingFeeClosingCost" type="Decimal"/>
   <ltng:require scripts="{!$Resource.calculations}" />
-  <!--<label class="slds-form-element__label" style="font-weight: bold;">Credit Calculations</label>-->
+
   <fieldset class="slds-box slds-theme_default">
     <legend
       id="creditCalcualtions"
-      class="slds-text-heading_medium slds-p-vertical_medium"
+      class="slds-text-heading_medium slds-var-p-vertical_medium"
     >
       Personal Unsecured Loan -
       <span class="slds-text-heading_small">Credit Calculations</span>
@@ -122,7 +126,7 @@
         <lightning:input
           type="number"
           label="Processing Fees (including GCT)"
-          value="{!v.processingFees}"
+          value="{!v.processingFeesGCT}"
           name="number"
           formatter="currency"
           required="true"
@@ -132,8 +136,8 @@
       <lightning:layoutItem size="6" padding="around-small">
         <lightning:input
           type="number"
-          label="Monthly P&amp;I Processing Fee"
-          value="{!v.monthly_PI_ProcessingFees}"
+          label="Monthly Principal and Interest (Processing Fees)"
+          value="{!v.monthlyPrincipalInterestProcessingFee}"
           name="number"
           formatter="currency"
           required="true"
@@ -280,6 +284,7 @@
       </lightning:layoutItem>
       <c:FeesAndChargesLineItemComponent
         deductRepaymentFlag="{!v.deductRepaymentFlag}"
+        processingFees="{!v.processingFeeClosingCost}"
       ></c:FeesAndChargesLineItemComponent>
     </lightning:layout>
   </fieldset>

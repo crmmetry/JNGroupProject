@@ -15,5 +15,14 @@
         } else {
             component.set("v.showIndicateApplicableProcessingFees", true);
         }
+    },
+    resetProcessingFieldsValues: function (data, component) {
+        if (typeof data['waiveProcessingFeeFlag'] !== 'undefined') {
+            if (data['waiveProcessingFeeFlag'] === true) {
+                console.info("siss resetProcessingFieldsValue")
+                component.set("v.processingFeePercentagePerAnum", null);
+                component.find("includeInLoanAmountId").set("v.value", "select one...");
+            }
+        }
     }
 })

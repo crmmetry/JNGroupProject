@@ -14,6 +14,7 @@
   <aura:attribute name="waveProcessingFee" type="List" default="['Yes','No']" />
   <aura:attribute name="includeWaveProcessingFee" type="List" default="['Yes','No']" />
   <aura:attribute name="processingFeePercentagePerAnum" type="Decimal" default="" />
+  <aura:handler name="change" value="{!v.processingFeePercentagePerAnum}" action="{!c.onProcessingFeePercentagePerAnumChange}"/>
   <aura:attribute name="repaymentMethod" type="List" default="['Salary deduction',
               'Automatic transfer',
               'Standing Order',
@@ -29,7 +30,7 @@
   <aura:attribute name="value" type="String" default="" />
   <aura:attribute name="percent" type="String" default="percent" />
   <aura:attribute name="amount" type="String" default="amount" />
-
+  <aura:attribute name="defaultSelectOption" type="String" default="select one..." />
   <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
 
   <aura:handler name="change" action="{!c.onCreditRepaymentChange}" value="{!v.CreditRepayment}" />
@@ -127,7 +128,7 @@
           <div class="slds-form-element">
             <div class="slds-form-element__control">
               <lightning:select name="select1" label="Waive Processing Fee?" required="true"
-                onchange="{!c.onWaiveProcessingFeeChange}">
+                onchange="{!c.onWaiveProcessingFeeChange}" >
                 <option value="">select one...</option>
                 <aura:iteration items="{!v.waveProcessingFee}" var="item">
                   <option value="{!item}">{!item}</option>
@@ -140,7 +141,7 @@
           <div class="slds-form-element">
             <div class="slds-form-element__control">
               <lightning:select name="select1" label="Include in Loan Amount" required="true"
-                onchange="{!c.onIncludeWaiveProcessingFeeChange}" disabled="{!v.showIncludeInLoanAmount}">
+                onchange="{!c.onIncludeWaiveProcessingFeeChange}" disabled="{!v.showIncludeInLoanAmount}" aura:id="includeInLoanAmountId">
                 <option value="">select one...</option>
                 <aura:iteration items="{!v.includeWaveProcessingFee}" var="item">
                   <option value="{!item}">{!item}</option>
@@ -153,9 +154,9 @@
           <div class="slds-form-element">
             <div class="slds-form-element__control">
               <lightning:input type="number" label="Indicate Applicable Processing Fees(%)"
-                value="{!v.CreditRepayment.processingFeePercentagePerAnum}"
+                value="{!v.processingFeePercentagePerAnum}"
                 name="Indicate Applicable Processing Fees(%)" formatter="percent-fixed" required="true"
-                disabled="{!v.showIndicateApplicableProcessingFees}" />
+                disabled="{!v.showIndicateApplicableProcessingFees}" step="0.01" />
             </div>
           </div>
         </lightning:layoutItem>
