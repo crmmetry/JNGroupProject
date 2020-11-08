@@ -7,6 +7,12 @@
       processingFeePercentagePerAnum: null
     };
     component.set("v.CreditRepayment", creditRepaymentMap);
+    const loanSavings = {
+      percentage: null,
+      amount: null,
+      selection: null
+    };
+    component.set("v.LoanSavings", loanSavings);
   },
   onProcessingFeePercentagePerAnumChange: function (component, event, helper) {
     const value = component.get("v.processingFeePercentagePerAnum");
@@ -29,6 +35,25 @@
       component.get("v.CreditRepayment")
     );
     helper.resetProcessingFieldsValues(data, component);
+  },
+
+  onProposedSavingsChange: function (component, event, helper) {
+    const selected = component.get("v.value");
+    console.log(selected);
+    let loanSavings = component.get("v.LoanSavings");
+    if (selected === "percent") {
+      loanSavings.amount = null;
+      loanSavings.selection = selected;
+    } else if (selected === "amount") {
+      loanSavings.percentage = null;
+      loanSavings.selection = selected;
+    }
+    //component.set("v.LoanSavingsContainer", loanSavings);
+    const data = Object.assign(
+      component.get("v.LoanSavingsContainer"),
+      component.get("v.LoanSavings")
+    );
+    component.set("v.LoanSavingsContainer", data);
   },
 
   onInterestedInCreditorLifeChange: function (component, event, helper) {

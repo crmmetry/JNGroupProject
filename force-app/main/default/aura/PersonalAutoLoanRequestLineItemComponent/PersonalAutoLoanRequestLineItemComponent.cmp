@@ -311,7 +311,6 @@
                 value="{!v.PersonalAutoLoan.years}"
                 name="number"
                 required="true"
-                min="1"
               />
             </lightning:layoutItem>
             <lightning:layoutItem size="6">

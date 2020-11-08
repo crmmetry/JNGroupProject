@@ -1,4 +1,6 @@
 <aura:component>
+  <aura:attribute name="CreditRepayment" type="Map" />
+  <aura:attribute name="CreditRepaymentContainer" type="Map" />
   <aura:attribute name="JNGIPremium" type="Map" default="{}" />
   <aura:attribute name="JNGIPremiumContainer" type="Map" default="{}" />
   <aura:attribute
@@ -6,9 +8,6 @@
     type="Boolean"
     default="true"
   />
-
-  <aura:attribute name="CreditRepayment" type="Map" />
-  <aura:attribute name="CreditRepaymentContainer" type="Map" />
   <aura:attribute
     name="options"
     type="List"
@@ -17,6 +16,8 @@
     {'label': 'Amount(JMD)', 'value': 'amount'}
     ]"
   />
+  <aura:attribute name="LoanSavings" type="Map" default="{}" />
+  <aura:attribute name="LoanSavingsContainer" type="Map" default="{}" />
   <aura:attribute
     name="interestedInCreditorLife"
     type="List"
@@ -74,11 +75,6 @@
   <aura:attribute name="value" type="String" default="" />
   <aura:attribute name="percent" type="String" default="percent" />
   <aura:attribute name="amount" type="String" default="amount" />
-  <aura:handler
-    name="change"
-    value="{!v.JNGIPremium}"
-    action="{!c.onJNGIPremiumChange}"
-  />
   <aura:attribute
     name="defaultSelectOption"
     type="String"
@@ -88,9 +84,23 @@
 
   <aura:handler
     name="change"
+    action="{!c.onProposedSavingsChange}"
+    value="{!v.LoanSavings}"
+  />
+
+  <aura:handler
+    name="change"
     action="{!c.onCreditRepaymentChange}"
     value="{!v.CreditRepayment}"
   />
+
+  <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
+
+  <aura:handler
+    name="change"
+    value="{!v.JNGIPremium}"
+    action="{!c.onJNGIPremiumChange}"
+    />
   <!-- toggling attributes-->
   <aura:attribute
     name="showIncludeInLoanAmount"
@@ -383,8 +393,9 @@
             <lightning:input
               type="number"
               label="Savings(%)"
-              value="{!v.savingsPercentage}"
-              formatter="percent"
+              value="{!v.LoanSavings.percentage}"
+              formatter="percent-fixed"
+              step="0.01"
               required="true"
             />
           </lightning:layoutItem>
@@ -398,7 +409,7 @@
             <lightning:input
               type="number"
               label="Amount(JMD)"
-              value="{!v.savingsAmount}"
+              value="{!v.LoanSavings.amount}"
               formatter="currency"
               required="true"
             />

@@ -1,5 +1,49 @@
 ({
   doinit: function (component, event, helper) {
+    const creditRepaymentMap = {
+      repaymentMethod: "",
+      repaymentDate: "",
+      deductRepayment: ""
+    };
+    component.set("v.CreditRepayment", creditRepaymentMap);
+    const loanSavings = {
+      percentage: null,
+      amount: null,
+      selection: null
+    };
+    component.set("v.LoanSavings", loanSavings);
+  },
+
+  onCreditRepaymentChange: function (component, event, helper) {
+    const data = Object.assign(
+      component.get("v.CreditRepaymentContainer"),
+      component.get("v.CreditRepayment")
+    );
+    component.set("v.CreditRepaymentContainer", data);
+  },
+
+  onProposedSavingsChange: function (component, event, helper) {
+    const selected = component.get("v.value");
+    console.log(selected);
+    let loanSavings = component.get("v.LoanSavings");
+    if (selected === "percent") {
+      loanSavings.amount = null;
+      loanSavings.selection = selected;
+    } else if (selected === "amount") {
+      loanSavings.percentage = null;
+      loanSavings.selection = selected;
+    }
+    //component.set("v.LoanSavingsContainer", loanSavings);
+    const data = Object.assign(
+      component.get("v.LoanSavingsContainer"),
+      component.get("v.LoanSavings")
+    );
+    component.set("v.LoanSavingsContainer", data);
+  },
+
+  onInterestedInJNGIChange: function (component, event, helper) {
+    const selected = event.getSource().get("v.value");
+    console.log(selected);
     const JNGIPremiumMap = {
       interested: "",
       includeInLoan: "",
@@ -71,6 +115,7 @@
     let jngiPremium = component.get("v.JNGIPremium");
     jngiPremium.includeInLoan = selected;
     component.set("v.JNGIPremium", jngiPremium);
+    console.log(selected);
   },
 
   onInterestedInCreditorLifeChange: function (component, event, helper) {
@@ -104,6 +149,7 @@
 
   onRepaymentMethodChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
+    //component.set('v.CreditRepayment.repaymentMethod', selected);
     let creditRepaymentMap = component.get("v.CreditRepayment");
     creditRepaymentMap.repaymentMethod = selected;
     component.set("v.CreditRepayment", creditRepaymentMap);
@@ -114,6 +160,7 @@
     let creditRepaymentMap = component.get("v.CreditRepayment");
     creditRepaymentMap.repaymentDate = selected;
     component.set("v.CreditRepayment", creditRepaymentMap);
+    console.log(selected);
   },
 
   onDeductFirstMonthRepaymentChange: function (component, event, helper) {

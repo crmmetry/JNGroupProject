@@ -10,13 +10,14 @@
   <aura:attribute name="payableInstallment" type="Decimal" default="0" />
   <aura:attribute name="totalClosingCosts" type="Decimal" default="0" />
   <aura:attribute name="assignmentFee" type="Decimal" default="0" />
+  <aura:attribute name="deductRepayment" type="Boolean" default="false" />
+
   <aura:attribute name="includePremiumFlag" type="Boolean" default="true" />
   <aura:handler
     name="change"
     value="{!v.includePremiumFlag}"
     action="{!c.onIncludePremiumChange}"
   />
-  <aura:attribute name="deductRepayment" type="Boolean" default="false" />
 
   <aura:attribute
     name="totalClosingCostsJNFinanced"
