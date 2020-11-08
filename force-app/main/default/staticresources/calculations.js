@@ -125,3 +125,92 @@ window.basicPMTCalculator = function (properties, parentObj) {
   }
   return null;
 };
+/**
+ * checks if a given object as all the required properties
+ * @param {Array<String>} properties - fields on the parent object
+ * @param {Object} parentObj
+ * @return {Boolean}
+ */
+window.asAllValidDependencies = function (properties, parentObj) {
+  if (!parentObj || !properties) return false;
+  properties.forEach((field) => {
+    if (parentObj.hasOwnProperty(field)) {
+      if (isEmpty(parentObj[field])) {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  });
+  return true;
+};
+
+/**
+ * calculates base GCT percentage
+ * @param {Number} gctPercentage
+ * @return {Number}
+ */
+window.calculateGCT = function (gctPercentage) {
+  return 1 + gctPercentage;
+};
+/**
+ * calculates
+ * @param {Array<String>} properties - fields on the parent object
+ * @param {Object} parentObj
+ * @param {Array<String>} requiredDependencies - required fields
+ * @param {Number} gct
+ * @return {Boolean}
+ */
+window.basicProcessingFeesCalculator = function (
+  properties,
+  parentObj,
+  requiredDependencies,
+  gct
+) {
+  const shouldWaiveProcessingFee =
+    parentObj.hasOwnProperty("waiveProcessingFeeFlag") === false ||
+    parentObj.waiveProcessingFeeFlag === true;
+  const shouldIncludeInLoanAmountFlag =
+    parentObj.hasOwnProperty("includeInLoanAmountFlag") === true &&
+    parentObj.includeInLoanAmountFlag === true;
+  gct = calculateGCT(gct);
+  if (shouldIncludeInLoanAmountFlag) {
+    if (
+      parentObj.processingFeePercentagePerAnum &&
+      parentObj.processingFeePercentagePerAnum >= 0
+    ) {
+      parentObj.loanAmount =
+        (parentObj.processingFeePercentagePerAnum / 100) *
+        gct *
+        parentObj.loanAmount;
+      return {
+        processingFee: shouldWaiveProcessingFee ? 0 : parentObj.loanAmount,
+        monthlyProcessingFee: shouldWaiveProcessingFee
+          ? 0
+          : basicPMTCalculator(properties, parentObj),
+        processingFeeClosingCost: 0
+      };
+    } else {
+      return {
+        processingFee: shouldWaiveProcessingFee ? 0 : parentObj.loanAmount,
+        monthlyProcessingFee: shouldWaiveProcessingFee
+          ? 0
+          : basicPMTCalculator(properties, parentObj),
+        processingFeeClosingCost: 0
+      };
+    }
+  } else {
+    let processingFeeClosingCost = 0;
+    if (!shouldWaiveProcessingFee) {
+      processingFeeClosingCost =
+        (parentObj.processingFeePercentagePerAnum / 100) *
+        gct *
+        parentObj.loanAmount;
+    }
+    return {
+      processingFee: 0,
+      monthlyProcessingFee: 0,
+      processingFeeClosingCost: processingFeeClosingCost
+    };
+  }
+};

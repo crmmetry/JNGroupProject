@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Lightning page template for cloning Wealth Management client and household record pages in Financial Services Cloud.</description>
+    <description
+  >Lightning page template for cloning Wealth Management client and household record pages in Financial Services Cloud.</description>
     <flexiPageRegions>
         <componentInstances>
             <componentInstanceProperties>
@@ -266,7 +267,8 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <componentInstances>
-            <componentName>runtime_sales_activities:activityPanel</componentName>
+            <componentName
+      >runtime_sales_activities:activityPanel</componentName>
         </componentInstances>
         <mode>Replace</mode>
         <name>activityTabContent</name>

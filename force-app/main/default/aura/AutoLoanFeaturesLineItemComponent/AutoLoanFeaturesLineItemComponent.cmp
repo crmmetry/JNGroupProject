@@ -8,7 +8,6 @@
     type="Boolean"
     default="true"
   />
-
   <aura:attribute
     name="options"
     type="List"
@@ -44,6 +43,11 @@
     type="Decimal"
     default=""
   />
+  <aura:handler
+    name="change"
+    value="{!v.processingFeePercentagePerAnum}"
+    action="{!c.onProcessingFeePercentagePerAnumChange}"
+  />
   <aura:attribute
     name="repaymentMethod"
     type="List"
@@ -71,7 +75,11 @@
   <aura:attribute name="value" type="String" default="" />
   <aura:attribute name="percent" type="String" default="percent" />
   <aura:attribute name="amount" type="String" default="amount" />
-
+  <aura:attribute
+    name="defaultSelectOption"
+    type="String"
+    default="select one..."
+  />
   <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
 
   <aura:handler
@@ -92,12 +100,23 @@
     name="change"
     value="{!v.JNGIPremium}"
     action="{!c.onJNGIPremiumChange}"
+    />
+  <!-- toggling attributes-->
+  <aura:attribute
+    name="showIncludeInLoanAmount"
+    type="Boolean"
+    default="true"
+  />
+  <aura:attribute
+    name="showIndicateApplicableProcessingFees"
+    type="Boolean"
+    default="true"
   />
 
   <fieldset class="slds-box slds-theme_default">
     <legend
       id="productdetailsform"
-      class="slds-text-heading_medium slds-p-vertical_medium"
+      class="slds-text-heading_medium slds-var-p-vertical_medium"
     >
       Auto Loan Features
     </legend>
@@ -251,7 +270,7 @@
                 name="select1"
                 label="Waive Processing Fee?"
                 required="true"
-                onchange="{!c.onWaveProcessingFeeChange}"
+                onchange="{!c.onWaiveProcessingFeeChange}"
               >
                 <option value="">select one...</option>
                 <aura:iteration items="{!v.waveProcessingFee}" var="item">
@@ -272,7 +291,9 @@
                 name="select1"
                 label="Include in Loan Amount"
                 required="true"
-                onchange="{!c.onIncludeWaveProcessingFeeChange}"
+                onchange="{!c.onIncludeWaiveProcessingFeeChange}"
+                disabled="{!v.showIncludeInLoanAmount}"
+                aura:id="includeInLoanAmountId"
               >
                 <option value="">select one...</option>
                 <aura:iteration
@@ -297,8 +318,10 @@
                 label="Indicate Applicable Processing Fees(%)"
                 value="{!v.processingFeePercentagePerAnum}"
                 name="Indicate Applicable Processing Fees(%)"
-                formatter="percent"
+                formatter="percent-fixed"
                 required="true"
+                disabled="{!v.showIndicateApplicableProcessingFees}"
+                step="0.01"
               />
             </div>
           </div>

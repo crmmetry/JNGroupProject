@@ -1,8 +1,6 @@
 ({
-	doInit : function(component, event, helper) {
-		
-  
-        /*window.location.href="/apex/DocumentCriteriaDoc";
+  doInit: function (component, event, helper) {
+    /*window.location.href="/apex/DocumentCriteriaDoc";
 
     		setTimeout(function(){
             		$A.get("e.force:closeQuickAction").fire(); 
@@ -10,6 +8,5 @@
         //alert('Hello');
         //var dismissActionPanel = $A.get("e.force:closeQuickAction");
     //dismissActionPanel.fire();*/
-	},
-    
-})
+  }
+});

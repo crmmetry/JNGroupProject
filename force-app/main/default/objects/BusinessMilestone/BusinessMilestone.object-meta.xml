@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>CancelEdit</actionName>
@@ -130,22 +130,38 @@
     <enableFeeds>false</enableFeeds>
     <externalSharingModel>Private</externalSharingModel>
     <searchLayouts>
-        <customTabListAdditionalFields>LastModifiedDate</customTabListAdditionalFields>
-        <customTabListAdditionalFields>LastModifiedBy</customTabListAdditionalFields>
-        <customTabListAdditionalFields>PrimaryAccount</customTabListAdditionalFields>
-        <customTabListAdditionalFields>MilestoneSite</customTabListAdditionalFields>
-        <lookupDialogsAdditionalFields>LastModifiedDate</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>LastModifiedBy</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>PrimaryAccount</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>MilestoneSite</lookupDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>LastModifiedDate</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>LastModifiedBy</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>PrimaryAccount</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>MilestoneSite</lookupPhoneDialogsAdditionalFields>
-        <searchResultsAdditionalFields>LastModifiedDate</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>LastModifiedBy</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>PrimaryAccount</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>MilestoneSite</searchResultsAdditionalFields>
+        <customTabListAdditionalFields
+    >LastModifiedDate</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >LastModifiedBy</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >PrimaryAccount</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >MilestoneSite</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >LastModifiedDate</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >LastModifiedBy</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >PrimaryAccount</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >MilestoneSite</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >LastModifiedDate</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >LastModifiedBy</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >PrimaryAccount</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >MilestoneSite</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields
+    >LastModifiedDate</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >LastModifiedBy</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >PrimaryAccount</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >MilestoneSite</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
 </CustomObject>

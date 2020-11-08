@@ -1,12 +1,12 @@
 ({
-  doInit: function(component, event, helper) {},
-  addAffiliate: function(component, event, helper) {
+  doInit: function (component, event, helper) {},
+  addAffiliate: function (component, event, helper) {
     let addRowInList = component.get("v.affiliateList");
     let obj = new Map();
     addRowInList.push(obj);
     component.set("v.affiliateList", addRowInList);
   },
-  removeAffiliate: function(component, event, helper) {
+  removeAffiliate: function (component, event, helper) {
     const eventAction = event.getParam("action");
     if (eventAction == "removeAffiliate") {
       const eventComponent = event.getParam("component");
@@ -20,7 +20,7 @@
       }
     }
   },
-  createDetails: function(component, event, helper) {
+  createDetails: function (component, event, helper) {
     let siteLead;
     let affiliateList = component.get("v.affiliateList");
     let components = component.find("layout");
@@ -28,7 +28,7 @@
       if (!Array.isArray(components)) {
         components = [components];
       }
-      components.forEach(function(cmp, index) {
+      components.forEach(function (cmp, index) {
         siteLead = cmp.get("v.SiteLead");
         affiliateList[index] = siteLead;
       });
@@ -38,13 +38,13 @@
       helper.sendEvents(component, ["navigateNext"]);
     }
   },
-  validateTabFields: function(component, event, helper) {
+  validateTabFields: function (component, event, helper) {
     let components = component.find("layout");
     if (components) {
       if (!Array.isArray(components)) {
         components = [components];
       }
-      return components.reduce(function(validSoFar, inputCmp) {
+      return components.reduce(function (validSoFar, inputCmp) {
         // Displays error messages for invalid layouts
         return validSoFar && inputCmp.validateTabFields();
       }, true);

@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CF_Update_to_Complete_product_details</fullName>
     <active>true</active>
-    <errorConditionFormula>IF( $Profile.Name = &#39;Sales - All Products&#39;  &amp;&amp;  
+    <errorConditionFormula
+  >IF( $Profile.Name = &#39;Sales - All Products&#39;  &amp;&amp;  
 ISPICKVAL( Credit_Calculations_Reviewed_PK__c ,&#39;Yes&#39;) &amp;&amp;
 ISPICKVAL( Fees_and_Charges_Reviewed_PK__c , &#39;Yes&#39;) &amp;&amp;
 ISPICKVAL( Loan_Request_Details_Complete_PK__c, &#39;Yes&#39;) &amp;&amp;
@@ -11,5 +12,6 @@ $RecordType.Name = &#39;Credit_Facility&#39;,
 true
 ,false  )</errorConditionFormula>
     <errorDisplayField>StageName</errorDisplayField>
-    <errorMessage>Please Meet the Criteria for “Complete Loan Application” in the Sales Path.</errorMessage>
+    <errorMessage
+  >Please Meet the Criteria for “Complete Loan Application” in the Sales Path.</errorMessage>
 </ValidationRule>

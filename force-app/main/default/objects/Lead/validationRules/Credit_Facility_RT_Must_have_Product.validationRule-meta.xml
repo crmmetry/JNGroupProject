@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Credit_Facility_RT_Must_have_Product</fullName>
     <active>false</active>
@@ -19,5 +19,6 @@ ISPICKVAL(Service_of_Interest__c, &#39;JN Bank Cash Secured Loan&#39;)
 )
 )</errorConditionFormula>
     <errorDisplayField>Service_of_Interest__c</errorDisplayField>
-    <errorMessage>Please Update Product To A Credit Facility Related Product</errorMessage>
+    <errorMessage
+  >Please Update Product To A Credit Facility Related Product</errorMessage>
 </ValidationRule>

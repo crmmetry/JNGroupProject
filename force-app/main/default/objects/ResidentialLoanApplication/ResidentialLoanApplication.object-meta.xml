@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>CancelEdit</actionName>
@@ -130,26 +130,46 @@
     <enableFeeds>false</enableFeeds>
     <externalSharingModel>Private</externalSharingModel>
     <searchLayouts>
-        <customTabListAdditionalFields>Opportunity</customTabListAdditionalFields>
-        <customTabListAdditionalFields>MortgageProgramType</customTabListAdditionalFields>
-        <customTabListAdditionalFields>LotOriginalCost</customTabListAdditionalFields>
-        <customTabListAdditionalFields>InterestRate</customTabListAdditionalFields>
-        <customTabListAdditionalFields>AmortizationTerm</customTabListAdditionalFields>
-        <lookupDialogsAdditionalFields>Opportunity</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>MortgageProgramType</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>LotOriginalCost</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>InterestRate</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>AmortizationTerm</lookupDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>Opportunity</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>MortgageProgramType</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>LotOriginalCost</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>InterestRate</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>AmortizationTerm</lookupPhoneDialogsAdditionalFields>
-        <searchResultsAdditionalFields>Opportunity</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>MortgageProgramType</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>LotOriginalCost</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>InterestRate</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>AmortizationTerm</searchResultsAdditionalFields>
+        <customTabListAdditionalFields
+    >Opportunity</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >MortgageProgramType</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >LotOriginalCost</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >InterestRate</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >AmortizationTerm</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >Opportunity</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >MortgageProgramType</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >LotOriginalCost</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >InterestRate</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >AmortizationTerm</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >Opportunity</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >MortgageProgramType</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >LotOriginalCost</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >InterestRate</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >AmortizationTerm</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields
+    >Opportunity</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >MortgageProgramType</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >LotOriginalCost</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >InterestRate</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >AmortizationTerm</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
 </CustomObject>

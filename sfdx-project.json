@@ -1,18 +1,18 @@
 {
-    "packageDirectories": [
-        {
-            "path": "force-app",
-            "default": true,
-            "package": "Unlocked",
-            "versionName": "ver 0.1",
-            "versionNumber": "0.1.0.NEXT"
-        }
-    ],
-    "namespace": "",
-    "sfdcLoginUrl": "https://login.salesforce.com",
-    "sourceApiVersion": "49.0",
-    "packageAliases": {
-        "Unlocked": "0Ho4T000000fxXBSAY",
-        "Unlocked@0.1.0-3": "04t4T000001pu7DQAQ"
+  "packageDirectories": [
+    {
+      "path": "force-app",
+      "default": true,
+      "package": "Unlocked",
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT"
     }
+  ],
+  "namespace": "",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "50.0",
+  "packageAliases": {
+    "Unlocked": "0Ho4T000000fxXBSAY",
+    "Unlocked@0.1.0-3": "04t4T000001pu7DQAQ"
+  }
 }

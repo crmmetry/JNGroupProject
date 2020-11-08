@@ -1,8 +1,8 @@
-<aura:component >
-	<!-- attribute to accept Visualforce page's javascript method -->
-   <aura:attribute name="sendData" type="object"/>
-    <ltng:require scripts="/resource/1573149232000/PDFMake/pdfmake.min.js"/>
-<h1> hello </h1>
-   <!-- Button component to invoke PDF download -->
-   <lightning:button label="Download Document" onclick="{!c.downloadDocument}" />
+<aura:component>
+  <!-- attribute to accept Visualforce page's javascript method -->
+  <aura:attribute name="sendData" type="object" />
+  <ltng:require scripts="/resource/1573149232000/PDFMake/pdfmake.min.js" />
+  <h1>hello</h1>
+  <!-- Button component to invoke PDF download -->
+  <lightning:button label="Download Document" onclick="{!c.downloadDocument}" />
 </aura:component>

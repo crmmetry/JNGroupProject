@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FinServ__ServiceProvider__c</fullName>
     <deprecated>false</deprecated>
-    <description>Custodian or recordkeeper of this financial account.</description>
+    <description
+  >Custodian or recordkeeper of this financial account.</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
     <label>Service Provider</label>

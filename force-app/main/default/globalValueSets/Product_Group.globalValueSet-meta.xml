@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <customValue>
         <fullName>JN Bank Credit Card</fullName>
@@ -56,10 +56,12 @@
         <label>JN Bank Auto Loan</label>
     </customValue>
     <customValue>
-        <fullName>JN Bank Fixed Deposit Account (AMSI &amp; CAMP)JN Bank Auto Loan</fullName>
+        <fullName
+    >JN Bank Fixed Deposit Account (AMSI &amp; CAMP)JN Bank Auto Loan</fullName>
         <default>false</default>
         <isActive>false</isActive>
-        <label>JN Bank Fixed Deposit Account (AMSI &amp; CAMP)JN Bank Auto Loan</label>
+        <label
+    >JN Bank Fixed Deposit Account (AMSI &amp; CAMP)JN Bank Auto Loan</label>
     </customValue>
     <customValue>
         <fullName>Fixed Deposit (STM)</fullName>

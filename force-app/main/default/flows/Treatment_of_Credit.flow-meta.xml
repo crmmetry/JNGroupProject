@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <decisions>
         <processMetadataValues>
@@ -43,7 +43,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Treatment_of_Credit__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Treatment_of_Credit__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Repay Facility</stringValue>
@@ -98,7 +99,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Treatment_of_Credit__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Treatment_of_Credit__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Close facility</stringValue>
@@ -153,7 +155,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Treatment_of_Credit__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Treatment_of_Credit__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Will Remain</stringValue>
@@ -208,7 +211,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Loan_Repaid_from_Facility__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Loan_Repaid_from_Facility__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -260,7 +264,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Loan_Repaid_from_Facility__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Loan_Repaid_from_Facility__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -276,12 +281,14 @@
         <processMetadataValues>
             <name>originalFormula</name>
             <value>
-                <stringValue>[FinServ__AssetsAndLiabilities__c].Asset_Credit_Balance__c * 0.05</stringValue>
+                <stringValue
+        >[FinServ__AssetsAndLiabilities__c].Asset_Credit_Balance__c * 0.05</stringValue>
             </value>
         </processMetadataValues>
         <name>formula_2_myRule_1_A1_7515887847</name>
         <dataType>Currency</dataType>
-        <expression>{!myVariable_current.Asset_Credit_Balance__c} * 0.05</expression>
+        <expression
+    >{!myVariable_current.Asset_Credit_Balance__c} * 0.05</expression>
         <scale>18</scale>
     </formulas>
     <interviewLabel>Treatment_of_Credit-5_InterviewLabel</interviewLabel>
@@ -330,7 +337,8 @@
         <processMetadataValues>
             <name>reference</name>
             <value>
-                <stringValue>[FinServ__AssetsAndLiabilities__c].Application_Assets_Liabilities__r</stringValue>
+                <stringValue
+        >[FinServ__AssetsAndLiabilities__c].Application_Assets_Liabilities__r</stringValue>
             </value>
         </processMetadataValues>
         <processMetadataValues>
@@ -375,7 +383,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -386,7 +394,8 @@
             </processMetadataValues>
             <field>Loan_Balance_After__c</field>
             <value>
-                <elementReference>myVariable_current.Loan_Balance_Prior__c</elementReference>
+                <elementReference
+        >myVariable_current.Loan_Balance_Prior__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -411,7 +420,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -422,7 +431,8 @@
             </processMetadataValues>
             <field>Loan_Balance_Prior__c</field>
             <value>
-                <elementReference>myVariable_current.Loan_Balance_Prior__c</elementReference>
+                <elementReference
+        >myVariable_current.Loan_Balance_Prior__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -447,7 +457,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -483,7 +493,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -494,7 +504,8 @@
             </processMetadataValues>
             <field>Monthly_Payment_After__c</field>
             <value>
-                <elementReference>myVariable_current.Monthly_Payment_Prior__c</elementReference>
+                <elementReference
+        >myVariable_current.Monthly_Payment_Prior__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -519,7 +530,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -530,7 +541,8 @@
             </processMetadataValues>
             <field>Monthly_Payment_Prior__c</field>
             <value>
-                <elementReference>myVariable_current.Monthly_Payment_Prior__c</elementReference>
+                <elementReference
+        >myVariable_current.Monthly_Payment_Prior__c</elementReference>
             </value>
         </inputAssignments>
         <object>Application_Asset_Liability__c</object>
@@ -554,7 +566,8 @@
         <processMetadataValues>
             <name>reference</name>
             <value>
-                <stringValue>[FinServ__AssetsAndLiabilities__c].Application_Assets_Liabilities__r</stringValue>
+                <stringValue
+        >[FinServ__AssetsAndLiabilities__c].Application_Assets_Liabilities__r</stringValue>
             </value>
         </processMetadataValues>
         <processMetadataValues>
@@ -599,7 +612,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -610,7 +623,8 @@
             </processMetadataValues>
             <field>Asset_Credit_Balance_After__c</field>
             <value>
-                <elementReference>formula_2_myRule_1_A1_7515887847</elementReference>
+                <elementReference
+        >formula_2_myRule_1_A1_7515887847</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -635,7 +649,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -646,7 +660,8 @@
             </processMetadataValues>
             <field>Asset_Credit_Balance__c</field>
             <value>
-                <elementReference>myVariable_current.Asset_Credit_Balance__c</elementReference>
+                <elementReference
+        >myVariable_current.Asset_Credit_Balance__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -671,7 +686,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -682,7 +697,8 @@
             </processMetadataValues>
             <field>Minimum_Payment_After__c</field>
             <value>
-                <elementReference>myVariable_current.Minimum_Payment__c</elementReference>
+                <elementReference
+        >myVariable_current.Minimum_Payment__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -707,7 +723,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -718,7 +734,8 @@
             </processMetadataValues>
             <field>Minimum_Payment__c</field>
             <value>
-                <elementReference>myVariable_current.Minimum_Payment__c</elementReference>
+                <elementReference
+        >myVariable_current.Minimum_Payment__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -743,7 +760,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -754,7 +771,8 @@
             </processMetadataValues>
             <field>Treatment_of_Credit__c</field>
             <value>
-                <elementReference>myVariable_current.Treatment_of_Credit__c</elementReference>
+                <elementReference
+        >myVariable_current.Treatment_of_Credit__c</elementReference>
             </value>
         </inputAssignments>
         <object>Application_Asset_Liability__c</object>
@@ -778,7 +796,8 @@
         <processMetadataValues>
             <name>reference</name>
             <value>
-                <stringValue>[FinServ__AssetsAndLiabilities__c].Application_Assets_Liabilities__r</stringValue>
+                <stringValue
+        >[FinServ__AssetsAndLiabilities__c].Application_Assets_Liabilities__r</stringValue>
             </value>
         </processMetadataValues>
         <processMetadataValues>
@@ -823,7 +842,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -859,7 +878,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -870,7 +889,8 @@
             </processMetadataValues>
             <field>Asset_Credit_Balance__c</field>
             <value>
-                <elementReference>myVariable_current.Asset_Credit_Balance__c</elementReference>
+                <elementReference
+        >myVariable_current.Asset_Credit_Balance__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -895,7 +915,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -931,7 +951,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -942,7 +962,8 @@
             </processMetadataValues>
             <field>Minimum_Payment__c</field>
             <value>
-                <elementReference>myVariable_current.Minimum_Payment__c</elementReference>
+                <elementReference
+        >myVariable_current.Minimum_Payment__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -967,7 +988,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -1002,7 +1023,8 @@
         <processMetadataValues>
             <name>reference</name>
             <value>
-                <stringValue>[FinServ__AssetsAndLiabilities__c].Application_Assets_Liabilities__r</stringValue>
+                <stringValue
+        >[FinServ__AssetsAndLiabilities__c].Application_Assets_Liabilities__r</stringValue>
             </value>
         </processMetadataValues>
         <processMetadataValues>
@@ -1047,7 +1069,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -1058,7 +1080,8 @@
             </processMetadataValues>
             <field>Asset_Credit_Balance_After__c</field>
             <value>
-                <elementReference>myVariable_current.Asset_Credit_Balance__c</elementReference>
+                <elementReference
+        >myVariable_current.Asset_Credit_Balance__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1083,7 +1106,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -1094,7 +1117,8 @@
             </processMetadataValues>
             <field>Asset_Credit_Balance__c</field>
             <value>
-                <elementReference>myVariable_current.Asset_Credit_Balance__c</elementReference>
+                <elementReference
+        >myVariable_current.Asset_Credit_Balance__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1119,7 +1143,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -1130,7 +1154,8 @@
             </processMetadataValues>
             <field>Monthly_Payment_After__c</field>
             <value>
-                <elementReference>myVariable_current.Monthly_Payment_Prior__c</elementReference>
+                <elementReference
+        >myVariable_current.Monthly_Payment_Prior__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1155,7 +1180,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -1166,7 +1191,8 @@
             </processMetadataValues>
             <field>Monthly_Payment_Prior__c</field>
             <value>
-                <elementReference>myVariable_current.Monthly_Payment_Prior__c</elementReference>
+                <elementReference
+        >myVariable_current.Monthly_Payment_Prior__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1191,7 +1217,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -1226,7 +1252,8 @@
         <processMetadataValues>
             <name>reference</name>
             <value>
-                <stringValue>[FinServ__AssetsAndLiabilities__c].Application_Assets_Liabilities__r</stringValue>
+                <stringValue
+        >[FinServ__AssetsAndLiabilities__c].Application_Assets_Liabilities__r</stringValue>
             </value>
         </processMetadataValues>
         <processMetadataValues>
@@ -1271,7 +1298,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -1307,7 +1334,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -1318,7 +1345,8 @@
             </processMetadataValues>
             <field>Loan_Balance_Prior__c</field>
             <value>
-                <elementReference>myVariable_current.Loan_Balance_Prior__c</elementReference>
+                <elementReference
+        >myVariable_current.Loan_Balance_Prior__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1343,7 +1371,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -1379,7 +1407,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -1415,7 +1443,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -1426,7 +1454,8 @@
             </processMetadataValues>
             <field>Monthly_Payment_Prior__c</field>
             <value>
-                <elementReference>myVariable_current.Monthly_Payment_Prior__c</elementReference>
+                <elementReference
+        >myVariable_current.Monthly_Payment_Prior__c</elementReference>
             </value>
         </inputAssignments>
         <object>Application_Asset_Liability__c</object>

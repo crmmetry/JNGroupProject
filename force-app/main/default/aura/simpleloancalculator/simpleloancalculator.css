@@ -1,112 +1,136 @@
-.THIS .calc-select span.slds-radio{
-    /*width:25%;*/
-    float:left; 
-    white-space: nowrap; 
-    /*padding-right:10px; */
-    padding-bottom:10px;
-    /*top: -30px;
+.THIS .calc-select span.slds-radio {
+  /*width:25%;*/
+  float: left;
+  white-space: nowrap;
+  /*padding-right:10px; */
+  padding-bottom: 10px;
+  /*top: -30px;
     position: relative;*/
-}   
+}
 .THIS .slds-box {
-    padding: 0 1rem!important;
+  padding: 0 1rem !important;
 }
-.THIS legend{
-    background:#fff; padding:10px;
+.THIS legend {
+  background: #fff;
+  padding: 10px;
 }
-.THIS fieldset{
-   /* margin-top: 15px; */
-    bottom: 6px;
-    position: relative;
+.THIS fieldset {
+  /* margin-top: 15px; */
+  bottom: 6px;
+  position: relative;
 }
 
-.THIS .col-span-20{
-    width:20%; float:left; padding-right:5px;
+.THIS .col-span-20 {
+  width: 20%;
+  float: left;
+  padding-right: 5px;
 }
-.THIS .col-span-10{
-    width:10%; float:left; padding-right:5px;
+.THIS .col-span-10 {
+  width: 10%;
+  float: left;
+  padding-right: 5px;
 }
-.THIS .col-span-30{
-    width:30%; float:left; padding-right:15px;
+.THIS .col-span-30 {
+  width: 30%;
+  float: left;
+  padding-right: 15px;
 }
-.THIS .col-span-50{
-    width:50%; float:left; padding-right:5px;
+.THIS .col-span-50 {
+  width: 50%;
+  float: left;
+  padding-right: 5px;
 }
-.THIS .col-span-70{
-    width:70%; float:left; padding-right:5px;
+.THIS .col-span-70 {
+  width: 70%;
+  float: left;
+  padding-right: 5px;
 }
-.THIS .col-span-80{
-    width:80%; float:left; padding-right:5px;
+.THIS .col-span-80 {
+  width: 80%;
+  float: left;
+  padding-right: 5px;
 }
-.THIS .clear{
-    clear:both; 
+.THIS .clear {
+  clear: both;
 }
-.THIS .fright{
-    float:right;  
+.THIS .fright {
+  float: right;
 }
-.THIS .fleft{
-    float:left; 
+.THIS .fleft {
+  float: left;
 }
-.THIS  th sub{display:inline-block; font-size:8px; white-space: nowrap}
-.THIS .bggreen{padding:30px 30px 50px 10px;}
-.THIS .bggreenLeftBorder{border-left: 1px solid #ccc; }
-.THIS .bggreen label{text-align: center;} 
-.THIS .bggreen .slds-input{  
-    background-color: rgb(167, 206, 109) !important;   
-    color: rgb(11, 12, 11); border:solid 1px rgb(11, 12, 11); 
-}  
-.THIS .green .slds-input{  
-    background-color: rgb(167, 206, 109) !important;   
-    color: rgb(11, 12, 11); border:solid 1px rgb(11, 12, 11); 
+.THIS th sub {
+  display: inline-block;
+  font-size: 8px;
+  white-space: nowrap;
+}
+.THIS .bggreen {
+  padding: 30px 30px 50px 10px;
+}
+.THIS .bggreenLeftBorder {
+  border-left: 1px solid #ccc;
+}
+.THIS .bggreen label {
+  text-align: center;
+}
+.THIS .bggreen .slds-input {
+  background-color: rgb(167, 206, 109) !important;
+  color: rgb(11, 12, 11);
+  border: solid 1px rgb(11, 12, 11);
+}
+.THIS .green .slds-input {
+  background-color: rgb(167, 206, 109) !important;
+  color: rgb(11, 12, 11);
+  border: solid 1px rgb(11, 12, 11);
 }
 /********************************************************************/
-.THIS .paddingLR{
-    padding:0px 10px;
+.THIS .paddingLR {
+  padding: 0px 10px;
 }
-.THIS .paddingL{
-    padding-left:10px;
+.THIS .paddingL {
+  padding-left: 10px;
 }
-.THIS .paddingR{
-    padding-right:10px;
+.THIS .paddingR {
+  padding-right: 10px;
 }
-.THIS .mrgBottom{
-    margin-bottom:10px;
+.THIS .mrgBottom {
+  margin-bottom: 10px;
 }
-.THIS .mrgTop{
-    margin-top:5px;
+.THIS .mrgTop {
+  margin-top: 5px;
 }
-.THIS .margT{
-    margin-top: 30px;
+.THIS .margT {
+  margin-top: 30px;
 }
 @media (max-width: 750px) {
-    .THIS .bggreenLeftBorder {
-        border-left: 0px;
-        border-top: 1px solid #ccc;
-        margin-top: 35px;
-        
-    }
-    .THIS .paddingL{
-        padding-left:0px;
-    }
-    .THIS .paddingR{
-        padding-right:0px;
-    }
-    .THIS .paddingLR{
-        padding:0px 0px;
-    }
+  .THIS .bggreenLeftBorder {
+    border-left: 0px;
+    border-top: 1px solid #ccc;
+    margin-top: 35px;
+  }
+  .THIS .paddingL {
+    padding-left: 0px;
+  }
+  .THIS .paddingR {
+    padding-right: 0px;
+  }
+  .THIS .paddingLR {
+    padding: 0px 0px;
+  }
 }
 .THIS .c-container {
-    border: 1px solid #d8dde6;
-    margin: 10px 0 20px 0;
+  border: 1px solid #d8dde6;
+  margin: 10px 0 20px 0;
 }
 .THIS .header-column {
-    padding: 0 2rem;
+  padding: 0 2rem;
 }
 .THIS .field-title {
-    font-size: .75rem;
-    line-height: 1.25;
-    color: #54698d;
-    margin-bottom: .25rem;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  color: #54698d;
+  margin-bottom: 0.25rem;
 }
 .THIS {
-  background-color: white; 
+  background-color: white;
 }

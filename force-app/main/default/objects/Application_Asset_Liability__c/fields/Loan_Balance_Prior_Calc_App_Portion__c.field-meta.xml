@@ -1,10 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Loan_Balance_Prior_Calc_App_Portion__c</fullName>
     <description>Applicant Portion of the Loan Balance Prior to the Loan -
 Percent Applicant Portion x Loan Balance Prior</description>
     <externalId>false</externalId>
-    <formula>Assets_and_Liabilities__r.Percent_Ownership__c *  Loan_Balance_Prior__c</formula>
+    <formula
+  >Assets_and_Liabilities__r.Percent_Ownership__c *  Loan_Balance_Prior__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Loan Balance Prior Calc App Portion</label>
     <precision>18</precision>

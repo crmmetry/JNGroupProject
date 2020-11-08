@@ -1,4 +1,10 @@
 ({
+  /**
+   * //TODO: refactor use only ChildContaier
+   * @param {*} component
+   * @param {*} event
+   * @param {*} helper
+   */
   onPersonalAutoLoanChange: function (component, event, helper) {
     console.log(
       "Credit Calculations",
@@ -31,6 +37,9 @@
     console.log("SavingsLoan Change");
     helper.calculateSavings(component);
     console.log("Saving Calculations done?");
+    helper.calculateJNGIPMT(component);
+    helper.calculateMonthlyP_ILoanAmount(component);
+    helper.calculateProcessingFee(component);
   },
 
   onJNGIPremiumChange: function (component, event, helper) {
@@ -47,5 +56,18 @@
     );
     component.set("v.jngiMotorPremium", firstYearPremium);
     helper.calculateJNGIPMT(component);
+    helper.calculateMonthlyP_ILoanAmount(component);
+    helper.calculateProcessingFee(component);
+  },
+  /**
+   * //TODO: refactor use only ChildContaier
+   * @param {*} component
+   * @param {*} event
+   * @param {*} helper
+   */
+  onCreditRepaymentChange: function (component, event, helper) {
+    console.log("calculating onCreditRepaymentChange");
+    helper.setDeductRepaymentFlag(component);
+    helper.calculateProcessingFee(component);
   }
 });

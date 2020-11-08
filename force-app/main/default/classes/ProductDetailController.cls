@@ -16,19 +16,16 @@ public with sharing class ProductDetailController {
     }
     return Constants.NONE;
   }
-
   /**
-   * Return appropriate creditor rate from creditor life matrix metadata for an applicant
-   * @param {Id} - oppId
-   * @return Object
+   * retrieves default Jn custom meta data configuration
+   * @return {JNConfiguration}
    */
-
   @AuraEnabled
-  public static Deciaml getCreditorRating(String oppId) {
-    Opportunity oppRecord = [
-      SELECT Id, (SELECT Id, Account__r.Age__c FROM Applicants__c)
-      FROM Opportunity
-      WHERE Id = :oppId
-    ];
+  public static JNConfiguration GetJNConfigs() {
+    try {
+      return JNConfigurations.GetDefaultConfiguration();
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
+    }
   }
 }

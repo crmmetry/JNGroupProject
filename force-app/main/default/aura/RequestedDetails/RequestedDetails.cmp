@@ -1,68 +1,92 @@
-<aura:component >
-    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
-    <aura:method name="CallRequestDetails" action="{!c.addrowdata}"> 
-        <aura:attribute name="param1" type="object[]"/>
-        <aura:attribute name="Auto" type="boolean"/>
-        <aura:attribute name="unsecured" type="boolean"/>
-    </aura:method>
-    <aura:attribute name="RowNum" type="Object[]" default="{}"/>
-    <aura:registerevent name="Requestdetailevent" type="c:Requestdetailevent"></aura:registerevent>
-    <form class="slds-form ">
-        <div class="slds-scrollable" style="width:50rem;margin-top:10px;">
-                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
-                    <thead>
-                        <tr class="slds-text-heading--label">
-                            <th scope="col" style="width:5%">
-                                <div class="slds-truncate" title="index"></div>
-                            </th>
-                            <th scope="col"  colspan="2" style="width:20%">
-                                <div class="slds-truncate" title="INTEREST RATE">INTEREST RATE (%)*</div>
-                            </th>
-                            <th scope="col" colspan="4" style="width:40%">
-                                <div class="slds-truncate" title="LOAN TERM">LOAN TERM*</div>
-                            </th>
-                            <th scope="col"  colspan="2" style="width:35%">
-                                <div class="slds-truncate" title="LOAN AMOUNT">LOAN AMOUNT*</div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <aura:iteration items="{!v.RowNum}" var="row">
-                            <tr>
-                                <td>
-                                    {!row.colIndex}
-                                </td>
-                                <td>
-                                    <lightning:input type="number"  formatter="percent-fixed"  step="0.01"  value="{!row.Interestrate}" onblur="{!c.updateRequestdetails}"/>
-                                </td>
-                                <td>
-                                    per annum
-                                </td>
-                                <td>
-                                    <lightning:input type="number" max="10" value="{!row.LoanTerm1}" onblur="{!c.updateRequestdetails}"/>
-                                </td>
-                                <td>
-                                    yrs
-                                </td>
-                                <td>
-                                    <lightning:input type="number" max="12" value="{!row.LoanTerm2}" onblur="{!c.updateRequestdetails}"/>
-                                </td>
-                                <td>
-                                    mths
-                                </td>
-                                <td>
-                                    JMD
-                                </td>
-                                <td>
-                                    <lightning:input type="number" formatter="currency" step="0.01"   value="{!row.LoanAmount}" onblur="{!c.updateRequestdetails}"/>
-                                </td>
-                                
-                            </tr>
-                        </aura:iteration>
-                    </tbody>
-                </table>
-                
-            </div>
-        
-    </form>
+<aura:component>
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+  <aura:method name="CallRequestDetails" action="{!c.addrowdata}">
+    <aura:attribute name="param1" type="object[]" />
+    <aura:attribute name="Auto" type="boolean" />
+    <aura:attribute name="unsecured" type="boolean" />
+  </aura:method>
+  <aura:attribute name="RowNum" type="Object[]" default="{}" />
+  <aura:registerevent
+    name="Requestdetailevent"
+    type="c:Requestdetailevent"
+  ></aura:registerevent>
+  <form class="slds-form">
+    <div class="slds-scrollable" style="width: 50rem; margin-top: 10px;">
+      <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+        <thead>
+          <tr class="slds-text-heading--label">
+            <th scope="col" style="width: 5%;">
+              <div class="slds-truncate" title="index"></div>
+            </th>
+            <th scope="col" colspan="2" style="width: 20%;">
+              <div class="slds-truncate" title="INTEREST RATE">
+                INTEREST RATE (%)*
+              </div>
+            </th>
+            <th scope="col" colspan="4" style="width: 40%;">
+              <div class="slds-truncate" title="LOAN TERM">LOAN TERM*</div>
+            </th>
+            <th scope="col" colspan="2" style="width: 35%;">
+              <div class="slds-truncate" title="LOAN AMOUNT">LOAN AMOUNT*</div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <aura:iteration items="{!v.RowNum}" var="row">
+            <tr>
+              <td>
+                {!row.colIndex}
+              </td>
+              <td>
+                <lightning:input
+                  type="number"
+                  formatter="percent-fixed"
+                  step="0.01"
+                  value="{!row.Interestrate}"
+                  onblur="{!c.updateRequestdetails}"
+                />
+              </td>
+              <td>
+                per annum
+              </td>
+              <td>
+                <lightning:input
+                  type="number"
+                  max="10"
+                  value="{!row.LoanTerm1}"
+                  onblur="{!c.updateRequestdetails}"
+                />
+              </td>
+              <td>
+                yrs
+              </td>
+              <td>
+                <lightning:input
+                  type="number"
+                  max="12"
+                  value="{!row.LoanTerm2}"
+                  onblur="{!c.updateRequestdetails}"
+                />
+              </td>
+              <td>
+                mths
+              </td>
+              <td>
+                JMD
+              </td>
+              <td>
+                <lightning:input
+                  type="number"
+                  formatter="currency"
+                  step="0.01"
+                  value="{!row.LoanAmount}"
+                  onblur="{!c.updateRequestdetails}"
+                />
+              </td>
+            </tr>
+          </aura:iteration>
+        </tbody>
+      </table>
+    </div>
+  </form>
 </aura:component>

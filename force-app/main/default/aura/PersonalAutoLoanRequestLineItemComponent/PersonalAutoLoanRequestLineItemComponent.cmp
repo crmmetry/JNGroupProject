@@ -321,6 +321,7 @@
                   value="{!v.PersonalAutoLoan.months}"
                   name="number"
                   required="true"
+                  min="0"
                 />
               </div>
             </lightning:layoutItem>

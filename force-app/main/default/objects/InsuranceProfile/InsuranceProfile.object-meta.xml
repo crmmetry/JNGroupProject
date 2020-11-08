@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>CancelEdit</actionName>
@@ -131,17 +131,26 @@
     <externalSharingModel>ControlledByParent</externalSharingModel>
     <searchLayouts>
         <customTabListAdditionalFields>Contact</customTabListAdditionalFields>
-        <customTabListAdditionalFields>IsTobaccoConsumer</customTabListAdditionalFields>
-        <customTabListAdditionalFields>IsAlcoholConsumer</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >IsTobaccoConsumer</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >IsAlcoholConsumer</customTabListAdditionalFields>
         <lookupDialogsAdditionalFields>Contact</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>IsTobaccoConsumer</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>IsAlcoholConsumer</lookupDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>Contact</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>IsTobaccoConsumer</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>IsAlcoholConsumer</lookupPhoneDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >IsTobaccoConsumer</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >IsAlcoholConsumer</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >Contact</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >IsTobaccoConsumer</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >IsAlcoholConsumer</lookupPhoneDialogsAdditionalFields>
         <searchResultsAdditionalFields>Contact</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>IsTobaccoConsumer</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>IsAlcoholConsumer</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >IsTobaccoConsumer</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >IsAlcoholConsumer</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
 </CustomObject>

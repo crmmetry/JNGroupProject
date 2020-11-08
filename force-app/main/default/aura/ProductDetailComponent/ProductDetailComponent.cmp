@@ -30,7 +30,7 @@
   <aura:attribute name="creditCardFlag" type="Boolean" default="false" />
   <aura:attribute name="lineOfCreditFlag" type="Boolean" default="false" />
   <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
-
+  <aura:attribute name="jnDefaultConfigs" type="Map" />
   <lightning:layout multipleRows="true">
     <lightning:card>
       <lightning:layoutItem size="12" padding="around-small">
@@ -68,11 +68,13 @@
           <aura:if isTrue="{!v.autoFlag}">
             <c:AutoLoanContainerComponent
               productPrice="{!v.productSelection.productPrice}"
+              jnDefaultConfigs="{!v.jnDefaultConfigs}"
             ></c:AutoLoanContainerComponent>
           </aura:if>
           <aura:if isTrue="{!v.unsecuredFlag}">
             <c:UnsecuredLoanContainerComponent
               productPrice="{!v.productSelection.productPrice}"
+              jnDefaultConfigs="{!v.jnDefaultConfigs}"
             ></c:UnsecuredLoanContainerComponent>
           </aura:if>
           <aura:if isTrue="{!v.creditCardFlag}">

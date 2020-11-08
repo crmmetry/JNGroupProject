@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FinServ__HELOC</fullName>
     <active>true</active>
-    <description>Represents a line of credit secured by equity in real property.</description>
+    <description
+  >Represents a line of credit secured by equity in real property.</description>
     <label>HELOC</label>
     <picklistValues>
         <picklist>FinServ__ClosureReason__c</picklist>

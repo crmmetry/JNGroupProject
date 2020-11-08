@@ -1,54 +1,22 @@
 ({
-  calculateMonthlyP_ILoanAmount: function (component, PersonalAutoLoan) {
-    console.log("Calculation METHOD");
-    let rate;
-    let totalMonths;
-    let pmtResult;
-    if (PersonalAutoLoan != null) {
-      console.log("AutoLoan not null");
-      const fields = {
-        loanAmount: false,
-        months: false,
-        years: false,
-        market: false
-      };
-      Object.keys(fields).forEach((field) => {
-        if (PersonalAutoLoan.hasOwnProperty(field)) {
-          if (isEmpty(PersonalAutoLoan[field]) === false) {
-            console.log("validity true");
-            fields[field] = true;
-          }
-        }
-      });
-      console.info(fields);
-      //Calculate Percentage
-      if (fields.market) {
-        rate = calculateRatePerPeriod(PersonalAutoLoan.market);
-        console.log("rate", rate);
-      }
-      if (fields.years && fields.months) {
-        totalMonths = calculateMonths(
-          PersonalAutoLoan.years,
-          PersonalAutoLoan.months
-        );
-        console.log("totalMonths", totalMonths);
-      }
-
-      if (rate && totalMonths && PersonalAutoLoan.loanAmount) {
-        pmtResult = calculatePMT(
-          rate,
-          totalMonths,
-          -PersonalAutoLoan.loanAmount,
-          0,
-          0
-        );
-        console.log("pmtResult", pmtResult);
-        pmtResult = parseFloat(pmtResult).toFixed(2);
-        component.set("v.monthly_PI_LoanAmount", pmtResult);
-        return;
-      }
-      //default
+  calculateMonthlyP_ILoanAmount: function (component) {
+    const result = basicPMTCalculator(
+      ["years", "months", "loanAmount", "market"],
+      component.get("v.PersonalAutoLoan")
+    );
+    if (!result) {
       component.set("v.monthly_PI_LoanAmount", 0);
+    } else {
+      component.set("v.monthly_PI_LoanAmount", result);
+    }
+  },
+  setDeductRepaymentFlag: function (component) {
+    console.log("Repayment deducted");
+    let creditRepayment = component.get("v.CreditRepayment");
+    if (creditRepayment.deductRepayment == "Yes") {
+      component.set("v.deductRepaymentFlag", true);
+    } else {
+      component.set("v.deductRepaymentFlag", false);
     }
   },
 
@@ -120,5 +88,36 @@
       component.set("v.monthlyPIJNGIMotorPremium", 0);
       component.set("v.jngiMotorPremium", 0);
     }
+  },
+  calculateProcessingFee: function (component) {
+    console.log(
+      "Credit Repayment",
+      JSON.parse(JSON.stringify(component.get("v.CreditRepayment"))),
+      "Auto Loan",
+      JSON.parse(JSON.stringify(component.get("v.PersonalAutoLoan")))
+    );
+    //TODO: CHANGE LATER TO CHILDCONTAINER, call in the personal auto loan change
+    const combinedFields = Object.assign(
+      {},
+      component.get("v.CreditRepayment"),
+      component.get("v.PersonalAutoLoan")
+    );
+    const {
+      processingFee,
+      monthlyProcessingFee,
+      processingFeeClosingCost
+    } = basicProcessingFeesCalculator(
+      ["years", "months", "loanAmount", "market"],
+      combinedFields,
+      ["years", "months", "loanAmount", "market", "includeInLoanAmountFlag"],
+      component.get("v.jnDefaultConfigs.gct")
+    );
+
+    component.set("v.processingFeesGCT", processingFee);
+    component.set(
+      "v.monthlyPrincipalInterestProcessingFee",
+      monthlyProcessingFee
+    );
+    component.set("v.processingFeeClosingCost", processingFeeClosingCost);
   }
 });

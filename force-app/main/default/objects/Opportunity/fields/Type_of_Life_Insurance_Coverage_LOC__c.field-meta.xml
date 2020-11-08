@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Type_of_Life_Insurance_Coverage_LOC__c</fullName>
     <externalId>false</externalId>
@@ -13,7 +13,8 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>JN Life - Single Premium Creditor Life Insurance</fullName>
+                <fullName
+        >JN Life - Single Premium Creditor Life Insurance</fullName>
                 <default>false</default>
                 <label>JN Life - Single Premium Creditor Life Insurance</label>
             </value>

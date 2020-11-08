@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Product_Purchased__c</fullName>
     <externalId>false</externalId>
@@ -168,14 +168,18 @@
                 <label>JN Bank Diaspora CD</label>
             </value>
             <value>
-                <fullName>JN Bank Everyday Chequing  Account - Interest bearing</fullName>
+                <fullName
+        >JN Bank Everyday Chequing  Account - Interest bearing</fullName>
                 <default>false</default>
-                <label>JN Bank Everyday Chequing  Account - Interest bearing</label>
+                <label
+        >JN Bank Everyday Chequing  Account - Interest bearing</label>
             </value>
             <value>
-                <fullName>JN Bank Everyday Chequing Account - Non-interest bearing</fullName>
+                <fullName
+        >JN Bank Everyday Chequing Account - Non-interest bearing</fullName>
                 <default>false</default>
-                <label>JN Bank Everyday Chequing Account - Non-interest bearing</label>
+                <label
+        >JN Bank Everyday Chequing Account - Non-interest bearing</label>
             </value>
             <value>
                 <fullName>JN Bank Executive Club Account</fullName>

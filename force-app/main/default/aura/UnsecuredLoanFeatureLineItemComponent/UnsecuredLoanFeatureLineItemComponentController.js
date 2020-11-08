@@ -3,7 +3,8 @@
     const creditRepaymentMap = {
       repaymentMethod: "",
       repaymentDate: "",
-      deductRepayment: ""
+      deductRepayment: "",
+      processingFeePercentagePerAnum: null
     };
     component.set("v.CreditRepayment", creditRepaymentMap);
     const loanSavings = {
@@ -13,13 +14,27 @@
     };
     component.set("v.LoanSavings", loanSavings);
   },
-
+  onProcessingFeePercentagePerAnumChange: function (component, event, helper) {
+    const value = component.get("v.processingFeePercentagePerAnum");
+    let creditRepaymentMap = component.get("v.CreditRepayment");
+    creditRepaymentMap.processingFeePercentagePerAnum = value;
+    component.set("v.CreditRepayment", creditRepaymentMap);
+  },
   onCreditRepaymentChange: function (component, event, helper) {
     const data = Object.assign(
       component.get("v.CreditRepaymentContainer"),
       component.get("v.CreditRepayment")
     );
     component.set("v.CreditRepaymentContainer", data);
+    helper.toggleShowIndicateApplicableProcessingFees(
+      component,
+      component.get("v.CreditRepayment")
+    );
+    helper.toggleShowIncludeInLoanAmount(
+      component,
+      component.get("v.CreditRepayment")
+    );
+    helper.resetProcessingFieldsValues(data, component);
   },
 
   onProposedSavingsChange: function (component, event, helper) {
@@ -56,14 +71,18 @@
     console.log(selected);
   },
 
-  onWaveProcessingFeeChange: function (component, event, helper) {
+  onWaiveProcessingFeeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    console.log(selected);
+    let creditRepaymentMap = component.get("v.CreditRepayment");
+    creditRepaymentMap.waiveProcessingFeeFlag = selected === "Yes";
+    component.set("v.CreditRepayment", creditRepaymentMap);
   },
 
-  onIncludeWaveProcessingFeeChange: function (component, event, helper) {
+  onIncludeWaiveProcessingFeeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    console.log(selected);
+    let creditRepaymentMap = component.get("v.CreditRepayment");
+    creditRepaymentMap.includeInLoanAmountFlag = selected === "Yes";
+    component.set("v.CreditRepayment", creditRepaymentMap);
   },
 
   onRepaymentMethodChange: function (component, event, helper) {
@@ -71,8 +90,6 @@
     let creditRepaymentMap = component.get("v.CreditRepayment");
     creditRepaymentMap.repaymentMethod = selected;
     component.set("v.CreditRepayment", creditRepaymentMap);
-    // component.set("v.CreditRepaymentContainer", creditRepaymentMap);
-    // console.log(component.get("v.CreditRepayment.repaymentMethod"));
   },
 
   onMonthlyRepaymentDateChange: function (component, event, helper) {
@@ -80,8 +97,6 @@
     let creditRepaymentMap = component.get("v.CreditRepayment");
     creditRepaymentMap.repaymentDate = selected;
     component.set("v.CreditRepayment", creditRepaymentMap);
-    // component.set("v.CreditRepaymentContainer", creditRepaymentMap);
-    // console.log(component.get("v.CreditRepayment.repaymentDate"));
   },
 
   onDeductFirstMonthRepaymentChange: function (component, event, helper) {
@@ -89,7 +104,5 @@
     let creditRepaymentMap = component.get("v.CreditRepayment");
     creditRepaymentMap.deductRepayment = selected;
     component.set("v.CreditRepayment", creditRepaymentMap);
-    // component.set("v.CreditRepaymentContainer", creditRepaymentMap);
-    // console.log(component.get("v.CreditRepayment.deductRepayment"));
   }
 });

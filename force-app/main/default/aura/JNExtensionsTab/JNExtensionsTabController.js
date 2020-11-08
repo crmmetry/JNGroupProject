@@ -1,12 +1,12 @@
 ({
-  doInit: function(component, event, helper) {},
-  addExtension: function(component, event, helper) {
+  doInit: function (component, event, helper) {},
+  addExtension: function (component, event, helper) {
     let addRowInList = component.get("v.extensionList");
     let obj = new Map();
     addRowInList.push(obj);
     component.set("v.extensionList", addRowInList);
   },
-  removeExtension: function(component, event, helper) {
+  removeExtension: function (component, event, helper) {
     const eventAction = event.getParam("action");
     if (eventAction == "removeExtension") {
       const eventComponent = event.getParam("component");
@@ -20,20 +20,20 @@
       }
     }
   },
-  validateTabFields: function(component, event, helper) {
+  validateTabFields: function (component, event, helper) {
     let components = component.find("layout");
     if (components) {
       if (!Array.isArray(components)) {
         components = [components];
       }
-      return components.reduce(function(validSoFar, inputCmp) {
+      return components.reduce(function (validSoFar, inputCmp) {
         // Displays error messages for invalid layouts
         return validSoFar && inputCmp.validateTabFields();
       }, true);
     }
     return true;
   },
-  createDetails: function(component, event, helper) {
+  createDetails: function (component, event, helper) {
     let siteLead;
     let extensionList = component.get("v.extensionList");
     let components = component.find("layout");
@@ -41,7 +41,7 @@
       if (!Array.isArray(components)) {
         components = [components];
       }
-      components.forEach(function(cmp, index) {
+      components.forEach(function (cmp, index) {
         siteLead = cmp.get("v.SiteLead");
         extensionList[index] = siteLead;
       });

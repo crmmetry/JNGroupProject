@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>CancelEdit</actionName>
@@ -130,18 +130,30 @@
     <enableFeeds>false</enableFeeds>
     <externalSharingModel>Private</externalSharingModel>
     <searchLayouts>
-        <customTabListAdditionalFields>OtherLiabilityType</customTabListAdditionalFields>
-        <customTabListAdditionalFields>AccountNumber</customTabListAdditionalFields>
-        <customTabListAdditionalFields>CreditorName</customTabListAdditionalFields>
-        <lookupDialogsAdditionalFields>OtherLiabilityType</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>AccountNumber</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>CreditorName</lookupDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>OtherLiabilityType</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>AccountNumber</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>CreditorName</lookupPhoneDialogsAdditionalFields>
-        <searchResultsAdditionalFields>OtherLiabilityType</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>AccountNumber</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>CreditorName</searchResultsAdditionalFields>
+        <customTabListAdditionalFields
+    >OtherLiabilityType</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >AccountNumber</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >CreditorName</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >OtherLiabilityType</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >AccountNumber</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >CreditorName</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >OtherLiabilityType</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >AccountNumber</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >CreditorName</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields
+    >OtherLiabilityType</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >AccountNumber</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >CreditorName</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
 </CustomObject>

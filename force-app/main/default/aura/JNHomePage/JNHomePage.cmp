@@ -1,44 +1,83 @@
 <aura:component access="GLOBAL">
-    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
-    <aura:handler name="jnEvent" event="c:JNComponentEvent" action="{!c.showHomePage}"/>
-    <aura:attribute name="invalid" type="Boolean" default="true"/>
-    <aura:attribute name="loan_type" type="String"/>
-    <lightning:layout aura:id="HomePageView">
-        <lightning:layoutItem size="12">
-            <div class="jumbotron">
-                <p class="slds-align_absolute-center">
-                    <img id="logo" src="{!$Resource.JNAssets + '/images/main-icon.png'}"/>
-                </p>
-                <h1 class="slds-align_absolute-center">Service Application Portal</h1>
-                <h5 class="slds-align_absolute-center">Choose a service below to apply for.</h5>
-            </div>
-            <div class="slds-grid slds-gutters">
-                <div class="slds-col" >
-                    <div id="unsecured_loan" aura:id="unsecured_loan" class="service" onclick="{!c.toggleActiveService}">
-                        <h4  class="slds-align_absolute-center slds-m-top_x-small">Unsecured Loan</h4>
-                        <img class="service-icon" src="{!$Resource.JNAssets + '/images/unsecured_loan.png'}"/>
-                        <h5 class="service-desc slds-p-bottom_x-small">Cover personal expenses with a JN Unsecured Loan from JN Bank.</h5>
-                    </div>
-                </div>
-                <div class="slds-col">
-                    <div id="credit_card" aura:id="credit_card" class="service" onclick="{!c.toggleActiveService}">
-                        <h4  class="slds-align_absolute-center slds-m-top_x-small">Credit Card</h4>
-                        <img class="service-icon" src="{!$Resource.JNAssets + '/images/credit_card.png'}"/>
-                        <h5 class="service-desc slds-p-bottom_x-small">Apply for one of our low interest rates, secured, visa credit card</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="slds-align_absolute-center slds-m-top_x-large">
-                <lightning:button aura:id="navBtn" disabled="{!v.invalid}" variant="success" label="APPLY" title="APPLY" onclick="{! c.navigateToComponent }" />
-
-            </div>
-        </lightning:layoutItem>
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+  <aura:handler
+    name="jnEvent"
+    event="c:JNComponentEvent"
+    action="{!c.showHomePage}"
+  />
+  <aura:attribute name="invalid" type="Boolean" default="true" />
+  <aura:attribute name="loan_type" type="String" />
+  <lightning:layout aura:id="HomePageView">
+    <lightning:layoutItem size="12">
+      <div class="jumbotron">
+        <p class="slds-align_absolute-center">
+          <img
+            id="logo"
+            src="{!$Resource.JNAssets + '/images/main-icon.png'}"
+          />
+        </p>
+        <h1 class="slds-align_absolute-center">Service Application Portal</h1>
+        <h5 class="slds-align_absolute-center">
+          Choose a service below to apply for.
+        </h5>
+      </div>
+      <div class="slds-grid slds-gutters">
+        <div class="slds-col">
+          <div
+            id="unsecured_loan"
+            aura:id="unsecured_loan"
+            class="service"
+            onclick="{!c.toggleActiveService}"
+          >
+            <h4 class="slds-align_absolute-center slds-m-top_x-small">
+              Unsecured Loan
+            </h4>
+            <img
+              class="service-icon"
+              src="{!$Resource.JNAssets + '/images/unsecured_loan.png'}"
+            />
+            <h5 class="service-desc slds-p-bottom_x-small">
+              Cover personal expenses with a JN Unsecured Loan from JN Bank.
+            </h5>
+          </div>
+        </div>
+        <div class="slds-col">
+          <div
+            id="credit_card"
+            aura:id="credit_card"
+            class="service"
+            onclick="{!c.toggleActiveService}"
+          >
+            <h4 class="slds-align_absolute-center slds-m-top_x-small">
+              Credit Card
+            </h4>
+            <img
+              class="service-icon"
+              src="{!$Resource.JNAssets + '/images/credit_card.png'}"
+            />
+            <h5 class="service-desc slds-p-bottom_x-small">
+              Apply for one of our low interest rates, secured, visa credit card
+            </h5>
+          </div>
+        </div>
+      </div>
+      <div class="slds-align_absolute-center slds-m-top_x-large">
+        <lightning:button
+          aura:id="navBtn"
+          disabled="{!v.invalid}"
+          variant="success"
+          label="APPLY"
+          title="APPLY"
+          onclick="{! c.navigateToComponent }"
+        />
+      </div>
+    </lightning:layoutItem>
+  </lightning:layout>
+  <div aura:id="AppPageView">
+    <lightning:layout>
+      <lightning:layoutItem size="12">
+        <c:JNApplicationForm loan_type="{!v.loan_type}" />
+      </lightning:layoutItem>
     </lightning:layout>
-	<div aura:id="AppPageView">
-        <lightning:layout  >
-        <lightning:layoutItem size="12">
-            <c:JNApplicationForm loan_type="{!v.loan_type}"/>
-        </lightning:layoutItem>
-    </lightning:layout>
-    </div>
+  </div>
 </aura:component>

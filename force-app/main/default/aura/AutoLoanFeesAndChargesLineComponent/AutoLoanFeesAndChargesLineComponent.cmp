@@ -18,6 +18,7 @@
     value="{!v.includePremiumFlag}"
     action="{!c.onIncludePremiumChange}"
   />
+
   <aura:attribute
     name="totalClosingCostsJNFinanced"
     type="Decimal"

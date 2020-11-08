@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CF_Conduct_Customer</fullName>
     <active>false</active>
@@ -20,5 +20,6 @@ ISPICKVAL( StageName ,&#39;Customer Interview&#39;)
 )/*closes and*/,
 FALSE, TRUE)</errorConditionFormula>
     <errorDisplayField>StageName</errorDisplayField>
-    <errorMessage>Please Meet the Criteria for “Preform Exception Handling” in the Sales Path.</errorMessage>
+    <errorMessage
+  >Please Meet the Criteria for “Preform Exception Handling” in the Sales Path.</errorMessage>
 </ValidationRule>
