@@ -16,6 +16,7 @@
     );
     if (!result) {
       component.set("v.monthly_PI_LoanAmount", 0);
+      helper.resetCompulsorySavings(component);
     } else {
       component.set("v.monthly_PI_LoanAmount", result);
       helper.calculateSavings(component);
@@ -24,9 +25,14 @@
 
   onLoanSavingsChange: function (component, event, helper) {
     console.log("SavingsLoan Change");
-    helper.calculateSavings(component);
-    helper.calculateMonthlyP_ILoanAmount(component);
-    helper.calculateProcessingFee(component);
+    var loanSavings = component.get("v.LoanSavings");
+    if (loanSavings.percentage || loanSavings.amount) {
+      helper.calculateSavings(component);
+      helper.calculateMonthlyP_ILoanAmount(component);
+      helper.calculateProcessingFee(component);
+    } else {
+      helper.resetCompulsorySavings(component);
+    }
     console.log("Saving Calculations done?");
   },
 
