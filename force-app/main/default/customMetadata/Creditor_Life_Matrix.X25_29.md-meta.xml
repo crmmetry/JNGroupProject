@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>25-29</label>
+    <protected>false</protected>
+    <values>
+        <field>X0_5__c</field>
+        <value xsi:type="xsd:double">2.57</value>
+    </values>
+    <values>
+        <field>X10__c</field>
+        <value xsi:type="xsd:double">23.48</value>
+    </values>
+    <values>
+        <field>X1_5__c</field>
+        <value xsi:type="xsd:double">7.7</value>
+    </values>
+    <values>
+        <field>X1__c</field>
+        <value xsi:type="xsd:double">5.13</value>
+    </values>
+    <values>
+        <field>X2_5__c</field>
+        <value xsi:type="xsd:double">12.83</value>
+    </values>
+    <values>
+        <field>X2__c</field>
+        <value xsi:type="xsd:double">10.27</value>
+    </values>
+    <values>
+        <field>X3_5__c</field>
+        <value xsi:type="xsd:double">14.21</value>
+    </values>
+    <values>
+        <field>X3__c</field>
+        <value xsi:type="xsd:double">13.52</value>
+    </values>
+    <values>
+        <field>X4_5__c</field>
+        <value xsi:type="xsd:double">15.62</value>
+    </values>
+    <values>
+        <field>X4__c</field>
+        <value xsi:type="xsd:double">14.9</value>
+    </values>
+    <values>
+        <field>X5_5__c</field>
+        <value xsi:type="xsd:double">17.05</value>
+    </values>
+    <values>
+        <field>X5__c</field>
+        <value xsi:type="xsd:double">16.34</value>
+    </values>
+    <values>
+        <field>X6_5__c</field>
+        <value xsi:type="xsd:double">18.49</value>
+    </values>
+    <values>
+        <field>X6__c</field>
+        <value xsi:type="xsd:double">17.77</value>
+    </values>
+    <values>
+        <field>X7_5__c</field>
+        <value xsi:type="xsd:double">19.93</value>
+    </values>
+    <values>
+        <field>X7__c</field>
+        <value xsi:type="xsd:double">19.21</value>
+    </values>
+    <values>
+        <field>X8_5__c</field>
+        <value xsi:type="xsd:double">21.37</value>
+    </values>
+    <values>
+        <field>X8__c</field>
+        <value xsi:type="xsd:double">20.65</value>
+    </values>
+    <values>
+        <field>X9_5__c</field>
+        <value xsi:type="xsd:double">22.78</value>
+    </values>
+    <values>
+        <field>X9__c</field>
+        <value xsi:type="xsd:double">22.09</value>
+    </values>
+</CustomMetadata>

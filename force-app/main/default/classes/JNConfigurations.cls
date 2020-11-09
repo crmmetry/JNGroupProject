@@ -1,3 +1,4 @@
+
 public with sharing class JNConfigurations {
   /**
    * gets the default jn configurations
