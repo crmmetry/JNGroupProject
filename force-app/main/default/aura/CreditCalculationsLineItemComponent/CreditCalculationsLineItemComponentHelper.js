@@ -25,7 +25,7 @@
     var personalAutoLoan = component.get("v.RequestedDetails");
     var loanSavings = component.get("v.LoanSavings");
     console.log("Calcualte Savings Heloper");
-    if (PIMonthlyPayment > 0) {
+    if (PIMonthlyPayment != 0) {
       console.log("Calculate Savings begin");
       var tenure =
         Number(personalAutoLoan.years) * 12 + Number(personalAutoLoan.months);
@@ -50,9 +50,6 @@
           "v.totalCompulsorySavingsBalance",
           totalCompulsorySavings
         );
-      } else {
-        component.set("v.monthlyCompulsorySavings", 0);
-        component.set("v.totalCompulsorySavingsBalance", 0);
       }
     }
   },
@@ -80,5 +77,10 @@
       monthlyProcessingFee
     );
     component.set("v.processingFeeClosingCost", processingFeeClosingCost);
+  },
+
+  resetCompulsorySavings: function (component) {
+    component.set("v.monthlyCompulsorySavings", 0);
+    component.set("v.totalCompulsorySavingsBalance", 0);
   }
 });

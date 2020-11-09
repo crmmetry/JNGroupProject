@@ -16,8 +16,8 @@
     );
     if (!result) {
       component.set("v.monthly_PI_LoanAmount", 0);
+      helper.resetCompulsorySavings(component);
     } else {
-      console.log("PMT Calculated");
       component.set("v.monthly_PI_LoanAmount", result);
       helper.calculateSavings(component);
     }
@@ -35,11 +35,15 @@
 
   onLoanSavingsChange: function (component, event, helper) {
     console.log("SavingsLoan Change");
-    helper.calculateSavings(component);
-    console.log("Saving Calculations done?");
-    helper.calculateJNGIPMT(component);
-    helper.calculateMonthlyP_ILoanAmount(component);
+    var loanSavings = component.get("v.LoanSavings");
+    if (loanSavings.percentage || loanSavings.amount) {
+      helper.calculateSavings(component);
+      helper.calculateMonthlyP_ILoanAmount(component);
+    } else {
+      helper.resetCompulsorySavings(component);
+    }
     helper.calculateProcessingFee(component);
+    console.log("Saving Calculations done?");
   },
 
   onJNGIPremiumChange: function (component, event, helper) {
