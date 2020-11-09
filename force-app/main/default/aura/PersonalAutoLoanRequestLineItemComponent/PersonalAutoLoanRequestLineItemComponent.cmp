@@ -27,14 +27,14 @@
   <aura:attribute name="minimum" type="Decimal" default="" />
   <aura:attribute name="depositPercentage" type="Decimal" default="" />
   <aura:attribute name="deposit" type="Decimal" default="" />
-  <aura:attribute name="PersonalAutoLoanContainer" type="Map" default="{}" />
-  <aura:attribute name="PersonalAutoLoan" type="Map" default="{}" />
   <aura:attribute name="productPrice" type="Decimal" />
 
+  <aura:attribute name="ChildContainer" type="Map" default="{}" />
+  <aura:attribute name="ParentContainer" type="Map" default="{}" />
   <aura:handler
     name="change"
-    action="{!c.onPersonalAutoLoanChange}"
-    value="{!v.PersonalAutoLoan}"
+    action="{!c.onChildContainerChange}"
+    value="{!v.ChildContainer}"
   />
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
 
@@ -294,7 +294,7 @@
           <lightning:input
             type="number"
             label="Amount"
-            value="{!v.PersonalAutoLoan.loanAmount}"
+            value="{!v.ChildContainer.loanAmount}"
             name="number"
             formatter="currency"
             required="true"
@@ -308,7 +308,7 @@
               <lightning:input
                 type="number"
                 label="Years"
-                value="{!v.PersonalAutoLoan.years}"
+                value="{!v.ChildContainer.years}"
                 name="number"
                 required="true"
               />
@@ -318,7 +318,7 @@
                 <lightning:input
                   type="number"
                   label="Months"
-                  value="{!v.PersonalAutoLoan.months}"
+                  value="{!v.ChildContainer.months}"
                   name="number"
                   required="true"
                   min="0"
@@ -334,7 +334,7 @@
               type="number"
               label="Market"
               name="Market"
-              value="{!v.PersonalAutoLoan.market}"
+              value="{!v.ChildContainer.market}"
               formatter="percent-fixed"
               step="0.01"
               required="true"

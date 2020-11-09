@@ -1,21 +1,20 @@
 ({
   doInit: function (component, event, helper) {
-    console.log("Product Price: ", component.get("v.productPrice"));
     let personalAutoLoan = {
       loanAmount: component.get("v.productPrice"),
       years: null,
       months: null,
       market: null
     };
-    component.set("v.PersonalAutoLoan", personalAutoLoan);
+    component.set("v.ChildContainer", personalAutoLoan);
   },
 
-  onPersonalAutoLoanChange: function (component, event, help) {
+  onChildContainerChange: function (component, event, help) {
     const data = Object.assign(
-      component.get("v.PersonalAutoLoanContainer"),
-      component.get("v.PersonalAutoLoan")
+      component.get("v.ParentContainer"),
+      component.get("v.ChildContainer")
     );
-    component.set("v.PersonalAutoLoanContainer", data);
+    component.set("v.ParentContainer", data);
   },
 
   onLoanPurposeChange: function (component, event, helper) {

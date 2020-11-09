@@ -1,19 +1,22 @@
 <aura:component>
   <aura:attribute name="productPrice" type="Decimal" />
-  <aura:attribute name="PersonalAutoLoanContainer" type="Map" default="{}" />
   <aura:attribute name="CreditRepaymentContainer" type="Map" default="{}" />
   <aura:attribute name="LoanSavings" type="Map" default="{}" />
   <aura:attribute name="LoanSavingsContainer" type="Map" default="{}" />
   <aura:attribute name="JNGIPremiumContainer" type="Map" default="{}" />
   <aura:attribute name="jnDefaultConfigs" type="Map" />
 
+  <aura:attribute name="ParentContainer" type="Map" default="{}" description="Auto Loan parent container"/> 
+
   <c:PersonalAutoLoanRequestLineItemComponent productPrice="{!v.productPrice}"
-    PersonalAutoLoanContainer="{!v.PersonalAutoLoanContainer}"></c:PersonalAutoLoanRequestLineItemComponent>
+    ParentContainer="{!v.ParentContainer}">
+  </c:PersonalAutoLoanRequestLineItemComponent>
+
   <c:AutoLoanFeaturesLineItemComponent CreditRepaymentContainer="{!v.CreditRepaymentContainer}"
     LoanSavingsContainer="{!v.LoanSavingsContainer}" JNGIPremiumContainer="{!v.JNGIPremiumContainer}">
   </c:AutoLoanFeaturesLineItemComponent>
 
-  <c:AutoLoanCreditCalculationsLineComponent PersonalAutoLoan="{!v.PersonalAutoLoanContainer}"
+  <c:AutoLoanCreditCalculationsLineComponent PersonalAutoLoan="{!v.ParentContainer}"
     CreditRepayment="{!v.CreditRepaymentContainer}" LoanSavings="{!v.LoanSavingsContainer}"
     JNGIPremium="{!v.JNGIPremiumContainer}" jnDefaultConfigs="{!v.jnDefaultConfigs}">
   </c:AutoLoanCreditCalculationsLineComponent>
