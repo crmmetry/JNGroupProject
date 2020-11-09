@@ -60,6 +60,7 @@
   />
   <aura:attribute name="PersonalAutoLoan" type="Map" default="{}" />
   <aura:attribute name="CreditRepayment" type="Map" default="{}" />
+  <aura:attribute name="LoanSavings" type="Map" default="{}" />
   <aura:attribute name="deductRepaymentFlag" type="Boolean" default="false" />
   <aura:handler
     name="change"
@@ -68,14 +69,22 @@
   />
   <aura:handler
     name="change"
-    action="{!c.onJNGIPremiumChange}"
-    value="{!v.JNGIPremium}"
-  />
-  <aura:handler
-    name="change"
     action="{!c.onCreditRepaymentChange}"
     value="{!v.CreditRepayment}"
   />
+  <aura:handler
+    name="change"
+    action="{!c.onLoanSavingsChange}"
+    value="{!v.LoanSavings}"
+  />
+  <aura:handler
+    name="change"
+    action="{!c.onJNGIPremiumChange}"
+    value="{!v.JNGIPremium}"
+  />
+
+
+
   <aura:attribute name="jnDefaultConfigs" type="Map" default="{}" />
   <aura:attribute name="processingFeesGCT" type="Decimal" default="0" />
   <aura:attribute
@@ -348,10 +357,10 @@
         />
       </lightning:layoutItem>
       <c:AutoLoanFeesAndChargesLineComponent
-        jngiMotorPremium="{!v.jngiMotorPremium}"
-        includePremiumFlag="{!v.showPremiumInFeesAndCharges}"
-        processingFees="{!v.processingFeeClosingCost}"
         deductRepayment="{!v.deductRepaymentFlag}"
+        includePremiumFlag="{!v.showPremiumInFeesAndCharges}"
+        jngiMotorPremium="{!v.jngiMotorPremium}"
+        processingFees="{!v.processingFeeClosingCost}"
       ></c:AutoLoanFeesAndChargesLineComponent>
     </lightning:layout>
   </fieldset>

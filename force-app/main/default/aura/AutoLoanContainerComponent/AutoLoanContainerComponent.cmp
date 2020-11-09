@@ -1,25 +1,21 @@
 <aura:component>
   <aura:attribute name="productPrice" type="Decimal" />
   <aura:attribute name="PersonalAutoLoanContainer" type="Map" default="{}" />
-  <aura:attribute name="JNGIPremiumContainer" type="Map" default="{}" />
   <aura:attribute name="CreditRepaymentContainer" type="Map" default="{}" />
+  <aura:attribute name="LoanSavings" type="Map" default="{}" />
+  <aura:attribute name="LoanSavingsContainer" type="Map" default="{}" />
+  <aura:attribute name="JNGIPremiumContainer" type="Map" default="{}" />
   <aura:attribute name="jnDefaultConfigs" type="Map" />
 
-  <c:PersonalAutoLoanRequestLineItemComponent
-    productPrice="{!v.productPrice}"
-    PersonalAutoLoanContainer="{!v.PersonalAutoLoanContainer}"
-  ></c:PersonalAutoLoanRequestLineItemComponent>
-  <c:AutoLoanFeaturesLineItemComponent
-    CreditRepaymentContainer="{!v.CreditRepaymentContainer}"
-    JNGIPremiumContainer="{!v.JNGIPremiumContainer}"
-  ></c:AutoLoanFeaturesLineItemComponent>
+  <c:PersonalAutoLoanRequestLineItemComponent productPrice="{!v.productPrice}"
+    PersonalAutoLoanContainer="{!v.PersonalAutoLoanContainer}"></c:PersonalAutoLoanRequestLineItemComponent>
+  <c:AutoLoanFeaturesLineItemComponent CreditRepaymentContainer="{!v.CreditRepaymentContainer}"
+    LoanSavingsContainer="{!v.LoanSavingsContainer}" JNGIPremiumContainer="{!v.JNGIPremiumContainer}">
+  </c:AutoLoanFeaturesLineItemComponent>
 
-  <c:AutoLoanCreditCalculationsLineComponent
-    PersonalAutoLoan="{!v.PersonalAutoLoanContainer}"
-    CreditRepayment="{!v.CreditRepaymentContainer}"
-    jnDefaultConfigs="{!v.jnDefaultConfigs}"
-    JNGIPremium="{!v.JNGIPremiumContainer}"
-  >
+  <c:AutoLoanCreditCalculationsLineComponent PersonalAutoLoan="{!v.PersonalAutoLoanContainer}"
+    CreditRepayment="{!v.CreditRepaymentContainer}" LoanSavings="{!v.LoanSavingsContainer}"
+    JNGIPremium="{!v.JNGIPremiumContainer}" jnDefaultConfigs="{!v.jnDefaultConfigs}">
   </c:AutoLoanCreditCalculationsLineComponent>
   <c:TotalDebtServiceRatioLineItemComponent></c:TotalDebtServiceRatioLineItemComponent>
 </aura:component>
