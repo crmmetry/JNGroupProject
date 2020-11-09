@@ -1,4 +1,3 @@
-
 public with sharing class JNConfigurations {
   /**
    * gets the default jn configurations
@@ -18,5 +17,45 @@ public with sharing class JNConfigurations {
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
     }
+  }
+
+  /**
+   * retrieves creditor life rating for a list of applicants
+   * @return {List<CreditorLifeMatrixWrapper> }
+   */
+
+  @AuraEnabled
+  public static Map<String, CreditorLifeMatrixWrapper> getCreditorLifeMatrix() {
+    List<CreditorLifeMatrixWrapper> wrappers = new List<CreditorLifeMatrixWrapper>();
+    Creditor_Life_Matrix__mdt creditorLifeMatrices = [
+      SELECT
+        Label,
+        X0_5__c,
+        X1__c,
+        X1_5__c,
+        X2__c,
+        X2_5__c,
+        X3__c,
+        X3_5__c,
+        X4__c,
+        X4_5__c,
+        X5__c,
+        X5_5__c,
+        X6__c,
+        X6_5__c,
+        X7__c,
+        X7_5__c,
+        X8__c,
+        X8_5__c,
+        X9__c,
+        X9_5__c,
+        X10__c
+      FROM Creditor_Life_Matrix__mdt
+    ];
+    for (Creditor_Life_Matrix__mdt record : creditorLifeMatrices) {
+      CreditorLifeMatrixWrapper wrapper = new CreditorLifeMatrixWrapper(record);
+      wrappers.add(wrapper);
+    }
+    return wrappers;
   }
 }

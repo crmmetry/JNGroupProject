@@ -28,4 +28,49 @@ public with sharing class ProductDetailController {
       throw new AuraHandledException(e.getMessage());
     }
   }
+
+  /**
+   * return a list of applicant wrappers related to an oppurtunity
+   * @param {Id} oppId - Id of selected opportunity.
+   * @return {creditRatingMap}
+   */
+  public static List<ApplicantWrapper> getApplicants(Id oppId) {
+    List<ApplicantWrapper> applicantWrappers = new List<ApplicantWrapper>();
+    List<Applicant__c> applicants = [
+      SELECT Id, Account__r.Date_of_Birth
+      FROM Applicant__C
+      WHERE Opportunity__c = :oppId
+    ];
+    for (Applicant__c applicant : applicants) {
+      ApplicantWrapper appWrapper = new ApplicantWrapper(applicant);
+      applicantWrappers.add(appWrapper);
+    }
+    return applicantWrappers;
+  }
+
+  /**
+   * return a map with applicants and their respective ratings
+   * @param {List<ApplicantWrapper>} applicants - List of applicants.
+   * @return {Map}
+   */
+  @AuraEnabled
+  public static Map<ApplicantWrapper, Decimal> getApplicantsCreditRating(
+    List<ApplicantWrapper> applicants,
+    Decimal tenure
+  ) {
+    List<CreditorLifeMatrixWrapper> creditorLifeMatrixWrappers = JNConfigurations.getCreditorLifeMatrix();
+    Decimal rating;
+    for (ApplicantWrapper applicantWrapper : applicants) {
+      for (
+        CreditorLifeMatrixWrapper creditorLifeMatrixWrapper : creditorLifeMatrixWrappers
+      ) {
+        if (creditorLifeMatrixWrapper.isAgeWithinBound(applicantWrapper.age)) {
+          applicantWrapper.rating = creditorLifeMatrixWrapper.getCreditRating(
+            applicantWrapper.age,
+            tenure
+          );
+        }
+      }
+    }
+  }
 }
