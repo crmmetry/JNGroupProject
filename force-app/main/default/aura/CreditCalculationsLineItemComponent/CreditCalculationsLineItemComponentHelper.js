@@ -10,6 +10,7 @@
       component.set("v.monthly_PI_LoanAmount", result);
     }
   },
+
   setDeductRepaymentFlag: function (component) {
     console.log("Repayment deducted");
     let creditRepayment = component.get("v.CreditRepayment");
