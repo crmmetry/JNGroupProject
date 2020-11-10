@@ -1,5 +1,6 @@
 ({
   calculateMonthlyP_ILoanAmount: function (component) {
+    console.info("Basic", JSON.parse(JSON.stringify(component.get("v.ParentContainer"))))
     const result = basicPMTCalculator(
       ["years", "months", "loanAmount", "market"],
       component.get("v.ParentContainer")

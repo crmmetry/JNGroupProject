@@ -1,4 +1,5 @@
 <aura:component>
+  <ltng:require scripts="{!$Resource.calculations}" />
   <aura:attribute name="productPrice" type="Decimal" />
   <aura:attribute name="jnDefaultConfigs" type="Map" />
   <aura:attribute name="ParentContainer" type="Map" default="{}" description="Auto Loan parent container" />

@@ -61,11 +61,11 @@
   />
   <aura:attribute name="LoanSavings" type="Map" default="{}" />
   <aura:attribute name="deductRepaymentFlag" type="Boolean" default="false" />
-  <!-- <aura:handler
+  <aura:handler
     name="change"
     action="{!c.onChildContainerChange}"
     value="{!v.ChildContainer}"
-  /> -->
+  />
 
   <aura:handler
     name="change"
@@ -84,8 +84,9 @@
     type="Decimal"
     default="0"
   />
+  <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
   <aura:attribute name="processingFeeClosingCost" type="Decimal" />
-  <ltng:require scripts="{!$Resource.calculations}" />
+  <ltng:require scripts="{!$Resource.calculations}" afterScriptsLoaded="{!c.scriptsLoaded}"/>
   <fieldset class="slds-box slds-theme_default">
     <legend
       id="creditCalcualtions"
