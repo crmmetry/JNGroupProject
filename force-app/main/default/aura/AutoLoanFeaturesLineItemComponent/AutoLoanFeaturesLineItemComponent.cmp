@@ -13,6 +13,11 @@
     ]"
   />
   <aura:attribute
+    name="reason"
+    type="List"
+    default="['exisiting life insurance policy to be assigned','not eligible','other']"
+  />
+  <aura:attribute
     name="interestedInCreditorLife"
     type="List"
     default="['Yes','No']"
@@ -36,11 +41,6 @@
     name="processingFeePercentagePerAnum"
     type="Decimal"
     default=""
-  />
-  <aura:handler
-    name="change"
-    value="{!v.processingFeePercentagePerAnum}"
-    action="{!c.onProcessingFeePercentagePerAnumChange}"
   />
   <aura:attribute
     name="repaymentMethod"
@@ -76,15 +76,34 @@
   />
   <aura:attribute name="ChildContainer" type="Map" default="{}" />
   <aura:attribute name="ParentContainer" type="Map" default="{}" />
+  <!-- aura handlers -->
   <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
-
   <aura:handler
     name="change"
     action="{!c.onChildContainerChange}"
     value="{!v.ChildContainer}"
   />
+  <aura:handler
+    name="change"
+    value="{!v.processingFeePercentagePerAnum}"
+    action="{!c.onProcessingFeePercentagePerAnumChange}"
+  />
+  <aura:handler
+    name="change"
+    value="{!v.interestedInCreditorLifeFlag}"
+    action="{!c.onInterestedInCreditorLifeChange}"
+  />
 
   <!-- toggling attributes-->
+  <aura:attribute name="showOtherForReason" type="String" />
+  <aura:attribute name="showOtherForPolicyProvider" type="String" />
+  <aura:attribute name="showReasonFlag" type="Boolean" default="false" />
+  <aura:attribute name="shouldCalculateCreditorLifeFlag" type="Boolean" />
+  <aura:attribute
+    name="interestedInCreditorLifeFlag"
+    type="Boolean"
+    default="true"
+  />
   <aura:attribute
     name="showIncludeInLoanAmount"
     type="Boolean"
@@ -197,48 +216,69 @@
             </div>
           </div>
         </lightning:layoutItem>
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="4"
-          padding="around-small"
-        >
-          <div class="slds-form-element">
-            <div class="slds-form-element__control">
-              <lightning:select
-                name="select1"
-                label="Coverage Type"
-                required="true"
-                onchange="{!c.onCoverageTypeChange}"
-              >
-                <option value="">select one...</option>
-                <aura:iteration items="{!v.coverageType}" var="item">
-                  <option value="{!item}">{!item}</option>
-                </aura:iteration>
-              </lightning:select>
+        <aura:if isTrue="{!v.interestedInCreditorLifeFlag}">
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
+          >
+            <div class="slds-form-element">
+              <div class="slds-form-element__control">
+                <lightning:select
+                  name="select1"
+                  label="Coverage Type"
+                  required="true"
+                  onchange="{!c.onCoverageTypeChange}"
+                >
+                  <option value="">select one...</option>
+                  <aura:iteration items="{!v.coverageType}" var="item">
+                    <option value="{!item}">{!item}</option>
+                  </aura:iteration>
+                </lightning:select>
+              </div>
             </div>
-          </div>
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="4"
-          padding="around-small"
-        >
-          <div class="slds-form-element">
-            <div class="slds-form-element__control">
-              <lightning:select
-                name="select1"
-                label="Include in Loan Amount"
-                required="true"
-                onchange="{!c.onIncludeCoverageChange}"
-              >
-                <option value="">select one...</option>
-                <aura:iteration items="{!v.includeCoverage}" var="item">
-                  <option value="{!item}">{!item}</option>
-                </aura:iteration>
-              </lightning:select>
+          </lightning:layoutItem>
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
+          >
+            <div class="slds-form-element">
+              <div class="slds-form-element__control">
+                <lightning:select
+                  name="select1"
+                  label="Include in Loan Amount"
+                  required="true"
+                  onchange="{!c.onIncludeCoverageChange}"
+                >
+                  <option value="">select one...</option>
+                  <aura:iteration items="{!v.includeCoverage}" var="item">
+                    <option value="{!item}">{!item}</option>
+                  </aura:iteration>
+                </lightning:select>
+              </div>
             </div>
-          </div>
-        </lightning:layoutItem>
+          </lightning:layoutItem>
+        </aura:if>
+        <aura:if isTrue="{!v.showReasonFlag}">
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="6"
+            padding="around-small"
+          >
+            <lightning:select
+              name="Reason"
+              label="Reason"
+              required="true"
+              onchange="{!c.onReasonChange}"
+            >
+              <option value="">select one...</option>
+              <aura:iteration items="{!v.reason}" var="item">
+                <option value="{!item}">{!item}</option>
+              </aura:iteration>
+            </lightning:select>
+          </lightning:layoutItem>
+        </aura:if>
         <lightning:layoutItem size="12">
           <h2 class="slds-section-title--divider">Processing Fees</h2>
         </lightning:layoutItem>

@@ -312,6 +312,8 @@
                 value="{!v.ChildContainer.years}"
                 name="number"
                 required="true"
+                max="10"
+                min="0"
               />
             </lightning:layoutItem>
             <lightning:layoutItem size="6">
@@ -323,6 +325,7 @@
                   name="number"
                   required="true"
                   min="0"
+                  max="12"
                 />
               </div>
             </lightning:layoutItem>

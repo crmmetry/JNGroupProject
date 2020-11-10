@@ -7,11 +7,14 @@ public with sharing class ApplicantWrapper {
   public Integer age;
   @AuraEnabled
   public Decimal rating;
+  @AuraEnabled
+  public Boolean eligibleForCreditorLife;
   public ApplicantWrapper(Applicant__c record) {
     System.debug(record);
     this.Id = record.Id;
     this.dob = record.Account__r.Date_of_Birth__pc;
     this.age = calculateAge(dob);
+    this.checkCreditorLifeEligibility();
   }
 
   private Integer calculateAge(Date dob) {
@@ -26,5 +29,13 @@ public with sharing class ApplicantWrapper {
       return age - 1;
     }
     return age;
+  }
+
+  private void checkCreditorLifeEligibility() {
+    if (this.age > Constants.MAX_CREDITOR_LIFE_AGE) {
+      this.eligibleForCreditorLife = false;
+    } else {
+      this.eligibleForCreditorLife = true;
+    }
   }
 }

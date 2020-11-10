@@ -69,6 +69,15 @@
 
   onInterestedInCreditorLifeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
+    if (selected == "Yes") {
+      component.set("v.interestedInCreditorLifeFlag", true);
+      component.set("v.showReasonFlag", false);
+      console.log("Interested in CreditorLife is true");
+    } else if (selected == "No") {
+      component.set("v.interestedInCreditorLifeFlag", false);
+      component.set("v.showReasonFlag", true);
+      console.log("Interested in CreditorLife is false");
+    }
     console.log(selected);
   },
 
