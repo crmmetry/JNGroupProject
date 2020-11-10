@@ -34,11 +34,11 @@ public with sharing class ProductDetailController {
    * @param {Id} oppId - Id of selected opportunity.
    * @return {creditRatingMap}
    */
-  public static List<ApplicantWrapper> getApplicants(Id oppId) {
+  private static List<ApplicantWrapper> getApplicants(Id oppId) {
     List<ApplicantWrapper> applicantWrappers = new List<ApplicantWrapper>();
     List<Applicant__c> applicants = [
-      SELECT Id, Account__r.Date_of_Birth
-      FROM Applicant__C
+      SELECT Id, Account__r.Date_of_Birth__pc
+      FROM Applicant__c
       WHERE Opportunity__c = :oppId
     ];
     for (Applicant__c applicant : applicants) {
@@ -53,11 +53,12 @@ public with sharing class ProductDetailController {
    * @param {List<ApplicantWrapper>} applicants - List of applicants.
    * @return {Map}
    */
-  @AuraEnabled
-  public static Map<ApplicantWrapper, Decimal> getApplicantsCreditRating(
+
+  private static List<ApplicantWrapper> getApplicantsCreditRating(
     List<ApplicantWrapper> applicants,
     Decimal tenure
   ) {
+    List<ApplicantWrapper> applicantsWithRating = new List<ApplicantWrapper>();
     List<CreditorLifeMatrixWrapper> creditorLifeMatrixWrappers = JNConfigurations.getCreditorLifeMatrix();
     Decimal rating;
     for (ApplicantWrapper applicantWrapper : applicants) {
@@ -69,8 +70,20 @@ public with sharing class ProductDetailController {
             applicantWrapper.age,
             tenure
           );
+          applicantsWithRating.add(applicantWrapper);
         }
       }
     }
+    return applicantsWithRating;
+  }
+
+  @AuraEnabled
+  public static List<ApplicantWrapper> getApplicantsRating(
+    Id oppId,
+    Decimal tenure
+  ) {
+    List<ApplicantWrapper> applicants = getApplicants(oppId);
+    applicants = getApplicantsCreditRating(applicants, tenure);
+    return applicants;
   }
 }

@@ -25,9 +25,9 @@ public with sharing class JNConfigurations {
    */
 
   @AuraEnabled
-  public static Map<String, CreditorLifeMatrixWrapper> getCreditorLifeMatrix() {
+  public static List<CreditorLifeMatrixWrapper> getCreditorLifeMatrix() {
     List<CreditorLifeMatrixWrapper> wrappers = new List<CreditorLifeMatrixWrapper>();
-    Creditor_Life_Matrix__mdt creditorLifeMatrices = [
+    List<Creditor_Life_Matrix__mdt> creditorLifeMatrices = [
       SELECT
         Label,
         X0_5__c,
