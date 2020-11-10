@@ -58,7 +58,7 @@
     }
   },
   calcualateFirstYearPremium: function (premium) {
-    if (premium != null) {
+    if (premium) {
       return premium * 12;
     }
   },
@@ -112,6 +112,7 @@
   },
   onJNGIPremiumChange: function (component) {
     let jngiPremium = component.get("v.ParentContainer");
+    let childContainer = component.get("v.ChildContainer");
     if (jngiPremium.includeInLoan === "No") {
       component.set("v.showPremiumInFeesAndCharges", true);
       component.set("v.showPremiumInCreditCalculations", false);
@@ -120,7 +121,7 @@
       component.set("v.showPremiumInFeesAndCharges", false);
     }
     let firstYearPremium = this.calcualateFirstYearPremium(
-      jngiPremium.premium
+      childContainer.premium
     );
     component.set("v.jngiMotorPremium", firstYearPremium);
 
