@@ -1,11 +1,6 @@
 <aura:component>
   <aura:attribute name="productPrice" type="Decimal" />
-  <aura:attribute name="CreditRepaymentContainer" type="Map" default="{}" />
-  <aura:attribute name="LoanSavings" type="Map" default="{}" />
-  <aura:attribute name="LoanSavingsContainer" type="Map" default="{}" />
-  <aura:attribute name="JNGIPremiumContainer" type="Map" default="{}" />
   <aura:attribute name="jnDefaultConfigs" type="Map" />
-
   <aura:attribute name="ParentContainer" type="Map" default="{}" description="Auto Loan parent container" />
 
   <c:PersonalAutoLoanRequestLineItemComponent productPrice="{!v.productPrice}" ParentContainer="{!v.ParentContainer}">
