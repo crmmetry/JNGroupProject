@@ -297,6 +297,7 @@
             value="{!v.PersonalAutoLoan.loanAmount}"
             name="number"
             formatter="currency"
+            readonly="true"
             required="true"
           />
         </lightning:layoutItem>

@@ -224,3 +224,24 @@ window.basicProcessingFeesCalculator = function (
 window.basicJNLifePremiumCalculator = function (loanAmount, creditRating) {
   return (loanAmount / 1000) * creditRating;
 };
+
+/**
+ * calculates JN Life Creditor Life P & I Premium
+ * @param {Decimal} loanAmount - loan ampunt taken from opportunity product sales price.
+ * @param {Decimal} creditRating - Credit rating applicable to applicant.
+ * @return {Deciaml}
+ */
+window.basicJNLifePIPremiumCalculator = function (properties, parentObj) {
+  if (!properties || !parentObj) {
+    return null;
+  }
+  return basicPMTCalculator(properties, parentObj);
+};
+/**
+ * calculates Totals for a collection of values
+ * @param {List} amountsToBeSummed - List of amounts that should be total'd.
+ * @return {Deciaml}
+ */
+window.basicTotalCalculator = function (amountsToBeSummed) {
+  return amountsToBeSummed.reduce((a, b) => a + b, 0);
+};

@@ -22,8 +22,8 @@ public with sharing class ApplicantWrapper {
     Integer birthMonth = dob.month();
     Integer birthDay = dob.day();
     Integer age = currentYear - birthYear;
-    if ((currentMonth >= birthMonth) && (currentDay >= birthday)) {
-      return age + 1;
+    if (!(currentMonth >= birthMonth) && !(currentDay >= birthday)) {
+      return age - 1;
     }
     return age;
   }
