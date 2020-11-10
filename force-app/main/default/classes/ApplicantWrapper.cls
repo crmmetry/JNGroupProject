@@ -17,10 +17,12 @@ public with sharing class ApplicantWrapper {
   private Integer calculateAge(Date dob) {
     Integer currentYear = Date.today().year();
     Integer currentMonth = Date.today().month();
+    Integer currentDay = Date.today().day();
     Integer birthYear = dob.year();
     Integer birthMonth = dob.month();
+    Integer birthDay = dob.day();
     Integer age = currentYear - birthYear;
-    if (currentMonth > birthMonth) {
+    if ((currentMonth >= birthMonth) && (currentDay >= birthday)) {
       return age + 1;
     }
     return age;

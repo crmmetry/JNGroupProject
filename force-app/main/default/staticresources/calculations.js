@@ -214,3 +214,13 @@ window.basicProcessingFeesCalculator = function (
     };
   }
 };
+
+/**
+ * calculates JN Life Creditor Life Premium
+ * @param {Decimal} loanAmount - loan ampunt taken from opportunity product sales price.
+ * @param {Decimal} creditRating - Credit rating applicable to applicant.
+ * @return {Deciaml}
+ */
+window.basicJNLifePremiumCalculator = function (loanAmount, creditRating) {
+  return (loanAmount / 1000) * creditRating;
+};

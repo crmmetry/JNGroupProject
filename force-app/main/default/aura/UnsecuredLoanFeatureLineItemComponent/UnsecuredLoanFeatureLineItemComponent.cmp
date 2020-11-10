@@ -3,6 +3,9 @@
   <aura:attribute name="CreditRepaymentContainer" type="Map" />
   <aura:attribute name="LoanSavings" type="Map" default="{}" />
   <aura:attribute name="LoanSavingsContainer" type="Map" default="{}" />
+  <aura:attribute name="JNLife" type="Map" default="{}" />
+  <aura:attribute name="JNLifeContainer" type="Map" default="{}" />
+
   <aura:attribute
     name="options"
     type="List"
@@ -78,9 +81,9 @@
     action="{!c.onCreditRepaymentChange}"
   />
   <aura:handler
-  name="change"
-  action="{!c.onProposedSavingsChange}"
-  value="{!v.LoanSavings}"
+    name="change"
+    action="{!c.onProposedSavingsChange}"
+    value="{!v.LoanSavings}"
   />
   <aura:handler
     name="change"
