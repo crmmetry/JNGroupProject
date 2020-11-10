@@ -1,6 +1,5 @@
 ({
   /**
-   * //TODO: refactor use only ChildContaier
    * @param {*} component
    * @param {*} event
    * @param {*} helper

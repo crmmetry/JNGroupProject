@@ -91,18 +91,7 @@
     }
   },
   calculateProcessingFee: function (component) {
-    console.log(
-      "Credit Repayment",
-      JSON.parse(JSON.stringify(component.get("v.ParentContainer"))),
-      "Auto Loan",
-      JSON.parse(JSON.stringify(component.get("v.ParentContainer")))
-    );
-    //TODO: CHANGE LATER TO CHILDCONTAINER, call in the personal auto loan change
-    const combinedFields = Object.assign(
-      {},
-      component.get("v.ParentContainer"),
-      component.get("v.ParentContainer")
-    );
+    const combinedFields = component.get("v.ParentContainer");
     const {
       processingFee,
       monthlyProcessingFee,
