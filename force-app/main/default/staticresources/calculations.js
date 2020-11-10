@@ -245,3 +245,13 @@ window.basicJNLifePIPremiumCalculator = function (properties, parentObj) {
 window.basicTotalCalculator = function (amountsToBeSummed) {
   return amountsToBeSummed.reduce((a, b) => a + b, 0);
 };
+
+/**
+ * calculates Assignment FeeAssignment Fee to be paid by applicant when applying for JNLife Creditor.
+ * @param {Decimal} assignmentFee - assignmentFee to be paid by applicant.
+ * @param {Decimal} gct - JN GCT rate to be included in loan calculations.
+ * @return {Deciaml}
+ */
+window.basicAssignmentFeeCalculator = function (assignmentFee, gct) {
+  return assignmentFee + assignmentFee * gct;
+};
