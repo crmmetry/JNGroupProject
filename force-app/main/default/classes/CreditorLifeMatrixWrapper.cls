@@ -55,19 +55,23 @@ public class CreditorLifeMatrixWrapper {
     if (tenure > 10) {
       return Constants.INVALID_TENURE; // change to a different type
     }
-    for (Integer x = 0; x <= 10; x + increment) {
+    for (Decimal x = 0; x <= 10; x += increment) {
       if (tenure == x) {
         ratingTenure = x;
+        break;
       } else if (tenure > x && tenure < x + increment) {
         ratingTenure = x + increment;
+        break;
       }
     }
     Integer ratingTenureWholeNumber = Integer.valueOf(ratingTenure * 10);
     if (Math.mod(ratingTenureWholeNumber, 10) == 0) {
-      template = 'X' + ratingTenure + '__c';
+      template = 'X' + (Integer) ratingTenure + '__c';
     } else {
       String ratingTenureStr = String.valueOf(ratingTenure);
-      List<String> values = ratingTenureStr.split('.');
+      System.debug(ratingTenureStr);
+      String[] values = ratingTenureStr.split('\\.');
+      System.debug(values);
       template = 'X' + values[0] + '_' + values[1] + '__c';
     }
     return template;

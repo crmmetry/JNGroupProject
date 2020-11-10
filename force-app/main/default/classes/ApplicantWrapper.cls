@@ -8,6 +8,7 @@ public with sharing class ApplicantWrapper {
   @AuraEnabled
   public Decimal rating;
   public ApplicantWrapper(Applicant__c record) {
+    System.debug(record);
     this.Id = record.Id;
     this.dob = record.Account__r.Date_of_Birth__pc;
     this.age = calculateAge(dob);
