@@ -14,9 +14,9 @@
   <c:AutoLoanFeaturesLineItemComponent ParentContainer="{!v.ParentContainer}">
   </c:AutoLoanFeaturesLineItemComponent>
 
-  <!-- <c:AutoLoanCreditCalculationsLineComponent PersonalAutoLoan="{!v.ParentContainer}"
-    CreditRepayment="{!v.CreditRepaymentContainer}" LoanSavings="{!v.LoanSavingsContainer}"
-    JNGIPremium="{!v.JNGIPremiumContainer}" jnDefaultConfigs="{!v.jnDefaultConfigs}">
-  </c:AutoLoanCreditCalculationsLineComponent> -->
+  <c:AutoLoanCreditCalculationsLineComponent ParentContainer="{!v.ParentContainer}"
+    jnDefaultConfigs="{!v.jnDefaultConfigs}">
+  </c:AutoLoanCreditCalculationsLineComponent>
+
   <c:TotalDebtServiceRatioLineItemComponent></c:TotalDebtServiceRatioLineItemComponent>
 </aura:component>

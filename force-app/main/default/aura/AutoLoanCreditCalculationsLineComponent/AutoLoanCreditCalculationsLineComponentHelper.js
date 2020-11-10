@@ -2,7 +2,7 @@
   calculateMonthlyP_ILoanAmount: function (component) {
     const result = basicPMTCalculator(
       ["years", "months", "loanAmount", "market"],
-      component.get("v.PersonalAutoLoan")
+      component.get("v.ParentContainer")
     );
     if (!result) {
       component.set("v.monthly_PI_LoanAmount", 0);
@@ -12,7 +12,7 @@
   },
   setDeductRepaymentFlag: function (component) {
     console.log("Repayment deducted");
-    let creditRepayment = component.get("v.CreditRepayment");
+    let creditRepayment = component.get("v.ParentContainer");
     if (creditRepayment.deductRepayment == "Yes") {
       component.set("v.deductRepaymentFlag", true);
     } else {
@@ -21,9 +21,10 @@
   },
 
   calculateSavings: function (component) {
+    //TODO: refactor into calculations resource
     var PIMonthlyPayment = component.get("v.monthly_PI_LoanAmount");
-    var personalAutoLoan = component.get("v.PersonalAutoLoan");
-    var loanSavings = component.get("v.LoanSavings");
+    var personalAutoLoan = component.get("v.ParentContainer");
+    var loanSavings = component.get("v.ParentContainer");
     console.log("Calcualte Savings Heloper");
     if (PIMonthlyPayment > 0) {
       console.log("Calculate Savings begin");
@@ -63,8 +64,8 @@
   },
 
   calculateJNGIPMT: function (component) {
-    let jngiPremium = component.get("v.JNGIPremium");
-    let personalAutoLoan = component.get("v.PersonalAutoLoan");
+    let jngiPremium = component.get("v.ParentContainer");
+    let personalAutoLoan = component.get("v.ParentContainer");
     const pmtData = {
       years: personalAutoLoan.years,
       months: personalAutoLoan.months,
@@ -92,15 +93,15 @@
   calculateProcessingFee: function (component) {
     console.log(
       "Credit Repayment",
-      JSON.parse(JSON.stringify(component.get("v.CreditRepayment"))),
+      JSON.parse(JSON.stringify(component.get("v.ParentContainer"))),
       "Auto Loan",
-      JSON.parse(JSON.stringify(component.get("v.PersonalAutoLoan")))
+      JSON.parse(JSON.stringify(component.get("v.ParentContainer")))
     );
     //TODO: CHANGE LATER TO CHILDCONTAINER, call in the personal auto loan change
     const combinedFields = Object.assign(
       {},
-      component.get("v.CreditRepayment"),
-      component.get("v.PersonalAutoLoan")
+      component.get("v.ParentContainer"),
+      component.get("v.ParentContainer")
     );
     const {
       processingFee,
@@ -119,5 +120,20 @@
       monthlyProcessingFee
     );
     component.set("v.processingFeeClosingCost", processingFeeClosingCost);
+  },
+  onJNGIPremiumChange: function (component) {
+    let jngiPremium = component.get("v.ParentContainer");
+    if (jngiPremium.includeInLoan === "No") {
+      component.set("v.showPremiumInFeesAndCharges", true);
+      component.set("v.showPremiumInCreditCalculations", false);
+    } else {
+      component.set("v.showPremiumInCreditCalculations", true);
+      component.set("v.showPremiumInFeesAndCharges", false);
+    }
+    let firstYearPremium = this.calcualateFirstYearPremium(
+      jngiPremium.premium
+    );
+    component.set("v.jngiMotorPremium", firstYearPremium);
+
   }
 });
