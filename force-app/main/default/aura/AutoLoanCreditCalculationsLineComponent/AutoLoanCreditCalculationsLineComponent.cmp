@@ -1,5 +1,6 @@
 <aura:component>
-  <aura:attribute name="JNGIPremium" type="Map" default="{}" />
+  <aura:attribute name="ChildContainer" type="Map" default="{}" />
+  <aura:attribute name="ParentContainer" type="Map" default="{}" />
   <aura:attribute
     name="showPremiumInFeesAndCharges"
     type="Boolean"
@@ -58,33 +59,19 @@
     type="Decimal"
     default="0"
   />
-  <aura:attribute name="PersonalAutoLoan" type="Map" default="{}" />
-  <aura:attribute name="CreditRepayment" type="Map" default="{}" />
   <aura:attribute name="LoanSavings" type="Map" default="{}" />
   <aura:attribute name="deductRepaymentFlag" type="Boolean" default="false" />
-  <aura:handler
+  <!-- <aura:handler
     name="change"
-    action="{!c.onPersonalAutoLoanChange}"
-    value="{!v.PersonalAutoLoan}"
-  />
+    action="{!c.onChildContainerChange}"
+    value="{!v.ChildContainer}"
+  /> -->
+  <!-- testing to see if the updates are propogated.-->
   <aura:handler
-    name="change"
-    action="{!c.onCreditRepaymentChange}"
-    value="{!v.CreditRepayment}"
-  />
-  <aura:handler
-    name="change"
-    action="{!c.onLoanSavingsChange}"
-    value="{!v.LoanSavings}"
-  />
-  <aura:handler
-    name="change"
-    action="{!c.onJNGIPremiumChange}"
-    value="{!v.JNGIPremium}"
-  />
-
-
-
+  name="change"
+  action="{!c.onParenContainerChange}"
+  value="{!v.ParentContainer}"
+/>
   <aura:attribute name="jnDefaultConfigs" type="Map" default="{}" />
   <aura:attribute name="processingFeesGCT" type="Decimal" default="0" />
   <aura:attribute
@@ -113,7 +100,7 @@
         <lightning:input
           type="number"
           label="Loan Amount Market"
-          value="{!v.PersonalAutoLoan.loanAmount}"
+          value="{!v.ChildContainer.loanAmount}"
           name="number"
           formatter="currency"
           required="true"
@@ -166,7 +153,7 @@
         <lightning:input
           type="number"
           label="Monthly JNGI Motor Premium"
-          value="{!v.JNGIPremium.premium}"
+          value="{!v.ParentContainer.premium}"
           name="number"
           formatter="currency"
           required="true"

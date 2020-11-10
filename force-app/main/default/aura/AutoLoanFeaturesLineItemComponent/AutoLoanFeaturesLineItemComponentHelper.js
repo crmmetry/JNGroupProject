@@ -30,5 +30,17 @@
         component.find("includeInLoanAmountId").set("v.value", "select one...");
       }
     }
-  }
+  },
+  onProposedSavingsChange: function (component) {
+    const selected = component.get("v.value");
+    console.log(selected);
+    let childContainer = component.get("v.ChildContainer");
+    if (selected === "percent") {
+      childContainer.amount = null;
+      childContainer.selection = selected;
+    } else if (selected === "amount") {
+      childContainer.percentage = null;
+      childContainer.selection = selected;
+    }
+  },
 });

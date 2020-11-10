@@ -1,8 +1,4 @@
 <aura:component>
-  <aura:attribute name="CreditRepayment" type="Map" />
-  <aura:attribute name="CreditRepaymentContainer" type="Map" />
-  <aura:attribute name="JNGIPremium" type="Map" default="{}" />
-  <aura:attribute name="JNGIPremiumContainer" type="Map" default="{}" />
   <aura:attribute
     name="interestedInPremiumFlag"
     type="Boolean"
@@ -12,12 +8,10 @@
     name="options"
     type="List"
     default="[
-    {'label': 'Percentage(%)', 'value': 'percent'},
-    {'label': 'Amount(JMD)', 'value': 'amount'}
+      {'label': 'Percentage(%)', 'value': 'percent'},
+      {'label': 'Amount(JMD)', 'value': 'amount'}
     ]"
   />
-  <aura:attribute name="LoanSavings" type="Map" default="{}" />
-  <aura:attribute name="LoanSavingsContainer" type="Map" default="{}" />
   <aura:attribute
     name="interestedInCreditorLife"
     type="List"
@@ -80,27 +74,16 @@
     type="String"
     default="select one..."
   />
+  <aura:attribute name="ChildContainer" type="Map" default="{}" />
+  <aura:attribute name="ParentContainer" type="Map" default="{}" />
   <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
 
   <aura:handler
     name="change"
-    action="{!c.onProposedSavingsChange}"
-    value="{!v.LoanSavings}"
+    action="{!c.onChildContainerChange}"
+    value="{!v.ChildContainer}"
   />
 
-  <aura:handler
-    name="change"
-    action="{!c.onCreditRepaymentChange}"
-    value="{!v.CreditRepayment}"
-  />
-
-  <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
-
-  <aura:handler
-    name="change"
-    value="{!v.JNGIPremium}"
-    action="{!c.onJNGIPremiumChange}"
-    />
   <!-- toggling attributes-->
   <aura:attribute
     name="showIncludeInLoanAmount"
@@ -177,7 +160,7 @@
           <lightning:input
             type="number"
             label="Monthly Premium"
-            value="{!v.JNGIPremium.premium}"
+            value="{!v.ChildContainer.premium}"
             name="number"
             formatter="currency"
             disabled="{!v.interestedInPremiumFlag}"
@@ -393,7 +376,7 @@
             <lightning:input
               type="number"
               label="Savings(%)"
-              value="{!v.LoanSavings.percentage}"
+              value="{!v.ChildContainer.percentage}"
               formatter="percent-fixed"
               step="0.01"
               required="true"
@@ -409,7 +392,7 @@
             <lightning:input
               type="number"
               label="Amount(JMD)"
-              value="{!v.LoanSavings.amount}"
+              value="{!v.ChildContainer.amount}"
               formatter="currency"
               required="true"
             />

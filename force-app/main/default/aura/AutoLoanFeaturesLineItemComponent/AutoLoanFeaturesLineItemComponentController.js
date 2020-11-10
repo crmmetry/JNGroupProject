@@ -1,70 +1,36 @@
 ({
   doinit: function (component, event, helper) {
-    const creditRepaymentMap = {
+    let data = {
       repaymentMethod: "",
       repaymentDate: "",
-      deductRepayment: ""
-    };
-    component.set("v.CreditRepayment", creditRepaymentMap);
-    const loanSavings = {
+      deductRepayment: "",
       percentage: null,
       amount: null,
-      selection: null
-    };
-    component.set("v.LoanSavings", loanSavings);
-  },
-
-  onCreditRepaymentChange: function (component, event, helper) {
-    const data = Object.assign(
-      component.get("v.CreditRepaymentContainer"),
-      component.get("v.CreditRepayment")
-    );
-    component.set("v.CreditRepaymentContainer", data);
-  },
-
-  onProposedSavingsChange: function (component, event, helper) {
-    const selected = component.get("v.value");
-    console.log(selected);
-    let loanSavings = component.get("v.LoanSavings");
-    if (selected === "percent") {
-      loanSavings.amount = null;
-      loanSavings.selection = selected;
-    } else if (selected === "amount") {
-      loanSavings.percentage = null;
-      loanSavings.selection = selected;
-    }
-    //component.set("v.LoanSavingsContainer", loanSavings);
-    const data = Object.assign(
-      component.get("v.LoanSavingsContainer"),
-      component.get("v.LoanSavings")
-    );
-    component.set("v.LoanSavingsContainer", data);
-  },
-
-  onInterestedInJNGIChange: function (component, event, helper) {
-    const selected = event.getSource().get("v.value");
-    console.log(selected);
-    const JNGIPremiumMap = {
+      selection: null,
+      processingFeePercentagePerAnum: null,
       interested: "",
       includeInLoan: "",
       premium: null
     };
-    component.set("v.JNGIPremium", JNGIPremiumMap);
-    const creditRepaymentMap = {
-      repaymentMethod: "",
-      repaymentDate: "",
-      deductRepayment: "",
-      processingFeePercentagePerAnum: null
-    };
-    component.set("v.CreditRepayment", creditRepaymentMap);
+    component.set("v.ChildContainer", data);
   },
 
-  onJNGIPremiumChange: function (component, event, helper) {
+  onChildContainerChange: function (component, event, helper) {
     const data = Object.assign(
-      component.get("v.JNGIPremiumContainer"),
-      component.get("v.JNGIPremium")
+      component.get("v.ParentContainer"),
+      component.get("v.ChildContainer")
     );
-    component.set("v.JNGIPremiumContainer", data);
+    component.set("v.ParentContainer", data);
+    helper.onProposedSavingsChange(component);
+    helper.toggleShowIndicateApplicableProcessingFees(
+      component,
+      component.get("v.ChildContainer")
+    );
+    helper.toggleShowIncludeInLoanAmount(
+      component,
+      component.get("v.ChildContainer")
+    );
+    helper.resetProcessingFieldsValues(data, component);
   },
 
   onInterestedInJNGIChange: function (component, event, helper) {
@@ -76,45 +42,28 @@
     } else if (selected === "No") {
       console.log("No");
       component.find("includePremium").set("v.value", null);
-      let jngiPremium = component.get("v.JNGIPremium");
+      let jngiPremium = component.get("v.ChildContainer");
       jngiPremium.premium = null;
       jngiPremium.includeInLoan = null;
-      component.set("v.JNGIPremium", jngiPremium);
+      component.set("v.ChildContainer", jngiPremium);
       component.set("v.interestedInPremiumFlag", true);
     }
-    let jngiPremium = component.get("v.JNGIPremium");
+    let jngiPremium = component.get("v.ChildContainer");
     jngiPremium.interested = selected;
     console.log(selected);
-    component.set("v.JNGIPremium", jngiPremium);
+    component.set("v.ChildContainer", jngiPremium);
   },
   onProcessingFeePercentagePerAnumChange: function (component, event, helper) {
     const value = component.get("v.processingFeePercentagePerAnum");
-    let creditRepaymentMap = component.get("v.CreditRepayment");
+    let creditRepaymentMap = component.get("v.ChildContainer");
     creditRepaymentMap.processingFeePercentagePerAnum = value;
-    component.set("v.CreditRepayment", creditRepaymentMap);
+    component.set("v.ChildContainer", creditRepaymentMap);
   },
-  onCreditRepaymentChange: function (component, event, helper) {
-    const data = Object.assign(
-      component.get("v.CreditRepaymentContainer"),
-      component.get("v.CreditRepayment")
-    );
-    component.set("v.CreditRepaymentContainer", data);
-    helper.toggleShowIndicateApplicableProcessingFees(
-      component,
-      component.get("v.CreditRepayment")
-    );
-    helper.toggleShowIncludeInLoanAmount(
-      component,
-      component.get("v.CreditRepayment")
-    );
-    helper.resetProcessingFieldsValues(data, component);
-  },
-
   onIncludePremiumChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    let jngiPremium = component.get("v.JNGIPremium");
+    let jngiPremium = component.get("v.ChildContainer");
     jngiPremium.includeInLoan = selected;
-    component.set("v.JNGIPremium", jngiPremium);
+    component.set("v.ChildContainer", jngiPremium);
     console.log(selected);
   },
 
@@ -135,38 +84,37 @@
 
   onWaiveProcessingFeeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    let creditRepaymentMap = component.get("v.CreditRepayment");
+    let creditRepaymentMap = component.get("v.ChildContainer");
     creditRepaymentMap.waiveProcessingFeeFlag = selected === "Yes";
-    component.set("v.CreditRepayment", creditRepaymentMap);
+    component.set("v.ChildContainer", creditRepaymentMap);
   },
 
   onIncludeWaiveProcessingFeeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    let creditRepaymentMap = component.get("v.CreditRepayment");
+    let creditRepaymentMap = component.get("v.ChildContainer");
     creditRepaymentMap.includeInLoanAmountFlag = selected === "Yes";
-    component.set("v.CreditRepayment", creditRepaymentMap);
+    component.set("v.ChildContainer", creditRepaymentMap);
   },
 
   onRepaymentMethodChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    //component.set('v.CreditRepayment.repaymentMethod', selected);
-    let creditRepaymentMap = component.get("v.CreditRepayment");
+    let creditRepaymentMap = component.get("v.ChildContainer");
     creditRepaymentMap.repaymentMethod = selected;
-    component.set("v.CreditRepayment", creditRepaymentMap);
+    component.set("v.ChildContainer", creditRepaymentMap);
   },
 
   onMonthlyRepaymentDateChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    let creditRepaymentMap = component.get("v.CreditRepayment");
+    let creditRepaymentMap = component.get("v.ChildContainer");
     creditRepaymentMap.repaymentDate = selected;
-    component.set("v.CreditRepayment", creditRepaymentMap);
+    component.set("v.ChildContainer", creditRepaymentMap);
     console.log(selected);
   },
 
   onDeductFirstMonthRepaymentChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    let creditRepaymentMap = component.get("v.CreditRepayment");
+    let creditRepaymentMap = component.get("v.ChildContainer");
     creditRepaymentMap.deductRepayment = selected;
-    component.set("v.CreditRepayment", creditRepaymentMap);
+    component.set("v.ChildContainer", creditRepaymentMap);
   }
 });
