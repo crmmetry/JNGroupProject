@@ -3,7 +3,6 @@
   <aura:attribute name="RequestedDetailsContainer" type="Map" default="{}" />
   <aura:attribute name="productPrice" type="Decimal" />
   <aura:attribute name="loanPurpose" type="List" />
-  <aura:attribute name="CreditRepaymentContainer" type="Map" default="{}" />
   <aura:attribute name="LoanSavingsContainer" type="Map" default="{}" />
 
   <aura:attribute name="jnDefaultConfigs" type="Map" />
@@ -11,12 +10,7 @@
   <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
     <div class="slds-form-element">
       <div class="slds-form-element__control">
-        <lightning:select
-          name="select1"
-          label="Loan Purpose"
-          required="true"
-          onchange="{!c.onLoanPurposeChange}"
-        >
+        <lightning:select name="select1" label="Loan Purpose" required="true" onchange="{!c.onLoanPurposeChange}">
           <option value="">select one...</option>
           <aura:iteration items="{!v.loanPurpose}" var="item">
             <option value="{!item}">{!item}</option>
@@ -25,21 +19,16 @@
       </div>
     </div>
   </lightning:layoutItem>
-  <c:RequestedDetailsLineItemComponent
-    productPrice="{!v.productPrice}"
-    ParentContainer="{!v.ParentContainer}"
-  >
-</c:RequestedDetailsLineItemComponent>
+  <c:RequestedDetailsLineItemComponent productPrice="{!v.productPrice}" ParentContainer="{!v.ParentContainer}">
+  </c:RequestedDetailsLineItemComponent>
 
-  <c:UnsecuredLoanFeatureLineItemComponent
-    CreditRepaymentContainer="{!v.ParentContainer}"
-    LoanSavingsContainer="{!v.LoanSavingsContainer}"
-  ></c:UnsecuredLoanFeatureLineItemComponent>
-  <c:CreditCalculationsLineItemComponent
-    RequestedDetails="{!v.RequestedDetailsContainer}"
-    CreditRepayment="{!v.ParentContainer}"
-    LoanSavings="{!v.LoanSavingsContainer}"
-    jnDefaultConfigs="{!v.jnDefaultConfigs}"
-  ></c:CreditCalculationsLineItemComponent>
+  <c:UnsecuredLoanFeatureLineItemComponent ParentContainer="{!v.ParentContainer}">
+  </c:UnsecuredLoanFeatureLineItemComponent>
+
+  <c:CreditCalculationsLineItemComponent RequestedDetails="{!v.ParentContainer}"
+    CreditRepayment="{!v.ParentContainer}" LoanSavings="{!v.ParentContainer}"
+    jnDefaultConfigs="{!v.jnDefaultConfigs}">
+  </c:CreditCalculationsLineItemComponent>
+  
   <c:TotalDebtServiceRatioLineItemComponent></c:TotalDebtServiceRatioLineItemComponent>
 </aura:component>

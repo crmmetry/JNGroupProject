@@ -21,10 +21,20 @@
   resetProcessingFieldsValues: function (data, component) {
     if (typeof data["waiveProcessingFeeFlag"] !== "undefined") {
       if (data["waiveProcessingFeeFlag"] === true) {
-        console.info("siss resetProcessingFieldsValue");
         component.set("v.processingFeePercentagePerAnum", null);
         component.find("includeInLoanAmountId").set("v.value", "select one...");
       }
     }
-  }
+  },
+  onProposedSavingsChange: function (component) {
+    const selected = component.get("v.value");
+    let childContainer = component.get("v.ChildContainer");
+    if (selected === "percent") {
+      childContainer.amount = null;
+      childContainer.selection = selected;
+    } else if (selected === "amount") {
+      childContainer.percentage = null;
+      childContainer.selection = selected;
+    }
+  },
 });

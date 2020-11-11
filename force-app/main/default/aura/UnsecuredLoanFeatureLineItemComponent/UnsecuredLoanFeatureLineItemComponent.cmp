@@ -1,8 +1,6 @@
 <aura:component>
-  <aura:attribute name="CreditRepayment" type="Map" />
-  <aura:attribute name="CreditRepaymentContainer" type="Map" />
-  <aura:attribute name="LoanSavings" type="Map" default="{}" />
-  <aura:attribute name="LoanSavingsContainer" type="Map" default="{}" />
+  <aura:attribute name="ParentContainer" type="Map" default="{}" />
+  <aura:attribute name="ChildContainer" type="Map" default="{}" />
   <aura:attribute
     name="options"
     type="List"
@@ -74,14 +72,10 @@
   />
   <aura:handler
     name="change"
-    value="{!v.CreditRepayment}"
-    action="{!c.onCreditRepaymentChange}"
+    value="{!v.ChildContainer}"
+    action="{!c.onChildContainerChange}"
   />
-  <aura:handler
-  name="change"
-  action="{!c.onProposedSavingsChange}"
-  value="{!v.LoanSavings}"
-  />
+
   <aura:handler
     name="change"
     value="{!v.processingFeePercentagePerAnum}"
@@ -329,7 +323,7 @@
             <lightning:input
               type="number"
               label="Savings(%)"
-              value="{!v.LoanSavings.percentage}"
+              value="{!v.ChildContainer.percentage}"
               formatter="percent-fixed"
               step="0.01"
               required="true"
@@ -345,7 +339,7 @@
             <lightning:input
               type="number"
               label="Amount(JMD)"
-              value="{!v.LoanSavings.amount}"
+              value="{!v.ChildContainer.amount}"
               formatter="currency"
               required="true"
             />
