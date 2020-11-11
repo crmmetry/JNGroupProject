@@ -10,9 +10,10 @@
   <aura:attribute name="assignmentFee" type="Decimal" default="0" />
   <aura:attribute name="deductRepaymentFlag" type="Boolean" default="true" />
   <aura:attribute name="jngiMotorPremium" type="Decimal" default="0" /> 
+  <aura:attribute name="includePremiumFlag" type="Boolean" default="true" />
   <aura:handler
   name="change"
-  value="{!v.includePremiumFlag}"
+  value="{!v.includePremiumFlag}" 
   action="{!c.onIncludePremiumChange}"
 />
   <aura:attribute
