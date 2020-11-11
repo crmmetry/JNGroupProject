@@ -1,44 +1,50 @@
 ({
   /**
-   * //TODO: refactor use only ChildContaier
-   * @param {*} component
-   * @param {*} event
-   * @param {*} helper
-   */
-  onRequestedDetailsChange: function (component, event, helper) {
-    console.log(
-      "Credit Calculations",
-      JSON.parse(JSON.stringify(component.get("v.RequestedDetails")))
-    );
-    const result = basicPMTCalculator(
-      ["years", "months", "loanAmount", "market"],
-      component.get("v.RequestedDetails")
-    );
-    if (!result) {
-      component.set("v.monthly_PI_LoanAmount", 0);
-    } else {
-      component.set("v.monthly_PI_LoanAmount", result);
-      helper.calculateSavings(component);
-    }
+ * @param {*} component
+ * @param {*} event
+ * @param {*} helper
+ */
+  doInit: function (component, event, helper) {
+    let data = {
+      premium: 0
+    };
+    component.set("v.ChildContainer", data);
   },
-
-  onLoanSavingsChange: function (component, event, helper) {
-    console.log("SavingsLoan Change");
-    helper.calculateSavings(component);
-    helper.calculateMonthlyP_ILoanAmount(component);
-    helper.calculateProcessingFee(component);
-    console.log("Saving Calculations done?");
+  scriptsLoaded: function (component, event, helper) {
+    component.set("v.scriptsLoaded", true);
   },
-
   /**
-   * //TODO: refactor use only ChildContaier
    * @param {*} component
    * @param {*} event
    * @param {*} helper
    */
-  onCreditRepaymentChange: function (component, event, helper) {
-    console.log("calculating onCreditRepaymentChange");
-    helper.setDeductRepaymentFlag(component);
-    helper.calculateProcessingFee(component);
+  onChildContainerChange: function (component, event, helper) {
+    const data = Object.assign(
+      component.get("v.ParentContainer"),
+      component.get("v.ChildContainer")
+    );
+    component.set("v.ParentContainer", data);
+  },
+  /**
+ * @param {*} component
+ * @param {*} event
+ * @param {*} helper
+ */
+  onParenContainerChange: function (component, event, helper) {
+    console.log("scriptsLoaded", component.get("v.scriptsLoaded"));
+    if (component.get("v.scriptsLoaded")) {
+      console.log("onParenContainerChange 1");
+      // on auto loan changes
+      helper.calculateMonthlyP_ILoanAmount(component);
+      console.log("calculateMonthlyP_ILoanAmount 1");
+      // on credit repayment changes
+      helper.setDeductRepaymentFlag(component);
+      helper.calculateProcessingFee(component);
+      //on loan savings change
+      helper.calculateSavings(component);
+      //on jngi changes
+      helper.calculateJNGIPMT(component);
+      helper.onJNGIPremiumChange(component);
+    }
   }
 });

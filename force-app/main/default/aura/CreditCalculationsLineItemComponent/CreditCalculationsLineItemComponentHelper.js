@@ -1,8 +1,9 @@
 ({
   calculateMonthlyP_ILoanAmount: function (component) {
+    console.info("Basic", JSON.parse(JSON.stringify(component.get("v.ParentContainer"))))
     const result = basicPMTCalculator(
       ["years", "months", "loanAmount", "market"],
-      component.get("v.RequestedDetails")
+      component.get("v.ParentContainer")
     );
     if (!result) {
       component.set("v.monthly_PI_LoanAmount", 0);
@@ -12,7 +13,7 @@
   },
   setDeductRepaymentFlag: function (component) {
     console.log("Repayment deducted");
-    let creditRepayment = component.get("v.CreditRepayment");
+    let creditRepayment = component.get("v.ParentContainer");
     if (creditRepayment.deductRepayment == "Yes") {
       component.set("v.deductRepaymentFlag", true);
     } else {
@@ -21,9 +22,10 @@
   },
 
   calculateSavings: function (component) {
+    //TODO: refactor into calculations resource
     var PIMonthlyPayment = component.get("v.monthly_PI_LoanAmount");
-    var personalAutoLoan = component.get("v.RequestedDetails");
-    var loanSavings = component.get("v.LoanSavings");
+    var personalAutoLoan = component.get("v.ParentContainer");
+    var loanSavings = component.get("v.ParentContainer");
     console.log("Calcualte Savings Heloper");
     if (PIMonthlyPayment > 0) {
       console.log("Calculate Savings begin");
@@ -56,13 +58,41 @@
       }
     }
   },
+  calcualateFirstYearPremium: function (premium) {
+    if (premium) {
+      return premium * 12;
+    }
+  },
+
+  calculateJNGIPMT: function (component) {
+    let jngiPremium = component.get("v.ParentContainer");
+    let personalAutoLoan = component.get("v.ParentContainer");
+    const pmtData = {
+      years: personalAutoLoan.years,
+      months: personalAutoLoan.months,
+      loanAmount: component.get("v.jngiMotorPremium"),
+      market: personalAutoLoan.market
+    };
+    console.table("PMT DATA: ", JSON.stringify(pmtData));
+    console.table("JNGI DATA: ", JSON.stringify(jngiPremium));
+    if (jngiPremium.interested == "Yes" && jngiPremium.includeInLoan == "Yes") {
+      console.log("SUCCESS");
+      const result = basicPMTCalculator(
+        ["years", "months", "loanAmount", "market"],
+        pmtData
+      );
+      if (!result) {
+        component.set("v.monthlyPIJNGIMotorPremium", 0);
+      } else {
+        component.set("v.monthlyPIJNGIMotorPremium", result);
+      }
+    } else if (jngiPremium.interested === "No") {
+      component.set("v.monthlyPIJNGIMotorPremium", 0);
+      component.set("v.jngiMotorPremium", 0);
+    }
+  },
   calculateProcessingFee: function (component) {
-    //TODO: CHANGE LATER TO CHILDCONTAINER, call in the personal auto loan change
-    const combinedFields = Object.assign(
-      {},
-      component.get("v.CreditRepayment"),
-      component.get("v.RequestedDetails")
-    );
+    const combinedFields = component.get("v.ParentContainer");
     const {
       processingFee,
       monthlyProcessingFee,
@@ -80,5 +110,21 @@
       monthlyProcessingFee
     );
     component.set("v.processingFeeClosingCost", processingFeeClosingCost);
+  },
+  onJNGIPremiumChange: function (component) {
+    let jngiPremium = component.get("v.ParentContainer");
+    let childContainer = component.get("v.ChildContainer");
+    if (jngiPremium.includeInLoan === "No") {
+      component.set("v.showPremiumInFeesAndCharges", true);
+      component.set("v.showPremiumInCreditCalculations", false);
+    } else {
+      component.set("v.showPremiumInCreditCalculations", true);
+      component.set("v.showPremiumInFeesAndCharges", false);
+    }
+    let firstYearPremium = this.calcualateFirstYearPremium(
+      childContainer.premium
+    );
+    component.set("v.jngiMotorPremium", firstYearPremium);
+
   }
 });

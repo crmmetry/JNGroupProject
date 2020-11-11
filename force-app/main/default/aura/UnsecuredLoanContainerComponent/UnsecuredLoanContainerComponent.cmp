@@ -25,10 +25,8 @@
   <c:UnsecuredLoanFeatureLineItemComponent ParentContainer="{!v.ParentContainer}">
   </c:UnsecuredLoanFeatureLineItemComponent>
 
-  <c:CreditCalculationsLineItemComponent RequestedDetails="{!v.ParentContainer}"
-    CreditRepayment="{!v.ParentContainer}" LoanSavings="{!v.ParentContainer}"
-    jnDefaultConfigs="{!v.jnDefaultConfigs}">
-  </c:CreditCalculationsLineItemComponent>
-  
+  <c:CreditCalculationsLineItemComponent ParentContainer="{!v.ParentContainer}"
+    jnDefaultConfigs="{!v.jnDefaultConfigs}"></c:CreditCalculationsLineItemComponent>
+
   <c:TotalDebtServiceRatioLineItemComponent></c:TotalDebtServiceRatioLineItemComponent>
 </aura:component>

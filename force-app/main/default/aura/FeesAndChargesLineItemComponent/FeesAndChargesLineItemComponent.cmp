@@ -9,7 +9,12 @@
   <aura:attribute name="totalClosingCosts" type="Decimal" default="0" />
   <aura:attribute name="assignmentFee" type="Decimal" default="0" />
   <aura:attribute name="deductRepaymentFlag" type="Boolean" default="true" />
-
+  <aura:attribute name="jngiMotorPremium" type="Decimal" default="0" /> 
+  <aura:handler
+  name="change"
+  value="{!v.includePremiumFlag}"
+  action="{!c.onIncludePremiumChange}"
+/>
   <aura:attribute
     name="totalClosingCostsJNFinanced"
     type="Decimal"
@@ -92,7 +97,7 @@
       readonly="true"
     />
   </lightning:layoutItem>
-  <aura:if isTrue="{!v.deductRepaymentFlag}">
+  <aura:if isTrue="{!equals(v.deductRepaymentFlag, false)}">
     <lightning:layoutItem size="6" padding="around-small">
       <lightning:input
         type="number"
