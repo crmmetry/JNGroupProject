@@ -214,3 +214,58 @@ window.basicProcessingFeesCalculator = function (
     };
   }
 };
+
+
+/**
+ * summates any given set of numbers
+ * @param {Object} parentObj - 
+ * @param {Array<String>} properties - fields on the parent object
+ * @return {Decimal}
+ */
+window.basicTotalsCalculator = function (properties, parentObj) {
+  let validatedFields = enlistAndValidateFields(properties, parentObj);
+  if (!validatedFields) return null;
+  let allValid = true;
+  Object.keys(validatedFields).forEach((key) => {
+    if (validatedFields[key] === false) {
+      allValid = false;
+    }
+  });
+  if (allValid === false) return 0;
+  let values = [];
+  properties.forEach((property) => {
+    if (validatedFields.property) {
+      values.push(parentObj[property]);
+    }
+  });
+  return values.reduce((a, b) => a + b, 0);
+};
+
+window.calculateTotalLoanAmount = function (properties, parentObj) {
+  //const properties = ["loanAmount","jnLifeCreditorPremium","processingFeesGCT","jngiMotorPremium"];
+  return basicTotalsCalculator(properties, parentObj);
+}
+window.calculateTotalMonthlyPIPayment = function (properties, parentObj) {
+  //const properties = ["monthly_PI_LoanAmount","monthlyJnLifeCreditor_PI_Premium","monthlyPrincipalInterestProcessingFee","monthlyPIJNGIMotorPremium"];
+  return basicTotalsCalculator(properties, parentObj);
+}
+window.calculateTotalMonthlyPayment = function (properties, parentObj) {
+  //const properties = ["totalMonthlyPIPayment", "premium"]
+  return basicTotalsCalculator(properties, parentObj);
+}
+window.calculateTotalMonthlyLoanCompulsoryPayment = function (properties, parentObj) {
+  //const properties = ["totalMonthlyPayment", "monthlyCompulsorySavings"]
+  return basicTotalsCalculator(properties, parentObj);
+}
+window.calculateTotalInterestPayment = function (totalMonthlyPIPayment, totalLoanAmount, years, months) {
+  let tenure = null;
+  if (years && months) {
+    tenure = calculateMonths(years, months);
+  }
+  if (tenure === null) {
+    return 0;
+  }
+  if (totalLoanAmount && totalMonthlyPIPayment) {
+    return totalMonthlyPIPayment * tenure - totalLoanAmount;
+  }
+}
