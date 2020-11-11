@@ -1,4 +1,5 @@
 <aura:component>
+  <aura:attribute name="ParentContainer" type="Map" default="{}" />
   <aura:attribute name="RequestedDetailsContainer" type="Map" default="{}" />
   <aura:attribute name="productPrice" type="Decimal" />
   <aura:attribute name="loanPurpose" type="List" />
@@ -6,12 +7,7 @@
   <aura:attribute name="LoanSavingsContainer" type="Map" default="{}" />
 
   <aura:attribute name="jnDefaultConfigs" type="Map" />
-  <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
-  <aura:handler
-    name="change"
-    action="{!c.onRequestedDetailsContainerChange}"
-    value="{!v.RequestedDetailsContainer}"
-  />
+  <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
   <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
     <div class="slds-form-element">
       <div class="slds-form-element__control">
@@ -31,15 +27,17 @@
   </lightning:layoutItem>
   <c:RequestedDetailsLineItemComponent
     productPrice="{!v.productPrice}"
-    RequestedDetailsContainer="{!v.RequestedDetailsContainer}"
-  ></c:RequestedDetailsLineItemComponent>
+    ParentContainer="{!v.ParentContainer}"
+  >
+</c:RequestedDetailsLineItemComponent>
+
   <c:UnsecuredLoanFeatureLineItemComponent
-    CreditRepaymentContainer="{!v.CreditRepaymentContainer}"
+    CreditRepaymentContainer="{!v.ParentContainer}"
     LoanSavingsContainer="{!v.LoanSavingsContainer}"
   ></c:UnsecuredLoanFeatureLineItemComponent>
   <c:CreditCalculationsLineItemComponent
     RequestedDetails="{!v.RequestedDetailsContainer}"
-    CreditRepayment="{!v.CreditRepaymentContainer}"
+    CreditRepayment="{!v.ParentContainer}"
     LoanSavings="{!v.LoanSavingsContainer}"
     jnDefaultConfigs="{!v.jnDefaultConfigs}"
   ></c:CreditCalculationsLineItemComponent>
