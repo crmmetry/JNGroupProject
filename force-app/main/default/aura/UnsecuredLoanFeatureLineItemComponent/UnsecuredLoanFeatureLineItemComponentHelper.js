@@ -59,6 +59,7 @@
     } else if (selected === "Other") {
       component.set("v.showOtherForReasonFlag", true);
       component.set("v.showPolicyProviderFlag", false);
+      component.set("v.showOtherForPolicyProviderFlag", false);
     } else {
       component.set("v.showOtherForReasonFlag", false);
       component.set("v.showPolicyProviderFlag", false);

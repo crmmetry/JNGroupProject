@@ -289,7 +289,7 @@
                   onchange="{!c.onIncludeCoverageChange}"
                   disabled="{!v.disableTogglerForJNLifeCLFields}"
                 >
-                  <option value="">select one...</option>
+                  <option value="">applicant 1</option>
                   <aura:iteration items="{!v.includeCoverage}" var="item">
                     <option value="{!item}">{!item}</option>
                   </aura:iteration>
