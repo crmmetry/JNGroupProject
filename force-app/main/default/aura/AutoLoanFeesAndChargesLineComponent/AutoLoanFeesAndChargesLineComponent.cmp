@@ -11,6 +11,7 @@
   <aura:attribute name="totalClosingCosts" type="Decimal" default="0" />
   <aura:attribute name="assignmentFee" type="Decimal" default="0" />
   <aura:attribute name="deductRepayment" type="Boolean" default="false" />
+  <aura:attribute name="containerName" type="String" default="AutoLoanFeesAndChargesLineComponent" />
 
   <aura:attribute name="includePremiumFlag" type="Boolean" default="true" />
   <aura:handler

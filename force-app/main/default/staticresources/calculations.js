@@ -75,6 +75,17 @@ window.isEmpty = function (field) {
   return false;
 };
 /**
+ * check if a number field is empty
+ * @param {Any} field
+ * @return {Boolean}
+ */
+window.isNumberNotEmpty = function (field) {
+  if (isEmpty(field) == false && field != 0) {
+    return true;
+  }
+  return false;
+};
+/**
  * populate an object given a set of properties and validates whether the parent object has any of the properties
  * @param {Array<String>} properties
  * @param {Object} parentObj
@@ -96,6 +107,27 @@ window.enlistAndValidateFields = function (properties, parentObj) {
   return fields;
 };
 /**
+ * populate an object given a set of properties and validates whether the parent object has any of the properties
+ * @param {Array<String>} properties
+ * @param {Object} parentObj
+ * @return {Objec}
+ */
+window.enlistAndValidateNumberFields = function (properties, parentObj) {
+  if (!properties || !parentObj) return null;
+  let fields = {};
+  properties.forEach(function (property) {
+    fields[property] = false;
+  });
+  Object.keys(fields).forEach((field) => {
+    if (parentObj.hasOwnProperty(field)) {
+      if (isNumberNotEmpty(parentObj[field])) {
+        fields[field] = true;
+      }
+    }
+  });
+  return fields;
+};
+/**
  * helper function used to calculate pmt
  * @param {Array<String>} properties - fields on the parent object
  * @param {Object} parentObj actual object with the fields to pull from
@@ -104,7 +136,7 @@ window.enlistAndValidateFields = function (properties, parentObj) {
  */
 window.basicPMTCalculator = function (properties, parentObj) {
   let validatedFields = enlistAndValidateFields(properties, parentObj);
-  if (!validatedFields) return null;
+  if (!validatedFields) return 0;
   let rate;
   let totalMonths;
   let pmtResult;
@@ -123,7 +155,7 @@ window.basicPMTCalculator = function (properties, parentObj) {
     pmtResult = calculatePMT(rate, totalMonths, -parentObj.loanAmount, 0, 0);
     return parseFloat(pmtResult).toFixed(2);
   }
-  return null;
+  return 0;
 };
 /**
  * checks if a given object as all the required properties
@@ -167,6 +199,7 @@ window.basicProcessingFeesCalculator = function (
   requiredDependencies,
   gct
 ) {
+  let defaultValue = 0;
   const shouldWaiveProcessingFee =
     parentObj.hasOwnProperty("waiveProcessingFeeFlag") === false ||
     parentObj.waiveProcessingFeeFlag === true;
@@ -177,30 +210,29 @@ window.basicProcessingFeesCalculator = function (
   if (shouldIncludeInLoanAmountFlag) {
     if (
       parentObj.processingFeePercentagePerAnum &&
-      parentObj.processingFeePercentagePerAnum >= 0
+      parentObj.processingFeePercentagePerAnum >= defaultValue
     ) {
-      parentObj.loanAmount =
+      let newParentObj = Object.assign({}, parentObj);
+      let loanAmount = parentObj.loanAmount;
+      loanAmount =
         (parentObj.processingFeePercentagePerAnum / 100) *
         gct *
-        parentObj.loanAmount;
+        loanAmount;
+      newParentObj.loanAmount = loanAmount;
       return {
-        processingFee: shouldWaiveProcessingFee ? 0 : parentObj.loanAmount,
-        monthlyProcessingFee: shouldWaiveProcessingFee
-          ? 0
-          : basicPMTCalculator(properties, parentObj),
-        processingFeeClosingCost: 0
+        processingFee:  loanAmount,
+        monthlyProcessingFee: basicPMTCalculator(properties, newParentObj),
+        processingFeeClosingCost: defaultValue
       };
     } else {
       return {
-        processingFee: shouldWaiveProcessingFee ? 0 : parentObj.loanAmount,
-        monthlyProcessingFee: shouldWaiveProcessingFee
-          ? 0
-          : basicPMTCalculator(properties, parentObj),
-        processingFeeClosingCost: 0
+        processingFee: defaultValue,
+        monthlyProcessingFee: defaultValue,
+        processingFeeClosingCost: defaultValue
       };
     }
   } else {
-    let processingFeeClosingCost = 0;
+    let processingFeeClosingCost = defaultValue;
     if (!shouldWaiveProcessingFee) {
       processingFeeClosingCost =
         (parentObj.processingFeePercentagePerAnum / 100) *
@@ -208,9 +240,69 @@ window.basicProcessingFeesCalculator = function (
         parentObj.loanAmount;
     }
     return {
-      processingFee: 0,
-      monthlyProcessingFee: 0,
+      processingFee: defaultValue,
+      monthlyProcessingFee: defaultValue,
       processingFeeClosingCost: processingFeeClosingCost
     };
   }
 };
+
+
+/**
+ * summates any given set of numbers
+ * @param {Object} parentObj - 
+ * @param {Array<String>} properties - fields on the parent object
+ * @return {Decimal}
+ */
+window.basicTotalsCalculator = function (properties, parentObj) {
+  let validatedFields = enlistAndValidateNumberFields(properties, parentObj);
+  if (!validatedFields) return null;
+  let allValid = true;
+  console.log("validatedFields", validatedFields);
+  Object.keys(validatedFields).forEach((key) => {
+    if (validatedFields[key] === false) {
+      allValid = false;
+    }
+  });
+  if (allValid === false) return 0;
+  let values = [];
+  properties.forEach((property) => {
+    console.log("Prop", property)
+    if (validatedFields[property]) {
+      console.log("adding Prop", property, parentObj[property]);
+      values.push(parentObj[property]);
+    }
+  });
+  console.info("values", values);
+  return values.reduce((a, b) => a + b, 0);
+};
+
+window.calculateTotalLoanAmount = function (properties, parentObj) {
+  //const properties = ["loanAmount","jnLifeCreditorPremium","processingFeesGCT","jngiMotorPremium"];
+  return basicTotalsCalculator(properties, parentObj);
+}
+window.calculateTotalMonthlyPIPayment = function (properties, parentObj) {
+  //const properties = ["monthly_PI_LoanAmount","monthlyJnLifeCreditor_PI_Premium","monthlyPrincipalInterestProcessingFee","monthlyPIJNGIMotorPremium"];
+  return basicTotalsCalculator(properties, parentObj);
+}
+window.calculateTotalMonthlyPayment = function (properties, parentObj) {
+  //const properties = ["totalMonthlyPIPayment", "premium"]
+  return basicTotalsCalculator(properties, parentObj);
+}
+window.calculateTotalMonthlyLoanCompulsoryPayment = function (properties, parentObj) {
+  //const properties = ["totalMonthlyPayment", "monthlyCompulsorySavings"]
+  return basicTotalsCalculator(properties, parentObj);
+}
+window.calculateTotalInterestPayment = function (totalMonthlyPIPayment, totalLoanAmount, years, months) {
+  let tenure = null;
+  if (years && months) {
+    tenure = calculateMonths(years, months);
+  }
+  if (tenure === null) {
+    return 0;
+  }
+  if (totalLoanAmount && totalMonthlyPIPayment) {
+    return totalMonthlyPIPayment * tenure - totalLoanAmount;
+  }
+  return 0;
+}
