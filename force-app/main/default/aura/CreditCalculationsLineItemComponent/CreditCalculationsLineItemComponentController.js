@@ -33,7 +33,6 @@
    */
   onParenContainerChange: function (component, event, helper) {
     const containerName = component.get("v.ParentContainer.containerName");
-    console.log("scriptsLoaded", component.get("v.scriptsLoaded"));
     if (
       component.get("v.scriptsLoaded") &&
       containerName !== component.get("v.containerName")
@@ -44,10 +43,8 @@
       );
       // on auto loan changes
       helper.calculateMonthlyP_ILoanAmount(component);
-      console.log("calculateMonthlyP_ILoanAmount");
       // on credit repayment changes
       helper.setDeductRepaymentFlag(component);
-      console.log("calculateMonthlyP_ILoanAmount");
       // on processing fee changes
       helper.calculateProcessingFee(component);
       //on JN creditor life changes
