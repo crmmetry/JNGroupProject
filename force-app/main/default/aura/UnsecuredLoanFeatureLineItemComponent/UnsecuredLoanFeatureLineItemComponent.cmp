@@ -1,16 +1,12 @@
 <aura:component>
-  <<<<<<< HEAD
   <aura:attribute name="CreditRepayment" type="Map" />
   <aura:attribute name="CreditRepaymentContainer" type="Map" />
   <aura:attribute name="LoanSavings" type="Map" default="{}" />
   <aura:attribute name="LoanSavingsContainer" type="Map" default="{}" />
   <aura:attribute name="JNLife" type="Map" default="{}" />
   <aura:attribute name="JNLifeContainer" type="Map" default="{}" />
-
-  =======
   <aura:attribute name="ParentContainer" type="Map" default="{}" />
   <aura:attribute name="ChildContainer" type="Map" default="{}" />
-  >>>>>>> 311ca54f9b73a91cacbf4a2e341caaec8b7a4436
   <aura:attribute
     name="options"
     type="List"
@@ -82,15 +78,20 @@
   />
   <aura:handler
     name="change"
-    <<<<<<<
-    HEAD
     value="{!v.CreditRepayment}"
     action="{!c.onCreditRepaymentChange}"
   />
-  <aura:handler name="change" action="{!c.onProposedSavingsChange}"
-  value="{!v.LoanSavings}" ======= value="{!v.ChildContainer}"
-  action="{!c.onChildContainerChange}" >>>>>>>
-  311ca54f9b73a91cacbf4a2e341caaec8b7a4436 />
+  <aura:handler
+    name="change"
+    action="{!c.onProposedSavingsChange}"
+    value="{!v.LoanSavings}"
+  />
+
+  <aura:handler
+    name="change"
+    value="{!v.ChildContainer}"
+    action="{!c.onChildContainerChange}"
+  />
 
   <aura:handler
     name="change"

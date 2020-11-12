@@ -16,12 +16,22 @@
   <aura:attribute name="value" type="String" default="" />
   <aura:attribute name="percent" type="String" default="percent" />
   <aura:attribute name="amount" type="String" default="amount" />
+  <aura:attribute name="oppId" type="Id" />
   <aura:handler
     name="change"
     action="{!c.onChildContainerChange}"
     value="{!v.ChildContainer}"
   />
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+  <aura:handler
+    name="change"
+    action="{!c.onApplicantsChange}"
+    value="{!v.applicants}"
+  />
+
+  <aura:attribute name="applicants" type="List" />
+
+  <ltng:require scripts="{!$Resource.calculations}" />
 
   <fieldset class="slds-box slds-theme_default">
     <legend

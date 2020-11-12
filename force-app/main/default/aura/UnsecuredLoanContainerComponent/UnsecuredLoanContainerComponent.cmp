@@ -4,7 +4,7 @@
   <aura:attribute name="productPrice" type="Decimal" />
   <aura:attribute name="loanPurpose" type="List" />
   <aura:attribute name="LoanSavingsContainer" type="Map" default="{}" />
-
+  <aura:attribute name="oppApplicants" type="List" />
   <aura:attribute name="jnDefaultConfigs" type="Map" />
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
   <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
@@ -27,6 +27,8 @@
   <c:RequestedDetailsLineItemComponent
     productPrice="{!v.productPrice}"
     ParentContainer="{!v.ParentContainer}"
+    applicants="{!v.oppApplicants}"
+    oppId="{!v.oppId}"
   >
   </c:RequestedDetailsLineItemComponent>
 
