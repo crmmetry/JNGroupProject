@@ -199,6 +199,7 @@ window.basicProcessingFeesCalculator = function (
   requiredDependencies,
   gct
 ) {
+  let defaultValue = 0;
   const shouldWaiveProcessingFee =
     parentObj.hasOwnProperty("waiveProcessingFeeFlag") === false ||
     parentObj.waiveProcessingFeeFlag === true;
@@ -209,7 +210,7 @@ window.basicProcessingFeesCalculator = function (
   if (shouldIncludeInLoanAmountFlag) {
     if (
       parentObj.processingFeePercentagePerAnum &&
-      parentObj.processingFeePercentagePerAnum >= 0
+      parentObj.processingFeePercentagePerAnum >= defaultValue
     ) {
       let newParentObj = Object.assign({}, parentObj);
       let loanAmount = parentObj.loanAmount;
@@ -221,17 +222,17 @@ window.basicProcessingFeesCalculator = function (
       return {
         processingFee:  loanAmount,
         monthlyProcessingFee: basicPMTCalculator(properties, newParentObj),
-        processingFeeClosingCost: 0
+        processingFeeClosingCost: defaultValue
       };
     } else {
       return {
-        processingFee: 0,
-        monthlyProcessingFee: 0,
-        processingFeeClosingCost: 0
+        processingFee: defaultValue,
+        monthlyProcessingFee: defaultValue,
+        processingFeeClosingCost: defaultValue
       };
     }
   } else {
-    let processingFeeClosingCost = 0;
+    let processingFeeClosingCost = defaultValue;
     if (!shouldWaiveProcessingFee) {
       processingFeeClosingCost =
         (parentObj.processingFeePercentagePerAnum / 100) *
@@ -239,8 +240,8 @@ window.basicProcessingFeesCalculator = function (
         parentObj.loanAmount;
     }
     return {
-      processingFee: 0,
-      monthlyProcessingFee: 0,
+      processingFee: defaultValue,
+      monthlyProcessingFee: defaultValue,
       processingFeeClosingCost: processingFeeClosingCost
     };
   }
