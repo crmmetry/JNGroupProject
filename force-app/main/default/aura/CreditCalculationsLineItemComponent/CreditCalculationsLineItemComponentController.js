@@ -33,15 +33,12 @@
    */
   onParenContainerChange: function (component, event, helper) {
     const containerName = component.get("v.ParentContainer.containerName");
-    console.log("scriptsLoaded", component.get("v.scriptsLoaded"));
     if (component.get("v.scriptsLoaded") && containerName !== component.get("v.containerName")) {
       console.info("Parent", JSON.parse(JSON.stringify(component.get("v.ParentContainer"))))
       // on auto loan changes
       helper.calculateMonthlyP_ILoanAmount(component);
-      console.log("calculateMonthlyP_ILoanAmount")
       // on credit repayment changes
       helper.setDeductRepaymentFlag(component);
-      console.log("calculateMonthlyP_ILoanAmount")
       // on processing fee changes
       helper.calculateProcessingFee(component);
       //on loan savings change
