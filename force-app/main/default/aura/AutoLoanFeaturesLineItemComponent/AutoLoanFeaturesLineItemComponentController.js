@@ -10,12 +10,16 @@
       processingFeePercentagePerAnum: null,
       interested: "",
       includeInLoan: "",
-      premium: null
+      premium: null,
+      policyProvider: null,
+      interestedInCreditorLife: null,
+      includeCreditorLifeInLoanAmount: null
     };
     component.set("v.ChildContainer", data);
   },
 
   onChildContainerChange: function (component, event, helper) {
+    console.log("CHild COntainer changed");
     const data = Object.assign(
       component.get("v.ParentContainer"),
       component.get("v.ChildContainer")
@@ -69,16 +73,55 @@
 
   onInterestedInCreditorLifeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    if (selected == "Yes") {
-      component.set("v.interestedInCreditorLifeFlag", true);
-      component.set("v.showReasonFlag", false);
-      console.log("Interested in CreditorLife is true");
-    } else if (selected == "No") {
-      component.set("v.interestedInCreditorLifeFlag", false);
-      component.set("v.showReasonFlag", true);
-      console.log("Interested in CreditorLife is false");
+    if (selected === "Yes") {
+      helper.showReasonWhenCLIsTaken(component);
+      component.set("v.disableTogglerForJNLifeCLFields", false);
+    } else if (selected === "No") {
+      helper.showReasonWhenCLIsNotTaken(component);
     }
+    let data = component.get("v.ChildContainer");
+    data.interestedInCreditorLife = selected;
+    component.set("v.ChildContainer", data);
     console.log(selected);
+  },
+
+  onReasonChange: function (component, event, helper) {
+    const selected = event.getSource().get("v.value");
+    console.log("Reason changed");
+    helper.toggleReasonAction(component, selected);
+  },
+
+  onPolicyProviderChange: function (component, event, helper) {
+    const selected = event.getSource().get("v.value");
+    console.log("Policy Provider changed");
+    helper.togglePolicyProviderAction(component, selected);
+  },
+
+  onShowReasonFlagChange: function (component, event, helper) {
+    const selected = component.get("v.showReasonFlag");
+    if (!selected) {
+      helper.clearReasonData(component);
+    }
+  },
+
+  onShowPolicyProviderFlagChange: function (component, event, helper) {
+    const selected = component.get("v.showPolicyProviderFlag");
+    if (!selected) {
+      helper.clearPolicyProviderData(component);
+    }
+  },
+  onshowOtherForPolicyProviderFlagChange: function (component, event, helper) {
+    const selected = component.get("v.showPolicyProviderFlag");
+    if (!selected) {
+      helper.clearPolicyProviderOtherText(component);
+    }
+  },
+
+  onshowOtherForReasonFlagChange: function (component, event, helper) {
+    const selected = component.get("v.showPolicyProviderFlag");
+    if (!selected) {
+      helper.clearReasonOtherText(component);
+    }
   },
 
   onCoverageTypeChange: function (component, event, helper) {
@@ -88,6 +131,9 @@
 
   onIncludeCoverageChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
+    let data = component.get("v.ChildContainer");
+    data.includeCreditorLifeInLoanAmount = selected;
+    component.set("v.ChildContainer", data);
     console.log(selected);
   },
 

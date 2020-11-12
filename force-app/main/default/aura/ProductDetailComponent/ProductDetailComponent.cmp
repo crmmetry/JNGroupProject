@@ -69,6 +69,7 @@
           <aura:if isTrue="{!v.autoFlag}">
             <c:AutoLoanContainerComponent
               productPrice="{!v.productSelection.productPrice}"
+              oppId="{!v.recordId}"
               jnDefaultConfigs="{!v.jnDefaultConfigs}"
             ></c:AutoLoanContainerComponent>
           </aura:if>

@@ -55,6 +55,9 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         component.set("v.applicants", result);
+        if (applicants.size() > 1) {
+          component.set("v.multipleApplicantsFlag", true);
+        }
         console.log(result);
         console.log(JSON.parse(JSON.stringify(component.get("v.applicants"))));
       }

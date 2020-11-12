@@ -2,7 +2,7 @@
   doinit: function (component, event, helper) {
     helper.updateProductSelection(component);
     helper.getJNConfigurations(component);
-    helper.getApplicants(component);
+    //helper.getApplicants(component);
   },
 
   onLoanPurposeChange: function (component, event, helper) {

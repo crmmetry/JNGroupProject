@@ -1,9 +1,9 @@
 ({
   /**
- * @param {*} component
- * @param {*} event
- * @param {*} helper
- */
+   * @param {*} component
+   * @param {*} event
+   * @param {*} helper
+   */
   doInit: function (component, event, helper) {
     let data = {
       premium: 0
@@ -25,10 +25,10 @@
     console.info("onChildContainerChange 2");
   },
   /**
- * @param {*} component
- * @param {*} event
- * @param {*} helper
- */
+   * @param {*} component
+   * @param {*} event
+   * @param {*} helper
+   */
   onParenContainerChange: function (component, event, helper) {
     console.log("onParenContainerChange 1");
     // on auto loan changes
@@ -42,5 +42,9 @@
     //on jngi changes
     helper.calculateJNGIPMT(component);
     helper.onJNGIPremiumChange(component);
+    //on JN creditor life changes
+    helper.setAssignmentFees(component);
+    helper.setEstimatedStampDutyFees(component);
+    helper.calculateCreditorLifePremium(component);
   }
 });

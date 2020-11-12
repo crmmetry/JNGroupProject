@@ -15,8 +15,10 @@
   <aura:attribute
     name="reason"
     type="List"
-    default="['exisiting life insurance policy to be assigned','not eligible','other']"
+    default="['exisiting life insurance policy to be assigned','not eligible','Other']"
   />
+  <aura:attribute name="otherReason" type="String" />
+  <aura:attribute name="otherPolicyFlag" type="String" />
   <aura:attribute
     name="interestedInCreditorLife"
     type="List"
@@ -25,11 +27,7 @@
   <aura:attribute name="interestedInJNGI" type="List" default="['Yes','No']" />
   <aura:attribute name="includePremium" type="List" default="['Yes','No']" />
   <aura:attribute name="monthlyPremium" type="Decimal" default="" />
-  <aura:attribute
-    name="coverageType"
-    type="List"
-    default="['Full','Partial']"
-  />
+  <aura:attribute name="coverageType" type="List" default="[]" />
   <aura:attribute name="includeCoverage" type="List" default="['Yes','No']" />
   <aura:attribute name="waveProcessingFee" type="List" default="['Yes','No']" />
   <aura:attribute
@@ -61,6 +59,11 @@
     type="List"
     default="['Yes','No']"
   />
+  <aura:attribute
+    name="policyProvider"
+    type="List"
+    default="['Sagicor','Gaurdian','Other']"
+  />
   <aura:attribute name="savingsPercentage" type="Decimal" default="" />
   <aura:attribute name="savingsAmount" type="Decimal" default="" />
   <aura:attribute name="creditRiskScore" type="Decimal" default="0" />
@@ -90,15 +93,48 @@
   />
   <aura:handler
     name="change"
-    value="{!v.interestedInCreditorLifeFlag}"
-    action="{!c.onInterestedInCreditorLifeChange}"
+    value="{!v.showReasonFlag}"
+    action="{!c.onShowReasonFlagChange}"
+  />
+  <aura:handler
+    name="change"
+    value="{!v.showPolicyProviderFlag}"
+    action="{!c.onShowPolicyProviderFlagChange}"
+  />
+  <aura:handler
+    name="change"
+    value="{!v.showOtherForPolicyProviderFlag}"
+    action="{!c.onshowOtherForPolicyProviderFlagChange}"
+  />
+  <aura:handler
+    name="change"
+    value="{!v.showOtherForReasonFlag}"
+    action="{!c.onshowOtherForReasonFlagChange}"
   />
 
   <!-- toggling attributes-->
-  <aura:attribute name="showOtherForReason" type="String" />
-  <aura:attribute name="showOtherForPolicyProvider" type="String" />
+  <aura:attribute
+    name="showPolicyProviderFlag"
+    type="Boolean"
+    default="false"
+  />
+  <aura:attribute
+    name="showOtherForReasonFlag"
+    type="Boolean"
+    default="false"
+  />
+  <aura:attribute
+    name="showOtherForPolicyProviderFlag"
+    type="Boolean"
+    default="false"
+  />
   <aura:attribute name="showReasonFlag" type="Boolean" default="false" />
   <aura:attribute name="shouldCalculateCreditorLifeFlag" type="Boolean" />
+  <aura:attribute
+    name="disableTogglerForJNLifeCLFields"
+    type="Boolean"
+    default="true"
+  />
   <aura:attribute
     name="interestedInCreditorLifeFlag"
     type="Boolean"
@@ -229,8 +265,9 @@
                   label="Coverage Type"
                   required="true"
                   onchange="{!c.onCoverageTypeChange}"
+                  disabled="{!v.disableTogglerForJNLifeCLFields}"
                 >
-                  <option value="">select one...</option>
+                  <option value="">applicant 1</option>
                   <aura:iteration items="{!v.coverageType}" var="item">
                     <option value="{!item}">{!item}</option>
                   </aura:iteration>
@@ -250,6 +287,7 @@
                   label="Include in Loan Amount"
                   required="true"
                   onchange="{!c.onIncludeCoverageChange}"
+                  disabled="{!v.disableTogglerForJNLifeCLFields}"
                 >
                   <option value="">select one...</option>
                   <aura:iteration items="{!v.includeCoverage}" var="item">
@@ -263,10 +301,11 @@
         <aura:if isTrue="{!v.showReasonFlag}">
           <lightning:layoutItem
             size="12"
-            mediumDeviceSize="6"
+            mediumDeviceSize="4"
             padding="around-small"
           >
             <lightning:select
+              aura:id="Reason"
               name="Reason"
               label="Reason"
               required="true"
@@ -277,6 +316,57 @@
                 <option value="{!item}">{!item}</option>
               </aura:iteration>
             </lightning:select>
+          </lightning:layoutItem>
+        </aura:if>
+        <aura:if isTrue="{!v.showPolicyProviderFlag}">
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
+          >
+            <lightning:select
+              aura:id="PolicyProvider"
+              name="Policy Provider"
+              label="Name of policy provider?"
+              required="true"
+              onchange="{!c.onPolicyProviderChange}"
+            >
+              <option value="">select one...</option>
+              <aura:iteration items="{!v.policyProvider}" var="item">
+                <option value="{!item}">{!item}</option>
+              </aura:iteration>
+            </lightning:select>
+          </lightning:layoutItem>
+        </aura:if>
+        <aura:if isTrue="{!v.showOtherForPolicyProviderFlag}">
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="6"
+            padding="around-small"
+          >
+            <lightning:input
+              type="text"
+              label="Enter Policy Provider"
+              name="Policy Provider"
+              value="{!v.otherPolicyProvider}"
+              required="true"
+            />
+          </lightning:layoutItem>
+        </aura:if>
+        <aura:if isTrue="{!v.showOtherForReasonFlag}">
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="6"
+            padding="around-small"
+          >
+            <lightning:textarea
+              name="Reason"
+              label="Enter reason"
+              value="{!v.otherReason}"
+              required="true"
+              placeholer="Enter Reason here..."
+              maxlength="150"
+            />
           </lightning:layoutItem>
         </aura:if>
         <lightning:layoutItem size="12">
