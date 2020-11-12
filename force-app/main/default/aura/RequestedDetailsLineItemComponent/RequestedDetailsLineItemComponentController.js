@@ -17,6 +17,7 @@
     console.info(JSON.stringify(component.get("v.ChildContainer")));
     helper.getApplicants(component);
   },
+
   onApplicantsChange: function (component, event, helper) {
     let applicant = component.get("v.applicants");
     const applicantsMap = {

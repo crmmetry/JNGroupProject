@@ -1,4 +1,7 @@
-<aura:component>
+<aura:component
+  implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
+  controller="ProductDetailController"
+>
   <aura:attribute name="ChildContainer" type="Map" default="{}" />
   <aura:attribute name="ParentContainer" type="Map" default="{}" />
   <aura:attribute
@@ -6,7 +9,7 @@
     type="List"
     default="[
     {'label': 'Percentage(%)', 'value': 'percent'},
-    {'label': 'Amount(JMD)', 'value': 'amount'}
+    {'label': 'Amount(JMD)', 'value': 'amount'} 
     ]"
   />
   <aura:attribute name="market" type="Decimal" default="" />
@@ -17,6 +20,7 @@
   <aura:attribute name="percent" type="String" default="percent" />
   <aura:attribute name="amount" type="String" default="amount" />
   <aura:attribute name="oppId" type="Id" />
+  <aura:attribute name="applicants" type="List" />
   <aura:handler
     name="change"
     action="{!c.onChildContainerChange}"
@@ -28,8 +32,6 @@
     action="{!c.onApplicantsChange}"
     value="{!v.applicants}"
   />
-
-  <aura:attribute name="applicants" type="List" />
 
   <ltng:require scripts="{!$Resource.calculations}" />
 

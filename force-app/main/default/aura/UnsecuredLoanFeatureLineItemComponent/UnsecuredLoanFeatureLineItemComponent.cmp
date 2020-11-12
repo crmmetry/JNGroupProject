@@ -8,6 +8,13 @@
   <aura:attribute name="ParentContainer" type="Map" default="{}" />
   <aura:attribute name="ChildContainer" type="Map" default="{}" />
   <aura:attribute
+    name="reason"
+    type="List"
+    default="['exisiting life insurance policy to be assigned','not eligible','Other']"
+  />
+  <aura:attribute name="otherReason" type="String" />
+  <aura:attribute name="otherPolicyFlag" type="String" />
+  <aura:attribute
     name="options"
     type="List"
     default="[
@@ -24,10 +31,11 @@
     default="['Yes','No']"
   />
   <aura:attribute
-    name="coverageType"
+    name="policyProvider"
     type="List"
-    default="['Full','Partial']"
+    default="['Sagicor','Gaurdian','Other']"
   />
+  <aura:attribute name="coverageType" type="List" default="[]" />
   <aura:attribute name="includeCoverage" type="List" default="['Yes','No']" />
   <aura:attribute name="waveProcessingFee" type="List" default="['Yes','No']" />
   <aura:attribute
@@ -65,7 +73,60 @@
   <aura:attribute name="savingsAmount" type="Decimal" default="" />
 
   <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
+  <aura:handler
+    name="change"
+    value="{!v.processingFeePercentagePerAnum}"
+    action="{!c.onProcessingFeePercentagePerAnumChange}"
+  />
+  <aura:handler
+    name="change"
+    value="{!v.showReasonFlag}"
+    action="{!c.onShowReasonFlagChange}"
+  />
+  <aura:handler
+    name="change"
+    value="{!v.showPolicyProviderFlag}"
+    action="{!c.onShowPolicyProviderFlagChange}"
+  />
+  <aura:handler
+    name="change"
+    value="{!v.showOtherForPolicyProviderFlag}"
+    action="{!c.onshowOtherForPolicyProviderFlagChange}"
+  />
+  <aura:handler
+    name="change"
+    value="{!v.showOtherForReasonFlag}"
+    action="{!c.onshowOtherForReasonFlagChange}"
+  />
+
   <!-- toggling attributes-->
+  <aura:attribute
+    name="showPolicyProviderFlag"
+    type="Boolean"
+    default="false"
+  />
+  <aura:attribute
+    name="showOtherForReasonFlag"
+    type="Boolean"
+    default="false"
+  />
+  <aura:attribute
+    name="showOtherForPolicyProviderFlag"
+    type="Boolean"
+    default="false"
+  />
+  <aura:attribute name="showReasonFlag" type="Boolean" default="false" />
+  <aura:attribute name="shouldCalculateCreditorLifeFlag" type="Boolean" />
+  <aura:attribute
+    name="disableTogglerForJNLifeCLFields"
+    type="Boolean"
+    default="true"
+  />
+  <aura:attribute
+    name="interestedInCreditorLifeFlag"
+    type="Boolean"
+    default="true"
+  />
   <aura:attribute
     name="showIncludeInLoanAmount"
     type="Boolean"
@@ -137,48 +198,123 @@
             </div>
           </div>
         </lightning:layoutItem>
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="4"
-          padding="around-small"
-        >
-          <div class="slds-form-element">
-            <div class="slds-form-element__control">
-              <lightning:select
-                name="select1"
-                label="Coverage Type"
-                required="true"
-                onchange="{!c.onCoverageTypeChange}"
-              >
-                <option value="">select one...</option>
-                <aura:iteration items="{!v.coverageType}" var="item">
-                  <option value="{!item}">{!item}</option>
-                </aura:iteration>
-              </lightning:select>
+        <aura:if isTrue="{!v.interestedInCreditorLifeFlag}">
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
+          >
+            <div class="slds-form-element">
+              <div class="slds-form-element__control">
+                <lightning:select
+                  name="select1"
+                  label="Coverage Type"
+                  required="true"
+                  onchange="{!c.onCoverageTypeChange}"
+                  disabled="{!v.disableTogglerForJNLifeCLFields}"
+                >
+                  <option value="">select one...</option>
+                  <aura:iteration items="{!v.coverageType}" var="item">
+                    <option value="{!item}">{!item}</option>
+                  </aura:iteration>
+                </lightning:select>
+              </div>
             </div>
-          </div>
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="4"
-          padding="around-small"
-        >
-          <div class="slds-form-element">
-            <div class="slds-form-element__control">
-              <lightning:select
-                name="select1"
-                label="Include in Loan Amount"
-                required="true"
-                onchange="{!c.onIncludeCoverageChange}"
-              >
-                <option value="">select one...</option>
-                <aura:iteration items="{!v.includeCoverage}" var="item">
-                  <option value="{!item}">{!item}</option>
-                </aura:iteration>
-              </lightning:select>
+          </lightning:layoutItem>
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
+          >
+            <div class="slds-form-element">
+              <div class="slds-form-element__control">
+                <lightning:select
+                  name="select1"
+                  label="Include in Loan Amount"
+                  required="true"
+                  onchange="{!c.onIncludeCoverageChange}"
+                  disabled="{!v.disableTogglerForJNLifeCLFields}"
+                >
+                  <option value="">select one...</option>
+                  <aura:iteration items="{!v.includeCoverage}" var="item">
+                    <option value="{!item}">{!item}</option>
+                  </aura:iteration>
+                </lightning:select>
+              </div>
             </div>
-          </div>
-        </lightning:layoutItem>
+          </lightning:layoutItem>
+        </aura:if>
+        <aura:if isTrue="{!v.showReasonFlag}">
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
+          >
+            <lightning:select
+              aura:id="Reason"
+              name="Reason"
+              label="Reason"
+              required="true"
+              onchange="{!c.onReasonChange}"
+            >
+              <option value="">select one...</option>
+              <aura:iteration items="{!v.reason}" var="item">
+                <option value="{!item}">{!item}</option>
+              </aura:iteration>
+            </lightning:select>
+          </lightning:layoutItem>
+        </aura:if>
+        <aura:if isTrue="{!v.showPolicyProviderFlag}">
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
+          >
+            <lightning:select
+              aura:id="PolicyProvider"
+              name="Policy Provider"
+              label="Name of policy provider?"
+              required="true"
+              onchange="{!c.onPolicyProviderChange}"
+            >
+              <option value="">select one...</option>
+              <aura:iteration items="{!v.policyProvider}" var="item">
+                <option value="{!item}">{!item}</option>
+              </aura:iteration>
+            </lightning:select>
+          </lightning:layoutItem>
+        </aura:if>
+        <aura:if isTrue="{!v.showOtherForPolicyProviderFlag}">
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="6"
+            padding="around-small"
+          >
+            <lightning:input
+              type="text"
+              label="Enter Policy Provider"
+              name="Policy Provider"
+              value="{!v.otherPolicyProvider}"
+              required="true"
+            />
+          </lightning:layoutItem>
+        </aura:if>
+        <aura:if isTrue="{!v.showOtherForReasonFlag}">
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="6"
+            padding="around-small"
+          >
+            <lightning:textarea
+              name="Reason"
+              label="Enter reason"
+              value="{!v.otherReason}"
+              required="true"
+              placeholer="Enter Reason here..."
+              maxlength="150"
+            />
+          </lightning:layoutItem>
+        </aura:if>
         <lightning:layoutItem size="12">
           <h2 class="slds-section-title--divider">Processing Fees</h2>
         </lightning:layoutItem>

@@ -6,6 +6,7 @@
   <aura:attribute name="LoanSavingsContainer" type="Map" default="{}" />
   <aura:attribute name="oppApplicants" type="List" />
   <aura:attribute name="jnDefaultConfigs" type="Map" />
+  <aura:attribute name="oppId" type="Id" />
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
   <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
     <div class="slds-form-element">

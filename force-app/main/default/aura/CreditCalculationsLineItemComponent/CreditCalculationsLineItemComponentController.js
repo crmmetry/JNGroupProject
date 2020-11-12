@@ -45,6 +45,10 @@
       //on jngi changes
       helper.calculateJNGIPMT(component);
       helper.onJNGIPremiumChange(component);
+      //on JN creditor life changes
+      helper.setAssignmentFees(component);
+      helper.setEstimatedStampDutyFees(component);
+      helper.calculateCreditorLifePremium(component);
     }
   }
 });

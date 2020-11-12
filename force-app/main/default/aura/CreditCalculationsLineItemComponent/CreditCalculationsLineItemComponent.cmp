@@ -9,6 +9,12 @@
     type="Decimal"
     default="0"
   />
+  <aura:attribute name="applicants" type="List" />
+
+  <aura:attribute name="includeCLPremiumFlag" type="Boolean" default="false" />
+  <aura:attribute name="jnCLPremiumFeesAndCharges" type="Decimal" default="0" />
+  <aura:attribute name="assignmentFee" type="Decimal" />
+  <aura:attribute name="estimatedStampDuty" type="Decimal" />
   <aura:attribute name="processingFees" type="Decimal" default="0" />
   <aura:attribute name="monthly_PI_ProcessingFees" type="Decimal" default="0" />
   <aura:attribute name="totalLoanAmount" type="Decimal" default="0" />
@@ -297,6 +303,10 @@
         processingFees="{!v.processingFeeClosingCost}"
         includePremiumFlag="{!v.showPremiumInFeesAndCharges}"
         jngiMotorPremium="{!v.jngiMotorPremium}"
+        assignmentFee="{!v.assignmentFee}"
+        stampDutyAndAdminCharges="{!v.estimatedStampDuty}"
+        jnCreditorLifePremium="{!v.jnCLPremiumFeesAndCharges}"
+        includeCLPremiumFlag="{!v.includeCLPremiumFlag}"
       ></c:FeesAndChargesLineItemComponent>
     </lightning:layout>
   </fieldset>
