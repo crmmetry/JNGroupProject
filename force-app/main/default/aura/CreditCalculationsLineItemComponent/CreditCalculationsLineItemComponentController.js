@@ -38,8 +38,10 @@
       console.info("Parent", JSON.parse(JSON.stringify(component.get("v.ParentContainer"))))
       // on auto loan changes
       helper.calculateMonthlyP_ILoanAmount(component);
+      console.log("calculateMonthlyP_ILoanAmount")
       // on credit repayment changes
       helper.setDeductRepaymentFlag(component);
+      console.log("calculateMonthlyP_ILoanAmount")
       // on processing fee changes
       helper.calculateProcessingFee(component);
       //on loan savings change

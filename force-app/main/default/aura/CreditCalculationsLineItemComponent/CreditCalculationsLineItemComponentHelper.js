@@ -1,11 +1,15 @@
 ({
   calculateMonthlyP_ILoanAmount: function (component) {
+    console.info("calling Result");
     const result = basicPMTCalculator(
       ["years", "months", "loanAmount", "market"],
       component.get("v.ParentContainer")
     );
+    console.info("Result", result);
     component.set("v.monthly_PI_LoanAmount", result);
+    console.info("Result 3");
     this.updateChildContainerWithValue(component, [{ "key": "monthly_PI_LoanAmount", value: parseFloat(result) }]);
+    console.info("Result 4");
   },
   setDeductRepaymentFlag: function (component) {
     console.log("Repayment deducted");
@@ -109,9 +113,11 @@
   },
   updateChildContainerWithValue: function (component, values) {
     let childContainer = component.get("v.ChildContainer");
+    console.info("Before", JSON.stringify(childContainer));
     values.forEach(element => {
       childContainer[element.key] = element.value;
     });
+    console.info("Before", JSON.stringify(childContainer));
     component.set("v.ChildContainer", childContainer);
   }
 });
