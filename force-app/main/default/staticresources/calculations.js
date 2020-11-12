@@ -281,7 +281,8 @@ window.basicMonthlyCompulsorySavingsCalculator = function (
   amount
 ) {
   if (savings) {
-    return totalPI + totalPI * savings;
+    return totalPI + totalPI * (savings / 100);
+    console.log("Savings", totalPI + totalPI * (savings / 100));
   } else if (amount) {
     return amount;
   }
@@ -343,7 +344,7 @@ window.basicTotalsCalculator = function (properties, parentObj) {
     }
   });
   console.info("values", values);
-  return values.reduce((a, b) => a + b, 0);
+  return values.reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
 };
 
 window.calculateTotalLoanAmount = function (properties, parentObj) {

@@ -19,36 +19,10 @@
   },
 
   calculateSavings: function (component) {
-    //TODO: refactor into calculations resource
-    // let PIMonthlyPayment = component.get("v.monthly_PI_LoanAmount");
-    // let parentContainer = component.get("v.ParentContainer");
-    // if (PIMonthlyPayment > 0) {
-    //   let tenure = calculateMonths(parentContainer.years, parentContainer.months);
-    //   if (parentContainer.percentage > 0 && parentContainer.percentage) {
-    //     let monthlyCompulsorySavings =
-    //       PIMonthlyPayment * parentContainer.percentage;
-    //     let totalCompulsorySavings = monthlyCompulsorySavings * tenure;
-    //     component.set("v.monthlyCompulsorySavings", monthlyCompulsorySavings);
-    //     component.set(
-    //       "v.totalCompulsorySavingsBalance",
-    //       totalCompulsorySavings
-    //     );
-    //   } else if (parentContainer.amount > 0 && parentContainer.amount) {
-    //     component.set("v.monthlyCompulsorySavings", parentContainer.amount);
-    //     let totalCompulsorySavings = parentContainer.amount * tenure;
-    //     component.set(
-    //       "v.totalCompulsorySavingsBalance",
-    //       totalCompulsorySavings
-    //     );
-    //   } else {
-    //     component.set("v.monthlyCompulsorySavings", 0);
-    //     component.set("v.totalCompulsorySavingsBalance", 0);
-    //   }
-    // }
     let data = component.get("v.ParentContainer");
     let totalPI = component.get("v.totalMonthly_PI_LoanPayment");
     if (totalPI && data.months && data.years) {
-      let tenure = calculateMonths(data.months, data.years);
+      let tenure = calculateMonths(data.years, data.months);
       let monthlySavings = basicMonthlyCompulsorySavingsCalculator(
         totalPI,
         data.percentage,
@@ -128,6 +102,7 @@
       parentObj
     );
     component.set("v.totalMonthly_PI_LoanPayment", total);
+    console.log("Total Monthly PI: ", total);
     this.updateChildContainerWithValue(component, [
       { key: "totalMonthly_PI_LoanPayment", value: total }
     ]);
