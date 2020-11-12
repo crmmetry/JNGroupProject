@@ -160,7 +160,7 @@
           <lightning:input
             type="number"
             label="Monthly Premium"
-            value="{!v.ChildContainer.premium}"
+            value="{!v.ChildContainer.jngiMonthlyPremium}"
             name="number"
             formatter="currency"
             disabled="{!v.interestedInPremiumFlag}"

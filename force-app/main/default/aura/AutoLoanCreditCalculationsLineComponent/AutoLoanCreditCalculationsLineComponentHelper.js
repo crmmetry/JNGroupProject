@@ -123,7 +123,7 @@
       component.set("v.showPremiumInFeesAndCharges", false);
     }
     let firstYearPremium = this.calcualateFirstYearPremium(
-      childContainer.premium
+      parentContainer.jngiMonthlyPremium
     );
     component.set("v.jngiMotorPremium", firstYearPremium);
     this.updateChildContainerWithValue(component, [{ "key": "jngiMotorPremium", value: firstYearPremium }]);
@@ -133,6 +133,7 @@
   },
   totalLoanAmountCalculation: function (component) {
     const parentObj = component.get("v.ParentContainer");
+    parentObj.jnLifeCreditorPremium = 1000;
     let totalLoanAmount = calculateTotalLoanAmount(["loanAmount", "jnLifeCreditorPremium", "processingFeesGCT", "jngiMotorPremium"], parentObj);
     component.set("v.totalLoanAmount", totalLoanAmount);
     this.updateChildContainerWithValue(component, [{ "key": "totalLoanAmount", value: totalLoanAmount }]);

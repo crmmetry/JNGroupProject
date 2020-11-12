@@ -10,7 +10,7 @@
       processingFeePercentagePerAnum: null,
       interested: "",
       includeInLoan: "",
-      premium: null
+      jngiMonthlyPremium: 0
     };
     component.set("v.ChildContainer", data);
   },
@@ -44,7 +44,7 @@
       console.log("No");
       component.find("includePremium").set("v.value", null);
       let jngiPremium = component.get("v.ChildContainer");
-      jngiPremium.premium = null;
+      jngiPremium.jngiMonthlyPremium = 0;
       jngiPremium.includeInLoan = null;
       component.set("v.ChildContainer", jngiPremium);
       component.set("v.interestedInPremiumFlag", true);

@@ -5,10 +5,10 @@
  * @param {*} helper
  */
   doInit: function (component, event, helper) {
-    let data = {
-      premium: 0
-    };
-    component.set("v.ChildContainer", data);
+    // let data = {
+    //   jngiMonthlyPremium: 0
+    // };
+    // component.set("v.ChildContainer", data);
   },
   scriptsLoaded: function (component, event, helper) {
     component.set("v.scriptsLoaded", true);
