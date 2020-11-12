@@ -100,6 +100,51 @@
       { "key": "monthlyPrincipalInterestProcessingFee", value: monthlyProcessingFee },
       { "key": "processingFeesGCT", value: processingFee }]);
   },
+
+  calculateCreditorLifePremium: function (component) {
+    let data = component.get("v.ParentContainer");
+    if (
+      data.interestedInCreditorLife === "Yes" &&
+      data.includeCreditorLifeInLoanAmount === "Yes"
+    ) {
+      let monthlyCLPremium = basicJNLifePremiumCalculator(
+        data.loanAmount,
+        data.rating
+      );
+      component.set("v.jnLifeCreditorPremium", monthlyCLPremium);
+      const piProperties = {
+        years: data.years,
+        months: data.months,
+        loanAmount: monthlyCLPremium,
+        market: data.market
+      };
+      let pmtCLResult = basicPMTCalculator(
+        ["years", "months", "loanAmount", "market"],
+        piProperties
+      );
+      component.set("v.monthlyJnLifeCreditor_PI_Premium", pmtCLResult);
+      console.log(monthlyCLPremium, pmtCLResult);
+      component.set("v.includeCLPremiumFlag", false);
+    } else if (
+      data.interestedInCreditorLife === "Yes" &&
+      data.includeCreditorLifeInLoanAmount === "No"
+    ) {
+      let monthlyCLPremium = basicJNLifePremiumCalculator(
+        data.loanAmount,
+        data.rating
+      );
+      component.set("v.jnCLPremiumFeesAndCharges", monthlyCLPremium);
+      component.set("v.includeCLPremiumFlag", true);
+      component.set("v.jnLifeCreditorPremium", 0);
+      component.set("v.monthlyJnLifeCreditor_PI_Premium", 0);
+    } else if (data.interestedInCreditorLife === "No") {
+      component.set("v.jnCLPremiumFeesAndCharges", 0);
+      component.set("v.includeCLPremiumFlag", false);
+      component.set("v.jnLifeCreditorPremium", 0);
+      component.set("v.monthlyJnLifeCreditor_PI_Premium", 0);
+    }
+  },
+
   onJNGIPremiumChange: function (component) {
     let parentContainer = component.get("v.ParentContainer");
     if (parentContainer.jngiIncludeInLoan === "No") {
@@ -113,6 +158,39 @@
       parentContainer.jngiMonthlyPremium
     );
     component.set("v.jngiMotorPremium", firstYearPremium);
+  },
+
+  setAssignmentFees: function (component) {
+    let data = component.get("v.ParentContainer");
+    let jnDefaults = component.get("v.jnDefaultConfigs");
+    console.log(JSON.stringify(data));
+    console.log(JSON.stringify(jnDefaults));
+    if (data.policyProvider != null) {
+      let assignmentFee = basicAssignmentFeeCalculator(
+        jnDefaults.assignmentFee,
+        jnDefaults.gct
+      );
+      console.log(assignmentFee);
+      component.set("v.assignmentFee", assignmentFee);
+    } else {
+      component.set("v.assignmentFee", 0);
+    }
+  },
+
+  setEstimatedStampDutyFees: function (component) {
+    let data = component.get("v.ParentContainer");
+    let jnDefaults = component.get("v.jnDefaultConfigs");
+    console.log(JSON.stringify(data));
+    console.log(JSON.stringify(jnDefaults));
+    if (data.policyProvider != null) {
+      console.log(jnDefaults.estimatedStampDutyAndAdminFee);
+      component.set(
+        "v.estimatedStampDuty",
+        jnDefaults.estimatedStampDutyAndAdminFee
+      );
+    } else {
+      component.set("v.estimatedStampDuty", 0);
+    }
     this.updateChildContainerWithValue(component, [{ "key": "jngiMotorPremium", value: firstYearPremium }]);
   },
   totalMonthlyPaymentCalculation: function (component) {
@@ -123,7 +201,7 @@
   },
   totalLoanAmountCalculation: function (component) {
     const parentObj = component.get("v.ParentContainer");
-    parentObj.jnLifeCreditorPremium = 1000;
+
     let total = calculateTotalLoanAmount(["loanAmount", "jnLifeCreditorPremium", "processingFeesGCT", "jngiMotorPremium"], parentObj);
     component.set("v.totalLoanAmount", total);
     this.updateChildContainerWithValue(component, [{ "key": "totalLoanAmount", value: total }]);

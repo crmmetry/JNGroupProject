@@ -11,6 +11,7 @@
     type="Boolean"
     default="true"
   />
+  <aura:attribute name="includeCLPremiumFlag" type="Boolean" default="false" />
   <aura:attribute name="loanAmount" type="Decimal" />
   <aura:attribute name="monthly_PI_LoanAmount" type="Decimal" default="0" />
   <aura:attribute name="jngiMotorPremium" type="Decimal" default="0" />
@@ -22,6 +23,7 @@
     type="Decimal"
     default="0"
   />
+  <aura:attribute name="jnCLPremiumFeesAndCharges" type="Decimal" default="0" />
   <aura:attribute name="processingFees" type="Decimal" default="0" />
   <aura:attribute name="monthly_PI_ProcessingFees" type="Decimal" default="0" />
   <aura:attribute name="totalLoanAmount" type="Decimal" default="0" />
@@ -59,6 +61,8 @@
     type="Decimal"
     default="0"
   />
+  <aura:attribute name="assignmentFee" type="Decimal" />
+  <aura:attribute name="estimatedStampDuty" type="Decimal" />
   <aura:attribute name="LoanSavings" type="Map" default="{}" />
   <aura:attribute name="deductRepaymentFlag" type="Boolean" default="false" />
   <aura:handler
@@ -71,12 +75,8 @@
     name="change"
     action="{!c.onParenContainerChange}"
     value="{!v.ParentContainer}"
-    />
-  <aura:handler
-    name="init"
-    action="{!c.doInit}"
-    value="{!this}"
-/>
+  />
+  <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
   <aura:attribute name="jnDefaultConfigs" type="Map" default="{}" />
   <aura:attribute name="processingFeesGCT" type="Decimal" default="0" />
   <aura:attribute
@@ -84,6 +84,7 @@
     type="Decimal"
     default="0"
   />
+  <aura:attribute name="applicants" type="List" />
   <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
   <aura:attribute name="processingFeeClosingCost" type="Decimal" />
   <ltng:require scripts="{!$Resource.calculations}" afterScriptsLoaded="{!c.scriptsLoaded}"/>
@@ -355,6 +356,10 @@
         includePremiumFlag="{!v.showPremiumInFeesAndCharges}"
         jngiMotorPremium="{!v.jngiMotorPremium}"
         processingFees="{!v.processingFeeClosingCost}"
+        assignmentFee="{!v.assignmentFee}"
+        stampDutyAndAdminCharges="{!v.estimatedStampDuty}"
+        jnCreditorLifePremium="{!v.jnCLPremiumFeesAndCharges}"
+        includeCLPremiumFlag="{!v.includeCLPremiumFlag}"
       ></c:AutoLoanFeesAndChargesLineComponent>
     </lightning:layout>
   </fieldset>

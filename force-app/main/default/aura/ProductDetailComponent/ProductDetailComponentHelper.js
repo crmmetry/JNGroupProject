@@ -42,5 +42,26 @@
       }
     });
     $A.enqueueAction(action);
+  },
+
+  getApplicants: function (component, oppId, tenure) {
+    let action = component.get("c.getApplicantsRating");
+    action.setParams({
+      oppId: oppId,
+      tenure: tenure
+    });
+    action.setCallback(this, function (response) {
+      let state = response.getState(); //Checking response status
+      let result = response.getReturnValue();
+      if (state === "SUCCESS") {
+        component.set("v.applicants", result);
+        if (applicants.size() > 1) {
+          component.set("v.multipleApplicantsFlag", true);
+        }
+        console.log(result);
+        console.log(JSON.parse(JSON.stringify(component.get("v.applicants"))));
+      }
+    });
+    $A.enqueueAction(action);
   }
 });

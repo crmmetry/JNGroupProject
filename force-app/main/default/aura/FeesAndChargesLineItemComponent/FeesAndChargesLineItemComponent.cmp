@@ -10,13 +10,15 @@
   <aura:attribute name="totalClosingCosts" type="Decimal" default="0" />
   <aura:attribute name="assignmentFee" type="Decimal" default="0" />
   <aura:attribute name="deductRepaymentFlag" type="Boolean" default="true" />
-  <aura:attribute name="jngiMotorPremium" type="Decimal" default="0" /> 
+  <aura:attribute name="jngiMotorPremium" type="Decimal" default="0" />
   <aura:attribute name="includePremiumFlag" type="Boolean" default="true" />
+  <aura:attribute name="includeCLPremiumFlag" type="Boolean" default="false" />
+
   <aura:handler
-  name="change"
-  value="{!v.includePremiumFlag}" 
-  action="{!c.onIncludePremiumChange}"
-/>
+    name="change"
+    value="{!v.includePremiumFlag}"
+    action="{!c.onIncludePremiumChange}"
+  />
   <aura:attribute
     name="totalClosingCostsJNFinanced"
     type="Decimal"
@@ -66,17 +68,19 @@
       readonly="true"
     />
   </lightning:layoutItem>
-  <lightning:layoutItem size="6" padding="around-small">
-    <lightning:input
-      type="number"
-      label="JN Life Creditor Life Insurance Premium"
-      value="{!v.jnCreditorLifePremium}"
-      name="number"
-      formatter="currency"
-      required="true"
-      readonly="true"
-    />
-  </lightning:layoutItem>
+  <aura:if isTrue="{!v.includeCLPremiumFlag}">
+    <lightning:layoutItem size="6" padding="around-small">
+      <lightning:input
+        type="number"
+        label="JN Life Creditor Life Insurance Premium"
+        value="{!v.jnCreditorLifePremium}"
+        name="number"
+        formatter="currency"
+        required="true"
+        readonly="true"
+      />
+    </lightning:layoutItem>
+  </aura:if>
   <lightning:layoutItem size="6" padding="around-small">
     <lightning:input
       type="number"

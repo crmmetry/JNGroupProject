@@ -1,12 +1,15 @@
-<aura:component>
+<aura:component
+  implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
+  controller="ProductDetailController"
+>
   <aura:attribute name="ChildContainer" type="Map" default="{}" />
   <aura:attribute name="ParentContainer" type="Map" default="{}" />
-<aura:attribute
+  <aura:attribute
     name="options"
     type="List"
     default="[
     {'label': 'Percentage(%)', 'value': 'percent'},
-    {'label': 'Amount(JMD)', 'value': 'amount'}
+    {'label': 'Amount(JMD)', 'value': 'amount'} 
     ]"
   />
   <aura:attribute name="market" type="Decimal" default="" />
@@ -16,12 +19,22 @@
   <aura:attribute name="value" type="String" default="" />
   <aura:attribute name="percent" type="String" default="percent" />
   <aura:attribute name="amount" type="String" default="amount" />
+  <aura:attribute name="oppId" type="Id" />
+  <aura:attribute name="applicants" type="List" />
   <aura:handler
     name="change"
     action="{!c.onChildContainerChange}"
     value="{!v.ChildContainer}"
   />
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+  <aura:handler
+    name="change"
+    action="{!c.onApplicantsChange}"
+    value="{!v.applicants}"
+  />
+
+  <ltng:require scripts="{!$Resource.calculations}" />
+
  <aura:attribute name="containerName" type="String" default="RequestedDetailsLineItemComponent"/>
   <fieldset class="slds-box slds-theme_default">
     <legend

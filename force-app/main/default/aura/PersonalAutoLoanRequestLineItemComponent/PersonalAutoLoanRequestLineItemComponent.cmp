@@ -1,4 +1,7 @@
-<aura:component>
+<aura:component
+  implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
+  controller="ProductDetailController"
+>
   <aura:attribute
     name="options"
     type="List"
@@ -7,6 +10,7 @@
     {'label': 'Amount($)', 'value': 'amount'}
     ]"
   />
+  <aura:attribute name="oppId" type="Id" />
   <aura:attribute
     name="loanPurpose"
     type="List"
@@ -36,6 +40,11 @@
     action="{!c.onChildContainerChange}"
     value="{!v.ChildContainer}"
   />
+  <aura:handler
+    name="change"
+    action="{!c.onApplicantsChange}"
+    value="{!v.applicants}"
+  />
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
 
   <aura:attribute
@@ -58,6 +67,10 @@
   <aura:attribute name="value" type="String" default="" />
   <aura:attribute name="percent" type="String" default="percent" />
   <aura:attribute name="amount" type="String" default="amount" />
+
+  <aura:attribute name="applicants" type="List" />
+
+  <ltng:require scripts="{!$Resource.calculations}" />
   <aura:attribute name="containerName" type="String" default="PersonalAutoLoanRequestLineItemComponent" />
 
   <fieldset class="slds-box slds-theme_default">
@@ -299,6 +312,7 @@
             value="{!v.ChildContainer.loanAmount}"
             name="number"
             formatter="currency"
+            readonly="true"
             required="true"
           />
         </lightning:layoutItem>
@@ -313,6 +327,8 @@
                 value="{!v.ChildContainer.years}"
                 name="number"
                 required="true"
+                max="10"
+                min="0"
               />
             </lightning:layoutItem>
             <lightning:layoutItem size="6">
@@ -324,6 +340,7 @@
                   name="number"
                   required="true"
                   min="0"
+                  max="12"
                 />
               </div>
             </lightning:layoutItem>

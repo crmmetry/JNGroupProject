@@ -1,9 +1,9 @@
 ({
   /**
- * @param {*} component
- * @param {*} event
- * @param {*} helper
- */
+   * @param {*} component
+   * @param {*} event
+   * @param {*} helper
+   */
   doInit: function (component, event, helper) {
     // let data = {
     //   premium: 0
@@ -27,10 +27,10 @@
     component.set("v.ParentContainer", data);
   },
   /**
- * @param {*} component
- * @param {*} event
- * @param {*} helper
- */
+   * @param {*} component
+   * @param {*} event
+   * @param {*} helper
+   */
   onParenContainerChange: function (component, event, helper) {
     const containerName = component.get("v.ParentContainer.containerName");
     if (component.get("v.scriptsLoaded") && containerName !== component.get("v.containerName")) {
@@ -46,6 +46,11 @@
       //on jngi changes
       helper.onJNGIPremiumChange(component);
       helper.calculateJNGIPMT(component);
+      //on JN creditor life changes
+      helper.setAssignmentFees(component);
+      helper.setEstimatedStampDutyFees(component);
+      helper.calculateCreditorLifePremium(component);
+
       //calculate totals
       helper.totalMonthlyPaymentCalculation(component);
       helper.totalLoanAmountCalculation(component);

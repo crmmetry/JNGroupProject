@@ -4,13 +4,19 @@
   <aura:attribute name="productPrice" type="Decimal" />
   <aura:attribute name="loanPurpose" type="List" />
   <aura:attribute name="LoanSavingsContainer" type="Map" default="{}" />
-
+  <aura:attribute name="oppApplicants" type="List" />
   <aura:attribute name="jnDefaultConfigs" type="Map" />
+  <aura:attribute name="oppId" type="Id" />
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
   <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
     <div class="slds-form-element">
       <div class="slds-form-element__control">
-        <lightning:select name="select1" label="Loan Purpose" required="true" onchange="{!c.onLoanPurposeChange}">
+        <lightning:select
+          name="select1"
+          label="Loan Purpose"
+          required="true"
+          onchange="{!c.onLoanPurposeChange}"
+        >
           <option value="">select one...</option>
           <aura:iteration items="{!v.loanPurpose}" var="item">
             <option value="{!item}">{!item}</option>
@@ -19,14 +25,23 @@
       </div>
     </div>
   </lightning:layoutItem>
-  <c:RequestedDetailsLineItemComponent productPrice="{!v.productPrice}" ParentContainer="{!v.ParentContainer}">
+  <c:RequestedDetailsLineItemComponent
+    productPrice="{!v.productPrice}"
+    ParentContainer="{!v.ParentContainer}"
+    applicants="{!v.oppApplicants}"
+    oppId="{!v.oppId}"
+  >
   </c:RequestedDetailsLineItemComponent>
 
-  <c:UnsecuredLoanFeatureLineItemComponent ParentContainer="{!v.ParentContainer}">
+  <c:UnsecuredLoanFeatureLineItemComponent
+    ParentContainer="{!v.ParentContainer}"
+  >
   </c:UnsecuredLoanFeatureLineItemComponent>
 
-  <c:CreditCalculationsLineItemComponent ParentContainer="{!v.ParentContainer}"
-    jnDefaultConfigs="{!v.jnDefaultConfigs}"></c:CreditCalculationsLineItemComponent>
+  <c:CreditCalculationsLineItemComponent
+    ParentContainer="{!v.ParentContainer}"
+    jnDefaultConfigs="{!v.jnDefaultConfigs}"
+  ></c:CreditCalculationsLineItemComponent>
 
   <c:TotalDebtServiceRatioLineItemComponent></c:TotalDebtServiceRatioLineItemComponent>
 </aura:component>

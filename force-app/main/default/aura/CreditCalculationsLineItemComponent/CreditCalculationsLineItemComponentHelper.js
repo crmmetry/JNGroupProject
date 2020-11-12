@@ -1,15 +1,11 @@
 ({
   calculateMonthlyP_ILoanAmount: function (component) {
-    console.info("calling Result");
     const result = basicPMTCalculator(
       ["years", "months", "loanAmount", "market"],
-      component.get("v.ParentContainer")
+      component.get("v.ParentCsontainer")
     );
-    console.info("Result", result);
     component.set("v.monthly_PI_LoanAmount", result);
-    console.info("Result 3");
     this.updateChildContainerWithValue(component, [{ "key": "monthly_PI_LoanAmount", value: parseFloat(result) }]);
-    console.info("Result 4");
   },
   setDeductRepaymentFlag: function (component) {
     console.log("Repayment deducted");
@@ -82,7 +78,7 @@
   },
   totalLoanAmountCalculation: function (component) {
     const parentObj = component.get("v.ParentContainer");
-    parentObj.jnLifeCreditorPremium = 1000;
+
     let total = calculateTotalLoanAmount(["loanAmount", "jnLifeCreditorPremium", "processingFeesGCT"], parentObj);
     component.set("v.totalLoanAmount", total);
     this.updateChildContainerWithValue(component, [{ "key": "totalLoanAmount", value: total }]);
@@ -119,5 +115,83 @@
     });
     console.info("Before", JSON.stringify(childContainer));
     component.set("v.ChildContainer", childContainer);
+  },
+  calculateCreditorLifePremium: function (component) {
+    let data = component.get("v.ParentContainer");
+    console.log(JSON.stringify(data));
+    if (
+      data.interestedInCreditorLife === "Yes" &&
+      data.includeCreditorLifeInLoanAmount === "Yes"
+    ) {
+      let monthlyCLPremium = basicJNLifePremiumCalculator(
+        data.loanAmount,
+        data.rating
+      );
+      component.set("v.jnLifeCreditorPremium", monthlyCLPremium);
+      const piProperties = {
+        years: data.years,
+        months: data.months,
+        loanAmount: monthlyCLPremium,
+        market: data.market
+      };
+      let pmtCLResult = basicPMTCalculator(
+        ["years", "months", "loanAmount", "market"],
+        piProperties
+      );
+      component.set("v.monthlyJnLifeCreditor_PI_Premium", pmtCLResult);
+      console.log(monthlyCLPremium, pmtCLResult);
+      component.set("v.includeCLPremiumFlag", false);
+    } else if (
+      data.interestedInCreditorLife === "Yes" &&
+      data.includeCreditorLifeInLoanAmount === "No"
+    ) {
+      let monthlyCLPremium = basicJNLifePremiumCalculator(
+        data.loanAmount,
+        data.rating
+      );
+      component.set("v.jnCLPremiumFeesAndCharges", monthlyCLPremium);
+      component.set("v.includeCLPremiumFlag", true);
+      component.set("v.jnLifeCreditorPremium", 0);
+      component.set("v.monthlyJnLifeCreditor_PI_Premium", 0);
+    } else if (data.interestedInCreditorLife === "No") {
+      component.set("v.jnCLPremiumFeesAndCharges", 0);
+      component.set("v.includeCLPremiumFlag", false);
+      component.set("v.jnLifeCreditorPremium", 0);
+      component.set("v.monthlyJnLifeCreditor_PI_Premium", 0);
+    }
+  },
+
+  setAssignmentFees: function (component) {
+    let data = component.get("v.ParentContainer");
+    let jnDefaults = component.get("v.jnDefaultConfigs");
+    console.log(JSON.stringify(data));
+    console.log(JSON.stringify(jnDefaults));
+    if (data.policyProvider != null) {
+      let assignmentFee = basicAssignmentFeeCalculator(
+        jnDefaults.assignmentFee,
+        jnDefaults.gct
+      );
+      console.log(assignmentFee);
+      component.set("v.assignmentFee", assignmentFee);
+    } else {
+      component.set("v.assignmentFee", 0);
+    }
+  },
+
+  setEstimatedStampDutyFees: function (component) {
+    let data = component.get("v.ParentContainer");
+    let jnDefaults = component.get("v.jnDefaultConfigs");
+    console.log(JSON.stringify(data));
+    console.log(JSON.stringify(jnDefaults));
+    if (data.policyProvider != null) {
+      console.log(jnDefaults.estimatedStampDutyAndAdminFee);
+      component.set(
+        "v.estimatedStampDuty",
+        jnDefaults.estimatedStampDutyAndAdminFee
+      );
+    } else {
+      component.set("v.estimatedStampDuty", 0);
+    }
+
   }
 });

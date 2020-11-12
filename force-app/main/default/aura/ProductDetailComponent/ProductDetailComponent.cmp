@@ -2,11 +2,12 @@
   implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
   controller="ProductDetailController"
 >
+  <aura:attribute name="applicants" type="List" />
   <aura:attribute
     name="options"
     type="List"
     default="[
-    {'label': 'Percentage(%)', 'value': 'percent'},
+    {'label': 'Percentage(%)', 'value': 'percent'}, 
     {'label': 'Amount(JMD)', 'value': 'amount'}
     ]"
   />
@@ -68,6 +69,7 @@
           <aura:if isTrue="{!v.autoFlag}">
             <c:AutoLoanContainerComponent
               productPrice="{!v.productSelection.productPrice}"
+              oppId="{!v.recordId}"
               jnDefaultConfigs="{!v.jnDefaultConfigs}"
             ></c:AutoLoanContainerComponent>
           </aura:if>
@@ -75,6 +77,7 @@
             <c:UnsecuredLoanContainerComponent
               productPrice="{!v.productSelection.productPrice}"
               jnDefaultConfigs="{!v.jnDefaultConfigs}"
+              oppId="{!v.recordId}"
             ></c:UnsecuredLoanContainerComponent>
           </aura:if>
           <aura:if isTrue="{!v.creditCardFlag}">

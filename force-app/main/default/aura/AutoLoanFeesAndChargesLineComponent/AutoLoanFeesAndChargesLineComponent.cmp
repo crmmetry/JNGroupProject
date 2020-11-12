@@ -11,6 +11,7 @@
   <aura:attribute name="totalClosingCosts" type="Decimal" default="0" />
   <aura:attribute name="assignmentFee" type="Decimal" default="0" />
   <aura:attribute name="deductRepayment" type="Boolean" default="false" />
+  <aura:attribute name="includeCLPremiumFlag" type="Boolean" default="false" />
   <aura:attribute name="containerName" type="String" default="AutoLoanFeesAndChargesLineComponent" />
 
   <aura:attribute name="includePremiumFlag" type="Boolean" default="true" />
@@ -69,17 +70,19 @@
       readonly="true"
     />
   </lightning:layoutItem>
-  <lightning:layoutItem size="6" padding="around-small">
-    <lightning:input
-      type="number"
-      label="JN Life Creditor Life Insurance Premium"
-      value="{!v.jnCreditorLifePremium}"
-      name="number"
-      formatter="currency"
-      required="true"
-      readonly="true"
-    />
-  </lightning:layoutItem>
+  <aura:if isTrue="{!v.includeCLPremiumFlag}">
+    <lightning:layoutItem size="6" padding="around-small">
+      <lightning:input
+        type="number"
+        label="JN Life Creditor Life Insurance Premium"
+        value="{!v.jnCreditorLifePremium}"
+        name="number"
+        formatter="currency"
+        required="true"
+        readonly="true"
+      />
+    </lightning:layoutItem>
+  </aura:if>
   <!--Auto Loans Product Only-->
   <aura:if isTrue="{!v.includePremiumFlag}">
     <lightning:layoutItem size="6" padding="around-small">
