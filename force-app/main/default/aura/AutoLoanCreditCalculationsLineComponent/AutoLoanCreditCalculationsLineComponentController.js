@@ -23,6 +23,10 @@
       component.get("v.ParentContainer"),
       component.get("v.ChildContainer")
     );
+    data['containerName'] = component.get("v.containerName");
+    console.info("ParentContainer", JSON.parse(JSON.stringify(component.get("v.ParentContainer"))))
+    console.info("ChildContainer", JSON.parse(JSON.stringify(component.get("v.ChildContainer"))))
+
     component.set("v.ParentContainer", data);
   },
   /**
@@ -31,12 +35,11 @@
  * @param {*} helper
  */
   onParenContainerChange: function (component, event, helper) {
-    console.log("scriptsLoaded", component.get("v.scriptsLoaded"));
-    if (component.get("v.scriptsLoaded")) {
-      console.log("onParenContainerChange 1");
+    const containerName = component.get("v.ParentContainer.containerName");
+    console.info("last container", containerName);
+    if (component.get("v.scriptsLoaded") && containerName !== component.get("v.containerName")) {
       // on auto loan changes
       helper.calculateMonthlyP_ILoanAmount(component);
-      console.log("calculateMonthlyP_ILoanAmount 1");
       // on credit repayment changes
       helper.setDeductRepaymentFlag(component);
       helper.calculateProcessingFee(component);
@@ -46,5 +49,9 @@
       helper.calculateJNGIPMT(component);
       helper.onJNGIPremiumChange(component);
     }
+
+    //   //calculate totals
+
+    //   helper.totalLoanAmountCalculation(component);
   }
 });

@@ -179,23 +179,20 @@ window.basicProcessingFeesCalculator = function (
       parentObj.processingFeePercentagePerAnum &&
       parentObj.processingFeePercentagePerAnum >= 0
     ) {
-      parentObj.loanAmount =
+      let loanAmount = parentObj.loanAmount;
+      loanAmount =
         (parentObj.processingFeePercentagePerAnum / 100) *
         gct *
-        parentObj.loanAmount;
+        loanAmount;
       return {
-        processingFee: shouldWaiveProcessingFee ? 0 : parentObj.loanAmount,
-        monthlyProcessingFee: shouldWaiveProcessingFee
-          ? 0
-          : basicPMTCalculator(properties, parentObj),
+        processingFee:  loanAmount,
+        monthlyProcessingFee: basicPMTCalculator(properties, parentObj),
         processingFeeClosingCost: 0
       };
     } else {
       return {
-        processingFee: shouldWaiveProcessingFee ? 0 : parentObj.loanAmount,
-        monthlyProcessingFee: shouldWaiveProcessingFee
-          ? 0
-          : basicPMTCalculator(properties, parentObj),
+        processingFee: 0,
+        monthlyProcessingFee: 0,
         processingFeeClosingCost: 0
       };
     }

@@ -95,7 +95,7 @@
     type="Boolean"
     default="true"
   />
-
+  <aura:attribute name="containerName" type="String" default="AutoLoanFeaturesLineItemComponent" />
   <fieldset class="slds-box slds-theme_default">
     <legend
       id="productdetailsform"
