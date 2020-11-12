@@ -181,6 +181,9 @@
         data.rating
       );
       component.set("v.jnLifeCreditorPremium", monthlyCLPremium);
+      this.updateChildContainerWithValue(component, [
+        { key: "jnLifeCreditorPremium", value: monthlyCLPremium }
+      ]);
       const piProperties = {
         years: data.years,
         months: data.months,
@@ -192,6 +195,9 @@
         piProperties
       );
       component.set("v.monthlyJnLifeCreditor_PI_Premium", pmtCLResult);
+      this.updateChildContainerWithValue(component, [
+        { key: "monthlyJnLifeCreditor_PI_Premium", value: pmtCLResult }
+      ]);
       component.set("v.includeCLPremiumFlag", false);
     } else if (
       data.interestedInCreditorLife === "Yes" &&
