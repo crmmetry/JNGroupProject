@@ -79,7 +79,7 @@ window.isEmpty = function (field) {
  * @param {Any} field
  * @return {Boolean}
  */
-window.isNumberEmpty = function (field) {
+window.isNumberNotEmpty = function (field) {
   if (isEmpty(field) == false && field != 0) {
     return true;
   }
@@ -120,7 +120,7 @@ window.enlistAndValidateNumberFields = function (properties, parentObj) {
   });
   Object.keys(fields).forEach((field) => {
     if (parentObj.hasOwnProperty(field)) {
-      if (isNumberEmpty(parentObj[field])) {
+      if (isNumberNotEmpty(parentObj[field])) {
         fields[field] = true;
       }
     }
@@ -136,7 +136,7 @@ window.enlistAndValidateNumberFields = function (properties, parentObj) {
  */
 window.basicPMTCalculator = function (properties, parentObj) {
   let validatedFields = enlistAndValidateFields(properties, parentObj);
-  if (!validatedFields) return null;
+  if (!validatedFields) return 0;
   let rate;
   let totalMonths;
   let pmtResult;
@@ -155,7 +155,7 @@ window.basicPMTCalculator = function (properties, parentObj) {
     pmtResult = calculatePMT(rate, totalMonths, -parentObj.loanAmount, 0, 0);
     return parseFloat(pmtResult).toFixed(2);
   }
-  return null;
+  return 0;
 };
 /**
  * checks if a given object as all the required properties
@@ -303,4 +303,5 @@ window.calculateTotalInterestPayment = function (totalMonthlyPIPayment, totalLoa
   if (totalLoanAmount && totalMonthlyPIPayment) {
     return totalMonthlyPIPayment * tenure - totalLoanAmount;
   }
+  return 0;
 }

@@ -34,6 +34,7 @@
   onParenContainerChange: function (component, event, helper) {
     const containerName = component.get("v.ParentContainer.containerName");
     if (component.get("v.scriptsLoaded") && containerName !== component.get("v.containerName")) {
+      console.info("Parent", JSON.parse(JSON.stringify(component.get("v.ParentContainer"))))
       // on auto loan changes
       helper.calculateMonthlyP_ILoanAmount(component);
       // on credit repayment changes
@@ -42,10 +43,14 @@
       //on loan savings change
       helper.calculateSavings(component);
       //on jngi changes
-      helper.calculateJNGIPMT(component);
       helper.onJNGIPremiumChange(component);
+      helper.calculateJNGIPMT(component);
       //calculate totals
+      helper.totalMonthlyPaymentCalculation(component);
       helper.totalLoanAmountCalculation(component);
+      helper.totalMonthlyPILoanPaymentCalculation(component);
+      helper.totalInterestPaymentCalculation(component);
+      helper.totalMonthlyLoanPaymentMonthlyCompulsorySavingsCalculation(component);
     }
   }
 });

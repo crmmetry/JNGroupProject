@@ -9,7 +9,7 @@
       selection: null,
       processingFeePercentagePerAnum: null,
       interested: "",
-      includeInLoan: "",
+      jngiIncludeInLoan: "",
       jngiMonthlyPremium: 0
     };
     component.set("v.ChildContainer", data);
@@ -45,7 +45,7 @@
       component.find("includePremium").set("v.value", null);
       let jngiPremium = component.get("v.ChildContainer");
       jngiPremium.jngiMonthlyPremium = 0;
-      jngiPremium.includeInLoan = null;
+      jngiPremium.jngiIncludeInLoan = null;
       component.set("v.ChildContainer", jngiPremium);
       component.set("v.interestedInPremiumFlag", true);
     }
@@ -63,7 +63,7 @@
   onIncludePremiumChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let jngiPremium = component.get("v.ChildContainer");
-    jngiPremium.includeInLoan = selected;
+    jngiPremium.jngiIncludeInLoan = selected;
     component.set("v.ChildContainer", jngiPremium);
     console.log(selected);
   },
