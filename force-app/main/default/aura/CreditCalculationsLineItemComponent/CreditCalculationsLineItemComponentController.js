@@ -23,7 +23,7 @@
       component.get("v.ParentContainer"),
       component.get("v.ChildContainer")
     );
-    data['containerName'] = component.get("v.containerName");
+    data["containerName"] = component.get("v.containerName");
     component.set("v.ParentContainer", data);
   },
   /**
@@ -34,19 +34,22 @@
   onParenContainerChange: function (component, event, helper) {
     const containerName = component.get("v.ParentContainer.containerName");
     console.log("scriptsLoaded", component.get("v.scriptsLoaded"));
-    if (component.get("v.scriptsLoaded") && containerName !== component.get("v.containerName")) {
-      console.info("Parent", JSON.parse(JSON.stringify(component.get("v.ParentContainer"))))
+    if (
+      component.get("v.scriptsLoaded") &&
+      containerName !== component.get("v.containerName")
+    ) {
+      console.info(
+        "Parent",
+        JSON.parse(JSON.stringify(component.get("v.ParentContainer")))
+      );
       // on auto loan changes
       helper.calculateMonthlyP_ILoanAmount(component);
-      console.log("calculateMonthlyP_ILoanAmount")
+      console.log("calculateMonthlyP_ILoanAmount");
       // on credit repayment changes
       helper.setDeductRepaymentFlag(component);
-      console.log("calculateMonthlyP_ILoanAmount")
+      console.log("calculateMonthlyP_ILoanAmount");
       // on processing fee changes
       helper.calculateProcessingFee(component);
-      //on loan savings change
-      helper.calculateSavings(component);
-
       //on JN creditor life changes
       helper.setAssignmentFees(component);
       helper.setEstimatedStampDutyFees(component);
@@ -56,7 +59,11 @@
       helper.totalLoanAmountCalculation(component);
       helper.totalMonthlyPILoanPaymentCalculation(component);
       helper.totalInterestPaymentCalculation(component);
-      helper.totalMonthlyLoanPaymentMonthlyCompulsorySavingsCalculation(component);
+      helper.totalMonthlyLoanPaymentMonthlyCompulsorySavingsCalculation(
+        component
+      );
+      //on loan savings change
+      helper.calculateSavings(component);
     }
   }
 });

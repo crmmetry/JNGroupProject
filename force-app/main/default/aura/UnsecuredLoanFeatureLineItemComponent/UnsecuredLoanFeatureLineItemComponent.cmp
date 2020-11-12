@@ -1,5 +1,9 @@
 <aura:component>
-  <aura:attribute name="containerName" type="String" default="UnsecuredLoanFeatureLineItemComponent"/>
+  <aura:attribute
+    name="containerName"
+    type="String"
+    default="UnsecuredLoanFeatureLineItemComponent"
+  />
   <aura:attribute name="ParentContainer" type="Map" default="{}" />
   <aura:attribute name="ChildContainer" type="Map" default="{}" />
   <aura:attribute
@@ -479,6 +483,7 @@
               value="{!v.ChildContainer.amount}"
               formatter="currency"
               required="true"
+              min="1000"
             />
           </lightning:layoutItem>
         </aura:if>

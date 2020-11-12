@@ -215,12 +215,10 @@ window.basicProcessingFeesCalculator = function (
       let newParentObj = Object.assign({}, parentObj);
       let loanAmount = parentObj.loanAmount;
       loanAmount =
-        (parentObj.processingFeePercentagePerAnum / 100) *
-        gct *
-        loanAmount;
+        (parentObj.processingFeePercentagePerAnum / 100) * gct * loanAmount;
       newParentObj.loanAmount = loanAmount;
       return {
-        processingFee:  loanAmount,
+        processingFee: loanAmount,
         monthlyProcessingFee: basicPMTCalculator(properties, newParentObj),
         processingFeeClosingCost: defaultValue
       };
@@ -256,7 +254,6 @@ window.basicProcessingFeesCalculator = function (
 window.basicJNLifePremiumCalculator = function (loanAmount, creditRating) {
   return (loanAmount / 1000) * creditRating;
 };
-
 /**
  * calculates JN Life Creditor Life P & I Premium
  * @param {Decimal} loanAmount - loan ampunt taken from opportunity product sales price.
@@ -268,6 +265,37 @@ window.basicJNLifePIPremiumCalculator = function (properties, parentObj) {
     return null;
   }
   return basicPMTCalculator(properties, parentObj);
+};
+
+/**
+ * calculates monthly compulsory savings
+ * @param {Decimal} totalPI - Total Monthly PI to be included in loan amount.
+ * @param {Decimal} savings - Amount of savings in percentage to be made by applicant.
+ * @param {Decimal} amount - Amount to be saved in dollars.
+ * @return {Deciaml}
+ */
+window.basicMonthlyCompulsorySavingsCalculator = function (
+  totalPI,
+  savings,
+  amount
+) {
+  if (savings) {
+    return totalPI + totalPI * savings;
+  } else if (amount) {
+    return amount;
+  }
+};
+/**
+ * calculates Total Compulsory Savings (over repayment period)
+ * @param {Decimal} monthlyCompulsorySavings - loan amount taken from opportunity product sales price.
+ * @param {Decimal} tenure - Loan term.
+ * @return {Deciaml}
+ */
+window.basicTotalMonthlyCompulsorySavingsCalculator = function (
+  monthlyCompulsorySavings,
+  tenure
+) {
+  return monthlyCompulsorySavings * tenure;
 };
 /**
  * calculates Totals for a collection of values
@@ -290,7 +318,7 @@ window.basicAssignmentFeeCalculator = function (assignmentFee, gct) {
 
 /**
  * summates any given set of numbers
- * @param {Object} parentObj - 
+ * @param {Object} parentObj -
  * @param {Array<String>} properties - fields on the parent object
  * @return {Decimal}
  */
@@ -307,7 +335,7 @@ window.basicTotalsCalculator = function (properties, parentObj) {
   if (allValid === false) return 0;
   let values = [];
   properties.forEach((property) => {
-    console.log("Prop", property)
+    console.log("Prop", property);
     if (validatedFields[property]) {
       console.log("adding Prop", property, parentObj[property]);
       values.push(parentObj[property]);
@@ -320,20 +348,28 @@ window.basicTotalsCalculator = function (properties, parentObj) {
 window.calculateTotalLoanAmount = function (properties, parentObj) {
   //const properties = ["loanAmount","jnLifeCreditorPremium","processingFeesGCT","jngiMotorPremium"];
   return basicTotalsCalculator(properties, parentObj);
-}
+};
 window.calculateTotalMonthlyPIPayment = function (properties, parentObj) {
   //const properties = ["monthly_PI_LoanAmount","monthlyJnLifeCreditor_PI_Premium","monthlyPrincipalInterestProcessingFee","monthlyPIJNGIMotorPremium"];
   return basicTotalsCalculator(properties, parentObj);
-}
+};
 window.calculateTotalMonthlyPayment = function (properties, parentObj) {
   //const properties = ["totalMonthlyPIPayment", "premium"]
   return basicTotalsCalculator(properties, parentObj);
-}
-window.calculateTotalMonthlyLoanCompulsoryPayment = function (properties, parentObj) {
+};
+window.calculateTotalMonthlyLoanCompulsoryPayment = function (
+  properties,
+  parentObj
+) {
   //const properties = ["totalMonthlyPayment", "monthlyCompulsorySavings"]
   return basicTotalsCalculator(properties, parentObj);
-}
-window.calculateTotalInterestPayment = function (totalMonthlyPIPayment, totalLoanAmount, years, months) {
+};
+window.calculateTotalInterestPayment = function (
+  totalMonthlyPIPayment,
+  totalLoanAmount,
+  years,
+  months
+) {
   let tenure = null;
   if (years && months) {
     tenure = calculateMonths(years, months);
@@ -345,4 +381,4 @@ window.calculateTotalInterestPayment = function (totalMonthlyPIPayment, totalLoa
     return totalMonthlyPIPayment * tenure - totalLoanAmount;
   }
   return 0;
-}
+};
