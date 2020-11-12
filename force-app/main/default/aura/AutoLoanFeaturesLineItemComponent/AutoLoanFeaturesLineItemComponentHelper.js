@@ -64,6 +64,7 @@
     } else {
       component.set("v.showOtherForReasonFlag", false);
       component.set("v.showPolicyProviderFlag", false);
+      component.set("v.showOtherForPolicyProviderFlag", false);
     }
   },
 

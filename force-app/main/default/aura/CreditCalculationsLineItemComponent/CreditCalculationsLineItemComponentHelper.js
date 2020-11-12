@@ -167,6 +167,11 @@
       component.set("v.includeCLPremiumFlag", true);
       component.set("v.jnLifeCreditorPremium", 0);
       component.set("v.monthlyJnLifeCreditor_PI_Premium", 0);
+    } else if (data.interestedInCreditorLife === "No") {
+      component.set("v.jnCLPremiumFeesAndCharges", 0);
+      component.set("v.includeCLPremiumFlag", false);
+      component.set("v.jnLifeCreditorPremium", 0);
+      component.set("v.monthlyJnLifeCreditor_PI_Premium", 0);
     }
   },
 
@@ -177,8 +182,8 @@
     console.log(JSON.stringify(jnDefaults));
     if (data.policyProvider != null) {
       let assignmentFee = basicAssignmentFeeCalculator(
-        jnDefaults.gct,
-        jnDefaults.assignmentFee
+        jnDefaults.assignmentFee,
+        jnDefaults.gct
       );
       console.log(assignmentFee);
       component.set("v.assignmentFee", assignmentFee);
