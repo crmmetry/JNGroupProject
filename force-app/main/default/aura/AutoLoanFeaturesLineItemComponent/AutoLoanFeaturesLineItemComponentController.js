@@ -13,7 +13,9 @@
       premium: null,
       policyProvider: null,
       interestedInCreditorLife: null,
-      includeCreditorLifeInLoanAmount: null
+      includeCreditorLifeInLoanAmount: null,
+      jngiIncludeInLoan: "",
+      jngiMonthlyPremium: 0
     };
     component.set("v.ChildContainer", data);
   },
@@ -24,6 +26,7 @@
       component.get("v.ParentContainer"),
       component.get("v.ChildContainer")
     );
+    data['containerName'] = component.get("v.containerName");
     component.set("v.ParentContainer", data);
     helper.onProposedSavingsChange(component);
     helper.toggleShowIndicateApplicableProcessingFees(
@@ -47,8 +50,8 @@
       console.log("No");
       component.find("includePremium").set("v.value", null);
       let jngiPremium = component.get("v.ChildContainer");
-      jngiPremium.premium = null;
-      jngiPremium.includeInLoan = null;
+      jngiPremium.jngiMonthlyPremium = 0;
+      jngiPremium.jngiIncludeInLoan = null;
       component.set("v.ChildContainer", jngiPremium);
       component.set("v.interestedInPremiumFlag", true);
     }
@@ -66,7 +69,7 @@
   onIncludePremiumChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let jngiPremium = component.get("v.ChildContainer");
-    jngiPremium.includeInLoan = selected;
+    jngiPremium.jngiIncludeInLoan = selected;
     component.set("v.ChildContainer", jngiPremium);
     console.log(selected);
   },

@@ -71,6 +71,7 @@
   <aura:attribute name="applicants" type="List" />
 
   <ltng:require scripts="{!$Resource.calculations}" />
+  <aura:attribute name="containerName" type="String" default="PersonalAutoLoanRequestLineItemComponent" />
 
   <fieldset class="slds-box slds-theme_default">
     <legend

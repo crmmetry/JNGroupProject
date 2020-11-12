@@ -13,7 +13,9 @@
       premium: null,
       policyProvider: null,
       interestedInCreditorLife: null,
-      includeCreditorLifeInLoanAmount: null
+      includeCreditorLifeInLoanAmount: null,
+      jngiIncludeInLoan: "",
+      jngiMonthlyPremium: 0
     };
     component.set("v.ChildContainer", data);
   },
@@ -23,6 +25,7 @@
       component.get("v.ParentContainer"),
       component.get("v.ChildContainer")
     );
+    data['containerName'] = component.get("v.containerName");
     component.set("v.ParentContainer", data);
     helper.onProposedSavingsChange(component);
     helper.toggleShowIndicateApplicableProcessingFees(

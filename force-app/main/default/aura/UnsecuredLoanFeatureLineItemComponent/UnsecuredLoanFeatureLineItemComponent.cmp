@@ -1,10 +1,5 @@
 <aura:component>
-  <aura:attribute name="CreditRepayment" type="Map" />
-  <aura:attribute name="CreditRepaymentContainer" type="Map" />
-  <aura:attribute name="LoanSavings" type="Map" default="{}" />
-  <aura:attribute name="LoanSavingsContainer" type="Map" default="{}" />
-  <aura:attribute name="JNLife" type="Map" default="{}" />
-  <aura:attribute name="JNLifeContainer" type="Map" default="{}" />
+  <aura:attribute name="containerName" type="String" default="UnsecuredLoanFeatureLineItemComponent"/>
   <aura:attribute name="ParentContainer" type="Map" default="{}" />
   <aura:attribute name="ChildContainer" type="Map" default="{}" />
   <aura:attribute
@@ -136,16 +131,6 @@
     name="showIndicateApplicableProcessingFees"
     type="Boolean"
     default="true"
-  />
-  <aura:handler
-    name="change"
-    value="{!v.CreditRepayment}"
-    action="{!c.onCreditRepaymentChange}"
-  />
-  <aura:handler
-    name="change"
-    action="{!c.onProposedSavingsChange}"
-    value="{!v.LoanSavings}"
   />
 
   <aura:handler

@@ -3,6 +3,14 @@
     <label>Default</label>
     <protected>false</protected>
     <values>
+        <field>Assignment_Fee__c</field>
+        <value xsi:type="xsd:double">4538.63</value>
+    </values>
+    <values>
+        <field>Estimated_Stamp_Duty_Admin_Fee__c</field>
+        <value xsi:type="xsd:double">8000.0</value>
+    </values>
+    <values>
         <field>GCT__c</field>
         <value xsi:type="xsd:double">0.15</value>
     </values>

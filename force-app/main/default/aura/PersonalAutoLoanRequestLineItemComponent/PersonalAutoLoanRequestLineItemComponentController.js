@@ -14,6 +14,7 @@
       component.get("v.ParentContainer"),
       component.get("v.ChildContainer")
     );
+    data['containerName'] = component.get("v.containerName");
     component.set("v.ParentContainer", data);
     helper.getApplicants(component);
   },

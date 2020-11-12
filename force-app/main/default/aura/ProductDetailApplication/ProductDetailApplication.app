@@ -1,3 +1,3 @@
 <aura:application>
     <c:ProductDetailComponent></c:ProductDetailComponent>
-</aura:application>	
+</aura:application>

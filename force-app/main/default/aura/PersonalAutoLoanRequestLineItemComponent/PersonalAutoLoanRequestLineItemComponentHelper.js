@@ -1,4 +1,5 @@
 ({
+  //TODO: SHOULD BE OPTIMIZED, query applicants once then query there rating on subsequent calls
   getApplicants: function (component) {
     console.log("getApplicants called");
     let oppId = component.get("v.oppId");
@@ -7,6 +8,7 @@
     console.log(JSON.stringify(data));
     if (data.years && data.months) {
       console.log("server side called");
+      //TODO: REVIEW with travis
       let tenure = calculateMonths(data.years, data.months) / 12;
       console.log("tenure and oppId:", tenure, oppId);
       let action = component.get("c.getApplicantsRating");

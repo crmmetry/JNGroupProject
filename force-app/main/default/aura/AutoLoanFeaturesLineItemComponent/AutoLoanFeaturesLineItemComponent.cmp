@@ -150,7 +150,7 @@
     type="Boolean"
     default="true"
   />
-
+  <aura:attribute name="containerName" type="String" default="AutoLoanFeaturesLineItemComponent" />
   <fieldset class="slds-box slds-theme_default">
     <legend
       id="productdetailsform"
@@ -215,7 +215,7 @@
           <lightning:input
             type="number"
             label="Monthly Premium"
-            value="{!v.ChildContainer.premium}"
+            value="{!v.ChildContainer.jngiMonthlyPremium}"
             name="number"
             formatter="currency"
             disabled="{!v.interestedInPremiumFlag}"

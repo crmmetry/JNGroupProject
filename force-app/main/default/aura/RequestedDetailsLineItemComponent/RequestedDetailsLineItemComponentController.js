@@ -13,6 +13,7 @@
       component.get("v.ParentContainer"),
       component.get("v.ChildContainer")
     );
+    data['containerName'] = component.get("v.containerName");
     component.set("v.ParentContainer", data);
     console.info(JSON.stringify(component.get("v.ChildContainer")));
     helper.getApplicants(component);

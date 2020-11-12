@@ -1,4 +1,5 @@
 <aura:component>
+    <aura:attribute name="containerName" type="String" default="FeesAndChargesLineItemComponent"/>
   <aura:attribute name="legalFees" type="Decimal" default="0" />
   <aura:attribute name="stampDuty" type="Decimal" default="0" />
   <aura:attribute name="unsecuredLoanFees" type="Decimal" default="0" />
