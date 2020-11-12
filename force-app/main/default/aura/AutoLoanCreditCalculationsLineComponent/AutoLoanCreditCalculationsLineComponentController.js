@@ -39,6 +39,7 @@
       helper.calculateMonthlyP_ILoanAmount(component);
       // on credit repayment changes
       helper.setDeductRepaymentFlag(component);
+      // on processing fee changes
       helper.calculateProcessingFee(component);
       //on loan savings change
       helper.calculateSavings(component);

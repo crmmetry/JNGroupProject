@@ -22,7 +22,7 @@
     value="{!v.ChildContainer}"
   />
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
-
+ <aura:attribute name="containerName" type="String" default="RequestedDetailsLineItemComponent"/>
   <fieldset class="slds-box slds-theme_default">
     <legend
       id="productdetailsform"

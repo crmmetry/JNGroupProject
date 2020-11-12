@@ -1,4 +1,5 @@
 <aura:component>
+  <aura:attribute name="containerName" type="String" default="CreditCalculationsLineItemComponent"/>
   <aura:attribute name="ParentContainer" type="Map" /> 
   <aura:attribute name="ChildContainer" type="Map" />
   <aura:attribute name="loanAmount" type="Decimal" default="0" />
