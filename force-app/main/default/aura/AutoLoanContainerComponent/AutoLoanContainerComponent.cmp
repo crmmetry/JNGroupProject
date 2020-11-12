@@ -1,4 +1,5 @@
 <aura:component>
+  <ltng:require scripts="{!$Resource.calculations}" />
   <aura:attribute name="productPrice" type="Decimal" />
   <aura:attribute name="oppId" type="Id" />
   <aura:attribute name="oppApplicants" type="List" />

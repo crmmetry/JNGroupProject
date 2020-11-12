@@ -1,3 +1,3 @@
 ({
-  myAction: function (component, event, helper) {}
+  onIncludePremiumChange: function (component, event, helper) {}
 });

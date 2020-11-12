@@ -1,19 +1,19 @@
 ({
   doInit: function (component, event, helper) {
-    console.log("Requested: ", component.get("v.productPrice"));
-    let requestedDetails = {
+    let data = {
       loanAmount: component.get("v.productPrice"),
       years: null,
       months: null,
       market: null
     };
-    component.set("v.RequestedDetails", requestedDetails);
+    component.set("v.ChildContainer", data);
   },
-  onRequestedDetailsChange: function (component, event, helper) {
+  onChildContainerChange: function (component, event, helper) {
     const data = Object.assign(
-      component.get("v.RequestedDetailsContainer"),
-      component.get("v.RequestedDetails")
+      component.get("v.ParentContainer"),
+      component.get("v.ChildContainer")
     );
-    component.set("v.RequestedDetailsContainer", data);
+    component.set("v.ParentContainer", data);
+    console.info(JSON.stringify(component.get("v.ChildContainer")));
   }
 });

@@ -1,4 +1,6 @@
 <aura:component>
+  <aura:attribute name="ChildContainer" type="Map" default="{}" />
+  <aura:attribute name="ParentContainer" type="Map" default="{}" />
   <aura:attribute
     name="options"
     type="List"
@@ -14,12 +16,10 @@
   <aura:attribute name="value" type="String" default="" />
   <aura:attribute name="percent" type="String" default="percent" />
   <aura:attribute name="amount" type="String" default="amount" />
-  <aura:attribute name="RequestedDetails" type="Map" />
-  <aura:attribute name="RequestedDetailsContainer" type="Map" default="{}" />
   <aura:handler
     name="change"
-    action="{!c.onRequestedDetailsChange}"
-    value="{!v.RequestedDetails}"
+    action="{!c.onChildContainerChange}"
+    value="{!v.ChildContainer}"
   />
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
 
@@ -39,7 +39,7 @@
           <lightning:input
             type="number"
             label="Amount"
-            value="{!v.RequestedDetails.loanAmount}"
+            value="{!v.ChildContainer.loanAmount}"
             name="number"
             formatter="currency"
             readonly="true"
@@ -54,9 +54,10 @@
               <lightning:input
                 type="number"
                 label="Years"
-                value="{!v.RequestedDetails.years}"
+                value="{!v.ChildContainer.years}"
                 name="number"
-                min="1"
+                min="0"
+                max="10"
                 required="true"
               />
             </lightning:layoutItem>
@@ -65,10 +66,11 @@
                 <lightning:input
                   type="number"
                   label="Months"
-                  value="{!v.RequestedDetails.months}"
+                  value="{!v.ChildContainer.months}"
                   name="number"
                   required="true"
                   min="0"
+                  max="12"
                 />
               </div>
             </lightning:layoutItem>
@@ -80,7 +82,7 @@
             <lightning:input
               type="number"
               label="Market"
-              value="{!v.RequestedDetails.market}"
+              value="{!v.ChildContainer.market}"
               name="Market"
               formatter="percent-fixed"
               max="99"
