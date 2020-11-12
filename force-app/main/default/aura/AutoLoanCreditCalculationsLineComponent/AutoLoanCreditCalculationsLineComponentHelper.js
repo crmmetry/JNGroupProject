@@ -64,7 +64,6 @@
       loanAmount: component.get("v.jngiMotorPremium"),
       market: data.market
     };
-
     if (data.interested == "Yes" && data.includeInLoan == "Yes") {
       const result = basicPMTCalculator(
         ["years", "months", "loanAmount", "market"],

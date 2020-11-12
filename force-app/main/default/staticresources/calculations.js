@@ -75,6 +75,17 @@ window.isEmpty = function (field) {
   return false;
 };
 /**
+ * check if a number field is empty
+ * @param {Any} field
+ * @return {Boolean}
+ */
+window.isNumberEmpty = function (field) {
+  if (isEmpty(field) == false && field != 0) {
+    return true;
+  }
+  return false;
+};
+/**
  * populate an object given a set of properties and validates whether the parent object has any of the properties
  * @param {Array<String>} properties
  * @param {Object} parentObj
@@ -89,6 +100,27 @@ window.enlistAndValidateFields = function (properties, parentObj) {
   Object.keys(fields).forEach((field) => {
     if (parentObj.hasOwnProperty(field)) {
       if (isEmpty(parentObj[field]) === false) {
+        fields[field] = true;
+      }
+    }
+  });
+  return fields;
+};
+/**
+ * populate an object given a set of properties and validates whether the parent object has any of the properties
+ * @param {Array<String>} properties
+ * @param {Object} parentObj
+ * @return {Objec}
+ */
+window.enlistAndValidateNumberFields = function (properties, parentObj) {
+  if (!properties || !parentObj) return null;
+  let fields = {};
+  properties.forEach(function (property) {
+    fields[property] = false;
+  });
+  Object.keys(fields).forEach((field) => {
+    if (parentObj.hasOwnProperty(field)) {
+      if (isNumberEmpty(parentObj[field])) {
         fields[field] = true;
       }
     }
@@ -222,9 +254,10 @@ window.basicProcessingFeesCalculator = function (
  * @return {Decimal}
  */
 window.basicTotalsCalculator = function (properties, parentObj) {
-  let validatedFields = enlistAndValidateFields(properties, parentObj);
+  let validatedFields = enlistAndValidateNumberFields(properties, parentObj);
   if (!validatedFields) return null;
   let allValid = true;
+  console.log("validatedFields", validatedFields);
   Object.keys(validatedFields).forEach((key) => {
     if (validatedFields[key] === false) {
       allValid = false;
@@ -233,10 +266,13 @@ window.basicTotalsCalculator = function (properties, parentObj) {
   if (allValid === false) return 0;
   let values = [];
   properties.forEach((property) => {
-    if (validatedFields.property) {
+    console.log("Prop", property)
+    if (validatedFields[property]) {
+      console.log("adding Prop", property, parentObj[property]);
       values.push(parentObj[property]);
     }
   });
+  console.info("values", values);
   return values.reduce((a, b) => a + b, 0);
 };
 

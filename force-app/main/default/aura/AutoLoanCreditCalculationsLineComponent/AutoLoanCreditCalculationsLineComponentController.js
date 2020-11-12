@@ -24,9 +24,6 @@
       component.get("v.ChildContainer")
     );
     data['containerName'] = component.get("v.containerName");
-    console.info("ParentContainer", JSON.parse(JSON.stringify(component.get("v.ParentContainer"))))
-    console.info("ChildContainer", JSON.parse(JSON.stringify(component.get("v.ChildContainer"))))
-
     component.set("v.ParentContainer", data);
   },
   /**
@@ -36,7 +33,6 @@
  */
   onParenContainerChange: function (component, event, helper) {
     const containerName = component.get("v.ParentContainer.containerName");
-    console.info("last container", containerName);
     if (component.get("v.scriptsLoaded") && containerName !== component.get("v.containerName")) {
       // on auto loan changes
       helper.calculateMonthlyP_ILoanAmount(component);
