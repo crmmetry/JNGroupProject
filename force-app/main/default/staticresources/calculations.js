@@ -179,14 +179,16 @@ window.basicProcessingFeesCalculator = function (
       parentObj.processingFeePercentagePerAnum &&
       parentObj.processingFeePercentagePerAnum >= 0
     ) {
+      let newParentObj = Object.assign({}, parentObj);
       let loanAmount = parentObj.loanAmount;
       loanAmount =
         (parentObj.processingFeePercentagePerAnum / 100) *
         gct *
         loanAmount;
+      newParentObj.loanAmount = loanAmount;
       return {
         processingFee:  loanAmount,
-        monthlyProcessingFee: basicPMTCalculator(properties, parentObj),
+        monthlyProcessingFee: basicPMTCalculator(properties, newParentObj),
         processingFeeClosingCost: 0
       };
     } else {
