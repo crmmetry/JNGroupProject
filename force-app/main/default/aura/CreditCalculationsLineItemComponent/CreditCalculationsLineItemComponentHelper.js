@@ -2,13 +2,12 @@
   calculateMonthlyP_ILoanAmount: function (component) {
     const result = basicPMTCalculator(
       ["years", "months", "loanAmount", "market"],
-      component.get("v.ParentCsontainer")
+      component.get("v.ParentContainer")
     );
     component.set("v.monthly_PI_LoanAmount", result);
     this.updateChildContainerWithValue(component, [{ "key": "monthly_PI_LoanAmount", value: parseFloat(result) }]);
   },
   setDeductRepaymentFlag: function (component) {
-    console.log("Repayment deducted");
     let creditRepayment = component.get("v.ParentContainer");
     if (creditRepayment.deductRepayment == "Yes") {
       component.set("v.deductRepaymentFlag", true);
@@ -109,16 +108,13 @@
   },
   updateChildContainerWithValue: function (component, values) {
     let childContainer = component.get("v.ChildContainer");
-    console.info("Before", JSON.stringify(childContainer));
     values.forEach(element => {
       childContainer[element.key] = element.value;
     });
-    console.info("Before", JSON.stringify(childContainer));
     component.set("v.ChildContainer", childContainer);
   },
   calculateCreditorLifePremium: function (component) {
     let data = component.get("v.ParentContainer");
-    console.log(JSON.stringify(data));
     if (
       data.interestedInCreditorLife === "Yes" &&
       data.includeCreditorLifeInLoanAmount === "Yes"
@@ -139,7 +135,6 @@
         piProperties
       );
       component.set("v.monthlyJnLifeCreditor_PI_Premium", pmtCLResult);
-      console.log(monthlyCLPremium, pmtCLResult);
       component.set("v.includeCLPremiumFlag", false);
     } else if (
       data.interestedInCreditorLife === "Yes" &&
@@ -164,14 +159,11 @@
   setAssignmentFees: function (component) {
     let data = component.get("v.ParentContainer");
     let jnDefaults = component.get("v.jnDefaultConfigs");
-    console.log(JSON.stringify(data));
-    console.log(JSON.stringify(jnDefaults));
     if (data.policyProvider != null) {
       let assignmentFee = basicAssignmentFeeCalculator(
         jnDefaults.assignmentFee,
         jnDefaults.gct
       );
-      console.log(assignmentFee);
       component.set("v.assignmentFee", assignmentFee);
     } else {
       component.set("v.assignmentFee", 0);
@@ -181,10 +173,7 @@
   setEstimatedStampDutyFees: function (component) {
     let data = component.get("v.ParentContainer");
     let jnDefaults = component.get("v.jnDefaultConfigs");
-    console.log(JSON.stringify(data));
-    console.log(JSON.stringify(jnDefaults));
     if (data.policyProvider != null) {
-      console.log(jnDefaults.estimatedStampDutyAndAdminFee);
       component.set(
         "v.estimatedStampDuty",
         jnDefaults.estimatedStampDutyAndAdminFee

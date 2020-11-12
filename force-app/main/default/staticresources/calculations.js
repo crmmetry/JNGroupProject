@@ -136,6 +136,7 @@ window.enlistAndValidateNumberFields = function (properties, parentObj) {
  */
 window.basicPMTCalculator = function (properties, parentObj) {
   let validatedFields = enlistAndValidateFields(properties, parentObj);
+  console.info("validatedFields", validatedFields);
   if (!validatedFields) return 0;
   let rate;
   let totalMonths;
@@ -298,7 +299,7 @@ window.basicTotalsCalculator = function (properties, parentObj) {
   let validatedFields = enlistAndValidateNumberFields(properties, parentObj);
   if (!validatedFields) return null;
   let allValid = true;
-  console.log("validatedFields", validatedFields);
+  //console.log("validatedFields", validatedFields);
   Object.keys(validatedFields).forEach((key) => {
     if (validatedFields[key] === false) {
       allValid = false;
@@ -307,9 +308,9 @@ window.basicTotalsCalculator = function (properties, parentObj) {
   if (allValid === false) return 0;
   let values = [];
   properties.forEach((property) => {
-    console.log("Prop", property)
+    //console.log("Prop", property)
     if (validatedFields[property]) {
-      console.log("adding Prop", property, parentObj[property]);
+      //console.log("adding Prop", property, parentObj[property]);
       values.push(parentObj[property]);
     }
   });

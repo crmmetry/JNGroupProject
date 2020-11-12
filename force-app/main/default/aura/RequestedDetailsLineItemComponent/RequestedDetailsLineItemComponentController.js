@@ -15,7 +15,6 @@
     );
     data['containerName'] = component.get("v.containerName");
     component.set("v.ParentContainer", data);
-    console.info(JSON.stringify(component.get("v.ChildContainer")));
     helper.getApplicants(component);
   },
 
@@ -31,6 +30,5 @@
       applicantsMap
     );
     component.set("v.ParentContainer", data);
-    console.log(JSON.stringify(data));
   }
 });
