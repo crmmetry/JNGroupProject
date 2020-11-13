@@ -281,8 +281,7 @@ window.basicMonthlyCompulsorySavingsCalculator = function (
   amount
 ) {
   if (savings) {
-    return totalPI + totalPI * (savings / 100);
-    console.log("Savings", totalPI + totalPI * (savings / 100));
+    return totalPI * (savings / 100);
   } else if (amount) {
     return amount;
   }
