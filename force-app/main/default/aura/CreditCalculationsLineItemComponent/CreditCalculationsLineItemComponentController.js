@@ -23,7 +23,7 @@
       component.get("v.ParentContainer"),
       component.get("v.ChildContainer")
     );
-    data['containerName'] = component.get("v.containerName");
+    data["containerName"] = component.get("v.containerName");
     component.set("v.ParentContainer", data);
   },
   /**
@@ -33,27 +33,34 @@
    */
   onParenContainerChange: function (component, event, helper) {
     const containerName = component.get("v.ParentContainer.containerName");
-    if (component.get("v.scriptsLoaded") && containerName !== component.get("v.containerName")) {
-      console.info("Parent", JSON.parse(JSON.stringify(component.get("v.ParentContainer"))))
+    if (
+      component.get("v.scriptsLoaded") &&
+      containerName !== component.get("v.containerName")
+    ) {
+      console.info(
+        "Parent",
+        JSON.parse(JSON.stringify(component.get("v.ParentContainer")))
+      );
       // on auto loan changes
       helper.calculateMonthlyP_ILoanAmount(component);
       // on credit repayment changes
       helper.setDeductRepaymentFlag(component);
       // on processing fee changes
       helper.calculateProcessingFee(component);
-      //on loan savings change
-      helper.calculateSavings(component);
-
       //on JN creditor life changes
       helper.setAssignmentFees(component);
       helper.setEstimatedStampDutyFees(component);
       helper.calculateCreditorLifePremium(component);
       //calculate totals
-      helper.totalMonthlyPaymentCalculation(component);
       helper.totalLoanAmountCalculation(component);
       helper.totalMonthlyPILoanPaymentCalculation(component);
+      helper.totalMonthlyPaymentCalculation(component);
       helper.totalInterestPaymentCalculation(component);
-      helper.totalMonthlyLoanPaymentMonthlyCompulsorySavingsCalculation(component);
+      helper.totalMonthlyLoanPaymentMonthlyCompulsorySavingsCalculation(
+        component
+      );
+      //on loan savings change
+      helper.calculateSavings(component);
     }
   }
 });

@@ -16,7 +16,7 @@
     );
     data['containerName'] = component.get("v.containerName");
     component.set("v.ParentContainer", data);
-    helper.getApplicants(component);
+    helper.getApplicants(component);//TODO: REFACTOR CANNOT BE CALLED LIKE THIS
   },
   onApplicantsChange: function (component, event, helper) {
     let applicant = component.get("v.applicants");
