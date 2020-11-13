@@ -23,7 +23,7 @@
       component.get("v.ParentContainer"),
       component.get("v.ChildContainer")
     );
-    data['containerName'] = component.get("v.containerName");
+    data["containerName"] = component.get("v.containerName");
     component.set("v.ParentContainer", data);
   },
   /**
@@ -33,8 +33,14 @@
    */
   onParenContainerChange: function (component, event, helper) {
     const containerName = component.get("v.ParentContainer.containerName");
-    if (component.get("v.scriptsLoaded") && containerName !== component.get("v.containerName")) {
-      console.info("Parent", JSON.parse(JSON.stringify(component.get("v.ParentContainer"))))
+    if (
+      component.get("v.scriptsLoaded") &&
+      containerName !== component.get("v.containerName")
+    ) {
+      console.info(
+        "Parent",
+        JSON.parse(JSON.stringify(component.get("v.ParentContainer")))
+      );
       // on auto loan changes
       helper.calculateMonthlyP_ILoanAmount(component);
       // on credit repayment changes
@@ -59,6 +65,8 @@
       helper.totalMonthlyLoanPaymentMonthlyCompulsorySavingsCalculation(
         component
       );
+      //calculate total costs
+      helper.totalClosingCost(component);
     }
   }
 });

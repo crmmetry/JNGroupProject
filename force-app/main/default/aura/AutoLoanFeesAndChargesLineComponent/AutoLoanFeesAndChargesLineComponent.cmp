@@ -12,7 +12,12 @@
   <aura:attribute name="assignmentFee" type="Decimal" default="0" />
   <aura:attribute name="deductRepayment" type="Boolean" default="false" />
   <aura:attribute name="includeCLPremiumFlag" type="Boolean" default="false" />
-  <aura:attribute name="containerName" type="String" default="AutoLoanFeesAndChargesLineComponent" />
+  <aura:attribute
+    name="containerName"
+    type="String"
+    default="AutoLoanFeesAndChargesLineComponent"
+  />
+  <aura:attribute name="jnDefaultConfigs" type="Map" default="{}" />
 
   <aura:attribute name="includePremiumFlag" type="Boolean" default="true" />
   <aura:handler
@@ -41,7 +46,7 @@
     <lightning:input
       type="number"
       label="Legal Fees(including GCT)"
-      value="{!v.legalFees}"
+      value="{!v.jnDefaultConfigs.legalFee}"
       name="number"
       formatter="currency"
       required="true"
@@ -52,7 +57,7 @@
     <lightning:input
       type="number"
       label="Stamp Duty"
-      value="{!v.stampDuty}"
+      value="{!v.jnDefaultConfigs.stampDutyAuto}"
       name="number"
       formatter="currency"
       required="true"
@@ -70,19 +75,17 @@
       readonly="true"
     />
   </lightning:layoutItem>
-  <aura:if isTrue="{!v.includeCLPremiumFlag}">
-    <lightning:layoutItem size="6" padding="around-small">
-      <lightning:input
-        type="number"
-        label="JN Life Creditor Life Insurance Premium"
-        value="{!v.jnCreditorLifePremium}"
-        name="number"
-        formatter="currency"
-        required="true"
-        readonly="true"
-      />
-    </lightning:layoutItem>
-  </aura:if>
+  <lightning:layoutItem size="6" padding="around-small">
+    <lightning:input
+      type="number"
+      label="JN Life Creditor Life Insurance Premium"
+      value="{!v.jnCreditorLifePremium}"
+      name="number"
+      formatter="currency"
+      required="true"
+      readonly="true"
+    />
+  </lightning:layoutItem>
   <!--Auto Loans Product Only-->
   <aura:if isTrue="{!v.includePremiumFlag}">
     <lightning:layoutItem size="6" padding="around-small">
@@ -101,7 +104,7 @@
     <lightning:input
       type="number"
       label="NSIPP Registration Fees"
-      value="{!v.nsippFees}"
+      value="{!v.jnDefaultConfigs.nsipp}"
       name="number"
       formatter="currency"
       required="true"

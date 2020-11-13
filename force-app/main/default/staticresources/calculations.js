@@ -327,7 +327,7 @@ window.basicTotalsCalculator = function (properties, parentObj) {
   let validatedFields = enlistAndValidateNumberFields(properties, parentObj);
   if (!validatedFields) return null;
   let allValid = true;
-  //console.log("validatedFields", validatedFields);
+  console.log("validatedFields", validatedFields);
   Object.keys(validatedFields).forEach((key) => {
     if (validatedFields[key] === false) {
       allValid = false;
@@ -336,13 +336,23 @@ window.basicTotalsCalculator = function (properties, parentObj) {
   if (allValid === false) return 0;
   let values = [];
   properties.forEach((property) => {
-    //console.log("Prop", property)
+    console.log("Prop", property);
     if (validatedFields[property]) {
-      //console.log("adding Prop", property, parentObj[property]);
+      console.log("adding Prop", property, parentObj[property]);
       values.push(parentObj[property]);
     }
   });
   console.info("values", values);
+  return values.reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
+};
+/**
+ * summates given totals to calculate total closing cost.
+ * @param {Object} parentObj -
+ * @param {Array<String>} properties - fields on the parent object
+ * @return {Decimal}
+ */
+window.calculateTotalClosingCost = function (values) {
+  //return basicTotalsCalculator(properties, parentObj);
   return values.reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
 };
 

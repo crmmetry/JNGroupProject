@@ -61,6 +61,9 @@
       );
       //on loan savings change
       helper.calculateSavings(component);
+      //calculate Final Cost
+      helper.totalClosingCost(component);
+      helper.totalClosingCostPaidByApplicant(component);
     }
   }
 });

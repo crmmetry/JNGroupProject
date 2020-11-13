@@ -1,5 +1,9 @@
 <aura:component>
-    <aura:attribute name="containerName" type="String" default="FeesAndChargesLineItemComponent"/>
+  <aura:attribute
+    name="containerName"
+    type="String"
+    default="FeesAndChargesLineItemComponent"
+  />
   <aura:attribute name="legalFees" type="Decimal" default="0" />
   <aura:attribute name="stampDuty" type="Decimal" default="0" />
   <aura:attribute name="unsecuredLoanFees" type="Decimal" default="0" />
@@ -13,6 +17,7 @@
   <aura:attribute name="jngiMotorPremium" type="Decimal" default="0" />
   <aura:attribute name="includePremiumFlag" type="Boolean" default="true" />
   <aura:attribute name="includeCLPremiumFlag" type="Boolean" default="false" />
+  <aura:attribute name="jnDefaultConfigs" type="Map" default="{}" />
 
   <aura:handler
     name="change"
@@ -39,7 +44,7 @@
     <lightning:input
       type="number"
       label="Legal Fees(including GCT)"
-      value="{!v.legalFees}"
+      value="{!v.jnDefaultConfigs.legalFee}"
       name="number"
       formatter="currency"
       required="true"
@@ -50,7 +55,7 @@
     <lightning:input
       type="number"
       label="Stamp Duty"
-      value="{!v.stampDuty}"
+      value="{!v.jnDefaultConfigs.stampDutyUns}"
       name="number"
       formatter="currency"
       required="true"
