@@ -53,9 +53,22 @@ window.calculatePMT = function (
  * @param {Integer} months
  */
 window.calculateMonths = function (years, months) {
+  if (isEmpty(years) || isEmpty(months)) return 0;
   return parseFloat(years) * 12 + parseFloat(months);
 };
-
+/**
+ * checks if the tenure is valid and that the previous tensure is not the same
+ * @param {Integer} years
+ * @param {Integer} months
+ * @param {Decimal} previousValue
+ * @return {Boolean}
+ */
+window.validTenure = function (years, months, previousValue) {
+  const tenure = calculateMonths(years, months);
+  if (!tenure) return false;
+  if (tenure === previousValue) return false;
+  return true;
+};
 /**
  * calculate rate period
  * @param {rate}
@@ -325,25 +338,17 @@ window.basicAssignmentFeeCalculator = function (assignmentFee, gct) {
  */
 window.basicTotalsCalculator = function (properties, parentObj) {
   let validatedFields = enlistAndValidateNumberFields(properties, parentObj);
-  if (!validatedFields) return null;
-  let allValid = true;
-  console.log("validatedFields", validatedFields);
-  Object.keys(validatedFields).forEach((key) => {
-    if (validatedFields[key] === false) {
-      allValid = false;
-    }
-  });
-  if (allValid === false) return 0;
+  if (!validatedFields) return 0;
+
   let values = [];
   properties.forEach((property) => {
-    console.log("Prop", property);
     if (validatedFields[property]) {
-      console.log("adding Prop", property, parentObj[property]);
       values.push(parentObj[property]);
     }
   });
-  console.info("values", values);
-  return values.reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
+  return values
+    .filter((value) => !isNaN(value))
+    .reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
 };
 /**
  * summates given totals to calculate total closing cost.
