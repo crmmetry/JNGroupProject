@@ -339,24 +339,14 @@ window.basicAssignmentFeeCalculator = function (assignmentFee, gct) {
 window.basicTotalsCalculator = function (properties, parentObj) {
   let validatedFields = enlistAndValidateNumberFields(properties, parentObj);
   if (!validatedFields) return null;
-  let allValid = true;
-  //console.log("validatedFields", validatedFields);
-  Object.keys(validatedFields).forEach((key) => {
-    if (validatedFields[key] === false) {
-      allValid = false;
-    }
-  });
-  if (allValid === false) return 0;
+
   let values = [];
   properties.forEach((property) => {
-    //console.log("Prop", property)
     if (validatedFields[property]) {
-      //console.log("adding Prop", property, parentObj[property]);
       values.push(parentObj[property]);
     }
   });
-  console.info("values", values);
-  return values.reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
+  return values.filter((value) => !isNaN(value)).reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
 };
 
 window.calculateTotalLoanAmount = function (properties, parentObj) {
