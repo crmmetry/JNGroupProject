@@ -53,9 +53,22 @@ window.calculatePMT = function (
  * @param {Integer} months
  */
 window.calculateMonths = function (years, months) {
+  if (isEmpty(years) || isEmpty(months)) return 0;
   return parseFloat(years) * 12 + parseFloat(months);
 };
-
+/**
+ * checks if the tenure is valid and that the previous tensure is not the same
+ * @param {Integer} years
+ * @param {Integer} months
+ * @param {Decimal} previousValue
+ * @return {Boolean}
+ */
+window.validTenure = function (years, months, previousValue) {
+  const tenure = calculateMonths(years, months);
+  if (!tenure) return false;
+  if (tenure === previousValue) return false;
+  return true;
+}
 /**
  * calculate rate period
  * @param {rate}
