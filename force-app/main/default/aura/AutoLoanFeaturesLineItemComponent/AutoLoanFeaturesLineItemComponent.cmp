@@ -150,7 +150,11 @@
     type="Boolean"
     default="true"
   />
-  <aura:attribute name="containerName" type="String" default="AutoLoanFeaturesLineItemComponent" />
+  <aura:attribute
+    name="containerName"
+    type="String"
+    default="AutoLoanFeaturesLineItemComponent"
+  />
   <fieldset class="slds-box slds-theme_default">
     <legend
       id="productdetailsform"
@@ -288,7 +292,7 @@
                   onchange="{!c.onIncludeCoverageChange}"
                   disabled="{!v.disableTogglerForJNLifeCLFields}"
                 >
-                  <option value="">applicant 1</option>
+                  <option value=""></option>
                   <aura:iteration items="{!v.includeCoverage}" var="item">
                     <option value="{!item}">{!item}</option>
                   </aura:iteration>
