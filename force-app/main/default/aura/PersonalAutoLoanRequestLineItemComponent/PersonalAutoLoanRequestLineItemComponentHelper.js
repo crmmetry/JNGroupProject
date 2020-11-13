@@ -26,6 +26,8 @@
             "applicants: ",
             JSON.parse(JSON.stringify(component.get("v.applicants")))
           );
+        } else {
+          console.log("rror", response.getError())
         }
       });
       $A.enqueueAction(action);

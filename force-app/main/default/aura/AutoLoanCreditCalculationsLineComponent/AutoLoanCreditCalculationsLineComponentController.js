@@ -52,11 +52,13 @@
       helper.calculateCreditorLifePremium(component);
 
       //calculate totals
-      helper.totalMonthlyPaymentCalculation(component);
       helper.totalLoanAmountCalculation(component);
       helper.totalMonthlyPILoanPaymentCalculation(component);
+      helper.totalMonthlyPaymentCalculation(component);
       helper.totalInterestPaymentCalculation(component);
-      helper.totalMonthlyLoanPaymentMonthlyCompulsorySavingsCalculation(component);
+      helper.totalMonthlyLoanPaymentMonthlyCompulsorySavingsCalculation(
+        component
+      );
     }
   }
 });

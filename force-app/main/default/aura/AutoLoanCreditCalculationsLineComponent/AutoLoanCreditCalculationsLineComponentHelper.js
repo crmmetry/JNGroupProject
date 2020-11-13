@@ -36,6 +36,10 @@
           "v.totalCompulsorySavingsBalance",
           totalCompulsorySavings
         );
+        this.updateChildContainerWithValue(component, [
+          { key: "monthlyCompulsorySavings", value: monthlyCompulsorySavings },
+          { key: "totalCompulsorySavingsBalance", value: totalCompulsorySavings }
+        ]);
       } else if (parentContainer.amount > 0 && parentContainer.amount) {
         component.set("v.monthlyCompulsorySavings", parentContainer.amount);
         let totalCompulsorySavings = parentContainer.amount * tenure;
@@ -43,9 +47,17 @@
           "v.totalCompulsorySavingsBalance",
           totalCompulsorySavings
         );
+        this.updateChildContainerWithValue(component, [
+          { key: "monthlyCompulsorySavings", value: parentContainer.amount },
+          { key: "totalCompulsorySavingsBalance", value: totalCompulsorySavings }
+        ]);
       } else {
         component.set("v.monthlyCompulsorySavings", 0);
         component.set("v.totalCompulsorySavingsBalance", 0);
+        this.updateChildContainerWithValue(component, [
+          { key: "monthlyCompulsorySavings", value: 0 },
+          { key: "totalCompulsorySavingsBalance", value: 0 }
+        ]);
       }
     }
   },
@@ -100,7 +112,6 @@
       monthlyProcessingFee
     );
     component.set("v.processingFeeClosingCost", processingFeeClosingCost);
-
     this.updateChildContainerWithValue(component, [
       { key: "processingFeeClosingCost", value: processingFeeClosingCost },
       {
@@ -149,15 +160,28 @@
         data.loanAmount,
         data.rating
       );
-      component.set("v.jnCLPremiumFeesAndCharges", monthlyCLPremium);
+
       component.set("v.includeCLPremiumFlag", true);
+      component.set("v.jnCLPremiumFeesAndCharges", monthlyCLPremium);
       component.set("v.jnLifeCreditorPremium", 0);
       component.set("v.monthlyJnLifeCreditor_PI_Premium", 0);
+
+      this.updateChildContainerWithValue(component, [
+        { key: "jnLifeCreditorPremium", value: 0 },
+        { key: "monthlyJnLifeCreditor_PI_Premium", value: 0 },
+        { key: "jnCLPremiumFeesAndCharges", value: monthlyCLPremium }
+      ]);
     } else if (data.interestedInCreditorLife === "No") {
-      component.set("v.jnCLPremiumFeesAndCharges", 0);
+
       component.set("v.includeCLPremiumFlag", false);
+      component.set("v.jnCLPremiumFeesAndCharges", 0);
       component.set("v.jnLifeCreditorPremium", 0);
       component.set("v.monthlyJnLifeCreditor_PI_Premium", 0);
+      this.updateChildContainerWithValue(component, [
+        { key: "jnLifeCreditorPremium", value: 0 },
+        { key: "monthlyJnLifeCreditor_PI_Premium", value: 0 },
+        { key: "jnCLPremiumFeesAndCharges", value: 0 }
+      ]);
     }
   },
 
@@ -174,13 +198,14 @@
       parentContainer.jngiMonthlyPremium
     );
     component.set("v.jngiMotorPremium", firstYearPremium);
+    this.updateChildContainerWithValue(component, [
+      { key: "jngiMotorPremium", value: firstYearPremium }
+    ]);
   },
 
   setAssignmentFees: function (component) {
     let data = component.get("v.ParentContainer");
     let jnDefaults = component.get("v.jnDefaultConfigs");
-    console.log(JSON.stringify(data));
-    console.log(JSON.stringify(jnDefaults));
     if (data.policyProvider != null) {
       let assignmentFee = basicAssignmentFeeCalculator(
         jnDefaults.assignmentFee,
@@ -188,33 +213,40 @@
       );
       console.log(assignmentFee);
       component.set("v.assignmentFee", assignmentFee);
+      this.updateChildContainerWithValue(component, [
+        { key: "assignmentFee", value: assignmentFee }
+      ]);
     } else {
-      component.set("v.assignmentFee", 0);
+     component.set("v.assignmentFee", 0);
+      this.updateChildContainerWithValue(component, [
+        { key: "assignmentFee", value: 0 }
+      ]);
     }
   },
 
   setEstimatedStampDutyFees: function (component) {
     let data = component.get("v.ParentContainer");
     let jnDefaults = component.get("v.jnDefaultConfigs");
-    console.log(JSON.stringify(data));
-    console.log(JSON.stringify(jnDefaults));
     if (data.policyProvider != null) {
-      console.log(jnDefaults.estimatedStampDutyAndAdminFee);
       component.set(
         "v.estimatedStampDuty",
         jnDefaults.estimatedStampDutyAndAdminFee
       );
+      this.updateChildContainerWithValue(component, [
+        { key: "estimatedStampDuty", value: jnDefaults.estimatedStampDutyAndAdminFee }
+      ]);
     } else {
       component.set("v.estimatedStampDuty", 0);
+      this.updateChildContainerWithValue(component, [
+        { key: "estimatedStampDuty", value: 0 }
+      ]);
     }
-    this.updateChildContainerWithValue(component, [
-      { key: "jngiMotorPremium", value: firstYearPremium }
-    ]);
+
   },
   totalMonthlyPaymentCalculation: function (component) {
     const parentObj = component.get("v.ParentContainer");
     let total = calculateTotalLoanAmount(
-      ["totalMonthlyPIPayment", "jngiMonthlyPremium"],
+      ["totalMonthly_PI_LoanPayment", "jngiMonthlyPremium"],
       parentObj
     );
     component.set("v.totalMonthlyLoanPayment", total);
@@ -289,6 +321,9 @@
   updateChildContainerWithValue: function (component, values) {
     let childContainer = component.get("v.ChildContainer");
     values.forEach((element) => {
+      if (typeof component.get(`v.${element.key}`) !== 'undefined'){
+        component.set(`v.${element.key}`, element.value);
+      }
       childContainer[element.key] = element.value;
     });
     component.set("v.ChildContainer", childContainer);
