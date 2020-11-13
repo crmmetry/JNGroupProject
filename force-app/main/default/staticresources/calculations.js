@@ -338,7 +338,7 @@ window.basicAssignmentFeeCalculator = function (assignmentFee, gct) {
  */
 window.basicTotalsCalculator = function (properties, parentObj) {
   let validatedFields = enlistAndValidateNumberFields(properties, parentObj);
-  if (!validatedFields) return null;
+  if (!validatedFields) return 0;
 
   let values = [];
   properties.forEach((property) => {
