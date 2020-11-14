@@ -18,6 +18,7 @@
   <aura:attribute name="applicants" type="List" />
   <aura:attribute name="totalPayableByApplicant" type="Decimal" default="0" />
   <aura:attribute name="totalFinancedByJN" type="Decimal" default="0" />
+  <aura:attribute name="firstPaymentInstallable" type="Decimal" default="0" />
   <aura:attribute name="includeCLPremiumFlag" type="Boolean" default="false" />
   <aura:attribute name="jnCLPremiumFeesAndCharges" type="Decimal" default="0" />
   <aura:attribute name="assignmentFee" type="Decimal" default="0" />
@@ -316,6 +317,9 @@
         includeCLPremiumFlag="{!v.includeCLPremiumFlag}"
         jnDefaultConfigs="{!v.jnDefaultConfigs}"
         totalClosingCosts="{!v.totalClosingCost}"
+        payableInstallment="{!v.firstPaymentInstallable}"
+        totalClosingCostsJNFinanced="{!v.totalFinancedByJN}"
+        totalClosingCostsApplicantPayable="{!v.totalPayableByApplicant}"
       ></c:FeesAndChargesLineItemComponent>
     </lightning:layout>
   </fieldset>

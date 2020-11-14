@@ -59,10 +59,13 @@
       helper.totalMonthlyLoanPaymentMonthlyCompulsorySavingsCalculation(
         component
       );
+      //update 1st payment installment
+      helper.updateFirstPaymentInstallable(component);
       //on loan savings change
       helper.calculateSavings(component);
       //calculate Final Cost
       helper.totalClosingCost(component);
+      helper.totalClosingCostFinancedJN(component);
       helper.totalClosingCostPaidByApplicant(component);
     }
   }

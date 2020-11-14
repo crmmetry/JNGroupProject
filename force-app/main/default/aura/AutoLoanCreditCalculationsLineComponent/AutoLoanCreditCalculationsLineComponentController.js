@@ -65,8 +65,10 @@
       helper.totalMonthlyLoanPaymentMonthlyCompulsorySavingsCalculation(
         component
       );
-      //calculate total costs
+      //calculate total final costs
       helper.totalClosingCost(component);
+      helper.totalClosingCostFinancedJN(component);
+      helper.totalClosingCostPaidByApplicant(component);
     }
   }
 });

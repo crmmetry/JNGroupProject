@@ -214,6 +214,65 @@
     }
   },
 
+  totalClosingCost: function (component) {
+    const parentObj = component.get("v.ParentContainer");
+    const jnDefault = component.get("v.jnDefaultConfigs");
+    const data = Object.assign(parentObj, jnDefault);
+    console.log(JSON.parse(JSON.stringify(data)));
+    let total = calculateTotalClosingCost(
+      [
+        "jngiMotorPremiumFeesAndCharges",
+        "stampDutyAuto",
+        "legalFee",
+        "nsipp",
+        "processingFeeClosingCost",
+        "jnCLPremiumFeesAndCharges",
+        "estimatedStampDutyAndAdminFee",
+        "assignmentFee"
+      ],
+      data
+    );
+    console.log("Total Closing Cost: ", total);
+    component.set("v.totalClosingCost", total);
+    this.updateChildContainerWithValue(component, [
+      { key: "totalClosingCost", value: total }
+    ]);
+  },
+
+  totalClosingCostFinancedJN: function (component) {
+    const parentObj = component.get("v.ParentContainer");
+    console.log(JSON.parse(JSON.stringify(parentObj)));
+    let total = calculateTotalClosingCostFinancedJN(
+      [
+        "processingFeeClosingCost",
+        "jnCLPremiumFeesAndCharges",
+        "jngiMotorPremiumFeesAndCharges"
+      ],
+      parentObj
+    );
+    console.log("Total Closing Cost Financed By JN: ", total);
+    component.set("v.totalFinancedByJN", total);
+    this.updateChildContainerWithValue(component, [
+      { key: "totalFinancedByJN", value: total }
+    ]);
+  },
+
+  totalClosingCostPaidByApplicant: function (component) {
+    const parentObj = component.get("v.ParentContainer");
+    console.log(JSON.parse(JSON.stringify(parentObj)));
+    if (parentObj.totalClosingCost && parentObj.totalFinancedByJN) {
+      let total = calculateTotalClosingCostPayableByApplicant(
+        parentObj.totalClosingCost,
+        parentObj.totalFinancedByJN
+      );
+      console.log("Total Closing Cost Payable By Applicant: ", total);
+      component.set("v.totalPayableByApplicant", total);
+      this.updateChildContainerWithValue(component, [
+        { key: "totalPayableByApplicant", value: total }
+      ]);
+    }
+  },
+
   setAssignmentFees: function (component) {
     let data = component.get("v.ParentContainer");
     let jnDefaults = component.get("v.jnDefaultConfigs");

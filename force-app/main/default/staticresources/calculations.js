@@ -356,9 +356,30 @@ window.basicTotalsCalculator = function (properties, parentObj) {
  * @param {Array<String>} properties - fields on the parent object
  * @return {Decimal}
  */
-window.calculateTotalClosingCost = function (values) {
-  //return basicTotalsCalculator(properties, parentObj);
-  return values.reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
+window.calculateTotalClosingCost = function (properties, parentObj) {
+  return basicTotalsCalculator(properties, parentObj);
+};
+/**
+ * summates given totals to calculate total closing cost financed by JN.
+ * @param {Object} parentObj -
+ * @param {Array<String>} properties - fields on the parent object
+ * @return {Decimal}
+ */
+window.calculateTotalClosingCostFinancedJN = function (properties, parentObj) {
+  return basicTotalsCalculator(properties, parentObj);
+};
+
+/**
+ * summates given totals to calculate total closing cost payable by applicant.
+ * @param {Object} parentObj -
+ * @param {Array<String>} properties - fields on the parent object
+ * @return {Decimal}
+ */
+window.calculateTotalClosingCostPayableByApplicant = function (
+  totalClosingCost,
+  totalFinancedByJn
+) {
+  return totalClosingCost - totalFinancedByJn;
 };
 
 window.calculateTotalLoanAmount = function (properties, parentObj) {

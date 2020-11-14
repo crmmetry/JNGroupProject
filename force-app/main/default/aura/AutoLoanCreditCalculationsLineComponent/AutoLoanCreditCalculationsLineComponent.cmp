@@ -11,6 +11,8 @@
     type="Boolean"
     default="true"
   />
+  <aura:attribute name="totalPayableByApplicant" type="Decimal" default="0" />
+  <aura:attribute name="totalFinancedByJN" type="Decimal" default="0" />
   <aura:attribute name="includeCLPremiumFlag" type="Boolean" default="false" />
   <aura:attribute name="loanAmount" type="Decimal" />
   <aura:attribute name="monthly_PI_LoanAmount" type="Decimal" default="0" />
@@ -380,6 +382,8 @@
         includeCLPremiumFlag="{!v.includeCLPremiumFlag}"
         jnDefaultConfigs="{!v.jnDefaultConfigs}"
         totalClosingCosts="{!v.totalClosingCost}"
+        totalClosingCostsJNFinanced="{!v.totalFinancedByJN}"
+        totalClosingCostsApplicantPayable="{!v.totalPayableByApplicant}"
       ></c:AutoLoanFeesAndChargesLineComponent>
     </lightning:layout>
   </fieldset>

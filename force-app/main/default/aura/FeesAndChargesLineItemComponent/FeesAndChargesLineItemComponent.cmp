@@ -18,12 +18,6 @@
   <aura:attribute name="includePremiumFlag" type="Boolean" default="true" />
   <aura:attribute name="includeCLPremiumFlag" type="Boolean" default="false" />
   <aura:attribute name="jnDefaultConfigs" type="Map" default="{}" />
-
-  <aura:handler
-    name="change"
-    value="{!v.includePremiumFlag}"
-    action="{!c.onIncludePremiumChange}"
-  />
   <aura:attribute
     name="totalClosingCostsJNFinanced"
     type="Decimal"
@@ -33,6 +27,12 @@
     name="totalClosingCostsApplicantPayable"
     type="Decimal"
     default="0"
+  />
+
+  <aura:handler
+    name="change"
+    value="{!v.includePremiumFlag}"
+    action="{!c.onIncludePremiumChange}"
   />
 
   <lightning:layoutItem size="12">
