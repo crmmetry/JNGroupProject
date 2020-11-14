@@ -56,7 +56,6 @@
       helper.setAssignmentFees(component);
       helper.setEstimatedStampDutyFees(component);
       helper.calculateCreditorLifePremium(component);
-
       //calculate totals
       helper.totalLoanAmountCalculation(component);
       helper.totalMonthlyPILoanPaymentCalculation(component);
@@ -66,8 +65,8 @@
         component
       );
       //calculate total final costs
-      helper.totalClosingCost(component);
       helper.totalClosingCostFinancedJN(component);
+      helper.totalClosingCost(component);
       helper.totalClosingCostPaidByApplicant(component);
     }
   }

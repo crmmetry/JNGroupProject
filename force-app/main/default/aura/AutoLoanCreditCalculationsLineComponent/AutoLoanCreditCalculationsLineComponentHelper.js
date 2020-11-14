@@ -192,24 +192,29 @@
 
   onJNGIPremiumChange: function (component) {
     let parentContainer = component.get("v.ParentContainer");
-    if (parentContainer.jngiIncludeInLoan === "No") {
+    if (parentContainer.jngiIncludeInLoan == "No") {
       component.set("v.showPremiumInCreditCalculations", false);
       component.set("v.showPremiumInFeesAndCharges", true);
       let firstYearPremium = this.calcualateFirstYearPremium(
         parentContainer.jngiMonthlyPremium
       );
       component.set("v.jngiMotorPremiumFeesAndCharges", firstYearPremium);
+      component.set("v.jngiMotorPremium", 0);
       this.updateChildContainerWithValue(component, [
-        { key: "jngiMotorPremiumFeesAndCharges", value: firstYearPremium }
+        { key: "jngiMotorPremiumFeesAndCharges", value: firstYearPremium },
+        { key: "jngiMotorPremium", value: 0 }
       ]);
     } else if (parentContainer.jngiIncludeInLoan === "Yes") {
       component.set("v.showPremiumInCreditCalculations", true);
+      component.set("v.showPremiumInFeesAndCharges", false);
       let firstYearPremium = this.calcualateFirstYearPremium(
         parentContainer.jngiMonthlyPremium
       );
       component.set("v.jngiMotorPremium", firstYearPremium);
+      component.set("v.jngiMotorPremiumFeesAndCharges", 0);
       this.updateChildContainerWithValue(component, [
-        { key: "jngiMotorPremium", value: firstYearPremium }
+        { key: "jngiMotorPremium", value: firstYearPremium },
+        { key: "jngiMotorPremiumFeesAndCharges", value: 0 }
       ]);
     }
   },
@@ -221,7 +226,6 @@
     console.log(JSON.parse(JSON.stringify(data)));
     let total = calculateTotalClosingCost(
       [
-        "jngiMotorPremiumFeesAndCharges",
         "stampDutyAuto",
         "legalFee",
         "nsipp",
@@ -231,6 +235,11 @@
         "assignmentFee"
       ],
       data
+    );
+    total += parentObj.jngiMotorPremiumFeesAndCharges;
+    console.log(
+      "JNGI: ",
+      JSON.stringify(parentObj.jngiMotorPremiumFeesAndCharges)
     );
     console.log("Total Closing Cost: ", total);
     component.set("v.totalClosingCost", total);
