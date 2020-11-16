@@ -422,6 +422,11 @@ window.calculateTotalInterestPayment = function (
   }
   return 0;
 };
+/**
+ * rounds the value by x amount
+ * @param {Number} value
+ * @return {Number}
+ */
 window.roundedValue = function (value) {
   if (!value) {
     return 0;
