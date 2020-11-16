@@ -43,6 +43,7 @@
       );
       // on auto loan changes
       helper.calculateMonthlyP_ILoanAmount(component);
+      helper.calculateSavings(component);
       // on credit repayment changes
       helper.setDeductRepaymentFlag(component);
       // on processing fee changes
@@ -61,8 +62,6 @@
       );
       //update 1st payment installment
       helper.updateFirstPaymentInstallable(component);
-      //on loan savings change
-      helper.calculateSavings(component);
       //calculate Final Cost
       helper.totalClosingCost(component);
       helper.totalClosingCostFinancedJN(component);

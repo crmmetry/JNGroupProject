@@ -393,10 +393,11 @@
     component
   ) {
     const parentObj = component.get("v.ParentContainer");
-    let total = calculateTotalLoanAmount(
+    let total = calculateTotalMonthlyLoanCompulsoryPayment(
       ["totalMonthlyLoanPayment", "monthlyCompulsorySavings"],
       parentObj
     );
+    console.info("totalMonthlyLoanPaymentAndSavings", total);
     component.set("v.totalMonthlyLoanPaymentAndSavings", total);
     this.updateChildContainerWithValue(component, [
       { key: "totalMonthlyLoanPaymentAndSavings", value: total }

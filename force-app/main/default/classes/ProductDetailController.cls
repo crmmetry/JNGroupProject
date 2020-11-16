@@ -37,7 +37,7 @@ public with sharing class ProductDetailController {
   private static List<ApplicantWrapper> getApplicants(Id oppId) {
     List<ApplicantWrapper> applicantWrappers = new List<ApplicantWrapper>();
     List<Applicant__c> applicants = [
-      SELECT Id, Account__r.Date_of_Birth__pc
+      SELECT Id, Account__r.PersonBirthdate
       FROM Applicant__c
       WHERE Opportunity__c = :oppId
     ];
