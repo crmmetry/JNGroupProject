@@ -222,23 +222,41 @@
   totalClosingCost: function (component) {
     const parentObj = component.get("v.ParentContainer");
     const jnDefault = component.get("v.jnDefaultConfigs");
+    let total = 0;
     const data = Object.assign(parentObj, jnDefault);
-    console.log("Total Closing Cost",JSON.parse(JSON.stringify(data)));
-    let total = calculateTotalClosingCost(
-      [
-        "stampDutyAuto",
-        "legalFee",
-        "nsipp",
-        "processingFeeClosingCost",
-        "jnCLPremiumFeesAndCharges",
-        "estimatedStampDutyAndAdminFee",
-        "jngiMotorPremiumFeesAndCharges",
-        "assignmentFee"
-      ],
-      data
-    );
-
+    console.log("Total Closing Cost", JSON.parse(JSON.stringify(data)));
+    if (
+      component.get("v.estimatedStampDuty") != 0 &&
+      component.get("v.assignmentFee") != 0
+    ) {
+      total = calculateTotalClosingCost(
+        [
+          "stampDutyAuto",
+          "legalFee",
+          "nsipp",
+          "processingFeeClosingCost",
+          "jnCLPremiumFeesAndCharges",
+          "estimatedStampDutyAndAdminFee",
+          "jngiMotorPremiumFeesAndCharges",
+          "assignmentFee"
+        ],
+        data
+      );
+    } else {
+      total = calculateTotalClosingCost(
+        [
+          "stampDutyAuto",
+          "legalFee",
+          "nsipp",
+          "processingFeeClosingCost",
+          "jnCLPremiumFeesAndCharges",
+          "jngiMotorPremiumFeesAndCharges"
+        ],
+        data
+      );
+    }
     console.log("Total Closing Cost: ", total);
+    console.log("JNGI: ", parentObj.jngiMotorPremiumFeesAndCharges);
     component.set("v.totalClosingCost", total);
     this.updateChildContainerWithValue(component, [
       { key: "totalClosingCost", value: total }

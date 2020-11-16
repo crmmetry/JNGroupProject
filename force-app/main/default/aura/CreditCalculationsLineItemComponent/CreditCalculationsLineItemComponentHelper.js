@@ -111,20 +111,38 @@
   totalClosingCost: function (component) {
     const parentObj = component.get("v.ParentContainer");
     const jnDefault = component.get("v.jnDefaultConfigs");
+    let total = 0;
     const data = Object.assign(parentObj, jnDefault);
     console.log(JSON.parse(JSON.stringify(data)));
-    let total = calculateTotalClosingCost(
-      [
-        "stampDutyUns",
-        "legalFee",
-        "processingFeeClosingCost",
-        "jnCLPremiumFeesAndCharges",
-        "estimatedStampDutyAndAdminFee",
-        "assignmentFee",
-        "firstPaymentInstallable"
-      ],
-      data
-    );
+    if (
+      component.get("v.estimatedStampDuty") != 0 &&
+      component.get("v.assignmentFee") != 0
+    ) {
+      total = calculateTotalClosingCost(
+        [
+          "stampDutyUns",
+          "legalFee",
+          "processingFeeClosingCost",
+          "jnCLPremiumFeesAndCharges",
+          "estimatedStampDutyAndAdminFee",
+          "assignmentFee",
+          "firstPaymentInstallable"
+        ],
+        data
+      );
+    } else {
+      total = calculateTotalClosingCost(
+        [
+          "stampDutyUns",
+          "legalFee",
+          "processingFeeClosingCost",
+          "jnCLPremiumFeesAndCharges",
+          "firstPaymentInstallable"
+        ],
+        data
+      );
+    }
+
     console.log("Total Closing Cost: ", total);
     component.set("v.totalClosingCost", total);
     this.updateChildContainerWithValue(component, [
