@@ -346,9 +346,11 @@ window.basicTotalsCalculator = function (properties, parentObj) {
       values.push(parentObj[property]);
     }
   });
-  return values
-    .filter((value) => !isNaN(value))
-    .reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
+  return roundedValue(
+    values
+      .filter((value) => !isNaN(value))
+      .reduce((a, b) => parseFloat(a) + parseFloat(b), 0)
+  );
 };
 /**
  * summates given totals to calculate total closing cost.
@@ -418,4 +420,10 @@ window.calculateTotalInterestPayment = function (
     return totalMonthlyPIPayment * tenure - totalLoanAmount;
   }
   return 0;
+};
+window.roundedValue = function (value) {
+  if (!value) {
+    return 0;
+  }
+  return parseFloat(value).toFixed(2, 10);
 };
