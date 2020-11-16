@@ -223,7 +223,7 @@
     const parentObj = component.get("v.ParentContainer");
     const jnDefault = component.get("v.jnDefaultConfigs");
     const data = Object.assign(parentObj, jnDefault);
-    console.log(JSON.parse(JSON.stringify(data)));
+    console.log("Total Closing Cost",JSON.parse(JSON.stringify(data)));
     let total = calculateTotalClosingCost(
       [
         "stampDutyAuto",
@@ -232,15 +232,12 @@
         "processingFeeClosingCost",
         "jnCLPremiumFeesAndCharges",
         "estimatedStampDutyAndAdminFee",
+        "jngiMotorPremiumFeesAndCharges",
         "assignmentFee"
       ],
       data
     );
-    total += parentObj.jngiMotorPremiumFeesAndCharges;
-    console.log(
-      "JNGI: ",
-      JSON.stringify(parentObj.jngiMotorPremiumFeesAndCharges)
-    );
+
     console.log("Total Closing Cost: ", total);
     component.set("v.totalClosingCost", total);
     this.updateChildContainerWithValue(component, [

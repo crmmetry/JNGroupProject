@@ -266,7 +266,7 @@ window.basicProcessingFeesCalculator = function (
  * @return {Deciaml}
  */
 window.basicJNLifePremiumCalculator = function (loanAmount, creditRating) {
-  return (loanAmount / 1000) * creditRating;
+  return roundedValue((loanAmount / 1000) * creditRating);
 };
 /**
  * calculates JN Life Creditor Life P & I Premium
@@ -294,7 +294,7 @@ window.basicMonthlyCompulsorySavingsCalculator = function (
   amount
 ) {
   if (savings) {
-    return totalPI * (savings / 100);
+    return roundedValue(totalPI * (savings / 100));
   } else if (amount) {
     return amount;
   }
@@ -309,7 +309,7 @@ window.basicTotalMonthlyCompulsorySavingsCalculator = function (
   monthlyCompulsorySavings,
   tenure
 ) {
-  return monthlyCompulsorySavings * tenure;
+  return roundedValue(monthlyCompulsorySavings * tenure);
 };
 /**
  * calculates Totals for a collection of values
@@ -327,7 +327,7 @@ window.basicTotalCalculator = function (amountsToBeSummed) {
  * @return {Deciaml}
  */
 window.basicAssignmentFeeCalculator = function (assignmentFee, gct) {
-  return assignmentFee + assignmentFee * gct;
+  return roundedValue(assignmentFee + assignmentFee * gct);
 };
 
 /**
@@ -359,7 +359,7 @@ window.basicTotalsCalculator = function (properties, parentObj) {
  * @return {Decimal}
  */
 window.calculateTotalClosingCost = function (properties, parentObj) {
-  return basicTotalsCalculator(properties, parentObj);
+  return roundedValue(basicTotalsCalculator(properties, parentObj));
 };
 /**
  * summates given totals to calculate total closing cost financed by JN.
@@ -368,7 +368,7 @@ window.calculateTotalClosingCost = function (properties, parentObj) {
  * @return {Decimal}
  */
 window.calculateTotalClosingCostFinancedJN = function (properties, parentObj) {
-  return basicTotalsCalculator(properties, parentObj);
+  return roundedValue(basicTotalsCalculator(properties, parentObj));
 };
 
 /**
@@ -381,7 +381,7 @@ window.calculateTotalClosingCostPayableByApplicant = function (
   totalClosingCost,
   totalFinancedByJn
 ) {
-  return totalClosingCost - totalFinancedByJn;
+  return roundedValue(totalClosingCost - totalFinancedByJn);
 };
 
 window.calculateTotalLoanAmount = function (properties, parentObj) {
@@ -418,7 +418,7 @@ window.calculateTotalInterestPayment = function (
     return 0;
   }
   if (totalLoanAmount && totalMonthlyPIPayment) {
-    return totalMonthlyPIPayment * tenure - totalLoanAmount;
+    return roundedValue(totalMonthlyPIPayment * tenure - totalLoanAmount);
   }
   return 0;
 };
