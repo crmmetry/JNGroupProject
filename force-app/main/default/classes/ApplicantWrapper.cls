@@ -12,7 +12,7 @@ public with sharing class ApplicantWrapper {
   public ApplicantWrapper(Applicant__c record) {
     System.debug(record);
     this.Id = record.Id;
-    this.dob = record.Account__r.Date_of_Birth__pc;
+    this.dob = record.Account__r.PersonBirthdate;
     this.age = calculateAge(dob);
     this.checkCreditorLifeEligibility();
   }
