@@ -43,6 +43,7 @@
       );
       // on auto loan changes
       helper.calculateMonthlyP_ILoanAmount(component);
+      helper.calculateSavings(component);
       // on credit repayment changes
       helper.setDeductRepaymentFlag(component);
       // on processing fee changes
@@ -59,8 +60,6 @@
       helper.totalMonthlyLoanPaymentMonthlyCompulsorySavingsCalculation(
         component
       );
-      //on loan savings change
-      helper.calculateSavings(component);
     }
   }
 });

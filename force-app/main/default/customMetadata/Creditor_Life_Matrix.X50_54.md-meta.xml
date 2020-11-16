@@ -8,7 +8,7 @@
     </values>
     <values>
         <field>X10__c</field>
-        <value xsi:type="xsd:double">65.69</value>
+        <value xsi:type="xsd:double">66.0</value>
     </values>
     <values>
         <field>X1_5__c</field>
@@ -20,7 +20,7 @@
     </values>
     <values>
         <field>X2_5__c</field>
-        <value xsi:type="xsd:double">23.59</value>
+        <value xsi:type="xsd:double">24.0</value>
     </values>
     <values>
         <field>X2__c</field>
@@ -44,7 +44,7 @@
     </values>
     <values>
         <field>X5_5__c</field>
-        <value xsi:type="xsd:double">39.89</value>
+        <value xsi:type="xsd:double">40.0</value>
     </values>
     <values>
         <field>X5__c</field>
@@ -52,34 +52,34 @@
     </values>
     <values>
         <field>X6_5__c</field>
-        <value xsi:type="xsd:double">45.37</value>
+        <value xsi:type="xsd:double">45.0</value>
     </values>
     <values>
         <field>X6__c</field>
-        <value xsi:type="xsd:double">42.58</value>
+        <value xsi:type="xsd:double">43.0</value>
     </values>
     <values>
         <field>X7_5__c</field>
-        <value xsi:type="xsd:double">51.02</value>
+        <value xsi:type="xsd:double">51.0</value>
     </values>
     <values>
         <field>X7__c</field>
-        <value xsi:type="xsd:double">48.15</value>
+        <value xsi:type="xsd:double">48.2</value>
     </values>
     <values>
         <field>X8_5__c</field>
-        <value xsi:type="xsd:double">56.83</value>
+        <value xsi:type="xsd:double">57.0</value>
     </values>
     <values>
         <field>X8__c</field>
-        <value xsi:type="xsd:double">53.89</value>
+        <value xsi:type="xsd:double">54.0</value>
     </values>
     <values>
         <field>X9_5__c</field>
-        <value xsi:type="xsd:double">62.73</value>
+        <value xsi:type="xsd:double">63.0</value>
     </values>
     <values>
         <field>X9__c</field>
-        <value xsi:type="xsd:double">59.76</value>
+        <value xsi:type="xsd:double">60.0</value>
     </values>
 </CustomMetadata>

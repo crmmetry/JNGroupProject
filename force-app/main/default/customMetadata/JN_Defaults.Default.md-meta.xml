@@ -14,4 +14,20 @@
         <field>GCT__c</field>
         <value xsi:type="xsd:double">0.15</value>
     </values>
+    <values>
+        <field>Legal_Fee__c</field>
+        <value xsi:type="xsd:double">1000.0</value>
+    </values>
+    <values>
+        <field>NSIPP_Registration_Fee__c</field>
+        <value xsi:type="xsd:double">1000.0</value>
+    </values>
+    <values>
+        <field>Stamp_Duty_Auto__c</field>
+        <value xsi:type="xsd:double">530.0</value>
+    </values>
+    <values>
+        <field>Stamp_Duty_Uns__c</field>
+        <value xsi:type="xsd:double">20.0</value>
+    </values>
 </CustomMetadata>
