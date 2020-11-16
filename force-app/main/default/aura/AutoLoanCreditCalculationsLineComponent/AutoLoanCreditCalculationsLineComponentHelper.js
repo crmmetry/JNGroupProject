@@ -71,6 +71,7 @@
     if (premium) {
       return premium * 12;
     }
+    return 0;
   },
 
   calculateJNGIPMT: function (component) {
@@ -218,12 +219,20 @@
       ]);
     }
   },
-
+  totalClosingCostCalculation: function (component) {
+    const parentObj = component.get("v.ParentContainer");
+    const jnDefault = component.get("v.jnDefaultConfigs");
+    const data = Object.assign(parentObj, jnDefault);
+    console.info("TotalClosingCostCalculation", JSON.parse(JSON.stringify(data)));
+   },
+  totalClosingCostFinancedJNCalculation: function (component) {console.info('totalClosingCostFinancedJNCalculation') },
+  totalClosingCostPaidByApplicantCalculation: function (component) {console.info('totalClosingCostPaidByApplicantCalculation') },
   totalClosingCost: function (component) {
     const parentObj = component.get("v.ParentContainer");
     const jnDefault = component.get("v.jnDefaultConfigs");
     const data = Object.assign(parentObj, jnDefault);
-    console.log("Total Closing Cost",JSON.parse(JSON.stringify(data)));
+
+    console.info("Total Closing Cost",JSON.parse(JSON.stringify(data)));
     let total = calculateTotalClosingCost(
       [
         "stampDutyAuto",
@@ -265,7 +274,7 @@
 
   totalClosingCostPaidByApplicant: function (component) {
     const parentObj = component.get("v.ParentContainer");
-    console.log(JSON.parse(JSON.stringify(parentObj)));
+    console.log("totalClosingCostPaidByApplicant", JSON.parse(JSON.stringify(parentObj)));
     if (parentObj.totalClosingCost && parentObj.totalFinancedByJN) {
       let total = calculateTotalClosingCostPayableByApplicant(
         parentObj.totalClosingCost,
