@@ -426,5 +426,5 @@ window.roundedValue = function (value) {
   if (!value) {
     return 0;
   }
-  return parseFloat(value).toFixed(2, 10);
+  return parseFloat(value).toFixed(2);
 };
