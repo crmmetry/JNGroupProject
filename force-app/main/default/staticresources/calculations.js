@@ -401,6 +401,7 @@ window.calculateTotalMonthlyLoanCompulsoryPayment = function (
   //const properties = ["totalMonthlyPayment", "monthlyCompulsorySavings"]
   return basicTotalsCalculator(properties, parentObj);
 };
+
 window.calculateTotalInterestPayment = function (
   totalMonthlyPIPayment,
   totalLoanAmount,
