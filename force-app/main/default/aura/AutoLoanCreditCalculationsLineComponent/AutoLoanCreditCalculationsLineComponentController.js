@@ -65,8 +65,8 @@
         component
       );
       //calculate total final costs
-      helper.totalClosingCostFinancedJN(component);
       helper.totalClosingCost(component);
+      helper.totalClosingCostFinancedJN(component);
       helper.totalClosingCostPaidByApplicant(component);
     }
   }
