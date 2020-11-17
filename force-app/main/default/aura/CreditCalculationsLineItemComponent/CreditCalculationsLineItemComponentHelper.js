@@ -103,7 +103,7 @@
       this.updateChildContainerWithValue(component, [
         {
           key: "firstPaymentInstallable",
-          value: parentObj.totalMonthlyLoanPayment
+          value: 0
         }
       ]);
     }
