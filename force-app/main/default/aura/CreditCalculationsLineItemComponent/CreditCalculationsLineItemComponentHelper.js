@@ -108,13 +108,34 @@
       ]);
     }
   },
+  getFieldsToCalculate: function (parentObj) {
+    let data = [];
+    //creditor life
+    if (parentObj.includeCreditorLifeInLoanAmount === "Yes") {
+      data.push("jnLifeCreditorPremium");
+    } else {
+      data.push("jnCLPremiumFeesAndCharges");
+    }
+    //processing fee
+    if (parentObj.includeInLoanAmountFlag) {
+      data.push("processingFeesGCT");
+    } else {
+      data.push("processingFeeClosingCost");
+    }
+    console.log("data", data);
+    return data;
+  },
   totalClosingCostCalculation: function (component) {
     const parentObj = component.get("v.ParentContainer");
     const jnDefault = component.get("v.jnDefaultConfigs");
     const data = Object.assign(parentObj, jnDefault);
-    console.info("TotalClosingCostCalculation", JSON.parse(JSON.stringify(data)));
+    console.info(
+      "TotalClosingCostCalculation",
+      JSON.parse(JSON.stringify(data))
+    );
     let properties = [];
     let total = 0;
+    let fieldsTocalculate = this.getFieldsToCalculate(parentObj);
 
     if (
       component.get("v.estimatedStampDuty") != 0 &&
@@ -124,21 +145,17 @@
       properties = [
         "stampDutyUns",
         "legalFee",
-        "processingFeeClosingCost",
-        "jnCLPremiumFeesAndCharges",
         "estimatedStampDutyAndAdminFee",
         "assignmentFee",
         "firstPaymentInstallable"
-      ];
+      ].concat(fieldsTocalculate);
     } else {
       console.info("Branch 2");
       properties = [
         "stampDutyUns",
         "legalFee",
-        "processingFeeClosingCost",
-        "jnCLPremiumFeesAndCharges",
         "firstPaymentInstallable"
-      ];
+      ].concat(fieldsTocalculate);
     }
     total = calculateTotalClosingCost(properties, data);
     console.info("TotalClosingCost = ", total);
@@ -150,11 +167,7 @@
   totalClosingCostFinancedJNCalculation: function (component) {
     const parentObj = component.get("v.ParentContainer");
     let total = calculateTotalClosingCostFinancedJN(
-      [
-        "processingFeeClosingCost",
-        "jnCLPremiumFeesAndCharges",
-        "firstPaymentInstallable"
-      ],
+      ["processingFeesGCT", "jnLifeCreditorPremium"],
       parentObj
     );
     component.set("v.totalFinancedByJN", total);
