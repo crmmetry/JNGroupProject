@@ -295,9 +295,8 @@ window.basicMonthlyCompulsorySavingsCalculator = function (
 ) {
   if (savings) {
     return roundedValue(totalPI * (savings / 100));
-  } else if (amount) {
-    return amount;
   }
+  return amount;
 };
 /**
  * calculates Total Compulsory Savings (over repayment period)
