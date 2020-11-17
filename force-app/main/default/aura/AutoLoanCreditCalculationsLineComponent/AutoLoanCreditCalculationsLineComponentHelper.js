@@ -224,17 +224,15 @@
     const jnDefault = component.get("v.jnDefaultConfigs");
     const data = Object.assign(parentObj, jnDefault);
     console.info("TotalClosingCostCalculation", JSON.parse(JSON.stringify(data)));
-   },
-  totalClosingCostFinancedJNCalculation: function (component) {console.info('totalClosingCostFinancedJNCalculation') },
-  totalClosingCostPaidByApplicantCalculation: function (component) {console.info('totalClosingCostPaidByApplicantCalculation') },
-  totalClosingCost: function (component) {
-    const parentObj = component.get("v.ParentContainer");
-    const jnDefault = component.get("v.jnDefaultConfigs");
-    const data = Object.assign(parentObj, jnDefault);
+    let properties = [];
+    let total = 0;
 
-    console.info("Total Closing Cost",JSON.parse(JSON.stringify(data)));
-    let total = calculateTotalClosingCost(
-      [
+    if (
+      component.get("v.estimatedStampDuty") != 0 &&
+      component.get("v.assignmentFee") != 0
+    ) {
+      console.info("Branch 1");
+      properties = [
         "stampDutyAuto",
         "legalFee",
         "nsipp",
@@ -243,20 +241,27 @@
         "estimatedStampDutyAndAdminFee",
         "jngiMotorPremiumFeesAndCharges",
         "assignmentFee"
-      ],
-      data
-    );
-
-    console.log("Total Closing Cost: ", total);
+      ];
+    } else {
+      console.info("Branch 2");
+      properties = [
+        "stampDutyAuto",
+        "legalFee",
+        "nsipp",
+        "processingFeeClosingCost",
+        "jnCLPremiumFeesAndCharges",
+        "jngiMotorPremiumFeesAndCharges"
+      ];
+    }
+    total = calculateTotalClosingCost(properties, data);
+    console.info("TotalClosingCost = ", total);
     component.set("v.totalClosingCost", total);
     this.updateChildContainerWithValue(component, [
       { key: "totalClosingCost", value: total }
     ]);
-  },
-
-  totalClosingCostFinancedJN: function (component) {
+   },
+  totalClosingCostFinancedJNCalculation: function (component) {
     const parentObj = component.get("v.ParentContainer");
-    console.log(JSON.parse(JSON.stringify(parentObj)));
     let total = calculateTotalClosingCostFinancedJN(
       [
         "processingFeeClosingCost",
@@ -265,28 +270,26 @@
       ],
       parentObj
     );
-    console.log("Total Closing Cost Financed By JN: ", total);
     component.set("v.totalFinancedByJN", total);
+    console.info("TotalFinancedByJN = ", total);
     this.updateChildContainerWithValue(component, [
       { key: "totalFinancedByJN", value: total }
     ]);
-  },
-
-  totalClosingCostPaidByApplicant: function (component) {
+   },
+  totalClosingCostPaidByApplicantCalculation: function (component) {
     const parentObj = component.get("v.ParentContainer");
-    console.log("totalClosingCostPaidByApplicant", JSON.parse(JSON.stringify(parentObj)));
     if (parentObj.totalClosingCost && parentObj.totalFinancedByJN) {
       let total = calculateTotalClosingCostPayableByApplicant(
         parentObj.totalClosingCost,
         parentObj.totalFinancedByJN
       );
-      console.log("Total Closing Cost Payable By Applicant: ", total);
+      console.log("ClosingCostPaidByApplicantCalculation = ", total);
       component.set("v.totalPayableByApplicant", total);
       this.updateChildContainerWithValue(component, [
         { key: "totalPayableByApplicant", value: total }
       ]);
     }
-  },
+   },
 
   setAssignmentFees: function (component) {
     let data = component.get("v.ParentContainer");
