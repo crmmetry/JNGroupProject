@@ -167,7 +167,7 @@ window.basicPMTCalculator = function (properties, parentObj) {
   //actual pmt calculation
   if (rate && totalMonths && parentObj.loanAmount) {
     pmtResult = calculatePMT(rate, totalMonths, -parentObj.loanAmount, 0, 0);
-    return parseFloat(pmtResult).toFixed(2);
+    return roundedValue(pmtResult);
   }
   return 0;
 };
@@ -232,7 +232,7 @@ window.basicProcessingFeesCalculator = function (
         (parentObj.processingFeePercentagePerAnum / 100) * gct * loanAmount;
       newParentObj.loanAmount = loanAmount;
       return {
-        processingFee: loanAmount,
+        processingFee: roundedValue(loanAmount),
         monthlyProcessingFee: basicPMTCalculator(properties, newParentObj),
         processingFeeClosingCost: defaultValue
       };
@@ -254,7 +254,7 @@ window.basicProcessingFeesCalculator = function (
     return {
       processingFee: defaultValue,
       monthlyProcessingFee: defaultValue,
-      processingFeeClosingCost: processingFeeClosingCost
+      processingFeeClosingCost: roundedValue(processingFeeClosingCost)
     };
   }
 };
