@@ -62,10 +62,10 @@
       );
       //update 1st payment installment
       helper.updateFirstPaymentInstallable(component);
-      //calculate Final Cost
-      helper.totalClosingCost(component);
-      helper.totalClosingCostFinancedJN(component);
-      helper.totalClosingCostPaidByApplicant(component);
+      //calculate total final costs
+      helper.totalClosingCostCalculation(component);
+      helper.totalClosingCostFinancedJNCalculation(component);
+      helper.totalClosingCostPaidByApplicantCalculation(component);
     }
   }
 });
