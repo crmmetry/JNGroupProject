@@ -11,6 +11,8 @@
     type="Boolean"
     default="true"
   />
+  <aura:attribute name="totalPayableByApplicant" type="Decimal" default="0" />
+  <aura:attribute name="totalFinancedByJN" type="Decimal" default="0" />
   <aura:attribute name="includeCLPremiumFlag" type="Boolean" default="false" />
   <aura:attribute name="loanAmount" type="Decimal" />
   <aura:attribute name="monthly_PI_LoanAmount" type="Decimal" default="0" />
@@ -18,6 +20,13 @@
   <aura:attribute name="monthlyPIJNGIMotorPremium" type="Decimal" default="0" />
   <aura:attribute name="monthlyJNGIMotorPremium" type="Decimal" default="0" />
   <aura:attribute name="jnLifeCreditorPremium" type="Decimal" default="0" />
+  <aura:attribute name="totalClosingCost" type="Decimal" default="0" />
+  <aura:attribute
+    name="jngiMotorPremiumFeesAndCharges"
+    type="Decimal"
+    default="0"
+  />
+
   <aura:attribute
     name="monthlyJnLifeCreditor_PI_Premium"
     type="Decimal"
@@ -87,8 +96,15 @@
   <aura:attribute name="applicants" type="List" />
   <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
   <aura:attribute name="processingFeeClosingCost" type="Decimal" />
-  <ltng:require scripts="{!$Resource.calculations}" afterScriptsLoaded="{!c.scriptsLoaded}"/>
-  <aura:attribute name="containerName" type="String" default="AutoLoanCreditCalculationsLineComponentController" />
+  <ltng:require
+    scripts="{!$Resource.calculations}"
+    afterScriptsLoaded="{!c.scriptsLoaded}"
+  />
+  <aura:attribute
+    name="containerName"
+    type="String"
+    default="AutoLoanCreditCalculationsLineComponentController"
+  />
   <fieldset class="slds-box slds-theme_default">
     <legend
       id="creditCalcualtions"
@@ -140,34 +156,38 @@
           />
         </lightning:layoutItem>
       </aura:if>
-      <lightning:layoutItem size="6" padding="around-small">
-        <lightning:input
-          type="number"
-          label="Monthly P&amp;I JNGI Motor Premium"
-          value="{!v.monthlyPIJNGIMotorPremium}"
-          name="number"
-          formatter="currency"
-          required="true"
-          readonly="true"
-        />
-      </lightning:layoutItem>
+      <aura:if isTrue="{!v.showPremiumInCreditCalculations}">
+        <lightning:layoutItem size="6" padding="around-small">
+          <lightning:input
+            type="number"
+            label="Monthly P&amp;I JNGI Motor Premium"
+            value="{!v.monthlyPIJNGIMotorPremium}"
+            name="number"
+            formatter="currency"
+            required="true"
+            readonly="true"
+          />
+        </lightning:layoutItem>
+      </aura:if>
       <aura:if isTrue="{!v.showPremiumInCreditCalculations}">
         <lightning:layoutItem
           size="12"
           mediumDeviceSize="6"
         ></lightning:layoutItem>
       </aura:if>
-      <lightning:layoutItem size="6" padding="around-small">
-        <lightning:input
-          type="number"
-          label="Monthly JNGI Motor Premium"
-          value="{!v.ParentContainer.jngiMonthlyPremium}"
-          name="number"
-          formatter="currency"
-          required="true"
-          readonly="true"
-        />
-      </lightning:layoutItem>
+      <aura:if isTrue="{!v.showPremiumInCreditCalculations}">
+        <lightning:layoutItem size="6" padding="around-small">
+          <lightning:input
+            type="number"
+            label="Monthly JNGI Motor Premium"
+            value="{!v.ParentContainer.jngiMonthlyPremium}"
+            name="number"
+            formatter="currency"
+            required="true"
+            readonly="true"
+          />
+        </lightning:layoutItem>
+      </aura:if>
       <!--******************************-->
       <lightning:layoutItem size="6" padding="around-small">
         <lightning:input
@@ -354,12 +374,16 @@
       <c:AutoLoanFeesAndChargesLineComponent
         deductRepayment="{!v.deductRepaymentFlag}"
         includePremiumFlag="{!v.showPremiumInFeesAndCharges}"
-        jngiMotorPremium="{!v.jngiMotorPremium}"
+        jngiMotorPremium="{!v.jngiMotorPremiumFeesAndCharges}"
         processingFees="{!v.processingFeeClosingCost}"
         assignmentFee="{!v.assignmentFee}"
         stampDutyAndAdminCharges="{!v.estimatedStampDuty}"
         jnCreditorLifePremium="{!v.jnCLPremiumFeesAndCharges}"
         includeCLPremiumFlag="{!v.includeCLPremiumFlag}"
+        jnDefaultConfigs="{!v.jnDefaultConfigs}"
+        totalClosingCosts="{!v.totalClosingCost}"
+        totalClosingCostsJNFinanced="{!v.totalFinancedByJN}"
+        totalClosingCostsApplicantPayable="{!v.totalPayableByApplicant}"
       ></c:AutoLoanFeesAndChargesLineComponent>
     </lightning:layout>
   </fieldset>

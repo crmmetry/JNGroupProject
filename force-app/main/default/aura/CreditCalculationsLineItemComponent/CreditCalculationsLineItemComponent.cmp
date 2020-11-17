@@ -1,21 +1,28 @@
 <aura:component>
-  <aura:attribute name="containerName" type="String" default="CreditCalculationsLineItemComponent"/>
-  <aura:attribute name="ParentContainer" type="Map" default="{}"/> 
-  <aura:attribute name="ChildContainer" type="Map" default="{}"/>
+  <aura:attribute
+    name="containerName"
+    type="String"
+    default="CreditCalculationsLineItemComponent"
+  />
+  <aura:attribute name="ParentContainer" type="Map" default="{}" />
+  <aura:attribute name="ChildContainer" type="Map" default="{}" />
   <aura:attribute name="loanAmount" type="Decimal" default="0" />
   <aura:attribute name="monthly_PI_LoanAmount" type="Decimal" default="0" />
   <aura:attribute name="jnLifeCreditorPremium" type="Decimal" default="0" />
+  <aura:attribute name="totalClosingCost" type="Decimal" default="0" />
   <aura:attribute
     name="monthlyJnLifeCreditor_PI_Premium"
     type="Decimal"
     default="0"
   />
   <aura:attribute name="applicants" type="List" />
-
+  <aura:attribute name="totalPayableByApplicant" type="Decimal" default="0" />
+  <aura:attribute name="totalFinancedByJN" type="Decimal" default="0" />
+  <aura:attribute name="firstPaymentInstallable" type="Decimal" default="0" />
   <aura:attribute name="includeCLPremiumFlag" type="Boolean" default="false" />
   <aura:attribute name="jnCLPremiumFeesAndCharges" type="Decimal" default="0" />
-  <aura:attribute name="assignmentFee" type="Decimal" />
-  <aura:attribute name="estimatedStampDuty" type="Decimal" />
+  <aura:attribute name="assignmentFee" type="Decimal" default="0" />
+  <aura:attribute name="estimatedStampDuty" type="Decimal" default="0" />
   <aura:attribute name="processingFees" type="Decimal" default="0" />
   <aura:attribute name="monthly_PI_ProcessingFees" type="Decimal" default="0" />
   <aura:attribute name="totalLoanAmount" type="Decimal" default="0" />
@@ -308,6 +315,11 @@
         stampDutyAndAdminCharges="{!v.estimatedStampDuty}"
         jnCreditorLifePremium="{!v.jnCLPremiumFeesAndCharges}"
         includeCLPremiumFlag="{!v.includeCLPremiumFlag}"
+        jnDefaultConfigs="{!v.jnDefaultConfigs}"
+        totalClosingCosts="{!v.totalClosingCost}"
+        payableInstallment="{!v.firstPaymentInstallable}"
+        totalClosingCostsJNFinanced="{!v.totalFinancedByJN}"
+        totalClosingCostsApplicantPayable="{!v.totalPayableByApplicant}"
       ></c:FeesAndChargesLineItemComponent>
     </lightning:layout>
   </fieldset>

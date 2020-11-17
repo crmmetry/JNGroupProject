@@ -68,7 +68,7 @@ window.validTenure = function (years, months, previousValue) {
   if (!tenure) return false;
   if (tenure === previousValue) return false;
   return true;
-}
+};
 /**
  * calculate rate period
  * @param {rate}
@@ -167,7 +167,7 @@ window.basicPMTCalculator = function (properties, parentObj) {
   //actual pmt calculation
   if (rate && totalMonths && parentObj.loanAmount) {
     pmtResult = calculatePMT(rate, totalMonths, -parentObj.loanAmount, 0, 0);
-    return parseFloat(pmtResult).toFixed(2);
+    return roundedValue(pmtResult);
   }
   return 0;
 };
@@ -232,7 +232,7 @@ window.basicProcessingFeesCalculator = function (
         (parentObj.processingFeePercentagePerAnum / 100) * gct * loanAmount;
       newParentObj.loanAmount = loanAmount;
       return {
-        processingFee: loanAmount,
+        processingFee: roundedValue(loanAmount),
         monthlyProcessingFee: basicPMTCalculator(properties, newParentObj),
         processingFeeClosingCost: defaultValue
       };
@@ -254,7 +254,7 @@ window.basicProcessingFeesCalculator = function (
     return {
       processingFee: defaultValue,
       monthlyProcessingFee: defaultValue,
-      processingFeeClosingCost: processingFeeClosingCost
+      processingFeeClosingCost: roundedValue(processingFeeClosingCost)
     };
   }
 };
@@ -266,7 +266,7 @@ window.basicProcessingFeesCalculator = function (
  * @return {Deciaml}
  */
 window.basicJNLifePremiumCalculator = function (loanAmount, creditRating) {
-  return (loanAmount / 1000) * creditRating;
+  return roundedValue((loanAmount / 1000) * creditRating);
 };
 /**
  * calculates JN Life Creditor Life P & I Premium
@@ -294,10 +294,9 @@ window.basicMonthlyCompulsorySavingsCalculator = function (
   amount
 ) {
   if (savings) {
-    return totalPI * (savings / 100);
-  } else if (amount) {
-    return amount;
+    return roundedValue(totalPI * (savings / 100));
   }
+  return amount;
 };
 /**
  * calculates Total Compulsory Savings (over repayment period)
@@ -309,7 +308,7 @@ window.basicTotalMonthlyCompulsorySavingsCalculator = function (
   monthlyCompulsorySavings,
   tenure
 ) {
-  return monthlyCompulsorySavings * tenure;
+  return roundedValue(monthlyCompulsorySavings * tenure);
 };
 /**
  * calculates Totals for a collection of values
@@ -327,7 +326,7 @@ window.basicTotalCalculator = function (amountsToBeSummed) {
  * @return {Deciaml}
  */
 window.basicAssignmentFeeCalculator = function (assignmentFee, gct) {
-  return assignmentFee + assignmentFee * gct;
+  return roundedValue(assignmentFee + assignmentFee * gct);
 };
 
 /**
@@ -346,7 +345,42 @@ window.basicTotalsCalculator = function (properties, parentObj) {
       values.push(parentObj[property]);
     }
   });
-  return values.filter((value) => !isNaN(value)).reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
+  return roundedValue(
+    values
+      .filter((value) => !isNaN(value))
+      .reduce((a, b) => parseFloat(a) + parseFloat(b), 0)
+  );
+};
+/**
+ * summates given totals to calculate total closing cost.
+ * @param {Object} parentObj -
+ * @param {Array<String>} properties - fields on the parent object
+ * @return {Decimal}
+ */
+window.calculateTotalClosingCost = function (properties, parentObj) {
+  return roundedValue(basicTotalsCalculator(properties, parentObj));
+};
+/**
+ * summates given totals to calculate total closing cost financed by JN.
+ * @param {Object} parentObj -
+ * @param {Array<String>} properties - fields on the parent object
+ * @return {Decimal}
+ */
+window.calculateTotalClosingCostFinancedJN = function (properties, parentObj) {
+  return roundedValue(basicTotalsCalculator(properties, parentObj));
+};
+
+/**
+ * summates given totals to calculate total closing cost payable by applicant.
+ * @param {Object} parentObj -
+ * @param {Array<String>} properties - fields on the parent object
+ * @return {Decimal}
+ */
+window.calculateTotalClosingCostPayableByApplicant = function (
+  totalClosingCost,
+  totalFinancedByJn
+) {
+  return roundedValue(totalClosingCost - totalFinancedByJn);
 };
 
 window.calculateTotalLoanAmount = function (properties, parentObj) {
@@ -368,6 +402,7 @@ window.calculateTotalMonthlyLoanCompulsoryPayment = function (
   //const properties = ["totalMonthlyPayment", "monthlyCompulsorySavings"]
   return basicTotalsCalculator(properties, parentObj);
 };
+
 window.calculateTotalInterestPayment = function (
   totalMonthlyPIPayment,
   totalLoanAmount,
@@ -382,7 +417,18 @@ window.calculateTotalInterestPayment = function (
     return 0;
   }
   if (totalLoanAmount && totalMonthlyPIPayment) {
-    return totalMonthlyPIPayment * tenure - totalLoanAmount;
+    return roundedValue(totalMonthlyPIPayment * tenure - totalLoanAmount);
   }
   return 0;
+};
+/**
+ * rounds the value by x amount
+ * @param {Number} value
+ * @return {Number}
+ */
+window.roundedValue = function (value) {
+  if (!value) {
+    return 0;
+  }
+  return parseFloat(value).toFixed(2);
 };

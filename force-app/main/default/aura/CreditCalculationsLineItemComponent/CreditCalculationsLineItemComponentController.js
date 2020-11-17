@@ -60,6 +60,12 @@
       helper.totalMonthlyLoanPaymentMonthlyCompulsorySavingsCalculation(
         component
       );
+      //update 1st payment installment
+      helper.updateFirstPaymentInstallable(component);
+      //calculate total final costs
+      helper.totalClosingCostCalculation(component);
+      helper.totalClosingCostFinancedJNCalculation(component);
+      helper.totalClosingCostPaidByApplicantCalculation(component);
     }
   }
 });

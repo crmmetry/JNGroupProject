@@ -30,7 +30,6 @@
       applicantsMap
     );
     component.set("v.ParentContainer", data);
-    console.log(JSON.stringify(data));
   },
 
   onLoanPurposeChange: function (component, event, helper) {

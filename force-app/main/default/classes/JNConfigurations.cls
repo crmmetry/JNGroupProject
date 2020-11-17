@@ -7,7 +7,15 @@ public with sharing class JNConfigurations {
   public static JNConfiguration GetDefaultConfiguration() {
     try {
       List<JN_Defaults__mdt> records = [
-        SELECT Id, GCT__c, Assignment_Fee__c, Estimated_Stamp_Duty_Admin_Fee__c
+        SELECT
+          Id,
+          GCT__c,
+          Assignment_Fee__c,
+          Estimated_Stamp_Duty_Admin_Fee__c,
+          Legal_Fee__c,
+          Stamp_Duty_Uns__c,
+          Stamp_Duty_Auto__c,
+          NSIPP_Registration_Fee__c
         FROM JN_Defaults__mdt
         WHERE Label = :Constants.DEFAULT_METADATA_LABEL
       ];
