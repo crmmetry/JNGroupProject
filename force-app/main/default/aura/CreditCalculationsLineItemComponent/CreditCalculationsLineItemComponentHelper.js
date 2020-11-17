@@ -112,7 +112,10 @@
     const parentObj = component.get("v.ParentContainer");
     const jnDefault = component.get("v.jnDefaultConfigs");
     const data = Object.assign(parentObj, jnDefault);
-    console.info("TotalClosingCostCalculation", JSON.parse(JSON.stringify(data)));
+    console.info(
+      "TotalClosingCostCalculation",
+      JSON.parse(JSON.stringify(data))
+    );
     let properties = [];
     let total = 0;
 
@@ -124,8 +127,8 @@
       properties = [
         "stampDutyUns",
         "legalFee",
-        "processingFeeClosingCost",
-        "jnCLPremiumFeesAndCharges",
+        "processingFeesGCT",
+        "jnLifeCreditorPremium",
         "estimatedStampDutyAndAdminFee",
         "assignmentFee",
         "firstPaymentInstallable"
@@ -150,11 +153,7 @@
   totalClosingCostFinancedJNCalculation: function (component) {
     const parentObj = component.get("v.ParentContainer");
     let total = calculateTotalClosingCostFinancedJN(
-      [
-        "processingFeeClosingCost",
-        "jnCLPremiumFeesAndCharges",
-        "firstPaymentInstallable"
-      ],
+      ["processingFeesGCT", "jnLifeCreditorPremium"],
       parentObj
     );
     component.set("v.totalFinancedByJN", total);
