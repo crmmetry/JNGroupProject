@@ -108,6 +108,23 @@
       ]);
     }
   },
+  getFieldsToCalculate: function (parentObj) {
+    let data = [];
+    //creditor life
+    if (parentObj.includeCreditorLifeInLoanAmount === "Yes") {
+      data.push("jnLifeCreditorPremium");
+    } else {
+      data.push("jnCLPremiumFeesAndCharges");
+    }
+    //processing fee
+    if (parentObj.includeInLoanAmountFlag) {
+      data.push("processingFeesGCT");
+    } else {
+      data.push("processingFeeClosingCost");
+    }
+    console.log("data", data);
+    return data;
+  },
   totalClosingCostCalculation: function (component) {
     const parentObj = component.get("v.ParentContainer");
     const jnDefault = component.get("v.jnDefaultConfigs");
@@ -118,6 +135,7 @@
     );
     let properties = [];
     let total = 0;
+    let fieldsTocalculate = this.getFieldsToCalculate(parentObj);
 
     if (
       component.get("v.estimatedStampDuty") != 0 &&
@@ -127,21 +145,17 @@
       properties = [
         "stampDutyUns",
         "legalFee",
-        "processingFeesGCT",
-        "jnLifeCreditorPremium",
         "estimatedStampDutyAndAdminFee",
         "assignmentFee",
         "firstPaymentInstallable"
-      ];
+      ].concat(fieldsTocalculate);
     } else {
       console.info("Branch 2");
       properties = [
         "stampDutyUns",
         "legalFee",
-        "processingFeeClosingCost",
-        "jnCLPremiumFeesAndCharges",
         "firstPaymentInstallable"
-      ];
+      ].concat(fieldsTocalculate);
     }
     total = calculateTotalClosingCost(properties, data);
     console.info("TotalClosingCost = ", total);

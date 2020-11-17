@@ -239,6 +239,7 @@
     } else {
       data.push("processingFeeClosingCost");
     }
+    console.log("data", data);
     return data;
   },
   totalClosingCostCalculation: function (component) {
@@ -251,13 +252,13 @@
     );
     let properties = [];
     let total = 0;
+    let fieldsTocalculate = this.getFieldsToCalculate(parentObj);
 
     if (
       component.get("v.estimatedStampDuty") != 0 &&
       component.get("v.assignmentFee") != 0
     ) {
       console.info("Branch 1");
-      let fieldsTocalculate = this.getFieldsToCalculate(parentObj);
       properties = [
         "stampDutyAuto",
         "legalFee",
