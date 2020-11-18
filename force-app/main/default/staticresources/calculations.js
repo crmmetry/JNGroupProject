@@ -203,7 +203,7 @@ window.calculateGCT = function (gctPercentage) {
  * calculates
  * @param {Array<String>} properties - fields on the parent object
  * @param {Object} parentObj
- * @param {Array<String>} requiredDependencies - required fields
+ * @deprecated {Array<String>} requiredDependencies - required fields
  * @param {Number} gct
  * @return {Boolean}
  */
@@ -384,27 +384,54 @@ window.calculateTotalClosingCostPayableByApplicant = function (
     parseFloat(totalClosingCost) - parseFloat(totalFinancedByJn)
   );
 };
-
+/**
+ * calculates total loan payment
+ * @param {Array} properties
+ * @param {Object} parentObj
+ * @return {Number}
+ */
 window.calculateTotalLoanAmount = function (properties, parentObj) {
-  //const properties = ["loanAmount","jnLifeCreditorPremium","processingFeesGCT","jngiMotorPremium"];
   return basicTotalsCalculator(properties, parentObj);
 };
+/**
+ * calculates total monthly loan payment
+ * @param {Array} properties
+ * @param {Object} parentObj
+ * @return {Number}
+ */
 window.calculateTotalMonthlyPIPayment = function (properties, parentObj) {
-  //const properties = ["monthly_PI_LoanAmount","monthlyJnLifeCreditor_PI_Premium","monthlyPrincipalInterestProcessingFee","monthlyPIJNGIMotorPremium"];
   return basicTotalsCalculator(properties, parentObj);
 };
+/**
+ * calculates total monthly loan payment
+ * @param {Array} properties
+ * @param {Object} parentObj
+ * @return {Number}
+ */
 window.calculateTotalMonthlyPayment = function (properties, parentObj) {
-  //const properties = ["totalMonthlyPIPayment", "premium"]
   return basicTotalsCalculator(properties, parentObj);
 };
+/**
+ * calculates total monthly loan and compulsory payment
+ * @param {Array} properties
+ * @param {Object} parentObj
+ * @return {Number}
+ */
 window.calculateTotalMonthlyLoanCompulsoryPayment = function (
   properties,
   parentObj
 ) {
-  //const properties = ["totalMonthlyPayment", "monthlyCompulsorySavings"]
   return basicTotalsCalculator(properties, parentObj);
 };
 
+/**
+ * calculates the total interest payment value
+ * @param {Number} totalMonthlyPIPayment
+ * @param {Number} totalLoanAmount
+ * @param {Number} years
+ * @param {Number} months
+ * @return {Number}
+ */
 window.calculateTotalInterestPayment = function (
   totalMonthlyPIPayment,
   totalLoanAmount,
@@ -424,7 +451,7 @@ window.calculateTotalInterestPayment = function (
   return 0;
 };
 /**
- * rounds the value by x amount
+ * rounds the value by 2 decimal places
  * @param {Number} value
  * @return {Number}
  */
@@ -434,17 +461,7 @@ window.roundedValue = function (value) {
   }
   return parseFloat(value).toFixed(2);
 };
-/**
- * checks whether the set of numbers are valid
- * @param {Array} properties
- * @return {Boolean}
- */
-window.validNumbers = function (properties) {
-  if (!properties) return 0;
-  return properties.every(property => {
-    return !isEmpty(property) && !isNaN(property) && parseFloat(property) >= 0;
-  });
-};
+
 /**
  * checks whether the set of numbers are valid from an object
  * @param {Array} properties
