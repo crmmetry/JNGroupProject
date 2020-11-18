@@ -265,9 +265,7 @@
     let childContainer = component.get("v.ChildContainer");
     values.forEach((element) => {
       childContainer[element.key] = element.value;
-      if (typeof component.get(`v.${element.key}`) !== "undefined") {
-        component.set(`v.${element.key}`, element.value);
-      }
+      component.set(`v.${element.key}`, element.value);
     });
     component.set("v.ChildContainer", childContainer);
   },

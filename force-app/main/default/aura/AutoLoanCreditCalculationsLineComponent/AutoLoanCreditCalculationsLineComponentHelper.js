@@ -448,9 +448,7 @@
   updateChildContainerWithValue: function (component, values) {
     let childContainer = component.get("v.ChildContainer");
     values.forEach((element) => {
-      if (typeof component.get(`v.${element.key}`) !== "undefined") {
-        component.set(`v.${element.key}`, element.value);
-      }
+      component.set(`v.${element.key}`, element.value);
       childContainer[element.key] = element.value;
     });
     component.set("v.ChildContainer", childContainer);
