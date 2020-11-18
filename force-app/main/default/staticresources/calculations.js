@@ -442,7 +442,7 @@ window.roundedValue = function (value) {
 window.validNumber = function (properties) {
   if (!properties) return 0;
   return properties.every(property => {
-    return !isEmpty(property) && !isNaN(property);
+    return !isEmpty(property) && !isNaN(property) && property >= 0;
   });
 };
 
