@@ -439,10 +439,25 @@ window.roundedValue = function (value) {
  * @param {Array} properties
  * @return {Boolean}
  */
-window.validNumber = function (properties) {
+window.validNumbers = function (properties) {
   if (!properties) return 0;
   return properties.every(property => {
-    return !isEmpty(property) && !isNaN(property) && property >= 0;
+    return !isEmpty(property) && !isNaN(property) && parseFloat(property) >= 0;
+  });
+};
+/**
+ * checks whether the set of numbers are valid from an object
+ * @param {Array} properties
+ * @param {Object} parentObj
+ * @return {Boolean}
+ */
+window.validNumbersWithObject = function (properties, parentObj) {
+  if (!properties) return false;
+  return properties.every(property => {
+    if (!isEmpty(parentObj[property])) {
+      return !isNaN(parentObj[property]) && parseFloat(parentObj[property]) >= 0;
+    }
+    return false;
   });
 };
 
