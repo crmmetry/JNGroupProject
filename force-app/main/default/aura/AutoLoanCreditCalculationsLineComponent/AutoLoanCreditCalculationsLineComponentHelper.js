@@ -20,38 +20,41 @@
 
   calculateSavings: function (component) {
     //TODO: refactor into calculations resource
-    let PIMonthlyPayment = component.get("v.monthly_PI_LoanAmount");
-    let parentContainer = component.get("v.ParentContainer");
-    if (PIMonthlyPayment > 0) {
-      let tenure = calculateMonths(
-        parentContainer.years,
-        parentContainer.months
-      );
-      if (parentContainer.percentage > 0 && parentContainer.percentage) {
-        let monthlyCompulsorySavings =
-          PIMonthlyPayment * parentContainer.percentage;
-        let totalCompulsorySavings = monthlyCompulsorySavings * tenure;
-        component.set("v.monthlyCompulsorySavings", monthlyCompulsorySavings);
+    let totalPI = component.get("v.totalMonthly_PI_LoanPayment");
+    let data = component.get("v.ParentContainer");
+    if (totalPI >= 0 && data.months && data.years) {
+      let tenure = calculateMonths(data.years, data.months);
+      if (data.percentage > 0 && data.percentage) {
+        let monthlySavings = basicMonthlyCompulsorySavingsCalculator(
+          totalPI,
+          data.percentage,
+          data.amount
+        );
+        let monthlySavingsOverRepaymentPeriod = basicTotalMonthlyCompulsorySavingsCalculator(
+          monthlySavings,
+          tenure
+        );
+        component.set("v.monthlyCompulsorySavings", monthlySavings);
         component.set(
           "v.totalCompulsorySavingsBalance",
-          totalCompulsorySavings
+          monthlySavingsOverRepaymentPeriod
         );
         this.updateChildContainerWithValue(component, [
-          { key: "monthlyCompulsorySavings", value: monthlyCompulsorySavings },
           {
             key: "totalCompulsorySavingsBalance",
-            value: totalCompulsorySavings
-          }
+            value: parseFloat(monthlySavingsOverRepaymentPeriod)
+          },
+          { key: "monthlyCompulsorySavings", value: parseFloat(monthlySavings) }
         ]);
-      } else if (parentContainer.amount > 0 && parentContainer.amount) {
-        component.set("v.monthlyCompulsorySavings", parentContainer.amount);
-        let totalCompulsorySavings = parentContainer.amount * tenure;
+      } else if (data.amount > 0 && data.amount) {
+        component.set("v.monthlyCompulsorySavings", data.amount);
+        let totalCompulsorySavings = data.amount * tenure;
         component.set(
           "v.totalCompulsorySavingsBalance",
           totalCompulsorySavings
         );
         this.updateChildContainerWithValue(component, [
-          { key: "monthlyCompulsorySavings", value: parentContainer.amount },
+          { key: "monthlyCompulsorySavings", value: data.amount },
           {
             key: "totalCompulsorySavingsBalance",
             value: totalCompulsorySavings
