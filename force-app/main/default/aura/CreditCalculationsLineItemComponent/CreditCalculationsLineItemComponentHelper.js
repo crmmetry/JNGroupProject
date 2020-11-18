@@ -177,9 +177,11 @@
     ]);
   },
   totalClosingCostPaidByApplicantCalculation: function (component) {
+    let total = 0;
     const parentObj = component.get("v.ParentContainer");
-    if (parentObj.totalClosingCost && parentObj.totalFinancedByJN) {
-      let total = calculateTotalClosingCostPayableByApplicant(
+    console.log(parentObj.totalClosingCost, parentObj.totalFinancedByJN);
+    if (parentObj.totalClosingCost >= 0 && parentObj.totalFinancedByJN >= 0) {
+      total = calculateTotalClosingCostPayableByApplicant(
         parentObj.totalClosingCost,
         parentObj.totalFinancedByJN
       );

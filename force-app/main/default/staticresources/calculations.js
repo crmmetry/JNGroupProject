@@ -380,7 +380,9 @@ window.calculateTotalClosingCostPayableByApplicant = function (
   totalClosingCost,
   totalFinancedByJn
 ) {
-  return roundedValue(totalClosingCost - totalFinancedByJn);
+  return roundedValue(
+    parseFloat(totalClosingCost) - parseFloat(totalFinancedByJn)
+  );
 };
 
 window.calculateTotalLoanAmount = function (properties, parentObj) {
