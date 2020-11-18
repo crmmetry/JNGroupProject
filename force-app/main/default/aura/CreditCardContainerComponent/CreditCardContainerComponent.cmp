@@ -1,6 +1,18 @@
 <aura:component>
-  <c:PersonalCreditCardRequestLineComponent></c:PersonalCreditCardRequestLineComponent>
-  <c:CreditCardOtherDetailsLineComponent></c:CreditCardOtherDetailsLineComponent>
+  <aura:attribute name="productPrice" type="Decimal" />
+  <aura:attribute
+    name="ParentContainer"
+    type="Map"
+    default="{}"
+    description="Credit Card parent container"
+  />
+  <c:PersonalCreditCardRequestLineComponent
+    productPrice="{!v.productPrice}"
+    ParentContainer="{!v.ParentContainer}"
+  ></c:PersonalCreditCardRequestLineComponent>
+  <c:CreditCardOtherDetailsLineComponent
+    ParentContainer="{!v.ParentContainer}"
+  ></c:CreditCardOtherDetailsLineComponent>
   <c:CreditCreditCardCreditCalculations></c:CreditCreditCardCreditCalculations>
   <c:TotalDebtServiceRatioLineItemComponent></c:TotalDebtServiceRatioLineItemComponent>
 </aura:component>
