@@ -1,4 +1,7 @@
 ({
+  /**
+   * Calculates the monthly P&I Loan amount in the credit calculations table.
+   */
   calculateMonthlyP_ILoanAmount: function (component) {
     const result = basicPMTCalculator(
       ["years", "months", "loanAmount", "market"],
@@ -9,6 +12,9 @@
       { key: "monthly_PI_LoanAmount", value: parseFloat(result) }
     ]);
   },
+  /**
+   * Toggles the deduct repayment flag that controls the visibility of the 1st installment payable in the fees and charges.
+   */
   setDeductRepaymentFlag: function (component) {
     let creditRepayment = component.get("v.ParentContainer");
     if (creditRepayment.deductRepayment == "Yes") {
@@ -17,7 +23,9 @@
       component.set("v.deductRepaymentFlag", false);
     }
   },
-
+  /**
+   * Calculates the Monthly compulsory savings and Total monthly compulsory savings in the credit calculations table.
+   */
   calculateSavings: function (component) {
     //TODO: refactor into calculations resource
     let totalPI = component.get("v.totalMonthly_PI_LoanPayment");
@@ -70,13 +78,18 @@
       }
     }
   },
+  /**
+   * Calculates JNGI first year premium.
+   */
   calcualateFirstYearPremium: function (premium) {
     if (premium) {
       return premium * 12;
     }
     return 0;
   },
-
+  /**
+   * Calculates JNGI PI monthly payment.
+   */
   calculateJNGIPMT: function (component) {
     let data = component.get("v.ParentContainer");
     const pmtData = {
@@ -103,6 +116,10 @@
       ]);
     }
   },
+  /**
+   * Calculates the Processing fees including gct for Closing Cost and Credit Calculations table as well as Monthly PI Processing fee
+   * for Credit Calculation table.
+   */
   calculateProcessingFee: function (component) {
     const combinedFields = component.get("v.ParentContainer");
     const {
@@ -131,7 +148,9 @@
       { key: "processingFeesGCT", value: processingFee }
     ]);
   },
-
+  /**
+   * Calculates creditor life premium.
+   */
   calculateCreditorLifePremium: function (component) {
     let data = component.get("v.ParentContainer");
     if (
@@ -193,7 +212,9 @@
       ]);
     }
   },
-
+  /**
+   * Calculates JNGI Premium for Credit Calculations and Fees and Charges.
+   */
   onJNGIPremiumChange: function (component) {
     let parentContainer = component.get("v.ParentContainer");
     if (parentContainer.jngiIncludeInLoan == "No") {
@@ -222,6 +243,9 @@
       ]);
     }
   },
+  /**
+   * Creates a list of attribute keys to be include in the total calculations dependent on various conditions.
+   */
   getFieldsToCalculate: function (parentObj) {
     let data = [];
     //creditor life
@@ -245,6 +269,9 @@
     console.log("data", data);
     return data;
   },
+  /**
+   * Calculates the total closing cost.
+   */
   totalClosingCostCalculation: function (component) {
     const parentObj = component.get("v.ParentContainer");
     const jnDefault = component.get("v.jnDefaultConfigs");
@@ -282,6 +309,9 @@
       { key: "totalClosingCost", value: total }
     ]);
   },
+  /**
+   * Calculates the total closing cost financed by JN.
+   */
   totalClosingCostFinancedJNCalculation: function (component) {
     const parentObj = component.get("v.ParentContainer");
     let total = calculateTotalClosingCostFinancedJN(
@@ -294,6 +324,9 @@
       { key: "totalFinancedByJN", value: total }
     ]);
   },
+  /**
+   * Calculates the total closing cost payable by applicant.
+   */
   totalClosingCostPaidByApplicantCalculation: function (component) {
     let total = 0;
     const parentObj = component.get("v.ParentContainer");
@@ -309,7 +342,9 @@
       ]);
     }
   },
-
+  /**
+   * Set the assignment fee when the policy provider is updated.
+   */
   setAssignmentFees: function (component) {
     let data = component.get("v.ParentContainer");
     let jnDefaults = component.get("v.jnDefaultConfigs");
@@ -325,7 +360,9 @@
       ]);
     }
   },
-
+  /**
+   * Set the estimated stamp duty fees when the policy provider is updated.
+   */
   setEstimatedStampDutyFees: function (component) {
     let data = component.get("v.ParentContainer");
     let jnDefaults = component.get("v.jnDefaultConfigs");
@@ -347,6 +384,9 @@
       ]);
     }
   },
+  /**
+   * Calculates the total closing cost.
+   */
   totalClosingCost: function (component) {
     const parentObj = component.get("v.ParentContainer");
     const jnDefault = component.get("v.jnDefaultConfigs");
@@ -379,6 +419,9 @@
       { key: "totalMonthlyLoanPayment", value: total }
     ]);
   },
+  /**
+   * Calculates the total monthly loan payment in the credit calculations under totals.
+   */
   totalLoanAmountCalculation: function (component) {
     const parentObj = component.get("v.ParentContainer");
 
@@ -396,6 +439,9 @@
       { key: "totalLoanAmount", value: total }
     ]);
   },
+  /**
+   * Calculates the total monthly P&I payment in credit calculations table.
+   */
   totalMonthlyPILoanPaymentCalculation: function (component) {
     const parentObj = component.get("v.ParentContainer");
     let total = calculateTotalMonthlyPIPayment(
@@ -412,6 +458,9 @@
       { key: "totalMonthly_PI_LoanPayment", value: total }
     ]);
   },
+  /**
+   * Calculates the sum of total monthly loan payment and monthly compulsory savings under totals in credit calculations table.
+   */
   totalMonthlyLoanPaymentMonthlyCompulsorySavingsCalculation: function (
     component
   ) {
@@ -426,6 +475,9 @@
       { key: "totalMonthlyLoanPaymentAndSavings", value: total }
     ]);
   },
+  /**
+   * Calculates the total interest payment.
+   */
   totalInterestPaymentCalculation: function (component) {
     const totalMonthlyPIPayment = component.get(
       "v.totalMonthly_PI_LoanPayment"
@@ -444,6 +496,9 @@
       { key: "totalInterestPaymentBalance", value: total }
     ]);
   },
+  /**
+   * Updates child container attributes and its values.
+   */
   updateChildContainerWithValue: function (component, values) {
     let childContainer = component.get("v.ChildContainer");
     values.forEach((element) => {
