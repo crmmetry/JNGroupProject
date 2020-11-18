@@ -336,13 +336,9 @@
     let data = component.get("v.ParentContainer");
     let jnDefaults = component.get("v.jnDefaultConfigs");
     if (data.policyProvider != null) {
-      let assignmentFee = basicAssignmentFeeCalculator(
-        jnDefaults.assignmentFee,
-        jnDefaults.gct
-      );
-      component.set("v.assignmentFee", assignmentFee);
+      component.set("v.assignmentFee", jnDefaults.assignmentFee);
       this.updateChildContainerWithValue(component, [
-        { key: "assignmentFee", value: assignmentFee }
+        { key: "assignmentFee", value: jnDefaults.assignmentFee }
       ]);
     } else {
       component.set("v.assignmentFee", 0);

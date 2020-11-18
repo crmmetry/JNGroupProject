@@ -15,7 +15,8 @@ public class JNConfiguration {
   public Decimal nsipp;
   public JNConfiguration(JN_Defaults__mdt record) {
     this.gct = record.GCT__c;
-    this.assignmentFee = record.Assignment_Fee__c;
+    this.assignmentFee =
+      record.Assignment_Fee__c + (record.Assignment_Fee__c * record.GCT__c);
     this.estimatedStampDutyAndAdminFee = record.Estimated_Stamp_Duty_Admin_Fee__c;
     this.legalFee = record.Legal_Fee__c + (record.Legal_Fee__c * record.GCT__c);
     this.stampDutyUns = record.Stamp_Duty_Uns__c;

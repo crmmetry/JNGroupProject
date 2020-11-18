@@ -53,9 +53,9 @@
       helper.onJNGIPremiumChange(component);
       helper.calculateJNGIPMT(component);
       //on JN creditor life changes
+      helper.calculateCreditorLifePremium(component);
       helper.setAssignmentFees(component);
       helper.setEstimatedStampDutyFees(component);
-      helper.calculateCreditorLifePremium(component);
       //calculate totals
       helper.totalLoanAmountCalculation(component);
       helper.totalMonthlyPILoanPaymentCalculation(component);
