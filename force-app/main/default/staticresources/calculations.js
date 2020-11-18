@@ -434,3 +434,15 @@ window.roundedValue = function (value) {
   }
   return parseFloat(value).toFixed(2);
 };
+/**
+ * checks whether the set of numbers are valid
+ * @param {Array} properties
+ * @return {Boolean}
+ */
+window.validNumber = function (properties) {
+  if (!properties) return 0;
+  return properties.every(property => {
+    return !isEmpty(property) && !isNaN(property);
+  });
+};
+
