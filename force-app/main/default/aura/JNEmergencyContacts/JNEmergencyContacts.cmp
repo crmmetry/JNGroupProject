@@ -20,8 +20,9 @@
                 <fieldset class="slds-form-element">
                   <legend
                     class="slds-form-element__label choiceheader slds-text-align_center"
-                    >{!v.title}</legend
                   >
+                    {!v.title}
+                  </legend>
                   <div class="slds-grid slds-grid_vertical">
                     <div class="slds-form-element__control">
                       <div>
@@ -39,8 +40,11 @@
                             />
                             <label
                               class="slds-size_full slds-radio_button__label slds-align_absolute-center"
-                              for="{!contact.Id}">
-                              <span class="slds-radio_faux">{!contact.Name}</span>
+                              for="{!contact.Id}"
+                            >
+                              <span class="slds-radio_faux"
+                                >{!contact.Name}</span
+                              >
                             </label>
                           </span>
                         </aura:iteration>

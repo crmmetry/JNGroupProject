@@ -5,8 +5,7 @@
 >
   <aura:attribute name="accountIds" type="String[]" />
   <aura:attribute name="accounts" type="Account[]" />
-      <aura:attribute name="accountNames" type="String[]"/>
-     <aura:attribute name="names" type="list"/>
+  <aura:attribute name="accountNames" type="String[]" />
+  <aura:attribute name="names" type="list" />
   <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
-
 </aura:component>

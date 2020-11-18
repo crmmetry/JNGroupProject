@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Closed_Won_Date</fullName>
+    <active>false</active>
+    <description
+  >When an opportunity is “Closed Won” the close date cannot be in the future</description>
+    <errorConditionFormula
+  >AND(ISPICKVAL(Closed_Status__c , &quot;Closed Won&quot;),
+CloseDate &lt;= TODAY())</errorConditionFormula>
+    <errorDisplayField>Closed_Status__c</errorDisplayField>
+    <errorMessage
+  >The Closed Won Date cannot be a date in the future</errorMessage>
+</ValidationRule>

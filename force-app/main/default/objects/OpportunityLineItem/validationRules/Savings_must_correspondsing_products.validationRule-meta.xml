@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Savings_must_correspondsing_products</fullName>
+    <active>true</active>
+    <description
+  >Savings and Chequing Products must have the corresponding line of product to be added</description>
+    <errorConditionFormula>AND
+(
+Opportunity.RecordType.DeveloperName= &quot;Savings_Chequing&quot;,
+NOT(ISPICKVAL(Product2.Family, &#39;JN Bank Deposit Account&#39;))
+)</errorConditionFormula>
+    <errorDisplayField>Product2Id</errorDisplayField>
+    <errorMessage
+  >This product is not apart of the Savings and Chequing&#39;s Line of Products. Please add a product corresponding to the Savings and Chequing&#39;s lines of product or create a new opportunity with a different record type that matches the product.</errorMessage>
+</ValidationRule>

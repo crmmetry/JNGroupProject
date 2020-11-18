@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SLA_Violation__c</fullName>
+    <externalId>false</externalId>
+    <label>SLA Violation</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Tier 1 - 24 Hours</fullName>
+                <default>false</default>
+                <label>Tier 1 - 24 Hours</label>
+            </value>
+            <value>
+                <fullName>Tier 1 - 36 hours</fullName>
+                <default>false</default>
+                <label>Tier 1 - 36 hours</label>
+            </value>
+            <value>
+                <fullName>Tier 2 - 24 Hours</fullName>
+                <default>false</default>
+                <label>Tier 2 - 24 Hours</label>
+            </value>
+            <value>
+                <fullName>Tier 2 - 36 hours</fullName>
+                <default>false</default>
+                <label>Tier 2 - 36 hours</label>
+            </value>
+            <value>
+                <fullName>5 Days old</fullName>
+                <default>false</default>
+                <label>5 Days old</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

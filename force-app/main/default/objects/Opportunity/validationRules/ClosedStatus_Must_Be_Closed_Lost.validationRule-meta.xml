@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ClosedStatus_Must_Be_Closed_Lost</fullName>
+    <active>false</active>
+    <errorConditionFormula
+  >(ISPICKVAL(Closed_Status__c,&#39;Closed Lost&#39;) &amp;&amp; ISBLANK(TEXT(Close_Lose_Reason__c)))
+||
+(NOT(ISBLANK(TEXT(Close_Lose_Reason__c))) &amp;&amp; NOT(ISPICKVAL(Closed_Status__c,&#39;Closed Lost&#39;)))</errorConditionFormula>
+    <errorDisplayField>Close_Lose_Reason__c</errorDisplayField>
+    <errorMessage
+  >Closed Status must be &quot;Closed Lost&quot; before the Close Lost Reason can be added.</errorMessage>
+</ValidationRule>

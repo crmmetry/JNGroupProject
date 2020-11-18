@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CF_Collect_and_Check_Customer_Documents</fullName>
+    <active>true</active>
+    <errorConditionFormula
+  >IF( $Profile.Name = &#39;Sales - All Products&#39;  &amp;&amp;  
+ISPICKVAL( Collect_check_Customer_PK__c,&#39;Completed&#39;) &amp;&amp;
+ISPICKVAL( Loan_Path__c ,&#39;Complete Applicant Profile(s)&#39;) &amp;&amp;
+$RecordType.Name = &#39;Credit_Facility&#39; &amp;&amp;
+ISPICKVAL( StageName ,&#39;Complete Loan Application&#39;),
+
+true
+,false  )</errorConditionFormula>
+    <errorDisplayField>StageName</errorDisplayField>
+    <errorMessage
+  >Please Meet the Criteria for “Complete Loan Application” in the Sales Path.</errorMessage>
+</ValidationRule>

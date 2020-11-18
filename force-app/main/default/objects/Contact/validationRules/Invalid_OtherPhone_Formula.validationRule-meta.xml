@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Invalid_OtherPhone_Formula</fullName>
+    <active>true</active>
+    <description
+  >Ensures that the other phone field is properly validated.</description>
+    <errorConditionFormula
+  >IF( OR(ISCHANGED(OtherPhone) &amp;&amp; NOT(ISNULL(OtherPhone)) &amp;&amp; NOT(ISBLANK(OtherPhone)) &amp;&amp; !REGEX(OtherPhone ,&#39;^\\d{10,25}$&#39;), ISNEW() &amp;&amp; NOT(ISNULL(OtherPhone)) &amp;&amp; NOT(ISBLANK(OtherPhone)) &amp;&amp; !REGEX(OtherPhone,&#39;^\\d{10,25}$&#39;)),true,false)</errorConditionFormula>
+    <errorDisplayField>OtherPhone</errorDisplayField>
+    <errorMessage
+  >Invalid format entered for other phone. The minimum number of digits should be 10</errorMessage>
+</ValidationRule>

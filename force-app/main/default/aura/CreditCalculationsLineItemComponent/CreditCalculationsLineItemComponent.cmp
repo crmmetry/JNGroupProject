@@ -1,0 +1,326 @@
+<aura:component>
+  <aura:attribute
+    name="containerName"
+    type="String"
+    default="CreditCalculationsLineItemComponent"
+  />
+  <aura:attribute name="ParentContainer" type="Map" default="{}" />
+  <aura:attribute name="ChildContainer" type="Map" default="{}" />
+  <aura:attribute name="loanAmount" type="Decimal" default="0" />
+  <aura:attribute name="monthly_PI_LoanAmount" type="Decimal" default="0" />
+  <aura:attribute name="jnLifeCreditorPremium" type="Decimal" default="0" />
+  <aura:attribute name="totalClosingCost" type="Decimal" default="0" />
+  <aura:attribute
+    name="monthlyJnLifeCreditor_PI_Premium"
+    type="Decimal"
+    default="0"
+  />
+  <aura:attribute name="applicants" type="List" />
+  <aura:attribute name="totalPayableByApplicant" type="Decimal" default="0" />
+  <aura:attribute name="totalFinancedByJN" type="Decimal" default="0" />
+  <aura:attribute name="firstPaymentInstallable" type="Decimal" default="0" />
+  <aura:attribute name="includeCLPremiumFlag" type="Boolean" default="false" />
+  <aura:attribute name="jnCLPremiumFeesAndCharges" type="Decimal" default="0" />
+  <aura:attribute name="assignmentFee" type="Decimal" default="0" />
+  <aura:attribute name="estimatedStampDuty" type="Decimal" default="0" />
+  <aura:attribute name="processingFees" type="Decimal" default="0" />
+  <aura:attribute name="monthly_PI_ProcessingFees" type="Decimal" default="0" />
+  <aura:attribute name="totalLoanAmount" type="Decimal" default="0" />
+  <aura:attribute name="totalMonthlyLoanPayment" type="Decimal" default="0" />
+  <aura:attribute
+    name="totalMonthly_PI_LoanPayment"
+    type="Decimal"
+    default="0"
+  />
+  <aura:attribute name="monthlyCompulsorySavings" type="Decimal" default="0" />
+  <aura:attribute
+    name="totalMonthlyLoanPaymentAndSavings"
+    type="Decimal"
+    default="0"
+  />
+  <aura:attribute
+    name="totalCompulsorySavingsBalance"
+    type="Decimal"
+    default="0"
+  />
+  <aura:attribute
+    name="totalInterestPaymentBalance"
+    type="Decimal"
+    default="0"
+  />
+  <aura:attribute name="applicantLoanPercentage" type="Decimal" default="0" />
+  <aura:attribute name="applicantLoanAmount" type="Decimal" default="0" />
+  <aura:attribute
+    name="applicantMonthlyLoanPercentage"
+    type="Decimal"
+    default="0"
+  />
+  <aura:attribute
+    name="applicantMonthlyLoanAmount"
+    type="Decimal"
+    default="0"
+  />
+  <aura:attribute name="deductRepaymentFlag" type="Boolean" default="true" />
+
+  <aura:handler
+    name="change"
+    action="{!c.onChildContainerChange}"
+    value="{!v.ChildContainer}"
+  />
+
+  <aura:handler
+    name="change"
+    action="{!c.onParenContainerChange}"
+    value="{!v.ParentContainer}"
+  />
+  <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+  <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
+  <aura:attribute name="jnDefaultConfigs" type="Map" default="{}" />
+  <aura:attribute name="processingFeesGCT" type="Decimal" default="0" />
+  <aura:attribute
+    name="monthlyPrincipalInterestProcessingFee"
+    type="Decimal"
+    default="0"
+  />
+  <aura:attribute name="processingFeeClosingCost" type="Decimal" />
+  <ltng:require
+    scripts="{!$Resource.calculations}"
+    afterScriptsLoaded="{!c.scriptsLoaded}"
+  />
+  <fieldset class="slds-box slds-theme_default">
+    <legend
+      id="creditCalcualtions"
+      class="slds-text-heading_medium slds-var-p-vertical_medium"
+    >
+      Personal Unsecured Loan -
+      <span class="slds-text-heading_small">Credit Calculations</span>
+    </legend>
+    <lightning:layout multipleRows="true">
+      <lightning:layoutItem size="6">
+        <h2 class="slds-section-title--divider">Loan Financing</h2>
+      </lightning:layoutItem>
+      <lightning:layoutItem size="6">
+        <h2 class="slds-section-title--divider">Loan Repayment</h2>
+      </lightning:layoutItem>
+      <lightning:layoutItem size="6" padding="around-small">
+        <lightning:input
+          type="number"
+          label="Loan Amount Market"
+          value="{!v.ParentContainer.loanAmount}"
+          name="number"
+          formatter="currency"
+          required="true"
+          readonly="true"
+        />
+      </lightning:layoutItem>
+      <lightning:layoutItem size="6" padding="around-small">
+        <lightning:input
+          type="number"
+          label="Monthly P&amp;I Loan Amount"
+          value="{!v.monthly_PI_LoanAmount}"
+          name="number"
+          formatter="currency"
+          required="true"
+          readonly="true"
+        />
+      </lightning:layoutItem>
+      <lightning:layoutItem size="6" padding="around-small">
+        <lightning:input
+          type="number"
+          label="JN Life Creditor Life Premium"
+          value="{!v.jnLifeCreditorPremium}"
+          name="number"
+          formatter="currency"
+          required="true"
+          readonly="true"
+        />
+      </lightning:layoutItem>
+      <lightning:layoutItem size="6" padding="around-small">
+        <lightning:input
+          type="number"
+          label="Monthly JN Life Creditor Life P&amp;I Premium"
+          value="{!v.monthlyJnLifeCreditor_PI_Premium}"
+          name="number"
+          formatter="currency"
+          required="true"
+          readonly="true"
+        />
+      </lightning:layoutItem>
+      <lightning:layoutItem size="6" padding="around-small">
+        <lightning:input
+          type="number"
+          label="Processing Fees (including GCT)"
+          value="{!v.processingFeesGCT}"
+          name="number"
+          formatter="currency"
+          required="true"
+          readonly="true"
+        />
+      </lightning:layoutItem>
+      <lightning:layoutItem size="6" padding="around-small">
+        <lightning:input
+          type="number"
+          label="Monthly Principal and Interest (Processing Fees)"
+          value="{!v.monthlyPrincipalInterestProcessingFee}"
+          name="number"
+          formatter="currency"
+          required="true"
+          readonly="true"
+        />
+      </lightning:layoutItem>
+      <lightning:layoutItem size="6" padding="around-small">
+        <lightning:input
+          type="number"
+          label="Monthly Compulsory Savings"
+          value="{!v.monthlyCompulsorySavings}"
+          name="number"
+          formatter="currency"
+          required="true"
+          readonly="true"
+        />
+      </lightning:layoutItem>
+      <lightning:layoutItem size="6" padding="around-small">
+        <lightning:input
+          type="number"
+          label="Total Compulsory Savings Balance(Over Repayment Period)"
+          value="{!v.totalCompulsorySavingsBalance}"
+          name="number"
+          formatter="currency"
+          required="true"
+          readonly="true"
+        />
+      </lightning:layoutItem>
+      <lightning:layoutItem size="12">
+        <h2 class="slds-section-title--divider">Totals</h2>
+      </lightning:layoutItem>
+      <lightning:layoutItem size="6" padding="around-small">
+        <lightning:input
+          type="number"
+          label="Total Loan amount"
+          value="{!v.totalLoanAmount}"
+          name="number"
+          formatter="currency"
+          required="true"
+          readonly="true"
+        />
+      </lightning:layoutItem>
+      <lightning:layoutItem size="6" padding="around-small">
+        <lightning:input
+          type="number"
+          label="Total Monthly Loan Payment"
+          value="{!v.totalMonthlyLoanPayment}"
+          name="number"
+          formatter="currency"
+          required="true"
+          readonly="true"
+        />
+      </lightning:layoutItem>
+      <lightning:layoutItem size="6" padding="around-small">
+        <lightning:input
+          type="number"
+          label="Total Monthly P&amp;I Loan Payment"
+          value="{!v.totalMonthly_PI_LoanPayment}"
+          name="number"
+          formatter="currency"
+          required="true"
+          readonly="true"
+        />
+      </lightning:layoutItem>
+      <lightning:layoutItem size="6" padding="around-small">
+        <lightning:input
+          type="number"
+          label="Total Monthly Loan Payment + Monthly Loan Savings"
+          value="{!v.totalMonthlyLoanPaymentAndSavings}"
+          name="number"
+          formatter="currency"
+          required="true"
+          readonly="true"
+        />
+      </lightning:layoutItem>
+      <lightning:layoutItem size="6" padding="around-small">
+        <lightning:input
+          type="number"
+          label="Total Interest Payment(Over Repayment Period)"
+          value="{!v.totalInterestPaymentBalance}"
+          name="number"
+          formatter="currency"
+          required="true"
+          readonly="true"
+        />
+      </lightning:layoutItem>
+      <lightning:layoutItem size="12"
+        ><h2 class="slds-section-title--divider">
+          Credit Repayment Allocation
+        </h2></lightning:layoutItem
+      >
+      <lightning:layoutItem size="12"
+        ><label class="slds-form-element__label"
+          >Please allocate the proposed loan amount and monthly payments among
+          the Applicant(s)</label
+        ></lightning:layoutItem
+      >
+      <lightning:layoutItem size="12"
+        ><b
+          ><h2 class="slds-form-element__label">Applicant 1</h2></b
+        ></lightning:layoutItem
+      >
+      <lightning:layoutItem size="6" padding="around-small">
+        <lightning:input
+          type="number"
+          label="Loan Amount(%)"
+          value="{!v.applicantLoanPercentage}"
+          name="Market"
+          formatter="percent"
+          required="true"
+        />
+      </lightning:layoutItem>
+      <lightning:layoutItem size="6" padding="around-small">
+        <lightning:input
+          type="number"
+          label="Loan Amount($)"
+          value="{!v.applicantLoanAmount}"
+          name="Market"
+          formatter="currency"
+          required="true"
+          readonly="true"
+        />
+      </lightning:layoutItem>
+      <lightning:layoutItem size="6" padding="around-small">
+        <lightning:input
+          type="number"
+          label="Monthly Payment(%)"
+          value="{!v.applicantMonthlyLoanPercentage}"
+          name="Market"
+          formatter="percent"
+          required="true"
+        />
+      </lightning:layoutItem>
+      <lightning:layoutItem size="6" padding="around-small">
+        <lightning:input
+          type="number"
+          label="Monthly Payment($)"
+          value="{!v.applicantMonthlyLoanAmount}"
+          name="Market"
+          formatter="currency"
+          required="true"
+          readonly="true"
+        />
+      </lightning:layoutItem>
+      <c:FeesAndChargesLineItemComponent
+        deductRepaymentFlag="{!v.deductRepaymentFlag}"
+        processingFees="{!v.processingFeeClosingCost}"
+        includePremiumFlag="{!v.showPremiumInFeesAndCharges}"
+        jngiMotorPremium="{!v.jngiMotorPremium}"
+        assignmentFee="{!v.assignmentFee}"
+        stampDutyAndAdminCharges="{!v.estimatedStampDuty}"
+        jnCreditorLifePremium="{!v.jnCLPremiumFeesAndCharges}"
+        includeCLPremiumFlag="{!v.includeCLPremiumFlag}"
+        jnDefaultConfigs="{!v.jnDefaultConfigs}"
+        totalClosingCosts="{!v.totalClosingCost}"
+        payableInstallment="{!v.firstPaymentInstallable}"
+        totalClosingCostsJNFinanced="{!v.totalFinancedByJN}"
+        totalClosingCostsApplicantPayable="{!v.totalPayableByApplicant}"
+      ></c:FeesAndChargesLineItemComponent>
+    </lightning:layout>
+  </fieldset>
+</aura:component>

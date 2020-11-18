@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>JN_Bank_Affiliation</fullName>
+    <active>false</active>
+    <errorConditionFormula>AND ( JN_Bank_Affiliation__pc = True,
+
+OR
+ (ISBLANK( JN_Bank_Affiliated_Name__pc ),
+ISBLANK ( TEXT( JN_Bank_Affiliated_Location__pc)), 
+ISBLANK(TEXT(JN_Bank_Affiliation_Relationship__pc ))))</errorConditionFormula>
+    <errorMessage>Enter JN Affiliation Details</errorMessage>
+</ValidationRule>

@@ -1,31 +1,31 @@
 <aura:component access="GLOBAL">
-    <lightning:layout>
-        <lightning:layoutItem size="12">
-            <div class="tab-body-wrapper">
-                <section class="step-container">
-                    <div class="image-container">
-                        <img src="{!$Resource.JNAssets + '/images/todo_list.png'}" />
-                    </div>
-                    <div class="welcome-content">
-                        <h3>Welcome to the JN Bank Loan Application Portal.</h3>
-                        <p
-                           >This form will only take a few minutes for you to complete,
-                            however, before you proceed, please note the following:
-                        </p>
-                        <ul>
-                            <li>You should reside in Jamaica</li>
-                            <li>Be 18 years or older</li>
-                            <li>Be employed by a company</li>
-                            <li>Hold a current and valid ID</li
-                                ><li>Be a TRN holder</li>
-                        </ul>
-                        <p
-                           >Before proceeding with this form, please verify that you meet the
-                            above criteria *</p
-                            ></div
-                        >
-                </section>
-            </div>
-        </lightning:layoutItem>
-    </lightning:layout>
+  <lightning:layout>
+    <lightning:layoutItem size="12">
+      <div class="tab-body-wrapper">
+        <section class="step-container">
+          <div class="image-container">
+            <img src="{!$Resource.JNAssets + '/images/todo_list.png'}" />
+          </div>
+          <div class="welcome-content">
+            <h3>Welcome to the JN Bank Loan Application Portal.</h3>
+            <p>
+              This form will only take a few minutes for you to complete,
+              however, before you proceed, please note the following:
+            </p>
+            <ul>
+              <li>You should reside in Jamaica</li>
+              <li>Be 18 years or older</li>
+              <li>Be employed by a company</li>
+              <li>Hold a current and valid ID</li>
+              <li>Be a TRN holder</li>
+            </ul>
+            <p>
+              Before proceeding with this form, please verify that you meet the
+              above criteria *
+            </p>
+          </div>
+        </section>
+      </div>
+    </lightning:layoutItem>
+  </lightning:layout>
 </aura:component>

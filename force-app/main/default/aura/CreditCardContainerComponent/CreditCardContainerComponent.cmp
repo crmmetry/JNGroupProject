@@ -1,0 +1,6 @@
+<aura:component>
+  <c:PersonalCreditCardRequestLineComponent></c:PersonalCreditCardRequestLineComponent>
+  <c:CreditCardOtherDetailsLineComponent></c:CreditCardOtherDetailsLineComponent>
+  <c:CreditCreditCardCreditCalculations></c:CreditCreditCardCreditCalculations>
+  <c:TotalDebtServiceRatioLineItemComponent></c:TotalDebtServiceRatioLineItemComponent>
+</aura:component>

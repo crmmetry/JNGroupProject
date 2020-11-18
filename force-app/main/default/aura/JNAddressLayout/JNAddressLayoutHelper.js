@@ -1,15 +1,11 @@
 ({
-  getPickListValues: function(component) {
+  getPickListValues: function (component) {
     const action = component.get("c.getPickListValuesList");
     action.setParams({
       objectApiName: "Lead",
-      fieldApiNames: [
-        "Country__c",
-       	"Address_Type__c",
-        "Status_of_Address__c"
-      ]
+      fieldApiNames: ["Country__c", "Address_Type__c", "Status_of_Address__c"]
     });
-    action.setCallback(this, function(response) {
+    action.setCallback(this, function (response) {
       const state = response.getState();
       if (state === "SUCCESS") {
         const mappedList = response.getReturnValue();
@@ -20,6 +16,5 @@
       }
     });
     $A.enqueueAction(action);
-  },
-  
+  }
 });

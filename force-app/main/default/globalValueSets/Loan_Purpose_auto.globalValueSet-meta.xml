@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Purchase of Motor Vehicle</fullName>
+        <default>false</default>
+        <label>Purchase of Motor Vehicle</label>
+    </customValue>
+    <customValue>
+        <fullName>Refinance of Motor Vehicle</fullName>
+        <default>false</default>
+        <label>Refinance of Motor Vehicle</label>
+    </customValue>
+    <customValue>
+        <fullName>Equity</fullName>
+        <default>false</default>
+        <label>Equity</label>
+    </customValue>
+    <masterLabel>Loan Purpose (auto)</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

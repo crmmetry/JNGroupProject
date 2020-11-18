@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Share_of_Profit_Partnership</fullName>
+    <active>true</active>
+    <errorConditionFormula
+  >AND(INCLUDES(Applicable_sources_of_income__c , &quot;Share of Profits (Partnership)&quot;),ISBLANK(Share_of_Profit_Partnership__c))</errorConditionFormula>
+    <errorMessage>Share of Profit (Partnership) is required</errorMessage>
+</ValidationRule>

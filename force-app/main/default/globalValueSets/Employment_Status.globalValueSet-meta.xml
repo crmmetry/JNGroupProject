@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Permanent</fullName>
+        <default>false</default>
+        <label>Permanent</label>
+    </customValue>
+    <customValue>
+        <fullName>Contractual</fullName>
+        <default>false</default>
+        <label>Contractual</label>
+    </customValue>
+    <customValue>
+        <fullName>Unemployed</fullName>
+        <default>false</default>
+        <label>Unemployed</label>
+    </customValue>
+    <customValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Other</label>
+    </customValue>
+    <customValue>
+        <fullName>Probation</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Probation</label>
+    </customValue>
+    <customValue>
+        <fullName>Self Employed</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Self Employed</label>
+    </customValue>
+    <masterLabel>Employment Status</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

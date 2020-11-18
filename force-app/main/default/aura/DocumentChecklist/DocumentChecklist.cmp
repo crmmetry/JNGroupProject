@@ -1,9 +1,22 @@
-<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId">
-    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
-    <aura:registerEvent name="DocumentCriteriaEvent1" type="c:DocumentCriteriaEvent1"/>
-    <aura:handler event="c:DocumentCriteriaEvent" action="{!c.downloadDocument}"/>
-    
-    <aura:attribute name="optionsunsecured" type="List" default="[
+<aura:component
+  implements="flexipage:availableForAllPageTypes,force:hasRecordId,force:appHostable"
+  controller="MultiProductCalculatorController"
+>
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+  <aura:registerEvent
+    name="DocumentCriteriaEvent1"
+    type="c:DocumentCriteriaEvent1"
+  />
+  <aura:handler
+    event="c:DocumentCriteriaEvent"
+    action="{!c.downloadDocument}"
+  />
+  <aura:attribute name="Locationoptions" type="List" />
+  <aura:attribute name="selectedValue" type="String" default="choose one..." />
+  <aura:attribute
+    name="optionsunsecured"
+    type="List"
+    default="[
                                                                  {'label': 'Education', 'value': 'Education'},
                                                                  {'label': 'Debt', 'value': 'Debt'},
                                                                  {'label': 'Medical', 'value': 'Medical'},
@@ -11,9 +24,13 @@
                                                                  {'label': 'Asset Acquisition', 'value': 'AssetAcquisition'},
                                                                  {'label': 'Auto Repair', 'value': 'AutoRepair'},
                                                                  {'label': 'Other', 'value': 'Other'},
-                                                                 ]"/>
-    
-    <aura:attribute name="optionsapplicant" type="List" default="[
+                                                                 ]"
+  />
+
+  <aura:attribute
+    name="optionsapplicant"
+    type="List"
+    default="[
                                                                  {'label': 'Salaried', 'value': 'Salaried'},
                                                                  {'label': 'Net Profit(Sole Trader)', 'value': 'NetProfit'},
                                                                  {'label': 'Directors Emoluments (Company Director)', 'value': 'CompanyDirector'},
@@ -21,271 +38,500 @@
                                                                  {'label': 'Share of Profit (Company Shareholder)', 'value': 'ShareofProfitShareholder'},
                                                                  {'label': 'Pension', 'value': 'Pension'},
                                                                  {'label': 'Property Rental', 'value': 'PropertyRental'},
-                                                                 ]"/>
-    
-    <aura:attribute name="optionskyc" type="List" default="[
+                                                                 ]"
+  />
+
+  <aura:attribute
+    name="optionskyc"
+    type="List"
+    default="[
                                                            {'label': 'Proof of Identity', 'value': 'ProofofIdentity'},
                                                            {'label': 'Proof of Age', 'value': 'ProofofAge'},
                                                            {'label': 'Proof of Address', 'value': 'ProofofAddress'},
                                                            {'label': 'Tax Registration Number (TRN)', 'value': 'TRN'},
                                                            {'label': 'FATCA Certification', 'value': 'FATCA'},
-                                                           ]"/>
-    <aura:attribute name="optionspayslip" type="List" default="[
+                                                           ]"
+  />
+  <aura:attribute
+    name="optionspayslip"
+    type="List"
+    default="[
                                                                {'label': 'Commission/Overtime/Bonus/Incentive', 'value': 'Overtime'},
-                                                               ]"/>
-    <aura:attribute name="checkboxGroupValue" type="List" />
-    <aura:attribute name="checkboxGroupValueapplicant" type="List"/>
-    <aura:attribute name="checkboxGroupValuekyc" type="List"/>
-    <aura:attribute name="checkboxGroupValuepayslip" type="List"/>
-    <aura:attribute name="LoanPurposeNew" type="boolean" default="false"/>
-    <aura:attribute name="LoanPurposeUsed" type="boolean" default="false"/>
-    
-    <form class="slds-form ">
-        <fieldset  class="slds-box slds-theme--default slds-container--large" style="padding-right: 5px;">
-            <legend class="slds-text-heading--large
-                           slds-p-vertical--medium" >
-                DOCUMENT CRITERIA
-            </legend>
-            <fieldset  class="slds-box slds-theme--default slds-container--large">
-                <legend class="slds-text-heading--medium
-                               slds-p-vertical--medium">
-                    Product Details
-                </legend>
-                <div class="slds-grid slds-wrap">
-                    <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12" style="padding-right: 5px;padding-left: 5px;">
-                        <lightning:select label="Select the application product combination" name="Selectcombination"  aura:id="Selectcombination" required="true" onchange="{! c.showhideONSelectcombination }">
-                            <option value="0">choose one...</option>
-                            <option value="1">Auto Loan</option>
-                            <option value="2">Unsecured Loan</option>
-                            <option value="3">Credit Card</option>
-                            <option value="4">Line of Credit</option>
-                            <option value="5">Auto Loan &amp; Unsecured Loan</option>
-                            <option value="6">Auto Loan &amp; Credit Card</option>
-                            <option value="7">Auto Loan &amp; Line of Credit</option>
-                            <option value="8">Unsecured Loan &amp; Credit Card</option>
-                            <option value="9">Unsecured Loan &amp; Line of Credit</option>
-                            <option value="10">Credit Card &amp; Line of Credit</option>
-                            <option value="11">Auto Loan, Unsecured Loan &amp; Credit Card</option>
-                            <option value="12">Auto Loan, Unsecured Loan &amp; Line of Credit</option>
-                            <option value="13">Auto Loan, Credit Card &amp; Line of Credit</option>
-                            <option value="14">Unsecured Loan, Credit Card &amp; Line of Credit</option>
-                            <option value="15">Auto Loan, Unsecured Loan, Credit Card &amp; Line of Credit</option>
-                        </lightning:select> 
-                    </div>                    
-                </div>
-                <div aura:id="AUTOLOANCRITERIA"> 
-                    <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">AUTO LOAN CRITERIA</div>
-                    <div class="slds-grid slds-wrap" style="margin-top: 5px;">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                            <lightning:select label="Loan Purpose" name="Loan Purpose"  aura:id="LoanPurpose" required="true" onchange="{! c.OnChangeLoanPurpose }">
-                                <option value="0">choose one...</option>
-                                <option value="1">Purchase a Motor Vehicle</option>
-                                <option value="2">Refinance Existing Auto Loan</option>
-                                <option value="3">Equity in a Motor Vehicle</option>
-                            </lightning:select>
-                        </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12" style="padding-right: 5px;padding-left: 5px;">
-                            <lightning:select label="Vehicle Classification" name="Vehicle Classification"  aura:id="VehicleClassification" required="true">
-                                <option value="0">choose one...</option>
-                                <aura:if isTrue="{!v.LoanPurposeNew}">
-                                    <option value="1">New</option>
-                                    <option value="2">Used (Imported)</option>
-                                </aura:if>
-                                <aura:if isTrue="{!or(v.LoanPurposeNew,v.LoanPurposeUsed)}">
-                                    <option value="3">Used (Local - Pre-owned)</option>
-                                </aura:if>
-                            </lightning:select>
-                        </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12" style="padding-right: 5px;padding-left: 5px;">
-                            <lightning:select label="Interested in the JNGI Sure Cover Programme?" name="Interested in the JNGI Sure Cover Programme?"  aura:id="InterestedinJNGIProgramme" required="true">
-                                <option value="0">choose one...</option>
-                                <option value="1">Yes</option>
-                                <option value="2">No</option>
-                            </lightning:select>
-                        </div>
-                    </div>
-                </div>
-                <div aura:id="UNSECUREDLOANCRITERIA"> 
-                    <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">UNSECURED LOAN CRITERIA</div>
-                    <lightning:checkboxGroup class="slds-form-element__control slds-checkbox" aura:id="mygroup"
-                                             name="checkboxGroup"
-                                             label="Select the applicable loan purpose(s)"
-                                             options="{! v.optionsunsecured }"
-                                             value="{! v.checkboxGroupValue }"
-                                             onchange="{! c.checkboxGrouphandleChange }"
-                                             required="true"
-                                             style="margin-top: 5px;"/>
-                </div>
-                <div aura:id="CREDITCARDCRITERIA"> 
-                    <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">CREDIT CARD CRITERIA</div>
-                    <div class="slds-grid slds-wrap" style="margin-top: 5px;">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                            <lightning:select label="Collateral Type" name="Collateral Type"  aura:id="CollateralTypeCredit" required="true">
-                                <option value="0">choose one...</option>
-                                <option value="1">None</option>
-                                <option value="2">Cash/Investment</option>
-                            </lightning:select>
-                            
-                        </div>
-                    </div>
-                </div>
-                <div aura:id="LINEOFCREDITCRITERIA"> 
-                    <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">LINE OF CREDIT CRITERIA</div>
-                    <div class="slds-grid slds-wrap" style="margin-top: 5px;">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                            <lightning:select label="Collateral Type" name="Collateral Type"  aura:id="CollateralTypeLineofCredit" required="true" onchange="{! c.OnChangeCollateralTypeLOC }">
-                                <option value="0">choose one...</option>
-                                <option value="1">None</option>
-                                <option value="2">Cash/Investment</option>
-                                <option value="3">Real-Estate</option>
-                            </lightning:select>
-                            
-                        </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;" aura:id="Ispropertystrata1">
-                            <lightning:select label="Is this property a strata?" name="Is this property a strata?"  aura:id="Ispropertystrata" required="true">
-                                <option value="0">choose one...</option>
-                                <option value="1">Yes</option>
-                                <option value="2">No</option>
-                            </lightning:select>
-                            
-                        </div>
-                    </div>
-                </div>
-                
-            </fieldset>
-            <fieldset  class="slds-box slds-theme--default slds-container--large">
-                <legend class="slds-text-heading--medium
-                               slds-p-vertical--medium">
-                    Applicant Details
-                </legend>
-                
-                <div aura:id="INCOMECRITERIA"> 
-                    <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">INCOME CRITERIA</div>
-                    <lightning:checkboxGroup class="slds-form-element__control slds-checkbox" aura:id="mygroupapp"
-                                             name="checkboxGroup"
-                                             label="Select the applicable loan purpose(s)"
-                                             options="{! v.optionsapplicant }"
-                                             value="{! v.checkboxGroupValueapplicant }"
-                                             onchange="{! c.checkboxGrouphandleChangeApplicant }"
-                                             required="true"
-                                             style="margin-top: 5px;"/>
-                    <div class="slds-grid slds-wrap" style="margin-top: 5px;">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12" style="padding-right: 5px;padding-left: 5px;" aura:id="choosepayslip">
-                            <lightning:select label="Does the Applicant(s) receive payslips?" name="Does the Applicant(s) receive payslips"  aura:id="Doesreceivepayslips" required="true"  onchange="{! c.OnChangerecievepayslip}">
-                                <option value="0">choose one...</option>
-                                <option value="1">Yes</option>
-                                <option value="2">No</option>
-                            </lightning:select>
-                            
-                        </div>
-                        
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12" style="padding-right: 5px;padding-left: 5px;" aura:id="payslipyes">
-                            <lightning:select label="Is all the Applicant(s) income reflected on the payslip?" name="Is all the Applicant(s) income reflected on the payslip"  aura:id="Isincomereflectedonthepayslip" required="true">
-                                <option value="0">choose one...</option>
-                                <option value="1">Yes</option>
-                                <option value="2">No</option>
-                            </lightning:select>
-                        </div>
-                    </div>
-                    <div class="slds-grid slds-wrap" style="margin-top: 5px;" aura:id="payslipyes1">
-                        <lightning:checkboxGroup class="slds-form-element__control slds-checkbox" aura:id="mygrouppayslip"
-                                                 name="checkboxGroup"
-                                                 label="Select the types of performance-based pay earned by the Applicant(s):"
-                                                 options="{! v.optionspayslip }"
-                                                 value="{! v.checkboxGroupValuepayslip }"
-                                                 onchange="{! c.checkboxGrouphandleChangepayslip }"
-                                                 required="true"
-                                                 style="margin-top: 5px;"/>
-                    </div>
-                </div>
-                
-                <div aura:id="KYCCOMPLIANCESTATUS"> 
-                    <div style="margin-top: 10px;text-decoration: underline;font-style: italic;font-weight: bold;">KYC COMPLIANCE STATUS</div>
-                    <div class="slds-grid slds-wrap" style="margin-top: 5px;">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12" style="padding-right: 5px;padding-left: 5px;">
-                            <lightning:select label="Indicate the Membership Status for the Applicant(s)" name="Indicate the Membership Status for the Applicant(s)"  aura:id="MembershipStatusApplicant" required="true" onchange="{! c.OnChangeMembershipStatusApplicant }">
-                                <option value="0">choose one...</option>
-                                <option value="1">New Customer(s)</option>
-                                <option value="2">Existing Member(s) - KYC Compliant</option>
-                                <option value="3">Existing Member(s) - KYC Non-Compliant</option>
-                            </lightning:select>
-                            
-                        </div>
-                    </div>
-                    <div aura:id="mycheckboxgroupkyc">
-                        <lightning:checkboxGroup class="slds-form-element__control slds-checkbox" aura:id="mygroupkyc"
-                                                 name="checkboxGroup"
-                                                 label="Select the outstanding KYC Documents"
-                                                 options="{! v.optionskyc }"
-                                                 value="{! v.checkboxGroupValuekyc }"
-                                                 onchange="{! c.checkboxGrouphandleChangekyc }"
-                                                 required="true"
-                                                 style="margin-top: 5px;"/>
-                    </div>
-                </div>
-            </fieldset>
-            <fieldset  class="slds-box slds-theme--default slds-container--large">
-                <legend class="slds-text-heading--medium
-                               slds-p-vertical--medium">
-                    Sales Officer Details
-                </legend>
-                <div class="slds-grid slds-wrap">
-                    
-                    <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                        <lightning:select label="Location" name="Location"  aura:id="officerLocation" required="true">
-                            <option value="0">choose one...</option>
-                            <option value="1">Branch Network - Barbican</option>
-                        </lightning:select>
-                    </div>
-                   <!-- 
-                    
-                    <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                        <lightning:input type="text" name="Officer's Phone Number" label="Officer's Phone Number" aura:id="OfficerPhone" required="true" />
-                    </div>
-                    <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="padding-right: 5px;padding-left: 5px;">
-                        <lightning:input type="text" name="Officer's Email Address" label="Officer's Email Address" aura:id="OfficerEmail" required="true" />
-                    </div>-->
-                </div>
-                
-            </fieldset>
-            <div class="slds-grid slds-wrap" style="margin-top: 5px;">
-                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
-                    <div class="slds-text-heading_medium" style="margin-top: 25px;margin-right: -35px;font-weight: bolder;color: #00a1e0;">GENERATE CHECKLIST(S)</div>
-                </div>
-                
-                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-12 slds-large-size_1-of-12">
-                    <lightning:icon style="margin-top: 20px;margin-left: 25px;" iconName="utility:chevronright"/>
-                </div>
-                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 " style="margin-left: -15px;" onclick="{! c.documentapplicantDoc }">
-                    
-                    <lightning:layout class="slds-box">
-                        <lightning:layoutItem> 
-                            <lightning:icon iconName="doctype:word"/>
-                        </lightning:layoutItem>
-                        <lightning:layoutItem padding="horizontal-small">
-                            <div class="page-section page-header">
-                                <h2 class="slds-text-heading--small" style="font-weight: bold;color: #00a1e0;">DOCUMENT CHECKLIST</h2>
-                                <h1 class="slds-text-heading--label" style="font-weight: bold;color:#75db1b;">APPLICANT</h1>
-                            </div>
-                        </lightning:layoutItem>
-                    </lightning:layout>
-                </div>
-                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" style="margin-left: 5px;"  onclick="{! c.documentOfficerDoc }">
-                    
-                    <lightning:layout class="slds-box">
-                        <lightning:layoutItem> 
-                            <lightning:icon iconName="doctype:word"/>
-                        </lightning:layoutItem>
-                        <lightning:layoutItem padding="horizontal-small">
-                            <div class="page-section page-header">
-                                <h2 class="slds-text-heading--small" style="font-weight: bold;color: #00a1e0;">DOCUMENT CHECKLIST</h2>
-                                <h1 class="slds-text-heading--label" style="font-weight: bold;color:#75db1b;">OFFICER</h1>
-                            </div>
-                        </lightning:layoutItem>
-                    </lightning:layout>
-                </div>
+                                                               ]"
+  />
+  <aura:attribute name="checkboxGroupValue" type="List" />
+  <aura:attribute name="checkboxGroupValueapplicant" type="List" />
+  <aura:attribute name="checkboxGroupValuekyc" type="List" />
+  <aura:attribute name="checkboxGroupValuepayslip" type="List" />
+  <aura:attribute name="LoanPurposeNew" type="boolean" default="false" />
+  <aura:attribute name="LoanPurposeUsed" type="boolean" default="false" />
+  <aura:attribute name="requiredFields" type="String[]" default="[]" />
+  <form class="slds-form">
+    <fieldset
+      class="slds-box slds-theme--default slds-container--large"
+      style="padding-right: 5px;"
+    >
+      <legend class="slds-text-heading--large slds-p-vertical--medium">
+        DOCUMENT CRITERIA
+      </legend>
+      <fieldset class="slds-box slds-theme--default slds-container--large">
+        <legend class="slds-text-heading--medium slds-p-vertical--medium">
+          Product Details
+        </legend>
+        <div class="slds-grid slds-wrap">
+          <div
+            class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12"
+            style="padding-right: 5px; padding-left: 5px;"
+          >
+            <lightning:select
+              label="Select the application product combination"
+              name="Selectcombination"
+              aura:id="Selectcombination"
+              required="true"
+              onchange="{! c.showhideONSelectcombination }"
+              messageWhenValueMissing="Choose one..."
+            >
+              <option value="">choose one...</option>
+              <option value="1">Auto Loan</option>
+              <option value="2">Unsecured Loan</option>
+              <option value="3">Credit Card</option>
+              <option value="4">Line of Credit</option>
+              <option value="5">Auto Loan &amp; Unsecured Loan</option>
+              <option value="6">Auto Loan &amp; Credit Card</option>
+              <option value="7">Auto Loan &amp; Line of Credit</option>
+              <option value="8">Unsecured Loan &amp; Credit Card</option>
+              <option value="9">Unsecured Loan &amp; Line of Credit</option>
+              <option value="10">Credit Card &amp; Line of Credit</option>
+              <option value="11"
+                >Auto Loan, Unsecured Loan &amp; Credit Card</option
+              >
+              <option value="12"
+                >Auto Loan, Unsecured Loan &amp; Line of Credit</option
+              >
+              <option value="13"
+                >Auto Loan, Credit Card &amp; Line of Credit</option
+              >
+              <option value="14"
+                >Unsecured Loan, Credit Card &amp; Line of Credit</option
+              >
+              <option value="15"
+                >Auto Loan, Unsecured Loan, Credit Card &amp; Line of
+                Credit</option
+              >
+            </lightning:select>
+          </div>
+        </div>
+        <div aura:id="AUTOLOANCRITERIA">
+          <div
+            style="
+              margin-top: 10px;
+              text-decoration: underline;
+              font-style: italic;
+              font-weight: bold;
+            "
+          >
+            AUTO LOAN CRITERIA
+          </div>
+          <div class="slds-grid slds-wrap" style="margin-top: 5px;">
+            <div
+              class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12"
+              style="padding-right: 5px; padding-left: 5px;"
+            >
+              <lightning:select
+                label="Loan Purpose"
+                name="Loan Purpose"
+                aura:id="LoanPurpose"
+                required="true"
+                onchange="{! c.OnChangeLoanPurpose }"
+                messageWhenValueMissing="Choose one..."
+              >
+                <option value="">choose one...</option>
+                <option value="1">Purchase a Motor Vehicle</option>
+                <option value="2">Refinance Existing Auto Loan</option>
+                <option value="3">Equity in a Motor Vehicle</option>
+              </lightning:select>
             </div>
-        </fieldset>
-        
-    </form>
+            <div
+              class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12"
+              style="padding-right: 5px; padding-left: 5px;"
+            >
+              <lightning:select
+                label="Vehicle Classification"
+                name="Vehicle Classification"
+                aura:id="VehicleClassification"
+                required="true"
+                messageWhenValueMissing="Choose one..."
+              >
+                <option value="">choose one...</option>
+                <aura:if isTrue="{!v.LoanPurposeNew}">
+                  <option value="1">New</option>
+                  <option value="2">Used (Imported)</option>
+                </aura:if>
+                <aura:if isTrue="{!or(v.LoanPurposeNew,v.LoanPurposeUsed)}">
+                  <option value="3">Used (Local - Pre-owned)</option>
+                </aura:if>
+              </lightning:select>
+            </div>
+            <div
+              class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12"
+              style="padding-right: 5px; padding-left: 5px;"
+            >
+              <lightning:select
+                label="Interested in the JNGI Sure Cover Programme?"
+                name="Interested in the JNGI Sure Cover Programme?"
+                aura:id="InterestedinJNGIProgramme"
+                required="true"
+                messageWhenValueMissing="Choose one..."
+              >
+                <option value="">choose one...</option>
+                <option value="1">Yes</option>
+                <option value="2">No</option>
+              </lightning:select>
+            </div>
+          </div>
+        </div>
+        <div aura:id="UNSECUREDLOANCRITERIA">
+          <div
+            style="
+              margin-top: 10px;
+              text-decoration: underline;
+              font-style: italic;
+              font-weight: bold;
+            "
+          >
+            UNSECURED LOAN CRITERIA
+          </div>
+          <lightning:checkboxGroup
+            class="slds-form-element__control slds-checkbox"
+            aura:id="mygroup"
+            name="checkboxGroup"
+            label="Select the applicable loan purpose(s)"
+            options="{! v.optionsunsecured }"
+            value="{! v.checkboxGroupValue }"
+            onchange="{! c.checkboxGrouphandleChange }"
+            required="true"
+            style="margin-top: 5px;"
+          />
+        </div>
+        <div aura:id="CREDITCARDCRITERIA">
+          <div
+            style="
+              margin-top: 10px;
+              text-decoration: underline;
+              font-style: italic;
+              font-weight: bold;
+            "
+          >
+            CREDIT CARD CRITERIA
+          </div>
+          <div class="slds-grid slds-wrap" style="margin-top: 5px;">
+            <div
+              class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12"
+              style="padding-right: 5px; padding-left: 5px;"
+            >
+              <lightning:select
+                label="Collateral Type"
+                name="Collateral Type"
+                aura:id="CollateralTypeCredit"
+                required="true"
+                messageWhenValueMissing="Choose one..."
+              >
+                <option value="">choose one...</option>
+                <option value="1">None</option>
+                <option value="2">Cash/Investment</option>
+              </lightning:select>
+            </div>
+          </div>
+        </div>
+        <div aura:id="LINEOFCREDITCRITERIA">
+          <div
+            style="
+              margin-top: 10px;
+              text-decoration: underline;
+              font-style: italic;
+              font-weight: bold;
+            "
+          >
+            LINE OF CREDIT CRITERIA
+          </div>
+          <div class="slds-grid slds-wrap" style="margin-top: 5px;">
+            <div
+              class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12"
+              style="padding-right: 5px; padding-left: 5px;"
+            >
+              <lightning:select
+                label="Collateral Type"
+                name="Collateral Type"
+                messageWhenValueMissing="Choose one..."
+                aura:id="CollateralTypeLineofCredit"
+                required="true"
+                onchange="{! c.OnChangeCollateralTypeLOC }"
+              >
+                <option value="">choose one...</option>
+                <option value="1">None</option>
+                <option value="2">Cash/Investment</option>
+                <option value="3">Real-Estate</option>
+              </lightning:select>
+            </div>
+            <div
+              class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12"
+              style="padding-right: 5px; padding-left: 5px;"
+              aura:id="Ispropertystrata1"
+            >
+              <lightning:select
+                label="Is this property a strata?"
+                messageWhenValueMissing="Choose one..."
+                name="Is this property a strata?"
+                aura:id="Ispropertystrata"
+                required="true"
+              >
+                <option value="">choose one...</option>
+                <option value="1">Yes</option>
+                <option value="2">No</option>
+              </lightning:select>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset class="slds-box slds-theme--default slds-container--large">
+        <legend class="slds-text-heading--medium slds-p-vertical--medium">
+          Applicant Details
+        </legend>
+
+        <div aura:id="INCOMECRITERIA">
+          <div
+            style="
+              margin-top: 10px;
+              text-decoration: underline;
+              font-style: italic;
+              font-weight: bold;
+            "
+          >
+            INCOME CRITERIA
+          </div>
+          <lightning:checkboxGroup
+            class="slds-form-element__control slds-checkbox"
+            aura:id="mygroupapp"
+            name="checkboxGroup"
+            label="Select the applicable source(s) of income for the Applicant(s)"
+            options="{! v.optionsapplicant }"
+            value="{! v.checkboxGroupValueapplicant }"
+            onchange="{! c.checkboxGrouphandleChangeApplicant }"
+            required="true"
+            style="margin-top: 5px;"
+          />
+          <div class="slds-grid slds-wrap" style="margin-top: 5px;">
+            <div
+              class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12"
+              style="padding-right: 5px; padding-left: 5px;"
+              aura:id="choosepayslip"
+            >
+              <lightning:select
+                label="Does the Applicant(s) receive payslips?"
+                name="Does the Applicant(s) receive payslips"
+                aura:id="Doesreceivepayslips"
+                required="true"
+                onchange="{! c.OnChangerecievepayslip}"
+                messageWhenValueMissing="Choose one..."
+              >
+                <option value="">choose one...</option>
+                <option value="1">Yes</option>
+                <option value="2">No</option>
+              </lightning:select>
+            </div>
+
+            <div
+              class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12"
+              style="padding-right: 5px; padding-left: 5px;"
+              aura:id="payslipyes"
+            >
+              <lightning:select
+                label="Is all the Applicant(s) income reflected on the payslip?"
+                messageWhenValueMissing="Choose one..."
+                name="Is all the Applicant(s) income reflected on the payslip"
+                aura:id="Isincomereflectedonthepayslip"
+                required="true"
+              >
+                <option value="">choose one...</option>
+                <option value="1">Yes</option>
+                <option value="2">No</option>
+              </lightning:select>
+            </div>
+          </div>
+          <div
+            class="slds-grid slds-wrap"
+            style="margin-top: 5px;"
+            aura:id="payslipyes1"
+          >
+            <lightning:checkboxGroup
+              class="slds-form-element__control slds-checkbox"
+              aura:id="mygrouppayslip"
+              name="checkboxGroup"
+              label="Select the types of performance-based pay earned by the Applicant(s):"
+              options="{! v.optionspayslip }"
+              value="{! v.checkboxGroupValuepayslip }"
+              onchange="{! c.checkboxGrouphandleChangepayslip }"
+              required="false"
+              style="margin-top: 5px;"
+            />
+          </div>
+        </div>
+
+        <div aura:id="KYCCOMPLIANCESTATUS">
+          <div
+            style="
+              margin-top: 10px;
+              text-decoration: underline;
+              font-style: italic;
+              font-weight: bold;
+            "
+          >
+            KYC COMPLIANCE STATUS
+          </div>
+          <div class="slds-grid slds-wrap" style="margin-top: 5px;">
+            <div
+              class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12"
+              style="padding-right: 5px; padding-left: 5px;"
+            >
+              <lightning:select
+                label="Indicate the Membership Status for the Applicant(s)"
+                messageWhenValueMissing="Choose one..."
+                name="Indicate the Membership Status for the Applicant(s)"
+                aura:id="MembershipStatusApplicant"
+                required="true"
+                onchange="{! c.OnChangeMembershipStatusApplicant }"
+              >
+                <option value="">choose one...</option>
+                <option value="1">New Customer(s)</option>
+                <option value="2">Existing Member(s) - KYC Compliant</option>
+                <option value="3"
+                  >Existing Member(s) - KYC Non-Compliant</option
+                >
+              </lightning:select>
+            </div>
+          </div>
+          <div aura:id="mycheckboxgroupkyc">
+            <lightning:checkboxGroup
+              class="slds-form-element__control slds-checkbox"
+              aura:id="mygroupkyc"
+              name="checkboxGroup"
+              label="Select the outstanding KYC Documents"
+              options="{! v.optionskyc }"
+              value="{! v.checkboxGroupValuekyc }"
+              onchange="{! c.checkboxGrouphandleChangekyc }"
+              required="true"
+              style="margin-top: 5px;"
+            />
+          </div>
+        </div>
+      </fieldset>
+      <fieldset class="slds-box slds-theme--default slds-container--large">
+        <legend class="slds-text-heading--medium slds-p-vertical--medium">
+          Sales Officer Details
+        </legend>
+        <div class="slds-grid slds-wrap">
+          <div
+            class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12"
+            style="padding-right: 5px; padding-left: 5px;"
+          >
+            <lightning:select
+              label="Location"
+              name="Location"
+              aura:id="officerLocation"
+              required="true"
+              value="{!v.selectedValue}"
+              messageWhenValueMissing="choose one..."
+            >
+              <option value="">choose one...</option>
+              <aura:iteration items="{!v.Locationoptions}" var="item">
+                <option text="{!item}" value="{!item}" />
+              </aura:iteration>
+            </lightning:select>
+          </div>
+        </div>
+      </fieldset>
+      <div class="slds-grid slds-wrap" style="margin-top: 5px;">
+        <div
+          class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12"
+        >
+          <div
+            class="slds-text-heading_medium"
+            style="
+              margin-top: 25px;
+              margin-right: -35px;
+              font-weight: bolder;
+              color: #00a1e0;
+            "
+          >
+            GENERATE CHECKLIST(S)
+          </div>
+        </div>
+
+        <div
+          class="slds-col slds-size_1-of-1 slds-medium-size_1-of-12 slds-large-size_1-of-12"
+        >
+          <lightning:icon
+            style="margin-top: 20px; margin-left: 25px;"
+            iconName="utility:chevronright"
+          />
+        </div>
+        <div
+          class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12"
+          style="margin-left: -15px;"
+          onclick="{! c.documentChecklistDoc }"
+          data-value="Applicant"
+        >
+          <lightning:layout class="slds-box">
+            <lightning:layoutItem>
+              <lightning:icon iconName="doctype:word" />
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="horizontal-small">
+              <div class="page-section page-header">
+                <h2
+                  class="slds-text-heading--small"
+                  style="font-weight: bold; color: #00a1e0;"
+                >
+                  DOCUMENT CHECKLIST
+                </h2>
+                <h1
+                  class="slds-text-heading--label"
+                  style="font-weight: bold; color: #75db1b;"
+                >
+                  APPLICANT
+                </h1>
+              </div>
+            </lightning:layoutItem>
+          </lightning:layout>
+        </div>
+        <div
+          class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12"
+          style="margin-left: 5px;"
+          onclick="{! c.documentChecklistDoc }"
+          data-value="Officer"
+        >
+          <lightning:layout class="slds-box">
+            <lightning:layoutItem>
+              <lightning:icon iconName="doctype:word" />
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="horizontal-small">
+              <div class="page-section page-header">
+                <h2
+                  class="slds-text-heading--small"
+                  style="font-weight: bold; color: #00a1e0;"
+                >
+                  DOCUMENT CHECKLIST
+                </h2>
+                <h1
+                  class="slds-text-heading--label"
+                  style="font-weight: bold; color: #75db1b;"
+                >
+                  OFFICER
+                </h1>
+              </div>
+            </lightning:layoutItem>
+          </lightning:layout>
+        </div>
+      </div>
+    </fieldset>
+  </form>
 </aura:component>

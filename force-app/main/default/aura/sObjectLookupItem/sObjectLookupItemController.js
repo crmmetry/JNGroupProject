@@ -1,23 +1,27 @@
 ({
-    getValues : function (component) {
-        var record = component.get("v.record");
-        var subheading = '';
-        for(var i=0; i<component.get("v.subHeadingFieldsAPI").length; i++ ){
-            if(record[component.get("v.subHeadingFieldsAPI")[i]]){
-                subheading = subheading + record[component.get("v.subHeadingFieldsAPI")[i]] + ' - ';
-            }
-        }
-        subheading = subheading.substring(0,subheading.lastIndexOf('-'));
-        component.set("v.subHeadingFieldValues", subheading);
-    },
-     
-    handleSelect : function (component,event) {
-        var chooseEvent = component.getEvent("lookupSelect");
-        chooseEvent.setParams({
-            "recordId" : component.get("v.record").Id,
-            "recordName":component.get("v.record").Name,
-            "Producttype":component.get("v.PromotionProduct"),
-        });
-        chooseEvent.fire();
+  getValues: function (component) {
+    var record = component.get("v.record");
+    var subheading = "";
+    for (var i = 0; i < component.get("v.subHeadingFieldsAPI").length; i++) {
+      if (record[component.get("v.subHeadingFieldsAPI")[i]]) {
+        subheading =
+          subheading +
+          record[component.get("v.subHeadingFieldsAPI")[i]] +
+          " - ";
+      }
     }
-})
+    subheading = subheading.substring(0, subheading.lastIndexOf("-"));
+    component.set("v.subHeadingFieldValues", subheading);
+  },
+
+  handleSelect: function (component, event) {
+    console.log("lookup====" + component.get("v.PromotionProduct"));
+    var chooseEvent = component.getEvent("lookupSelect");
+    chooseEvent.setParams({
+      recordId: component.get("v.record").Id,
+      recordName: component.get("v.record").Name,
+      Producttype: component.get("v.PromotionProduct")
+    });
+    chooseEvent.fire();
+  }
+});

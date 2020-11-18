@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Owner Occupied</fullName>
+        <default>false</default>
+        <label>Owner Occupied</label>
+    </customValue>
+    <customValue>
+        <fullName>Rental Property</fullName>
+        <default>false</default>
+        <label>Rental Property</label>
+    </customValue>
+    <masterLabel>Occupancy Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>Edit</caseAccessLevel>
+    <contactAccessLevel>Edit</contactAccessLevel>
+    <description>Credit Solutions Analyst Business Banking</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>Credit Solutions Analyst Business Banking</name>
+    <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    <parentRole>Senior_Manager_Credit_Solutions</parentRole>
+</Role>

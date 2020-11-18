@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Are_Id_Documents_Completed__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(
+And(
+NOT(ISBLANK( Text(Identification_Type__c))),
+NOT(ISBLANK( Identification_Number__c)),
+NOT(ISBLANK( Text(ID_Expiration_Date__c))),
+NOT(ISBLANK( Text(Identification_Country_of_Issue__c))),
+NOT(ISBLANK(Jamaican_Tax_Registration_Number__pc))
+)
+, &#39;Completed&#39;, 
+
+IF(
+OR(
+ISBLANK( Text(Identification_Type__c)),
+ISBLANK( Identification_Number__c),
+ISBLANK( Text(ID_Expiration_Date__c)),
+ISBLANK( Text(Identification_Country_of_Issue__c)),
+ISBLANK( Jamaican_Tax_Registration_Number__pc)
+)
+
+, &#39;Incomplete&#39;,
+
+&#39;No&#39;
+))</formula>
+    <label>Are Id Documents Completed?</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

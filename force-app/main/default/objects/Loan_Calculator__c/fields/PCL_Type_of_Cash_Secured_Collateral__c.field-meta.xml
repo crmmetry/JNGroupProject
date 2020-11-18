@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PCL_Type_of_Cash_Secured_Collateral__c</fullName>
+    <externalId>false</externalId>
+    <label>PCL Type of Cash-Secured Collateral</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>JN Bank - High Yield Account</fullName>
+                <default>false</default>
+                <label>JN Bank - High Yield Account</label>
+            </value>
+            <value>
+                <fullName>JN Bank - Direct Gain Account</fullName>
+                <default>false</default>
+                <label>JN Bank - Direct Gain Account</label>
+            </value>
+            <value>
+                <fullName>JNFM - Repurchase Agreement</fullName>
+                <default>false</default>
+                <label>JNFM - Repurchase Agreement</label>
+            </value>
+            <value>
+                <fullName>JNFM - Mutual Fund</fullName>
+                <default>false</default>
+                <label>JNFM - Mutual Fund</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

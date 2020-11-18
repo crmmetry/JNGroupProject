@@ -1,217 +1,293 @@
-<aura:component controller="CreditScoreController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
-    <aura:attribute name="score"  type="string"/>
-    <aura:attribute name="recordId" type="String" />
-    <aura:attribute name="Calculated" type="boolean"  default="true"/>
-    
-    <div class="c-container">
-        <lightning:layout multipleRows="true">
-     
-                <h1 style="font-size:20px; margin:10px;">Credit Score Calculator</h1>
-            <br/>
-            
-            <lightning:layoutItem padding="around-small" size="12">
-                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1" >
-                <div  class="slds-section__title " style="margin-bottom: -20px;">Product Selection </div>
-                <div class="slds-grid slds-wrap " >
-                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12" >
-                        <lightning:select label="" name="selectapplicant"  aura:id="selectapplicant" onchange="{! c.showhideONmethod }">
-                            <option value="0">choose one...</option>
-                            <option value="1">Auto Loan</option>
-                            <option value="2">Unsecured Loan</option>
-                            <option value="3">Credit Card</option>
-                            <option value="4">Line of Credit</option>
-                            <option value="5">Unemployed - Credit Scoring</option>
-                            <option value="6">Credit History in Last 24 Months - Credit Soring</option>
-                            <option value="7">PEP or Negative Trace</option>                           
-                        </lightning:select> 
-                    </div>
-                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12" style="padding-right: 5px;padding-left: 5px;">
-                         <lightning:select label="Employement Type" name="EmployementType"  aura:id="EmployementType" onchange="{! c.showhideONmethod }">
-                            <option value="1">Salaried</option>
-                            <option value="2">Self-Employed</option>                                                      
-                        </lightning:select> 
-                    </div>
-                </div>
-             <br/>
-            </div> 
-                
-            </lightning:layoutItem>
-               
-                
-            <lightning:layoutItem  class="slds-border_top" size="12">
-                <lightning:layout>
-                    <lightning:layoutItem padding="around-small" size="3">
-                       <lightning:input type="Date" displayDatePicker="false" label="Date of Birth" aura:id="dob"  />
-                    </lightning:layoutItem>
-                    <lightning:layoutItem padding="around-small" size="3">
-                        <lightning:select label="Education" aura:id="Education">
-                            <option value="1">Post Graduate</option> 
-                            <option value="2">Undergraduate</option>
-                             <option value="3">Vocational</option> 
-                             <option value="4">High School</option> 
-         
-                        </lightning:select>
-                    </lightning:layoutItem>
-                    <lightning:layoutItem padding="around-small" size="3">
-                        <lightning:select label="Residential Status" aura:id="Residential" >
-                            <option value="1">Own</option>
-                            <option value="2">Rent</option> 
-                            <option value="3">Family</option> 
-                            <option value="4">Other</option> 
-                        </lightning:select>
-                    </lightning:layoutItem>
-                    <lightning:layoutItem padding="around-small" size="3">
-                        <lightning:input label="Years at current residence" aura:id="YearsAtCurrentresidence" type="number"  />
-                    </lightning:layoutItem>
-                </lightning:layout>
-            </lightning:layoutItem>
-            
-            
-            <lightning:layoutItem  size="12" >
-                <lightning:layout>
-                    <lightning:layoutItem padding="around-small" size="3">
-                     <!--<lightning:input type="number" label="Credit History over the last 24 months" aura:id="CreditHistory" />-->
-                        <lightning:select label="Credit History over the last 24 months" aura:id="CreditHistory" >
-                            <option value="0">No delinquency</option>
-                            <option value="10">1 - 10 days Delinquent</option>
-                            <option value="30">11 - 30 days Delinquent</option>
-                            <option value="60">31 - 60 days Delinquent</option>
-                            <option value="90">61 - 90 days Delinquent</option>
-                            <option value="91">Over 90 days Delinquent</option>
-                            <option value="101">No Credit History</option>
-                        </lightning:select>
-                    </lightning:layoutItem>
-                    <lightning:layoutItem padding="around-small" size="3"  class="MT">
-                       <!-- <lightning:input type="number" label="Net Worth" aura:id="NetWorth" />-->
-                        <lightning:select label="Net Worth" aura:id="NetWorth"   >
-                            <option value="1">Low net worth</option>
-                            <option value="2">Reasonable net worth</option>
-                            <option value="3">Strong net worth</option>
-                            <option value="4">Net worth not commensurate with age and earning</option>                       
-                        </lightning:select>
-                    </lightning:layoutItem>
-                    <lightning:layoutItem padding="around-small" size="3">
-                        <lightning:select label="Is the applicant a Politically Exposed Person" aura:id="PoliticallyExposedPerson" >
-                            <option value="0">Yes</option> 
-                            <option value="1">No</option>
-                            
-	                  </lightning:select>
-                    </lightning:layoutItem>
-                    <lightning:layoutItem padding="around-small" size="3">
-                    <lightning:select label="Has the sanction screening resulted in a negative trace" aura:id="sanctionScreeningResultedInNegativeTrace" >
-                        <option value="0">Yes</option>     
-                        <option value="1">No</option>
-                            
-                        </lightning:select>
-                    </lightning:layoutItem>
-                </lightning:layout>
-            </lightning:layoutItem>
-            
-            <lightning:layoutItem   size="12">
-                <lightning:layout>
-                    <lightning:layoutItem padding="around-small" size="3">
-                       <lightning:select label="Employment Status" aura:id="EmploymentStatus" >
-                           <option value="1">Permanent</option>
-                           <option value="2">Contracted</option>  
-                            <option value="3">Unemployed</option> 
-                        </lightning:select>
-                    </lightning:layoutItem>
-                    <lightning:layoutItem  padding="around-small" size="3">
-                        <lightning:select label="Industry of Employment" aura:id="IndustryofEmployment" >
-                            <option value="1">Financial Services</option>
-                            <option value="2">Government</option>
-                            <option value="3">Manufacturing</option>
-                            <option value="4">Tourism</option>
-                            <option value="5">ICT</option>
-                            <option value="6">Other</option>
-                            <option value="7">None</option>
-                            
-                        </lightning:select>
-                    </lightning:layoutItem>
-                    <lightning:layoutItem padding="around-small" size="3">
-                        <lightning:select label="Length of Current Employment" aura:id="LengthofCurrentEmployment" >
-                            <option value="1">1 Year</option>
-                            <option value="2">2 Years</option>
-                            <option value="3">3 Years</option>
-                            <option value="4">4 Years</option>
-                            <option value="5">5 Years</option>
-                            <option value="6">6 Years</option>
-                            <option value="7">7 Years</option>
-                            <option value="8">8 Years</option>
-                            <option value="9">9 Years</option>
-                            <option value="10">10 Years</option>
-                        </lightning:select>
-                    </lightning:layoutItem>
-                    <lightning:layoutItem padding="around-small" size="3">
-                    <lightning:select label="Professional Category" aura:id="ProfessionalCategory" >
-                        <option value="1">Professional</option>
-                        <option value="2">Officer</option>
-                        <option value="3">Clerical</option> 
-                        <option value="4">Skilled Worker</option> 
-                        <option value="5">Unskilled Worker</option> 
-                        <option value="6">None</option>   
-                        </lightning:select>
-                    </lightning:layoutItem>
-                </lightning:layout>
-            </lightning:layoutItem>
-            
-            <lightning:layoutItem   size="12">
-                <lightning:layout>
-                    <lightning:layoutItem padding="around-small" size="3">
-                       <lightning:select label="Collateral" aura:id="Collateral" >
-                           <option value="1">Cash</option>
-                           <option value="2">Real Estate - Residential</option>
-                            <option value="3">Real Estate - Commercial</option>
-                            <option value="4">Motor Vehicle</option>
-                            <option value="5">None</option>
-                        </lightning:select>
-                    </lightning:layoutItem>
-                    <lightning:layoutItem padding="around-small" size="3">
-                        <lightning:input type="number" label="Loan to Value" aura:id="LoantoValue" />
-                    </lightning:layoutItem>
-                    <lightning:layoutItem padding="around-small" size="3">
-                       <lightning:input type="number" label="Ability to service" aura:id="Abilitytoservice" />
-                    </lightning:layoutItem>
-                    <lightning:layoutItem padding="around-small" size="3">
-                        <lightning:select label="Repayment Method" aura:id="RepaymentMethod" >
-                            <option value="1">Standing Order</option>    
-                            <option value="2">Salary Deduction</option> 
-                            <option value="3">Over the counter </option>
-                        </lightning:select>
-                    </lightning:layoutItem>
-                </lightning:layout>
-            </lightning:layoutItem>
+<aura:component
+  controller="CreditScoreController"
+  implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
+  access="global"
+>
+  <aura:attribute name="score" type="string" />
+  <aura:attribute name="recordId" type="String" />
+  <aura:attribute name="Calculated" type="boolean" default="true" />
 
-            
-            
-            
-            <lightning:layoutItem flexibility="auto" padding="around-small" size="12">  
-            <div aura:id="Save">
-                <div class="slds-grid slds-wrap" style="margin-top: 25px;">
-                    <div class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12 slds-large-size_7-of-12" style="padding-right: 5px;padding-left: 5px;">
-                        
-                    </div>
-                    <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12 fr" style="padding-right: 5px;padding-left: 5px;">
-                        <lightning:button variant="brand" aura:id="btnSave" label="Run Calculation" title="Run Calculation" onclick="{! c.calculateCreditCardScore }"  /> <!-- class="slds-hide" -->
-                    </div>
-                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12 fr" style="padding-right: 5px;padding-left: 5px;">
-                        <lightning:button variant="brand" aura:id="Savescore" label="Save" title="Save" onclick="{! c.SaveCreditScore }" disabled="{!v.Calculated}" /> <!-- class="slds-hide" -->
-                    </div>
-                </div>
+  <div class="c-container">
+    <lightning:layout multipleRows="true">
+      <h1 style="font-size: 20px; margin: 10px;">Credit Score Calculator</h1>
+      <br />
+
+      <lightning:layoutItem padding="around-small" size="12">
+        <div
+          class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1"
+        >
+          <div class="slds-section__title" style="margin-bottom: -20px;">
+            Product Selection
+          </div>
+          <div class="slds-grid slds-wrap">
+            <div
+              class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12"
+            >
+              <lightning:select
+                label=""
+                name="selectapplicant"
+                aura:id="selectapplicant"
+                onchange="{! c.showhideONmethod }"
+              >
+                <option value="0">choose one...</option>
+                <option value="1">Auto Loan</option>
+                <option value="2">Unsecured Loan</option>
+                <option value="3">Credit Card</option>
+                <option value="4">Line of Credit</option>
+                <option value="5">Unemployed - Credit Scoring</option>
+                <option value="6"
+                  >Credit History in Last 24 Months - Credit Soring</option
+                >
+                <option value="7">PEP or Negative Trace</option>
+              </lightning:select>
             </div>
-            
-            </lightning:layoutItem>
-            
-            
-            
-            <lightning:layoutItem flexibility="auto" padding="around-small" size="12">
-                <div class="page-footer page-section slds-text-align_center " style="padding-bottom:20px;">
-                    <h2 style="font-size:25px;">Score : {!v.score}</h2>
-                </div>
-            </lightning:layoutItem>
-        
-            
-            
-            </lightning:layout>
-    </div>
+            <div
+              class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12"
+              style="padding-right: 5px; padding-left: 5px;"
+            >
+              <lightning:select
+                label="Employement Type"
+                name="EmployementType"
+                aura:id="EmployementType"
+                onchange="{! c.showhideONmethod }"
+              >
+                <option value="1">Salaried</option>
+                <option value="2">Self-Employed</option>
+              </lightning:select>
+            </div>
+          </div>
+          <br />
+        </div>
+      </lightning:layoutItem>
+
+      <lightning:layoutItem class="slds-border_top" size="12">
+        <lightning:layout>
+          <lightning:layoutItem padding="around-small" size="3">
+            <lightning:input
+              type="Date"
+              displayDatePicker="false"
+              label="Date of Birth"
+              aura:id="dob"
+            />
+          </lightning:layoutItem>
+          <lightning:layoutItem padding="around-small" size="3">
+            <lightning:select label="Education" aura:id="Education">
+              <option value="1">Post Graduate</option>
+              <option value="2">Undergraduate</option>
+              <option value="3">Vocational</option>
+              <option value="4">High School</option>
+            </lightning:select>
+          </lightning:layoutItem>
+          <lightning:layoutItem padding="around-small" size="3">
+            <lightning:select label="Residential Status" aura:id="Residential">
+              <option value="1">Own</option>
+              <option value="2">Rent</option>
+              <option value="3">Family</option>
+              <option value="4">Other</option>
+            </lightning:select>
+          </lightning:layoutItem>
+          <lightning:layoutItem padding="around-small" size="3">
+            <lightning:input
+              label="Years at current residence"
+              aura:id="YearsAtCurrentresidence"
+              type="number"
+            />
+          </lightning:layoutItem>
+        </lightning:layout>
+      </lightning:layoutItem>
+
+      <lightning:layoutItem size="12">
+        <lightning:layout>
+          <lightning:layoutItem padding="around-small" size="3">
+            <!--<lightning:input type="number" label="Credit History over the last 24 months" aura:id="CreditHistory" />-->
+            <lightning:select
+              label="Credit History over the last 24 months"
+              aura:id="CreditHistory"
+            >
+              <option value="0">No delinquency</option>
+              <option value="10">1 - 10 days Delinquent</option>
+              <option value="30">11 - 30 days Delinquent</option>
+              <option value="60">31 - 60 days Delinquent</option>
+              <option value="90">61 - 90 days Delinquent</option>
+              <option value="91">Over 90 days Delinquent</option>
+              <option value="101">No Credit History</option>
+            </lightning:select>
+          </lightning:layoutItem>
+          <lightning:layoutItem padding="around-small" size="3" class="MT">
+            <!-- <lightning:input type="number" label="Net Worth" aura:id="NetWorth" />-->
+            <lightning:select label="Net Worth" aura:id="NetWorth">
+              <option value="1">Low net worth</option>
+              <option value="2">Reasonable net worth</option>
+              <option value="3">Strong net worth</option>
+              <option value="4"
+                >Net worth not commensurate with age and earning</option
+              >
+            </lightning:select>
+          </lightning:layoutItem>
+          <lightning:layoutItem padding="around-small" size="3">
+            <lightning:select
+              label="Is the applicant a Politically Exposed Person"
+              aura:id="PoliticallyExposedPerson"
+            >
+              <option value="0">Yes</option>
+              <option value="1">No</option>
+            </lightning:select>
+          </lightning:layoutItem>
+          <lightning:layoutItem padding="around-small" size="3">
+            <lightning:select
+              label="Has the sanction screening resulted in a negative trace"
+              aura:id="sanctionScreeningResultedInNegativeTrace"
+            >
+              <option value="0">Yes</option>
+              <option value="1">No</option>
+            </lightning:select>
+          </lightning:layoutItem>
+        </lightning:layout>
+      </lightning:layoutItem>
+
+      <lightning:layoutItem size="12">
+        <lightning:layout>
+          <lightning:layoutItem padding="around-small" size="3">
+            <lightning:select
+              label="Employment Status"
+              aura:id="EmploymentStatus"
+            >
+              <option value="1">Permanent</option>
+              <option value="2">Contracted</option>
+              <option value="3">Unemployed</option>
+            </lightning:select>
+          </lightning:layoutItem>
+          <lightning:layoutItem padding="around-small" size="3">
+            <lightning:select
+              label="Industry of Employment"
+              aura:id="IndustryofEmployment"
+            >
+              <option value="1">Financial Services</option>
+              <option value="2">Government</option>
+              <option value="3">Manufacturing</option>
+              <option value="4">Tourism</option>
+              <option value="5">ICT</option>
+              <option value="6">Other</option>
+              <option value="7">None</option>
+            </lightning:select>
+          </lightning:layoutItem>
+          <lightning:layoutItem padding="around-small" size="3">
+            <lightning:select
+              label="Length of Current Employment"
+              aura:id="LengthofCurrentEmployment"
+            >
+              <option value="1">1 Year</option>
+              <option value="2">2 Years</option>
+              <option value="3">3 Years</option>
+              <option value="4">4 Years</option>
+              <option value="5">5 Years</option>
+              <option value="6">6 Years</option>
+              <option value="7">7 Years</option>
+              <option value="8">8 Years</option>
+              <option value="9">9 Years</option>
+              <option value="10">10 Years</option>
+            </lightning:select>
+          </lightning:layoutItem>
+          <lightning:layoutItem padding="around-small" size="3">
+            <lightning:select
+              label="Professional Category"
+              aura:id="ProfessionalCategory"
+            >
+              <option value="1">Professional</option>
+              <option value="2">Officer</option>
+              <option value="3">Clerical</option>
+              <option value="4">Skilled Worker</option>
+              <option value="5">Unskilled Worker</option>
+              <option value="6">None</option>
+            </lightning:select>
+          </lightning:layoutItem>
+        </lightning:layout>
+      </lightning:layoutItem>
+
+      <lightning:layoutItem size="12">
+        <lightning:layout>
+          <lightning:layoutItem padding="around-small" size="3">
+            <lightning:select label="Collateral" aura:id="Collateral">
+              <option value="1">Cash</option>
+              <option value="2">Real Estate - Residential</option>
+              <option value="3">Real Estate - Commercial</option>
+              <option value="4">Motor Vehicle</option>
+              <option value="5">None</option>
+            </lightning:select>
+          </lightning:layoutItem>
+          <lightning:layoutItem padding="around-small" size="3">
+            <lightning:input
+              type="number"
+              label="Loan to Value"
+              aura:id="LoantoValue"
+            />
+          </lightning:layoutItem>
+          <lightning:layoutItem padding="around-small" size="3">
+            <lightning:input
+              type="number"
+              label="Ability to service"
+              aura:id="Abilitytoservice"
+            />
+          </lightning:layoutItem>
+          <lightning:layoutItem padding="around-small" size="3">
+            <lightning:select
+              label="Repayment Method"
+              aura:id="RepaymentMethod"
+            >
+              <option value="1">Standing Order</option>
+              <option value="2">Salary Deduction</option>
+              <option value="3">Over the counter </option>
+            </lightning:select>
+          </lightning:layoutItem>
+        </lightning:layout>
+      </lightning:layoutItem>
+
+      <lightning:layoutItem flexibility="auto" padding="around-small" size="12">
+        <div aura:id="Save">
+          <div class="slds-grid slds-wrap" style="margin-top: 25px;">
+            <div
+              class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12 slds-large-size_7-of-12"
+              style="padding-right: 5px; padding-left: 5px;"
+            ></div>
+            <div
+              class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12 fr"
+              style="padding-right: 5px; padding-left: 5px;"
+            >
+              <lightning:button
+                variant="brand"
+                aura:id="btnSave"
+                label="Run Calculation"
+                title="Run Calculation"
+                onclick="{! c.calculateCreditCardScore }"
+              />
+              <!-- class="slds-hide" -->
+            </div>
+            <div
+              class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12 fr"
+              style="padding-right: 5px; padding-left: 5px;"
+            >
+              <lightning:button
+                variant="brand"
+                aura:id="Savescore"
+                label="Save"
+                title="Save"
+                onclick="{! c.SaveCreditScore }"
+                disabled="{!v.Calculated}"
+              />
+              <!-- class="slds-hide" -->
+            </div>
+          </div>
+        </div>
+      </lightning:layoutItem>
+
+      <lightning:layoutItem flexibility="auto" padding="around-small" size="12">
+        <div
+          class="page-footer page-section slds-text-align_center"
+          style="padding-bottom: 20px;"
+        >
+          <h2 style="font-size: 25px;">Score : {!v.score}</h2>
+        </div>
+      </lightning:layoutItem>
+    </lightning:layout>
+  </div>
 </aura:component>

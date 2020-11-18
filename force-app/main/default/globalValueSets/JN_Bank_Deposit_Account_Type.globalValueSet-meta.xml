@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Hight Yield</fullName>
+        <default>false</default>
+        <label>High Yield</label>
+    </customValue>
+    <customValue>
+        <fullName>Direct Gain</fullName>
+        <default>false</default>
+        <label>Direct Gain</label>
+    </customValue>
+    <customValue>
+        <fullName>Repo</fullName>
+        <default>false</default>
+        <label>Repo</label>
+    </customValue>
+    <customValue>
+        <fullName>JNC - Credit Card</fullName>
+        <default>false</default>
+        <label>JNC - Credit Card</label>
+    </customValue>
+    <customValue>
+        <fullName>IL - Auto Loan, Unsecured Loan, Term Share Loan</fullName>
+        <default>false</default>
+        <label>IL - Auto Loan, Unsecured Loan, Term Share Loan</label>
+    </customValue>
+    <customValue>
+        <fullName>MLL - Mortgage Loan Local</fullName>
+        <default>false</default>
+        <label>MLL - Mortgage Loan Local</label>
+    </customValue>
+    <customValue>
+        <fullName>MLF -Mortgage Loan Foreign</fullName>
+        <default>false</default>
+        <label>MLF -Mortgage Loan Foreign</label>
+    </customValue>
+    <customValue>
+        <fullName>LOC - Personal Line of Credit</fullName>
+        <default>false</default>
+        <label>LOC - Personal Line of Credit</label>
+    </customValue>
+    <customValue>
+        <fullName>RSV - Savings</fullName>
+        <default>false</default>
+        <label>RSV - Savings</label>
+    </customValue>
+    <customValue>
+        <fullName>CSV - Savings</fullName>
+        <default>false</default>
+        <label>CSV - Savings</label>
+    </customValue>
+    <customValue>
+        <fullName>STM - Savings</fullName>
+        <default>false</default>
+        <label>STM - Savings</label>
+    </customValue>
+    <customValue>
+        <fullName>CHQ - Chequing</fullName>
+        <default>false</default>
+        <label>CHQ - Chequing</label>
+    </customValue>
+    <customValue>
+        <fullName>Mutual Fund</fullName>
+        <default>false</default>
+        <label>Mutual Fund</label>
+    </customValue>
+    <masterLabel>JN Bank Deposit Account Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

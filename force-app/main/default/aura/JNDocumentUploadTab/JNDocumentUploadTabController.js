@@ -1,5 +1,5 @@
 ({
-  doInit: function(component, event, helper) {
+  doInit: function (component, event, helper) {
     const documentTypeList = [
       [
         {
@@ -44,31 +44,50 @@
       ]
     ];
     component.set("v.documentTypeList", documentTypeList);
-      component.set("v.maxSize", 50);
+    component.set("v.maxSize", 30);
+    //show toast message
+    // if (!component.get("v.SiteLead.Id")) {
+    //   helper.showToast(component, {
+    //     severity: 'confirm',
+    //     message: 'change',
+    //     title: 'error'
+    //   });
+    // }
   },
-  handleFilesChange: function(component, event, helper) {
-    const MAX_FILE_SIZE = 4500000;
+  handleFilesChange: function (component, event, helper) {
+    const MAX_FILE_SIZE = 5000000;
     let fileName = "No File Selected..";
+    if (!component.get("v.leadId")) {
+      component.set("v.showJnSiteModal", true);
+      //  helper.showToast(component, {
+      //           severity: "error",
+      //           message: "Please complete step 2 & 3 before attempting a document upload."
+      //  });
+      return;
+    }
     if (event.getSource().get("v.files").length > 0) {
       fileName = event.getSource().get("v.files")[0]["name"];
-		const cmpName = event.getSource().get("v.name");
-        helper.enableProgress(component, cmpName);
-        
+      const cmpName = event.getSource().get("v.name");
+
+      const tabTitle = helper.getTabTitle(component, cmpName);
       component.set("v.fileName", fileName);
       let fileInput = event.getSource().get("v.files")[0];
       // get the first file using array index[0]
       let file = fileInput;
       if (file.size > MAX_FILE_SIZE) {
-        //component.set("v.showLoadingSpinner", false);
-        // component.set("v.fileName", 'Alert : File size cannot exceed ' + self.MAX_FILE_SIZE + ' bytes.\n' + ' Selected file size: ' + file.size);
+        helper.showToast(component, {
+          severity: "error",
+          message: "5MB is the max allowed upload size."
+        });
         return;
       }
-        helper.setCurrentSize(component, file.size);
-     
+      helper.enableProgress(component, cmpName);
+      helper.setCurrentSize(component, file.size);
+
       // create a FileReader object
       let objFileReader = new FileReader();
       // set onload function of FileReader object
-      objFileReader.onload = $A.getCallback(function() {
+      objFileReader.onload = $A.getCallback(function () {
         let fileContents = objFileReader.result;
         let base64result = fileContents.split(",")[1];
 
@@ -77,19 +96,48 @@
           parentId: component.get("v.leadId"),
           fileName: file.name,
           base64Data: base64result,
-          contentType: file.type
+          contentType: file.type,
+          tabTitle: tabTitle
         });
 
         // set call back
-        action.setCallback(this, function(response) {
-          console.info(response.getReturnValue());
-          console.log(response.getState());
-            helper.disableProgress(component, cmpName);
+        action.setCallback(this, function (response) {
+          helper.disableProgress(component, cmpName);
+          console.log(JSON.parse(JSON.stringify(response.getReturnValue())));
+          if (response.getState() === "SUCCESS") {
+            console.log(JSON.parse(JSON.stringify(response.getReturnValue())));
+            helper.showToast(component, {
+              severity: "confirm",
+              message: "Your document was successfully uploaded."
+            });
+          } else {
+            console.log(JSON.parse(JSON.stringify(response.getError())));
+            helper.showToast(component, {
+              severity: "error",
+              message: "There was a error uploading this document."
+            });
+          }
         });
         $A.enqueueAction(action);
       });
 
       objFileReader.readAsDataURL(file);
     }
-  }
+  },
+  handleEvent: function (component, event, helper) {
+    console.info("hide modal event");
+    const eventAction = event.getParam("action");
+    const eventComponent = event.getParam("component");
+    const eventData = event.getParam("data");
+    if (eventComponent === "JNDocumentUploadTab") {
+      switch (eventAction) {
+        case "hideModal": {
+          component.set("v.showJnSiteModal", false);
+          break;
+        }
+      }
+    }
+    console.warn("Modal", component.get("v.showJnSiteModal"));
+  },
+  handleJNSiteModalOkClick: function (component, event, helper) {}
 });

@@ -1,14 +1,14 @@
 ({
-  doInit: function(component, event, helper) {
-    const sitelead = {
+  doInit: function (component, event, helper) {
+    let siteLead = {
       FirstName: "",
       LastName: "",
-      Lead_Title__c: "",
+      Salutation: "",
       MiddleName: "",
-      Suffix__c: "",
+      Suffix: "",
       Gender__c: "",
       Marital_Status__c: "",
-      Date_of_Birth__c: new Date(),
+      Date_of_Birth__c: null,
       Place_of_Birth__c: "",
       Mother_s_Maiden_Name__c: "",
       Number_of_Dependent_Adults__c: 0,
@@ -16,69 +16,95 @@
       Country_of_Citizenship__c: "Jamaica",
       Country_of_Residence__c: "Jamaica",
       Highest_Level_of_Education_Attained__c: "",
-      Supplementary_Applicant_TRN__c: ""
+      Jamaican_Tax_Registration_Number__c: null,
+      Service_of_Interest__c: ""
     };
-    var setMaxdate = new Date();
-    setMaxdate = new Date(setMaxdate.getFullYear() - 18, 11, 31);
-    component.set("v.maxdate", setMaxdate.toISOString().split("T")[0]);
-    console.log(component.get("v.maxdate"));
-    component.set("v.SiteLead", sitelead);
+    siteLead = helper.mapSiteLeadFields(siteLead, component.get("v.SiteLead"));
+    component.set("v.SiteLead", siteLead);
+    console.log("Info", JSON.parse(JSON.stringify(siteLead)));
+
+    let serviceofInterest;
+    if (component.get("v.loan_type") == "credit_card") {
+      serviceofInterest = "JN Bank Credit Card";
+    } else {
+      serviceofInterest = "JN Bank Unsecured Loan";
+    }
+    component.set("v.SiteLead.Service_of_Interest__c", serviceofInterest);
     helper.getPickListValues(component);
   },
-  getTitle: function(component, event, helper) {
+  onSiteLeadChange: function (component, event, helper) {
+    console.log("Old", JSON.parse(JSON.stringify(event.getParam("oldValue"))));
+    console.log("New", JSON.parse(JSON.stringify(event.getParam("value"))));
+  },
+  getSalutation: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let siteLead = component.get("v.SiteLead");
-    siteLead["Lead_Title__c"] = selected;
+    siteLead["Salutation"] = selected;
     component.set("v.SiteLead", siteLead);
   },
-  getCountryofCitizenship: function(component, event, helper) {
+  getCountryofCitizenship: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let siteLead = component.get("v.SiteLead");
     siteLead["Country_of_Citizenship__c"] = selected;
     component.set("v.SiteLead", siteLead);
   },
-  getCountryofResidence: function(component, event, helper) {
+  getCountryofResidence: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let siteLead = component.get("v.SiteLead");
     siteLead["Country_of_Residence__c"] = selected;
     component.set("v.SiteLead", siteLead);
   },
-  getSuffix: function(component, event, helper) {
+  getSuffix: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let siteLead = component.get("v.SiteLead");
-    siteLead["Suffix__c"] = selected;
+    siteLead["Suffix"] = selected;
     component.set("v.SiteLead", siteLead);
   },
-  getEducationLevel: function(component, event, helper) {
+  getEducationLevel: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let siteLead = component.get("v.SiteLead");
     siteLead["Highest_Level_of_Education_Attained__c"] = selected;
     component.set("v.SiteLead", siteLead);
   },
-  getGender: function(component, event, helper) {
+  getGender: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let siteLead = component.get("v.SiteLead");
     siteLead["Gender__c"] = selected;
     component.set("v.SiteLead", siteLead);
   },
-  getMaritalStatus: function(component, event, helper) {
+  getMaritalStatus: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let siteLead = component.get("v.SiteLead");
     siteLead["Marital_Status__c"] = selected;
     component.set("v.SiteLead", siteLead);
   },
-  TRNformatter: function(component, event, helper) {
+  TRNformatter: function (component, event, helper) {
     var TrnValue = event.getSource().get("v.value");
     component.set("v.trn_number", TrnValue.replace(",", ""));
   },
-  validateTabFields: function(component, event, helper) {
-    return component.find("validation").reduce(function(validSoFar, inputCmp) {
+  validateTabFields: function (component, event, helper) {
+    return component.find("validation").reduce(function (validSoFar, inputCmp) {
       // Displays error messages for invalid fields
       inputCmp.showHelpMessageIfInvalid();
       return validSoFar && inputCmp.get("v.validity").valid;
     }, true);
   },
-  createLead: function(component, event, helper) {
-    helper.createLead(component);
+  // createDetails: function(component, event, helper) {
+  //     helper.createLead(component);
+  // },
+  checkDateValidity: function (component, event, helper) {
+    let cmp = event.getSource();
+    let currentDateValue = cmp.get("v.value");
+    let currentDateTime = new Date(currentDateValue).getTime();
+    let now = new Date();
+    now.setFullYear(now.getFullYear() - 18);
+    let maxDateTime = now.getTime();
+    if (currentDateTime > maxDateTime) {
+      cmp.setCustomValidity("You must 18+ years or older");
+    } else {
+      cmp.setCustomValidity("");
+    }
+
+    cmp.reportValidity();
   }
 });

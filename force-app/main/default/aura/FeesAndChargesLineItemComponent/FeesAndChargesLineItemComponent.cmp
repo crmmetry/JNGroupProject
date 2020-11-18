@@ -1,0 +1,157 @@
+<aura:component>
+  <aura:attribute
+    name="containerName"
+    type="String"
+    default="FeesAndChargesLineItemComponent"
+  />
+  <aura:attribute name="legalFees" type="Decimal" default="0" />
+  <aura:attribute name="stampDuty" type="Decimal" default="0" />
+  <aura:attribute name="unsecuredLoanFees" type="Decimal" default="0" />
+  <aura:attribute name="processingFees" type="Decimal" default="0" />
+  <aura:attribute name="jnCreditorLifePremium" type="Decimal" default="0" />
+  <aura:attribute name="stampDutyAndAdminCharges" type="Decimal" default="0" />
+  <aura:attribute name="payableInstallment" type="Decimal" default="0" />
+  <aura:attribute name="totalClosingCosts" type="Decimal" default="0" />
+  <aura:attribute name="assignmentFee" type="Decimal" default="0" />
+  <aura:attribute name="deductRepaymentFlag" type="Boolean" default="true" />
+  <aura:attribute name="jngiMotorPremium" type="Decimal" default="0" />
+  <aura:attribute name="includePremiumFlag" type="Boolean" default="true" />
+  <aura:attribute name="includeCLPremiumFlag" type="Boolean" default="false" />
+  <aura:attribute name="jnDefaultConfigs" type="Map" default="{}" />
+  <aura:attribute
+    name="totalClosingCostsJNFinanced"
+    type="Decimal"
+    default="0"
+  />
+  <aura:attribute
+    name="totalClosingCostsApplicantPayable"
+    type="Decimal"
+    default="0"
+  />
+
+  <aura:handler
+    name="change"
+    value="{!v.includePremiumFlag}"
+    action="{!c.onIncludePremiumChange}"
+  />
+
+  <lightning:layoutItem size="12">
+    <lightning:layoutItem size="12">
+      <h2 class="slds-section-title--divider">Closing Cost</h2>
+    </lightning:layoutItem>
+  </lightning:layoutItem>
+  <lightning:layoutItem size="6" padding="around-small">
+    <lightning:input
+      type="number"
+      label="Legal Fees(including GCT)"
+      value="{!v.jnDefaultConfigs.legalFee}"
+      name="number"
+      formatter="currency"
+      required="true"
+      readonly="true"
+    />
+  </lightning:layoutItem>
+  <lightning:layoutItem size="6" padding="around-small">
+    <lightning:input
+      type="number"
+      label="Stamp Duty"
+      value="{!v.jnDefaultConfigs.stampDutyUns}"
+      name="number"
+      formatter="currency"
+      required="true"
+      readonly="true"
+    />
+  </lightning:layoutItem>
+  <lightning:layoutItem size="6" padding="around-small">
+    <lightning:input
+      type="number"
+      label="Processing Fees (including GCT)"
+      value="{!v.processingFees}"
+      name="number"
+      formatter="currency"
+      required="true"
+      readonly="true"
+    />
+  </lightning:layoutItem>
+  <aura:if isTrue="{!v.includeCLPremiumFlag}">
+    <lightning:layoutItem size="6" padding="around-small">
+      <lightning:input
+        type="number"
+        label="JN Life Creditor Life Insurance Premium"
+        value="{!v.jnCreditorLifePremium}"
+        name="number"
+        formatter="currency"
+        required="true"
+        readonly="true"
+      />
+    </lightning:layoutItem>
+  </aura:if>
+  <lightning:layoutItem size="6" padding="around-small">
+    <lightning:input
+      type="number"
+      label="Assignment Fee"
+      value="{!v.assignmentFee}"
+      name="number"
+      formatter="currency"
+      required="true"
+      readonly="true"
+    />
+  </lightning:layoutItem>
+  <lightning:layoutItem size="6" padding="around-small">
+    <lightning:input
+      type="number"
+      label="Estimated Stamp Duty &amp; Admin Charges"
+      value="{!v.stampDutyAndAdminCharges}"
+      name="number"
+      formatter="currency"
+      required="true"
+      readonly="true"
+    />
+  </lightning:layoutItem>
+  <aura:if isTrue="{!equals(v.deductRepaymentFlag, false)}">
+    <lightning:layoutItem size="6" padding="around-small">
+      <lightning:input
+        type="number"
+        label="1st Month's Installment Payable"
+        value="{!v.payableInstallment}"
+        name="number"
+        formatter="currency"
+        required="true"
+        readonly="true"
+      />
+    </lightning:layoutItem>
+  </aura:if>
+  <lightning:layoutItem size="6" padding="around-small">
+    <lightning:input
+      type="number"
+      label="Total Closing Costs"
+      value="{!v.totalClosingCosts}"
+      name="number"
+      formatter="currency"
+      required="true"
+      readonly="true"
+    />
+  </lightning:layoutItem>
+  <lightning:layoutItem size="6" padding="around-small">
+    <lightning:input
+      type="number"
+      label="Total Closing Costs Financed By JN"
+      value="{!v.totalClosingCostsJNFinanced}"
+      name="number"
+      formatter="currency"
+      required="true"
+      readonly="true"
+    />
+  </lightning:layoutItem>
+  <lightning:layoutItem size="6" padding="around-small">
+    <lightning:input
+      type="number"
+      label="Total Closing Costs Payable by Applicant"
+      value="{!v.totalClosingCostsApplicantPayable}"
+      name="number"
+      formatter="currency"
+      required="true"
+      readonly="true"
+    />
+  </lightning:layoutItem>
+</aura:component>

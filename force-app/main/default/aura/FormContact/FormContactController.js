@@ -1,32 +1,22 @@
 ({
-    doInit:function(component, event) {
-        
-    },
-	 save : function(component, event) {
+  doInit: function (component, event) {},
+  save: function (component, event) {
+    var getCon = component.get("v.NewCon");
 
-            var getCon = component.get("v.NewCon");
+    var action = component.get("c.CreateNewContact");
 
-            var action = component.get("c.CreateNewContact");
+    action.setParams({
+      con: getCon
+    });
 
-            action.setParams({ 
+    action.setCallback(this, function (a) {
+      var state = a.getState();
 
-                "con": getCon
+      if (state === "SUCCESS") {
+        var name = a.getReturnValue();
+      }
+    });
 
-            });
-
-            action.setCallback(this, function(a) {
-
-                   var state = a.getState();
-
-                 if (state === "SUCCESS") {
-
-                        var name = a.getReturnValue();
-
-                       }
-
-                });
-
-            $A.enqueueAction(action)
-
-    }
-})
+    $A.enqueueAction(action);
+  }
+});

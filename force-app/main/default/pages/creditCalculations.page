@@ -1,0 +1,3824 @@
+<apex:page
+  renderAs="PDF"
+  applyBodyTag="false"
+  sidebar="false"
+  showHeader="false"
+  controller="CreditCalculationsController"
+>
+  <head>
+    <style type="text/css" media="print">
+      @page {
+        @top-center {
+          content: element(header);
+        }
+        @bottom-left {
+          content: element(footer);
+        }
+      }
+      div.header {
+        padding: 10px;
+        position: running(header);
+      }
+      div.footer {
+        display: block;
+        padding: 5px;
+        margin-bottom: 100px;
+        position: running(footer);
+      }
+
+      .pagenumber:before {
+        content: counter(page);
+      }
+      .pagecount:before {
+        content: counter(pages);
+      }
+    </style>
+  </head>
+  <apex:form>
+    <div class="footer">
+      <div style="text-align: left; font-size: 15px;">
+        {!$Label.ApplicationFormText}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+          class="pagenumber"
+        />
+        of <span class="pagecount" />
+      </div>
+    </div>
+    <div class="content">
+      <apex:image
+        url="{!URLFOR($Resource.creditcalculations)}"
+        style="width: 100%; height: 100px;"
+      />
+    </div>
+    <div style="margin-top: 30px;">
+      <h3
+        style="
+          font-size: small;
+          width: 60%;
+          color: white;
+          background-color: #00a1e0;
+          font-family: sans-serif;
+          height: 25px;
+          padding-top: 12px;
+          margin-left: 1px;
+        "
+      >
+        &nbsp;SUMMARY OF APPLICANT(S) PERSONAL INFORMATION
+      </h3>
+      <div style="border: 1px solid #00a1e0; margin: 1px; margin-top: -12px;">
+        <apex:variable value="{!0}" var="num" />
+        <apex:repeat value="{!assetslst}" var="appitem">
+          <apex:variable var="num" value="{!FLOOR(num) + 1}" />
+          <h5
+            style="
+              font-size: small;
+              color: black;
+              background-color: #92d5f0;
+              height: 25px;
+              padding-top: 15px;
+            "
+          >
+            <b>
+              &nbsp;APPLICANT {!FLOOR(num)}
+            </b>
+          </h5>
+          <div style="margin-top: 5px; font-size: small;">
+            <table
+              style="margin-left: 16px; margin-right: 10px; width: 95%;"
+              cellpadding="0"
+              cellspacing="0"
+            >
+              <tr>
+                <td
+                  style="
+                    text-align: top;
+                    border: 1px solid rgb(191, 191, 191);
+                    border-right: 5px solid rgb(149, 149, 149);
+                    width: 15%;
+                    background-color: rgb(242, 242, 242);
+                    text-align: center;
+                    font-weight: bold;
+                  "
+                  rowspan="2"
+                >
+                  GENERAL DETAILS
+                </td>
+                <td style="width: 85%;">
+                  <table
+                    style="margin-left: 16px; margin-right: 10px; width: 95%;"
+                    cellpadding="0"
+                    cellspacing="5"
+                  >
+                    <tr>
+                      <td style="width: 40%;">Name of Applicant:</td>
+                      <td style="width: 20%;">Age of Applicant:</td>
+                      <td style="width: 20%;">Gender:</td>
+                      <td style="width: 20%;">Marital Status:</td>
+                    </tr>
+                    <tr>
+                      <td
+                        style="
+                          width: 40%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        {!appitem.applicant.Account__r.name}
+                      </td>
+                      <td
+                        style="
+                          width: 20%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        {!appitem.applicant.Account__r.FinServ__Age__pc}
+                      </td>
+                      <td
+                        style="
+                          width: 20%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        {!appitem.applicant.Account__r.FinServ__Gender__pc}
+                      </td>
+                      <td
+                        style="
+                          width: 20%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        {!appitem.applicant.Account__r.Marital_Status__c}
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 85%;">
+                  <table
+                    style="margin-left: 16px; margin-right: 10px; width: 95%;"
+                    cellpadding="0"
+                    cellspacing="5"
+                  >
+                    <tr>
+                      <td style="width: 35%;">
+                        Highest level of education attained:
+                      </td>
+                      <td style="width: 20%;">Number of Dependents:</td>
+                      <td style="width: 25%;">Status of Address:</td>
+                      <td style="width: 30%;">
+                        Time living at Current Address:
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style="
+                          width: 35%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        {!appitem.applicant.Account__r.Highest_Level_of_Education_attained__pc}
+                      </td>
+                      <td
+                        style="
+                          width: 20%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        {!appitem.applicant.Account__r.FinServ__NumberOfDependents__pc}
+                      </td>
+                      <td
+                        style="
+                          width: 25%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        {!appitem.applicant.Account__r.Status_of_Address__pc}
+                      </td>
+                      <td
+                        style="
+                          width: 30%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        {!appitem.applicant.Account__r.Years_at_Residence__pc}
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div style="margin-top: 5px; font-size: small;">
+            <table
+              style="margin-left: 16px; margin-right: 10px; width: 95%;"
+              cellpadding="0"
+              cellspacing="0"
+            >
+              <tr>
+                <td
+                  style="
+                    text-align: top;
+                    border: 1px solid rgb(191, 191, 191);
+                    border-right: 5px solid rgb(149, 149, 149);
+                    width: 15%;
+                    background-color: rgb(242, 242, 242);
+                    text-align: center;
+                    font-weight: bold;
+                  "
+                  rowspan="2"
+                >
+                  CREDIT ASSESSMENT
+                </td>
+                <td style="width: 85%;">
+                  <table
+                    style="margin-left: 16px; margin-right: 10px; width: 80%;"
+                    cellpadding="0"
+                    cellspacing="5"
+                  >
+                    <tr>
+                      <td style="width: 30%;">CRIF Rating:</td>
+                      <td style="width: 20%;">CreditInfo Rating:</td>
+                      <td style="width: 30%;">Overall Credit Bureau Rating:</td>
+                    </tr>
+                    <tr>
+                      <td
+                        style="
+                          width: 30%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        {!appitem.applicant.CRIF_Rating__c}
+                      </td>
+                      <td
+                        style="
+                          width: 20%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        {!appitem.applicant.CreditInfo_Rating__c}
+                      </td>
+                      <td
+                        style="
+                          width: 30%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        {!appitem.applicant.Overall_Credit_Bureau_Rating__c}
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 85%;">
+                  <table
+                    style="margin-left: 16px; margin-right: 10px; width: 75%;"
+                    cellpadding="0"
+                    cellspacing="5"
+                  >
+                    <tr>
+                      <td style="width: 40%;">
+                        Credit History in the last 24 months:
+                      </td>
+                      <td style="width: 40%;">
+                        Assessment of Applicant's Net Worth:
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style="
+                          width: 40%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        {!appitem.applicant.Credit_History_in_last_24_Months__c}
+                      </td>
+                      <td
+                        style="
+                          width: 40%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        {!appitem.applicant.Assessment_of_Applicant_Net_Worth__c}
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div style="margin-top: 5px; margin-bottom: 10px; font-size: small;">
+            <table
+              style="margin-left: 16px; margin-right: 10px; width: 95%;"
+              cellpadding="0"
+              cellspacing="0"
+            >
+              <tr>
+                <td
+                  style="
+                    text-align: top;
+                    border: 1px solid rgb(191, 191, 191);
+                    border-right: 5px solid rgb(149, 149, 149);
+                    width: 15%;
+                    background-color: rgb(242, 242, 242);
+                    text-align: center;
+                    font-weight: bold;
+                  "
+                  rowspan="6"
+                >
+                  CREDIT ASSESSMENT
+                </td>
+                <td style="width: 85%;">
+                  <table
+                    style="margin-left: 16px; margin-right: 10px; width: 95%;"
+                    cellpadding="0"
+                    cellspacing="5"
+                  >
+                    <tr>
+                      <td style="width: 20%;">KYC Compliant?</td>
+                      <td style="width: 40%;" colspan="4">Time as Member:</td>
+                      <td style="width: 15%;">RIM Number:</td>
+                      <td style="width: 15%;">Primary Relationship Tier:</td>
+                    </tr>
+                    <tr>
+                      <td
+                        style="
+                          width: 20%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        {!appitem.applicant.Is_applicant_KYC_Compliant__c}
+                      </td>
+                      <td
+                        style="
+                          cellspacing: 0px;
+                          width: 5%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        {!appitem.applicant.Time_as_Member_Years__c}
+                      </td>
+                      <td
+                        style="
+                          cellspacing: 0px;
+                          width: 10%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        years
+                      </td>
+                      <td
+                        style="
+                          cellspacing: 0px;
+                          width: 5%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        {!appitem.applicant.Time_as_Member_Months__c}
+                      </td>
+                      <td
+                        style="
+                          cellspacing: 0px;
+                          width: 10%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        months
+                      </td>
+                      <td
+                        style="
+                          width: 15%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        {!appitem.applicant.Rim_Number__c}
+                      </td>
+                      <td
+                        style="
+                          width: 25%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        {!appitem.applicant.Primary_Relationship_Tier__c}
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 85%;">
+                  <table
+                    style="margin-left: 16px; margin-right: 10px; width: 75%;"
+                    cellpadding="0"
+                    cellspacing="5"
+                  >
+                    <tr>
+                      <td style="width: 40%;">Affiliation Type:</td>
+                      <td style="width: 40%;">Sanction Screening Completed?</td>
+                    </tr>
+                    <tr>
+                      <td
+                        style="
+                          width: 40%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        {!appitem.applicant.Affiliation_Type__c}
+                      </td>
+                      <td
+                        style="
+                          width: 40%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        {!appitem.applicant.Sanction_Screening_Completed__c}
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 85%;">
+                  <table
+                    style="margin-left: 16px; margin-right: 10px; width: 75%;"
+                    cellpadding="0"
+                    cellspacing="5"
+                  >
+                    <tr>
+                      <td style="width: 30%;">JN Group Employee?</td>
+                      <td style="width: 50%;">
+                        Will the JN Employee Loan Benefit be applied?
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style="
+                          width: 30%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        {!appitem.applicant.JN_Group_Employee__c}
+                      </td>
+                      <td
+                        style="
+                          width: 50%;
+                          border: 1px solid rgb(191, 191, 191);
+                          text-align: center;
+                        "
+                      >
+                        {!appitem.applicant.JN_Employee_Loan_Benefit__c}
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </apex:repeat>
+      </div>
+      <div style="margin-top: 30px;">
+        <h3
+          style="
+            font-size: small;
+            width: 60%;
+            color: white;
+            background-color: #00a1e0;
+            font-family: sans-serif;
+            height: 25px;
+            padding-top: 12px;
+            margin-left: 1px;
+          "
+        >
+          &nbsp;PRODUCT DETAILS
+        </h3>
+        <div style="border: 1px solid #00a1e0; margin: 1px; margin-top: -12px;">
+          <apex:pageBlock rendered="{!isAutoFound}">
+            <h5
+              style="
+                font-size: small;
+                color: black;
+                background-color: #92d5f0;
+                height: 25px;
+                padding-top: 15px;
+              "
+            >
+              <b>
+                &nbsp;PERSONAL AUTO LOAN
+              </b>
+            </h5>
+            <h5
+              style="
+                width: 98%;
+                font-size: Small;
+                color: #00a1e0;
+                margin-left: 5px;
+                border-bottom: 2px solid #00a1e0;
+              "
+            >
+              <b>
+                &nbsp;CREDIT DETAILS
+              </b>
+            </h5>
+            <div style="margin-top: 5px; font-size: small;">
+              <table
+                style="margin-left: 16px; margin-right: 10px; width: 95%;"
+                cellpadding="0"
+                cellspacing="0"
+              >
+                <tr>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Loan Purpose:
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Vehicle Classification:
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Year of Vehicle:
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Make and Model of Vehicle:
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Repayment Method:
+                  </td>
+                </tr>
+                <tr style="margin-top: 10px;">
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Auto_Loan_Purpose__c==null,'',ProductDetails[0].Auto_Loan_Purpose__c)}
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Vehicle_Classification__c==null,'',ProductDetails[0].Vehicle_Classification__c)}
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Year_of_Motor_Vehicle__c==null,'',ProductDetails[0].Year_of_Motor_Vehicle__c)}
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Make_and_Model_of_Motor_Vehicle__c==null,'',ProductDetails[0].Make_and_Model_of_Motor_Vehicle__c)}
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Repayment_Method_Auto__c==null,'',ProductDetails[0].Repayment_Method_Auto__c)}
+                  </td>
+                </tr>
+              </table>
+              <table
+                style="
+                  margin-left: 16px;
+                  margin-right: 10px;
+                  margin-top: 10px;
+                  width: 95%;
+                "
+                cellpadding="0"
+                cellspacing="0"
+              >
+                <tr>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Market Value of Motor Vehicle:
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Purchase Price of Vehicle*
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                    colspan="2"
+                  >
+                    Processing Fee:
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                    colspan="4"
+                  >
+                    Loan Term:
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                    colspan="2"
+                  >
+                    Interest Rate:
+                  </td>
+                </tr>
+                <tr style="margin-top: 10px;">
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    JMD
+                    ${!if(ProductDetails[0].Market_Value_of_Vehicle__c==null,'',ProductDetails[0].Market_Value_of_Vehicle__c)}
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    JMD
+                    ${!if(ProductDetails[0].Purchase_Price_of_Vehicle__c==null,'',ProductDetails[0].Purchase_Price_of_Vehicle__c)}
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Indicate_applicable_process_fee_percent__c==null,'',ProductDetails[0].Indicate_applicable_process_fee_percent__c)}%
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    per annum
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Years__c==null,'',ProductDetails[0].Years__c)}
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    years
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Months__c==null,'',ProductDetails[0].Months__c)}
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    months
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Interest_Rate__c==null,'',ProductDetails[0].Interest_Rate__c)}%
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    per annum
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div
+              style="width: 49%; display: inline-block; vertical-align: top;"
+            >
+              <h5
+                style="
+                  width: 98%;
+                  font-size: Small;
+                  color: #00a1e0;
+                  margin-left: 5px;
+                  border-bottom: 2px solid #00a1e0;
+                "
+              >
+                <b>
+                  &nbsp;TOTAL FINANCING
+                </b>
+              </h5>
+              <table
+                style="
+                  font-size: Small;
+                  margin-right: 10px;
+                  width: 100%;
+                  margin-top: 7px;
+                "
+                cellpadding="0"
+                cellspacing="0"
+              >
+                <tr>
+                  <td style="text-align: right;">+ Loan Amount (Market)</td>
+                  <td
+                    style="
+                      text-align: center;
+                      border: 1px solid rgb(191, 191, 191);
+                      height: 15px;
+                    "
+                  >
+                    JMD
+                    ${!if(ProductDetails[0].Loan_Amount__c==null,0.00,ProductDetails[0].Loan_Amount__c)}
+                  </td>
+                </tr>
+              </table>
+
+              <apex:pageBlock
+                rendered="{!ProductDetails[0].Applicant_2_Jn_Employee__c}"
+              >
+                <table
+                  style="
+                    font-size: Small;
+                    margin-left: 16px;
+                    margin-right: 10px;
+                    margin-top: 5px;
+                    width: 95%;
+                  "
+                  cellpadding="0"
+                  cellspacing="0"
+                >
+                  <tr>
+                    <td style="text-align: right;">
+                      + Loan Amount (JN Staff 1)
+                    </td>
+                    <td
+                      style="
+                        text-align: center;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                      "
+                    >
+                      JMD
+                      ${!if(ProductDetails[0].Staff_1_Loan_amount_and_calculations__c==null,0.00,ProductDetails[0].Staff_1_Loan_amount_and_calculations__c)}
+                    </td>
+                  </tr>
+                </table>
+              </apex:pageBlock>
+
+              <apex:pageBlock
+                rendered="{!ProductDetails[0].Applicant_2_Jn_Employee__c}"
+              >
+                <table
+                  style="
+                    font-size: Small;
+                    margin-left: 16px;
+                    margin-right: 10px;
+                    margin-top: 5px;
+                    width: 95%;
+                  "
+                  cellpadding="0"
+                  cellspacing="0"
+                >
+                  <tr>
+                    <td style="text-align: right;">
+                      + Loan Amount (JN Staff 2)
+                    </td>
+                    <td
+                      style="
+                        text-align: center;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                      "
+                    >
+                      JMD
+                      ${!if(ProductDetails[0].Staff_2_Loan_amount_and_calculations__c==null,0.00,ProductDetails[0].Staff_2_Loan_amount_and_calculations__c)}
+                    </td>
+                  </tr>
+                </table>
+              </apex:pageBlock>
+
+              <apex:pageBlock
+                rendered="{!ProductDetails[0].Applicant_3_Jn_Employee__c}"
+              >
+                <table
+                  style="
+                    font-size: Small;
+                    margin-left: 16px;
+                    margin-right: 10px;
+                    margin-top: 5px;
+                    width: 95%;
+                  "
+                  cellpadding="0"
+                  cellspacing="0"
+                >
+                  <tr>
+                    <td style="text-align: right;">
+                      + Loan Amount (JN Staff 3)
+                    </td>
+                    <td
+                      style="
+                        text-align: center;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                      "
+                    >
+                      JMD
+                      ${!if(ProductDetails[0].Staff_3_Loan_amount_and_calculations__c==null,0.00,ProductDetails[0].Staff_3_Loan_amount_and_calculations__c)}
+                    </td>
+                  </tr>
+                </table>
+              </apex:pageBlock>
+              <table
+                style="
+                  font-size: Small;
+                  margin-left: 16px;
+                  margin-right: 10px;
+                  margin-top: 5px;
+                  width: 95%;
+                "
+                cellpadding="0"
+                cellspacing="0"
+              >
+                <tr>
+                  <td style="text-align: right;">
+                    + JNGI Motor Premium (1st Year)
+                  </td>
+                  <td
+                    style="
+                      text-align: center;
+                      border: 1px solid rgb(191, 191, 191);
+                      height: 15px;
+                    "
+                  >
+                    JMD
+                    ${!if(ProductDetails[0].JNGI_Motor_Premium_1st_Year__c==null,0.00,ProductDetails[0].JNGI_Motor_Premium_1st_Year__c)}
+                  </td>
+                </tr>
+                <tr>
+                  <td style="text-align: right;">
+                    + JN Life Creditor Life Premium
+                  </td>
+                  <td
+                    style="
+                      text-align: center;
+                      border: 1px solid rgb(191, 191, 191);
+                      height: 15px;
+                    "
+                  >
+                    JMD
+                    ${!if(ProductDetails[0].JN_Life_Creditor_Life_Premium__c==null,0.00,ProductDetails[0].JN_Life_Creditor_Life_Premium__c)}
+                  </td>
+                </tr>
+                <tr>
+                  <td style="text-align: right;">
+                    + Processing Fees (including GCT)
+                  </td>
+                  <td
+                    style="
+                      text-align: center;
+                      border: 1px solid rgb(191, 191, 191);
+                      height: 15px;
+                    "
+                  >
+                    JMD
+                    ${!if(ProductDetails[0].Processing_Fees_including_GCT__c==null,0.00,ProductDetails[0].Processing_Fees_including_GCT__c)}
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style="
+                      text-align: right;
+                      border: 1px solid rgb(191, 191, 191);
+                      height: 15px;
+                      border-left: 1px;
+                      font-weight: bold;
+                    "
+                  >
+                    Total Loan Amount
+                  </td>
+                  <td
+                    style="
+                      text-align: center;
+                      border: 1px solid rgb(191, 191, 191);
+                      height: 15px;
+                      background-color: #92d5f0;
+                      font-weight: bold;
+                    "
+                  >
+                    JMD
+                    ${!if(ProductDetails[0].Total_Loan_Amount__c==null,0.00,ProductDetails[0].Total_Loan_Amount__c)}
+                  </td>
+                </tr>
+              </table>
+              <h5
+                style="
+                  width: 98%;
+                  font-size: Small;
+                  color: #00a1e0;
+                  margin-left: 5px;
+                  border-bottom: 2px solid #00a1e0;
+                "
+              >
+                <b>
+                  &nbsp;OTHER DETAILS
+                </b>
+              </h5>
+              <div
+                style="margin-top: 5px; margin-left: 10px; font-size: small;"
+              >
+                <div style="font-weight: bold;">Loan to value Ratio</div>
+                <div
+                  style="
+                    border: 1px solid rgb(191, 191, 191);
+                    width: 150px;
+                    background-color: #92d5f0;
+                    font-weight: bold;
+                    text-align: center;
+                  "
+                >
+                  {!if(ProductDetails[0].Loan_to_Value_Auto__c==null,0.00,ProductDetails[0].Loan_to_Value_Auto__c)}%
+                </div>
+                <div style="margin-top: 10px; font-weight: bold;">
+                  Moratorium Details
+                </div>
+                <div style="display: inline-block;">
+                  Include a moratorium of loan repayments
+                </div>
+                <div
+                  style="
+                    border: 1px solid rgb(191, 191, 191);
+                    display: inline-block;
+                    padding-left: 5px;
+                    padding-right: 5px;
+                  "
+                >
+                  {!if(ProductDetails[0].Include_a_moratorium_of_Loan_Payment__c==null,'',ProductDetails[0].Include_a_moratorium_of_Loan_Payment__c)}
+                </div>
+              </div>
+            </div>
+            <div
+              style="width: 49%; display: inline-block; vertical-align: top;"
+            >
+              <h5
+                style="
+                  width: 98%;
+                  font-size: Small;
+                  color: #00a1e0;
+                  margin-left: 5px;
+                  border-bottom: 2px solid #00a1e0;
+                "
+              >
+                <b>
+                  &nbsp;TOTAL LOAN REPAYMENT
+                </b>
+              </h5>
+              <div
+                style="margin-top: 5px; margin-left: 10px; font-size: small;"
+              >
+                <table
+                  style="
+                    font-size: Small;
+                    margin-right: 10px;
+                    width: 100%;
+                    margin-top: 7px;
+                  "
+                  cellpadding="0"
+                  cellspacing="0"
+                >
+                  <tr>
+                    <td style="text-align: right;">
+                      + Monthly Loan Payment (Market)
+                    </td>
+                    <td
+                      style="
+                        text-align: center;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                      "
+                    >
+                      JMD
+                      ${!if(ProductDetails[0].Monthly_Loan_Payment__c==null,0.00,ProductDetails[0].Monthly_Loan_Payment__c)}
+                    </td>
+                  </tr>
+                </table>
+
+                <apex:pageBlock
+                  rendered="{!ProductDetails[0].Applicant_1_Jn_Employee__c}"
+                >
+                  <table
+                    style="
+                      font-size: Small;
+                      margin-left: 16px;
+                      margin-right: 10px;
+                      margin-top: 5px;
+                      width: 95%;
+                    "
+                    cellpadding="0"
+                    cellspacing="0"
+                  >
+                    <tr>
+                      <td style="text-align: right;">
+                        + Monthly Loan Payment (JN Staff 1)
+                      </td>
+                      <td
+                        style="
+                          text-align: center;
+                          border: 1px solid rgb(191, 191, 191);
+                          height: 15px;
+                        "
+                      >
+                        JMD
+                        ${!if(ProductDetails[0].Staff1_Mthly_Loan_Payment_D_Moratorium__c==null,0.00,ProductDetails[0].Staff1_Mthly_Loan_Payment_D_Moratorium__c)}
+                      </td>
+                    </tr>
+                  </table>
+                </apex:pageBlock>
+
+                <apex:pageBlock
+                  rendered="{!ProductDetails[0].Applicant_2_Jn_Employee__c}"
+                >
+                  <table
+                    style="
+                      font-size: Small;
+                      margin-left: 16px;
+                      margin-right: 10px;
+                      margin-top: 5px;
+                      width: 95%;
+                    "
+                    cellpadding="0"
+                    cellspacing="0"
+                  >
+                    <tr>
+                      <td style="text-align: right;">
+                        + Monthly Loan Payment (JN Staff 2)
+                      </td>
+                      <td
+                        style="
+                          text-align: center;
+                          border: 1px solid rgb(191, 191, 191);
+                          height: 15px;
+                        "
+                      >
+                        JMD
+                        ${!if(ProductDetails[0].Staff2_Mthly_Loan_Payment_D_Moratorium__c==null,0.00,ProductDetails[0].Staff2_Mthly_Loan_Payment_D_Moratorium__c)}
+                      </td>
+                    </tr>
+                  </table>
+                </apex:pageBlock>
+
+                <apex:pageBlock
+                  rendered="{!ProductDetails[0].Applicant_3_Jn_Employee__c}"
+                >
+                  <table
+                    style="
+                      font-size: Small;
+                      margin-left: 16px;
+                      margin-right: 10px;
+                      margin-top: 5px;
+                      width: 95%;
+                    "
+                    cellpadding="0"
+                    cellspacing="0"
+                  >
+                    <tr>
+                      <td style="text-align: right;">
+                        + Monthly Loan Payment (JN Staff 3)
+                      </td>
+                      <td
+                        style="
+                          text-align: center;
+                          border: 1px solid rgb(191, 191, 191);
+                          height: 15px;
+                        "
+                      >
+                        JMD
+                        ${!if(ProductDetails[0].Staff3_Mthly_Loan_Payment_D_Moratorium__c==null,0.00,ProductDetails[0].Staff3_Mthly_Loan_Payment_D_Moratorium__c)}
+                      </td>
+                    </tr>
+                  </table>
+                </apex:pageBlock>
+                <table
+                  style="
+                    font-size: Small;
+                    margin-left: 16px;
+                    margin-right: 10px;
+                    margin-top: 5px;
+                    width: 95%;
+                  "
+                  cellpadding="0"
+                  cellspacing="0"
+                >
+                  <tr>
+                    <td style="text-align: right;">
+                      + Monthly JNGI Motor Premium (1st Year)
+                    </td>
+                    <td
+                      style="
+                        text-align: center;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                      "
+                    >
+                      JMD $0.00
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: right;">
+                      + Monthly JNGI Motor Premium (1/12 Payment)
+                    </td>
+                    <td
+                      style="
+                        text-align: center;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                      "
+                    >
+                      JMD
+                      ${!if(ProductDetails[0].Monthly_JNGI_Motor_Premium_1_12_Pay__c==null,0.00,ProductDetails[0].Monthly_JNGI_Motor_Premium_1_12_Pay__c)}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: right;">
+                      + Monthly JN Life Creditor Life Premium
+                    </td>
+                    <td
+                      style="
+                        text-align: center;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                      "
+                    >
+                      JMD
+                      ${!if(ProductDetails[0].Monthly_JN_Life_Creditor_Life_Premium__c==null,0.00,ProductDetails[0].Monthly_JN_Life_Creditor_Life_Premium__c)}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: right;">
+                      + Monthly Processing Fees
+                    </td>
+                    <td
+                      style="
+                        text-align: center;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                      "
+                    >
+                      JMD
+                      ${!if(ProductDetails[0].Monthly_Processing_Fees_During_moratoriu__c==null,0.00,ProductDetails[0].Monthly_Processing_Fees_During_moratoriu__c)}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        text-align: right;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                        border-left: 1px;
+                        font-weight: bold;
+                      "
+                    >
+                      Monthly Loan Payment
+                    </td>
+                    <td
+                      style="
+                        text-align: center;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                        background-color: #92d5f0;
+                        font-weight: bold;
+                      "
+                    >
+                      JMD
+                      ${!if(ProductDetails[0].Total_Monthly__c==null,0.00,ProductDetails[0].Total_Monthly__c)}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        text-align: right;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                        border-left: 1px;
+                        font-weight: bold;
+                      "
+                    >
+                      Monthly Loan Savings
+                    </td>
+                    <td
+                      style="
+                        text-align: center;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                        background-color: #92d5f0;
+                        font-weight: bold;
+                      "
+                    >
+                      JMD
+                      ${!if(ProductDetails[0].Monthly_Loan_Savings__c==null,0.00,ProductDetails[0].Monthly_Loan_Savings__c)}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        text-align: right;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                        border-left: 1px;
+                        font-weight: bold;
+                      "
+                    >
+                      Monthly Loan Payment + Monthly Loan Saving
+                    </td>
+                    <td
+                      style="
+                        text-align: center;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                        background-color: #92d5f0;
+                        font-weight: bold;
+                      "
+                    >
+                      JMD
+                      ${!if(ProductDetails[0].Monthly_loan_Payment_Monthly_Savings__c==null,0.00,ProductDetails[0].Monthly_loan_Payment_Monthly_Savings__c)}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        text-align: right;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                        border-left: 1px;
+                        font-weight: bold;
+                      "
+                    >
+                      Total Loan Savings Balance<br />(Over repayment period)
+                    </td>
+                    <td
+                      style="
+                        text-align: center;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                        background-color: #92d5f0;
+                        font-weight: bold;
+                      "
+                    >
+                      JMD
+                      ${!if(ProductDetails[0].Total_Loan_Savings_Balance__c==null,0.00,ProductDetails[0].Total_Loan_Savings_Balance__c)}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        text-align: right;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                        border-left: 1px;
+                        font-weight: bold;
+                      "
+                    >
+                      Total Interest Payment<br />(Over repayment period)
+                    </td>
+                    <td
+                      style="
+                        text-align: center;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                        background-color: #92d5f0;
+                        font-weight: bold;
+                      "
+                    >
+                      JMD
+                      ${!if(ProductDetails[0].Total_Interest_Payment__c==null,0.00,ProductDetails[0].Total_Interest_Payment__c)}
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </apex:pageBlock>
+          <apex:pageBlock rendered="{!isUnFound}">
+            <h5
+              style="
+                font-size: small;
+                color: black;
+                background-color: #92d5f0;
+                height: 25px;
+                padding-top: 15px;
+              "
+            >
+              <b>
+                &nbsp;PERSONAL UNSECURED LOAN
+              </b>
+            </h5>
+            <h5
+              style="
+                width: 98%;
+                font-size: Small;
+                color: #00a1e0;
+                margin-left: 5px;
+                border-bottom: 2px solid #00a1e0;
+              "
+            >
+              <b>
+                &nbsp;CREDIT DETAILS
+              </b>
+            </h5>
+            <div style="margin-top: 5px; font-size: small;">
+              <table
+                style="
+                  margin-left: 16px;
+                  margin-right: 10px;
+                  margin-top: 10px;
+                  width: 95%;
+                "
+                cellpadding="0"
+                cellspacing="0"
+              >
+                <tr>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Loan Purpose:
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                    colspan="2"
+                  >
+                    Processing Fee:
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Repayment Method:
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                    colspan="4"
+                  >
+                    Loan Term:
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                    colspan="2"
+                  >
+                    Interest Rate:
+                  </td>
+                </tr>
+                <tr style="margin-top: 10px;">
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    JMD
+                    ${!if(ProductDetails[0].unsecure_Loan_Purpose__c==null,'',ProductDetails[0].unsecure_Loan_Purpose__c)}
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Unsecure_Indcate_applicable_process_fee__c==null,0.00,ProductDetails[0].Unsecure_Indcate_applicable_process_fee__c)}%
+                  </td>
+                  <!--{!if(ProductDetails[0].Unsecure_Market_Per_Annum__c==null,0.00,ProductDetails[0].Unsecure_Market_Per_Annum__c)}% JN1-2484 -->
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    per annum
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Repayment_Method_UL__c==null,'',ProductDetails[0].Repayment_Method_UL__c)}
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Unsecure_Years__c==null,'',ProductDetails[0].Unsecure_Years__c)}
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    years
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Unsecure_Months__c==null,'',ProductDetails[0].Unsecure_Months__c)}
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    months
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Unsecure_Interest_Rate__c==null,0.00,ProductDetails[0].Unsecure_Interest_Rate__c)}%
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    per annum
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div
+              style="width: 49%; display: inline-block; vertical-align: top;"
+            >
+              <h5
+                style="
+                  width: 98%;
+                  font-size: Small;
+                  color: #00a1e0;
+                  margin-left: 5px;
+                  border-bottom: 2px solid #00a1e0;
+                "
+              >
+                <b>
+                  &nbsp;TOTAL FINANCING
+                </b>
+              </h5>
+              <table
+                style="
+                  font-size: Small;
+                  margin-right: 10px;
+                  width: 100%;
+                  margin-top: 7px;
+                "
+                cellpadding="0"
+                cellspacing="0"
+              >
+                <tr>
+                  <td style="text-align: right;">+ Loan Amount (Market)</td>
+                  <td
+                    style="
+                      text-align: center;
+                      border: 1px solid rgb(191, 191, 191);
+                      height: 15px;
+                    "
+                  >
+                    JMD
+                    ${!if(ProductDetails[0].Unsecured_Loan_Amount__c==null,0.00,ProductDetails[0].Unsecured_Loan_Amount__c)}
+                  </td>
+                </tr>
+              </table>
+
+              <apex:pageBlock
+                rendered="{!ProductDetails[0].Applicant_2_Jn_Employee__c}"
+              >
+                <table
+                  style="
+                    font-size: Small;
+                    margin-left: 16px;
+                    margin-right: 10px;
+                    margin-top: 5px;
+                    width: 95%;
+                  "
+                  cellpadding="0"
+                  cellspacing="0"
+                >
+                  <tr>
+                    <td style="text-align: right;">
+                      + Loan Amount (JN Staff 1)
+                    </td>
+                    <td
+                      style="
+                        text-align: center;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                      "
+                    >
+                      JMD
+                      ${!if(ProductDetails[0].Unsecured_Loan_Amount__c==null,0.00,ProductDetails[0].Unsecured_Loan_Amount__c)}
+                    </td>
+                  </tr>
+                </table>
+              </apex:pageBlock>
+
+              <apex:pageBlock
+                rendered="{!ProductDetails[0].Applicant_2_Jn_Employee__c}"
+              >
+                <table
+                  style="
+                    font-size: Small;
+                    margin-left: 16px;
+                    margin-right: 10px;
+                    margin-top: 5px;
+                    width: 95%;
+                  "
+                  cellpadding="0"
+                  cellspacing="0"
+                >
+                  <tr>
+                    <td style="text-align: right;">
+                      + Loan Amount (JN Staff 2)
+                    </td>
+                    <td
+                      style="
+                        text-align: center;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                      "
+                    >
+                      JMD
+                      ${!if(ProductDetails[0].unsecure_JN_Staff2_Loan_Amount__c==null,0.00,ProductDetails[0].unsecure_JN_Staff2_Loan_Amount__c)}
+                    </td>
+                  </tr>
+                </table>
+              </apex:pageBlock>
+
+              <apex:pageBlock
+                rendered="{!ProductDetails[0].Applicant_3_Jn_Employee__c}"
+              >
+                <table
+                  style="
+                    font-size: Small;
+                    margin-left: 16px;
+                    margin-right: 10px;
+                    margin-top: 5px;
+                    width: 95%;
+                  "
+                  cellpadding="0"
+                  cellspacing="0"
+                >
+                  <tr>
+                    <td style="text-align: right;">
+                      + Loan Amount (JN Staff 3)
+                    </td>
+                    <td
+                      style="
+                        text-align: center;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                      "
+                    >
+                      JMD
+                      ${!if(ProductDetails[0].unsecure_JN_Staff_3_Loan_Amount__c==null,0.00,ProductDetails[0].unsecure_JN_Staff_3_Loan_Amount__c)}
+                    </td>
+                  </tr>
+                </table>
+              </apex:pageBlock>
+              <table
+                style="
+                  font-size: Small;
+                  margin-left: 16px;
+                  margin-right: 10px;
+                  margin-top: 5px;
+                  width: 95%;
+                "
+                cellpadding="0"
+                cellspacing="0"
+              >
+                <tr>
+                  <td style="text-align: right;">
+                    + JN Life Creditor Life Premium
+                  </td>
+                  <td
+                    style="
+                      text-align: center;
+                      border: 1px solid rgb(191, 191, 191);
+                      height: 15px;
+                    "
+                  >
+                    JMD
+                    ${!if(ProductDetails[0].unsecure_JN_Life_Creditor_Life_Premium__c==null,0.00,ProductDetails[0].unsecure_JN_Life_Creditor_Life_Premium__c)}
+                  </td>
+                </tr>
+                <tr>
+                  <td style="text-align: right;">
+                    + Processing Fees (including GCT)
+                  </td>
+                  <td
+                    style="
+                      text-align: center;
+                      border: 1px solid rgb(191, 191, 191);
+                      height: 15px;
+                    "
+                  >
+                    JMD
+                    ${!if(ProductDetails[0].Unsecure_Indcate_applicable_process_fee__c==null,0.00,ProductDetails[0].Unsecure_Indcate_applicable_process_fee__c)}
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style="
+                      text-align: right;
+                      border: 1px solid rgb(191, 191, 191);
+                      height: 15px;
+                      border-left: 1px;
+                      font-weight: bold;
+                    "
+                  >
+                    Total Loan Amount
+                  </td>
+                  <td
+                    style="
+                      text-align: center;
+                      border: 1px solid rgb(191, 191, 191);
+                      height: 15px;
+                      background-color: #92d5f0;
+                      font-weight: bold;
+                    "
+                  >
+                    JMD
+                    ${!if(ProductDetails[0].unsecure_Total_Loan_Amount__c==null,0.00,ProductDetails[0].unsecure_Total_Loan_Amount__c)}
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div
+              style="width: 49%; display: inline-block; vertical-align: top;"
+            >
+              <h5
+                style="
+                  width: 98%;
+                  font-size: Small;
+                  color: #00a1e0;
+                  margin-left: 5px;
+                  border-bottom: 2px solid #00a1e0;
+                "
+              >
+                <b>
+                  &nbsp;TOTAL LOAN REPAYMENT
+                </b>
+              </h5>
+              <table
+                style="
+                  font-size: Small;
+                  margin-right: 10px;
+                  width: 100%;
+                  margin-top: 7px;
+                "
+                cellpadding="0"
+                cellspacing="0"
+              >
+                <tr>
+                  <td style="text-align: right;">
+                    + Monthly Loan Payment (Market)
+                  </td>
+                  <td
+                    style="
+                      text-align: center;
+                      border: 1px solid rgb(191, 191, 191);
+                      height: 15px;
+                    "
+                  >
+                    JMD $JMD
+                    ${!if(ProductDetails[0].Unsecure_Monthly_Loan_Payment_Market__c==null,0.00,ProductDetails[0].Unsecure_Monthly_Loan_Payment_Market__c)}
+                  </td>
+                </tr>
+              </table>
+
+              <apex:pageBlock
+                rendered="{!ProductDetails[0].Applicant_1_Jn_Employee__c}"
+              >
+                <table
+                  style="
+                    font-size: Small;
+                    margin-left: 16px;
+                    margin-right: 10px;
+                    margin-top: 5px;
+                    width: 95%;
+                  "
+                  cellpadding="0"
+                  cellspacing="0"
+                >
+                  <tr>
+                    <td style="text-align: right;">
+                      + Monthly Loan Payment (JN Staff 1)
+                    </td>
+                    <td
+                      style="
+                        text-align: center;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                      "
+                    >
+                      JMD
+                      ${!if(ProductDetails[0].Unsecure_Monthly_Loan_Payment_staff1__c==null,0.00,ProductDetails[0].Unsecure_Monthly_Loan_Payment_staff1__c)}
+                    </td>
+                  </tr>
+                </table>
+              </apex:pageBlock>
+
+              <apex:pageBlock
+                rendered="{!ProductDetails[0].Applicant_2_Jn_Employee__c}"
+              >
+                <table
+                  style="
+                    font-size: Small;
+                    margin-left: 16px;
+                    margin-right: 10px;
+                    margin-top: 5px;
+                    width: 95%;
+                  "
+                  cellpadding="0"
+                  cellspacing="0"
+                >
+                  <tr>
+                    <td style="text-align: right;">
+                      + Monthly Loan Payment (JN Staff 2)
+                    </td>
+                    <td
+                      style="
+                        text-align: center;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                      "
+                    >
+                      JMD
+                      ${!if(ProductDetails[0].unsecure_JN_Staff_2_Monthly_Loan_Payment__c==null,0.00,ProductDetails[0].unsecure_JN_Staff_2_Monthly_Loan_Payment__c)}
+                    </td>
+                  </tr>
+                </table>
+              </apex:pageBlock>
+
+              <apex:pageBlock
+                rendered="{!ProductDetails[0].Applicant_3_Jn_Employee__c}"
+              >
+                <table
+                  style="
+                    font-size: Small;
+                    margin-left: 16px;
+                    margin-right: 10px;
+                    margin-top: 5px;
+                    width: 95%;
+                  "
+                  cellpadding="0"
+                  cellspacing="0"
+                >
+                  <tr>
+                    <td style="text-align: right;">
+                      + Monthly Loan Payment (JN Staff 3)
+                    </td>
+                    <td
+                      style="
+                        text-align: center;
+                        border: 1px solid rgb(191, 191, 191);
+                        height: 15px;
+                      "
+                    >
+                      JMD
+                      ${!if(ProductDetails[0].unsecure_JN_Staff_3_Monthly_Loan_Payment__c==null,0.00,ProductDetails[0].unsecure_JN_Staff_3_Monthly_Loan_Payment__c)}
+                    </td>
+                  </tr>
+                </table>
+              </apex:pageBlock>
+              <table
+                style="
+                  font-size: Small;
+                  margin-left: 16px;
+                  margin-right: 10px;
+                  margin-top: 5px;
+                  width: 95%;
+                "
+                cellpadding="0"
+                cellspacing="0"
+              >
+                <tr>
+                  <td style="text-align: right;">
+                    + Monthly JN Life Creditor Life Premium
+                  </td>
+                  <td
+                    style="
+                      text-align: center;
+                      border: 1px solid rgb(191, 191, 191);
+                      height: 15px;
+                    "
+                  >
+                    JMD
+                    ${!if(ProductDetails[0].unsecure_JN_Life_Creditor_Life_Premium__c==null,0.00,ProductDetails[0].unsecure_JN_Life_Creditor_Life_Premium__c)}
+                  </td>
+                </tr>
+                <tr>
+                  <td style="text-align: right;">+ Monthly Processing Fees</td>
+                  <td
+                    style="
+                      text-align: center;
+                      border: 1px solid rgb(191, 191, 191);
+                      height: 15px;
+                    "
+                  >
+                    JMD
+                    ${!if(ProductDetails[0].Unsecure_Monthly_Processing_Fees__c==null,0.00,ProductDetails[0].Unsecure_Monthly_Processing_Fees__c)}
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style="
+                      text-align: right;
+                      border: 1px solid rgb(191, 191, 191);
+                      height: 15px;
+                      border-left: 1px;
+                      font-weight: bold;
+                    "
+                  >
+                    Monthly Loan Payment
+                  </td>
+                  <td
+                    style="
+                      text-align: center;
+                      border: 1px solid rgb(191, 191, 191);
+                      height: 15px;
+                      background-color: #92d5f0;
+                      font-weight: bold;
+                    "
+                  >
+                    JMD ${!if(ProductDetails[0].Unsecure_Monthly_Loan_Payment__c
+                    ==null,0.00,ProductDetails[0].Unsecure_Monthly_Loan_Payment__c)}
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style="
+                      text-align: right;
+                      border: 1px solid rgb(191, 191, 191);
+                      height: 15px;
+                      border-left: 1px;
+                      font-weight: bold;
+                    "
+                  >
+                    Monthly Loan Payment + Monthly Loan Saving
+                  </td>
+                  <td
+                    style="
+                      text-align: center;
+                      border: 1px solid rgb(191, 191, 191);
+                      height: 15px;
+                      background-color: #92d5f0;
+                      font-weight: bold;
+                    "
+                  >
+                    JMD
+                    ${!if(ProductDetails[0].unsecure_Monthly_n_Loan_Savings__c==null,0.00,ProductDetails[0].unsecure_Monthly_n_Loan_Savings__c)}
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style="
+                      text-align: right;
+                      border: 1px solid rgb(191, 191, 191);
+                      height: 15px;
+                      border-left: 1px;
+                      font-weight: bold;
+                    "
+                  >
+                    Total Interest Payment<br />(Over repayment period)
+                  </td>
+                  <td
+                    style="
+                      text-align: center;
+                      border: 1px solid rgb(191, 191, 191);
+                      height: 15px;
+                      background-color: #92d5f0;
+                      font-weight: bold;
+                    "
+                  >
+                    JMD
+                    ${!if(ProductDetails[0].unsecure_Total_Interest_Payment__c==null,0.00,ProductDetails[0].unsecure_Total_Interest_Payment__c)}
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </apex:pageBlock>
+          <apex:pageBlock rendered="{!isCcFound}">
+            <h5
+              style="
+                font-size: small;
+                color: black;
+                background-color: #92d5f0;
+                height: 25px;
+                padding-top: 15px;
+              "
+            >
+              <b>
+                &nbsp;PERSONAL CREDIT CARD
+              </b>
+            </h5>
+            <h5
+              style="
+                width: 98%;
+                font-size: Small;
+                color: #00a1e0;
+                margin-left: 5px;
+                border-bottom: 2px solid #00a1e0;
+              "
+            >
+              <b>
+                &nbsp;CREDIT DETAILS
+              </b>
+            </h5>
+            <div style="margin-top: 5px; font-size: small;">
+              <table
+                style="margin-left: 16px; margin-right: 10px; width: 95%;"
+                cellpadding="0"
+                cellspacing="5"
+              >
+                <tr>
+                  <td style="width: 20%;">Collateral Type:</td>
+                  <td style="width: 20%;">Requested Limit:</td>
+                  <td style="width: 25%;">Proposed Starting Limit:</td>
+                  <td style="width: 35%;">
+                    Number of Supplementary Cardholders:
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style="
+                      width: 20%;
+                      border: 1px solid rgb(191, 191, 191);
+                      text-align: center;
+                    "
+                  >
+                    {!if(ProductDetails[0].PC_Collateral_Type__c==null,'',ProductDetails[0].PC_Collateral_Type__c)}
+                  </td>
+                  <td
+                    style="
+                      width: 20%;
+                      border: 1px solid rgb(191, 191, 191);
+                      text-align: center;
+                    "
+                  >
+                    {!if(ProductDetails[0].PC_Credit_Limit_Amount__c
+                    ==null,'',ProductDetails[0].PC_Credit_Limit_Amount__c )}
+                  </td>
+                  <td
+                    style="
+                      width: 25%;
+                      border: 1px solid rgb(191, 191, 191);
+                      text-align: center;
+                    "
+                  >
+                    {!if(ProductDetails[0].PC_Credit_Limit__c==null,'',ProductDetails[0].PC_Credit_Limit__c)}
+                  </td>
+                  <td
+                    style="
+                      width: 35%;
+                      border: 1px solid rgb(191, 191, 191);
+                      text-align: center;
+                    "
+                  >
+                    {!if(ProductDetails[0].Number_of_Supplementary_Applicant__c==null,'',ProductDetails[0].Number_of_Supplementary_Applicant__c)}
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <h5
+              style="
+                width: 98%;
+                font-size: Small;
+                color: #00a1e0;
+                margin-left: 5px;
+                border-bottom: 2px solid #00a1e0;
+              "
+            >
+              <b>
+                &nbsp;COLLATERAL DETAILS
+              </b>
+            </h5>
+            <div style="margin-top: 5px; font-size: small;">
+              <table
+                style="
+                  margin-left: 16px;
+                  margin-right: 10px;
+                  margin-top: 10px;
+                  width: 95%;
+                "
+                cellpadding="0"
+                cellspacing="0"
+              >
+                <tr>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Financial Institution:
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Account Type:
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                    colspan="2"
+                  >
+                    Interest Rate on Deposit Account:
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Deposit Account Balance:
+                  </td>
+                </tr>
+                <tr style="margin-top: 10px;">
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Financial_Institution__c==null,'',ProductDetails[0].Financial_Institution__c)}
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Account_Type__c==null,'',ProductDetails[0].Account_Type__c)}
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Annual_Interest_Rate_on_Deposit_Account__c==null,0.00,ProductDetails[0].Annual_Interest_Rate_on_Deposit_Account__c)}%
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    per annum
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].PC_Deposit_Account_Balance__c==null,'',ProductDetails[0].PC_Deposit_Account_Balance__c)}
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </apex:pageBlock>
+          <apex:pageBlock rendered="{!isLocFound}">
+            <h5
+              style="
+                font-size: small;
+                color: black;
+                background-color: #92d5f0;
+                height: 25px;
+                padding-top: 15px;
+              "
+            >
+              <b>
+                &nbsp;PERSONAL LINE OF CREDIT
+              </b>
+            </h5>
+            <h5
+              style="
+                width: 98%;
+                font-size: Small;
+                color: #00a1e0;
+                margin-left: 5px;
+                border-bottom: 2px solid #00a1e0;
+              "
+            >
+              <b>
+                &nbsp;CREDIT DETAILS
+              </b>
+            </h5>
+            <div style="margin-top: 5px; font-size: small;">
+              <table
+                style="margin-left: 16px; margin-right: 10px; width: 70%;"
+                cellpadding="0"
+                cellspacing="5"
+              >
+                <tr>
+                  <td style="width: 30%;">Collateral Type:</td>
+                  <td style="width: 30%;">Requested Limit:</td>
+                  <td style="width: 30%;">Proposed Starting Limit:</td>
+                </tr>
+                <tr>
+                  <td
+                    style="
+                      width: 30%;
+                      border: 1px solid rgb(191, 191, 191);
+                      text-align: center;
+                    "
+                  >
+                    {!if(ProductDetails[0].PCL_Collateral_Type__c==null,'',ProductDetails[0].PCL_Collateral_Type__c)}
+                  </td>
+                  <td
+                    style="
+                      width: 30%;
+                      border: 1px solid rgb(191, 191, 191);
+                      text-align: center;
+                    "
+                  >
+                    {!if(ProductDetails[0].Requested_Limit_LOC__c==null,'',ProductDetails[0].Requested_Limit_LOC__c)}
+                  </td>
+                  <td
+                    style="
+                      width: 30%;
+                      border: 1px solid rgb(191, 191, 191);
+                      text-align: center;
+                    "
+                  >
+                    {!if(ProductDetails[0].Line_of_Credit_Starting_Limit__c==null,'',ProductDetails[0].Line_of_Credit_Starting_Limit__c)}
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <h5
+              style="
+                width: 98%;
+                font-size: Small;
+                color: #00a1e0;
+                margin-left: 5px;
+                border-bottom: 2px solid #00a1e0;
+              "
+            >
+              <b>
+                &nbsp;COLLATERAL DETAILS
+              </b>
+            </h5>
+            <div style="margin-top: 5px; font-size: small;">
+              <table
+                style="
+                  margin-left: 16px;
+                  margin-right: 10px;
+                  margin-top: 10px;
+                  width: 95%;
+                "
+                cellpadding="0"
+                cellspacing="0"
+              >
+                <tr>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Financial Institution:
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Account Type:
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                    colspan="2"
+                  >
+                    Interest Rate on Deposit Account:
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Deposit Account Balance:
+                  </td>
+                </tr>
+                <tr style="margin-top: 10px;">
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Financial_Institution_LOC__c==null,'',ProductDetails[0].Financial_Institution_LOC__c)}
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  ></td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Annual_Interest_Rate_on_Deposit_Acc_LOC__c==null,0.00,ProductDetails[0].Annual_Interest_Rate_on_Deposit_Acc_LOC__c)}%
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    per annum
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Deposit_Account_Number_LOC__c==null,'',ProductDetails[0].Deposit_Account_Number_LOC__c)}
+                  </td>
+                </tr>
+              </table>
+              <table
+                style="
+                  margin-left: 16px;
+                  margin-right: 10px;
+                  margin-top: 10px;
+                  width: 95%;
+                "
+                cellpadding="0"
+                cellspacing="0"
+              >
+                <tr>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Property Classification:
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Occupancy Type:
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Is this property a Strata?
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Name of the Valuer:
+                  </td>
+                </tr>
+                <tr style="margin-top: 10px;">
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Property_Classification__c==null,'',ProductDetails[0].Property_Classification__c)}
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Occupancy_Type__c==null,'',ProductDetails[0].Occupancy_Type__c)}
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Is_Property_a_Strata__c==null,0.00,ProductDetails[0].Is_Property_a_Strata__c)}%
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Name_of_Valuer__c==null,'',ProductDetails[0].Name_of_Valuer__c)}
+                  </td>
+                </tr>
+              </table>
+              <table
+                style="
+                  margin-left: 16px;
+                  margin-right: 10px;
+                  margin-top: 10px;
+                  width: 95%;
+                "
+                cellpadding="0"
+                cellspacing="0"
+              >
+                <tr>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Date of Last Valuation:
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Market Value:
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Replacement Value:
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Forced Sale Value:
+                  </td>
+                </tr>
+                <tr style="margin-top: 10px;">
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Date_of_Last_Valuation__c==null,'',ProductDetails[0].Date_of_Last_Valuation__c)}
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Market_Value_of_Property__c==null,'',ProductDetails[0].Market_Value_of_Property__c)}
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Replacement_Value__c==null,0.00,ProductDetails[0].Replacement_Value__c)}%
+                  </td>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Forced_Sale_Value__c==null,'',ProductDetails[0].Forced_Sale_Value__c)}
+                  </td>
+                </tr>
+              </table>
+              <table
+                style="
+                  margin-left: 16px;
+                  margin-right: 10px;
+                  margin-top: 10px;
+                  width: 35%;
+                "
+                cellpadding="0"
+                cellspacing="0"
+              >
+                <tr>
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-top: 1px;
+                      border-bottom: 1px;
+                    "
+                  >
+                    Is there an existing lein on this property?
+                  </td>
+                </tr>
+                <tr style="margin-top: 10px;">
+                  <td
+                    style="
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                      text-align: center;
+                      height: 15px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Is_a_Lien_on_Property__c==null,'',ProductDetails[0].Is_a_Lien_on_Property__c)}
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </apex:pageBlock>
+        </div>
+      </div>
+      <div style="margin-top: 30px;">
+        <h3
+          style="
+            font-size: small;
+            width: 60%;
+            color: white;
+            background-color: #00a1e0;
+            font-family: sans-serif;
+            height: 25px;
+            padding-top: 12px;
+            margin-left: 1px;
+          "
+        >
+          &nbsp;FINANCIAL &amp; RISK ASSESSMENT
+        </h3>
+        <div style="border: 1px solid #00a1e0; margin: 1px; margin-top: -12px;">
+          <h5
+            style="
+              font-size: small;
+              color: black;
+              background-color: #92d5f0;
+              height: 25px;
+              padding-top: 15px;
+            "
+          >
+            <b>
+              &nbsp;SUMMARY OF APPLICANT(S) FINANCIALS
+            </b>
+          </h5>
+          <apex:variable value="{!0}" var="num" />
+          <apex:repeat value="{!assetslst}" var="item">
+            <apex:variable var="num" value="{!FLOOR(num) + 1}" />
+            <h5
+              style="
+                width: 98%;
+                font-size: Small;
+                color: #00a1e0;
+                margin-left: 5px;
+                border-bottom: 2px solid #00a1e0;
+              "
+            >
+              <b>
+                &nbsp;APPLICANT {!FLOOR(num)}
+              </b>
+            </h5>
+            <div style="margin-top: 5px; font-size: small;">
+              <div style="width: 49%; display: inline-block;">
+                <table
+                  style="margin-left: 5px; margin-right: 5px; width: 95%;"
+                  cellpadding="0"
+                  cellspacing="0"
+                >
+                  <tr>
+                    <td></td>
+                    <td
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        background-color: rgb(242, 242, 242);
+                      "
+                    >
+                      Prior to Proposed Loan
+                    </td>
+                    <td
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        background-color: rgb(242, 242, 242);
+                        border-left: 1px;
+                      "
+                    >
+                      After Proposed Loan
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        background-color: rgb(242, 242, 242);
+                        border-right: 1px;
+                      "
+                    >
+                      Total Assets
+                    </td>
+                    <td
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        border-top: 1px;
+                        text-align: center;
+                      "
+                    >
+                      JMD ${!item.TotalAssetsPrior}
+                    </td>
+                    <td
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        border-left: 1px;
+                        border-top: 1px;
+                        text-align: center;
+                      "
+                    >
+                      JMD ${!item.TotalAssetsAfter}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        background-color: rgb(242, 242, 242);
+                        border-right: 1px;
+                        border-top: 1px;
+                      "
+                    >
+                      Total Liabilities
+                    </td>
+                    <td
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        border-top: 1px;
+                        text-align: center;
+                      "
+                    >
+                      JMD ${!item.TotalLiabilitiesPrior}
+                    </td>
+                    <td
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        border-left: 1px;
+                        border-top: 1px;
+                        text-align: center;
+                      "
+                    >
+                      JMD ${!item.TotalLiabilitiesAfter}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      rowspan="2"
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        background-color: rgb(242, 242, 242);
+                        border-right: 1px;
+                        border-top: 1px;
+                      "
+                    >
+                      Net Worth
+                    </td>
+                    <td
+                      rowspan="2"
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        border-top: 1px;
+                        text-align: center;
+                      "
+                    >
+                      JMD ${!item.NetWorthPrior}
+                    </td>
+                    <td
+                      rowspan="2"
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        border-left: 1px;
+                        border-top: 1px;
+                        text-align: center;
+                      "
+                    >
+                      JMD ${!item.NetWorthAfter}
+                    </td>
+                  </tr>
+                </table>
+                <table
+                  style="
+                    margin-top: 5px;
+                    margin-left: 5px;
+                    margin-right: 5px;
+                    width: 95%;
+                  "
+                  cellpadding="0"
+                  cellspacing="0"
+                >
+                  <tr>
+                    <td
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        background-color: rgb(242, 242, 242);
+                        border-right: 1px;
+                        width: 25%;
+                      "
+                    >
+                      Gross Monthly Income
+                    </td>
+                    <td
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        width: 35%;
+                        text-align: center;
+                      "
+                    >
+                      JMD ${!item.GrossMonthlyIncomePrior}
+                    </td>
+                    <td
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        border-left: 1px;
+                        width: 35%;
+                        text-align: center;
+                      "
+                    >
+                      JMD ${!item.GrossMonthlyIncomeAfter}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      rowspan="2"
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        background-color: rgb(242, 242, 242);
+                        border-right: 1px;
+                        width: 25%;
+                      "
+                    >
+                      Existing Monthly Installment
+                    </td>
+                    <td
+                      rowspan="2"
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        width: 35%;
+                        text-align: center;
+                      "
+                    >
+                      JMD ${!item.ExistingMonthlyInstallmentPrior}
+                    </td>
+                    <td
+                      rowspan="2"
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        border-left: 1px;
+                        width: 35%;
+                        text-align: center;
+                      "
+                    >
+                      JMD ${!item.ExistingMonthlyInstallmentAfter}
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div style="width: 49%; display: inline-block;">
+                <table
+                  style="margin-right: 5px; width: 100%;"
+                  cellpadding="0"
+                  cellspacing="0"
+                >
+                  <tr>
+                    <td></td>
+                    <td
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        background-color: rgb(242, 242, 242);
+                      "
+                    >
+                      Prior to Proposed Loan
+                    </td>
+                    <td
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        background-color: rgb(242, 242, 242);
+                        border-left: 1px;
+                      "
+                    >
+                      After Proposed Loan
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        background-color: rgb(242, 242, 242);
+                        border-right: 1px;
+                      "
+                    >
+                      Monthly Inflows
+                    </td>
+                    <td
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        border-top: 1px;
+                        text-align: center;
+                      "
+                    >
+                      JMD ${!item.MonthlyInflowsPrior}
+                    </td>
+                    <td
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        border-left: 1px;
+                        border-top: 1px;
+                        text-align: center;
+                      "
+                    >
+                      JMD ${!item.MonthlyInflowsAfter}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        background-color: rgb(242, 242, 242);
+                        border-right: 1px;
+                        border-top: 1px;
+                      "
+                    >
+                      Monthly Outflows
+                    </td>
+                    <td
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        border-top: 1px;
+                        text-align: center;
+                      "
+                    >
+                      JMD ${!item.MonthlyOutflowsPrior}
+                    </td>
+                    <td
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        border-left: 1px;
+                        border-top: 1px;
+                        text-align: center;
+                      "
+                    >
+                      JMD ${!item.MonthlyOutflowsAfter}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      rowspan="2"
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        background-color: rgb(242, 242, 242);
+                        border-right: 1px;
+                        border-top: 1px;
+                      "
+                    >
+                      Residual Income
+                    </td>
+                    <td
+                      rowspan="2"
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        border-top: 1px;
+                        text-align: center;
+                      "
+                    >
+                      JMD ${!item.ResidualIncomePrior}
+                    </td>
+                    <td
+                      rowspan="2"
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        border-left: 1px;
+                        border-top: 1px;
+                        text-align: center;
+                      "
+                    >
+                      JMD ${!item.ResidualIncomeAfter}
+                    </td>
+                  </tr>
+                </table>
+                <table
+                  style="margin-top: 5px; margin-right: 5px; width: 100%;"
+                  cellpadding="0"
+                  cellspacing="0"
+                >
+                  <tr>
+                    <td
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        background-color: rgb(242, 242, 242);
+                        border-right: 1px;
+                        width: 29%;
+                      "
+                    >
+                      Basic Monthly Pay (No Allowances)
+                    </td>
+                    <td
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        width: 35%;
+                        text-align: center;
+                      "
+                    >
+                      JMD ${!item.BasicMonthlyPayPrior}
+                    </td>
+                    <td
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        border-left: 1px;
+                        width: 35%;
+                        text-align: center;
+                      "
+                    >
+                      JMD ${!item.BasicMonthlyPayAfter}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      rowspan="2"
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        background-color: rgb(242, 242, 242);
+                        border-right: 1px;
+                        width: 29%;
+                      "
+                    >
+                      Total Unsecured Credit Balances
+                    </td>
+                    <td
+                      rowspan="2"
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        width: 35%;
+                        text-align: center;
+                      "
+                    >
+                      JMD ${!item.TotalUnsecuredCreditPrior}
+                    </td>
+                    <td
+                      rowspan="2"
+                      style="
+                        border: 1px solid rgb(191, 191, 191);
+                        border-left: 1px;
+                        width: 35%;
+                        text-align: center;
+                      "
+                    >
+                      JMD ${!item.TotalUnsecuredCreditAfter}
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </apex:repeat>
+          <h5
+            style="
+              font-size: small;
+              color: black;
+              background-color: #92d5f0;
+              height: 25px;
+              padding-top: 15px;
+            "
+          >
+            <b>
+              &nbsp;SERVICING RATIOS
+            </b>
+          </h5>
+          <div style="margin-top: 5px; font-size: small;">
+            <div
+              style="width: 20%; display: inline-block; vertical-align: top;"
+            >
+              <apex:pageBlock rendered="{!isAutoFound}">
+                <div
+                  style="
+                    text-align: center;
+                    margin-left: 5px;
+                    height: 50px;
+                    color: #00a1e0;
+                    border: 2px solid #00a1e0;
+                  "
+                >
+                  PERSONAL AUTO LOAN
+                </div>
+              </apex:pageBlock>
+              <apex:pageBlock rendered="{!isUnFound}">
+                <div
+                  style="
+                    text-align: center;
+                    margin-left: 5px;
+                    margin-top: 5px;
+                    height: 50px;
+                    color: #00a1e0;
+                    border: 2px solid #00a1e0;
+                  "
+                >
+                  PERSONAL UNSECURED LOAN
+                </div>
+              </apex:pageBlock>
+              <apex:pageBlock rendered="{!isCcFound}">
+                <div
+                  style="
+                    text-align: center;
+                    margin-left: 5px;
+                    margin-top: 5px;
+                    height: 50px;
+                    color: #00a1e0;
+                    border: 2px solid #00a1e0;
+                  "
+                >
+                  PERSONAL CREDIT CARD
+                </div>
+              </apex:pageBlock>
+              <apex:pageBlock rendered="{!isLocFound}">
+                <div
+                  style="
+                    text-align: center;
+                    margin-left: 5px;
+                    margin-top: 5px;
+                    height: 50px;
+                    color: #00a1e0;
+                    border: 2px solid #00a1e0;
+                  "
+                >
+                  PERSONAL CREDIT CARD
+                </div>
+              </apex:pageBlock>
+            </div>
+
+            <div
+              style="width: 39%; display: inline-block; vertical-align: top;"
+            >
+              <apex:pageBlock rendered="{!isAutoFound}">
+                <div
+                  style="
+                    text-align: center;
+                    margin-left: 5px;
+                    height: 50px;
+                    border: 2px solid rgb(191, 191, 191);
+                  "
+                >
+                  <div><b>TOTAL DEBT SERVICE RATIO</b></div>
+                  <div style="width: 49%; display: inline-block;">
+                    <i><u>Prior to Proposed Loan</u></i
+                    ><br /><b
+                      >{!if(ProductDetails[0].Ability_to_Service_Auto__c==null,0.00,ProductDetails[0].Ability_to_Service_Auto__c)}%</b
+                    >
+                  </div>
+                  <div style="width: 49%; display: inline-block;">
+                    <i><u>After Proposed Loan</u></i
+                    ><br /><b
+                      >{!if(ProductDetails[0].Ability_to_Service_Auto_After__c==null,0.00,ProductDetails[0].Ability_to_Service_Auto_After__c)}%</b
+                    >
+                  </div>
+                </div>
+              </apex:pageBlock>
+              <apex:pageBlock rendered="{!isUnFound}">
+                <div
+                  style="
+                    text-align: center;
+                    margin-left: 5px;
+                    margin-top: 5px;
+                    height: 50px;
+                    border: 2px solid rgb(191, 191, 191);
+                  "
+                >
+                  <div><b>TOTAL DEBT SERVICE RATIO</b></div>
+                  <div style="width: 49%; display: inline-block;">
+                    <i><u>Prior to Proposed Loan</u></i
+                    ><br /><b
+                      >{!if(ProductDetails[0].Ability_to_Service_UL__c==null,0.00,ProductDetails[0].Ability_to_Service_UL__c)}%</b
+                    >
+                  </div>
+                  <div style="width: 49%; display: inline-block;">
+                    <i><u>After Proposed Loan</u></i
+                    ><br /><b
+                      >{!if(ProductDetails[0].Ability_to_Service_UL_After__c==null,0.00,ProductDetails[0].Ability_to_Service_UL_After__c)}%</b
+                    >
+                  </div>
+                </div>
+              </apex:pageBlock>
+              <apex:pageBlock rendered="{!isCcFound}">
+                <div
+                  style="
+                    text-align: center;
+                    margin-left: 5px;
+                    margin-top: 5px;
+                    height: 50px;
+                    border: 2px solid rgb(191, 191, 191);
+                  "
+                >
+                  <div><b>TOTAL DEBT SERVICE RATIO</b></div>
+                  <div style="width: 49%; display: inline-block;">
+                    <i><u>Prior to Proposed Loan</u></i
+                    ><br /><b
+                      >{!if(ProductDetails[0].Ability_to_Service_CC__c==null,0.00,ProductDetails[0].Ability_to_Service_CC__c)}%</b
+                    >
+                  </div>
+                  <div style="width: 49%; display: inline-block;">
+                    <i><u>After Proposed Loan</u></i
+                    ><br /><b
+                      >{!if(ProductDetails[0].Ability_to_Service_CC_After__c==null,0.00,ProductDetails[0].Ability_to_Service_CC_After__c)}%</b
+                    >
+                  </div>
+                </div>
+              </apex:pageBlock>
+              <apex:pageBlock rendered="{!isLocFound}">
+                <div
+                  style="
+                    text-align: center;
+                    margin-left: 5px;
+                    margin-top: 5px;
+                    height: 50px;
+                    border: 2px solid rgb(191, 191, 191);
+                  "
+                >
+                  <div><b>TOTAL DEBT SERVICE RATIO</b></div>
+                  <div style="width: 49%; display: inline-block;">
+                    <i><u>Prior to Proposed Loan</u></i
+                    ><br /><b
+                      >{!if(ProductDetails[0].Ability_to_Service_LOC__c==null,0.00,ProductDetails[0].Ability_to_Service_LOC__c)}%</b
+                    >
+                  </div>
+                  <div style="width: 49%; display: inline-block;">
+                    <i><u>After Proposed Loan</u></i
+                    ><br /><b
+                      >{!if(ProductDetails[0].Ability_to_Service_LOC_After__c==null,0.00,ProductDetails[0].Ability_to_Service_LOC_After__c)}%</b
+                    >
+                  </div>
+                </div>
+              </apex:pageBlock>
+            </div>
+            <div
+              style="width: 39%; display: inline-block; vertical-align: top;"
+            >
+              <apex:pageBlock rendered="{!isAutoFound}">
+                <div
+                  style="
+                    text-align: center;
+                    margin-left: 5px;
+                    margin-top: 5px;
+                    height: 50px;
+                    border: 2px solid rgb(191, 191, 191);
+                  "
+                >
+                  <div><b>APPLICATION RISK ASSESSMENT</b></div>
+                  <div style="width: 49%; display: inline-block;">
+                    <i><u>Overall Risk Score</u></i
+                    ><br /><b
+                      >{!if(ProductDetails[0].Credit_Risk_Score_Auto__c==null,0.00,ProductDetails[0].Credit_Risk_Score_Auto__c)}</b
+                    >
+                  </div>
+                  <div style="width: 49%; display: inline-block;">
+                    <i><u>Overall Risk Rating</u></i
+                    ><br /><b
+                      >{!if(ProductDetails[0].Credit_Risk_Rating_Auto__c==null,'TBD',ProductDetails[0].Credit_Risk_Rating_Auto__c)}</b
+                    >
+                  </div>
+                </div>
+              </apex:pageBlock>
+              <apex:pageBlock rendered="{!isUnFound}">
+                <div
+                  style="
+                    text-align: center;
+                    margin-left: 5px;
+                    margin-top: 5px;
+                    height: 50px;
+                    border: 2px solid rgb(191, 191, 191);
+                  "
+                >
+                  <div><b>APPLICATION RISK ASSESSMENT</b></div>
+                  <div style="width: 49%; display: inline-block;">
+                    <i><u>Overall Risk Score</u></i
+                    ><br /><b>0</b>
+                  </div>
+                  <div style="width: 49%; display: inline-block;">
+                    <i><u>Overall Risk Rating</u></i
+                    ><br /><b
+                      >{!if(ProductDetails[0].Credit_Risk_Rating_UL__c==null,'TBD',ProductDetails[0].Credit_Risk_Rating_UL__c)}</b
+                    >
+                  </div>
+                </div>
+              </apex:pageBlock>
+              <apex:pageBlock rendered="{!isCcFound}">
+                <div
+                  style="
+                    text-align: center;
+                    margin-left: 5px;
+                    margin-top: 5px;
+                    height: 50px;
+                    border: 2px solid rgb(191, 191, 191);
+                  "
+                >
+                  <div><b>APPLICATION RISK ASSESSMENT</b></div>
+                  <div style="width: 49%; display: inline-block;">
+                    <i><u>Overall Risk Score</u></i
+                    ><br /><b
+                      >{!if(ProductDetails[0].Credit_Risk_Score_CC__c==null,0.00,ProductDetails[0].Credit_Risk_Score_CC__c)}</b
+                    >
+                  </div>
+                  <div style="width: 49%; display: inline-block;">
+                    <i><u>Overall Risk Rating</u></i
+                    ><br /><b
+                      >{!if(ProductDetails[0].Credit_Risk_Rating_CC__c==null,'TBD',ProductDetails[0].Credit_Risk_Rating_CC__c)}</b
+                    >
+                  </div>
+                </div>
+              </apex:pageBlock>
+              <apex:pageBlock rendered="{!isLocFound}">
+                <div
+                  style="
+                    text-align: center;
+                    margin-left: 5px;
+                    margin-top: 5px;
+                    height: 50px;
+                    border: 2px solid rgb(191, 191, 191);
+                  "
+                >
+                  <div><b>APPLICATION RISK ASSESSMENT</b></div>
+                  <div style="width: 49%; display: inline-block;">
+                    <i><u>Overall Risk Score</u></i
+                    ><br /><b
+                      >{!if(ProductDetails[0].Credit_Risk_Score_LOC__c==null,0.00,ProductDetails[0].Credit_Risk_Score_LOC__c)}</b
+                    >
+                  </div>
+                  <div style="width: 49%; display: inline-block;">
+                    <i><u>Overall Risk Rating</u></i
+                    ><br /><b
+                      >{!if(ProductDetails[0].Credit_Risk_Rating_LOC__c==null,'TBD',ProductDetails[0].Credit_Risk_Rating_LOC__c)}</b
+                    >
+                  </div>
+                </div>
+              </apex:pageBlock>
+            </div>
+          </div>
+          <h5
+            style="
+              font-size: small;
+              color: black;
+              background-color: #92d5f0;
+              height: 25px;
+              padding-top: 15px;
+            "
+          >
+            <b>
+              &nbsp;EXCEPTION DETAILS
+            </b>
+          </h5>
+          <div style="margin-top: 5px; font-size: small;">
+            <table
+              style="margin-right: 5px; width: 100%;"
+              cellpadding="0"
+              cellspacing="0"
+            >
+              <tr>
+                <td
+                  style="
+                    width: 25%;
+                    border: 1px solid rgb(191, 191, 191);
+                    background-color: rgb(242, 242, 242);
+                    border-right: 1px;
+                    font-weight: bold;
+                  "
+                >
+                  PRODUCT TYPE
+                </td>
+                <td
+                  style="
+                    width: 25%;
+                    border: 1px solid rgb(191, 191, 191);
+                    background-color: rgb(242, 242, 242);
+                    font-weight: bold;
+                  "
+                >
+                  EXCEPTION APPROVED
+                </td>
+                <td
+                  style="
+                    width: 25%;
+                    border: 1px solid rgb(191, 191, 191);
+                    background-color: rgb(242, 242, 242);
+                    border-left: 1px;
+                    font-weight: bold;
+                  "
+                >
+                  APPROVED BY
+                </td>
+                <td
+                  style="
+                    width: 25%;
+                    border: 1px solid rgb(191, 191, 191);
+                    background-color: rgb(242, 242, 242);
+                    border-left: 1px;
+                    font-weight: bold;
+                  "
+                >
+                  DATE APPROVED
+                </td>
+              </tr>
+            </table>
+            <apex:pageBlock rendered="{!isAutoFound}">
+              <table style="width: 100%;" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td
+                    style="
+                      width: 25%;
+                      border: 1px solid rgb(191, 191, 191);
+                      border-right: 1px;
+                      border-top: 1px;
+                    "
+                  >
+                    Auto Loan
+                  </td>
+                  <td
+                    style="
+                      width: 25%;
+                      border: 1px solid rgb(191, 191, 191);
+                      border-top: 1px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Exception_Granted_Auto__c==null,'',ProductDetails[0].Exception_Granted_Auto__c)}
+                  </td>
+                  <td
+                    style="
+                      width: 25%;
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Exception_Approved_by_Auto__c==null,'',ProductDetails[0].Exception_Approved_by_Auto__c)}
+                  </td>
+                  <td
+                    style="
+                      width: 25%;
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                    "
+                  >
+                    <apex:outputText value="{0,date,MM-dd-yyyy}">
+                      <apex:param
+                        value="{!if(ProductDetails[0].Exception_Approval_Date_Auto__c==null,'',ProductDetails[0].Exception_Approval_Date_Auto__c)}"
+                      />
+                    </apex:outputText>
+                  </td>
+                </tr>
+              </table>
+            </apex:pageBlock>
+            <apex:pageBlock rendered="{!isUnFound}">
+              <table style="width: 100%;" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td
+                    style="
+                      width: 25%;
+                      border: 1px solid rgb(191, 191, 191);
+                      border-right: 1px;
+                      border-top: 1px;
+                    "
+                  >
+                    Unsecured Loan
+                  </td>
+                  <td
+                    style="
+                      width: 25%;
+                      border: 1px solid rgb(191, 191, 191);
+                      border-top: 1px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Exception_Granted_UL__c==null,'',ProductDetails[0].Exception_Granted_UL__c)}
+                  </td>
+                  <td
+                    style="
+                      width: 25%;
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Exception_Approved_by_UL__c==null,'',ProductDetails[0].Exception_Approved_by_UL__c)}
+                  </td>
+                  <td
+                    style="
+                      width: 25%;
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                    "
+                  >
+                    <apex:outputText value="{0,date,MM-dd-yyyy}">
+                      <apex:param
+                        value="{!if(ProductDetails[0].Exception_Approval_Date_UL__c==null,'',ProductDetails[0].Exception_Approval_Date_UL__c)}"
+                      />
+                    </apex:outputText>
+                  </td>
+                </tr>
+              </table>
+            </apex:pageBlock>
+            <apex:pageBlock rendered="{!isCcFound}">
+              <table style="width: 100%;" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td
+                    style="
+                      width: 25%;
+                      border: 1px solid rgb(191, 191, 191);
+                      border-right: 1px;
+                      border-top: 1px;
+                    "
+                  >
+                    Credit Card
+                  </td>
+                  <td
+                    style="
+                      width: 25%;
+                      border: 1px solid rgb(191, 191, 191);
+                      border-top: 1px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Exception_Granted_CC__c==null,'',ProductDetails[0].Exception_Granted_CC__c)}
+                  </td>
+                  <td
+                    style="
+                      width: 25%;
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Exception_Approved_by_CC__c==null,'',ProductDetails[0].Exception_Approved_by_CC__c)}
+                  </td>
+                  <td
+                    style="
+                      width: 25%;
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                    "
+                  >
+                    <apex:outputText value="{0,date,MM-dd-yyyy}">
+                      <apex:param
+                        value="{!if(ProductDetails[0].Exception_Approval_Date_CC__c==null,'',ProductDetails[0].Exception_Approval_Date_CC__c)}"
+                      />
+                    </apex:outputText>
+                  </td>
+                </tr>
+              </table>
+            </apex:pageBlock>
+            <apex:pageBlock rendered="{!isLocFound}">
+              <table style="width: 100%;" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td
+                    style="
+                      width: 25%;
+                      border: 1px solid rgb(191, 191, 191);
+                      border-right: 1px;
+                      border-top: 1px;
+                    "
+                  >
+                    Line of Credit
+                  </td>
+                  <td
+                    style="
+                      width: 25%;
+                      border: 1px solid rgb(191, 191, 191);
+                      border-top: 1px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Exception_Granted_LOC__c==null,'',ProductDetails[0].Exception_Granted_LOC__c)}
+                  </td>
+                  <td
+                    style="
+                      width: 25%;
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                    "
+                  >
+                    {!if(ProductDetails[0].Exception_Approved_by_LOC__c==null,'',ProductDetails[0].Exception_Approved_by_LOC__c)}
+                  </td>
+                  <td
+                    style="
+                      width: 25%;
+                      border: 1px solid rgb(191, 191, 191);
+                      border-left: 1px;
+                      border-top: 1px;
+                    "
+                  >
+                    <apex:outputText value="{0,date,MM-dd-yyyy}">
+                      <apex:param
+                        value="{!if(ProductDetails[0].Exception_Approval_Date_LOC__c==null,'',ProductDetails[0].Exception_Approval_Date_LOC__c)}"
+                      />
+                    </apex:outputText>
+                  </td>
+                </tr>
+              </table>
+            </apex:pageBlock>
+          </div>
+          <h5
+            style="
+              font-size: small;
+              color: black;
+              background-color: #92d5f0;
+              height: 25px;
+              padding-top: 15px;
+            "
+          >
+            <b>
+              &nbsp;APPLICATION STATUS
+            </b>
+          </h5>
+          <div
+            style="
+              margin-left: 5px;
+              margin-top: 5px;
+              margin-bottom: 10px;
+              font-size: medium;
+              border: 2px solid rgb(191, 191, 191);
+              color: #00a1e0;
+              font-weight: bold;
+            "
+          >
+            Please provide strong justification for proceeding with this
+            application as apart of the submission of this credit for
+            consideration by the Credit Risk Management Team.
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 30px;">
+        <h3
+          style="
+            font-size: small;
+            width: 60%;
+            color: white;
+            background-color: #00a1e0;
+            font-family: sans-serif;
+            height: 25px;
+            padding-top: 12px;
+            margin-left: 1px;
+          "
+        >
+          &nbsp;SALES OFFICER DETAILS
+        </h3>
+        <div style="border: 1px solid #00a1e0; margin: 1px; margin-top: -12px;">
+          <div style="margin-top: 10px; margin-bottom: 10px; font-size: small;">
+            <table
+              style="
+                margin-left: 10px;
+                margin-top: 5px;
+                margin-right: 15px;
+                width: 95%;
+              "
+              cellpadding="0"
+              cellspacing="0"
+            >
+              <tr>
+                <td style="text-align: right;">Officer's Name*</td>
+                <td
+                  style="
+                    text-align: center;
+                    border: 1px solid rgb(191, 191, 191);
+                    background-color: rgb(242, 242, 242);
+                    height: 20px;
+                    width: 100px;
+                  "
+                >
+                  {!officername}
+                </td>
+                <td style="text-align: right;">Location*</td>
+                <td
+                  style="
+                    text-align: center;
+                    border: 1px solid rgb(191, 191, 191);
+                    background-color: rgb(242, 242, 242);
+                    width: 100px;
+                  "
+                ></td>
+                <td style="text-align: right;">Date Created*</td>
+                <td
+                  style="
+                    text-align: center;
+                    border: 1px solid rgb(191, 191, 191);
+                    background-color: rgb(242, 242, 242);
+                    width: 100px;
+                  "
+                >
+                  <apex:outputText value="{0,date,MM-dd-yyyy}">
+                    <apex:param value="{!currentDate}" />
+                  </apex:outputText>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </apex:form>
+</apex:page>

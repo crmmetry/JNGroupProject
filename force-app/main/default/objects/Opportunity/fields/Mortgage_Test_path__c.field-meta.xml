@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mortgage_Test_path__c</fullName>
+    <externalId>false</externalId>
+    <label>Mortgage Test path</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Develop &amp; Interview</fullName>
+                <default>false</default>
+                <label>Develop &amp; Interview</label>
+            </value>
+            <value>
+                <fullName>Submit Loan</fullName>
+                <default>false</default>
+                <label>Submit Loan</label>
+            </value>
+            <value>
+                <fullName>Adjudication: Await Credit Decision</fullName>
+                <default>false</default>
+                <label>Adjudication: Await Credit Decision</label>
+            </value>
+            <value>
+                <fullName>Post Submission Contact- Re-Sumbit Loan</fullName>
+                <default>false</default>
+                <label>Post Submission Contact- Re-Sumbit Loan</label>
+            </value>
+            <value>
+                <fullName>Processing</fullName>
+                <default>false</default>
+                <label>Processing</label>
+            </value>
+            <value>
+                <fullName>Closing Step</fullName>
+                <default>false</default>
+                <label>Closing Step</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

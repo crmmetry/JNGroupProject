@@ -1,5 +1,5 @@
 ({
-  init: function(component, event, helper) {
+  init: function (component, event, helper) {
     const applicantStages = [
       "Getting Started",
       "Person Information",
@@ -9,13 +9,37 @@
       "Emergency Contacts",
       "Employment Details",
       "JN Affiliations",
-      "Political Affiliations"
+      "Political Affiliations",
+      "Applicant Form"
     ];
-    const financialStages = ["Applicant Details", "Assets/Liabilities"];
-    if (component.get("v.stageType") === "applicant") {
-      component.set("v.activeStages", applicantStages);
-    } else {
-      component.set("v.activeStages", financialStages);
+    const financialStages = [
+      "Applicant Selection",
+      "Applicant Details",
+      "Assets/Liabilities Selection",
+      "Assets/Liabilities Details",
+      "End"
+    ];
+    const cardHolderStages = [
+      "Card Holder Selection",
+      "Card Holder Creation",
+      "End"
+    ];
+    switch (component.get("v.stageType")) {
+      case "applicant": {
+        component.set("v.activeStages", applicantStages);
+        break;
+      }
+      case "supplementary_card_holder": {
+        component.set("v.activeStages", cardHolderStages);
+        break;
+      }
+      case "financial": {
+        component.set("v.activeStages", financialStages);
+        break;
+      }
+      default: {
+        component.set("v.activeStages", applicantStages);
+      }
     }
 
     let progressIndicator = component.find("progressIndicator");
@@ -27,7 +51,7 @@
           label: step,
           value: step
         },
-        function(newProgressStep, status, errorMessage) {
+        function (newProgressStep, status, errorMessage) {
           // Add the new step to the progress array
           if (status === "SUCCESS") {
             let body = progressIndicator.get("v.body");

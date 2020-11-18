@@ -12,8 +12,8 @@
   <aura:attribute name="showLoading" type="Boolean" default="false" />
 
   <aura:method
-    name="createAffiliates"
-    action="{!c.createAffiliates}"
+    name="createDetails"
+    action="{!c.createDetails}"
     access="public"
   />
   <aura:method
@@ -51,7 +51,11 @@
         var="affiliate"
         indexVar="index"
       >
-        <c:JNAffiliationLayout layoutId="{!index}" aura:id="layout" />
+        <c:JNAffiliationLayout
+          layoutId="{!index}"
+          aura:id="layout"
+          leadId="{!v.leadId}"
+        />
       </aura:iteration>
     </lightning:layoutItem>
   </lightning:layout>

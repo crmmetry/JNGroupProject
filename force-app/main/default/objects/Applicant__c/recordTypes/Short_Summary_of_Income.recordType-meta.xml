@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Short_Summary_of_Income</fullName>
+    <active>true</active>
+    <label>Short Summary of Income</label>
+    <picklistValues>
+        <picklist>Affiliation_Type__c</picklist>
+        <values>
+            <fullName>Immediate relative of JN Bank Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Immediate relative of JN Bank Employee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JN Bank Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JN Bank Employee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other JN Group Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other JN Group Employee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unconnected</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Applicable_sources_of_income__c</picklist>
+        <values>
+            <fullName>Director%27s Emoluments %28Director%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Net Profit %28Sole Trader%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pension</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Property Rental</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salary</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Share of Profit %28Shareholder%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Share of Profits %28Partnership%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Assessment_of_Applicant_Net_Worth__c</picklist>
+        <values>
+            <fullName>Low Net Worth</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New worth not commensurate with age and earning</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reasonable net worth</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strong net worth</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Bankrupt_in_Last_7_Years__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CRIF_Rating__c</picklist>
+        <values>
+            <fullName>Applicant too new to rate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Average Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>High Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Score too low to rate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very High Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very Low Risk</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CreditInfo_Rating__c</picklist>
+        <values>
+            <fullName>Applicant too new to rate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Average Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>High Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Score too low to rate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very High Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very Low Risk</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Credit_History_in_last_24_Months__c</picklist>
+        <values>
+            <fullName>1 - 10 Days Delinquent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11 - 30 Days Delinquent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>31 - 60 Days Delinquent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>61 - 90 Days Delinquent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Credit History</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Delinquency</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Over 90 Days Delinquent</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Is_applicant_KYC_Compliant__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>JN_Group_Employee__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Judgements_Filed__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Lawsuits_or_Claims__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Primary_Relationship_Tier__c</picklist>
+        <values>
+            <fullName>JN Blue Mahoe Club</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JN Lignum Vitae Club</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JN Mahogany Club</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Applicable</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sanction_Screening_Completed__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sanction_Screening_has_Negative_Trace__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unsecure_Closed_Won_Information</fullName>
+    <active>true</active>
+    <description
+  >Auto loan closing information must be filled out at close</description>
+    <errorConditionFormula
+  >AND( ISPICKVAL(Closed_Status__c , &#39;Closed Won&#39;),
+ Unsecure_Loan__c = True,
+$RecordType.DeveloperName= &quot;Credit_Facility&quot;,
+
+
+OR(
+ISBLANK(  Unsecured_Loan_Phoenix_Account_Number__c	  ),
+ISBLANK( TEXT(  Unsecured_Loan_Phoenix_Account_Type__c   )),
+ISBLANK(   	Unsecured_Loan_RIM_Client_No__c  )
+
+)
+
+)</errorConditionFormula>
+    <errorMessage
+  >Please Fill Out All Unsecured Loan Closing Information</errorMessage>
+</ValidationRule>

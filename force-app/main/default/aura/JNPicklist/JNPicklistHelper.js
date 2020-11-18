@@ -1,35 +1,28 @@
 ({
-    getPickListValues: function(component) {
-      const action = component.get("c.getPickListValues");
-      const objName = component.get("v.crmmObjectname");
-      const objField = component.get("v.crmmObjectField");
-      const crmmLabel = component.get("v.crmmLabel");
-      const selected = component.get("v.crmmObjectSelected");
-     
-      action.setParams({
-        'objectApiName': objName,
-        'fieldApiName': objField
-      });
-      action.setCallback(this, function(response) {
-        const state = response.getState();
-        if (state === "SUCCESS") {
-            if(crmmLabel!=null){
-                component.find("picklistChoices").set("v.label",crmmLabel);
-             }
-            if(selected!=null){
-                component.find("picklistChoices").set("v.value", selected);
-            }
+  getPickListValues: function (component) {
+    const action = component.get("c.getPickListValues");
+    const objName = component.get("v.crmmObjectname");
+    const objField = component.get("v.crmmObjectField");
 
-          const values = response.getReturnValue();
-           
-          component.set("v.values", values);
+    const recordTypeName = component.get("v.recordTypeName");
+    const recordTypeId = component.get("v.recordTypeId");
+    action.setParams({
+      objectApiName: objName,
+      fieldApiName: objField,
+      recordTypeName: recordTypeName,
+      recordTypeId: recordTypeId
+    });
 
-        } else {
-        }
-      });
-      $A.enqueueAction(action);
-    },
-      createLead: function(component) {
-          
+    action.setCallback(this, function (response) {
+      const state = response.getState();
+      if (state === "SUCCESS") {
+        const values = response.getReturnValue();
+        component
+          .find("picklistChoices")
+          .set("v.value", component.get("v.crmmObjectSelected"));
+        component.set("v.values", values);
       }
-  });
+    });
+    $A.enqueueAction(action);
+  }
+});

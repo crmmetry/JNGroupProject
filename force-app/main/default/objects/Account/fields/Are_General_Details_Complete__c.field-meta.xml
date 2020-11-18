@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Are_General_Details_Complete__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(
+
+And(
+ NOT(ISBLANK(Mother_s_Maiden_Name__c )),
+ NOT(ISBLANK(TEXT(Gender__c))),
+ NOT(ISBLANK(FirstName )),
+ NOT(ISBLANK(LastName )),
+ NOT(ISBLANK(TEXT(Marital_Status__c ))),
+ NOT(ISBLANK(Date_of_Birth__c)),
+ NOT(ISBLANK( TEXT(Place_of_Birth__c ))),
+ NOT(ISBLANK(Text(Country_of_Citizenship__c ))),
+ NOT(ISBLANK(Text(Country_of_Residence__c))),
+ NOT(ISBLANK( TEXT( Highest_Level_of_Education__c ))),
+ NOT(ISBLANK( TEXT(Place_of_Birth__c ))),
+ NOT(ISBLANK( TEXT(Primary_Employment_Type__c )))
+
+
+)
+
+
+, &#39;Yes&#39;,
+IF(
+OR(
+ NOT(ISBLANK(Mother_s_Maiden_Name__c )),
+ NOT(ISBLANK(TEXT(Gender__c))),
+ NOT(ISBLANK(FirstName )),
+ NOT(ISBLANK(LastName )),
+ NOT(ISBLANK(TEXT(Marital_Status__c ))),
+ NOT(ISBLANK(Date_of_Birth__c)),
+ NOT(ISBLANK( TEXT(Place_of_Birth__c ))),
+ NOT(ISBLANK(Text(Country_of_Citizenship__c ))),
+ NOT(ISBLANK(Text(Country_of_Residence__c))),
+ NOT(ISBLANK( TEXT( Highest_Level_of_Education__c ))),
+ NOT(ISBLANK( TEXT(Place_of_Birth__c ))),
+ NOT(ISBLANK( TEXT(Primary_Employment_Type__c )))
+
+
+)
+,
+&#39;Incomplete&#39;,
+
+
+&#39;No&#39;
+))</formula>
+    <label>Are General Details Complete?</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

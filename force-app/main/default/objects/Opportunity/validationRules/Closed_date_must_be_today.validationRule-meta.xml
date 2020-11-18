@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Closed_date_must_be_today</fullName>
+    <active>false</active>
+    <description>Closed date  must be today</description>
+    <errorConditionFormula>AND 
+(
+ISPICKVAL(Closed_Status__c, &quot;Closed Won&quot;),
+CloseDate&lt;&gt;  TODAY()
+)</errorConditionFormula>
+    <errorMessage>Please update the Closed date to today</errorMessage>
+</ValidationRule>

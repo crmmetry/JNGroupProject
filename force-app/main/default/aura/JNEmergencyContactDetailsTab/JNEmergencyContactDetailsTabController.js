@@ -1,29 +1,33 @@
 ({
-  doInit: function(component, event, helper) {
-    const siteLead = {
-        Supplementary_Applicant_Relationship__c: "",
-        Emergency_Contact_First_Name__c:'',
-        Emergency_Contact_Last_Name__c:'',
-        Emergency_Contact_Middle_Initial__c:'',
-        Emergency_Contact_Mobile__c:'',
-        Emergency_Contact_Home_Phone__c:'',
-        Emergency_Contact_Business_Phone__c:'',
-        Emergency_Contact_Personal_Email__c:''
+  doInit: function (component, event, helper) {
+    let siteLead = {
+      Emergency_Contact_Relationship__c: "",
+      Emergency_Contact_First_Name__c: "",
+      Emergency_Contact_Last_Name__c: "",
+      Emergency_Contact_Middle_Initial__c: "",
+      Emergency_Contact_Mobile__c: "",
+      Emergency_Contact_Home_Phone__c: "",
+      Emergency_Contact_Business_Phone__c: "",
+      Emergency_Contact_Personal_Email__c: ""
     };
-    component.set("v.SiteLead", siteLead);
     helper.getPickListValues(component);
+    siteLead = helper.mapSiteLeadFields(siteLead, component.get("v.SiteLead"));
+    component.set("v.SiteLead", siteLead);
   },
-  getApplicantRelationship: function(component, event, helper) {
+  getApplicantRelationship: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let siteLead = component.get("v.SiteLead");
-    siteLead["Supplementary_Applicant_Relationship__c"] = selected;
+    siteLead["Emergency_Contact_Relationship__c"] = selected;
     component.set("v.SiteLead", siteLead);
   },
-  validateTabFields: function(component, event, helper) {
-    return component.find("validation").reduce(function(validSoFar, inputCmp) {
+  validateTabFields: function (component, event, helper) {
+    return component.find("validation").reduce(function (validSoFar, inputCmp) {
       // Displays error messages for invalid fields
       inputCmp.showHelpMessageIfInvalid();
       return validSoFar && inputCmp.get("v.validity").valid;
     }, true);
+  },
+  createDetails: function (component, event, helper) {
+    helper.updateApplicant(component);
   }
 });

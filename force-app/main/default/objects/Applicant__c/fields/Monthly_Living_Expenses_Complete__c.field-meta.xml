@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Monthly_Living_Expenses_Complete__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(
+
+And(
+NOT( ISBLANK (Text(Income_Tax_Monthly_Payment_Prior_Loan__c))),
+NOT(ISBLANK( Text(NIS_Contribution_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(NHT_Contributions_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Rent_Board_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Rent_Board_Monthly_Prior_Loan__c))),	
+NOT(ISBLANK( Text(Strata_Maintenance_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Strata_Maintenance_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Property_Tax_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Property_Tax_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Property_Insurance_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Property_Insurance_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Property_Maintenance_Monthly_Prior_loan__c))),
+NOT(ISBLANK( Text(Property_Maintenance_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Personal_Expenses_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Personal_Expenses_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Food_Costs_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Food_Cost_Monthly_Prior_Loan__c))),	
+NOT(ISBLANK( Text(Child_Care_Costs_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Child_Care_Costs_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(School_Costs_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(School_Costs_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Health_Costs_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Health_Costs_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Other_Personal_Family_Costs_Prior_After__c))), 
+NOT(ISBLANK( Text(Other_Personal_Family_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Electricity_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Electricity_Monthly_Prior_Loan__c))),	
+NOT(ISBLANK( Text(Water_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Water_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Cell_Phone_Landline_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Cell_Phone_Landline_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Internet_Cable_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Internet_Cable_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Cooking_Gas_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Cooking_Gas_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(House_Keeping_Costs_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(House_Keeping_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Other_Utilities_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Other_Utilities_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Fares_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Fares_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Petrol_Fuel_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Petrol_Fuel_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Toll_Fees_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Toll_Fees_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Motor_V_Insurance_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Motor_V_Insurance_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Motor_V_Maintenance_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Motor_Vehicle_Reg_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Motor_Vehicle_Reg_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Motor_Vehicle_Fitness_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Motor_Vehicle_Fitness_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Motor_V_Maintenance_Monthly_After_Loan__c))),
+NOT(ISBLANK( Text(Motor_V_Maintenance_Monthly_Before_Loan__c))),
+NOT(ISBLANK( Text(Other_Transport_Costs_Monthly_Prior_Loan__c))),
+NOT(ISBLANK( Text(Other_Transport_Monthly_After_Loan__c)))
+ 
+)
+
+
+,
+&#39;TRUE&#39; ,
+&#39;FALSE&#39;
+
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Monthly Living Expenses Complete?</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,14 @@
+Dear {!Lead.Salutation} {!Lead.FirstName} {!Lead.LastName},
+
+ 
+
+Thank you for your application for a {!Lead.Service_of_Interest__c} with JN Bank Limited.  You will be contacted by one of our representatives to continue your loan application process in 2 business days.
+
+ 
+Your application reference number is {!Lead.Id}. If you have any queries on the status of your application, please feel free to call our Contact Centre at any of the numbers listed here: https://www.jnbank.com/contact/. You may be asked to quote your unique loan application ID.
+
+ 
+
+Sincerely,
+
+The JN Bank Team

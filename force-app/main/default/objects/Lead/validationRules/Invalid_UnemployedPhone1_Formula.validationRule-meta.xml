@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Invalid_UnemployedPhone1_Formula</fullName>
+    <active>true</active>
+    <description
+  >Ensures that the unemployed phone 1 field is properly validated.</description>
+    <errorConditionFormula
+  >IF( OR(ISCHANGED(Unemployed_Phone_1__c) &amp;&amp; NOT(ISNULL(Unemployed_Phone_1__c)) &amp;&amp; NOT(ISBLANK(Unemployed_Phone_1__c)) &amp;&amp; !REGEX(Unemployed_Phone_1__c ,&#39;^\\d{10,25}$&#39;), ISNEW() &amp;&amp; NOT(ISNULL(Unemployed_Phone_1__c)) &amp;&amp; NOT(ISBLANK(Unemployed_Phone_1__c)) &amp;&amp; !REGEX(Unemployed_Phone_1__c ,&#39;^\\d{10,25}$&#39;)),true,false)</errorConditionFormula>
+    <errorDisplayField>Unemployed_Phone_1__c</errorDisplayField>
+    <errorMessage
+  >Invalid format entered for unemployed phone 1. The minimum number of digits should be 10</errorMessage>
+</ValidationRule>

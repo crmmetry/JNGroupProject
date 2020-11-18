@@ -1,0 +1,1 @@
+sfdx force:source:deploy -p "force-app/main/default/profiles/JN Bank - Sales Support.profile-meta.xml,force-app/main/default/profiles/Admin.profile-meta.xml,/Users/remariorichards/Desktop/Projects/CRMmetry/JNGroupProject/force-app/main/default/profiles/Sales - All Products.profile-meta.xml" -u uat

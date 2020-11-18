@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Collateral_CC__c</fullName>
+    <externalId>false</externalId>
+    <label>Collateral CC</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Cash</fullName>
+                <default>false</default>
+                <label>Cash</label>
+            </value>
+            <value>
+                <fullName>Realestate - Residential</fullName>
+                <default>false</default>
+                <label>Realestate - Residential</label>
+            </value>
+            <value>
+                <fullName>Realestate - Commercial</fullName>
+                <default>false</default>
+                <label>Realestate - Commercial</label>
+            </value>
+            <value>
+                <fullName>Motor Vehicle</fullName>
+                <default>false</default>
+                <label>Motor Vehicle</label>
+            </value>
+            <value>
+                <fullName>None</fullName>
+                <default>false</default>
+                <label>None</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

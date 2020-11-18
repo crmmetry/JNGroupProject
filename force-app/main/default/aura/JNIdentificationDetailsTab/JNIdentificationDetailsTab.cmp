@@ -1,81 +1,93 @@
-<!--
-  @File Name          : JNIdentificationDetailsTab.cmp
-  @Description        : 
-  @Author             : Jermaine.Byfield@crmmetry.com
-  @Group              : 
-  @Last Modified By   : Jermaine.Byfield@crmmetry.com
-  @Last Modified On   : 10/31/2019, 4:14:17 PM
-  @Modification Log   : 
-  Ver       Date            Author      		    Modification
-  1.0    10/31/2019   Jermaine.Byfield@crmmetry.com     Initial Version
--->
 <aura:component access="GLOBAL" controller="JNSiteController">
-    <aura:registerEvent type="c:JNComponentEvent" name="jnEvent" />
-    <aura:attribute name="SiteLead" type="Map" />
-    
-    <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
-    <aura:attribute name="countries" type="String[]" />
-    <aura:attribute name="identificationTypes" type="String[]" />
-    <aura:attribute name="mindate" type="Date" />
-    <aura:method name="validateTabFields" action="{!c.validateTabFields}" access="public"/>
-
-    <lightning:layout>
-        <lightning:layoutItem size="12">
-            <div class="slds-grid slds-gutters">
-                <!-- Identification Type -->
-                <div class="slds-col slds-size_3-of-12">
-                    <lightning:select
-                                      name="identification_type"
-                                      label="Identification Type"
-                                      required="true"
-                                      onchange="{!c.getIdentificationType}"
-                                      aura:id="validation"
-                                      >
-                        <option value="">select one...</option>
-                        <aura:iteration items="{!v.identificationTypes}" var="item">
-                            <option value="{!item}">{!item}</option>
-                        </aura:iteration>
-                    </lightning:select>
-                </div>
-                <!-- Identification Number -->
-                <div class="slds-col slds-size_3-of-12">
-                    <lightning:input
-                                     type="number"
-                                     name="identification_number"
-                                     label="Identification Number"
-                                     required="true"
-                                     value="{!v.SiteLead.Identification_Number__c}"
-                                     aura:id="validation"
-                                     />
-                </div>
-                <!-- Expiration Date -->
-                <div class="slds-col slds-size_3-of-12">
-                    <lightning:input
-                                     type="date"
-                                     name="expiration_date"
-                                     label="Expiration Date"
-                                     required="true"
-                                     min="{!v.mindate}"
-                                     value="{!v.SiteLead.Identification_Type_Expiration__c}"
-                                     aura:id="validation"
-                                     />
-                </div>
-                <!-- Country of Issue -->
-                <div class="slds-col slds-size_3-of-12">
-                    <lightning:select
-                                      name="country_of_issue"
-                                      label="Country of Issue"
-                                      required="true"
-                                      onchange="{!c.getCountryofIssue}"
-                                      aura:id="validation"
-                                      >
-                        <option value="Jamaica">Jamaica</option>
-                        <aura:iteration items="{!v.countries}" var="item">
-                            <option value="{!item}">{!item}</option>
-                        </aura:iteration>
-                    </lightning:select>
-                </div>
-            </div>
-        </lightning:layoutItem>
-    </lightning:layout>
+  <aura:registerEvent type="c:JNComponentEvent" name="jnEvent" />
+  <aura:attribute name="SiteLead" type="Object" />
+  <aura:attribute name="readonlyFlag" type="Boolean" default="false" />
+  <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+  <aura:attribute name="countries" type="String[]" />
+  <aura:attribute name="identificationTypes" type="String[]" />
+  <aura:attribute name="mindate" type="Date" />
+  <aura:method
+    name="validateTabFields"
+    action="{!c.validateTabFields}"
+    access="public"
+  />
+  <aura:attribute name="leadId" type="String" />
+  <aura:method
+    name="createDetails"
+    action="{!c.createDetails}"
+    access="public"
+  />
+  <lightning:layout>
+    <lightning:layoutItem size="12">
+      <div class="slds-grid slds-gutters">
+        <!-- Identification Type -->
+        <div class="slds-col slds-size_3-of-12">
+          <lightning:select
+            name="identification_type"
+            label="Identification Type"
+            required="true"
+            onchange="{!c.getIdentificationType}"
+            aura:id="validation"
+            disabled="{!v.readonlyFlag}"
+          >
+            <option value="">select one...</option>
+            <aura:iteration items="{!v.identificationTypes}" var="item">
+              <option
+                value="{!item}"
+                selected="{!v.SiteLead.Identification_Type__c == item}"
+              >
+                {!item}
+              </option>
+            </aura:iteration>
+          </lightning:select>
+        </div>
+        <!-- Identification Number -->
+        <div class="slds-col slds-size_3-of-12">
+          <lightning:input
+            type="text"
+            name="identification_number"
+            label="Identification Number"
+            required="true"
+            value="{!v.SiteLead.Identification_Number__c}"
+            aura:id="validation"
+            disabled="{!v.readonlyFlag}"
+          />
+        </div>
+        <!-- Expiration Date -->
+        <div class="slds-col slds-size_3-of-12">
+          <lightning:input
+            type="date"
+            name="expiration_date"
+            label="Expiration Date"
+            required="true"
+            min="{!v.mindate}"
+            value="{!v.SiteLead.Identification_Type_Expiration__c}"
+            aura:id="validation"
+            disabled="{!v.readonlyFlag}"
+          />
+        </div>
+        <!-- Country of Issue -->
+        <div class="slds-col slds-size_3-of-12">
+          <lightning:select
+            name="country_of_issue"
+            label="Country of Issue"
+            required="true"
+            onchange="{!c.getCountryofIssue}"
+            aura:id="validation"
+            disabled="{!v.readonlyFlag}"
+          >
+            <option value="Jamaica">Jamaica</option>
+            <aura:iteration items="{!v.countries}" var="item">
+              <option
+                value="{!item}"
+                selected="{!v.SiteLead.Identification_Type_Country_of_issue__c == item}"
+              >
+                {!item}
+              </option>
+            </aura:iteration>
+          </lightning:select>
+        </div>
+      </div>
+    </lightning:layoutItem>
+  </lightning:layout>
 </aura:component>

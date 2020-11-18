@@ -3,12 +3,12 @@
   <aura:attribute name="body" type="String" />
   <aura:attribute name="negativeBtnText" type="String" default="Cancel" />
   <aura:attribute name="postiveBtnText" type="String" default="Submit" />
-  <aura:attribute name="postiveBtnClick" type="Aura.Action"/>
-    <aura:method name="hideModal" action="{!c.hideModal}" access="public" />
-    <aura:method name="showModal" action="{!c.showModal}" access="public">
-        <aura:attribute name="header" type="String" />
-        <aura:attribute name="body" type="String" />
-    </aura:method>
+  <aura:attribute name="postiveBtnClick" type="Aura.Action" />
+  <aura:method name="hideModal" action="{!c.hideModal}" access="public" />
+  <aura:method name="showModal" action="{!c.showModal}" access="public">
+    <aura:attribute name="header" type="String" />
+    <aura:attribute name="body" type="String" />
+  </aura:method>
   <div aura:id="crmm_modal" class="hideDiv">
     <section
       role="dialog"
@@ -26,25 +26,29 @@
           >
             <span class="slds-assistive-text">Close</span>
           </button>
-          <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate"
-            >{!v.header}</h2
-          >
+          <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+            {!v.header}
+          </h2>
         </header>
         <div
-          class="slds-modal__content slds-p-around_medium "
+          class="slds-modal__content slds-p-around_medium"
           id="modal-content-id-1"
         >
-            <p>{!v.body}</p>
+          <p>{!v.body}</p>
         </div>
         <footer class="slds-modal__footer">
           <button
             class="slds-button slds-button_neutral"
             onclick="{!c.hideModal}"
-            >{!v.negativeBtnText}</button
           >
-          <button class="slds-button slds-button_brand" onclick="{!v.postiveBtnClick}"
-            >{!v.postiveBtnText}</button
+            {!v.negativeBtnText}
+          </button>
+          <button
+            class="slds-button slds-button_brand"
+            onclick="{!v.postiveBtnClick}"
           >
+            {!v.postiveBtnText}
+          </button>
         </footer>
       </div>
     </section>

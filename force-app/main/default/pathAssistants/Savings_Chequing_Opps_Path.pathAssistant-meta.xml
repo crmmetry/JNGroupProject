@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Opportunity</entityName>
+    <fieldName>Savings__c</fieldName>
+    <masterLabel>Savings/Chequing Opps Path</masterLabel>
+    <pathAssistantSteps>
+        <fieldNames>Collect_and_Scan_KYC_documents_OnBase__c</fieldNames>
+        <picklistValueName>Close Sale And Open Account</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Closed_Status__c</fieldNames>
+        <picklistValueName>Closing Steps</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Discuss_Account_Opening_and_KYC_Requirem__c</fieldNames>
+        <fieldNames>Schedule_Proceed_with_Account_Opening__c</fieldNames>
+        <picklistValueName>Propose Product</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>Savings_Chequing</recordTypeName>
+</PathAssistant>

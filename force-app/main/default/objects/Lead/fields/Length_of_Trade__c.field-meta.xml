@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Length_of_Trade__c</fullName>
+    <externalId>false</externalId>
+    <label>Length of Trade</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>&lt; 1 Year</fullName>
+                <default>false</default>
+                <label>&lt; 1 Year</label>
+            </value>
+            <value>
+                <fullName>1 - 3 Years</fullName>
+                <default>false</default>
+                <label>1 - 3 Years</label>
+            </value>
+            <value>
+                <fullName>3 - 5 Years</fullName>
+                <default>false</default>
+                <label>3 - 5 Years</label>
+            </value>
+            <value>
+                <fullName>&gt; 5 Years</fullName>
+                <default>false</default>
+                <label>&gt; 5 Years</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

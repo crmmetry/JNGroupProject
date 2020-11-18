@@ -12,8 +12,8 @@
   <aura:attribute name="leadId" type="String" />
   <aura:attribute name="showLoading" type="Boolean" default="false" />
   <aura:method
-    name="createExtensions"
-    action="{!c.createExtensions}"
+    name="createDetails"
+    action="{!c.createDetails}"
     access="public"
   />
   <aura:method

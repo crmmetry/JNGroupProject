@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Staff_2_Interest_Rate_Auto__c</fullName>
+    <description>Staff 2 Interest Rate Auto</description>
+    <externalId>false</externalId>
+    <label>Staff 2 Interest Rate Auto</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

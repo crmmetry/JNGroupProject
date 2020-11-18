@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Credit_Faci_must_corresp_products</fullName>
+    <active>true</active>
+    <description
+  >Auto Loan, Unsecured Loan, Credit Card, Line of Credit, must have the corresponding line of product to be added</description>
+    <errorConditionFormula>AND
+(
+Opportunity.RecordType.DeveloperName= &quot;Credit_Facility&quot;,
+
+NOT(ISPICKVAL(Product2.Family, &apos;JN Bank Credit Card&apos;)),
+NOT(ISPICKVAL(Product2.Family, &apos;JN Bank Auto Loan&apos;)),
+NOT(ISPICKVAL(Product2.Family, &apos;JN Bank Commercial Auto Loan&apos;)),
+NOT(ISPICKVAL(Product2.Family, &apos;JN Bank Line Of Credit&apos;)),
+NOT(ISPICKVAL(Product2.Family, &apos;JN Bank Unsecured Loan&apos;)),
+NOT(ISPICKVAL(Product2.Family, &apos;JN Bank 12 to 1 Loan (Supersize Loan)&apos;))
+
+
+
+
+)</errorConditionFormula>
+    <errorMessage
+  >This product is not apart of the Auto Loan, Unsecured Loan, Credit Card and Line of Credit Line of Products. Please add a product corresponding to this record type, or create a new opportunity</errorMessage>
+</ValidationRule>

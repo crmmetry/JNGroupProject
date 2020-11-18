@@ -1,0 +1,911 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Multi_Product</fullName>
+    <active>true</active>
+    <label>Multi Product</label>
+    <picklistValues>
+        <picklist>Account_Type__c</picklist>
+        <values>
+            <fullName>CHQ - Chequing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CSV - Savings</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Direct Gain</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hight Yield</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName
+      >IL - Auto Loan%2C Unsecured Loan%2C Term Share Loan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JNC - Credit Card</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LOC - Personal Line of Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MLF -Mortgage Loan Foreign</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MLL - Mortgage Loan Local</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mutual Fund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RSV - Savings</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Repo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>STM - Savings</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Auto_Loan_Purpose__c</picklist>
+        <values>
+            <fullName>Equity in a Motor Vehicle</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchase a Motor Vehicle</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Refinance existing Auto Loan</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Collateral_Type__c</picklist>
+        <values>
+            <fullName>Cash-JNB-Direct Gain Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cash-JNB-High Yield Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cash-JNFM-Mutual Fund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cash-JNFM-Repo Agreement</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Coverage_Type__c</picklist>
+        <values>
+            <fullName>Applicant 1 %26 Applicant 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Applicant 1 %26 Applicant 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Applicant 1 Only</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Applicant 2 %26 Applicant 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Applicant 2 Only</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Applicant 3 Only</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Suitable Applicants</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Deduct_1st_moth_Payment_from_Loan__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Exception_Granted_Auto__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Exception_Granted_CC__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Exception_Granted_LOC__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Exception_Granted_UL__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Finance_Single_Creditor_Life_Insure_B__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Financial_Institution_LOC__c</picklist>
+        <values>
+            <fullName>JN Bank Limited</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JN Fund Managers Limited</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Financial_Institution__c</picklist>
+        <values>
+            <fullName>JN Bank Limited</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JN Fund Managers Limited</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Include_a_moratorium_of_Loan_Payment__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Include_first_year_premium_in_loan_amt__c</picklist>
+        <values>
+            <fullName>No %28Paid by the Applicant%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes %28Include in Loan Amount%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Include_in_Loan_Amount_Processing_Fee__c</picklist>
+        <values>
+            <fullName>No %28Paid by the Applicant%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes %28Include in Loan Amount%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Include_in_Loan_Amount_jnlife__c</picklist>
+        <values>
+            <fullName>No %28Paid by the Applicant%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes %28Include in Loan Amount%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Indicate_Type__c</picklist>
+        <values>
+            <fullName>Principal Only</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Principal and Interest</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Interested_In_JN_Bulk_Premium_Life_Ins__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Interested_in_Creditor_Life__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Interested_in_programme__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Is_Property_a_Strata__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Is_a_Lien_on_Property__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Legal_Related_Activities__c</picklist>
+        <values>
+            <fullName>External Panel Attorney</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Legal Unit</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Market_currency_of_vehicle__c</picklist>
+        <values>
+            <fullName>CAD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GBP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JMD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>USD</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Method_Of_Calculation__c</picklist>
+        <values>
+            <fullName>Affordability</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Desired Monthly Payment</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Moratorium_Indicate_Term__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Name_of_Insurance_Provider__c</picklist>
+        <values>
+            <fullName>Guardian Life</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sagicor</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Number_of_Supplementary_Applicant__c</picklist>
+        <values>
+            <fullName>1 Supplementary Cardholder</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2 Supplementary Cardholder</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3 Supplementary Cardholder</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4 Supplementary Cardholder</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5 Supplementary Cardholder</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Occupancy_Type__c</picklist>
+        <values>
+            <fullName>Owner Occupied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rental Property</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Othee_post_moratorium__c</picklist>
+        <values>
+            <fullName>Extend original loan term by moratorium period</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Maintain original loan term</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PCL_Account_Hypothecated_another_Loan__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PCL_Collateral_Type__c</picklist>
+        <values>
+            <fullName>Cash%2FInvestment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real-Estate</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PCL_Currency__c</picklist>
+        <values>
+            <fullName>CAD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GBP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JMD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>USD</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PCL_Hypothecated_Currency__c</picklist>
+        <values>
+            <fullName>CAD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GBP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JMD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>USD</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PCL_Type_of_Cash_Secured_Collateral__c</picklist>
+        <values>
+            <fullName>JN Bank - Direct Gain Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JN Bank - High Yield Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JNFM - Mutual Fund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JNFM - Repurchase Agreement</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PC_Account_Hypothecated_for_another_Loan__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PC_Collateral_Type__c</picklist>
+        <values>
+            <fullName>Cash%2FInvestment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real-Estate</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PC_Credit_Limit__c</picklist>
+        <values>
+            <fullName>CAD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GBP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JMD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>USD</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PC_Type_of_Cash_Secured_Collateral__c</picklist>
+        <values>
+            <fullName>JN Bank - Direct Gain Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JN Bank - High Yield Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JNFM - Mutual Fund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JNFM - Repurchase Agreement</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PLC_Credit_Limit_Currency__c</picklist>
+        <values>
+            <fullName>CAD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GBP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JMD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>USD</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Product_Type__c</picklist>
+        <values>
+            <fullName>Credit Card</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Line of Credit</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Property_Classification__c</picklist>
+        <values>
+            <fullName>Residential</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Repayment_Method_Auto__c</picklist>
+        <values>
+            <fullName>Over The Counter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salary Deduction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standing Order</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Repayment_Method_CC__c</picklist>
+        <values>
+            <fullName>Over The Counter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salary Deduction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standing Order</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Repayment_Method_LOC__c</picklist>
+        <values>
+            <fullName>Over The Counter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salary Deduction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standing Order</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Repayment_Method_UL__c</picklist>
+        <values>
+            <fullName>Over The Counter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salary Deduction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standing Order</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Single_Premium_Creditor_Life_Insu_A__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type_of_Life_Insurance_to_be_Applied__c</picklist>
+        <values>
+            <fullName>Assigned Life Insurance Policy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JN Life Single Life Coverage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Unsecure_Coverage_Type__c</picklist>
+        <values>
+            <fullName>Applicant 1 %26  Applicant 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Applicant 1 %26 Applicant 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Applicant 1 Only</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Applicant 2 %26 Applicant 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Applicant 2 Only</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Applicant 3 Only</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Suitable Applicants</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Unsecure_Fee_Include_in_Loan_Amount__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Unsecure_Include_in_Loan_Amount__c</picklist>
+        <values>
+            <fullName>No %28Paid by the Applicant%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes %28Include in Loan Amount%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Unsecure_Loan_Savings_currency__c</picklist>
+        <values>
+            <fullName>CAD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GBP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JMD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>USD</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Unsecure_Waive_Processing_Fee__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Vehicle_Classification__c</picklist>
+        <values>
+            <fullName>New</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Used %28Imported%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Used %28Local - Pre-owned%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Waive_Process_Fee__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Will_card_used_by_authorized_cardholders__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>interest_in_JN_Life_CC_Creditor_Life_iIn__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>is_Property_Insured_LOC__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>unsecure_Jn_Life_Creditor_Life_Insurance__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>unsecure_Loan_Purpose__c</picklist>
+        <values>
+            <fullName>Asset Acquisition</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Auto Repairs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Debt Consolidation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Education</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Improvement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medical Expenses</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

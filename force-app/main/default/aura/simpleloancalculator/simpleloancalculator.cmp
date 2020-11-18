@@ -1,7 +1,7 @@
 <!--
   @Component Name     : simpleloancalculator.cmp
   @Description        : 
-  @Author             : jermaine
+  @Author             : Remario
   @Group              : 
   @Last Modified By   : ChangeMeIn@UserSettingsUnder.SFDoc
   @Last Modified On   : 8/22/2019, 2:24:57 PM
@@ -11,16 +11,24 @@
   ==============================================================================
   1.0    7/19/2019, 11:31:36 AM   jermaine     Initial Version 
 -->
-<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId" controller="SimpleLoanCalculationController"  >  
-    <aura:attribute name="options" type="List"  default="[
+<aura:component
+  implements="flexipage:availableForAllPageTypes,force:hasRecordId"
+  controller="SimpleLoanCalculationController"
+>
+  <aura:attribute name="isHomePage" type="String" />
+  <aura:attribute
+    name="options"
+    type="List"
+    default="[
                                                          {'label': 'Installment Affordability', 'value': 'AffordabilityCalculator'},
                                                          {'label': 'Installment Payment', 'value': 'InstallmentPayment'},
                                                          {'label': 'Revolving Credit Limit Unsecured', 'value': 'RevolvingCreditLimitUnsecured'},
                                                          {'label': 'Revolving Credit Limit Secured', 'value': 'RevolvingCreditLimitSecured'}
                                                          
-                                                         ]"/> 
-    <!-- {'label': 'Multi Product Calculator', 'value': 'MultiProductCalculator'}-->
-    <!-- <aura:attribute name="newInstallmentAffordablityCalculator"   type="String[]" default="{'sobjectType': 'Loan_Calculator__c',
+                                                         ]"
+  />
+  <!-- {'label': 'Multi Product Calculator', 'value': 'MultiProductCalculator'}-->
+  <!-- <aura:attribute name="newInstallmentAffordablityCalculator"   type="String[]" default="{'sobjectType': 'Loan_Calculator__c',
     'Interest_Rate__c':'',
     'Maximum_Loan_Amount__c':'',
     'Method_Of_Calculation__c':'',
@@ -29,210 +37,578 @@
     'Years__c':'',
     'recordTypeId':''
     }"/>   -->
-    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
-    <aura:attribute name="recordId" type="String" />
-    <aura:attribute name="newInstallmentAffordablityCalculator"   type="Loan_Calculator__c" />  
-    <aura:attribute name="sobjectName" type="string"/>
-    <aura:attribute name="radioGrpValue" type="String" />
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="c-container">
-        <lightning:layout multipleRows="true">
-            <lightning:layoutItem padding="around-small" size="12">
-                <lightning:layout class="slds-page-header slds-page-header--object-home">
-                    <lightning:layoutItem> 
-                        <lightning:icon iconName="action:dial_in" alternativeText="My Expenses"/>
-                    </lightning:layoutItem>
-                    <lightning:layoutItem padding="horizontal-small">
-                        <div class="page-section page-header">
-                            <h1 class="slds-text-heading--label">Simple Loan Calculator</h1>
-                            <h2 class="slds-text-heading--medium">Simple Loan Calculator</h2>
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+  <aura:attribute name="recordId" type="String" />
+  <aura:attribute
+    name="newInstallmentAffordablityCalculator"
+    type="Loan_Calculator__c"
+  />
+  <aura:attribute name="sobjectName" type="string" />
+  <aura:attribute name="radioGrpValue" type="String" />
+
+  <aura:attribute name="showErrorLT" type="Boolean" />
+  <aura:attribute name="showErrorIR" type="Boolean" />
+  <aura:attribute name="showErrorDP" type="Boolean" />
+
+  <aura:attribute name="showErrorMGI" type="Boolean" />
+  <aura:attribute name="showErrorEMP" type="Boolean" />
+  <aura:attribute name="showErrorMOC" type="Boolean" />
+
+  <aura:attribute name="showErrorIP_IR" type="Boolean" />
+  <aura:attribute name="showErrorIP_LT" type="Boolean" />
+  <aura:attribute name="showErrorIP_LA" type="Boolean" />
+
+  <div class="c-container">
+    <lightning:layout multipleRows="true">
+      <lightning:layoutItem padding="around-small" size="12">
+        <lightning:layout
+          class="slds-page-header slds-page-header--object-home"
+        >
+          <lightning:layoutItem>
+            <lightning:icon
+              iconName="action:dial_in"
+              alternativeText="My Expenses"
+            />
+          </lightning:layoutItem>
+          <lightning:layoutItem padding="horizontal-small">
+            <div class="page-section page-header">
+              <h1 class="slds-text-heading--label">Simple Loan Calculator</h1>
+              <h2 class="slds-text-heading--medium">Simple Loan Calculator</h2>
+            </div>
+          </lightning:layoutItem>
+        </lightning:layout>
+      </lightning:layoutItem>
+
+      <lightning:layoutItem padding="around-small" size="12">
+        <lightning:layout>
+          <lightning:layoutItem size="12">
+            <div aria-labelledby="newexpenseform">
+              <form class="slds-form">
+                <fieldset
+                  class="slds-box slds-theme--default slds-container--large calc-select"
+                >
+                  <legend
+                    id="newexpenseform"
+                    class="slds-text-heading--large slds-p-vertical--medium"
+                  >
+                    Select Type of Calculator
+                  </legend>
+                  <lightning:radioGroup
+                    class="calc-select"
+                    aura:id="calculatorType"
+                    name="calculatorType"
+                    options="{! v.options }"
+                    value="{! v.radioGrpValue }"
+                    type="radio"
+                    onchange="{! c.showHideCalc}"
+                  />
+                </fieldset>
+
+                <div
+                  aura:id="AffordabilityCalculator"
+                  class="slds-hide"
+                  style="margin-top: 20px;"
+                >
+                  <fieldset
+                    class="slds-box slds-theme--default slds-container--large"
+                  >
+                    <legend
+                      class="slds-text-heading--large slds-p-vertical--medium"
+                    >
+                      Installment Affordability Calculator
+                    </legend>
+                    <div class="slds-grid slds-wrap">
+                      <div
+                        class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 paddingLR"
+                      >
+                        <lightning:select
+                          name="methodCalucaltion"
+                          label="Method of Calculation?"
+                          class="mrgBottom"
+                          aura:id="methodCalucaltion"
+                          required="true"
+                          onchange="{! c.showhideONmethod }"
+                        >
+                          <option value="0">choose one...</option>
+                          <option value="2">Desired Monthly Payment</option>
+                          <option value="3">Affordability</option>
+                        </lightning:select>
+                        <aura:renderIf isTrue="{!v.showErrorMOC}">
+                          <div id="error">
+                            <p style="color: red; font-size: 11px;">
+                              Please select Method of Calculation
+                            </p>
+                          </div>
+                        </aura:renderIf>
+                        <lightning:input
+                          type="number"
+                          formatter="percent-fixed"
+                          step="0.01"
+                          class="mrgBottom"
+                          label="Interest Rate"
+                          name="InterestRate"
+                          aura:id="InterestRate"
+                          required="true"
+                        />
+                        <aura:renderIf isTrue="{!v.showErrorIR}">
+                          <div id="error">
+                            <p style="color: red; font-size: 11px;">
+                              Interest Rate should be greater than 0
+                            </p>
+                          </div>
+                        </aura:renderIf>
+                        <div class="slds-grid slds-wrap">
+                          <!--<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1"><label>Loan Term</label></div> -->
+                          <div
+                            class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1 mrgBottom"
+                          >
+                            <lightning:input
+                              type="number"
+                              required="true"
+                              placeholder="Year"
+                              label="Loan Term"
+                              aura:id="loanTermYr"
+                              name="loanTermYr"
+                            />
+                          </div>
+                          <div
+                            class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1 mrgBottom"
+                          >
+                            <lightning:input
+                              type="number"
+                              placeholder="Month"
+                              aura:id="loanTermMth"
+                              name="loanTermMth"
+                            />
+                          </div>
+                          <aura:renderIf isTrue="{!v.showErrorLT}">
+                            <div id="error">
+                              <p
+                                style="
+                                  color: red;
+                                  font-size: 11px;
+                                  margin-top: -2px;
+                                  margin-bottom: 10px;
+                                "
+                              >
+                                Loan Term should be greater than 0
+                              </p>
+                            </div>
+                          </aura:renderIf>
                         </div>
-                    </lightning:layoutItem> 
-                </lightning:layout>
-            </lightning:layoutItem>
-            
-            <lightning:layoutItem padding="around-small" size="12">
-                <lightning:layout>
-                    <lightning:layoutItem  size="12">
-                        <div aria-labelledby="newexpenseform" >
-                            
-                            <form class="slds-form ">        
-                                <fieldset class="slds-box slds-theme--default slds-container--large calc-select">
-                                    <legend id="newexpenseform" class="slds-text-heading--large slds-p-vertical--medium">
-                                        Select Type of Calculator
-                                    </legend>
-                                    <lightning:radioGroup class="calc-select" aura:id="calculatorType" name="calculatorType"
-                                                          options="{! v.options }" value="{! v.radioGrpValue }" type="radio" onchange="{! c.showHideCalc}"/>       
-                                </fieldset>
-                                
-                                
-                                <div aura:id="AffordabilityCalculator" class="slds-hide" style="margin-top: 20px;">
-                                    <fieldset  class="slds-box slds-theme--default slds-container--large">
-                                        <legend class="slds-text-heading--large slds-p-vertical--medium">
-                                            Installment Affordability Calculator 
-                                        </legend>
-                                        <div class="slds-grid slds-wrap">
-                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 paddingLR" >
-                                                <lightning:select name="methodCalucaltion" label="Method of Calculation?" class="mrgBottom" aura:id="methodCalucaltion" required="true" onchange="{! c.showhideONmethod }">
-                                                    <option value="0">choose one...</option>
-                                                    <option value="2">Desired Monthly Payment</option>
-                                                    <option value="3">Affordability</option>
-                                                </lightning:select> 
-                                                <lightning:input type="number" formatter="percent-fixed" step="0.01" class="mrgBottom" label="Interest Rate" name="InterestRate" aura:id="InterestRate" required="true"/> 
-                                                <div class="slds-grid slds-wrap"> 
-                                                    <!--<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1"><label>Loan Term</label></div> -->
-                                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 paddingR mrgBottom">
-                                                        <lightning:input type="number" required="true" placeholder="Year" label="Loan Term" aura:id="loanTermYr" name="loanTermYr"/>
-                                                    </div>
-                                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 paddingL mrgBottom">
-                                                        <lightning:input type="number" placeholder="Month" class="mrgTop" aura:id="loanTermMth" name="loanTermMth"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 paddingLR" >
-                                                <lightning:input type="number" formatter="currency" step="0.01" label="Monthly Gross Income" aura:id="GrossIncome" required="true" name="GrossIncome" class="slds-hide mrgBottom" /> 
-                                                <lightning:input type="number" formatter="currency" step="0.01" label="Existing Monthly Payments" aura:id="existingMthlyPayment" required="true" name="existingMthlyPayment"   class="slds-hide mrgBottom"/> 
-                                                <lightning:input type="number" formatter="currency" step="0.01" label="Desired Payment" aura:id="desiredMonthly" name="desiredMonthly" required="true" class="slds-hide mrgBottom"/> 
-                                            </div>
-                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
-                                                <lightning:input type="number" formatter="currency" step="0.01" label="Maximum Loan Amount" name="maximumLoanamt"   aura:id="maximumLoanamt" readonly="readonly" class="bggreen bggreenLeftBorder"/> 
-                                            </div>
-                                        </div>
-                                    </fieldset> 
-                                </div> 
-                                <div aura:id="InstallmentPayment"  class="slds-hide" style="margin-top: 20px;">
-                                    <fieldset  class="slds-box slds-theme--default slds-container--large">
-                                        <legend class="slds-text-heading--large
-                                                       slds-p-vertical--medium">
-                                            Installment Payment
-                                        </legend>
-                                        <div class="slds-grid slds-wrap">
-                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 paddingLR">
-                                                <lightning:input formatter="percent-fixed" step="0.01" label="Interest Rate %" type="number" name="InterestRatePayment" class="mrgBottom" aura:id="InterestRatePayment"/>
-                                                <div class="slds-grid slds-wrap mrgBottom"> 
-                                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 paddingR"><lightning:input label="Loan Term" type="number" placeholder="Year" aura:id="loanTermYrPayment" name="loanTermYrPayment"/></div>
-                                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 paddingL"><lightning:input label="" type="number" placeholder="Month" class="mrgTop" aura:id="loanTermMthPayment" name="loanTermMthPayment"/> </div>
-                                                </div>
-                                            </div>
-                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 paddingLR">
-                                                <lightning:input formatter="currency" step="0.01" class="mrgBottom" label="Loan Amount" type="number"  name="loanAmtPayment" aura:id="loanAmtPayment"/>
-                                                <lightning:input formatter="currency" step="0.01" class="mrgBottom" label="Other Financing" type="number"   name="otherfinancingPayment" aura:id="otherfinancingPayment"/> 
-                                            </div>
-                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
-                                                <lightning:input formatter="currency" step="0.01" label="Total Monthly Loan Repayment" type="number" name="maximumLoanamtPayment"  aura:id="maximumLoanamtPayment" readonly="readonly" class="bggreen bggreenLeftBorder"/>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                </div>
-                                <div aura:id="RevolvingCreditLimitUnsecured"  class="slds-hide" style="margin-top: 20px;">
-                                    <fieldset  class="slds-box slds-theme--default slds-container--large   ">
-                                        <legend class="slds-text-heading--large
-                                                       slds-p-vertical--medium">
-                                            Revolving Credit Limit Unsecured
-                                        </legend>
-                                        <div class="slds-grid slds-wrap">
-                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 paddingLR">
-                                                <lightning:select label="Product Type" name="productType" class="mrgBottom"  aura:id="productType" required="true" onchange="">
-                                                    <option value="">choose one...</option>
-                                                    <option value="1">Credit Card</option>
-                                                    <option value="2">Line of credit</option>
-                                                </lightning:select> 
-                                                <lightning:input formatter="percent-fixed" step="0.01" label="Interest Rate (%)" class="mrgBottom" type="number" name="interestrateRCL" aura:id="interestrateRCL"/>
-                                                <lightning:input formatter="currency" step="0.01" label="Existing Monthly Credit Payment" class="mrgBottom" type="number" name="existingmonthlycreditpayment" aura:id="existingmonthlycreditpayment"/>
-                                            </div>
-                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 paddingLR">
-                                                <lightning:input formatter="currency" step="0.01" label="Requested Limit" class="mrgBottom" type="number" name="requestedlimit" aura:id="requestedlimitRCL"/>  
-                                                <lightning:input formatter="currency" step="0.01" label="Gross Monthly Income" class="mrgBottom" type="number" name="grossmonthlyincomeRCL" aura:id="grossmonthlyincomeRCL"/>
-                                            </div>
-                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
-                                                <lightning:input formatter="currency" step="0.01" label="Total Monthly Loan Repayment" type="number" name="totalmonthlyPaymentUnsecure"   aura:id="totalmonthlyPaymentUnsecure" readonly="readonly" class="bggreen bggreenLeftBorder"/>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                </div>
-                                <div aura:id="RevolvingCreditLimitSecured"  class="slds-hide" style="margin-top: 20px;">
-                                    <fieldset  class="slds-box slds-theme--default slds-container--large   ">
-                                        <legend class="slds-text-heading--large
-                                                       slds-p-vertical--medium">
-                                            Revolving Credit Limit Secured
-                                        </legend>
-                                        <div class="slds-grid slds-wrap">
-                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 paddingLR">
-                                                <lightning:select label="Product Type" class="mrgBottom" name="prodTypeSecured"  aura:id="prodTypeSecured" required="true" onchange="{! c.showhideONmethod }">
-                                                    <option value="">choose one...</option>
-                                                    <option value="1">Credit Card</option>
-                                                    <option value="2">Line of credit</option>
-                                                </lightning:select>
-                                                <lightning:input formatter="currency" step="0.01" label="Requested Limit" class="mrgBottom" type="number"  name="requestedlimitRCLsecure" aura:id="requestedlimitRCLsecure"/>  
-                                                <lightning:input formatter="currency" step="0.01" label="Value of Security" placeholder="(less existing hypothecation)" class="mrgBottom" type="number"   name="valueofSecurity" aura:id="valueofSecurity"/>
-                                            </div>
-                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 paddingLR">
-                                                <lightning:select label="Colleteral Type" class="mrgBottom" name="colleteral"  aura:id="colleteral" required="true" onchange="">
-                                                    <option value="">choose one...</option>
-                                                    <option value="1">Cash-JNB-High Yield Account</option>
-                                                    <option value="2">Cash-JNB-Direct Gain Account</option>
-                                                    <option value="3">Cash-JNFM-Repo Agreement</option>
-                                                    <option value="4">Cash-JNFM-Mutual Fund</option> 
-                                                    <option value="5">Real-Estate</option>
-                                                </lightning:select>
-                                                <lightning:input formatter="percent-fixed" step="0.01" label="Interest Rate (%)" placeholder="(on product/colleteral type)" class="mrgBottom" type="number" name="interestRateprocal" aura:id="interestRateprocal"/>
-                                            </div>
-                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
-                                                <lightning:input formatter="currency" step="0.01" label="Proposed Starting Limit" type="number" name="proposeStartingLimit"  aura:id="proposeStartingLimit" readonly="readonly" class="bggreen bggreenLeftBorder"/>
-                                            </div>
-                                        </div>
-                                        
-                                    </fieldset>
-                                </div>
-                                
-                                <!--<div aura:id="MultiProductCalculator"  class="slds-hide">
+                      </div>
+                      <div
+                        class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 paddingLR"
+                      >
+                        <lightning:input
+                          type="number"
+                          formatter="currency"
+                          step="0.01"
+                          label="Monthly Gross Income"
+                          aura:id="GrossIncome"
+                          required="true"
+                          name="GrossIncome"
+                          class="slds-hide mrgBottom"
+                        />
+                        <aura:renderIf isTrue="{!v.showErrorMGI}">
+                          <div id="error">
+                            <p style="color: red; font-size: 11px;">
+                              Monthly Gross Income should be greater than 0
+                            </p>
+                          </div>
+                        </aura:renderIf>
+                        <lightning:input
+                          type="number"
+                          formatter="currency"
+                          step="0.01"
+                          label="Existing Monthly Payments"
+                          aura:id="existingMthlyPayment"
+                          required="true"
+                          name="existingMthlyPayment"
+                          class="slds-hide mrgBottom"
+                        />
+                        <aura:renderIf isTrue="{!v.showErrorEMP}">
+                          <div id="error">
+                            <p style="color: red; font-size: 11px;">
+                              Existing Monthly Payments should be greater than 0
+                            </p>
+                          </div>
+                        </aura:renderIf>
+                        <lightning:input
+                          type="number"
+                          formatter="currency"
+                          step="0.01"
+                          label="Desired Payment"
+                          aura:id="desiredMonthly"
+                          name="desiredMonthly"
+                          required="true"
+                          class="slds-hide mrgBottom"
+                        />
+                        <aura:renderIf isTrue="{!v.showErrorDP}">
+                          <div id="error">
+                            <p style="color: red; font-size: 11px;">
+                              Desired Payment should be greater than 0
+                            </p>
+                          </div>
+                        </aura:renderIf>
+                      </div>
+                      <div
+                        class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12"
+                      >
+                        <lightning:input
+                          type="number"
+                          formatter="currency"
+                          step="0.01"
+                          label="Maximum Loan Amount"
+                          name="maximumLoanamt"
+                          aura:id="maximumLoanamt"
+                          readonly="readonly"
+                          class="bggreen bggreenLeftBorder"
+                        />
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+                <div
+                  aura:id="InstallmentPayment"
+                  class="slds-hide"
+                  style="margin-top: 20px;"
+                >
+                  <fieldset
+                    class="slds-box slds-theme--default slds-container--large"
+                  >
+                    <legend
+                      class="slds-text-heading--large slds-p-vertical--medium"
+                    >
+                      Installment Payment
+                    </legend>
+                    <div class="slds-grid slds-wrap">
+                      <div
+                        class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 paddingLR"
+                      >
+                        <lightning:input
+                          formatter="percent-fixed"
+                          step="0.01"
+                          label="Interest Rate %"
+                          type="number"
+                          name="InterestRatePayment"
+                          class="mrgBottom"
+                          aura:id="InterestRatePayment"
+                          required="true"
+                        />
+                        <aura:renderIf isTrue="{!v.showErrorIP_IR}">
+                          <div id="error">
+                            <p style="color: red; font-size: 11px;">
+                              Interest Rate should be greater than 0
+                            </p>
+                          </div>
+                        </aura:renderIf>
+                        <div class="slds-grid slds-wrap mrgBottom">
+                          <div
+                            class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1"
+                          >
+                            <lightning:input
+                              label="Loan Term"
+                              type="number"
+                              placeholder="Year"
+                              aura:id="loanTermYrPayment"
+                              name="loanTermYrPayment"
+                              required="true"
+                            />
+                          </div>
+                          <div
+                            class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1"
+                          >
+                            <lightning:input
+                              label=""
+                              type="number"
+                              placeholder="Month"
+                              aura:id="loanTermMthPayment"
+                              name="loanTermMthPayment"
+                            />
+                          </div>
+                          <aura:renderIf isTrue="{!v.showErrorIP_LT}">
+                            <div id="error">
+                              <p
+                                style="
+                                  color: red;
+                                  font-size: 11px;
+                                  margin-top: 6px;
+                                "
+                              >
+                                Loan Term should be greater than 0
+                              </p>
+                            </div>
+                          </aura:renderIf>
+                        </div>
+                      </div>
+                      <div
+                        class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 paddingLR"
+                      >
+                        <lightning:input
+                          formatter="currency"
+                          step="0.01"
+                          class="mrgBottom"
+                          label="Loan Amount"
+                          type="number"
+                          name="loanAmtPayment"
+                          aura:id="loanAmtPayment"
+                          required="true"
+                        />
+                        <aura:renderIf isTrue="{!v.showErrorIP_LA}">
+                          <div id="error">
+                            <p style="color: red; font-size: 11px;">
+                              Loan Amount should be greater than 0
+                            </p>
+                          </div>
+                        </aura:renderIf>
+                        <lightning:input
+                          formatter="currency"
+                          step="0.01"
+                          class="mrgBottom"
+                          label="Other Financing"
+                          type="number"
+                          name="otherfinancingPayment"
+                          aura:id="otherfinancingPayment"
+                        />
+                      </div>
+                      <div
+                        class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12"
+                      >
+                        <lightning:input
+                          formatter="currency"
+                          step="0.01"
+                          label="Total Monthly Loan Repayment"
+                          type="number"
+                          name="maximumLoanamtPayment"
+                          aura:id="maximumLoanamtPayment"
+                          readonly="readonly"
+                          class="bggreen bggreenLeftBorder"
+                        />
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+                <div
+                  aura:id="RevolvingCreditLimitUnsecured"
+                  class="slds-hide"
+                  style="margin-top: 20px;"
+                >
+                  <fieldset
+                    class="slds-box slds-theme--default slds-container--large"
+                  >
+                    <legend
+                      class="slds-text-heading--large slds-p-vertical--medium"
+                    >
+                      Revolving Credit Limit Unsecured
+                    </legend>
+                    <div class="slds-grid slds-wrap">
+                      <div
+                        class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 paddingLR"
+                      >
+                        <lightning:select
+                          label="Product Type"
+                          name="productType"
+                          class="mrgBottom"
+                          aura:id="productType"
+                          required="true"
+                          onchange=""
+                        >
+                          <option value="">choose one...</option>
+                          <option value="1">Credit Card</option>
+                          <option value="2">Line of credit</option>
+                        </lightning:select>
+                        <lightning:input
+                          formatter="percent-fixed"
+                          step="0.01"
+                          label="Interest Rate (%)"
+                          class="mrgBottom"
+                          type="number"
+                          name="interestrateRCL"
+                          aura:id="interestrateRCL"
+                        />
+                        <lightning:input
+                          formatter="currency"
+                          step="0.01"
+                          label="Existing Monthly Credit Payment"
+                          class="mrgBottom"
+                          type="number"
+                          name="existingmonthlycreditpayment"
+                          aura:id="existingmonthlycreditpayment"
+                        />
+                      </div>
+                      <div
+                        class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 paddingLR"
+                      >
+                        <lightning:input
+                          formatter="currency"
+                          step="0.01"
+                          label="Requested Limit"
+                          class="mrgBottom"
+                          type="number"
+                          name="requestedlimit"
+                          aura:id="requestedlimitRCL"
+                        />
+                        <lightning:input
+                          formatter="currency"
+                          step="0.01"
+                          label="Gross Monthly Income"
+                          class="mrgBottom"
+                          type="number"
+                          name="grossmonthlyincomeRCL"
+                          aura:id="grossmonthlyincomeRCL"
+                        />
+                      </div>
+                      <div
+                        class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12"
+                      >
+                        <lightning:input
+                          formatter="currency"
+                          step="0.01"
+                          label="Proposed Starting Limit"
+                          type="number"
+                          name="totalmonthlyPaymentUnsecure"
+                          aura:id="totalmonthlyPaymentUnsecure"
+                          readonly="readonly"
+                          class="bggreen bggreenLeftBorder"
+                        />
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+                <div
+                  aura:id="RevolvingCreditLimitSecured"
+                  class="slds-hide"
+                  style="margin-top: 20px;"
+                >
+                  <fieldset
+                    class="slds-box slds-theme--default slds-container--large"
+                  >
+                    <legend
+                      class="slds-text-heading--large slds-p-vertical--medium"
+                    >
+                      Revolving Credit Limit Secured
+                    </legend>
+                    <div class="slds-grid slds-wrap">
+                      <div
+                        class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 paddingLR"
+                      >
+                        <lightning:select
+                          label="Product Type"
+                          class="mrgBottom"
+                          name="prodTypeSecured"
+                          aura:id="prodTypeSecured"
+                          required="true"
+                          onchange="{! c.showhideONmethod }"
+                        >
+                          <option value="">choose one...</option>
+                          <option value="1">Credit Card</option>
+                          <option value="2">Line of credit</option>
+                        </lightning:select>
+                        <lightning:input
+                          formatter="currency"
+                          step="0.01"
+                          label="Requested Limit"
+                          class="mrgBottom"
+                          type="number"
+                          name="requestedlimitRCLsecure"
+                          aura:id="requestedlimitRCLsecure"
+                        />
+                        <lightning:input
+                          formatter="currency"
+                          step="0.01"
+                          label="Value of Security"
+                          placeholder="(less existing hypothecation)"
+                          class="mrgBottom"
+                          type="number"
+                          name="valueofSecurity"
+                          aura:id="valueofSecurity"
+                        />
+                      </div>
+                      <div
+                        class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 paddingLR"
+                      >
+                        <lightning:select
+                          label="Colleteral Type"
+                          class="mrgBottom"
+                          name="colleteral"
+                          aura:id="colleteral"
+                          required="true"
+                          onchange=""
+                        >
+                          <option value="">choose one...</option>
+                          <option value="1">Cash-JNB-High Yield Account</option>
+                          <option value="2"
+                            >Cash-JNB-Direct Gain Account</option
+                          >
+                          <option value="3">Cash-JNFM-Repo Agreement</option>
+                          <option value="4">Cash-JNFM-Mutual Fund</option>
+                          <option value="5">Real-Estate</option>
+                        </lightning:select>
+                        <lightning:input
+                          formatter="percent-fixed"
+                          step="0.01"
+                          label="Interest Rate (%)"
+                          placeholder="(on product/colleteral type)"
+                          class="mrgBottom"
+                          type="number"
+                          name="interestRateprocal"
+                          aura:id="interestRateprocal"
+                        />
+                      </div>
+                      <div
+                        class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12"
+                      >
+                        <lightning:input
+                          formatter="currency"
+                          step="0.01"
+                          label="Proposed Starting Limit"
+                          type="number"
+                          name="proposeStartingLimit"
+                          aura:id="proposeStartingLimit"
+                          readonly="readonly"
+                          class="bggreen bggreenLeftBorder"
+                        />
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+
+                <!--<div aura:id="MultiProductCalculator"  class="slds-hide">
                 Coming Soon........
             </div> -->
-                                
-                                
-                                <div class="clear"></div>
-                                
-                                
-                                <div class=' slds-container--large margT'>
-                                    <div class="fright" style="margin-top:10px">
-                                        <aura:if isTrue="{!not(empty(v.newContactError))}">
-                                            <div class="recordError">
-                                                {!v.newContactError}
-                                            </div>
-                                        </aura:if>
-                                        <lightning:button variant="brand" label="Run Calculation" title="Run Calculation" onclick="{! c.runCalculation }" />
-                                        <lightning:button variant="brand" aura:id="affordablitySave" label="Save" title="Save" onclick="{! c.SaveInstallmentAffordablityCalculator }" class="slds-hide" />
-                                    </div>
-                                </div>   
-                                <div class="clear"></div>
-                                
-                            </form>     
-                        </div>
-                    </lightning:layoutItem>
-                </lightning:layout>
-            </lightning:layoutItem>
-            
-            
-            
-            
-         
-            
-            
-            
+
+                <div class="clear"></div>
+
+                <div class="slds-container--large margT">
+                  <div class="fright" style="margin-top: 10px;">
+                    <aura:if isTrue="{!not(empty(v.newContactError))}">
+                      <div class="recordError">
+                        {!v.newContactError}
+                      </div>
+                    </aura:if>
+                    <lightning:button
+                      variant="brand"
+                      label="Run Calculation"
+                      title="Run Calculation"
+                      onclick="{! c.runCalculation }"
+                    />
+                    <lightning:button
+                      variant="brand"
+                      aura:id="affordablitySave"
+                      label="Save"
+                      title="Save"
+                      onclick="{! c.SaveInstallmentAffordablityCalculator }"
+                      class="slds-hide"
+                    />
+                  </div>
+                </div>
+                <div class="clear"></div>
+              </form>
+            </div>
+          </lightning:layoutItem>
         </lightning:layout>
-    </div>
-    
-    
-    
-    
-    
-    
-    
+      </lightning:layoutItem>
+    </lightning:layout>
+  </div>
 </aura:component>

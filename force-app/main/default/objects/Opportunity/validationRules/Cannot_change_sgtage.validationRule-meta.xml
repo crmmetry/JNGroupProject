@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cannot_change_sgtage</fullName>
+    <active>false</active>
+    <errorConditionFormula>AND ( ISCHANGED( StageName ),  $Profile.Name = 	
+&#39;Sales - All Products&#39;)</errorConditionFormula>
+    <errorMessage>Cant update status if sales user</errorMessage>
+</ValidationRule>

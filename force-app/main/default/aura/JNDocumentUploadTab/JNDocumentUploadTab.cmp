@@ -1,114 +1,143 @@
 <aura:component access="GLOBAL" controller="JNSiteController">
-    <aura:attribute name="testId" type="String" default="00Qq00000095xqjEAA" />
-    <aura:attribute name="currentSize" type="Integer" default="0" />
-    <aura:attribute name="maxSize" type="Integer" default="0" />
-    <aura:attribute name="documentTypeList" type="Map[]" />
-    <!-- 'parentId' Aura Attribute for store the Id for Parent Record where we are attach our file -->
-    <aura:attribute name="leadId" type="Id" />
-    <!-- 'showLoadingSpinner' attribute for show/hide the uploading image and msg in aura:if-->
-    <aura:attribute name="showLoadingSpinner" type="boolean" default="false" />
-    <!-- 'fileName' attribute for display the selected file name -->
-    <aura:attribute name="fileName" type="String" default="No File Selected.." />
-    
-    <aura:attribute
-                    name="accept"
-                    type="List"
-                    default="['.jpg', '.jpeg', '.png']"
-                    />
-    <aura:attribute name="multiple" type="Boolean" default="true" />
-    <aura:attribute name="disabled" type="Boolean" default="false" />
-    <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
-    
-    <lightning:layout>
-        <lightning:layoutItem size="12" padding="around-small">
-            <div
-                 class="slds-text-heading_large slds-align_absolute-center slds-m-bottom_medium"
-                 >{!v.currentSize}/{!v.maxSize}MB used</div
-                >
-            <div class="slds-grid slds-gutters slds-m-bottom_medium">
-                <aura:iteration
-                                items="{!v.documentTypeList[0]}"
-                                indexVar="index"
-                                var="document"
-                                >
-                    <div class="slds-col slds-size_4-of-12">
-                        <div class="slds-box slds-p-small slds-is-relative">
-                            <aura:if isTrue="{!document.active}">
-                                <div class="slds-spinner_container">
-                                    <div
-                                         role="status"
-                                         class="slds-spinner slds-spinner_small slds-spinner_brand"
-                                         >
-                                        <span class="slds-assistive-text">Loading</span>
-                                        <div class="slds-spinner__dot-a"></div>
-                                        <div class="slds-spinner__dot-b"></div>
-                                    </div>
-                                </div>
-                            </aura:if>
-                            
-                            <!-- Title -->
-                            <p class="slds-text-heading_medium">{!document.title}</p>
-                            <!-- Image Upload -->
-                            <lightning:input
-                                             onchange="{!c.handleFilesChange}"
-                                             type="file"
-                                             name="{! '0'+'_'+index }"
-                                             label="Upload Attachment"
-                                             multiple="false"
-                                             />
-                            
-                            <!-- Subtitle -->
-                            <p class="slds-text-heading_small slds-m-top_small"
-                               >{!document.sub_title}</p
-                                >
-                            <!-- Body -->
-                            <span class="slds-badge">{!document.body}</span>
-                        </div>
-                    </div>
-                </aura:iteration>
+  <aura:attribute name="currentSize" type="Integer" default="0" />
+  <aura:attribute name="showJnSiteModal" type="Boolean" default="false" />
+  <aura:attribute name="maxSize" type="Integer" default="0" />
+  <aura:attribute name="documentTypeList" type="Map[]" />
+  <!-- 'parentId' Aura Attribute for store the Id for Parent Record where we are attach our file -->
+  <aura:attribute name="leadId" type="Id" />
+  <!-- 'showLoadingSpinner' attribute for show/hide the uploading image and msg in aura:if-->
+  <aura:attribute name="showLoadingSpinner" type="boolean" default="false" />
+  <!-- 'fileName' attribute for display the selected file name -->
+  <aura:attribute name="fileName" type="String" default="No File Selected.." />
+  <aura:attribute name="SiteLead" type="Object" />
+  <aura:handler
+    name="jnEvent"
+    action="{!c.handleEvent}"
+    event="c:JNComponentEvent"
+  />
+
+  <aura:attribute
+    name="accept"
+    type="List"
+    default="['.jpg', '.jpeg', '.png']"
+  />
+  <aura:attribute name="multiple" type="Boolean" default="true" />
+  <aura:attribute name="disabled" type="Boolean" default="false" />
+  <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+  <aura:if isTrue="{!v.showJnSiteModal}">
+    <c:JNSiteModalComponent
+      SiteLead="{!v.SiteLead}"
+      postiveBtnClick="{!c.handleJNSiteModalOkClick}"
+    />
+  </aura:if>
+
+  <lightning:layout>
+    <c:JnToast aura:id="toastContainer" autoHide="false" />
+    <lightning:layoutItem
+      size="12"
+      padding="around-small"
+      class="{! or(empty(v.SiteLead.Id), empty(v.SiteLead)) ? 'disabled-elements' : '' }"
+    >
+      <div class="slds-align_absolute-center slds-var-m-bottom_medium">
+        <aura:if isTrue="{!or(empty(v.SiteLead.Id), empty(v.SiteLead))}">
+          <p class="slds-text-heading_medium slds-text-color_default">
+            To able to upload documents, you must first commit your application,
+            using the <i>Create Application</i> button below.
+          </p>
+          <aura:set attribute="else">
+            <p class="slds-text-heading_large">
+              {!v.currentSize}/{!v.maxSize}MB used
+            </p>
+          </aura:set>
+        </aura:if>
+      </div>
+
+      <div class="slds-grid slds-gutters slds-var-m-bottom_medium">
+        <aura:iteration
+          items="{!v.documentTypeList[0]}"
+          indexVar="index"
+          var="document"
+        >
+          <div class="slds-col slds-size_4-of-12">
+            <div class="slds-box slds-var-p-around_small slds-is-relative">
+              <aura:if isTrue="{!document.active}">
+                <div class="slds-spinner_container">
+                  <div
+                    role="status"
+                    class="slds-spinner slds-spinner_small slds-spinner_brand"
+                  >
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                  </div>
+                </div>
+              </aura:if>
+
+              <!-- Title -->
+              <p class="slds-text-heading_medium">{!document.title}</p>
+              <!-- Image Upload -->
+              <lightning:input
+                onchange="{!c.handleFilesChange}"
+                type="file"
+                name="{! '0'+'_'+index }"
+                label="Upload Attachment"
+                multiple="false"
+                accept="{!v.accept}"
+              />
+
+              <!-- Subtitle -->
+              <p class="slds-text-heading_small slds-var-m-top_small">
+                {!document.sub_title}
+              </p>
+              <!-- Body -->
+              <span class="slds-badge">{!document.body}</span>
             </div>
-            <div class="slds-grid  slds-gutters">
-                <aura:iteration
-                                items="{!v.documentTypeList[1]}"
-                                indexVar="index"
-                                var="document"
-                                >
-                    <div class="slds-col slds-size_4-of-12">
-                        <div class="slds-box slds-p-small slds-is-relative">
-                            <aura:if isTrue="{!document.active}">
-                                <div class="slds-spinner_container">
-                                    <div
-                                         role="status"
-                                         class="slds-spinner slds-spinner_small slds-spinner_brand"
-                                         >
-                                        <span class="slds-assistive-text">Loading</span>
-                                        <div class="slds-spinner__dot-a"></div>
-                                        <div class="slds-spinner__dot-b"></div>
-                                    </div>
-                                </div>
-                            </aura:if>
-                            <!-- Title -->
-                            <p class="slds-text-heading_medium">{!document.title}</p>
-                            <!-- Image Upload -->
-                            <lightning:input
-                                             onchange="{!c.handleFilesChange}"
-                                             type="file"
-                                             name="{! '1'+'_'+index }"
-                                             label="Upload Attachment"
-                                             multiple="false"
-                                             />
-                            
-                            <!-- Subtitle -->
-                            <p class="slds-text-heading_small slds-m-top_small"
-                               >{!document.sub_title}</p
-                                >
-                            
-                            <!-- Body -->
-                            <span class="slds-badge">{!document.body}</span>
-                        </div>
-                    </div>
-                </aura:iteration>
+          </div>
+        </aura:iteration>
+      </div>
+      <div class="slds-grid slds-gutters">
+        <aura:iteration
+          items="{!v.documentTypeList[1]}"
+          indexVar="index"
+          var="document"
+        >
+          <div class="slds-col slds-size_4-of-12">
+            <div class="slds-box slds-var-p-around_small slds-is-relative">
+              <aura:if isTrue="{!document.active}">
+                <div class="slds-spinner_container">
+                  <div
+                    role="status"
+                    class="slds-spinner slds-spinner_small slds-spinner_brand"
+                  >
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                  </div>
+                </div>
+              </aura:if>
+              <!-- Title -->
+              <p class="slds-text-heading_medium">{!document.title}</p>
+              <!-- Image Upload -->
+              <lightning:input
+                onchange="{!c.handleFilesChange}"
+                type="file"
+                name="{! '1'+'_'+index }"
+                label="Upload Attachment"
+                multiple="false"
+                accept="{!v.accept}"
+              />
+
+              <!-- Subtitle -->
+              <p class="slds-text-heading_small slds-var-m-top_small">
+                {!document.sub_title}
+              </p>
+
+              <!-- Body -->
+              <span class="slds-badge">{!document.body}</span>
             </div>
-        </lightning:layoutItem>
-    </lightning:layout>
+          </div>
+        </aura:iteration>
+      </div>
+    </lightning:layoutItem>
+  </lightning:layout>
 </aura:component>
