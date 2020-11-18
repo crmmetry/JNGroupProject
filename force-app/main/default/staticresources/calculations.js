@@ -469,7 +469,7 @@ window.roundedValue = function (value) {
  * @return {Boolean}
  */
 window.validNumbersWithObject = function (properties, parentObj) {
-  if (!properties) return false;
+  if (!properties || !parentObj) return false;
   return properties.every(property => {
     if (!isEmpty(parentObj[property])) {
       return !isNaN(parentObj[property]) && parseFloat(parentObj[property]) >= 0;
