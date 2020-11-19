@@ -1,20 +1,55 @@
 <aura:component>
   <aura:attribute
-    name="financialInstution"
-    type="List"
-    default="['Bank','Charity']"
+    name="ChildContainer"
+    type="Map"
+    default="{}"
+    description="CashInvestment container"
   />
   <aura:attribute
-    name="accountType"
-    type="List"
-    default="['Personal','Commercial']"
+    name="ParentContainer"
+    type="Map"
+    default="{}"
+    description="Credit Card Other Detail Line Component container"
   />
+  <aura:attribute
+    name="financialInstitution"
+    type="List"
+    default="['JN Bank Ltd.','JN Fund Managers Ltd.']"
+  />
+  <aura:attribute name="accountType" type="List" default="[]" />
+
+  <aura:attribute
+    name="accountTypeWhenJNBankIsSelected"
+    type="List"
+    default="['Savings account types', 'Fixed Deposit account Types']"
+  />
+
+  <aura:attribute
+    name="accountTypeWhenJNFundManagerIsSelected"
+    type="List"
+    default="['Repo', 'Mutual Fund']"
+  />
+
   <aura:attribute name="isHypothecated" type="List" default="['Yes','No']" />
-  <aura:attribute name="depositCurrency" type="List" default="['JMD','USD']" />
+
+  <!-- Toggle Flags -->
+  <aura:attribute name="accountTypeDisableFlag" type="Boolean" default="true" />
+  <aura:attribute name="bankSelectedFlag" type="Boolean" default="false" />
+  <aura:attribute
+    name="fundManagerSelectedFlag"
+    type="Boolean"
+    default="false"
+  />
+  <aura:attribute name="hypothecatedLoanFlag" type="Boolean" default="false" />
+
+  <!-- Handlers -->
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+  <!--<aura:attribute name="depositCurrency" type="List" default="['JMD','USD']" />
   <aura:attribute name="depositAccNumber" type="Integer" />
   <aura:attribute name="accountHolder" type="String" />
   <aura:attribute name="annualInterestRate" type="Decimal" />
-  <aura:attribute name="depositBalance" type="Decimal" />
+  <aura:attribute name="depositBalance" type="Decimal" /> -->
 
   <lightning:layout multipleRows="true">
     <lightning:layoutItem size="12">
@@ -24,13 +59,14 @@
       <div class="slds-form-element">
         <div class="slds-form-element__control">
           <lightning:select
+            aura:id="cash-investments-select-component"
             name="select1"
             label="Financial Institution"
             required="true"
             onchange="{!c.onFinancialInstitutionChange}"
           >
             <option value="">select one...</option>
-            <aura:iteration items="{!v.financialInstituton}" var="item">
+            <aura:iteration items="{!v.financialInstitution}" var="item">
               <option value="{!item}">{!item}</option>
             </aura:iteration>
           </lightning:select>
@@ -41,10 +77,12 @@
       <div class="slds-form-element">
         <div class="slds-form-element__control">
           <lightning:select
+            aura:id="cash-investments-select-component"
             name="select1"
             label="Account Type"
             required="true"
             onchange="{!c.onAccountTypeChange}"
+            disabled="{!v.accountTypeDisableFlag}"
           >
             <option value="">select one...</option>
             <aura:iteration items="{!v.accountType}" var="item">
@@ -54,29 +92,84 @@
         </div>
       </div>
     </lightning:layoutItem>
-    <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-      <div class="slds-form-element">
-        <div class="slds-form-element__control">
-          <lightning:input
-            type="number"
-            label="Deposit Account Number"
-            value="{!v.depositAccNumber}"
-            name="Indicate Applicable Processing Fees(%)"
-            formatter="percent"
-            required="true"
-          />
+    <aura:if isTrue="{!v.fundManagerSelectedFlag}">
+      <lightning:layoutItem
+        size="12"
+        mediumDeviceSize="4"
+        padding="around-small"
+      >
+        <div class="slds-form-element">
+          <div class="slds-form-element__control">
+            <lightning:input
+              aura:id="cash-investments-text-component"
+              type="text"
+              label="Deposit Account Number"
+              value="{!v.ChildContainer.depositAccountNumber}"
+              name="Indicate Applicable Processing Fees(%)"
+              required="true"
+            />
+          </div>
         </div>
-      </div>
-    </lightning:layoutItem>
+      </lightning:layoutItem>
+    </aura:if>
+    <aura:if isTrue="{!v.bankSelectedFlag}">
+      <lightning:layoutItem
+        size="12"
+        mediumDeviceSize="12"
+        padding="around-small"
+      >
+        <lightning:layout>
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="6"
+            padding="around-small"
+          >
+            <div class="slds-form-element">
+              <div class="slds-form-element__control">
+                <lightning:input
+                  aura:id="cash-investments-text-component"
+                  type="text"
+                  label="Deposit Account Number Prefix"
+                  value="{!v.ChildContainer.jnBankAccountNumberPrefix}"
+                  pattern="^([^0-9]*)$"
+                  maxlength="3"
+                  required="true"
+                />
+              </div>
+            </div>
+          </lightning:layoutItem>
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="6"
+            padding="around-small"
+          >
+            <div class="slds-form-element">
+              <div class="slds-form-element__control">
+                <lightning:input
+                  aura:id="cash-investments-text-component"
+                  type="number"
+                  label="Deposit Account Number"
+                  value="{!v.ChildContainer.jnBankAccountNumber}"
+                  name=""
+                  max="12"
+                  min="1"
+                  required="true"
+                />
+              </div>
+            </div>
+          </lightning:layoutItem>
+        </lightning:layout>
+      </lightning:layoutItem>
+    </aura:if>
     <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
       <div class="slds-form-element">
         <div class="slds-form-element__control">
           <lightning:input
+            aura:id="cash-investments-text-component"
             type="text"
             label="Account Holder(s)"
-            value="{!v.accountHolders}"
+            value="{!v.ChildContainer.accountHolder}"
             name="Account Holders"
-            formatter="percent"
             required="true"
           />
         </div>
@@ -86,9 +179,10 @@
       <div class="slds-form-element">
         <div class="slds-form-element__control">
           <lightning:input
+            aura:id="cash-investments-numerical-component"
             type="number"
             label="Annual Interest Rate on Deposit Account"
-            value="{!v.annualInterestRate}"
+            value="{!v.ChildContainer.annualInterestRate}"
             name="Annual Interest Rate"
             formatter="percent"
             required="true"
@@ -100,6 +194,7 @@
       <div class="slds-form-element">
         <div class="slds-form-element__control">
           <lightning:select
+            aura:id="cash-investments-select-component"
             name="select1"
             label="Is this account hypothecated for another loan?"
             required="true"
@@ -113,9 +208,26 @@
         </div>
       </div>
     </lightning:layoutItem>
+    <aura:if isTrue="{!v.hypothecatedLoanFlag}">
+      <lightning:layoutItem
+        size="12"
+        mediumDeviceSize="6"
+        padding="around-small"
+      >
+        <lightning:input
+          aura:id="cash-investments-numerical-component"
+          type="number"
+          label="Enter the Existing Loan Balance"
+          value="{!v.ChildContainer.existingBalance}"
+          name="number"
+          formatter="currency"
+          required="true"
+        />
+      </lightning:layoutItem>
+    </aura:if>
     <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
       <lightning:layout>
-        <lightning:layoutItem size="3" mediumDeviceSize="3">
+        <!-- <lightning:layoutItem size="3" mediumDeviceSize="3">
           <lightning:select
             name="select1"
             label="$"
@@ -126,12 +238,13 @@
               <option value="{!item}">{!item}</option>
             </aura:iteration>
           </lightning:select>
-        </lightning:layoutItem>
-        <lightning:layoutItem size="9">
+        </lightning:layoutItem> -->
+        <lightning:layoutItem size="12">
           <lightning:input
+            aura:id="cash-investments-numerical-component"
             type="number"
             label="Deposit Account Balance"
-            value="{!v.depositBalance}"
+            value="{!v.ChildContainer.depositBalance}"
             name="number"
             formatter="currency"
             required="true"
