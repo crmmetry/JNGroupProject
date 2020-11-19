@@ -53,7 +53,7 @@ public class CreditorLifeMatrixWrapper {
     String template;
     Decimal increment = 0.5;
     if (tenure > 10) {
-      return Constants.INVALID_TENURE; // change to a different type
+      throw new AuraException(Constants.INVALID_TENURE);
     }
     for (Decimal x = 0; x <= 10; x += increment) {
       if (tenure == x) {
