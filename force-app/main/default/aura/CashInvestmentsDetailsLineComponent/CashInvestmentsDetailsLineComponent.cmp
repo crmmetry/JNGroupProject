@@ -184,7 +184,7 @@
             label="Annual Interest Rate on Deposit Account"
             value="{!v.ChildContainer.annualInterestRate}"
             name="Annual Interest Rate"
-            formatter="percent"
+            formatter="fixed-percent"
             required="true"
           />
         </div>
@@ -245,9 +245,10 @@
             type="number"
             label="Deposit Account Balance"
             value="{!v.ChildContainer.depositBalance}"
-            name="number"
+            name="deposit"
             formatter="currency"
             required="true"
+            onblur="{!c.validateBalance}"
           />
         </lightning:layoutItem>
       </lightning:layout>

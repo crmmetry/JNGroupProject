@@ -60,6 +60,27 @@
     console.log(selected);
   },
 
+  validateBalance: function (component, event, helper) {
+    const capLimit = 0.8;
+    let data = component.get("v.ParentContainer");
+    console.log("data: ", JSON.parse(JSON.stringify(data)));
+    const inputCmpArray = component.find(
+      "cash-investments-numerical-component"
+    );
+    inputCmpArray.forEach((element) => {
+      if (element.get("v.name") == "deposit") {
+        if (element.get("v.value") > data.requestedCreditLimit * capLimit) {
+          element.setCustomValidity(
+            "Balance cannot be greater than 80% of your requested card limit"
+          );
+          element.reportValidity();
+        } else {
+          element.setCustomValidity("");
+        }
+      }
+    });
+  },
+
   onIsHypothecatedChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     console.log(selected);

@@ -33,9 +33,9 @@
   clearDetailsWhenUnsecuredLoanSelected: function (component) {
     let data = component.get("v.ParentContainer");
     if (data.collateralType === "Unsecured (None)") {
-      clearSelectLists("cash-investments-select-component", component);
-      clearNumericalInput("cash-investments-numerical-component", component);
-      clearTextInput("cash-investments-text-component", component);
+      resetComponentValue("cash-investments-select-component", component, null);
+      resetComponentValue("cash-investments-numerical-component", component, 0);
+      resetComponentValue("cash-investments-text-component", component, "");
     }
     let childKeyValuePairs = [
       {

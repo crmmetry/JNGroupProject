@@ -51,26 +51,6 @@ window.updateAccountTypeOptionList = function (
 };
 
 /**
- * Clears components with an identified aura id.
- */
-window.clearSelectLists = function (auraId, component) {
-  component.find(auraId).set("v.value", null);
-};
-
-/**
- * Sets any numerical field with a particular aura id to 0.
- */
-window.clearNumericalInput = function (auraId, component) {
-  component.find(auraId).set("v.value", 0);
-};
-
-/**
- * Sets any text field with a particular aura id to 0.
- */
-window.clearNumericalInput = function (auraId, component) {
-  component.find(auraId).set("v.value", "");
-};
-/**
  * Toggle account number fields layout
  */
 window.toggleAccountNumberComponent = function (selected, component) {
@@ -96,5 +76,15 @@ window.toggleHypothecatedLoanFlag = function (selected, component) {
   }
   if (selected === "No") {
     component.set("v.hypothecatedLoanFlag", false);
+  }
+};
+
+/**
+ * Clears components with an identified aura id.
+ */
+window.resetComponentValue = function (auraId, component, value) {
+  let cmp = component.find(auraId);
+  if (cmp !== null) {
+    cmp.set("v.value", value);
   }
 };

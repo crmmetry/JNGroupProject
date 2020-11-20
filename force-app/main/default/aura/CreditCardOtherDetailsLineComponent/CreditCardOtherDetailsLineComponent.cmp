@@ -37,6 +37,7 @@
   <!-- Static Resource -->
   <ltng:require
     scripts="{!join(',', 
+  $Resource.constants,
   $Resource.calculations, 
   $Resource.productDetailsGeneralFunctions)}"
     afterScriptsLoaded="{!c.scriptsLoaded}"
@@ -74,7 +75,7 @@
         <lightning:layoutItem size="12">
           <aura:if isTrue="{!v.cashInvestmentFlag}">
             <c:CashInvestmentsDetailsLineComponent
-              ParentContainer="{!v.ChildContainer}"
+              ParentContainer="{!v.ParentContainer}"
             ></c:CashInvestmentsDetailsLineComponent>
           </aura:if>
 

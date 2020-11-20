@@ -86,7 +86,9 @@
             ></c:CreditCardContainerComponent>
           </aura:if>
           <aura:if isTrue="{!v.lineOfCreditFlag}">
-            <c:LineOfCreditContainerComponent></c:LineOfCreditContainerComponent>
+            <c:LineOfCreditContainerComponent
+              productPrice="{!v.productSelection.productPrice}"
+            ></c:LineOfCreditContainerComponent>
           </aura:if>
         </fieldset>
       </lightning:layoutItem>
