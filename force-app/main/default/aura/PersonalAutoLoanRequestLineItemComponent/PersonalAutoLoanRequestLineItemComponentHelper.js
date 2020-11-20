@@ -59,9 +59,9 @@
       let LTV = LTVCalculatorAutoLoan(data.loanAmount, minimum);
       console.log("ltv: ", LTV);
       console.log("minimum", minimum);
-      this.updateChildContainerWithValue(component, [
-        { key: "loanToValueRatio", value: LTV }
-      ]);
+      // this.updateChildContainerWithValue(component, [
+      //   { key: "loanToValueRatio", value: LTV }
+      // ]);
     }
   },
   /**
