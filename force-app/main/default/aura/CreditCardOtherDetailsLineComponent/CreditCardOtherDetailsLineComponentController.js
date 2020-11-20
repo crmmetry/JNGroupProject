@@ -20,7 +20,7 @@
       component.get("v.ParentContainer"),
       component.get("v.ChildContainer")
     );
-    data["container"] = component.get("v.container");
+    data["containerName"] = component.get("v.containerName");
     component.set("v.ParentContainer", data);
   },
 

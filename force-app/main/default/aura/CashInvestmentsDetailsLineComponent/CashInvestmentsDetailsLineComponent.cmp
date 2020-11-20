@@ -1,6 +1,6 @@
 <aura:component>
   <aura:attribute
-    name="container"
+    name="containerName"
     type="String"
     default="CashInvestmentsDetailLine"
   />
