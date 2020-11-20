@@ -4,13 +4,43 @@
     type="List"
     default="['JMD','USD']"
   />
+  <aura:attribute name="numOfCardholders" type="List" default="['1','2']" />
+  <aura:attribute name="productPrice" type="Decimal" />
+  <aura:attribute
+    name="ChildContainer"
+    type="Map"
+    default="{}"
+    description="Credit Card child container"
+  />
+  <aura:attribute
+    name="ParentContainer"
+    type="Map"
+    default="{}"
+    description="Credit Card parent container"
+  />
+
+  <!-- Handlers -->
+  <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+  <aura:handler
+    name="change"
+    action="{!c.onChildContainerChange}"
+    value="{!v.ChildContainer}"
+  />
+
+  <!-- Static Resources -->
+  <ltng:require
+    scripts="{!join(',', 
+  $Resource.calculations, 
+  $Resource.productDetailsGeneralFunctions)}"
+  />
+
   <lightning:layout multipleRows="true">
     <lightning:layoutItem size="12">
       <h2 class="slds-section-title--divider">Personal Credit Card Request</h2>
     </lightning:layoutItem>
     <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
       <lightning:layout>
-        <lightning:layoutItem size="3" mediumDeviceSize="3">
+        <!-- <lightning:layoutItem size="3" mediumDeviceSize="3">
           <lightning:select
             name="select1"
             label="$"
@@ -21,15 +51,16 @@
               <option value="{!item}">{!item}</option>
             </aura:iteration>
           </lightning:select>
-        </lightning:layoutItem>
-        <lightning:layoutItem size="9">
+        </lightning:layoutItem> -->
+        <lightning:layoutItem size="12">
           <lightning:input
             type="number"
             label="Requested Credit Limit"
-            value="{!v.requestedCreditLimit}"
+            value="{!v.productPrice}"
             name="number"
             formatter="currency"
             required="true"
+            readonly="true"
           />
         </lightning:layoutItem>
       </lightning:layout>
@@ -38,7 +69,7 @@
       <lightning:input
         type="number"
         label="Interest Rate"
-        value="{!v.interestRate}"
+        value="{!v.ChildContainer.interestRate}"
         placeholder="per annum"
         name="interestRate"
         formatter="percentage"
@@ -52,7 +83,7 @@
             name="select1"
             label="Number of Supplementary CardHolder(s)"
             required="true"
-            onchange="{!c.onNumberOfCardHoldersChange}"
+            onchange="{!c.onNumberOfSupplementaryCardHoldersChange}"
           >
             <option value="">select one...</option>
             <aura:iteration items="{!v.numOfCardholders}" var="item">

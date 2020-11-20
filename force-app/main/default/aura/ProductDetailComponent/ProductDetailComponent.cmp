@@ -81,10 +81,14 @@
             ></c:UnsecuredLoanContainerComponent>
           </aura:if>
           <aura:if isTrue="{!v.creditCardFlag}">
-            <c:CreditCardContainerComponent></c:CreditCardContainerComponent>
+            <c:CreditCardContainerComponent
+              productPrice="{!v.productSelection.productPrice}"
+            ></c:CreditCardContainerComponent>
           </aura:if>
           <aura:if isTrue="{!v.lineOfCreditFlag}">
-            <c:LineOfCreditContainerComponent></c:LineOfCreditContainerComponent>
+            <c:LineOfCreditContainerComponent
+              productPrice="{!v.productSelection.productPrice}"
+            ></c:LineOfCreditContainerComponent>
           </aura:if>
         </fieldset>
       </lightning:layoutItem>
