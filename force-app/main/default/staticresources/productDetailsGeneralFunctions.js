@@ -43,8 +43,9 @@ window.updateAccountTypeOptionList = function (
   jnBankAccountTypeOptions,
   selected
 ) {
-  if (selected === "JN Bank Ltd.") return fundManagerAccountTypeOptions;
-  if (selected === "JN Fund Managers Ltd.") return jnBankAccountTypeOptions;
+  if (selected === "JN Bank Ltd.") return jnBankAccountTypeOptions;
+  if (selected === "JN Fund Managers Ltd.")
+    return fundManagerAccountTypeOptions;
 };
 
 /**
