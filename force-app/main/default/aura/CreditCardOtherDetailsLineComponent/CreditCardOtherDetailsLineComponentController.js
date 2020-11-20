@@ -8,7 +8,7 @@
       desiredRepaymentDate: null,
       creditRiskScore: null,
       creditRiskRating: null,
-      container: ""
+      containerName: ""
     };
     component.set("v.ChildContainer", data);
   },

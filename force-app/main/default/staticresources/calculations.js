@@ -470,11 +470,21 @@ window.roundedValue = function (value) {
  */
 window.validNumbersWithObject = function (properties, parentObj) {
   if (!properties || !parentObj) return false;
-  return properties.every(property => {
+  return properties.every((property) => {
     if (!isEmpty(parentObj[property])) {
-      return !isNaN(parentObj[property]) && parseFloat(parentObj[property]) >= 0;
+      return (
+        !isNaN(parentObj[property]) && parseFloat(parentObj[property]) >= 0
+      );
     }
     return false;
   });
 };
-
+/**
+ * checks whether the set of numbers are valid from an object
+ * @param {Map} data
+ * @param {Decimal} minimum
+ * @return {Decimal}
+ */
+window.LTVCalculatorAutoLoan = function (loanAmount, minimum) {
+  return (parseFloat(loanAmount) / parseFloat(minimum)) * 100;
+};
