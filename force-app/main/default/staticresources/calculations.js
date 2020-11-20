@@ -493,7 +493,7 @@ window.LTVCalculatorAutoLoan = function (loanAmount, minimum) {
  * checks whether the set of numbers are valid from an object
  * @param {Decimal} startingLimit
  * @param {Decimal} existingDebt
- *  @param {Decimal} deposit
+ * @param {Decimal} deposit
  * @return {Decimal}
  */
 window.LTVCalculatorCash = function (startingLimit, existingDebt, deposit) {
