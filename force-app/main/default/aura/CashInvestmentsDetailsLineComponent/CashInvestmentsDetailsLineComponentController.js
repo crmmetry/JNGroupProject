@@ -15,12 +15,10 @@
   },
 
   onChildContainerChange: function (component, event, helper) {
-    console.log("child container changed");
     const data = Object.assign(
       component.get("v.ParentContainer"),
       component.get("v.ChildContainer")
     );
-    console.log("CashInvest data: ", JSON.parse(JSON.stringify(data)));
     data["containerName"] = component.get("v.containerName");
     component.set("v.ParentContainer", data);
   },
@@ -31,10 +29,6 @@
       component.get("v.scriptsLoaded") &&
       containerName !== component.get("v.containerName")
     ) {
-      console.info(
-        "Parent",
-        JSON.parse(JSON.stringify(component.get("v.ParentContainer")))
-      );
       helper.clearDetailsWhenUnsecuredLoanSelected(component);
     }
   },
@@ -48,7 +42,6 @@
       }
     ];
     helper.updateChildContainer(component, childKeyValuePairs, false);
-    console.log(selected);
     let disabilityFlag = toggleAccountTypeDisability(selected);
     component.set("v.accountTypeDisableFlag", disabilityFlag);
     helper.updateAccountTypeOptions(component, selected);
@@ -57,13 +50,11 @@
 
   onAccountTypeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    console.log(selected);
   },
 
   validateBalance: function (component, event, helper) {
     const capLimit = 0.8;
     let data = component.get("v.ParentContainer");
-    console.log("data: ", JSON.parse(JSON.stringify(data)));
     const inputCmpArray = component.find(
       "cash-investments-numerical-component"
     );
@@ -76,6 +67,7 @@
           element.reportValidity();
         } else {
           element.setCustomValidity("");
+          element.reportValidity();
         }
       }
     });
@@ -83,7 +75,6 @@
 
   onIsHypothecatedChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    console.log(selected);
     let childKeyValuePairs = [
       {
         key: "existingBalance",
@@ -92,11 +83,9 @@
     ];
     helper.updateChildContainer(component, childKeyValuePairs, false);
     toggleHypothecatedLoanFlag(selected, component);
-    console.log(selected);
   },
 
   onDepositCurrencyChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    console.log(selected);
   }
 });

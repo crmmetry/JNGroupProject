@@ -6,6 +6,11 @@
     description="Credit Card parent container"
   />
   <aura:attribute
+    name="container"
+    type="String"
+    default="CreditCardOtherDetailLine"
+  />
+  <aura:attribute
     name="ChildContainer"
     type="Map"
     default="{}"

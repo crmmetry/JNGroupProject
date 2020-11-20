@@ -10,7 +10,6 @@ window.updateChildContainerWithValue = function (
   values,
   shouldSetComponentValue
 ) {
-  console.log("Function reached");
   let container = component.get("v.ChildContainer");
   values.forEach((element) => {
     container[element.key] = element.value;
@@ -24,7 +23,6 @@ window.updateChildContainerWithValue = function (
  * Toggles cash investment flag.
  */
 window.toggleCashInvestmentFlag = function (value) {
-  console.log("cash investment flag toggled");
   if (value === "Cash/Investments") return true;
   return false;
 };
@@ -33,7 +31,6 @@ window.toggleCashInvestmentFlag = function (value) {
  * Toggles disability of account type.
  */
 window.toggleAccountTypeDisability = function (value) {
-  console.log("Function reached");
   if (value !== null) return false;
   return true;
 };
@@ -54,23 +51,19 @@ window.updateAccountTypeOptionList = function (
  * Toggle account number fields layout
  */
 window.toggleAccountNumberComponent = function (selected, component) {
-  console.log("toggle account number");
   if (selected === "JN Bank Ltd.") {
     component.set("v.bankSelectedFlag", true);
     component.set("v.fundManagerSelectedFlag", false);
-    console.log("toggle jn bank");
   }
   if (selected === "JN Fund Managers Ltd.") {
     component.set("v.fundManagerSelectedFlag", true);
     component.set("v.bankSelectedFlag", false);
-    console.log("jn fund toggled");
   }
 };
 /**
  * Toggle visibility of existing balance field
  */
 window.toggleHypothecatedLoanFlag = function (selected, component) {
-  console.log("toggle hypothecated loan");
   if (selected === "Yes") {
     component.set("v.hypothecatedLoanFlag", true);
   }

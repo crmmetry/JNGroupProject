@@ -1,5 +1,10 @@
 <aura:component>
   <aura:attribute
+    name="container"
+    type="String"
+    default="CashInvestmentsDetailLine"
+  />
+  <aura:attribute
     name="ChildContainer"
     type="Map"
     default="{}"
@@ -147,12 +152,11 @@
               <div class="slds-form-element__control">
                 <lightning:input
                   aura:id="cash-investments-text-component"
-                  type="number"
+                  type="text"
                   label="Deposit Account Number"
                   value="{!v.ChildContainer.jnBankAccountNumber}"
-                  name=""
-                  max="12"
-                  min="1"
+                  pattern="[1-9]+"
+                  maxlength="12"
                   required="true"
                 />
               </div>
@@ -184,7 +188,7 @@
             label="Annual Interest Rate on Deposit Account"
             value="{!v.ChildContainer.annualInterestRate}"
             name="Annual Interest Rate"
-            formatter="fixed-percent"
+            formatter="percent-fixed"
             required="true"
           />
         </div>
@@ -248,7 +252,7 @@
             name="deposit"
             formatter="currency"
             required="true"
-            onblur="{!c.validateBalance}"
+            onchange="{!c.validateBalance}"
           />
         </lightning:layoutItem>
       </lightning:layout>
