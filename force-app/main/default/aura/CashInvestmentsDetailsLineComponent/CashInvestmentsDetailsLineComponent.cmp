@@ -2,7 +2,7 @@
   <aura:attribute
     name="containerName"
     type="String"
-    default="CashInvestmentsDetailLineCOmponent"
+    default="CashInvestmentsDetailLineComponent"
   />
   <aura:attribute
     name="ChildContainer"
@@ -47,6 +47,10 @@
   />
   <aura:attribute name="hypothecatedLoanFlag" type="Boolean" default="false" />
   <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
+  <ltng:require
+    scripts="{!$Resource.calculations}"
+    afterScriptsLoaded="{!c.scriptsLoaded}"
+  />
 
   <!-- Handlers -->
   <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
@@ -60,11 +64,6 @@
     name="change"
     action="{!c.onParentContainerChange}"
     value="{!v.ParentContainer}"
-  />
-
-  <ltng:require
-    scripts="{!$Resource.calculations}"
-    afterScriptsLoaded="{!c.scriptsLoaded}"
   />
 
   <!--<aura:attribute name="depositCurrency" type="List" default="['JMD','USD']" />

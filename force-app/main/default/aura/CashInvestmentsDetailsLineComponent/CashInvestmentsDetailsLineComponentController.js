@@ -31,6 +31,7 @@
   },
 
   onParentContainerChange: function (component, event, helper) {
+    //console.log("LTV");
     const data = component.get("v.ParentContainer");
     const containerName = component.get("v.ParentContainer.containerName");
     if (
@@ -38,6 +39,7 @@
       containerName !== component.get("v.containerName")
     ) {
       //calaculate LTV
+      console.log("LTV");
       let ltv = LTVCalculatorCash(0, 0, data.depositBalance);
       console.log("LTV", ltv);
       let childKeyValuePairs = [
