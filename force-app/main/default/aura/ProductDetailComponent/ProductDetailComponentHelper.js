@@ -1,4 +1,8 @@
 ({
+  /**
+   * Retrieves product selection wrapper from apex.
+   * @param {*} container
+   */
   updateProductSelection: function (component) {
     let oppId = component.get("v.recordId");
     let action = component.get("c.getSingleProductFamilySelection");
@@ -16,7 +20,10 @@
 
     $A.enqueueAction(action);
   },
-
+  /**
+   * Toggles the flags responsible for showing the different layouts depending on selected products.
+   * @param {*} container
+   */
   updateProductSelectedFlag: function (component) {
     let selectedFlag = component.get("v.productSelection.productFamily");
     const families = [
@@ -32,6 +39,10 @@
       component.set(`v.${family.variable}`, true);
     }
   },
+  /**
+   * Retrieves JNConfigurations from apex.
+   * @param {*} container
+   */
   getJNConfigurations: function (component) {
     let action = component.get("c.GetJNConfigs");
     action.setCallback(this, function (response) {
@@ -43,7 +54,10 @@
     });
     $A.enqueueAction(action);
   },
-
+  /**
+   * Retrieves All applicants belonging to a particular opportunity.
+   * @param {*} container
+   */
   getApplicants: function (component, oppId, tenure) {
     let action = component.get("c.getApplicantsRating");
     action.setParams({
@@ -66,7 +80,7 @@
   },
   /**
    * confirms whether current values are the same in the child even after recomputation
-   * @param {*} container 
+   * @param {*} container
    */
   redundancyRemover: function (component, container) {
     let childContainer = component.get("v.ChildContainer");
@@ -93,8 +107,13 @@
       container,
       ["years", "months", "loanAmount", "market", "includeInLoanAmountFlag"],
       component.get("v.jnDefaultConfigs.gct")
-      );
-    console.info("processingFee", processingFee, monthlyProcessingFee, processingFeeClosingCost);
+    );
+    console.info(
+      "processingFee",
+      processingFee,
+      monthlyProcessingFee,
+      processingFeeClosingCost
+    );
     return [
       { key: "processingFeeClosingCost", value: processingFeeClosingCost },
       {
@@ -104,4 +123,66 @@
       { key: "processingFeesGCT", value: processingFee }
     ];
   },
+
+  /**
+   * Gets Applicants Existing Debts.
+   */
+  getAssetsAndLiabilitiesForApplicant: function (component) {
+    let oppId = component.get("v.recordId");
+    let action = component.get("c.getApplicantsAssetsAndLiabilities");
+    action.setParams({
+      oppId: oppId
+    });
+    action.setCallback(this, function (response) {
+      let state = response.getState(); //Checking response status
+      let result = response.getReturnValue();
+      if (state === "SUCCESS") {
+        this.existingDebtCalculation(component, result);
+        console.log("result: ", result);
+      }
+    });
+
+    $A.enqueueAction(action);
+  },
+
+  /**
+   * Calculate existing debt.
+   */
+  existingDebtCalculation: function (component, containerValues) {
+    const fields = [
+      "motorVehicleMonthlyRepayment",
+      "otherAssetMonthlyPayment",
+      "otherLoanMonthlyPayment",
+      "personalMonthlyExpensesPriorLoan",
+      "realEstateMonthlyPayment",
+      "rentStrataMaintenance",
+      "salutaryDeductions",
+      "savingsPensionInsurance",
+      "minimumPayment"
+    ];
+    let total = 0;
+
+    const fieldsMap = {};
+    fields.forEach((element) => (fieldsMap[element] = true));
+    containerValues.forEach((element) => {
+      Object.keys(element).forEach((key) => {
+        console.log("key: ", key);
+        if (fieldsMap.hasOwnProperty(key)) {
+          total += element[key];
+        }
+      });
+    });
+    let values = [
+      {
+        key: "existingDebt",
+        value: total
+      }
+    ];
+    let data = updateChildContainerWithValue(component, values, false);
+    component.set("v.ChildContainer", data);
+    console.info(
+      "Current Child",
+      JSON.parse(JSON.stringify(component.get("v.ChildContainer")))
+    );
+  }
 });

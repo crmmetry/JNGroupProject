@@ -19,13 +19,16 @@
   },
 
   onChildContainerChange: function (component, event, helper) {
-    const container = component.get("v.ParentContainer");
+    let container = component.get("v.ParentContainer");
+    const childContainer = component.get("v.ChildContainer");
+    let data = Object.assign(container, childContainer);
     if (
-      component.get("v.scriptsLoaded")
+      component.get("v.scriptsLoaded") &&
+      component.get("v.notifyContainerChange")
     ) {
-      container.LTVValue = LTVCalculatorCash(0, container.existingDebt, container.depositBalance);
-      //helper.clearDetailsWhenUnsecuredLoanSelected(component);
-      fireProductDetailsEvent(null, container);
+      container.LTVValue = LTVCalculatorCash(0, data.existingDebt, data.depositBalance);
+      helper.clearDetailsWhenUnsecuredLoanSelected(component, data);
+      fireProductDetailsEvent(null, data, component);
     }
   },
   onFinancialInstitutionChange: function (component, event, helper) {

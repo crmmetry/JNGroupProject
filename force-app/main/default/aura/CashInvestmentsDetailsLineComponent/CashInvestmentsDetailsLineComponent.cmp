@@ -5,7 +5,8 @@
     description="Credit Card Other Detail Line Component container" />
   <aura:attribute name="financialInstitution" type="List" default="['JN Bank Ltd.','JN Fund Managers Ltd.']" />
   <aura:attribute name="accountType" type="List" default="[]" />
-
+  <aura:attribute name="notifyContainerChange" type="Boolean" default="true"
+    description="used to indicate whether the component should react to the ChildContainer changes" />
   <aura:attribute name="accountTypeWhenJNBankIsSelected" type="List"
     default="['Savings account types', 'Fixed Deposit account Types']" />
 

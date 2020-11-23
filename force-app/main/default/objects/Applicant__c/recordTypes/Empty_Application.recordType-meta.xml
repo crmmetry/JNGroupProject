@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Empty_Application</fullName>
     <active>true</active>
-    <description
-  >Represents an application that is blank and contains no info</description>
+    <description>Represents an application that is blank and contains no info</description>
     <label>Empty Application</label>
     <picklistValues>
         <picklist>Affiliation_Type__c</picklist>
