@@ -28,7 +28,7 @@
   />
   <aura:attribute name="purchasePrice" type="Decimal" default="" />
   <aura:attribute name="marketValue" type="Decimal" default="" />
-  <aura:attribute name="minimum" type="Decimal" default="" />
+  <aura:attribute name="minimumOfPurchaseMarketValue" type="Decimal" default="" />
   <aura:attribute name="depositPercentage" type="Decimal" default="" />
   <aura:attribute name="deposit" type="Decimal" default="" />
   <aura:attribute name="productPrice" type="Decimal" />
@@ -69,9 +69,20 @@
   <aura:attribute name="amount" type="String" default="amount" />
 
   <aura:attribute name="applicants" type="List" />
+  <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
 
-  <ltng:require scripts="{!$Resource.calculations}" />
-  <aura:attribute name="containerName" type="String" default="PersonalAutoLoanRequestLineItemComponent" />
+  <ltng:require
+    scripts="{!join(',', 
+  $Resource.constants,
+  $Resource.calculations, 
+  $Resource.productDetailsGeneralFunctions)}"
+    afterScriptsLoaded="{!c.scriptsLoaded}"
+  />
+  <aura:attribute
+    name="containerName"
+    type="String"
+    default="PersonalAutoLoanRequestLineItemComponent"
+  />
 
   <fieldset class="slds-box slds-theme_default">
     <legend
@@ -114,7 +125,7 @@
           padding="around-small"
         >
           <lightning:layout>
-            <lightning:layoutItem size="3" mediumDeviceSize="3">
+            <!-- <lightning:layoutItem size="3" mediumDeviceSize="3">
               <lightning:select
                 name="select1"
                 label="$"
@@ -125,12 +136,12 @@
                   <option value="{!item}">{!item}</option>
                 </aura:iteration>
               </lightning:select>
-            </lightning:layoutItem>
-            <lightning:layoutItem size="9">
+            </lightning:layoutItem> -->
+            <lightning:layoutItem size="12" mediumDeviceSize="12">
               <lightning:input
                 type="number"
                 label="Purchase Price of Vehicle"
-                value="{!v.purchasePrice}"
+                value="{!v.ChildContainer.purchasePrice}"
                 name="number"
                 formatter="currency"
                 required="true"
@@ -138,7 +149,7 @@
             </lightning:layoutItem>
           </lightning:layout>
         </lightning:layoutItem>
-        <lightning:layoutItem
+        <!-- <lightning:layoutItem
           size="12"
           mediumDeviceSize="4"
           padding="around-small"
@@ -153,16 +164,16 @@
               <option value="{!item}">{!item}</option>
             </aura:iteration>
           </lightning:select>
-        </lightning:layoutItem>
+        </lightning:layoutItem> -->
         <lightning:layoutItem
           size="12"
-          mediumDeviceSize="4"
+          mediumDeviceSize="6"
           padding="around-small"
         >
           <lightning:input
             type="number"
             label="Market Value of Vehicle"
-            value="{!v.marketValue}"
+            value="{!v.ChildContainer.marketValue}"
             name="number"
             formatter="currency"
             required="true"
@@ -170,16 +181,17 @@
         </lightning:layoutItem>
         <lightning:layoutItem
           size="12"
-          mediumDeviceSize="4"
+          mediumDeviceSize="6"
           padding="around-small"
         >
           <lightning:input
             type="number"
             label="Minimum(MV,PP)"
-            value="{!v.minimum}"
+            value="{!v.ChildContainer.minimumOfPurchaseMarketValue}"
             name="number"
             formatter="currency"
             required="true"
+            disabled="true"
           />
         </lightning:layoutItem>
         <lightning:layoutItem size="12" padding="around-small">

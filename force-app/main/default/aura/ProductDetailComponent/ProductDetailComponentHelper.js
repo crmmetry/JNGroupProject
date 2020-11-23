@@ -80,6 +80,9 @@
     });
     return container;
   },
+  /**
+   * calculates processing fees
+   */
   processingFeeCalculation: function (container, component) {
     const {
       processingFee,
@@ -100,5 +103,6 @@
       },
       { key: "processingFeesGCT", value: processingFee }
     ];
-  }
+  },
+  
 });

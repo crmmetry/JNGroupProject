@@ -470,11 +470,37 @@ window.roundedValue = function (value) {
  */
 window.validNumbersWithObject = function (properties, parentObj) {
   if (!properties || !parentObj) return false;
-  return properties.every(property => {
+  return properties.every((property) => {
     if (!isEmpty(parentObj[property])) {
-      return !isNaN(parentObj[property]) && parseFloat(parentObj[property]) >= 0;
+      return (
+        !isNaN(parentObj[property]) && parseFloat(parentObj[property]) >= 0
+      );
     }
     return false;
   });
 };
+/**
+ * checks whether the set of numbers are valid from an object
+ * @param {Map} data
+ * @param {Decimal} minimum
+ * @return {Decimal}
+ */
+window.LTVCalculatorAutoLoan = function (loanAmount, minimum) {
+  return roundedValue((parseFloat(loanAmount) / parseFloat(minimum)) * 100);
+};
 
+/**
+ * checks whether the set of numbers are valid from an object
+ * @param {Decimal} startingLimit
+ * @param {Decimal} existingDebt
+ * @param {Decimal} deposit
+ * @return {Decimal}
+ */
+window.LTVCalculatorCash = function (startingLimit, existingDebt, deposit) {
+  console.log("LTV Calculated");
+  return roundedValue(
+    ((parseFloat(startingLimit) + parseFloat(existingDebt)) /
+      parseFloat(deposit)) *
+      100
+  );
+};

@@ -9,9 +9,15 @@
       accountHolder: "",
       annualInterestRate: 0,
       depositBalance: 0,
-      existingBalance: 0
+      existingBalance: 0,
+      loanToValueRatio: 0
     };
     component.set("v.ChildContainer", data);
+  },
+
+  scriptsLoaded: function (component, event, helper) {
+    component.set("v.scriptsLoaded", true);
+    console.log(component.get("v.scriptsLoaded"));
   },
 
   onChildContainerChange: function (component, event, helper) {
@@ -21,14 +27,28 @@
     );
     data["containerName"] = component.get("v.containerName");
     component.set("v.ParentContainer", data);
+    console.log(JSON.parse(JSON.stringify(data)));
   },
 
-  onParenContainerChange: function (component, event, helper) {
+  onParentContainerChange: function (component, event, helper) {
+    //console.log("LTV");
+    const data = component.get("v.ParentContainer");
     const containerName = component.get("v.ParentContainer.containerName");
     if (
       component.get("v.scriptsLoaded") &&
       containerName !== component.get("v.containerName")
     ) {
+      //calaculate LTV
+      console.log("LTV");
+      let ltv = LTVCalculatorCash(0, 0, data.depositBalance);
+      console.log("LTV", ltv);
+      let childKeyValuePairs = [
+        {
+          key: "loanToValueRatio",
+          value: ltv
+        }
+      ];
+      helper.updateChildContainer(component, childKeyValuePairs, false);
       helper.clearDetailsWhenUnsecuredLoanSelected(component);
     }
   },
