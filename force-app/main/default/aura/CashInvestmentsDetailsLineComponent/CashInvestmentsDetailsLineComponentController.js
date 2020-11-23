@@ -14,45 +14,20 @@
     };
     component.set("v.ChildContainer", data);
   },
-
   scriptsLoaded: function (component, event, helper) {
     component.set("v.scriptsLoaded", true);
-    console.log(component.get("v.scriptsLoaded"));
   },
 
   onChildContainerChange: function (component, event, helper) {
-    const data = Object.assign(
-      component.get("v.ParentContainer"),
-      component.get("v.ChildContainer")
-    );
-    data["containerName"] = component.get("v.containerName");
-    component.set("v.ParentContainer", data);
-    console.log(JSON.parse(JSON.stringify(data)));
-  },
-
-  onParentContainerChange: function (component, event, helper) {
-    //console.log("LTV");
-    const data = component.get("v.ParentContainer");
-    const containerName = component.get("v.ParentContainer.containerName");
+    const container = component.get("v.ParentContainer");
     if (
-      component.get("v.scriptsLoaded") &&
-      containerName !== component.get("v.containerName")
+      component.get("v.scriptsLoaded")
     ) {
-      //calaculate LTV
-      console.log("LTV");
-      let ltv = LTVCalculatorCash(0, 0, data.depositBalance);
-      console.log("LTV", ltv);
-      let childKeyValuePairs = [
-        {
-          key: "loanToValueRatio",
-          value: ltv
-        }
-      ];
-      helper.updateChildContainer(component, childKeyValuePairs, false);
-      helper.clearDetailsWhenUnsecuredLoanSelected(component);
+      container.LTVValue = LTVCalculatorCash(0, container.existingDebt, container.depositBalance);
+      //helper.clearDetailsWhenUnsecuredLoanSelected(component);
+      fireProductDetailsEvent(null, container);
     }
   },
-
   onFinancialInstitutionChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let childKeyValuePairs = [

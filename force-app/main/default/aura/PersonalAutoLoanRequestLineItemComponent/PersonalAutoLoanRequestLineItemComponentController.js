@@ -23,7 +23,6 @@
       //calculate ltv value
       container = helper.calculateLTVAuto(container);
       helper.getApplicants(component);//TODO: REFACTOR CANNOT BE CALLED LIKE THIS
-      //when purchase price or market value gets updated
       fireProductDetailsEvent(null, container);
     }
   },
