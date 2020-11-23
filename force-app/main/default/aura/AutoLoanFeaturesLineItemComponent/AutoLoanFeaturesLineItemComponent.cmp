@@ -268,9 +268,19 @@
           </lightning:layoutItem>
         </aura:if>
         <aura:if isTrue="{!v.value == v.amount}">
-          <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
-            <lightning:input type="number" label="Amount(JMD)" value="{!v.ChildContainer.amount}" formatter="currency"
-              required="true" />
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="6"
+            padding="around-small"
+          >
+            <lightning:input
+              type="number"
+              label="Amount(JMD)"
+              value="{!v.ChildContainer.amount}"
+              formatter="currency"
+              required="true"
+              min="1000"
+            />
           </lightning:layoutItem>
         </aura:if>
         <lightning:layoutItem size="12">
