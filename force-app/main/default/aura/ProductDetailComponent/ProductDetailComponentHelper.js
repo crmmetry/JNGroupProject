@@ -104,5 +104,4 @@
       { key: "processingFeesGCT", value: processingFee }
     ];
   },
-  
 });

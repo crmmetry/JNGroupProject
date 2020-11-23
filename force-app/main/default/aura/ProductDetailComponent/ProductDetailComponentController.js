@@ -4,7 +4,9 @@
       monthly_PI_LoanAmount: 0,
       processingFeeClosingCost:0,
       monthlyPrincipalInterestProcessingFee: 0,
-      processingFeesGCT: 0
+      processingFeesGCT: 0,
+      minimumOfPurchaseMarketValue: 0,
+      LTVValue: 0,
     });
     helper.updateProductSelection(component);
     helper.getJNConfigurations(component);
@@ -28,6 +30,7 @@
       //Calculate processing fees
       attributesToUpdate = attributesToUpdate.concat(helper.processingFeeCalculation(container, component));
       const updatedContainer = updateChildContainerWithValue(component, attributesToUpdate, false);
+      //calculate ltv
       component.set("v.ChildContainer", updatedContainer);
       console.info("Current Child", JSON.parse(JSON.stringify(component.get("v.ChildContainer"))));
     }

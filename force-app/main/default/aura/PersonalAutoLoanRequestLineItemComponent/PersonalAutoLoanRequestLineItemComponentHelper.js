@@ -36,31 +36,24 @@
   /**
    * compares purchase price and market value and sets the minimun as the result.
    */
-  setMinimumValue: function (component) {
-    let data = component.get("v.ChildContainer");
+  setMinimumValue: function (data) {
     if (validNumbersWithObject(["purchasePrice", "marketValue"], data)) {
       let minimumOfPurchaseMarketValue = Math.min(
         parseFloat(data.purchasePrice),
         parseFloat(data.marketValue)
       );
-      this.updateChildContainerWithValue(component, [{
-        key: "minimumOfPurchaseMarketValue",
-        value: minimumOfPurchaseMarketValue
-      }]);
+      data.minimumOfPurchaseMarketValue = minimumOfPurchaseMarketValue;
     }
+    return data;
   },
   /**
    * Calculates loan to value ration
    */
-  calculateLTV: function (component) {
-    let data = component.get("v.ChildContainer");
+  calculateLTVAuto: function (data) {
     if (validNumbersWithObject(["loanAmount", "minimumOfPurchaseMarketValue"], data)) {
-      let LTV = LTVCalculatorAutoLoan(data.loanAmount, data.minimumOfPurchaseMarketValue);
-      console.log("ltv: ", LTV);
-      // this.updateChildContainerWithValue(component, [
-      //   { key: "loanToValueRatio", value: LTV }
-      // ]);
-    }
+      data.LTVValue = LTVCalculatorAutoLoan(data.loanAmount, data.minimumOfPurchaseMarketValue);     
+    } 
+    return data;
   },
   /**
    * Updates child container attributes and its values.

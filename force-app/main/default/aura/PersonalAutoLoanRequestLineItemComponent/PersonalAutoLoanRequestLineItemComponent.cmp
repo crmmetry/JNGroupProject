@@ -187,7 +187,7 @@
           <lightning:input
             type="number"
             label="Minimum(MV,PP)"
-            value="{!v.ChildContainer.minimumOfPurchaseMarketValue}"
+            value="{!v.ParentContainer.minimumOfPurchaseMarketValue}"
             name="number"
             formatter="currency"
             required="true"
