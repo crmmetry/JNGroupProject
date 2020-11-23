@@ -1,29 +1,55 @@
 public class SubCriteriaOptionWrapper {
+    
     public Map<string, Personal_Credit_Score_Model__mdt> personalCreditScoreMap = getPersonalCreditScoreMap();
-    public string subcriteria;
-    public integer subcriteriaoption;
+    @AuraEnabled
+    public string subCriteria;
+    @AuraEnabled
+    public string subCriteriaOption;
+    @AuraEnabled
     public boolean isSalaried;
-    public Integer riskscore;
+    @AuraEnabled
+    public decimal riskScore;
+    @AuraEnabled
     public decimal weight;
-    
-    public SubCriteriaOptionWrapper(string subcriteria,integer subcriteriaoption,boolean isSalaried) {
-        this.subcriteria = subcriteria;
+    /**
+     * Represents subCriteriaOptions of personal credit score model.
+     * @constructor
+     * @param {string} subCriteria - sub criteria of personal credit score model
+     * @param {integer} subcriteriaOption - sub criteria options of personal credit score model
+     * @param {boolean} isSalaried - employement type of personal credit score model
+    */  
+    public subCriteriaOptionWrapper(string subCriteria,string subCriteriaOption,boolean isSalaried) {
+        this.subCriteria = subCriteria;
         this.isSalaried = isSalaried;
-        this.subcriteriaoption = subcriteriaoption;
-        this.riskscore = getRiskScore(subcriteria, subcriteriaoption, isSalaried);
-        this.weight = getWeight(subcriteria);
+        this.subCriteriaOption = subCriteriaOption;
+        this.riskScore = getRiskScore(subCriteria, subCriteriaOption, isSalaried);
+        this.weight = getWeight(subCriteria,subCriteriaOption);
     }
-    
-    public Integer getRiskScore(string subcriteria,integer subcriteriaoption,boolean isSalaried) {
-        string key = subcriteria + ':' + subcriteriaoption;
+    /**
+     * Gets the risk score.
+     * @param {string} subCriteria - sub criteria of personal credit score model
+     * @param {string} subcriteriaOption - sub criteria options of personal credit score model
+     * @param {boolean} isSalaried - employement type of personal credit score model
+	 * @return {decimal}
+    */
+    public decimal getRiskScore(string subCriteria,String subCriteriaOption,boolean isSalaried) {
+        string key = subCriteria + ':' + subCriteriaOption;
         return isSalaried ? personalCreditScoreMap.get(key).Salaried_Score_Number__c : personalCreditScoreMap.get(key).Self_Employed_Score_Number__c;
     }
-    
-    public decimal getWeight(string subcriteria,integer subcriteriaoption) {
-        string key = subcriteria + ':' + subcriteriaoption;
+    /**
+     * Gets the weight.
+     * @param   {string} subCriteria - sub criteria of personal credit score model
+     * @param  {string} subcriteriaOption - sub criteria options of personal credit score model
+     * @return {decimal} returns the sub criteria weight number 
+    */
+    public decimal getWeight(string subCriteria,String subCriteriaOption) {
+        string key = subCriteria + ':' + subCriteriaOption;
         return personalCreditScoreMap.get(key).Sub_Criteria_Weight_Numbr__c;
     }
-    
+    /*
+     *Creates the personal Credit Score Map.
+     * @return {Map<string, Personal_Credit_Score_Model__mdt>}
+    */
     public Map<string, Personal_Credit_Score_Model__mdt> getPersonalCreditScoreMap() {
         Personal_Credit_Score_Model__mdt[] personalCreditScoreList = JNConfigurations.getPersonalCreditScore();
         Map<string, Personal_Credit_Score_Model__mdt> personalCreditScoreMap = new Map<string, Personal_Credit_Score_Model__mdt>();
@@ -36,5 +62,3 @@ public class SubCriteriaOptionWrapper {
         return personalCreditScoreMap;
     }
 }
-
-

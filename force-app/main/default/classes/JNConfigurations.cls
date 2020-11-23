@@ -87,8 +87,8 @@ public with sharing class JNConfigurations {
     return creditRating;
   }
 
-  /**
-   * retrieves Personal Credit Score Model related data
+  /*
+   * Retrieves Personal Credit Score Model related data
    * @return {List<Personal_Credit_Score_Model__mdt> }
    */
   @AuraEnabled
