@@ -25,7 +25,7 @@ public class SubCriteriaOptionWrapper {
     public subCriteriaOptionWrapper(string subCriteria,string subCriteriaOption,boolean isSalaried) {
         this.subCriteria = subCriteria;
         this.isSalaried = isSalaried;
-        this.subCriteriaOption = subCriteriaOption;
+        this.subCriteriaOption = subCriteria == 'Age' ? getSubCriteriaOption(subCriteria) : subCriteriaOption;
         this.riskScore = getRiskScore(subCriteria, subCriteriaOption, isSalaried);
         this.weight = getWeight(subCriteria,subCriteriaOption);
     }
@@ -59,10 +59,28 @@ public class SubCriteriaOptionWrapper {
         Map<string, Personal_Credit_Score_Model__mdt> personalCreditScoreMap = new Map<string, Personal_Credit_Score_Model__mdt>();
         
         for(Personal_Credit_Score_Model__mdt personalCreditScore :personalCreditScoreList) {
-            string key = personalCreditScore.label +':'+ personalCreditScore.Sub_Criteria_Option__c;
+            string key = personalCreditScore.type__c +':'+ personalCreditScore.Sub_Criteria_Option__c;
             personalCreditScoreMap.put(key, personalCreditScore);
         }
         
         return personalCreditScoreMap;
     }
+    /*
+     * Get the formate of SubCriteriaOption.
+     * @return {void}
+    */
+    public String getSubCriteriaOption(String age) {
+        String subCriteriaOption;
+        for(String key :personalCreditScoreMap.keySet()) {
+            List<String> ranges = personalCreditScoreMap.get(key) != null ? personalCreditScoreMap.get(key).Sub_Criteria_Option__c.split('-') : null;
+            if(ranges == null) {
+                this.subCriteriaOption = null;
+            }
+            if(Integer.valueOf(ranges[0]) <= Integer.ValueOf(age) 
+                || Integer.valueOf(ranges[0]) >= Integer.ValueOf(age)) {
+                    subCriteriaOption = personalCreditScoreMap.get(key).Sub_Criteria_Option__c;
+            }
+        }
+        return subCriteriaOption;
+    }      
 }

@@ -22,4 +22,8 @@
         <field>Sub_Criteria_Weight_Numbr__c</field>
         <value xsi:type="xsd:double">3.0</value>
     </values>
+    <values>
+        <field>Type__c</field>
+        <value xsi:type="xsd:string">Age</value>
+    </values>
 </CustomMetadata>

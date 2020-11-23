@@ -20,31 +20,30 @@
  * var calculation = calculatePMT(rate, totalMonths, -presentValue, 0, 0);
  * var roundedCalculation = parseFloat(calculation).toFixed(2);
  */
-window.calculatePMT = function (
-  ratePerPeriod,
-  numberOfPayments,
-  presentValue,
-  futureValue,
-  type
+window.calculatePMT = function(
+    ratePerPeriod,
+    numberOfPayments,
+    presentValue,
+    futureValue,
+    type
 ) {
-  //checks if future is specified
-  futureValue = typeof futureValue !== "undefined" ? futureValue : 0;
-  //checks the type
-  type = typeof type !== "undefined" ? type : 0;
-  // the interest rate cannot be zero
-  if (ratePerPeriod != 0.0) {
-    // Interest rate exists,
-    var q = Math.pow(1 + ratePerPeriod, numberOfPayments);
-    return (
-      -(ratePerPeriod * (futureValue + q * presentValue)) /
-      ((-1 + q) * (1 + ratePerPeriod * type))
-    );
-  } else if (numberOfPayments != 0.0) {
-    // No interest rate, but number of payments exists
-    return -(futureValue + presentValue) / numberOfPayments;
-  }
+    //checks if future is specified
+    futureValue = typeof futureValue !== "undefined" ? futureValue : 0;
+    //checks the type
+    type = typeof type !== "undefined" ? type : 0;
+    // the interest rate cannot be zero
+    if (ratePerPeriod != 0.0) {
+        // Interest rate exists,
+        var q = Math.pow(1 + ratePerPeriod, numberOfPayments);
+        return (-(ratePerPeriod * (futureValue + q * presentValue)) /
+            ((-1 + q) * (1 + ratePerPeriod * type))
+        );
+    } else if (numberOfPayments != 0.0) {
+        // No interest rate, but number of payments exists
+        return -(futureValue + presentValue) / numberOfPayments;
+    }
 
-  return 0;
+    return 0;
 };
 
 /**
@@ -52,9 +51,9 @@ window.calculatePMT = function (
  * @param {Integer} years
  * @param {Integer} months
  */
-window.calculateMonths = function (years, months) {
-  if (isEmpty(years) || isEmpty(months)) return 0;
-  return parseFloat(years) * 12 + parseFloat(months);
+window.calculateMonths = function(years, months) {
+    if (isEmpty(years) || isEmpty(months)) return 0;
+    return parseFloat(years) * 12 + parseFloat(months);
 };
 /**
  * checks if the tenure is valid and that the previous tensure is not the same
@@ -63,40 +62,40 @@ window.calculateMonths = function (years, months) {
  * @param {Decimal} previousValue
  * @return {Boolean}
  */
-window.validTenure = function (years, months, previousValue) {
-  const tenure = calculateMonths(years, months);
-  if (!tenure) return false;
-  if (tenure === previousValue) return false;
-  return true;
+window.validTenure = function(years, months, previousValue) {
+    const tenure = calculateMonths(years, months);
+    if (!tenure) return false;
+    if (tenure === previousValue) return false;
+    return true;
 };
 /**
  * calculate rate period
  * @param {rate}
  */
-window.calculateRatePerPeriod = function (rate) {
-  return parseFloat(rate) / 100 / 12;
+window.calculateRatePerPeriod = function(rate) {
+    return parseFloat(rate) / 100 / 12;
 };
 /**
  * check if field is empty
  * @param {Any} field
  * @return {Boolean}
  */
-window.isEmpty = function (field) {
-  if (typeof field === "undefined" || field === "" || field === null) {
-    return true;
-  }
-  return false;
+window.isEmpty = function(field) {
+    if (typeof field === "undefined" || field === "" || field === null) {
+        return true;
+    }
+    return false;
 };
 /**
  * check if a number field is empty
  * @param {Any} field
  * @return {Boolean}
  */
-window.isNumberNotEmpty = function (field) {
-  if (isEmpty(field) == false && field != 0) {
-    return true;
-  }
-  return false;
+window.isNumberNotEmpty = function(field) {
+    if (isEmpty(field) == false && field != 0) {
+        return true;
+    }
+    return false;
 };
 /**
  * populate an object given a set of properties and validates whether the parent object has any of the properties
@@ -104,20 +103,20 @@ window.isNumberNotEmpty = function (field) {
  * @param {Object} parentObj
  * @return {Objec}
  */
-window.enlistAndValidateFields = function (properties, parentObj) {
-  if (!properties || !parentObj) return null;
-  let fields = {};
-  properties.forEach(function (property) {
-    fields[property] = false;
-  });
-  Object.keys(fields).forEach((field) => {
-    if (parentObj.hasOwnProperty(field)) {
-      if (isEmpty(parentObj[field]) === false) {
-        fields[field] = true;
-      }
-    }
-  });
-  return fields;
+window.enlistAndValidateFields = function(properties, parentObj) {
+    if (!properties || !parentObj) return null;
+    let fields = {};
+    properties.forEach(function(property) {
+        fields[property] = false;
+    });
+    Object.keys(fields).forEach((field) => {
+        if (parentObj.hasOwnProperty(field)) {
+            if (isEmpty(parentObj[field]) === false) {
+                fields[field] = true;
+            }
+        }
+    });
+    return fields;
 };
 /**
  * populate an object given a set of properties and validates whether the parent object has any of the properties
@@ -125,20 +124,20 @@ window.enlistAndValidateFields = function (properties, parentObj) {
  * @param {Object} parentObj
  * @return {Objec}
  */
-window.enlistAndValidateNumberFields = function (properties, parentObj) {
-  if (!properties || !parentObj) return null;
-  let fields = {};
-  properties.forEach(function (property) {
-    fields[property] = false;
-  });
-  Object.keys(fields).forEach((field) => {
-    if (parentObj.hasOwnProperty(field)) {
-      if (isNumberNotEmpty(parentObj[field])) {
-        fields[field] = true;
-      }
-    }
-  });
-  return fields;
+window.enlistAndValidateNumberFields = function(properties, parentObj) {
+    if (!properties || !parentObj) return null;
+    let fields = {};
+    properties.forEach(function(property) {
+        fields[property] = false;
+    });
+    Object.keys(fields).forEach((field) => {
+        if (parentObj.hasOwnProperty(field)) {
+            if (isNumberNotEmpty(parentObj[field])) {
+                fields[field] = true;
+            }
+        }
+    });
+    return fields;
 };
 /**
  * helper function used to calculate pmt
@@ -147,29 +146,29 @@ window.enlistAndValidateNumberFields = function (properties, parentObj) {
  *                 {market, amount, years, months}
  * @return {Number | Null}
  */
-window.basicPMTCalculator = function (properties, parentObj) {
-  let validatedFields = enlistAndValidateFields(properties, parentObj);
-  console.info("validatedFields", validatedFields);
-  if (!validatedFields) return 0;
-  let rate;
-  let totalMonths;
-  let pmtResult;
-  //calculate rate per period
-  if (validatedFields.market) {
-    rate = calculateRatePerPeriod(parentObj.market);
-  }
+window.basicPMTCalculator = function(properties, parentObj) {
+    let validatedFields = enlistAndValidateFields(properties, parentObj);
+    console.info("validatedFields", validatedFields);
+    if (!validatedFields) return 0;
+    let rate;
+    let totalMonths;
+    let pmtResult;
+    //calculate rate per period
+    if (validatedFields.market) {
+        rate = calculateRatePerPeriod(parentObj.market);
+    }
 
-  //calculate total months
-  if (validatedFields.years && validatedFields.months) {
-    totalMonths = calculateMonths(parentObj.years, parentObj.months);
-  }
+    //calculate total months
+    if (validatedFields.years && validatedFields.months) {
+        totalMonths = calculateMonths(parentObj.years, parentObj.months);
+    }
 
-  //actual pmt calculation
-  if (rate && totalMonths && parentObj.loanAmount) {
-    pmtResult = calculatePMT(rate, totalMonths, -parentObj.loanAmount, 0, 0);
-    return roundedValue(pmtResult);
-  }
-  return 0;
+    //actual pmt calculation
+    if (rate && totalMonths && parentObj.loanAmount) {
+        pmtResult = calculatePMT(rate, totalMonths, -parentObj.loanAmount, 0, 0);
+        return roundedValue(pmtResult);
+    }
+    return 0;
 };
 /**
  * checks if a given object as all the required properties
@@ -177,18 +176,18 @@ window.basicPMTCalculator = function (properties, parentObj) {
  * @param {Object} parentObj
  * @return {Boolean}
  */
-window.asAllValidDependencies = function (properties, parentObj) {
-  if (!parentObj || !properties) return false;
-  properties.forEach((field) => {
-    if (parentObj.hasOwnProperty(field)) {
-      if (isEmpty(parentObj[field])) {
-        return false;
-      }
-    } else {
-      return false;
-    }
-  });
-  return true;
+window.asAllValidDependencies = function(properties, parentObj) {
+    if (!parentObj || !properties) return false;
+    properties.forEach((field) => {
+        if (parentObj.hasOwnProperty(field)) {
+            if (isEmpty(parentObj[field])) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    });
+    return true;
 };
 
 /**
@@ -196,8 +195,8 @@ window.asAllValidDependencies = function (properties, parentObj) {
  * @param {Number} gctPercentage
  * @return {Number}
  */
-window.calculateGCT = function (gctPercentage) {
-  return 1 + gctPercentage;
+window.calculateGCT = function(gctPercentage) {
+    return 1 + gctPercentage;
 };
 /**
  * calculates
@@ -207,56 +206,56 @@ window.calculateGCT = function (gctPercentage) {
  * @param {Number} gct
  * @return {Boolean}
  */
-window.basicProcessingFeesCalculator = function (
-  properties,
-  parentObj,
-  requiredDependencies,
-  gct
+window.basicProcessingFeesCalculator = function(
+    properties,
+    parentObj,
+    requiredDependencies,
+    gct
 ) {
-  let defaultValue = 0;
-  const shouldWaiveProcessingFee =
-    parentObj.hasOwnProperty("waiveProcessingFeeFlag") === false ||
-    parentObj.waiveProcessingFeeFlag === true;
-  const shouldIncludeInLoanAmountFlag =
-    parentObj.hasOwnProperty("includeInLoanAmountFlag") === true &&
-    parentObj.includeInLoanAmountFlag === true;
-  gct = calculateGCT(gct);
-  if (shouldIncludeInLoanAmountFlag) {
-    if (
-      parentObj.processingFeePercentagePerAnum &&
-      parentObj.processingFeePercentagePerAnum >= defaultValue
-    ) {
-      let newParentObj = Object.assign({}, parentObj);
-      let loanAmount = parentObj.loanAmount;
-      loanAmount =
-        (parentObj.processingFeePercentagePerAnum / 100) * gct * loanAmount;
-      newParentObj.loanAmount = loanAmount;
-      return {
-        processingFee: roundedValue(loanAmount),
-        monthlyProcessingFee: basicPMTCalculator(properties, newParentObj),
-        processingFeeClosingCost: defaultValue
-      };
+    let defaultValue = 0;
+    const shouldWaiveProcessingFee =
+        parentObj.hasOwnProperty("waiveProcessingFeeFlag") === false ||
+        parentObj.waiveProcessingFeeFlag === true;
+    const shouldIncludeInLoanAmountFlag =
+        parentObj.hasOwnProperty("includeInLoanAmountFlag") === true &&
+        parentObj.includeInLoanAmountFlag === true;
+    gct = calculateGCT(gct);
+    if (shouldIncludeInLoanAmountFlag) {
+        if (
+            parentObj.processingFeePercentagePerAnum &&
+            parentObj.processingFeePercentagePerAnum >= defaultValue
+        ) {
+            let newParentObj = Object.assign({}, parentObj);
+            let = parentObj.loanAmount;
+            loanAmount =
+                (parentObj.processingFeePercentagePerAnum / 100) * gct * loanAmount;
+            newParentObj.loanAmount = loanAmount;
+            return {
+                processingFee: roundedValue(loanAmount),
+                monthlyProcessingFee: basicPMTCalculator(properties, newParentObj),
+                processingFeeClosingCost: defaultValue
+            };
+        } else {
+            return {
+                processingFee: defaultValue,
+                monthlyProcessingFee: defaultValue,
+                processingFeeClosingCost: defaultValue
+            };
+        }
     } else {
-      return {
-        processingFee: defaultValue,
-        monthlyProcessingFee: defaultValue,
-        processingFeeClosingCost: defaultValue
-      };
+        let processingFeeClosingCost = defaultValue;
+        if (!shouldWaiveProcessingFee) {
+            processingFeeClosingCost =
+                (parentObj.processingFeePercentagePerAnum / 100) *
+                gct *
+                parentObj.loanAmount;
+        }
+        return {
+            processingFee: defaultValue,
+            monthlyProcessingFee: defaultValue,
+            processingFeeClosingCost: roundedValue(processingFeeClosingCost)
+        };
     }
-  } else {
-    let processingFeeClosingCost = defaultValue;
-    if (!shouldWaiveProcessingFee) {
-      processingFeeClosingCost =
-        (parentObj.processingFeePercentagePerAnum / 100) *
-        gct *
-        parentObj.loanAmount;
-    }
-    return {
-      processingFee: defaultValue,
-      monthlyProcessingFee: defaultValue,
-      processingFeeClosingCost: roundedValue(processingFeeClosingCost)
-    };
-  }
 };
 
 /**
@@ -265,8 +264,8 @@ window.basicProcessingFeesCalculator = function (
  * @param {Decimal} creditRating - Credit rating applicable to applicant.
  * @return {Deciaml}
  */
-window.basicJNLifePremiumCalculator = function (loanAmount, creditRating) {
-  return roundedValue((loanAmount / 1000) * creditRating);
+window.basicJNLifePremiumCalculator = function(loanAmount, creditRating) {
+    return roundedValue((loanAmount / 1000) * creditRating);
 };
 /**
  * calculates JN Life Creditor Life P & I Premium
@@ -274,11 +273,11 @@ window.basicJNLifePremiumCalculator = function (loanAmount, creditRating) {
  * @param {Decimal} creditRating - Credit rating applicable to applicant.
  * @return {Deciaml}
  */
-window.basicJNLifePIPremiumCalculator = function (properties, parentObj) {
-  if (!properties || !parentObj) {
-    return null;
-  }
-  return basicPMTCalculator(properties, parentObj);
+window.basicJNLifePIPremiumCalculator = function(properties, parentObj) {
+    if (!properties || !parentObj) {
+        return null;
+    }
+    return basicPMTCalculator(properties, parentObj);
 };
 
 /**
@@ -288,15 +287,15 @@ window.basicJNLifePIPremiumCalculator = function (properties, parentObj) {
  * @param {Decimal} amount - Amount to be saved in dollars.
  * @return {Deciaml}
  */
-window.basicMonthlyCompulsorySavingsCalculator = function (
-  totalPI,
-  savings,
-  amount
+window.basicMonthlyCompulsorySavingsCalculator = function(
+    totalPI,
+    savings,
+    amount
 ) {
-  if (savings) {
-    return roundedValue(totalPI * (savings / 100));
-  }
-  return amount;
+    if (savings) {
+        return roundedValue(totalPI * (savings / 100));
+    }
+    return amount;
 };
 /**
  * calculates Total Compulsory Savings (over repayment period)
@@ -304,19 +303,19 @@ window.basicMonthlyCompulsorySavingsCalculator = function (
  * @param {Decimal} tenure - Loan term.
  * @return {Deciaml}
  */
-window.basicTotalMonthlyCompulsorySavingsCalculator = function (
-  monthlyCompulsorySavings,
-  tenure
+window.basicTotalMonthlyCompulsorySavingsCalculator = function(
+    monthlyCompulsorySavings,
+    tenure
 ) {
-  return roundedValue(monthlyCompulsorySavings * tenure);
+    return roundedValue(monthlyCompulsorySavings * tenure);
 };
 /**
  * calculates Totals for a collection of values
  * @param {List} amountsToBeSummed - List of amounts that should be total'd.
  * @return {Deciaml}
  */
-window.basicTotalCalculator = function (amountsToBeSummed) {
-  return amountsToBeSummed.reduce((a, b) => a + b, 0);
+window.basicTotalCalculator = function(amountsToBeSummed) {
+    return amountsToBeSummed.reduce((a, b) => a + b, 0);
 };
 
 /**
@@ -325,8 +324,8 @@ window.basicTotalCalculator = function (amountsToBeSummed) {
  * @param {Decimal} gct - JN GCT rate to be included in loan calculations.
  * @return {Deciaml}
  */
-window.basicAssignmentFeeCalculator = function (assignmentFee, gct) {
-  return roundedValue(assignmentFee + assignmentFee * gct);
+window.basicAssignmentFeeCalculator = function(assignmentFee, gct) {
+    return roundedValue(assignmentFee + assignmentFee * gct);
 };
 
 /**
@@ -335,21 +334,21 @@ window.basicAssignmentFeeCalculator = function (assignmentFee, gct) {
  * @param {Array<String>} properties - fields on the parent object
  * @return {Decimal}
  */
-window.basicTotalsCalculator = function (properties, parentObj) {
-  let validatedFields = enlistAndValidateNumberFields(properties, parentObj);
-  if (!validatedFields) return 0;
+window.basicTotalsCalculator = function(properties, parentObj) {
+    let validatedFields = enlistAndValidateNumberFields(properties, parentObj);
+    if (!validatedFields) return 0;
 
-  let values = [];
-  properties.forEach((property) => {
-    if (validatedFields[property]) {
-      values.push(parentObj[property]);
-    }
-  });
-  return roundedValue(
-    values
-      .filter((value) => !isNaN(value))
-      .reduce((a, b) => parseFloat(a) + parseFloat(b), 0)
-  );
+    let values = [];
+    properties.forEach((property) => {
+        if (validatedFields[property]) {
+            values.push(parentObj[property]);
+        }
+    });
+    return roundedValue(
+        values
+        .filter((value) => !isNaN(value))
+        .reduce((a, b) => parseFloat(a) + parseFloat(b), 0)
+    );
 };
 /**
  * summates given totals to calculate total closing cost.
@@ -357,8 +356,8 @@ window.basicTotalsCalculator = function (properties, parentObj) {
  * @param {Array<String>} properties - fields on the parent object
  * @return {Decimal}
  */
-window.calculateTotalClosingCost = function (properties, parentObj) {
-  return roundedValue(basicTotalsCalculator(properties, parentObj));
+window.calculateTotalClosingCost = function(properties, parentObj) {
+    return roundedValue(basicTotalsCalculator(properties, parentObj));
 };
 /**
  * summates given totals to calculate total closing cost financed by JN.
@@ -366,8 +365,8 @@ window.calculateTotalClosingCost = function (properties, parentObj) {
  * @param {Array<String>} properties - fields on the parent object
  * @return {Decimal}
  */
-window.calculateTotalClosingCostFinancedJN = function (properties, parentObj) {
-  return roundedValue(basicTotalsCalculator(properties, parentObj));
+window.calculateTotalClosingCostFinancedJN = function(properties, parentObj) {
+    return roundedValue(basicTotalsCalculator(properties, parentObj));
 };
 
 /**
@@ -376,13 +375,13 @@ window.calculateTotalClosingCostFinancedJN = function (properties, parentObj) {
  * @param {Array<String>} properties - fields on the parent object
  * @return {Decimal}
  */
-window.calculateTotalClosingCostPayableByApplicant = function (
-  totalClosingCost,
-  totalFinancedByJn
+window.calculateTotalClosingCostPayableByApplicant = function(
+    totalClosingCost,
+    totalFinancedByJn
 ) {
-  return roundedValue(
-    parseFloat(totalClosingCost) - parseFloat(totalFinancedByJn)
-  );
+    return roundedValue(
+        parseFloat(totalClosingCost) - parseFloat(totalFinancedByJn)
+    );
 };
 /**
  * calculates total loan payment
@@ -390,8 +389,8 @@ window.calculateTotalClosingCostPayableByApplicant = function (
  * @param {Object} parentObj
  * @return {Number}
  */
-window.calculateTotalLoanAmount = function (properties, parentObj) {
-  return basicTotalsCalculator(properties, parentObj);
+window.calculateTotalLoanAmount = function(properties, parentObj) {
+    return basicTotalsCalculator(properties, parentObj);
 };
 /**
  * calculates total monthly loan payment
@@ -399,8 +398,8 @@ window.calculateTotalLoanAmount = function (properties, parentObj) {
  * @param {Object} parentObj
  * @return {Number}
  */
-window.calculateTotalMonthlyPIPayment = function (properties, parentObj) {
-  return basicTotalsCalculator(properties, parentObj);
+window.calculateTotalMonthlyPIPayment = function(properties, parentObj) {
+    return basicTotalsCalculator(properties, parentObj);
 };
 /**
  * calculates total monthly loan payment
@@ -408,8 +407,8 @@ window.calculateTotalMonthlyPIPayment = function (properties, parentObj) {
  * @param {Object} parentObj
  * @return {Number}
  */
-window.calculateTotalMonthlyPayment = function (properties, parentObj) {
-  return basicTotalsCalculator(properties, parentObj);
+window.calculateTotalMonthlyPayment = function(properties, parentObj) {
+    return basicTotalsCalculator(properties, parentObj);
 };
 /**
  * calculates total monthly loan and compulsory payment
@@ -417,11 +416,11 @@ window.calculateTotalMonthlyPayment = function (properties, parentObj) {
  * @param {Object} parentObj
  * @return {Number}
  */
-window.calculateTotalMonthlyLoanCompulsoryPayment = function (
-  properties,
-  parentObj
+window.calculateTotalMonthlyLoanCompulsoryPayment = function(
+    properties,
+    parentObj
 ) {
-  return basicTotalsCalculator(properties, parentObj);
+    return basicTotalsCalculator(properties, parentObj);
 };
 
 /**
@@ -432,34 +431,34 @@ window.calculateTotalMonthlyLoanCompulsoryPayment = function (
  * @param {Number} months
  * @return {Number}
  */
-window.calculateTotalInterestPayment = function (
-  totalMonthlyPIPayment,
-  totalLoanAmount,
-  years,
-  months
+window.calculateTotalInterestPayment = function(
+    totalMonthlyPIPayment,
+    totalLoanAmount,
+    years,
+    months
 ) {
-  let tenure = null;
-  if (years && months) {
-    tenure = calculateMonths(years, months);
-  }
-  if (tenure === null) {
+    let tenure = null;
+    if (years && months) {
+        tenure = calculateMonths(years, months);
+    }
+    if (tenure === null) {
+        return 0;
+    }
+    if (totalLoanAmount && totalMonthlyPIPayment) {
+        return roundedValue(totalMonthlyPIPayment * tenure - totalLoanAmount);
+    }
     return 0;
-  }
-  if (totalLoanAmount && totalMonthlyPIPayment) {
-    return roundedValue(totalMonthlyPIPayment * tenure - totalLoanAmount);
-  }
-  return 0;
 };
 /**
  * rounds the value by 2 decimal places
  * @param {Number} value
  * @return {Number}
  */
-window.roundedValue = function (value) {
-  if (!value) {
-    return 0;
-  }
-  return parseFloat(value).toFixed(2);
+window.roundedValue = function(value) {
+    if (!value) {
+        return 0;
+    }
+    return parseFloat(value).toFixed(2);
 };
 
 /**
@@ -468,13 +467,12 @@ window.roundedValue = function (value) {
  * @param {Object} parentObj
  * @return {Boolean}
  */
-window.validNumbersWithObject = function (properties, parentObj) {
-  if (!properties || !parentObj) return false;
-  return properties.every(property => {
-    if (!isEmpty(parentObj[property])) {
-      return !isNaN(parentObj[property]) && parseFloat(parentObj[property]) >= 0;
-    }
-    return false;
-  });
+window.validNumbersWithObject = function(properties, parentObj) {
+    if (!properties || !parentObj) return false;
+    return properties.every(property => {
+        if (!isEmpty(parentObj[property])) {
+            return !isNaN(parentObj[property]) && parseFloat(parentObj[property]) >= 0;
+        }
+        return false;
+    });
 };
-
