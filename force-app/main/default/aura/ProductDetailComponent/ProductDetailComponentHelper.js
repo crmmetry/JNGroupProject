@@ -66,7 +66,7 @@
   },
   /**
    * confirms whether current values are the same in the child even after recomputation
-   * @param {*} container 
+   * @param {*} container
    */
   redundancyRemover: function (component, container) {
     let childContainer = component.get("v.ChildContainer");
@@ -93,8 +93,13 @@
       container,
       ["years", "months", "loanAmount", "market", "includeInLoanAmountFlag"],
       component.get("v.jnDefaultConfigs.gct")
-      );
-    console.info("processingFee", processingFee, monthlyProcessingFee, processingFeeClosingCost);
+    );
+    console.info(
+      "processingFee",
+      processingFee,
+      monthlyProcessingFee,
+      processingFeeClosingCost
+    );
     return [
       { key: "processingFeeClosingCost", value: processingFeeClosingCost },
       {
@@ -104,5 +109,64 @@
       { key: "processingFeesGCT", value: processingFee }
     ];
   },
-  
+
+  /**
+   * Gets Applicants Existing Debts.
+   */
+  getAssetsAndLiabilitiesForApplicant: function (component) {
+    let oppId = component.get("v.recordId");
+    let action = component.get("c.getApplicantsAssetsAndLiabilities");
+    action.setParams({
+      oppId: oppId
+    });
+    action.setCallback(this, function (response) {
+      let state = response.getState(); //Checking response status
+      let result = response.getReturnValue();
+      if (state === "SUCCESS") {
+        this.existingDebtCalculation(component, result);
+        console.log("result: ", result);
+      }
+    });
+
+    $A.enqueueAction(action);
+  },
+
+  /**
+   * Calculate existing debt.
+   */
+  existingDebtCalculation: function (component, containerValues) {
+    const fields = [
+      "motorVehicleMonthlyRepayment",
+      "otherAssetMonthlyPayment",
+      "otherLoanMonthlyPayment",
+      "personalMonthlyExpensesPriorLoan",
+      "realEstateMonthlyPayment",
+      "rentStrataMaintenance",
+      "salutaryDeductions",
+      "savingsPensionInsurance",
+      "minimumPayment"
+    ];
+    let total = 0;
+
+    const fieldsMap = {};
+    fields.forEach((element) => (fieldsMap[element] = true));
+    console.log(fieldsMap);
+    containerValues.forEach((element) => {
+      Object.keys(element).forEach((key) => {
+        console.log("key: ", key);
+        if (fieldsMap.hasOwnProperty(key)) {
+          total += element[key];
+          console.log("total: ", total);
+        }
+        console.log("Object.keys loop");
+      });
+      console.log("containerValue loop");
+    });
+    let values = {
+      key: "existingDebt",
+      value: total
+    };
+    updateChildContainerWithValue(component, values, false);
+    console.log("Total of existing debt", total);
+  }
 });
