@@ -1,3 +1,7 @@
+/**
+ * Ver  Ticket#      Date            Author                 Purpose
+ * 1.0  JN1-4045     23/11/2020      Kirti R.(thinqloud)   Wrapper class of Personal_Credit_Score_Model__mdt  
+**/
 public class SubCriteriaOptionWrapper {
     
     public Map<string, Personal_Credit_Score_Model__mdt> personalCreditScoreMap = getPersonalCreditScoreMap();
@@ -15,7 +19,7 @@ public class SubCriteriaOptionWrapper {
      * Represents subCriteriaOptions of personal credit score model.
      * @constructor
      * @param {string} subCriteria - sub criteria of personal credit score model
-     * @param {integer} subcriteriaOption - sub criteria options of personal credit score model
+     * @param {string} subcriteriaOption - sub criteria options of personal credit score model
      * @param {boolean} isSalaried - employement type of personal credit score model
     */  
     public subCriteriaOptionWrapper(string subCriteria,string subCriteriaOption,boolean isSalaried) {

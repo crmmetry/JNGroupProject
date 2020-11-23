@@ -1,3 +1,7 @@
+/**
+ * Ver  Ticket#      Date            Author                 Purpose
+ * 1.0  JN1-4045     23/11/2020      Ishwari G.(thinqloud)  Wrapper class of Credit_Rating__mdt  
+**/
 public  class RiskRatingWrapper {
    @AuraEnabled
    public Decimal score;
