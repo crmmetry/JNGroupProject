@@ -10,12 +10,7 @@
   },
 
   onChildContainerChange: function (component, event, helper) {
-    const data = Object.assign(
-      component.get("v.ParentContainer"),
-      component.get("v.ChildContainer")
-    );
-    data['containerName'] = component.get("v.containerName");
-    component.set("v.ParentContainer", data);
+    fireProductDetailsEvent(null, component.get("v.ChildContainer"));
     helper.getApplicants(component);//TODO: REFACTOR CANNOT BE CALLED LIKE THIS
   },
   onApplicantsChange: function (component, event, helper) {

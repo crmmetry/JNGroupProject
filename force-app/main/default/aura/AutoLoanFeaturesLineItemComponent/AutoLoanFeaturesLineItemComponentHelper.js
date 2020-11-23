@@ -108,19 +108,4 @@
     component.set("v.otherReason", null);
   }
 
-  // showOtherTextField: function(component, auraId, selected) {
-  //   if(auraId === 'policy-provider' && selected === 'Other'){
-  //     console.log('Policy Provider Other Selected');
-  //     component.set("v.showOtherForPolicyProviderFlag", true);
-  //   }
-  //   else if(auraId === 'reason' && selected === 'Other'){
-  //     component.set("v.showOtherForReasonFlag", true);
-  //     console.log('Reason Other Selected');
-  //   }else{
-  //     component.set("v.showOtherForPolicyProviderFlag", false);
-  //     component.set("v.showOtherForReasonFlag", false);
-  //     component.set("v.otherReason", null);
-  //     component.set("v.otherPolicyProvider", null);
-  //   }
-  // },
 });

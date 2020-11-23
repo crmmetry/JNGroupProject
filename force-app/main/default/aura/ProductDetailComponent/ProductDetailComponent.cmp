@@ -1,27 +1,24 @@
-<aura:component
-  implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
-  controller="ProductDetailController"
->
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
+  controller="ProductDetailController">
+  <aura:handler event="c:ProductDetailsEvent" action="{!c.handleProductDetailsEvent}"/>
+  <aura:attribute name="ParentContainer" type="Map" default="{}" description="parent container" />
+  <aura:attribute name="ChildContainer" type="Map" default="{}" description="child container" />
+
+  <aura:attribute name="scriptsLoaded" type="Boolean" default="false"/>
+  <!-- Static Resource -->
+  <ltng:require scripts="{!join(',', 
+  $Resource.constants,
+  $Resource.calculations, 
+  $Resource.productDetailsGeneralFunctions)}" afterScriptsLoaded="{!c.scriptsLoaded}" />
   <aura:attribute name="applicants" type="List" />
-  <aura:attribute
-    name="options"
-    type="List"
-    default="[
+  <aura:attribute name="options" type="List" default="[
     {'label': 'Percentage(%)', 'value': 'percent'}, 
     {'label': 'Amount(JMD)', 'value': 'amount'}
-    ]"
-  />
-  <aura:attribute
-    name="products"
-    type="List"
-    default="Auto, Unsecured Loan, Credit Card"
-  />
+    ]" />
+
+  <aura:attribute name="products" type="List" default="Auto, Unsecured Loan, Credit Card" />
   <aura:attribute name="productSelection" type="Object" />
-  <aura:attribute
-    name="loanPurpose"
-    type="List"
-    default="['Auto','School','Debt']"
-  />
+  <aura:attribute name="loanPurpose" type="List" default="['Auto','School','Debt']" />
   <aura:attribute name="value" type="String" default="" />
   <aura:attribute name="percent" type="String" default="percent" />
   <aura:attribute name="amount" type="String" default="amount" />
@@ -30,16 +27,13 @@
   <aura:attribute name="unsecuredFlag" type="Boolean" default="false" />
   <aura:attribute name="creditCardFlag" type="Boolean" default="false" />
   <aura:attribute name="lineOfCreditFlag" type="Boolean" default="false" />
-  <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
   <aura:attribute name="jnDefaultConfigs" type="Map" />
   <lightning:layout multipleRows="true">
     <lightning:card>
       <lightning:layoutItem size="12" padding="around-small">
         <fieldset class="slds-box slds-theme_default">
-          <legend
-            id="productdetailsform"
-            class="slds-text-heading_medium slds-p-vertical_medium"
-          >
+          <legend id="productdetailsform" class="slds-text-heading_medium slds-p-vertical_medium">
             PRODUCT DETAILS
           </legend>
           <form class="slds-form_stacked">
@@ -49,46 +43,30 @@
                   Product Selection &amp; Applicant Details
                 </h2>
               </lightning:layoutItem>
-              <lightning:layoutItem
-                size="12"
-                mediumDeviceSize="6"
-                padding="around-small"
-              >
-                <lightning:input
-                  label="Product Selection"
-                  type="text"
-                  aura:id="selectProduct"
-                  id="productSelectionElement"
-                  value="{!v.productSelection.productFamily}"
-                  disabled="true"
-                  required="true"
-                />
+              <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
+                <lightning:input label="Product Selection" type="text" aura:id="selectProduct"
+                  id="productSelectionElement" value="{!v.productSelection.productFamily}" disabled="true"
+                  required="true" />
               </lightning:layoutItem>
             </lightning:layout>
           </form>
           <aura:if isTrue="{!v.autoFlag}">
-            <c:AutoLoanContainerComponent
-              productPrice="{!v.productSelection.productPrice}"
-              oppId="{!v.recordId}"
-              jnDefaultConfigs="{!v.jnDefaultConfigs}"
-            ></c:AutoLoanContainerComponent>
+            <c:AutoLoanContainerComponent productPrice="{!v.productSelection.productPrice}" oppId="{!v.recordId}"
+              jnDefaultConfigs="{!v.jnDefaultConfigs}" ParentContainer="{!v.ChildContainer}">
+            </c:AutoLoanContainerComponent>
           </aura:if>
           <aura:if isTrue="{!v.unsecuredFlag}">
-            <c:UnsecuredLoanContainerComponent
-              productPrice="{!v.productSelection.productPrice}"
-              jnDefaultConfigs="{!v.jnDefaultConfigs}"
-              oppId="{!v.recordId}"
-            ></c:UnsecuredLoanContainerComponent>
+            <c:UnsecuredLoanContainerComponent productPrice="{!v.productSelection.productPrice}"
+              jnDefaultConfigs="{!v.jnDefaultConfigs}" oppId="{!v.recordId}" ParentContainer="{!v.ChildContainer}">
+            </c:UnsecuredLoanContainerComponent>
           </aura:if>
           <aura:if isTrue="{!v.creditCardFlag}">
-            <c:CreditCardContainerComponent
-              productPrice="{!v.productSelection.productPrice}"
-            ></c:CreditCardContainerComponent>
+            <c:CreditCardContainerComponent productPrice="{!v.productSelection.productPrice}"
+              ParentContainer="{!v.ChildContainer}"></c:CreditCardContainerComponent>
           </aura:if>
           <aura:if isTrue="{!v.lineOfCreditFlag}">
-            <c:LineOfCreditContainerComponent
-              productPrice="{!v.productSelection.productPrice}"
-            ></c:LineOfCreditContainerComponent>
+            <c:LineOfCreditContainerComponent productPrice="{!v.productSelection.productPrice}"
+              ParentContainer="{!v.ChildContainer}"></c:LineOfCreditContainerComponent>
           </aura:if>
         </fieldset>
       </lightning:layoutItem>

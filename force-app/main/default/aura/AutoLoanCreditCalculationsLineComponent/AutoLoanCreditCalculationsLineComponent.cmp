@@ -1,4 +1,5 @@
 <aura:component>
+  <aura:registerEvent name="productDetailsEvent" type="c:ProductDetailsEvent"/>
   <aura:attribute name="ChildContainer" type="Map" default="{}" />
   <aura:attribute name="ParentContainer" type="Map" default="{}" />
   <aura:attribute
@@ -79,12 +80,6 @@
     action="{!c.onChildContainerChange}"
     value="{!v.ChildContainer}"
   />
-
-  <aura:handler
-    name="change"
-    action="{!c.onParenContainerChange}"
-    value="{!v.ParentContainer}"
-  />
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
   <aura:attribute name="jnDefaultConfigs" type="Map" default="{}" />
   <aura:attribute name="processingFeesGCT" type="Decimal" default="0" />
@@ -135,7 +130,7 @@
         <lightning:input
           type="number"
           label="Monthly P&amp;I Loan Amount"
-          value="{!v.monthly_PI_LoanAmount}"
+          value="{!v.ParentContainer.monthly_PI_LoanAmount}"
           name="number"
           formatter="currency"
           required="true"
@@ -215,7 +210,7 @@
         <lightning:input
           type="number"
           label="Processing Fees (including GCT)"
-          value="{!v.processingFeesGCT}"
+          value="{!v.ParentContainer.processingFeesGCT}"
           name="number"
           formatter="currency"
           required="true"
@@ -226,7 +221,7 @@
         <lightning:input
           type="number"
           label="Monthly Principal and Interest (Processing Fees)"
-          value="{!v.monthlyPrincipalInterestProcessingFee}"
+          value="{!v.ParentContainer.monthlyPrincipalInterestProcessingFee}"
           name="number"
           formatter="currency"
           required="true"
@@ -375,7 +370,7 @@
         deductRepayment="{!v.deductRepaymentFlag}"
         includePremiumFlag="{!v.showPremiumInFeesAndCharges}"
         jngiMotorPremium="{!v.jngiMotorPremiumFeesAndCharges}"
-        processingFees="{!v.processingFeeClosingCost}"
+        processingFees="{!v.ParentContainer.processingFeeClosingCost}"
         assignmentFee="{!v.assignmentFee}"
         stampDutyAndAdminCharges="{!v.estimatedStampDuty}"
         jnCreditorLifePremium="{!v.jnCLPremiumFeesAndCharges}"

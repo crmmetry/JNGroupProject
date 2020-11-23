@@ -19,23 +19,25 @@
     };
     component.set("v.ChildContainer", data);
   },
-
+  scriptsLoaded: function (component, event, helper) {
+    component.set("v.scriptsLoaded", true);
+  },
   onChildContainerChange: function (component, event, helper) {
-    console.log("CHild COntainer changed");
     const data = Object.assign(
       component.get("v.ParentContainer"),
       component.get("v.ChildContainer")
     );
-    data['containerName'] = component.get("v.containerName");
-    component.set("v.ParentContainer", data);
+    if (component.get("v.scriptsLoaded")) {
+      fireProductDetailsEvent(null, data);
+    }
     helper.onProposedSavingsChange(component);
     helper.toggleShowIndicateApplicableProcessingFees(
       component,
-      component.get("v.ChildContainer")
+      data
     );
     helper.toggleShowIncludeInLoanAmount(
       component,
-      component.get("v.ChildContainer")
+      data
     );
     helper.resetProcessingFieldsValues(data, component);
   },

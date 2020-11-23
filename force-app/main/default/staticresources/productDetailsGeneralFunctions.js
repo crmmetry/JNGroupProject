@@ -9,33 +9,33 @@
  * @return {Object}
  */
 function calculateSavings(data, totalMonthly_PI_LoanPayment) {
-    if (validNumbersWithObject(['totalMonthly_PI_LoanPayment','months','years'], data)) {
-        let tenure = calculateMonths(data.years, data.months);
-        let monthlySavings = basicMonthlyCompulsorySavingsCalculator(
-            totalMonthly_PI_LoanPayment,
-            data.percentage,
-            data.amount
-        );
-        let monthlySavingsOverRepaymentPeriod = basicTotalMonthlyCompulsorySavingsCalculator(
-            monthlySavings,
-            tenure
-        );
-        return {
-            totalCompulsorySavingsBalance: parseFloat(monthlySavingsOverRepaymentPeriod),
-            monthlyCompulsorySavings: parseFloat(monthlySavings)
-        }
-    } else if (validNumbersWithObject(['amount'], data)) {
-        let totalCompulsorySavings = data.amount * tenure;
-        return {
-            monthlyCompulsorySavings: data.amount,
-            totalCompulsorySavingsBalance: totalCompulsorySavings
-        }
-    } else {
-        return {
-            totalCompulsorySavingsBalance: 0,
-            monthlyCompulsorySavings: 0
-        }
+  if (validNumbersWithObject(['totalMonthly_PI_LoanPayment', 'months', 'years'], data)) {
+    let tenure = calculateMonths(data.years, data.months);
+    let monthlySavings = basicMonthlyCompulsorySavingsCalculator(
+      totalMonthly_PI_LoanPayment,
+      data.percentage,
+      data.amount
+    );
+    let monthlySavingsOverRepaymentPeriod = basicTotalMonthlyCompulsorySavingsCalculator(
+      monthlySavings,
+      tenure
+    );
+    return {
+      totalCompulsorySavingsBalance: parseFloat(monthlySavingsOverRepaymentPeriod),
+      monthlyCompulsorySavings: parseFloat(monthlySavings)
     }
+  } else if (validNumbersWithObject(['amount'], data)) {
+    let totalCompulsorySavings = data.amount * tenure;
+    return {
+      monthlyCompulsorySavings: data.amount,
+      totalCompulsorySavingsBalance: totalCompulsorySavings
+    }
+  } else {
+    return {
+      totalCompulsorySavingsBalance: 0,
+      monthlyCompulsorySavings: 0
+    }
+  }
 }
 /*
  * Updates child container attributes and its values.
@@ -117,3 +117,24 @@ window.resetComponentValue = function (auraId, component, value) {
     cmp.set("v.value", value);
   }
 };
+
+/**
+ * Calculates the monthly P&I Loan amount in the credit calculations table.
+ */
+window.monthlyPILoanAmountCalculation = function (container) {
+  return basicPMTCalculator(
+    ["years", "months", "loanAmount", "market"],
+    container
+  );
+}
+/**
+ * contructs and fire the product details application event
+ * @param {String} type - specifies the intent of the event
+ * @param {Object} payload
+ * @return {Void}
+ */
+window.fireProductDetailsEvent = function (type, payload) {
+  var productDetailsEvent = $A.get("e.c:ProductDetailsEvent");
+  productDetailsEvent.setParams({ 'type': !type ? 'calculation' : type, payload: payload });
+  productDetailsEvent.fire();
+}

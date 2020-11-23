@@ -63,5 +63,42 @@
       }
     });
     $A.enqueueAction(action);
+  },
+  /**
+   * confirms whether current values are the same in the child even after recomputation
+   * @param {*} container 
+   */
+  redundancyRemover: function (component, container) {
+    let childContainer = component.get("v.ChildContainer");
+    container.forEach((element, index) => {
+      if (childContainer.hasOwnProperty(element.key)) {
+        if (element.value == childContainer[element.key]) {
+          //remove element to update
+          container.splice(index, 1);
+        }
+      }
+    });
+    return container;
+  },
+  processingFeeCalculation: function (container, component) {
+    const {
+      processingFee,
+      monthlyProcessingFee,
+      processingFeeClosingCost
+    } = basicProcessingFeesCalculator(
+      ["years", "months", "loanAmount", "market"],
+      container,
+      ["years", "months", "loanAmount", "market", "includeInLoanAmountFlag"],
+      component.get("v.jnDefaultConfigs.gct")
+      );
+    console.info("processingFee", processingFee, monthlyProcessingFee, processingFeeClosingCost);
+    return [
+      { key: "processingFeeClosingCost", value: processingFeeClosingCost },
+      {
+        key: "monthlyPrincipalInterestProcessingFee",
+        value: monthlyProcessingFee
+      },
+      { key: "processingFeesGCT", value: processingFee }
+    ];
   }
 });
