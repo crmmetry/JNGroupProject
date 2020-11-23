@@ -25,6 +25,8 @@ public with sharing class ApplicantWrapper {
   public Decimal otherAssetMonthlyPayment;
   @AuraEnabled
   public Decimal otherLoanMonthlyPayment;
+  @AuraEnabled
+  public Decimal grossMonthlyIncome;
 
   public ApplicantWrapper(Applicant__c record) {
     System.debug(record);
@@ -43,6 +45,7 @@ public with sharing class ApplicantWrapper {
     this.motorVehicleMonthlyRepayment = record.Motor_Vehicle_Monthly_Payment_Number__c;
     this.otherAssetMonthlyPayment = record.Other_Asset_Monthly_Payment_Number__c;
     this.otherLoanMonthlyPayment = record.Other_Loan_Monthly_Payment_Number__c;
+    this.grossMonthlyIncome = record.Gross_Monthly_Income__c;
   }
 
   private Integer calculateAge(Date dob) {

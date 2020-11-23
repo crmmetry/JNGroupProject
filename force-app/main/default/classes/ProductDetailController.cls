@@ -106,6 +106,7 @@ public with sharing class ProductDetailController {
         Motor_Vehicle_Monthly_Payment_Number__c,
         Other_Asset_Monthly_Payment_Number__c,
         Other_Loan_Monthly_Payment_Number__c,
+        Gross_Monthly_Income__c,
         (SELECT Id, Minimum_Payment__c FROM Application_Assets_Liabilities__r)
       FROM Applicant__c
       WHERE Opportunity__c = :oppId

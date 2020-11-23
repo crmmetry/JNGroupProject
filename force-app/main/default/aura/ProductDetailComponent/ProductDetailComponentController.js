@@ -55,6 +55,7 @@
       attributesToUpdate = attributesToUpdate.concat(
         helper.processingFeeCalculation(container, component)
       );
+      //helper.calculateTDSRBefore(component);
       const updatedContainer = updateChildContainerWithValue(
         component,
         attributesToUpdate,

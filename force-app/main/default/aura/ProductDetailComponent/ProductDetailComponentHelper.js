@@ -128,6 +128,8 @@
    * Gets Applicants Existing Debts.
    */
   getAssetsAndLiabilitiesForApplicant: function (component) {
+    let tdsrBefore = 0;
+    let data = {};
     let oppId = component.get("v.recordId");
     let action = component.get("c.getApplicantsAssetsAndLiabilities");
     action.setParams({
@@ -137,14 +139,30 @@
       let state = response.getState(); //Checking response status
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
+        this.mergeWithChildContainer(component, result);
         this.existingDebtCalculation(component, result);
+        data = component.get("v.ChildContainer");
+        tdsrBefore = TDSRBeforeCalculator(data.grossIncome, data.existingDebt);
         console.log("result: ", result);
+        console.log("container: ", JSON.parse(JSON.stringify(data)));
+        console.log("tdsrBefore: ", tdsrBefore);
       }
     });
 
     $A.enqueueAction(action);
   },
-
+  /**
+   * Meges a list of object with child container
+   * @param {*} component
+   * @param {*} containerValues
+   */
+  mergeWithChildContainer: function (component, objectList) {
+    let data = component.get("v.ChildContainer");
+    objectList.forEach((element) => Object.assign(data, element));
+    console.log("mergeWithCOntainer: ", data);
+    component.set("v.ChildContainer", data);
+    console.log("mergeWithCOntainer: ", data);
+  },
   /**
    * Calculate existing debt.
    */

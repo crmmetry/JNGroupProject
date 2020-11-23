@@ -504,3 +504,23 @@ window.LTVCalculatorCash = function (startingLimit, existingDebt, deposit) {
       100
   );
 };
+
+/**
+ * Calculates TDSR Before
+ * @param {Decimal} grossIncome
+ * @param {Decimal} totalDebt
+ * @return {Decimal}
+ */
+window.TDSRBeforeCalculator = function (grossIncome, totalDebt) {
+  return (parseFloat(totalDebt) / parseFloat(grossIncome)) * 100;
+};
+
+/**
+ * Calculates TDSR After
+ * @param {Decimal} grossIncome
+ * @param {Decimal} totalDebt
+ * @return {Decimal}
+ */
+window.TDSRAfterCalculator = function (grossIncome, totalDebt) {
+  return (totalDebt / grossIncome) * 100;
+};

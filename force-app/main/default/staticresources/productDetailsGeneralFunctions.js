@@ -4,12 +4,17 @@
 
 /**
  * calculates savings
- * @param {Object} data 
+ * @param {Object} data
  * @param {Number} totalMonthly_PI_LoanPayment
  * @return {Object}
  */
 function calculateSavings(data, totalMonthly_PI_LoanPayment) {
-  if (validNumbersWithObject(['totalMonthly_PI_LoanPayment', 'months', 'years'], data)) {
+  if (
+    validNumbersWithObject(
+      ["totalMonthly_PI_LoanPayment", "months", "years"],
+      data
+    )
+  ) {
     let tenure = calculateMonths(data.years, data.months);
     let monthlySavings = basicMonthlyCompulsorySavingsCalculator(
       totalMonthly_PI_LoanPayment,
@@ -21,20 +26,22 @@ function calculateSavings(data, totalMonthly_PI_LoanPayment) {
       tenure
     );
     return {
-      totalCompulsorySavingsBalance: parseFloat(monthlySavingsOverRepaymentPeriod),
+      totalCompulsorySavingsBalance: parseFloat(
+        monthlySavingsOverRepaymentPeriod
+      ),
       monthlyCompulsorySavings: parseFloat(monthlySavings)
-    }
-  } else if (validNumbersWithObject(['amount'], data)) {
+    };
+  } else if (validNumbersWithObject(["amount"], data)) {
     let totalCompulsorySavings = data.amount * tenure;
     return {
       monthlyCompulsorySavings: data.amount,
       totalCompulsorySavingsBalance: totalCompulsorySavings
-    }
+    };
   } else {
     return {
       totalCompulsorySavingsBalance: 0,
       monthlyCompulsorySavings: 0
-    }
+    };
   }
 }
 /*
@@ -126,7 +133,7 @@ window.monthlyPILoanAmountCalculation = function (container) {
     ["years", "months", "loanAmount", "market"],
     container
   );
-}
+};
 /**
  * contructs and fire the product details application event
  * @param {String} type - specifies the intent of the event
@@ -135,6 +142,9 @@ window.monthlyPILoanAmountCalculation = function (container) {
  */
 window.fireProductDetailsEvent = function (type, payload) {
   var productDetailsEvent = $A.get("e.c:ProductDetailsEvent");
-  productDetailsEvent.setParams({ 'type': !type ? 'calculation' : type, payload: payload });
+  productDetailsEvent.setParams({
+    type: !type ? "calculation" : type,
+    payload: payload
+  });
   productDetailsEvent.fire();
-}
+};
