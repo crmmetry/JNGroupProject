@@ -29,8 +29,11 @@ public with sharing class ApplicantWrapper {
   public ApplicantWrapper(Applicant__c record) {
     System.debug(record);
     this.Id = record.Id;
-    this.dob = record.Account__r.PersonBirthdate;
-    this.age = calculateAge(dob);
+    if (record.Account__r != null) {
+      this.dob = record.Account__r.PersonBirthdate;
+      this.age = calculateAge(dob);
+    }
+
     this.checkCreditorLifeEligibility();
     this.salutaryDeductions = record.Statutory_Deductions_Numbers__c;
     this.rentStrataMaintenance = record.Rent_Strata_Maintenance__c;

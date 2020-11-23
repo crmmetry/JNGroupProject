@@ -97,6 +97,7 @@ public with sharing class ProductDetailController {
     List<Applicant__c> applicants = [
       SELECT
         Id,
+        Account__r.PersonBirthdate,
         Statutory_Deductions_Numbers__c,
         Rent_Strata_Maintenance__c,
         Personal_Expenses_Monthly_Prior_Loan__c,
