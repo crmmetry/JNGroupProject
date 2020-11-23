@@ -1,4 +1,8 @@
 ({
+  /**
+   * Retrieves product selection wrapper from apex.
+   * @param {*} container
+   */
   updateProductSelection: function (component) {
     let oppId = component.get("v.recordId");
     let action = component.get("c.getSingleProductFamilySelection");
@@ -16,7 +20,10 @@
 
     $A.enqueueAction(action);
   },
-
+  /**
+   * Toggles the flags responsible for showing the different layouts depending on selected products.
+   * @param {*} container
+   */
   updateProductSelectedFlag: function (component) {
     let selectedFlag = component.get("v.productSelection.productFamily");
     const families = [
@@ -32,6 +39,10 @@
       component.set(`v.${family.variable}`, true);
     }
   },
+  /**
+   * Retrieves JNConfigurations from apex.
+   * @param {*} container
+   */
   getJNConfigurations: function (component) {
     let action = component.get("c.GetJNConfigs");
     action.setCallback(this, function (response) {
@@ -43,7 +54,10 @@
     });
     $A.enqueueAction(action);
   },
-
+  /**
+   * Retrieves All applicants belonging to a particular opportunity.
+   * @param {*} container
+   */
   getApplicants: function (component, oppId, tenure) {
     let action = component.get("c.getApplicantsRating");
     action.setParams({
@@ -150,23 +164,25 @@
 
     const fieldsMap = {};
     fields.forEach((element) => (fieldsMap[element] = true));
-    console.log(fieldsMap);
     containerValues.forEach((element) => {
       Object.keys(element).forEach((key) => {
         console.log("key: ", key);
         if (fieldsMap.hasOwnProperty(key)) {
           total += element[key];
-          console.log("total: ", total);
         }
-        console.log("Object.keys loop");
       });
-      console.log("containerValue loop");
     });
-    let values = {
-      key: "existingDebt",
-      value: total
-    };
-    updateChildContainerWithValue(component, values, false);
-    console.log("Total of existing debt", total);
+    let values = [
+      {
+        key: "existingDebt",
+        value: total
+      }
+    ];
+    let data = updateChildContainerWithValue(component, values, false);
+    component.set("v.ChildContainer", data);
+    console.info(
+      "Current Child",
+      JSON.parse(JSON.stringify(component.get("v.ChildContainer")))
+    );
   }
 });
