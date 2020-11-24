@@ -26,11 +26,9 @@
       component.get("v.scriptsLoaded") &&
       component.get("v.notifyContainerChange")
     ) {
-      container.LTVValue = LTVCalculatorCash(500000, container.existingDebt, childContainer.depositBalance);
+      container.LTVValue = LTVCalculatorCash(0, container.existingDebt, childContainer.depositBalance);
       //helper.clearDetailsWhenUnsecuredLoanSelected(component, data);
-      console.info("before fire");
       fireProductDetailsEvent(null, data, component);
-      console.info("after fire");
     }
   },
   onFinancialInstitutionChange: function (component, event, helper) {
@@ -53,14 +51,13 @@
   },
 
   validateBalance: function (component, event, helper) {
-    const capLimit = 0.8;
     let data = component.get("v.ParentContainer");
     const inputCmpArray = component.find(
       "cash-investments-numerical-component"
     );
     inputCmpArray.forEach((element) => {
       if (element.get("v.name") == "deposit") {
-        if (element.get("v.value") > data.requestedCreditLimit * capLimit) {
+        if (element.get("v.value") > calculatRequestedCreditBalanceLimit(data.requestedCreditLimit)) {
           element.setCustomValidity(
             "Balance cannot be greater than 80% of your requested card limit"
           );
@@ -89,3 +86,5 @@
     const selected = event.getSource().get("v.value");
   }
 });
+
+

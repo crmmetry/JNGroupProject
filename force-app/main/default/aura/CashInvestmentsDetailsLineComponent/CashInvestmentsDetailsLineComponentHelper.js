@@ -72,5 +72,6 @@
       }
     ];
     updateChildContainerNoNotification(component, childKeyValuePairs);
-  }
+  },
+
 });

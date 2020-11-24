@@ -157,4 +157,12 @@ window.fireProductDetailsEvent = function (type, payload, component) {
   if (component) {
     component.get("v.notifyContainerChange", true);
   }
-}
+},
+/**
+* calculates the requested credit limit
+* @param {*} requestedCreditLimit 
+* @param {*} capLimit 
+*/
+  window.calculatRequestedCreditBalanceLimit = function (requestedCreditLimit) {
+    return requestedCreditLimit * REQUESTED_CREDIT_LIMIT_PERCENTAGE;
+  }
