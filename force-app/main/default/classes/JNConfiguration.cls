@@ -13,6 +13,8 @@ public class JNConfiguration {
   public Decimal stampDutyAuto;
   @AuraEnabled
   public Decimal nsipp;
+  @AuraEnabled
+  public Decimal policyLimit;
   public JNConfiguration(JN_Defaults__mdt record) {
     this.gct = record.GCT__c;
     this.assignmentFee =
@@ -22,5 +24,6 @@ public class JNConfiguration {
     this.stampDutyUns = record.Stamp_Duty_Uns__c;
     this.stampDutyAuto = record.Stamp_Duty_Auto__c;
     this.nsipp = record.NSIPP_Registration_Fee__c;
+    this.policyLimit = record.Policy_Limit__c;
   }
 }

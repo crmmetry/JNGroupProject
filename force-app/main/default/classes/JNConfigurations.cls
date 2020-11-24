@@ -15,7 +15,8 @@ public with sharing class JNConfigurations {
           Legal_Fee__c,
           Stamp_Duty_Uns__c,
           Stamp_Duty_Auto__c,
-          NSIPP_Registration_Fee__c
+          NSIPP_Registration_Fee__c,
+          Policy_Limit__c
         FROM JN_Defaults__mdt
         WHERE Label = :Constants.DEFAULT_METADATA_LABEL
       ];

@@ -512,7 +512,9 @@ window.LTVCalculatorCash = function (startingLimit, existingDebt, deposit) {
  * @return {Decimal}
  */
 window.TDSRBeforeCalculator = function (grossIncome, totalDebt) {
-  return (parseFloat(totalDebt) / parseFloat(grossIncome)) * 100;
+  console.log("Gross Income: ", grossIncome);
+  console.log("total Debt: ", totalDebt);
+  return roundedValue((parseFloat(totalDebt) / parseFloat(grossIncome)) * 100);
 };
 
 /**
@@ -521,6 +523,12 @@ window.TDSRBeforeCalculator = function (grossIncome, totalDebt) {
  * @param {Decimal} totalDebt
  * @return {Decimal}
  */
-window.TDSRAfterCalculator = function (grossIncome, totalDebt) {
-  return (totalDebt / grossIncome) * 100;
+window.TDSRAfterCalculator = function (grossIncome, totalDebt, minimumPayment) {
+  console.log("gross income: ", grossIncome);
+  console.log("totalDebt: ", totalDebt);
+  return roundedValue(
+    ((parseFloat(totalDebt) + parseFloat(minimumPayment)) /
+      parseFloat(grossIncome)) *
+      100
+  );
 };

@@ -50,6 +50,7 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         component.set("v.jnDefaultConfigs", result);
+        console.log(JSON.parse(JSON.stringify(result)));
       }
     });
     $A.enqueueAction(action);
@@ -129,6 +130,7 @@
    */
   getAssetsAndLiabilitiesForApplicant: function (component) {
     let tdsrBefore = 0;
+    let tdsrAfter = 0;
     let data = {};
     let oppId = component.get("v.recordId");
     let action = component.get("c.getApplicantsAssetsAndLiabilities");
@@ -142,10 +144,35 @@
         this.mergeWithChildContainer(component, result);
         this.existingDebtCalculation(component, result);
         data = component.get("v.ChildContainer");
-        tdsrBefore = TDSRBeforeCalculator(data.grossIncome, data.existingDebt);
-        console.log("result: ", result);
-        console.log("container: ", JSON.parse(JSON.stringify(data)));
-        console.log("tdsrBefore: ", tdsrBefore);
+        console.log("child: ", JSON.parse(JSON.stringify(result)));
+        tdsrBefore = TDSRBeforeCalculator(
+          result[0].grossMonthlyIncome,
+          data.existingDebt
+        );
+        console.log("Before Cal done");
+        tdsrAfter = TDSRAfterCalculator(
+          result[0].grossMonthlyIncome,
+          data.existingDebt,
+          0
+        );
+        console.log("After Cal done");
+        let values = [
+          {
+            key: "TDSRBefore",
+            value: tdsrBefore
+          },
+          {
+            key: "TDSRAfter",
+            value: tdsrAfter
+          }
+        ];
+        let childValues = updateChildContainerWithValue(
+          component,
+          values,
+          false
+        );
+        component.set("v.ChildContainer", childValues);
+        console.log("DATA: ", JSON.parse(JSON.stringify(childValues)));
       }
     });
 
@@ -159,9 +186,8 @@
   mergeWithChildContainer: function (component, objectList) {
     let data = component.get("v.ChildContainer");
     objectList.forEach((element) => Object.assign(data, element));
-    console.log("mergeWithCOntainer: ", data);
     component.set("v.ChildContainer", data);
-    console.log("mergeWithCOntainer: ", data);
+    console.log("Container Merger");
   },
   /**
    * Calculate existing debt.

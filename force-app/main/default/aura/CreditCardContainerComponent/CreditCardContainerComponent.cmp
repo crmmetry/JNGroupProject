@@ -6,6 +6,7 @@
     default="{}"
     description="Credit Card parent container"
   />
+  <aura:attribute name="jnDefaultConfigs" type="Map" />
   <c:PersonalCreditCardRequestLineComponent
     productPrice="{!v.productPrice}"
     ParentContainer="{!v.ParentContainer}"
@@ -14,5 +15,8 @@
     ParentContainer="{!v.ParentContainer}"
   ></c:CreditCardOtherDetailsLineComponent>
   <c:CreditCreditCardCreditCalculations></c:CreditCreditCardCreditCalculations>
-  <c:TotalDebtServiceRatioLineItemComponent></c:TotalDebtServiceRatioLineItemComponent>
+  <c:TotalDebtServiceRatioLineItemComponent
+    ParentContainer="{!v.ParentContainer}"
+    jnDefaultConfigs="{!v.jnDefaultConfigs}"
+  ></c:TotalDebtServiceRatioLineItemComponent>
 </aura:component>

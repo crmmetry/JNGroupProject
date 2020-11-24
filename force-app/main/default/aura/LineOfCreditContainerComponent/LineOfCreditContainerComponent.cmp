@@ -10,6 +10,7 @@
     default="{}"
     description="Credit Card parent container"
   />
+  <aura:attribute name="jnDefaultConfigs" type="Map" />
   <aura:attribute name="productPrice" type="Decimal" />
   <!--Place Personal Credit Card Request in a standalone component-->
   <!-- <lightning:layout multipleRows="true">
@@ -81,5 +82,8 @@
     ParentContainer="{!v.ParentContainer}"
   ></c:CreditCardOtherDetailsLineComponent>
   <c:LineOfCreditCreditCalculationsLineComponent></c:LineOfCreditCreditCalculationsLineComponent>
-  <c:TotalDebtServiceRatioLineItemComponent></c:TotalDebtServiceRatioLineItemComponent>
+  <c:TotalDebtServiceRatioLineItemComponent
+    ParentContainer="{!v.ParentContainer}"
+    jnDefaultConfigs="{!v.jnDefaultConfigs}"
+  ></c:TotalDebtServiceRatioLineItemComponent>
 </aura:component>

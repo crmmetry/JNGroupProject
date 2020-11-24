@@ -11,7 +11,9 @@
       processingFeeClosingCost: 0,
       monthlyPrincipalInterestProcessingFee: 0,
       processingFeesGCT: 0,
-      existingDebt: 0
+      existingDebt: 0,
+      TDSRBefore: 0,
+      TDSRAfter: 0
     });
     helper.updateProductSelection(component);
     helper.getJNConfigurations(component);
@@ -55,7 +57,6 @@
       attributesToUpdate = attributesToUpdate.concat(
         helper.processingFeeCalculation(container, component)
       );
-      //helper.calculateTDSRBefore(component);
       const updatedContainer = updateChildContainerWithValue(
         component,
         attributesToUpdate,
