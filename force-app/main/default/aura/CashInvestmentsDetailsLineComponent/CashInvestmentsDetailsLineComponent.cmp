@@ -22,7 +22,12 @@
     default="['JN Bank Ltd.','JN Fund Managers Ltd.']"
   />
   <aura:attribute name="accountType" type="List" default="[]" />
-
+  <aura:attribute
+    name="notifyContainerChange"
+    type="Boolean"
+    default="true"
+    description="used to indicate whether the component should react to the ChildContainer changes"
+  />
   <aura:attribute
     name="accountTypeWhenJNBankIsSelected"
     type="List"
@@ -48,7 +53,10 @@
   <aura:attribute name="hypothecatedLoanFlag" type="Boolean" default="false" />
   <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
   <ltng:require
-    scripts="{!$Resource.calculations}"
+    scripts="{!join(',', 
+  $Resource.constants,
+  $Resource.calculations, 
+  $Resource.productDetailsGeneralFunctions)}"
     afterScriptsLoaded="{!c.scriptsLoaded}"
   />
 
@@ -58,12 +66,6 @@
     name="change"
     action="{!c.onChildContainerChange}"
     value="{!v.ChildContainer}"
-  />
-
-  <aura:handler
-    name="change"
-    action="{!c.onParentContainerChange}"
-    value="{!v.ParentContainer}"
   />
 
   <!--<aura:attribute name="depositCurrency" type="List" default="['JMD','USD']" />

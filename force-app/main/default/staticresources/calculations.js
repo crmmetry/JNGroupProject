@@ -497,7 +497,7 @@ window.LTVCalculatorAutoLoan = function (loanAmount, minimum) {
  * @return {Decimal}
  */
 window.LTVCalculatorCash = function (startingLimit, existingDebt, deposit) {
-  console.log("LTV Calculated");
+  console.log("LTV Calculated", startingLimit, existingDebt, deposit);
   return roundedValue(
     ((parseFloat(startingLimit) + parseFloat(existingDebt)) /
       parseFloat(deposit)) *

@@ -17,10 +17,13 @@
   },
   onChildContainerChange: function (component, event, helper) {
     if (component.get("v.scriptsLoaded")) {
-      fireProductDetailsEvent(null, component.get("v.ChildContainer"));
-      helper.getApplicants(component);//TODO: REFACTOR CANNOT BE CALLED LIKE THIS
-      //when purchase price or market value gets updated
-      helper.setMinimumValue(component);
+      let container = component.get("v.ChildContainer");
+      //sets the minimum of purchase price vs market value
+      container = helper.setMinimumValue(container);
+      //calculate ltv value
+      container = helper.calculateLTVAuto(container);
+      helper.getApplicants(component); //TODO: REFACTOR CANNOT BE CALLED LIKE THIS
+      fireProductDetailsEvent(null, container);
     }
   },
   onApplicantsChange: function (component, event, helper) {

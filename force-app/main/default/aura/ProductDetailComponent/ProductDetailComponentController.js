@@ -13,7 +13,9 @@
       processingFeesGCT: 0,
       existingDebt: 0,
       TDSRBefore: 0,
-      TDSRAfter: 0
+      TDSRAfter: 0,
+      minimumOfPurchaseMarketValue: 0,
+      LTVValue: 0
     });
     helper.updateProductSelection(component);
     helper.getJNConfigurations(component);
@@ -54,6 +56,9 @@
         value: monthlyPILoanAmount
       });
       //Calculate processing fees
+      attributesToUpdate = attributesToUpdate.concat(
+        helper.processingFeeCalculation(container, component)
+      );
       attributesToUpdate = attributesToUpdate.concat(
         helper.processingFeeCalculation(container, component)
       );

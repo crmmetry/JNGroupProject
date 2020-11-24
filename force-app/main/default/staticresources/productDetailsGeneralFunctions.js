@@ -60,6 +60,19 @@ window.updateChildContainerWithValue = function (
   });
   return container;
 };
+/*
+ * Updates child container attributes and its values. then toggles when it should be notified
+ */
+window.updateChildContainerNoNotification = function (component, values) {
+  let container = component.get("v.ChildContainer");
+  values.forEach((element) => {
+    container[element.key] = element.value;
+  });
+  component.set("v.notifyContainerChange", false);
+  component.set("v.ChildContainer", container);
+  console.log("After updatinf child");
+  return container;
+};
 
 /**
  * Toggles cash investment flag.
@@ -140,11 +153,25 @@ window.monthlyPILoanAmountCalculation = function (container) {
  * @param {Object} payload
  * @return {Void}
  */
-window.fireProductDetailsEvent = function (type, payload) {
-  var productDetailsEvent = $A.get("e.c:ProductDetailsEvent");
+(window.fireProductDetailsEvent = function (type, payload, component) {
+  let productDetailsEvent = $A.get("e.c:ProductDetailsEvent");
   productDetailsEvent.setParams({
     type: !type ? "calculation" : type,
     payload: payload
   });
   productDetailsEvent.fire();
-};
+  //indicate that the component wants notifications
+  if (component) {
+    component.get("v.notifyContainerChange", true);
+  }
+}),
+  /**
+   * calculates the requested credit limit
+   * @param {*} requestedCreditLimit
+   * @param {*} capLimit
+   */
+  (window.calculatRequestedCreditBalanceLimit = function (
+    requestedCreditLimit
+  ) {
+    return requestedCreditLimit * REQUESTED_CREDIT_LIMIT_PERCENTAGE;
+  });

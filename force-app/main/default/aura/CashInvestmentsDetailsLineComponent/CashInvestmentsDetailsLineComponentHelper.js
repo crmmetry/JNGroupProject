@@ -27,8 +27,7 @@
     component.set("v.accountType", accountTypeOptions);
   },
 
-  clearDetailsWhenUnsecuredLoanSelected: function (component) {
-    let data = component.get("v.ParentContainer");
+  clearDetailsWhenUnsecuredLoanSelected: function (component, data) {
     if (data.collateralType === "Unsecured (None)") {
       resetComponentValue("cash-investments-select-component", component, null);
       resetComponentValue("cash-investments-numerical-component", component, 0);
@@ -72,6 +71,6 @@
         value: 0
       }
     ];
-    this.updateChildContainer(component, childKeyValuePairs, false);
+    updateChildContainerNoNotification(component, childKeyValuePairs);
   }
 });

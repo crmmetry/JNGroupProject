@@ -1,5 +1,2 @@
-public  class CreditScoreModelWrapper {
-    public CreditScoreController(){
-      
-    }
+public class CreditScoreModelWrapper {
 }

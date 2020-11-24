@@ -66,8 +66,8 @@ NOT(ISBLANK( Text(Other_Transport_Monthly_After_Loan__c)))
 
 
 ,
-&#39;TRUE&#39; ,
-&#39;FALSE&#39;
+&apos;TRUE&apos; ,
+&apos;FALSE&apos;
 
 )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

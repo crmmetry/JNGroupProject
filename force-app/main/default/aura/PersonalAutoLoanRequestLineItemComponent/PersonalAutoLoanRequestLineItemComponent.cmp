@@ -28,7 +28,11 @@
   />
   <aura:attribute name="purchasePrice" type="Decimal" default="" />
   <aura:attribute name="marketValue" type="Decimal" default="" />
-  <aura:attribute name="minimumOfPurchaseMarketValue" type="Decimal" default="" />
+  <aura:attribute
+    name="minimumOfPurchaseMarketValue"
+    type="Decimal"
+    default=""
+  />
   <aura:attribute name="depositPercentage" type="Decimal" default="" />
   <aura:attribute name="deposit" type="Decimal" default="" />
   <aura:attribute name="productPrice" type="Decimal" />
@@ -187,7 +191,7 @@
           <lightning:input
             type="number"
             label="Minimum(MV,PP)"
-            value="{!v.ChildContainer.minimumOfPurchaseMarketValue}"
+            value="{!v.ParentContainer.minimumOfPurchaseMarketValue}"
             name="number"
             formatter="currency"
             required="true"
