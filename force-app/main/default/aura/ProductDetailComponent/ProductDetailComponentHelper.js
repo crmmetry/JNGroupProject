@@ -144,7 +144,7 @@
         this.mergeWithChildContainer(component, result);
         this.existingDebtCalculation(component, result);
         data = component.get("v.ChildContainer");
-        console.log("child: ", JSON.parse(JSON.stringify(result)));
+        console.log("child: ", JSON.parse(JSON.stringify(data)));
         tdsrBefore = TDSRBeforeCalculator(
           result[0].grossMonthlyIncome,
           data.existingDebt
