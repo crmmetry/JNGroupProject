@@ -153,14 +153,14 @@
    * @param {*} containerValues
    */
   mergeWithChildContainer: function (component, objectList) {
-    const fieldsToMerge = { 'grossMonthlyIncome': true };
+    const fieldsToMerge = { grossMonthlyIncome: true };
     let data = component.get("v.ChildContainer");
     objectList.forEach((element) => {
       Object.keys(element).forEach((key) => {
         if (fieldsToMerge.hasOwnProperty(key)) {
           data[key] = element[key];
         }
-      })
+      });
     });
     component.set("v.ChildContainer", data);
   },
@@ -206,13 +206,21 @@
   },
   /**
    * calculates both TDSR before and TDSR after
-   * @param {*} component 
+   * @param {*} component
    * @param {Object} data
    * @return {Void}
    */
   TDSRCalculations: function (component, data) {
-    let tdsrBefore = TDSRBeforeCalculator(data.grossMonthlyIncome, data.existingDebt);
-    let tdsrAfter = TDSRAfterCalculator(data.grossMonthlyIncome, data.existingDebt, 0);
+    let tdsrBefore = TDSRBeforeCalculator(
+      data.grossMonthlyIncome,
+      data.existingDebt
+    );
+    //TODO:Minimum Payment For Credit Facility should be calculated on a separate ticket outside sprint3 zero will be used as a place holder for now.
+    let tdsrAfter = TDSRAfterCalculator(
+      data.grossMonthlyIncome,
+      data.existingDebt,
+      0
+    );
     let values = [
       {
         key: "TDSRBefore",
@@ -223,13 +231,7 @@
         value: tdsrAfter
       }
     ];
-    let childValues = updateChildContainerWithValue(
-      component,
-      values,
-      false
-    );
+    let childValues = updateChildContainerWithValue(component, values, false);
     component.set("v.ChildContainer", childValues);
   }
 });
-
-
