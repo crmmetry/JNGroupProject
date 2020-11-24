@@ -26,9 +26,11 @@
       component.get("v.scriptsLoaded") &&
       component.get("v.notifyContainerChange")
     ) {
-      container.LTVValue = LTVCalculatorCash(0, data.existingDebt, data.depositBalance);
-      helper.clearDetailsWhenUnsecuredLoanSelected(component, data);
+      container.LTVValue = LTVCalculatorCash(500000, container.existingDebt, childContainer.depositBalance);
+      //helper.clearDetailsWhenUnsecuredLoanSelected(component, data);
+      console.info("before fire");
       fireProductDetailsEvent(null, data, component);
+      console.info("after fire");
     }
   },
   onFinancialInstitutionChange: function (component, event, helper) {

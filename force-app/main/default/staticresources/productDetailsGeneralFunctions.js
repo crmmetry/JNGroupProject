@@ -64,7 +64,9 @@ window.updateChildContainerNoNotification = function (
   values.forEach((element) => {
     container[element.key] = element.value;
   });
-  component.set("v.notifyContainerChange", false)
+  component.set("v.notifyContainerChange", false);
+  component.set("v.ChildContainer", container);
+  console.log("After updatinf child");
   return container;
 };
 
