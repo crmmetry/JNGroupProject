@@ -180,7 +180,7 @@ public class ProductDetailService {
         }
     return subCriteriaOption;
     }
-    /*public static SubCriteriaOptionWrapper getSubcriteriaOptions(Id oppId){
+   public static SubCriteriaOptionWrapper getSubcriteriaOptions(Id oppId){
         //SubCriteriaOptionWrapper subCriteriaOptions = new SubCriteriaOptionWrapper();
         OpportunityWrapper oppWrapper = ProductDetailSelector.getOpportunityDetails(oppId);
         AccountWrapper accWrapper = ProductDetailSelector.getAccount(oppWrapper.accountId);
@@ -191,5 +191,5 @@ public class ProductDetailService {
                                                                                   ,oppWrapper,loanCalculationsList[0],
         empWrapper,applicantWrapper);
         return subCriteriaOptions;
-    }*/
+    }
 }
