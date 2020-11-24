@@ -129,9 +129,6 @@
    * Gets Applicants Existing Debts.
    */
   getAssetsAndLiabilitiesForApplicant: function (component) {
-    let tdsrBefore = 0;
-    let tdsrAfter = 0;
-    let data = {};
     let oppId = component.get("v.recordId");
     let action = component.get("c.getApplicantsAssetsAndLiabilities");
     action.setParams({
@@ -143,35 +140,7 @@
       if (state === "SUCCESS") {
         this.mergeWithChildContainer(component, result);
         this.existingDebtCalculation(component, result);
-        data = component.get("v.ChildContainer");
-        console.log("child: ", JSON.parse(JSON.stringify(data)));
-        tdsrBefore = TDSRBeforeCalculator(
-          data.grossMonthlyIncome,
-          data.existingDebt
-        );
-        console.log("Before Cal done");
-        tdsrAfter = TDSRAfterCalculator(
-          data.grossMonthlyIncome,
-          data.existingDebt,
-          0
-        );
-        console.log("After Cal done");
-        let values = [
-          {
-            key: "TDSRBefore",
-            value: tdsrBefore
-          },
-          {
-            key: "TDSRAfter",
-            value: tdsrAfter
-          }
-        ];
-        let childValues = updateChildContainerWithValue(
-          component,
-          values,
-          false
-        );
-        component.set("v.ChildContainer", childValues);
+        this.TDSRCalculations(component, component.get("v.ChildContainer"));
         console.log("DATA: ", JSON.parse(JSON.stringify(childValues)));
       }
     });
@@ -184,10 +153,16 @@
    * @param {*} containerValues
    */
   mergeWithChildContainer: function (component, objectList) {
+    const fieldsToMerge = { 'grossMonthlyIncome': true };
     let data = component.get("v.ChildContainer");
-    objectList.forEach((element) => Object.assign(data, element));
+    objectList.forEach((element) => {
+      Object.keys(element).forEach((key) => {
+        if (fieldsToMerge.hasOwnProperty(key)) {
+          data[key] = element[key];
+        }
+      })
+    });
     component.set("v.ChildContainer", data);
-    console.log("Container Merger");
   },
   /**
    * Calculate existing debt.
@@ -228,5 +203,33 @@
       "Current Child",
       JSON.parse(JSON.stringify(component.get("v.ChildContainer")))
     );
+  },
+  /**
+   * calculates both TDSR before and TDSR after
+   * @param {*} component 
+   * @param {Object} data
+   * @return {Void}
+   */
+  TDSRCalculations: function (component, data) {
+    let tdsrBefore = TDSRBeforeCalculator(data.grossMonthlyIncome, data.existingDebt);
+    let tdsrAfter = TDSRAfterCalculator(data.grossMonthlyIncome, data.existingDebt, 0);
+    let values = [
+      {
+        key: "TDSRBefore",
+        value: tdsrBefore
+      },
+      {
+        key: "TDSRAfter",
+        value: tdsrAfter
+      }
+    ];
+    let childValues = updateChildContainerWithValue(
+      component,
+      values,
+      false
+    );
+    component.set("v.ChildContainer", childValues);
   }
 });
+
+

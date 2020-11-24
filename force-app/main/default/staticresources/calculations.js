@@ -497,7 +497,6 @@ window.LTVCalculatorAutoLoan = function (loanAmount, minimum) {
  * @return {Decimal}
  */
 window.LTVCalculatorCash = function (startingLimit, existingDebt, deposit) {
-  console.log("LTV Calculated", startingLimit, existingDebt, deposit);
   return roundedValue(
     ((parseFloat(startingLimit) + parseFloat(existingDebt)) /
       parseFloat(deposit)) *
@@ -511,9 +510,7 @@ window.LTVCalculatorCash = function (startingLimit, existingDebt, deposit) {
  * @param {Decimal} totalDebt
  * @return {Decimal}
  */
-window.TDSRBeforeCalculator = function (grossIncome, totalDebt) {
-  console.log("Gross Income: ", grossIncome);
-  console.log("total Debt: ", totalDebt);
+window.TDSRBeforeCalculator = function (grossIncome, totalDebt) { 
   return roundedValue((parseFloat(totalDebt) / parseFloat(grossIncome)) * 100);
 };
 
