@@ -31,7 +31,7 @@
         container.existingDebt,
         childContainer.depositBalance
       );
-      //helper.clearDetailsWhenUnsecuredLoanSelected(component, data);
+      helper.clearDetailsWhenUnsecuredLoanSelected(component, data);
       fireProductDetailsEvent(null, data, component);
     }
   },

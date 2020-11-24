@@ -32,45 +32,46 @@
       resetComponentValue("cash-investments-select-component", component, null);
       resetComponentValue("cash-investments-numerical-component", component, 0);
       resetComponentValue("cash-investments-text-component", component, "");
+    
+      let childKeyValuePairs = [
+        {
+          key: "financialInstitution",
+          value: null
+        },
+        {
+          key: "accountType",
+          value: null
+        },
+        {
+          key: "depositAccountNumber",
+          value: ""
+        },
+        {
+          key: "jnBankAccountNumberPrefix",
+          value: ""
+        },
+        {
+          key: "jnBankAccountNumber",
+          value: ""
+        },
+        {
+          key: "accountHolder",
+          value: ""
+        },
+        {
+          key: "annualInterestRate",
+          value: 0
+        },
+        {
+          key: "depositBalance",
+          value: 0
+        },
+        {
+          key: "existingBalance",
+          value: 0
+        }
+      ];
+      updateChildContainerNoNotification(component, childKeyValuePairs);
     }
-    let childKeyValuePairs = [
-      {
-        key: "financialInstitution",
-        value: null
-      },
-      {
-        key: "accountType",
-        value: null
-      },
-      {
-        key: "depositAccountNumber",
-        value: ""
-      },
-      {
-        key: "jnBankAccountNumberPrefix",
-        value: ""
-      },
-      {
-        key: "jnBankAccountNumber",
-        value: ""
-      },
-      {
-        key: "accountHolder",
-        value: ""
-      },
-      {
-        key: "annualInterestRate",
-        value: 0
-      },
-      {
-        key: "depositBalance",
-        value: 0
-      },
-      {
-        key: "existingBalance",
-        value: 0
-      }
-    ];
-    updateChildContainerNoNotification(component, childKeyValuePairs);
   }
 });
