@@ -1,3 +1,7 @@
+/**
+ * Ver  Ticket#      Date            Author                 Purpose
+ * 1.0  JN1-4045     23/11/2020      Ishwari G.(thinqloud)  Wrapper for Employment Object  
+**/
 public with sharing class EmploymentWrapper {
 
     @AuraEnabled

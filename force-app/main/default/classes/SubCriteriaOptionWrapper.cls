@@ -3,84 +3,77 @@
  * 1.0  JN1-4045     23/11/2020      Kirti R.(thinqloud)   Wrapper class of Personal_Credit_Score_Model__mdt  
 **/
 public class SubCriteriaOptionWrapper {
-    
-    public Map<string, Personal_Credit_Score_Model__mdt> personalCreditScoreMap = getPersonalCreditScoreMap();
     @AuraEnabled
-    public string subCriteria;
+    public Integer age;
     @AuraEnabled
-    public string subCriteriaOption;
+    public String employmentType;
     @AuraEnabled
-    public boolean isSalaried;
+    public String education;
     @AuraEnabled
-    public decimal riskScore;
+    public String residentialStatus;
     @AuraEnabled
-    public decimal weight;
-    /**
-     * Represents subCriteriaOptions of personal credit score model.
-     * @constructor
-     * @param {string} subCriteria - sub criteria of personal credit score model
-     * @param {string} subcriteriaOption - sub criteria options of personal credit score model
-     * @param {boolean} isSalaried - employement type of personal credit score model
-    */  
-    public subCriteriaOptionWrapper(string subCriteria,string subCriteriaOption,boolean isSalaried) {
-        this.subCriteria = subCriteria;
-        this.isSalaried = isSalaried;
-        this.subCriteriaOption = subCriteria == 'Age' ? getSubCriteriaOption(subCriteria) : subCriteriaOption;
-        this.riskScore = getRiskScore(subCriteria, subCriteriaOption, isSalaried);
-        this.weight = getWeight(subCriteria,subCriteriaOption);
+    public Integer yearsAtCurrentResidence;
+    @AuraEnabled
+    public String creditHistory;
+    @AuraEnabled
+    public String netWorth;
+    @AuraEnabled
+    public String employmentStatus;
+    @AuraEnabled
+    public String industryOfEmployment;
+    @AuraEnabled
+    public Integer lengthOfCurrentEmployment;
+    @AuraEnabled
+    public String professionalCategory;
+    @AuraEnabled
+    public String workingCapital;
+    @AuraEnabled
+    public String natureOfEngagement;
+    @AuraEnabled
+    public String typeOfIndustry;
+    @AuraEnabled
+    public String financialPerformance;
+    @AuraEnabled
+    public String financialStatementSupport;
+    @AuraEnabled
+    public String lengthOfTrade;
+    @AuraEnabled
+    public String collateral;
+    @AuraEnabled
+    public Decimal loanToValue;
+    @AuraEnabled
+    public Decimal ablitityToService;
+    @AuraEnabled
+    public String repaymentMethod;
+  
+    public subCriteriaOptionWrapper(Integer age, String employmentType, String education,String residentialStatus,
+                                    Integer yearsAtCurrentResidence, String creditHistory, String netWorth, String employmentStatus,
+                                    String industryOfEmployment, Integer lengthOfCurrentEmployment, String professionalCategory,
+                                    String workingCapital, String natureOfEngagement, String typeOfIndustry, String financialPerformance,
+                                    String financialStatementSupport, String lengthOfTrade, String collateral, Decimal loanToValue,
+                                    Decimal ablitityToService, String repaymentMethod) {
+        this.age = age;
+        this.employmentType =employmentType;
+        this.education =education;
+        this.residentialStatus= residentialStatus;
+        this.yearsAtCurrentResidence= yearsAtCurrentResidence;
+        this.creditHistory= creditHistory;
+        this.netWorth= netWorth;
+        this.employmentStatus= employmentStatus;
+        this.industryOfEmployment= industryOfEmployment;
+        this.lengthOfCurrentEmployment = lengthOfCurrentEmployment;
+        this.professionalCategory = professionalCategory;
+        this.workingCapital = workingCapital;
+        this.natureOfEngagement= natureOfEngagement;
+        this.typeOfIndustry= typeOfIndustry;
+        this.financialPerformance= financialPerformance;
+        this.financialStatementSupport= financialStatementSupport;
+        this.lengthOfTrade= lengthOfTrade;
+        this.collateral= collateral;
+        this.loanToValue= loanToValue;
+        this.ablitityToService= ablitityToService;
+        this.repaymentMethod= repaymentMethod;
     }
-    /**
-     * Gets the risk score.
-     * @param {string} subCriteria - sub criteria of personal credit score model
-     * @param {string} subcriteriaOption - sub criteria options of personal credit score model
-     * @param {boolean} isSalaried - employement type of personal credit score model
-	 * @return {decimal}
-    */
-    public decimal getRiskScore(string subCriteria,String subCriteriaOption,boolean isSalaried) {
-        string key = subCriteria + ':' + subCriteriaOption;
-        return isSalaried ? personalCreditScoreMap.get(key).Salaried_Score_Number__c : personalCreditScoreMap.get(key).Self_Employed_Score_Number__c;
-    }
-    /**
-     * Gets the weight.
-     * @param   {string} subCriteria - sub criteria of personal credit score model
-     * @param  {string} subcriteriaOption - sub criteria options of personal credit score model
-     * @return {decimal} returns the sub criteria weight number 
-    */
-    public decimal getWeight(string subCriteria,String subCriteriaOption) {
-        string key = subCriteria + ':' + subCriteriaOption;
-        return personalCreditScoreMap.get(key).Sub_Criteria_Weight_Numbr__c;
-    }
-    /*
-     *Creates the personal Credit Score Map.
-     * @return {Map<string, Personal_Credit_Score_Model__mdt>}
-    */
-    public Map<string, Personal_Credit_Score_Model__mdt> getPersonalCreditScoreMap() {
-        Personal_Credit_Score_Model__mdt[] personalCreditScoreList = JNConfigurations.getPersonalCreditScore();
-        Map<string, Personal_Credit_Score_Model__mdt> personalCreditScoreMap = new Map<string, Personal_Credit_Score_Model__mdt>();
+
         
-        for(Personal_Credit_Score_Model__mdt personalCreditScore :personalCreditScoreList) {
-            string key = personalCreditScore.type__c +':'+ personalCreditScore.Sub_Criteria_Option__c;
-            personalCreditScoreMap.put(key, personalCreditScore);
-        }
-        
-        return personalCreditScoreMap;
-    }
-    /*
-     * Get the formate of SubCriteriaOption.
-     * @return {void}
-    */
-    public String getSubCriteriaOption(String age) {
-        String subCriteriaOption;
-        for(String key :personalCreditScoreMap.keySet()) {
-            List<String> ranges = personalCreditScoreMap.get(key) != null ? personalCreditScoreMap.get(key).Sub_Criteria_Option__c.split('-') : null;
-            if(ranges == null) {
-                this.subCriteriaOption = null;
-            }
-            if(Integer.valueOf(ranges[0]) <= Integer.ValueOf(age) 
-                || Integer.valueOf(ranges[0]) >= Integer.ValueOf(age)) {
-                    subCriteriaOption = personalCreditScoreMap.get(key).Sub_Criteria_Option__c;
-            }
-        }
-        return subCriteriaOption;
-    }      
 }
