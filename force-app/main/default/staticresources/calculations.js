@@ -521,8 +521,6 @@ window.TDSRBeforeCalculator = function (grossIncome, totalDebt) {
  * @return {Decimal}
  */
 window.TDSRAfterCalculator = function (grossIncome, totalDebt, minimumPayment) {
-  console.log("gross income: ", grossIncome);
-  console.log("totalDebt: ", totalDebt);
   return roundedValue(
     ((parseFloat(totalDebt) + parseFloat(minimumPayment)) /
       parseFloat(grossIncome)) *

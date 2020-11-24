@@ -141,10 +141,8 @@
         this.mergeWithChildContainer(component, result);
         this.existingDebtCalculation(component, result);
         this.TDSRCalculations(component, component.get("v.ChildContainer"));
-        console.log("DATA: ", JSON.parse(JSON.stringify(childValues)));
       }
     });
-
     $A.enqueueAction(action);
   },
   /**
