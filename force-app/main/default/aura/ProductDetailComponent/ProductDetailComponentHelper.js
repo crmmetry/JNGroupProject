@@ -146,12 +146,12 @@
         data = component.get("v.ChildContainer");
         console.log("child: ", JSON.parse(JSON.stringify(data)));
         tdsrBefore = TDSRBeforeCalculator(
-          result[0].grossMonthlyIncome,
+          data.grossMonthlyIncome,
           data.existingDebt
         );
         console.log("Before Cal done");
         tdsrAfter = TDSRAfterCalculator(
-          result[0].grossMonthlyIncome,
+          data.grossMonthlyIncome,
           data.existingDebt,
           0
         );
