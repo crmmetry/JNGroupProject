@@ -28,4 +28,13 @@ public class Constants {
   public static final String LOAN_TO_VALUE = 'Loan to Value CC / Loan to Value LOC';
   public static final String ABILITY_TO_SERVICE = 'Ability to Service CC / Ability to Service LOC';
   public static final String REPAYMENT_METHOD = 'Repayment Method CC / Repayment Method LOC';
+
+  public static final String LESS_THAN_YEAR = 'Less than a 1 year';
+  public static final String BETWEEN_1_3_YEARS = 'Between 1-3 years';
+  public static final String BETWEEN_3_5_YEARS = 'Between 3-5 years';
+  public static final String LT_1_YEAR = '<1 year';
+  public static final String ONE_TO_THREE_YEARS = '1-3 years';
+  public static final String THREE_TO_FIVE_YEARS = '3-5 years';
+  public static final String GT_5_YEARS = '>5 years';
+
 }

@@ -12,7 +12,7 @@ public class CreditScoreModelWrapper {
     @AuraEnabled
     public RiskRatingWrapper riskRating;
     @AuraEnabled
-    public Map<String, List<Personal_Credit_Score_Model__mdt>>  personalCreditScoreMap;
+    public Map<String, List<PersonalCreditScoreModelWrapper>>  personalCreditScoreMap;
     @AuraEnabled
     public ProductDetailService psd ;
     
@@ -24,12 +24,6 @@ public class CreditScoreModelWrapper {
     public creditScoreModelWrapper(SubCriteriaOptionWrapper subCriteriaOption) {
         psd = new ProductDetailService();
         personalCreditScoreMap = psd.getPersonalCreditScoreMap();
-        for(String key :personalCreditScoreMap.keySet()) {
-            System.debug(key+ '==='+Key);
-            for(Personal_Credit_Score_Model__mdt pd :personalCreditScoreMap.get(key)){
-                System.debug(pd);
-            }
-        }
         this.subCriteriaOption =  subCriteriaOption;
         this.isSalaried = subCriteriaOption.employmentType == 'Employed' ? true : false;
         finalScore = getRiskScore(this.subCriteriaOption);
@@ -113,22 +107,21 @@ public class CreditScoreModelWrapper {
     
     /**
    * Function to calculate the risk score for each fields value
-   * @param {List<Personal_Credit_Score_Model__mdt>} creditScoreModelList - list of personal credit score model record of same type
+   * @param {List<PersonalCreditScoreModelWrapper>} creditScoreModelList - list of personal credit score model record of same type
    * @param {String} subCriteriaOption - sub criteria option mentioned in the custom metadata
    * @return {Decimal} - return the calculated score each field
    */
-    public Decimal calculateScore(List<Personal_Credit_Score_Model__mdt> creditScoreModelList, String subCriteriaOption){
+    public Decimal calculateScore(List<PersonalCreditScoreModelWrapper> creditScoreModelList, String subCriteriaOption){
         Decimal score = 0;
-        System.debug('SubCriteriaOption'+subCriteriaOption);
-        System.debug('creditScoreModelList ==>'+creditScoreModelList);
-        for(Personal_Credit_Score_Model__mdt creditScore :creditScoreModelList){
+        for(PersonalCreditScoreModelWrapper creditScore :creditScoreModelList){
             System.debug(creditScore);
-            if((creditScore.Sub_Criteria_Option__c != null && creditScore.Sub_Criteria_Option__c.equalsIgnoreCase(subCriteriaOption)) 
-                || (creditScore.Sub_Criteria_Options__c != null && creditScore.Sub_Criteria_Options__c.equalsIgnoreCase(subCriteriaOption))){
-                score = (isSalaried == true ? (creditScore.Salaried_Score_Number__c != null ? creditScore.Salaried_Score_Number__c : 0):creditScore.Self_Employed_Score_Number__c) * creditScore.Sub_Criteria_Weight_Numbr__c / 100;
+            if((creditScore.subCriteriaOption != null && creditScore.subCriteriaOption.equalsIgnoreCase(subCriteriaOption)) 
+                || (creditScore.subCriteriaOptions != null && creditScore.subCriteriaOptions.equalsIgnoreCase(subCriteriaOption))){
+                score = (isSalaried == true ? (creditScore.salariedScore != null ? creditScore.salariedScore : 0):
+                         (creditScore.selfEmployedScore != null ?creditScore.selfEmployedScore:0)) * 
+                    creditScore.subCriteriaWeight / 100;
             }
         }
-        System.debug('Score ==>'+score);
         return score;
     }
     
@@ -140,11 +133,4 @@ public class CreditScoreModelWrapper {
         RiskRatingWrapper riskRating = new RiskRatingWrapper(finalScore);
         return riskRating;
     }
-    
-    
-    
-    
-    
-   
-    
 }

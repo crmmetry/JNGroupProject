@@ -73,8 +73,8 @@ public with sharing class JNConfigurations {
    * @return {List<Credit_Rating__mdt> }
    */
   @AuraEnabled
-  public static List<Credit_Rating__mdt> getCreditRatings() {
-   
+  public static List<CreditRatingWrapper> getCreditRatings() {
+    List<CreditRatingWrapper> creditRatingWrapperList = new List<CreditRatingWrapper>();
     List<Credit_Rating__mdt> creditRating = [
       SELECT
       Label,
@@ -84,7 +84,10 @@ public with sharing class JNConfigurations {
       Rating__c
       FROM Credit_Rating__mdt
     ];
-    return creditRating;
+    for(Credit_Rating__mdt creditRatingObj :creditRating){
+      creditRatingWrapperList.add( new CreditRatingWrapper(creditRatingObj));
+    }
+    return creditRatingWrapperList;
   }
 
   /*

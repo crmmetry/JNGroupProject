@@ -20,7 +20,7 @@ public class PersonalCreditScoreModelWrapper {
     public String label;
     
     public PersonalCreditScoreModelWrapper(Personal_Credit_Score_Model__mdt personalCreditModel){
-        this.label = personalCreditModel.MasterLabel;
+        this.label = personalCreditModel.Label;
         this.subCriteriaOption = personalCreditModel.Sub_Criteria_Option__c;
         this.salariedScore = personalCreditModel.Salaried_Score_Number__c;
         this.type = personalCreditModel.Type__c;

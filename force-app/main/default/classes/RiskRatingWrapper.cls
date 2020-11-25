@@ -10,10 +10,10 @@ public  class RiskRatingWrapper {
    @AuraEnabled
    public String classification;
    @AuraEnabled
-   public List<Credit_Rating__mdt> creditRatingList = new List<Credit_Rating__mdt>();
+   public List<CreditRatingWrapper> creditRatingList = new List<CreditRatingWrapper>();
 
    /*
-     * Represents Credit_Rating__mdt 
+     * Represents CreditRatingWrapper 
      * @constructor
      * @param {Decimal} score   
     */
@@ -25,14 +25,15 @@ public  class RiskRatingWrapper {
     
    /*
      * Assigns the rating and classification data  
-     * @param {List<Credit_Rating__mdt>} creditRatingList  
+     * @param {List<CreditRatingWrapper>} creditRatingList  
      * @return {void}  
     */
-   private void getRating(List<Credit_Rating__mdt> creditRatingList){
-      for(Credit_Rating__mdt rating:creditRatingList){
-         if(rating.Credit_Score_Min__c >= this.score && rating.Credit_Score_Max__c <= this.score){
-            this.rating = rating.Rating__c;
-            this.classification =  rating.Classification__c;
+   private void getRating(List<CreditRatingWrapper> creditRatingList){
+      for(CreditRatingWrapper rating:creditRatingList){
+         if(rating.creditScoreMin <= this.score && rating.creditScoreMax >= this.score){
+            this.rating = rating.rating;
+            this.classification =  rating.classification;
+            break;
          }
       }
    }
