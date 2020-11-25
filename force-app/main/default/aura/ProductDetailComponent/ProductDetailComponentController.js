@@ -68,6 +68,7 @@
         false
       );
       component.set("v.ChildContainer", updatedContainer);
+      helper.getCreditScoreRatings(component);
       console.info(
         "Current Child",
         JSON.parse(JSON.stringify(component.get("v.ChildContainer")))
