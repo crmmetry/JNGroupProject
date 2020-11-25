@@ -155,7 +155,7 @@ window.monthlyPILoanAmountCalculation = function (container) {
  * @param {Object} payload
  * @return {Void}
  */
-(window.fireProductDetailsEvent = function (type, payload, component) {
+window.fireProductDetailsEvent = function (type, payload, component) {
   let productDetailsEvent = $A.get("e.c:ProductDetailsEvent");
   productDetailsEvent.setParams({
     type: !type ? "calculation" : type,
@@ -166,14 +166,14 @@ window.monthlyPILoanAmountCalculation = function (container) {
   if (component) {
     component.get("v.notifyContainerChange", true);
   }
-}),
-  /**
-   * calculates the requested credit limit
-   * @param {*} requestedCreditLimit
-   * @param {*} capLimit
-   */
-  (window.calculatRequestedCreditBalanceLimit = function (
-    requestedCreditLimit
-  ) {
-    return requestedCreditLimit * REQUESTED_CREDIT_LIMIT_PERCENTAGE;
-  });
+};
+/**
+ * calculates the requested credit limit
+ * @param {*} requestedCreditLimit
+ * @param {*} capLimit
+ */
+window.calculatRequestedCreditBalanceLimit = function (requestedCreditLimit) {
+  console.log("requested card limit: ", requestedCreditLimit);
+  //console.log("requested card limit: ", REQUESTED_CREDIT_LIMIT_PERCENTAGE);
+  return requestedCreditLimit * REQUESTED_CREDIT_LIMIT_PERCENTAGE;
+};

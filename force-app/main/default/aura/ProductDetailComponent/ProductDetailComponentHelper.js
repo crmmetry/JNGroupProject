@@ -229,35 +229,49 @@
    * @param {*} helper
    */
   getCreditScoreRatings: function (component) {
-    let container = component.get("v.ParentContainer");
+    let container = component.get("v.ChildContainer");
     console.log("Container", conatiner);
-    let LTV = container.LTVValue;
-    let repaymentMethod = container.repaymentMethod;
-    let TDSRAfter = container.tdsrAfter;
-    let TDSRBefore = container.tdsrBefore;
+    const { LTVValue, repaymentMethod, TDSRAfter, TDSRBefore } = container;
     if (LTV && repaymentMethod && TDSRAfter && TDSRBefore) {
       console.log("LTV: ", LTV);
       console.log("RepaymentMethod: ", repaymentMethod);
       console.log("Tdsr After: ", TDSRAfter);
       console.log("Tdsr Before: ", TDSRBefore);
-      // let action = component.get("c.methodName");
-      // action.setParams({
-      //   ltv:LTV,
-      //   repaymentMethod:repaymentMethod,
-      //   tdsrAfter:TDSRAfter,
-      //   tdsrBefore:TDSRBefore
-      // });
+      let action = component.get("c.getCreditRiskRating");
+      action.setParams({
+        ltv: LTVValue,
+        repaymentMethod: repaymentMethod,
+        tdsrAfter: TDSRAfter,
+        tdsrBefore: TDSRBefore
+      });
 
-      // action.setCallback(this, function (response) {
-      //   let state = response.getState(); //Checking response status
-      //   let result = response.getReturnValue();
-      //   if (state === "SUCCESS") {
-      //   }
-      // });
+      action.setCallback(this, function (response) {
+        let state = response.getState(); //Checking response status
+        let result = response.getReturnValue();
+        if (state === "SUCCESS") {
+          container.riskRating = result;
+          component.set("v.ChildContainer", container);
+        }
+      });
 
-      // $A.enqueueAction(action);
+      $A.enqueueAction(action);
     } else {
       console.log("Container with values empty: ", conatiner);
     }
+  },
+  /**
+   * Compares old state vs new state of child container
+   * @param {*} component
+   * @param {*} event
+   * @param {*} helper
+   */
+  detectObjectChanges: function (oldObject, newObject, fields) {
+    if (!oldObject || !newObject || !fields) return false;
+    fields.every((field) => {
+      //both have same fields and values are different
+      if (newObject.hasOwnProperty(field) && oldObject.hasOwnProperty(field)) {
+        return newObject[field] !== oldObject[field];
+      }
+    });
   }
 });
