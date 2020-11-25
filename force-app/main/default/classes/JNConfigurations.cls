@@ -101,7 +101,8 @@ public with sharing class JNConfigurations {
       Self_Employed_Score_Number__c,
       Sub_Criteria_Option__c,
       Sub_Criteria_Options__c,
-      Sub_Criteria_Weight_Numbr__c
+      Sub_Criteria_Weight_Numbr__c,
+      Type__c
       FROM Personal_Credit_Score_Model__mdt
     ];
     return creditScoreModel;
