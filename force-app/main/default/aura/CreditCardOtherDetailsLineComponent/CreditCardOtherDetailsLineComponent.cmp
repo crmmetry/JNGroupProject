@@ -6,6 +6,12 @@
     description="Credit Card parent container"
   />
   <aura:attribute
+    name="notifyContainerChange"
+    type="Boolean"
+    default="true"
+    description="used to indicate whether the component should react to the ChildContainer changes"
+  />
+  <aura:attribute
     name="containerName"
     type="String"
     default="CreditCardOtherDetailLine"

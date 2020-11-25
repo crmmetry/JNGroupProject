@@ -220,5 +220,39 @@
     ];
     let childValues = updateChildContainerWithValue(component, values, false);
     component.set("v.ChildContainer", childValues);
+  },
+
+  /**
+   * Passes LTV, TDSR After and Before as well as repayment method to the serverside
+   * @param {*} component
+   * @param {*} event
+   * @param {*} helper
+   */
+  getCreditScoreRatings: function (component) {
+    let container = component.get("v.ParentContainer");
+    let LTV = container.LTVValue;
+    let repaymentMethod = container.repaymentMethod;
+    let TDSRAfter = container.tdsrAfter;
+    let TDSRBefore = container.tdsrBefore;
+    console.log("LTV: ", LTV);
+    console.log("RepaymentMethod: ", repaymentMethod);
+    console.log("Tdsr After: ", TDSRAfter);
+    console.log("Tdsr Before: ", TDSRBefore);
+    // let action = component.get("c.methodName");
+    // action.setParams({
+    //   ltv:LTV,
+    //   repaymentMethod:repaymentMethod,
+    //   tdsrAfter:TDSRAfter,
+    //   tdsrBefore:TDSRBefore
+    // });
+
+    // action.setCallback(this, function (response) {
+    //   let state = response.getState(); //Checking response status
+    //   let result = response.getReturnValue();
+    //   if (state === "SUCCESS") {
+    //   }
+    // });
+
+    // $A.enqueueAction(action);
   }
 });
