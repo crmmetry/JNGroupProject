@@ -5,7 +5,7 @@ public class ProductDetailService {
     * @return {Map<string, Personal_Credit_Score_Model__mdt>}
     */
     public  Map<String, List<Personal_Credit_Score_Model__mdt>> getPersonalCreditScoreMap() {
-        Personal_Credit_Score_Model__mdt[] personalCreditScoreList = JNConfigurations.getPersonalCreditScore();
+        List<personalCreditScoreMap> personalCreditScoreList = JNConfigurations.getPersonalCreditScore();
         Map<string, List<Personal_Credit_Score_Model__mdt>> personalCreditScoreMap = new Map<string, List<Personal_Credit_Score_Model__mdt>>();
         for(Personal_Credit_Score_Model__mdt personalCreditScore :personalCreditScoreList) {
             if(personalCreditScoreMap.containsKey(personalCreditScore.Type__c)) {
@@ -105,7 +105,9 @@ public class ProductDetailService {
         String subCriteriaOption;
         for(Personal_Credit_Score_Model__mdt personalCreditScoreModel :personalCreditScore) {
             if(personalCreditScoreModel.Sub_Criteria_Options__c!= null) {
-                String percentage = personalCreditScoreModel.Sub_Criteria_Options__c.replaceAll('TDSR()%','');
+                String subStringAfter = personalCreditScoreModel.Sub_Criteria_Options__c.subStringAfter('(');
+                subStringAfter = subStringAfter.subStringBefore(')');
+                String percentage = subStringAfter.replaceAll('%','');
                 if(isWithinRange(fieldValue,percentage.trim())) {
                     subCriteriaOption = personalCreditScoreModel.Sub_Criteria_Options__c;
                     break;  
@@ -214,7 +216,7 @@ public class ProductDetailService {
                 }  
             }else if(fieldName.equalsIgnoreCase(Constants.ABILITY_TO_SERVICE)) {
                 if(personalCreditModelMap.containsKey(Constants.ABILITY_TO_SERVICE)) {
-                    subCriteriaOption = parseAbilityToService (Integer.ValueOf(fieldValue),personalCreditModelMap.get(Constants.ABILITY_TO_SERVICE));
+                    subCriteriaOption = parseAbilityToService (Integer.valueOf(fieldValue),personalCreditModelMap.get(Constants.ABILITY_TO_SERVICE));
                 }else {
                     subCriteriaOption = fieldValue;
                 } 

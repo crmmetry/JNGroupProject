@@ -105,6 +105,16 @@ public with sharing class JNConfigurations {
       Type__c
       FROM Personal_Credit_Score_Model__mdt
     ];
-    return creditScoreModel;
+    for(Personal_Credit_Score_Model__mdt personalCredit :creditScoreModel) {
+      PersonalCreditScoreModelWrapper personalCreditScore= new PersonalCreditScoreModelWrapper(personalCredit.label
+                                                                              , personalCredit.Salaried_Score_Number__c
+                                                                              , personalCredit.Sub_Criteria_Option__c
+                                                                              , personalCredit.Sub_Criteria_Option__c
+                                                                              , personalCredit.Sub_Criteria_Options__c
+                                                                              , personalCredit.Sub_Criteria_Weight_Numbr__c
+                                                                              , personalCredit.Type__c) {
+
+                                                                              }
+    }
   }
 }
