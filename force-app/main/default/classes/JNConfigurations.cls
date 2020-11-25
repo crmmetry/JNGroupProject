@@ -92,8 +92,8 @@ public with sharing class JNConfigurations {
    * @return {List<Personal_Credit_Score_Model__mdt> }
    */
   @AuraEnabled
-  public static List<Personal_Credit_Score_Model__mdt> getPersonalCreditScore() {
-   
+  public static List<PersonalCreditScoreModelWrapper> getPersonalCreditScore() {
+    List<PersonalCreditScoreModelWrapper> personalCreditScoreModel = new List<PersonalCreditScoreModelWrapper>();
     List<Personal_Credit_Score_Model__mdt> creditScoreModel = [
       SELECT
       Label,
@@ -106,15 +106,9 @@ public with sharing class JNConfigurations {
       FROM Personal_Credit_Score_Model__mdt
     ];
     for(Personal_Credit_Score_Model__mdt personalCredit :creditScoreModel) {
-      PersonalCreditScoreModelWrapper personalCreditScore= new PersonalCreditScoreModelWrapper(personalCredit.label
-                                                                              , personalCredit.Salaried_Score_Number__c
-                                                                              , personalCredit.Sub_Criteria_Option__c
-                                                                              , personalCredit.Sub_Criteria_Option__c
-                                                                              , personalCredit.Sub_Criteria_Options__c
-                                                                              , personalCredit.Sub_Criteria_Weight_Numbr__c
-                                                                              , personalCredit.Type__c) {
-
-                                                                              }
+          PersonalCreditScoreModelWrapper personalCreditScore = new PersonalCreditScoreModelWrapper(personalCredit);
+          personalCreditScoreModel.add(personalCreditScore);
+      }
+    return personalCreditScoreModel;
     }
-  }
 }
