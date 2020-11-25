@@ -1,3 +1,7 @@
+/**
+ * Ver  Ticket#      Date            Author                 Purpose
+ * 1.0  JN1-4045     23/11/2020      Ishwari G.(thinqloud)  Added Fields in wrappper  
+**/
 public with sharing class ApplicantWrapper {
   @AuraEnabled
   public String Id;
@@ -27,7 +31,11 @@ public with sharing class ApplicantWrapper {
   public Decimal otherLoanMonthlyPayment;
   @AuraEnabled
   public Decimal grossMonthlyIncome;
-
+  @AuraEnabled
+  public String creditHistoryInLast24Month; //JN1-4045
+  @AuraEnabled
+  public String assessmentOfApplicantNetWorth;//JN1-4045
+    
   public ApplicantWrapper(Applicant__c record) {
     System.debug(record);
     this.Id = record.Id;
@@ -46,6 +54,8 @@ public with sharing class ApplicantWrapper {
     this.otherAssetMonthlyPayment = record.Other_Asset_Monthly_Payment_Number__c;
     this.otherLoanMonthlyPayment = record.Other_Loan_Monthly_Payment_Number__c;
     this.grossMonthlyIncome = record.Gross_Monthly_Income__c;
+   	this.creditHistoryInLast24Month = record.Credit_History_in_last_24_Months__c;//JN1-4045
+    this.assessmentOfApplicantNetWorth = record.Assessment_of_Applicant_Net_Worth__c;//JN1-4045
   }
 
   private Integer calculateAge(Date dob) {

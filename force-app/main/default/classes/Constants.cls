@@ -1,8 +1,32 @@
+/**
+ * Ver  Ticket#      Date            Author                 Purpose
+ * 1.0  JN1-4045     25/11/2020      Ishwari G.(thinqloud)  Added constants to refere values from custom metadata  
+**/
 public class Constants {
   public static final String NONE = 'None';
   public static final String DEFAULT_METADATA_LABEL = 'Default';
   public static final String INVALID_TENURE = 'Sorry an invalid tenure has been entered. Please be reminded a tenure has to be greater than 0 and less than 10.';
   public static final Integer MAX_CREDITOR_LIFE_AGE = 64;
   public static final String APPLICANT_WRAPPER = 'Applicant Wrapper';
-  public static final String APPLICANT_ASSETS_AND_LIABILITIES_WRAPPER = 'Assets and Liabiltiy Wrapper';
+  public static final String APPLICANT_ASSETS_AND_LIABILITIES_WRAPPER = 'Assets and Liabiltiy Wrapper';  
+  //JN1-4045
+  public static final String AGE = 'Age';
+  public static final String EDUCATION = 'Highest Level of Education Attained';
+  public static final String STATUS_OF_ADDRESS = 'Status of Address';
+  public static final String YEARS_AT_RESIDENCE = 'Years at Residence';
+  public static final String CREDIT_HISTORY = 'Credit History over the last 24 months';
+  public static final String NET_WORTH = 'Assessment of Applicant Net Worth';
+  public static final String EMPLOYMENT_STATUS = 'Employment Status';
+  public static final String INDUSTRY = 'Industry';
+  public static final String LENGTH_OF_EMPLOYMENT = 'Length of Employment';
+  public static final String PROFESSIONAL_CATEGORY = 'Professional Category';
+  public static final String WORKING_CAPITA = 'Assessment of Business Working Capita';
+  public static final String NATURE_OF_ENGAGEMENT = 'Nature of Engagement';
+  public static final String FINANCIAL_PERFORMANCE = 'Assessment of Business Fin Performance';
+  public static final String FINACIAL_STATEMENT = 'Assessment of Business Fin Statement';
+  public static final String LENGTH_OF_TRADE = 'Length of Trade';
+  public static final String COLLATERAL = 'Collateral CC / Collateral LOC';
+  public static final String LOAN_TO_VALUE = 'Loan to ValueCC / Loan to ValueLOC';
+  public static final String ABILITY_TO_SERVICE = 'Ability to Service CC / Ability to Service LOC';
+  public static final String REPAYMENT_METHOD = 'Repayment Method CC / Repayment Method LOC';
 }
