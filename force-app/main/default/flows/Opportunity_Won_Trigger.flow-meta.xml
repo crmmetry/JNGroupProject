@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <decisions>
         <processMetadataValues>
@@ -40,8 +40,7 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference
-        >myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference>myVariable_current.Assets_and_Liabilities__r.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Motor_Vehicle</stringValue>

@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Rent_Board_Strata_After_TDSR__c</fullName>
     <externalId>false</externalId>
-    <formula
-  >If  (RecordType.DeveloperName = &quot;Short_Summary_of_Income&quot;,  Rent_Strata_Maintenance__c , (Rent_Board_Monthly_After_Loan__c +  Strata_Maintenance_Monthly_After_Loan__c ))</formula>
+    <formula>If  (RecordType.DeveloperName = &quot;Short_Summary_of_Income&quot;,  Rent_Strata_Maintenance__c , (Rent_Board_Monthly_After_Loan__c +  Strata_Maintenance_Monthly_After_Loan__c ))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Rent &amp; Board Strata After TDSR</label>
     <precision>18</precision>

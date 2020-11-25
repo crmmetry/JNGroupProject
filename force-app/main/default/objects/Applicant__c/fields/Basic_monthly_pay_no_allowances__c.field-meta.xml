@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Basic_monthly_pay_no_allowances__c</fullName>
-    <description
-  >Basic monthly pay of a JN group Employee excluding allowances</description>
+    <description>Basic monthly pay of a JN group Employee excluding allowances</description>
     <externalId>false</externalId>
     <label>Basic monthly pay (no allowances)</label>
     <precision>18</precision>

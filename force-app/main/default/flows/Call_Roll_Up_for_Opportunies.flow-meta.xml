@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <decisions>
         <processMetadataValues>
@@ -28,8 +28,7 @@
                 <processMetadataValues>
                     <name>leftHandSideReferenceTo</name>
                     <value>
-                        <stringValue
-            >Account;Asset;AssetRelationship;Award;BusinessLicense;Campaign;Case;Claim;ClaimParticipant;ContactRequest;Contract;CustomerProperty;FinServ__AssetsAndLiabilities__c;FinServ__Card__c;FinServ__FinancialAccount__c;FinServ__FinancialGoal__c;FinServ__FinancialHolding__c;InsurancePolicy;InsurancePolicyAsset;InsurancePolicyCoverage;InsurancePolicyParticipant;InsuranceProfile;ListEmail;Loan_Documents__c;Opportunity;Order;PersonLifeEvent;Producer;Product2;Quote;Solution</stringValue>
+                        <stringValue>Account;Asset;AssetRelationship;Award;BusinessLicense;Campaign;Case;Claim;ClaimParticipant;ContactRequest;Contract;CustomerProperty;FinServ__AssetsAndLiabilities__c;FinServ__Card__c;FinServ__FinancialAccount__c;FinServ__FinancialGoal__c;FinServ__FinancialHolding__c;InsurancePolicy;InsurancePolicyAsset;InsurancePolicyCoverage;InsurancePolicyParticipant;InsuranceProfile;ListEmail;Loan_Documents__c;Opportunity;Order;PersonLifeEvent;Producer;Product2;Quote;Solution</stringValue>
                     </value>
                 </processMetadataValues>
                 <processMetadataValues>
@@ -50,8 +49,7 @@
                         <stringValue>ID</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference
-        >myVariable_current.WhatId</leftValueReference>
+                <leftValueReference>myVariable_current.WhatId</leftValueReference>
                 <operator>StartsWith</operator>
                 <rightValue>
                     <stringValue>006</stringValue>
@@ -82,8 +80,7 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference
-        >myVariable_current.Result__c</leftValueReference>
+                <leftValueReference>myVariable_current.Result__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>No Contact</stringValue>
@@ -114,8 +111,7 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference
-        >myVariable_current.Result__c</leftValueReference>
+                <leftValueReference>myVariable_current.Result__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>No Contact - Left Voicemail</stringValue>
@@ -152,8 +148,7 @@
                 <processMetadataValues>
                     <name>leftHandSideReferenceTo</name>
                     <value>
-                        <stringValue
-            >Account;Asset;AssetRelationship;Award;BusinessLicense;Campaign;Case;Claim;ClaimParticipant;ContactRequest;Contract;CustomerProperty;FinServ__AssetsAndLiabilities__c;FinServ__Card__c;FinServ__FinancialAccount__c;FinServ__FinancialGoal__c;FinServ__FinancialHolding__c;InsurancePolicy;InsurancePolicyAsset;InsurancePolicyCoverage;InsurancePolicyParticipant;InsuranceProfile;ListEmail;Loan_Documents__c;Opportunity;Order;PersonLifeEvent;Producer;Product2;Quote;Solution</stringValue>
+                        <stringValue>Account;Asset;AssetRelationship;Award;BusinessLicense;Campaign;Case;Claim;ClaimParticipant;ContactRequest;Contract;CustomerProperty;FinServ__AssetsAndLiabilities__c;FinServ__Card__c;FinServ__FinancialAccount__c;FinServ__FinancialGoal__c;FinServ__FinancialHolding__c;InsurancePolicy;InsurancePolicyAsset;InsurancePolicyCoverage;InsurancePolicyParticipant;InsuranceProfile;ListEmail;Loan_Documents__c;Opportunity;Order;PersonLifeEvent;Producer;Product2;Quote;Solution</stringValue>
                     </value>
                 </processMetadataValues>
                 <processMetadataValues>
@@ -174,8 +169,7 @@
                         <stringValue>ID</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference
-        >myVariable_current.WhatId</leftValueReference>
+                <leftValueReference>myVariable_current.WhatId</leftValueReference>
                 <operator>StartsWith</operator>
                 <rightValue>
                     <stringValue>006</stringValue>
@@ -206,8 +200,7 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference
-        >myVariable_current.Result__c</leftValueReference>
+                <leftValueReference>myVariable_current.Result__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Contact Made</stringValue>
@@ -219,8 +212,7 @@
             <label>What If Prefix - Contact Made</label>
         </rules>
     </decisions>
-    <interviewLabel
-  >Call_Roll_Up_for_Opportunies-2_InterviewLabel</interviewLabel>
+    <interviewLabel>Call_Roll_Up_for_Opportunies-2_InterviewLabel</interviewLabel>
     <label>Call Roll Up for Leads and Opportunities</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -311,7 +303,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue />
+                    <stringValue/>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -322,8 +314,7 @@
             </processMetadataValues>
             <field>Last_Contact_Attempt__c</field>
             <value>
-                <elementReference
-        >myVariable_current.CreatedDate</elementReference>
+                <elementReference>myVariable_current.CreatedDate</elementReference>
             </value>
         </inputAssignments>
         <object>Opportunity</object>
@@ -392,7 +383,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue />
+                    <stringValue/>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -403,8 +394,7 @@
             </processMetadataValues>
             <field>Last_Contact_Made__c</field>
             <value>
-                <elementReference
-        >myVariable_current.CreatedDate</elementReference>
+                <elementReference>myVariable_current.CreatedDate</elementReference>
             </value>
         </inputAssignments>
         <object>Opportunity</object>
