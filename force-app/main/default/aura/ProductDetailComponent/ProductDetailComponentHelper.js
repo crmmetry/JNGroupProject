@@ -109,12 +109,6 @@
       ["years", "months", "loanAmount", "market", "includeInLoanAmountFlag"],
       component.get("v.jnDefaultConfigs.gct")
     );
-    console.info(
-      "processingFee",
-      processingFee,
-      monthlyProcessingFee,
-      processingFeeClosingCost
-    );
     return [
       { key: "processingFeeClosingCost", value: processingFeeClosingCost },
       {
@@ -178,7 +172,6 @@
       "minimumPayment"
     ];
     let total = 0;
-
     const fieldsMap = {};
     fields.forEach((element) => (fieldsMap[element] = true));
     containerValues.forEach((element) => {
@@ -197,10 +190,6 @@
     ];
     let data = updateChildContainerWithValue(component, values, false);
     component.set("v.ChildContainer", data);
-    console.info(
-      "Current Child",
-      JSON.parse(JSON.stringify(component.get("v.ChildContainer")))
-    );
   },
   /**
    * calculates both TDSR before and TDSR after
