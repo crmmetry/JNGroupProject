@@ -1,17 +1,16 @@
 public class ProductDetailService {
-    
     /*
     * Creates the personal Credit Score Map.
     * @return {Map<string, Personal_Credit_Score_Model__mdt>}
     */
-    public  Map<String, List<Personal_Credit_Score_Model__mdt>> getPersonalCreditScoreMap() {
-        Personal_Credit_Score_Model__mdt[] personalCreditScoreList = JNConfigurations.getPersonalCreditScore();
-        Map<string, List<Personal_Credit_Score_Model__mdt>> personalCreditScoreMap = new Map<string, List<Personal_Credit_Score_Model__mdt>>();
-        for(Personal_Credit_Score_Model__mdt personalCreditScore :personalCreditScoreList) {
-            if(personalCreditScoreMap.containsKey(personalCreditScore.Type__c)) {
-                personalCreditScoreMap.get(personalCreditScore.Type__c).add(personalCreditScore);
+    public  Map<String, List<PersonalCreditScoreModelWrapper>> getPersonalCreditScoreMap() {
+        List<PersonalCreditScoreModelWrapper> personalCreditScoreWrapperList = JNConfigurations.getPersonalCreditScore();
+        Map<string, List<PersonalCreditScoreModelWrapper>> personalCreditScoreMap = new Map<string, List<PersonalCreditScoreModelWrapper>>();
+        for(PersonalCreditScoreModelWrapper personalCreditScore :personalCreditScoreWrapperList) {
+            if(personalCreditScoreMap.containsKey(personalCreditScore.type)) {
+                personalCreditScoreMap.get(personalCreditScore.type).add(personalCreditScore);
             }else{
-                personalCreditScoreMap.put(personalCreditScore.Type__c, new List<Personal_Credit_Score_Model__mdt>{personalCreditScore});
+                personalCreditScoreMap.put(personalCreditScore.type, new List<PersonalCreditScoreModelWrapper>{personalCreditScore});
             }
         }
         return personalCreditScoreMap;
@@ -21,10 +20,10 @@ public class ProductDetailService {
     * @return {Map<string, Personal_Credit_Score_Model__mdt>}
     */
     public  string parseAgeRange(Integer age
-                            , List<Personal_Credit_Score_Model__mdt> personalCreditScore) {
-		for(Personal_Credit_Score_Model__mdt creditScore :personalCreditScore) {
-			if(isWithinBound(creditScore.Sub_Criteria_Option__c,age)) {
-                return creditScore.Sub_Criteria_Option__c;
+                            , List<PersonalCreditScoreModelWrapper> personalCreditScore) {
+		for(PersonalCreditScoreModelWrapper creditScore :personalCreditScore) {
+			if(isWithinBound(creditScore.subCriteriaOption,age)) {
+                return creditScore.subCriteriaOption;
             }
 		}
         return null;
@@ -33,18 +32,18 @@ public class ProductDetailService {
     /*
      * Get the Subcriteria option for years at residence field.
      * @param {Integer} fieldValue - actual value stored in field
-     * @param {List<Personal_Credit_Score_Model__mdt>} personalCreditScore- list of custom metadata
+     * @param {List<PersonalCreditScoreModelWrapper>} personalCreditScore- list of custom metadata
      * @return {string} - return the value stored in subcriteria option of custom metadata
     */
 	public  string parseNumberOfYearsAtResidence(Integer fieldValue
-                                              , List<Personal_Credit_Score_Model__mdt> personalCreditScore) {
+                                              , List<PersonalCreditScoreModelWrapper> personalCreditScore) {
 		String subCriteriaOption;
-        for(Personal_Credit_Score_Model__mdt personalCreditScoreModel :personalCreditScore) {
-            if(personalCreditScoreModel.Sub_Criteria_Options__c!= null) {
-                String years = personalCreditScoreModel.Sub_Criteria_Options__c.remove('years');
+        for(PersonalCreditScoreModelWrapper personalCreditScoreModel :personalCreditScore) {
+            if(personalCreditScoreModel.subCriteriaOptions!= null) {
+                String years = personalCreditScoreModel.subCriteriaOptions.remove('years');
                 System.debug(years);
                 if(isWithinRange(fieldValue,years)) {
-                    subCriteriaOption = personalCreditScoreModel.Sub_Criteria_Options__c;
+                    subCriteriaOption = personalCreditScoreModel.subCriteriaOptions;
                     break;
                 }
              } 
@@ -55,17 +54,17 @@ public class ProductDetailService {
      /*
      * Get the Subcriteria option for length of current employment field.
      * @param {Integer} fieldValue - actual value stored in field
-     * @param {List<Personal_Credit_Score_Model__mdt>} personalCreditScore- list of custom metadata
+     * @param {List<PersonalCreditScoreModelWrapper>} personalCreditScore- list of custom metadata
      * @return {string} - return the value stored in subcriteria option of custom metadata
     */
     public  string parseLengthOfCurrentEmployment( Integer fieldValue
-                                                , List<Personal_Credit_Score_Model__mdt> personalCreditScore) {
+                                                , List<PersonalCreditScoreModelWrapper> personalCreditScore) {
 		String subCriteriaOption;
-        for(Personal_Credit_Score_Model__mdt personalCreditScoreModel :personalCreditScore) {
-            if(personalCreditScoreModel.Sub_Criteria_Options__c!= null) {
-                String years = personalCreditScoreModel.Sub_Criteria_Options__c.remove('years');
+        for(PersonalCreditScoreModelWrapper personalCreditScoreModel :personalCreditScore) {
+            if(personalCreditScoreModel.subCriteriaOptions!= null) {
+                String years = personalCreditScoreModel.subCriteriaOptions.remove('years');
                 if(isWithinRange(fieldValue,years)) {
-                    subCriteriaOption = personalCreditScoreModel.Sub_Criteria_Options__c;
+                    subCriteriaOption = personalCreditScoreModel.subCriteriaOptions;
                     break;
                 }
              }
@@ -80,13 +79,13 @@ public class ProductDetailService {
      * @return {string} - return the value stored in subcriteria option of custom metadata
     */
     public  string parseLoanToValue( Integer fieldValue
-                                  , List<Personal_Credit_Score_Model__mdt> personalCreditScore) {
+                                  , List<PersonalCreditScoreModelWrapper> personalCreditScore) {
 		String subCriteriaOption;
-        for(Personal_Credit_Score_Model__mdt personalCreditScoreModel :personalCreditScore) {
-            if(personalCreditScoreModel.Sub_Criteria_Options__c!= null) {
-                String percentage = personalCreditScoreModel.Sub_Criteria_Options__c.remove('%');
+        for(PersonalCreditScoreModelWrapper personalCreditScoreModel :personalCreditScore) {
+            if(personalCreditScoreModel.subCriteriaOptions!= null) {
+                String percentage = personalCreditScoreModel.subCriteriaOptions.remove('%');
                 if(isWithinRange(fieldValue,percentage)) {
-                    subCriteriaOption = personalCreditScoreModel.Sub_Criteria_Options__c;
+                    subCriteriaOption = personalCreditScoreModel.subCriteriaOptions;
                     break;
                 }
              }
@@ -97,17 +96,19 @@ public class ProductDetailService {
      /*
      * Get the Subcriteria option for ability to service field.
      * @param {Integer} fieldValue - actual value stored in field
-     * @param {List<Personal_Credit_Score_Model__mdt>} personalCreditScore- list of custom metadata
+     * @param {List<PersonalCreditScoreModelWrapper>} personalCreditScore- list of custom metadata
      * @return {string} - return the value stored in subcriteria option of custom metadata
     */
     public  string parseAbilityToService( Integer fieldValue
-                                       , List<Personal_Credit_Score_Model__mdt> personalCreditScore) {
+                                       , List<PersonalCreditScoreModelWrapper> personalCreditScore) {
         String subCriteriaOption;
-        for(Personal_Credit_Score_Model__mdt personalCreditScoreModel :personalCreditScore) {
-            if(personalCreditScoreModel.Sub_Criteria_Options__c!= null) {
-                String percentage = personalCreditScoreModel.Sub_Criteria_Options__c.replaceAll('TDSR()%','');
+        for(PersonalCreditScoreModelWrapper personalCreditScoreModel :personalCreditScore) {
+            if(personalCreditScoreModel.subCriteriaOptions!= null) {
+                String subStringAfter = personalCreditScoreModel.subCriteriaOptions.subStringAfter('(');
+                subStringAfter = subStringAfter.subStringBefore(')');
+                String percentage = subStringAfter.replaceAll('%','');
                 if(isWithinRange(fieldValue,percentage.trim())) {
-                    subCriteriaOption = personalCreditScoreModel.Sub_Criteria_Options__c;
+                    subCriteriaOption = personalCreditScoreModel.subCriteriaOptions;
                     break;  
                 }
             }
@@ -168,15 +169,14 @@ public class ProductDetailService {
     */
     public  string getLengthOfTrade(String fieldValue) {
         String subCriteriaOption ;
-        System.debug('fieldValue =>'+fieldValue);
-        if(fieldValue.equalsIgnoreCase('Less than a 1 year')) {
-            subCriteriaOption = '<1 year';
-        }else if(fieldValue.equalsIgnoreCase('Between 1-3 years')){
-            subCriteriaOption =  '1-3 years';
-        }else if(fieldValue.equalsIgnoreCase('Between 3-5 years')) {
-            subCriteriaOption = '3-5 years';
+        if(fieldValue.equalsIgnoreCase(LESS_THAN_YEAR)) {
+            subCriteriaOption = LT_1_YEAR;
+        }else if(fieldValue.equalsIgnoreCase(BETWEEN_1_3_YEARS)){
+            subCriteriaOption =  ONE_TO_THREE_YEARS;
+        }else if(fieldValue.equalsIgnoreCase(BETWEEN_3_5_YEARS)) {
+            subCriteriaOption = THREE_TO_FIVE_YEARS;
         }else {
-            subCriteriaOption = '>5 years';
+            subCriteriaOption = GT_5_YEARS;
         }
         return subCriteriaOption;
     }
@@ -186,7 +186,7 @@ public class ProductDetailService {
     */
     public String getSubCriteriaOption(String fieldName, String fieldValue) {
         String subCriteriaOption;
-        Map<String,List<Personal_Credit_Score_Model__mdt>> personalCreditModelMap = getPersonalCreditScoreMap();
+        Map<String,List<PersonalCreditScoreModelWrapper>> personalCreditModelMap = getPersonalCreditScoreMap();
         if(fieldName != null && fieldValue != null && personalCreditModelMap != null) {
             if(fieldName.equalsIgnoreCase(Constants.AGE)){
                 if(personalCreditModelMap.containsKey(Constants.AGE)) {
@@ -214,7 +214,7 @@ public class ProductDetailService {
                 }  
             }else if(fieldName.equalsIgnoreCase(Constants.ABILITY_TO_SERVICE)) {
                 if(personalCreditModelMap.containsKey(Constants.ABILITY_TO_SERVICE)) {
-                    subCriteriaOption = parseAbilityToService (Integer.ValueOf(fieldValue),personalCreditModelMap.get(Constants.ABILITY_TO_SERVICE));
+                    subCriteriaOption = parseAbilityToService (Integer.valueOf(fieldValue),personalCreditModelMap.get(Constants.ABILITY_TO_SERVICE));
                 }else {
                     subCriteriaOption = fieldValue;
                 } 
@@ -228,7 +228,6 @@ public class ProductDetailService {
                 subCriteriaOption = fieldValue;
             }
         }
-    System.debug('subCriteriaOption == >+'+subCriteriaOption);
     return subCriteriaOption;
     }
     
@@ -238,17 +237,18 @@ public class ProductDetailService {
      * @return {SubCriteriaOptionWrapper} - subcriteriaoptions wrapper with values
     */
     public static SubCriteriaOptionWrapper getSubcriteriaOptions(Id oppId){
-        //SubCriteriaOptionWrapper subCriteriaOptions = new SubCriteriaOptionWrapper();
         OpportunityWrapper oppWrapper = ProductDetailSelector.getOpportunityDetails(oppId);
         AccountWrapper accWrapper = ProductDetailSelector.getAccount(oppWrapper.accountId);
         List<LoanCalculationsWrapper> loanCalculationsList = ProductDetailSelector.getLoanCalculations(oppId);
+        LoanCalculationsWrapper loanCalculatins = loanCalculationsList.size() > 0 ? loanCalculationsList[0]: null;
         EmploymentWrapper empWrapper = ProductDetailSelector.getEmployemntDetails(oppWrapper.accountId);
         List<ApplicantWrapper> applicantWrapper = ProductDetailSelector.getApplicantDetails(oppId);
+		ApplicantWrapper applicant = applicantWrapper.size() > 0 ? applicantWrapper[0] : null;
         SubCriteriaOptionWrapper subCriteriaOptions = new SubCriteriaOptionWrapper(accWrapper
                                                                                   ,oppWrapper
-                                                                                  ,loanCalculationsList[0]
+                                                                                  ,loanCalculatins
                                                                                   ,empWrapper
-                                                                                  ,applicantWrapper[0]);
+                                                                                  ,applicant);
         return subCriteriaOptions;
     }
 
