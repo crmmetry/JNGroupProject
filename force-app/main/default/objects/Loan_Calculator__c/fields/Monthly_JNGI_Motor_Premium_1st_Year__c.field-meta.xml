@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Monthly_JNGI_Motor_Premium_1st_Year__c</fullName>
     <externalId>false</externalId>
-    <label>Monthly JNGI Motor Premium (1st Year)</label>
+    <label>Monthly P&amp;I JNGI Motor Premium</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>
