@@ -9,7 +9,7 @@ public class Constants {
   public static final Integer MAX_CREDITOR_LIFE_AGE = 64;
   public static final String APPLICANT_WRAPPER = 'Applicant Wrapper';
   public static final String APPLICANT_ASSETS_AND_LIABILITIES_WRAPPER = 'Assets and Liabiltiy Wrapper';  
-  //JN1-4045
+  //JN1-4045 
   public static final String AGE = 'Age';
   public static final String EDUCATION = 'Highest Level of Education attained';
   public static final String STATUS_OF_ADDRESS = 'Status of Address';
