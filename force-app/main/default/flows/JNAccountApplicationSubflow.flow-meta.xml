@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <apiVersion>49.0</apiVersion>
     <assignments>
         <name>Account_Id</name>
         <label>Account Id</label>
@@ -529,6 +530,7 @@
         <connector>
             <targetReference>Application_Iteration</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Opportunity__c</field>
             <operator>EqualTo</operator>
@@ -639,6 +641,7 @@
         <connector>
             <targetReference>RecordTypeId_Iteration</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>SobjectType</field>
             <operator>EqualTo</operator>
@@ -662,6 +665,7 @@
         <connector>
             <targetReference>Active_Employment</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Account__c</field>
             <operator>EqualTo</operator>
@@ -688,6 +692,7 @@
         <label>Update 2</label>
         <locationX>2136</locationX>
         <locationY>1292</locationY>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>

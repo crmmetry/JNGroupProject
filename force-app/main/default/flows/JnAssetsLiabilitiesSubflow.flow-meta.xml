@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <apiVersion>49.0</apiVersion>
     <assignments>
         <name>Assign_Applicant_id</name>
         <label>Assign Applicant id</label>
@@ -2514,6 +2515,7 @@
         <connector>
             <targetReference>Set_Current_Asset_Liability</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Application__c</field>
             <operator>EqualTo</operator>
@@ -2555,6 +2557,7 @@
         <connector>
             <targetReference>Get_Account_Assets_Liabilities</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -2576,6 +2579,7 @@
         <connector>
             <targetReference>Account_Assets_Liabilities_Loop</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>FinServ__PrimaryOwner__c</field>
             <operator>EqualTo</operator>
@@ -2639,6 +2643,7 @@
         <connector>
             <targetReference>RecordTypeId_Iteration</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>SobjectType</field>
             <operator>EqualTo</operator>
@@ -2661,6 +2666,7 @@
         <connector>
             <targetReference>Get_Account</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -2711,6 +2717,7 @@
         <label>Update Application</label>
         <locationX>3128</locationX>
         <locationY>1430</locationY>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -2743,6 +2750,7 @@
         <label>Update Application</label>
         <locationX>3135</locationX>
         <locationY>1648</locationY>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -2775,6 +2783,7 @@
         <label>Update Application</label>
         <locationX>3130</locationX>
         <locationY>1858</locationY>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -2807,6 +2816,7 @@
         <label>Update Application</label>
         <locationX>3130</locationX>
         <locationY>2038</locationY>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -2833,6 +2843,7 @@
         <label>Update Application</label>
         <locationX>3123</locationX>
         <locationY>1250</locationY>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -2853,6 +2864,7 @@
         <label>Update Application</label>
         <locationX>3135</locationX>
         <locationY>2234</locationY>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -2873,6 +2885,7 @@
         <label>Update Application</label>
         <locationX>3115</locationX>
         <locationY>925</locationY>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -2893,6 +2906,7 @@
         <label>Update Application</label>
         <locationX>3117</locationX>
         <locationY>1116</locationY>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -5519,6 +5533,7 @@
     <status>Active</status>
     <textTemplates>
         <name>AssetName</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
         <text>&lt;p&gt;{!AccountInformation.Name} - TODAY()&lt;/p&gt;</text>
     </textTemplates>
     <variables>
