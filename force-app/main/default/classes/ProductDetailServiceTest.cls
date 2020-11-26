@@ -66,13 +66,13 @@ public with sharing class ProductDetailServiceTest {
 
         FinServ__Employment__c employee = TestDataFactory.CreateEmployment(accList[0].id,'Employeement Test');
         employee.Current_Employment__c = true;
-        employee.FinServ__EmploymentStatus__c = 'Permanent';
+        employee.FinServ__EmploymentStatus__c = 'Contractual';
         employee.Employment_Status__c = 'Permanent';
         employee.Industry__c = 'Manufacturing';
         employee.Professional_Category__c = 'Clerical';
         employee.Assessment_of_Business_Working_Capita__c = 'Negative';
         employee.Nature_of_Engagement__c = 'Vocational service provider';
-        employee.Assessment_of_Business__c = 'Good growth and profit trends for 3 - 4 years';
+        employee.Assessment_of_Business__c = 'Good growth and profit trends for up to 2 years';
         employee.Assessment_of_Statement__c = '	Strongly Supported';
         employee.Length_of_Trade__c = 'Between 3-5 years';
         Map<String,Id> recordTypeMap =  Util.getRecordTypeids('FinServ__Employment__c');
@@ -121,7 +121,7 @@ public with sharing class ProductDetailServiceTest {
         employee.Professional_Category__c = 'Skilled Worker';
         employee.Assessment_of_Business_Working_Capita__c = 'weak';
         employee.Nature_of_Engagement__c = 'Trader';
-        employee.Assessment_of_Business__c = 'Good growth and or profit trends for up to 2 years ';
+        employee.Assessment_of_Business__c = 'Inconsistent profit/growth trends';
         employee.Assessment_of_Statement__c = '	Sound Business Plan, Skill And Professional Competence';
         employee.Length_of_Trade__c = 'Between 3-5 years';
         Map<String,Id> recordTypeMap =  Util.getRecordTypeids('FinServ__Employment__c');
