@@ -1,7 +1,7 @@
 /**
  * Ver  Ticket#      Date            Author                 Purpose
- * 1.0  JN1-4045     25/11/2020      Ishwari G.(thinqloud)  Added constants to refere values from custom metadata  
-**/
+ * 1.0  JN1-4045     25/11/2020      Ishwari G.(thinqloud)  Added constants to refere values from custom metadata
+ **/
 public class Constants {
   public static final String NONE = 'None';
   public static final String DEFAULT_METADATA_LABEL = 'Default';
@@ -37,5 +37,11 @@ public class Constants {
   public static final String ONE_TO_THREE_YEARS = '1-3 years';
   public static final String THREE_TO_FIVE_YEARS = '3-5 years';
   public static final String GT_5_YEARS = '>5 years';
-
+  public static final String EMPLOYED = 'Employed';
+  public static final String YEARS = 'years';
+  public static final String YEAR = 'year';
+  public static final String OWN = 'Own';
+  public static final String POST_GRADUATE = 'Post Graduate';
+  public static final String UNDERGRADUATE_GRADUATE = 'Undergraduate';
+  public static final String VOCATIONAL = 'Vocational';
 }

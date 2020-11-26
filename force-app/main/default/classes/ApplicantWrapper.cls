@@ -1,7 +1,7 @@
 /**
  * Ver  Ticket#      Date            Author                 Purpose
- * 1.0  JN1-4045     23/11/2020      Ishwari G.(thinqloud)  Added Fields in wrappper  
-**/
+ * 1.0  JN1-4045     23/11/2020      Ishwari G.(thinqloud)  Added Fields in wrappper
+ **/
 public with sharing class ApplicantWrapper {
   @AuraEnabled
   public String Id;
@@ -14,6 +14,7 @@ public with sharing class ApplicantWrapper {
   @AuraEnabled
   public Boolean eligibleForCreditorLife;
   @AuraEnabled
+<<<<<<< HEAD
   public Decimal salutaryDeductions;
   @AuraEnabled
   public Decimal rentStrataMaintenance;
@@ -36,6 +37,12 @@ public with sharing class ApplicantWrapper {
   @AuraEnabled
   public String assessmentOfApplicantNetWorth;//JN1-4045
     
+=======
+  public String creditHistoryInLast24Month; //JN1-4045
+  @AuraEnabled
+  public String assessmentOfApplicantNetWorth; //JN1-4045
+
+>>>>>>> 5ef2d42e6f42ca9e95d3197f7226c2547647859b
   public ApplicantWrapper(Applicant__c record) {
     System.debug(record);
     this.Id = record.Id;
@@ -45,6 +52,7 @@ public with sharing class ApplicantWrapper {
     }
 
     this.checkCreditorLifeEligibility();
+<<<<<<< HEAD
     this.salutaryDeductions = record.Statutory_Deductions_Numbers__c;
     this.rentStrataMaintenance = record.Rent_Strata_Maintenance__c;
     this.personalMonthlyExpensesPriorLoan = record.Personal_Expenses_Monthly_Prior_Loan__c;
@@ -56,6 +64,10 @@ public with sharing class ApplicantWrapper {
     this.grossMonthlyIncome = record.Gross_Monthly_Income__c;
    	this.creditHistoryInLast24Month = record.Credit_History_in_last_24_Months__c;//JN1-4045
     this.assessmentOfApplicantNetWorth = record.Assessment_of_Applicant_Net_Worth__c;//JN1-4045
+=======
+    this.creditHistoryInLast24Month = record.Credit_History_in_last_24_Months__c; //JN1-4045
+    this.assessmentOfApplicantNetWorth = record.Assessment_of_Applicant_Net_Worth__c; //JN1-4045
+>>>>>>> 5ef2d42e6f42ca9e95d3197f7226c2547647859b
   }
 
   private Integer calculateAge(Date dob) {

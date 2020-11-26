@@ -68,7 +68,6 @@ public with sharing class JNConfigurations {
     return wrappers;
   }
 
-
   /**
    * retrieves Credit Rating for a list of applicants
    * @return {List<Credit_Rating__mdt> }
@@ -78,15 +77,15 @@ public with sharing class JNConfigurations {
     List<CreditRatingWrapper> creditRatingWrapperList = new List<CreditRatingWrapper>();
     List<Credit_Rating__mdt> creditRating = [
       SELECT
-      Label,
-      Classification__c,
-      Credit_Score_Max__c,
-      Credit_Score_Min__c,
-      Rating__c
+        Label,
+        Classification__c,
+        Credit_Score_Max__c,
+        Credit_Score_Min__c,
+        Rating__c
       FROM Credit_Rating__mdt
     ];
-    for(Credit_Rating__mdt creditRatingObj :creditRating){
-      creditRatingWrapperList.add( new CreditRatingWrapper(creditRatingObj));
+    for (Credit_Rating__mdt creditRatingObj : creditRating) {
+      creditRatingWrapperList.add(new CreditRatingWrapper(creditRatingObj));
     }
     return creditRatingWrapperList;
   }
@@ -100,19 +99,21 @@ public with sharing class JNConfigurations {
     List<PersonalCreditScoreModelWrapper> personalCreditScoreModel = new List<PersonalCreditScoreModelWrapper>();
     List<Personal_Credit_Score_Model__mdt> creditScoreModel = [
       SELECT
-      Label,
-      Salaried_Score_Number__c,
-      Self_Employed_Score_Number__c,
-      Sub_Criteria_Option__c,
-      Sub_Criteria_Options__c,
-      Sub_Criteria_Weight_Numbr__c,
-      Type__c
+        Label,
+        Salaried_Score_Number__c,
+        Self_Employed_Score_Number__c,
+        Sub_Criteria_Option__c,
+        Sub_Criteria_Options__c,
+        Sub_Criteria_Weight_Numbr__c,
+        Type__c
       FROM Personal_Credit_Score_Model__mdt
     ];
-    for(Personal_Credit_Score_Model__mdt personalCredit :creditScoreModel) {
-          PersonalCreditScoreModelWrapper personalCreditScore = new PersonalCreditScoreModelWrapper(personalCredit);
-          personalCreditScoreModel.add(personalCreditScore);
-      }
-    return personalCreditScoreModel;
+    for (Personal_Credit_Score_Model__mdt personalCredit : creditScoreModel) {
+      PersonalCreditScoreModelWrapper personalCreditScore = new PersonalCreditScoreModelWrapper(
+        personalCredit
+      );
+      personalCreditScoreModel.add(personalCreditScore);
     }
+    return personalCreditScoreModel;
+  }
 }

@@ -25,7 +25,7 @@ public class CreditScoreModelWrapper {
     psd = new ProductDetailService();
     personalCreditScoreMap = psd.getPersonalCreditScoreMap();
     this.subCriteriaOption = subCriteriaOption;
-    this.isSalaried = subCriteriaOption.employmentType == 'Employed'
+    this.isSalaried = subCriteriaOption.employmentType == Constants.EMPLOYED
       ? true
       : false;
     finalScore = getRiskScore(this.subCriteriaOption);
@@ -244,19 +244,27 @@ public class CreditScoreModelWrapper {
         (creditScore.subCriteriaOptions != null &&
         creditScore.subCriteriaOptions.equalsIgnoreCase(subCriteriaOption))
       ) {
-        score =
-          (isSalaried == true
-            ? (creditScore.salariedScore != null
-                ? creditScore.salariedScore
-                : 0)
-            : (creditScore.selfEmployedScore != null
-                ? creditScore.selfEmployedScore
-                : 0)) *
-          creditScore.subCriteriaWeight /
-          100;
+        score = getScore(isSalaried, creditScore);
       }
     }
     return score;
+  }
+
+  private Decimal getScore(
+    Boolean isSalaried,
+    PersonalCreditScoreModelWrapper creditModelWrapper
+  ) {
+    Decimal score;
+    if (isSalaried) {
+      score = creditModelWrapper.salariedScore != null
+        ? creditModelWrapper.salariedScore
+        : 0;
+    } else {
+      score = creditModelWrapper.selfEmployedScore != null
+        ? creditModelWrapper.selfEmployedScore
+        : 0;
+    }
+    return score * creditModelWrapper.subCriteriaWeight / 100;
   }
 
   /*
