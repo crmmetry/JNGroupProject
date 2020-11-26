@@ -479,6 +479,19 @@ window.validNumbersWithObject = function (properties, parentObj) {
     });
 };
 /**
+ * checks whether the number is valid
+ * @param {Number} value
+ * @return {Boolean}
+ */
+window.validNumber = function (value) {
+    if (!isEmpty(value)) {
+        return (
+            !isNaN(value) && parseFloat(value) >= 0
+        );
+    }
+    return false;
+};
+/**
  * checks whether the set of numbers are valid from an object
  * @param {Map} data
  * @param {Decimal} minimum

@@ -270,8 +270,11 @@
     fields.every((field) => {
       //both have same fields and values are different
       if (newObject.hasOwnProperty(field) && oldObject.hasOwnProperty(field)) {
-        return newObject[field] !== oldObject[field];
+        //check if both are valid numbers     
+        const valid = validNumber(newObject[field]) && validNumber(oldObject[field]);
+        return valid && newObject[field] !== oldObject[field];
       }
+      return false;
     });
   }
 });
