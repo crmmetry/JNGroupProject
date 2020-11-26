@@ -4,7 +4,7 @@
 **/
 public class SubCriteriaOptionWrapper {
     @AuraEnabled
-    public Integer age;
+    public Decimal age;
     @AuraEnabled
     public String employmentType;
     @AuraEnabled
@@ -12,7 +12,7 @@ public class SubCriteriaOptionWrapper {
     @AuraEnabled
     public String residentialStatus;
     @AuraEnabled
-    public Integer yearsAtCurrentResidence;
+    public Decimal yearsAtCurrentResidence;
     @AuraEnabled
     public String creditHistory;
     @AuraEnabled

@@ -137,4 +137,40 @@ public with sharing class ProductDetailServiceTest {
         System.assertEquals('R6',riskRatingWrapperObj.rating);
         test.stopTest();
     }
+    @isTest
+    public static void testAllTypesForSelfEmployedValuesWithNullValues() {
+        List<Opportunity> opList = TestDataFactory.CreateOpportunities(1);
+        List<Account> accList = TestDataFactory.CreateBasicAccounts(1,'Test');
+        accList[0].Status_of_Address__c = 'Rent';
+        accList[0].Highest_Level_of_Education__c = 'High School';
+        accList[0].PersonBirthdate = date.newInstance(System.Today().year()-31, 2, 11);
+        insert accList;
+        Util.ExecutionCount = 2;
+        
+        opList[0].accountId = accList[0].id;
+        opList[0].Collateral_CC__c = 'Cash';
+        opList[0].Collateral_LOC__c = 'Cash';
+        insert opList[0];
+
+        FinServ__Employment__c employee = TestDataFactory.CreateEmployment(accList[0].id,'Employeement Test');
+        employee.Current_Employment__c = true;
+        employee.FinServ__EmploymentStatus__c = 'Contractual';
+        employee.Employment_Status__c = 'Permanent';
+        employee.Industry__c = 'Tourism';
+        employee.Assessment_of_Business_Working_Capita__c = 'weak';
+        employee.Nature_of_Engagement__c = 'Trader';
+        employee.Assessment_of_Business__c = 'Inconsistent profit/growth trends';
+        employee.Assessment_of_Statement__c = '	Sound Business Plan, Skill And Professional Competence';
+        Map<String,Id> recordTypeMap =  Util.getRecordTypeids('FinServ__Employment__c');
+        employee.RecordTypeId = recordTypeMap.get('Self_Employed');
+        insert employee;
+
+        Applicant__c applicant = TestDataFactory.CreateApplicant(accList[0].id,opList[0].id);
+        applicant.Credit_History_in_last_24_Months__c = '31 - 60 days Delinquent';
+        insert applicant;
+		test.startTest();
+        RiskRatingWrapper riskRatingWrapperObj = ProductDetailService.getRiskRatingWrapper(opList[0].id);
+        System.assertEquals('R8',riskRatingWrapperObj.rating);
+        test.stopTest();
+    }
 }
