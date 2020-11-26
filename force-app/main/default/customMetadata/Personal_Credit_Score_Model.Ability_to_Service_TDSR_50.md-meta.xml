@@ -24,6 +24,6 @@
     </values>
     <values>
         <field>Type__c</field>
-        <value xsi:type="xsd:string">Ability to Service CC/Ability to Service LOC</value>
+        <value xsi:type="xsd:string">Ability to Service CC / Ability to Service LOC</value>
     </values>
 </CustomMetadata>
