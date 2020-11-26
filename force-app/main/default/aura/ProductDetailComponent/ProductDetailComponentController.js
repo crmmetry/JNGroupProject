@@ -16,7 +16,9 @@
       TDSRAfter: 0,
       minimumOfPurchaseMarketValue: 0,
       LTVValue: 0,
-      riskRating: {}
+      riskRating: {}, //for multi applicants
+      creditRiskScore: 0,
+      creditRiskRating: ""
     });
     helper.updateProductSelection(component);
     helper.getJNConfigurations(component);

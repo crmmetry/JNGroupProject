@@ -1,6 +1,6 @@
 <aura:component>
   <!-- Static Resource -->
-  <aura:attribute name="scriptsLoaded" type="Boolean" default="false"/>
+  <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
 
   <ltng:require scripts="{!join(',', 
     $Resource.constants,
@@ -268,19 +268,9 @@
           </lightning:layoutItem>
         </aura:if>
         <aura:if isTrue="{!v.value == v.amount}">
-          <lightning:layoutItem
-            size="12"
-            mediumDeviceSize="6"
-            padding="around-small"
-          >
-            <lightning:input
-              type="number"
-              label="Amount(JMD)"
-              value="{!v.ChildContainer.amount}"
-              formatter="currency"
-              required="true"
-              min="1000"
-            />
+          <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
+            <lightning:input type="number" label="Amount(JMD)" value="{!v.ChildContainer.amount}" formatter="currency"
+              required="true" min="1000" />
           </lightning:layoutItem>
         </aura:if>
         <lightning:layoutItem size="12">
@@ -291,7 +281,7 @@
         <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
           <div class="slds-form-element">
             <div class="slds-form-element__control">
-              <lightning:input label="Credit Risk Score prior to application" value="{!v.creditRiskScore}" type="number"
+              <lightning:input label="Credit Risk Score prior to application" value="{!v.ParentContainer.creditRiskScore}" type="number"
                 name="input1" required="true" readonly="true" />
             </div>
           </div>
@@ -299,7 +289,7 @@
         <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
           <div class="slds-form-element">
             <div class="slds-form-element__control">
-              <lightning:input label="Credit Risk Rating prior to application" value="{!v.creditRiskRating}" type="text"
+              <lightning:input label="Credit Risk Rating prior to application" value="{!v.ParentContainer.creditRiskRating}" type="text"
                 name="input1" formatter="percent-fixed" required="true" readonly="true" />
             </div>
           </div>

@@ -97,7 +97,8 @@ public with sharing class ProductDetailController {
     List<Applicant__c> applicants = [
       SELECT
         Id,
-        Account__r.PersonBirthdate,
+        Credit_History_in_last_24_Months__c,
+        Assessment_of_Applicant_Net_Worth__c,
         Statutory_Deductions_Numbers__c,
         Rent_Strata_Maintenance__c,
         Personal_Expenses_Monthly_Prior_Loan__c,
@@ -107,6 +108,7 @@ public with sharing class ProductDetailController {
         Other_Asset_Monthly_Payment_Number__c,
         Other_Loan_Monthly_Payment_Number__c,
         Gross_Monthly_Income__c,
+        Account__r.PersonBirthdate,
         (SELECT Id, Minimum_Payment__c FROM Application_Assets_Liabilities__r)
       FROM Applicant__c
       WHERE Opportunity__c = :oppId

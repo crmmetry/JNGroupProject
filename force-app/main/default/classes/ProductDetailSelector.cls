@@ -69,6 +69,15 @@ public with sharing class ProductDetailSelector {
         Id,
         Credit_History_in_last_24_Months__c,
         Assessment_of_Applicant_Net_Worth__c,
+        Statutory_Deductions_Numbers__c,
+        Rent_Strata_Maintenance__c,
+        Personal_Expenses_Monthly_Prior_Loan__c,
+        Savings_Pension_Insurance_Number__c,
+        Real_Estate_Monthly_Payment_Number__c,
+        Motor_Vehicle_Monthly_Payment_Number__c,
+        Other_Asset_Monthly_Payment_Number__c,
+        Other_Loan_Monthly_Payment_Number__c,
+        Gross_Monthly_Income__c,
         Account__r.PersonBirthdate
       FROM Applicant__c
       WHERE Opportunity__c = :oppId
