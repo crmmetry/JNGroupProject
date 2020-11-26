@@ -88,32 +88,4 @@ public class SubCriteriaOptionWrapper {
       this.repaymentMethod = loanCalcWrapper.repaymentMethod;
     }
   }
-  /* public subCriteriaOptionWrapper(Integer age, String employmentType, String education,String residentialStatus,
-                                    Integer yearsAtCurrentResidence, String creditHistory, String netWorth, String employmentStatus,
-                                    String industryOfEmployment, Integer lengthOfCurrentEmployment, String professionalCategory,
-                                    String workingCapital, String natureOfEngagement, String typeOfIndustry, String financialPerformance,
-                                    String financialStatementSupport, String lengthOfTrade, String collateral, Decimal loanToValue,
-                                    Decimal ablitityToService, String repaymentMethod) {
-        this.age = age;
-        this.employmentType =employmentType;
-        this.education =education;
-        this.residentialStatus= residentialStatus;
-        this.yearsAtCurrentResidence= yearsAtCurrentResidence;
-        this.creditHistory= creditHistory;
-        this.netWorth= netWorth;
-        this.employmentStatus= employmentStatus;
-        this.industryOfEmployment= industryOfEmployment;
-        this.lengthOfCurrentEmployment = lengthOfCurrentEmployment;
-        this.professionalCategory = professionalCategory;
-        this.workingCapital = workingCapital;
-        this.natureOfEngagement= natureOfEngagement;
-        this.typeOfIndustry= typeOfIndustry;
-        this.financialPerformance= financialPerformance;
-        this.financialStatementSupport= financialStatementSupport;
-        this.lengthOfTrade= lengthOfTrade;
-        this.collateral= collateral;
-        this.loanToValue= loanToValue;
-        this.ablitityToService= ablitityToService;
-        this.repaymentMethod= repaymentMethod;
-    }*/
 }

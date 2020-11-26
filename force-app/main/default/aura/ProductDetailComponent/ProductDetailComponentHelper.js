@@ -230,14 +230,15 @@
    */
   getCreditScoreRatings: function (component) {
     let container = component.get("v.ChildContainer");
-    const { LTVValue, repaymentMethod, TDSRAfter, TDSRBefore } = container;
-      let action = component.get("c.getCreditRiskRating");
-    action.setParams({
+    const { LTVValue, repaymentMethod, TDSRBefore, collateralType } = container;
+    let action = component.get("c.getCreditRiskRating");
+    if (isEmpty(collateralType) === false) {
+      action.setParams({
         oppId: component.get("v.recordId"),
         ltv: LTVValue,
         repaymentMethod: repaymentMethod,
-        tdsrAfter: TDSRAfter,
-        tdsrBefore: TDSRBefore
+        tdsrBefore: TDSRBefore,
+        collateral: collateralType
       });
       action.setCallback(this, function (response) {
         let state = response.getState();
@@ -252,6 +253,7 @@
         }
       });
       $A.enqueueAction(action);
+    }
   },
   /**
    * Compares old state vs new state of child container
