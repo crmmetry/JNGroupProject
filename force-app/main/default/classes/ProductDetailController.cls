@@ -1,5 +1,32 @@
 public with sharing class ProductDetailController {
   /**
+   * gets the credit and risk score ratings for applicants linked to opportunity
+   * @param {Id} opportunity Id
+   * @param {Decimal} - ltv Loan to Value
+   * @param {Decimal}
+   * @param {Decimal}
+   * @param {String} repaymentMethod
+   * @return {RiskRatingWrapper}
+   */
+  @AuraEnabled
+  public static RiskRatingWrapper getCreditRiskRating(
+    Id oppId,
+    Decimal ltv,
+    Decimal tdsrBefore,
+    Decimal tdsrAfter,
+    String repaymentMethod
+  ) {
+    try {
+      RiskRatingWrapper wrapper = ProductDetailService.getRiskRatingWrapper(
+        oppId
+      );
+      return wrapper;
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
+    }
+  }
+
+  /**
    * Return a Product Selection Object consisting of an opportunity product name and family.
    * @param {Id} - oppId
    * @return Object

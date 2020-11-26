@@ -230,34 +230,28 @@
    */
   getCreditScoreRatings: function (component) {
     let container = component.get("v.ChildContainer");
-    console.log("Container", conatiner);
     const { LTVValue, repaymentMethod, TDSRAfter, TDSRBefore } = container;
-    if (LTV && repaymentMethod && TDSRAfter && TDSRBefore) {
-      console.log("LTV: ", LTV);
-      console.log("RepaymentMethod: ", repaymentMethod);
-      console.log("Tdsr After: ", TDSRAfter);
-      console.log("Tdsr Before: ", TDSRBefore);
       let action = component.get("c.getCreditRiskRating");
-      action.setParams({
+    action.setParams({
+        oppId: component.get("v.recordId"),
         ltv: LTVValue,
         repaymentMethod: repaymentMethod,
         tdsrAfter: TDSRAfter,
         tdsrBefore: TDSRBefore
       });
-
       action.setCallback(this, function (response) {
-        let state = response.getState(); //Checking response status
+        let state = response.getState();
         let result = response.getReturnValue();
         if (state === "SUCCESS") {
           container.riskRating = result;
+          container.creditRiskScore = result.score;
+          container.creditRiskRating = result.rating;
           component.set("v.ChildContainer", container);
+        } else {
+          console.info(response.getError());
         }
       });
-
       $A.enqueueAction(action);
-    } else {
-      console.log("Container with values empty: ", conatiner);
-    }
   },
   /**
    * Compares old state vs new state of child container
