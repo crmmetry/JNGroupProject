@@ -220,5 +220,58 @@
     ];
     let childValues = updateChildContainerWithValue(component, values, false);
     component.set("v.ChildContainer", childValues);
+  },
+
+  /**
+   * Passes LTV, TDSR After and Before as well as repayment method to the serverside
+   * @param {*} component
+   * @param {*} event
+   * @param {*} helper
+   */
+  getCreditScoreRatings: function (component) {
+    let container = component.get("v.ChildContainer");
+    console.log("Container", conatiner);
+    const { LTVValue, repaymentMethod, TDSRAfter, TDSRBefore } = container;
+    if (LTV && repaymentMethod && TDSRAfter && TDSRBefore) {
+      console.log("LTV: ", LTV);
+      console.log("RepaymentMethod: ", repaymentMethod);
+      console.log("Tdsr After: ", TDSRAfter);
+      console.log("Tdsr Before: ", TDSRBefore);
+      let action = component.get("c.getCreditRiskRating");
+      action.setParams({
+        ltv: LTVValue,
+        repaymentMethod: repaymentMethod,
+        tdsrAfter: TDSRAfter,
+        tdsrBefore: TDSRBefore
+      });
+
+      action.setCallback(this, function (response) {
+        let state = response.getState(); //Checking response status
+        let result = response.getReturnValue();
+        if (state === "SUCCESS") {
+          container.riskRating = result;
+          component.set("v.ChildContainer", container);
+        }
+      });
+
+      $A.enqueueAction(action);
+    } else {
+      console.log("Container with values empty: ", conatiner);
+    }
+  },
+  /**
+   * Compares old state vs new state of child container
+   * @param {*} component
+   * @param {*} event
+   * @param {*} helper
+   */
+  detectObjectChanges: function (oldObject, newObject, fields) {
+    if (!oldObject || !newObject || !fields) return false;
+    fields.every((field) => {
+      //both have same fields and values are different
+      if (newObject.hasOwnProperty(field) && oldObject.hasOwnProperty(field)) {
+        return newObject[field] !== oldObject[field];
+      }
+    });
   }
 });

@@ -15,7 +15,8 @@
       TDSRBefore: 0,
       TDSRAfter: 0,
       minimumOfPurchaseMarketValue: 0,
-      LTVValue: 0
+      LTVValue: 0,
+      riskRating: {}
     });
     helper.updateProductSelection(component);
     helper.getJNConfigurations(component);
@@ -67,6 +68,15 @@
         attributesToUpdate,
         false
       );
+      if (
+        helper.detectObjectChanges(
+          component.get("v.ChildContainer"),
+          container,
+          ["LTVValue", "repaymentMethod", "TDSRAfter", "TDSRBefore"]
+        )
+      ) {
+        helper.getCreditScoreRatings(component);
+      }
       component.set("v.ChildContainer", updatedContainer);
       console.info(
         "Current Child",
