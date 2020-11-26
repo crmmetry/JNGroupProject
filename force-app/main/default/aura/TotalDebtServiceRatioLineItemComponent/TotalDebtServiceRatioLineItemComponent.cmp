@@ -35,7 +35,8 @@
           label="Prior to Proposed Credit(s)"
           value="{!v.ParentContainer.TDSRBefore}"
           name="Market"
-          formatter="percent"
+          step="0.01"
+          formatter="percent-fixed"
           required="true"
           readonly="true"
         />
@@ -50,7 +51,8 @@
           label="After Proposed Credit(s)"
           value="{!v.ParentContainer.TDSRAfter}"
           name="Market"
-          formatter="percent"
+          step="0.01"
+          formatter="percent-fixed"
           required="true"
           readonly="true"
         />
