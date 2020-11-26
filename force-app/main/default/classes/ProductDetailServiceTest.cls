@@ -1,3 +1,8 @@
+/**
+ * Ver  Ticket#      Date            Author                 Purpose
+ * 1.0  JN1-4045     26/11/2020      Kirti R.(thinqloud)  Test methods to find the risk rating
+ * 2.0  JN1-4045     26/11/2020     Ishwari G.(thinqloud) Test methods to find risk rating
+ **/
 @IsTest
 public with sharing class ProductDetailServiceTest {
   @IsTest

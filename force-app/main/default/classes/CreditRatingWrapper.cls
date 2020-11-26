@@ -1,3 +1,7 @@
+/**
+ * Ver  Ticket#      Date            Author                 Purpose
+ * 1.0  JN1-4045     25/11/2020      Kirti R.(thinqloud)  Service class for product details component
+ **/
 public with sharing class CreditRatingWrapper {
   @AuraEnabled
   public String classification;
