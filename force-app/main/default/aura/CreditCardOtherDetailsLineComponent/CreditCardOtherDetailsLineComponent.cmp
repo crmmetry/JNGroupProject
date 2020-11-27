@@ -35,7 +35,7 @@
   <aura:attribute
     name="repaymentMethod"
     type="List"
-    default="['Card','Bank']"
+    default="['Over The Counter']"
   />
   <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
 
