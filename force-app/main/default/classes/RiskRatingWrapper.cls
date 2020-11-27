@@ -9,8 +9,7 @@ public class RiskRatingWrapper {
   public String rating;
   @AuraEnabled
   public String classification;
-  @AuraEnabled
-  public List<CreditRatingWrapper> creditRatingList = new List<CreditRatingWrapper>();
+  private List<CreditRatingWrapper> creditRatingList;
 
   /*
    * Represents CreditRatingWrapper
