@@ -2,8 +2,8 @@ public with sharing class ProductDetailController {
   /**
    * gets the credit and risk score ratings for applicants linked to opportunity
    * @param {Id} opportunity Id
-   * @param {Decimal} - ltv Loan to Value
-   * @param {Decimal} tdsrBefore
+   * @param {Integer} - ltv Loan to Value
+   * @param {Integer} tdsrBefore
    * @param {String} repaymentMethod
    * @param {String} collateral
    * @return {RiskRatingWrapper}
@@ -17,17 +17,17 @@ public with sharing class ProductDetailController {
     String collateral
   ) {
     try {
-      System.debug('Ltv ' + ltv + 'tdsrBefore ' + tdsrBefore + ' repaymentMethod' + 'collateral ' + collateral);
+      System.debug('Oppid=' + oppId+ ' Ltv =' + ltv + 'tdsrBefore =' + tdsrBefore + ' repaymentMethod =' +repaymentMethod + 'collateral ' + collateral);
       RiskRatingWrapper wrapper = ProductDetailService.getRiskRatingWrapperV2(
         oppId,
-        ltv,
-        tdsrBefore,
+        (Integer)ltv,
+        (Integer)tdsrBefore,
         repaymentMethod,
         collateral
       );
       return wrapper;
     } catch (Exception e) {
-      throw new AuraHandledException(e.getMessage());
+      throw new AuraHandledException(e.getStackTraceString());
     }
   }
 

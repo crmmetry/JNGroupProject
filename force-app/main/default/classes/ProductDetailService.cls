@@ -325,13 +325,19 @@ public class ProductDetailService {
   /** *
    * Get the SubCriteriaOptionsWrapper.
    * @param {Id} oppId - opportunityId
-   * @param {Decimal} ltv
-   * @param {Decimal} tdsr
+   * @param {Integer} ltv
+   * @param {Integer} tdsr
    * @param {String} repaymentMethod
    * @param {String} collateral
    * @return {SubCriteriaOptionWrapper} - subcriteriaoptions wrapper with values
    */
-  public static SubCriteriaOptionWrapper getSubcriteriaOptionsV2(Id oppId, Decimal ltv, Decimal tdsr, String repaymentMethod, String collateral) {
+  public static SubCriteriaOptionWrapper getSubcriteriaOptionsV2(
+    Id oppId,
+    Integer ltv,
+    Integer tdsr,
+    String repaymentMethod,
+    String collateral
+  ) {
     //TODO: VALUES ARE PASSED FROM THE PRODUCT DETAIL AURA COMPONENT CURRENTLY
     OpportunityWrapper oppWrapper = ProductDetailSelector.getOpportunityDetails(
       oppId
@@ -341,15 +347,17 @@ public class ProductDetailService {
     AccountWrapper accWrapper = ProductDetailSelector.getAccount(
       oppWrapper.accountId
     );
-    List<LoanCalculationsWrapper> loanCalculationsList = ProductDetailSelector.getLoanCalculations(
+    /* List<LoanCalculationsWrapper> loanCalculationsList = ProductDetailSelector.getLoanCalculations(
       oppId
     );
     //TODO: VALUES ARE PASSED FROM THE PRODUCT DETAIL AURA COMPONENT CURRENTLY
     LoanCalculationsWrapper loanCalculatins = loanCalculationsList.size() > 0
       ? loanCalculationsList[0]
       : null;
-      loanCalculatins.repaymentMethod = repaymentMethod;
-      loanCalculatins.abilityToServiceCC = tdsr;
+      */
+    LoanCalculationsWrapper loanCalWrapper = new LoanCalculationsWrapper();
+    loanCalWrapper.repaymentMethod = repaymentMethod;
+    loanCalWrapper.abilityToServiceCC = tdsr;
     EmploymentWrapper empWrapper = ProductDetailSelector.getEmployemntDetails(
       oppWrapper.accountId
     );
@@ -362,7 +370,7 @@ public class ProductDetailService {
     SubCriteriaOptionWrapper subCriteriaOptions = new SubCriteriaOptionWrapper(
       accWrapper,
       oppWrapper,
-      loanCalculatins,
+      loanCalWrapper,
       empWrapper,
       applicant
     );
@@ -421,14 +429,26 @@ public class ProductDetailService {
   /** *
    * Get the SubCriteriaOptionsWrapper.
    * @param {Id} oppId - opportunityId
-   * @param {Decimal} ltv
-   * @param {Decimal} tdsr
+   * @param {Integer} ltv
+   * @param {Integer} tdsr
    * @param {String} repaymentMethod
    * @param {String} collateral
    * @return {RiskRatingWrapper} - riskRatingWrapper wrapper having final rating
    */
-  public static RiskRatingWrapper getRiskRatingWrapperV2(Id oppId, Decimal ltv, Decimal tdsr, String repaymentMethod, String collateral) {
-    SubCriteriaOptionWrapper subCriteriaOptions = getSubcriteriaOptionsV2(oppId, ltv, tdsr, repaymentMethod, collateral);
+  public static RiskRatingWrapper getRiskRatingWrapperV2(
+    Id oppId,
+    Integer ltv,
+    Integer tdsr,
+    String repaymentMethod,
+    String collateral
+  ) {
+    SubCriteriaOptionWrapper subCriteriaOptions = getSubcriteriaOptionsV2(
+      oppId,
+      ltv,
+      tdsr,
+      repaymentMethod,
+      collateral
+    );
     CreditScoreModelWrapper creditWrapper = new CreditScoreModelWrapper(
       subCriteriaOptions
     );

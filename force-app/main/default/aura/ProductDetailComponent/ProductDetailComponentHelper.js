@@ -232,25 +232,26 @@
     let container = component.get("v.ChildContainer");
     const { LTVValue, repaymentMethod, TDSRBefore, collateralType } = container;
     let action = component.get("c.getCreditRiskRating");
-    if (isEmpty(collateralType) === false && validNumber(LTVValue) && validNumber(TDSRBefore) && !isEmpty(repaymentMethod)) {
-      console.info('Call getCreditScoreRatings')
+    if (!isEmpty(collateralType) && validNumber(LTVValue) && validNumber(TDSRBefore) && !isEmpty(repaymentMethod)) {
+      console.info('Call getCreditScoreRatings', roundedValue(LTVValue));
       action.setParams({
         oppId: component.get("v.recordId"),
-        ltv: LTVValue,
+        ltv: roundedValue(LTVValue),
         repaymentMethod: repaymentMethod,
-        tdsrBefore: TDSRBefore,
+        tdsrBefore: roundedValue(TDSRBefore),
         collateral: collateralType
       });
       action.setCallback(this, function (response) {
         let state = response.getState();
         let result = response.getReturnValue();
         if (state === "SUCCESS") {
+          console.info("Risk", result)
           container.riskRating = result;
           container.creditRiskScore = result.score;
           container.creditRiskRating = result.rating;
           component.set("v.ChildContainer", container);
         } else {
-          console.info(response.getError());
+          console.info((JSON.stringify(response.getError())));
         }
       });
       $A.enqueueAction(action);
