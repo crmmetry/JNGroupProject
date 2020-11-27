@@ -211,9 +211,6 @@ public class CreditScoreModelWrapper {
       );
     }
     if (subCriteriaOption.education != null) {
-      System.debug(Constants.EDUCATION);
-      System.debug(personalCreditScoreMap.containsKey(Constants.EDUCATION));
-      System.debug(personalCreditScoreMap.get(Constants.EDUCATION));
       finalScore += calculateScore(
         personalCreditScoreMap.get(Constants.EDUCATION),
         psd.getSubCriteriaOption(
@@ -237,7 +234,6 @@ public class CreditScoreModelWrapper {
   ) {
     Decimal score = 0;
     for (PersonalCreditScoreModelWrapper creditScore : creditScoreModelList) {
-      System.debug(creditScore);
       if (
         (creditScore.subCriteriaOption != null &&
         creditScore.subCriteriaOption.equalsIgnoreCase(subCriteriaOption)) ||
