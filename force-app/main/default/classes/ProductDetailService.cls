@@ -1,7 +1,3 @@
-/**
- * Ver  Ticket#      Date            Author                 Purpose
- * 1.0  JN1-4045     25/11/2020      Kirti R.(thinqloud)  Service class for product details component
- **/
 public class ProductDetailService {
   /*
    * Creates the personal Credit Score Map.
@@ -61,7 +57,6 @@ public class ProductDetailService {
           )
           ? personalCreditScoreModel.subCriteriaOptions.remove(Constants.YEARS)
           : personalCreditScoreModel.subCriteriaOptions.remove(Constants.YEAR);
-        System.debug(years);
         if (isWithinRange(fieldValue, years)) {
           subCriteriaOption = personalCreditScoreModel.subCriteriaOptions;
           break;
@@ -172,11 +167,10 @@ public class ProductDetailService {
    */
   public boolean isWithinRange(Integer fieldValue, String range) {
     Boolean flag = false;
-    if (
-      (range.contains('>') &&
-      fieldValue > Integer.ValueOf(range.remove('>').trim()))
-    ) {
-      flag = true;
+    if (range.contains('>')) {
+      if (fieldValue > Integer.ValueOf(range.remove('>').trim())) {
+        flag = true;
+      }
     } else if ((range.contains('-'))) {
       if (isWithinBound(range, fieldValue)) {
         flag = true;
