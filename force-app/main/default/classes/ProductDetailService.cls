@@ -368,6 +368,7 @@ public class ProductDetailService {
       empWrapper,
       applicant
     );
+    System.debug('SubCriteriaOptionWrapper = ' + subCriteriaOptions);
     return subCriteriaOptions;
   }
   /** *

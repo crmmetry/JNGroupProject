@@ -14,7 +14,7 @@ public with sharing class ProductDetailSelector {
       SELECT
         Status_of_Address__c,
         Years_at_Residence__c,
-        Highest_Level_of_Education__c,
+        Highest_Level_of_Education_attained__pc,
         FinServ__Age__pc,
         PersonBirthdate
       FROM Account

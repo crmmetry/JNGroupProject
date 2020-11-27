@@ -14,8 +14,8 @@ public class AccountWrapper {
 
   public AccountWrapper(Account accountObj) {
     this.age = accountObj.FinServ__Age__pc;
-    this.statusOfAddress = accountObj.Status_of_Address__c;
-    this.yearsAtResident = accountObj.Years_at_Residence__c;
-    this.highestLevelOfEducation = accountObj.Highest_Level_of_Education__c;
+    this.statusOfAddress = accountObj.Status_of_Address__pc;
+    this.yearsAtResident = accountObj.Years_at_Residence__pc;
+    this.highestLevelOfEducation = accountObj.Highest_Level_of_Education_attained__pc;
   }
 }

@@ -9,9 +9,9 @@ public with sharing class ProductDetailServiceTest {
   public static void testRiskRatingR1() {
     List<Opportunity> opList = TestDataFactory.CreateOpportunities(1);
     List<Account> accList = TestDataFactory.CreateBasicAccounts(1, 'Test');
-    accList[0].Status_of_Address__c = 'Own (with mortgage)';
-    accList[0].Years_at_Residence__c = 4;
-    accList[0].Highest_Level_of_Education__c = 'University: Post Graduate';
+    accList[0].Status_of_Address__pc = 'Own (with mortgage)';
+    accList[0].Years_at_Residence__pc = 4;
+    accList[0].Highest_Level_of_Education_attained__pc = 'University: Post Graduate';
     accList[0].PersonBirthdate = date.newInstance(
       System.Today().year() - 36,
       2,
@@ -73,9 +73,9 @@ public with sharing class ProductDetailServiceTest {
   public static void testRiskRatingR2() {
     List<Opportunity> opList = TestDataFactory.CreateOpportunities(1);
     List<Account> accList = TestDataFactory.CreateBasicAccounts(1, 'Test');
-    accList[0].Status_of_Address__c = 'Own (with mortgage)';
-    accList[0].Years_at_Residence__c = 4;
-    accList[0].Highest_Level_of_Education__c = 'High School';
+    accList[0].Status_of_Address__pc = 'Own (with mortgage)';
+    accList[0].Years_at_Residence__pc = 4;
+    accList[0].Highest_Level_of_Education_attained__pc = 'High School';
     accList[0].PersonBirthdate = date.newInstance(
       System.Today().year() - 60,
       2,
@@ -137,9 +137,9 @@ public with sharing class ProductDetailServiceTest {
   public static void testRiskRatingR3() {
     List<Opportunity> opList = TestDataFactory.CreateOpportunities(1);
     List<Account> accList = TestDataFactory.CreateBasicAccounts(1, 'Test');
-    accList[0].Status_of_Address__c = 'Family';
-    accList[0].Years_at_Residence__c = 4;
-    accList[0].Highest_Level_of_Education__c = 'High School';
+    accList[0].Status_of_Address__pc = 'Family';
+    accList[0].Years_at_Residence__pc = 4;
+    accList[0].Highest_Level_of_Education_attained__pc = 'High School';
     accList[0].PersonBirthdate = date.newInstance(
       System.Today().year() - 22,
       2,
@@ -201,9 +201,9 @@ public with sharing class ProductDetailServiceTest {
   public static void testRiskRatingR4() {
     List<Opportunity> opList = TestDataFactory.CreateOpportunities(1);
     List<Account> accList = TestDataFactory.CreateBasicAccounts(1, 'Test');
-    accList[0].Status_of_Address__c = 'Family';
-    accList[0].Years_at_Residence__c = 4;
-    accList[0].Highest_Level_of_Education__c = 'High School';
+    accList[0].Status_of_Address__pc = 'Family';
+    accList[0].Years_at_Residence__pc = 4;
+    accList[0].Highest_Level_of_Education_attained__pc = 'High School';
     accList[0].PersonBirthdate = date.newInstance(
       System.Today().year() - 22,
       2,
@@ -266,9 +266,9 @@ public with sharing class ProductDetailServiceTest {
   public static void testRiskRatingR5() {
     List<Opportunity> opList = TestDataFactory.CreateOpportunities(1);
     List<Account> accList = TestDataFactory.CreateBasicAccounts(1, 'Test');
-    accList[0].Status_of_Address__c = 'Other';
-    accList[0].Years_at_Residence__c = 1;
-    accList[0].Highest_Level_of_Education__c = 'High School';
+    accList[0].Status_of_Address__pc = 'Other';
+    accList[0].Years_at_Residence__pc = 1;
+    accList[0].Highest_Level_of_Education_attained__pc = 'High School';
     accList[0].PersonBirthdate = date.newInstance(
       System.Today().year() - 18,
       2,
@@ -330,9 +330,9 @@ public with sharing class ProductDetailServiceTest {
   public static void testRiskRatingR6() {
     List<Opportunity> opList = TestDataFactory.CreateOpportunities(1);
     List<Account> accList = TestDataFactory.CreateBasicAccounts(1, 'Test');
-    accList[0].Status_of_Address__c = 'Rent';
-    accList[0].Years_at_Residence__c = 1;
-    accList[0].Highest_Level_of_Education__c = 'High School';
+    accList[0].Status_of_Address__pc = 'Rent';
+    accList[0].Years_at_Residence__pc = 1;
+    accList[0].Highest_Level_of_Education_attained__pc = 'High School';
     accList[0].PersonBirthdate = date.newInstance(
       System.Today().year() - 31,
       2,
@@ -384,9 +384,9 @@ public with sharing class ProductDetailServiceTest {
   public static void testRiskRatingR7() {
     List<Opportunity> opList = TestDataFactory.CreateOpportunities(1);
     List<Account> accList = TestDataFactory.CreateBasicAccounts(1, 'Test');
-    accList[0].Status_of_Address__c = 'Rent';
-    accList[0].Years_at_Residence__c = 4;
-    accList[0].Highest_Level_of_Education__c = 'High School';
+    accList[0].Status_of_Address__pc = 'Rent';
+    accList[0].Years_at_Residence__pc = 4;
+    accList[0].Highest_Level_of_Education_attained__pc = 'High School';
     accList[0].PersonBirthdate = date.newInstance(
       System.Today().year() - 31,
       2,
@@ -448,8 +448,8 @@ public with sharing class ProductDetailServiceTest {
   public static void testRiskRatingR8() {
     List<Opportunity> opList = TestDataFactory.CreateOpportunities(1);
     List<Account> accList = TestDataFactory.CreateBasicAccounts(1, 'Test');
-    accList[0].Status_of_Address__c = 'Rent';
-    accList[0].Highest_Level_of_Education__c = 'High School';
+    accList[0].Status_of_Address__pc = 'Rent';
+    accList[0].Highest_Level_of_Education_attained__pc = 'High School';
     accList[0].PersonBirthdate = date.newInstance(
       System.Today().year() - 31,
       2,
