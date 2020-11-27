@@ -52,14 +52,12 @@ window.updateChildContainerWithValue = function (
   values,
   shouldSetComponentValue
 ) {
-  console.log("ststic resource method to update child container was reached!!");
   let container = component.get("v.ChildContainer");
   values.forEach((element) => {
     container[element.key] = element.value;
     if (shouldSetComponentValue)
       component.set(`v.${element.key}`, element.value);
   });
-  console.log("update child static resource reached end");
   return container;
 };
 /*

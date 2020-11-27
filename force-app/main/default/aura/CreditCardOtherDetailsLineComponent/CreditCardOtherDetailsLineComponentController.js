@@ -11,12 +11,9 @@
       containerName: ""
     };
     component.set("v.ChildContainer", data);
-    console.log("init called");
   },
   scriptsLoaded: function (component, event, helper) {
-    console.log("scriptsloaded: ");
     component.set("v.scriptsLoaded", true);
-    console.log("scriptsloaded: ", component.get("v.scriptsLoaded"));
   },
 
   onChildContainerChange: function (component, event, helper) {
@@ -27,24 +24,24 @@
       component.get("v.scriptsLoaded") &&
       component.get("v.notifyContainerChange")
     ) {
-      console.log("container changed but collateral: ", data.collateralType);
       fireProductDetailsEvent(null, data, component);
     }
   },
 
   onCollateralTypeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    console.log("colatertal type changed: ", selected);
-    console.log("scriptsloaded: ", component.get("v.scriptsLoaded"));
     let childKeyValuePairs = [
       {
         key: "collateralType",
         value: selected
       }
     ];
-    console.log("chilkeyvalue pairs created ", childKeyValuePairs);
-    helper.updateChildContainer(component, childKeyValuePairs, false);
-    console.log("child container was updated with collateral type ");
+    let data = updateChildContainerWithValue(
+      component,
+      childKeyValuePairs,
+      false
+    );
+    component.set("v.ChildContainer", data);
     let flag = toggleCashInvestmentFlag(selected);
     component.set("v.cashInvestmentFlag", flag);
   },

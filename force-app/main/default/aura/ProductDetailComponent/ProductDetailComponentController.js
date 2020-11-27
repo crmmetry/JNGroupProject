@@ -70,18 +70,19 @@
         attributesToUpdate,
         false
       );
-      if (
-        helper.detectObjectChanges(
-          component.get("v.ChildContainer"),
-          container,
-          ["LTVValue", "repaymentMethod", "TDSRAfter", "TDSRBefore"]
-        )
-      ) {
-        helper.getCreditScoreRatings(component);
-      }
+      // if (
+      //   helper.detectObjectChanges(
+      //     component.get("v.ChildContainer"),
+      //     container,
+      //     ["LTVValue", "repaymentMethod", "TDSRAfter", "TDSRBefore"]
+      //   )
+      // ) {
+        
+      // }
+      helper.getCreditScoreRatings(component);
       component.set("v.ChildContainer", updatedContainer);
       console.info(
-        "Current Child",
+        "Parenthical Child",
         JSON.parse(JSON.stringify(component.get("v.ChildContainer")))
       );
     }

@@ -12,7 +12,6 @@
       existingBalance: 0,
       loanToValueRatio: 0
     };
-    console.log("INIT");
     component.set("v.ChildContainer", data);
   },
   scriptsLoaded: function (component, event, helper) {
@@ -22,10 +21,6 @@
   onChildContainerChange: function (component, event, helper) {
     let container = component.get("v.ParentContainer");
     const childContainer = component.get("v.ChildContainer");
-    console.log(
-      "child container data: ",
-      JSON.parse(JSON.stringify(container))
-    );
     let data = Object.assign(container, childContainer);
     if (
       component.get("v.scriptsLoaded") &&
@@ -60,15 +55,12 @@
   },
 
   validateBalance: function (component, event, helper) {
-    console.log("validate balance reached");
     let data = component.get("v.ParentContainer");
     const inputCmpArray = component.find(
       "cash-investments-numerical-component"
     );
-    console.log("inputcmp array: ", JSON.parse(JSON.stringify(inputCmpArray)));
     inputCmpArray.forEach((element) => {
       if (element.get("v.name") == "deposit") {
-        console.log("validat balanced if statememnt reached");
         if (
           element.get("v.value") >
           calculatRequestedCreditBalanceLimit(data.requestedCreditLimit)
@@ -83,7 +75,6 @@
         }
       }
     });
-    console.log("validate balance ended");
   },
 
   onIsHypothecatedChange: function (component, event, helper) {

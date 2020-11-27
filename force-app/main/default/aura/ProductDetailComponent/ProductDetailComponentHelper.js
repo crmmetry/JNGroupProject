@@ -232,7 +232,8 @@
     let container = component.get("v.ChildContainer");
     const { LTVValue, repaymentMethod, TDSRBefore, collateralType } = container;
     let action = component.get("c.getCreditRiskRating");
-    if (isEmpty(collateralType) === false) {
+    if (isEmpty(collateralType) === false && validNumber(LTVValue) && validNumber(TDSRBefore) && !isEmpty(repaymentMethod)) {
+      console.info('Call getCreditScoreRatings')
       action.setParams({
         oppId: component.get("v.recordId"),
         ltv: LTVValue,
@@ -263,7 +264,7 @@
    */
   detectObjectChanges: function (oldObject, newObject, fields) {
     if (!oldObject || !newObject || !fields) return false;
-    fields.every((field) => {
+    return fields.every((field) => {
       //both have same fields and values are different
       if (newObject.hasOwnProperty(field) && oldObject.hasOwnProperty(field)) {
         //check if both are valid numbers     

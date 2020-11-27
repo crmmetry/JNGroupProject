@@ -497,6 +497,9 @@ window.validNumber = function (value) {
  * @return {Decimal}
  */
 window.LTVCalculatorAutoLoan = function (loanAmount, minimum) {
+  if (validNumber(loanAmount) === false || validNumber(minimum) === false) {
+    return 0;
+  }
   return roundedValue((parseFloat(loanAmount) / parseFloat(minimum)) * 100);
 };
 
@@ -508,10 +511,13 @@ window.LTVCalculatorAutoLoan = function (loanAmount, minimum) {
  * @return {Decimal}
  */
 window.LTVCalculatorCash = function (startingLimit, existingDebt, deposit) {
+  if (validNumber(startingLimit) === false || validNumber(existingDebt) === false || validNumber(deposit) === false) {
+    return 0;
+  }
   return roundedValue(
     ((parseFloat(startingLimit) + parseFloat(existingDebt)) /
       parseFloat(deposit)) *
-      100
+    100
   );
 };
 
@@ -522,8 +528,9 @@ window.LTVCalculatorCash = function (startingLimit, existingDebt, deposit) {
  * @return {Decimal}
  */
 window.TDSRBeforeCalculator = function (grossIncome, totalDebt) {
-  console.log("gross income: ", grossIncome);
-  console.log("total debt: ", totalDebt);
+  if (validNumber(grossIncome) === false || validNumber(totalDebt) === false) {
+    return 0;
+  }
   return roundedValue((parseFloat(totalDebt) / parseFloat(grossIncome)) * 100);
 };
 
@@ -534,9 +541,34 @@ window.TDSRBeforeCalculator = function (grossIncome, totalDebt) {
  * @return {Decimal}
  */
 window.TDSRAfterCalculator = function (grossIncome, totalDebt, minimumPayment) {
+  if (validNumber(grossIncome) === false || validNumber(totalDebt) === false || validNumber(minimumPayment) === false) {
+    return 0;
+  }
   return roundedValue(
     ((parseFloat(totalDebt) + parseFloat(minimumPayment)) /
       parseFloat(grossIncome)) *
-      100
+    100
   );
 };
+
+/**
+ * //TODO:dont use
+ * @param {*} fields 
+ * @param {*} container 
+ */
+function fieldValidator(fields, container) {
+  if (!fields || !container) return false;
+  return fields.every((field) => {
+    if (!container.hasOwnProperty(field) || isEmpty(container[field])) return false;
+    switch (typeof container[field]) {
+      case "string": {
+        return isEmpty(container[fiel])
+      }
+      case "number": {
+        return validNumber(container[field]);
+      }
+      default:
+        return isEmpty(container[field]);
+    }
+  })
+}
