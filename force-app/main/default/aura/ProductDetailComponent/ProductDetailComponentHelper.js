@@ -236,7 +236,7 @@
       console.info('Call getCreditScoreRatings', roundedValue(LTVValue));
       action.setParams({
         oppId: component.get("v.recordId"),
-        ltv: roundedValue(LTVValue),
+        ltv: this.LTVApplicableValue(component, container),
         repaymentMethod: repaymentMethod,
         tdsrBefore: roundedValue(TDSRBefore),
         collateral: collateralType
@@ -274,5 +274,25 @@
       }
       return false;
     });
-  }
+  },
+  /**
+   * checks whether current product family is auto or line of credit
+   * @param {*} component
+   * @param {Objec} container
+   * @return {Number} ltv
+   */
+    LTVApplicableValue: function (component, container) {
+      let selectedFlag = component.get("v.productSelection.productFamily");
+      const families = [
+        { name: "Auto"},
+        { name: "Line Of Credit"}
+      ];
+      const family = families.find((family) => {
+        return selectedFlag.includes(family.name);
+      });
+      if (family) {
+        return roundedValue(container.LTVValue);
+      }
+      return 0;
+    }
 });
