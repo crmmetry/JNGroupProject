@@ -581,14 +581,18 @@ function fieldValidator(fields, container) {
     }
   });
 }
-
+//TODO: Check that parameters are valid
+//ASL Step Calculations
 /**
  * ASL Calculation Step 1: Calculate Annual Gross Income
  * @param {Decimal} monthlyGrossIncome
  * @return {Decimal}
  */
 window.annualGrossIncomeCalculator = function (monthlyGrossIncome) {
-  return parseFloat(monthlyGrossIncome) * 12;
+  if (validNumber(monthlyGrossIncome)) {
+    return parseFloat(monthlyGrossIncome) * 12;
+  }
+  return 0;
 };
 
 /**
@@ -638,6 +642,7 @@ window.maximumAllowableForMinimumPaymentCalculator = function (
  * @return {Decimal}
  */
 window.computedMinimumPaymentFromCreditLimitCalculator = function (
+  //TODO: Modify to check product name on component to choose pricipal payment component metadata
   maxMinimumPayment,
   creditCardInterestRate,
   monthlyPrincipalPayment
@@ -701,5 +706,5 @@ window.approvedStartingLimitCalculator = function (
   creditLimitAfterRisk,
   requestedLimit
 ) {
-  return Math.min(parseFloat(creditLimitAfterRisk), parseFloat(discountFactor));
+  return Math.min(parseFloat(creditLimitAfterRisk), parseFloat(requestedLimit));
 };

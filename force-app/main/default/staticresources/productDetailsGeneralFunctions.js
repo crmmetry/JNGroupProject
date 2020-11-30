@@ -175,3 +175,57 @@ window.calculatRequestedCreditBalanceLimit = function (requestedCreditLimit) {
   //console.log("requested card limit: ", REQUESTED_CREDIT_LIMIT_PERCENTAGE);
   return requestedCreditLimit * REQUESTED_CREDIT_LIMIT_PERCENTAGE;
 };
+
+/**
+ * Calculate ASL
+ * @param {*} container
+ * @param {*} jnDefaults
+ * @return {Decimal}
+ */
+window.ASLCalculator = function (container, jnDefault, riskRatingFactor) {
+  //Step 1:
+  let annualGrossIncome = annualGrossIncomeCalculator(
+    container.grossMonthlyIncome
+  );
+  //Step 1.5:
+  let maxCredilLimit = maximumCreditLimitCalculator(
+    jnDefault.creditLimitMax,
+    annualGrossIncome
+  );
+  //Step 2:
+  let maxDebtPayment = maximumAllowableForMonthlyDebtPaymentsCalculator(
+    container.policyLimit,
+    container.grossMonthlyIncome
+  );
+  //Step 3:
+  let maxMinimumPayment = maximumAllowableForMinimumPaymentCalculator(
+    maxDebtPayment,
+    container.existingDebt
+  );
+  //Step 4:
+  let computedMinimumPayment = computedMinimumPaymentFromCreditLimitCalculator(
+    maxMinimumPayment,
+    container.interestRate,
+    jnDefault.creditCardPrincipalPayment
+  );
+  //Step 5:
+  let lowerCreditLimit = lowerCreditLimitCalculator(
+    computedMinimumPayment,
+    maxCredilLimit
+  );
+  //Step 6:
+  let creditLimitAfterRisk = creditLimitRiskCalculator(
+    lowerCreditLimit,
+    riskRatingFactor
+  );
+  //Step 7:
+  let startingLimit = startingCreditLimtCalculator(
+    creditLimitAfterRisk,
+    jnDefault.discountFactor
+  );
+  //Step 8:
+  return approvedStartingLimitCalculator(
+    startingLimit,
+    container.requestedLimit
+  );
+};
