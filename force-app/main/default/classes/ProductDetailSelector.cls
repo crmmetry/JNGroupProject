@@ -12,10 +12,9 @@ public with sharing class ProductDetailSelector {
     AccountWrapper accWrapper;
     Account accountObj = [
       SELECT
-        Status_of_Address__c,
-        Years_at_Residence__c,
+        Status_of_Address__pc,
+        Years_at_Residence__pc,
         Highest_Level_of_Education_attained__pc,
-        FinServ__Age__pc,
         PersonBirthdate
       FROM Account
       WHERE Id = :accountId
