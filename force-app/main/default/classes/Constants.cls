@@ -7,7 +7,8 @@ public class Constants {
   public static final String DEFAULT_METADATA_LABEL = 'Default';
   public static final String INVALID_TENURE = 'Sorry an invalid tenure has been entered. Please be reminded a tenure has to be greater than 0 and less than 10.';
   public static final Integer MAX_CREDITOR_LIFE_AGE = 64;
-
+  public static final String APPLICANT_WRAPPER = 'Applicant Wrapper';
+  public static final String APPLICANT_ASSETS_AND_LIABILITIES_WRAPPER = 'Assets and Liabiltiy Wrapper';
   //JN1-4045
   public static final String AGE = 'Age';
   public static final String EDUCATION = 'Highest Level of Education attained';
@@ -43,4 +44,14 @@ public class Constants {
   public static final String POST_GRADUATE = 'Post Graduate';
   public static final String UNDERGRADUATE_GRADUATE = 'Undergraduate';
   public static final String VOCATIONAL = 'Vocational';
+
+  public static final String THREE_TO_FOUR_YEARS_AND_OR = 'Good growth and or profit trends for 3-4 years';
+  public static final String UP_TO_TWO_YEARS_AND_OR = 'Good growth and or profit trends for up to 2 years';
+  public static final String INADEQUATE_AND_OR = 'Inadequate growth and or profit trends';
+  public static final String INCONSISTANT_AND_OR = 'Inconsistent profit/growth trends';
+
+  public static final String THREE_TO_FOUR_YEARS = 'Good growth and profit trends for 3 - 4 years';
+  public static final String UP_TO_TWO_YEARS = 'Good growth and profit trends for up to 2 years';
+  public static final String INADEQUATE = 'Inconsistent profit/growth trends';
+  public static final String INCONSISTANT = 'Inadequate growth and/or profit trends';
 }
