@@ -1,7 +1,12 @@
 <aura:component>
   <!-- Static Resource -->
   <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
-
+  <aura:attribute
+    name="notifyContainerChange"
+    type="Boolean"
+    default="true"
+    description="used to indicate whether the component should react to the ChildContainer changes"
+  />
   <ltng:require scripts="{!join(',', 
     $Resource.constants,
     $Resource.calculations, 

@@ -94,8 +94,23 @@ public class CreditScoreModelWrapper {
       );
     }
     if (subCriteriaOption.industryOfEmployment != null) {
+      List<PersonalCreditScoreModelWrapper> typeList = new List<PersonalCreditScoreModelWrapper>();
+
+      for (
+        PersonalCreditScoreModelWrapper wrapper : personalCreditScoreMap.get(
+          Constants.INDUSTRY
+        )
+      ) {
+        if (wrapper.salariedScore != null && isSalaried) {
+          typeList.add(wrapper);
+        } else {
+          if (wrapper.salariedScore == null && isSalaried == false) {
+            typeList.add(wrapper);
+          }
+        }
+      }
       finalScore += calculateScore(
-        personalCreditScoreMap.get(Constants.INDUSTRY),
+        typeList,
         psd.getSubCriteriaOption(
           Constants.INDUSTRY,
           subCriteriaOption.industryOfEmployment
@@ -129,7 +144,7 @@ public class CreditScoreModelWrapper {
         )
       );
     }
-    if (subCriteriaOption.typeOfIndustry != null) {
+    /*if (subCriteriaOption.typeOfIndustry != null) {
       finalScore += calculateScore(
         personalCreditScoreMap.get(Constants.INDUSTRY),
         psd.getSubCriteriaOption(
@@ -137,7 +152,7 @@ public class CreditScoreModelWrapper {
           subCriteriaOption.typeOfIndustry
         )
       );
-    }
+    }*/
     if (subCriteriaOption.financialPerformance != null) {
       finalScore += calculateScore(
         personalCreditScoreMap.get(Constants.FINANCIAL_PERFORMANCE),
