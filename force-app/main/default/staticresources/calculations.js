@@ -602,10 +602,19 @@ window.annualGrossIncomeCalculator = function (monthlyGrossIncome) {
  * @return {Decimal}
  */
 window.maximumCreditLimitCalculator = function (
-  creditLimitAllowable,
+  maxCreditLimitAllowable,
+  minCreditLimitAllowable,
   annualGrossIncome
 ) {
-  return parseFloat(creditLimitAllowable) * parseFloat(annualGrossIncome);
+  if (validNumber(creditLimitAllowable) && validNumber(annualGrossIncome)) {
+    if (annualGrossIncome > 3000000) {
+      return (
+        parseFloat(maxCreditLimitAllowable) * parseFloat(annualGrossIncome)
+      );
+    }
+    return parseFloat(minCreditLimitAllowable) * parseFloat(annualGrossIncome);
+  }
+  return 0;
 };
 
 /**
@@ -618,7 +627,10 @@ window.maximumAllowableForMonthlyDebtPaymentsCalculator = function (
   monthlyGrossIncome,
   policyLimit
 ) {
-  return parseFloat(monthlyGrossIncome) * parseFloat(policyLimit);
+  if (validNumber(monthlyGrossIncome) && validNumber(policyLimit)) {
+    return parseFloat(monthlyGrossIncome) * parseFloat(policyLimit);
+  }
+  return 0;
 };
 
 /**
@@ -631,7 +643,10 @@ window.maximumAllowableForMinimumPaymentCalculator = function (
   maxDebtPayment,
   existingDebt
 ) {
-  return parseFloat(maxDebtPayment) - parseFloat(existingDebt);
+  if (validNumber(maxDebtPayment) && validNumber(existingDebt)) {
+    return parseFloat(maxDebtPayment) - parseFloat(existingDebt);
+  }
+  return 0;
 };
 
 /**
@@ -647,11 +662,18 @@ window.computedMinimumPaymentFromCreditLimitCalculator = function (
   creditCardInterestRate,
   monthlyPrincipalPayment
 ) {
-  return (
-    parseFloat(maxMinimumPayment) /
-    (parseFloat(creditCardInterestRate) / 12 +
-      parseFloat(monthlyPrincipalPayment))
-  );
+  if (
+    validNumber(maxMinimumPayment) &&
+    validNumber(creditCardInterestRate) &&
+    validNumber(monthlyPrincipalPayment)
+  ) {
+    return (
+      parseFloat(maxMinimumPayment) /
+      (parseFloat(creditCardInterestRate) / 12 +
+        parseFloat(monthlyPrincipalPayment))
+    );
+  }
+  return 0;
 };
 
 /**
@@ -664,10 +686,13 @@ window.lowerCreditLimitCalculator = function (
   computedMinimumPayment,
   maxCreditCardLimit
 ) {
-  return Math.min(
-    parseFloat(computedMinimumPayment),
-    parseFloat(maxCreditCardLimit)
-  );
+  if (validNumber(computedMinimumPayment) && validNumber(maxCreditCardLimit)) {
+    return Math.min(
+      parseFloat(computedMinimumPayment),
+      parseFloat(maxCreditCardLimit)
+    );
+  }
+  return 0;
 };
 
 /**
@@ -680,7 +705,10 @@ window.creditLimitRiskCalculator = function (
   lowerCreditLimit,
   riskRatingFactor
 ) {
-  return parseFloat(lowerCreditLimit) * parseFloat(riskRatingFactor);
+  if (validNumber(lowerCreditLimit) && validNumber(riskRatingFactor)) {
+    return parseFloat(lowerCreditLimit) * parseFloat(riskRatingFactor);
+  }
+  return 0;
 };
 
 /**
@@ -693,7 +721,10 @@ window.startingCreditLimtCalculator = function (
   creditLimitAfterRisk,
   discountFactor
 ) {
-  return parseFloat(creditLimitAfterRisk) * parseFloat(discountFactor) * 2;
+  if (validNumber(creditLimitAfterRisk) && validNumber(discountFactor)) {
+    return parseFloat(creditLimitAfterRisk) * parseFloat(discountFactor) * 2;
+  }
+  return 0;
 };
 
 /**
@@ -706,5 +737,11 @@ window.approvedStartingLimitCalculator = function (
   creditLimitAfterRisk,
   requestedLimit
 ) {
-  return Math.min(parseFloat(creditLimitAfterRisk), parseFloat(requestedLimit));
+  if (validNumber(creditLimitAfterRisk) && validNumber(requestedLimit)) {
+    return Math.min(
+      parseFloat(creditLimitAfterRisk),
+      parseFloat(requestedLimit)
+    );
+  }
+  return 0;
 };

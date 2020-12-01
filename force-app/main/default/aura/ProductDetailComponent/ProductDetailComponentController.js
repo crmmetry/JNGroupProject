@@ -23,6 +23,7 @@
     helper.updateProductSelection(component);
     helper.getJNConfigurations(component);
     helper.getAssetsAndLiabilitiesForApplicant(component);
+    helper.getRiskRatingMap(component);
     //helper.getApplicants(component);
   },
   // onLoanPurposeChange: function (component, event, helper) {
@@ -70,6 +71,14 @@
         attributesToUpdate,
         false
       );
+      //Calculate Approve Starting Limit
+      let ASL = helper.ASLCalculations(component);
+      let childContainerValues = [{ key: "ASL", value: ASL }];
+      const updatedContainer = updateChildContainerWithValue(
+        component,
+        childContainerValues,
+        false
+      );
       // if (
       //   helper.detectObjectChanges(
       //     component.get("v.ChildContainer"),
@@ -77,7 +86,7 @@
       //     ["LTVValue", "repaymentMethod", "TDSRAfter", "TDSRBefore"]
       //   )
       // ) {
-        
+
       // }
       helper.getCreditScoreRatings(component);
       component.set("v.ChildContainer", updatedContainer);

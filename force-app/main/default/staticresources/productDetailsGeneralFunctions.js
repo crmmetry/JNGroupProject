@@ -182,48 +182,66 @@ window.calculatRequestedCreditBalanceLimit = function (requestedCreditLimit) {
  * @param {*} jnDefaults
  * @return {Decimal}
  */
-window.ASLCalculator = function (container, jnDefault, riskRatingFactor) {
+window.ASLCalculator = function (container, jnDefault) {
+  let principalPayment = 0;
+  let results = [];
+  if (container.productFamily === "Credit Card") {
+    principalPayment = jnDefault.creditCardPrincipalPayment;
+  } else {
+    principalPayment = jnDefault.lineOfCreditPrincipalPayment;
+  }
   //Step 1:
   let annualGrossIncome = annualGrossIncomeCalculator(
     container.grossMonthlyIncome
   );
+  results.add(annualGrossIncome);
   //Step 1.5:
   let maxCredilLimit = maximumCreditLimitCalculator(
     jnDefault.creditLimitMax,
     annualGrossIncome
   );
+  results.add(maxCredilLimit);
   //Step 2:
   let maxDebtPayment = maximumAllowableForMonthlyDebtPaymentsCalculator(
     container.policyLimit,
     container.grossMonthlyIncome
   );
+  results.add(maxDebtPayment);
   //Step 3:
   let maxMinimumPayment = maximumAllowableForMinimumPaymentCalculator(
     maxDebtPayment,
     container.existingDebt
   );
+  results.add(maxMinimumPayment);
   //Step 4:
   let computedMinimumPayment = computedMinimumPaymentFromCreditLimitCalculator(
     maxMinimumPayment,
     container.interestRate,
-    jnDefault.creditCardPrincipalPayment
+    principalPayment
   );
+  results.add(computedMinimumPayment);
   //Step 5:
   let lowerCreditLimit = lowerCreditLimitCalculator(
     computedMinimumPayment,
     maxCredilLimit
   );
+  results.add(lowerCreditLimit);
   //Step 6:
   let creditLimitAfterRisk = creditLimitRiskCalculator(
     lowerCreditLimit,
-    riskRatingFactor
+    container.score
   );
+  results.add(creditLimitAfterRisk);
   //Step 7:
   let startingLimit = startingCreditLimtCalculator(
     creditLimitAfterRisk,
     jnDefault.discountFactor
   );
+  results.add(startingLimit);
   //Step 8:
+  results.forEach((element) => {
+    if (element === 0) return 0;
+  });
   return approvedStartingLimitCalculator(
     startingLimit,
     container.requestedLimit
