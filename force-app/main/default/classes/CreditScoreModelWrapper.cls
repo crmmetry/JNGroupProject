@@ -101,13 +101,12 @@ public class CreditScoreModelWrapper {
           Constants.INDUSTRY
         )
       ) {
-        if (wrapper.salariedScore != null) {
-          if (isSalaried) {
+        if (wrapper.salariedScore != null && isSalaried) {
+          typeList.add(wrapper);
+        } else {
+          if (wrapper.salariedScore == null && isSalaried == false) {
             typeList.add(wrapper);
           }
-          continue;
-        } else {
-          typeList.add(wrapper);
         }
       }
       finalScore += calculateScore(
