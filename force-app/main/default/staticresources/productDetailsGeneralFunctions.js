@@ -182,68 +182,84 @@ window.calculatRequestedCreditBalanceLimit = function (requestedCreditLimit) {
  * @param {*} jnDefaults
  * @return {Decimal}
  */
-window.ASLCalculator = function (container, jnDefault) {
+window.ASLCalculator = function (container, jnDefault, riskFactor) {
   let principalPayment = 0;
-  let results = [];
-  if (container.productFamily === "Credit Card") {
+  //let results = [];
+  console.log("productFamily: ", container.productFamily);
+  if (container.productFamily === "JN Bank Credit Card") {
     principalPayment = jnDefault.creditCardPrincipalPayment;
+    console.log("pp", principalPayment);
   } else {
     principalPayment = jnDefault.lineOfCreditPrincipalPayment;
+    console.log("pp", principalPayment);
   }
-  //Step 1:
+  // //Step 1:
   let annualGrossIncome = annualGrossIncomeCalculator(
     container.grossMonthlyIncome
   );
-  results.add(annualGrossIncome);
-  //Step 1.5:
+  //results.add(annualGrossIncome);
+  console.log("AGI", annualGrossIncome);
+  // //Step 1.5:
   let maxCredilLimit = maximumCreditLimitCalculator(
     jnDefault.creditLimitMax,
+    jnDefault.creditLimitMin,
     annualGrossIncome
   );
-  results.add(maxCredilLimit);
+  // results.add(maxCredilLimit);
+  console.log("MCL", maxCredilLimit);
   //Step 2:
   let maxDebtPayment = maximumAllowableForMonthlyDebtPaymentsCalculator(
-    container.policyLimit,
+    jnDefault.policyLimit,
     container.grossMonthlyIncome
   );
-  results.add(maxDebtPayment);
+  //results.add(maxDebtPayment);
+  console.log("MDP", maxDebtPayment);
   //Step 3:
   let maxMinimumPayment = maximumAllowableForMinimumPaymentCalculator(
     maxDebtPayment,
     container.existingDebt
   );
-  results.add(maxMinimumPayment);
+  //results.add(maxMinimumPayment);
+  console.log("MDP", maxDebtPayment);
   //Step 4:
   let computedMinimumPayment = computedMinimumPaymentFromCreditLimitCalculator(
     maxMinimumPayment,
     container.interestRate,
     principalPayment
   );
-  results.add(computedMinimumPayment);
+  //results.add(computedMinimumPayment);
+  console.log("CMP", computedMinimumPayment);
   //Step 5:
   let lowerCreditLimit = lowerCreditLimitCalculator(
     computedMinimumPayment,
     maxCredilLimit
   );
-  results.add(lowerCreditLimit);
+  //results.add(lowerCreditLimit);
+  console.log("lcl", lowerCreditLimit);
   //Step 6:
   let creditLimitAfterRisk = creditLimitRiskCalculator(
     lowerCreditLimit,
-    container.score
+    riskFactor
   );
-  results.add(creditLimitAfterRisk);
+  //results.add(creditLimitAfterRisk);
+  console.log("creditLimitAfterRisk", creditLimitAfterRisk);
   //Step 7:
   let startingLimit = startingCreditLimtCalculator(
     creditLimitAfterRisk,
     jnDefault.discountFactor
   );
-  results.add(startingLimit);
+  console.log("SL", startingLimit);
+  //results.add(startingLimit);
   //Step 8:
-  results.forEach((element) => {
-    if (element === 0) return 0;
-  });
+  // results.forEach((element) => {
+  //   if (element === 0) return 0;
+  // });
+  // return approvedStartingLimitCalculator(
+  //   startingLimit,
+  //   container.requestedLimit
+  // );
   return approvedStartingLimitCalculator(
     startingLimit,
-    container.requestedLimit
+    container.requestedCreditLimit
   );
 };

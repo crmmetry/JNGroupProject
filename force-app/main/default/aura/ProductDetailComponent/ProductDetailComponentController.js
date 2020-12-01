@@ -23,7 +23,7 @@
     helper.updateProductSelection(component);
     helper.getJNConfigurations(component);
     helper.getAssetsAndLiabilitiesForApplicant(component);
-    helper.getRiskRatingMap(component);
+    helper.getRiskRatingFactorsMap(component);
     //helper.getApplicants(component);
   },
   // onLoanPurposeChange: function (component, event, helper) {
@@ -47,6 +47,7 @@
    * @param {*} helper
    */
   handleProductDetailsEvent: function (component, event, helper) {
+    const updatedContainer = {};
     if (component.get("v.scriptsLoaded")) {
       let container = Object.assign(
         component.get("v.ChildContainer"),
@@ -71,14 +72,17 @@
         attributesToUpdate,
         false
       );
+      //component.set("v.ChildContainer", updatedContainer);
       //Calculate Approve Starting Limit
+      console.log("ASL Helper");
       let ASL = helper.ASLCalculations(component);
       let childContainerValues = [{ key: "ASL", value: ASL }];
-      const updatedContainer = updateChildContainerWithValue(
+      const updatedContainer2 = updateChildContainerWithValue(
         component,
         childContainerValues,
         false
       );
+      component.set("v.ChildContainer", updatedContainer2);
       // if (
       //   helper.detectObjectChanges(
       //     component.get("v.ChildContainer"),

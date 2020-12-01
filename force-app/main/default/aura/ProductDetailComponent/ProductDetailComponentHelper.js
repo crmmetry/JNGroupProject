@@ -62,18 +62,19 @@
    * Retrieves risk rating map from apex
    * @param {*} container
    */
-  getRiskRatingMap: function (component) {
+  getRiskRatingFactorsMap: function (component) {
     let action = component.get("c.getRiskRatingMap");
     action.setCallback(this, function (response) {
       let state = response.getState(); //Checking response status
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
-        component.set("v.RiskRating", result);
-        console.log("Risk Ratings:", JSON.parse(JSON.stringify(result)));
+        component.set("v.RiskRatings", result);
+        console.log("Risk Ratings: ", JSON.parse(JSON.stringify(result)));
       }
     });
     $A.enqueueAction(action);
   },
+
   /**
    * Retrieves All applicants belonging to a particular opportunity.
    * @param {*} container
@@ -318,14 +319,36 @@
     return 0;
   },
   /**
+   * Selects appropriate risk rating factor
+   * @param {*} component
+   * @return {Number} risk factor
+   */
+
+  getRiskRatingFactor: function (component, riskRating) {
+    let riskRatingMap = component.get("v.RiskRatings");
+    if (riskRatingMap) {
+      return riskRatingMap[riskRating];
+    }
+    return null;
+  },
+  /**
    * Calculate Approved Starting Limit
    * @param {*} component
    * @return {Number} asl
    */
 
   ASLCalculations: function (component) {
+    console.log("factor: ");
     let container = component.get("v.ChildContainer");
     let jnDefaults = component.get("v.jnDefaultConfigs");
-    return ASLCalculator(container, jnDefaults);
+    let riskFactor = this.getRiskRatingFactor(component, "R1");
+    console.log("factor: ", riskFactor);
+    if (riskFactor !== null) {
+      return ASLCalculator(container, jnDefaults, riskFactor);
+    }
+
+    // let container = component.get("v.ChildContainer");
+    // let jnDefaults = component.get("v.jnDefaultConfigs");
+    // return ASLCalculator(container, jnDefaults, riskFactor);
   }
 });

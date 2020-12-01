@@ -17,11 +17,22 @@ public with sharing class ProductDetailController {
     String collateral
   ) {
     try {
-      System.debug('Oppid=' + oppId+ ' Ltv =' + ltv + 'tdsrBefore =' + tdsrBefore + ' repaymentMethod =' +repaymentMethod + 'collateral ' + collateral);
+      System.debug(
+        'Oppid=' +
+        oppId +
+        ' Ltv =' +
+        ltv +
+        'tdsrBefore =' +
+        tdsrBefore +
+        ' repaymentMethod =' +
+        repaymentMethod +
+        'collateral ' +
+        collateral
+      );
       RiskRatingWrapper wrapper = ProductDetailService.getRiskRatingWrapperV2(
         oppId,
-        (Integer)ltv,
-        (Integer)tdsrBefore,
+        (Integer) ltv,
+        (Integer) tdsrBefore,
         repaymentMethod,
         collateral
       );
@@ -165,5 +176,26 @@ public with sharing class ProductDetailController {
       wrappers.add(appWrapper);
     }
     return wrappers;
+  }
+
+  /**
+   * retrievesrisk rating matrix.
+   * @return Map
+   */
+  @AuraEnabled
+  public static Map<String, Decimal> getRiskRatingMap() {
+    Map<String, Decimal> riskRatingMap = new Map<String, Decimal>();
+    List<Risk_Rating_Factor__mdt> riskRatingFactors = [
+      SELECT Risk_Rating_List__c, Score_Range_Number__c
+      FROM Risk_Rating_Factor__mdt
+    ];
+    for (Risk_Rating_Factor__mdt record : riskRatingFactors) {
+      riskRatingMap.put(
+        record.Risk_Rating_List__c,
+        record.Score_Range_Number__c
+      );
+    }
+    System.debug('Risk Ratings:' + riskRatingMap);
+    return riskRatingMap;
   }
 }

@@ -606,7 +606,11 @@ window.maximumCreditLimitCalculator = function (
   minCreditLimitAllowable,
   annualGrossIncome
 ) {
-  if (validNumber(creditLimitAllowable) && validNumber(annualGrossIncome)) {
+  if (
+    validNumber(maxCreditLimitAllowable) &&
+    validNumber(minCreditLimitAllowable) &&
+    validNumber(annualGrossIncome)
+  ) {
     if (annualGrossIncome > 3000000) {
       return (
         parseFloat(maxCreditLimitAllowable) * parseFloat(annualGrossIncome)
