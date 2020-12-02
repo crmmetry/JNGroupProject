@@ -30,7 +30,7 @@
     $A.enqueueAction(action);
   },
   updateApplicant: function (component) {
-    let action = component.get("c.updateApplicantDetails");
+    let action = component.get("c.updateApplicantDetailsBasic");
     console.info("current applicant", component.get("v.applicant"));
     /*JN1-4030: START*/
     var applicant = component.get("v.applicant");

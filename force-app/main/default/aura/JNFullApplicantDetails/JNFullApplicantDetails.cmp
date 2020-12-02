@@ -35,7 +35,6 @@
           alignmentBump="right"
           padding="around-small"
         >
-          <div class="slds-text-heading_small">Source Of Income</div>
         </lightning:layoutItem>
         <lightning:layoutItem
           flexibility="no-flex"
