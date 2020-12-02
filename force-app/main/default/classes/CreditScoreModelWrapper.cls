@@ -38,60 +38,73 @@ public class CreditScoreModelWrapper {
    * @return {Decimal} - return the final calculated score
    */
   public Decimal getRiskScore(SubCriteriaOptionWrapper subCriteriaOption) {
+    Decimal score = 0;
     Decimal finalScore = 0;
     if (subCriteriaOption.age != null) {
-      finalScore = calculateScore(
+      score = calculateScore(
         personalCreditScoreMap.get(Constants.AGE),
         psd.getSubCriteriaOption(
           Constants.AGE,
           String.valueOf(subCriteriaOption.age)
         )
       );
+      finalScore += score;
+      System.debug('Age Score = ' + score);
     }
     if (subCriteriaOption.residentialStatus != null) {
-      finalScore += calculateScore(
+      score = calculateScore(
         personalCreditScoreMap.get(Constants.STATUS_OF_ADDRESS),
         psd.getSubCriteriaOption(
           Constants.STATUS_OF_ADDRESS,
           subCriteriaOption.residentialStatus
         )
       );
+      finalScore += score;
+      System.debug('Status of Address Score = ' + score);
     }
     if (subCriteriaOption.yearsAtCurrentResidence != null) {
-      finalScore += calculateScore(
+      score = calculateScore(
         personalCreditScoreMap.get(Constants.YEARS_AT_RESIDENCE),
         psd.getSubCriteriaOption(
           Constants.YEARS_AT_RESIDENCE,
           String.valueOf(subCriteriaOption.yearsAtCurrentResidence)
         )
       );
+      finalScore += score;
+      System.debug('Years at Residence Score = ' + score);
     }
     if (subCriteriaOption.creditHistory != null) {
-      finalScore += calculateScore(
+      score = calculateScore(
         personalCreditScoreMap.get(Constants.CREDIT_HISTORY),
         psd.getSubCriteriaOption(
           Constants.CREDIT_HISTORY,
           subCriteriaOption.creditHistory
         )
       );
+      finalScore += score;
+      System.debug('Credit history Score = ' + score);
     }
     if (subCriteriaOption.netWorth != null) {
-      finalScore += calculateScore(
+      score = calculateScore(
         personalCreditScoreMap.get(Constants.NET_WORTH),
         psd.getSubCriteriaOption(
           Constants.NET_WORTH,
           subCriteriaOption.netWorth
         )
       );
+      finalScore += score;
+      System.debug('Net worth Score = ' + score);
     }
     if (subCriteriaOption.employmentStatus != null) {
-      finalScore += calculateScore(
+      score = calculateScore(
         personalCreditScoreMap.get(Constants.EMPLOYMENT_STATUS),
         psd.getSubCriteriaOption(
           Constants.EMPLOYMENT_STATUS,
           subCriteriaOption.employmentStatus
         )
       );
+      finalScore += score;
+      System.debug('Employment status Score = ' + score);
     }
     if (subCriteriaOption.industryOfEmployment != null) {
       List<PersonalCreditScoreModelWrapper> typeList = new List<PersonalCreditScoreModelWrapper>();
@@ -109,130 +122,147 @@ public class CreditScoreModelWrapper {
           }
         }
       }
-      finalScore += calculateScore(
+      score = calculateScore(
         typeList,
         psd.getSubCriteriaOption(
           Constants.INDUSTRY,
           subCriteriaOption.industryOfEmployment
         )
       );
+      finalScore += score;
+      System.debug('Industry Employment Score = ' + score);
     }
     if (subCriteriaOption.lengthOfCurrentEmployment != null) {
-      finalScore += calculateScore(
+      score = calculateScore(
         personalCreditScoreMap.get(Constants.LENGTH_OF_EMPLOYMENT),
         psd.getSubCriteriaOption(
           Constants.LENGTH_OF_EMPLOYMENT,
           String.valueOf(subCriteriaOption.lengthOfCurrentEmployment)
         )
       );
+      finalScore += score;
+      System.debug('Length of Employment Score = ' + score);
     }
     if (subCriteriaOption.professionalCategory != null) {
-      finalScore += calculateScore(
+      score = calculateScore(
         personalCreditScoreMap.get(Constants.PROFESSIONAL_CATEGORY),
         psd.getSubCriteriaOption(
           Constants.PROFESSIONAL_CATEGORY,
           subCriteriaOption.professionalCategory
         )
       );
+      finalScore += score;
+      System.debug('Professional Category Score = ' + score);
     }
     if (subCriteriaOption.natureOfEngagement != null) {
-      finalScore += calculateScore(
+      score = calculateScore(
         personalCreditScoreMap.get(Constants.NATURE_OF_ENGAGEMENT),
         psd.getSubCriteriaOption(
           Constants.NATURE_OF_ENGAGEMENT,
           subCriteriaOption.natureOfEngagement
         )
       );
+      finalScore += score;
+      System.debug('Nature of engagment Score = ' + score);
     }
-    /*if (subCriteriaOption.typeOfIndustry != null) {
-      finalScore += calculateScore(
-        personalCreditScoreMap.get(Constants.INDUSTRY),
-        psd.getSubCriteriaOption(
-          Constants.INDUSTRY,
-          subCriteriaOption.typeOfIndustry
-        )
-      );
-    }*/
     if (subCriteriaOption.financialPerformance != null) {
-      finalScore += calculateScore(
+      score = calculateScore(
         personalCreditScoreMap.get(Constants.FINANCIAL_PERFORMANCE),
         psd.getSubCriteriaOption(
           Constants.FINANCIAL_PERFORMANCE,
           subCriteriaOption.financialPerformance
         )
       );
+      finalScore += score;
+      System.debug('Financial performance Score = ' + score);
     }
     if (subCriteriaOption.financialStatementSupport != null) {
-      finalScore += calculateScore(
+      score = calculateScore(
         personalCreditScoreMap.get(Constants.FINACIAL_STATEMENT),
         psd.getSubCriteriaOption(
           Constants.FINACIAL_STATEMENT,
           subCriteriaOption.financialStatementSupport
         )
       );
+      finalScore += score;
+      System.debug('Financial Statement support Score = ' + score);
     }
     if (subCriteriaOption.lengthOfTrade != null) {
-      finalScore += calculateScore(
+      score = calculateScore(
         personalCreditScoreMap.get(Constants.LENGTH_OF_TRADE),
         psd.getSubCriteriaOption(
           Constants.LENGTH_OF_TRADE,
           subCriteriaOption.lengthOfTrade
         )
       );
+      finalScore += score;
+      System.debug('Length of trade Score = ' + score);
     }
     if (subCriteriaOption.collateral != null) {
-      finalScore += calculateScore(
+      score = calculateScore(
         personalCreditScoreMap.get(Constants.COLLATERAL),
         psd.getSubCriteriaOption(
           Constants.COLLATERAL,
           subCriteriaOption.collateral
         )
       );
+      finalScore += score;
+      System.debug('Collateral Score = ' + score);
     }
     if (subCriteriaOption.loanToValue != null) {
-      finalScore += calculateScore(
+      score = calculateScore(
         personalCreditScoreMap.get(Constants.LOAN_TO_VALUE),
         psd.getSubCriteriaOption(
           Constants.LOAN_TO_VALUE,
           String.valueOf(subCriteriaOption.loanToValue)
         )
       );
+      finalScore += score;
+      System.debug('LTV Score = ' + score);
     }
     if (subCriteriaOption.ablitityToService != null) {
-      finalScore += calculateScore(
+      score = calculateScore(
         personalCreditScoreMap.get(Constants.ABILITY_TO_SERVICE),
         psd.getSubCriteriaOption(
           Constants.ABILITY_TO_SERVICE,
           String.valueOf(subCriteriaOption.ablitityToService)
         )
       );
+      finalScore += score;
+      System.debug('TDSR Score = ' + score);
     }
     if (subCriteriaOption.repaymentMethod != null) {
-      finalScore += calculateScore(
+      score = calculateScore(
         personalCreditScoreMap.get(Constants.REPAYMENT_METHOD),
         psd.getSubCriteriaOption(
           Constants.REPAYMENT_METHOD,
           subCriteriaOption.repaymentMethod
         )
       );
+      finalScore += score;
+      System.debug('Repayment method Score = ' + score);
     }
     if (subCriteriaOption.workingCapital != null) {
-      finalScore += calculateScore(
+      score = calculateScore(
         personalCreditScoreMap.get(Constants.WORKING_CAPITA),
         psd.getSubCriteriaOption(
           Constants.WORKING_CAPITA,
           subCriteriaOption.workingCapital
         )
       );
+      finalScore += score;
+      System.debug('Working capital Score = ' + score);
     }
     if (subCriteriaOption.education != null) {
-      finalScore += calculateScore(
+      score = calculateScore(
         personalCreditScoreMap.get(Constants.EDUCATION),
         psd.getSubCriteriaOption(
           Constants.EDUCATION,
           subCriteriaOption.education
         )
       );
+      finalScore += score;
+      System.debug('Education Score = ' + score);
     }
     return finalScore;
   }

@@ -6,6 +6,72 @@
 @IsTest
 public with sharing class ProductDetailServiceTest {
   @IsTest
+  public static void testScenario1() {
+    List<Opportunity> opList = TestDataFactory.CreateOpportunities(1);
+    List<Account> accList = TestDataFactory.CreateBasicAccounts(1, 'Test');
+    accList[0].Status_of_Address__pc = 'Family';
+    accList[0].Years_at_Residence__pc = 12;
+    accList[0]
+      .Highest_Level_of_Education_attained__pc = 'High School';
+    accList[0].PersonBirthdate = date.newInstance(
+      System.Today().year() - 25,
+      2,
+      11
+    );
+    insert accList;
+
+    opList[0].accountId = accList[0].id;
+    opList[0].Collateral_CC__c = 'None';
+    opList[0].Collateral_LOC__c = 'None';
+    opList[0].Loan_to_ValueCC__c = null;
+    insert opList[0];
+
+    FinServ__Employment__c employee = TestDataFactory.CreateEmployment(
+      accList[0].id,
+      'Employeement Test'
+    );
+    employee.Current_Employment__c = true;
+   // employee.FinServ__EmploymentStatus__c = 'Permanent';
+    //employee.Employment_Status__c = 'Contractual';
+    employee.Industry__c = 'Construction';
+    employee.Professional_Category__c = 'Professional';
+    employee.Assessment_of_Business_Working_Capita__c = 'Good';
+    employee.Nature_of_Engagement__c = 'Trader';
+    employee.Assessment_of_Business__c = 'Good growth and profit trends for 3 - 4 years';
+    employee.Assessment_of_Statement__c = 'Strongly Supported';
+    employee.Length_of_Trade__c = 'More than 5 years';
+    Map<String, Id> recordTypeMap = Util.getRecordTypeids(
+      'FinServ__Employment__c'
+    );
+    employee.RecordTypeId = recordTypeMap.get('Self_Employed');
+    insert employee;
+
+    Applicant__c applicant = TestDataFactory.CreateApplicant(
+      accList[0].id,
+      opList[0].id
+    );
+    applicant.Credit_History_in_last_24_Months__c = 'No Delinquency';
+    applicant.Assessment_of_Applicant_Net_Worth__c = 'Strong net worth';
+    insert applicant;
+
+    List<Loan_Calculator__c> loanCalculator = TestDataFactory.CreateLoanCalculation(
+      1
+    );
+    loanCalculator[0].Ability_to_Service_CC__c = 20;
+    loanCalculator[0].Ability_to_Service_LOC__c = 20;
+    loanCalculator[0].Repayment_Method_CC__c = 'Standing Order';
+    loanCalculator[0].Repayment_Method_LOC__c = 'Standing Order';
+    loanCalculator[0].Opportunity__c = opList[0].id;
+    insert loanCalculator[0];
+    test.startTest();
+    RiskRatingWrapper riskRatingWrapperObj = ProductDetailService.getRiskRatingWrapper(
+      opList[0].id
+    );
+    System.debug('Risk Score = ' + riskRatingWrapperObj.score);
+    System.assertEquals('R3', riskRatingWrapperObj.rating);
+    test.stopTest();
+  }
+  @IsTest
   public static void testRiskRatingR1() {
     List<Opportunity> opList = TestDataFactory.CreateOpportunities(1);
     List<Account> accList = TestDataFactory.CreateBasicAccounts(1, 'Test');
