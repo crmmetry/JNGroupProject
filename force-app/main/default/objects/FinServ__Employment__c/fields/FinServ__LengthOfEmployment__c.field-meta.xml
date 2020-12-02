@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FinServ__LengthOfEmployment__c</fullName>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
-    <formula
-  >If(ISBLANK(FinServ__EndDate__c),If(And(Month(TODAY())&gt;= month(FinServ__StartDate__c), Day(TODAY()) &gt;= Day(FinServ__StartDate__c)),
+    <formula>If(ISBLANK(FinServ__EndDate__c),If(And(Month(TODAY())&gt;= month(FinServ__StartDate__c), Day(TODAY()) &gt;= Day(FinServ__StartDate__c)),
 Year(TODAY())- Year(FinServ__StartDate__c) +
 (Month(TODAY())-Month(FinServ__StartDate__c))/12,
 if(And(month(TODAY())&lt; month(FinServ__StartDate__c), Day(TODAY())&gt;= Day(FinServ__StartDate__c)),

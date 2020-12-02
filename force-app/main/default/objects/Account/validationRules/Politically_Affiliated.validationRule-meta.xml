@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Politically_Affiliated</fullName>
     <active>false</active>
@@ -10,6 +10,5 @@ OR
 ISBLANK( Political_Affiliation_Role__pc ),
   ISBLANK(TEXT(Political_Affiliation_Relationship__pc))
 ))</errorConditionFormula>
-    <errorMessage
-  >Please add details of your political affiliation</errorMessage>
+    <errorMessage>Please add details of your political affiliation</errorMessage>
 </ValidationRule>

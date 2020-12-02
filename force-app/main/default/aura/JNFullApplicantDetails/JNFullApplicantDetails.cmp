@@ -1,7 +1,7 @@
 <!-- 
   Ver  Ticket#      Date            Author                 Purpose
- * 1.0  JN1-4047     2/12/2020      Kirti R.(thinqloud)  Show fields based on selected expense detail
  * 1.0  JN1-4030     2/12/2020      Ishwari G.(thinqloud)  Showing fields based on selected source of income
+ * 1.0  JN1-4047     2/12/2020      Kirti R.(thinqloud)  Show fields based on selected expense detail
 -->
 <aura:component
   implements="lightning:availableForFlowScreens"
@@ -12,6 +12,7 @@
 
   <aura:attribute name="applicantId" type="String" />
   <aura:attribute name="applicant" type="Applicant__c" />
+  <aura:attribute name="sourceOfIncome" type="List" />
   <!-- JN1-4047 :: Added attribute to store selected expense detail -->
   <aura:attribute
     name="selectedExpenseDetail"
@@ -23,7 +24,6 @@
     type="List"
     default="['Statutory Deductions','Property related expenses','Personal/family expenses','Utilities/Household expenses','Transport related expenses']"
   />
-  <aura:attribute name="sourceOfIncome" type="List" />
   <aura:attribute
     name="validate"
     type="Aura.Action"
@@ -71,115 +71,6 @@
       </lightning:layout>
       <!--JN1-4030 : END :-->
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Net Profit - Sole Trader -->
-          <lightning:input
-            type="number"
-            label="Net Profit - Sole Trader"
-            formatter="Currency"
-            value="{!v.applicant.Net_Profit_Sole_Trader__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Director’s Emoluments - Director -->
-          <lightning:input
-            type="number"
-            label="Director’s Emoluments - Director"
-            formatter="Currency"
-            value="{!v.applicant.Director_s_Emoluments_Director__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Share of Profit - Partnership -->
-          <lightning:input
-            type="number"
-            label="Share of Profit - Partnership"
-            formatter="Currency"
-            value="{!v.applicant.Share_of_Profit_Partnership__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Share of Profit - Shareholder -->
-          <lightning:input
-            type="number"
-            label="Share of Profit - Shareholder"
-            formatter="Currency"
-            value="{!v.applicant.Share_of_Profit_Shareholder__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Pension -->
-          <lightning:input
-            type="number"
-            label="Pension"
-            formatter="Currency"
-            value="{!v.applicant.Pension__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-          aura:id="validation"
-        >
-          <!-- Existing Real Estate Rental I -->
-          <lightning:input
-            type="number"
-            label="Existing Real Estate Rental I"
-            formatter="Currency"
-            value="{!v.applicant.Existing_Real_Estate_Rental_I__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
       <lightning:layout
         multipleRows="true"
         horizontalAlign="space"

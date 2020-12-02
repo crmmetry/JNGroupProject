@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Are_your_contact_detail_complete__c</fullName>
     <externalId>false</externalId>
@@ -9,7 +9,7 @@ NOT(ISBLANK(   Province_Parish_State__c   )),
 NOT(ISBLANK(   Years_at_Residence__c  )),
 NOT(ISBLANK(   PersonMobilePhone )),
 NOT(ISBLANK(    PersonEmail    ))
-),&#39;Yes&#39;,&#39;NO&#39;)</formula>
+),&apos;Yes&apos;,&apos;NO&apos;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Are your contact detail complete</label>
     <required>false</required>

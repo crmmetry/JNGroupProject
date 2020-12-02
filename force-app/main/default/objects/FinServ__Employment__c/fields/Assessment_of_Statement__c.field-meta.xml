@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Assessment_of_Statement__c</fullName>
     <externalId>false</externalId>
@@ -21,11 +21,9 @@
                 <label>Adequately Supported</label>
             </value>
             <value>
-                <fullName
-        >Sound Business Plan, Skill and Professional Competence</fullName>
+                <fullName>Sound Business Plan, Skill and Professional Competence</fullName>
                 <default>false</default>
-                <label
-        >Sound Business Plan, Skill and Professional Competence</label>
+                <label>Sound Business Plan, Skill and Professional Competence</label>
             </value>
             <value>
                 <fullName>Weak Support or Doubtful</fullName>
