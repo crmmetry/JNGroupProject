@@ -18,7 +18,8 @@
       LTVValue: 0,
       riskRating: {}, //for multi applicants
       creditRiskScore: 0,
-      creditRiskRating: ""
+      creditRiskRating: "",
+      minimumPayment: 0
     });
     helper.updateProductSelection(component);
     helper.getJNConfigurations(component);
@@ -77,12 +78,24 @@
       console.log("ASL Helper");
       let ASL = helper.ASLCalculations(component);
       let childContainerValues = [{ key: "ASL", value: ASL }];
-      const updatedContainer2 = updateChildContainerWithValue(
+      const containerWithASL = updateChildContainerWithValue(
         component,
         childContainerValues,
         false
       );
-      component.set("v.ChildContainer", updatedContainer2);
+      component.set("v.ChildContainer", containerWithASL);
+
+      //Calculate Minimum Payment
+      console.log("MMP Helper");
+      let minimumPayment = helper.minimumPaymentCalculations(component);
+      console.log("Minimum Payment", minimumPayment);
+      childContainerValues = [{ key: "minimumPayment", value: minimumPayment }];
+      const containerWithMinimumPayment = updateChildContainerWithValue(
+        component,
+        childContainerValues,
+        false
+      );
+      component.set("v.ChildContainer", containerWithMinimumPayment);
       // if (
       //   helper.detectObjectChanges(
       //     component.get("v.ChildContainer"),
@@ -90,7 +103,6 @@
       //     ["LTVValue", "repaymentMethod", "TDSRAfter", "TDSRBefore"]
       //   )
       // ) {
-
       // }
       helper.getCreditScoreRatings(component);
       //component.set("v.ChildContainer", updatedContainer);

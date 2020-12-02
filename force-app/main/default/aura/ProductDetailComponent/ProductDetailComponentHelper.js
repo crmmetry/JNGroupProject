@@ -346,9 +346,15 @@
     if (riskFactor !== null) {
       return ASLCalculator(container, jnDefaults, riskFactor);
     }
-
-    // let container = component.get("v.ChildContainer");
-    // let jnDefaults = component.get("v.jnDefaultConfigs");
-    // return ASLCalculator(container, jnDefaults, riskFactor);
+  },
+  /**
+   * Calculate minimum payment
+   * @param {*} component
+   * @return {Number} asl
+   */
+  minimumPaymentCalculations: function (component) {
+    let container = component.get("v.ChildContainer");
+    let defaults = component.get("v.jnDefaultConfigs");
+    return minimumPaymentCalculatorWithASL(container, defaults, container.ASL);
   }
 });

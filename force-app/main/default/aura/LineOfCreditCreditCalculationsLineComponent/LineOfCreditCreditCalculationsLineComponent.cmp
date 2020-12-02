@@ -44,7 +44,7 @@
         >
           <lightning:input
             label="Minimum Payment as per Credit Limit"
-            value="{!v.minimumPayment}"
+            value="{!v.ParentContainer.minimumPayment}"
             type="number"
             name="input1"
             formatter="currency"

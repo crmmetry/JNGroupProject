@@ -662,15 +662,31 @@ window.maximumAllowableForMinimumPaymentCalculator = function (
  */
 window.computedMinimumPaymentFromCreditLimitCalculator = function (
   //TODO: Modify to check product name on component to choose pricipal payment component metadata
-  mmp,
-  cci,
-  mpp
+  container,
+  jnDefault,
+  mmp
 ) {
-  if (validNumber(mmp) && validNumber(cci) && validNumber(mpp)) {
+  let principalPayment = 0;
+  if (container.productFamily === "JN Bank Credit Card") {
+    principalPayment = jnDefault.creditCardPrincipalPayment;
+    console.log("pp", principalPayment);
+  } else {
+    principalPayment = jnDefault.lineOfCreditPrincipalPayment;
+    console.log("pp", principalPayment);
+  }
+  if (
+    validNumber(mmp) &&
+    validNumber(container.interestRate) &&
+    validNumber(principalPayment)
+  ) {
     console.log("MMP", mmp);
-    console.log("CCI", cci);
-    console.log("MPP", mpp);
-    let cmp = Math.trunc(mmp / ((parseFloat(cci) / 12 + mpp * 100) / 100));
+    console.log("CCI", container.interestRate);
+    console.log("MPP", principalPayment);
+    let cmp = Math.trunc(
+      mmp /
+        ((parseFloat(container.interestRate) / 12 + principalPayment * 100) /
+          100)
+    );
     return Math.round(cmp / 10000) * 10000;
   }
   return 0;
@@ -746,6 +762,38 @@ window.approvedStartingLimitCalculator = function (
     return Math.min(
       parseFloat(creditLimitAfterRisk),
       parseFloat(requestedLimit)
+    );
+  }
+  return 0;
+};
+
+/**
+ * Calculates Minimum Payment for Credit Calculations COmponent using ASL
+ * @param {Map} container
+ * @param {Map} jnDefault
+ * @param {Decimal} mmp
+ * @return {Decimal}
+ */
+window.minimumPaymentCalculatorWithASL = function (container, jnDefault, mmp) {
+  let principalPayment = 0;
+  if (container.productFamily === "JN Bank Credit Card") {
+    principalPayment = jnDefault.creditCardPrincipalPayment;
+    console.log("pp", principalPayment);
+  } else {
+    principalPayment = jnDefault.lineOfCreditPrincipalPayment;
+    console.log("pp", principalPayment);
+  }
+  if (
+    validNumber(mmp) &&
+    validNumber(container.interestRate) &&
+    validNumber(principalPayment)
+  ) {
+    console.log("MMP", mmp);
+    console.log("CCI", container.interestRate);
+    console.log("MPP", principalPayment);
+    return (
+      mmp *
+      ((parseFloat(container.interestRate) / 12 + principalPayment * 100) / 100)
     );
   }
   return 0;
