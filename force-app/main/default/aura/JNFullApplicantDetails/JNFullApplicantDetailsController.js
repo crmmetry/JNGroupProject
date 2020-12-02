@@ -10,6 +10,11 @@
       helper.updateApplicant(component);
     });
   },
+  //JN1-4047  :: Added a method to set changed selected expense detail
+  handleExpenseDetailChange: function (component, event, helper) {
+    var expenseDetail = component.find("monthlyExpensesDetails").get("v.value");
+    component.set("v.selectedExpenseDetail", expenseDetail);
+  },
   /* JN1-4030 : START */
   handleSourceOfIncomeChange: function (component, event, helper) {
     var source = component.find("sourceOfIncome").get("v.value");
