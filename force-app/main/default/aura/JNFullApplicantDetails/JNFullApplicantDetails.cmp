@@ -1,6 +1,7 @@
 <!-- 
   Ver  Ticket#      Date            Author                 Purpose
  * 1.0  JN1-4030     2/12/2020      Ishwari G.(thinqloud)  Showing fields based on selected source of income
+ * 1.0  JN1-4047     2/12/2020      Kirti R.(thinqloud)  Show fields based on selected expense detail
 -->
 <aura:component
   implements="lightning:availableForFlowScreens"
@@ -12,6 +13,17 @@
   <aura:attribute name="applicantId" type="String" />
   <aura:attribute name="applicant" type="Applicant__c" />
   <aura:attribute name="sourceOfIncome" type="List" />
+  <!-- JN1-4047 :: Added attribute to store selected expense detail -->
+  <aura:attribute
+    name="selectedExpenseDetail"
+    type="String"
+    default="Statutory Deductions"
+  />
+  <aura:attribute
+    name="expenseDetail"
+    type="List"
+    default="['Statutory Deductions','Property related expenses','Personal/family expenses','Utilities/Household expenses','Transport related expenses']"
+  />
   <aura:attribute
     name="validate"
     type="Aura.Action"
