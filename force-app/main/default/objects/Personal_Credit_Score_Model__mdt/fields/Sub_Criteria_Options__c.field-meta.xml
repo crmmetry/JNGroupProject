@@ -96,9 +96,9 @@
                 <label>Agriculture</label>
             </value>
             <value>
-                <fullName>Cash</fullName>
+                <fullName>Cash/Investments</fullName>
                 <default>false</default>
-                <label>Cash</label>
+                <label>Cash/Investments</label>
             </value>
             <value>
                 <fullName>Clerical</fullName>
