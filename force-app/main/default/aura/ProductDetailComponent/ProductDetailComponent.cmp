@@ -59,6 +59,7 @@
   <aura:attribute name="lineOfCreditFlag" type="Boolean" default="false" />
   <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
   <aura:attribute name="jnDefaultConfigs" type="Map" />
+  <aura:attribute name="RiskRatings" type="Map" />
   <lightning:layout multipleRows="true">
     <lightning:card>
       <lightning:layoutItem size="12" padding="around-small">

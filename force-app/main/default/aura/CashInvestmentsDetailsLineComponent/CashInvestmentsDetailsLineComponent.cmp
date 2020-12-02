@@ -4,6 +4,7 @@
     type="String"
     default="CashInvestmentsDetailLineComponent"
   />
+  <aura:registerEvent name="productDetailsEvent" type="c:ProductDetailsEvent" />
   <aura:attribute
     name="ChildContainer"
     type="Map"

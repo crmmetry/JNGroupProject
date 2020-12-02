@@ -14,6 +14,9 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         component.set("v.productSelection", result);
+        let data = Object.assign(component.get("v.ChildContainer"), result);
+        component.set("v.ChildContainer", data);
+        console.log("child container with product selection: ", data);
         this.updateProductSelectedFlag(component);
       }
     });
@@ -55,6 +58,23 @@
     });
     $A.enqueueAction(action);
   },
+  /**
+   * Retrieves risk rating map from apex
+   * @param {*} container
+   */
+  getRiskRatingFactorsMap: function (component) {
+    let action = component.get("c.getRiskRatingMap");
+    action.setCallback(this, function (response) {
+      let state = response.getState(); //Checking response status
+      let result = response.getReturnValue();
+      if (state === "SUCCESS") {
+        component.set("v.RiskRatings", result);
+        console.log("Risk Ratings: ", JSON.parse(JSON.stringify(result)));
+      }
+    });
+    $A.enqueueAction(action);
+  },
+
   /**
    * Retrieves All applicants belonging to a particular opportunity.
    * @param {*} container
@@ -206,7 +226,7 @@
     let tdsrAfter = TDSRAfterCalculator(
       data.grossMonthlyIncome,
       data.existingDebt,
-      0
+      data.minimumPayment
     );
     let values = [
       {
@@ -232,8 +252,13 @@
     let container = component.get("v.ChildContainer");
     const { LTVValue, repaymentMethod, TDSRBefore, collateralType } = container;
     let action = component.get("c.getCreditRiskRating");
-    if (!isEmpty(collateralType) && validNumber(LTVValue) && validNumber(TDSRBefore) && !isEmpty(repaymentMethod)) {
-      console.info('Call getCreditScoreRatings', roundedValue(LTVValue));
+    if (
+      !isEmpty(collateralType) &&
+      validNumber(LTVValue) &&
+      validNumber(TDSRBefore) &&
+      !isEmpty(repaymentMethod)
+    ) {
+      console.info("Call getCreditScoreRatings", roundedValue(LTVValue));
       action.setParams({
         oppId: component.get("v.recordId"),
         ltv: this.LTVApplicableValue(component, container),
@@ -245,13 +270,13 @@
         let state = response.getState();
         let result = response.getReturnValue();
         if (state === "SUCCESS") {
-          console.info("Risk", result)
+          console.info("Risk", result);
           container.riskRating = result;
           container.creditRiskScore = result.score;
           container.creditRiskRating = result.rating;
           component.set("v.ChildContainer", container);
         } else {
-          console.info((JSON.stringify(response.getError())));
+          console.info(JSON.stringify(response.getError()));
         }
       });
       $A.enqueueAction(action);
@@ -268,8 +293,9 @@
     return fields.every((field) => {
       //both have same fields and values are different
       if (newObject.hasOwnProperty(field) && oldObject.hasOwnProperty(field)) {
-        //check if both are valid numbers     
-        const valid = validNumber(newObject[field]) && validNumber(oldObject[field]);
+        //check if both are valid numbers
+        const valid =
+          validNumber(newObject[field]) && validNumber(oldObject[field]);
         return valid && newObject[field] !== oldObject[field];
       }
       return false;
@@ -281,18 +307,61 @@
    * @param {Objec} container
    * @return {Number} ltv
    */
-    LTVApplicableValue: function (component, container) {
-      let selectedFlag = component.get("v.productSelection.productFamily");
-      const families = [
-        { name: "Auto"},
-        { name: "Line Of Credit"}
-      ];
-      const family = families.find((family) => {
-        return selectedFlag.includes(family.name);
-      });
-      if (family) {
-        return roundedValue(container.LTVValue);
-      }
-      return 0;
+  LTVApplicableValue: function (component, container) {
+    let selectedFlag = component.get("v.productSelection.productFamily");
+    const families = [{ name: "Auto" }, { name: "Line Of Credit" }];
+    const family = families.find((family) => {
+      return selectedFlag.includes(family.name);
+    });
+    if (family) {
+      return roundedValue(container.LTVValue);
     }
+    return 0;
+  },
+  /**
+   * Selects appropriate risk rating factor
+   * @param {*} component
+   * @return {Number} risk factor
+   */
+
+  getRiskRatingFactor: function (component, riskRating) {
+    let riskRatingMap = component.get("v.RiskRatings");
+    if (riskRatingMap) {
+      return riskRatingMap[riskRating];
+    }
+    return null;
+  },
+  /**
+   * Calculate Approved Starting Limit
+   * @param {*} component
+   * @return {Number} asl
+   */
+
+  ASLCalculations: function (component) {
+    console.log("factor: ");
+    let container = component.get("v.ChildContainer");
+    let jnDefaults = component.get("v.jnDefaultConfigs");
+    let riskFactor = this.getRiskRatingFactor(
+      component,
+      container.creditRiskRating
+    );
+    console.log("factor: ", riskFactor);
+    if (riskFactor !== null) {
+      return ASLCalculator(container, jnDefaults, riskFactor);
+    }
+  },
+  /**
+   * Calculate minimum payment
+   * @param {*} component
+   * @return {Number} asl
+   */
+  minimumPaymentCalculations: function (component) {
+    let container = component.get("v.ChildContainer");
+    let defaults = component.get("v.jnDefaultConfigs");
+    return minimumPaymentCalculatorWithASL(
+      container,
+      defaults,
+      container.approvedStartingLimit
+    );
+  }
 });

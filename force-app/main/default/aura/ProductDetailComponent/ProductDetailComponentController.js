@@ -18,17 +18,16 @@
       LTVValue: 0,
       riskRating: {}, //for multi applicants
       creditRiskScore: 0,
-      creditRiskRating: ""
+      creditRiskRating: "",
+      minimumPayment: 0,
+      approvedStartingLimit: 0
     });
     helper.updateProductSelection(component);
     helper.getJNConfigurations(component);
     helper.getAssetsAndLiabilitiesForApplicant(component);
+    helper.getRiskRatingFactorsMap(component);
     //helper.getApplicants(component);
   },
-  // onLoanPurposeChange: function (component, event, helper) {
-  //   const selected = event.getSource().get("v.value");
-  //   console.log(selected);
-  // },
 
   /**
    * Sets scriptLoad attribute to true when all static resources are uplaoded successfully.
@@ -46,6 +45,7 @@
    * @param {*} helper
    */
   handleProductDetailsEvent: function (component, event, helper) {
+    //const updatedContainer = {};
     if (component.get("v.scriptsLoaded")) {
       let container = Object.assign(
         component.get("v.ChildContainer"),
@@ -70,6 +70,30 @@
         attributesToUpdate,
         false
       );
+      //Calculate Approve Starting Limit
+      console.log("ASL Helper");
+      let approvedStartingLimit = helper.ASLCalculations(component);
+      let childContainerValues = [
+        { key: "approvedStartingLimit", value: approvedStartingLimit }
+      ];
+      const containerWithASL = updateChildContainerWithValue(
+        component,
+        childContainerValues,
+        false
+      );
+      component.set("v.ChildContainer", containerWithASL);
+
+      //Calculate Minimum Payment
+      console.log("MMP Helper");
+      let minimumPayment = helper.minimumPaymentCalculations(component);
+      console.log("Minimum Payment", minimumPayment);
+      childContainerValues = [{ key: "minimumPayment", value: minimumPayment }];
+      const containerWithMinimumPayment = updateChildContainerWithValue(
+        component,
+        childContainerValues,
+        false
+      );
+      component.set("v.ChildContainer", containerWithMinimumPayment);
       // if (
       //   helper.detectObjectChanges(
       //     component.get("v.ChildContainer"),
@@ -77,10 +101,8 @@
       //     ["LTVValue", "repaymentMethod", "TDSRAfter", "TDSRBefore"]
       //   )
       // ) {
-        
       // }
       helper.getCreditScoreRatings(component);
-      component.set("v.ChildContainer", updatedContainer);
       console.info(
         "Parenthical Child",
         JSON.parse(JSON.stringify(component.get("v.ChildContainer")))

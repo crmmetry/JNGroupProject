@@ -15,6 +15,17 @@ public class JNConfiguration {
   public Decimal nsipp;
   @AuraEnabled
   public Decimal policyLimit;
+  @AuraEnabled
+  public Decimal creditLimitMin;
+  @AuraEnabled
+  public Decimal creditLimitMax;
+  @AuraEnabled
+  public Decimal creditCardPrincipalPayment;
+  @AuraEnabled
+  public Decimal lineOfCreditPrincipalPayment;
+  @AuraEnabled
+  public Decimal discountFactor;
+
   public JNConfiguration(JN_Defaults__mdt record) {
     this.gct = record.GCT__c;
     this.assignmentFee =
@@ -25,5 +36,10 @@ public class JNConfiguration {
     this.stampDutyAuto = record.Stamp_Duty_Auto__c;
     this.nsipp = record.NSIPP_Registration_Fee__c;
     this.policyLimit = record.Policy_Limit__c;
+    this.creditLimitMin = record.Credit_Limit_Allowable_Min_Number__c;
+    this.creditLimitMax = record.Credit_Limit_Allowable_Max_Number__c;
+    this.creditCardPrincipalPayment = record.Credit_Card_Principal_Payment_Number__c;
+    this.lineOfCreditPrincipalPayment = record.Line_Of_Credit_Principal_Payment_Number__c;
+    this.discountFactor = record.Discount_Factor_Number__c;
   }
 }
