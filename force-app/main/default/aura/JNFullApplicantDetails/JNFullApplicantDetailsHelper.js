@@ -32,12 +32,12 @@
   updateApplicant: function (component) {
     let action = component.get("c.updateApplicantDetails");
     console.info("current applicant", component.get("v.applicant"));
-    var applicant = component.get("v.applicant");
+    /*JN1-4030: START*/
     var applicant = component.get("v.applicant");
     applicant.Applicable_sources_of_income__c = component
       .find("sourceOfIncome")
       .get("v.value");
-
+    /*JN1-4030: END*/
     action.setParams({
       applicant: applicant
     });
