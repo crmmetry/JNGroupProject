@@ -51,7 +51,7 @@ public class Constants {
   public static final String INCONSISTANT_AND_OR = 'Inconsistent profit/growth trends';
 
   public static final String THREE_TO_FOUR_YEARS = 'Good growth and profit trends for 3 - 4 years';
-  public static final String UP_TO_TWO_YEARS = 'Good growth and profit trends for up to 2 years';
+  public static final String UP_TO_TWO_YEARS = 'Good growth and or profit trends for up to 2 years';
   public static final String INADEQUATE = 'Inconsistent profit/growth trends';
   public static final String INCONSISTANT = 'Inadequate growth and/or profit trends';
 }

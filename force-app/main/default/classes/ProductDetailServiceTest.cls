@@ -19,7 +19,7 @@ public with sharing class ProductDetailServiceTest {
       11
     );
     insert accList;
-
+    Util.ExecutionCount = 2;
     opList[0].accountId = accList[0].id;
     opList[0].Collateral_CC__c = 'None';
     opList[0].Collateral_LOC__c = 'None';
@@ -37,7 +37,7 @@ public with sharing class ProductDetailServiceTest {
     employee.Professional_Category__c = 'Professional';
     employee.Assessment_of_Business_Working_Capita__c = 'Good';
     employee.Nature_of_Engagement__c = 'Trader';
-    employee.Assessment_of_Business__c = 'Good growth and profit trends for 3 - 4 years';
+    employee.Assessment_of_Business__c = Constants.THREE_TO_FOUR_YEARS_AND_OR;
     employee.Assessment_of_Statement__c = 'Strongly Supported';
     employee.Length_of_Trade__c = 'More than 5 years';
     Map<String, Id> recordTypeMap = Util.getRecordTypeids(
@@ -75,7 +75,7 @@ public with sharing class ProductDetailServiceTest {
   public static void testRiskRatingR1() {
     List<Opportunity> opList = TestDataFactory.CreateOpportunities(1);
     List<Account> accList = TestDataFactory.CreateBasicAccounts(1, 'Test');
-    accList[0].Status_of_Address__pc = 'Own (with mortgage)';
+    accList[0].Status_of_Address__pc = 'Own';
     accList[0].Years_at_Residence__pc = 4;
     accList[0]
       .Highest_Level_of_Education_attained__pc = 'University: Post Graduate';
@@ -104,7 +104,7 @@ public with sharing class ProductDetailServiceTest {
     employee.Professional_Category__c = 'Professional';
     employee.Assessment_of_Business_Working_Capita__c = 'Good';
     employee.Nature_of_Engagement__c = 'Professional service provider';
-    employee.Assessment_of_Business__c = 'Good growth and profit trends for 3 - 4 years';
+    employee.Assessment_of_Business__c = Constants.THREE_TO_FOUR_YEARS_AND_OR;
     employee.Assessment_of_Statement__c = '	Strongly Supported';
     employee.Length_of_Trade__c = 'More than 5 years';
     Map<String, Id> recordTypeMap = Util.getRecordTypeids(
@@ -141,7 +141,7 @@ public with sharing class ProductDetailServiceTest {
   public static void testRiskRatingR2() {
     List<Opportunity> opList = TestDataFactory.CreateOpportunities(1);
     List<Account> accList = TestDataFactory.CreateBasicAccounts(1, 'Test');
-    accList[0].Status_of_Address__pc = 'Own (with mortgage)';
+    accList[0].Status_of_Address__pc = 'Own';
     accList[0].Years_at_Residence__pc = 4;
     accList[0].Highest_Level_of_Education_attained__pc = 'High School';
     accList[0].PersonBirthdate = date.newInstance(
@@ -169,7 +169,7 @@ public with sharing class ProductDetailServiceTest {
     employee.Professional_Category__c = 'Professional';
     employee.Assessment_of_Business_Working_Capita__c = 'Good';
     employee.Nature_of_Engagement__c = 'Vocational service provider';
-    employee.Assessment_of_Business__c = 'Good growth and profit trends for 3 - 4 years';
+    employee.Assessment_of_Business__c = Constants.THREE_TO_FOUR_YEARS_AND_OR;
     employee.Assessment_of_Statement__c = '	Strongly Supported';
     employee.Length_of_Trade__c = 'Between 3-5 years';
     Map<String, Id> recordTypeMap = Util.getRecordTypeids(
@@ -206,7 +206,7 @@ public with sharing class ProductDetailServiceTest {
   public static void testRiskRatingR3() {
     List<Opportunity> opList = TestDataFactory.CreateOpportunities(1);
     List<Account> accList = TestDataFactory.CreateBasicAccounts(1, 'Test');
-    accList[0].Status_of_Address__pc = 'Own (with mortgage)';
+    accList[0].Status_of_Address__pc = 'Own';
     accList[0].Years_at_Residence__pc = 12;
     accList[0]
       .Highest_Level_of_Education_attained__pc = 'University: Post Graduate';
@@ -235,7 +235,7 @@ public with sharing class ProductDetailServiceTest {
     // employee.Professional_Category__c = 'Clerical';
     employee.Assessment_of_Business_Working_Capita__c = 'Good';
     employee.Nature_of_Engagement__c = 'Professional service provider';
-    employee.Assessment_of_Business__c = 'Good growth and profit trends for 3 - 4 years';
+    employee.Assessment_of_Business__c = Constants.THREE_TO_FOUR_YEARS_AND_OR;
     employee.Assessment_of_Statement__c = 'Strongly Supported';
     employee.Length_of_Trade__c = 'More than 5 years';
     Map<String, Id> recordTypeMap = Util.getRecordTypeids(
@@ -300,7 +300,7 @@ public with sharing class ProductDetailServiceTest {
     employee.Professional_Category__c = 'Clerical';
     employee.Assessment_of_Business_Working_Capita__c = 'Negative';
     employee.Nature_of_Engagement__c = 'Vocational service provider';
-    employee.Assessment_of_Business__c = 'Good growth and profit trends for up to 2 years';
+    employee.Assessment_of_Business__c = Constants.UP_TO_TWO_YEARS;
     employee.Assessment_of_Statement__c = '	Strongly Supported';
     employee.Length_of_Trade__c = 'Between 3-5 years';
     Map<String, Id> recordTypeMap = Util.getRecordTypeids(
@@ -366,7 +366,7 @@ public with sharing class ProductDetailServiceTest {
     employee.Professional_Category__c = 'Clerical';
     employee.Assessment_of_Business_Working_Capita__c = 'Negative';
     employee.Nature_of_Engagement__c = 'Vocational service provider';
-    employee.Assessment_of_Business__c = 'Good growth and profit trends for up to 2 years';
+    employee.Assessment_of_Business__c = Constants.UP_TO_TWO_YEARS;
     employee.Assessment_of_Statement__c = '	Strongly Supported';
     employee.Length_of_Trade__c = 'Between 3-5 years';
     Map<String, Id> recordTypeMap = Util.getRecordTypeids(
@@ -396,14 +396,14 @@ public with sharing class ProductDetailServiceTest {
     RiskRatingWrapper riskRatingWrapperObj = ProductDetailService.getRiskRatingWrapper(
       opList[0].id
     );
-    System.assertEquals('R5', riskRatingWrapperObj.rating);
+    System.assertEquals('R4', riskRatingWrapperObj.rating);
     test.stopTest();
   }
   @IsTest
   public static void testRiskRatingR6() {
     List<Opportunity> opList = TestDataFactory.CreateOpportunities(1);
     List<Account> accList = TestDataFactory.CreateBasicAccounts(1, 'Test');
-    accList[0].Status_of_Address__pc = 'Own (with mortgage)';
+    accList[0].Status_of_Address__pc = 'Own';
     accList[0].Years_at_Residence__pc = 12;
     accList[0].Highest_Level_of_Education_attained__pc = 'High School';
     accList[0].PersonBirthdate = date.newInstance(
@@ -515,7 +515,7 @@ public with sharing class ProductDetailServiceTest {
     RiskRatingWrapper riskRatingWrapperObj = ProductDetailService.getRiskRatingWrapper(
       opList[0].id
     );
-    System.assertEquals('R7', riskRatingWrapperObj.rating);
+    System.assertEquals('R5', riskRatingWrapperObj.rating);
     test.stopTest();
   }
 
