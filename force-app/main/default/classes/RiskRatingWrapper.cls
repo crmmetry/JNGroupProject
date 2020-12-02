@@ -4,7 +4,7 @@
  **/
 public class RiskRatingWrapper {
   @AuraEnabled
-  public Decimal score;
+  public Integer score;
   @AuraEnabled
   public String rating;
   @AuraEnabled
@@ -17,7 +17,7 @@ public class RiskRatingWrapper {
    * @param {Decimal} score
    */
   public RiskRatingWrapper(Decimal score) {
-    this.score = score;
+    this.score = Integer.valueOf(score);
     this.creditRatingList = JNConfigurations.getCreditRatings();
     getRating(this.creditRatingList);
   }

@@ -16,7 +16,7 @@
     </values>
     <values>
         <field>Sub_Criteria_Options__c</field>
-        <value xsi:type="xsd:string">Cash</value>
+        <value xsi:type="xsd:string">Cash/Investments</value>
     </values>
     <values>
         <field>Sub_Criteria_Weight_Numbr__c</field>
