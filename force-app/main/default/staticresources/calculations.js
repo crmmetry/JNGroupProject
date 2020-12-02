@@ -647,7 +647,7 @@ window.maximumAllowableForMinimumPaymentCalculator = function (
   maxDebtPayment,
   existingDebt
 ) {
-  if (validNumber(maxDebtPayment) && validNumber(existingDebt)) {
+  if (validNumber(maxDebtPayment) && validNumber(parseFloat(existingDebt))) {
     return parseFloat(maxDebtPayment) - parseFloat(existingDebt);
   }
   return 0;
@@ -662,20 +662,16 @@ window.maximumAllowableForMinimumPaymentCalculator = function (
  */
 window.computedMinimumPaymentFromCreditLimitCalculator = function (
   //TODO: Modify to check product name on component to choose pricipal payment component metadata
-  maxMinimumPayment,
-  creditCardInterestRate,
-  monthlyPrincipalPayment
+  mmp,
+  cci,
+  mpp
 ) {
-  if (
-    validNumber(maxMinimumPayment) &&
-    validNumber(creditCardInterestRate) &&
-    validNumber(monthlyPrincipalPayment)
-  ) {
-    return (
-      parseFloat(maxMinimumPayment) /
-      (parseFloat(creditCardInterestRate) / 12 +
-        parseFloat(monthlyPrincipalPayment))
-    );
+  if (validNumber(mmp) && validNumber(cci) && validNumber(mpp)) {
+    console.log("MMP", mmp);
+    console.log("CCI", cci);
+    console.log("MPP", mpp);
+    let cmp = Math.trunc(mmp / ((parseFloat(cci) / 12 + mpp * 100) / 100));
+    return Math.round(cmp / 10000) * 10000;
   }
   return 0;
 };
@@ -726,7 +722,12 @@ window.startingCreditLimtCalculator = function (
   discountFactor
 ) {
   if (validNumber(creditLimitAfterRisk) && validNumber(discountFactor)) {
-    return parseFloat(creditLimitAfterRisk) * parseFloat(discountFactor) * 2;
+    return (
+      Math.round(
+        (parseFloat(creditLimitAfterRisk) * parseFloat(discountFactor) * 2) /
+          10000
+      ) * 10000
+    );
   }
   return 0;
 };

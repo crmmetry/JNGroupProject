@@ -341,7 +341,7 @@
     console.log("factor: ");
     let container = component.get("v.ChildContainer");
     let jnDefaults = component.get("v.jnDefaultConfigs");
-    let riskFactor = this.getRiskRatingFactor(component, "R1");
+    let riskFactor = this.getRiskRatingFactor(component, "R3");
     console.log("factor: ", riskFactor);
     if (riskFactor !== null) {
       return ASLCalculator(container, jnDefaults, riskFactor);

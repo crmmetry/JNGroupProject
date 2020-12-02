@@ -47,7 +47,7 @@
    * @param {*} helper
    */
   handleProductDetailsEvent: function (component, event, helper) {
-    const updatedContainer = {};
+    //const updatedContainer = {};
     if (component.get("v.scriptsLoaded")) {
       let container = Object.assign(
         component.get("v.ChildContainer"),
@@ -93,7 +93,7 @@
 
       // }
       helper.getCreditScoreRatings(component);
-      component.set("v.ChildContainer", updatedContainer);
+      //component.set("v.ChildContainer", updatedContainer);
       console.info(
         "Parenthical Child",
         JSON.parse(JSON.stringify(component.get("v.ChildContainer")))
