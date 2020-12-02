@@ -14,5 +14,12 @@
         };
       }*/
     });
+  },
+  //JN1-4047  :: Added a method to set changed selected expense detail
+  handleExpenseDetailChange: function (component, event, helper) {
+    debugger;
+    var expenseDetail = component.find("monthlyExpensesDetails").get("v.value");
+    console.log("expenseDetail", expenseDetail);
+    component.set("v.selectedExpenseDetail", expenseDetail);
   }
 });
