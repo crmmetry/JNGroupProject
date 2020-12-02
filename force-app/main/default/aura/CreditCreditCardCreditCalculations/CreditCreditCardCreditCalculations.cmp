@@ -30,7 +30,7 @@
         >
           <lightning:input
             label="Starting Limit"
-            value="{!v.ParentContainer.ASL}"
+            value="{!v.ParentContainer.approvedStartingLimit}"
             type="number"
             name="input1"
             formatter="currency"

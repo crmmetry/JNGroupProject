@@ -226,7 +226,7 @@
     let tdsrAfter = TDSRAfterCalculator(
       data.grossMonthlyIncome,
       data.existingDebt,
-      0
+      data.minimumPayment
     );
     let values = [
       {
@@ -358,6 +358,10 @@
   minimumPaymentCalculations: function (component) {
     let container = component.get("v.ChildContainer");
     let defaults = component.get("v.jnDefaultConfigs");
-    return minimumPaymentCalculatorWithASL(container, defaults, container.ASL);
+    return minimumPaymentCalculatorWithASL(
+      container,
+      defaults,
+      container.approvedStartingLimit
+    );
   }
 });

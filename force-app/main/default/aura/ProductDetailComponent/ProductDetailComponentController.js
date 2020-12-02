@@ -19,7 +19,8 @@
       riskRating: {}, //for multi applicants
       creditRiskScore: 0,
       creditRiskRating: "",
-      minimumPayment: 0
+      minimumPayment: 0,
+      approvedStartingLimit: 0
     });
     helper.updateProductSelection(component);
     helper.getJNConfigurations(component);
@@ -27,10 +28,6 @@
     helper.getRiskRatingFactorsMap(component);
     //helper.getApplicants(component);
   },
-  // onLoanPurposeChange: function (component, event, helper) {
-  //   const selected = event.getSource().get("v.value");
-  //   console.log(selected);
-  // },
 
   /**
    * Sets scriptLoad attribute to true when all static resources are uplaoded successfully.
@@ -73,11 +70,12 @@
         attributesToUpdate,
         false
       );
-      //component.set("v.ChildContainer", updatedContainer);
       //Calculate Approve Starting Limit
       console.log("ASL Helper");
-      let ASL = helper.ASLCalculations(component);
-      let childContainerValues = [{ key: "ASL", value: ASL }];
+      let approvedStartingLimit = helper.ASLCalculations(component);
+      let childContainerValues = [
+        { key: "approvedStartingLimit", value: approvedStartingLimit }
+      ];
       const containerWithASL = updateChildContainerWithValue(
         component,
         childContainerValues,
@@ -105,7 +103,6 @@
       // ) {
       // }
       helper.getCreditScoreRatings(component);
-      //component.set("v.ChildContainer", updatedContainer);
       console.info(
         "Parenthical Child",
         JSON.parse(JSON.stringify(component.get("v.ChildContainer")))
