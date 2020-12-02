@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Self_Employed</fullName>
     <active>true</active>
@@ -33,11 +33,11 @@
     <picklistValues>
         <picklist>Assessment_of_Business__c</picklist>
         <values>
-            <fullName>Good growth and profit trends for 3 - 4 years</fullName>
+            <fullName>Good growth and or profit trends for 3 - 4 years</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Good growth and profit trends for up to 2 years</fullName>
+            <fullName>Good growth and or profit trends for up to 2 years</fullName>
             <default>false</default>
         </values>
         <values>
@@ -64,8 +64,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName
-      >Sound Business Plan%2C Skill and Professional Competence</fullName>
+            <fullName>Sound Business Plan%2C Skill and Professional Competence</fullName>
             <default>false</default>
         </values>
         <values>
@@ -536,8 +535,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName
-      >Korea%2C Democratic People%E2%80%99s Republic of</fullName>
+            <fullName>Korea%2C Democratic People%E2%80%99s Republic of</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1496,8 +1494,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName
-      >Korea%2C Democratic People%E2%80%99s Republic of</fullName>
+            <fullName>Korea%2C Democratic People%E2%80%99s Republic of</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2026,8 +2023,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName
-      >Arts%2C Design%2C Entertainment%2C Sports%2C and Media</fullName>
+            <fullName>Arts%2C Design%2C Entertainment%2C Sports%2C and Media</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2118,8 +2114,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName
-      >Good growth and or profit trends for up to 2 years</fullName>
+            <fullName>Good growth and or profit trends for up to 2 years</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2142,8 +2137,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName
-      >Sound Business Plan%2C Skill and Professional Competence</fullName>
+            <fullName>Sound Business Plan%2C Skill and Professional Competence</fullName>
             <default>false</default>
         </values>
         <values>

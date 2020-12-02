@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Are_Employment_Details_Complete__c</fullName>
     <externalId>false</externalId>
-    <formula
-  >IF( Employment_Detail_Rollup__c &gt;0,&#39;YES&#39;,&#39;NO&#39;)</formula>
+    <formula>IF( Employment_Detail_Rollup__c &gt;0,&apos;YES&apos;,&apos;NO&apos;)</formula>
     <label>Are Employment Details Complete?</label>
     <required>false</required>
     <type>Text</type>
