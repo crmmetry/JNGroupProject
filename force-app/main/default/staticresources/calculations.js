@@ -612,6 +612,7 @@ window.maximumCreditLimitCalculator = function (
     validNumber(annualGrossIncome)
   ) {
     if (annualGrossIncome > 3000000) {
+      //TODO: Make into constant
       return (
         parseFloat(maxCreditLimitAllowable) * parseFloat(annualGrossIncome)
       );
