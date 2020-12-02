@@ -1,3 +1,7 @@
+/**
+ * Ver  Ticket#      Date            Author                 Purpose
+ * 1.0  JN1-4045     2/12/2020      Ishwari G.(thinqloud)  bases on source of income showing fields
+ **/
 ({
   getApplicant: function (component) {
     let action = component.get("c.getFullApplicantDetails");
@@ -8,6 +12,17 @@
       const state = response.getState();
       if (state === "SUCCESS") {
         component.set("v.applicant", response.getReturnValue());
+        /*JN1-4030: START*/
+        var applicant = response.getReturnValue();
+        var source = applicant.Applicable_sources_of_income__c;
+        var sourceOfIncome = [];
+        if (source.includes(";")) {
+          sourceOfIncome = source.split(";");
+        } else {
+          sourceOfIncome.push(applicant.Applicable_sources_of_income__c);
+        }
+        component.set("v.sourceOfIncome", sourceOfIncome);
+        /*JN1-4030: END */
       } else {
         console.info(response.getError());
       }
@@ -15,10 +30,16 @@
     $A.enqueueAction(action);
   },
   updateApplicant: function (component) {
-    let action = component.get("c.updateApplicantDetails");
+    let action = component.get("c.updateApplicantDetailsBasic");
     console.info("current applicant", component.get("v.applicant"));
+    /*JN1-4030: START*/
+    var applicant = component.get("v.applicant");
+    applicant.Applicable_sources_of_income__c = component
+      .find("sourceOfIncome")
+      .get("v.value");
+    /*JN1-4030: END*/
     action.setParams({
-      applicant: component.get("v.applicant")
+      applicant: applicant
     });
     action.setCallback(this, function (response) {
       const state = response.getState();
