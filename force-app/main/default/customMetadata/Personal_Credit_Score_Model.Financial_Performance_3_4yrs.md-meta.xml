@@ -30,6 +30,8 @@
     </values>
     <values>
         <field>Type__c</field>
-        <value xsi:nil="true" />
+        <value
+      xsi:type="xsd:string"
+    >Assessment of Business Fin Performance</value>
     </values>
 </CustomMetadata>

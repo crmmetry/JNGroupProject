@@ -28,6 +28,8 @@
     </values>
     <values>
         <field>Type__c</field>
-        <value xsi:nil="true" />
+        <value
+      xsi:type="xsd:string"
+    >Credit History over the last 24 months</value>
     </values>
 </CustomMetadata>
