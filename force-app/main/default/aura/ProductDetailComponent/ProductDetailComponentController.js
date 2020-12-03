@@ -52,6 +52,9 @@
         event.getParam("payload")
       );
       let attributesToUpdate = [];
+      //Gets the applicant credit score //TODO: refactor in future sprints to be more efficient for server calls
+      helper.getCreditScoreRatings(component);
+
       // Calculate the monthly P&I Loan amount
       const monthlyPILoanAmount = monthlyPILoanAmountCalculation(container);
       attributesToUpdate.push({
@@ -59,9 +62,6 @@
         value: monthlyPILoanAmount
       });
       //Calculate processing fees
-      attributesToUpdate = attributesToUpdate.concat(
-        helper.processingFeeCalculation(container, component)
-      );
       attributesToUpdate = attributesToUpdate.concat(
         helper.processingFeeCalculation(container, component)
       );
@@ -81,8 +81,6 @@
       attributesToUpdate = attributesToUpdate.concat(
         helper.TDSRCalculations(container)
       );
-      //Gets the applicant credit score //TODO: refactor in future sprints to be more efficient for server calls
-      helper.getCreditScoreRatings(component);
       const updatedContainer = updateChildContainerWithValue(
         component,
         attributesToUpdate,

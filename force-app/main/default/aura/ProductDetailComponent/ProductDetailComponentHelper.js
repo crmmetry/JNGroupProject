@@ -217,17 +217,17 @@
    * @param {Object} data
    * @return {Void}
    */
-  TDSRCalculations: function (data) {
+  TDSRCalculations: function (container) {
     let tdsrBefore = TDSRBeforeCalculator(
-      data.grossMonthlyIncome,
-      data.existingDebt
+      container.grossMonthlyIncome,
+      container.existingDebt
     );
     let tdsrAfter = TDSRAfterCalculator(
-      data.grossMonthlyIncome,
-      data.existingDebt,
-      data.minimumPayment
+      container.grossMonthlyIncome,
+      container.existingDebt,
+      container.minimumPayment
     );
-    return [
+    let values = [
       {
         key: "TDSRBefore",
         value: tdsrBefore
@@ -237,6 +237,9 @@
         value: tdsrAfter
       }
     ];
+    let data = updateChildContainerWithValue(component, values, false);
+    component.set("v.ChildContainer", data);
+    return values;
   },
 
   /**
@@ -344,14 +347,20 @@
     );
     console.log("factor: ", riskFactor);
     if (riskFactor !== null) {
-      return [
+      let values = [
         {
           key: "approvedStartingLimit",
           value: ASLCalculator(container, jnDefaults, riskFactor)
         }
       ];
+      let data = updateChildContainerWithValue(component, values, false);
+      component.set("v.ChildContainer", data);
+      return values;
     }
-    return [{ key: "approvedStartingLimit", value: 0 }];
+    let values = [{ key: "approvedStartingLimit", value: 0 }];
+    let data = updateChildContainerWithValue(component, values, false);
+    component.set("v.ChildContainer", data);
+    return values;
   },
   /**
    * Calculate minimum payment
@@ -366,6 +375,9 @@
       defaults,
       container.approvedStartingLimit
     );
-    return [{ key: "minimumPayment", value: minimumPayment }];
+    let values = [{ key: "minimumPayment", value: minimumPayment }];
+    let data = updateChildContainerWithValue(component, values, false);
+    component.set("v.ChildContainer", data);
+    return values;
   }
 });
