@@ -248,10 +248,7 @@
 		<members>Supplementary_Card_Holders__c.Opportunity__c</members>
 		<name>CustomField</name>
 	</types>
-	<types>
-		<members>JN_Defaults.Default</members>
-		<name>CustomMetadata</name>
-	</types>
+
 	<types>
 		<members>Applicant__c</members>
 		<members>Application_Asset_Liability__c</members>
