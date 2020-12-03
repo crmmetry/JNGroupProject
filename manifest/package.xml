@@ -13,6 +13,18 @@
 		<name>CustomField</name>
 	</types>
 	<types>
+		<members>JN_Defaults.Default</members>
+		<members>Risk_Rating_Factor.R1</members>
+		<members>Risk_Rating_Factor.R2</members>
+		<members>Risk_Rating_Factor.R3</members>
+		<members>Risk_Rating_Factor.R4</members>
+		<members>Risk_Rating_Factor.R5</members>
+		<members>Risk_Rating_Factor.R6</members>
+		<members>Risk_Rating_Factor.R7</members>
+		<members>Risk_Rating_Factor.R8</members>
+		<name>CustomMetadata</name>
+	</types>
+	<types>
 		<members>FinServ__AssetsAndLiabilities__c</members>
 		<name>CustomObject</name>
 	</types>
