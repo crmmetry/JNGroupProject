@@ -133,7 +133,7 @@ public with sharing class ProductDetailSelector {
         AccountId,
         Collateral_CC__c,
         Collateral_LOC__c,
-       	Loan_to_ValueCC__c,
+        Loan_to_ValueCC__c,
         Loan_to_ValueLOC__c
       FROM opportunity
       WHERE Id = :oppId

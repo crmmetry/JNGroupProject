@@ -1,9 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Invalid_Mobile_Formula</fullName>
     <active>true</active>
-    <description>Ensures that the mobile field is properly validated.</description>
-    <errorConditionFormula>IF( OR(ISCHANGED(PersonMobilePhone ) &amp;&amp; NOT(ISNULL(PersonMobilePhone)) &amp;&amp; NOT(ISBLANK(PersonMobilePhone )) &amp;&amp; !REGEX(PersonMobilePhone ,&apos;^\\d{10,25}$&apos;), ISNEW() &amp;&amp; NOT(ISNULL(PersonMobilePhone)) &amp;&amp; NOT(ISBLANK(PersonMobilePhone )) &amp;&amp; !REGEX(PersonMobilePhone ,&apos;^\\d{10,25}$&apos;)),true,false)</errorConditionFormula>
+    <description
+  >Ensures that the mobile field is properly validated.</description>
+    <errorConditionFormula
+  >IF( OR(ISCHANGED(PersonMobilePhone ) &amp;&amp; NOT(ISNULL(PersonMobilePhone)) &amp;&amp; NOT(ISBLANK(PersonMobilePhone )) &amp;&amp; !REGEX(PersonMobilePhone ,&apos;^\\d{10,25}$&apos;), ISNEW() &amp;&amp; NOT(ISNULL(PersonMobilePhone)) &amp;&amp; NOT(ISBLANK(PersonMobilePhone )) &amp;&amp; !REGEX(PersonMobilePhone ,&apos;^\\d{10,25}$&apos;)),true,false)</errorConditionFormula>
     <errorDisplayField>PersonMobilePhone</errorDisplayField>
-    <errorMessage>Invalid format entered for mobile. The minimum number of digits should be 10</errorMessage>
+    <errorMessage
+  >Invalid format entered for mobile. The minimum number of digits should be 10</errorMessage>
 </ValidationRule>

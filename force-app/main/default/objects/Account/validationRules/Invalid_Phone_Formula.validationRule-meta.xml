@@ -1,9 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Invalid_Phone_Formula</fullName>
     <active>true</active>
-    <description>Ensures that the phone field is properly validated.</description>
-    <errorConditionFormula>AND (ISCHANGED( Phone ), !REGEX( Phone ,&apos;^\\d{10,25}$&apos;))</errorConditionFormula>
+    <description
+  >Ensures that the phone field is properly validated.</description>
+    <errorConditionFormula
+  >AND (ISCHANGED( Phone ), !REGEX( Phone ,&apos;^\\d{10,25}$&apos;))</errorConditionFormula>
     <errorDisplayField>Phone</errorDisplayField>
-    <errorMessage>Invalid format entered for phone. The minimum number of digits should be 10</errorMessage>
+    <errorMessage
+  >Invalid format entered for phone. The minimum number of digits should be 10</errorMessage>
 </ValidationRule>

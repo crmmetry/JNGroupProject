@@ -81,7 +81,9 @@
   <c:CreditCardOtherDetailsLineComponent
     ParentContainer="{!v.ParentContainer}"
   ></c:CreditCardOtherDetailsLineComponent>
-  <c:LineOfCreditCreditCalculationsLineComponent></c:LineOfCreditCreditCalculationsLineComponent>
+  <c:LineOfCreditCreditCalculationsLineComponent
+    ParentContainer="{!v.ParentContainer}"
+  ></c:LineOfCreditCreditCalculationsLineComponent>
   <c:TotalDebtServiceRatioLineItemComponent
     ParentContainer="{!v.ParentContainer}"
     jnDefaultConfigs="{!v.jnDefaultConfigs}"

@@ -18,17 +18,16 @@
       LTVValue: 0,
       riskRating: {}, //for multi applicants
       creditRiskScore: 0,
-      creditRiskRating: ""
+      creditRiskRating: "",
+      minimumPayment: 0,
+      approvedStartingLimit: 0
     });
     helper.updateProductSelection(component);
     helper.getJNConfigurations(component);
     helper.getAssetsAndLiabilitiesForApplicant(component);
+    helper.getRiskRatingFactorsMap(component);
     //helper.getApplicants(component);
   },
-  // onLoanPurposeChange: function (component, event, helper) {
-  //   const selected = event.getSource().get("v.value");
-  //   console.log(selected);
-  // },
 
   /**
    * Sets scriptLoad attribute to true when all static resources are uplaoded successfully.
@@ -46,6 +45,7 @@
    * @param {*} helper
    */
   handleProductDetailsEvent: function (component, event, helper) {
+    //const updatedContainer = {};
     if (component.get("v.scriptsLoaded")) {
       let container = Object.assign(
         component.get("v.ChildContainer"),
@@ -65,21 +65,29 @@
       attributesToUpdate = attributesToUpdate.concat(
         helper.processingFeeCalculation(container, component)
       );
+
+      //Calculate Approve Starting Limit
+      console.log("ASL Helper");
+      attributesToUpdate = attributesToUpdate.concat(
+        helper.ASLCalculations(component)
+      );
+
+      //Calculate Minimum Payment
+      console.log("MMP Helper");
+      attributesToUpdate = attributesToUpdate.concat(
+        helper.minimumPaymentCalculations(component)
+      );
+      //Calculat TDSR values
+      attributesToUpdate = attributesToUpdate.concat(
+        helper.TDSRCalculations(container)
+      );
+      //Gets the applicant credit score //TODO: refactor in future sprints to be more efficient for server calls
+      helper.getCreditScoreRatings(component);
       const updatedContainer = updateChildContainerWithValue(
         component,
         attributesToUpdate,
         false
       );
-      // if (
-      //   helper.detectObjectChanges(
-      //     component.get("v.ChildContainer"),
-      //     container,
-      //     ["LTVValue", "repaymentMethod", "TDSRAfter", "TDSRBefore"]
-      //   )
-      // ) {
-        
-      // }
-      helper.getCreditScoreRatings(component);
       component.set("v.ChildContainer", updatedContainer);
       console.info(
         "Parenthical Child",

@@ -11,8 +11,7 @@ public with sharing class ProductDetailServiceTest {
     List<Account> accList = TestDataFactory.CreateBasicAccounts(1, 'Test');
     accList[0].Status_of_Address__pc = 'Family';
     accList[0].Years_at_Residence__pc = 12;
-    accList[0]
-      .Highest_Level_of_Education_attained__pc = 'High School';
+    accList[0].Highest_Level_of_Education_attained__pc = 'High School';
     accList[0].PersonBirthdate = date.newInstance(
       System.Today().year() - 25,
       2,
@@ -31,7 +30,7 @@ public with sharing class ProductDetailServiceTest {
       'Employeement Test'
     );
     employee.Current_Employment__c = true;
-   // employee.FinServ__EmploymentStatus__c = 'Permanent';
+    // employee.FinServ__EmploymentStatus__c = 'Permanent';
     //employee.Employment_Status__c = 'Contractual';
     employee.Industry__c = 'Construction';
     employee.Professional_Category__c = 'Professional';
@@ -219,7 +218,7 @@ public with sharing class ProductDetailServiceTest {
     Util.ExecutionCount = 2;
 
     opList[0].accountId = accList[0].id;
- 
+
     // opList[0].Collateral_CC__c = 'Cash';
     //  opList[0].Collateral_LOC__c = 'Cash';
     insert opList[0];

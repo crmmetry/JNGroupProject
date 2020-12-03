@@ -333,7 +333,9 @@ public class ProductDetailService {
           subCriteriaOption = parseEducation(fieldValue);
         }
       } else if (fieldName.equalsIgnoreCase(Constants.FINANCIAL_PERFORMANCE)) {
-        if (personalCreditModelMap.containsKey(Constants.FINANCIAL_PERFORMANCE)) {
+        if (
+          personalCreditModelMap.containsKey(Constants.FINANCIAL_PERFORMANCE)
+        ) {
           subCriteriaOption = getFinacialPerformance(fieldValue);
         }
       } else {
