@@ -65,44 +65,26 @@
       attributesToUpdate = attributesToUpdate.concat(
         helper.processingFeeCalculation(container, component)
       );
+
+      //Calculate Approve Starting Limit
+      console.log("ASL Helper");
+      attributesToUpdate = attributesToUpdate.concat(
+        helper.ASLCalculations(component)
+      );
+
+      //Calculate Minimum Payment
+      console.log("MMP Helper");
+      attributesToUpdate = attributesToUpdate.concat(
+        helper.minimumPaymentCalculations(component)
+      );
+      helper.getCreditScoreRatings(component);
+
       const updatedContainer = updateChildContainerWithValue(
         component,
         attributesToUpdate,
         false
       );
-      //Calculate Approve Starting Limit
-      console.log("ASL Helper");
-      let approvedStartingLimit = helper.ASLCalculations(component);
-      let childContainerValues = [
-        { key: "approvedStartingLimit", value: approvedStartingLimit }
-      ];
-      const containerWithASL = updateChildContainerWithValue(
-        component,
-        childContainerValues,
-        false
-      );
-      component.set("v.ChildContainer", containerWithASL);
-
-      //Calculate Minimum Payment
-      console.log("MMP Helper");
-      let minimumPayment = helper.minimumPaymentCalculations(component);
-      console.log("Minimum Payment", minimumPayment);
-      childContainerValues = [{ key: "minimumPayment", value: minimumPayment }];
-      const containerWithMinimumPayment = updateChildContainerWithValue(
-        component,
-        childContainerValues,
-        false
-      );
-      component.set("v.ChildContainer", containerWithMinimumPayment);
-      // if (
-      //   helper.detectObjectChanges(
-      //     component.get("v.ChildContainer"),
-      //     container,
-      //     ["LTVValue", "repaymentMethod", "TDSRAfter", "TDSRBefore"]
-      //   )
-      // ) {
-      // }
-      helper.getCreditScoreRatings(component);
+      component.set("v.ChildContainer", updatedContainer);
       console.info(
         "Parenthical Child",
         JSON.parse(JSON.stringify(component.get("v.ChildContainer")))

@@ -347,8 +347,14 @@
     );
     console.log("factor: ", riskFactor);
     if (riskFactor !== null) {
-      return ASLCalculator(container, jnDefaults, riskFactor);
+      return [
+        {
+          key: "approvedStartingLimit",
+          value: ASLCalculator(container, jnDefaults, riskFactor)
+        }
+      ];
     }
+    return [{ key: "approvedStartingLimit", value: 0 }];
   },
   /**
    * Calculate minimum payment
@@ -358,10 +364,11 @@
   minimumPaymentCalculations: function (component) {
     let container = component.get("v.ChildContainer");
     let defaults = component.get("v.jnDefaultConfigs");
-    return minimumPaymentCalculatorWithASL(
+    let minimumPayment = minimumPaymentCalculatorWithASL(
       container,
       defaults,
       container.approvedStartingLimit
     );
+    return [{ key: "minimumPayment", value: minimumPayment }];
   }
 });
