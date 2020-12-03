@@ -1,6 +1,6 @@
 ({
   displayMessage: function (component, event, helper) {
-    console.log("Test");
+    console.info("f");
     let params = event.getParam("arguments");
     if (!params) {
       return;
