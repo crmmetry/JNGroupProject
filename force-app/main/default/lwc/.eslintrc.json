@@ -44,7 +44,7 @@
     "no-await-in-loop": "off",
     "no-compare-neg-zero": "off",
     "no-cond-assign": "off",
-    "no-console": "on",
+    "no-console": "off",
     "no-constant-condition": "off",
     "no-control-regex": "off",
     "no-debugger": "off",
