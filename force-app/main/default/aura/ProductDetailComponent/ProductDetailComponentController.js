@@ -79,7 +79,7 @@
       );
       //Calculat TDSR values
       attributesToUpdate = attributesToUpdate.concat(
-        helper.TDSRCalculations(container)
+        helper.TDSRCalculations(container, component)
       );
       const updatedContainer = updateChildContainerWithValue(
         component,

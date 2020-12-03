@@ -217,7 +217,7 @@
    * @param {Object} data
    * @return {Void}
    */
-  TDSRCalculations: function (container) {
+  TDSRCalculations: function (container, component) {
     let tdsrBefore = TDSRBeforeCalculator(
       container.grossMonthlyIncome,
       container.existingDebt
