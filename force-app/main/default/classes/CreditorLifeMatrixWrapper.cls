@@ -69,9 +69,7 @@ public class CreditorLifeMatrixWrapper {
       template = 'X' + (Integer) ratingTenure + '__c';
     } else {
       String ratingTenureStr = String.valueOf(ratingTenure);
-      System.debug(ratingTenureStr);
       String[] values = ratingTenureStr.split('\\.');
-      System.debug(values);
       template = 'X' + values[0] + '_' + values[1] + '__c';
     }
     return template;

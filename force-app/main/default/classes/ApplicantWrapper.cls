@@ -34,10 +34,9 @@ public with sharing class ApplicantWrapper {
   @AuraEnabled
   public String creditHistoryInLast24Month; //JN1-4045
   @AuraEnabled
-  public String assessmentOfApplicantNetWorth;//JN1-4045
+  public String assessmentOfApplicantNetWorth; //JN1-4045
 
   public ApplicantWrapper(Applicant__c record) {
-    System.debug(record);
     this.Id = record.Id;
     if (record.Account__r != null) {
       this.dob = record.Account__r.PersonBirthdate;
@@ -54,8 +53,8 @@ public with sharing class ApplicantWrapper {
     this.otherAssetMonthlyPayment = record.Other_Asset_Monthly_Payment_Number__c;
     this.otherLoanMonthlyPayment = record.Other_Loan_Monthly_Payment_Number__c;
     this.grossMonthlyIncome = record.Gross_Monthly_Income__c;
-   	this.creditHistoryInLast24Month = record.Credit_History_in_last_24_Months__c;//JN1-4045
-    this.assessmentOfApplicantNetWorth = record.Assessment_of_Applicant_Net_Worth__c;//JN1-4045
+    this.creditHistoryInLast24Month = record.Credit_History_in_last_24_Months__c; //JN1-4045
+    this.assessmentOfApplicantNetWorth = record.Assessment_of_Applicant_Net_Worth__c; //JN1-4045
   }
 
   private Integer calculateAge(Date dob) {
