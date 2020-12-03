@@ -170,7 +170,7 @@
               <!-- Net Profit - Sole Trader -->
               <lightning:input
                 type="number"
-                label="Net Profit - Sole Trader"
+                label="Net Business Income (sole trader)"
                 formatter="Currency"
                 value="{!v.applicant.Net_Profit_Sole_Trader__c}"
                 aura:id="validation"
@@ -332,14 +332,33 @@
             >
               <!-- Existing Real Estate Rental I -->
               <lightning:input
-                type="number"
+                type="percent"
                 label="Existing Real Estate Rental I"
                 formatter="Currency"
                 value="{!v.applicant.Existing_Real_Estate_Rental_I__c}"
                 aura:id="validation"
               />
             </lightning:layoutItem>
-
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="6"
+              mediumDeviceSize="6"
+              largeDeviceSize="6"
+              alignmentBump="right"
+              padding="around-small"
+              aura:id="validation"
+            >
+              <!-- Ownership % - Real Estate Rental I -->
+              <lightning:input
+                type="number"
+                label="Ownership % - Real Estate Rental I"
+                formatter="percent-fixed"
+                step="0.01"
+                value="{!v.applicant.Ownership_Real_Estate_Rental__c}"
+                aura:id="validation"
+              />
+            </lightning:layoutItem>
             <lightning:layoutItem
               flexibility="no-flex"
               size="12"
@@ -366,15 +385,35 @@
               largeDeviceSize="6"
               alignmentBump="right"
               padding="around-small"
+              aura:id="validation"
+            >
+              <!-- Ownership % - Real Estate Rental II -->
+              <lightning:input
+                type="number"
+                label="Ownership % - Real Estate Rental II"
+                formatter="percent-fixed"
+                step="0.01"
+                value="{!v.applicant.Ownership_Real_Estate_Rental_II__c}"
+                aura:id="validation"
+              />
+            </lightning:layoutItem>
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="6"
+              mediumDeviceSize="6"
+              largeDeviceSize="6"
+              alignmentBump="right"
+              padding="around-small"
             >
               <!-- Projected Real Estate Rental -->
-              <lightning:input
+              <!-- <lightning:input
                 type="number"
                 label="Projected Real Estate Rental"
                 formatter="Currency"
                 value="{!v.applicant.Projected_Real_Estate_Rental__c}"
                 aura:id="validation"
-              />
+              /> -->
             </lightning:layoutItem>
           </aura:if>
 
@@ -458,8 +497,8 @@
           >
             <div class="slds-text-heading_medium">
               Statutory Deductions
-            </div></lightning:layoutItem
-          >
+            </div>
+          </lightning:layoutItem>
           <!--JN1-4047 :: END :: Added a picklist for expense details-->
           <lightning:layoutItem
             flexibility="no-flex"
@@ -561,8 +600,8 @@
           >
             <div class="slds-text-heading_medium">
               Family Fees
-            </div></lightning:layoutItem
-          >
+            </div>
+          </lightning:layoutItem>
 
           <lightning:layoutItem
             flexibility="no-flex"
@@ -817,8 +856,8 @@
           >
             <div class="slds-text-heading_medium">
               Property Related
-            </div></lightning:layoutItem
-          >
+            </div>
+          </lightning:layoutItem>
 
           <lightning:layoutItem
             flexibility="no-flex"
@@ -1036,8 +1075,8 @@
           >
             <div class="slds-text-heading_medium">
               House Fees
-            </div></lightning:layoutItem
-          >
+            </div>
+          </lightning:layoutItem>
           <lightning:layoutItem
             flexibility="no-flex"
             size="12"
@@ -1329,8 +1368,8 @@
           >
             <div class="slds-text-heading_medium">
               Transportation Related
-            </div></lightning:layoutItem
-          >
+            </div>
+          </lightning:layoutItem>
 
           <lightning:layoutItem
             flexibility="no-flex"
