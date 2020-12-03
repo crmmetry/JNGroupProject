@@ -161,8 +161,25 @@ window.fireProductDetailsEvent = function (type, payload, component) {
   });
   productDetailsEvent.fire();
   //indicate that the component wants notifications
+  notifyContainerChanges(component);
+};
+
+/**
+ * Re-enables child container notification updates
+ */
+window.notifyContainerChanges = function (component) {
+  //indicate that the component wants notifications
   if (component) {
-    component.get("v.notifyContainerChange", true);
+    component.set("v.notifyContainerChange", true);
+  }
+};
+/**
+ * Disables child container notification updates
+ */
+window.noNotifyContainerChanges = function (component) {
+  //indicate that the component does'nt wants notifications
+  if (component) {
+    component.set("v.notifyContainerChange", false);
   }
 };
 /**
@@ -183,7 +200,10 @@ window.calculatRequestedCreditBalanceLimit = function (requestedCreditLimit) {
  * @return {Decimal}
  */
 window.ASLCalculator = function (container, jnDefault, riskFactor) {
-  if (container.TDSRBefore > jnDefault.policyLimit || validNumber(riskFactor)) {
+  if (
+    container.TDSRBefore > jnDefault.policyLimit ||
+    !validNumber(riskFactor)
+  ) {
     return 0;
   } else {
     // //Step 1:

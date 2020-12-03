@@ -28,7 +28,32 @@
     helper.getRiskRatingFactorsMap(component);
     //helper.getApplicants(component);
   },
-
+  /**
+   * listens for child container changes
+   * @param {*} component
+   * @param {*} event
+   * @param {*} helper
+   */
+  onChildContainerChange: function (component, event, helper) {
+    let container = component.get("v.ParentContainer");
+    const childContainer = component.get("v.ChildContainer");
+    let data = Object.assign(container, childContainer);
+    if (
+      component.get("v.scriptsLoaded") &&
+      component.get("v.notifyContainerChange")
+    ) {
+      noNotifyContainerChanges(component);
+      //Calculate Approve Starting Limit
+      console.log("ASL Helper");
+      helper.ASLCalculations(component);
+      //Calculate Minimum Payment
+      console.log("MMP Helper");
+      helper.minimumPaymentCalculations(component);
+      //Calculat TDSR values
+      helper.TDSRCalculations(data, component);
+      notifyContainerChanges(component);
+    }
+  },
   /**
    * Sets scriptLoad attribute to true when all static resources are uplaoded successfully.
    * @param {*} component
@@ -66,21 +91,6 @@
         helper.processingFeeCalculation(container, component)
       );
 
-      //Calculate Approve Starting Limit
-      console.log("ASL Helper");
-      attributesToUpdate = attributesToUpdate.concat(
-        helper.ASLCalculations(component)
-      );
-
-      //Calculate Minimum Payment
-      console.log("MMP Helper");
-      attributesToUpdate = attributesToUpdate.concat(
-        helper.minimumPaymentCalculations(component)
-      );
-      //Calculat TDSR values
-      attributesToUpdate = attributesToUpdate.concat(
-        helper.TDSRCalculations(container, component)
-      );
       const updatedContainer = updateChildContainerWithValue(
         component,
         attributesToUpdate,

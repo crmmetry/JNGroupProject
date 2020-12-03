@@ -6,6 +6,12 @@
     event="c:ProductDetailsEvent"
     action="{!c.handleProductDetailsEvent}"
   />
+  <aura:attribute name="notifyContainerChange" type="Boolean" default="true" />
+  <aura:handler
+    name="change"
+    value="{!v.ChildContainer}"
+    action="{!c.onChildContainerChange}"
+  />
   <aura:attribute
     name="ParentContainer"
     type="Map"
