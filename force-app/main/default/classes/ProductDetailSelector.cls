@@ -13,7 +13,8 @@ public with sharing class ProductDetailSelector {
     Account accountObj = [
       SELECT
         Status_of_Address__c,
-        Years_at_Residence__c,
+        Status_of_Address__pc,
+        Years_at_Residence__pc,
         Highest_Level_of_Education_attained__pc,
         FinServ__Age__pc,
         PersonBirthdate
@@ -132,8 +133,8 @@ public with sharing class ProductDetailSelector {
         AccountId,
         Collateral_CC__c,
         Collateral_LOC__c,
-        Loan_to_Value_CC__c,
-        Loan_to_Value_LOC__c
+        Loan_to_ValueCC__c,
+        Loan_to_ValueLOC__c
       FROM opportunity
       WHERE Id = :oppId
     ];

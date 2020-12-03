@@ -27,7 +27,7 @@
       component.get("v.notifyContainerChange")
     ) {
       container.LTVValue = LTVCalculatorCash(
-        0,
+        data.approvedStartingLimit,
         container.existingDebt,
         childContainer.depositBalance
       );

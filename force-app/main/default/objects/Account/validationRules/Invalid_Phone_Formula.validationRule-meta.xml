@@ -5,7 +5,7 @@
     <description
   >Ensures that the phone field is properly validated.</description>
     <errorConditionFormula
-  >AND (ISCHANGED( Phone ), !REGEX( Phone ,&#39;^\\d{10,25}$&#39;))</errorConditionFormula>
+  >AND (ISCHANGED( Phone ), !REGEX( Phone ,&apos;^\\d{10,25}$&apos;))</errorConditionFormula>
     <errorDisplayField>Phone</errorDisplayField>
     <errorMessage
   >Invalid format entered for phone. The minimum number of digits should be 10</errorMessage>

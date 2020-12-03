@@ -5,7 +5,7 @@
     <description
   >Ensures that the business number 2 field is properly validated.</description>
     <errorConditionFormula
-  >IF(OR(ISCHANGED(Business_Number_2__c) &amp;&amp; NOT(ISNULL( Business_Number_2__c )) &amp;&amp; NOT(ISBLANK(Business_Number_2__c)) &amp;&amp; !REGEX(Business_Number_2__c  ,&#39;^\\d{10,25}$&#39;), ISNEW() &amp;&amp; NOT(ISNULL(Business_Number_2__c)) &amp;&amp; NOT(ISBLANK( Business_Number_2__c)) &amp;&amp; !REGEX(Business_Number_2__c  ,&#39;^\\d{10,25}$&#39;)),true,false)</errorConditionFormula>
+  >IF(OR(ISCHANGED(Business_Number_2__c) &amp;&amp; NOT(ISNULL( Business_Number_2__c )) &amp;&amp; NOT(ISBLANK(Business_Number_2__c)) &amp;&amp; !REGEX(Business_Number_2__c  ,&apos;^\\d{10,25}$&apos;), ISNEW() &amp;&amp; NOT(ISNULL(Business_Number_2__c)) &amp;&amp; NOT(ISBLANK( Business_Number_2__c)) &amp;&amp; !REGEX(Business_Number_2__c  ,&apos;^\\d{10,25}$&apos;)),true,false)</errorConditionFormula>
     <errorDisplayField>Business_Number_2__c</errorDisplayField>
     <errorMessage
   >Invalid format entered for business number 2. The minimum number of digits should be 10</errorMessage>

@@ -57,11 +57,12 @@ public class SubCriteriaOptionWrapper {
       this.age = applicantWrapper.age;
       this.creditHistory = applicantWrapper.creditHistoryInLast24Month;
       this.netWorth = applicantWrapper.assessmentOfApplicantNetWorth;
+      this.creditHistory = applicantWrapper.creditHistoryInLast24Month;
+      this.netWorth = applicantWrapper.assessmentOfApplicantNetWorth;
+      System.debug('Applicant Fields =' + applicantWrapper);
     }
     if (empWrapper != null) {
       this.employmentType = empWrapper.employmentType;
-      this.creditHistory = applicantWrapper.creditHistoryInLast24Month;
-      this.netWorth = applicantWrapper.assessmentOfApplicantNetWorth;
       this.employmentStatus = empWrapper.employmentStatus;
       this.industryOfEmployment = empWrapper.industry;
       this.lengthOfCurrentEmployment = empWrapper.lengthOfEmployment;
@@ -72,20 +73,24 @@ public class SubCriteriaOptionWrapper {
       this.financialPerformance = empWrapper.assessmentOfBusiness;
       this.financialStatementSupport = empWrapper.assessmentOfStatement;
       this.lengthOfTrade = empWrapper.lengthOfTrade;
+      System.debug('Employment Fields =' + empWrapper);
     }
     if (accWrapper != null) {
       this.education = accWrapper.highestLevelOfEducation;
       this.residentialStatus = accWrapper.statusOfAddress;
       this.yearsAtCurrentResidence = accWrapper.yearsAtResident;
+      System.debug('Account Fields =' + accWrapper);
     }
 
     if (oppWrapper != null) {
       this.collateral = oppWrapper.collateralCC;
       this.loanToValue = oppWrapper.loanToValueCC;
+      System.debug('Opportunity Fields =' + oppWrapper);
     }
     if (loanCalcWrapper != null) {
       this.ablitityToService = loanCalcWrapper.abilityToServiceCC;
       this.repaymentMethod = loanCalcWrapper.repaymentMethod;
+      System.debug('Loan Calc Fields =' + loanCalcWrapper);
     }
   }
 }

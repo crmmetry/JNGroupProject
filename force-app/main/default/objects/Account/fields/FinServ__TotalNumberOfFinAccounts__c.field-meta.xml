@@ -3,7 +3,7 @@
     <fullName>FinServ__TotalNumberOfFinAccounts__c</fullName>
     <deprecated>false</deprecated>
     <description
-  >Total number of the client&#39;s financial accounts that are managed by our firm.</description>
+  >Total number of the client&apos;s financial accounts that are managed by our firm.</description>
     <externalId>false</externalId>
     <formula
   >FinServ__TotalNumberOfFinAccountsPrimaryOwner__c + FinServ__TotalNumberOfFinAccountsJointOwner__c</formula>

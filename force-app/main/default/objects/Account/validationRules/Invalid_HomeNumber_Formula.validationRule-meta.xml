@@ -5,7 +5,7 @@
     <description
   >Ensures that the home number field is properly validated.</description>
     <errorConditionFormula
-  >IF( OR(ISCHANGED(Home_Number__c) &amp;&amp; NOT(ISNULL(Home_Number__c)) &amp;&amp; NOT(ISBLANK(Home_Number__c)) &amp;&amp; !REGEX(Home_Number__c ,&#39;^\\d{10,25}$&#39;), ISNEW() &amp;&amp; NOT(ISNULL(Home_Number__c)) &amp;&amp; NOT(ISBLANK(Home_Number__c)) &amp;&amp; !REGEX(Home_Number__c,&#39;^\\d{10,25}$&#39;)),true,false)</errorConditionFormula>
+  >IF( OR(ISCHANGED(Home_Number__c) &amp;&amp; NOT(ISNULL(Home_Number__c)) &amp;&amp; NOT(ISBLANK(Home_Number__c)) &amp;&amp; !REGEX(Home_Number__c ,&apos;^\\d{10,25}$&apos;), ISNEW() &amp;&amp; NOT(ISNULL(Home_Number__c)) &amp;&amp; NOT(ISBLANK(Home_Number__c)) &amp;&amp; !REGEX(Home_Number__c,&apos;^\\d{10,25}$&apos;)),true,false)</errorConditionFormula>
     <errorDisplayField>Home_Number__c</errorDisplayField>
     <errorMessage
   >Invalid format entered for home number. The minimum number of digits should be 10</errorMessage>

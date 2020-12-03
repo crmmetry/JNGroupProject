@@ -3,7 +3,7 @@
     <fullName>Are_Application_Details_Complete__c</fullName>
     <externalId>false</externalId>
     <formula
-  >IF(  Applicant_Detail_Rollup__c  &gt;0,&#39;YES&#39;,&#39;NO&#39;)</formula>
+  >IF(  Applicant_Detail_Rollup__c  &gt;0,&apos;YES&apos;,&apos;NO&apos;)</formula>
     <label>Are Application Details Complete?</label>
     <required>false</required>
     <type>Text</type>

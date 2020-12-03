@@ -77,8 +77,12 @@
       attributesToUpdate = attributesToUpdate.concat(
         helper.minimumPaymentCalculations(component)
       );
+      //Calculat TDSR values
+      attributesToUpdate = attributesToUpdate.concat(
+        helper.TDSRCalculations(container)
+      );
+      //Gets the applicant credit score //TODO: refactor in future sprints to be more efficient for server calls
       helper.getCreditScoreRatings(component);
-
       const updatedContainer = updateChildContainerWithValue(
         component,
         attributesToUpdate,

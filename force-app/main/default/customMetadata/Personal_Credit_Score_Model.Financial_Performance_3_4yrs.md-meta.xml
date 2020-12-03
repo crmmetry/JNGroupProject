@@ -4,7 +4,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 >
-    <label>Financial Performance - 3-4yrs</label>
+    <label>Financial Performance - 3 - 4yrs</label>
     <protected>false</protected>
     <values>
         <field>Salaried_Score_Number__c</field>
@@ -22,7 +22,7 @@
         <field>Sub_Criteria_Options__c</field>
         <value
       xsi:type="xsd:string"
-    >Good growth and or profit trends for 3-4 years</value>
+    >Good growth and or profit trends for 3 - 4 years</value>
     </values>
     <values>
         <field>Sub_Criteria_Weight_Numbr__c</field>

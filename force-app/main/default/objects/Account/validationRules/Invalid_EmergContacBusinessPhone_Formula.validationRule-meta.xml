@@ -5,7 +5,7 @@
     <description
   >Ensures that the emergency contact business phone field is properly validated.</description>
     <errorConditionFormula
-  >IF( OR(ISCHANGED(Emergency_Contact_Business_Phone__pc ) &amp;&amp; NOT(ISNULL(Emergency_Contact_Business_Phone__pc)) &amp;&amp; NOT(ISBLANK(Emergency_Contact_Business_Phone__pc)) &amp;&amp; !REGEX(Emergency_Contact_Business_Phone__pc ,&#39;^\\d{10,25}$&#39;), ISNEW() &amp;&amp; NOT(ISNULL(Emergency_Contact_Business_Phone__pc)) &amp;&amp; NOT(ISBLANK(Emergency_Contact_Business_Phone__pc)) &amp;&amp; !REGEX(Emergency_Contact_Business_Phone__pc,&#39;^\\d{10,25}$&#39;)),true,false)</errorConditionFormula>
+  >IF( OR(ISCHANGED(Emergency_Contact_Business_Phone__pc ) &amp;&amp; NOT(ISNULL(Emergency_Contact_Business_Phone__pc)) &amp;&amp; NOT(ISBLANK(Emergency_Contact_Business_Phone__pc)) &amp;&amp; !REGEX(Emergency_Contact_Business_Phone__pc ,&apos;^\\d{10,25}$&apos;), ISNEW() &amp;&amp; NOT(ISNULL(Emergency_Contact_Business_Phone__pc)) &amp;&amp; NOT(ISBLANK(Emergency_Contact_Business_Phone__pc)) &amp;&amp; !REGEX(Emergency_Contact_Business_Phone__pc,&apos;^\\d{10,25}$&apos;)),true,false)</errorConditionFormula>
     <errorDisplayField>Emergency_Contact_Business_Phone__pc</errorDisplayField>
     <errorMessage
   >Invalid format entered for emergency contact business phone. The minimum number of digits should be 10</errorMessage>

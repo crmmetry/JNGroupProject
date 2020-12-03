@@ -33,11 +33,13 @@
     <picklistValues>
         <picklist>Assessment_of_Business__c</picklist>
         <values>
-            <fullName>Good growth and profit trends for 3 - 4 years</fullName>
+            <fullName
+      >Good growth and or profit trends for 3 - 4 years</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Good growth and profit trends for up to 2 years</fullName>
+            <fullName
+      >Good growth and or profit trends for up to 2 years</fullName>
             <default>false</default>
         </values>
         <values>

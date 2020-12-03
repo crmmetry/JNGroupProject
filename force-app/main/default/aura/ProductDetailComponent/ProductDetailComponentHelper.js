@@ -217,18 +217,17 @@
    * @param {Object} data
    * @return {Void}
    */
-  TDSRCalculations: function (component, data) {
+  TDSRCalculations: function (data) {
     let tdsrBefore = TDSRBeforeCalculator(
       data.grossMonthlyIncome,
       data.existingDebt
     );
-    //TODO:Minimum Payment For Credit Facility should be calculated on a separate ticket outside sprint3 zero will be used as a place holder for now.
     let tdsrAfter = TDSRAfterCalculator(
       data.grossMonthlyIncome,
       data.existingDebt,
       data.minimumPayment
     );
-    let values = [
+    return [
       {
         key: "TDSRBefore",
         value: tdsrBefore
@@ -238,8 +237,6 @@
         value: tdsrAfter
       }
     ];
-    let childValues = updateChildContainerWithValue(component, values, false);
-    component.set("v.ChildContainer", childValues);
   },
 
   /**

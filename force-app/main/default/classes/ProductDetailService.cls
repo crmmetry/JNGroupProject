@@ -176,7 +176,9 @@ public class ProductDetailService {
         flag = true;
       }
     } else {
-      flag = true;
+      if (fieldValue < Integer.ValueOf(range.remove('<').trim())) {
+        flag = true;
+      }
     }
     return flag;
   }
@@ -205,11 +207,11 @@ public class ProductDetailService {
    */
   public string parseEducation(String fieldValue) {
     String subCriteriaOption;
-    if (fieldValue.equalsIgnoreCase(Constants.POST_GRADUATE)) {
+    if (fieldValue.contains(Constants.POST_GRADUATE)) {
       subCriteriaOption = Constants.POST_GRADUATE;
-    } else if (fieldValue.equalsIgnoreCase(Constants.UNDERGRADUATE_GRADUATE)) {
+    } else if (fieldValue.contains(Constants.UNDERGRADUATE_GRADUATE)) {
       subCriteriaOption = Constants.UNDERGRADUATE_GRADUATE;
-    } else if (fieldValue.equalsIgnoreCase(Constants.VOCATIONAL)) {
+    } else if (fieldValue.contains(Constants.VOCATIONAL)) {
       subCriteriaOption = Constants.VOCATIONAL;
     } else {
       subCriteriaOption = fieldValue;
@@ -235,6 +237,26 @@ public class ProductDetailService {
     }
     return subCriteriaOption;
   }
+
+  /*
+   * Get the Subcriteria option for length of trade field.
+   * @param {String} fieldValue - actual value stored in field
+   * @return {string} - return the value stored in subcriteria option of custom metadata
+   */
+  public string getFinacialPerformance(String fieldValue) {
+    String subCriteriaOption;
+    if (fieldValue.equalsIgnoreCase(Constants.THREE_TO_FOUR_YEARS_AND_OR)) {
+      subCriteriaOption = Constants.THREE_TO_FOUR_YEARS_AND_OR;
+    } else if (fieldValue.equalsIgnoreCase(Constants.UP_TO_TWO_YEARS)) {
+      subCriteriaOption = Constants.UP_TO_TWO_YEARS_AND_OR;
+    } else if (fieldValue.equalsIgnoreCase(Constants.INCONSISTANT)) {
+      subCriteriaOption = Constants.INCONSISTANT_AND_OR;
+    } else if (fieldValue.equalsIgnoreCase(Constants.INADEQUATE)) {
+      subCriteriaOption = Constants.INADEQUATE_AND_OR;
+    }
+    return subCriteriaOption;
+  }
+
   /*
    * Get the formate of SubCriteriaOption.
    * @return {string}
@@ -309,6 +331,12 @@ public class ProductDetailService {
       } else if (fieldName.equalsIgnoreCase(Constants.EDUCATION)) {
         if (personalCreditModelMap.containsKey(Constants.EDUCATION)) {
           subCriteriaOption = parseEducation(fieldValue);
+        }
+      } else if (fieldName.equalsIgnoreCase(Constants.FINANCIAL_PERFORMANCE)) {
+        if (
+          personalCreditModelMap.containsKey(Constants.FINANCIAL_PERFORMANCE)
+        ) {
+          subCriteriaOption = getFinacialPerformance(fieldValue);
         }
       } else {
         subCriteriaOption = fieldValue;

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Sub_Criteria_Options__c</fullName>
     <externalId>false</externalId>
@@ -96,9 +96,9 @@
                 <label>Agriculture</label>
             </value>
             <value>
-                <fullName>Cash</fullName>
+                <fullName>Cash/Investments</fullName>
                 <default>false</default>
-                <label>Cash</label>
+                <label>Cash/Investments</label>
             </value>
             <value>
                 <fullName>Clerical</fullName>
@@ -131,14 +131,17 @@
                 <label>Good</label>
             </value>
             <value>
-                <fullName>Good growth and or profit trends for 3-4 years</fullName>
+                <fullName
+        >Good growth and or profit trends for 3 - 4 years</fullName>
                 <default>false</default>
-                <label>Good growth and or profit trends for 3-4 years</label>
+                <label>Good growth and or profit trends for 3 - 4 years</label>
             </value>
             <value>
-                <fullName>Good growth and or profit trends for up to 2 years</fullName>
+                <fullName
+        >Good growth and or profit trends for up to 2 years</fullName>
                 <default>false</default>
-                <label>Good growth and or profit trends for up to 2 years</label>
+                <label
+        >Good growth and or profit trends for up to 2 years</label>
             </value>
             <value>
                 <fullName>Government</fullName>
@@ -186,7 +189,8 @@
                 <label>Negative</label>
             </value>
             <value>
-                <fullName>Net worth not commensurate with age and earning</fullName>
+                <fullName
+        >Net worth not commensurate with age and earning</fullName>
                 <default>false</default>
                 <label>Net worth not commensurate with age and earning</label>
             </value>
@@ -296,9 +300,11 @@
                 <label>Skilled Worker</label>
             </value>
             <value>
-                <fullName>Sound Business Plan, Skill And Professional Competence</fullName>
+                <fullName
+        >Sound Business Plan, Skill And Professional Competence</fullName>
                 <default>false</default>
-                <label>Sound Business Plan, Skill And Professional Competence</label>
+                <label
+        >Sound Business Plan, Skill And Professional Competence</label>
             </value>
             <value>
                 <fullName>Standing Order</fullName>

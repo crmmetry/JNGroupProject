@@ -8,11 +8,11 @@
     <protected>false</protected>
     <values>
         <field>Salaried_Score_Number__c</field>
-        <value xsi:type="xsd:double">700.0</value>
+        <value xsi:nil="true" />
     </values>
     <values>
         <field>Self_Employed_Score_Number__c</field>
-        <value xsi:nil="true" />
+        <value xsi:type="xsd:double">700.0</value>
     </values>
     <values>
         <field>Sub_Criteria_Option__c</field>
