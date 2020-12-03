@@ -77,6 +77,28 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Lien_on_Asset_List__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Loan_Repaid_From_Facility_List__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Property_Type__c</picklist>
         <values>
             <fullName>Residential</fullName>

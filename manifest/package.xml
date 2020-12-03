@@ -13,9 +13,7 @@
 		<name>CustomField</name>
 	</types>
 	<types>
-		<members>Applicant__c</members>
-		<members>Application_Asset_Liability__c</members>
-		<members>Supplementary_Card_Holders__c</members>
+		<members>FinServ__AssetsAndLiabilities__c</members>
 		<name>CustomObject</name>
 	</types>
 	<types>
@@ -59,9 +57,21 @@
 		<name>QuickAction</name>
 	</types>
 	<types>
-		<members>Applicant__c.Empty_Application</members>
-		<members>Applicant__c.Full_Details_Of_Income_Living_Expenses</members>
-		<members>Applicant__c.Short_Summary_of_Income</members>
+		<members>FinServ__AssetsAndLiabilities__c.Credit_Cards</members>
+		<members>FinServ__AssetsAndLiabilities__c.FinServ__Liability</members>
+		<members>FinServ__AssetsAndLiabilities__c.FinServ__NonfinancialAsset</members>
+		<members>FinServ__AssetsAndLiabilities__c.Life_Insurance_Policies</members>
+		<members>FinServ__AssetsAndLiabilities__c.Lines_of_Credit</members>
+		<members>FinServ__AssetsAndLiabilities__c.Motor_Vehicle</members>
+		<members>FinServ__AssetsAndLiabilities__c.Other_Assets</members>
+		<members>FinServ__AssetsAndLiabilities__c.Other_Loans</members>
+		<members>FinServ__AssetsAndLiabilities__c.Other_Loans_Guaranteed</members>
+		<members>FinServ__AssetsAndLiabilities__c.Overdraft_Limit</members>
+		<members
+    >FinServ__AssetsAndLiabilities__c.Pension_Contributions_or_Individual</members>
+		<members>FinServ__AssetsAndLiabilities__c.Real_Estate</members>
+		<members
+    >FinServ__AssetsAndLiabilities__c.Savings_Current_Accounts_Investments</members>
 		<name>RecordType</name>
 	</types>
 	<types>

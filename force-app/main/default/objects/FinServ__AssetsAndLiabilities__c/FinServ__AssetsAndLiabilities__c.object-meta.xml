@@ -145,7 +145,7 @@
     <deploymentStatus>Deployed</deploymentStatus>
     <deprecated>false</deprecated>
     <description
-  >Assets or liabilities that are not represented in a client&#39;s financial accounts, such as real estate or collectibles.</description>
+  >Assets or liabilities that are not represented in a client&apos;s financial accounts, such as real estate or collectibles.</description>
     <enableActivities>true</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
