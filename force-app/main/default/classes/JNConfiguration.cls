@@ -31,6 +31,18 @@ public class JNConfiguration {
   //JN1-3969
   @AuraEnabled
   public Decimal locCreditLimitPercent;
+  @AuraEnabled
+  public Decimal creditLimitMin;
+  @AuraEnabled
+  public Decimal creditLimitMax;
+  @AuraEnabled
+  public Decimal creditCardPrincipalPayment;
+  @AuraEnabled
+  public Decimal lineOfCreditPrincipalPayment;
+  @AuraEnabled
+  public Decimal discountFactor;
+  @AuraEnabled
+  public decimal creditLimitValue;
   public JNConfiguration(JN_Defaults__mdt record) {
     this.gct = record.GCT__c;
     this.assignmentFee =
@@ -45,5 +57,11 @@ public class JNConfiguration {
     this.classicCardFee = record.Classic_Card_Fee__c; //JN1-3969
     this.supplementaryCardFee = record.Supplementary_Card_Fee__c; //JN1-3969
     this.locCreditLimitPercent = record.LOC_Credit_Limit_Percent__c; //JN1-3969
+    this.creditLimitMin = record.Credit_Limit_Allowable_Min_Number__c;
+    this.creditLimitMax = record.Credit_Limit_Allowable_Max_Number__c;
+    this.creditCardPrincipalPayment = record.Credit_Card_Principal_Payment_Number__c;
+    this.lineOfCreditPrincipalPayment = record.Line_Of_Credit_Principal_Payment_Number__c;
+    this.discountFactor = record.Discount_Factor_Number__c;
+    this.creditLimitValue = record.Credit_Limit_Value__c; //JN1-4049 :: Kirti R. :: shows the credit limit
   }
 }

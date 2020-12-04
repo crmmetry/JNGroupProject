@@ -9,7 +9,7 @@ NOT(ISBLANK(   Province_Parish_State__c   )),
 NOT(ISBLANK(   Years_at_Residence__c  )),
 NOT(ISBLANK(   PersonMobilePhone )),
 NOT(ISBLANK(    PersonEmail    ))
-),&#39;Yes&#39;,&#39;NO&#39;)</formula>
+),&apos;Yes&apos;,&apos;NO&apos;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Are your contact detail complete</label>
     <required>false</required>

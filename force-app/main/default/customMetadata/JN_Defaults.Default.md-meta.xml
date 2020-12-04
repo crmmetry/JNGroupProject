@@ -16,23 +16,23 @@
     </values>
     <values>
         <field>Credit_Card_Principal_Payment_Number__c</field>
-        <value xsi:nil="true" />
+        <value xsi:type="xsd:double">2.5</value>
     </values>
     <values>
         <field>Credit_Limit_Allowable_Max_Number__c</field>
-        <value xsi:nil="true" />
+        <value xsi:type="xsd:double">0.3</value>
     </values>
     <values>
         <field>Credit_Limit_Allowable_Min_Number__c</field>
-        <value xsi:nil="true" />
+        <value xsi:type="xsd:double">0.2</value>
     </values>
     <values>
         <field>Credit_Limit_Value__c</field>
-        <value xsi:type="xsd:double">50000.0</value>
+        <value xsi:type="xsd:double">5000000.0</value>
     </values>
     <values>
         <field>Discount_Factor_Number__c</field>
-        <value xsi:nil="true" />
+        <value xsi:type="xsd:double">0.33</value>
     </values>
     <values>
         <field>Estimated_Stamp_Duty_Admin_Fee__c</field>
@@ -56,7 +56,7 @@
     </values>
     <values>
         <field>Line_Of_Credit_Principal_Payment_Number__c</field>
-        <value xsi:nil="true" />
+        <value xsi:type="xsd:double">3.0</value>
     </values>
     <values>
         <field>NSIPP_Registration_Fee__c</field>

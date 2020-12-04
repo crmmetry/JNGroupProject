@@ -13,15 +13,16 @@
             <sorted>false</sorted>
             <value>
                 <fullName
-        >Good growth and profit trends for 3 - 4 years</fullName>
+        >Good growth and or profit trends for 3 - 4 years</fullName>
                 <default>false</default>
-                <label>Good growth and profit trends for 3 - 4 years</label>
+                <label>Good growth and or profit trends for 3 - 4 years</label>
             </value>
             <value>
                 <fullName
-        >Good growth and profit trends for up to 2 years</fullName>
+        >Good growth and or profit trends for up to 2 years</fullName>
                 <default>false</default>
-                <label>Good growth and profit trends for up to 2 years</label>
+                <label
+        >Good growth and or profit trends for up to 2 years</label>
             </value>
             <value>
                 <fullName>Inconsistent profit/growth trends</fullName>

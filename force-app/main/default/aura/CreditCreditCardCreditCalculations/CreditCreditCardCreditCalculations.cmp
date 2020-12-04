@@ -6,6 +6,12 @@
   <aura:attribute name="primaryApplicantAnnualMembership" type="String" />
   <aura:attribute name="supplementaryApplicantAnnualMembership" type="String" />
   <aura:attribute name="annualCreditorLifeFee" type="String" />
+  <aura:attribute
+    name="ParentContainer"
+    type="Map"
+    default="{}"
+    description="Credit Card Other Detail Line Component container"
+  />
 
   <aura:attribute name="jnDefaultConfigs" type="Map" default="{}" />
   <!-- JN1-3969 -->
@@ -34,7 +40,7 @@
         >
           <lightning:input
             label="Starting Limit"
-            value="{!v.startingLimit}"
+            value="{!v.ParentContainer.approvedStartingLimit}"
             type="number"
             name="input1"
             formatter="currency"
@@ -51,9 +57,10 @@
             label="Type of Card"
             value="{!v.ParentContainer.cardType}"
             type="text"
-            name="input1"
+            name="cardType"
             readonly="true"
             required="true"
+            disabled="true"
           />
         </lightning:layoutItem>
         <lightning:layoutItem
@@ -63,7 +70,7 @@
         >
           <lightning:input
             label="Minimum Payment as per Credit Limit"
-            value="{!v.minimumPayment}"
+            value="{!v.ParentContainer.minimumPayment}"
             type="number"
             name="input1"
             formatter="currency"

@@ -7,5 +7,5 @@
     <errorConditionFormula
   >AND(ISPICKVAL(FinServ__Ownership__c , &quot;Individual&quot;), NOT(ISBLANK(FinServ__JointOwner__c)))</errorConditionFormula>
     <errorMessage
-  >Individually owned accounts can&#39;t have a joint owner.</errorMessage>
+  >Individually owned accounts can&apos;t have a joint owner.</errorMessage>
 </ValidationRule>

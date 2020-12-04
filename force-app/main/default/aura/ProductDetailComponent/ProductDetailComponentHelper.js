@@ -18,6 +18,8 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         component.set("v.productSelection", result);
+        let data = copyInto(component.get("v.ChildContainer"), result);
+        component.set("v.ChildContainer", data);
         this.updateProductSelectedFlag(component);
       }
     });
@@ -29,6 +31,10 @@
    * @param {*} container
    */
   updateProductSelectedFlag: function (component) {
+    console.log(
+      "updateProductSelectedFlag",
+      JSON.parse(JSON.stringify(component.get("v.productSelection")))
+    );
     let selectedFlag = component.get("v.productSelection.productFamily");
     const families = [
       { name: "Auto", variable: "autoFlag" },
@@ -54,11 +60,26 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         component.set("v.jnDefaultConfigs", result);
-        console.log(JSON.parse(JSON.stringify(result)));
       }
     });
     $A.enqueueAction(action);
   },
+  /**
+   * Retrieves risk rating map from apex
+   * @param {*} container
+   */
+  getRiskRatingFactorsMap: function (component) {
+    let action = component.get("c.getRiskRatingMap");
+    action.setCallback(this, function (response) {
+      let state = response.getState(); //Checking response status
+      let result = response.getReturnValue();
+      if (state === "SUCCESS") {
+        component.set("v.RiskRatings", result);
+      }
+    });
+    $A.enqueueAction(action);
+  },
+
   /**
    * Retrieves All applicants belonging to a particular opportunity.
    * @param {*} container
@@ -74,11 +95,9 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         component.set("v.applicants", result);
-        if (applicants.size() > 1) {
+        if (applicants.length > 1) {
           component.set("v.multipleApplicantsFlag", true);
         }
-        console.log(result);
-        console.log(JSON.parse(JSON.stringify(component.get("v.applicants"))));
       }
     });
     $A.enqueueAction(action);
@@ -138,7 +157,6 @@
       if (state === "SUCCESS") {
         this.mergeWithChildContainer(component, result);
         this.existingDebtCalculation(component, result);
-        this.TDSRCalculations(component, component.get("v.ChildContainer"));
       }
     });
     $A.enqueueAction(action);
@@ -177,10 +195,10 @@
     ];
     let total = 0;
     const fieldsMap = {};
+    console.log("existingDebtCalculation");
     fields.forEach((element) => (fieldsMap[element] = true));
     containerValues.forEach((element) => {
       Object.keys(element).forEach((key) => {
-        console.log("key: ", key);
         if (fieldsMap.hasOwnProperty(key)) {
           total += element[key];
         }
@@ -193,39 +211,53 @@
       }
     ];
     let data = updateChildContainerWithValue(component, values, false);
-    component.set("v.ChildContainer", data);
+    //component.set("v.ChildContainer", data);
   },
   /**
-   * calculates both TDSR before and TDSR after
+   * calculates  TDSR before
    * @param {*} component
    * @param {Object} data
    * @return {Void}
    */
-  TDSRCalculations: function (component, data) {
+  TDSRCalculationBefore: function (component) {
+    let container = component.get("v.ChildContainer");
     let tdsrBefore = TDSRBeforeCalculator(
-      data.grossMonthlyIncome,
-      data.existingDebt
-    );
-    //TODO:Minimum Payment For Credit Facility should be calculated on a separate ticket outside sprint3 zero will be used as a place holder for now.
-    let tdsrAfter = TDSRAfterCalculator(
-      data.grossMonthlyIncome,
-      data.existingDebt,
-      0
+      container.grossMonthlyIncome,
+      container.existingDebt
     );
     let values = [
       {
         key: "TDSRBefore",
         value: tdsrBefore
-      },
+      }
+    ];
+    let data = updateChildContainerWithValue(component, values, false);
+    component.set("v.ChildContainer", data);
+    return values;
+  },
+  /**
+   * calculates  TDSR before
+   * @param {*} component
+   * @param {Object} data
+   * @return {Void}
+   */
+  TDSRCalculationAfter: function (component) {
+    let container = component.get("v.ChildContainer");
+    let tdsrAfter = TDSRAfterCalculator(
+      container.grossMonthlyIncome,
+      container.existingDebt,
+      container.minimumPayment
+    );
+    let values = [
       {
         key: "TDSRAfter",
         value: tdsrAfter
       }
     ];
-    let childValues = updateChildContainerWithValue(component, values, false);
-    component.set("v.ChildContainer", childValues);
+    let data = updateChildContainerWithValue(component, values, false);
+    component.set("v.ChildContainer", data);
+    return values;
   },
-
   /**
    * Passes LTV, TDSR After and Before as well as repayment method to the serverside
    * @param {*} component
@@ -242,7 +274,6 @@
       validNumber(TDSRBefore) &&
       !isEmpty(repaymentMethod)
     ) {
-      console.info("Call getCreditScoreRatings", roundedValue(LTVValue));
       action.setParams({
         oppId: component.get("v.recordId"),
         ltv: this.LTVApplicableValue(component, container),
@@ -254,16 +285,20 @@
         let state = response.getState();
         let result = response.getReturnValue();
         if (state === "SUCCESS") {
-          console.info("Risk", result);
-          container.riskRating = result;
-          container.creditRiskScore = result.score;
-          container.creditRiskRating = result.rating;
-          component.set("v.ChildContainer", container);
+          let values = [
+            { key: "creditRiskScore", value: result.score },
+            { key: "creditRiskRating", value: result.rating }
+          ];
+          console.log("Updating Risk Score");
+          updateChildContainerWithNotification(component, values);
+          console.log("After Updating Risk Score");
         } else {
           console.info(JSON.stringify(response.getError()));
         }
       });
       $A.enqueueAction(action);
+    } else {
+      console.log("===Nothing===");
     }
   },
   /**
@@ -272,17 +307,18 @@
    * @param {*} event
    * @param {*} helper
    */
-  detectObjectChanges: function (oldObject, newObject, fields) {
+  changeDetectedInObjects: function (oldObject, newObject, fields) {
     if (!oldObject || !newObject || !fields) return false;
     return fields.every((field) => {
       //both have same fields and values are different
-      if (newObject.hasOwnProperty(field) && oldObject.hasOwnProperty(field)) {
-        //check if both are valid numbers
-        const valid =
-          validNumber(newObject[field]) && validNumber(oldObject[field]);
-        return valid && newObject[field] !== oldObject[field];
-      }
-      return false;
+      let val =
+        isEmpty(newObject[field]) === false ||
+        (validNumber(newObject[field]) &&
+          isEmpty(oldObject[field]) === false) ||
+        (validNumber(oldObject[field]) &&
+          newObject[field] !== oldObject[field]);
+      console.info("Did change", val, "Field ", field);
+      return val;
     });
   },
   /**
@@ -302,22 +338,29 @@
     }
     return 0;
   },
-
   /**
+   * checks if the passed family is the selected product
+   * @param {*} component
+   * @param {String} family
+   * @return {Boolean}
+   */
+  checkProductFamily: function (component, family) {
+    let selectedFlag = component.get("v.productSelection.productFamily");
+    return family === selectedFlag;
+  },
+  /**
+   * //TODO: only call this function for credit card type. also beware its dependencies are async
    * JN1-3969
    * Gets the supplementary card holders wrapper and sets the number of supplementary card holder in child container
    * @param {*} component
    */
   getSupplementaryCardHolders: function (component) {
-    let container = component.get("v.ChildContainer");
     let numberOfSupplementaryCardHolders = 0;
     let action = component.get("c.getSupplementaryCardHolders");
-
     action.setParams({
       oppId: component.get("v.recordId")
     });
     action.setCallback(this, function (response) {
-      debugger;
       let state = response.getState();
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
@@ -331,10 +374,6 @@
           {
             key: "numberOfSupplementaryCardHolders",
             value: numberOfSupplementaryCardHolders
-          },
-          {
-            key: "cardType",
-            value: "Gold"
           }
         ];
         let childValues = updateChildContainerWithValue(
@@ -352,11 +391,10 @@
   /**
    * JN1-3969
    * Calculate the annual fees for the primary applicant
-   * @param {*} container
    * @param {*} component
    */
-  annualFeesCalcualtions: function (container, component) {
-    debugger;
+  annualFeesCalcualtions: function (component) {
+    const container = component.get("v.ChildContainer");
     const JNDefaults = component.get("v.jnDefaultConfigs");
     const creditFlag = component.get("v.creditCardFlag");
     const locFlag = component.get("v.lineOfCreditFlag");
@@ -366,13 +404,100 @@
       locFlag,
       container
     );
-    console.log(primaryAnnualFee, supplementaryAnnualFee);
-    return [
+    let values = [
       { key: "primaryApplicantAnnualMembership", value: primaryAnnualFee },
       {
         key: "supplementaryApplicantAnnualMembership",
         value: supplementaryAnnualFee
       }
     ];
+    const data = updateChildContainerWithValue(component, values, false);
+    component.set("v.ChildContainer", data);
+    return values;
+  },
+  /**
+   * Selects appropriate risk rating factor
+   * @param {*} component
+   * @return {Number} risk factor
+   */
+
+  getRiskRatingFactor: function (component, riskRating) {
+    let riskRatingMap = component.get("v.RiskRatings");
+    if (riskRatingMap) {
+      return riskRatingMap[riskRating];
+    }
+    return null;
+  },
+  /**
+   * Calculate Approved Starting Limit
+   * @param {*} component
+   * @return {Number} asl
+   */
+
+  ASLCalculations: function (component) {
+    let container = component.get("v.ChildContainer");
+    let jnDefaults = component.get("v.jnDefaultConfigs");
+    let riskFactor = this.getRiskRatingFactor(
+      component,
+      container.creditRiskRating
+    );
+    if (isEmpty(riskFactor) === false) {
+      let values = [
+        {
+          key: "approvedStartingLimit",
+          value: ASLCalculator(container, jnDefaults, riskFactor)
+        }
+      ];
+      let data = updateChildContainerWithValue(component, values, false);
+      component.set("v.ChildContainer", data);
+      return values;
+    }
+    let values = [{ key: "approvedStartingLimit", value: 0 }];
+    let data = updateChildContainerWithValue(component, values, false);
+    component.set("v.ChildContainer", data);
+    return values;
+  },
+  /**
+   * Calculate minimum payment
+   * @param {*} component
+   * @return {Number} asl
+   */
+  minimumPaymentCalculations: function (component) {
+    let container = component.get("v.ChildContainer");
+    let defaults = component.get("v.jnDefaultConfigs");
+    console.log("minimumPaymentCalculations");
+    let minimumPayment = minimumPaymentCalculatorWithASL(
+      container,
+      defaults,
+      container.approvedStartingLimit
+    );
+    console.log("minimumPaymentCalculations 2");
+    let values = [{ key: "minimumPayment", value: minimumPayment }];
+    let data = updateChildContainerWithValue(component, values, false);
+    component.set("v.ChildContainer", data);
+    console.log("minimumPaymentCalculations 3");
+    return values;
+  },
+  /**
+   * checks the credit type
+   * @param {*} component
+   * @param {Objec} container
+   * @return {Number} credit type
+   */
+  setCardType: function (component) {
+    //JN-4049 :: Kirti R. ::Added a method to set credit type
+    let container = component.get("v.ChildContainer");
+    let approvedStartingLimit = container.approvedStartingLimit;
+    if (
+      approvedStartingLimit >
+      component.get("v.jnDefaultConfigs.creditLimitValue")
+    ) {
+      container.cardType = CREDIT_TYPE_GOLD;
+    } else {
+      container.cardType = CREDIT_TYPE_CLASSIC;
+    }
+    let values = [{ key: "cardType", value: container.cardType }];
+    updateChildContainerWithValue(component, values);
+    return values;
   }
 });

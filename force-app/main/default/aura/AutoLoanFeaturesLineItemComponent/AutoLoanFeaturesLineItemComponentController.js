@@ -32,14 +32,8 @@
         component.get("v.ChildContainer")
       );
       helper.onProposedSavingsChange(component);
-      helper.toggleShowIndicateApplicableProcessingFees(
-        component,
-        data
-      );
-      helper.toggleShowIncludeInLoanAmount(
-        component,
-        data
-      );
+      helper.toggleShowIndicateApplicableProcessingFees(component, data);
+      helper.toggleShowIncludeInLoanAmount(component, data);
       helper.resetProcessingFieldsValues(data, component);
       fireProductDetailsEvent(null, data, component);
     }

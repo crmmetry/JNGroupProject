@@ -6,6 +6,12 @@
     event="c:ProductDetailsEvent"
     action="{!c.handleProductDetailsEvent}"
   />
+  <aura:attribute name="notifyContainerChange" type="Boolean" default="true" />
+  <aura:handler
+    name="change"
+    value="{!v.ChildContainer}"
+    action="{!c.onChildContainerChange}"
+  />
   <aura:attribute
     name="ParentContainer"
     type="Map"
@@ -52,13 +58,14 @@
   <aura:attribute name="value" type="String" default="" />
   <aura:attribute name="percent" type="String" default="percent" />
   <aura:attribute name="amount" type="String" default="amount" />
-  <aura:attribute name="recordId" type="Id" default="amount" />
+  <aura:attribute name="recordId" type="Id" />
   <aura:attribute name="autoFlag" type="Boolean" default="false" />
   <aura:attribute name="unsecuredFlag" type="Boolean" default="false" />
   <aura:attribute name="creditCardFlag" type="Boolean" default="false" />
   <aura:attribute name="lineOfCreditFlag" type="Boolean" default="false" />
   <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
-  <aura:attribute name="jnDefaultConfigs" type="Map" />
+  <aura:attribute name="jnDefaultConfigs" type="Map" default="{}" />
+  <aura:attribute name="RiskRatings" type="Map" default="{}" />
   <lightning:layout multipleRows="true">
     <lightning:card>
       <lightning:layoutItem size="12" padding="around-small">

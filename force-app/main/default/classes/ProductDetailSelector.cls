@@ -56,7 +56,6 @@ public with sharing class ProductDetailSelector {
     if (employment != null) {
       empWrapper = new EmploymentWrapper(employment);
     }
-
     return empWrapper;
   }
 
@@ -147,7 +146,7 @@ public with sharing class ProductDetailSelector {
   }
 
   //JN1-3969
-  /*
+  /** *
    * returns the supplementary Card holder wrapper
    * @param {Id} oppId - opportunity Id
    * @return {List<SupplementaryCardHolderWrapper>} - returns  supplementary card holder details in wrapper format
@@ -167,10 +166,7 @@ public with sharing class ProductDetailSelector {
       FROM Supplementary_Card_Holders__c
       WHERE Opportunity__c = :oppId
     ];
-    if (
-      !supplementaryCardHolderList.isEmpty() &&
-      supplementaryCardHolderList.size() > 0
-    ) {
+    if (supplementaryCardHolderList.size() > 0) {
       for (Supplementary_Card_Holders__c record : supplementaryCardHolderList) {
         supplementaryWrapperList.add(
           new SupplementaryCardHolderWrapper(record)

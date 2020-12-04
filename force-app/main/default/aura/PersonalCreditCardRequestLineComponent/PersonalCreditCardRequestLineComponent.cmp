@@ -18,6 +18,8 @@
     default="{}"
     description="Credit Card parent container"
   />
+  <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
+  <aura:registerEvent name="productDetailsEvent" type="c:ProductDetailsEvent" />
 
   <!-- Handlers -->
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
@@ -27,11 +29,15 @@
     value="{!v.ChildContainer}"
   />
 
+  <aura:attribute name="notifyContainerChange" type="Boolean" default="true" />
+
   <!-- Static Resources -->
   <ltng:require
     scripts="{!join(',', 
+  $Resource.constants,
   $Resource.calculations, 
   $Resource.productDetailsGeneralFunctions)}"
+    afterScriptsLoaded="{!c.scriptsLoaded}"
   />
 
   <lightning:layout multipleRows="true">
@@ -72,7 +78,7 @@
         value="{!v.ChildContainer.interestRate}"
         placeholder="per annum"
         name="interestRate"
-        formatter="percentage"
+        formatter="percent-fixed"
         required="true"
       />
     </lightning:layoutItem>

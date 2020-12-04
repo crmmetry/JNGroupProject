@@ -20,7 +20,12 @@ public with sharing class JNConfigurations {
           Gold_Card_Fee__c, //JN1-3969
           Classic_Card_Fee__c, //JN1-3969
           Supplementary_Card_Fee__c, //JN1-3969
-          LOC_Credit_Limit_Percent__c //JN1-3969
+          LOC_Credit_Limit_Percent__c Credit_Limit_Allowable_Max_Number__c, //JN1-3969
+          Credit_Limit_Allowable_Min_Number__c,
+          Discount_Factor_Number__c,
+          Credit_Card_Principal_Payment_Number__c,
+          Line_Of_Credit_Principal_Payment_Number__c,
+          Credit_Limit_Value__c //JN-4049 :: Added a field to track max limit of credit limit
         FROM JN_Defaults__mdt
         WHERE Label = :Constants.DEFAULT_METADATA_LABEL
       ];

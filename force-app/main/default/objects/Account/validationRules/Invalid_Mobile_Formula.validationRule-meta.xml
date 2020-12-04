@@ -5,7 +5,7 @@
     <description
   >Ensures that the mobile field is properly validated.</description>
     <errorConditionFormula
-  >IF( OR(ISCHANGED(PersonMobilePhone ) &amp;&amp; NOT(ISNULL(PersonMobilePhone)) &amp;&amp; NOT(ISBLANK(PersonMobilePhone )) &amp;&amp; !REGEX(PersonMobilePhone ,&#39;^\\d{10,25}$&#39;), ISNEW() &amp;&amp; NOT(ISNULL(PersonMobilePhone)) &amp;&amp; NOT(ISBLANK(PersonMobilePhone )) &amp;&amp; !REGEX(PersonMobilePhone ,&#39;^\\d{10,25}$&#39;)),true,false)</errorConditionFormula>
+  >IF( OR(ISCHANGED(PersonMobilePhone ) &amp;&amp; NOT(ISNULL(PersonMobilePhone)) &amp;&amp; NOT(ISBLANK(PersonMobilePhone )) &amp;&amp; !REGEX(PersonMobilePhone ,&apos;^\\d{10,25}$&apos;), ISNEW() &amp;&amp; NOT(ISNULL(PersonMobilePhone)) &amp;&amp; NOT(ISBLANK(PersonMobilePhone )) &amp;&amp; !REGEX(PersonMobilePhone ,&apos;^\\d{10,25}$&apos;)),true,false)</errorConditionFormula>
     <errorDisplayField>PersonMobilePhone</errorDisplayField>
     <errorMessage
   >Invalid format entered for mobile. The minimum number of digits should be 10</errorMessage>

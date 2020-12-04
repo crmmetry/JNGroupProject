@@ -3,7 +3,7 @@
     <fullName>FinServ__ClaimsOnHouseholdPolicies__c</fullName>
     <deprecated>false</deprecated>
     <description
-  >The total number of claims that were ever raised for the policies currently owned by the policyholder&#39;s primary household.</description>
+  >The total number of claims that were ever raised for the policies currently owned by the policyholder&apos;s primary household.</description>
     <externalId>false</externalId>
     <inlineHelpText
   >This includes all the claims (irrespective of their current status), including the ones that are settled, as long as the related policy is active.</inlineHelpText>

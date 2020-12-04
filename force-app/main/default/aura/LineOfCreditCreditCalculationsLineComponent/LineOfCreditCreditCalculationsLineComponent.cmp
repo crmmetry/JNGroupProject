@@ -1,5 +1,4 @@
 <aura:component>
-  <aura:attribute name="startingLimit" type="Decimal" />
   <aura:attribute name="cardType" type="String" />
   <aura:attribute name="minimumPayment" type="Decimal" />
   <aura:attribute name="monthlyCreditorLifePremium" type="String" />
@@ -11,8 +10,9 @@
     name="ParentContainer"
     type="Map"
     default="{}"
-    description="Credit Card parent container"
+    description="Credit Card Other Detail Line Component container"
   />
+
   <fieldset class="slds-box slds-theme_default">
     <legend
       id="productdetailsform"
@@ -30,7 +30,7 @@
         >
           <lightning:input
             label="Starting Limit"
-            value="{!v.ParentContainer.startingLimit}"
+            value="{!v.ParentContainer.approvedStartingLimit}"
             type="number"
             name="input1"
             formatter="currency"
@@ -45,7 +45,7 @@
         >
           <lightning:input
             label="Minimum Payment as per Credit Limit"
-            value="{!v.minimumPayment}"
+            value="{!v.ParentContainer.minimumPayment}"
             type="number"
             name="input1"
             formatter="currency"

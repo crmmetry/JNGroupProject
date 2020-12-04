@@ -5,7 +5,7 @@
     <description
   >Ensures that the fax number field is properly validated.</description>
     <errorConditionFormula
-  >IF( OR(ISCHANGED(Fax) &amp;&amp; NOT(ISNULL(Fax)) &amp;&amp; NOT(ISBLANK(Fax)) &amp;&amp; !REGEX(Fax ,&#39;^\\d{10,25}$&#39;), ISNEW() &amp;&amp; NOT(ISNULL(Fax)) &amp;&amp; NOT(ISBLANK(Fax)) &amp;&amp; !REGEX(Fax,&#39;^\\d{10,25}$&#39;)),true,false)</errorConditionFormula>
+  >IF( OR(ISCHANGED(Fax) &amp;&amp; NOT(ISNULL(Fax)) &amp;&amp; NOT(ISBLANK(Fax)) &amp;&amp; !REGEX(Fax ,&apos;^\\d{10,25}$&apos;), ISNEW() &amp;&amp; NOT(ISNULL(Fax)) &amp;&amp; NOT(ISBLANK(Fax)) &amp;&amp; !REGEX(Fax,&apos;^\\d{10,25}$&apos;)),true,false)</errorConditionFormula>
     <errorDisplayField>Fax</errorDisplayField>
     <errorMessage
   >Invalid format entered for fax number. The minimum number of digits should be 10</errorMessage>

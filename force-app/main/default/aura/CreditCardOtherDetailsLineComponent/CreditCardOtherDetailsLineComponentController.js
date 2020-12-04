@@ -19,12 +19,11 @@
   onChildContainerChange: function (component, event, helper) {
     let container = component.get("v.ParentContainer");
     const childContainer = component.get("v.ChildContainer");
-    let data = Object.assign(container, childContainer);
     if (
       component.get("v.scriptsLoaded") &&
       component.get("v.notifyContainerChange")
     ) {
-      fireProductDetailsEvent(null, data, component);
+      fireProductDetailsEvent(null, childContainer, component);
     }
   },
 

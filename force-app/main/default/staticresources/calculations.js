@@ -149,7 +149,6 @@ window.enlistAndValidateNumberFields = function (properties, parentObj) {
  */
 window.basicPMTCalculator = function (properties, parentObj) {
   let validatedFields = enlistAndValidateFields(properties, parentObj);
-  console.info("validatedFields", validatedFields);
   if (!validatedFields) return 0;
   let rate;
   let totalMonths;
@@ -511,13 +510,17 @@ window.LTVCalculatorAutoLoan = function (loanAmount, minimum) {
  * @return {Decimal}
  */
 window.LTVCalculatorCash = function (startingLimit, existingDebt, deposit) {
-  if (validNumber(startingLimit) === false || validNumber(existingDebt) === false || validNumber(deposit) === false) {
+  if (
+    validNumber(startingLimit) === false ||
+    validNumber(existingDebt) === false ||
+    validNumber(deposit) === false
+  ) {
     return 0;
   }
   return roundedValue(
     ((parseFloat(startingLimit) + parseFloat(existingDebt)) /
       parseFloat(deposit)) *
-    100
+      100
   );
 };
 
@@ -541,28 +544,33 @@ window.TDSRBeforeCalculator = function (grossIncome, totalDebt) {
  * @return {Decimal}
  */
 window.TDSRAfterCalculator = function (grossIncome, totalDebt, minimumPayment) {
-  if (validNumber(grossIncome) === false || validNumber(totalDebt) === false || validNumber(minimumPayment) === false) {
+  if (
+    validNumber(grossIncome) === false ||
+    validNumber(totalDebt) === false ||
+    validNumber(minimumPayment) === false
+  ) {
     return 0;
   }
   return roundedValue(
     ((parseFloat(totalDebt) + parseFloat(minimumPayment)) /
       parseFloat(grossIncome)) *
-    100
+      100
   );
 };
 
 /**
  * //TODO:dont use
- * @param {*} fields 
- * @param {*} container 
+ * @param {*} fields
+ * @param {*} container
  */
 function fieldValidator(fields, container) {
   if (!fields || !container) return false;
   return fields.every((field) => {
-    if (!container.hasOwnProperty(field) || isEmpty(container[field])) return false;
+    if (!container.hasOwnProperty(field) || isEmpty(container[field]))
+      return false;
     switch (typeof container[field]) {
       case "string": {
-        return isEmpty(container[fiel])
+        return isEmpty(container[fiel]);
       }
       case "number": {
         return validNumber(container[field]);
@@ -570,5 +578,212 @@ function fieldValidator(fields, container) {
       default:
         return isEmpty(container[field]);
     }
-  })
+  });
 }
+//TODO: Check that parameters are valid
+//ASL Step Calculations
+/**
+ * ASL Calculation Step 1: Calculate Annual Gross Income
+ * @param {Decimal} monthlyGrossIncome
+ * @return {Decimal}
+ */
+window.annualGrossIncomeCalculator = function (monthlyGrossIncome) {
+  if (validNumber(monthlyGrossIncome)) {
+    return parseFloat(monthlyGrossIncome) * 12;
+  }
+  return 0;
+};
+
+/**
+ * ASL Calculation Step 1.5: Calculate MaximumCreditCardLimit
+ * @param {Decimal} creditLimitAllowable
+ * @param {Decimal} annualGrossIncome
+ * @return {Decimal}
+ */
+window.maximumCreditLimitCalculator = function (
+  maxCreditLimitAllowable,
+  minCreditLimitAllowable,
+  annualGrossIncome
+) {
+  if (
+    validNumber(maxCreditLimitAllowable) &&
+    validNumber(minCreditLimitAllowable) &&
+    validNumber(annualGrossIncome)
+  ) {
+    if (annualGrossIncome > 3000000) {
+      //TODO: Make into constant
+      return (
+        parseFloat(maxCreditLimitAllowable) * parseFloat(annualGrossIncome)
+      );
+    }
+    return parseFloat(minCreditLimitAllowable) * parseFloat(annualGrossIncome);
+  }
+  return 0;
+};
+
+/**
+ * ASL Calculation Step 2: Calculate Maximum allowable for monthly debt payments
+ * @param {Decimal} monthlyGrossIncome
+ * @param {Decimal} policyLimit
+ * @return {Decimal}
+ */
+window.maximumAllowableForMonthlyDebtPaymentsCalculator = function (
+  monthlyGrossIncome,
+  policyLimit
+) {
+  if (validNumber(monthlyGrossIncome) && validNumber(policyLimit)) {
+    return parseFloat(monthlyGrossIncome) * parseFloat(policyLimit);
+  }
+  return 0;
+};
+
+/**
+ * ASL Calculation Step 3: Calculate Maximum allowable for minimum payment
+ * @param {Decimal} maxDebtPayment
+ * @param {Decimal} existingDebt
+ * @return {Decimal}
+ */
+window.maximumAllowableForMinimumPaymentCalculator = function (
+  maxDebtPayment,
+  existingDebt
+) {
+  if (validNumber(maxDebtPayment) && validNumber(parseFloat(existingDebt))) {
+    return parseFloat(maxDebtPayment) - parseFloat(existingDebt);
+  }
+  return 0;
+};
+
+/**
+ * ASL Calculation Step 4: Calculate credit limit which returns the computed minimum payment
+ * @param {Decimal} maxMinimumPayment
+ * @param {Decimal} creditCardInterestRate
+ * @param {Decimal} monthlyPrincipalPayment
+ * @return {Decimal}
+ */
+window.computedMinimumPaymentFromCreditLimitCalculator = function (
+  //TODO: Modify to check product name on component to choose pricipal payment component metadata
+  container,
+  jnDefault,
+  mmp
+) {
+  let principalPayment = 0;
+  //TODO: travis refactor to constants and use appropriate family
+  if (container.productFamily === "JN Bank Credit Card") {
+    principalPayment = jnDefault.creditCardPrincipalPayment;
+  } else {
+    principalPayment = jnDefault.lineOfCreditPrincipalPayment;
+  }
+  if (
+    validNumber(mmp) &&
+    validNumber(container.interestRate) &&
+    validNumber(principalPayment)
+  ) {
+    let cmp = Math.trunc(
+      (mmp / (parseFloat(container.interestRate) / 12 + principalPayment)) * 100
+    );
+    return roundedValue(Math.round(cmp / 10000) * 10000);
+  }
+  return 0;
+};
+
+/**
+ * ASL Calculation Step 5: Calculate Lower Credit Limit
+ * @param {Decimal} computedMinimumPayment
+ * @param {Decimal} maxCreditCardLimit
+ * @return {Decimal}
+ */
+window.lowerCreditLimitCalculator = function (
+  computedMinimumPayment,
+  maxCreditCardLimit
+) {
+  if (validNumber(computedMinimumPayment) && validNumber(maxCreditCardLimit)) {
+    return Math.min(
+      parseFloat(computedMinimumPayment),
+      parseFloat(maxCreditCardLimit)
+    );
+  }
+  return 0;
+};
+
+/**
+ * ASL Calculation Step 6: Calculate Credit Limit after risk rating
+ * @param {Decimal} lowerCreditLimit
+ * @param {Decimal} riskRatingFactor
+ * @return {Decimal}
+ */
+window.creditLimitRiskCalculator = function (
+  lowerCreditLimit,
+  riskRatingFactor
+) {
+  if (validNumber(lowerCreditLimit) && validNumber(riskRatingFactor)) {
+    return parseFloat(lowerCreditLimit) * parseFloat(riskRatingFactor);
+  }
+  return 0;
+};
+
+/**
+ * ASL Calculation Step 7: Calculate Credit Limit after risk rating
+ * @param {Decimal} creditLimitAfterRisk
+ * @param {Decimal} discountFactor
+ * @return {Decimal}
+ */
+window.startingCreditLimtCalculator = function (
+  creditLimitAfterRisk,
+  discountFactor
+) {
+  if (validNumber(creditLimitAfterRisk) && validNumber(discountFactor)) {
+    return (
+      Math.round(
+        (parseFloat(creditLimitAfterRisk) * parseFloat(discountFactor) * 2) /
+          10000
+      ) * 10000
+    );
+  }
+  return 0;
+};
+
+/**
+ * ASL Calculation Step 8: Calculate approve starting limit
+ * @param {Decimal} startingCreditLimt
+ * @param {Decimal} requestedLimit
+ * @return {Decimal}
+ */
+window.approvedStartingLimitCalculator = function (
+  creditLimitAfterRisk,
+  requestedLimit
+) {
+  if (validNumber(creditLimitAfterRisk) && validNumber(requestedLimit)) {
+    return Math.min(
+      parseFloat(creditLimitAfterRisk),
+      parseFloat(requestedLimit)
+    );
+  }
+  return 0;
+};
+
+/**
+ * Calculates Minimum Payment for Credit Calculations COmponent using ASL
+ * @param {Map} container
+ * @param {Map} jnDefault
+ * @param {Decimal} mmp
+ * @return {Decimal}
+ */
+window.minimumPaymentCalculatorWithASL = function (container, jnDefault, mmp) {
+  let principalPayment = 0;
+  //TODO: fix this, what about other product families
+  if (container.productFamily === "JN Bank Credit Card") {
+    principalPayment = jnDefault.creditCardPrincipalPayment;
+  } else {
+    principalPayment = jnDefault.lineOfCreditPrincipalPayment;
+  }
+  if (
+    validNumber(mmp) &&
+    validNumber(container.interestRate) &&
+    validNumber(principalPayment)
+  ) {
+    return roundedValue(
+      mmp / (parseFloat(container.interestRate / 12) + principalPayment)
+    );
+  }
+  return 0;
+};

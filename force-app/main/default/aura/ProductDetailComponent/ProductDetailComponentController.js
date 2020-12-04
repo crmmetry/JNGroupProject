@@ -23,19 +23,44 @@
       riskRating: {}, //for multi applicants
       creditRiskScore: 0,
       creditRiskRating: "",
-      startingLimit: 20000
+      minimumPayment: 0,
+      approvedStartingLimit: 0,
+      cardType: "", //JN-4049 :: Added a field to track max the credit type,
+      primaryApplicantAnnualMembership: 0,
+      supplementaryApplicantAnnualMembership: 0
     });
     helper.updateProductSelection(component);
     helper.getJNConfigurations(component);
     helper.getAssetsAndLiabilitiesForApplicant(component);
-    helper.getSupplementaryCardHolders(component); //JN1-3969
+    //TODO: //CACHE fix
+    if (omponent.get("v.creditCardFlag")) {
+      helper.getSupplementaryCardHolders(component); //JN1-3969
+    }
+    helper.getRiskRatingFactorsMap(component);
     //helper.getApplicants(component);
   },
-  // onLoanPurposeChange: function (component, event, helper) {
-  //   const selected = event.getSource().get("v.value");
-  //   console.log(selected);
-  // },
-
+  /**
+   * listens for child container changes
+   * @param {*} component
+   * @param {*} event
+   * @param {*} helper
+   */
+  onChildContainerChange: function (component, event, helper) {
+    if (
+      component.get("v.scriptsLoaded") &&
+      component.get("v.notifyContainerChange")
+    ) {
+      noNotifyContainerChanges(component);
+      helper.TDSRCalculationBefore(component);
+      helper.ASLCalculations(component);
+      helper.minimumPaymentCalculations(component);
+      helper.TDSRCalculationAfter(component);
+      helper.setCardType(component); //JN1-4049 :: Kirti R :: Calculate the credit type
+      helper.annualFeesCalcualtions(component);
+      console.log("===Testing End===");
+      notifyContainerChanges(component);
+    }
+  },
   /**
    * Sets scriptLoad attribute to true when all static resources are uplaoded successfully.
    * @param {*} component
@@ -52,12 +77,30 @@
    * @param {*} helper
    */
   handleProductDetailsEvent: function (component, event, helper) {
+    //const updatedContainer = {};
     if (component.get("v.scriptsLoaded")) {
-      let container = Object.assign(
+      const oldChildContainer = copyInto(
+        null,
+        component.get("v.ChildContainer")
+      );
+      console.info("Old Version", oldChildContainer);
+
+      let container = copyInto(
         component.get("v.ChildContainer"),
         event.getParam("payload")
       );
+      console.info("New Version", JSON.parse(JSON.stringify(container)));
       let attributesToUpdate = [];
+      //Gets the applicant credit score
+      const creditScoreChanged = helper.changeDetectedInObjects(
+        oldChildContainer,
+        container,
+        ["LTVValue", "TDSRBefore", "repaymentMethod", "collateralType"]
+      );
+      if (creditScoreChanged) {
+        console.log("Risk changing");
+        helper.getCreditScoreRatings(component);
+      }
       // Calculate the monthly P&I Loan amount
       const monthlyPILoanAmount = monthlyPILoanAmountCalculation(container);
       attributesToUpdate.push({
@@ -68,33 +111,12 @@
       attributesToUpdate = attributesToUpdate.concat(
         helper.processingFeeCalculation(container, component)
       );
-      attributesToUpdate = attributesToUpdate.concat(
-        helper.processingFeeCalculation(container, component)
-      );
-      //JN1-3969
-      attributesToUpdate = attributesToUpdate.concat(
-        helper.annualFeesCalcualtions(container, component)
-      );
       const updatedContainer = updateChildContainerWithValue(
         component,
         attributesToUpdate,
         false
       );
-      // if (
-      //   helper.detectObjectChanges(
-      //     component.get("v.ChildContainer"),
-      //     container,
-      //     ["LTVValue", "repaymentMethod", "TDSRAfter", "TDSRBefore"]
-      //   )
-      // ) {
-
-      // }
-      helper.getCreditScoreRatings(component);
       component.set("v.ChildContainer", updatedContainer);
-      console.info(
-        "Parenthical Child",
-        JSON.parse(JSON.stringify(component.get("v.ChildContainer")))
-      );
     }
   }
 });

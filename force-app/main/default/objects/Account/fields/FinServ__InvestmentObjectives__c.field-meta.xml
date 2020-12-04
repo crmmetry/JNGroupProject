@@ -3,7 +3,7 @@
     <fullName>FinServ__InvestmentObjectives__c</fullName>
     <deprecated>false</deprecated>
     <description
-  >Client&#39;s preference for growth versus income investments.</description>
+  >Client&apos;s preference for growth versus income investments.</description>
     <externalId>false</externalId>
     <label>Investment Objectives</label>
     <required>false</required>

@@ -201,4 +201,24 @@ public with sharing class ProductDetailController {
       throw new AuraHandledException(e.getStackTraceString());
     }
   }
+  /** *
+   * retrievesrisk rating matrix.
+   * @return Map
+   */
+  @AuraEnabled
+  public static Map<String, Decimal> getRiskRatingMap() {
+    Map<String, Decimal> riskRatingMap = new Map<String, Decimal>();
+    List<Risk_Rating_Factor__mdt> riskRatingFactors = [
+      SELECT Risk_Rating_List__c, Score_Range_Number__c
+      FROM Risk_Rating_Factor__mdt
+    ];
+    for (Risk_Rating_Factor__mdt record : riskRatingFactors) {
+      riskRatingMap.put(
+        record.Risk_Rating_List__c,
+        record.Score_Range_Number__c
+      );
+    }
+    System.debug('Risk Ratings:' + riskRatingMap);
+    return riskRatingMap;
+  }
 }
