@@ -403,7 +403,7 @@
    * @param {Objec} container
    * @return {Number} credit type
    */
-  setCreditType: function (component) {
+  setCardType: function (component) {
     //JN-4049 :: Kirti R. ::Added a method to set credit type
     let container = component.get("v.ChildContainer");
     let startingLimit = container.approvedStartingLimit;

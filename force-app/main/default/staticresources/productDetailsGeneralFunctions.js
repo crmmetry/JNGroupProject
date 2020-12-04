@@ -56,9 +56,20 @@ window.updateChildContainerWithValue = function (
   values.forEach((element) => {
     container[element.key] = element.value;
     if (shouldSetComponentValue)
-      component.set("v.${element.key}", element.value);
+      component.set(`v.${element.key}`, element.value);
   });
   return container;
+};
+/*
+ * Updates child container attributes and its values with notification
+ */
+window.updateChildContainerWithNotification = function (component, values) {
+  let container = component.get("v.ChildContainer");
+  values.forEach((element) => {
+    container[element.key] = element.value;
+  });
+  notifyContainerChanges(component);
+  component.set("v.ChildContainer", container);
 };
 /*
  * Updates child container attributes and its values. then toggles when it should be notified
@@ -97,7 +108,6 @@ window.updateAccountTypeOptionList = function (
   jnBankAccountTypeOptions,
   selected
 ) {
-  debugger;
   if (selected === "JN Bank Ltd.") return jnBankAccountTypeOptions;
   if (selected === "JN Fund Managers Ltd.")
     return fundManagerAccountTypeOptions;
@@ -155,15 +165,31 @@ window.monthlyPILoanAmountCalculation = function (container) {
  */
 window.fireProductDetailsEvent = function (type, payload, component) {
   let productDetailsEvent = $A.get("e.c:ProductDetailsEvent");
-  debugger;
   productDetailsEvent.setParams({
     type: !type ? "calculation" : type,
     payload: payload
   });
   productDetailsEvent.fire();
   //indicate that the component wants notifications
+  notifyContainerChanges(component);
+};
+
+/**
+ * Re-enables child container notification updates
+ */
+window.notifyContainerChanges = function (component) {
+  //indicate that the component wants notifications
   if (component) {
-    component.get("v.notifyContainerChange", true);
+    component.set("v.notifyContainerChange", true);
+  }
+};
+/**
+ * Disables child container notification updates
+ */
+window.noNotifyContainerChanges = function (component) {
+  //indicate that the component does'nt wants notifications
+  if (component) {
+    component.set("v.notifyContainerChange", false);
   }
 };
 /**
@@ -246,21 +272,22 @@ window.ASLCalculator = function (container, jnDefault, riskFactor) {
  * @param {Object} src
  * @return {Object} target
  */
-window.updateChildContainerWithNotification = function (component, values) {
-  debugger;
-  let container = component.get("v.ChildContainer");
-  values.forEach((element) => {
-    container[element.key] = element.value;
+window.copyInto = function (target, src) {
+  if (!src) return null;
+  target = target || {};
+  this.Object.keys(src).forEach((prop) => {
+    if (src.hasOwnProperty(prop)) {
+      target[prop] = src[prop];
+    }
   });
-  notifyContainerChanges(component);
-  component.set("v.ChildContainer", container);
+  return target;
 };
 /**
- * Disables child container notification updates
+ * checks if object
+ * @param {Object} obj
+ * @return {Boolean}
  */
-window.noNotifyContainerChanges = function (component) {
-  //indicate that the component does'nt wants notifications
-  if (component) {
-    component.set("v.notifyContainerChange", false);
-  }
+window.isObject = function (obj) {
+  let type = typeof obj;
+  return type === "object" && !!obj;
 };

@@ -45,7 +45,7 @@
       helper.ASLCalculations(component);
       helper.minimumPaymentCalculations(component);
       helper.TDSRCalculationAfter(data, component);
-      helper.setCreditType(component); //JN1-4049 :: Kirti R :: Calculate the credit type
+      helper.setCardType(component); //JN1-4049 :: Kirti R :: Calculate the credit type
       console.log("===Testing End===");
       notifyContainerChanges(component);
     }
