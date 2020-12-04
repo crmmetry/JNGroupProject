@@ -1,200 +1,510 @@
-/**
- * this file consolidates all the reusable functions used in different aura components
- */
+({
+  /**
+   * Calculates the monthly P&I Loan amount in the credit calculations table.
+   */
+  calculateMonthlyP_ILoanAmount: function (component) {
+    const result = basicPMTCalculator(
+      ["years", "months", "loanAmount", "market"],
+      component.get("v.ParentContainer")
+    );
+    component.set("v.monthly_PI_LoanAmount", result);
+    this.updateChildContainerWithValue(component, [
+      { key: "monthly_PI_LoanAmount", value: parseFloat(result) }
+    ]);
+  },
+  /**
+   * Toggles the deduct repayment flag that controls the visibility of the 1st installment payable in the fees and charges.
+   */
+  setDeductRepaymentFlag: function (component) {
+    let creditRepayment = component.get("v.ParentContainer");
+    if (creditRepayment.deductRepayment == "Yes") {
+      component.set("v.deductRepaymentFlag", true);
+    } else {
+      component.set("v.deductRepaymentFlag", false);
+    }
+  },
+  /**
+   * Calculates the Monthly compulsory savings and Total monthly compulsory savings in the credit calculations table.
+   */
+  calculateSavings: function (component) {
+    //TODO: refactor into calculations resource
+    let totalPI = component.get("v.totalMonthly_PI_LoanPayment");
+    let data = component.get("v.ParentContainer");
+    if (totalPI >= 0 && data.months && data.years) {
+      let tenure = calculateMonths(data.years, data.months);
+      if (data.percentage > 0 && data.percentage) {
+        let monthlySavings = basicMonthlyCompulsorySavingsCalculator(
+          totalPI,
+          data.percentage,
+          data.amount
+        );
+        let monthlySavingsOverRepaymentPeriod = basicTotalMonthlyCompulsorySavingsCalculator(
+          monthlySavings,
+          tenure
+        );
+        component.set("v.monthlyCompulsorySavings", monthlySavings);
+        component.set(
+          "v.totalCompulsorySavingsBalance",
+          monthlySavingsOverRepaymentPeriod
+        );
+        this.updateChildContainerWithValue(component, [
+          {
+            key: "totalCompulsorySavingsBalance",
+            value: parseFloat(monthlySavingsOverRepaymentPeriod)
+          },
+          { key: "monthlyCompulsorySavings", value: parseFloat(monthlySavings) }
+        ]);
+      } else if (data.amount > 0 && data.amount) {
+        component.set("v.monthlyCompulsorySavings", data.amount);
+        let totalCompulsorySavings = data.amount * tenure;
+        component.set(
+          "v.totalCompulsorySavingsBalance",
+          totalCompulsorySavings
+        );
+        this.updateChildContainerWithValue(component, [
+          { key: "monthlyCompulsorySavings", value: data.amount },
+          {
+            key: "totalCompulsorySavingsBalance",
+            value: totalCompulsorySavings
+          }
+        ]);
+      } else {
+        component.set("v.monthlyCompulsorySavings", 0);
+        component.set("v.totalCompulsorySavingsBalance", 0);
+        this.updateChildContainerWithValue(component, [
+          { key: "monthlyCompulsorySavings", value: 0 },
+          { key: "totalCompulsorySavingsBalance", value: 0 }
+        ]);
+      }
+    }
+  },
+  /**
+   * Calculates JNGI first year premium.
+   */
+  calcualateFirstYearPremium: function (premium) {
+    if (premium) {
+      return premium * 12;
+    }
+    return 0;
+  },
+  /**
+   * Calculates JNGI PI monthly payment.
+   */
+  calculateJNGIPMT: function (component) {
+    let data = component.get("v.ParentContainer");
+    const pmtData = {
+      years: data.years,
+      months: data.months,
+      loanAmount: component.get("v.jngiMotorPremium"),
+      market: data.market
+    };
+    if (data.interested == "Yes" && data.jngiIncludeInLoan == "Yes") {
+      const result = basicPMTCalculator(
+        ["years", "months", "loanAmount", "market"],
+        pmtData
+      );
+      component.set("v.monthlyPIJNGIMotorPremium", result);
+      this.updateChildContainerWithValue(component, [
+        { key: "monthlyPIJNGIMotorPremium", value: parseFloat(result) }
+      ]);
+    } else {
+      component.set("v.monthlyPIJNGIMotorPremium", 0);
+      component.set("v.jngiMotorPremium", 0);
+      this.updateChildContainerWithValue(component, [
+        { key: "monthlyPIJNGIMotorPremium", value: 0 },
+        { key: "jngiMotorPremium", value: 0 }
+      ]);
+    }
+  },
+  /**
+   * Calculates the Processing fees including gct for Closing Cost and Credit Calculations table as well as Monthly PI Processing fee
+   * for Credit Calculation table.
+   */
+  calculateProcessingFee: function (component) {
+    const combinedFields = component.get("v.ParentContainer");
+    const {
+      processingFee,
+      monthlyProcessingFee,
+      processingFeeClosingCost
+    } = basicProcessingFeesCalculator(
+      ["years", "months", "loanAmount", "market"],
+      combinedFields,
+      ["years", "months", "loanAmount", "market", "includeInLoanAmountFlag"],
+      component.get("v.jnDefaultConfigs.gct")
+    );
 
-/**
- * calculates savings
- * @param {Object} data
- * @param {Number} totalMonthly_PI_LoanPayment
- * @return {Object}
- */
-function calculateSavings(data, totalMonthly_PI_LoanPayment) {
-  if (
-    validNumbersWithObject(
-      ["totalMonthly_PI_LoanPayment", "months", "years"],
+    component.set("v.processingFeesGCT", processingFee);
+    component.set(
+      "v.monthlyPrincipalInterestProcessingFee",
+      monthlyProcessingFee
+    );
+    component.set("v.processingFeeClosingCost", processingFeeClosingCost);
+    this.updateChildContainerWithValue(component, [
+      { key: "processingFeeClosingCost", value: processingFeeClosingCost },
+      {
+        key: "monthlyPrincipalInterestProcessingFee",
+        value: monthlyProcessingFee
+      },
+      { key: "processingFeesGCT", value: processingFee }
+    ]);
+  },
+  /**
+   * Calculates creditor life premium.
+   */
+  calculateCreditorLifePremium: function (component) {
+    let data = component.get("v.ParentContainer");
+    if (
+      data.interestedInCreditorLife === "Yes" &&
+      data.includeCreditorLifeInLoanAmount === "Yes"
+    ) {
+      let monthlyCLPremium = basicJNLifePremiumCalculator(
+        data.loanAmount,
+        data.rating
+      );
+      component.set("v.jnLifeCreditorPremium", monthlyCLPremium);
+      this.updateChildContainerWithValue(component, [
+        { key: "jnLifeCreditorPremium", value: monthlyCLPremium }
+      ]);
+      const piProperties = {
+        years: data.years,
+        months: data.months,
+        loanAmount: monthlyCLPremium,
+        market: data.market
+      };
+      let pmtCLResult = basicPMTCalculator(
+        ["years", "months", "loanAmount", "market"],
+        piProperties
+      );
+      component.set("v.monthlyJnLifeCreditor_PI_Premium", pmtCLResult);
+      this.updateChildContainerWithValue(component, [
+        { key: "monthlyJnLifeCreditor_PI_Premium", value: pmtCLResult }
+      ]);
+      console.log(monthlyCLPremium, pmtCLResult);
+      component.set("v.includeCLPremiumFlag", false);
+    } else if (
+      data.interestedInCreditorLife === "Yes" &&
+      data.includeCreditorLifeInLoanAmount === "No"
+    ) {
+      let monthlyCLPremium = basicJNLifePremiumCalculator(
+        data.loanAmount,
+        data.rating
+      );
+
+      component.set("v.includeCLPremiumFlag", true);
+      component.set("v.jnCLPremiumFeesAndCharges", monthlyCLPremium);
+      component.set("v.jnLifeCreditorPremium", 0);
+      component.set("v.monthlyJnLifeCreditor_PI_Premium", 0);
+
+      this.updateChildContainerWithValue(component, [
+        { key: "jnLifeCreditorPremium", value: 0 },
+        { key: "monthlyJnLifeCreditor_PI_Premium", value: 0 },
+        { key: "jnCLPremiumFeesAndCharges", value: monthlyCLPremium }
+      ]);
+    } else if (data.interestedInCreditorLife === "No") {
+      component.set("v.includeCLPremiumFlag", false);
+      component.set("v.jnCLPremiumFeesAndCharges", 0);
+      component.set("v.jnLifeCreditorPremium", 0);
+      component.set("v.monthlyJnLifeCreditor_PI_Premium", 0);
+      this.updateChildContainerWithValue(component, [
+        { key: "jnLifeCreditorPremium", value: 0 },
+        { key: "monthlyJnLifeCreditor_PI_Premium", value: 0 },
+        { key: "jnCLPremiumFeesAndCharges", value: 0 }
+      ]);
+    }
+  },
+  /**
+   * Calculates JNGI Premium for Credit Calculations and Fees and Charges.
+   */
+  onJNGIPremiumChange: function (component) {
+    let parentContainer = component.get("v.ParentContainer");
+    if (parentContainer.jngiIncludeInLoan == "No") {
+      component.set("v.showPremiumInCreditCalculations", false);
+      component.set("v.showPremiumInFeesAndCharges", true);
+      let firstYearPremium = this.calcualateFirstYearPremium(
+        parentContainer.jngiMonthlyPremium
+      );
+      component.set("v.jngiMotorPremiumFeesAndCharges", firstYearPremium);
+      component.set("v.jngiMotorPremium", 0);
+      this.updateChildContainerWithValue(component, [
+        { key: "jngiMotorPremiumFeesAndCharges", value: firstYearPremium },
+        { key: "jngiMotorPremium", value: 0 }
+      ]);
+    } else if (parentContainer.jngiIncludeInLoan === "Yes") {
+      component.set("v.showPremiumInCreditCalculations", true);
+      component.set("v.showPremiumInFeesAndCharges", false);
+      let firstYearPremium = this.calcualateFirstYearPremium(
+        parentContainer.jngiMonthlyPremium
+      );
+      component.set("v.jngiMotorPremium", firstYearPremium);
+      component.set("v.jngiMotorPremiumFeesAndCharges", 0);
+      this.updateChildContainerWithValue(component, [
+        { key: "jngiMotorPremium", value: firstYearPremium },
+        { key: "jngiMotorPremiumFeesAndCharges", value: 0 }
+      ]);
+    }
+  },
+  /**
+   * Creates a list of attribute keys to be include in the total calculations dependent on various conditions.
+   */
+  getFieldsToCalculate: function (parentObj) {
+    let data = [];
+    //creditor life
+    if (parentObj.includeCreditorLifeInLoanAmount === "Yes") {
+      data.push("jnLifeCreditorPremium");
+    } else {
+      data.push("jnCLPremiumFeesAndCharges");
+    }
+    //jngi motor
+    if (parentObj.jngiIncludeInLoan === "Yes") {
+      data.push("jngiMotorPremium");
+    } else {
+      data.push("jngiMotorPremiumFeesAndCharges");
+    }
+    //processing fee
+    if (parentObj.includeInLoanAmountFlag) {
+      data.push("processingFeesGCT");
+    } else {
+      data.push("processingFeeClosingCost");
+    }
+    console.log("data", data);
+    return data;
+  },
+  /**
+   * Calculates the total closing cost.
+   */
+  totalClosingCostCalculation: function (component) {
+    const parentObj = component.get("v.ParentContainer");
+    const jnDefault = component.get("v.jnDefaultConfigs");
+    const data = Object.assign(parentObj, jnDefault);
+    console.info(
+      "TotalClosingCostCalculation",
+      JSON.parse(JSON.stringify(data))
+    );
+    let properties = [];
+    let total = 0;
+    let fieldsTocalculate = this.getFieldsToCalculate(parentObj);
+
+    if (
+      component.get("v.estimatedStampDuty") != 0 &&
+      component.get("v.assignmentFee") != 0
+    ) {
+      console.info("Branch 1");
+      properties = [
+        "stampDutyAuto",
+        "legalFee",
+        "nsipp",
+        "estimatedStampDutyAndAdminFee",
+        "assignmentFee"
+      ].concat(fieldsTocalculate);
+    } else {
+      console.info("Branch 2");
+      properties = ["stampDutyAuto", "legalFee", "nsipp"].concat(
+        fieldsTocalculate
+      );
+    }
+    total = calculateTotalClosingCost(properties, data);
+    console.info("TotalClosingCost = ", total);
+    component.set("v.totalClosingCost", total);
+    this.updateChildContainerWithValue(component, [
+      { key: "totalClosingCost", value: total }
+    ]);
+  },
+  /**
+   * Calculates the total closing cost financed by JN.
+   */
+  totalClosingCostFinancedJNCalculation: function (component) {
+    const parentObj = component.get("v.ParentContainer");
+    let total = calculateTotalClosingCostFinancedJN(
+      ["processingFeesGCT", "jnLifeCreditorPremium", "jngiMotorPremium"],
+      parentObj
+    );
+    component.set("v.totalFinancedByJN", total);
+    console.info("TotalFinancedByJN = ", total);
+    this.updateChildContainerWithValue(component, [
+      { key: "totalFinancedByJN", value: total }
+    ]);
+  },
+  /**
+   * Calculates the total closing cost payable by applicant.
+   */
+  totalClosingCostPaidByApplicantCalculation: function (component) {
+    let total = 0;
+    const parentObj = component.get("v.ParentContainer");
+    if (parentObj.totalClosingCost >= 0 && parentObj.totalFinancedByJN >= 0) {
+      total = calculateTotalClosingCostPayableByApplicant(
+        parentObj.totalClosingCost,
+        parentObj.totalFinancedByJN
+      );
+      console.log("ClosingCostPaidByApplicantCalculation = ", total);
+      component.set("v.totalPayableByApplicant", total);
+      this.updateChildContainerWithValue(component, [
+        { key: "totalPayableByApplicant", value: total }
+      ]);
+    }
+  },
+  /**
+   * Set the assignment fee when the policy provider is updated.
+   */
+  setAssignmentFees: function (component) {
+    let data = component.get("v.ParentContainer");
+    let jnDefaults = component.get("v.jnDefaultConfigs");
+    if (data.policyProvider != null) {
+      component.set("v.assignmentFee", jnDefaults.assignmentFee);
+      this.updateChildContainerWithValue(component, [
+        { key: "assignmentFee", value: jnDefaults.assignmentFee }
+      ]);
+    } else {
+      component.set("v.assignmentFee", 0);
+      this.updateChildContainerWithValue(component, [
+        { key: "assignmentFee", value: 0 }
+      ]);
+    }
+  },
+  /**
+   * Set the estimated stamp duty fees when the policy provider is updated.
+   */
+  setEstimatedStampDutyFees: function (component) {
+    let data = component.get("v.ParentContainer");
+    let jnDefaults = component.get("v.jnDefaultConfigs");
+    if (data.policyProvider != null) {
+      component.set(
+        "v.estimatedStampDuty",
+        jnDefaults.estimatedStampDutyAndAdminFee
+      );
+      this.updateChildContainerWithValue(component, [
+        {
+          key: "estimatedStampDuty",
+          value: jnDefaults.estimatedStampDutyAndAdminFee
+        }
+      ]);
+    } else {
+      component.set("v.estimatedStampDuty", 0);
+      this.updateChildContainerWithValue(component, [
+        { key: "estimatedStampDuty", value: 0 }
+      ]);
+    }
+  },
+  /**
+   * Calculates the total closing cost.
+   */
+  totalClosingCost: function (component) {
+    const parentObj = component.get("v.ParentContainer");
+    const jnDefault = component.get("v.jnDefaultConfigs");
+    const data = Object.assign(parentObj, jnDefault);
+    console.log(JSON.parse(JSON.stringify(data)));
+    let total = calculateTotalClosingCost(
+      [
+        "stampDutyUns",
+        "legalFee",
+        "processingFeeClosingCost",
+        "nsipp",
+        "jnCLPremiumFeesAndCharges"
+      ],
       data
-    )
+    );
+    component.set("v.totalClosingCost", total);
+    console.log("Total Closing Cost: ", total);
+    this.updateChildContainerWithValue(component, [
+      { key: "totalClosingCost", value: total }
+    ]);
+  },
+  totalMonthlyPaymentCalculation: function (component) {
+    const parentObj = component.get("v.ParentContainer");
+    let total = calculateTotalLoanAmount(
+      ["totalMonthly_PI_LoanPayment", "jngiMonthlyPremium"],
+      parentObj
+    );
+    component.set("v.totalMonthlyLoanPayment", total);
+    this.updateChildContainerWithValue(component, [
+      { key: "totalMonthlyLoanPayment", value: total }
+    ]);
+  },
+  /**
+   * Calculates the total monthly loan payment in the credit calculations under totals.
+   */
+  totalLoanAmountCalculation: function (component) {
+    const parentObj = component.get("v.ParentContainer");
+
+    let total = calculateTotalLoanAmount(
+      [
+        "loanAmount",
+        "jnLifeCreditorPremium",
+        "processingFeesGCT",
+        "jngiMotorPremium"
+      ],
+      parentObj
+    );
+    component.set("v.totalLoanAmount", total);
+    this.updateChildContainerWithValue(component, [
+      { key: "totalLoanAmount", value: total }
+    ]);
+  },
+  /**
+   * Calculates the total monthly P&I payment in credit calculations table.
+   */
+  totalMonthlyPILoanPaymentCalculation: function (component) {
+    const parentObj = component.get("v.ParentContainer");
+    let total = calculateTotalMonthlyPIPayment(
+      [
+        "monthly_PI_LoanAmount",
+        "monthlyJnLifeCreditor_PI_Premium",
+        "monthlyPrincipalInterestProcessingFee",
+        "monthlyPIJNGIMotorPremium"
+      ],
+      parentObj
+    );
+    component.set("v.totalMonthly_PI_LoanPayment", total);
+    this.updateChildContainerWithValue(component, [
+      { key: "totalMonthly_PI_LoanPayment", value: total }
+    ]);
+  },
+  /**
+   * Calculates the sum of total monthly loan payment and monthly compulsory savings under totals in credit calculations table.
+   */
+  totalMonthlyLoanPaymentMonthlyCompulsorySavingsCalculation: function (
+    component
   ) {
-    let tenure = calculateMonths(data.years, data.months);
-    let monthlySavings = basicMonthlyCompulsorySavingsCalculator(
-      totalMonthly_PI_LoanPayment,
-      data.percentage,
-      data.amount
+    const parentObj = component.get("v.ParentContainer");
+    let total = calculateTotalMonthlyLoanCompulsoryPayment(
+      ["totalMonthlyLoanPayment", "monthlyCompulsorySavings"],
+      parentObj
     );
-    let monthlySavingsOverRepaymentPeriod = basicTotalMonthlyCompulsorySavingsCalculator(
-      monthlySavings,
-      tenure
+    console.info("totalMonthlyLoanPaymentAndSavings", total);
+    component.set("v.totalMonthlyLoanPaymentAndSavings", total);
+    this.updateChildContainerWithValue(component, [
+      { key: "totalMonthlyLoanPaymentAndSavings", value: total }
+    ]);
+  },
+  /**
+   * Calculates the total interest payment.
+   */
+  totalInterestPaymentCalculation: function (component) {
+    const totalMonthlyPIPayment = component.get(
+      "v.totalMonthly_PI_LoanPayment"
     );
-    return {
-      totalCompulsorySavingsBalance: parseFloat(
-        monthlySavingsOverRepaymentPeriod
-      ),
-      monthlyCompulsorySavings: parseFloat(monthlySavings)
-    };
-  } else if (validNumbersWithObject(["amount"], data)) {
-    let totalCompulsorySavings = data.amount * tenure;
-    return {
-      monthlyCompulsorySavings: data.amount,
-      totalCompulsorySavingsBalance: totalCompulsorySavings
-    };
-  } else {
-    return {
-      totalCompulsorySavingsBalance: 0,
-      monthlyCompulsorySavings: 0
-    };
+    const totalLoanAmount = component.get("v.totalLoanAmount");
+    const years = component.get("v.ParentContainer.years");
+    const months = component.get("v.ParentContainer.months");
+    let total = calculateTotalInterestPayment(
+      totalMonthlyPIPayment,
+      totalLoanAmount,
+      years,
+      months
+    );
+    component.set("v.totalInterestPaymentBalance", total);
+    this.updateChildContainerWithValue(component, [
+      { key: "totalInterestPaymentBalance", value: total }
+    ]);
+  },
+  /**
+   * Updates child container attributes and its values.
+   */
+  updateChildContainerWithValue: function (component, values) {
+    let childContainer = component.get("v.ChildContainer");
+    values.forEach((element) => {
+      component.set(`v.${element.key}`, element.value);
+      childContainer[element.key] = element.value;
+    });
+    component.set("v.ChildContainer", childContainer);
   }
-}
-/*
- * Updates child container attributes and its values.
- */
-window.updateChildContainerWithValue = function (
-  component,
-  values,
-  shouldSetComponentValue
-) {
-  debugger;
-  let container = component.get("v.ChildContainer");
-  values.forEach((element) => {
-    container[element.key] = element.value;
-    if (shouldSetComponentValue)
-      component.set("v.${element.key}", element.value);
-  });
-  return container;
-};
-/*
- * Updates child container attributes and its values. then toggles when it should be notified
- */
-window.updateChildContainerNoNotification = function (component, values) {
-  let container = component.get("v.ChildContainer");
-  values.forEach((element) => {
-    container[element.key] = element.value;
-  });
-  component.set("v.notifyContainerChange", false);
-  component.set("v.ChildContainer", container);
-  console.log("After updatinf child");
-  return container;
-};
-
-/**
- * Toggles cash investment flag.
- */
-window.toggleCashInvestmentFlag = function (value) {
-  if (value === "Cash/Investments") return true;
-  return false;
-};
-
-/**
- * Toggles disability of account type.
- */
-window.toggleAccountTypeDisability = function (value) {
-  if (value !== null) return false;
-  return true;
-};
-
-/**
- * Toggle option list values depending on institution selected
- */
-window.updateAccountTypeOptionList = function (
-  fundManagerAccountTypeOptions,
-  jnBankAccountTypeOptions,
-  selected
-) {
-  debugger;
-  if (selected === "JN Bank Ltd.") return jnBankAccountTypeOptions;
-  if (selected === "JN Fund Managers Ltd.")
-    return fundManagerAccountTypeOptions;
-};
-
-/**
- * Toggle account number fields layout
- */
-window.toggleAccountNumberComponent = function (selected, component) {
-  if (selected === "JN Bank Ltd.") {
-    component.set("v.bankSelectedFlag", true);
-    component.set("v.fundManagerSelectedFlag", false);
-  }
-  if (selected === "JN Fund Managers Ltd.") {
-    component.set("v.fundManagerSelectedFlag", true);
-    component.set("v.bankSelectedFlag", false);
-  }
-};
-/**
- * Toggle visibility of existing balance field
- */
-window.toggleHypothecatedLoanFlag = function (selected, component) {
-  if (selected === "Yes") {
-    component.set("v.hypothecatedLoanFlag", true);
-  }
-  if (selected === "No") {
-    component.set("v.hypothecatedLoanFlag", false);
-  }
-};
-
-/**
- * Clears components with an identified aura id.
- */
-window.resetComponentValue = function (auraId, component, value) {
-  let cmp = component.find(auraId);
-  if (cmp !== null) {
-    cmp.set("v.value", value);
-  }
-};
-
-/**
- * Calculates the monthly P&I Loan amount in the credit calculations table.
- */
-window.monthlyPILoanAmountCalculation = function (container) {
-  return basicPMTCalculator(
-    ["years", "months", "loanAmount", "market"],
-    container
-  );
-};
-/**
- * contructs and fire the product details application event
- * @param {String} type - specifies the intent of the event
- * @param {Object} payload
- * @return {Void}
- */
-window.fireProductDetailsEvent = function (type, payload, component) {
-  let productDetailsEvent = $A.get("e.c:ProductDetailsEvent");
-  debugger;
-  productDetailsEvent.setParams({
-    type: !type ? "calculation" : type,
-    payload: payload
-  });
-  productDetailsEvent.fire();
-  //indicate that the component wants notifications
-  if (component) {
-    component.get("v.notifyContainerChange", true);
-  }
-};
-/**
- * calculates the requested credit limit
- * @param {*} requestedCreditLimit
- * @param {*} capLimit
- */
-window.calculatRequestedCreditBalanceLimit = function (requestedCreditLimit) {
-  console.log("requested card limit: ", requestedCreditLimit);
-  //console.log("requested card limit: ", REQUESTED_CREDIT_LIMIT_PERCENTAGE);
-  return requestedCreditLimit * REQUESTED_CREDIT_LIMIT_PERCENTAGE;
-};
-/*
- * Updates child container attributes and its values with notification
- */
-window.updateChildContainerWithNotification = function (component, values) {
-  let container = component.get("v.ChildContainer");
-  values.forEach((element) => {
-    container[element.key] = element.value;
-  });
-  notifyContainerChanges(component);
-  component.set("v.ChildContainer", container);
-};
-/**
- * Disables child container notification updates
- */
-window.noNotifyContainerChanges = function (component) {
-  //indicate that the component does'nt wants notifications
-  if (component) {
-    component.set("v.notifyContainerChange", false);
-  }
-};
+});

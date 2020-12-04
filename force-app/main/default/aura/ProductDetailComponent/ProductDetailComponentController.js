@@ -20,7 +20,7 @@
       creditRiskScore: 0,
       creditRiskRating: "",
       minimumPayment: 0,
-      approvedStartingLimit: 400000,
+      approvedStartingLimit: 0,
       cardType: "" //JN-4049 :: Added a field to track max the credit type
     });
     helper.updateProductSelection(component);
@@ -44,7 +44,7 @@
       helper.TDSRCalculationBefore(component);
       helper.ASLCalculations(component);
       helper.minimumPaymentCalculations(component);
-      helper.TDSRCalculationAfter(data, component);
+      helper.TDSRCalculationAfter(component);
       helper.setCardType(component); //JN1-4049 :: Kirti R :: Calculate the credit type
       console.log("===Testing End===");
       notifyContainerChanges(component);
