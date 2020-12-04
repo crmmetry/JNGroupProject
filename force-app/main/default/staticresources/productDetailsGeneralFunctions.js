@@ -285,6 +285,7 @@ window.copyInto = function (target, src) {
 /**
  * checks if object
  * @param {Object} obj
+ * @return {Boolean}
  */
 window.isObject = function (obj) {
   let type = typeof obj;
