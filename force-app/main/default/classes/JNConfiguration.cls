@@ -25,7 +25,8 @@ public class JNConfiguration {
   public Decimal lineOfCreditPrincipalPayment;
   @AuraEnabled
   public Decimal discountFactor;
-
+  @AuraEnabled
+  public decimal creditLimitValue;
   public JNConfiguration(JN_Defaults__mdt record) {
     this.gct = record.GCT__c;
     this.assignmentFee =
@@ -41,5 +42,6 @@ public class JNConfiguration {
     this.creditCardPrincipalPayment = record.Credit_Card_Principal_Payment_Number__c;
     this.lineOfCreditPrincipalPayment = record.Line_Of_Credit_Principal_Payment_Number__c;
     this.discountFactor = record.Discount_Factor_Number__c;
+    this.creditLimitValue = record.Credit_Limit_Value__c;//JN1-4049 :: Kirti R. :: shows the credit limit
   }
 }

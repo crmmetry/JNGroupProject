@@ -396,5 +396,24 @@
     component.set("v.ChildContainer", data);
     console.log("minimumPaymentCalculations 3");
     return values;
+  },
+  /**
+   * checks the credit type
+   * @param {*} component
+   * @param {Objec} container
+   * @return {Number} credit type
+   */
+  setCardType: function (component) {
+    //JN-4049 :: Kirti R. ::Added a method to set credit type
+    let container = component.get("v.ChildContainer");
+    let startingLimit = container.approvedStartingLimit;
+    if (startingLimit > component.get("v.jnDefaultConfigs.creditLimitValue")) {
+      container.cardType = CREDIT_TYPE_GOLD;
+    } else {
+      container.cardType = CREDIT_TYPE_CLASSIC;
+    }
+    let values = [{ key: "cardType", value: container.cardType }];
+    updateChildContainerWithValue(component, values);
+    return values;
   }
 });
