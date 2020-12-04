@@ -204,6 +204,10 @@
     ];
     let data = updateChildContainerWithValue(component, values, false);
     component.set("v.ChildContainer", data);
+    console.info(
+      "Existing Debt",
+      JSON.parse(JSON.stringify(component.get("v.ChildContainer")))
+    );
   },
   /**
    * calculates  TDSR before
@@ -280,10 +284,6 @@
             { key: "creditRiskRating", value: result.rating }
           ];
           updateChildContainerWithNotification(component, values);
-          console.info(
-            "Risk Child",
-            JSON.parse(JSON.stringify(component.get("v.ChildContainer")))
-          );
         } else {
           console.info(JSON.stringify(response.getError()));
         }
@@ -313,7 +313,7 @@
           (validNumber(newObject[field]) &&
             isEmpty(oldObject[field]) === false) ||
           (validNumber(oldObject[field]) &&
-            newObject[field] === oldObject[field]);
+            newObject[field] !== oldObject[field]);
         console.info("Did change", val, "Field ", field);
         return val;
       }

@@ -794,8 +794,7 @@ window.minimumPaymentCalculatorWithASL = function (container, jnDefault, mmp) {
     console.log("CCI", container.interestRate);
     console.log("MPP", principalPayment);
     return (
-      mmp *
-      ((parseFloat(container.interestRate) / 12 + principalPayment * 100) / 100)
+      mmp * ((parseFloat(container.interestRate) / 12 + principalPayment) / 100)
     );
   }
   return 0;
