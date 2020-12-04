@@ -245,7 +245,7 @@ public class ProductDetailService {
    */
   public string getFinacialPerformance(String fieldValue) {
     String subCriteriaOption;
-    if (fieldValue.equalsIgnoreCase(Constants.THREE_TO_FOUR_YEARS)) {
+    if (fieldValue.equalsIgnoreCase(Constants.THREE_TO_FOUR_YEARS_AND_OR)) {
       subCriteriaOption = Constants.THREE_TO_FOUR_YEARS_AND_OR;
     } else if (fieldValue.equalsIgnoreCase(Constants.UP_TO_TWO_YEARS)) {
       subCriteriaOption = Constants.UP_TO_TWO_YEARS_AND_OR;
@@ -333,7 +333,9 @@ public class ProductDetailService {
           subCriteriaOption = parseEducation(fieldValue);
         }
       } else if (fieldName.equalsIgnoreCase(Constants.FINANCIAL_PERFORMANCE)) {
-        if (personalCreditModelMap.containsKey(Constants.FINANCIAL_PERFORMANCE)) {
+        if (
+          personalCreditModelMap.containsKey(Constants.FINANCIAL_PERFORMANCE)
+        ) {
           subCriteriaOption = getFinacialPerformance(fieldValue);
         }
       } else {
