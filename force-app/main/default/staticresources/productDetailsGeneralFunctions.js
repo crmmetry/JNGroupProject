@@ -1,6 +1,10 @@
 /**
  * this file consolidates all the reusable functions used in different aura components
  */
+/**
+ * Ver  Ticket#      Date            Author                  Purpose
+ * 1.0  JN1-3969     4/12/2020      Ishwari G.(thinqloud)  To calculate the annual fees for primary applicant
+ **/
 
 /**
  * calculates savings
@@ -174,4 +178,50 @@ window.calculatRequestedCreditBalanceLimit = function (requestedCreditLimit) {
   console.log("requested card limit: ", requestedCreditLimit);
   //console.log("requested card limit: ", REQUESTED_CREDIT_LIMIT_PERCENTAGE);
   return requestedCreditLimit * REQUESTED_CREDIT_LIMIT_PERCENTAGE;
+};
+
+/**
+ * ************JN1-3969 ***********
+ * calculates the annual fees for primary applicant
+ * @param {*} jnDefaults
+ * @param {*} creditFlag
+ * @param {*} locFlag
+ * @param {*} container
+ */
+window.annualFeesCalculator = function (
+  jnDefaults,
+  creditFlag,
+  locFlag,
+  container
+) {
+  debugger;
+  let calculatePrimaryFee = 0;
+  let calculateSupplemetaryFee = 0;
+  if (creditFlag) {
+    if (container.cardType == GOLD) {
+      calculatePrimaryFee = (jnDefaults.goldCardFee + jnDefaults.gct) / 100;
+    } else if (container.cardType == CLASSIC) {
+      calculatePrimaryFee = (jnDefaults.classicCardFee + jnDefaults.gct) / 100;
+    }
+
+    if (container.numberOfSupplementaryCardHolders > 0) {
+      let numberOfSupplementaryHolders =
+        container.numberOfSupplementaryCardHolders;
+      let annualFee = 0;
+      for (let i = 0; i < numberOfSupplementaryHolders; i++) {
+        annualFee += (jnDefaults.supplementaryCardFee + jnDefaults.gct) / 100;
+      }
+      calculateSupplemetaryFee = calculatePrimaryFee + annualFee;
+    } else {
+      calculateSupplemetaryFee = 0;
+    }
+  } else if (locFlag) {
+    calculatePrimaryFee =
+      (jnDefaults.locCreditLimitPercent / 100) * container.startingLimit +
+      jnDefaults.gct / 100;
+  }
+  return {
+    primaryAnnualFee: calculatePrimaryFee,
+    supplementaryAnnualFee: calculateSupplemetaryFee
+  };
 };

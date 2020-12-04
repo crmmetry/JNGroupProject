@@ -14,7 +14,11 @@
   <c:CreditCardOtherDetailsLineComponent
     ParentContainer="{!v.ParentContainer}"
   ></c:CreditCardOtherDetailsLineComponent>
-  <c:CreditCreditCardCreditCalculations></c:CreditCreditCardCreditCalculations>
+  <!-- JN1-3969 -->
+  <c:CreditCreditCardCreditCalculations
+    ParentContainer="{!v.ParentContainer}"
+    jnDefaultConfigs="{!v.jnDefaultConfigs}"
+  ></c:CreditCreditCardCreditCalculations>
   <c:TotalDebtServiceRatioLineItemComponent
     ParentContainer="{!v.ParentContainer}"
     jnDefaultConfigs="{!v.jnDefaultConfigs}"

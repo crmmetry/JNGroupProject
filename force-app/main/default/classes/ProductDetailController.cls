@@ -1,3 +1,7 @@
+/**
+ * Ver  Ticket#      Date            Author                 Purpose
+ * 1.0  JN1-3969     4/12/2020      Ishwari G.(thinqloud)  returns the supplementary card holder details
+ **/
 public with sharing class ProductDetailController {
   /**
    * gets the credit and risk score ratings for applicants linked to opportunity
@@ -17,11 +21,22 @@ public with sharing class ProductDetailController {
     String collateral
   ) {
     try {
-      System.debug('Oppid=' + oppId+ ' Ltv =' + ltv + 'tdsrBefore =' + tdsrBefore + ' repaymentMethod =' +repaymentMethod + 'collateral ' + collateral);
+      System.debug(
+        'Oppid=' +
+        oppId +
+        ' Ltv =' +
+        ltv +
+        'tdsrBefore =' +
+        tdsrBefore +
+        ' repaymentMethod =' +
+        repaymentMethod +
+        'collateral ' +
+        collateral
+      );
       RiskRatingWrapper wrapper = ProductDetailService.getRiskRatingWrapperV2(
         oppId,
-        (Integer)ltv,
-        (Integer)tdsrBefore,
+        (Integer) ltv,
+        (Integer) tdsrBefore,
         repaymentMethod,
         collateral
       );
@@ -165,5 +180,25 @@ public with sharing class ProductDetailController {
       wrappers.add(appWrapper);
     }
     return wrappers;
+  }
+
+  /**
+   * JN1-3969
+   * return a map of wrapper records belonging to applicant and their assets/liabilities
+   * @param {Id} oppId - opportunity Id.
+   * @return {List<SupplementaryCardHolderWrapper>} - returns  supplementary card holder details in wrapper format
+   */
+  @AuraEnabled
+  public static List<SupplementaryCardHolderWrapper> getSupplementaryCardHolders(
+    Id oppId
+  ) {
+    try {
+      List<SupplementaryCardHolderWrapper> supplementaryWrapperList = ProductDetailSelector.getSupplementaryCardHolder(
+        oppId
+      );
+      return supplementaryWrapperList;
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getStackTraceString());
+    }
   }
 }

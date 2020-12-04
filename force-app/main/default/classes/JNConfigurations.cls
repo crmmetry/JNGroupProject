@@ -16,7 +16,11 @@ public with sharing class JNConfigurations {
           Stamp_Duty_Uns__c,
           Stamp_Duty_Auto__c,
           NSIPP_Registration_Fee__c,
-          Policy_Limit__c
+          Policy_Limit__c,
+          Gold_Card_Fee__c, //JN1-3969
+          Classic_Card_Fee__c, //JN1-3969
+          Supplementary_Card_Fee__c, //JN1-3969
+          LOC_Credit_Limit_Percent__c //JN1-3969
         FROM JN_Defaults__mdt
         WHERE Label = :Constants.DEFAULT_METADATA_LABEL
       ];

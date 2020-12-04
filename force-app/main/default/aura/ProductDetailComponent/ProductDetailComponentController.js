@@ -1,5 +1,9 @@
 ({
   /**
+   * Ver  Ticket#      Date            Author                  Purpose
+   * 1.0  JN1-3969     4/12/2020      Ishwari G.(thinqloud)  get count of supplementary card holders
+   **/
+  /**
    * Initializes the component and retrieves all necessary data to be used by component upon intialisation.
    * @param {*} component
    * @param {*} event
@@ -18,11 +22,13 @@
       LTVValue: 0,
       riskRating: {}, //for multi applicants
       creditRiskScore: 0,
-      creditRiskRating: ""
+      creditRiskRating: "",
+      startingLimit: 20000
     });
     helper.updateProductSelection(component);
     helper.getJNConfigurations(component);
     helper.getAssetsAndLiabilitiesForApplicant(component);
+    helper.getSupplementaryCardHolders(component); //JN1-3969
     //helper.getApplicants(component);
   },
   // onLoanPurposeChange: function (component, event, helper) {
@@ -65,6 +71,10 @@
       attributesToUpdate = attributesToUpdate.concat(
         helper.processingFeeCalculation(container, component)
       );
+      //JN1-3969
+      attributesToUpdate = attributesToUpdate.concat(
+        helper.annualFeesCalcualtions(container, component)
+      );
       const updatedContainer = updateChildContainerWithValue(
         component,
         attributesToUpdate,
@@ -77,7 +87,7 @@
       //     ["LTVValue", "repaymentMethod", "TDSRAfter", "TDSRBefore"]
       //   )
       // ) {
-        
+
       // }
       helper.getCreditScoreRatings(component);
       component.set("v.ChildContainer", updatedContainer);

@@ -77,21 +77,15 @@
       />
     </lightning:layoutItem>
     <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
-      <div class="slds-form-element">
-        <div class="slds-form-element__control">
-          <lightning:select
-            name="select1"
-            label="Number of Supplementary CardHolder(s)"
-            required="true"
-            onchange="{!c.onNumberOfSupplementaryCardHoldersChange}"
-          >
-            <option value="">select one...</option>
-            <aura:iteration items="{!v.numOfCardholders}" var="item">
-              <option value="{!item}">{!item}</option>
-            </aura:iteration>
-          </lightning:select>
-        </div>
-      </div>
+      <!-- JN1-3969 : Removed the picklist for number of supplementary card holder added input field-->
+      <lightning:input
+        type="number"
+        label="Number of Supplementary CardHolder(s)"
+        value="{!v.ParentContainer.numberOfSupplementaryCardHolders}"
+        readonly="true"
+        name="supplementaryCardHolder"
+        required="true"
+      />
     </lightning:layoutItem>
   </lightning:layout>
 </aura:component>

@@ -7,6 +7,16 @@
   <aura:attribute name="supplementaryApplicantAnnualMembership" type="String" />
   <aura:attribute name="annualCreditorLifeFee" type="String" />
 
+  <aura:attribute name="jnDefaultConfigs" type="Map" default="{}" />
+  <!-- JN1-3969 -->
+  <!-- JN1-3969 -->
+  <aura:attribute
+    name="ParentContainer"
+    type="Map"
+    default="{}"
+    description="Credit Card parent container"
+  />
+
   <fieldset class="slds-box slds-theme_default">
     <legend
       id="productdetailsform"
@@ -39,7 +49,7 @@
         >
           <lightning:input
             label="Type of Card"
-            value="{!v.cardType}"
+            value="{!v.ParentContainer.cardType}"
             type="text"
             name="input1"
             readonly="true"
@@ -84,9 +94,10 @@
           mediumDeviceSize="4"
           padding="around-small"
         >
+          <!-- JN1-3969 -->
           <lightning:input
             label="Annual Membership (Primary Applicant)"
-            value="{!v.primaryApplicantAnnualMembership}"
+            value="{!v.ParentContainer.primaryApplicantAnnualMembership}"
             type="number"
             name="input1"
             formatter="currency"
@@ -99,9 +110,10 @@
           mediumDeviceSize="4"
           padding="around-small"
         >
+          <!-- JN1-3969 -->
           <lightning:input
             label="Annual Membership (Supplementary Cardholder(s))"
-            value="{!v.supplementaryApplicantAnnualMembership}"
+            value="{!v.ParentContainer.supplementaryApplicantAnnualMembership}"
             type="number"
             name="input1"
             formatter="currency"

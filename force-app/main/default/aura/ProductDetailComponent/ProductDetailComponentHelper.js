@@ -1,5 +1,9 @@
 ({
   /**
+   * Ver  Ticket#      Date            Author                  Purpose
+   * 1.0  JN1-3969     4/12/2020      Ishwari G.(thinqloud)  To calculate the annual fees for primary applicant
+   **/
+  /**
    * Retrieves product selection wrapper from apex.
    * @param {*} container
    */
@@ -232,8 +236,13 @@
     let container = component.get("v.ChildContainer");
     const { LTVValue, repaymentMethod, TDSRBefore, collateralType } = container;
     let action = component.get("c.getCreditRiskRating");
-    if (!isEmpty(collateralType) && validNumber(LTVValue) && validNumber(TDSRBefore) && !isEmpty(repaymentMethod)) {
-      console.info('Call getCreditScoreRatings', roundedValue(LTVValue));
+    if (
+      !isEmpty(collateralType) &&
+      validNumber(LTVValue) &&
+      validNumber(TDSRBefore) &&
+      !isEmpty(repaymentMethod)
+    ) {
+      console.info("Call getCreditScoreRatings", roundedValue(LTVValue));
       action.setParams({
         oppId: component.get("v.recordId"),
         ltv: this.LTVApplicableValue(component, container),
@@ -245,13 +254,13 @@
         let state = response.getState();
         let result = response.getReturnValue();
         if (state === "SUCCESS") {
-          console.info("Risk", result)
+          console.info("Risk", result);
           container.riskRating = result;
           container.creditRiskScore = result.score;
           container.creditRiskRating = result.rating;
           component.set("v.ChildContainer", container);
         } else {
-          console.info((JSON.stringify(response.getError())));
+          console.info(JSON.stringify(response.getError()));
         }
       });
       $A.enqueueAction(action);
@@ -268,8 +277,9 @@
     return fields.every((field) => {
       //both have same fields and values are different
       if (newObject.hasOwnProperty(field) && oldObject.hasOwnProperty(field)) {
-        //check if both are valid numbers     
-        const valid = validNumber(newObject[field]) && validNumber(oldObject[field]);
+        //check if both are valid numbers
+        const valid =
+          validNumber(newObject[field]) && validNumber(oldObject[field]);
         return valid && newObject[field] !== oldObject[field];
       }
       return false;
@@ -281,18 +291,88 @@
    * @param {Objec} container
    * @return {Number} ltv
    */
-    LTVApplicableValue: function (component, container) {
-      let selectedFlag = component.get("v.productSelection.productFamily");
-      const families = [
-        { name: "Auto"},
-        { name: "Line Of Credit"}
-      ];
-      const family = families.find((family) => {
-        return selectedFlag.includes(family.name);
-      });
-      if (family) {
-        return roundedValue(container.LTVValue);
-      }
-      return 0;
+  LTVApplicableValue: function (component, container) {
+    let selectedFlag = component.get("v.productSelection.productFamily");
+    const families = [{ name: "Auto" }, { name: "Line Of Credit" }];
+    const family = families.find((family) => {
+      return selectedFlag.includes(family.name);
+    });
+    if (family) {
+      return roundedValue(container.LTVValue);
     }
+    return 0;
+  },
+
+  /**
+   * JN1-3969
+   * Gets the supplementary card holders wrapper and sets the number of supplementary card holder in child container
+   * @param {*} component
+   */
+  getSupplementaryCardHolders: function (component) {
+    let container = component.get("v.ChildContainer");
+    let numberOfSupplementaryCardHolders = 0;
+    let action = component.get("c.getSupplementaryCardHolders");
+
+    action.setParams({
+      oppId: component.get("v.recordId")
+    });
+    action.setCallback(this, function (response) {
+      debugger;
+      let state = response.getState();
+      let result = response.getReturnValue();
+      if (state === "SUCCESS") {
+        console.info("new result", result.length);
+        if (result != undefined && result.length > 0) {
+          numberOfSupplementaryCardHolders = result.length;
+        } else {
+          numberOfSupplementaryCardHolders = 0;
+        }
+        let values = [
+          {
+            key: "numberOfSupplementaryCardHolders",
+            value: numberOfSupplementaryCardHolders
+          },
+          {
+            key: "cardType",
+            value: "Gold"
+          }
+        ];
+        let childValues = updateChildContainerWithValue(
+          component,
+          values,
+          false
+        );
+        component.set("v.ChildContainer", childValues);
+      } else {
+        console.info(JSON.stringify(response.getError()));
+      }
+    });
+    $A.enqueueAction(action);
+  },
+  /**
+   * JN1-3969
+   * Calculate the annual fees for the primary applicant
+   * @param {*} container
+   * @param {*} component
+   */
+  annualFeesCalcualtions: function (container, component) {
+    debugger;
+    const JNDefaults = component.get("v.jnDefaultConfigs");
+    const creditFlag = component.get("v.creditCardFlag");
+    const locFlag = component.get("v.lineOfCreditFlag");
+    const { primaryAnnualFee, supplementaryAnnualFee } = annualFeesCalculator(
+      JNDefaults,
+      creditFlag,
+      locFlag,
+      container
+    );
+    console.log(primaryAnnualFee, supplementaryAnnualFee);
+    return [
+      { key: "primaryApplicantAnnualMembership", value: primaryAnnualFee },
+      {
+        key: "supplementaryApplicantAnnualMembership",
+        value: supplementaryAnnualFee
+      }
+    ];
+  }
 });

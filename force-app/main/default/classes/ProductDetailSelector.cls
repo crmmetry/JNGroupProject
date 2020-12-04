@@ -1,6 +1,7 @@
 /**
  * Ver  Ticket#      Date            Author                 Purpose
  * 1.0  JN1-4045     24/11/2020      Ishwari G.(thinqloud)  Selector for the Product Details related Object
+ * 2.0  JN1-3969     4/12/2020       Ishwari G.(thinqloud)  Selector for the supplementary card holder object
  **/
 public with sharing class ProductDetailSelector {
   /*
@@ -133,7 +134,7 @@ public with sharing class ProductDetailSelector {
         AccountId,
         Collateral_CC__c,
         Collateral_LOC__c,
-       	Loan_to_ValueCC__c,
+        Loan_to_ValueCC__c,
         Loan_to_ValueLOC__c
       FROM opportunity
       WHERE Id = :oppId
@@ -143,5 +144,39 @@ public with sharing class ProductDetailSelector {
     }
 
     return oppWrapper;
+  }
+
+  //JN1-3969
+  /*
+   * returns the supplementary Card holder wrapper
+   * @param {Id} oppId - opportunity Id
+   * @return {List<SupplementaryCardHolderWrapper>} - returns  supplementary card holder details in wrapper format
+   */
+  public static List<SupplementaryCardHolderWrapper> getSupplementaryCardHolder(
+    Id oppId
+  ) {
+    List<SupplementaryCardHolderWrapper> supplementaryWrapperList = new List<SupplementaryCardHolderWrapper>();
+    List<Supplementary_Card_Holders__c> supplementaryCardHolderList = [
+      SELECT
+        Id,
+        Name,
+        Opportunity__c,
+        Account__c,
+        CurrencyIsoCode,
+        Card_Holder_Name__c
+      FROM Supplementary_Card_Holders__c
+      WHERE Opportunity__c = :oppId
+    ];
+    if (
+      !supplementaryCardHolderList.isEmpty() &&
+      supplementaryCardHolderList.size() > 0
+    ) {
+      for (Supplementary_Card_Holders__c record : supplementaryCardHolderList) {
+        supplementaryWrapperList.add(
+          new SupplementaryCardHolderWrapper(record)
+        );
+      }
+    }
+    return supplementaryWrapperList;
   }
 }
