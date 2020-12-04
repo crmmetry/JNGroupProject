@@ -409,12 +409,14 @@
     //JN-4049 :: Kirti R. ::Added a method to set credit type
     let container = component.get("v.ChildContainer");
     let startingLimit = container.approvedStartingLimit;
-    let defaults = component.get("v.jnDefaultConfigs");
+
     if (startingLimit > component.get("v.jnDefaultConfigs.creditLimitValue")) {
       container.cardType = "Gold";
     } else {
-      container.cardType = "Classic";
+      container.cardType = "Classic"; // Add in costant
     }
-    return [{ key: "cardType", value: container.cardType }];
+    let values = [{ key: "cardType", value: container.cardType }];
+    updateChildContainerWithValue(component, values);
+    return values;
   }
 });

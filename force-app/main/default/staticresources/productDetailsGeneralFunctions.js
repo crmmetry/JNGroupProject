@@ -56,20 +56,9 @@ window.updateChildContainerWithValue = function (
   values.forEach((element) => {
     container[element.key] = element.value;
     if (shouldSetComponentValue)
-      component.set(`v.${element.key}`, element.value);
+      component.set("v.${element.key}", element.value);
   });
   return container;
-};
-/*
- * Updates child container attributes and its values with notification
- */
-window.updateChildContainerWithNotification = function (component, values) {
-  let container = component.get("v.ChildContainer");
-  values.forEach((element) => {
-    container[element.key] = element.value;
-  });
-  notifyContainerChanges(component);
-  component.set("v.ChildContainer", container);
 };
 /*
  * Updates child container attributes and its values. then toggles when it should be notified
@@ -109,6 +98,7 @@ window.updateAccountTypeOptionList = function (
   jnBankAccountTypeOptions,
   selected
 ) {
+  debugger;
   if (selected === "JN Bank Ltd.") return jnBankAccountTypeOptions;
   if (selected === "JN Fund Managers Ltd.")
     return fundManagerAccountTypeOptions;
@@ -166,31 +156,15 @@ window.monthlyPILoanAmountCalculation = function (container) {
  */
 window.fireProductDetailsEvent = function (type, payload, component) {
   let productDetailsEvent = $A.get("e.c:ProductDetailsEvent");
+  debugger;
   productDetailsEvent.setParams({
     type: !type ? "calculation" : type,
     payload: payload
   });
   productDetailsEvent.fire();
   //indicate that the component wants notifications
-  notifyContainerChanges(component);
-};
-
-/**
- * Re-enables child container notification updates
- */
-window.notifyContainerChanges = function (component) {
-  //indicate that the component wants notifications
   if (component) {
-    component.set("v.notifyContainerChange", true);
-  }
-};
-/**
- * Disables child container notification updates
- */
-window.noNotifyContainerChanges = function (component) {
-  //indicate that the component does'nt wants notifications
-  if (component) {
-    component.set("v.notifyContainerChange", false);
+    component.get("v.notifyContainerChange", true);
   }
 };
 /**
@@ -203,97 +177,24 @@ window.calculatRequestedCreditBalanceLimit = function (requestedCreditLimit) {
   //console.log("requested card limit: ", REQUESTED_CREDIT_LIMIT_PERCENTAGE);
   return requestedCreditLimit * REQUESTED_CREDIT_LIMIT_PERCENTAGE;
 };
-
-/**
- * Calculate ASL
- * @param {*} container
- * @param {*} jnDefaults
- * @return {Decimal}
+/*
+ * Updates child container attributes and its values with notification
  */
-window.ASLCalculator = function (container, jnDefault, riskFactor) {
-  if (
-    container.TDSRBefore > jnDefault.policyLimit ||
-    !validNumber(riskFactor)
-  ) {
-    return 0;
-  } else {
-    // //Step 1:
-    let annualGrossIncome = annualGrossIncomeCalculator(
-      container.grossMonthlyIncome
-    );
-    console.log("AGI", annualGrossIncome);
-    // //Step 1.5:
-    let maxCredilLimit = maximumCreditLimitCalculator(
-      jnDefault.creditLimitMax,
-      jnDefault.creditLimitMin,
-      annualGrossIncome
-    );
-    console.log("MCL", maxCredilLimit);
-    //Step 2:
-    let maxDebtPayment = maximumAllowableForMonthlyDebtPaymentsCalculator(
-      jnDefault.policyLimit,
-      container.grossMonthlyIncome
-    );
-    console.log("MDP", maxDebtPayment);
-    //Step 3:
-    let maxMinimumPayment = maximumAllowableForMinimumPaymentCalculator(
-      maxDebtPayment,
-      container.existingDebt
-    );
-    console.log("MMP", maxMinimumPayment);
-    //Step 4:
-    let computedMinimumPayment = computedMinimumPaymentFromCreditLimitCalculator(
-      container,
-      jnDefault,
-      maxMinimumPayment
-    );
-    console.log("CMP", computedMinimumPayment);
-    //Step 5:
-    let lowerCreditLimit = lowerCreditLimitCalculator(
-      computedMinimumPayment,
-      maxCredilLimit
-    );
-    console.log("lcl", lowerCreditLimit);
-    //Step 6:
-    let creditLimitAfterRisk = creditLimitRiskCalculator(
-      lowerCreditLimit,
-      riskFactor
-    );
-    console.log("creditLimitAfterRisk", creditLimitAfterRisk);
-    //Step 7:
-    let startingLimit = startingCreditLimtCalculator(
-      creditLimitAfterRisk,
-      jnDefault.discountFactor
-    );
-    console.log("SL", startingLimit);
-    //Step 8
-    return approvedStartingLimitCalculator(
-      startingLimit,
-      container.requestedCreditLimit
-    );
-  }
-};
-/**
- * copies all the src properties into target
- * @param {Object} target
- * @param {Object} src
- * @return {Object} target
- */
-window.copyInto = function (target, src) {
-  if (!src) return null;
-  target = target || {};
-  this.Object.keys(src).forEach((prop) => {
-    if (src.hasOwnProperty(prop)) {
-      target[prop] = src[prop];
-    }
+window.updateChildContainerWithNotification = function (component, values) {
+  debugger;
+  let container = component.get("v.ChildContainer");
+  values.forEach((element) => {
+    container[element.key] = element.value;
   });
-  return target;
+  notifyContainerChanges(component);
+  component.set("v.ChildContainer", container);
 };
 /**
- * checks if object
- * @param {Object} obj
+ * Disables child container notification updates
  */
-window.isObject = function (obj) {
-  let type = typeof obj;
-  return type === "object" && !!obj;
+window.noNotifyContainerChanges = function (component) {
+  //indicate that the component does'nt wants notifications
+  if (component) {
+    component.set("v.notifyContainerChange", false);
+  }
 };
