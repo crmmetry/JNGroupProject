@@ -4,7 +4,7 @@
       collateralType: null,
       interestedInJNLifeInsurance: null,
       coverageType: null,
-      repaymentMethod: null,
+      repaymentMethod: component.get("v.repaymentMethod"), //JN1-3928 :: Added by default value
       desiredRepaymentDate: null,
       creditRiskScore: null,
       creditRiskRating: null,
@@ -62,5 +62,12 @@
 
   onDeductFirstMonthRepaymentChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
+  },
+  //JN1-3928 :: Added a method to bind selected monthly date change
+  onMonthlyRepaymentDateChange: function (component, event, helper) {
+    const selected = event.getSource().get("v.value");
+    let creditRepaymentMap = component.get("v.ChildContainer");
+    creditRepaymentMap.monthlyRepaymentDate = selected;
+    component.set("v.ChildContainer", creditRepaymentMap);
   }
 });
