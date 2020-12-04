@@ -859,6 +859,12 @@
     <fieldPermissions>
         <editable>true</editable>
         <field
+    >Application_Asset_Liability__c.Percentage_Applicant_s_Portion_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
     >Application_Asset_Liability__c.Total_Contributions_to_Date_After__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -878,6 +884,12 @@
         <editable>true</editable>
         <field
     >Application_Asset_Liability__c.Total_Savings_Investments_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Application_Asset_Liability__c.Treatment_of_Credit_LOC_list__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1154,6 +1166,79 @@
         <default>true</default>
         <recordType>Applicant__c.Short_Summary_of_Income</recordType>
         <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>FinServ__AssetsAndLiabilities__c.Credit_Cards</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType
+    >FinServ__AssetsAndLiabilities__c.FinServ__Liability</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType
+    >FinServ__AssetsAndLiabilities__c.FinServ__NonfinancialAsset</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType
+    >FinServ__AssetsAndLiabilities__c.Life_Insurance_Policies</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType
+    >FinServ__AssetsAndLiabilities__c.Lines_of_Credit</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>FinServ__AssetsAndLiabilities__c.Motor_Vehicle</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>FinServ__AssetsAndLiabilities__c.Other_Assets</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>FinServ__AssetsAndLiabilities__c.Other_Loans</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType
+    >FinServ__AssetsAndLiabilities__c.Other_Loans_Guaranteed</recordType>
+        <visible>false</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType
+    >FinServ__AssetsAndLiabilities__c.Overdraft_Limit</recordType>
+        <visible>false</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType
+    >FinServ__AssetsAndLiabilities__c.Pension_Contributions_or_Individual</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>FinServ__AssetsAndLiabilities__c.Real_Estate</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType
+    >FinServ__AssetsAndLiabilities__c.Savings_Current_Accounts_Investments</recordType>
+        <visible>false</visible>
     </recordTypeVisibilities>
     <userLicense>Salesforce</userLicense>
     <userPermissions>

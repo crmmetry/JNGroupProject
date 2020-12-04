@@ -1,74 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 	<types>
-		<members>JNButtonCollectionDisplay</members>
-		<members>JNFullApplicantDetails</members>
-		<members>JNPicklist</members>
-		<members>JNStageProgressIndicator</members>
-		<name>AuraDefinitionBundle</name>
-	</types>
-	<types>
-		<members>Applicant__c.Ownership_Real_Estate_Rental_II__c</members>
-		<members>Applicant__c.Ownership_Real_Estate_Rental__c</members>
-		<name>CustomField</name>
-	</types>
-	<types>
-		<members>JN_Defaults.Default</members>
-		<members>Risk_Rating_Factor.R1</members>
-		<members>Risk_Rating_Factor.R2</members>
-		<members>Risk_Rating_Factor.R3</members>
-		<members>Risk_Rating_Factor.R4</members>
-		<members>Risk_Rating_Factor.R5</members>
-		<members>Risk_Rating_Factor.R6</members>
-		<members>Risk_Rating_Factor.R7</members>
-		<members>Risk_Rating_Factor.R8</members>
-		<name>CustomMetadata</name>
-	</types>
-	<types>
-		<members>FinServ__AssetsAndLiabilities__c</members>
-		<name>CustomObject</name>
-	</types>
-	<types>
-		<members>JNAccountApplicationSubflow</members>
-		<members>JnAssetsLiabilitiesSubflow</members>
-		<name>Flow</name>
-	</types>
-	<types>
-		<members>Affiliation_Type</members>
-		<members>Industry_Category_IFRS_Self_Employed</members>
-		<members>Primary_Relationship_Teir</members>
-		<members>Property_Type</members>
-		<members>Risk_Rating_Scale</members>
-		<members>Type_of_Card_Type_Loan</members>
-		<name>GlobalValueSet</name>
-	</types>
-	<types>
-		<members>Applicant__c-Application Details Layout</members>
-		<members>Applicant__c-Summary Applicant Details</members>
-		<members
-    >Application_Asset_Liability__c-Application Asset%2FLiability Layout</members>
-		<members
-    >Supplementary_Card_Holders__c-Supplementary Card Holder Layout</members>
-		<name>Layout</name>
-	</types>
-	<types>
-		<members>Applicant__c.All</members>
-		<members>Applicant__c.Related_Opportunities</members>
-		<members>Application_Asset_Liability__c.All</members>
-		<members>Supplementary_Card_Holders__c.All</members>
-		<name>ListView</name>
-	</types>
-	<types>
-		<members>Admin</members>
-		<members>JN Bank - Sales Support</members>
-		<members>Sales - All Products</members>
-		<name>Profile</name>
-	</types>
-	<types>
-		<members>Application_Asset_Liability__c.Test</members>
-		<name>QuickAction</name>
-	</types>
-	<types>
 		<members>FinServ__AssetsAndLiabilities__c.Credit_Cards</members>
 		<members>FinServ__AssetsAndLiabilities__c.FinServ__Liability</members>
 		<members>FinServ__AssetsAndLiabilities__c.FinServ__NonfinancialAsset</members>
@@ -85,22 +17,6 @@
 		<members
     >FinServ__AssetsAndLiabilities__c.Savings_Current_Accounts_Investments</members>
 		<name>RecordType</name>
-	</types>
-	<types>
-		<members>Applicant__c.Directors_emoluments</members>
-		<members>Applicant__c.Gratuity_in_lieu_of_Pension</members>
-		<members>Applicant__c.Net_Profit_Sole_Trader</members>
-		<members>Applicant__c.Other</members>
-		<members>Applicant__c.Pension</members>
-		<members>Applicant__c.Perfomance_based_Pay</members>
-		<members>Applicant__c.Project_Realestate_rental</members>
-		<members>Applicant__c.Property_Rental_not_treated_as_business</members>
-		<members>Applicant__c.Property_Rental_treated_as_business</members>
-		<members>Applicant__c.Salary_and_Allowances</members>
-		<members>Applicant__c.Salary_and_Allowances_gp</members>
-		<members>Applicant__c.Share_of_Profit_Partnership</members>
-		<members>Applicant__c.Share_of_Profit_shareholder</members>
-		<name>ValidationRule</name>
 	</types>
 	<version>49.0</version>
 </Package>
