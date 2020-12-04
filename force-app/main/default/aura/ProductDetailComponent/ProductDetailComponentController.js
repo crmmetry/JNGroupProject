@@ -36,14 +36,12 @@
    * @param {*} helper
    */
   onChildContainerChange: function (component, event, helper) {
-    const data = component.get("v.ChildContainer");
     if (
       component.get("v.scriptsLoaded") &&
       component.get("v.notifyContainerChange")
     ) {
       noNotifyContainerChanges(component);
-      console.log("===Testing Start===");
-      helper.TDSRCalculationBefore(data, component);
+      helper.TDSRCalculationBefore(component);
       helper.ASLCalculations(component);
       helper.minimumPaymentCalculations(component);
       helper.TDSRCalculationAfter(data, component);
@@ -82,7 +80,7 @@
       );
       console.info("New Version", JSON.parse(JSON.stringify(container)));
       let attributesToUpdate = [];
-      //Gets the applicant credit score //TODO: refactor in future sprints to be more efficient for server calls
+      //Gets the applicant credit score
       const creditScoreChanged = helper.changeDetectedInObjects(
         oldChildContainer,
         container,
@@ -109,10 +107,6 @@
         false
       );
       component.set("v.ChildContainer", updatedContainer);
-      console.info(
-        "Parenthical Child",
-        JSON.parse(JSON.stringify(component.get("v.ChildContainer")))
-      );
     }
   }
 });

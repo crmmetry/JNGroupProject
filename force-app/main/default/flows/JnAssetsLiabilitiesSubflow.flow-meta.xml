@@ -3,6 +3,7 @@
   xmlns="http://soap.sforce.com/2006/04/metadata"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 >
+    <apiVersion>49.0</apiVersion>
     <assignments>
         <name>Assign_Applicant_id</name>
         <label>Assign Applicant id</label>
@@ -109,7 +110,7 @@
     <assignments>
         <name>Assign_Defaults</name>
         <label>Assign Defaults</label>
-        <locationX>2773</locationX>
+        <locationX>2769</locationX>
         <locationY>2289</locationY>
         <assignmentItems>
             <assignToReference>TypePropertyDefault</assignToReference>
@@ -124,7 +125,7 @@
             <operator>Assign</operator>
             <value>
                 <elementReference
-        >ApplicantAssetsLiabiltyRecord.Lien_on_Asset_List__c</elementReference>
+        >SelectedAssetLiability.Lien_on_Asset_List__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -133,7 +134,7 @@
             <operator>Assign</operator>
             <value>
                 <elementReference
-        >SelectedAssetLiability.Treatment_of_Credit__c</elementReference>
+        >ApplicantAssetsLiabiltyRecord.Treatment_of_Credit__c</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -151,7 +152,7 @@
             <operator>Assign</operator>
             <value>
                 <elementReference
-        >SelectedAssetLiability.Treatment_of_Credit__c</elementReference>
+        >ApplicantAssetsLiabiltyRecord.Treatment_of_Credit__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -172,19 +173,11 @@
         <locationX>2788</locationX>
         <locationY>2627</locationY>
         <assignmentItems>
-            <assignToReference>TypePropertyDefault</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference
-        >SelectedAssetLiability.Property_Type__c</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
             <assignToReference>LienOnAssetDefault</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference
-        >ApplicantAssetsLiabiltyRecord.Lien_on_Asset_List__c</elementReference>
+        >SelectedAssetLiability.Lien_on_Asset_List__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -193,11 +186,11 @@
             <operator>Assign</operator>
             <value>
                 <elementReference
-        >SelectedAssetLiability.Treatment_of_Credit__c</elementReference>
+        >ApplicantAssetsLiabiltyRecord.Treatment_of_Credit__c</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Long_Real_Estate_Screen_0</targetReference>
+            <targetReference>Long_Other_Asset_Screen</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -211,7 +204,7 @@
             <operator>Assign</operator>
             <value>
                 <elementReference
-        >SelectedAssetLiability.Treatment_of_Credit__c</elementReference>
+        >ApplicantAssetsLiabiltyRecord.Treatment_of_Credit__c</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -239,20 +232,72 @@
     <assignments>
         <name>Assign_Defaults_0_0_0_0_0</name>
         <label>Assign Defaults</label>
-        <locationX>2840</locationX>
-        <locationY>1422</locationY>
+        <locationX>2875</locationX>
+        <locationY>1410</locationY>
         <assignmentItems>
             <assignToReference
       >AssetsTreatmentOfCreditDefault</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference
-        >SelectedAssetLiability.Treatment_of_Credit__c</elementReference>
+        >ApplicantAssetsLiabiltyRecord.Treatment_of_Credit__c</elementReference>
             </value>
         </assignmentItems>
         <connector>
             <targetReference
       >Long_Other_Loan_Guaranteed_Screen_0</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Defaults_0_0_0_0_0_0</name>
+        <label>Assign Defaults</label>
+        <locationX>2798</locationX>
+        <locationY>529</locationY>
+        <assignmentItems>
+            <assignToReference
+      >AssetsTreatmentOfCreditDefault</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference
+        >ApplicantAssetsLiabiltyRecord.Treatment_of_Credit_LOC_list__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TypeOfCard</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference
+        >SelectedAssetLiability.Type_of_Card__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Long_Credit_Card_Screen_0</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Defaults_0_0_0_0_0_0_0</name>
+        <label>Assign Defaults</label>
+        <locationX>2774</locationX>
+        <locationY>812</locationY>
+        <assignmentItems>
+            <assignToReference
+      >AssetsTreatmentOfCreditDefault</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference
+        >ApplicantAssetsLiabiltyRecord.Treatment_of_Credit_LOC_list__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TypeOfCard</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference
+        >SelectedAssetLiability.Type_of_Card__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Lines_of_Credit_Screen_0</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -419,7 +464,7 @@
     <assignments>
         <name>Long_Life_Insurance</name>
         <label>Long Life Insurance</label>
-        <locationX>3610</locationX>
+        <locationX>3608</locationX>
         <locationY>3297</locationY>
         <assignmentItems>
             <assignToReference
@@ -634,18 +679,10 @@
         </assignmentItems>
         <assignmentItems>
             <assignToReference
-      >SelectedAssetLiability.Lender__c</assignToReference>
+      >ApplicantAssetsLiabiltyRecord.Financial_Institution_Text__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Lender_asset_long</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference
-      >ApplicantAssetsLiabiltyRecord.Loan_Balance_Prior__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Loan_Balance_asset_long</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -668,7 +705,7 @@
         </assignmentItems>
         <assignmentItems>
             <assignToReference
-      >SelectedAssetLiability.Percent_Applicant_Portion__c</assignToReference>
+      >ApplicantAssetsLiabiltyRecord.Percentage_Applicant_s_Portion_Number__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference
@@ -677,7 +714,7 @@
         </assignmentItems>
         <assignmentItems>
             <assignToReference
-      >SelectedAssetLiability.Monthly_Payment_Prior__c</assignToReference>
+      >ApplicantAssetsLiabiltyRecord.Monthly_Payment_Prior__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference
@@ -719,6 +756,15 @@
                 <booleanValue>true</booleanValue>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >ApplicantAssetsLiabiltyRecord.Loan_Balance_Prior__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference
+        >Total_loan_balance_otherasset_long</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>Update_or_Create_Assets_0_0</targetReference>
         </connector>
@@ -726,7 +772,7 @@
     <assignments>
         <name>Long_Other_Loan</name>
         <label>Long Other Loan</label>
-        <locationX>3455</locationX>
+        <locationX>3458</locationX>
         <locationY>2922</locationY>
         <assignmentItems>
             <assignToReference
@@ -746,7 +792,7 @@
         </assignmentItems>
         <assignmentItems>
             <assignToReference
-      >SelectedAssetLiability.Percent_Average_Monthly_User__c</assignToReference>
+      >SelectedAssetLiability.Percent_Applicant_Portion__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference
@@ -762,7 +808,7 @@
         </assignmentItems>
         <assignmentItems>
             <assignToReference
-      >ApplicantAssetsLiabiltyRecord.Loan_Balance_Prior__c</assignToReference>
+      >SelectedAssetLiability.Loan_Balance_Prior__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference
@@ -771,7 +817,7 @@
         </assignmentItems>
         <assignmentItems>
             <assignToReference
-      >ApplicantAssetsLiabiltyRecord.Monthly_Payment_Prior__c</assignToReference>
+      >SelectedAssetLiability.Monthly_Payment_Prior__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference
@@ -866,7 +912,7 @@
         </assignmentItems>
         <assignmentItems>
             <assignToReference
-      >SelectedAssetLiability.Treatment_of_Credit__c</assignToReference>
+      >ApplicantAssetsLiabiltyRecord.Treatment_of_Credit__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference
@@ -948,7 +994,7 @@
     <assignments>
         <name>Long_Real_Estate</name>
         <label>Long Real Estate</label>
-        <locationX>3424</locationX>
+        <locationX>3430</locationX>
         <locationY>2292</locationY>
         <assignmentItems>
             <assignToReference
@@ -986,7 +1032,7 @@
         </assignmentItems>
         <assignmentItems>
             <assignToReference
-      >SelectedAssetLiability.Percent_Applicant_Portion__c</assignToReference>
+      >ApplicantAssetsLiabiltyRecord.Percentage_Applicant_s_Portion_Number__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference
@@ -1051,6 +1097,15 @@
             <operator>Assign</operator>
             <value>
                 <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >SelectedAssetLiability.Percent_Ownership__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference
+        >Percent_Ownership_realestatelong</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -1518,8 +1573,8 @@
     <assignments>
         <name>Set_Current_Asset_Liability</name>
         <label>Set Current Asset/Liability</label>
-        <locationX>2371</locationX>
-        <locationY>429</locationY>
+        <locationX>2201</locationX>
+        <locationY>517</locationY>
         <assignmentItems>
             <assignToReference>SelectedAssetLiability</assignToReference>
             <operator>Assign</operator>
@@ -1631,8 +1686,8 @@
     <assignments>
         <name>Short_Credit</name>
         <label>Short Credit</label>
-        <locationX>3069</locationX>
-        <locationY>497</locationY>
+        <locationX>3072</locationX>
+        <locationY>382</locationY>
         <assignmentItems>
             <assignToReference
       >SelectedAssetLiability.RecordTypeId</assignToReference>
@@ -1736,7 +1791,7 @@
         </assignmentItems>
         <assignmentItems>
             <assignToReference
-      >ApplicantAssetsLiabiltyRecord.Treatment_of_Credit__c</assignToReference>
+      >ApplicantAssetsLiabiltyRecord.Treatment_of_Credit_LOC_list__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference
@@ -1748,6 +1803,90 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>AssetNameFormulaCreditCard</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_or_Create_Assets</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Short_Credit_0</name>
+        <label>Short Credit</label>
+        <locationX>3037</locationX>
+        <locationY>525</locationY>
+        <assignmentItems>
+            <assignToReference
+      >SelectedAssetLiability.RecordTypeId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>CreditCardRecordTypeId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >SelectedAssetLiability.Asset_Credit_Limit__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference
+        >Credit_Card_Limit_asset_short_0</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >SelectedAssetLiability.Financial_Institution__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Lender_cc_asset_short_0</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >SelectedAssetLiability.Asset_Credit_Balance__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference
+        >Current_Balance_creditCard_short_0</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >SelectedAssetLiability.Average_Monthly_Usage__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Average_Balance_CC_Short_0</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >SelectedAssetLiability.Minimum_Payment__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Minimum_Payment_CC_short_0</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >SelectedAssetLiability.Treatment_of_Credit__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference
+        >TreatmentofCredit_asset_short_0.crmmObjectSelected</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>SelectedAssetLiability.Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>AssetNameFormulaCreditCard</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >SelectedAssetLiability.Type_of_Card__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference
+        >Type_of_card_cc_long.crmmObjectSelected</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -1799,7 +1938,7 @@
         <name>Short_Lines</name>
         <label>Short Lines</label>
         <locationX>3073</locationX>
-        <locationY>694</locationY>
+        <locationY>697</locationY>
         <assignmentItems>
             <assignToReference
       >SelectedAssetLiability.RecordTypeId</assignToReference>
@@ -1819,24 +1958,7 @@
         </assignmentItems>
         <assignmentItems>
             <assignToReference
-      >ApplicantAssetsLiabiltyRecord.Asset_Credit_Limit_Number__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference
-        >Asset_Credit_Limit_Lines_short1</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference
       >SelectedAssetLiability.Financial_Institution__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>lender_lines_short</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference
-      >ApplicantAssetsLiabiltyRecord.Financial_Institution_Text__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>lender_lines_short</elementReference>
@@ -1853,24 +1975,7 @@
         </assignmentItems>
         <assignmentItems>
             <assignToReference
-      >ApplicantAssetsLiabiltyRecord.Asset_Credit_Balance__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference
-        >Asset_Credit_Balance_short_line</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference
       >SelectedAssetLiability.Average_Monthly_Usage__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Average_Monthly_Usage_loc</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference
-      >ApplicantAssetsLiabiltyRecord.Average_Monthly_Usage_Number__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Average_Monthly_Usage_loc</elementReference>
@@ -1886,24 +1991,7 @@
         </assignmentItems>
         <assignmentItems>
             <assignToReference
-      >ApplicantAssetsLiabiltyRecord.Minimum_Payment__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Minimum_Payment</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference
       >SelectedAssetLiability.Treatment_of_Credit__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference
-        >Treatment_Of_Credit_Short_Line_new.crmmObjectSelected</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference
-      >ApplicantAssetsLiabiltyRecord.Treatment_of_Credit__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference
@@ -1915,6 +2003,116 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>AssetNameFormulaLOC</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_or_Create_Assets</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Short_Lines_0</name>
+        <label>Short Lines</label>
+        <locationX>3234</locationX>
+        <locationY>822</locationY>
+        <assignmentItems>
+            <assignToReference
+      >SelectedAssetLiability.RecordTypeId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>LinesofCreditRecordTypeId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >SelectedAssetLiability.Asset_Credit_Limit__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference
+        >Asset_Credit_Limit_Lines_short1_0</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >ApplicantAssetsLiabiltyRecord.Asset_Credit_Limit_Number__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference
+        >Asset_Credit_Limit_Lines_short1_0</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >SelectedAssetLiability.Financial_Institution__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>lender_lines_short_0</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >ApplicantAssetsLiabiltyRecord.Financial_Institution_Text__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>lender_lines_short_0</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >SelectedAssetLiability.Asset_Credit_Balance__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference
+        >Asset_Credit_Balance_short_line_0</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >ApplicantAssetsLiabiltyRecord.Asset_Credit_Balance__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference
+        >Asset_Credit_Balance_short_line_0</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >SelectedAssetLiability.Average_Monthly_Usage__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Average_Monthly_Usage_loc_0</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >ApplicantAssetsLiabiltyRecord.Average_Monthly_Usage_Number__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Average_Monthly_Usage_loc_0</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >SelectedAssetLiability.Treatment_of_Credit__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference
+        >Treatment_Of_Credit_Short_Line_new_0.crmmObjectSelected</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>SelectedAssetLiability.Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>AssetNameFormulaLOC</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >SelectedAssetLiability.Type_of_Card__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference
+        >Type_of_credit_loc_long.crmmObjectSelected</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -2369,6 +2567,44 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Assets_Found</name>
+        <label>Assets Found?</label>
+        <locationX>1718</locationX>
+        <locationY>241</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>No_Asset_Found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>AssetsLiabilityNames0</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>No_Assets_Found</targetReference>
+            </connector>
+            <label>No Asset Found</label>
+        </rules>
+        <rules>
+            <name>Assets_Found1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>AssetsLiabilityNames0</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference
+        >Existing_Assets_Liabilities_Screen_0</targetReference>
+            </connector>
+            <label>Assets Found</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Is_Opportunity_Closed</name>
         <label>Is Opportunity Closed?</label>
         <locationX>589</locationX>
@@ -2436,7 +2672,7 @@
         <locationX>2570</locationX>
         <locationY>493</locationY>
         <defaultConnector>
-            <targetReference>Summary_Only_0</targetReference>
+            <targetReference>Assign_Defaults_0_0_0_0_0_0</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Full Details</defaultConnectorLabel>
         <rules>
@@ -2488,7 +2724,7 @@
         <locationX>2634</locationX>
         <locationY>699</locationY>
         <defaultConnector>
-            <targetReference>Summary_Only_0_0</targetReference>
+            <targetReference>Assign_Defaults_0_0_0_0_0_0_0</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Full Details</defaultConnectorLabel>
         <rules>
@@ -2719,8 +2955,8 @@
     <decisions>
         <name>Long_Short_Savings_0</name>
         <label>Long or Short</label>
-        <locationX>1771</locationX>
-        <locationY>833</locationY>
+        <locationX>2051</locationX>
+        <locationY>766</locationY>
         <defaultConnector>
             <targetReference>Emptiness</targetReference>
         </defaultConnector>
@@ -3394,8 +3630,7 @@
             <targetReference>Match_Current_Record_Type_Id</targetReference>
         </nextValueConnector>
         <noMoreValuesConnector>
-            <targetReference
-      >Existing_Assets_Liabilities_Screen_0</targetReference>
+            <targetReference>Assets_Found</targetReference>
         </noMoreValuesConnector>
     </loops>
     <loops>
@@ -3503,6 +3738,10 @@
         <connector>
             <targetReference>Set_Current_Asset_Liability</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Application__c</field>
             <operator>EqualTo</operator>
@@ -3537,6 +3776,8 @@
         <queriedFields>Lien_on_Asset_List__c</queriedFields>
         <queriedFields>Overdraft_Balance_Number__c</queriedFields>
         <queriedFields>Overdraft_Limit_Number__c</queriedFields>
+        <queriedFields>Treatment_of_Credit_LOC_list__c</queriedFields>
+        <queriedFields>Percentage_Applicant_s_Portion_Number__c</queriedFields>
     </recordLookups>
     <recordLookups>
         <name>Get_Account</name>
@@ -3548,6 +3789,7 @@
         <connector>
             <targetReference>Get_Account_Assets_Liabilities</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -3570,6 +3812,7 @@
         <connector>
             <targetReference>Get_RecordTypes</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>FinServ__PrimaryOwner__c</field>
             <operator>EqualTo</operator>
@@ -3624,6 +3867,7 @@
         <queriedFields>Full_Details__c</queriedFields>
         <queriedFields>Average_Monthly_Usage__c</queriedFields>
         <queriedFields>Lien_on_Asset_List__c</queriedFields>
+        <queriedFields>Monthly_Premium_Life_Insurance_Number__c</queriedFields>
     </recordLookups>
     <recordLookups>
         <name>Get_RecordTypes</name>
@@ -3635,6 +3879,7 @@
         <connector>
             <targetReference>RecordTypeId_Iteration</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>SobjectType</field>
             <operator>EqualTo</operator>
@@ -3658,6 +3903,7 @@
         <connector>
             <targetReference>Is_Opportunity_Closed</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -3718,6 +3964,7 @@
         <label>Update Application</label>
         <locationX>3205</locationX>
         <locationY>1853</locationY>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -3752,6 +3999,7 @@
         <label>Update Application</label>
         <locationX>3196</locationX>
         <locationY>2144</locationY>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -3787,6 +4035,7 @@
         <label>Update Application</label>
         <locationX>3205</locationX>
         <locationY>2449</locationY>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -3821,6 +4070,7 @@
         <label>Update Application</label>
         <locationX>3203</locationX>
         <locationY>2749</locationY>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -3849,6 +4099,7 @@
         <label>Update Application</label>
         <locationX>3173</locationX>
         <locationY>1583</locationY>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -3870,6 +4121,7 @@
         <label>Update Application</label>
         <locationX>3223</locationX>
         <locationY>3104</locationY>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -3891,6 +4143,10 @@
         <label>Update Application</label>
         <locationX>3153</locationX>
         <locationY>913</locationY>
+        <faultConnector>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -3912,6 +4168,7 @@
         <label>Update Application</label>
         <locationX>3167</locationX>
         <locationY>1194</locationY>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -4055,8 +4312,8 @@
     <screens>
         <name>Existing_Assets_Liabilities_Screen_0</name>
         <label>Existing Assets/Liabilities Screen</label>
-        <locationX>1876</locationX>
-        <locationY>123</locationY>
+        <locationX>1879</locationX>
+        <locationY>19</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -4155,8 +4412,8 @@
     <screens>
         <name>Lines_of_Credit_Screen</name>
         <label>Short Lines of Credit Screen</label>
-        <locationX>2876</locationX>
-        <locationY>702</locationY>
+        <locationX>2902</locationX>
+        <locationY>635</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -4279,13 +4536,13 @@
             <inputParameters>
                 <name>crmmObjectname</name>
                 <value>
-                    <stringValue>FinServ__AssetsAndLiabilities__c</stringValue>
+                    <stringValue>Application_Asset_Liability__c</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
                 <name>crmmObjectField</name>
                 <value>
-                    <stringValue>Treatment_of_Credit__c</stringValue>
+                    <stringValue>Treatment_of_Credit_LOC_list__c</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -4295,10 +4552,86 @@
           >AssetsTreatmentOfCreditDefault</elementReference>
                 </value>
             </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Lines_of_Credit_Screen_0</name>
+        <label>Long Lines of Credit Screen</label>
+        <locationX>2954</locationX>
+        <locationY>780</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Short_Lines_0</targetReference>
+        </connector>
+        <fields>
+            <name>indicator18_0</name>
+            <extensionName>c:JNStageProgressIndicator</extensionName>
+            <fieldType>ComponentInstance</fieldType>
             <inputParameters>
-                <name>recordTypeName</name>
+                <name>stageType</name>
                 <value>
-                    <stringValue>Lines_of_Credit</stringValue>
+                    <elementReference>FinancialText</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>currentStage</name>
+                <value>
+                    <elementReference
+          >AssetsLiabilitiesDetailsStage</elementReference>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>shortlinesofcredit_displaytext_0</name>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219); font-size: 14px; background-color: rgb(255, 255, 255);&quot;&gt;Full Details: Lines Of Credit&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>lender_lines_short_0</name>
+            <dataType>String</dataType>
+            <defaultValue>
+                <elementReference
+        >SelectedAssetLiability.Lender__c</elementReference>
+            </defaultValue>
+            <fieldText>Financial Institution</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage
+        >&lt;p&gt;Value cannot exceed a length of 80 characters. &lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!lender_lines_short}) &lt;= 40</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>Type_of_credit_loc_long</name>
+            <extensionName>c:JNPicklist</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>crmmLabel</name>
+                <value>
+                    <stringValue>Type of Credit</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>crmmObjectname</name>
+                <value>
+                    <stringValue>FinServ__AssetsAndLiabilities__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>crmmObjectField</name>
+                <value>
+                    <stringValue>Type_of_Card__c</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -4306,6 +4639,254 @@
                 <value>
                     <elementReference
           >LinesofCreditRecordTypeId</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>crmmObjectSelected</name>
+                <value>
+                    <elementReference>TypeCardDefault</elementReference>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>Asset_Credit_Limit_Lines_short1_0</name>
+            <dataType>Currency</dataType>
+            <defaultValue>
+                <elementReference
+        >SelectedAssetLiability.Asset_Credit_Limit__c</elementReference>
+            </defaultValue>
+            <fieldText>Line of Credit Limit</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <scale>0</scale>
+        </fields>
+        <fields>
+            <name>Asset_Credit_Balance_short_line_0</name>
+            <dataType>Currency</dataType>
+            <defaultValue>
+                <elementReference
+        >ApplicantAssetsLiabiltyRecord.Asset_Credit_Balance__c</elementReference>
+            </defaultValue>
+            <fieldText>Line of Credit Balance</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <scale>0</scale>
+        </fields>
+        <fields>
+            <name>Average_Monthly_Usage_loc_0</name>
+            <dataType>Currency</dataType>
+            <defaultValue>
+                <elementReference
+        >SelectedAssetLiability.Average_Monthly_Usage__c</elementReference>
+            </defaultValue>
+            <fieldText>Average Balance (6-12 months)</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <scale>0</scale>
+        </fields>
+        <fields>
+            <name>Treatment_Of_Credit_Short_Line_new_0</name>
+            <extensionName>c:JNPicklist</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>crmmLabel</name>
+                <value>
+                    <stringValue>Treatment of Credit</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>crmmObjectname</name>
+                <value>
+                    <stringValue>Application_Asset_Liability__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>crmmObjectField</name>
+                <value>
+                    <stringValue>Treatment_of_Credit_LOC_list__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>crmmObjectSelected</name>
+                <value>
+                    <elementReference
+          >AssetsTreatmentOfCreditDefault</elementReference>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Long_Credit_Card_Screen_0</name>
+        <label>Long Credit Card Screen</label>
+        <locationX>2922</locationX>
+        <locationY>523</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Short_Credit_0</targetReference>
+        </connector>
+        <fields>
+            <name>indicator15_0</name>
+            <extensionName>c:JNStageProgressIndicator</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>stageType</name>
+                <value>
+                    <elementReference>FinancialText</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>currentStage</name>
+                <value>
+                    <elementReference
+          >AssetsLiabilitiesDetailsStage</elementReference>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>Shortcreditcard_displaytext_0</name>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219); font-size: 14px; background-color: rgb(255, 255, 255);&quot;&gt;Full Details: Credit Card&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Lender_cc_asset_short_0</name>
+            <dataType>String</dataType>
+            <defaultValue>
+                <elementReference
+        >SelectedAssetLiability.Financial_Institution__c</elementReference>
+            </defaultValue>
+            <fieldText>Financial Institution</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage
+        >&lt;p&gt;Value cannot exceed a length of 40 characters.&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!Lender_cc_asset_short}) &lt;= 40</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>Type_of_card_cc_long</name>
+            <extensionName>c:JNPicklist</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>crmmLabel</name>
+                <value>
+                    <stringValue>Type of Card</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>crmmObjectname</name>
+                <value>
+                    <stringValue>FinServ__AssetsAndLiabilities__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>crmmObjectField</name>
+                <value>
+                    <stringValue>Type_of_Card__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>recordTypeId</name>
+                <value>
+                    <elementReference>CreditCardRecordTypeId</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>crmmObjectSelected</name>
+                <value>
+                    <elementReference>TypeOfCard</elementReference>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>Credit_Card_Limit_asset_short_0</name>
+            <dataType>Currency</dataType>
+            <defaultValue>
+                <elementReference
+        >SelectedAssetLiability.Asset_Credit_Limit__c</elementReference>
+            </defaultValue>
+            <fieldText>Credit Card Limit</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <scale>0</scale>
+        </fields>
+        <fields>
+            <name>Current_Balance_creditCard_short_0</name>
+            <dataType>Currency</dataType>
+            <defaultValue>
+                <elementReference
+        >SelectedAssetLiability.Asset_Credit_Balance__c</elementReference>
+            </defaultValue>
+            <fieldText>Current Balance</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <scale>0</scale>
+        </fields>
+        <fields>
+            <name>Average_Balance_CC_Short_0</name>
+            <dataType>Currency</dataType>
+            <defaultValue>
+                <elementReference
+        >SelectedAssetLiability.Average_Monthly_Usage__c</elementReference>
+            </defaultValue>
+            <fieldText>Average Balance (6-12 months)</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <scale>0</scale>
+        </fields>
+        <fields>
+            <name>Minimum_Payment_CC_short_0</name>
+            <dataType>Currency</dataType>
+            <defaultValue>
+                <elementReference
+        >SelectedAssetLiability.Minimum_Payment__c</elementReference>
+            </defaultValue>
+            <fieldText>Minimum Payment</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <scale>0</scale>
+        </fields>
+        <fields>
+            <name>TreatmentofCredit_asset_short_0</name>
+            <extensionName>c:JNPicklist</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>crmmObjectname</name>
+                <value>
+                    <stringValue>Application_Asset_Liability__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>crmmLabel</name>
+                <value>
+                    <stringValue>Treatment of Card</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>crmmObjectField</name>
+                <value>
+                    <stringValue>Treatment_of_Credit_LOC_list__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>crmmObjectSelected</name>
+                <value>
+                    <elementReference
+          >AssetsTreatmentOfCreditDefault</elementReference>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
@@ -4704,13 +5285,6 @@
                 </value>
             </inputParameters>
             <inputParameters>
-                <name>recordTypeId</name>
-                <value>
-                    <elementReference
-          >MotorVehicleRecordTypeId</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
                 <name>crmmObjectSelected</name>
                 <value>
                     <elementReference
@@ -4735,9 +5309,252 @@
         <showHeader>true</showHeader>
     </screens>
     <screens>
+        <name>Long_Other_Asset_Screen</name>
+        <label>Long Other Asset</label>
+        <locationX>3036</locationX>
+        <locationY>2624</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Long_Other_Asset</targetReference>
+        </connector>
+        <fields>
+            <name>longrealestate_displaytext_0</name>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219); font-size: 14px; background-color: rgb(255, 255, 255);&quot;&gt;Full Details: Other Asset&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Description_of_The_Asset_OtherAssetlong</name>
+            <defaultValue>
+                <stringValue
+        >{!SelectedAssetLiability.Description_of_Asset__c}</stringValue>
+            </defaultValue>
+            <fieldText>Description  of The Asset</fieldText>
+            <fieldType>LargeTextArea</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage
+        >&lt;p&gt;Value cannot exceed a length of 225 characters.&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!Description_of_The_Asset_OtherAssetlong}) &lt;= 225</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>Percent_Ownership_otherassetlong</name>
+            <dataType>Number</dataType>
+            <defaultValue>
+                <elementReference
+        >SelectedAssetLiability.Percent_Ownership__c</elementReference>
+            </defaultValue>
+            <fieldText>% Ownership</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <scale>0</scale>
+        </fields>
+        <fields>
+            <name>Total_Market_Value_otherasset</name>
+            <dataType>Currency</dataType>
+            <defaultValue>
+                <elementReference
+        >SelectedAssetLiability.Total_Market_Value__c</elementReference>
+            </defaultValue>
+            <fieldText>Total Market Value</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <scale>0</scale>
+            <validationRule>
+                <errorMessage
+        >&lt;p&gt;Value must be greater than -1. &lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >{!Total_Market_Value_otherasset} &gt;= 0</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>Lien_on_asset_otherasset_long</name>
+            <extensionName>c:JNPicklist</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>crmmLabel</name>
+                <value>
+                    <stringValue>Do you have a lien on this asset?</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>crmmObjectname</name>
+                <value>
+                    <stringValue>FinServ__AssetsAndLiabilities__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>crmmObjectField</name>
+                <value>
+                    <stringValue>Lien_On_Asset_List__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>crmmObjectSelected</name>
+                <value>
+                    <elementReference>LienOnAssetDefault</elementReference>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>Lender_asset_long</name>
+            <dataType>String</dataType>
+            <defaultValue>
+                <elementReference
+        >ApplicantAssetsLiabiltyRecord.Financial_Institution_Text__c</elementReference>
+            </defaultValue>
+            <fieldText>Lender</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage
+        >&lt;p&gt;Value cannot exceed a length of 40 characters. &lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!Lender_asset_long}) &lt;= 40</formulaExpression>
+            </validationRule>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference
+          >Lien_on_asset_otherasset_long.crmmObjectSelected</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <stringValue>Yes</stringValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>Total_loan_balance_otherasset_long</name>
+            <dataType>Currency</dataType>
+            <defaultValue>
+                <elementReference
+        >ApplicantAssetsLiabiltyRecord.Loan_Balance_Prior__c</elementReference>
+            </defaultValue>
+            <fieldText>Total Loan Balance</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <scale>0</scale>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference
+          >Lien_on_asset_otherasset_long.crmmObjectSelected</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <stringValue>Yes</stringValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>Percent_Applicant_Portion_otherasset_long</name>
+            <dataType>Number</dataType>
+            <defaultValue>
+                <elementReference
+        >ApplicantAssetsLiabiltyRecord.Percentage_Applicant_s_Portion_Number__c</elementReference>
+            </defaultValue>
+            <fieldText>% Applicant&apos;s Portion</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <scale>0</scale>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference
+          >Lien_on_asset_otherasset_long.crmmObjectSelected</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <stringValue>Yes</stringValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>Monthly_Payment_to_Prior_assetlong</name>
+            <dataType>Currency</dataType>
+            <defaultValue>
+                <elementReference
+        >ApplicantAssetsLiabiltyRecord.Monthly_Payment_Prior__c</elementReference>
+            </defaultValue>
+            <fieldText>Monthly Payment</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <scale>0</scale>
+            <validationRule>
+                <errorMessage
+        >&lt;p&gt;Value must be greater than -1. &lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >{!Monthly_Payment_to_Prior_assetlong} &gt;= 0</formulaExpression>
+            </validationRule>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference
+          >Lien_on_asset_otherasset_long.crmmObjectSelected</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <stringValue>Yes</stringValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>Treatment_of_credit_otherasset_long</name>
+            <extensionName>c:JNPicklist</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>crmmLabel</name>
+                <value>
+                    <stringValue>Treatment of Credit</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>crmmObjectname</name>
+                <value>
+                    <stringValue>Application_Asset_Liability__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>crmmObjectField</name>
+                <value>
+                    <stringValue>Treatment_Of_Credit__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>crmmObjectSelected</name>
+                <value>
+                    <elementReference
+          >AssetsTreatmentOfCreditDefault</elementReference>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference
+          >Lien_on_asset_otherasset_long.crmmObjectSelected</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <stringValue>Yes</stringValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
         <name>Long_Other_Loan_Guaranteed_Screen_0</name>
         <label>Long Other Loan Guaranteed Screen</label>
-        <locationX>3001</locationX>
+        <locationX>3004</locationX>
         <locationY>1430</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -4837,7 +5654,7 @@
             <inputParameters>
                 <name>crmmObjectname</name>
                 <value>
-                    <stringValue>FinServ__AssetsAndLiabilities__c</stringValue>
+                    <stringValue>Application_Asset_Liability__c</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -4984,12 +5801,6 @@
                 </value>
             </inputParameters>
             <inputParameters>
-                <name>recordTypeId</name>
-                <value>
-                    <elementReference>OtherLoansRecordTypeId</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
                 <name>crmmObjectSelected</name>
                 <value>
                     <elementReference
@@ -5116,8 +5927,8 @@
     <screens>
         <name>Long_Real_Estate_Screen</name>
         <label>Long Real Estate Screen</label>
-        <locationX>3046</locationX>
-        <locationY>2291</locationY>
+        <locationX>3048</locationX>
+        <locationY>2294</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -5146,8 +5957,8 @@
             </validationRule>
         </fields>
         <fields>
-            <name>Percentage_Ownership_realestatelong</name>
-            <dataType>String</dataType>
+            <name>Percent_Ownership_realestatelong</name>
+            <dataType>Number</dataType>
             <defaultValue>
                 <elementReference
         >SelectedAssetLiability.Percent_Ownership__c</elementReference>
@@ -5155,6 +5966,7 @@
             <fieldText>Percentage Ownership</fieldText>
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
+            <scale>0</scale>
         </fields>
         <fields>
             <name>Total_Market_Value_estate_long</name>
@@ -5305,7 +6117,7 @@
             <dataType>Currency</dataType>
             <defaultValue>
                 <elementReference
-        >ApplicantAssetsLiabiltyRecord.Monthly_Payment_After__c</elementReference>
+        >ApplicantAssetsLiabiltyRecord.Monthly_Payment_Prior__c</elementReference>
             </defaultValue>
             <fieldText>Total Monthly Payment</fieldText>
             <fieldType>InputField</fieldType>
@@ -5334,7 +6146,7 @@
             <dataType>Number</dataType>
             <defaultValue>
                 <elementReference
-        >ApplicantAssetsLiabiltyRecord.Monthly_Payment_Prior_Calc_App_Portion__c</elementReference>
+        >ApplicantAssetsLiabiltyRecord.Percentage_Applicant_s_Portion_Number__c</elementReference>
             </defaultValue>
             <fieldText>% Applicant&apos;s Portion</fieldText>
             <fieldType>InputField</fieldType>
@@ -5388,255 +6200,6 @@
                 <conditions>
                     <leftValueReference
           >Lien_on_asset_real_estate_long.crmmObjectSelected</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <stringValue>Yes</stringValue>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
-        <name>Long_Real_Estate_Screen_0</name>
-        <label>Long Other Asset</label>
-        <locationX>3032</locationX>
-        <locationY>2624</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <connector>
-            <targetReference>Long_Other_Asset</targetReference>
-        </connector>
-        <fields>
-            <name>longrealestate_displaytext_0</name>
-            <fieldText
-      >&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219); font-size: 14px; background-color: rgb(255, 255, 255);&quot;&gt;Full Details: Other Asset&lt;/span&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <fields>
-            <name>Description_of_The_Asset_OtherAssetlong</name>
-            <defaultValue>
-                <stringValue
-        >{!SelectedAssetLiability.Description_of_Asset__c}</stringValue>
-            </defaultValue>
-            <fieldText>Description  of The Asset</fieldText>
-            <fieldType>LargeTextArea</fieldType>
-            <isRequired>true</isRequired>
-            <validationRule>
-                <errorMessage
-        >&lt;p&gt;Value cannot exceed a length of 225 characters.&lt;/p&gt;</errorMessage>
-                <formulaExpression
-        >LEN ({!Description_of_The_Asset_OtherAssetlong}) &lt;= 225</formulaExpression>
-            </validationRule>
-        </fields>
-        <fields>
-            <name>Percent_Ownership_otherassetlong</name>
-            <dataType>Number</dataType>
-            <defaultValue>
-                <elementReference
-        >SelectedAssetLiability.Percent_Ownership__c</elementReference>
-            </defaultValue>
-            <fieldText>% Ownership</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-            <scale>0</scale>
-        </fields>
-        <fields>
-            <name>Total_Market_Value_otherasset</name>
-            <dataType>Currency</dataType>
-            <defaultValue>
-                <elementReference
-        >SelectedAssetLiability.Total_Market_Value__c</elementReference>
-            </defaultValue>
-            <fieldText>Total Market Value</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-            <scale>0</scale>
-            <validationRule>
-                <errorMessage
-        >&lt;p&gt;Value must be greater than -1. &lt;/p&gt;</errorMessage>
-                <formulaExpression
-        >{!Total_Market_Value_otherasset} &gt;= 0</formulaExpression>
-            </validationRule>
-        </fields>
-        <fields>
-            <name>Lien_on_asset_otherasset_long</name>
-            <extensionName>c:JNPicklist</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>crmmLabel</name>
-                <value>
-                    <stringValue>Do you have a lien on this asset?</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>crmmObjectname</name>
-                <value>
-                    <stringValue>FinServ__AssetsAndLiabilities__c</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>crmmObjectField</name>
-                <value>
-                    <stringValue>Lien_On_Asset_List__c</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>crmmObjectSelected</name>
-                <value>
-                    <elementReference>LienOnAssetDefault</elementReference>
-                </value>
-            </inputParameters>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <fields>
-            <name>Lender_asset_long</name>
-            <dataType>String</dataType>
-            <defaultValue>
-                <elementReference
-        >ApplicantAssetsLiabiltyRecord.Financial_Institution_Text__c</elementReference>
-            </defaultValue>
-            <fieldText>Lender</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-            <validationRule>
-                <errorMessage
-        >&lt;p&gt;Value cannot exceed a length of 40 characters. &lt;/p&gt;</errorMessage>
-                <formulaExpression
-        >LEN ({!Lender_asset_long}) &lt;= 40</formulaExpression>
-            </validationRule>
-            <visibilityRule>
-                <conditionLogic>and</conditionLogic>
-                <conditions>
-                    <leftValueReference
-          >Lien_on_asset_otherasset_long.crmmObjectSelected</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <stringValue>Yes</stringValue>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
-        </fields>
-        <fields>
-            <name>Loan_Balance_asset_long</name>
-            <dataType>Currency</dataType>
-            <defaultValue>
-                <elementReference
-        >ApplicantAssetsLiabiltyRecord.Loan_Balance_Prior__c</elementReference>
-            </defaultValue>
-            <fieldText>Total Loan Balance</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-            <scale>0</scale>
-            <validationRule>
-                <errorMessage
-        >&lt;p&gt;Value must be greater than -1. &lt;/p&gt;</errorMessage>
-                <formulaExpression
-        >{!Loan_Balance_asset_long} &gt;= 0</formulaExpression>
-            </validationRule>
-            <visibilityRule>
-                <conditionLogic>and</conditionLogic>
-                <conditions>
-                    <leftValueReference
-          >Lien_on_asset_real_estate_long.crmmObjectSelected</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <stringValue>Yes</stringValue>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
-        </fields>
-        <fields>
-            <name>Percent_Applicant_Portion_otherasset_long</name>
-            <dataType>Number</dataType>
-            <defaultValue>
-                <elementReference
-        >ApplicantAssetsLiabiltyRecord.Monthly_Payment_Prior_Calc_App_Portion__c</elementReference>
-            </defaultValue>
-            <fieldText>% Applicant&apos;s Portion</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-            <scale>0</scale>
-            <visibilityRule>
-                <conditionLogic>and</conditionLogic>
-                <conditions>
-                    <leftValueReference
-          >Lien_on_asset_otherasset_long.crmmObjectSelected</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <stringValue>Yes</stringValue>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
-        </fields>
-        <fields>
-            <name>Monthly_Payment_to_Prior_assetlong</name>
-            <dataType>Currency</dataType>
-            <defaultValue>
-                <elementReference
-        >ApplicantAssetsLiabiltyRecord.Monthly_Payment_Prior__c</elementReference>
-            </defaultValue>
-            <fieldText>Monthly Payment</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-            <scale>0</scale>
-            <validationRule>
-                <errorMessage
-        >&lt;p&gt;Value must be greater than -1. &lt;/p&gt;</errorMessage>
-                <formulaExpression
-        >{!Monthly_Payment_to_Prior_assetlong} &gt;= 0</formulaExpression>
-            </validationRule>
-            <visibilityRule>
-                <conditionLogic>and</conditionLogic>
-                <conditions>
-                    <leftValueReference
-          >Lien_on_asset_otherasset_long.crmmObjectSelected</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <stringValue>Yes</stringValue>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
-        </fields>
-        <fields>
-            <name>Treatment_of_credit_otherasset_long</name>
-            <extensionName>c:JNPicklist</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>crmmLabel</name>
-                <value>
-                    <stringValue>Treatment of Credit</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>crmmObjectname</name>
-                <value>
-                    <stringValue>Application_Asset_Liability__c</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>crmmObjectField</name>
-                <value>
-                    <stringValue>Treatment_Of_Credit__c</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>crmmObjectSelected</name>
-                <value>
-                    <elementReference
-          >AssetsTreatmentOfCreditDefault</elementReference>
-                </value>
-            </inputParameters>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-            <visibilityRule>
-                <conditionLogic>and</conditionLogic>
-                <conditions>
-                    <leftValueReference
-          >Lien_on_asset_otherasset_long.crmmObjectSelected</leftValueReference>
                     <operator>EqualTo</operator>
                     <rightValue>
                         <stringValue>Yes</stringValue>
@@ -5795,6 +6358,49 @@
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
             <scale>0</scale>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>No_Assets_Found</name>
+        <label>No Assets Found</label>
+        <locationX>1582</locationX>
+        <locationY>49</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>indicator7_0_0_0</name>
+            <extensionName>c:JNStageProgressIndicator</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>stageType</name>
+                <value>
+                    <stringValue>financial</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>currentStage</name>
+                <value>
+                    <elementReference
+          >AssetsLiabilitiesSelectionStage</elementReference>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>text6_0_0_0</name>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;No Assets Found&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>MoreAssetsLiabilitiesText_0_0_0</name>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219); font-size: 12px;&quot;&gt;No assets of this type were found. Please select &quot;Previous&quot; to select another type of asset to Update.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
@@ -5973,8 +6579,8 @@
     <screens>
         <name>Short_Credit_Card_Screen</name>
         <label>Short Credit Card Screen</label>
-        <locationX>2879</locationX>
-        <locationY>496</locationY>
+        <locationX>2877</locationX>
+        <locationY>384</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -6091,7 +6697,7 @@
             <inputParameters>
                 <name>crmmObjectname</name>
                 <value>
-                    <stringValue>FinServ__AssetsAndLiabilities__c</stringValue>
+                    <stringValue>Application_Asset_Liability__c</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -6103,7 +6709,7 @@
             <inputParameters>
                 <name>crmmObjectField</name>
                 <value>
-                    <stringValue>Treatment_of_Credit__c</stringValue>
+                    <stringValue>Treatment_of_Credit_LOC_list__c</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -6111,18 +6717,6 @@
                 <value>
                     <elementReference
           >AssetsTreatmentOfCreditDefault</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>recordTypeName</name>
-                <value>
-                    <stringValue>Credit_Cards</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>recordTypeId</name>
-                <value>
-                    <elementReference>CreditCardRecordTypeId</elementReference>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
@@ -6664,92 +7258,6 @@
         <showHeader>true</showHeader>
     </screens>
     <screens>
-        <name>Summary_Only_0</name>
-        <label>Summary Only</label>
-        <locationX>2787</locationX>
-        <locationY>578</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <fields>
-            <name>indicator7_0_0_0</name>
-            <extensionName>c:JNStageProgressIndicator</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>stageType</name>
-                <value>
-                    <stringValue>financial</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>currentStage</name>
-                <value>
-                    <elementReference
-          >AssetsLiabilitiesSelectionStage</elementReference>
-                </value>
-            </inputParameters>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <fields>
-            <name>text6_0_0_0</name>
-            <fieldText
-      >&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219); font-size: 14px; background-color: rgb(255, 255, 255);&quot;&gt;Summary Only&lt;/span&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <fields>
-            <name>MoreAssetsLiabilitiesText_0_0_0</name>
-            <fieldText
-      >&lt;p&gt;&lt;span style=&quot;font-size: 12px; color: rgb(52, 152, 219);&quot;&gt;Sorry, only Short Summary details are available for this Asset/Liability type. Please select &quot;Previous&quot; to edit the Short Summary details.&lt;/span&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
-        <name>Summary_Only_0_0</name>
-        <label>Summary Only</label>
-        <locationX>2975</locationX>
-        <locationY>808</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <fields>
-            <name>indicator7_0_0_0_0</name>
-            <extensionName>c:JNStageProgressIndicator</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>stageType</name>
-                <value>
-                    <stringValue>financial</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>currentStage</name>
-                <value>
-                    <elementReference
-          >AssetsLiabilitiesSelectionStage</elementReference>
-                </value>
-            </inputParameters>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <fields>
-            <name>text6_0_0_0_0</name>
-            <fieldText
-      >&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219); font-size: 14px; background-color: rgb(255, 255, 255);&quot;&gt;Summary Only&lt;/span&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <fields>
-            <name>MoreAssetsLiabilitiesText_0_0_0_0</name>
-            <fieldText
-      >&lt;p&gt;&lt;span style=&quot;font-size: 12px; color: rgb(52, 152, 219);&quot;&gt;Sorry, only Short Summary details are available for this Asset/Liability type. Please select &quot;Previous&quot; to edit the Short Summary details.&lt;/span&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
         <name>Summary_Only_0_0_0</name>
         <label>Summary Only</label>
         <locationX>2880</locationX>
@@ -6802,6 +7310,7 @@
     <status>Active</status>
     <textTemplates>
         <name>AssetName</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
         <text>&lt;p&gt;{!AccountInformation.Name} - TODAY()&lt;/p&gt;</text>
     </textTemplates>
     <variables>

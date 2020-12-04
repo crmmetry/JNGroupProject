@@ -70,7 +70,6 @@ window.updateChildContainerNoNotification = function (component, values) {
   });
   component.set("v.notifyContainerChange", false);
   component.set("v.ChildContainer", container);
-  console.log("After updatinf child");
   return container;
 };
 
@@ -173,12 +172,79 @@ window.fireProductDetailsEvent = function (type, payload, component) {
  * @param {*} capLimit
  */
 window.calculatRequestedCreditBalanceLimit = function (requestedCreditLimit) {
-  console.log("requested card limit: ", requestedCreditLimit);
-  //console.log("requested card limit: ", REQUESTED_CREDIT_LIMIT_PERCENTAGE);
   return requestedCreditLimit * REQUESTED_CREDIT_LIMIT_PERCENTAGE;
 };
-/*
- * Updates child container attributes and its values with notification
+
+/**
+ * Calculate ASL
+ * @param {*} container
+ * @param {*} jnDefaults
+ * @return {Decimal}
+ */
+window.ASLCalculator = function (container, jnDefault, riskFactor) {
+  if (
+    !validNumber(container.TDSRBefore) ||
+    !validNumber(jnDefault.policyLimit) ||
+    !validNumber(container.TDSRBefore) ||
+    !validNumber(riskFactor)
+  ) {
+    return 0;
+  }
+  if (roundedValue(container.TDSRBefore / 100) > jnDefault.policyLimit) {
+    return 0;
+  }
+  // //Step 1:
+  let annualGrossIncome = annualGrossIncomeCalculator(
+    container.grossMonthlyIncome
+  );
+  // //Step 1.5:
+  let maxCredilLimit = maximumCreditLimitCalculator(
+    jnDefault.creditLimitMax,
+    jnDefault.creditLimitMin,
+    annualGrossIncome
+  );
+  //Step 2:
+  let maxDebtPayment = maximumAllowableForMonthlyDebtPaymentsCalculator(
+    jnDefault.policyLimit,
+    container.grossMonthlyIncome
+  );
+  //Step 3:
+  let maxMinimumPayment = maximumAllowableForMinimumPaymentCalculator(
+    maxDebtPayment,
+    container.existingDebt
+  );
+  //Step 4:
+  let computedMinimumPayment = computedMinimumPaymentFromCreditLimitCalculator(
+    container,
+    jnDefault,
+    maxMinimumPayment
+  );
+  //Step 5:
+  let lowerCreditLimit = lowerCreditLimitCalculator(
+    computedMinimumPayment,
+    maxCredilLimit
+  );
+  //Step 6:
+  let creditLimitAfterRisk = creditLimitRiskCalculator(
+    lowerCreditLimit,
+    riskFactor
+  );
+  //Step 7:
+  let startingLimit = startingCreditLimtCalculator(
+    creditLimitAfterRisk,
+    jnDefault.discountFactor
+  );
+  //Step 8
+  return approvedStartingLimitCalculator(
+    startingLimit,
+    container.requestedCreditLimit
+  );
+};
+/**
+ * copies all the src properties into target
+ * @param {Object} target
+ * @param {Object} src
+ * @return {Object} target
  */
 window.updateChildContainerWithNotification = function (component, values) {
   debugger;

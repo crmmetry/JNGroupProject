@@ -149,7 +149,6 @@ window.enlistAndValidateNumberFields = function (properties, parentObj) {
  */
 window.basicPMTCalculator = function (properties, parentObj) {
   let validatedFields = enlistAndValidateFields(properties, parentObj);
-  console.info("validatedFields", validatedFields);
   if (!validatedFields) return 0;
   let rate;
   let totalMonths;
@@ -550,7 +549,6 @@ window.TDSRAfterCalculator = function (grossIncome, totalDebt, minimumPayment) {
     validNumber(totalDebt) === false ||
     validNumber(minimumPayment) === false
   ) {
-    console.info("---After---", grossIncome, totalDebt, minimumPayment);
     return 0;
   }
   return roundedValue(
@@ -669,27 +667,21 @@ window.computedMinimumPaymentFromCreditLimitCalculator = function (
   mmp
 ) {
   let principalPayment = 0;
+  //TODO: travis refactor to constants and use appropriate family
   if (container.productFamily === "JN Bank Credit Card") {
     principalPayment = jnDefault.creditCardPrincipalPayment;
-    console.log("pp", principalPayment);
   } else {
     principalPayment = jnDefault.lineOfCreditPrincipalPayment;
-    console.log("pp", principalPayment);
   }
   if (
     validNumber(mmp) &&
     validNumber(container.interestRate) &&
     validNumber(principalPayment)
   ) {
-    console.log("MMP", mmp);
-    console.log("CCI", container.interestRate);
-    console.log("MPP", principalPayment);
     let cmp = Math.trunc(
-      mmp /
-        ((parseFloat(container.interestRate) / 12 + principalPayment * 100) /
-          100)
+      (mmp / (parseFloat(container.interestRate) / 12 + principalPayment)) * 100
     );
-    return Math.round(cmp / 10000) * 10000;
+    return roundedValue(Math.round(cmp / 10000) * 10000);
   }
   return 0;
 };
@@ -778,24 +770,19 @@ window.approvedStartingLimitCalculator = function (
  */
 window.minimumPaymentCalculatorWithASL = function (container, jnDefault, mmp) {
   let principalPayment = 0;
+  //TODO: fix this, what about other product families
   if (container.productFamily === "JN Bank Credit Card") {
     principalPayment = jnDefault.creditCardPrincipalPayment;
-    console.log("pp", principalPayment);
   } else {
     principalPayment = jnDefault.lineOfCreditPrincipalPayment;
-    console.log("pp", principalPayment);
   }
   if (
     validNumber(mmp) &&
     validNumber(container.interestRate) &&
     validNumber(principalPayment)
   ) {
-    console.log("MMP", mmp);
-    console.log("CCI", container.interestRate);
-    console.log("MPP", principalPayment);
-    return (
-      mmp *
-      ((parseFloat(container.interestRate) / 12 + principalPayment * 100) / 100)
+    return roundedValue(
+      mmp / (parseFloat(container.interestRate / 12) + principalPayment)
     );
   }
   return 0;
