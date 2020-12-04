@@ -35,22 +35,15 @@
    * @param {*} helper
    */
   onChildContainerChange: function (component, event, helper) {
-    const data = component.get("v.ChildContainer");
     if (
       component.get("v.scriptsLoaded") &&
       component.get("v.notifyContainerChange")
     ) {
       noNotifyContainerChanges(component);
-      console.log("===Testing Start===");
       helper.TDSRCalculationBefore(component);
       helper.ASLCalculations(component);
       helper.minimumPaymentCalculations(component);
       helper.TDSRCalculationAfter(component);
-      console.log("===Testing End===");
-      console.info(
-        "Child",
-        JSON.parse(JSON.stringify(component.get("v.ChildContainer")))
-      );
       notifyContainerChanges(component);
     }
   },
