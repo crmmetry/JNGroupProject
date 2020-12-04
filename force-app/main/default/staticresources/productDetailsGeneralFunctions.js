@@ -81,7 +81,6 @@ window.updateChildContainerNoNotification = function (component, values) {
   });
   component.set("v.notifyContainerChange", false);
   component.set("v.ChildContainer", container);
-  console.log("After updatinf child");
   return container;
 };
 
@@ -199,8 +198,6 @@ window.noNotifyContainerChanges = function (component) {
  * @param {*} capLimit
  */
 window.calculatRequestedCreditBalanceLimit = function (requestedCreditLimit) {
-  console.log("requested card limit: ", requestedCreditLimit);
-  //console.log("requested card limit: ", REQUESTED_CREDIT_LIMIT_PERCENTAGE);
   return requestedCreditLimit * REQUESTED_CREDIT_LIMIT_PERCENTAGE;
 };
 
@@ -212,66 +209,62 @@ window.calculatRequestedCreditBalanceLimit = function (requestedCreditLimit) {
  */
 window.ASLCalculator = function (container, jnDefault, riskFactor) {
   if (
-    container.TDSRBefore > jnDefault.policyLimit ||
+    !validNumber(container.TDSRBefore) ||
+    !validNumber(jnDefault.policyLimit) ||
+    !validNumber(container.TDSRBefore) ||
     !validNumber(riskFactor)
   ) {
     return 0;
-  } else {
-    // //Step 1:
-    let annualGrossIncome = annualGrossIncomeCalculator(
-      container.grossMonthlyIncome
-    );
-    console.log("AGI", annualGrossIncome);
-    // //Step 1.5:
-    let maxCredilLimit = maximumCreditLimitCalculator(
-      jnDefault.creditLimitMax,
-      jnDefault.creditLimitMin,
-      annualGrossIncome
-    );
-    console.log("MCL", maxCredilLimit);
-    //Step 2:
-    let maxDebtPayment = maximumAllowableForMonthlyDebtPaymentsCalculator(
-      jnDefault.policyLimit,
-      container.grossMonthlyIncome
-    );
-    console.log("MDP", maxDebtPayment);
-    //Step 3:
-    let maxMinimumPayment = maximumAllowableForMinimumPaymentCalculator(
-      maxDebtPayment,
-      container.existingDebt
-    );
-    console.log("MMP", maxMinimumPayment);
-    //Step 4:
-    let computedMinimumPayment = computedMinimumPaymentFromCreditLimitCalculator(
-      container,
-      jnDefault,
-      maxMinimumPayment
-    );
-    console.log("CMP", computedMinimumPayment);
-    //Step 5:
-    let lowerCreditLimit = lowerCreditLimitCalculator(
-      computedMinimumPayment,
-      maxCredilLimit
-    );
-    console.log("lcl", lowerCreditLimit);
-    //Step 6:
-    let creditLimitAfterRisk = creditLimitRiskCalculator(
-      lowerCreditLimit,
-      riskFactor
-    );
-    console.log("creditLimitAfterRisk", creditLimitAfterRisk);
-    //Step 7:
-    let startingLimit = startingCreditLimtCalculator(
-      creditLimitAfterRisk,
-      jnDefault.discountFactor
-    );
-    console.log("SL", startingLimit);
-    //Step 8
-    return approvedStartingLimitCalculator(
-      startingLimit,
-      container.requestedCreditLimit
-    );
   }
+  if (roundedValue(container.TDSRBefore / 100) > jnDefault.policyLimit) {
+    return 0;
+  }
+  // //Step 1:
+  let annualGrossIncome = annualGrossIncomeCalculator(
+    container.grossMonthlyIncome
+  );
+  // //Step 1.5:
+  let maxCredilLimit = maximumCreditLimitCalculator(
+    jnDefault.creditLimitMax,
+    jnDefault.creditLimitMin,
+    annualGrossIncome
+  );
+  //Step 2:
+  let maxDebtPayment = maximumAllowableForMonthlyDebtPaymentsCalculator(
+    jnDefault.policyLimit,
+    container.grossMonthlyIncome
+  );
+  //Step 3:
+  let maxMinimumPayment = maximumAllowableForMinimumPaymentCalculator(
+    maxDebtPayment,
+    container.existingDebt
+  );
+  //Step 4:
+  let computedMinimumPayment = computedMinimumPaymentFromCreditLimitCalculator(
+    container,
+    jnDefault,
+    maxMinimumPayment
+  );
+  //Step 5:
+  let lowerCreditLimit = lowerCreditLimitCalculator(
+    computedMinimumPayment,
+    maxCredilLimit
+  );
+  //Step 6:
+  let creditLimitAfterRisk = creditLimitRiskCalculator(
+    lowerCreditLimit,
+    riskFactor
+  );
+  //Step 7:
+  let startingLimit = startingCreditLimtCalculator(
+    creditLimitAfterRisk,
+    jnDefault.discountFactor
+  );
+  //Step 8
+  return approvedStartingLimitCalculator(
+    startingLimit,
+    container.requestedCreditLimit
+  );
 };
 /**
  * copies all the src properties into target

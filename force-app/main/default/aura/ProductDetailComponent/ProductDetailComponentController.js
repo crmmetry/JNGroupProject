@@ -42,11 +42,15 @@
     ) {
       noNotifyContainerChanges(component);
       console.log("===Testing Start===");
-      helper.TDSRCalculationBefore(data, component);
+      helper.TDSRCalculationBefore(component);
       helper.ASLCalculations(component);
       helper.minimumPaymentCalculations(component);
-      helper.TDSRCalculationAfter(data, component);
+      helper.TDSRCalculationAfter(component);
       console.log("===Testing End===");
+      console.info(
+        "Child",
+        JSON.parse(JSON.stringify(component.get("v.ChildContainer")))
+      );
       notifyContainerChanges(component);
     }
   },
@@ -80,7 +84,7 @@
       );
       console.info("New Version", JSON.parse(JSON.stringify(container)));
       let attributesToUpdate = [];
-      //Gets the applicant credit score //TODO: refactor in future sprints to be more efficient for server calls
+      //Gets the applicant credit score
       const creditScoreChanged = helper.changeDetectedInObjects(
         oldChildContainer,
         container,
@@ -107,10 +111,6 @@
         false
       );
       component.set("v.ChildContainer", updatedContainer);
-      console.info(
-        "Parenthical Child",
-        JSON.parse(JSON.stringify(component.get("v.ChildContainer")))
-      );
     }
   }
 });

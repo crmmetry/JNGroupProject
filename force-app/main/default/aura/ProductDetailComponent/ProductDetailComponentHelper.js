@@ -14,9 +14,8 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         component.set("v.productSelection", result);
-        let data = Object.assign(component.get("v.ChildContainer"), result);
+        let data = copyInto(component.get("v.ChildContainer"), result);
         component.set("v.ChildContainer", data);
-        console.log("child container with product selection: ", data);
         this.updateProductSelectedFlag(component);
       }
     });
@@ -28,6 +27,10 @@
    * @param {*} container
    */
   updateProductSelectedFlag: function (component) {
+    console.log(
+      "updateProductSelectedFlag",
+      JSON.parse(JSON.stringify(component.get("v.productSelection")))
+    );
     let selectedFlag = component.get("v.productSelection.productFamily");
     const families = [
       { name: "Auto", variable: "autoFlag" },
@@ -188,6 +191,7 @@
     ];
     let total = 0;
     const fieldsMap = {};
+    console.log("existingDebtCalculation");
     fields.forEach((element) => (fieldsMap[element] = true));
     containerValues.forEach((element) => {
       Object.keys(element).forEach((key) => {
@@ -203,11 +207,7 @@
       }
     ];
     let data = updateChildContainerWithValue(component, values, false);
-    component.set("v.ChildContainer", data);
-    console.info(
-      "Existing Debt",
-      JSON.parse(JSON.stringify(component.get("v.ChildContainer")))
-    );
+    //component.set("v.ChildContainer", data);
   },
   /**
    * calculates  TDSR before
@@ -215,7 +215,8 @@
    * @param {Object} data
    * @return {Void}
    */
-  TDSRCalculationBefore: function (container, component) {
+  TDSRCalculationBefore: function (component) {
+    let container = component.get("v.ChildContainer");
     let tdsrBefore = TDSRBeforeCalculator(
       container.grossMonthlyIncome,
       container.existingDebt
@@ -236,7 +237,8 @@
    * @param {Object} data
    * @return {Void}
    */
-  TDSRCalculationAfter: function (container, component) {
+  TDSRCalculationAfter: function (component) {
+    let container = component.get("v.ChildContainer");
     let tdsrAfter = TDSRAfterCalculator(
       container.grossMonthlyIncome,
       container.existingDebt,
@@ -283,7 +285,9 @@
             { key: "creditRiskScore", value: result.score },
             { key: "creditRiskRating", value: result.rating }
           ];
+          console.log("Updating Risk Score");
           updateChildContainerWithNotification(component, values);
+          console.log("After Updating Risk Score");
         } else {
           console.info(JSON.stringify(response.getError()));
         }
@@ -299,25 +303,18 @@
    * @param {*} event
    * @param {*} helper
    */
-  // ltv = 0 ltv=0 ltv =0
-  // tdsr = 0 tdsr=12 tdsr=12
-  // rm =''   rm ='' rm=''
-  // cl=''    cl='' cl
   changeDetectedInObjects: function (oldObject, newObject, fields) {
     if (!oldObject || !newObject || !fields) return false;
     return fields.every((field) => {
       //both have same fields and values are different
-      if (newObject.hasOwnProperty(field)) {
-        let val =
-          isEmpty(newObject[field]) === false ||
-          (validNumber(newObject[field]) &&
-            isEmpty(oldObject[field]) === false) ||
-          (validNumber(oldObject[field]) &&
-            newObject[field] !== oldObject[field]);
-        console.info("Did change", val, "Field ", field);
-        return val;
-      }
-      return false;
+      let val =
+        isEmpty(newObject[field]) === false ||
+        (validNumber(newObject[field]) &&
+          isEmpty(oldObject[field]) === false) ||
+        (validNumber(oldObject[field]) &&
+          newObject[field] !== oldObject[field]);
+      console.info("Did change", val, "Field ", field);
+      return val;
     });
   },
   /**
@@ -357,15 +354,13 @@
    */
 
   ASLCalculations: function (component) {
-    console.log("factor: ");
     let container = component.get("v.ChildContainer");
     let jnDefaults = component.get("v.jnDefaultConfigs");
     let riskFactor = this.getRiskRatingFactor(
       component,
       container.creditRiskRating
     );
-    console.log("factor: ", riskFactor);
-    if (riskFactor !== null) {
+    if (isEmpty(riskFactor) === false) {
       let values = [
         {
           key: "approvedStartingLimit",
@@ -389,14 +384,17 @@
   minimumPaymentCalculations: function (component) {
     let container = component.get("v.ChildContainer");
     let defaults = component.get("v.jnDefaultConfigs");
+    console.log("minimumPaymentCalculations");
     let minimumPayment = minimumPaymentCalculatorWithASL(
       container,
       defaults,
       container.approvedStartingLimit
     );
+    console.log("minimumPaymentCalculations 2");
     let values = [{ key: "minimumPayment", value: minimumPayment }];
     let data = updateChildContainerWithValue(component, values, false);
     component.set("v.ChildContainer", data);
+    console.log("minimumPaymentCalculations 3");
     return values;
   }
 });
