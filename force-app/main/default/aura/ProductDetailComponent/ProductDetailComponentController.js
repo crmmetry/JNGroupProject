@@ -20,7 +20,8 @@
       creditRiskScore: 0,
       creditRiskRating: "",
       minimumPayment: 0,
-      approvedStartingLimit: 0
+      approvedStartingLimit: 400000,
+      cardType: "" //JN-4049 :: Added a field to track max the credit type
     });
     helper.updateProductSelection(component);
     helper.getJNConfigurations(component);
@@ -99,6 +100,9 @@
       //Calculate processing fees
       attributesToUpdate = attributesToUpdate.concat(
         helper.processingFeeCalculation(container, component)
+      );
+      attributesToUpdate = attributesToUpdate.concat(
+        helper.setCreditType(component) //JN1-4049 :: Kirti R :: Calculate the credit type
       );
 
       const updatedContainer = updateChildContainerWithValue(

@@ -58,4 +58,8 @@
         <field>Stamp_Duty_Uns__c</field>
         <value xsi:type="xsd:double">20.0</value>
     </values>
+    <values>
+        <field>Credit_Limit_Value__c</field>
+        <value xsi:type="xsd:double">20.0</value>
+    </values>
 </CustomMetadata>

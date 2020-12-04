@@ -398,5 +398,23 @@
     let data = updateChildContainerWithValue(component, values, false);
     component.set("v.ChildContainer", data);
     return values;
+  },
+  /**
+   * checks the credit type
+   * @param {*} component
+   * @param {Objec} container
+   * @return {Number} credit type
+   */
+  setCreditType: function (component) {
+    //JN-4049 :: Kirti R. ::Added a method to set credit type
+    let container = component.get("v.ChildContainer");
+    let startingLimit = container.approvedStartingLimit;
+    let defaults = component.get("v.jnDefaultConfigs");
+    if (startingLimit > component.get("v.jnDefaultConfigs.creditLimitValue")) {
+      container.cardType = "Gold";
+    } else {
+      container.cardType = "Classic";
+    }
+    return [{ key: "cardType", value: container.cardType }];
   }
 });

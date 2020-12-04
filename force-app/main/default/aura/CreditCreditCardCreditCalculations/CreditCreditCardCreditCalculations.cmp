@@ -45,7 +45,7 @@
         >
           <lightning:input
             label="Type of Card"
-            value="{!v.cardType}"
+            value="{!v.ParentContainer.cardType}"
             type="text"
             name="input1"
             readonly="true"
