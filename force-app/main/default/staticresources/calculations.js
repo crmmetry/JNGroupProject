@@ -550,6 +550,7 @@ window.TDSRAfterCalculator = function (grossIncome, totalDebt, minimumPayment) {
     validNumber(totalDebt) === false ||
     validNumber(minimumPayment) === false
   ) {
+    console.info("---After---", grossIncome, totalDebt, minimumPayment);
     return 0;
   }
   return roundedValue(

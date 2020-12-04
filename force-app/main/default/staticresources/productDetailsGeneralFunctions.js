@@ -61,6 +61,17 @@ window.updateChildContainerWithValue = function (
   return container;
 };
 /*
+ * Updates child container attributes and its values with notification
+ */
+window.updateChildContainerWithNotification = function (component, values) {
+  let container = component.get("v.ChildContainer");
+  values.forEach((element) => {
+    container[element.key] = element.value;
+  });
+  notifyContainerChanges(component);
+  component.set("v.ChildContainer", container);
+};
+/*
  * Updates child container attributes and its values. then toggles when it should be notified
  */
 window.updateChildContainerNoNotification = function (component, values) {
@@ -261,4 +272,28 @@ window.ASLCalculator = function (container, jnDefault, riskFactor) {
       container.requestedCreditLimit
     );
   }
+};
+/**
+ * copies all the src properties into target
+ * @param {Object} target
+ * @param {Object} src
+ * @return {Object} target
+ */
+window.copyInto = function (target, src) {
+  if (!src) return null;
+  target = target || {};
+  this.Object.keys(src).forEach((prop) => {
+    if (src.hasOwnProperty(prop)) {
+      target[prop] = src[prop];
+    }
+  });
+  return target;
+};
+/**
+ * checks if object
+ * @param {Object} obj
+ */
+window.isObject = function (obj) {
+  let type = typeof obj;
+  return type === "object" && !!obj;
 };

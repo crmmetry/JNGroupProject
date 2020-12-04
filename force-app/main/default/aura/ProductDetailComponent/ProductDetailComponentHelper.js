@@ -53,7 +53,6 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         component.set("v.jnDefaultConfigs", result);
-        console.log(JSON.parse(JSON.stringify(result)));
       }
     });
     $A.enqueueAction(action);
@@ -69,7 +68,6 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         component.set("v.RiskRatings", result);
-        console.log("Risk Ratings: ", JSON.parse(JSON.stringify(result)));
       }
     });
     $A.enqueueAction(action);
@@ -90,11 +88,9 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         component.set("v.applicants", result);
-        if (applicants.size() > 1) {
+        if (applicants.length > 1) {
           component.set("v.multipleApplicantsFlag", true);
         }
-        console.log(result);
-        console.log(JSON.parse(JSON.stringify(component.get("v.applicants"))));
       }
     });
     $A.enqueueAction(action);
@@ -154,7 +150,6 @@
       if (state === "SUCCESS") {
         this.mergeWithChildContainer(component, result);
         this.existingDebtCalculation(component, result);
-        this.TDSRCalculations(component, component.get("v.ChildContainer"));
       }
     });
     $A.enqueueAction(action);
@@ -196,7 +191,6 @@
     fields.forEach((element) => (fieldsMap[element] = true));
     containerValues.forEach((element) => {
       Object.keys(element).forEach((key) => {
-        console.log("key: ", key);
         if (fieldsMap.hasOwnProperty(key)) {
           total += element[key];
         }
@@ -212,26 +206,39 @@
     component.set("v.ChildContainer", data);
   },
   /**
-   * calculates both TDSR before and TDSR after
+   * calculates  TDSR before
    * @param {*} component
    * @param {Object} data
    * @return {Void}
    */
-  TDSRCalculations: function (container, component) {
+  TDSRCalculationBefore: function (container, component) {
     let tdsrBefore = TDSRBeforeCalculator(
       container.grossMonthlyIncome,
       container.existingDebt
     );
+    let values = [
+      {
+        key: "TDSRBefore",
+        value: tdsrBefore
+      }
+    ];
+    let data = updateChildContainerWithValue(component, values, false);
+    component.set("v.ChildContainer", data);
+    return values;
+  },
+  /**
+   * calculates  TDSR before
+   * @param {*} component
+   * @param {Object} data
+   * @return {Void}
+   */
+  TDSRCalculationAfter: function (container, component) {
     let tdsrAfter = TDSRAfterCalculator(
       container.grossMonthlyIncome,
       container.existingDebt,
       container.minimumPayment
     );
     let values = [
-      {
-        key: "TDSRBefore",
-        value: tdsrBefore
-      },
       {
         key: "TDSRAfter",
         value: tdsrAfter
@@ -241,7 +248,6 @@
     component.set("v.ChildContainer", data);
     return values;
   },
-
   /**
    * Passes LTV, TDSR After and Before as well as repayment method to the serverside
    * @param {*} component
@@ -258,7 +264,6 @@
       validNumber(TDSRBefore) &&
       !isEmpty(repaymentMethod)
     ) {
-      console.info("Call getCreditScoreRatings", roundedValue(LTVValue));
       action.setParams({
         oppId: component.get("v.recordId"),
         ltv: this.LTVApplicableValue(component, container),
@@ -270,16 +275,22 @@
         let state = response.getState();
         let result = response.getReturnValue();
         if (state === "SUCCESS") {
-          console.info("Risk", result);
-          container.riskRating = result;
-          container.creditRiskScore = result.score;
-          container.creditRiskRating = result.rating;
-          component.set("v.ChildContainer", container);
+          let values = [
+            { key: "creditRiskScore", value: result.score },
+            { key: "creditRiskRating", value: result.rating }
+          ];
+          updateChildContainerWithNotification(component, values);
+          console.info(
+            "Risk Child",
+            JSON.parse(JSON.stringify(component.get("v.ChildContainer")))
+          );
         } else {
           console.info(JSON.stringify(response.getError()));
         }
       });
       $A.enqueueAction(action);
+    } else {
+      console.log("===Nothing===");
     }
   },
   /**
@@ -288,15 +299,23 @@
    * @param {*} event
    * @param {*} helper
    */
-  detectObjectChanges: function (oldObject, newObject, fields) {
+  // ltv = 0 ltv=0 ltv =0
+  // tdsr = 0 tdsr=12 tdsr=12
+  // rm =''   rm ='' rm=''
+  // cl=''    cl='' cl
+  changeDetectedInObjects: function (oldObject, newObject, fields) {
     if (!oldObject || !newObject || !fields) return false;
     return fields.every((field) => {
       //both have same fields and values are different
-      if (newObject.hasOwnProperty(field) && oldObject.hasOwnProperty(field)) {
-        //check if both are valid numbers
-        const valid =
-          validNumber(newObject[field]) && validNumber(oldObject[field]);
-        return valid && newObject[field] !== oldObject[field];
+      if (newObject.hasOwnProperty(field)) {
+        let val =
+          isEmpty(newObject[field]) === false ||
+          (validNumber(newObject[field]) &&
+            isEmpty(oldObject[field]) === false) ||
+          (validNumber(oldObject[field]) &&
+            newObject[field] === oldObject[field]);
+        console.info("Did change", val, "Field ", field);
+        return val;
       }
       return false;
     });

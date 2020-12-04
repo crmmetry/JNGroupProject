@@ -13,23 +13,14 @@
   },
 
   onChildContainerChange: function (component, event, helper) {
-    // console.log("child container changed");
-    // const data = Object.assign(
-    //   component.get("v.ParentContainer"),
-    //   component.get("v.ChildContainer")
-    // );
-    // data["containerName"] = component.get("v.containerName");
-    // component.set("v.ParentContainer", data);
-    // fireProductDetailsEvent(null, data, component);
     let container = component.get("v.ParentContainer");
     const childContainer = component.get("v.ChildContainer");
-    let data = Object.assign(container, childContainer);
     if (
       component.get("v.scriptsLoaded") &&
       component.get("v.notifyContainerChange")
     ) {
       console.log("interestRate: ", childContainer.interestRate);
-      fireProductDetailsEvent(null, data, component);
+      fireProductDetailsEvent(null, childContainer, component);
     }
   },
 

@@ -35,22 +35,18 @@
    * @param {*} helper
    */
   onChildContainerChange: function (component, event, helper) {
-    let container = component.get("v.ParentContainer");
-    const childContainer = component.get("v.ChildContainer");
-    let data = Object.assign(container, childContainer);
+    const data = component.get("v.ChildContainer");
     if (
       component.get("v.scriptsLoaded") &&
       component.get("v.notifyContainerChange")
     ) {
       noNotifyContainerChanges(component);
-      //Calculate Approve Starting Limit
-      console.log("ASL Helper");
+      console.log("===Testing Start===");
+      helper.TDSRCalculationBefore(data, component);
       helper.ASLCalculations(component);
-      //Calculate Minimum Payment
-      console.log("MMP Helper");
       helper.minimumPaymentCalculations(component);
-      //Calculat TDSR values
-      helper.TDSRCalculations(data, component);
+      helper.TDSRCalculationAfter(data, component);
+      console.log("===Testing End===");
       notifyContainerChanges(component);
     }
   },
@@ -72,14 +68,28 @@
   handleProductDetailsEvent: function (component, event, helper) {
     //const updatedContainer = {};
     if (component.get("v.scriptsLoaded")) {
-      let container = Object.assign(
+      const oldChildContainer = copyInto(
+        null,
+        component.get("v.ChildContainer")
+      );
+      console.info("Old Version", oldChildContainer);
+
+      let container = copyInto(
         component.get("v.ChildContainer"),
         event.getParam("payload")
       );
+      console.info("New Version", JSON.parse(JSON.stringify(container)));
       let attributesToUpdate = [];
       //Gets the applicant credit score //TODO: refactor in future sprints to be more efficient for server calls
-      helper.getCreditScoreRatings(component);
-
+      const creditScoreChanged = helper.changeDetectedInObjects(
+        oldChildContainer,
+        container,
+        ["LTVValue", "TDSRBefore", "repaymentMethod", "collateralType"]
+      );
+      if (creditScoreChanged) {
+        console.log("Risk changing");
+        helper.getCreditScoreRatings(component);
+      }
       // Calculate the monthly P&I Loan amount
       const monthlyPILoanAmount = monthlyPILoanAmountCalculation(container);
       attributesToUpdate.push({
