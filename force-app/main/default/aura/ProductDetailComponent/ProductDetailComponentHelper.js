@@ -298,26 +298,6 @@
     }
   },
   /**
-   * Compares old state vs new state of child container
-   * @param {*} component
-   * @param {*} event
-   * @param {*} helper
-   */
-  changeDetectedInObjects: function (oldObject, newObject, fields) {
-    if (!oldObject || !newObject || !fields) return false;
-    return fields.every((field) => {
-      //both have same fields and values are different
-      let val =
-        isEmpty(newObject[field]) === false ||
-        (validNumber(newObject[field]) &&
-          isEmpty(oldObject[field]) === false) ||
-        (validNumber(oldObject[field]) &&
-          newObject[field] !== oldObject[field]);
-      console.info("Did change", val, "Field ", field);
-      return val;
-    });
-  },
-  /**
    * checks whether current product family is auto or line of credit
    * @param {*} component
    * @param {Objec} container
