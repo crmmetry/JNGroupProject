@@ -21,13 +21,6 @@
         let data = copyInto(component.get("v.ChildContainer"), result);
         component.set("v.ChildContainer", data);
         this.updateProductSelectedFlag(component);
-        const creditFlag = component.get("v.creditCardFlag");
-        const supplementaryCountSet = component.get(
-          "v.isSupplementaryCountSet"
-        );
-        if (creditFlag && !supplementaryCountSet) {
-          this.getSupplementaryCardHolders(component); //JN1-3969
-        }
       }
     });
 
@@ -507,5 +500,13 @@
     let values = [{ key: "cardType", value: container.cardType }];
     updateChildContainerWithValue(component, values);
     return values;
+  },
+
+  supplementaryCardHolderInit: function (component) {
+    const creditFlag = component.get("v.creditCardFlag");
+    const supplementaryCountSet = component.get("v.isSupplementaryCountSet");
+    if (creditFlag && !supplementaryCountSet) {
+      this.getSupplementaryCardHolders(component);
+    }
   }
 });

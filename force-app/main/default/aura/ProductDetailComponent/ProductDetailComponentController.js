@@ -47,6 +47,8 @@
       component.get("v.notifyContainerChange")
     ) {
       noNotifyContainerChanges(component);
+      //Async Functions
+      helper.supplementaryCardHolderInit(component);
       helper.TDSRCalculationBefore(component);
       helper.ASLCalculations(component);
       helper.minimumPaymentCalculations(component);
