@@ -389,7 +389,7 @@
           false
         );
         component.set("v.ChildContainer", childValues);
-        component.set("v.isSupplementaryCountSet,true");
+        component.set("v.isSupplementaryCountSet", true);
       } else {
         console.info(JSON.stringify(response.getError()));
       }
