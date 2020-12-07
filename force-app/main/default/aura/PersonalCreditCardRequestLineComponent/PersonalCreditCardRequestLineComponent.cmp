@@ -80,6 +80,7 @@
         name="interestRate"
         formatter="percent-fixed"
         required="true"
+        step="0.01"
       />
     </lightning:layoutItem>
     <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
