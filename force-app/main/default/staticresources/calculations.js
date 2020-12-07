@@ -589,7 +589,7 @@ function fieldValidator(fields, container) {
  */
 window.annualGrossIncomeCalculator = function (monthlyGrossIncome) {
   if (validNumber(monthlyGrossIncome)) {
-    return parseFloat(monthlyGrossIncome) * 12;
+    return roundedValue(parseFloat(monthlyGrossIncome) * 12);
   }
   return 0;
 };
@@ -612,11 +612,13 @@ window.maximumCreditLimitCalculator = function (
   ) {
     if (annualGrossIncome > 3000000) {
       //TODO: Make into constant
-      return (
+      return roundedValue(
         parseFloat(maxCreditLimitAllowable) * parseFloat(annualGrossIncome)
       );
     }
-    return parseFloat(minCreditLimitAllowable) * parseFloat(annualGrossIncome);
+    return roundedValue(
+      parseFloat(minCreditLimitAllowable) * parseFloat(annualGrossIncome)
+    );
   }
   return 0;
 };
