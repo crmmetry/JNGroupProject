@@ -9,7 +9,7 @@
       creditRiskScore: null,
       creditRiskRating: null,
       containerName: "",
-      noCreditorLifeReason: ""
+      noCreditorLifeReason: "" //JN1-4053 Creditor Life
     };
     component.set("v.ChildContainer", data);
   },
@@ -48,10 +48,28 @@
 
   oninterestedInCreditorLifeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
+    helper.toggleCreditorLifeFlags(component, selected);
+    let childKeyValuePairs = [
+      {
+        key: "interestedInCreditorLifeCC",
+        value: selected
+      }
+    ];
+    let data = updateChildContainerWithValue(
+      component,
+      childKeyValuePairs,
+      false
+    );
+    component.set("v.ChildContainer", data);
   },
 
   onCoverageTypeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
+  },
+
+  onReasonChange: function (component, event, helper) {
+    const selected = event.getSource().get("v.value");
+    helper.toggleReasonFlags(component, selected);
   },
 
   onRepaymentMethodChange: function (component, event, helper) {

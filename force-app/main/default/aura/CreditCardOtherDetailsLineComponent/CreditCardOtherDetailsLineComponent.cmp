@@ -72,6 +72,23 @@
 
   <!-- Flags -->
   <aura:attribute name="cashInvestmentFlag" type="Boolean" default="false" />
+  <aura:attribute name="noCreditorLifeFlag" type="Boolean" default="false" />
+  <aura:attribute name="yesCreditorLifeFlag" type="Boolean" default="true" />
+  <aura:attribute
+    name="disableLifeInsuranceCoverageFlag"
+    type="Boolean"
+    default="true"
+  />
+  <aura:attribute
+    name="disableCoverageTypeFlag"
+    type="Boolean"
+    default="true"
+  />
+  <aura:attribute
+    name="otherCreditorLifeReasonFlag"
+    type="Boolean"
+    default="false"
+  />
 
   <!-- Static Resource -->
   <ltng:require
@@ -141,71 +158,81 @@
             </aura:iteration>
           </lightning:select>
         </lightning:layoutItem>
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="4"
-          padding="around-small"
-        >
-          <lightning:select
-            name="select1"
-            label="Coverage Type"
-            required="true"
-            onchange="{!c.onCoverageTypeChange}"
+        <!-- Fields Shown when user selects yes for creditor life-->
+        <aura:if isTrue="{!v.yesCreditorLifeFlag}">
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
           >
-            <option value="">select one...</option>
-            <aura:iteration items="{!v.coverageType}" var="item">
-              <option value="{!item}">{!item}</option>
-            </aura:iteration>
-          </lightning:select>
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="4"
-          padding="around-small"
-        >
-          <lightning:select
-            name="select1"
-            label="Life Insurance Coverage"
-            required="true"
-            onchange="{!c.onLifeInsuranceCoverageChange}"
+            <lightning:select
+              name="select1"
+              label="Coverage Type"
+              required="true"
+              onchange="{!c.onCoverageTypeChange}"
+              disabled="{!v.disableCoverageTypeFlag}"
+            >
+              <option value="">select one...</option>
+              <aura:iteration items="{!v.coverageType}" var="item">
+                <option value="{!item}">{!item}</option>
+              </aura:iteration>
+            </lightning:select>
+          </lightning:layoutItem>
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
           >
-            <option value="">select one...</option>
-            <aura:iteration items="{!v.creditorLifeCoverage}" var="item">
-              <option value="{!item}">{!item}</option>
-            </aura:iteration>
-          </lightning:select>
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="4"
-          padding="around-small"
-        >
-          <lightning:select
-            name="select1"
-            label="Reason"
-            required="true"
-            onchange="{!c.onReasonChange}"
+            <lightning:select
+              name="select1"
+              label="Life Insurance Coverage"
+              required="true"
+              onchange="{!c.onLifeInsuranceCoverageChange}"
+              disabled="{!v.disableLifeInsuranceCoverageFlag}"
+            >
+              <option value="">select one...</option>
+              <aura:iteration items="{!v.creditorLifeCoverage}" var="item">
+                <option value="{!item}">{!item}</option>
+              </aura:iteration>
+            </lightning:select>
+          </lightning:layoutItem>
+        </aura:if>
+        <!-- Fields Shown when user selects no for creditor life-->
+        <aura:if isTrue="{!v.noCreditorLifeFlag}">
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
           >
-            <option value="">select one...</option>
-            <aura:iteration items="{!v.noCreditorLifeReason}" var="item">
-              <option value="{!item}">{!item}</option>
-            </aura:iteration>
-          </lightning:select>
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="4"
-          padding="around-small"
-        >
-          <lightning:input
-            type="text"
-            name="select1"
-            label="Other"
-            required="true"
-            value="{!v.ChildContainer.noCreditorLifeReason}"
-          />
-        </lightning:layoutItem>
-
+            <lightning:select
+              name="select1"
+              label="Reason"
+              required="true"
+              onchange="{!c.onReasonChange}"
+            >
+              <option value="">select one...</option>
+              <aura:iteration items="{!v.noCreditorLifeReason}" var="item">
+                <option value="{!item}">{!item}</option>
+              </aura:iteration>
+            </lightning:select>
+          </lightning:layoutItem>
+          <!-- Fields Shown when user selects other for no credtior life reason-->
+          <aura:if isTrue="{!v.otherCreditorLifeReasonFlag}">
+            <lightning:layoutItem
+              size="12"
+              mediumDeviceSize="4"
+              padding="around-small"
+            >
+              <lightning:input
+                type="text"
+                name="select1"
+                label="Other"
+                required="true"
+                value="{!v.ChildContainer.noCreditorLifeReason}"
+              />
+            </lightning:layoutItem>
+          </aura:if>
+        </aura:if>
         <lightning:layoutItem size="12">
           <h2 class="slds-section-title--divider">Credit Repayment</h2>
         </lightning:layoutItem>
