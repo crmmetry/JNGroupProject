@@ -5,6 +5,7 @@
   <aura:attribute name="primaryApplicantAnnualMembership" type="String" />
   <aura:attribute name="supplementaryApplicantAnnualMembership" type="String" />
   <aura:attribute name="annualCreditorLifeFee" type="String" />
+  <!-- JN1-3969-->
   <aura:attribute
     name="ParentContainer"
     type="Map"
@@ -75,9 +76,10 @@
           mediumDeviceSize="6"
           padding="around-small"
         >
+          <!-- JN1-3969 -->
           <lightning:input
             label="Annual Membership (Primary Applicant)"
-            value="{!v.primaryApplicantAnnualMembership}"
+            value="{!v.ParentContainer.primaryApplicantAnnualMembership}"
             type="number"
             name="input1"
             formatter="currency"

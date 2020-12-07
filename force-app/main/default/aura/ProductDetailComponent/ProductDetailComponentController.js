@@ -1,5 +1,9 @@
 ({
   /**
+   * Ver  Ticket#      Date            Author                  Purpose
+   * 1.0  JN1-3969     4/12/2020      Ishwari G.(thinqloud)  get count of supplementary card holders
+   **/
+  /**
    * Initializes the component and retrieves all necessary data to be used by component upon intialisation.
    * @param {*} component
    * @param {*} event
@@ -21,7 +25,9 @@
       creditRiskRating: "",
       minimumPayment: 0,
       approvedStartingLimit: 0,
-      cardType: "" //JN-4049 :: Added a field to track max the credit type
+      cardType: "", //JN-4049 :: Added a field to track max the credit type,
+      primaryApplicantAnnualMembership: 0,
+      supplementaryApplicantAnnualMembership: 0
     });
     helper.updateProductSelection(component);
     helper.getJNConfigurations(component);
@@ -41,11 +47,14 @@
       component.get("v.notifyContainerChange")
     ) {
       noNotifyContainerChanges(component);
+      //Async Functions
+      helper.supplementaryCardHolderInit(component);
       helper.TDSRCalculationBefore(component);
       helper.ASLCalculations(component);
       helper.minimumPaymentCalculations(component);
       helper.TDSRCalculationAfter(component);
       helper.setCardType(component); //JN1-4049 :: Kirti R :: Calculate the credit type
+      helper.annualFeesCalcualtions(component);
       console.log("===Testing End===");
       notifyContainerChanges(component);
     }
@@ -100,7 +109,6 @@
       attributesToUpdate = attributesToUpdate.concat(
         helper.processingFeeCalculation(container, component)
       );
-
       const updatedContainer = updateChildContainerWithValue(
         component,
         attributesToUpdate,

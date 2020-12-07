@@ -1,5 +1,9 @@
 ({
   /**
+   * Ver  Ticket#      Date            Author                  Purpose
+   * 1.0  JN1-3969     4/12/2020      Ishwari G.(thinqloud)  To calculate the annual fees for primary applicant
+   **/
+  /**
    * Retrieves product selection wrapper from apex.
    * @param {*} container
    */
@@ -315,6 +319,83 @@
     return 0;
   },
   /**
+   * checks if the passed family is the selected product
+   * @param {*} component
+   * @param {String} family
+   * @return {Boolean}
+   */
+  checkProductFamily: function (component, family) {
+    let selectedFlag = component.get("v.productSelection.productFamily");
+    return family === selectedFlag;
+  },
+  /**
+   * //TODO: only call this function for credit card type. also beware its dependencies are async
+   * JN1-3969
+   * Gets the supplementary card holders wrapper and sets the number of supplementary card holder in child container
+   * @param {*} component
+   */
+
+  getSupplementaryCardHolders: function (component) {
+    let numberOfSupplementaryCardHolders = 0;
+    let action = component.get("c.getSupplementaryCardHolders");
+    action.setParams({
+      oppId: component.get("v.recordId")
+    });
+    action.setCallback(this, function (response) {
+      let state = response.getState();
+      let result = response.getReturnValue();
+      if (state === "SUCCESS") {
+        if (result != undefined && result.length > 0) {
+          numberOfSupplementaryCardHolders = result.length;
+        } else {
+          numberOfSupplementaryCardHolders = 0;
+        }
+        let values = [
+          {
+            key: "numberOfSupplementaryCardHolders",
+            value: numberOfSupplementaryCardHolders
+          }
+        ];
+        let childValues = updateChildContainerWithNotification(
+          component,
+          values
+        );
+        component.set("v.ChildContainer", childValues);
+        component.set("v.isSupplementaryCountSet", true);
+      } else {
+        console.info(JSON.stringify(response.getError()));
+      }
+    });
+    $A.enqueueAction(action);
+  },
+  /**
+   * JN1-3969
+   * Calculate the annual fees for the primary applicant and Supplementary card holders
+   * @param {*} component
+   */
+  annualFeesCalcualtions: function (component) {
+    const container = component.get("v.ChildContainer");
+    const JNDefaults = component.get("v.jnDefaultConfigs");
+    const creditFlag = component.get("v.creditCardFlag");
+    const locFlag = component.get("v.lineOfCreditFlag");
+    const { primaryAnnualFee, supplementaryAnnualFee } = annualFeesCalculator(
+      JNDefaults,
+      creditFlag,
+      locFlag,
+      container
+    );
+    let values = [
+      { key: "primaryApplicantAnnualMembership", value: primaryAnnualFee },
+      {
+        key: "supplementaryApplicantAnnualMembership",
+        value: supplementaryAnnualFee
+      }
+    ];
+    const data = updateChildContainerWithValue(component, values, false);
+    component.set("v.ChildContainer", data);
+    return values;
+  },
+  /**
    * Selects appropriate risk rating factor
    * @param {*} component
    * @return {Number} risk factor
@@ -386,8 +467,11 @@
   setCardType: function (component) {
     //JN-4049 :: Kirti R. ::Added a method to set credit type
     let container = component.get("v.ChildContainer");
-    let startingLimit = container.approvedStartingLimit;
-    if (startingLimit > component.get("v.jnDefaultConfigs.creditLimitValue")) {
+    let approvedStartingLimit = container.approvedStartingLimit;
+    if (
+      approvedStartingLimit >
+      component.get("v.jnDefaultConfigs.creditLimitValue")
+    ) {
       container.cardType = CREDIT_TYPE_GOLD;
     } else {
       container.cardType = CREDIT_TYPE_CLASSIC;
@@ -395,5 +479,13 @@
     let values = [{ key: "cardType", value: container.cardType }];
     updateChildContainerWithValue(component, values);
     return values;
+  },
+
+  supplementaryCardHolderInit: function (component) {
+    const creditFlag = component.get("v.creditCardFlag");
+    const supplementaryCountSet = component.get("v.isSupplementaryCountSet");
+    if (creditFlag && !supplementaryCountSet) {
+      this.getSupplementaryCardHolders(component);
+    }
   }
 });
