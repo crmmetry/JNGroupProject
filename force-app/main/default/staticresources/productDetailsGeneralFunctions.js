@@ -212,6 +212,7 @@ window.calculatRequestedCreditBalanceLimit = function (requestedCreditLimit) {
  * @param {*} creditFlag
  * @param {*} locFlag
  * @param {*} container
+ * @param {Decimal, Decimal}
  */
 window.annualFeesCalculator = function (
   jnDefaults,
@@ -221,6 +222,12 @@ window.annualFeesCalculator = function (
 ) {
   let calculatePrimaryFee = 0;
   let calculateSupplemetaryFee = 0;
+  /**
+   * If Product family is Credit card then calculate the annual fees for
+   * primary applicant as well as supplementary card holder is done
+   * card type = Gold then, Primary Applicant Fee = Gold card Fee + GCT%
+   * card type = Classic then, Primary Applicant Fee = Classic card Fee + GCT%
+   **/
   if (creditFlag) {
     if (container.cardType == CREDIT_TYPE_GOLD) {
       calculatePrimaryFee = jnDefaults.goldCardFee + jnDefaults.gct / 100;
@@ -235,11 +242,16 @@ window.annualFeesCalculator = function (
       for (let i = 0; i < numberOfSupplementaryHolders; i++) {
         annualFee += jnDefaults.supplementaryCardFee + jnDefaults.gct / 100;
       }
+      //Fee for Supplementary Card Holder = annual fee for Primary applicant  + annual fee for n number of card holders
       calculateSupplemetaryFee = calculatePrimaryFee + annualFee;
     } else {
       calculateSupplemetaryFee = 0;
     }
   } else if (locFlag) {
+  /**
+   * if Product family is Line of Credit then calculate the annual fees for primary applicant only
+   * Primary Applicant Fee = LOC credit Limit % * Approved starting limit + GCT%
+   **/
     calculatePrimaryFee =
       (jnDefaults.locCreditLimitPercent / 100) *
         container.approvedStartingLimit +
