@@ -105,6 +105,7 @@
   },
   /**
    * confirms whether current values are the same in the child even after recomputation
+   * @deprecated
    * @param {*} container
    */
   redundancyRemover: function (component, container) {
@@ -342,6 +343,7 @@
     action.setParams({
       oppId: component.get("v.recordId")
     });
+    component.set("v.isSupplementaryCountSet", true);
     action.setCallback(this, function (response) {
       let state = response.getState();
       let result = response.getReturnValue();
@@ -362,7 +364,6 @@
           values
         );
         component.set("v.ChildContainer", childValues);
-        component.set("v.isSupplementaryCountSet", true);
       } else {
         console.info(JSON.stringify(response.getError()));
       }
@@ -481,7 +482,10 @@
     updateChildContainerWithValue(component, values);
     return values;
   },
-
+  /**
+   * Initializes supplementary card holders
+   * @param {*} component
+   */
   supplementaryCardHolderInit: function (component) {
     const creditFlag = component.get("v.creditCardFlag");
     const supplementaryCountSet = component.get("v.isSupplementaryCountSet");
