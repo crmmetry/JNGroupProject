@@ -356,10 +356,9 @@
             value: numberOfSupplementaryCardHolders
           }
         ];
-        let childValues = updateChildContainerWithValue(
+        let childValues = updateChildContainerWithNotification(
           component,
-          values,
-          false
+          values
         );
         component.set("v.ChildContainer", childValues);
         component.set("v.isSupplementaryCountSet", true);
