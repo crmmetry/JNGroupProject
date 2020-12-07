@@ -207,7 +207,7 @@ window.calculatRequestedCreditBalanceLimit = function (requestedCreditLimit) {
 
 /**
  * ************JN1-3969 ***********
- * calculates the annual fees for primary applicant
+ * calculates the annual fees for primary applicant and supplementary Card Holders
  * @param {*} jnDefaults
  * @param {*} creditFlag
  * @param {*} locFlag
@@ -223,9 +223,9 @@ window.annualFeesCalculator = function (
   let calculateSupplemetaryFee = 0;
   if (creditFlag) {
     if (container.cardType == CREDIT_TYPE_GOLD) {
-      calculatePrimaryFee = (jnDefaults.goldCardFee + jnDefaults.gct) / 100;
+      calculatePrimaryFee = jnDefaults.goldCardFee + jnDefaults.gct / 100;
     } else if (container.cardType == CREDIT_TYPE_CLASSIC) {
-      calculatePrimaryFee = (jnDefaults.classicCardFee + jnDefaults.gct) / 100;
+      calculatePrimaryFee = jnDefaults.classicCardFee + jnDefaults.gct / 100;
     }
 
     if (container.numberOfSupplementaryCardHolders > 0) {
@@ -233,7 +233,7 @@ window.annualFeesCalculator = function (
         container.numberOfSupplementaryCardHolders;
       let annualFee = 0;
       for (let i = 0; i < numberOfSupplementaryHolders; i++) {
-        annualFee += (jnDefaults.supplementaryCardFee + jnDefaults.gct) / 100;
+        annualFee += jnDefaults.supplementaryCardFee + jnDefaults.gct / 100;
       }
       calculateSupplemetaryFee = calculatePrimaryFee + annualFee;
     } else {

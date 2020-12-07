@@ -32,10 +32,6 @@
     helper.updateProductSelection(component);
     helper.getJNConfigurations(component);
     helper.getAssetsAndLiabilitiesForApplicant(component);
-    //TODO: //CACHE fix
-    if (omponent.get("v.creditCardFlag")) {
-      helper.getSupplementaryCardHolders(component); //JN1-3969
-    }
     helper.getRiskRatingFactorsMap(component);
     //helper.getApplicants(component);
   },

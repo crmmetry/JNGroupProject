@@ -81,9 +81,7 @@
   <c:CreditCardOtherDetailsLineComponent
     ParentContainer="{!v.ParentContainer}"
   ></c:CreditCardOtherDetailsLineComponent>
-  <<<<<<< HEAD
   <!-- JN1-3969 -->
-  ======= >>>>>>> e3c4b3dae0ec840f1af11a6a5666e0d813d1d28c
   <c:LineOfCreditCreditCalculationsLineComponent
     ParentContainer="{!v.ParentContainer}"
   ></c:LineOfCreditCreditCalculationsLineComponent>

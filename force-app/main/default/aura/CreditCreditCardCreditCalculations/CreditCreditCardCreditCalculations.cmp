@@ -6,12 +6,6 @@
   <aura:attribute name="primaryApplicantAnnualMembership" type="String" />
   <aura:attribute name="supplementaryApplicantAnnualMembership" type="String" />
   <aura:attribute name="annualCreditorLifeFee" type="String" />
-  <aura:attribute
-    name="ParentContainer"
-    type="Map"
-    default="{}"
-    description="Credit Card Other Detail Line Component container"
-  />
 
   <aura:attribute name="jnDefaultConfigs" type="Map" default="{}" />
   <!-- JN1-3969 -->

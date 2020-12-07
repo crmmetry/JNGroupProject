@@ -21,6 +21,13 @@
         let data = copyInto(component.get("v.ChildContainer"), result);
         component.set("v.ChildContainer", data);
         this.updateProductSelectedFlag(component);
+        const creditFlag = component.get("v.creditCardFlag");
+        const supplementaryCountSet = component.get(
+          "v.isSupplementaryCountSet"
+        );
+        if (creditFlag && !supplementaryCountSet) {
+          this.getSupplementaryCardHolders(component); //JN1-3969
+        }
       }
     });
 
@@ -354,6 +361,7 @@
    * Gets the supplementary card holders wrapper and sets the number of supplementary card holder in child container
    * @param {*} component
    */
+
   getSupplementaryCardHolders: function (component) {
     let numberOfSupplementaryCardHolders = 0;
     let action = component.get("c.getSupplementaryCardHolders");
@@ -364,7 +372,6 @@
       let state = response.getState();
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
-        console.info("new result", result.length);
         if (result != undefined && result.length > 0) {
           numberOfSupplementaryCardHolders = result.length;
         } else {
@@ -382,6 +389,7 @@
           false
         );
         component.set("v.ChildContainer", childValues);
+        component.set("v.isSupplementaryCountSet,true");
       } else {
         console.info(JSON.stringify(response.getError()));
       }
@@ -390,7 +398,7 @@
   },
   /**
    * JN1-3969
-   * Calculate the annual fees for the primary applicant
+   * Calculate the annual fees for the primary applicant and Supplementary card holders
    * @param {*} component
    */
   annualFeesCalcualtions: function (component) {
