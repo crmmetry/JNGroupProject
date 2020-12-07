@@ -54,26 +54,36 @@
   },
 
   validateBalance: function (component, event, helper) {
-    let data = component.get("v.ParentContainer");
-    const inputCmpArray = component.find(
-      "cash-investments-numerical-component"
-    );
-    inputCmpArray.forEach((element) => {
-      if (element.get("v.name") == "deposit") {
-        if (
-          element.get("v.value") >
-          calculatRequestedCreditBalanceLimit(data.requestedCreditLimit)
-        ) {
-          element.setCustomValidity(
-            "Balance cannot be greater than 80% of your requested card limit"
-          );
-          element.reportValidity();
-        } else {
-          element.setCustomValidity("");
-          element.reportValidity();
+    if (
+      validNumber(data.existingDebt) &&
+      validNumber(data.approvedStartingLimit)
+    ) {
+      let data = component.get("v.ParentContainer");
+      const inputCmpArray = component.find(
+        "cash-investments-numerical-component"
+      );
+      inputCmpArray.forEach((element) => {
+        if (element.get("v.name") == "deposit") {
+          if (
+            data.existingDebt + data.approvedStartingLimit >
+            calculatRequestedCreditBalanceLimit(element.get("v.value"))
+          ) {
+            element.setCustomValidity(
+              "Existing Debt and Starting Limit cannot be greater than 80% of the deposit"
+            );
+            element.reportValidity();
+          } else {
+            element.setCustomValidity("");
+            element.reportValidity();
+          }
         }
-      }
-    });
+      });
+    } else {
+      element.setCustomValidity(
+        "Please note that the existing debt and starting limit has not been calculated."
+      );
+      element.reportValidity();
+    }
   },
 
   onIsHypothecatedChange: function (component, event, helper) {

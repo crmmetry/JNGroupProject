@@ -201,8 +201,8 @@ window.noNotifyContainerChanges = function (component) {
  * @param {*} requestedCreditLimit
  * @param {*} capLimit
  */
-window.calculatRequestedCreditBalanceLimit = function (requestedCreditLimit) {
-  return requestedCreditLimit * REQUESTED_CREDIT_LIMIT_PERCENTAGE;
+window.calculatRequestedCreditBalanceLimit = function (deposit) {
+  return deposit * REQUESTED_CREDIT_LIMIT_PERCENTAGE;
 };
 
 /**
@@ -248,10 +248,10 @@ window.annualFeesCalculator = function (
       calculateSupplemetaryFee = 0;
     }
   } else if (locFlag) {
-  /**
-   * if Product family is Line of Credit then calculate the annual fees for primary applicant only
-   * Primary Applicant Fee = LOC credit Limit % * Approved starting limit + GCT%
-   **/
+    /**
+     * if Product family is Line of Credit then calculate the annual fees for primary applicant only
+     * Primary Applicant Fee = LOC credit Limit % * Approved starting limit + GCT%
+     **/
     calculatePrimaryFee =
       (jnDefaults.locCreditLimitPercent / 100) *
         container.approvedStartingLimit +
