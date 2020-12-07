@@ -339,3 +339,36 @@ window.isObject = function (obj) {
   let type = typeof obj;
   return type === "object" && !!obj;
 };
+/**
+ * checks if a string is empty
+ * @param {String} value
+ * @returns {Boolean}
+ */
+window.isEmptyString = function (value) {
+  if (typeof value === "undefined" || value === null) {
+    return true;
+  }
+  return false;
+};
+/**
+ * Compares old state vs new state for fields
+ * @param {Object} oldObject
+ * @param {Object} newObject
+ * @param {Array<String>} fields
+ * @return {Boolean} change detected
+ */
+window.changeDetectedInObjects = function (oldObject, newObject, fields) {
+  if (!oldObject || !newObject || !fields) return false;
+  let first, second, third;
+  return fields.some((field) => {
+    //both have same fields and values are different
+    first =
+      isEmptyString(newObject[field]) === false ||
+      validNumber(newObject[field]);
+    second =
+      isEmptyString(oldObject[field]) === false ||
+      validNumber(oldObject[field]);
+    third = newObject[field] != oldObject[field];
+    return first && second && third;
+  });
+};

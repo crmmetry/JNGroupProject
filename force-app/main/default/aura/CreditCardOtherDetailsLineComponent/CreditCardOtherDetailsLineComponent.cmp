@@ -32,10 +32,18 @@
     type="List"
     default="['Full','Partial']"
   />
+  <!--JN1-3928 :: Changed the type-->
   <aura:attribute
     name="repaymentMethod"
+    type="String"
+    default="Over The Counter"
+  />
+  <!--JN1-3928 :: Added Monthly reypaymentDate attribute-->
+  <aura:attribute
+    name="monthlyRepaymentDate"
     type="List"
-    default="['Over The Counter']"
+    default="['End of Month', '1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23',
+             '24','25','26','27','28','29','30']"
   />
   <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
 
@@ -53,7 +61,11 @@
   $Resource.productDetailsGeneralFunctions)}"
     afterScriptsLoaded="{!c.scriptsLoaded}"
   />
-  <aura:handler name="change" value="{!v.ChildContainer}" action="{!c.onChildContainerChange}"/>
+  <aura:handler
+    name="change"
+    value="{!v.ChildContainer}"
+    action="{!c.onChildContainerChange}"
+  />
   <fieldset class="slds-box slds-theme_default">
     <legend
       id="productdetailsform"
@@ -136,17 +148,14 @@
         >
           <div class="slds-form-element">
             <div class="slds-form-element__control">
-              <lightning:select
-                name="select1"
+              <!--JN1-3928 :: Changed to input -->
+              <lightning:input
+                name="repayment method"
                 label="Indicate repayment method "
                 required="true"
-                onchange="{!c.onRepaymentMethodChange}"
-              >
-                <option value="">select one...</option>
-                <aura:iteration items="{!v.repaymentMethod}" var="item">
-                  <option value="{!item}">{!item}</option>
-                </aura:iteration>
-              </lightning:select>
+                disabled="true"
+                value="{!v.repaymentMethod}"
+              />
             </div>
           </div>
         </lightning:layoutItem>
@@ -157,14 +166,18 @@
         >
           <div class="slds-form-element">
             <div class="slds-form-element__control">
-              <lightning:input
+              <!--JN1-3928 :: Changed to picklist -->
+              <lightning:select
+                name="select1"
                 label="Desired Statement Date"
-                value="{!v.monthlyRepaymentDate}"
-                type="number"
-                name="input1"
-                max="30"
                 required="true"
-              />
+                onchange="{!c.onMonthlyRepaymentDateChange}"
+              >
+                <option value="">select one...</option>
+                <aura:iteration items="{!v.monthlyRepaymentDate}" var="item">
+                  <option value="{!item}">{!item}</option>
+                </aura:iteration>
+              </lightning:select>
             </div>
           </div>
         </lightning:layoutItem>

@@ -90,7 +90,7 @@
       console.info("New Version", JSON.parse(JSON.stringify(container)));
       let attributesToUpdate = [];
       //Gets the applicant credit score
-      const creditScoreChanged = helper.changeDetectedInObjects(
+      const creditScoreChanged = changeDetectedInObjects(
         oldChildContainer,
         container,
         ["LTVValue", "TDSRBefore", "repaymentMethod", "collateralType"]
