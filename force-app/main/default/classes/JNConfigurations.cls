@@ -17,7 +17,11 @@ public with sharing class JNConfigurations {
           Stamp_Duty_Auto__c,
           NSIPP_Registration_Fee__c,
           Policy_Limit__c,
-          Credit_Limit_Allowable_Max_Number__c,
+          Gold_Card_Fee__c, //JN1-3969
+          Classic_Card_Fee__c, //JN1-3969
+          Supplementary_Card_Fee__c, //JN1-3969
+          LOC_Credit_Limit_Percent__c,
+          Credit_Limit_Allowable_Max_Number__c, //JN1-3969
           Credit_Limit_Allowable_Min_Number__c,
           Discount_Factor_Number__c,
           Credit_Card_Principal_Payment_Number__c,

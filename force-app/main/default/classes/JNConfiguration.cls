@@ -1,3 +1,7 @@
+/**
+ * Ver  Ticket#      Date            Author                 Purpose
+ * 1.0  JN1-3969     4/12/2020      Ishwari G.(thinqloud)  Added new fields in the wrapper
+ **/
 public class JNConfiguration {
   @AuraEnabled
   public Decimal gct;
@@ -15,6 +19,18 @@ public class JNConfiguration {
   public Decimal nsipp;
   @AuraEnabled
   public Decimal policyLimit;
+  //JN1-3969
+  @AuraEnabled
+  public Decimal goldCardFee;
+  //JN1-3969
+  @AuraEnabled
+  public Decimal classicCardFee;
+  //JN1-3969
+  @AuraEnabled
+  public Decimal supplementaryCardFee;
+  //JN1-3969
+  @AuraEnabled
+  public Decimal locCreditLimitPercent;
   @AuraEnabled
   public Decimal creditLimitMin;
   @AuraEnabled
@@ -37,11 +53,15 @@ public class JNConfiguration {
     this.stampDutyAuto = record.Stamp_Duty_Auto__c;
     this.nsipp = record.NSIPP_Registration_Fee__c;
     this.policyLimit = record.Policy_Limit__c;
+    this.goldCardFee = record.Gold_Card_Fee__c; //JN1-3969
+    this.classicCardFee = record.Classic_Card_Fee__c; //JN1-3969
+    this.supplementaryCardFee = record.Supplementary_Card_Fee__c; //JN1-3969
+    this.locCreditLimitPercent = record.LOC_Credit_Limit_Percent__c; //JN1-3969
     this.creditLimitMin = record.Credit_Limit_Allowable_Min_Number__c;
     this.creditLimitMax = record.Credit_Limit_Allowable_Max_Number__c;
     this.creditCardPrincipalPayment = record.Credit_Card_Principal_Payment_Number__c;
     this.lineOfCreditPrincipalPayment = record.Line_Of_Credit_Principal_Payment_Number__c;
     this.discountFactor = record.Discount_Factor_Number__c;
-    this.creditLimitValue = record.Credit_Limit_Value__c;//JN1-4049 :: Kirti R. :: shows the credit limit
+    this.creditLimitValue = record.Credit_Limit_Value__c; //JN1-4049 :: Kirti R. :: shows the credit limit
   }
 }

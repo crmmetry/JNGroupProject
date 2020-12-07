@@ -1,6 +1,10 @@
 /**
  * this file consolidates all the reusable functions used in different aura components
  */
+/**
+ * Ver  Ticket#      Date            Author                  Purpose
+ * 1.0  JN1-3969     4/12/2020      Ishwari G.(thinqloud)  To calculate the annual fees for primary applicant
+ **/
 
 /**
  * calculates savings
@@ -202,7 +206,63 @@ window.calculatRequestedCreditBalanceLimit = function (requestedCreditLimit) {
 };
 
 /**
- * Calculate ASL
+ * ************JN1-3969 ***********
+ * calculates the annual fees for primary applicant and supplementary Card Holders
+ * @param {*} jnDefaults
+ * @param {*} creditFlag
+ * @param {*} locFlag
+ * @param {*} container
+ * @param {Decimal, Decimal}
+ */
+window.annualFeesCalculator = function (
+  jnDefaults,
+  creditFlag,
+  locFlag,
+  container
+) {
+  let calculatePrimaryFee = 0;
+  let calculateSupplemetaryFee = 0;
+  /**
+   * If Product family is Credit card then calculate the annual fees for
+   * primary applicant as well as supplementary card holder is done
+   * card type = Gold then, Primary Applicant Fee = Gold card Fee + GCT%
+   * card type = Classic then, Primary Applicant Fee = Classic card Fee + GCT%
+   **/
+  if (creditFlag) {
+    if (container.cardType == CREDIT_TYPE_GOLD) {
+      calculatePrimaryFee = jnDefaults.goldCardFee + jnDefaults.gct / 100;
+    } else if (container.cardType == CREDIT_TYPE_CLASSIC) {
+      calculatePrimaryFee = jnDefaults.classicCardFee + jnDefaults.gct / 100;
+    }
+
+    if (container.numberOfSupplementaryCardHolders > 0) {
+      let numberOfSupplementaryHolders =
+        container.numberOfSupplementaryCardHolders;
+      let annualFee = 0;
+      for (let i = 0; i < numberOfSupplementaryHolders; i++) {
+        annualFee += jnDefaults.supplementaryCardFee + jnDefaults.gct / 100;
+      }
+      //Fee for Supplementary Card Holder = annual fee for Primary applicant  + annual fee for n number of card holders
+      calculateSupplemetaryFee = calculatePrimaryFee + annualFee;
+    } else {
+      calculateSupplemetaryFee = 0;
+    }
+  } else if (locFlag) {
+  /**
+   * if Product family is Line of Credit then calculate the annual fees for primary applicant only
+   * Primary Applicant Fee = LOC credit Limit % * Approved starting limit + GCT%
+   **/
+    calculatePrimaryFee =
+      (jnDefaults.locCreditLimitPercent / 100) *
+        container.approvedStartingLimit +
+      jnDefaults.gct / 100;
+  }
+  return {
+    primaryAnnualFee: calculatePrimaryFee,
+    supplementaryAnnualFee: calculateSupplemetaryFee
+  };
+};
+/* Calculate ASL
  * @param {*} container
  * @param {*} jnDefaults
  * @return {Decimal}

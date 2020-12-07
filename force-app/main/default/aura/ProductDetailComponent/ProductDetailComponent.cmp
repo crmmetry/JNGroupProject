@@ -7,6 +7,11 @@
     action="{!c.handleProductDetailsEvent}"
   />
   <aura:attribute name="notifyContainerChange" type="Boolean" default="true" />
+  <aura:attribute
+    name="isSupplementaryCountSet"
+    type="Boolean"
+    default="false"
+  />
   <aura:handler
     name="change"
     value="{!v.ChildContainer}"
