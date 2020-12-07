@@ -104,6 +104,7 @@
   },
   /**
    * confirms whether current values are the same in the child even after recomputation
+   * @deprecated
    * @param {*} container
    */
   redundancyRemover: function (component, container) {
@@ -341,10 +342,10 @@
     action.setParams({
       oppId: component.get("v.recordId")
     });
+    component.set("v.isSupplementaryCountSet", true);
     action.setCallback(this, function (response) {
       let state = response.getState();
       let result = response.getReturnValue();
-      component.set("v.isSupplementaryCountSet", true);
       if (state === "SUCCESS") {
         if (result != undefined && result.length > 0) {
           numberOfSupplementaryCardHolders = result.length;
