@@ -344,6 +344,7 @@
     action.setCallback(this, function (response) {
       let state = response.getState();
       let result = response.getReturnValue();
+      component.set("v.isSupplementaryCountSet", true);
       if (state === "SUCCESS") {
         if (result != undefined && result.length > 0) {
           numberOfSupplementaryCardHolders = result.length;
@@ -361,7 +362,6 @@
           values
         );
         component.set("v.ChildContainer", childValues);
-        component.set("v.isSupplementaryCountSet", true);
       } else {
         console.info(JSON.stringify(response.getError()));
       }
@@ -480,7 +480,10 @@
     updateChildContainerWithValue(component, values);
     return values;
   },
-
+  /**
+   * Initializes supplementary card holders
+   * @param {*} component
+   */
   supplementaryCardHolderInit: function (component) {
     const creditFlag = component.get("v.creditCardFlag");
     const supplementaryCountSet = component.get("v.isSupplementaryCountSet");
