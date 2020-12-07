@@ -28,9 +28,29 @@
     default="['Unsecured (None)','Cash/Investments']"
   />
   <aura:attribute
+    name="interestedInCreditorLife"
+    type="List"
+    default="['Yes','No']"
+  />
+  <aura:attribute
+    name="noCreditorLifeReason"
+    type="List"
+    default="['Not Elligible','Other']"
+  />
+  <aura:attribute
     name="coverageType"
     type="List"
-    default="['Full','Partial']"
+    default="['Life Protection','Life and Critical Illness Protection']"
+  />
+  <aura:attribute
+    name="creditorLifeCoverage"
+    type="List"
+    default="['Applicant 1 Only',
+  'Applicant 2 Only',
+  'Applicant 3 Only',
+  'Applicant 1 and Applicant 2',
+  'Applicant 1 and Applicant 3',
+  'Applicant 2 and Applicant 3']"
   />
   <!--JN1-3928 :: Changed the type-->
   <aura:attribute
@@ -106,17 +126,17 @@
         </lightning:layoutItem>
         <lightning:layoutItem
           size="12"
-          mediumDeviceSize="8"
+          mediumDeviceSize="4"
           padding="around-small"
         >
           <lightning:select
             name="select1"
-            label="Will the Applicant be interested in JN Life Creditor Life Insurance?"
+            label="Will JN Life Creditor Life Insurance be taken?"
             required="true"
-            onchange="{!c.onCollateralTypeChange}"
+            onchange="{!c.oninterestedInCreditorLifeChange}"
           >
             <option value="">select one...</option>
-            <aura:iteration items="{!v.collateralType}" var="item">
+            <aura:iteration items="{!v.interestedInCreditorLife}" var="item">
               <option value="{!item}">{!item}</option>
             </aura:iteration>
           </lightning:select>
@@ -138,6 +158,54 @@
             </aura:iteration>
           </lightning:select>
         </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <lightning:select
+            name="select1"
+            label="Life Insurance Coverage"
+            required="true"
+            onchange="{!c.onLifeInsuranceCoverageChange}"
+          >
+            <option value="">select one...</option>
+            <aura:iteration items="{!v.creditorLifeCoverage}" var="item">
+              <option value="{!item}">{!item}</option>
+            </aura:iteration>
+          </lightning:select>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <lightning:select
+            name="select1"
+            label="Reason"
+            required="true"
+            onchange="{!c.onReasonChange}"
+          >
+            <option value="">select one...</option>
+            <aura:iteration items="{!v.noCreditorLifeReason}" var="item">
+              <option value="{!item}">{!item}</option>
+            </aura:iteration>
+          </lightning:select>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <lightning:input
+            type="text"
+            name="select1"
+            label="Other"
+            required="true"
+            value="{!v.ChildContainer.noCreditorLifeReason}"
+          />
+        </lightning:layoutItem>
+
         <lightning:layoutItem size="12">
           <h2 class="slds-section-title--divider">Credit Repayment</h2>
         </lightning:layoutItem>

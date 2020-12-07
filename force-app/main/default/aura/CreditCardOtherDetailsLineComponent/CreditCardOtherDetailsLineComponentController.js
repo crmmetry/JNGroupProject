@@ -8,7 +8,8 @@
       desiredRepaymentDate: null,
       creditRiskScore: null,
       creditRiskRating: null,
-      containerName: ""
+      containerName: "",
+      noCreditorLifeReason: ""
     };
     component.set("v.ChildContainer", data);
   },
@@ -43,6 +44,10 @@
     component.set("v.ChildContainer", data);
     let flag = toggleCashInvestmentFlag(selected);
     component.set("v.cashInvestmentFlag", flag);
+  },
+
+  oninterestedInCreditorLifeChange: function (component, event, helper) {
+    const selected = event.getSource().get("v.value");
   },
 
   onCoverageTypeChange: function (component, event, helper) {

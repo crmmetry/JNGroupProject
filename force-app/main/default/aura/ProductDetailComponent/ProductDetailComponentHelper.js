@@ -60,6 +60,7 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         component.set("v.jnDefaultConfigs", result);
+        console.log("JN Defaults: ", result);
       }
     });
     $A.enqueueAction(action);
