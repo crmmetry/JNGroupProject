@@ -258,8 +258,8 @@ window.annualFeesCalculator = function (
       jnDefaults.gct / 100;
   }
   return {
-    primaryAnnualFee: calculatePrimaryFee,
-    supplementaryAnnualFee: calculateSupplemetaryFee
+    primaryAnnualFee: roundedValue(calculatePrimaryFee),
+    supplementaryAnnualFee: roundedValue(calculateSupplemetaryFee)
   };
 };
 /* Calculate ASL

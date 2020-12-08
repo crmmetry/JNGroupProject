@@ -31,10 +31,6 @@
    * @param {*} container
    */
   updateProductSelectedFlag: function (component) {
-    console.log(
-      "updateProductSelectedFlag",
-      JSON.parse(JSON.stringify(component.get("v.productSelection")))
-    );
     let selectedFlag = component.get("v.productSelection.productFamily");
     const families = [
       { name: "Auto", variable: "autoFlag" },
@@ -197,7 +193,6 @@
     ];
     let total = 0;
     const fieldsMap = {};
-    console.log("existingDebtCalculation");
     fields.forEach((element) => (fieldsMap[element] = true));
     containerValues.forEach((element) => {
       Object.keys(element).forEach((key) => {
@@ -291,16 +286,12 @@
             { key: "creditRiskScore", value: result.score },
             { key: "creditRiskRating", value: result.rating }
           ];
-          console.log("Updating Risk Score");
           updateChildContainerWithNotification(component, values);
-          console.log("After Updating Risk Score");
         } else {
           console.info(JSON.stringify(response.getError()));
         }
       });
       $A.enqueueAction(action);
-    } else {
-      console.log("===Nothing===");
     }
   },
   /**
@@ -331,7 +322,6 @@
     return family === selectedFlag;
   },
   /**
-   * //TODO: only call this function for credit card type. also beware its dependencies are async
    * JN1-3969
    * Gets the supplementary card holders wrapper and sets the number of supplementary card holder in child container
    * @param {*} component
@@ -348,7 +338,7 @@
       let state = response.getState();
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
-        if (result != undefined && result.length > 0) {
+        if (!isEmpty(result) && result.length > 0) {
           numberOfSupplementaryCardHolders = result.length;
         } else {
           numberOfSupplementaryCardHolders = 0;
@@ -359,11 +349,7 @@
             value: numberOfSupplementaryCardHolders
           }
         ];
-        let childValues = updateChildContainerWithNotification(
-          component,
-          values
-        );
-        component.set("v.ChildContainer", childValues);
+        updateChildContainerWithNotification(component, values);
       } else {
         console.info(JSON.stringify(response.getError()));
       }
@@ -447,17 +433,14 @@
   minimumPaymentCalculations: function (component) {
     let container = component.get("v.ChildContainer");
     let defaults = component.get("v.jnDefaultConfigs");
-    console.log("minimumPaymentCalculations");
     let minimumPayment = minimumPaymentCalculatorWithASL(
       container,
       defaults,
       container.approvedStartingLimit
     );
-    console.log("minimumPaymentCalculations 2");
     let values = [{ key: "minimumPayment", value: minimumPayment }];
     let data = updateChildContainerWithValue(component, values, false);
     component.set("v.ChildContainer", data);
-    console.log("minimumPaymentCalculations 3");
     return values;
   },
   /**
@@ -470,7 +453,9 @@
     //JN-4049 :: Kirti R. ::Added a method to set credit type
     let container = component.get("v.ChildContainer");
     let approvedStartingLimit = container.approvedStartingLimit;
-    if (
+    if (approvedStartingLimit === 0) {
+      container.cardType = CREDIT_TYPE_NONE;
+    } else if (
       approvedStartingLimit >
       component.get("v.jnDefaultConfigs.creditLimitValue")
     ) {

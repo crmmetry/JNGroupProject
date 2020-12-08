@@ -11,3 +11,4 @@ window.OTHER = "Other";
 window.LIFE_PROTECTION = "Life Protection";
 window.LIFE_AND_CRITICAL_ILLNESS_PROTECTION =
   "Life and Critical Illness Protection";
+window.CREDIT_TYPE_NONE = "None";
