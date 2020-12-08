@@ -242,7 +242,8 @@ window.annualFeesCalculator = function (
         container.numberOfSupplementaryCardHolders;
       let annualFee = 0;
       for (let i = 0; i < numberOfSupplementaryHolders; i++) {
-        annualFee += jnDefaults.supplementaryCardFee + jnDefaults.gct / 100;
+        annualFee +=
+          jnDefaults.supplementaryCardFee * calculateGCT(jnDefaults.gct);
       }
       //Fee for Supplementary Card Holder = annual fee for Primary applicant  + annual fee for n number of card holders
       calculateSupplemetaryFee = calculatePrimaryFee + annualFee;
@@ -256,8 +257,8 @@ window.annualFeesCalculator = function (
      **/
     calculatePrimaryFee =
       (jnDefaults.locCreditLimitPercent / 100) *
-        container.approvedStartingLimit +
-      jnDefaults.gct / 100;
+      container.approvedStartingLimit *
+      calculateGCT(jnDefaults.gct);
   }
   return {
     primaryAnnualFee: roundedValue(calculatePrimaryFee),

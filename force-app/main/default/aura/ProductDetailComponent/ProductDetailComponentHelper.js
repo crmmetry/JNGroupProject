@@ -17,6 +17,8 @@
       let state = response.getState(); //Checking response status
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
+        //update spinner status
+        this.checkSpinnerStatus(component, "productSelection");
         component.set("v.productSelection", result);
         let data = copyInto(component.get("v.ChildContainer"), result);
         component.set("v.ChildContainer", data);
@@ -55,6 +57,8 @@
       let state = response.getState(); //Checking response status
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
+        //update spinner status
+        this.checkSpinnerStatus(component, "jnConfigs");
         component.set("v.jnDefaultConfigs", result);
       }
     });
@@ -70,6 +74,8 @@
       let state = response.getState(); //Checking response status
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
+        //update spinner status
+        this.checkSpinnerStatus(component, "riskRatings");
         component.set("v.RiskRatings", result);
       }
     });
@@ -78,6 +84,7 @@
 
   /**
    * Retrieves All applicants belonging to a particular opportunity.
+   * @deprecated
    * @param {*} container
    */
   getApplicants: function (component, oppId, tenure) {
@@ -152,6 +159,8 @@
       let state = response.getState(); //Checking response status
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
+        //update spinner status
+        this.checkSpinnerStatus(component, "assetsAndLiabilitiesForApplicants");
         this.mergeWithChildContainer(component, result);
         this.existingDebtCalculation(component, result);
       }
@@ -475,6 +484,39 @@
     const supplementaryCountSet = component.get("v.isSupplementaryCountSet");
     if (creditFlag && !supplementaryCountSet) {
       this.getSupplementaryCardHolders(component);
+    }
+  },
+  /**
+   * Displays spinner component.
+   * @param {*} component
+   */
+  showSpinner: function (component) {
+    const spinner = component.find("spinner");
+    $A.util.toggleClass(spinner, "slds-hide");
+  },
+  /**
+   * Hides spinner component.
+   * @param {*} component
+   */
+  hideSpinner: function (component) {
+    const spinner = component.find("spinner");
+    $A.util.addClass(spinner, "slds-hide");
+  },
+  /***
+  decides whether to continue showing the spinner
+  @param {*} component
+  @param {String} current
+ */
+  checkSpinnerStatus: function (component, current) {
+    let spinnerList = component.get("v.spinnerList");
+    spinnerList[current] = false;
+    const allFalse = Object.keys(spinnerList).every(function (key) {
+      return spinnerList[key] === false;
+    });
+    if (allFalse) {
+      this.hideSpinner(component);
+    } else {
+      component.set("v.spinnerList", spinnerList);
     }
   }
 });
