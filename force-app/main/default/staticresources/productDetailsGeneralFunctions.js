@@ -248,18 +248,18 @@ window.annualFeesCalculator = function (
       calculateSupplemetaryFee = 0;
     }
   } else if (locFlag) {
-  /**
-   * if Product family is Line of Credit then calculate the annual fees for primary applicant only
-   * Primary Applicant Fee = LOC credit Limit % * Approved starting limit + GCT%
-   **/
+    /**
+     * if Product family is Line of Credit then calculate the annual fees for primary applicant only
+     * Primary Applicant Fee = LOC credit Limit % * Approved starting limit + GCT%
+     **/
     calculatePrimaryFee =
       (jnDefaults.locCreditLimitPercent / 100) *
         container.approvedStartingLimit +
       jnDefaults.gct / 100;
   }
   return {
-    primaryAnnualFee: calculatePrimaryFee,
-    supplementaryAnnualFee: calculateSupplemetaryFee
+    primaryAnnualFee: roundedValue(calculatePrimaryFee),
+    supplementaryAnnualFee: roundedValue(calculateSupplemetaryFee)
   };
 };
 /* Calculate ASL
