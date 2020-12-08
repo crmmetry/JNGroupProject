@@ -15,7 +15,7 @@
   /**
    * Toggles flags dependent on whether or not user selects creditor life for non-revolving loans
    * @param {Object} component
-   * @return {void}
+   * @return {Boolean}
    */
   toggleCreditorLifeFlags: function (component, selected) {
     console.log("toggle gets called");
@@ -56,6 +56,22 @@
         component.set("v.otherCreditorLifeReasonFlag", false);
         resetComponentValue("other-reason", component, "");
       }
+    }
+  },
+
+  /**
+   * Toggles layout between Credit Card and Line of credit for Life Insurance field set
+   * @param {Object} component
+   * @return {void}
+   */
+  toggleProductFlags: function (component) {
+    let container = component.get("v.ParentContainer");
+    let product = container.productFamily;
+    if (product === CREDIT_CARD) {
+      component.set("v.creditCardFlag", true);
+    }
+    if (product === LINE_OF_CREDIT) {
+      component.set("v.lineOfCreditFlag", true);
     }
   }
 });

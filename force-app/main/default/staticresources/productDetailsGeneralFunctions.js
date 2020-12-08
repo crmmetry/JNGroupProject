@@ -384,3 +384,32 @@ window.changeDetectedInObjects = function (oldObject, newObject, fields) {
     return first && second && third;
   });
 };
+/**
+ * Calculates Creditor Life Rates for LOC/CC
+ * @param {Map} jnDefaults
+ * @param {Map} container
+ * @return {Decimal}
+ */
+window.nonRevolvingCreditorLifeCalculator = function (jnDefaults, container) {
+  let lifeProtectionAndCIRate =
+    jnDefaults.creditCardLifeProtectionAndCriticalIllnessRate;
+  let lifeProtectionRate = jnDefaults.creditCardLifeProtectionRate;
+  let lineOfCreditCreditorLifeRate = jnDefaults.lineOfCreditLifeProtectionRate;
+  let coverageType = container.coverageType;
+  let ASL = container.approvedStartingLimit;
+  let product = container.productFamily;
+  if (product === CREDIT_CARD) {
+    return creditCardCreditorLifeCalculator(
+      lifeProtectionRate,
+      lifeProtectionAndCIRate,
+      coverageType,
+      ASL
+    );
+  } else if (product === LINE_OF_CREDIT) {
+    return lineOfCreditCreditorLifeCalculator(
+      ASL,
+      lineOfCreditCreditorLifeRate
+    );
+  }
+  return 0;
+};

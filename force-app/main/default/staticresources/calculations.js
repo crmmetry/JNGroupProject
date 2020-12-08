@@ -789,3 +789,52 @@ window.minimumPaymentCalculatorWithASL = function (container, jnDefault, mmp) {
   }
   return 0;
 };
+
+/**
+ * Calculates Creditor Life Premium for credit card.
+ * @param {Decimal} lifeProtectionRate
+ * @param {Decimal} lifeProtectionAndCIRate
+ * @param {Decimal} approvedCreditLimit
+ * @param {String} coverageType
+ * @return {Decimal}
+ */
+window.creditCardCreditorLifeCalculator = function (
+  lifeProtectionRate,
+  lifeProtectionAndCIRate,
+  coverageType,
+  approvedCreditLimit
+) {
+  if (
+    validNumber(lifeProtectionRate) &&
+    validNumber(lifeProtectionAndCIRate) &&
+    !isEmptyString(coverageType) &&
+    validNumber(approvedCreditLimit)
+  ) {
+    if (coverageType === LIFE_PROTECTION) {
+      return roundedValue(lifeProtectionRate * approvedCreditLimit);
+    } else if (coverageType === LIFE_AND_CRITICAL_ILLNESS_PROTECTION) {
+      return roundedValue(lifeProtectionAndCIRate * approvedCreditLimit);
+    }
+  }
+  return 0;
+};
+
+/**
+ * Calculates Creditor Life Premium for credit card.
+ * @param {Decimal} lineOfCreditCreditorLifeRate
+ * @param {Decimal} approvedCreditLimit
+ * @return {Decimal}
+ */
+window.lineOfCreditCreditorLifeCalculator = function (
+  approvedStartingLimit,
+  lineOfCreditCreditorLifeRate
+) {
+  if (
+    validNumber(
+      approvedStartingLimit && validNumber(lineOfCreditCreditorLifeRate)
+    )
+  ) {
+    return roundedValue(approvedStartingLimit * lineOfCreditCreditorLifeRate);
+  }
+  return 0;
+};

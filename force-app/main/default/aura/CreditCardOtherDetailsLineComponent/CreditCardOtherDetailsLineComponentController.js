@@ -18,12 +18,12 @@
   },
 
   onChildContainerChange: function (component, event, helper) {
-    let container = component.get("v.ParentContainer");
     const childContainer = component.get("v.ChildContainer");
     if (
       component.get("v.scriptsLoaded") &&
       component.get("v.notifyContainerChange")
     ) {
+      console.log("childContainer: ", childContainer);
       fireProductDetailsEvent(null, childContainer, component);
     }
   },
@@ -48,28 +48,63 @@
 
   oninterestedInCreditorLifeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
+    helper.toggleProductFlags(component);
     helper.toggleCreditorLifeFlags(component, selected);
-    let childKeyValuePairs = [
+    console.log("Flags toggle done.");
+    let attributesToUpdate = [
       {
-        key: "interestedInCreditorLifeCC",
+        key: "interestedInCreditorLifeNonRevolving",
         value: selected
       }
     ];
     let data = updateChildContainerWithValue(
       component,
-      childKeyValuePairs,
+      attributesToUpdate,
       false
     );
     component.set("v.ChildContainer", data);
+    console.log("end of interested in creditorlife change");
   },
 
   onCoverageTypeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
+    console.log("coverage type change");
+    let attributesToUpdate = [
+      {
+        key: "coverageType",
+        value: selected
+      }
+    ];
+    // if(component.get("v.creditCardFlag")){
+    //   console.log("before calculations");
+    //   attributesToUpdate = attributesToUpdate.concat(helper.calculateCreditorLife(component));
+    //   console.log("after calculations");
+    //  }
+    let data = updateChildContainerWithValue(
+      component,
+      attributesToUpdate,
+      false
+    );
+    component.set("v.ChildContainer", data);
+    console.log("end of COVERAge type change");
   },
 
   onReasonChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     helper.toggleReasonFlags(component, selected);
+    let attributesToUpdate = [
+      {
+        key: "noCreditorLifeReason",
+        value: selected
+      }
+    ];
+    let data = updateChildContainerWithValue(
+      component,
+      attributesToUpdate,
+      false
+    );
+    component.set("v.ChildContainer", data);
+    console.log("end of reason change");
   },
 
   onRepaymentMethodChange: function (component, event, helper) {

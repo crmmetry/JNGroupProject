@@ -5,6 +5,9 @@
     default="{}"
     description="Credit Card parent container"
   />
+
+  <aura:attribute name="jnConfigs" type="Map" default="{}" />
+
   <aura:attribute
     name="notifyContainerChange"
     type="Boolean"
@@ -16,6 +19,7 @@
     type="String"
     default="CreditCardOtherDetailLine"
   />
+  <aura:registerEvent name="productDetailsEvent" type="c:ProductDetailsEvent" />
   <aura:attribute
     name="ChildContainer"
     type="Map"
@@ -66,7 +70,6 @@
              '24','25','26','27','28','29','30']"
   />
   <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
-
   <!-- Handlers -->
   <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
 
@@ -89,6 +92,9 @@
     type="Boolean"
     default="false"
   />
+  <aura:attribute name="creditCardFlag" type="Boolean" default="false" />
+
+  <aura:attribute name="lineOfCreditFlag" type="Boolean" default="false" />
 
   <!-- Static Resource -->
   <ltng:require
@@ -159,7 +165,7 @@
           </lightning:select>
         </lightning:layoutItem>
         <!-- Fields Shown when user selects yes for creditor life-->
-        <aura:if isTrue="{!v.yesCreditorLifeFlag}">
+        <aura:if isTrue="{!and(v.yesCreditorLifeFlag, v.creditCardFlag)}">
           <lightning:layoutItem
             size="12"
             mediumDeviceSize="4"
@@ -179,6 +185,27 @@
               </aura:iteration>
             </lightning:select>
           </lightning:layoutItem>
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
+          >
+            <lightning:select
+              aura:id="creditor-life-selected"
+              name="select1"
+              label="Life Insurance Coverage"
+              required="true"
+              onchange="{!c.onLifeInsuranceCoverageChange}"
+              disabled="{!v.disableLifeInsuranceCoverageFlag}"
+            >
+              <option value="">select one...</option>
+              <aura:iteration items="{!v.creditorLifeCoverage}" var="item">
+                <option value="{!item}">{!item}</option>
+              </aura:iteration>
+            </lightning:select>
+          </lightning:layoutItem>
+        </aura:if>
+        <aura:if isTrue="{!and(v.yesCreditorLifeFlag,v.lineOfCreditFlag)}">
           <lightning:layoutItem
             size="12"
             mediumDeviceSize="4"

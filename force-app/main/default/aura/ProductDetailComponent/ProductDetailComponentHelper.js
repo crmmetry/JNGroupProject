@@ -477,5 +477,24 @@
     if (creditFlag && !supplementaryCountSet) {
       this.getSupplementaryCardHolders(component);
     }
+  },
+  /**
+   * Calculates CreditorLife rate
+   * @param {Object} component
+   * @return {Decimal}
+   */
+  calculateCreditorLife: function (component) {
+    let container = component.get("v.ParentContainer");
+    let jnDefaults = component.get("v.jnConfigs");
+    let creditorLife = nonRevolvingCreditorLifeCalculator(
+      jnDefaults,
+      container
+    );
+    return [
+      {
+        key: "creditorLifePremium",
+        value: creditorLife
+      }
+    ];
   }
 });
