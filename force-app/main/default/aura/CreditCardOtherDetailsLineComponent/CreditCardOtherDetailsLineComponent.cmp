@@ -1,4 +1,5 @@
 <aura:component>
+  <aura:registerEvent name="productDetailsEvent" type="c:ProductDetailsEvent" />
   <aura:attribute
     name="ParentContainer"
     type="Map"

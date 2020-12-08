@@ -28,7 +28,8 @@
       cardType: "", //JN-4049 :: Added a field to track max the credit type,
       primaryApplicantAnnualMembership: 0,
       supplementaryApplicantAnnualMembership: 0,
-      numberOfSupplementaryCardHolders: 0
+      numberOfSupplementaryCardHolders: 0,
+      repaymentMethod: ""
     });
     helper.updateProductSelection(component);
     helper.getJNConfigurations(component);

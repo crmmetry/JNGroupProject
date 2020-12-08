@@ -17,7 +17,6 @@
   },
 
   onChildContainerChange: function (component, event, helper) {
-    let container = component.get("v.ParentContainer");
     const childContainer = component.get("v.ChildContainer");
     if (
       component.get("v.scriptsLoaded") &&
