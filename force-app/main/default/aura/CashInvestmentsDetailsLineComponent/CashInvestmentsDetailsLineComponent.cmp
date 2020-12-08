@@ -174,8 +174,6 @@
                   type="text"
                   label="Deposit Account Number"
                   value="{!v.ChildContainer.jnBankAccountNumber}"
-                  pattern="[1-9]*"
-                  maxlength="12"
                   required="true"
                 />
               </div>
