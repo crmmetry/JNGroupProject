@@ -26,11 +26,17 @@
         component.set("v.noCreditorLifeFlag", false);
         component.set("v.disableLifeInsuranceCoverageFlag", false);
         component.set("v.disableCoverageTypeFlag", false);
+        //clear fields that are not necessary when creditor life is not selected
+        resetComponentValue("creditor-life-selected", component, null);
         console.log("Flags toggled when yes");
       } else if (selected == NO) {
         console.log("Flags toggled when no");
         component.set("v.yesCreditorLifeFlag", false);
         component.set("v.noCreditorLifeFlag", true);
+        component.set("v.otherCreditorLifeReasonFlag", false);
+        //clear fields that are not necessary when creditor life is selected
+        resetComponentValue("creditor-life-not-selected", component, null);
+        resetComponentValue("other-reason", component, "");
         console.log("Flags toggled when no");
       }
     }
@@ -48,6 +54,7 @@
         component.set("v.otherCreditorLifeReasonFlag", true);
       } else {
         component.set("v.otherCreditorLifeReasonFlag", false);
+        resetComponentValue("other-reason", component, "");
       }
     }
   }

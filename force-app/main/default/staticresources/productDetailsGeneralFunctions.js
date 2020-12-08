@@ -384,27 +384,3 @@ window.changeDetectedInObjects = function (oldObject, newObject, fields) {
     return first && second && third;
   });
 };
-
-/**
- * Toggles flags dependent on whether or not user selects creditor life for non-revolving loans
- * @param {Object} component
- * @return {void}
- */
-window.toggleCreditorLifeFlags = function (component, selected) {
-  console.log("toggle gets called");
-  if (!isEmptyString(selected)) {
-    if (selected === YES) {
-      console.log("Flags toggled when yes");
-      component.set("!v.yesCreditorLifeFlag", true);
-      component.set("!v.disableLifeInsuranceCoverageFlag", false);
-      component.set("!v.disableCoverageTypeFlag", false);
-      component.set("!v.noCreditorLifeFlag", false);
-      console.log("Flags toggled when yes");
-    } else if (selected === NO) {
-      console.log("Flags toggled when no");
-      component.set("!v.noCreditorLifeFlag", true);
-      component.set("!v.yesCreditorLifeFlag", false);
-      console.log("Flags toggled when no");
-    }
-  }
-};

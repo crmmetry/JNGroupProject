@@ -166,6 +166,7 @@
             padding="around-small"
           >
             <lightning:select
+              aura:id="creditor-life-selected"
               name="select1"
               label="Coverage Type"
               required="true"
@@ -184,6 +185,7 @@
             padding="around-small"
           >
             <lightning:select
+              aura:id="creditor-life-selected"
               name="select1"
               label="Life Insurance Coverage"
               required="true"
@@ -205,6 +207,7 @@
             padding="around-small"
           >
             <lightning:select
+              aura:id="creditor-life-not-selected"
               name="select1"
               label="Reason"
               required="true"
@@ -224,6 +227,7 @@
               padding="around-small"
             >
               <lightning:input
+                aura:id="other-reason"
                 type="text"
                 name="select1"
                 label="Other"
