@@ -6,9 +6,8 @@
       coverageType: null,
       repaymentMethod: component.get("v.repaymentMethod"), //JN1-3928 :: Added by default value
       desiredRepaymentDate: null,
-      creditRiskScore: null,
-      creditRiskRating: null,
-      containerName: ""
+      containerName: "",
+      monthlyRepaymentDate: null
     };
     component.set("v.ChildContainer", data);
   },
@@ -65,8 +64,8 @@
   //JN1-3928 :: Added a method to bind selected monthly date change
   onMonthlyRepaymentDateChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    let creditRepaymentMap = component.get("v.ChildContainer");
-    creditRepaymentMap.monthlyRepaymentDate = selected;
-    component.set("v.ChildContainer", creditRepaymentMap);
+    let container = component.get("v.ChildContainer");
+    container.monthlyRepaymentDate = selected;
+    component.set("v.ChildContainer", container);
   }
 });
