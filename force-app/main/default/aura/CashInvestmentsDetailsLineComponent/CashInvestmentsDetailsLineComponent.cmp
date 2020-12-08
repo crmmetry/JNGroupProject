@@ -206,6 +206,7 @@
             value="{!v.ChildContainer.annualInterestRate}"
             name="Annual Interest Rate"
             formatter="percent-fixed"
+            step="0.01"
             required="true"
           />
         </div>
