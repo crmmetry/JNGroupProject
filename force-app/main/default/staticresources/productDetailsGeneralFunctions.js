@@ -230,9 +230,11 @@ window.annualFeesCalculator = function (
    **/
   if (creditFlag) {
     if (container.cardType == CREDIT_TYPE_GOLD) {
-      calculatePrimaryFee = jnDefaults.goldCardFee + jnDefaults.gct / 100;
+      calculatePrimaryFee =
+        jnDefaults.goldCardFee * calculateGCT(jnDefaults.gct);
     } else if (container.cardType == CREDIT_TYPE_CLASSIC) {
-      calculatePrimaryFee = jnDefaults.classicCardFee + jnDefaults.gct / 100;
+      calculatePrimaryFee =
+        jnDefaults.classicCardFee * calculateGCT(jnDefaults.gct);
     }
 
     if (container.numberOfSupplementaryCardHolders > 0) {
