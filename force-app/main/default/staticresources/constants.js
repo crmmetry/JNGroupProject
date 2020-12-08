@@ -22,3 +22,9 @@ window.CREDIT_CARD = "JN Bank Credit Card";
 window.LINE_OF_CREDIT = "JN Bank Line Of Credit";
 window.AUTO_LOAN = "JN Bank Auto Loan";
 window.UNSECURED_LOAN = "JN Bank Unsecured Loan";
+window.CREDIT_CARD_APPLICANT_COVERAGE = ["Applicant 1 Only"];
+window.LINE_OF_CREDIT_APPLICANT_COVERAGE = [
+  "Applicant 1 Only",
+  "Applicant 2 Only",
+  "Applicant 1 and Applicant 2"
+];

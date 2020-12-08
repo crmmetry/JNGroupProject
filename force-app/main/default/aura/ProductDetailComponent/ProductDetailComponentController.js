@@ -52,6 +52,7 @@
       helper.supplementaryCardHolderInit(component);
       helper.TDSRCalculationBefore(component);
       helper.ASLCalculations(component);
+      helper.calculateCreditorLife(component);
       helper.minimumPaymentCalculations(component);
       helper.TDSRCalculationAfter(component);
       helper.setCardType(component); //JN1-4049 :: Kirti R :: Calculate the credit type

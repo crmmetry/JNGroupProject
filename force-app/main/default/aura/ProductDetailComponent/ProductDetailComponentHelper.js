@@ -484,17 +484,30 @@
    * @return {Decimal}
    */
   calculateCreditorLife: function (component) {
-    let container = component.get("v.ParentContainer");
-    let jnDefaults = component.get("v.jnConfigs");
-    let creditorLife = nonRevolvingCreditorLifeCalculator(
-      jnDefaults,
-      container
-    );
-    return [
-      {
-        key: "creditorLifePremium",
-        value: creditorLife
+    let container = component.get("v.ChildContainer");
+    let jnDefaults = component.get("v.jnDefaultConfigs");
+    if (container.interestedInCreditorLifeNonRevolving === YES) {
+      let creditorLife = nonRevolvingCreditorLifeCalculator(
+        jnDefaults,
+        container
+      );
+      console.log("CreditorLife", creditorLife);
+      let values = [
+        {
+          key: "creditorLifePremiumForNonRevolvingLoan",
+          value: creditorLife
+        }
+      ];
+      if (container.productFamily === CREDIT_CARD) {
+        values = values.concat([
+          {
+            key: "creditorLifeAnnualFee",
+            value: jnDefaults.creditorLifeAnnualFee
+          }
+        ]);
       }
-    ];
+      let data = updateChildContainerWithValue(component, values, false);
+      component.set("v.ChildContainer", data);
+    }
   }
 });

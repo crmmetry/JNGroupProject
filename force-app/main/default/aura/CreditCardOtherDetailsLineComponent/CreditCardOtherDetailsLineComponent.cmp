@@ -46,16 +46,7 @@
     type="List"
     default="['Life Protection','Life and Critical Illness Protection']"
   />
-  <aura:attribute
-    name="creditorLifeCoverage"
-    type="List"
-    default="['Applicant 1 Only',
-  'Applicant 2 Only',
-  'Applicant 3 Only',
-  'Applicant 1 and Applicant 2',
-  'Applicant 1 and Applicant 3',
-  'Applicant 2 and Applicant 3']"
-  />
+  <aura:attribute name="creditorLifeCoverage" type="List" default="[]" />
   <!--JN1-3928 :: Changed the type-->
   <aura:attribute
     name="repaymentMethod"

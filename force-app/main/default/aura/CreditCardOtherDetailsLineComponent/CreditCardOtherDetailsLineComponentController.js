@@ -75,11 +75,6 @@
         value: selected
       }
     ];
-    // if(component.get("v.creditCardFlag")){
-    //   console.log("before calculations");
-    //   attributesToUpdate = attributesToUpdate.concat(helper.calculateCreditorLife(component));
-    //   console.log("after calculations");
-    //  }
     let data = updateChildContainerWithValue(
       component,
       attributesToUpdate,

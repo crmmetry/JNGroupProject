@@ -49,6 +49,8 @@ public class JNConfiguration {
   public decimal creditCardLifeProtectionAndCriticalIllnessRate;
   @AuraEnabled
   public decimal lineOfCreditLifeProtectionRate;
+  @AuraEnabled
+  public decimal creditorLifeAnnualFee;
 
   public JNConfiguration(JN_Defaults__mdt record) {
     this.gct = record.GCT__c;
@@ -73,5 +75,6 @@ public class JNConfiguration {
     this.creditCardLifeProtectionRate = record.CC_Creditor_Life_Protection_Rate_Number__c; //JN1-4053 :: Creditor Life
     this.creditCardLifeProtectionAndCriticalIllnessRate = record.CC_Creditor_Life_CI_Protection_Rate__c; //JN1-4053 :: Creditor Life
     this.lineOfCreditLifeProtectionRate = record.Line_Of_Credit_Creditor_Life_Rate_Number__c; //JN1-4053 :: Creditor Life
+    this.creditorLifeAnnualFee = record.Creditor_Life_Annual_Fee_Number__c; //JN1-4053 :: Creditor Life
   }
 }
