@@ -279,6 +279,8 @@
       validNumber(TDSRBefore) &&
       !isEmpty(repaymentMethod)
     ) {
+      //show spinner
+      this.showSpinner(component);
       action.setParams({
         oppId: component.get("v.recordId"),
         ltv: this.LTVApplicableValue(component, container),
@@ -287,6 +289,8 @@
         collateral: collateralType
       });
       action.setCallback(this, function (response) {
+        //hide spinner
+        this.hideSpinner(component);
         let state = response.getState();
         let result = response.getReturnValue();
         if (state === "SUCCESS") {
@@ -342,7 +346,11 @@
       oppId: component.get("v.recordId")
     });
     component.set("v.isSupplementaryCountSet", true);
+    //show spinner
+    this.showSpinner(component);
     action.setCallback(this, function (response) {
+      //show spinner
+      this.hideSpinner(component);
       let state = response.getState();
       let result = response.getReturnValue();
       if (state === "SUCCESS") {

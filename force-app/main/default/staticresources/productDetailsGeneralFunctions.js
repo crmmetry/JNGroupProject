@@ -387,3 +387,23 @@ window.changeDetectedInObjects = function (oldObject, newObject, fields) {
     return first && second && third;
   });
 };
+/**
+ * simple debounce method for debouncing function call
+ * @param {Number} timerId
+ * @param {Function} function to invoke
+ * @param {Array<*>} arguments for the function to invoke
+ */
+window.debouncer = function (timerId, funcToCall, funcArguments) {
+  let delay = 500;
+  clearTimeout(timer);
+  timerId = setTimeout(
+    $A.getCallback(function () {
+      if (funcToCall) {
+        funcToCall.apply(this, funcArguments);
+      }
+    }),
+    delay
+  );
+  component.set("v.timerId", timerId);
+  return timerId;
+};
