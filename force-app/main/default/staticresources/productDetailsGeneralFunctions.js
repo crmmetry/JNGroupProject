@@ -146,9 +146,14 @@ window.toggleHypothecatedLoanFlag = function (selected, component) {
  * Clears components with an identified aura id.
  */
 window.resetComponentValue = function (auraId, component, value) {
-  let cmp = component.find(auraId);
-  if (cmp !== null) {
-    cmp.set("v.value", value);
+  let components = component.find(auraId);
+  if (isEmpty(components) === false && !Array.isArray(components)) {
+    components = [components];
+  }
+  if (components) {
+    components.forEach((componentElement) => {
+      componentElement.set("v.value", value);
+    });
   }
 };
 
