@@ -452,6 +452,12 @@
     //JN-4049 :: Kirti R. ::Added a method to set credit type
     let container = component.get("v.ChildContainer");
     let approvedStartingLimit = container.approvedStartingLimit;
+    console.info(
+      "ApprovedStartingLimit",
+      approvedStartingLimit,
+      "creditLimitValue",
+      component.get("v.jnDefaultConfigs.creditLimitValue")
+    );
     if (approvedStartingLimit === 0) {
       container.cardType = CREDIT_TYPE_NONE;
     } else if (
