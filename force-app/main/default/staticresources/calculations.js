@@ -196,7 +196,10 @@ window.asAllValidDependencies = function (properties, parentObj) {
  * @return {Number}
  */
 window.calculateGCT = function (gctPercentage) {
-  return 1 + gctPercentage;
+  if (validNumber(gctPercentage)) {
+    return 1 + gctPercentage;
+  }
+  return 0;
 };
 /**
  * calculates

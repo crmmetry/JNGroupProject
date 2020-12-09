@@ -31,6 +31,16 @@
       numberOfSupplementaryCardHolders: 0,
       repaymentMethod: ""
     });
+    //utilized to display spinners
+    let spinnerList = {
+      productSelection: true,
+      jnConfigs: true,
+      assetsAndLiabilitiesForApplicants: true,
+      riskRatings: true
+    };
+    component.set("v.spinnerList", spinnerList);
+    //start showing spinners
+    helper.showSpinner(component);
     helper.updateProductSelection(component);
     helper.getJNConfigurations(component);
     helper.getAssetsAndLiabilitiesForApplicant(component);

@@ -235,9 +235,11 @@ window.annualFeesCalculator = function (
    **/
   if (creditFlag) {
     if (container.cardType == CREDIT_TYPE_GOLD) {
-      calculatePrimaryFee = jnDefaults.goldCardFee + jnDefaults.gct / 100;
+      calculatePrimaryFee =
+        jnDefaults.goldCardFee * calculateGCT(jnDefaults.gct);
     } else if (container.cardType == CREDIT_TYPE_CLASSIC) {
-      calculatePrimaryFee = jnDefaults.classicCardFee + jnDefaults.gct / 100;
+      calculatePrimaryFee =
+        jnDefaults.classicCardFee * calculateGCT(jnDefaults.gct);
     }
 
     if (container.numberOfSupplementaryCardHolders > 0) {
@@ -245,7 +247,8 @@ window.annualFeesCalculator = function (
         container.numberOfSupplementaryCardHolders;
       let annualFee = 0;
       for (let i = 0; i < numberOfSupplementaryHolders; i++) {
-        annualFee += jnDefaults.supplementaryCardFee + jnDefaults.gct / 100;
+        annualFee +=
+          jnDefaults.supplementaryCardFee * calculateGCT(jnDefaults.gct);
       }
       //Fee for Supplementary Card Holder = annual fee for Primary applicant  + annual fee for n number of card holders
       calculateSupplemetaryFee = calculatePrimaryFee + annualFee;
@@ -259,8 +262,8 @@ window.annualFeesCalculator = function (
      **/
     calculatePrimaryFee =
       (jnDefaults.locCreditLimitPercent / 100) *
-        container.approvedStartingLimit +
-      jnDefaults.gct / 100;
+      container.approvedStartingLimit *
+      calculateGCT(jnDefaults.gct);
   }
   return {
     primaryAnnualFee: roundedValue(calculatePrimaryFee),
@@ -417,4 +420,24 @@ window.nonRevolvingCreditorLifeCalculator = function (jnDefaults, container) {
     );
   }
   return 0;
+};
+/** simple debounce method for debouncing function call
+ * @param {*} component
+ * @param {Number} timerId
+ * @param {Function} function to invoke
+ * @param {Array<*>} arguments for the function to invoke
+ */
+window.debouncer = function (component, timerId, funcToCall, funcArguments) {
+  let delay = 500;
+  clearTimeout(timer);
+  timerId = setTimeout(
+    $A.getCallback(function () {
+      if (funcToCall) {
+        funcToCall.apply(this, funcArguments);
+      }
+    }),
+    delay
+  );
+  component.set("v.timerId", timerId);
+  return timerId;
 };
