@@ -18,26 +18,51 @@
    * @return {Boolean}
    */
   toggleCreditorLifeFlags: function (component, selected) {
-    console.log("toggle gets called");
     if (!isEmptyString(selected)) {
       if (selected == YES) {
-        console.log("Flags toggled when yes");
         component.set("v.yesCreditorLifeFlag", true);
         component.set("v.noCreditorLifeFlag", false);
         component.set("v.disableLifeInsuranceCoverageFlag", false);
         component.set("v.disableCoverageTypeFlag", false);
         //clear fields that are not necessary when creditor life is not selected
         resetComponentValue("creditor-life-selected", component, null);
-        console.log("Flags toggled when yes");
+        //reset attributes on child container
+        let childKeyValuePairsToBeReset = [
+          {
+            key: "noCreditorLifeReason",
+            value: ""
+          }
+        ];
+        let data = updateChildContainerWithValue(
+          component,
+          childKeyValuePairsToBeReset,
+          false
+        );
+        component.set("v.ChildContainer", data);
       } else if (selected == NO) {
-        console.log("Flags toggled when no");
         component.set("v.yesCreditorLifeFlag", false);
         component.set("v.noCreditorLifeFlag", true);
         component.set("v.otherCreditorLifeReasonFlag", false);
         //clear fields that are not necessary when creditor life is selected
         resetComponentValue("creditor-life-not-selected", component, null);
         resetComponentValue("other-reason", component, "");
-        console.log("Flags toggled when no");
+        //reset attributes on child container
+        let childKeyValuePairsToBeReset = [
+          {
+            key: "coverageType",
+            value: ""
+          },
+          {
+            key: "lifeInsuranceCoverage",
+            value: ""
+          }
+        ];
+        let data = updateChildContainerWithValue(
+          component,
+          childKeyValuePairsToBeReset,
+          false
+        );
+        component.set("v.ChildContainer", data);
       }
     }
   },
@@ -48,7 +73,6 @@
    * @return {void}
    */
   toggleReasonFlags: function (component, selected) {
-    console.log("toggle gets called");
     if (!isEmptyString(selected)) {
       if (selected == OTHER) {
         component.set("v.otherCreditorLifeReasonFlag", true);

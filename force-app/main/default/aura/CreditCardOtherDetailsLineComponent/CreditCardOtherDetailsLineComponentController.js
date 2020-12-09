@@ -22,7 +22,6 @@
       component.get("v.scriptsLoaded") &&
       component.get("v.notifyContainerChange")
     ) {
-      console.log("childContainer: ", childContainer);
       fireProductDetailsEvent(null, childContainer, component);
     }
   },
@@ -49,7 +48,6 @@
     const selected = event.getSource().get("v.value");
     helper.toggleProductFlags(component);
     helper.toggleCreditorLifeFlags(component, selected);
-    console.log("Flags toggle done.");
     let attributesToUpdate = [
       {
         key: "interestedInCreditorLifeNonRevolving",
@@ -62,12 +60,10 @@
       false
     );
     component.set("v.ChildContainer", data);
-    console.log("end of interested in creditorlife change");
   },
 
   onCoverageTypeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    console.log("coverage type change");
     let attributesToUpdate = [
       {
         key: "coverageType",
@@ -80,7 +76,22 @@
       false
     );
     component.set("v.ChildContainer", data);
-    console.log("end of COVERAge type change");
+  },
+
+  onLifeInsuranceCoverageChange: function (component, event, helper) {
+    const selected = event.getSource().get("v.value");
+    let attributesToUpdate = [
+      {
+        key: "lifeInsuranceCoverage",
+        value: selected
+      }
+    ];
+    let data = updateChildContainerWithValue(
+      component,
+      attributesToUpdate,
+      false
+    );
+    component.set("v.ChildContainer", data);
   },
 
   onReasonChange: function (component, event, helper) {
@@ -98,7 +109,6 @@
       false
     );
     component.set("v.ChildContainer", data);
-    console.log("end of reason change");
   },
 
   onRepaymentMethodChange: function (component, event, helper) {
