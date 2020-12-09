@@ -36,7 +36,7 @@
     </values>
     <values>
         <field>Credit_Limit_Value__c</field>
-        <value xsi:type="xsd:double">5000000.0</value>
+        <value xsi:type="xsd:double">500000.0</value>
     </values>
     <values>
         <field>Creditor_Life_Annual_Fee_Number__c</field>

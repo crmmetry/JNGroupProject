@@ -385,7 +385,7 @@ window.changeDetectedInObjects = function (oldObject, newObject, fields) {
     second =
       isEmptyString(oldObject[field]) === false ||
       validNumber(oldObject[field]);
-    third = newObject[field] != oldObject[field];
+    third = newObject[field] !== oldObject[field];
     return first && second && third;
   });
 };
