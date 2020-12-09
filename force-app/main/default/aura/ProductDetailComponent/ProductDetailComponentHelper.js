@@ -56,7 +56,6 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         component.set("v.jnDefaultConfigs", result);
-        console.log("JN Defaults: ", result);
       }
     });
     $A.enqueueAction(action);
@@ -491,7 +490,6 @@
         jnDefaults,
         container
       );
-      console.log("CreditorLife", creditorLife);
       let values = [
         {
           key: "creditorLifePremiumForNonRevolvingLoan",
@@ -503,6 +501,23 @@
           {
             key: "creditorLifeAnnualFee",
             value: jnDefaults.creditorLifeAnnualFee
+          }
+        ]);
+      }
+      let data = updateChildContainerWithValue(component, values, false);
+      component.set("v.ChildContainer", data);
+    } else if (container.interestedInCreditorLifeNonRevolving === NO) {
+      let values = [
+        {
+          key: "creditorLifePremiumForNonRevolvingLoan",
+          value: 0
+        }
+      ];
+      if (container.productFamily === CREDIT_CARD) {
+        values = values.concat([
+          {
+            key: "creditorLifeAnnualFee",
+            value: 0
           }
         ]);
       }

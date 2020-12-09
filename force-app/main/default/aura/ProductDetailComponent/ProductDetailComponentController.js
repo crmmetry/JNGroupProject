@@ -99,7 +99,6 @@
         ["LTVValue", "TDSRBefore", "repaymentMethod", "collateralType"]
       );
       if (creditScoreChanged) {
-        console.log("Risk changing");
         helper.getCreditScoreRatings(component);
       }
       // Calculate the monthly P&I Loan amount

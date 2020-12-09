@@ -830,9 +830,8 @@ window.lineOfCreditCreditorLifeCalculator = function (
   lineOfCreditCreditorLifeRate
 ) {
   if (
-    validNumber(
-      approvedStartingLimit && validNumber(lineOfCreditCreditorLifeRate)
-    )
+    validNumber(approvedStartingLimit) &&
+    validNumber(lineOfCreditCreditorLifeRate)
   ) {
     return roundedValue(approvedStartingLimit * lineOfCreditCreditorLifeRate);
   }
