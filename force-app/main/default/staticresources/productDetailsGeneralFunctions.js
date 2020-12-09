@@ -229,36 +229,27 @@ window.annualFeesCalculator = function (
    * card type = Classic then, Primary Applicant Fee = Classic card Fee + GCT%
    **/
   if (creditFlag) {
-    if (container.cardType == CREDIT_TYPE_GOLD) {
-      calculatePrimaryFee =
-        jnDefaults.goldCardFee * calculateGCT(jnDefaults.gct);
-    } else if (container.cardType == CREDIT_TYPE_CLASSIC) {
-      calculatePrimaryFee =
-        jnDefaults.classicCardFee * calculateGCT(jnDefaults.gct);
-    }
-
-    if (container.numberOfSupplementaryCardHolders > 0) {
-      let numberOfSupplementaryHolders =
-        container.numberOfSupplementaryCardHolders;
-      let annualFee = 0;
-      for (let i = 0; i < numberOfSupplementaryHolders; i++) {
-        annualFee +=
-          jnDefaults.supplementaryCardFee * calculateGCT(jnDefaults.gct);
-      }
-      //Fee for Supplementary Card Holder = annual fee for Primary applicant  + annual fee for n number of card holders
-      calculateSupplemetaryFee = calculatePrimaryFee + annualFee;
-    } else {
-      calculateSupplemetaryFee = 0;
-    }
+    calculatePrimaryFee = creditCardAnnualFeesCalculation(
+      container,
+      calculatePrimaryFee,
+      jnDefaults
+    );
+    //calculates the primary applicant , supplementary card holder's fee
+    calculateSupplemetaryFee = supplementaryCardHoldersFeeCalculation(
+      container,
+      jnDefaults,
+      calculateSupplemetaryFee
+    );
   } else if (locFlag) {
     /**
      * if Product family is Line of Credit then calculate the annual fees for primary applicant only
      * Primary Applicant Fee = LOC credit Limit % * Approved starting limit + GCT%
      **/
-    calculatePrimaryFee =
-      (jnDefaults.locCreditLimitPercent / 100) *
-      container.approvedStartingLimit *
-      calculateGCT(jnDefaults.gct);
+    calculatePrimaryFee = lineOfCreditAnnualFeesCalculation(
+      calculatePrimaryFee,
+      jnDefaults,
+      container
+    );
   }
   return {
     primaryAnnualFee: roundedValue(calculatePrimaryFee),
@@ -407,4 +398,82 @@ window.debouncer = function (component, timerId, funcToCall, funcArguments) {
   );
   component.set("v.timerId", timerId);
   return timerId;
+};
+/**
+ * calculates the supplementary card holders fee
+ * @param {Object} container
+ * @param {Object} jnDefaults
+ * @param {Number} calculateSupplemetaryFee
+ * @returns {Number} supplementary CardHolder's Fee
+ */
+window.supplementaryCardHoldersFeeCalculation = function (
+  container,
+  jnDefaults,
+  calculateSupplemetaryFee
+) {
+  if (
+    validNumber(jnDefaults.supplementaryCardFee) &&
+    validNumber(container.numberOfSupplementaryCardHolders)
+  ) {
+    if (container.numberOfSupplementaryCardHolders > 0) {
+      return (
+        container.numberOfSupplementaryCardHolders *
+        jnDefaults.supplementaryCardFee *
+        calculateGCT(jnDefaults.gct)
+      );
+    }
+    return calculateSupplemetaryFee;
+  }
+  return ZERO;
+};
+/**
+ * calculates line of credit annual fees
+ * @param {Number} calculatePrimaryFee
+ * @param {Object} jnDefaults
+ * @param {Object} container
+ * @returns {Number}
+ */
+window.lineOfCreditAnnualFeesCalculation = function (
+  calculatePrimaryFee,
+  jnDefaults,
+  container
+) {
+  if (
+    validNumber(container.approvedStartingLimit) &&
+    validNumber(jnDefaults.locCreditLimitPercent)
+  ) {
+    calculatePrimaryFee =
+      (jnDefaults.locCreditLimitPercent / 100) *
+      container.approvedStartingLimit *
+      calculateGCT(jnDefaults.gct);
+    return calculatePrimaryFee;
+  }
+  return ZERO;
+};
+/**
+ * calculates credit credit annual fees
+ * @param {Object} container
+ * @param {Number} calculatePrimaryFee
+ * @param {Object} jnDefaults
+ * @returns {Number}
+ */
+window.creditCardAnnualFeesCalculation = function (
+  container,
+  calculatePrimaryFee,
+  jnDefaults
+) {
+  if (
+    validNumber(jnDefaults.goldCardFee) &&
+    validNumber(jnDefaults.classicCardFee)
+  ) {
+    if (container.cardType == CREDIT_TYPE_GOLD) {
+      calculatePrimaryFee =
+        jnDefaults.goldCardFee * calculateGCT(jnDefaults.gct);
+    } else if (container.cardType == CREDIT_TYPE_CLASSIC) {
+      calculatePrimaryFee =
+        jnDefaults.classicCardFee * calculateGCT(jnDefaults.gct);
+    }
+    return calculatePrimaryFee;
+  }
+  return ZERO;
 };
