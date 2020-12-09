@@ -29,7 +29,11 @@
     default="{}"
     description="child container"
   />
-
+  <aura:attribute
+    name="spinnerList"
+    type="Object"
+    description="contains all the relevant data that must be loaded for the spinner to hide"
+  />
   <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
   <!-- Static Resource -->
   <ltng:require
@@ -71,7 +75,19 @@
   <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
   <aura:attribute name="jnDefaultConfigs" type="Map" default="{}" />
   <aura:attribute name="RiskRatings" type="Map" default="{}" />
+
   <lightning:layout multipleRows="true">
+    <!-- spinner markup-->
+    <div class="slds-spinner_container slds-hide slds-" aura:id="spinner">
+      <div
+        role="status"
+        class="slds-spinner slds-spinner_large slds-spinner_brand"
+      >
+        <span class="slds-assistive-text">Loading</span>
+        <div class="slds-spinner__dot-a"></div>
+        <div class="slds-spinner__dot-b"></div>
+      </div>
+    </div>
     <lightning:card>
       <lightning:layoutItem size="12" padding="around-small">
         <fieldset class="slds-box slds-theme_default">
@@ -128,14 +144,16 @@
               productPrice="{!v.productSelection.productPrice}"
               ParentContainer="{!v.ChildContainer}"
               jnDefaultConfigs="{!v.jnDefaultConfigs}"
-            ></c:CreditCardContainerComponent>
+            >
+            </c:CreditCardContainerComponent>
           </aura:if>
           <aura:if isTrue="{!v.lineOfCreditFlag}">
             <c:LineOfCreditContainerComponent
               productPrice="{!v.productSelection.productPrice}"
               ParentContainer="{!v.ChildContainer}"
               jnDefaultConfigs="{!v.jnDefaultConfigs}"
-            ></c:LineOfCreditContainerComponent>
+            >
+            </c:LineOfCreditContainerComponent>
           </aura:if>
         </fieldset>
       </lightning:layoutItem>
