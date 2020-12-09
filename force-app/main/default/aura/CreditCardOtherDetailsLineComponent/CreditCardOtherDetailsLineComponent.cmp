@@ -39,7 +39,7 @@
   <aura:attribute
     name="noCreditorLifeReason"
     type="List"
-    default="['Not Elligible','Other']"
+    default="['Not Eligible','Other']"
   />
   <aura:attribute
     name="coverageType"
