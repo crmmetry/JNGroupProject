@@ -11,6 +11,14 @@
         <value xsi:type="xsd:double">4538.63</value>
     </values>
     <values>
+        <field>CC_Creditor_Life_CI_Protection_Rate__c</field>
+        <value xsi:type="xsd:double">0.0041</value>
+    </values>
+    <values>
+        <field>CC_Creditor_Life_Protection_Rate_Number__c</field>
+        <value xsi:type="xsd:double">0.0026</value>
+    </values>
+    <values>
         <field>Classic_Card_Fee__c</field>
         <value xsi:type="xsd:double">2793.1</value>
     </values>
@@ -29,6 +37,10 @@
     <values>
         <field>Credit_Limit_Value__c</field>
         <value xsi:type="xsd:double">500000.0</value>
+    </values>
+    <values>
+        <field>Creditor_Life_Annual_Fee_Number__c</field>
+        <value xsi:type="xsd:double">1000.0</value>
     </values>
     <values>
         <field>Discount_Factor_Number__c</field>
@@ -53,6 +65,10 @@
     <values>
         <field>Legal_Fee__c</field>
         <value xsi:type="xsd:double">1000.0</value>
+    </values>
+    <values>
+        <field>Line_Of_Credit_Creditor_Life_Rate_Number__c</field>
+        <value xsi:type="xsd:double">2.1E-4</value>
     </values>
     <values>
         <field>Line_Of_Credit_Principal_Payment_Number__c</field>

@@ -146,9 +146,14 @@ window.toggleHypothecatedLoanFlag = function (selected, component) {
  * Clears components with an identified aura id.
  */
 window.resetComponentValue = function (auraId, component, value) {
-  let cmp = component.find(auraId);
-  if (cmp !== null) {
-    cmp.set("v.value", value);
+  let components = component.find(auraId);
+  if (isEmpty(components) === false && !Array.isArray(components)) {
+    components = [components];
+  }
+  if (components) {
+    components.forEach((componentElement) => {
+      componentElement.set("v.value", value);
+    });
   }
 };
 
@@ -379,7 +384,35 @@ window.changeDetectedInObjects = function (oldObject, newObject, fields) {
   });
 };
 /**
- * simple debounce method for debouncing function call
+ * Calculates Creditor Life Rates for LOC/CC
+ * @param {Map} jnDefaults
+ * @param {Map} container
+ * @return {Decimal}
+ */
+window.nonRevolvingCreditorLifeCalculator = function (jnDefaults, container) {
+  let lifeProtectionAndCIRate =
+    jnDefaults.creditCardLifeProtectionAndCriticalIllnessRate;
+  let lifeProtectionRate = jnDefaults.creditCardLifeProtectionRate;
+  let lineOfCreditCreditorLifeRate = jnDefaults.lineOfCreditLifeProtectionRate;
+  let coverageType = container.coverageType;
+  let ASL = container.approvedStartingLimit;
+  let product = container.productFamily;
+  if (product === CREDIT_CARD) {
+    return creditCardCreditorLifeCalculator(
+      lifeProtectionRate,
+      lifeProtectionAndCIRate,
+      coverageType,
+      ASL
+    );
+  } else if (product === LINE_OF_CREDIT) {
+    return lineOfCreditCreditorLifeCalculator(
+      ASL,
+      lineOfCreditCreditorLifeRate
+    );
+  }
+  return 0;
+};
+/** simple debounce method for debouncing function call
  * @param {*} component
  * @param {Number} timerId
  * @param {Function} function to invoke

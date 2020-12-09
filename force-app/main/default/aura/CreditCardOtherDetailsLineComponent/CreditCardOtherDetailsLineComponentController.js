@@ -7,6 +7,7 @@
       repaymentMethod: component.get("v.repaymentMethod"), //JN1-3928 :: Added by default value
       desiredRepaymentDate: null,
       containerName: "",
+      noCreditorLifeReason: "", //JN1-4053 Creditor Life
       monthlyRepaymentDate: null
     };
     component.set("v.ChildContainer", data);
@@ -43,8 +44,71 @@
     component.set("v.cashInvestmentFlag", flag);
   },
 
+  oninterestedInCreditorLifeChange: function (component, event, helper) {
+    const selected = event.getSource().get("v.value");
+    helper.toggleProductFlags(component);
+    helper.toggleCreditorLifeFlags(component, selected);
+    let attributesToUpdate = [
+      {
+        key: "interestedInCreditorLifeNonRevolving",
+        value: selected
+      }
+    ];
+    let data = updateChildContainerWithValue(
+      component,
+      attributesToUpdate,
+      false
+    );
+    component.set("v.ChildContainer", data);
+  },
+
   onCoverageTypeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
+    let attributesToUpdate = [
+      {
+        key: "coverageType",
+        value: selected
+      }
+    ];
+    let data = updateChildContainerWithValue(
+      component,
+      attributesToUpdate,
+      false
+    );
+    component.set("v.ChildContainer", data);
+  },
+
+  onLifeInsuranceCoverageChange: function (component, event, helper) {
+    const selected = event.getSource().get("v.value");
+    let attributesToUpdate = [
+      {
+        key: "lifeInsuranceCoverage",
+        value: selected
+      }
+    ];
+    let data = updateChildContainerWithValue(
+      component,
+      attributesToUpdate,
+      false
+    );
+    component.set("v.ChildContainer", data);
+  },
+
+  onReasonChange: function (component, event, helper) {
+    const selected = event.getSource().get("v.value");
+    helper.toggleReasonFlags(component, selected);
+    let attributesToUpdate = [
+      {
+        key: "noCreditorLifeReason",
+        value: selected
+      }
+    ];
+    let data = updateChildContainerWithValue(
+      component,
+      attributesToUpdate,
+      false
+    );
+    component.set("v.ChildContainer", data);
   },
 
   onRepaymentMethodChange: function (component, event, helper) {

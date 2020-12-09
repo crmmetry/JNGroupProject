@@ -61,7 +61,7 @@
           <lightning:input
             type="number"
             label="Monthly Creditor Life Premium as per Credit Limit"
-            value="{!v.monthlyCreditorLifePremium}"
+            value="{!v.ParentContainer.creditorLifePremiumForNonRevolvingLoan}"
             name="number"
             formatter="currency"
             required="true"
@@ -94,7 +94,7 @@
         >
           <lightning:input
             label="Annual Creditor Life Fee"
-            value="{!v.annualCreditorLifeFee}"
+            value="0"
             type="number"
             name="input1"
             formatter="currency"

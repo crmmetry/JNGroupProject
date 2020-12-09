@@ -43,6 +43,15 @@ public class JNConfiguration {
   public Decimal discountFactor;
   @AuraEnabled
   public decimal creditLimitValue;
+  @AuraEnabled
+  public decimal creditCardLifeProtectionRate;
+  @AuraEnabled
+  public decimal creditCardLifeProtectionAndCriticalIllnessRate;
+  @AuraEnabled
+  public decimal lineOfCreditLifeProtectionRate;
+  @AuraEnabled
+  public decimal creditorLifeAnnualFee;
+
   public JNConfiguration(JN_Defaults__mdt record) {
     this.gct = record.GCT__c;
     this.assignmentFee =
@@ -63,5 +72,9 @@ public class JNConfiguration {
     this.lineOfCreditPrincipalPayment = record.Line_Of_Credit_Principal_Payment_Number__c;
     this.discountFactor = record.Discount_Factor_Number__c;
     this.creditLimitValue = record.Credit_Limit_Value__c; //JN1-4049 :: Kirti R. :: shows the credit limit
+    this.creditCardLifeProtectionRate = record.CC_Creditor_Life_Protection_Rate_Number__c; //JN1-4053 :: Creditor Life
+    this.creditCardLifeProtectionAndCriticalIllnessRate = record.CC_Creditor_Life_CI_Protection_Rate__c; //JN1-4053 :: Creditor Life
+    this.lineOfCreditLifeProtectionRate = record.Line_Of_Credit_Creditor_Life_Rate_Number__c; //JN1-4053 :: Creditor Life
+    this.creditorLifeAnnualFee = record.Creditor_Life_Annual_Fee_Number__c; //JN1-4053 :: Creditor Life
   }
 }

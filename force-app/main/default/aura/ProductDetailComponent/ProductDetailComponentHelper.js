@@ -495,6 +495,54 @@
     }
   },
   /**
+   * Calculates CreditorLife rate
+   * @param {Object} component
+   * @return {Decimal}
+   */
+  calculateCreditorLife: function (component) {
+    let container = component.get("v.ChildContainer");
+    let jnDefaults = component.get("v.jnDefaultConfigs");
+    if (container.interestedInCreditorLifeNonRevolving === YES) {
+      let creditorLife = nonRevolvingCreditorLifeCalculator(
+        jnDefaults,
+        container
+      );
+      let values = [
+        {
+          key: "creditorLifePremiumForNonRevolvingLoan",
+          value: creditorLife
+        }
+      ];
+      if (container.productFamily === CREDIT_CARD) {
+        values = values.concat([
+          {
+            key: "creditorLifeAnnualFee",
+            value: jnDefaults.creditorLifeAnnualFee
+          }
+        ]);
+      }
+      let data = updateChildContainerWithValue(component, values, false);
+      component.set("v.ChildContainer", data);
+    } else if (container.interestedInCreditorLifeNonRevolving === NO) {
+      let values = [
+        {
+          key: "creditorLifePremiumForNonRevolvingLoan",
+          value: 0
+        }
+      ];
+      if (container.productFamily === CREDIT_CARD) {
+        values = values.concat([
+          {
+            key: "creditorLifeAnnualFee",
+            value: 0
+          }
+        ]);
+      }
+      let data = updateChildContainerWithValue(component, values, false);
+      component.set("v.ChildContainer", data);
+    }
+  },
+  /**
    * Displays spinner component.
    * @param {*} component
    */

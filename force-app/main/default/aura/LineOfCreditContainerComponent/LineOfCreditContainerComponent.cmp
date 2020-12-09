@@ -80,6 +80,7 @@
   ></c:PersonalCreditCardRequestLineComponent>
   <c:CreditCardOtherDetailsLineComponent
     ParentContainer="{!v.ParentContainer}"
+    jnConfigs="{!v.jnDefaultConfigs}"
   ></c:CreditCardOtherDetailsLineComponent>
   <!-- JN1-3969 -->
   <c:LineOfCreditCreditCalculationsLineComponent

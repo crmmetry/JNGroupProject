@@ -26,7 +26,11 @@ public with sharing class JNConfigurations {
           Discount_Factor_Number__c,
           Credit_Card_Principal_Payment_Number__c,
           Line_Of_Credit_Principal_Payment_Number__c,
-          Credit_Limit_Value__c //JN-4049 :: Added a field to track max limit of credit limit
+          Credit_Limit_Value__c, //JN-4049 :: Added a field to track max limit of credit limit
+          CC_Creditor_Life_Protection_Rate_Number__c, //JN1-4053 :: Creditor Life
+          CC_Creditor_Life_CI_Protection_Rate__c, //JN1-4053 :: Creditor Life
+          Line_Of_Credit_Creditor_Life_Rate_Number__c, //JN1-4053 :: Creditor Life
+          Creditor_Life_Annual_Fee_Number__c //JN1-4053 :: Creditor Life
         FROM JN_Defaults__mdt
         WHERE Label = :Constants.DEFAULT_METADATA_LABEL
       ];
