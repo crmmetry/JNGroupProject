@@ -411,14 +411,20 @@ window.supplementaryCardHoldersFeeCalculation = function (
   jnDefaults,
   calculateSupplemetaryFee
 ) {
-  if (container.numberOfSupplementaryCardHolders > 0) {
-    return (
-      container.numberOfSupplementaryCardHolders *
-      jnDefaults.supplementaryCardFee *
-      calculateGCT(jnDefaults.gct)
-    );
+  if (
+    validNumber(jnDefaults.supplementaryCardFee) &&
+    validNumber(container.numberOfSupplementaryCardHolders)
+  ) {
+    if (container.numberOfSupplementaryCardHolders > 0) {
+      return (
+        container.numberOfSupplementaryCardHolders *
+        jnDefaults.supplementaryCardFee *
+        calculateGCT(jnDefaults.gct)
+      );
+    }
+    return calculateSupplemetaryFee;
   }
-  return calculateSupplemetaryFee;
+  return ZERO;
 };
 /**
  * calculates line of credit annual fees
