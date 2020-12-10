@@ -192,12 +192,8 @@
       "motorVehicleMonthlyRepayment",
       "otherAssetMonthlyPayment",
       "otherLoanMonthlyPayment",
-      "personalMonthlyExpensesPriorLoan",
       "realEstateMonthlyPayment",
-      "rentStrataMaintenance",
-      "salutaryDeductions",
-      "savingsPensionInsurance",
-      "minimumPayment"
+      "rentStrataMaintenance"
     ];
     let total = 0;
     const fieldsMap = {};
