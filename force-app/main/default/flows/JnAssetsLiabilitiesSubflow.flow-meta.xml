@@ -285,7 +285,7 @@
             <operator>Assign</operator>
             <value>
                 <elementReference
-        >ApplicantAssetsLiabiltyRecord.Treatment_of_Credit_LOC_list__c</elementReference>
+        >SelectedAssetLiability.Treatment_of_Credit__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -1937,7 +1937,7 @@
     <assignments>
         <name>Short_Lines</name>
         <label>Short Lines</label>
-        <locationX>3073</locationX>
+        <locationX>3075</locationX>
         <locationY>697</locationY>
         <assignmentItems>
             <assignToReference
@@ -1958,7 +1958,7 @@
         </assignmentItems>
         <assignmentItems>
             <assignToReference
-      >SelectedAssetLiability.Financial_Institution__c</assignToReference>
+      >SelectedAssetLiability.Lender__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>lender_lines_short</elementReference>
@@ -2033,36 +2033,10 @@
         </assignmentItems>
         <assignmentItems>
             <assignToReference
-      >ApplicantAssetsLiabiltyRecord.Asset_Credit_Limit_Number__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference
-        >Asset_Credit_Limit_Lines_short1_0</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference
-      >SelectedAssetLiability.Financial_Institution__c</assignToReference>
+      >SelectedAssetLiability.Lender__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>lender_lines_short_0</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference
-      >ApplicantAssetsLiabiltyRecord.Financial_Institution_Text__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>lender_lines_short_0</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference
-      >SelectedAssetLiability.Asset_Credit_Balance__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference
-        >Asset_Credit_Balance_short_line_0</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -2077,14 +2051,6 @@
         <assignmentItems>
             <assignToReference
       >SelectedAssetLiability.Average_Monthly_Usage__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Average_Monthly_Usage_loc_0</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference
-      >ApplicantAssetsLiabiltyRecord.Average_Monthly_Usage_Number__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Average_Monthly_Usage_loc_0</elementReference>
@@ -2955,7 +2921,7 @@
     <decisions>
         <name>Long_Short_Savings_0</name>
         <label>Long or Short</label>
-        <locationX>2051</locationX>
+        <locationX>2053</locationX>
         <locationY>766</locationY>
         <defaultConnector>
             <targetReference>Emptiness</targetReference>
@@ -2963,6 +2929,44 @@
         <defaultConnectorLabel>Full Details</defaultConnectorLabel>
         <rules>
             <name>Short_Summary_0</name>
+            <conditionLogic>(1 OR 2) AND (3 OR 4)</conditionLogic>
+            <conditions>
+                <leftValueReference
+        >shortfullbtnlist.selectedValue</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Short Summary</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>IsFullDetail</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>SelectedRecordTypeId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference
+          >LinesofCreditRecordTypeId</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>SelectedRecordTypeId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>CreditCardRecordTypeId</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Emptiness</targetReference>
+            </connector>
+            <label>Short Summary LOC/CC</label>
+        </rules>
+        <rules>
+            <name>Short_Summary</name>
             <conditionLogic>or</conditionLogic>
             <conditions>
                 <leftValueReference
@@ -3401,14 +3405,6 @@
                     <elementReference>CreateChoice</elementReference>
                 </rightValue>
             </conditions>
-            <conditions>
-                <leftValueReference
-        >SelectedAssetLiability.Id</leftValueReference>
-                <operator>WasSet</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
             <connector>
                 <targetReference>Set_Asset_Primary_Owner</targetReference>
             </connector>
@@ -3462,9 +3458,9 @@
             <conditions>
                 <leftValueReference
         >SelectedAssetLiability.Id</leftValueReference>
-                <operator>WasSet</operator>
+                <operator>IsNull</operator>
                 <rightValue>
-                    <booleanValue>false</booleanValue>
+                    <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -4213,7 +4209,7 @@
     <screens>
         <name>Add_More_Assets_Liabilities</name>
         <label>Add More Assets/Liabilities</label>
-        <locationX>1655</locationX>
+        <locationX>1658</locationX>
         <locationY>1484</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -4412,7 +4408,7 @@
     <screens>
         <name>Lines_of_Credit_Screen</name>
         <label>Short Lines of Credit Screen</label>
-        <locationX>2902</locationX>
+        <locationX>2906</locationX>
         <locationY>635</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -4667,7 +4663,7 @@
             <dataType>Currency</dataType>
             <defaultValue>
                 <elementReference
-        >ApplicantAssetsLiabiltyRecord.Asset_Credit_Balance__c</elementReference>
+        >SelectedAssetLiability.Asset_Credit_Balance__c</elementReference>
             </defaultValue>
             <fieldText>Line of Credit Balance</fieldText>
             <fieldType>InputField</fieldType>
@@ -4699,13 +4695,13 @@
             <inputParameters>
                 <name>crmmObjectname</name>
                 <value>
-                    <stringValue>Application_Asset_Liability__c</stringValue>
+                    <stringValue>FinServ__AssetsAndLiabilities__c</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
                 <name>crmmObjectField</name>
                 <value>
-                    <stringValue>Treatment_of_Credit_LOC_list__c</stringValue>
+                    <stringValue>Treatment_of_Credit__c</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>

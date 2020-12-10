@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
- <types>
+    <types>
         <members>Applicant__c.Account__c</members>
         <members>Applicant__c.Affiliation_Type__c</members>
         <members>Applicant__c.Applicable_sources_of_income__c</members>
@@ -212,8 +212,6 @@
         <members
     >Application_Asset_Liability__c.Overdraft_Limit_Number__c</members>
         <members
-    >Application_Asset_Liability__c.Percentage_Applicant_s_Portion_Number__c</members>
-        <members
     >Application_Asset_Liability__c.Total_Contributions_to_Date_After__c</members>
         <members
     >Application_Asset_Liability__c.Total_Market_Value_After__c</members>
@@ -309,6 +307,16 @@
         <members
     >Application_Asset_Liability__c-Application Asset%2FLiability Layout</members>
         <members
+    >FinServ__AssetsAndLiabilities__c-Credit Card%2FLine of Credit</members>
+        <members>FinServ__AssetsAndLiabilities__c-Life Insurance</members>
+        <members>FinServ__AssetsAndLiabilities__c-Motor Vehicle</members>
+        <members>FinServ__AssetsAndLiabilities__c-Other Assets</members>
+        <members>FinServ__AssetsAndLiabilities__c-Other Loans</members>
+        <members>FinServ__AssetsAndLiabilities__c-Pension</members>
+        <members>FinServ__AssetsAndLiabilities__c-Real Estate</members>
+        <members
+    >FinServ__AssetsAndLiabilities__c-Savings%2FChequing Account</members>
+        <members
     >Supplementary_Card_Holders__c-Supplementary Card Holder Layout</members>
         <name>Layout</name>
     </types>
@@ -325,21 +333,22 @@
         <members>Applicant__c.Full_Details_Of_Income_Living_Expenses</members>
         <members>Applicant__c.Short_Summary_of_Income</members>
         <members>FinServ__AssetsAndLiabilities__c.Credit_Cards</members>
-		<members>FinServ__AssetsAndLiabilities__c.FinServ__Liability</members>
-		<members>FinServ__AssetsAndLiabilities__c.FinServ__NonfinancialAsset</members>
-		<members>FinServ__AssetsAndLiabilities__c.Life_Insurance_Policies</members>
-		<members>FinServ__AssetsAndLiabilities__c.Lines_of_Credit</members>
-		<members>FinServ__AssetsAndLiabilities__c.Motor_Vehicle</members>
-		<members>FinServ__AssetsAndLiabilities__c.Other_Assets</members>
-		<members>FinServ__AssetsAndLiabilities__c.Other_Loans</members>
-		<members>FinServ__AssetsAndLiabilities__c.Other_Loans_Guaranteed</members>
-		<members>FinServ__AssetsAndLiabilities__c.Overdraft_Limit</members>
-		<members
+        <members
+    >FinServ__AssetsAndLiabilities__c.Life_Insurance_Policies</members>
+        <members>FinServ__AssetsAndLiabilities__c.Lines_of_Credit</members>
+        <members>FinServ__AssetsAndLiabilities__c.Motor_Vehicle</members>
+        <members>FinServ__AssetsAndLiabilities__c.Other_Assets</members>
+        <members>FinServ__AssetsAndLiabilities__c.Other_Loans</members>
+        <members
+    >FinServ__AssetsAndLiabilities__c.Other_Loans_Guaranteed</members>
+        <members>FinServ__AssetsAndLiabilities__c.Overdraft_Limit</members>
+        <members
     >FinServ__AssetsAndLiabilities__c.Pension_Contributions_or_Individual</members>
-		<members>FinServ__AssetsAndLiabilities__c.Real_Estate</members>
-		<members
+        <members>FinServ__AssetsAndLiabilities__c.Real_Estate</members>
+        <members
     >FinServ__AssetsAndLiabilities__c.Savings_Current_Accounts_Investments</members>
         <name>RecordType</name>
     </types>
-   	<version>50.0</version>
+
+    <version>50.0</version>
 </Package>
