@@ -787,7 +787,7 @@ window.minimumPaymentCalculatorWithASL = function (container, jnDefault, mmp) {
     validNumber(principalPayment)
   ) {
     return roundedValue(
-      mmp / (parseFloat(container.interestRate / 12) + principalPayment)
+      ((container.interestRate / 12 + principalPayment) * mmp) / 100
     );
   }
   return 0;
