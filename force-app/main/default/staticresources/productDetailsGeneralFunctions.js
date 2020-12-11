@@ -286,7 +286,8 @@ window.ASLCalculator = function (container, jnDefault, riskFactor) {
   let maxCredilLimit = maximumCreditLimitCalculator(
     jnDefault.creditLimitMax,
     jnDefault.creditLimitMin,
-    annualGrossIncome
+    annualGrossIncome,
+    jnDefault.creditLimitThreshold
   );
   //Step 2:
   let maxDebtPayment = maximumAllowableForMonthlyDebtPaymentsCalculator(

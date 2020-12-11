@@ -583,7 +583,6 @@ function fieldValidator(fields, container) {
     }
   });
 }
-//TODO: Check that parameters are valid
 //ASL Step Calculations
 /**
  * ASL Calculation Step 1: Calculate Annual Gross Income
@@ -599,22 +598,25 @@ window.annualGrossIncomeCalculator = function (monthlyGrossIncome) {
 
 /**
  * ASL Calculation Step 1.5: Calculate MaximumCreditCardLimit
- * @param {Decimal} creditLimitAllowable
+ * @param {Decimal} maxCreditLimitAllowable
+ * @param {Decimal} minCreditLimitAllowable
  * @param {Decimal} annualGrossIncome
+ * @param {Decimal} creditLimit
  * @return {Decimal}
  */
 window.maximumCreditLimitCalculator = function (
   maxCreditLimitAllowable,
   minCreditLimitAllowable,
-  annualGrossIncome
+  annualGrossIncome,
+  creditLimit
 ) {
   if (
     validNumber(maxCreditLimitAllowable) &&
     validNumber(minCreditLimitAllowable) &&
-    validNumber(annualGrossIncome)
+    validNumber(annualGrossIncome) &&
+    validNumber(creditLimit)
   ) {
-    if (annualGrossIncome > 3000000) {
-      //TODO: Make into constant
+    if (annualGrossIncome > creditLimit) {
       return roundedValue(
         parseFloat(maxCreditLimitAllowable) * parseFloat(annualGrossIncome)
       );
@@ -666,16 +668,14 @@ window.maximumAllowableForMinimumPaymentCalculator = function (
  * @return {Decimal}
  */
 window.computedMinimumPaymentFromCreditLimitCalculator = function (
-  //TODO: Modify to check product name on component to choose pricipal payment component metadata
   container,
   jnDefault,
   mmp
 ) {
   let principalPayment = 0;
-  //TODO: travis refactor to constants and use appropriate family
-  if (container.productFamily === "JN Bank Credit Card") {
+  if (container.productFamily === CREDIT_CARD) {
     principalPayment = jnDefault.creditCardPrincipalPayment;
-  } else {
+  } else if (container.productFamily === LINE_OF_CREDIT) {
     principalPayment = jnDefault.lineOfCreditPrincipalPayment;
   }
   if (
@@ -775,10 +775,9 @@ window.approvedStartingLimitCalculator = function (
  */
 window.minimumPaymentCalculatorWithASL = function (container, jnDefault, mmp) {
   let principalPayment = 0;
-  //TODO: fix this, what about other product families
-  if (container.productFamily === "JN Bank Credit Card") {
+  if (container.productFamily === CREDIT_CARD) {
     principalPayment = jnDefault.creditCardPrincipalPayment;
-  } else {
+  } else if (container.productFamily === LINE_OF_CREDIT) {
     principalPayment = jnDefault.lineOfCreditPrincipalPayment;
   }
   if (
