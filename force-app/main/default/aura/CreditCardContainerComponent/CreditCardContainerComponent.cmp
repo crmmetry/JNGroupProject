@@ -1,6 +1,27 @@
 <aura:component>
-  <c:PersonalCreditCardRequestLineComponent></c:PersonalCreditCardRequestLineComponent>
-  <c:CreditCardOtherDetailsLineComponent></c:CreditCardOtherDetailsLineComponent>
-  <c:CreditCreditCardCreditCalculations></c:CreditCreditCardCreditCalculations>
-  <c:TotalDebtServiceRatioLineItemComponent></c:TotalDebtServiceRatioLineItemComponent>
+  <aura:attribute name="productPrice" type="Decimal" />
+  <aura:attribute
+    name="ParentContainer"
+    type="Map"
+    default="{}"
+    description="Credit Card parent container"
+  />
+  <aura:attribute name="jnDefaultConfigs" type="Map" />
+  <c:PersonalCreditCardRequestLineComponent
+    productPrice="{!v.productPrice}"
+    ParentContainer="{!v.ParentContainer}"
+  ></c:PersonalCreditCardRequestLineComponent>
+  <c:CreditCardOtherDetailsLineComponent
+    ParentContainer="{!v.ParentContainer}"
+    jnConfigs="{!v.jnDefaultConfigs}"
+  ></c:CreditCardOtherDetailsLineComponent>
+  <!-- JN1-3969 -->
+  <c:CreditCreditCardCreditCalculations
+    ParentContainer="{!v.ParentContainer}"
+    jnDefaultConfigs="{!v.jnDefaultConfigs}"
+  ></c:CreditCreditCardCreditCalculations>
+  <c:TotalDebtServiceRatioLineItemComponent
+    ParentContainer="{!v.ParentContainer}"
+    jnDefaultConfigs="{!v.jnDefaultConfigs}"
+  ></c:TotalDebtServiceRatioLineItemComponent>
 </aura:component>

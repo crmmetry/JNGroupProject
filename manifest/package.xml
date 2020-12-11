@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 	<types>
-		<members>*</members>
-		<name>PathAssistant</name>
+		<members>FinServ__AssetsAndLiabilities__c.Credit_Cards</members>
+		<members>FinServ__AssetsAndLiabilities__c.FinServ__Liability</members>
+		<members>FinServ__AssetsAndLiabilities__c.FinServ__NonfinancialAsset</members>
+		<members>FinServ__AssetsAndLiabilities__c.Life_Insurance_Policies</members>
+		<members>FinServ__AssetsAndLiabilities__c.Lines_of_Credit</members>
+		<members>FinServ__AssetsAndLiabilities__c.Motor_Vehicle</members>
+		<members>FinServ__AssetsAndLiabilities__c.Other_Assets</members>
+		<members>FinServ__AssetsAndLiabilities__c.Other_Loans</members>
+		<members>FinServ__AssetsAndLiabilities__c.Other_Loans_Guaranteed</members>
+		<members>FinServ__AssetsAndLiabilities__c.Overdraft_Limit</members>
+		<members
+    >FinServ__AssetsAndLiabilities__c.Pension_Contributions_or_Individual</members>
+		<members>FinServ__AssetsAndLiabilities__c.Real_Estate</members>
+		<members
+    >FinServ__AssetsAndLiabilities__c.Savings_Current_Accounts_Investments</members>
+		<name>RecordType</name>
 	</types>
-	<types>
-		<members>OpportunityLineItem.Mortgage_must_correspondsing_products</members>
-		<name>ValidationRule</name>
-	</types>
-	<version>48.0</version>
+	<version>49.0</version>
 </Package>

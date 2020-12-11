@@ -74,7 +74,7 @@
     <picklistValues>
         <picklist>Assessment_of_Applicant_Net_Worth__c</picklist>
         <values>
-            <fullName>Low Net Worth</fullName>
+            <fullName>Low net worth</fullName>
             <default>false</default>
         </values>
         <values>

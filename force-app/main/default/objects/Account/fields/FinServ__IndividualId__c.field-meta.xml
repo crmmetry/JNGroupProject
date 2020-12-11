@@ -4,7 +4,7 @@
     <caseSensitive>true</caseSensitive>
     <deprecated>false</deprecated>
     <description
-  >Unique ID that relates this individual&#39;s account record to its contact record.</description>
+  >Unique ID that relates this individual&apos;s account record to its contact record.</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
     <label>Individual ID</label>

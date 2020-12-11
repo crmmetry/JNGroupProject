@@ -7,5 +7,5 @@
     <errorConditionFormula
   >FinServ__StartDate__c &gt; FinServ__EndDate__c</errorConditionFormula>
     <errorMessage
-  >The start date can&#39;t be later than the end date.</errorMessage>
+  >The start date can&apos;t be later than the end date.</errorMessage>
 </ValidationRule>

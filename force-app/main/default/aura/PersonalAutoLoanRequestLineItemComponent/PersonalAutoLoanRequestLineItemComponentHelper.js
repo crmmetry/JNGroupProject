@@ -27,10 +27,51 @@
             JSON.parse(JSON.stringify(component.get("v.applicants")))
           );
         } else {
-          console.log("rror", response.getError())
+          console.log("rror", response.getError());
         }
       });
       $A.enqueueAction(action);
     }
+  },
+  /**
+   * compares purchase price and market value and sets the minimun as the result.
+   */
+  setMinimumValue: function (data) {
+    if (validNumbersWithObject(["purchasePrice", "marketValue"], data)) {
+      let minimumOfPurchaseMarketValue = Math.min(
+        parseFloat(data.purchasePrice),
+        parseFloat(data.marketValue)
+      );
+      data.minimumOfPurchaseMarketValue = minimumOfPurchaseMarketValue;
+    }
+    return data;
+  },
+  /**
+   * Calculates loan to value ration
+   */
+  calculateLTVAuto: function (data) {
+    if (
+      validNumbersWithObject(
+        ["loanAmount", "minimumOfPurchaseMarketValue"],
+        data
+      )
+    ) {
+      data.LTVValue = LTVCalculatorAutoLoan(
+        data.loanAmount,
+        data.minimumOfPurchaseMarketValue
+      );
+    }
+    return data;
+  },
+  /**
+   * Updates child container attributes and its values.
+   */
+  updateChildContainerWithValue: function (component, values) {
+    let childContainer = component.get("v.ChildContainer");
+    values.forEach((element) => {
+      component.set(`v.${element.key}`, element.value);
+      childContainer[element.key] = element.value;
+    });
+    component.set("v.ChildContainer", childContainer);
   }
 });

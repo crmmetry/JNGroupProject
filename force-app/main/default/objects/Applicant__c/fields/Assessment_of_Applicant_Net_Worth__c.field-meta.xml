@@ -22,9 +22,9 @@
                 <label>Reasonable net worth</label>
             </value>
             <value>
-                <fullName>Low Net Worth</fullName>
+                <fullName>Low net worth</fullName>
                 <default>false</default>
-                <label>Low Net Worth</label>
+                <label>Low net worth</label>
             </value>
             <value>
                 <fullName

@@ -2,6 +2,8 @@
   <aura:attribute name="policyLimit" type="Decimal" default="0" />
   <aura:attribute name="priorProposedCredit" type="Decimal" default="0" />
   <aura:attribute name="afterProposedCredit" type="Decimal" default="0" />
+  <aura:attribute name="ParentContainer" type="Map" default="{}" />
+  <aura:attribute name="jnDefaultConfigs" type="Map" default="{}" />
 
   <fieldset class="slds-box slds-theme_default slds-p-top_medium">
     <legend class="slds-text-heading_medium slds-p-top_small">
@@ -16,7 +18,7 @@
         <lightning:input
           type="number"
           label="Policy Limit"
-          value="{!v.policyLimit}"
+          value="{!v.jnDefaultConfigs.policyLimit}"
           name="Market"
           formatter="percent"
           required="true"
@@ -31,9 +33,10 @@
         <lightning:input
           type="number"
           label="Prior to Proposed Credit(s)"
-          value="{!v.priorProposedCredit}"
+          value="{!v.ParentContainer.TDSRBefore}"
           name="Market"
-          formatter="percent"
+          step="0.01"
+          formatter="percent-fixed"
           required="true"
           readonly="true"
         />
@@ -46,9 +49,10 @@
         <lightning:input
           type="number"
           label="After Proposed Credit(s)"
-          value="{!v.afterProposedCredit}"
+          value="{!v.ParentContainer.TDSRAfter}"
           name="Market"
-          formatter="percent"
+          step="0.01"
+          formatter="percent-fixed"
           required="true"
           readonly="true"
         />

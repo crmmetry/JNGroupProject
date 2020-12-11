@@ -4,19 +4,27 @@
       loanAmount: component.get("v.productPrice"),
       years: null,
       months: null,
-      market: null
+      market: null,
+      purchasePrice: 0,
+      marketValue: 0,
+      loanToValueRatio: 0,
+      minimumOfPurchaseMarketValue: 0
     };
     component.set("v.ChildContainer", personalAutoLoan);
   },
-
+  scriptsLoaded: function (component, event, helper) {
+    component.set("v.scriptsLoaded", true);
+  },
   onChildContainerChange: function (component, event, helper) {
-    const data = Object.assign(
-      component.get("v.ParentContainer"),
-      component.get("v.ChildContainer")
-    );
-    data['containerName'] = component.get("v.containerName");
-    component.set("v.ParentContainer", data);
-    helper.getApplicants(component);//TODO: REFACTOR CANNOT BE CALLED LIKE THIS
+    if (component.get("v.scriptsLoaded")) {
+      let container = component.get("v.ChildContainer");
+      //sets the minimum of purchase price vs market value
+      container = helper.setMinimumValue(container);
+      //calculate ltv value
+      container = helper.calculateLTVAuto(container);
+      helper.getApplicants(component); //TODO: REFACTOR CANNOT BE CALLED LIKE THIS
+      fireProductDetailsEvent(null, container);
+    }
   },
   onApplicantsChange: function (component, event, helper) {
     let applicant = component.get("v.applicants");

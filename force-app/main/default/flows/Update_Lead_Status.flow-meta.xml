@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <interviewLabel
-  >Update Contact Made {!$Flow.CurrentDateTime}</interviewLabel>
+    <interviewLabel>Update Contact Made {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Update Lead Status</label>
     <processMetadataValues>
         <name>BuilderType</name>

@@ -6,5 +6,5 @@
   >Error message when the employment end date is in the future.</description>
     <errorConditionFormula
   >FinServ__EndDate__c &gt; TODAY()</errorConditionFormula>
-    <errorMessage>The end date can&#39;t be in the future.</errorMessage>
+    <errorMessage>The end date can&apos;t be in the future.</errorMessage>
 </ValidationRule>

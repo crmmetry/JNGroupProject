@@ -7,6 +7,16 @@
   <aura:attribute name="supplementaryApplicantAnnualMembership" type="String" />
   <aura:attribute name="annualCreditorLifeFee" type="String" />
 
+  <aura:attribute name="jnDefaultConfigs" type="Map" default="{}" />
+  <!-- JN1-3969 -->
+  <!-- JN1-3969 -->
+  <aura:attribute
+    name="ParentContainer"
+    type="Map"
+    default="{}"
+    description="Credit Card parent container"
+  />
+
   <fieldset class="slds-box slds-theme_default">
     <legend
       id="productdetailsform"
@@ -24,7 +34,7 @@
         >
           <lightning:input
             label="Starting Limit"
-            value="{!v.startingLimit}"
+            value="{!v.ParentContainer.approvedStartingLimit}"
             type="number"
             name="input1"
             formatter="currency"
@@ -39,11 +49,12 @@
         >
           <lightning:input
             label="Type of Card"
-            value="{!v.cardType}"
+            value="{!v.ParentContainer.cardType}"
             type="text"
-            name="input1"
+            name="cardType"
             readonly="true"
             required="true"
+            disabled="true"
           />
         </lightning:layoutItem>
         <lightning:layoutItem
@@ -53,7 +64,7 @@
         >
           <lightning:input
             label="Minimum Payment as per Credit Limit"
-            value="{!v.minimumPayment}"
+            value="{!v.ParentContainer.minimumPayment}"
             type="number"
             name="input1"
             formatter="currency"
@@ -69,7 +80,7 @@
           <lightning:input
             type="number"
             label="Monthly Creditor Life Premium as per Credit Limit"
-            value="{!v.monthlyCreditorLifePremium}"
+            value="{!v.ParentContainer.creditorLifePremiumForNonRevolvingLoan}"
             name="number"
             formatter="currency"
             required="true"
@@ -84,9 +95,10 @@
           mediumDeviceSize="4"
           padding="around-small"
         >
+          <!-- JN1-3969 -->
           <lightning:input
             label="Annual Membership (Primary Applicant)"
-            value="{!v.primaryApplicantAnnualMembership}"
+            value="{!v.ParentContainer.primaryApplicantAnnualMembership}"
             type="number"
             name="input1"
             formatter="currency"
@@ -99,9 +111,10 @@
           mediumDeviceSize="4"
           padding="around-small"
         >
+          <!-- JN1-3969 -->
           <lightning:input
             label="Annual Membership (Supplementary Cardholder(s))"
-            value="{!v.supplementaryApplicantAnnualMembership}"
+            value="{!v.ParentContainer.supplementaryApplicantAnnualMembership}"
             type="number"
             name="input1"
             formatter="currency"
@@ -116,7 +129,7 @@
         >
           <lightning:input
             label="Annual Creditor Life Fee"
-            value="{!v.annualCreditorLifeFee}"
+            value="{!v.ParentContainer.creditorLifeAnnualFee}"
             type="number"
             name="input1"
             formatter="currency"

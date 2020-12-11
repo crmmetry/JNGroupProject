@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <assignments>
         <name>myUniquelyDummyAssignment</name>
@@ -13,8 +13,7 @@
             </value>
         </assignmentItems>
     </assignments>
-    <interviewLabel
-  >Send_Email_to_Sales_User_On_Reassignment-1_InterviewLabel</interviewLabel>
+    <interviewLabel>Send_Email_to_Sales_User_On_Reassignment-1_InterviewLabel</interviewLabel>
     <label>Send Email to Sales User On Reassignment</label>
     <processType>Workflow</processType>
     <startElementReference>myUniquelyDummyAssignment</startElementReference>

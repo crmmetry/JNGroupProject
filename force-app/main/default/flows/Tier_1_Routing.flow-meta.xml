@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <decisions>
         <name>isChangedDecision4_myRule_3_Id</name>
@@ -20,17 +20,14 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference
-        >myVariable_old.Owner:User.Id</leftValueReference>
+                <leftValueReference>myVariable_old.Owner:User.Id</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference
-          >myVariable_current.Owner:User.Id</elementReference>
+                    <elementReference>myVariable_current.Owner:User.Id</elementReference>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference
-        >isChangedDecision7_myRule_6_Id</targetReference>
+                <targetReference>isChangedDecision7_myRule_6_Id</targetReference>
             </connector>
             <label>isChangedRule_4_myRule_3_Id</label>
         </rules>
@@ -55,12 +52,10 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference
-        >myVariable_old.Owner:User.Id</leftValueReference>
+                <leftValueReference>myVariable_old.Owner:User.Id</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <elementReference
-          >myVariable_current.Owner:User.Id</elementReference>
+                    <elementReference>myVariable_current.Owner:User.Id</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -112,8 +107,7 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference
-        >myVariable_current.Status</leftValueReference>
+                <leftValueReference>myVariable_current.Status</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>New</stringValue>
@@ -168,8 +162,7 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference
-        >myVariable_current.Contact_Made__c</leftValueReference>
+                <leftValueReference>myVariable_current.Contact_Made__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>No Contact Made</stringValue>
@@ -200,8 +193,7 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference
-        >myVariable_current.Status</leftValueReference>
+                <leftValueReference>myVariable_current.Status</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>New</stringValue>
@@ -232,8 +224,7 @@
                         <stringValue>Number</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference
-        >myVariable_current.Time_in_Open__c</leftValueReference>
+                <leftValueReference>myVariable_current.Time_in_Open__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <numberValue>24.0</numberValue>
@@ -264,8 +255,7 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference
-        >isChangedRule_4_myRule_3_Id</leftValueReference>
+                <leftValueReference>isChangedRule_4_myRule_3_Id</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -317,8 +307,7 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference
-        >myVariable_current.Contact_Made__c</leftValueReference>
+                <leftValueReference>myVariable_current.Contact_Made__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>No Contact Made</stringValue>
@@ -349,8 +338,7 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference
-        >myVariable_current.Status</leftValueReference>
+                <leftValueReference>myVariable_current.Status</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>New</stringValue>
@@ -381,8 +369,7 @@
                         <stringValue>Number</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference
-        >myVariable_current.Time_in_Open__c</leftValueReference>
+                <leftValueReference>myVariable_current.Time_in_Open__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <numberValue>24.0</numberValue>
@@ -413,8 +400,7 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference
-        >isChangedRule_7_myRule_6_Id</leftValueReference>
+                <leftValueReference>isChangedRule_7_myRule_6_Id</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -711,8 +697,7 @@
         </inputAssignments>
         <object>Lead</object>
     </recordUpdates>
-    <startElementReference
-  >isChangedDecision4_myRule_3_Id</startElementReference>
+    <startElementReference>isChangedDecision4_myRule_3_Id</startElementReference>
     <status>Draft</status>
     <variables>
         <name>myVariable_current</name>

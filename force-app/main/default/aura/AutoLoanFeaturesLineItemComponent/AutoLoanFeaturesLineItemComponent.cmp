@@ -1,4 +1,20 @@
 <aura:component>
+  <!-- Static Resource -->
+  <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
+  <aura:attribute
+    name="notifyContainerChange"
+    type="Boolean"
+    default="true"
+    description="used to indicate whether the component should react to the ChildContainer changes"
+  />
+  <ltng:require
+    scripts="{!join(',', 
+    $Resource.constants,
+    $Resource.calculations, 
+    $Resource.productDetailsGeneralFunctions)}"
+    afterScriptsLoaded="{!c.scriptsLoaded}"
+  />
+  <aura:registerEvent name="productDetailsEvent" type="c:ProductDetailsEvent" />
   <aura:attribute
     name="interestedInPremiumFlag"
     type="Boolean"
@@ -528,6 +544,7 @@
               value="{!v.ChildContainer.amount}"
               formatter="currency"
               required="true"
+              min="1000"
             />
           </lightning:layoutItem>
         </aura:if>
@@ -545,7 +562,7 @@
             <div class="slds-form-element__control">
               <lightning:input
                 label="Credit Risk Score prior to application"
-                value="{!v.creditRiskScore}"
+                value="{!v.ParentContainer.creditRiskScore}"
                 type="number"
                 name="input1"
                 required="true"
@@ -563,7 +580,7 @@
             <div class="slds-form-element__control">
               <lightning:input
                 label="Credit Risk Rating prior to application"
-                value="{!v.creditRiskRating}"
+                value="{!v.ParentContainer.creditRiskRating}"
                 type="text"
                 name="input1"
                 formatter="percent-fixed"

@@ -3,7 +3,7 @@
     <fullName>FinServ__TotalNumberOfFinAccountsJointOwner__c</fullName>
     <deprecated>false</deprecated>
     <description
-  >Total numbers of client&#39;s financial accounts as a joint owner.</description>
+  >Total numbers of client&apos;s financial accounts as a joint owner.</description>
     <externalId>false</externalId>
     <label>Number of Fin. Accounts - Joint Owner</label>
     <precision>16</precision>

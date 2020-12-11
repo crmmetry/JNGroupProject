@@ -15,7 +15,23 @@ public with sharing class JNConfigurations {
           Legal_Fee__c,
           Stamp_Duty_Uns__c,
           Stamp_Duty_Auto__c,
-          NSIPP_Registration_Fee__c
+          NSIPP_Registration_Fee__c,
+          Policy_Limit__c,
+          Gold_Card_Fee__c, //JN1-3969
+          Classic_Card_Fee__c, //JN1-3969
+          Supplementary_Card_Fee__c, //JN1-3969
+          LOC_Credit_Limit_Percent__c,
+          Credit_Limit_Allowable_Max_Number__c, //JN1-3969
+          Credit_Limit_Allowable_Min_Number__c,
+          Discount_Factor_Number__c,
+          Credit_Card_Principal_Payment_Number__c,
+          Line_Of_Credit_Principal_Payment_Number__c,
+          Credit_Limit_Value__c, //JN-4049 :: Added a field to track max limit of credit limit
+          CC_Creditor_Life_Protection_Rate_Number__c, //JN1-4053 :: Creditor Life
+          CC_Creditor_Life_CI_Protection_Rate__c, //JN1-4053 :: Creditor Life
+          Line_Of_Credit_Creditor_Life_Rate_Number__c, //JN1-4053 :: Creditor Life
+          Creditor_Life_Annual_Fee_Number__c, //JN1-4053 :: Creditor Life
+          Credit_Limit_Allowable_Threshold_Number__c //JN1-4160 :: ASL Calculations Technical Debt
         FROM JN_Defaults__mdt
         WHERE Label = :Constants.DEFAULT_METADATA_LABEL
       ];
@@ -65,5 +81,54 @@ public with sharing class JNConfigurations {
       wrappers.add(wrapper);
     }
     return wrappers;
+  }
+
+  /**
+   * retrieves Credit Rating for a list of applicants
+   * @return {List<Credit_Rating__mdt> }
+   */
+  @AuraEnabled
+  public static List<CreditRatingWrapper> getCreditRatings() {
+    List<CreditRatingWrapper> creditRatingWrapperList = new List<CreditRatingWrapper>();
+    List<Credit_Rating__mdt> creditRating = [
+      SELECT
+        Label,
+        Classification__c,
+        Credit_Score_Max__c,
+        Credit_Score_Min__c,
+        Rating__c
+      FROM Credit_Rating__mdt
+    ];
+    for (Credit_Rating__mdt creditRatingObj : creditRating) {
+      creditRatingWrapperList.add(new CreditRatingWrapper(creditRatingObj));
+    }
+    return creditRatingWrapperList;
+  }
+
+  /*
+   * Retrieves Personal Credit Score Model related data
+   * @return {List<Personal_Credit_Score_Model__mdt> }
+   */
+  @AuraEnabled
+  public static List<PersonalCreditScoreModelWrapper> getPersonalCreditScore() {
+    List<PersonalCreditScoreModelWrapper> personalCreditScoreModel = new List<PersonalCreditScoreModelWrapper>();
+    List<Personal_Credit_Score_Model__mdt> creditScoreModel = [
+      SELECT
+        Label,
+        Salaried_Score_Number__c,
+        Self_Employed_Score_Number__c,
+        Sub_Criteria_Option__c,
+        Sub_Criteria_Options__c,
+        Sub_Criteria_Weight_Numbr__c,
+        Type__c
+      FROM Personal_Credit_Score_Model__mdt
+    ];
+    for (Personal_Credit_Score_Model__mdt personalCredit : creditScoreModel) {
+      PersonalCreditScoreModelWrapper personalCreditScore = new PersonalCreditScoreModelWrapper(
+        personalCredit
+      );
+      personalCreditScoreModel.add(personalCreditScore);
+    }
+    return personalCreditScoreModel;
   }
 }

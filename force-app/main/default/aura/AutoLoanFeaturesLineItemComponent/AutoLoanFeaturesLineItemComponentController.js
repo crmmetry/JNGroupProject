@@ -19,35 +19,30 @@
     };
     component.set("v.ChildContainer", data);
   },
-
-  onChildContainerChange: function (component, event, helper) {
-    console.log("CHild COntainer changed");
-    const data = Object.assign(
-      component.get("v.ParentContainer"),
-      component.get("v.ChildContainer")
-    );
-    data['containerName'] = component.get("v.containerName");
-    component.set("v.ParentContainer", data);
-    helper.onProposedSavingsChange(component);
-    helper.toggleShowIndicateApplicableProcessingFees(
-      component,
-      component.get("v.ChildContainer")
-    );
-    helper.toggleShowIncludeInLoanAmount(
-      component,
-      component.get("v.ChildContainer")
-    );
-    helper.resetProcessingFieldsValues(data, component);
+  scriptsLoaded: function (component, event, helper) {
+    component.set("v.scriptsLoaded", true);
   },
-
+  onChildContainerChange: function (component, event, helper) {
+    if (
+      component.get("v.scriptsLoaded") &&
+      component.get("v.notifyContainerChange")
+    ) {
+      const data = Object.assign(
+        component.get("v.ParentContainer"),
+        component.get("v.ChildContainer")
+      );
+      helper.onProposedSavingsChange(component);
+      helper.toggleShowIndicateApplicableProcessingFees(component, data);
+      helper.toggleShowIncludeInLoanAmount(component, data);
+      helper.resetProcessingFieldsValues(data, component);
+      fireProductDetailsEvent(null, data, component);
+    }
+  },
   onInterestedInJNGIChange: function (component, event, helper) {
-    console.log("Interest");
     const selected = event.getSource().get("v.value");
     if (selected === "Yes") {
-      console.log("Yes");
       component.set("v.interestedInPremiumFlag", false);
     } else if (selected === "No") {
-      console.log("No");
       component.find("includePremium").set("v.value", null);
       let jngiPremium = component.get("v.ChildContainer");
       jngiPremium.jngiMonthlyPremium = 0;
@@ -57,7 +52,6 @@
     }
     let jngiPremium = component.get("v.ChildContainer");
     jngiPremium.interested = selected;
-    console.log(selected);
     component.set("v.ChildContainer", jngiPremium);
   },
   onProcessingFeePercentagePerAnumChange: function (component, event, helper) {
@@ -71,7 +65,6 @@
     let jngiPremium = component.get("v.ChildContainer");
     jngiPremium.jngiIncludeInLoan = selected;
     component.set("v.ChildContainer", jngiPremium);
-    console.log(selected);
   },
 
   onInterestedInCreditorLifeChange: function (component, event, helper) {
@@ -85,18 +78,15 @@
     let data = component.get("v.ChildContainer");
     data.interestedInCreditorLife = selected;
     component.set("v.ChildContainer", data);
-    console.log(selected);
   },
 
   onReasonChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    console.log("Reason changed");
     helper.toggleReasonAction(component, selected);
   },
 
   onPolicyProviderChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    console.log("Policy Provider changed");
     helper.togglePolicyProviderAction(component, selected);
   },
 
@@ -129,7 +119,6 @@
 
   onCoverageTypeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    console.log(selected);
   },
 
   onIncludeCoverageChange: function (component, event, helper) {
@@ -137,7 +126,6 @@
     let data = component.get("v.ChildContainer");
     data.includeCreditorLifeInLoanAmount = selected;
     component.set("v.ChildContainer", data);
-    console.log(selected);
   },
 
   onWaiveProcessingFeeChange: function (component, event, helper) {
@@ -166,7 +154,6 @@
     let creditRepaymentMap = component.get("v.ChildContainer");
     creditRepaymentMap.repaymentDate = selected;
     component.set("v.ChildContainer", creditRepaymentMap);
-    console.log(selected);
   },
 
   onDeductFirstMonthRepaymentChange: function (component, event, helper) {

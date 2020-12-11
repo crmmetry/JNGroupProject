@@ -3,7 +3,7 @@
     <fullName>are_you_affiliated__c</fullName>
     <externalId>false</externalId>
     <formula
-  >IF( FinServ__PrimaryContact__r.Contact_Emergency_Rollup__c &gt;0,&#39;YES&#39;,&#39;NO&#39; )</formula>
+  >IF( FinServ__PrimaryContact__r.Contact_Emergency_Rollup__c &gt;0,&apos;YES&apos;,&apos;NO&apos; )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>are you affiliated</label>
     <required>false</required>

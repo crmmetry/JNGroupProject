@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Applicable_sources_of_income__c</fullName>
     <externalId>false</externalId>
@@ -22,9 +22,9 @@
                 <label>Net Profit (Sole Trader)</label>
             </value>
             <value>
-                <fullName>Director&#39;s Emoluments (Director)</fullName>
+                <fullName>Director&apos;s Emoluments (Director)</fullName>
                 <default>false</default>
-                <label>Director&#39;s Emoluments (Director)</label>
+                <label>Director&apos;s Emoluments (Director)</label>
             </value>
             <value>
                 <fullName>Share of Profits (Partnership)</fullName>

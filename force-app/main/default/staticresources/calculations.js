@@ -149,7 +149,6 @@ window.enlistAndValidateNumberFields = function (properties, parentObj) {
  */
 window.basicPMTCalculator = function (properties, parentObj) {
   let validatedFields = enlistAndValidateFields(properties, parentObj);
-  console.info("validatedFields", validatedFields);
   if (!validatedFields) return 0;
   let rate;
   let totalMonths;
@@ -197,7 +196,10 @@ window.asAllValidDependencies = function (properties, parentObj) {
  * @return {Number}
  */
 window.calculateGCT = function (gctPercentage) {
-  return 1 + gctPercentage;
+  if (validNumber(gctPercentage)) {
+    return 1 + gctPercentage;
+  }
+  return 0;
 };
 /**
  * calculates
@@ -470,11 +472,370 @@ window.roundedValue = function (value) {
  */
 window.validNumbersWithObject = function (properties, parentObj) {
   if (!properties || !parentObj) return false;
-  return properties.every(property => {
+  return properties.every((property) => {
     if (!isEmpty(parentObj[property])) {
-      return !isNaN(parentObj[property]) && parseFloat(parentObj[property]) >= 0;
+      return (
+        !isNaN(parentObj[property]) && parseFloat(parentObj[property]) >= 0
+      );
     }
     return false;
   });
 };
+/**
+ * checks whether the number is valid
+ * @param {Number} value
+ * @return {Boolean}
+ */
+window.validNumber = function (value) {
+  if (!isEmpty(value)) {
+    return !isNaN(value) && parseFloat(value) >= 0;
+  }
+  return false;
+};
+/**
+ * checks whether the set of numbers are valid from an object
+ * @param {Map} data
+ * @param {Decimal} minimum
+ * @return {Decimal}
+ */
+window.LTVCalculatorAutoLoan = function (loanAmount, minimum) {
+  if (validNumber(loanAmount) === false || validNumber(minimum) === false) {
+    return 0;
+  }
+  return roundedValue((parseFloat(loanAmount) / parseFloat(minimum)) * 100);
+};
 
+/**
+ * checks whether the set of numbers are valid from an object
+ * @param {Decimal} startingLimit
+ * @param {Decimal} existingDebt
+ * @param {Decimal} deposit
+ * @return {Decimal}
+ */
+window.LTVCalculatorCash = function (startingLimit, existingDebt, deposit) {
+  if (
+    validNumber(startingLimit) === false ||
+    validNumber(existingDebt) === false ||
+    validNumber(deposit) === false
+  ) {
+    return 0;
+  }
+  return roundedValue(
+    ((parseFloat(startingLimit) + parseFloat(existingDebt)) /
+      parseFloat(deposit)) *
+      100
+  );
+};
+
+/**
+ * Calculates TDSR Before
+ * @param {Decimal} grossIncome
+ * @param {Decimal} totalDebt
+ * @return {Decimal}
+ */
+window.TDSRBeforeCalculator = function (grossIncome, totalDebt) {
+  if (validNumber(grossIncome) === false || validNumber(totalDebt) === false) {
+    return 0;
+  }
+  return roundedValue((parseFloat(totalDebt) / parseFloat(grossIncome)) * 100);
+};
+
+/**
+ * Calculates TDSR After
+ * @param {Decimal} grossIncome
+ * @param {Decimal} totalDebt
+ * @return {Decimal}
+ */
+window.TDSRAfterCalculator = function (grossIncome, totalDebt, minimumPayment) {
+  if (
+    validNumber(grossIncome) === false ||
+    validNumber(totalDebt) === false ||
+    validNumber(minimumPayment) === false
+  ) {
+    return 0;
+  }
+  return roundedValue(
+    ((parseFloat(totalDebt) + parseFloat(minimumPayment)) /
+      parseFloat(grossIncome)) *
+      100
+  );
+};
+
+/**
+ * //TODO:dont use
+ * @param {*} fields
+ * @param {*} container
+ */
+function fieldValidator(fields, container) {
+  if (!fields || !container) return false;
+  return fields.every((field) => {
+    if (!container.hasOwnProperty(field) || isEmpty(container[field]))
+      return false;
+    switch (typeof container[field]) {
+      case "string": {
+        return isEmpty(container[fiel]);
+      }
+      case "number": {
+        return validNumber(container[field]);
+      }
+      default:
+        return isEmpty(container[field]);
+    }
+  });
+}
+//ASL Step Calculations
+/**
+ * ASL Calculation Step 1: Calculate Annual Gross Income
+ * @param {Decimal} monthlyGrossIncome
+ * @return {Decimal}
+ */
+window.annualGrossIncomeCalculator = function (monthlyGrossIncome) {
+  if (validNumber(monthlyGrossIncome)) {
+    return roundedValue(parseFloat(monthlyGrossIncome) * 12);
+  }
+  return 0;
+};
+
+/**
+ * ASL Calculation Step 1.5: Calculate MaximumCreditCardLimit
+ * @param {Decimal} maxCreditLimitAllowable
+ * @param {Decimal} minCreditLimitAllowable
+ * @param {Decimal} annualGrossIncome
+ * @param {Decimal} creditLimit
+ * @return {Decimal}
+ */
+window.maximumCreditLimitCalculator = function (
+  maxCreditLimitAllowable,
+  minCreditLimitAllowable,
+  annualGrossIncome,
+  creditLimit
+) {
+  if (
+    validNumber(maxCreditLimitAllowable) &&
+    validNumber(minCreditLimitAllowable) &&
+    validNumber(annualGrossIncome) &&
+    validNumber(creditLimit)
+  ) {
+    if (annualGrossIncome > creditLimit) {
+      return roundedValue(
+        parseFloat(maxCreditLimitAllowable) * parseFloat(annualGrossIncome)
+      );
+    }
+    return roundedValue(
+      parseFloat(minCreditLimitAllowable) * parseFloat(annualGrossIncome)
+    );
+  }
+  return 0;
+};
+
+/**
+ * ASL Calculation Step 2: Calculate Maximum allowable for monthly debt payments
+ * @param {Decimal} monthlyGrossIncome
+ * @param {Decimal} policyLimit
+ * @return {Decimal}
+ */
+window.maximumAllowableForMonthlyDebtPaymentsCalculator = function (
+  monthlyGrossIncome,
+  policyLimit
+) {
+  if (validNumber(monthlyGrossIncome) && validNumber(policyLimit)) {
+    return parseFloat(monthlyGrossIncome) * parseFloat(policyLimit);
+  }
+  return 0;
+};
+
+/**
+ * ASL Calculation Step 3: Calculate Maximum allowable for minimum payment
+ * @param {Decimal} maxDebtPayment
+ * @param {Decimal} existingDebt
+ * @return {Decimal}
+ */
+window.maximumAllowableForMinimumPaymentCalculator = function (
+  maxDebtPayment,
+  existingDebt
+) {
+  if (validNumber(maxDebtPayment) && validNumber(parseFloat(existingDebt))) {
+    return parseFloat(maxDebtPayment) - parseFloat(existingDebt);
+  }
+  return 0;
+};
+
+/**
+ * ASL Calculation Step 4: Calculate credit limit which returns the computed minimum payment
+ * @param {Decimal} maxMinimumPayment
+ * @param {Decimal} creditCardInterestRate
+ * @param {Decimal} monthlyPrincipalPayment
+ * @return {Decimal}
+ */
+window.computedMinimumPaymentFromCreditLimitCalculator = function (
+  container,
+  jnDefault,
+  mmp
+) {
+  let principalPayment = 0;
+  if (container.productFamily === CREDIT_CARD) {
+    principalPayment = jnDefault.creditCardPrincipalPayment;
+  } else if (container.productFamily === LINE_OF_CREDIT) {
+    principalPayment = jnDefault.lineOfCreditPrincipalPayment;
+  }
+  if (
+    validNumber(mmp) &&
+    validNumber(container.interestRate) &&
+    validNumber(principalPayment)
+  ) {
+    let cmp = Math.trunc(
+      (mmp / (parseFloat(container.interestRate) / 12 + principalPayment)) * 100
+    );
+    return roundedValue(Math.round(cmp / 10000) * 10000);
+  }
+  return 0;
+};
+
+/**
+ * ASL Calculation Step 5: Calculate Lower Credit Limit
+ * @param {Decimal} computedMinimumPayment
+ * @param {Decimal} maxCreditCardLimit
+ * @return {Decimal}
+ */
+window.lowerCreditLimitCalculator = function (
+  computedMinimumPayment,
+  maxCreditCardLimit
+) {
+  if (validNumber(computedMinimumPayment) && validNumber(maxCreditCardLimit)) {
+    return Math.min(
+      parseFloat(computedMinimumPayment),
+      parseFloat(maxCreditCardLimit)
+    );
+  }
+  return 0;
+};
+
+/**
+ * ASL Calculation Step 6: Calculate Credit Limit after risk rating
+ * @param {Decimal} lowerCreditLimit
+ * @param {Decimal} riskRatingFactor
+ * @return {Decimal}
+ */
+window.creditLimitRiskCalculator = function (
+  lowerCreditLimit,
+  riskRatingFactor
+) {
+  if (validNumber(lowerCreditLimit) && validNumber(riskRatingFactor)) {
+    return parseFloat(lowerCreditLimit) * parseFloat(riskRatingFactor);
+  }
+  return 0;
+};
+
+/**
+ * ASL Calculation Step 7: Calculate Credit Limit after risk rating
+ * @param {Decimal} creditLimitAfterRisk
+ * @param {Decimal} discountFactor
+ * @return {Decimal}
+ */
+window.startingCreditLimtCalculator = function (
+  creditLimitAfterRisk,
+  discountFactor
+) {
+  if (validNumber(creditLimitAfterRisk) && validNumber(discountFactor)) {
+    return (
+      Math.round(
+        (parseFloat(creditLimitAfterRisk) * parseFloat(discountFactor) * 2) /
+          10000
+      ) * 10000
+    );
+  }
+  return 0;
+};
+
+/**
+ * ASL Calculation Step 8: Calculate approve starting limit
+ * @param {Decimal} startingCreditLimt
+ * @param {Decimal} requestedLimit
+ * @return {Decimal}
+ */
+window.approvedStartingLimitCalculator = function (
+  creditLimitAfterRisk,
+  requestedLimit
+) {
+  if (validNumber(creditLimitAfterRisk) && validNumber(requestedLimit)) {
+    return Math.min(
+      parseFloat(creditLimitAfterRisk),
+      parseFloat(requestedLimit)
+    );
+  }
+  return 0;
+};
+
+/**
+ * Calculates Minimum Payment for Credit Calculations COmponent using ASL
+ * @param {Map} container
+ * @param {Map} jnDefault
+ * @param {Decimal} mmp
+ * @return {Decimal}
+ */
+window.minimumPaymentCalculatorWithASL = function (container, jnDefault, mmp) {
+  let principalPayment = 0;
+  if (container.productFamily === CREDIT_CARD) {
+    principalPayment = jnDefault.creditCardPrincipalPayment;
+  } else if (container.productFamily === LINE_OF_CREDIT) {
+    principalPayment = jnDefault.lineOfCreditPrincipalPayment;
+  }
+  if (
+    validNumber(mmp) &&
+    validNumber(container.interestRate) &&
+    validNumber(principalPayment)
+  ) {
+    return roundedValue(
+      ((container.interestRate / 12 + principalPayment) * mmp) / 100
+    );
+  }
+  return 0;
+};
+
+/**
+ * Calculates Creditor Life Premium for credit card.
+ * @param {Decimal} lifeProtectionRate
+ * @param {Decimal} lifeProtectionAndCIRate
+ * @param {Decimal} approvedCreditLimit
+ * @param {String} coverageType
+ * @return {Decimal}
+ */
+window.creditCardCreditorLifeCalculator = function (
+  lifeProtectionRate,
+  lifeProtectionAndCIRate,
+  coverageType,
+  approvedCreditLimit
+) {
+  if (
+    validNumber(lifeProtectionRate) &&
+    validNumber(lifeProtectionAndCIRate) &&
+    !isEmptyString(coverageType) &&
+    validNumber(approvedCreditLimit)
+  ) {
+    if (coverageType === LIFE_PROTECTION) {
+      return roundedValue(lifeProtectionRate * approvedCreditLimit);
+    } else if (coverageType === LIFE_AND_CRITICAL_ILLNESS_PROTECTION) {
+      return roundedValue(lifeProtectionAndCIRate * approvedCreditLimit);
+    }
+  }
+  return 0;
+};
+
+/**
+ * Calculates Creditor Life Premium for credit card.
+ * @param {Decimal} lineOfCreditCreditorLifeRate
+ * @param {Decimal} approvedCreditLimit
+ * @return {Decimal}
+ */
+window.lineOfCreditCreditorLifeCalculator = function (
+  approvedStartingLimit,
+  lineOfCreditCreditorLifeRate
+) {
+  if (
+    validNumber(approvedStartingLimit) &&
+    validNumber(lineOfCreditCreditorLifeRate)
+  ) {
+    return roundedValue(approvedStartingLimit * lineOfCreditCreditorLifeRate);
+  }
+  return 0;
+};

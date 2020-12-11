@@ -5,7 +5,7 @@
     <description
   >Ensures that the home phone field is properly validated.</description>
     <errorConditionFormula
-  >IF( OR(ISCHANGED(PersonHomePhone) &amp;&amp; NOT(ISNULL(PersonHomePhone)) &amp;&amp; NOT(ISBLANK(PersonHomePhone)) &amp;&amp; !REGEX(PersonHomePhone ,&#39;^\\d{10,25}$&#39;), ISNEW() &amp;&amp; NOT(ISNULL(PersonHomePhone)) &amp;&amp; NOT(ISBLANK(PersonHomePhone)) &amp;&amp; !REGEX(PersonHomePhone,&#39;^\\d{10,25}$&#39;)),true,false)</errorConditionFormula>
+  >IF( OR(ISCHANGED(PersonHomePhone) &amp;&amp; NOT(ISNULL(PersonHomePhone)) &amp;&amp; NOT(ISBLANK(PersonHomePhone)) &amp;&amp; !REGEX(PersonHomePhone ,&apos;^\\d{10,25}$&apos;), ISNEW() &amp;&amp; NOT(ISNULL(PersonHomePhone)) &amp;&amp; NOT(ISBLANK(PersonHomePhone)) &amp;&amp; !REGEX(PersonHomePhone,&apos;^\\d{10,25}$&apos;)),true,false)</errorConditionFormula>
     <errorDisplayField>PersonHomePhone</errorDisplayField>
     <errorMessage
   >Invalid format entered for home phone. The minimum number of digits should be 10</errorMessage>

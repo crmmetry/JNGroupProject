@@ -22,7 +22,7 @@ And(
 )
 
 
-, &#39;Yes&#39;,
+, &apos;Yes&apos;,
 IF(
 OR(
  NOT(ISBLANK(Mother_s_Maiden_Name__c )),
@@ -41,10 +41,10 @@ OR(
 
 )
 ,
-&#39;Incomplete&#39;,
+&apos;Incomplete&apos;,
 
 
-&#39;No&#39;
+&apos;No&apos;
 ))</formula>
     <label>Are General Details Complete?</label>
     <required>false</required>
