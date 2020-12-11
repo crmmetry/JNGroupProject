@@ -598,8 +598,10 @@ window.annualGrossIncomeCalculator = function (monthlyGrossIncome) {
 
 /**
  * ASL Calculation Step 1.5: Calculate MaximumCreditCardLimit
- * @param {Decimal} creditLimitAllowable
+ * @param {Decimal} maxCreditLimitAllowable
+ * @param {Decimal} minCreditLimitAllowable
  * @param {Decimal} annualGrossIncome
+ * @param {Decimal} creditLimit
  * @return {Decimal}
  */
 window.maximumCreditLimitCalculator = function (
@@ -611,7 +613,8 @@ window.maximumCreditLimitCalculator = function (
   if (
     validNumber(maxCreditLimitAllowable) &&
     validNumber(minCreditLimitAllowable) &&
-    validNumber(annualGrossIncome)
+    validNumber(annualGrossIncome) &&
+    validNumber(creditLimit)
   ) {
     if (annualGrossIncome > creditLimit) {
       return roundedValue(
