@@ -535,8 +535,10 @@ window.LTVCalculatorCash = function (startingLimit, existingDebt, deposit) {
  */
 window.TDSRBeforeCalculator = function (grossIncome, totalDebt) {
   if (validNumber(grossIncome) === false || validNumber(totalDebt) === false) {
+    console.log("TDSR before not calculated");
     return 0;
   }
+  console.log("TDSR before calculated");
   return roundedValue((parseFloat(totalDebt) / parseFloat(grossIncome)) * 100);
 };
 
@@ -552,8 +554,11 @@ window.TDSRAfterCalculator = function (grossIncome, totalDebt, minimumPayment) {
     validNumber(totalDebt) === false ||
     validNumber(minimumPayment) === false
   ) {
+    console.log("TDSR before not calculated");
     return 0;
   }
+  console.log("TDSR before calculated");
+
   return roundedValue(
     ((parseFloat(totalDebt) + parseFloat(minimumPayment)) /
       parseFloat(grossIncome)) *
