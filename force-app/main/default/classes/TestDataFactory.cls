@@ -81,6 +81,7 @@ public class TestDataFactory {
   }
 
   public static List<Lead> CreateLeads(Integer count) {
+    Map<String, Id> recordTypes = Util.getRecordTypeids('Lead');
     List<Lead> records = new List<Lead>();
     for (Integer i = 0; i < count; i++) {
       Lead c = new Lead();
@@ -91,6 +92,7 @@ public class TestDataFactory {
       c.Estimated_Amount__c = 50000.00;
       c.Service_of_Interest__c = 'JN Bank Credit Card';
       c.Company = COMPANY;
+      c.RecordTypeId = recordTypes.get('Loan');
       //c.Status = 'Qualified';
       //c.LeadSource = 'Credit Card Form';
       records.add(c);
