@@ -116,7 +116,7 @@
         <lightning:input
           type="number"
           label="Monthly P&amp;I Loan Amount"
-          value="{!v.monthly_PI_LoanAmount}"
+          value="{!v.ParentContainer.monthly_PI_LoanAmount}"
           name="number"
           formatter="currency"
           required="true"

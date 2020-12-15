@@ -35,6 +35,12 @@ public with sharing class ApplicantWrapper {
   public String creditHistoryInLast24Month; //JN1-4045
   @AuraEnabled
   public String assessmentOfApplicantNetWorth; //JN1-4045
+  @AuraEnabled
+  public Decimal rentBoardMonthlyPrior; //JN1-3967
+  @AuraEnabled
+  public Decimal rentBoardMonthlyAfter; //JN1-3967
+  @AuraEnabled
+  public Decimal rentStrataMaintenanceFromLongSummary; //JN1-3967
 
   public ApplicantWrapper(Applicant__c record) {
     this.Id = record.Id;
@@ -55,6 +61,9 @@ public with sharing class ApplicantWrapper {
     this.grossMonthlyIncome = record.Gross_Monthly_Income__c;
     this.creditHistoryInLast24Month = record.Credit_History_in_last_24_Months__c; //JN1-4045
     this.assessmentOfApplicantNetWorth = record.Assessment_of_Applicant_Net_Worth__c; //JN1-4045
+    this.rentBoardMonthlyPrior = record.Rent_Board_Monthly_Prior_Loan__c; //JN1-3967
+    this.rentBoardMonthlyAfter = record.Rent_Board_Monthly_After_Loan__c; //JN1-3967
+    this.rentStrataMaintenanceFromLongSummary = record.Rent_Strata_Maintenance__c; //JN1-3967
   }
 
   private Integer calculateAge(Date dob) {

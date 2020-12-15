@@ -160,14 +160,83 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         //update spinner status
+        console.log("result: ", result);
         this.checkSpinnerStatus(component, "assetsAndLiabilitiesForApplicants");
         this.mergeWithChildContainer(component, result);
         console.log("get assets and liabilites function");
-        this.existingDebtCalculation(component, result);
+        this.existingDebtCalculator(component, result);
         console.log("get assets and liabilites function2");
       }
     });
     $A.enqueueAction(action);
+  },
+  /**
+   * Meges a list of object with child container
+   * @param {*} component
+   * @param {*} result
+   */
+  existingDebtCalculator: function (component, result) {
+    let values = [];
+    let totalDebt = 0;
+    let totalDebtAfter = 0;
+    const isAuto = this.checkProductFamily(component, "Auto");
+    const isLineOfCredit = this.checkProductFamily(component, "Line Of Credit");
+    const isUnsecured = this.checkProductFamily(component, "Unsecured");
+    const isCreditCard = this.checkProductFamily(component, "Credit Card");
+
+    if (isCreditCard || isLineOfCredit) {
+      totalDebt = this.existingDebtCalculation(
+        [
+          "motorVehicleMonthlyRepayment",
+          "otherAssetMonthlyPayment",
+          "otherLoanMonthlyPayment",
+          "realEstateMonthlyPayment",
+          "rentStrataMaintenance"
+        ],
+        component,
+        result
+      );
+      console.log("Non revolving loan total debt: ", totalDebt);
+      values = [
+        {
+          key: "existingDebt",
+          value: totalDebt
+        }
+      ];
+    } else if (isAuto || isUnsecured) {
+      totalDebt = this.existingDebtCalculation(
+        [
+          "monthlyLoanPaymentPrior",
+          "minimumPaymentPrior",
+          "rentBoardMonthlyPrior",
+          "rentStrataMaintenanceFromLongSummary"
+        ],
+        component,
+        result
+      );
+      totalDebtAfter = this.existingDebtCalculation(
+        [
+          "monthlyLoanPaymentAfter",
+          "minimumPaymentAfter",
+          "rentBoardMonthlyAfter",
+          "rentStrataMaintenanceFromLongSummary"
+        ],
+        component,
+        result
+      );
+      values = [
+        {
+          key: "existingDebtAfter",
+          value: totalDebtAfter
+        },
+        {
+          key: "existingDebt",
+          value: totalDebt
+        }
+      ];
+    }
+    let data = updateChildContainerWithValue(component, values, false);
+    component.set("v.ChildContainer", data);
   },
   /**
    * Meges a list of object with child container
@@ -188,16 +257,12 @@
   },
   /**
    * Calculate existing debt.
+   * @param {Array} fields
+   * @param {*} component
+   * @param {Array} containerValues
    */
-  existingDebtCalculation: function (component, containerValues) {
+  existingDebtCalculation: function (fields, component, containerValues) {
     console.log("containerValues:", containerValues);
-    const fields = [
-      "motorVehicleMonthlyRepayment",
-      "otherAssetMonthlyPayment",
-      "otherLoanMonthlyPayment",
-      "realEstateMonthlyPayment",
-      "rentStrataMaintenance"
-    ];
     let total = 0;
     const fieldsMap = {};
     fields.forEach((element) => (fieldsMap[element] = true));
@@ -208,14 +273,7 @@
         }
       });
     });
-    let values = [
-      {
-        key: "existingDebt",
-        value: total
-      }
-    ];
-    let data = updateChildContainerWithValue(component, values, false);
-    //component.set("v.ChildContainer", data);
+    return total;
   },
   /**
    * calculates  TDSR before
