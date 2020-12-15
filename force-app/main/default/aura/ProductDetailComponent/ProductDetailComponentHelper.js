@@ -162,7 +162,9 @@
         //update spinner status
         this.checkSpinnerStatus(component, "assetsAndLiabilitiesForApplicants");
         this.mergeWithChildContainer(component, result);
+        console.log("get assets and liabilites function");
         this.existingDebtCalculation(component, result);
+        console.log("get assets and liabilites function2");
       }
     });
     $A.enqueueAction(action);
@@ -188,6 +190,7 @@
    * Calculate existing debt.
    */
   existingDebtCalculation: function (component, containerValues) {
+    console.log("containerValues:", containerValues);
     const fields = [
       "motorVehicleMonthlyRepayment",
       "otherAssetMonthlyPayment",
