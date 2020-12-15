@@ -567,6 +567,35 @@ window.TDSRAfterCalculator = function (grossIncome, totalDebt, minimumPayment) {
 };
 
 /**
+ * Calculates TDSR After for non revolving loans
+ * @param {Decimal} grossIncome
+ * @param {Decimal} totalDebt
+ * @param {Decimal} monthlyPI
+ * @return {Decimal}
+ */
+window.nonRevolvingTDSRAfterCalculator = function (
+  grossIncome,
+  totalDebt,
+  monthlyPI
+) {
+  if (
+    validNumber(grossIncome) === false ||
+    validNumber(totalDebt) === false ||
+    validNumber(monthlyPI) === false
+  ) {
+    console.log("TDSR before not calculated");
+    return 0;
+  }
+  console.log("TDSR before calculated");
+
+  return roundedValue(
+    ((parseFloat(totalDebt) + parseFloat(monthlyPI)) /
+      parseFloat(grossIncome)) *
+      100
+  );
+};
+
+/**
  * //TODO:dont use
  * @param {*} fields
  * @param {*} container

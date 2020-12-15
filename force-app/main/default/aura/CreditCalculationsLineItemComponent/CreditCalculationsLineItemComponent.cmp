@@ -4,6 +4,8 @@
     type="String"
     default="CreditCalculationsLineItemComponent"
   />
+  <aura:registerEvent name="productDetailsEvent" type="c:ProductDetailsEvent" />
+
   <aura:attribute name="ParentContainer" type="Map" default="{}" />
   <aura:attribute name="ChildContainer" type="Map" default="{}" />
   <aura:attribute name="loanAmount" type="Decimal" default="0" />
@@ -67,12 +69,6 @@
     action="{!c.onChildContainerChange}"
     value="{!v.ChildContainer}"
   />
-
-  <aura:handler
-    name="change"
-    action="{!c.onParenContainerChange}"
-    value="{!v.ParentContainer}"
-  />
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
   <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
   <aura:attribute name="jnDefaultConfigs" type="Map" default="{}" />
@@ -84,7 +80,10 @@
   />
   <aura:attribute name="processingFeeClosingCost" type="Decimal" />
   <ltng:require
-    scripts="{!$Resource.calculations}"
+    scripts="{!join(',', 
+  $Resource.constants,
+  $Resource.calculations, 
+  $Resource.productDetailsGeneralFunctions)}"
     afterScriptsLoaded="{!c.scriptsLoaded}"
   />
   <fieldset class="slds-box slds-theme_default">

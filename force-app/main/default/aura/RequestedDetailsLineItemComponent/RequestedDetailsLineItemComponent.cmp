@@ -2,6 +2,8 @@
   implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
   controller="ProductDetailController"
 >
+  <aura:registerEvent name="productDetailsEvent" type="c:ProductDetailsEvent" />
+
   <aura:attribute name="ChildContainer" type="Map" default="{}" />
   <aura:attribute name="ParentContainer" type="Map" default="{}" />
   <aura:attribute
@@ -21,6 +23,8 @@
   <aura:attribute name="amount" type="String" default="amount" />
   <aura:attribute name="oppId" type="Id" />
   <aura:attribute name="applicants" type="List" />
+  <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
+
   <aura:handler
     name="change"
     action="{!c.onChildContainerChange}"
@@ -33,9 +37,19 @@
     value="{!v.applicants}"
   />
 
-  <ltng:require scripts="{!$Resource.calculations}" />
+  <ltng:require
+    scripts="{!join(',', 
+  $Resource.constants,
+  $Resource.calculations, 
+  $Resource.productDetailsGeneralFunctions)}"
+    afterScriptsLoaded="{!c.scriptsLoaded}"
+  />
 
- <aura:attribute name="containerName" type="String" default="RequestedDetailsLineItemComponent"/>
+  <aura:attribute
+    name="containerName"
+    type="String"
+    default="RequestedDetailsLineItemComponent"
+  />
   <fieldset class="slds-box slds-theme_default">
     <legend
       id="productdetailsform"

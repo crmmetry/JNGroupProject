@@ -245,22 +245,11 @@
   TDSRCalculationAfter: function (component) {
     let container = component.get("v.ChildContainer");
     let tdsrAfter = 0;
-    if (container.productFamily === AUTO_LOAN) {
-      tdsrAfter = TDSRAfterCalculator(
-        container.grossMonthlyIncome,
-        container.existingDebt,
-        container.minimumOfPurchaseMarketValue
-      );
-    } else if (
-      container.productFamily === CREDIT_CARD ||
-      container.productFamily === LINE_OF_CREDIT
-    ) {
-      tdsrAfter = TDSRAfterCalculator(
-        container.grossMonthlyIncome,
-        container.existingDebt,
-        container.minimumPayment
-      );
-    }
+    tdsrAfter = TDSRAfterCalculator(
+      container.grossMonthlyIncome,
+      container.existingDebt,
+      container.minimumPayment
+    );
 
     let values = [
       {
@@ -272,6 +261,7 @@
     component.set("v.ChildContainer", data);
     return values;
   },
+
   /**
    * Passes LTV, TDSR After and Before as well as repayment method to the serverside
    * @param {*} component
