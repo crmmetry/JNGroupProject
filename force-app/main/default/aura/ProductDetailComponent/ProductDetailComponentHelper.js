@@ -237,19 +237,32 @@
     return values;
   },
   /**
-   * calculates  TDSR before
+   * calculates  TDSR After
    * @param {*} component
-   * @param {Object} data
-   * @return {Void}
+   * @return {Array<*>}
    */
   TDSRCalculationAfter: function (component) {
     let container = component.get("v.ChildContainer");
     let tdsrAfter = 0;
-    tdsrAfter = TDSRAfterCalculator(
-      container.grossMonthlyIncome,
-      container.existingDebt,
-      container.minimumPayment
-    );
+    const isAuto = this.checkProductFamily(component, "Auto");
+    const isLineOfCredit = this.checkProductFamily(component, "Line Of Credit");
+    const isUnsecured = this.checkProductFamily(component, "Unsecured");
+    const isCreditCard = this.checkProductFamily(component, "Credit Card");
+    if (isAuto || isUnsecured) {
+      // Calculate TDSR After for non revolving loans
+      tdsrAfter = nonRevolvingTDSRAfterCalculator(
+        container.grossMonthlyIncome,
+        container.existingDebt,
+        container.monthly_PI_LoanAmount
+      );
+    } else if (isCreditCard || isLineOfCredit) {
+      // Calculate TDSR After for revolving loans
+      tdsrAfter = TDSRAfterCalculator(
+        container.grossMonthlyIncome,
+        container.existingDebt,
+        container.minimumPayment
+      );
+    }
 
     let values = [
       {

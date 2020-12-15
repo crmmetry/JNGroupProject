@@ -117,16 +117,6 @@
         key: "monthly_PI_LoanAmount",
         value: monthlyPILoanAmount
       });
-      // Calculate TDSR After for non revolving loans
-      let tdsrAfter = nonRevolvingTDSRAfterCalculator(
-        container.grossMonthlyIncome,
-        container.existingDebt,
-        container.monthly_PI_LoanAmount
-      );
-      attributesToUpdate = attributesToUpdate.concat({
-        key: "nonRevolvingTDSRAfter",
-        value: tdsrAfter
-      });
       //Calculate processing fees
       attributesToUpdate = attributesToUpdate.concat(
         helper.processingFeeCalculation(container, component)
