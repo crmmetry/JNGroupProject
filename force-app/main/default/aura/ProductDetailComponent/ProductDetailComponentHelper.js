@@ -343,7 +343,7 @@
    */
   checkProductFamily: function (component, family) {
     let selectedFlag = component.get("v.productSelection.productFamily");
-    return family === selectedFlag;
+    return selectedFlag.includes(family);
   },
   /**
    * JN1-3969
