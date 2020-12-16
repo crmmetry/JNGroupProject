@@ -554,8 +554,36 @@ window.TDSRAfterCalculator = function (grossIncome, totalDebt, minimumPayment) {
   ) {
     return 0;
   }
+
   return roundedValue(
     ((parseFloat(totalDebt) + parseFloat(minimumPayment)) /
+      parseFloat(grossIncome)) *
+      100
+  );
+};
+
+/**
+ * Calculates TDSR After for non revolving loans
+ * @param {Decimal} grossIncome
+ * @param {Decimal} totalDebt
+ * @param {Decimal} monthlyPI
+ * @return {Decimal}
+ */
+window.nonRevolvingTDSRAfterCalculator = function (
+  grossIncome,
+  totalDebt,
+  monthlyPI
+) {
+  if (
+    validNumber(grossIncome) === false ||
+    validNumber(totalDebt) === false ||
+    validNumber(monthlyPI) === false
+  ) {
+    return 0;
+  }
+
+  return roundedValue(
+    ((parseFloat(totalDebt) + parseFloat(monthlyPI)) /
       parseFloat(grossIncome)) *
       100
   );

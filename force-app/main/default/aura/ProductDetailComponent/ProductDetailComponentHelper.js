@@ -162,7 +162,7 @@
         //update spinner status
         this.checkSpinnerStatus(component, "assetsAndLiabilitiesForApplicants");
         this.mergeWithChildContainer(component, result);
-        this.existingDebtCalculation(component, result);
+        this.existingDebtCalculator(component, result);
       }
     });
     $A.enqueueAction(action);
@@ -170,10 +170,79 @@
   /**
    * Meges a list of object with child container
    * @param {*} component
+   * @param {*} result
+   */
+  existingDebtCalculator: function (component, result) {
+    let values = [];
+    let totalDebt = 0;
+    let totalDebtAfter = 0;
+    const isAuto = this.checkProductFamily(component, "Auto");
+    const isLineOfCredit = this.checkProductFamily(component, "Line Of Credit");
+    const isUnsecured = this.checkProductFamily(component, "Unsecured");
+    const isCreditCard = this.checkProductFamily(component, "Credit Card");
+    if (isCreditCard || isLineOfCredit) {
+      totalDebt = this.existingDebtCalculation(
+        [
+          "motorVehicleMonthlyRepayment",
+          "otherAssetMonthlyPayment",
+          "otherLoanMonthlyPayment",
+          "realEstateMonthlyPayment",
+          "rentStrataMaintenance"
+        ],
+        component,
+        result
+      );
+      values = [
+        {
+          key: "existingDebt",
+          value: totalDebt
+        }
+      ];
+    } else if (isAuto || isUnsecured) {
+      totalDebt = this.existingDebtCalculation(
+        [
+          "monthlyLoanPaymentPrior",
+          "minimumPaymentPrior",
+          "rentBoardMonthlyPrior",
+          "rentStrataMaintenanceFromLongSummaryPrior"
+        ],
+        component,
+        result
+      );
+      totalDebtAfter = this.existingDebtCalculation(
+        [
+          "monthlyLoanPaymentAfter",
+          "minimumPaymentAfter",
+          "rentBoardMonthlyAfter",
+          "rentStrataMaintenanceFromLongSummaryAfter"
+        ],
+        component,
+        result
+      );
+      values = [
+        {
+          key: "existingDebtAfter",
+          value: totalDebtAfter
+        },
+        {
+          key: "existingDebt",
+          value: totalDebt
+        }
+      ];
+    }
+    let data = updateChildContainerWithValue(component, values, false);
+    component.set("v.ChildContainer", data);
+  },
+  /**
+   * Meges a list of object with child container
+   * @param {*} component
    * @param {*} containerValues
    */
   mergeWithChildContainer: function (component, objectList) {
-    const fieldsToMerge = { grossMonthlyIncome: true };
+    const fieldsToMerge = {
+      grossMonthlyIncome: true,
+      grossMonthlyIncomeFromLongSummary: true
+    };
     let data = component.get("v.ChildContainer");
     objectList.forEach((element) => {
       Object.keys(element).forEach((key) => {
@@ -186,15 +255,11 @@
   },
   /**
    * Calculate existing debt.
+   * @param {Array} fields
+   * @param {*} component
+   * @param {Array} containerValues
    */
-  existingDebtCalculation: function (component, containerValues) {
-    const fields = [
-      "motorVehicleMonthlyRepayment",
-      "otherAssetMonthlyPayment",
-      "otherLoanMonthlyPayment",
-      "realEstateMonthlyPayment",
-      "rentStrataMaintenance"
-    ];
+  existingDebtCalculation: function (fields, component, containerValues) {
     let total = 0;
     const fieldsMap = {};
     fields.forEach((element) => (fieldsMap[element] = true));
@@ -205,14 +270,7 @@
         }
       });
     });
-    let values = [
-      {
-        key: "existingDebt",
-        value: total
-      }
-    ];
-    let data = updateChildContainerWithValue(component, values, false);
-    //component.set("v.ChildContainer", data);
+    return total;
   },
   /**
    * calculates  TDSR before
@@ -221,34 +279,69 @@
    * @return {Void}
    */
   TDSRCalculationBefore: function (component) {
+    let tdsrBefore = 0;
+    let values = [];
     let container = component.get("v.ChildContainer");
-    let tdsrBefore = TDSRBeforeCalculator(
-      container.grossMonthlyIncome,
-      container.existingDebt
-    );
-    let values = [
-      {
-        key: "TDSRBefore",
-        value: tdsrBefore
-      }
-    ];
+    const isAuto = this.checkProductFamily(component, "Auto");
+    const isLineOfCredit = this.checkProductFamily(component, "Line Of Credit");
+    const isUnsecured = this.checkProductFamily(component, "Unsecured");
+    const isCreditCard = this.checkProductFamily(component, "Credit Card");
+    if (isAuto || isUnsecured) {
+      tdsrBefore = TDSRBeforeCalculator(
+        container.grossMonthlyIncomeFromLongSummary,
+        container.existingDebt
+      );
+      values = [
+        {
+          key: "TDSRBefore",
+          value: tdsrBefore
+        }
+      ];
+    } else if (isLineOfCredit || isCreditCard) {
+      tdsrBefore = TDSRBeforeCalculator(
+        container.grossMonthlyIncome,
+        container.existingDebt
+      );
+      values = [
+        {
+          key: "TDSRBefore",
+          value: tdsrBefore
+        }
+      ];
+    }
+
     let data = updateChildContainerWithValue(component, values, false);
     component.set("v.ChildContainer", data);
     return values;
   },
   /**
-   * calculates  TDSR before
+   * calculates  TDSR After
    * @param {*} component
-   * @param {Object} data
-   * @return {Void}
+   * @return {Array<*>}
    */
   TDSRCalculationAfter: function (component) {
     let container = component.get("v.ChildContainer");
-    let tdsrAfter = TDSRAfterCalculator(
-      container.grossMonthlyIncome,
-      container.existingDebt,
-      container.minimumPayment
-    );
+    let tdsrAfter = 0;
+    const isAuto = this.checkProductFamily(component, "Auto");
+    const isLineOfCredit = this.checkProductFamily(component, "Line Of Credit");
+    const isUnsecured = this.checkProductFamily(component, "Unsecured");
+    const isCreditCard = this.checkProductFamily(component, "Credit Card");
+    if (isAuto || isUnsecured) {
+      // Calculate TDSR After for non revolving loans
+      tdsrAfter = nonRevolvingTDSRAfterCalculator(
+        container.grossMonthlyIncomeFromLongSummary,
+        container.existingDebt,
+        container.monthly_PI_LoanAmount
+      );
+    } else if (isCreditCard || isLineOfCredit) {
+      // Calculate TDSR After for revolving loans
+      tdsrAfter = TDSRAfterCalculator(
+        container.grossMonthlyIncome,
+        container.existingDebt,
+        container.minimumPayment
+      );
+    }
+
     let values = [
       {
         key: "TDSRAfter",
@@ -259,6 +352,7 @@
     component.set("v.ChildContainer", data);
     return values;
   },
+
   /**
    * Passes LTV, TDSR After and Before as well as repayment method to the serverside
    * @param {*} component
@@ -327,7 +421,7 @@
    */
   checkProductFamily: function (component, family) {
     let selectedFlag = component.get("v.productSelection.productFamily");
-    return family === selectedFlag;
+    return selectedFlag.includes(family);
   },
   /**
    * JN1-3969

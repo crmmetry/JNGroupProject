@@ -28,5 +28,8 @@
   >
   </c:AutoLoanCreditCalculationsLineComponent>
 
-  <c:TotalDebtServiceRatioLineItemComponent></c:TotalDebtServiceRatioLineItemComponent>
+  <c:TotalDebtServiceRatioLineItemComponent
+    ParentContainer="{!v.ParentContainer}"
+    jnDefaultConfigs="{!v.jnDefaultConfigs}"
+  ></c:TotalDebtServiceRatioLineItemComponent>
 </aura:component>

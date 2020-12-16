@@ -35,6 +35,16 @@ public with sharing class ApplicantWrapper {
   public String creditHistoryInLast24Month; //JN1-4045
   @AuraEnabled
   public String assessmentOfApplicantNetWorth; //JN1-4045
+  @AuraEnabled
+  public Decimal rentBoardMonthlyPrior; //JN1-3967
+  @AuraEnabled
+  public Decimal rentBoardMonthlyAfter; //JN1-3967
+  @AuraEnabled
+  public Decimal rentStrataMaintenanceFromLongSummaryPrior; //JN1-3967
+  @AuraEnabled
+  public Decimal rentStrataMaintenanceFromLongSummaryAfter; //JN1-3967
+  @AuraEnabled
+  public Decimal grossMonthlyIncomeFromLongSummary; //JN1-3967
 
   public ApplicantWrapper(Applicant__c record) {
     this.Id = record.Id;
@@ -55,6 +65,11 @@ public with sharing class ApplicantWrapper {
     this.grossMonthlyIncome = record.Gross_Monthly_Income__c;
     this.creditHistoryInLast24Month = record.Credit_History_in_last_24_Months__c; //JN1-4045
     this.assessmentOfApplicantNetWorth = record.Assessment_of_Applicant_Net_Worth__c; //JN1-4045
+    this.rentBoardMonthlyPrior = record.Rent_Board_Monthly_Prior_Loan__c; //JN1-3967
+    this.rentBoardMonthlyAfter = record.Rent_Board_Monthly_After_Loan__c; //JN1-3967
+    this.rentStrataMaintenanceFromLongSummaryPrior = record.Strata_Maintenance_Monthly_Prior_Loan__c; //JN1-3967
+    this.rentStrataMaintenanceFromLongSummaryAfter = record.Strata_Maintenance_Monthly_After_Loan__c; //JN1-3967
+    this.grossMonthlyIncomeFromLongSummary = record.Gross_Monthly_IncomeC__c;
   }
 
   private Integer calculateAge(Date dob) {
