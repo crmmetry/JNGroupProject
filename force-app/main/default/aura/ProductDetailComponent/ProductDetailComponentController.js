@@ -29,7 +29,8 @@
       primaryApplicantAnnualMembership: 0,
       supplementaryApplicantAnnualMembership: 0,
       numberOfSupplementaryCardHolders: 0,
-      repaymentMethod: ""
+      repaymentMethod: "",
+      existingDebtAfter: 0
     });
     //utilized to display spinners
     let spinnerList = {

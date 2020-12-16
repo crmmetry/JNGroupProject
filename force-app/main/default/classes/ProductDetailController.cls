@@ -156,7 +156,20 @@ public with sharing class ProductDetailController {
         Account__r.PersonBirthdate,
         Credit_History_in_last_24_Months__c,
         Assessment_of_Applicant_Net_Worth__c,
-        (SELECT Id, Minimum_Payment__c FROM Application_Assets_Liabilities__r)
+        Rent_Board_Monthly_Prior_Loan__c,
+        Rent_Board_Monthly_After_Loan__c,
+        Gross_Monthly_IncomeC__c,
+        Strata_Maintenance_Monthly_Prior_Loan__c,
+        Strata_Maintenance_Monthly_After_Loan__c,
+        (
+          SELECT
+            Id,
+            Minimum_Payment_After_Calc__c,
+            Minimum_Payment_Calc__c,
+            Monthly_Payment_Prior__c,
+            Monthly_Payment_After__c
+          FROM Application_Assets_Liabilities__r
+        )
       FROM Applicant__c
       WHERE Opportunity__c = :oppId
     ];

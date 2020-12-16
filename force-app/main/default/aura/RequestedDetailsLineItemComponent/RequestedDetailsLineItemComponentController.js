@@ -8,14 +8,18 @@
     };
     component.set("v.ChildContainer", data);
   },
+  scriptsLoaded: function (component, event, helper) {
+    component.set("v.scriptsLoaded", true);
+  },
   onChildContainerChange: function (component, event, helper) {
-    const data = Object.assign(
-      component.get("v.ParentContainer"),
-      component.get("v.ChildContainer")
-    );
-    data["containerName"] = component.get("v.containerName");
-    component.set("v.ParentContainer", data);
-    helper.getApplicants(component);
+    let container = component.get("v.ParentContainer");
+    const childContainer = component.get("v.ChildContainer");
+    if (
+      component.get("v.scriptsLoaded") &&
+      component.get("v.notifyContainerChange")
+    ) {
+      fireProductDetailsEvent(null, childContainer, component);
+    }
   },
 
   onApplicantsChange: function (component, event, helper) {
