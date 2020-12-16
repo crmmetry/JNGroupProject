@@ -511,3 +511,10 @@ window.creditCardAnnualFeesCalculation = function (
   }
   return ZERO;
 };
+
+window.isZero = function (number) {
+  if (number === 0) {
+    return true;
+  }
+  return false;
+};
