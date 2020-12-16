@@ -158,6 +158,7 @@ public with sharing class ProductDetailController {
         Assessment_of_Applicant_Net_Worth__c,
         Rent_Board_Monthly_Prior_Loan__c,
         Rent_Board_Monthly_After_Loan__c,
+        Gross_Monthly_IncomeC__c,
         (
           SELECT
             Id,

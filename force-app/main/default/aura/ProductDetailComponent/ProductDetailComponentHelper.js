@@ -183,7 +183,6 @@
     const isLineOfCredit = this.checkProductFamily(component, "Line Of Credit");
     const isUnsecured = this.checkProductFamily(component, "Unsecured");
     const isCreditCard = this.checkProductFamily(component, "Credit Card");
-
     if (isCreditCard || isLineOfCredit) {
       totalDebt = this.existingDebtCalculation(
         [
@@ -214,6 +213,7 @@
         component,
         result
       );
+      console.log("Non revolving loan total debt: ", totalDebt);
       totalDebtAfter = this.existingDebtCalculation(
         [
           "monthlyLoanPaymentAfter",
@@ -224,6 +224,7 @@
         component,
         result
       );
+      console.log("Non revolving loan total debt After: ", totalDebtAfter);
       values = [
         {
           key: "existingDebtAfter",
@@ -244,7 +245,10 @@
    * @param {*} containerValues
    */
   mergeWithChildContainer: function (component, objectList) {
-    const fieldsToMerge = { grossMonthlyIncome: true };
+    const fieldsToMerge = {
+      grossMonthlyIncome: true,
+      grossMonthlyIncomeFromLongSummary: true
+    };
     let data = component.get("v.ChildContainer");
     objectList.forEach((element) => {
       Object.keys(element).forEach((key) => {
@@ -282,17 +286,37 @@
    * @return {Void}
    */
   TDSRCalculationBefore: function (component) {
+    let tdsrBefore = 0;
+    let values = [];
     let container = component.get("v.ChildContainer");
-    let tdsrBefore = TDSRBeforeCalculator(
-      container.grossMonthlyIncome,
-      container.existingDebt
-    );
-    let values = [
-      {
-        key: "TDSRBefore",
-        value: tdsrBefore
-      }
-    ];
+    const isAuto = this.checkProductFamily(component, "Auto");
+    const isLineOfCredit = this.checkProductFamily(component, "Line Of Credit");
+    const isUnsecured = this.checkProductFamily(component, "Unsecured");
+    const isCreditCard = this.checkProductFamily(component, "Credit Card");
+    if (isAuto || isUnsecured) {
+      tdsrBefore = TDSRBeforeCalculator(
+        container.grossMonthlyIncomeFromLongSummary,
+        container.existingDebt
+      );
+      values = [
+        {
+          key: "TDSRBefore",
+          value: tdsrBefore
+        }
+      ];
+    } else if (isLineOfCredit || isCreditCard) {
+      tdsrBefore = TDSRBeforeCalculator(
+        container.grossMonthlyIncome,
+        container.existingDebt
+      );
+      values = [
+        {
+          key: "TDSRBefore",
+          value: tdsrBefore
+        }
+      ];
+    }
+
     let data = updateChildContainerWithValue(component, values, false);
     component.set("v.ChildContainer", data);
     return values;
@@ -312,7 +336,7 @@
     if (isAuto || isUnsecured) {
       // Calculate TDSR After for non revolving loans
       tdsrAfter = nonRevolvingTDSRAfterCalculator(
-        container.grossMonthlyIncome,
+        container.grossMonthlyIncomeFromLongSummary,
         container.existingDebt,
         container.monthly_PI_LoanAmount
       );
