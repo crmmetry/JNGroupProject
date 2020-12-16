@@ -160,12 +160,9 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         //update spinner status
-        console.log("result: ", result);
         this.checkSpinnerStatus(component, "assetsAndLiabilitiesForApplicants");
         this.mergeWithChildContainer(component, result);
-        console.log("get assets and liabilites function");
         this.existingDebtCalculator(component, result);
-        console.log("get assets and liabilites function2");
       }
     });
     $A.enqueueAction(action);
@@ -195,7 +192,6 @@
         component,
         result
       );
-      console.log("Non revolving loan total debt: ", totalDebt);
       values = [
         {
           key: "existingDebt",
@@ -213,7 +209,6 @@
         component,
         result
       );
-      console.log("Non revolving loan total debt: ", totalDebt);
       totalDebtAfter = this.existingDebtCalculation(
         [
           "monthlyLoanPaymentAfter",
@@ -224,7 +219,6 @@
         component,
         result
       );
-      console.log("Non revolving loan total debt After: ", totalDebtAfter);
       values = [
         {
           key: "existingDebtAfter",
@@ -266,7 +260,6 @@
    * @param {Array} containerValues
    */
   existingDebtCalculation: function (fields, component, containerValues) {
-    console.log("containerValues:", containerValues);
     let total = 0;
     const fieldsMap = {};
     fields.forEach((element) => (fieldsMap[element] = true));
@@ -274,7 +267,6 @@
       Object.keys(element).forEach((key) => {
         if (fieldsMap.hasOwnProperty(key)) {
           total += element[key];
-          console.log("values to be added", element[key]);
         }
       });
     });
