@@ -4,10 +4,9 @@
  **/
 @isTest
 public with sharing class TestProductDetailController {
-  public static List<Opportunity> opList;
   @testSetup
   public static void createData() {
-    opList = TestDataFactory.CreateOpportunities(1);
+    List<Opportunity> opList = TestDataFactory.CreateOpportunities(1);
     List<Account> accList = TestDataFactory.CreateBasicAccounts(3, 'Test');
     accList[0].Status_of_Address__pc = 'Own (with mortgage)';
     accList[0].Years_at_Residence__pc = 4;
@@ -30,15 +29,7 @@ public with sharing class TestProductDetailController {
     insert opList[0];
 
     List<Product2> products = new List<Product2>();
-    List<String> families = new List<String>{
-      'JN Bank Auto Loan'
-      /*,
-      'JN Bank Line Of Credit',
-      'JN Bank Term Share Loan',
-      'JN Bank Credit Card',
-      'JN Bank Deposit Account',
-      'JN Bank Mortgage'*/
-    };
+    List<String> families = new List<String>{ 'JN Bank Auto Loan' };
     for (String family : families) {
       //add each product to be created
       products.add(
@@ -137,25 +128,63 @@ public with sharing class TestProductDetailController {
     insert applicantAssetsAndLiabilities;
   }
   @isTest
-  public static void testController() {
-    createData();
+  public static void testJNConfigsMethod() {
     Test.startTest();
     JNConfiguration jnConfig = ProductDetailController.GetJNConfigs();
+    Test.stopTest();
+  }
+
+  @isTest
+  public static void testSupplementaryCardHoldersMethod() {
+    List<Opportunity> opList = [SELECT Id FROM Opportunity];
+    Test.startTest();
     List<SupplementaryCardHolderWrapper> cardHoldersWrapper = ProductDetailController.getSupplementaryCardHolders(
       opList[0].id
     );
     System.assertEquals(2, cardHoldersWrapper.size());
+    Test.stopTest();
+  }
+  @isTest
+  public static void testProductFamilySelection() {
+    List<Opportunity> opList = [SELECT Id FROM Opportunity];
+    Test.startTest();
     Object productFamily = ProductDetailController.getSingleProductFamilySelection(
       opList[0].id
     );
+    Test.stopTest();
+  }
+
+  @isTest
+  public static void testApplicantRating() {
+    List<Opportunity> opList = [SELECT Id FROM Opportunity];
+    Test.startTest();
     List<ApplicantWrapper> applicantWrapperList = ProductDetailController.getApplicantsRating(
       opList[0].id,
       2.00
     );
+    Test.stopTest();
+  }
+
+  @isTest
+  public static void testRiskRatingMapMethod() {
+    Test.startTest();
     Map<String, Decimal> riskRatingMap = ProductDetailController.getRiskRatingMap();
+    Test.stopTest();
+  }
+
+  @isTest
+  public static void testAssetsAndLiabilitiesForApplicant() {
+    List<Opportunity> opList = [SELECT Id FROM Opportunity];
+    Test.startTest();
     List<Object> objList = ProductDetailController.getApplicantsAssetsAndLiabilities(
       opList[0].id
     );
+    Test.stopTest();
+  }
+  @isTest
+  public static void testCreditRiskRating() {
+    List<Opportunity> opList = [SELECT Id FROM Opportunity];
+    Test.startTest();
     RiskRatingWrapper wrapper = ProductDetailController.getCreditRiskRating(
       opList[0].id,
       1,

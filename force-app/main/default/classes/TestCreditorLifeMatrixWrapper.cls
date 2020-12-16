@@ -5,7 +5,7 @@
 @isTest
 public with sharing class TestCreditorLifeMatrixWrapper {
   @isTest
-  public static void testWrapper1() {
+  public static void ageBelowBoundry() {
     List<Creditor_Life_Matrix__mdt> creditorMatrixList = [
       SELECT
         Label,
@@ -41,7 +41,7 @@ public with sharing class TestCreditorLifeMatrixWrapper {
   }
 
   @isTest
-  public static void testWrapper2() {
+  public static void tenuarWithNoneZeroModulus() {
     List<Creditor_Life_Matrix__mdt> creditorMatrixList = [
       SELECT
         Label,
@@ -76,7 +76,7 @@ public with sharing class TestCreditorLifeMatrixWrapper {
     Test.stopTest();
   }
   @isTest
-  public static void testWrapper3() {
+  public static void tenuarEqualeTo10() {
     List<Creditor_Life_Matrix__mdt> creditorMatrixList = [
       SELECT
         Label,
@@ -111,7 +111,7 @@ public with sharing class TestCreditorLifeMatrixWrapper {
     Test.stopTest();
   }
   @isTest
-  public static void testWrapper4() {
+  public static void exceptionOnTenuarGreaterThan10() {
     List<Creditor_Life_Matrix__mdt> creditorMatrixList = [
       SELECT
         Label,

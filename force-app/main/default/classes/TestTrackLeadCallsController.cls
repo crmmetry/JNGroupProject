@@ -64,8 +64,7 @@ public with sharing class TestTrackLeadCallsController {
   }
 
   @isTest
-  public static void runBatchClass() {
-    createData();
+  public static void testTrackLeadCalls() {
     List<BusinessHours> businessHours = [
       SELECT
         Id,

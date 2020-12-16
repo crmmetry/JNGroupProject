@@ -36,8 +36,7 @@ public with sharing class TestLeadAssignmentSchedulable {
   }
 
   @isTest
-  public static void runBatchClass() {
-    createData();
+  public static void testConstructorWithParameters() {
     String CRON_EXP;
     Test.startTest();
     Datetime dt = Datetime.now().addMinutes(1);
@@ -59,8 +58,7 @@ public with sharing class TestLeadAssignmentSchedulable {
   }
 
   @isTest
-  public static void runBatchClass1() {
-    createData();
+  public static void testConstructorWithoutParameters() {
     String CRON_EXP;
     Test.startTest();
     Datetime dt = Datetime.now().addMinutes(1);
