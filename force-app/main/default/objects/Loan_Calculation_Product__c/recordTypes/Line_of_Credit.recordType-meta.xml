@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Line_of_Credit</fullName>
+    <active>true</active>
+    <description>Line of Credit product</description>
+    <label>Line of Credit</label>
+    <picklistValues>
+        <picklist>Collateral_Type_List__c</picklist>
+        <values>
+            <fullName>Cash%2FInvestment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unsecured %28None%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Coverage_Type_List__c</picklist>
+        <values>
+            <fullName>Applicant 1 %26 Applicant 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Applicant 1 %26 Applicant 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Applicant 1 Only</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Applicant 2 %26 Applicant 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Applicant 2 Only</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Applicant 3 Only</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Suitable Applicants</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Repayment_Method_List__c</picklist>
+        <values>
+            <fullName>Over The Counter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salary Deduction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standing Order</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>
