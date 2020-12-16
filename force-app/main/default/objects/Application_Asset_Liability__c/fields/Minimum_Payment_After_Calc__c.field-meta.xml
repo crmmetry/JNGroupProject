@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Minimum_Payment_After_Calc__c</fullName>
+    <externalId>false</externalId>
+    <formula
+  >$CustomMetadata.JN_Defaults__mdt.Default.Average_Balance_Minimum_Pay_Number__c * 
+IF(
+OR(
+ISPICKVAL(Treatment_of_Credit_LOC_list__c, &quot;Repay Facility&quot;),
+ISPICKVAL(Treatment_of_Credit_LOC_list__c, &quot;Will Remain&quot;)),
+Assets_and_Liabilities__r.Average_Monthly_Usage__c,
+IF(
+(ISPICKVAL(Treatment_of_Credit_LOC_list__c, &quot;Close Facility&quot;)),0,
+IF(ISNULL(Assets_and_Liabilities__r.Average_Monthly_Usage__c),0,Assets_and_Liabilities__r.Average_Monthly_Usage__c)))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Minimum Payment After</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

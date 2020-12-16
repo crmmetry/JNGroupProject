@@ -11,6 +11,10 @@
         <value xsi:type="xsd:double">4538.63</value>
     </values>
     <values>
+        <field>Average_Balance_Minimum_Pay_Number__c</field>
+        <value xsi:type="xsd:double">5.0</value>
+    </values>
+    <values>
         <field>CC_Creditor_Life_CI_Protection_Rate__c</field>
         <value xsi:type="xsd:double">0.0041</value>
     </values>
@@ -40,7 +44,7 @@
     </values>
     <values>
         <field>Credit_Limit_Value__c</field>
-        <value xsi:type="xsd:double">500000.0</value>
+        <value xsi:type="xsd:double">5000000.0</value>
     </values>
     <values>
         <field>Creditor_Life_Annual_Fee_Number__c</field>

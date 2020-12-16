@@ -1,23 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 	<types>
-		<members>Loan_Calculation_Applicant_Product__c</members>
-		<members>Loan_Calculation_Product__c</members>
-		<name>CustomObject</name>
-	</types>
-	<types>
-		<members>Loan_Calculation_Applicant_Product__c</members>
-		<members>Loan_Calculation_Product__c</members>
-		<name>CustomTab</name>
+		<members>Application_Asset_Liability__c.Minimum_Payment_After_Calc__c</members>
+		<members>Application_Asset_Liability__c.Minimum_Payment_Calc__c</members>
+		<members>JN_Defaults__mdt.Average_Balance_Minimum_Pay_Number__c</members>
+		<name>CustomField</name>
 	</types>
 	<types>
 		<members
-    >Loan_Calculation_Applicant_Product__c-Loan Calculation Applicant Product Layout</members>
-		<members>Loan_Calculation_Product__c-Auto</members>
-		<members>Loan_Calculation_Product__c-Credit Card</members>
-		<members>Loan_Calculation_Product__c-Line of Credit</members>
-		<members>Loan_Calculation_Product__c-Loan Calculation Product Layout</members>
-		<members>Loan_Calculation_Product__c-Unsecured</members>
+    >Application_Asset_Liability__c-Application Asset%2FLiability Layout</members>
 		<name>Layout</name>
 	</types>
 	<types>
@@ -26,17 +17,5 @@
 		<members>Sales - All Products</members>
 		<name>Profile</name>
 	</types>
-	<types>
-		<members>Loan_Calculation_Product__c.Auto</members>
-		<members>Loan_Calculation_Product__c.Credit_Card</members>
-		<members>Loan_Calculation_Product__c.Line_of_Credit</members>
-		<members>Loan_Calculation_Product__c.Unsecured</members>
-		<name>RecordType</name>
-	</types>
-	    <types>
-        <members>Loan_Calculation_Applicant_Product__c.All</members>
-        <members>Loan_Calculation_Product__c.All</members>
-        <name>ListView</name>
-    </types>
-	<version>50.0</version>
+	<version>49.0</version>
 </Package>
