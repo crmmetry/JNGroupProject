@@ -159,6 +159,8 @@ public with sharing class ProductDetailController {
         Rent_Board_Monthly_Prior_Loan__c,
         Rent_Board_Monthly_After_Loan__c,
         Gross_Monthly_IncomeC__c,
+        Strata_Maintenance_Monthly_Prior_Loan__c,
+        Strata_Maintenance_Monthly_After_Loan__c,
         (
           SELECT
             Id,

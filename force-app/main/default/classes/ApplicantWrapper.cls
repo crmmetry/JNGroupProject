@@ -40,7 +40,9 @@ public with sharing class ApplicantWrapper {
   @AuraEnabled
   public Decimal rentBoardMonthlyAfter; //JN1-3967
   @AuraEnabled
-  public Decimal rentStrataMaintenanceFromLongSummary; //JN1-3967
+  public Decimal rentStrataMaintenanceFromLongSummaryPrior; //JN1-3967
+  @AuraEnabled
+  public Decimal rentStrataMaintenanceFromLongSummaryAfter; //JN1-3967
   @AuraEnabled
   public Decimal grossMonthlyIncomeFromLongSummary; //JN1-3967
 
@@ -65,7 +67,8 @@ public with sharing class ApplicantWrapper {
     this.assessmentOfApplicantNetWorth = record.Assessment_of_Applicant_Net_Worth__c; //JN1-4045
     this.rentBoardMonthlyPrior = record.Rent_Board_Monthly_Prior_Loan__c; //JN1-3967
     this.rentBoardMonthlyAfter = record.Rent_Board_Monthly_After_Loan__c; //JN1-3967
-    this.rentStrataMaintenanceFromLongSummary = record.Rent_Strata_Maintenance__c; //JN1-3967
+    this.rentStrataMaintenanceFromLongSummaryPrior = record.Strata_Maintenance_Monthly_Prior_Loan__c; //JN1-3967
+    this.rentStrataMaintenanceFromLongSummaryAfter = record.Strata_Maintenance_Monthly_After_Loan__c; //JN1-3967
     this.grossMonthlyIncomeFromLongSummary = record.Gross_Monthly_IncomeC__c;
   }
 

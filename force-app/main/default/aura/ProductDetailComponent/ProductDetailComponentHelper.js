@@ -208,7 +208,7 @@
           "monthlyLoanPaymentPrior",
           "minimumPaymentPrior",
           "rentBoardMonthlyPrior",
-          "rentStrataMaintenanceFromLongSummary"
+          "rentStrataMaintenanceFromLongSummaryPrior"
         ],
         component,
         result
@@ -219,7 +219,7 @@
           "monthlyLoanPaymentAfter",
           "minimumPaymentAfter",
           "rentBoardMonthlyAfter",
-          "rentStrataMaintenanceFromLongSummary"
+          "rentStrataMaintenanceFromLongSummaryAfter"
         ],
         component,
         result
@@ -274,6 +274,7 @@
       Object.keys(element).forEach((key) => {
         if (fieldsMap.hasOwnProperty(key)) {
           total += element[key];
+          console.log("values to be added", element[key]);
         }
       });
     });
