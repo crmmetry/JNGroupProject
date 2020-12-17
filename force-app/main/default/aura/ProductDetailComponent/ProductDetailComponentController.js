@@ -139,6 +139,7 @@
   onSaveProductDetails: function (component, event, helper) {
     let fieldsValidated = true; //TODO: replace with logic to validate current component fields
     if (fieldsValidated) {
+      console.log("here");
       let productRecordTypes = [
         component.get("v.productSelection.productFamily")
       ]; //TODO: update in future to accomodate multiple products
@@ -146,10 +147,19 @@
         loanCalculationProductFields,
         loanCalculationFields
       } = helper.contructProductDetailsFields();
-      combinedObjects = persistentFieldsValidator(
+      loanCalculationFields = persistentFieldsValidator(
         component.get("v.ChildContainer"),
-        Object.assign({}, loanCalculationProductFields, loanCalculationFields)
+        loanCalculationFields
       );
+      loanCalculationProductFields = persistentFieldsValidator(
+        component.get("v.ChildContainer"),
+        loanCalculationProductFields
+      );
+      console.info(
+        "loanCalculationProductFields",
+        loanCalculationProductFields
+      );
+      console.info("loanCalculationFields", loanCalculationFields);
       return helper.saveProductDetailsInfo(
         component,
         productRecordTypes,

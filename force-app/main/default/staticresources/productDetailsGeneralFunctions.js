@@ -518,20 +518,22 @@ window.creditCardAnnualFeesCalculation = function (
  * @param {Object<Array>} combinedObjects
  * @returns {Object<Array>} combinedObjects
  */
-window.persistentFieldsValidator = function (childContainer, combinedObjects) {
-  if (isObject(fieldsWithValues)) {
-    Object.keys(combinedObjects).forEach((key) => {
-      combinedObjects[key].forEach((element, index) => {
+window.persistentFieldsValidator = function (childContainer, values) {
+  const container = {};
+  if (values && childContainer) {
+    values.forEach((value) => {
+      if (childContainer.hasOwnProperty(value.localName)) {
         if (
-          !validNumber(childContainer[element.localName]) ||
-          isEmpty(childContainer[element.localName])
+          validNumber(childContainer[value.localName]) ||
+          !isEmpty(childContainer[value.localName])
         ) {
-          combinedObjects[key].splice(index, 1);
+          container[value.localName] = childContainer[value.localName];
         }
-      });
+      }
     });
+    return container;
   }
-  return combinedObjects;
+  return null;
 };
 /**
  * displays toast message
