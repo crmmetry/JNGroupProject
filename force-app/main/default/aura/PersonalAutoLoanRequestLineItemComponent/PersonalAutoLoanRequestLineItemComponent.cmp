@@ -222,12 +222,13 @@
         <aura:if isTrue="{!v.value == v.percent}">
           <lightning:layoutItem
             size="12"
-            mediumDeviceSize="8"
+            mediumDeviceSize="12"
             padding="around-small"
           >
             <lightning:layout>
               <lightning:layoutItem size="4" mediumDeviceSize="2">
                 <lightning:input
+                  aura:id="auto-collateral-computed-deposit"
                   type="number"
                   label="%"
                   value="{!v.ChildContainer.autoCollateralDepositPercentage}"
@@ -236,9 +237,8 @@
                   required="true"
                 />
               </lightning:layoutItem>
-              <lightning:layoutItem size="8" mediumDeviceSize="10">
+              <lightning:layoutItem size="6" mediumDeviceSize="10">
                 <lightning:input
-                  aura:id="auto-collateral-computed-deposit"
                   type="number"
                   label="Motor Vehicle Deposit"
                   value="{!v.ParentContainer.computedAutoCollateralDepositFromPercentage}"
@@ -250,10 +250,6 @@
               </lightning:layoutItem>
             </lightning:layout>
           </lightning:layoutItem>
-          <lightning:layoutItem
-            size="12"
-            mediumDeviceSize="6"
-          ></lightning:layoutItem>
         </aura:if>
         <aura:if isTrue="{!v.value == v.amount}">
           <lightning:layoutItem
@@ -262,7 +258,7 @@
             padding="around-small"
           >
             <lightning:layout>
-              <lightning:layoutItem size="8" mediumDeviceSize="10">
+              <lightning:layoutItem size="12" mediumDeviceSize="12">
                 <lightning:input
                   aura:id="auto-collateral-deposit"
                   type="number"
@@ -270,7 +266,6 @@
                   value="{!v.ChildContainer.autoCollateralDeposit}"
                   formatter="currency"
                   required="true"
-                  messageWhenBadInput="Loan amount must be equal to the difference between the deposit and the minimum"
                 />
               </lightning:layoutItem>
             </lightning:layout>

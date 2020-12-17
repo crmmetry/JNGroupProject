@@ -513,7 +513,7 @@ window.creditCardAnnualFeesCalculation = function (
 };
 
 window.isZero = function (number) {
-  if (number === 0) {
+  if (parseFloat(number) === ZERO && validNumber(number)) {
     return true;
   }
   return false;

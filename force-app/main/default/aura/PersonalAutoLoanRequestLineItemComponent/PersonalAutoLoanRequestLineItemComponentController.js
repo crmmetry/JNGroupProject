@@ -61,7 +61,6 @@
       }
     ];
     helper.updateChildContainerWithValue(component, childKeyValuePairs, false);
-    console.log(selected);
   },
 
   onMotorVehicleDepositFormatChange: function (component, event, helper) {
@@ -74,17 +73,14 @@
 
   onPurchasePriceCurrencyChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    console.log(selected);
   },
 
   onMarketCurrencyChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    console.log(selected);
   },
 
   onDepositCurrencyChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    console.log(selected);
   },
 
   onVehicleClassificationChange: function (component, event, helper) {
@@ -96,6 +92,5 @@
       }
     ];
     helper.updateChildContainerWithValue(component, childKeyValuePairs, false);
-    console.log(selected);
   }
 });

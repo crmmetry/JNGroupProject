@@ -38,6 +38,15 @@
    */
   setMinimumValue: function (data) {
     if (validNumbersWithObject(["purchasePrice", "marketValue"], data)) {
+      if (!isZero(data.purchasePrice) && isZero(data.marketValue)) {
+        let minimumOfPurchaseMarketValue = data.purchasePrice;
+        data.minimumOfPurchaseMarketValue = minimumOfPurchaseMarketValue;
+        return data;
+      } else if (isZero(data.purchasePrice) && !isZero(data.marketValue)) {
+        let minimumOfPurchaseMarketValue = data.marketValue;
+        data.minimumOfPurchaseMarketValue = minimumOfPurchaseMarketValue;
+        return data;
+      }
       let minimumOfPurchaseMarketValue = Math.min(
         parseFloat(data.purchasePrice),
         parseFloat(data.marketValue)
@@ -111,31 +120,50 @@
    * Calculates deposit percentage amount
    */
   validateAutoCollateralDeposit: function (data, component) {
+    const depositAutoCollateralField = component.find(
+      "auto-collateral-deposit"
+    );
+    const depositComputedAutoCollateralField = component.find(
+      "auto-collateral-computed-deposit"
+    );
     if (
       !isZero(data.autoCollateralDeposit) &&
+      validNumber(data.autoCollateralDeposit) &&
       !isZero(data.loanAmount) &&
-      !isZero(data.minimumOfPurchaseMarketValue)
+      validNumber(data.loanAmount) &&
+      !isZero(data.minimumOfPurchaseMarketValue) &&
+      validNumber(data.minimumOfPurchaseMarketValue)
     ) {
-      console.log("VALIDATION BEGIN");
       let minimumAndDepositDifference =
         data.autoCollateralDeposit - data.minimumOfPurchaseMarketValue;
       if (data.loanAmount !== minimumAndDepositDifference) {
-        let depositField = component.find("auto-collateral-deposit");
-        depositField.set("v.validity", { valid: false, badInput: true });
-        depositField.showHelpMessageIfInvalid();
+        depositAutoCollateralField.setCustomValidity(
+          "Loan amount must be equal to the difference between the deposit and the minimum"
+        );
+        depositAutoCollateralField.reportValidity();
+      } else {
+        depositAutoCollateralField.setCustomValidity("");
+        depositAutoCollateralField.reportValidity();
       }
     } else if (
       !isZero(data.computedAutoCollateralDepositFromPercentage) &&
+      validNumber(data.computedAutoCollateralDepositFromPercentage) &&
       !isZero(data.loanAmount) &&
-      !isZero(data.minimumOfPurchaseMarketValue)
+      validNumber(data.loanAmount) &&
+      !isZero(data.minimumOfPurchaseMarketValue) &&
+      validNumber(data.minimumOfPurchaseMarketValue)
     ) {
       let minimumAndDepositDifference =
         data.computedAutoCollateralDepositFromPercentage -
         data.minimumOfPurchaseMarketValue;
       if (data.loanAmount !== minimumAndDepositDifference) {
-        let depositField = component.find("auto-collateral-computed-deposit");
-        depositField.set("v.validity", { valid: false, badInput: true });
-        depositField.showHelpMessageIfInvalid();
+        depositComputedAutoCollateralField.setCustomValidity(
+          "Loan amount must be equal to the difference between the deposit and the minimum"
+        );
+        depositComputedAutoCollateralField.reportValidity();
+      } else {
+        depositComputedAutoCollateralField.setCustomValidity("");
+        depositComputedAutoCollateralField.reportValidity();
       }
     }
   }

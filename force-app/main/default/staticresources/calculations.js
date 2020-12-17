@@ -878,7 +878,9 @@ window.autoCollateralDepositPercentageCalculator = function (
   minimum
 ) {
   if (validNumber(depositPercent) && validNumber(minimum)) {
-    return (parseFloat(depositPercent) / 100) * parseFloat(minimum);
+    return roundedValue(
+      (parseFloat(depositPercent) / 100) * parseFloat(minimum)
+    );
   }
   return 0;
 };
