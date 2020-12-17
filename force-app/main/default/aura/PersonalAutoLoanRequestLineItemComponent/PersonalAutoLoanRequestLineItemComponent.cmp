@@ -298,7 +298,7 @@
           padding="around-small"
         >
           <lightning:input
-            type="number"
+            type="text"
             name="vehicle-year"
             value="{!v.ChildContainer.yearOfVehicle}"
             label="Year of Motor Vehicle"
