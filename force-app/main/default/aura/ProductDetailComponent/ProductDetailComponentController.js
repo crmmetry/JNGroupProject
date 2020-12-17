@@ -142,15 +142,19 @@
       let productRecordTypes = [
         component.get("v.productSelection.productFamily")
       ]; //TODO: update in future to accomodate multiple products
-      let combinedObjects = helper.contructProductDetailsFields();
+      let {
+        loanCalculationProductFields,
+        loanCalculationFields
+      } = helper.contructProductDetailsFields();
       combinedObjects = persistentFieldsValidator(
         component.get("v.ChildContainer"),
-        combinedObjects
+        Object.assign({}, loanCalculationProductFields, loanCalculationFields)
       );
       return helper.saveProductDetailsInfo(
         component,
         productRecordTypes,
-        combinedObjects
+        loanCalculationFields,
+        loanCalculationProductFields
       );
     }
     return showToast(

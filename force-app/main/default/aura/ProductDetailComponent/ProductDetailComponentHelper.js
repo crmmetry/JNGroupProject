@@ -670,19 +670,22 @@
    * Saves product details
    * @param {*} component
    * @param {Array<String>} productRecordTypes
-   * @param {Object<Array>} combinedObjects
+   * @param {Object} loanCalculationFields
+   * @param {Object} loanCalculationProductFields
    */
   saveProductDetailsInfo: function (
     component,
     productRecordTypes,
-    combinedObjects
+    loanCalculationFields,
+    loanCalculationProductFields
   ) {
     let oppId = component.get("v.recordId");
     let action = component.get("c.saveProductDetails");
     action.setParams({
       opportunityId: oppId,
       productRecordTypes: productRecordTypes,
-      combinedObjects: combinedObjects
+      loanCalculationProductFields: loanCalculationProductFields,
+      loanCalculationFields: loanCalculationFields
     });
     this.showSpinner(component);
     action.setCallback(this, function (response) {
@@ -698,7 +701,7 @@
   },
   /**
    * lists all the fields needed in saving product details
-   * @returns {Void}
+   * @returns {Object}
    */
   contructProductDetailsFields: function () {
     let loanCalculationFields = [

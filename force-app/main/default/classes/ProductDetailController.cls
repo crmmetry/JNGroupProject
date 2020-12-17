@@ -21,18 +21,6 @@ public with sharing class ProductDetailController {
     String collateral
   ) {
     try {
-      System.debug(
-        'Oppid=' +
-        oppId +
-        ' Ltv =' +
-        ltv +
-        'tdsrBefore =' +
-        tdsrBefore +
-        ' repaymentMethod =' +
-        repaymentMethod +
-        'collateral ' +
-        collateral
-      );
       RiskRatingWrapper wrapper = ProductDetailService.getRiskRatingWrapperV2(
         oppId,
         (Integer) ltv,
@@ -53,10 +41,9 @@ public with sharing class ProductDetailController {
    */
   @AuraEnabled
   public static Object getSingleProductFamilySelection(Id oppId) {
-    System.debug('Controller');
     OpportunityLineItem oppProduct = Util.getOpportunityProducts(oppId);
     if (oppProduct != null) {
-      Wrappers.ProductSelectionWrapper selection = new Wrappers.ProductSelectionWrapper(
+      ProductSelectionWrapper selection = new ProductSelectionWrapper(
         oppProduct
       );
       return selection;
@@ -76,7 +63,8 @@ public with sharing class ProductDetailController {
     }
   }
 
-  /**
+  /** *
+   * @deprecated
    * return a list of applicant wrappers related to an oppurtunity
    * @param {Id} oppId - Id of selected opportunity.
    * @return {creditRatingMap}
@@ -129,7 +117,9 @@ public with sharing class ProductDetailController {
     Id oppId,
     Decimal tenure
   ) {
-    List<ApplicantWrapper> applicants = getApplicants(oppId);
+    List<ApplicantWrapper> applicants = ProductDetailSelector.getApplicantDetails(
+      oppId
+    );
     applicants = getApplicantsCreditRating(applicants, tenure);
     return applicants;
   }
@@ -142,6 +132,7 @@ public with sharing class ProductDetailController {
   @AuraEnabled
   public static List<Object> getApplicantsAssetsAndLiabilities(Id oppId) {
     List<Applicant__c> applicants = [
+      //TODO: ADD THIS SOQL TO PRODUCT DETAILS SELECTOR SERVICE
       SELECT
         Id,
         Statutory_Deductions_Numbers__c,
@@ -231,7 +222,6 @@ public with sharing class ProductDetailController {
         record.Score_Range_Number__c
       );
     }
-    System.debug('Risk Ratings:' + riskRatingMap);
     return riskRatingMap;
   }
   /** *
@@ -244,10 +234,32 @@ public with sharing class ProductDetailController {
   @AuraEnabled
   public static Integer saveProductDetails(
     Id opportunityId,
-    List<String> productRecordTypes
+    List<String> productRecordTypes,
+    Map<String, Object> loanCalculationFields,
+    Map<String, Object> loanCalculationProductFields
   ) {
     try {
-      Constants.STATUS_SUCCESS_CODE;
+      System.debug('productRecordTypes ' + productRecordTypes);
+      System.debug('loanCalculationFields ' + loanCalculationFields);
+      System.debug(
+        'loanCalculationProductFields ' + loanCalculationProductFields
+      );
+      String loanCalculationFieldsString = JSON.serialize(
+        loanCalculationFields
+      );
+      String loanCalculationProductFieldsString = JSON.serialize(
+        loanCalculationProductFields
+      );
+      ProductDetailsSerializer loanCalculation = (ProductDetailsSerializer) JSON.deserializeStrict(
+        loanCalculationFieldsString,
+        ProductDetailsSerializer.class
+      );
+      ProductDetailsSerializer loanCalculationProduct = (ProductDetailsSerializer) JSON.deserializeStrict(
+        loanCalculationProductFieldsString,
+        ProductDetailsSerializer.class
+      );
+
+      return Constants.STATUS_SUCCESS_CODE;
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
     }
