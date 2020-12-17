@@ -240,10 +240,7 @@ public with sharing class ProductDetailController {
   ) {
     try {
       System.debug('productRecordTypes ' + productRecordTypes);
-      System.debug('loanCalculationFields ' + loanCalculationFields);
-      System.debug(
-        'loanCalculationProductFields ' + loanCalculationProductFields
-      );
+
       String loanCalculationFieldsString = JSON.serialize(
         loanCalculationFields
       );
@@ -258,7 +255,20 @@ public with sharing class ProductDetailController {
         loanCalculationProductFieldsString,
         ProductDetailsSerializer.class
       );
-
+      System.debug('loanCalculationFields ' + loanCalculation);
+      System.debug('loanCalculationProductFields ' + loanCalculationProduct);
+      LoanCalculationUnwrapper loanCalculationUnwrapper = new LoanCalculationUnwrapper(
+        loanCalculation
+      );
+      Id loanCalculationId = loanCalculationUnwrapper.save();
+      LoanCalculationProductUnwrapper loanCalculationProductUnwrapper = new LoanCalculationProductUnwrapper(
+        loanCalculationProduct
+      );
+      loanCalculationProductUnwrapper.save(loanCalculationId);
+      System.debug('LoanCalculation Unwrapper ' + loanCalculationUnwrapper);
+      System.debug(
+        'LoanCalculationProduct Unwrapper ' + loanCalculationProductUnwrapper
+      );
       return Constants.STATUS_SUCCESS_CODE;
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
