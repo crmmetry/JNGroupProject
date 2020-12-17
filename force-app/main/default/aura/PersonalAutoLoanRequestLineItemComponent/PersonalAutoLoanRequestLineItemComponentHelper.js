@@ -135,7 +135,7 @@
       validNumber(data.minimumOfPurchaseMarketValue)
     ) {
       let minimumAndDepositDifference =
-        data.autoCollateralDeposit - data.minimumOfPurchaseMarketValue;
+        data.minimumOfPurchaseMarketValue - data.autoCollateralDeposit;
       if (data.loanAmount !== minimumAndDepositDifference) {
         depositAutoCollateralField.setCustomValidity(
           "Loan amount must be equal to the difference between the deposit and the minimum"
@@ -154,8 +154,8 @@
       validNumber(data.minimumOfPurchaseMarketValue)
     ) {
       let minimumAndDepositDifference =
-        data.computedAutoCollateralDepositFromPercentage -
-        data.minimumOfPurchaseMarketValue;
+        data.minimumOfPurchaseMarketValue -
+        data.computedAutoCollateralDepositFromPercentage;
       if (data.loanAmount !== minimumAndDepositDifference) {
         depositComputedAutoCollateralField.setCustomValidity(
           "Loan amount must be equal to the difference between the deposit and the minimum"
