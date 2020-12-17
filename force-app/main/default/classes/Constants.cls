@@ -55,4 +55,8 @@ public class Constants {
   public static final String INADEQUATE = 'Inconsistent profit/growth trends';
   public static final String INCONSISTANT = 'Inadequate growth and/or profit trends';
   public static final Integer STATUS_SUCCESS_CODE = 200;
+  public static final String AUTO_PRODUCT_FAMILY = 'JN Bank Auto Loan';
+  public static final String CREDITCARD_PRODUCT_FAMILY = 'JN Bank Credit Card';
+  public static final String UNSECURED_PRODUCT_FAMILY = 'JN Bank Unsecured Loan';
+  public static final String LINEOFCREDIT_PRODUCT_FAMILY = 'JN Bank Line Of Credit';
 }

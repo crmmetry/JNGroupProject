@@ -262,7 +262,8 @@ public with sharing class ProductDetailController {
       );
       Id loanCalculationId = loanCalculationUnwrapper.save();
       LoanCalculationProductUnwrapper loanCalculationProductUnwrapper = new LoanCalculationProductUnwrapper(
-        loanCalculationProduct
+        loanCalculationProduct,
+        productRecordTypes
       );
       loanCalculationProductUnwrapper.save(loanCalculationId);
       System.debug('LoanCalculation Unwrapper ' + loanCalculationUnwrapper);
