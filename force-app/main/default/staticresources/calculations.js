@@ -611,7 +611,7 @@ function fieldValidator(fields, container) {
     }
   });
 }
-//ASL Step Calculations
+//ASL Step Calculations when no collateral is selected
 /**
  * ASL Calculation Step 1: Calculate Annual Gross Income
  * @param {Decimal} monthlyGrossIncome
@@ -866,4 +866,28 @@ window.lineOfCreditCreditorLifeCalculator = function (
     return roundedValue(approvedStartingLimit * lineOfCreditCreditorLifeRate);
   }
   return 0;
+};
+
+//ASL Step Calculation methods when collateral selected
+/**
+ * ASL w/ Cash Collateral Calculation Step 1: Calculate Maximum Credit Limit Allowable
+ * @param {Decimal} depositBalance
+ * @param {Decimal} LTVCeiling
+ * @param {Decimal} existingLoanBalance
+ * @return {Decimal}
+ */
+window.maximumCreditLimitCalculatorWithCashCollateral = function (
+  depositBalance,
+  LTVCeiling,
+  existingLoanBalance
+) {
+  if (
+    validNumber(depositBalance) &&
+    validNumber(LTVCeiling) &&
+    validNumber(existingLoanBalance)
+  )
+    return roundedValue(
+      parseFloat(depositBalance) * parseFloat(LTVCeiling) -
+        parseFloat(existingLoanBalance)
+    );
 };

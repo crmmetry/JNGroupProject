@@ -266,12 +266,12 @@ window.annualFeesCalculator = function (
  * @param {*} jnDefaults
  * @return {Decimal}
  */
-window.ASLCalculator = function (container, jnDefault, riskFactor) {
+window.ASLCalculator = function (container, jnDefault, riskFactor = 0) {
+  let maxCreditLimit = 0;
   if (
     !validNumber(container.TDSRBefore) ||
     !validNumber(jnDefault.policyLimit) ||
-    !validNumber(container.TDSRBefore) ||
-    !validNumber(riskFactor)
+    !validNumber(container.TDSRAfter)
   ) {
     return 0;
   }
@@ -283,12 +283,20 @@ window.ASLCalculator = function (container, jnDefault, riskFactor) {
     container.grossMonthlyIncome
   );
   // //Step 1.5:
-  let maxCredilLimit = maximumCreditLimitCalculator(
-    jnDefault.creditLimitMax,
-    jnDefault.creditLimitMin,
-    annualGrossIncome,
-    jnDefault.creditLimitThreshold
-  );
+  if (container.cashInvestmentFlag === false) {
+    maxCreditLimit = maximumCreditLimitCalculator(
+      jnDefault.creditLimitMax,
+      jnDefault.creditLimitMin,
+      annualGrossIncome,
+      jnDefault.creditLimitThreshold
+    );
+  } else {
+    maxCreditLimit = maximumCreditLimitCalculatorWithCashCollateral(
+      container.depositBalance,
+      jnDefault.LTVCeiling,
+      container.existingLoanBalance
+    );
+  }
   //Step 2:
   let maxDebtPayment = maximumAllowableForMonthlyDebtPaymentsCalculator(
     jnDefault.policyLimit,
@@ -308,23 +316,38 @@ window.ASLCalculator = function (container, jnDefault, riskFactor) {
   //Step 5:
   let lowerCreditLimit = lowerCreditLimitCalculator(
     computedMinimumPayment,
-    maxCredilLimit
+    maxCreditLimit
   );
-  //Step 6:
-  let creditLimitAfterRisk = creditLimitRiskCalculator(
-    lowerCreditLimit,
-    riskFactor
-  );
-  //Step 7:
-  let startingLimit = startingCreditLimtCalculator(
-    creditLimitAfterRisk,
-    jnDefault.discountFactor
-  );
-  //Step 8
-  return approvedStartingLimitCalculator(
-    startingLimit,
-    container.requestedCreditLimit
-  );
+
+  if (container.cashInvestmentFlag === false) {
+    //Step 6:
+    let creditLimitAfterRisk = creditLimitRiskCalculator(
+      lowerCreditLimit,
+      riskFactor
+    );
+    //Step 7:
+    let startingLimit = startingCreditLimtCalculator(
+      creditLimitAfterRisk,
+      jnDefault.discountFactor
+    );
+    //Step 8
+    return approvedStartingLimitCalculator(
+      startingLimit,
+      container.requestedCreditLimit
+    );
+  } else {
+    //Step 6 with cash collateral:
+    let startingLimit = startingCreditLimtCalculator(
+      lowerCreditLimit,
+      jnDefault.maximumCreditLimitAllowable
+    );
+
+    //Step 7 with cash collateral
+    return approvedStartingLimitCalculator(
+      startingLimit,
+      container.requestedCreditLimit
+    );
+  }
 };
 /**
  * copies all the src properties into target
