@@ -234,4 +234,22 @@ public with sharing class ProductDetailController {
     System.debug('Risk Ratings:' + riskRatingMap);
     return riskRatingMap;
   }
+  /** *
+   * JN1-4001
+   * Saves product details information
+   * @param {Id} opportunityId
+   * @param {List<String>} productRecordTypes
+   * @return {Integer}
+   */
+  @AuraEnabled
+  public static Integer saveProductDetails(
+    Id opportunityId,
+    List<String> productRecordTypes
+  ) {
+    try {
+      Constants.STATUS_SUCCESS_CODE;
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
+    }
+  }
 }

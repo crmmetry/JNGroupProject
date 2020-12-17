@@ -664,5 +664,95 @@
     } else {
       component.set("v.spinnerList", spinnerList);
     }
+  },
+  /**
+   * JN1-4001
+   * Saves product details
+   * @param {*} component
+   * @param {Array<String>} productRecordTypes
+   * @param {Object<Array>} combinedObjects
+   */
+  saveProductDetailsInfo: function (
+    component,
+    productRecordTypes,
+    combinedObjects
+  ) {
+    let oppId = component.get("v.recordId");
+    let action = component.get("c.saveProductDetails");
+    action.setParams({
+      opportunityId: oppId,
+      productRecordTypes: productRecordTypes,
+      combinedObjects: combinedObjects
+    });
+    this.showSpinner(component);
+    action.setCallback(this, function (response) {
+      this.hideSpinner(component);
+      let state = response.getState(); //Checking response status
+      let result = response.getReturnValue();
+      if (state !== "SUCCESS") {
+        console.info(response.getError());
+      }
+    });
+
+    $A.enqueueAction(action);
+  },
+  /**
+   * lists all the fields needed in saving product details
+   * @returns {Void}
+   */
+  contructProductDetailsFields: function () {
+    let loanCalculationFields = [
+      {
+        localName: "purchasePrice",
+        objectName: "",
+        description: "Purchase Price of Vehicle"
+      },
+      {
+        localName: "marketValue",
+        objectName: "",
+        description: "Market Value of Vehicle"
+      },
+      {
+        localName: "minimumOfPurchaseMarketValue",
+        objectName: "",
+        description: "Minimum(MV,PP)"
+      },
+      {
+        localName: "percent",
+        objectName: "",
+        description: "Motor Vehicle Deposit Percent"
+      },
+      {
+        localName: "amount",
+        objectName: "",
+        description: "Motor Vehicle Deposit Amount"
+      },
+      {
+        localName: "loanAmount",
+        objectName: "",
+        description: "Loan Amount"
+      }
+    ];
+    let loanCalculationProductFields = [
+      {
+        localName: "years",
+        objectName: "",
+        description: "Loan Term Years"
+      },
+      {
+        localName: "months",
+        objectName: "",
+        description: "Loan Term Months"
+      },
+      {
+        localName: "market",
+        objectName: "",
+        description: "Loan Term Market"
+      }
+    ];
+    return {
+      loanCalculationProductFields: loanCalculationProductFields,
+      loanCalculationFields: loanCalculationFields
+    };
   }
 });

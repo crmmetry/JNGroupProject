@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Applicant_Id__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Applicant lookup</description>
+    <externalId>false</externalId>
+    <label>Applicant</label>
+    <referenceTo>Applicant__c</referenceTo>
+    <relationshipLabel>Loan Calculation Applicant Products</relationshipLabel>
+    <relationshipName>Loan_Calculation_Applicant_Products</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -511,3 +511,41 @@ window.creditCardAnnualFeesCalculation = function (
   }
   return ZERO;
 };
+
+/**
+ * validates whether the supplied fields are valid, meaning not null, undefined etc
+ * @param {Object} childContainer
+ * @param {Object<Array>} combinedObjects
+ * @returns {Object<Array>} combinedObjects
+ */
+window.persistentFieldsValidator = function (childContainer, combinedObjects) {
+  if (isObject(fieldsWithValues)) {
+    Object.keys(combinedObjects).forEach((key) => {
+      combinedObjects[key].forEach((element, index) => {
+        if (
+          !validNumber(childContainer[element.localName]) ||
+          isEmpty(childContainer[element.localName])
+        ) {
+          combinedObjects[key].splice(index, 1);
+        }
+      });
+    });
+  }
+  return combinedObjects;
+};
+/**
+ * displays toast message
+ * @param {String} title
+ * @param {String} message
+ * @param {String} type
+ * @returns {Void}
+ */
+window.showToast = function (title, message, type) {
+  let toastEvent = $A.get("e.force:showToast");
+  toastEvent.setParams({
+    title: title,
+    message: message,
+    type: type
+  });
+  toastEvent.fire();
+};

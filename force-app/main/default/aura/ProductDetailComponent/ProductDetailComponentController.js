@@ -129,5 +129,34 @@
       );
       component.set("v.ChildContainer", updatedContainer);
     }
+  },
+  /**
+   * click handler for save button
+   * @param {*} component
+   * @param {*} event
+   * @param {*} helper
+   */
+  onSaveProductDetails: function (component, event, helper) {
+    let fieldsValidated = true; //TODO: replace with logic to validate current component fields
+    if (fieldsValidated) {
+      let productRecordTypes = [
+        component.get("v.productSelection.productFamily")
+      ]; //TODO: update in future to accomodate multiple products
+      let combinedObjects = helper.contructProductDetailsFields();
+      combinedObjects = persistentFieldsValidator(
+        component.get("v.ChildContainer"),
+        combinedObjects
+      );
+      return helper.saveProductDetailsInfo(
+        component,
+        productRecordTypes,
+        combinedObjects
+      );
+    }
+    return showToast(
+      "Product Details Error",
+      "Sorry, an error was encountered. Please try again",
+      "error"
+    );
   }
 });

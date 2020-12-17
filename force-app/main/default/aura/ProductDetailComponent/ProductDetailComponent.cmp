@@ -18,12 +18,6 @@
     action="{!c.onChildContainerChange}"
   />
   <aura:attribute
-    name="ParentContainer"
-    type="Map"
-    default="{}"
-    description="parent container"
-  />
-  <aura:attribute
     name="ChildContainer"
     type="Map"
     default="{}"
@@ -127,6 +121,7 @@
               oppId="{!v.recordId}"
               jnDefaultConfigs="{!v.jnDefaultConfigs}"
               ParentContainer="{!v.ChildContainer}"
+              aura:id="autoLoanComponent"
             >
             </c:AutoLoanContainerComponent>
           </aura:if>
@@ -155,6 +150,14 @@
             >
             </c:LineOfCreditContainerComponent>
           </aura:if>
+          <div class="slds-align_absolute-center slds-var-m-top_large">
+            <lightning:button
+              label="Save Product Details"
+              onclick="{!c.onSaveProductDetails}"
+              variant="brand-outline"
+              title="Save Product Details"
+            />
+          </div>
         </fieldset>
       </lightning:layoutItem>
     </lightning:card>
