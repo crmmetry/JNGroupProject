@@ -513,10 +513,21 @@ window.creditCardAnnualFeesCalculation = function (
 };
 
 /**
+ * Checks if a number is ZERO
+ * @param {Number} number
+ * @returns {Number}
+ */
+window.isZero = function (number) {
+  if (validNumber(number) && parseFloat(number) === ZER0) {
+    return true;
+  }
+  return false;
+};
+/** *
  * validates whether the supplied fields are valid, meaning not null, undefined etc
  * @param {Object} childContainer
- * @param {Object<Array>} combinedObjects
- * @returns {Object<Array>} combinedObjects
+ * @param {Object<Array>} values
+ * @returns {Object}
  */
 window.persistentFieldsValidator = function (childContainer, values) {
   const container = {};
@@ -550,26 +561,26 @@ window.showToast = function (title, message, type) {
     type: type
   });
   toastEvent.fire();
-  /**
-   * Validates fields
-   * @param {*} component
-   * @param {Array<String>} validationArray
-   */
-  window.validateFields = function (component, validationArray) {
-    let components = [];
-    validationArray.forEach((element) => {
-      const cmp = component.find(element);
-      if (cmp) {
-        if (Array.isArray(cmp)) {
-          components.concat(cmp);
-        } else {
-          components.push(cmp);
-        }
+};
+/**
+ * Validates fields
+ * @param {*} component
+ * @param {Array<String>} validationArray
+ */
+window.validateFields = function (component, validationArray) {
+  let components = [];
+  validationArray.forEach((element) => {
+    const cmp = component.find(element);
+    if (cmp) {
+      if (Array.isArray(cmp)) {
+        components.concat(cmp);
+      } else {
+        components.push(cmp);
       }
-    });
-    return components.reduce(function (validSoFar, inputCmp) {
-      inputCmp.showHelpMessageIfInvalid();
-      return validSoFar && inputCmp.get("v.validity").valid;
-    }, true);
-  };
+    }
+  });
+  return components.reduce(function (validSoFar, inputCmp) {
+    inputCmp.showHelpMessageIfInvalid();
+    return validSoFar && inputCmp.get("v.validity").valid;
+  }, true);
 };
