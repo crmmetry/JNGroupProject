@@ -867,3 +867,20 @@ window.lineOfCreditCreditorLifeCalculator = function (
   }
   return 0;
 };
+
+/**
+ * Calculates percentage amount for auto collateral deposit
+ * @param {Object} container
+ * @return {Decimal}
+ */
+window.autoCollateralDepositPercentageCalculator = function (
+  depositPercent,
+  minimum
+) {
+  if (validNumber(depositPercent) && validNumber(minimum)) {
+    return roundedValue(
+      (parseFloat(depositPercent) / 100) * parseFloat(minimum)
+    );
+  }
+  return 0;
+};

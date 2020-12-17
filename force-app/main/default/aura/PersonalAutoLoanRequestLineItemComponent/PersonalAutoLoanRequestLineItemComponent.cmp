@@ -3,6 +3,12 @@
   controller="ProductDetailController"
 >
   <aura:attribute
+    name="notifyContainerChange"
+    type="Boolean"
+    default="true"
+    description="used to indicate whether the component should react to the ChildContainer changes"
+  />
+  <aura:attribute
     name="options"
     type="List"
     default="[
@@ -14,7 +20,9 @@
   <aura:attribute
     name="loanPurpose"
     type="List"
-    default="['Auto','School','Debt']"
+    default="['Purchase new',
+    'Purchase used',
+    'Refinance']"
   />
   <aura:attribute
     name="purchasePriceCurrency"
@@ -59,7 +67,9 @@
   <aura:attribute
     name="vehicleClassification"
     type="List"
-    default="['New','Old','Used']"
+    default="['New',
+    'Used Imported',
+    'Used Pre-owned']"
   />
   <aura:attribute name="vehicleYear" type="Integer" default="" />
   <aura:attribute name="makeandModel" type="String" default="" />
@@ -206,40 +216,40 @@
             value="{! v.value }"
             type="radio"
             required="true"
+            onchange="{!c.onMotorVehicleDepositFormatChange}"
           />
         </lightning:layoutItem>
         <aura:if isTrue="{!v.value == v.percent}">
           <lightning:layoutItem
             size="12"
-            mediumDeviceSize="6"
+            mediumDeviceSize="12"
             padding="around-small"
           >
             <lightning:layout>
               <lightning:layoutItem size="4" mediumDeviceSize="2">
                 <lightning:input
+                  aura:id="auto-collateral-computed-deposit"
                   type="number"
                   label="%"
-                  value="{!v.depositPercentage}"
-                  formatter="percent"
+                  value="{!v.ChildContainer.autoCollateralDepositPercentage}"
+                  formatter="fixed-percent"
+                  step="0.01"
                   required="true"
                 />
               </lightning:layoutItem>
-              <lightning:layoutItem size="8" mediumDeviceSize="10">
+              <lightning:layoutItem size="6" mediumDeviceSize="10">
                 <lightning:input
                   type="number"
                   label="Motor Vehicle Deposit"
-                  value="{!v.deposit}"
+                  value="{!v.ParentContainer.computedAutoCollateralDepositFromPercentage}"
                   formatter="currency"
                   required="true"
                   readonly="true"
+                  messageWhenBadInput="Loan amount must be equal to the difference between the deposit and the minimum"
                 />
               </lightning:layoutItem>
             </lightning:layout>
           </lightning:layoutItem>
-          <lightning:layoutItem
-            size="12"
-            mediumDeviceSize="6"
-          ></lightning:layoutItem>
         </aura:if>
         <aura:if isTrue="{!v.value == v.amount}">
           <lightning:layoutItem
@@ -248,26 +258,14 @@
             padding="around-small"
           >
             <lightning:layout>
-              <lightning:layoutItem size="4" mediumDeviceSize="2">
-                <lightning:select
-                  name="select1"
-                  label="$"
-                  required="true"
-                  onchange="{!v.onDepositCurrencyChange}"
-                >
-                  <aura:iteration items="{!v.depositCurrency}" var="item">
-                    <option value="{!item}">{!item}</option>
-                  </aura:iteration>
-                </lightning:select>
-              </lightning:layoutItem>
-              <lightning:layoutItem size="8" mediumDeviceSize="10">
+              <lightning:layoutItem size="12" mediumDeviceSize="12">
                 <lightning:input
+                  aura:id="auto-collateral-deposit"
                   type="number"
                   label="Motor Vehicle Deposit"
-                  value="{!v.deposit}"
+                  value="{!v.ChildContainer.autoCollateralDeposit}"
                   formatter="currency"
                   required="true"
-                  readonly="true"
                 />
               </lightning:layoutItem>
             </lightning:layout>
@@ -288,6 +286,7 @@
             required="true"
             onchange="{!c.onVehicleClassificationChange}"
           >
+            <option value="">select one...</option>
             <aura:iteration items="{!v.vehicleClassification}" var="item">
               <option value="{!item}">{!item}</option>
             </aura:iteration>
@@ -301,9 +300,11 @@
           <lightning:input
             type="number"
             name="vehicle-year"
-            value="{!v.vehicleYear}"
+            value="{!v.ChildContainer.yearOfVehicle}"
             label="Year of Motor Vehicle"
             required="true"
+            pattern="^\d{4}$"
+            messageWhenPatternMismatch="This year is invalid!"
           />
         </lightning:layoutItem>
         <lightning:layoutItem
@@ -314,7 +315,7 @@
           <lightning:input
             type="text"
             name="make-model"
-            value="{!v.makeandModel}"
+            value="{!v.ChildContainer.makeAndModelOfVehicle}"
             label="Make and Model of Vehicle"
             required="true"
           />
