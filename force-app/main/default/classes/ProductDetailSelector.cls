@@ -79,7 +79,14 @@ public with sharing class ProductDetailSelector {
         Other_Asset_Monthly_Payment_Number__c,
         Other_Loan_Monthly_Payment_Number__c,
         Gross_Monthly_Income__c,
-        Account__r.PersonBirthdate
+        Account__r.PersonBirthdate,
+        Credit_History_in_last_24_Months__c,
+        Assessment_of_Applicant_Net_Worth__c,
+        Rent_Board_Monthly_Prior_Loan__c,
+        Rent_Board_Monthly_After_Loan__c,
+        Gross_Monthly_IncomeC__c,
+        Strata_Maintenance_Monthly_Prior_Loan__c,
+        Strata_Maintenance_Monthly_After_Loan__c
       FROM Applicant__c
       WHERE Opportunity__c = :oppId
     ];
