@@ -511,9 +511,13 @@ window.creditCardAnnualFeesCalculation = function (
   }
   return ZERO;
 };
-
+/**
+ * Checks if a number is ZERO
+ * @param {Number} number
+ * @returns {Number}
+ */
 window.isZero = function (number) {
-  if (parseFloat(number) === ZERO && validNumber(number)) {
+  if (validNumber(number) && parseFloat(number) === ZER0) {
     return true;
   }
   return false;
