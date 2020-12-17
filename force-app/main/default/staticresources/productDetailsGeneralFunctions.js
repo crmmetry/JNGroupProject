@@ -517,7 +517,7 @@ window.creditCardAnnualFeesCalculation = function (
  * @returns {Number}
  */
 window.isZero = function (number) {
-  if (validNumber(number) && parseFloat(number) === ZER0) {
+  if (validNumber(number) && parseFloat(number) === ZERO) {
     return true;
   }
   return false;
