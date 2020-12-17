@@ -511,3 +511,25 @@ window.creditCardAnnualFeesCalculation = function (
   }
   return ZERO;
 };
+/**
+ * Validates fields
+ * @param {*} component
+ * @param {Array<String>} validationArray
+ */
+window.validateFields = function (component, validationArray) {
+  let components = [];
+  validationArray.forEach((element) => {
+    const cmp = component.find(element);
+    if (cmp) {
+      if (Array.isArray(cmp)) {
+        components.concat(cmp);
+      } else {
+        components.push(cmp);
+      }
+    }
+  });
+  return components.reduce(function (validSoFar, inputCmp) {
+    inputCmp.showHelpMessageIfInvalid();
+    return validSoFar && inputCmp.get("v.validity").valid;
+  }, true);
+};
