@@ -297,7 +297,7 @@ window.ASLCalculator = function (container, jnDefault, riskFactor = 0) {
     maxCreditLimit = maximumCreditLimitCalculatorWithCashCollateral(
       container.depositBalance,
       jnDefault.LTVCeiling,
-      container.existingLoanBalance
+      container.existingBalance
     );
   }
   console.log("MCL: ", maxCreditLimit);
@@ -306,23 +306,26 @@ window.ASLCalculator = function (container, jnDefault, riskFactor = 0) {
     jnDefault.policyLimit,
     container.grossMonthlyIncome
   );
+  console.log("Max debt payment: ", maxDebtPayment);
   //Step 3:
   let maxMinimumPayment = maximumAllowableForMinimumPaymentCalculator(
     maxDebtPayment,
     container.existingDebt
   );
+  console.log("maxMinimumPayment ", maxMinimumPayment);
   //Step 4:
   let computedMinimumPayment = computedMinimumPaymentFromCreditLimitCalculator(
     container,
     jnDefault,
     maxMinimumPayment
   );
+  console.log("computedMinimumPayment: ", computedMinimumPayment);
   //Step 5:
   let lowerCreditLimit = lowerCreditLimitCalculator(
     computedMinimumPayment,
     maxCreditLimit
   );
-
+  console.log("lowerCreditLimit: ", lowerCreditLimit);
   if (container.cashInvestmentFlag === false) {
     //Step 6:
     let creditLimitAfterRisk = creditLimitRiskCalculator(
@@ -341,11 +344,12 @@ window.ASLCalculator = function (container, jnDefault, riskFactor = 0) {
     );
   } else {
     //Step 6 with cash collateral:
-    let startingLimit = startingCreditLimtCalculator(
-      lowerCreditLimit,
-      jnDefault.maximumCreditLimitAllowable
+    console.log("Cash collateral starting limit calculation");
+    let startingLimit = startingCreditLimtCalculatorWithCollateral(
+      jnDefault.minimumCreditLimitAllowable,
+      lowerCreditLimit
     );
-
+    console.log("startingLimit: ", startingLimit);
     //Step 7 with cash collateral
     return approvedStartingLimitCalculator(
       startingLimit,

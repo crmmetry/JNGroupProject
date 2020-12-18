@@ -668,15 +668,20 @@ window.maximumCreditLimitCalculatorWithCashCollateral = function (
   LTVCeiling,
   existingLoanBalance
 ) {
+  console.log("Deposit balance: ", depositBalance);
+  console.log("LTV Celiling: ", LTVCeiling);
+  console.log("Existing Balance: ", existingLoanBalance);
   if (
     validNumber(depositBalance) &&
     validNumber(LTVCeiling) &&
     validNumber(existingLoanBalance)
-  )
+  ) {
     return roundedValue(
       parseFloat(depositBalance) * parseFloat(LTVCeiling) -
         parseFloat(existingLoanBalance)
     );
+  }
+  return 0;
 };
 
 /**
@@ -778,7 +783,7 @@ window.creditLimitRiskCalculator = function (
 };
 
 /**
- * ASL Calculation Step 7: Calculate Credit Limit after risk rating
+ * ASL Calculation Step 7: Calculate Interim starting limit
  * @param {Decimal} creditLimitAfterRisk
  * @param {Decimal} discountFactor
  * @return {Decimal}
@@ -793,6 +798,30 @@ window.startingCreditLimtCalculator = function (
         (parseFloat(creditLimitAfterRisk) * parseFloat(discountFactor) * 2) /
           10000
       ) * 10000
+    );
+  }
+  return 0;
+};
+
+/**
+ * ASL Calculation Step 7: Calculate Credit Limit after risk rating
+ * @param {Decimal} maxCreditLimitAllowable
+ * @param {Decimal} lowerCreditLimit
+ * @return {Decimal}
+ */
+window.startingCreditLimtCalculatorWithCollateral = function (
+  minCreditLimitAllowable,
+  lowerCreditLimit
+) {
+  if (validNumber(minCreditLimitAllowable) && validNumber(lowerCreditLimit)) {
+    console.log(
+      "Starting limit - maxCreditLimitAllowable: ",
+      minCreditLimitAllowable
+    );
+    console.log("Starting limit - lowerCreditLimit: ", lowerCreditLimit);
+    return Math.max(
+      parseFloat(minCreditLimitAllowable),
+      parseFloat(lowerCreditLimit)
     );
   }
   return 0;
