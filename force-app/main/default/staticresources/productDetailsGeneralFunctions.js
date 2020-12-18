@@ -543,7 +543,18 @@ window.creditCardAnnualFeesCalculation = function (
   return ZERO;
 };
 /**
- * Validates fields
+ * Checks if a number is ZERO
+ * @param {Number} number
+ * @returns {Number}
+ */
+window.isZero = function (number) {
+  if (validNumber(number) && parseFloat(number) === ZERO) {
+    return true;
+  }
+  return false;
+};
+
+/** Validates fields
  * @param {*} component
  * @param {Array<String>} validationArray
  */
