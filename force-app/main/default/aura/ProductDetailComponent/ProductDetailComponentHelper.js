@@ -780,7 +780,8 @@
       { localName: "stampDutyAndAdminCharges" },
       { localName: "totalFinancedByJN" },
       { localName: "totalClosingCostsApplicantPayable" },
-      { localName: "noCreditorLifeReason" }
+      { localName: "noCreditorLifeReason" },
+      { localName: "policyProvider" }
     ];
     let loanCalculationProductFields = [
       {

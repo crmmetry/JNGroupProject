@@ -123,6 +123,8 @@ public class ProductDetailsSerializer {
   public Decimal totalClosingCostsApplicantPayable;
   @AuraEnabled
   public String noCreditorLifeReason;
+  @AuraEnabled
+  public String policyProvider;
   // @AuraEnabled
   // public Decimal totalFinancedByJN;
   // @AuraEnabled

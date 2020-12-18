@@ -25,6 +25,7 @@ public class LoanCalculationUnwrapper {
     record.TotalClosingCost_PayableApplicant_Number__c = serializer.totalClosingCostsApplicantPayable;
     record.Stamp_Duty__c = serializer.stampDuty;
     record.Creditor_Life_Denial_Reason_Text__c = serializer.noCreditorLifeReason;
+    record.Name_of_Insurance_Provider__c = serializer.policyProvider;
   }
   /**
    * save loan calculations oject
