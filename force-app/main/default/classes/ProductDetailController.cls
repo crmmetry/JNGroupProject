@@ -144,17 +144,15 @@ public with sharing class ProductDetailController {
    */
   @AuraEnabled
   public static List<Object> getApplicantsAssetsAndLiabilities(Id oppId) {
-    List<Applicant__c> applicants = ProductDetailSelector.getApplicantDetails(
+    List<ApplicantWrapper> applicants = ProductDetailSelector.getApplicantDetails(
       oppId
     );
-    System.debug(applicants);
     List<Object> wrappers = new List<Object>();
     Map<String, Object> wrapperMap = new Map<String, Object>();
-
-    for (Applicant__c record : applicants) {
-      if (record.Application_Assets_Liabilities__r != null) {
+    for (ApplicantWrapper record : applicants) {
+      if (record.applicationAssetLiabilities != null) {
         for (
-          Application_Asset_Liability__c record2 : record.Application_Assets_Liabilities__r
+          Application_Asset_Liability__c record2 : record.applicationAssetLiabilities
         ) {
           ApplicantAssetsAndLiabilitiesWrapper assetAndLiabilityWrapper = new ApplicantAssetsAndLiabilitiesWrapper(
             record2
@@ -162,9 +160,7 @@ public with sharing class ProductDetailController {
           wrappers.add(assetAndLiabilityWrapper);
         }
       }
-      ApplicantWrapper appWrapper = new ApplicantWrapper(record);
-
-      wrappers.add(appWrapper);
+      wrappers.add(record);
     }
     return wrappers;
   }
