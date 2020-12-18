@@ -45,6 +45,8 @@ public with sharing class ApplicantWrapper {
   public Decimal rentStrataMaintenanceFromLongSummaryAfter; //JN1-3967
   @AuraEnabled
   public Decimal grossMonthlyIncomeFromLongSummary; //JN1-3967
+  @AuraEnabled
+  public List<Application_Asset_Liability__c> applicationAssetLiabilities;
 
   public ApplicantWrapper(Applicant__c record) {
     this.Id = record.Id;
@@ -70,6 +72,7 @@ public with sharing class ApplicantWrapper {
     this.rentStrataMaintenanceFromLongSummaryPrior = record.Strata_Maintenance_Monthly_Prior_Loan__c; //JN1-3967
     this.rentStrataMaintenanceFromLongSummaryAfter = record.Strata_Maintenance_Monthly_After_Loan__c; //JN1-3967
     this.grossMonthlyIncomeFromLongSummary = record.Gross_Monthly_IncomeC__c;
+    this.applicationAssetLiabilities = record.Application_Assets_Liabilities__r;
   }
 
   private Integer calculateAge(Date dob) {

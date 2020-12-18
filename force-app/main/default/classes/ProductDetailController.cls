@@ -63,8 +63,8 @@ public with sharing class ProductDetailController {
     }
   }
 
-  /** *
-   * @deprecated
+  /**
+   * @deprecated - do not use
    * return a list of applicant wrappers related to an oppurtunity
    * @param {Id} oppId - Id of selected opportunity.
    * @return {creditRatingMap}
@@ -131,47 +131,15 @@ public with sharing class ProductDetailController {
    */
   @AuraEnabled
   public static List<Object> getApplicantsAssetsAndLiabilities(Id oppId) {
-    List<Applicant__c> applicants = [
-      //TODO: ADD THIS SOQL TO PRODUCT DETAILS SELECTOR SERVICE
-      SELECT
-        Id,
-        Statutory_Deductions_Numbers__c,
-        Rent_Strata_Maintenance__c,
-        Personal_Expenses_Monthly_Prior_Loan__c,
-        Savings_Pension_Insurance_Number__c,
-        Real_Estate_Monthly_Payment_Number__c,
-        Motor_Vehicle_Monthly_Payment_Number__c,
-        Other_Asset_Monthly_Payment_Number__c,
-        Other_Loan_Monthly_Payment_Number__c,
-        Gross_Monthly_Income__c,
-        Account__r.PersonBirthdate,
-        Credit_History_in_last_24_Months__c,
-        Assessment_of_Applicant_Net_Worth__c,
-        Rent_Board_Monthly_Prior_Loan__c,
-        Rent_Board_Monthly_After_Loan__c,
-        Gross_Monthly_IncomeC__c,
-        Strata_Maintenance_Monthly_Prior_Loan__c,
-        Strata_Maintenance_Monthly_After_Loan__c,
-        (
-          SELECT
-            Id,
-            Minimum_Payment_After_Calc__c,
-            Minimum_Payment_Calc__c,
-            Monthly_Payment_Prior__c,
-            Monthly_Payment_After__c
-          FROM Application_Assets_Liabilities__r
-        )
-      FROM Applicant__c
-      WHERE Opportunity__c = :oppId
-    ];
-    System.debug(applicants);
+    List<ApplicantWrapper> applicants = ProductDetailSelector.getApplicantDetails(
+      oppId
+    );
     List<Object> wrappers = new List<Object>();
     Map<String, Object> wrapperMap = new Map<String, Object>();
-
-    for (Applicant__c record : applicants) {
-      if (record.Application_Assets_Liabilities__r != null) {
+    for (ApplicantWrapper record : applicants) {
+      if (record.applicationAssetLiabilities != null) {
         for (
-          Application_Asset_Liability__c record2 : record.Application_Assets_Liabilities__r
+          Application_Asset_Liability__c record2 : record.applicationAssetLiabilities
         ) {
           ApplicantAssetsAndLiabilitiesWrapper assetAndLiabilityWrapper = new ApplicantAssetsAndLiabilitiesWrapper(
             record2
@@ -179,9 +147,7 @@ public with sharing class ProductDetailController {
           wrappers.add(assetAndLiabilityWrapper);
         }
       }
-      ApplicantWrapper appWrapper = new ApplicantWrapper(record);
-
-      wrappers.add(appWrapper);
+      wrappers.add(record);
     }
     return wrappers;
   }
@@ -239,8 +205,6 @@ public with sharing class ProductDetailController {
     Map<String, Object> loanCalculationProductFields
   ) {
     try {
-      System.debug('productRecordTypes ' + productRecordTypes);
-
       String loanCalculationFieldsString = JSON.serialize(
         loanCalculationFields
       );
@@ -255,8 +219,6 @@ public with sharing class ProductDetailController {
         loanCalculationProductFieldsString,
         ProductDetailsSerializer.class
       );
-      System.debug('loanCalculationFields ' + loanCalculation);
-      System.debug('loanCalculationProductFields ' + loanCalculationProduct);
       LoanCalculationUnwrapper loanCalculationUnwrapper = new LoanCalculationUnwrapper(
         loanCalculation
       );
@@ -266,10 +228,6 @@ public with sharing class ProductDetailController {
         productRecordTypes
       );
       loanCalculationProductUnwrapper.save(loanCalculationId);
-      System.debug('LoanCalculation Unwrapper ' + loanCalculationUnwrapper);
-      System.debug(
-        'LoanCalculationProduct Unwrapper ' + loanCalculationProductUnwrapper
-      );
       return Constants.STATUS_SUCCESS_CODE;
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
