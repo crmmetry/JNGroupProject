@@ -4,6 +4,7 @@
 /**
  * Ver  Ticket#      Date            Author                  Purpose
  * 1.0  JN1-3969     4/12/2020      Ishwari G.(thinqloud)  To calculate the annual fees for primary applicant
+ * 2.0  JN1-4210     18/12/2020     Ishwari G.(thinqloud)   To validate the the array of result
  **/
 
 /**
@@ -543,4 +544,17 @@ window.validateFields = function (component, validationArray) {
     inputCmp.showHelpMessageIfInvalid();
     return validSoFar && inputCmp.get("v.validity").valid;
   }, true);
+};
+
+/** JN1-4210
+ * Validates Component
+ * @param {Array<Boolean>} resultsFromChild
+ */
+window.isValidComponent = function (resultsFromChild) {
+  return resultsFromChild.every(function (result) {
+    if (result) {
+      return true;
+    }
+    return false;
+  });
 };

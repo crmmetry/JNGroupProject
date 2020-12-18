@@ -12,6 +12,14 @@
   />
   <aura:attribute name="jnDefaultConfigs" type="Map" />
   <aura:attribute name="productPrice" type="Decimal" />
+
+  <!--JN1-4212 : For validating fields-->
+  <aura:method
+    name="validateFields"
+    action="{!c.validateFields}"
+    access="public"
+  />
+
   <!--Place Personal Credit Card Request in a standalone component-->
   <!-- <lightning:layout multipleRows="true">
     <lightning:layoutItem size="12">
@@ -77,17 +85,22 @@
   <c:PersonalCreditCardRequestLineComponent
     productPrice="{!v.productPrice}"
     ParentContainer="{!v.ParentContainer}"
+    aura:id="personalCreditCardRequestLineComponent"
   ></c:PersonalCreditCardRequestLineComponent>
   <c:CreditCardOtherDetailsLineComponent
     ParentContainer="{!v.ParentContainer}"
     jnConfigs="{!v.jnDefaultConfigs}"
+    aura:id="creditCardOtherDetailsLineComponent"
   ></c:CreditCardOtherDetailsLineComponent>
   <!-- JN1-3969 -->
   <c:LineOfCreditCreditCalculationsLineComponent
     ParentContainer="{!v.ParentContainer}"
+    aura:id="lineOfCreditCreditCalculationsLineComponent"
   ></c:LineOfCreditCreditCalculationsLineComponent>
   <c:TotalDebtServiceRatioLineItemComponent
     ParentContainer="{!v.ParentContainer}"
     jnDefaultConfigs="{!v.jnDefaultConfigs}"
+    aura:id="totalDebtServiceRatioLineItemComponent"
   ></c:TotalDebtServiceRatioLineItemComponent>
+  <lightning:button label="Save" onclick="{!c.validateFields}" title="Save" />
 </aura:component>

@@ -62,5 +62,18 @@
       helper.totalClosingCostFinancedJNCalculation(component);
       helper.totalClosingCostPaidByApplicantCalculation(component);
     }
+  },
+  /**
+   * JN1-4210 : For validating fields
+   * @param {*} component
+   * @param {*} event
+   * @param {*} helper
+   */
+  validateFields: function (component, event, helper) {
+    let fieldsToValidateArray = [
+      "creditApplicantLoanPercentage",
+      "creditApplicantMonthlyLoanPercentage"
+    ];
+    return validateFields(component, fieldsToValidateArray);
   }
 });
