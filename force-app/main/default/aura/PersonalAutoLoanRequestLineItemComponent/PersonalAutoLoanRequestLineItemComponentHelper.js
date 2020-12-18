@@ -146,7 +146,7 @@
       validNumber(data.loanAmount) &&
       !isZero(data.minimumOfPurchaseMarketValue) &&
       validNumber(data.minimumOfPurchaseMarketValue) &&
-      isEmpty(depositAutoCollateralField)
+      !isEmpty(depositAutoCollateralField)
     ) {
       let minimumAndDepositDifference =
         data.minimumOfPurchaseMarketValue - data.autoCollateralDeposit;
@@ -166,7 +166,7 @@
       validNumber(data.loanAmount) &&
       !isZero(data.minimumOfPurchaseMarketValue) &&
       validNumber(data.minimumOfPurchaseMarketValue) &&
-      isEmpty(depositComputedAutoCollateralField)
+      !isEmpty(depositComputedAutoCollateralField)
     ) {
       let minimumAndDepositDifference =
         data.minimumOfPurchaseMarketValue -
