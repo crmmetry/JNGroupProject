@@ -516,6 +516,7 @@
       container.creditRiskRating
     );
     if (!container.cashInvestmentFlag && validNumber(riskFactor)) {
+      console.log("Cash Investment is false");
       let values = [
         {
           key: "approvedStartingLimit",
@@ -524,8 +525,10 @@
       ];
       let data = updateChildContainerWithValue(component, values, false);
       component.set("v.ChildContainer", data);
+      console.log("No collateral ASL", data.approvedStartingLimit);
       return values;
     } else if (container.cashInvestmentFlag) {
+      console.log("Cash Investment is true");
       let values = [
         {
           key: "approvedStartingLimit",
@@ -534,6 +537,7 @@
       ];
       let data = updateChildContainerWithValue(component, values, false);
       component.set("v.ChildContainer", data);
+      console.log("Cash collateral ASL", data.approvedStartingLimit);
       return values;
     }
     let values = [{ key: "approvedStartingLimit", value: 0 }];

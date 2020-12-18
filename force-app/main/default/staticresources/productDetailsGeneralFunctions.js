@@ -273,11 +273,14 @@ window.ASLCalculator = function (container, jnDefault, riskFactor = 0) {
     !validNumber(jnDefault.policyLimit) ||
     !validNumber(container.TDSRAfter)
   ) {
+    console.log("ZERO was returned!!");
     return 0;
   }
   if (roundedValue(container.TDSRBefore / 100) > jnDefault.policyLimit) {
+    console.log("ZERO was returned!!");
     return 0;
   }
+  console.log("ASL Calculations have begun");
   // //Step 1:
   let annualGrossIncome = annualGrossIncomeCalculator(
     container.grossMonthlyIncome
@@ -297,6 +300,7 @@ window.ASLCalculator = function (container, jnDefault, riskFactor = 0) {
       container.existingLoanBalance
     );
   }
+  console.log("MCL: ", maxCreditLimit);
   //Step 2:
   let maxDebtPayment = maximumAllowableForMonthlyDebtPaymentsCalculator(
     jnDefault.policyLimit,

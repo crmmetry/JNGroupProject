@@ -657,6 +657,29 @@ window.maximumCreditLimitCalculator = function (
 };
 
 /**
+ * ASL w/ Cash Collateral Calculation Step 1: Calculate Maximum Credit Limit Allowable
+ * @param {Decimal} depositBalance
+ * @param {Decimal} LTVCeiling
+ * @param {Decimal} existingLoanBalance
+ * @return {Decimal}
+ */
+window.maximumCreditLimitCalculatorWithCashCollateral = function (
+  depositBalance,
+  LTVCeiling,
+  existingLoanBalance
+) {
+  if (
+    validNumber(depositBalance) &&
+    validNumber(LTVCeiling) &&
+    validNumber(existingLoanBalance)
+  )
+    return roundedValue(
+      parseFloat(depositBalance) * parseFloat(LTVCeiling) -
+        parseFloat(existingLoanBalance)
+    );
+};
+
+/**
  * ASL Calculation Step 2: Calculate Maximum allowable for monthly debt payments
  * @param {Decimal} monthlyGrossIncome
  * @param {Decimal} policyLimit
@@ -866,28 +889,4 @@ window.lineOfCreditCreditorLifeCalculator = function (
     return roundedValue(approvedStartingLimit * lineOfCreditCreditorLifeRate);
   }
   return 0;
-};
-
-//ASL Step Calculation methods when collateral selected
-/**
- * ASL w/ Cash Collateral Calculation Step 1: Calculate Maximum Credit Limit Allowable
- * @param {Decimal} depositBalance
- * @param {Decimal} LTVCeiling
- * @param {Decimal} existingLoanBalance
- * @return {Decimal}
- */
-window.maximumCreditLimitCalculatorWithCashCollateral = function (
-  depositBalance,
-  LTVCeiling,
-  existingLoanBalance
-) {
-  if (
-    validNumber(depositBalance) &&
-    validNumber(LTVCeiling) &&
-    validNumber(existingLoanBalance)
-  )
-    return roundedValue(
-      parseFloat(depositBalance) * parseFloat(LTVCeiling) -
-        parseFloat(existingLoanBalance)
-    );
 };
