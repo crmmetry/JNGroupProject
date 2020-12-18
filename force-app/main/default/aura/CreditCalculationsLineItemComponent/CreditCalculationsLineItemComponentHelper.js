@@ -33,8 +33,8 @@
       let tenure = calculateMonths(data.years, data.months);
       let monthlySavings = basicMonthlyCompulsorySavingsCalculator(
         totalPI,
-        data.percentage,
-        data.amount
+        data.proposedSavingsPercentage,
+        data.proposedSavingsAmount
       );
       let monthlySavingsOverRepaymentPeriod = basicTotalMonthlyCompulsorySavingsCalculator(
         monthlySavings,
@@ -135,7 +135,7 @@
       data.push("jnCLPremiumFeesAndCharges");
     }
     //processing fee
-    if (parentObj.includeInLoanAmountFlag) {
+    if (parentObj.includeInLoanAmountFlag === YES) {
       data.push("processingFeesGCT");
     } else {
       data.push("processingFeeClosingCost");

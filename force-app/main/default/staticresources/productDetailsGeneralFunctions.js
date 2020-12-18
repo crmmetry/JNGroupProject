@@ -22,8 +22,8 @@ function calculateSavings(data, totalMonthly_PI_LoanPayment) {
     let tenure = calculateMonths(data.years, data.months);
     let monthlySavings = basicMonthlyCompulsorySavingsCalculator(
       totalMonthly_PI_LoanPayment,
-      data.percentage,
-      data.amount
+      data.proposedSavingsPercentage,
+      data.proposedSavingsAmount
     );
     let monthlySavingsOverRepaymentPeriod = basicTotalMonthlyCompulsorySavingsCalculator(
       monthlySavings,
@@ -35,10 +35,10 @@ function calculateSavings(data, totalMonthly_PI_LoanPayment) {
       ),
       monthlyCompulsorySavings: parseFloat(monthlySavings)
     };
-  } else if (validNumbersWithObject(["amount"], data)) {
-    let totalCompulsorySavings = data.amount * tenure;
+  } else if (validNumbersWithObject(["proposedSavingsAmount"], data)) {
+    let totalCompulsorySavings = data.proposedSavingsAmount * tenure;
     return {
-      monthlyCompulsorySavings: data.amount,
+      monthlyCompulsorySavings: data.proposedSavingsAmount,
       totalCompulsorySavingsBalance: totalCompulsorySavings
     };
   } else {
@@ -538,7 +538,11 @@ window.persistentFieldsValidator = function (childContainer, values) {
           validNumber(childContainer[value.localName]) ||
           !isEmpty(childContainer[value.localName])
         ) {
-          container[value.localName] = childContainer[value.localName];
+          if (value.hasOwnProperty("mappedName")) {
+            container[value.mappedName] = childContainer[value.localName];
+          } else {
+            container[value.localName] = childContainer[value.localName];
+          }
         }
       }
     });

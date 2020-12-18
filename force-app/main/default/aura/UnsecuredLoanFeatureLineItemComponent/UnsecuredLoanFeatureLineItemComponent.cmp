@@ -464,7 +464,7 @@
             <lightning:input
               type="number"
               label="Savings(%)"
-              value="{!v.ChildContainer.percentage}"
+              value="{!v.ChildContainer.proposedSavingsPercentage}"
               formatter="percent-fixed"
               step="0.01"
               required="true"
@@ -480,7 +480,7 @@
             <lightning:input
               type="number"
               label="Amount(JMD)"
-              value="{!v.ChildContainer.amount}"
+              value="{!v.ChildContainer.proposedSavingsAmount}"
               formatter="currency"
               required="true"
               min="1000"

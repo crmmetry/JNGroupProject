@@ -218,10 +218,10 @@ window.basicProcessingFeesCalculator = function (
   let defaultValue = 0;
   const shouldWaiveProcessingFee =
     parentObj.hasOwnProperty("waiveProcessingFeeFlag") === false ||
-    parentObj.waiveProcessingFeeFlag === true;
+    parentObj.waiveProcessingFeeFlag === YES;
   const shouldIncludeInLoanAmountFlag =
     parentObj.hasOwnProperty("includeInLoanAmountFlag") === true &&
-    parentObj.includeInLoanAmountFlag === true;
+    parentObj.includeInLoanAmountFlag === YES;
   gct = calculateGCT(gct);
   if (shouldIncludeInLoanAmountFlag) {
     if (

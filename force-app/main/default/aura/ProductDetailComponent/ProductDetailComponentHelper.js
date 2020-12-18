@@ -687,11 +687,9 @@
       loanCalculationProductFields: loanCalculationProductFields,
       loanCalculationFields: loanCalculationFields
     });
-    this.showSpinner(component);
     action.setCallback(this, function (response) {
       this.hideSpinner(component);
       let state = response.getState(); //Checking response status
-      let result = response.getReturnValue();
       if (state !== "SUCCESS") {
         console.info(response.getError());
       }
@@ -700,59 +698,140 @@
     $A.enqueueAction(action);
   },
   /**
-   * lists all the fields needed in saving product details
+   * lists all the fields needed in saving product details, product specific selections
+   * @param {*} component
+   * @param {Object} loanCalculationProductFields
+   * @param {Object} loanCalculationFields
    * @returns {Object}
    */
-  contructProductDetailsFields: function () {
+  contructProductSpecificDetailsFields: function (
+    component,
+    loanCalculationFields,
+    loanCalculationProductFields
+  ) {
+    const isAuto = this.checkProductFamily(component, "Auto");
+    // const isLineOfCredit = this.checkProductFamily(component, "Line Of Credit");
+    const isUnsecured = this.checkProductFamily(component, "Unsecured");
+    //const isCreditCard = this.checkProductFamily(component, "Credit Card");
+    if (isAuto) {
+      loanCalculationFields.concat([
+        {
+          localName: "stampDutyAuto",
+          mappedName: "stampDuty",
+          description: "stamp duty for auto loan"
+        }
+      ]);
+    } else if (isUnsecured) {
+      loanCalculationFields.concat([
+        {
+          localName: "stampDutyUns",
+          mappedName: "stampDuty",
+          description: "stamp duty for unsecured loan"
+        }
+      ]);
+    }
+    return {
+      loanCalculationProductFields: loanCalculationProductFields,
+      loanCalculationFields: loanCalculationFields
+    };
+  },
+  /**
+   * lists all the fields needed in saving product details
+   * @param {*} component
+   * @returns {Object}
+   */
+  contructProductDetailsFields: function (component) {
     let loanCalculationFields = [
       {
         localName: "purchasePrice",
-        objectName: "",
         description: "Purchase Price of Vehicle"
       },
       {
         localName: "marketValue",
-        objectName: "",
         description: "Market Value of Vehicle"
       },
       {
         localName: "minimumOfPurchaseMarketValue",
-        objectName: "",
         description: "Minimum(MV,PP)"
       },
       {
-        localName: "percent",
-        objectName: "",
-        description: "Motor Vehicle Deposit Percent"
-      },
-      {
-        localName: "amount",
-        objectName: "",
-        description: "Motor Vehicle Deposit Amount"
-      },
-      {
         localName: "loanAmount",
-        objectName: "",
         description: "Loan Amount"
-      }
+      },
+      {
+        localName: "interestedInPremiumFlag",
+        description: "Interested in Programme?"
+      },
+      {
+        localName: "jngiMonthlyPremium"
+      },
+      { localName: "jngiIncludeInLoan" },
+      {
+        localName: "includeInLoanAmountFlag",
+        description: "Include in Loan Amount processing fee"
+      },
+      { localName: "waiveProcessingFeeFlag" },
+      { localName: "jngiMotorPremium" },
+      { localName: "monthlyPIJNGIMotorPremium" },
+      { localName: "nsipp" },
+      { localName: "assignmentFee" },
+      { localName: "totalClosingCosts" },
+      { localName: "stampDutyAndAdminCharges" },
+      { localName: "totalFinancedByJN" },
+      { localName: "totalClosingCostsApplicantPayable" },
+      { localName: "noCreditorLifeReason" }
     ];
     let loanCalculationProductFields = [
       {
         localName: "years",
-        objectName: "",
         description: "Loan Term Years"
       },
       {
         localName: "months",
-        objectName: "",
         description: "Loan Term Months"
       },
       {
         localName: "market",
-        objectName: "",
         description: "Loan Term Market"
-      }
+      },
+      { localName: "processingFeePercentagePerAnum" },
+      { localName: "repaymentDate" },
+      {
+        localName: "proposedSavingsPercentage",
+        description: "Motor Vehicle Deposit Percent"
+      },
+      {
+        localName: "proposedSavingsAmount",
+        description: "Motor Vehicle Deposit Amount"
+      },
+      { localName: "processingFeeClosingCost" },
+      { localName: "processingFeesGCT" },
+      { localName: "monthlyPrincipalInterestProcessingFee" },
+      { localName: "legalFee" },
+      { localName: "monthly_PI_LoanAmount" },
+      { localName: "jnLifeCreditorPremium" },
+      { localName: "monthlyCompulsorySavings" },
+      { localName: "totalCompulsorySavingsBalance" },
+      { localName: "monthlyJnLifeCreditor_PI_Premium" },
+      { localName: "totalLoanAmount" },
+      { localName: "totalMonthlyLoanPayment" },
+      { localName: "totalMonthly_PI_LoanPayment" },
+      { localName: "totalInterestPaymentBalance" },
+      { localName: "totalMonthlyLoanPaymentAndSavings" },
+      { localName: "jnCLPremiumFeesAndCharges" },
+      { localName: "monthlyJnLifeCreditor_PI_Premium" },
+      { localName: "TDSRBefore" },
+      { localName: "TDSRAfter" },
+      { localName: "policyLimit" }
     ];
+    //product specific fields
+    const updatedValues = this.contructProductSpecificDetailsFields(
+      component,
+      loanCalculationProductFields,
+      loanCalculationFields
+    );
+    loanCalculationProductFields = updatedValues.loanCalculationProductFields;
+    loanCalculationFields = updatedValues.loanCalculationFields;
     return {
       loanCalculationProductFields: loanCalculationProductFields,
       loanCalculationFields: loanCalculationFields

@@ -260,7 +260,7 @@ public with sharing class ProductDetailController {
       LoanCalculationUnwrapper loanCalculationUnwrapper = new LoanCalculationUnwrapper(
         loanCalculation
       );
-      Id loanCalculationId = loanCalculationUnwrapper.save();
+      Id loanCalculationId = loanCalculationUnwrapper.save(opportunityId);
       LoanCalculationProductUnwrapper loanCalculationProductUnwrapper = new LoanCalculationProductUnwrapper(
         loanCalculationProduct,
         productRecordTypes
