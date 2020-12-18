@@ -60,6 +60,4 @@
     jnDefaultConfigs="{!v.jnDefaultConfigs}"
     aura:id="totalDebtServiceRatioLineItemComponent"
   ></c:TotalDebtServiceRatioLineItemComponent>
-
-  <lightning:button label="Save" onclick="{!c.validateFields}" title="Save" />
 </aura:component>
