@@ -64,6 +64,13 @@
       helper.totalClosingCostFinancedJNCalculation(component);
       helper.totalClosingCostPaidByApplicantCalculation(component);
     }
+  },
+  /** Validates cmp fields - JN1-4201
+   * @param {*} component
+   * @return - Boolean
+   */
+  validateCmpFields: function (component) {
+    let cmpFields = ["monthlyPayment", "loanAmount"];
+    return validateFields(component, cmpFields);
   }
 });
-

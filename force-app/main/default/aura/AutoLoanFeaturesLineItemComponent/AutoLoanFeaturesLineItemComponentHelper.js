@@ -107,5 +107,4 @@
   clearReasonOtherText: function (component) {
     component.set("v.otherReason", null);
   }
-
 });

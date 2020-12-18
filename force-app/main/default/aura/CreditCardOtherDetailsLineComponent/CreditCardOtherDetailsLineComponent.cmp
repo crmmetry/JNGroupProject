@@ -86,7 +86,12 @@
   <aura:attribute name="creditCardFlag" type="Boolean" default="false" />
 
   <aura:attribute name="lineOfCreditFlag" type="Boolean" default="false" />
-
+  <!--JN1-4021-->
+  <aura:method
+    name="validateCmpFields"
+    action="{!c.validateCmpFields}"
+    access="public"
+  />
   <!-- Static Resource -->
   <ltng:require
     scripts="{!join(',', 
@@ -122,6 +127,7 @@
             label="Collateral Type"
             required="true"
             onchange="{!c.onCollateralTypeChange}"
+            aura:id="collateralType"
           >
             <option value="">select one...</option>
             <aura:iteration items="{!v.collateralType}" var="item">
@@ -133,6 +139,7 @@
           <aura:if isTrue="{!v.cashInvestmentFlag}">
             <c:CashInvestmentsDetailsLineComponent
               ParentContainer="{!v.ParentContainer}"
+              aura:id="cashInvestmentDetailsLineComponent"
             ></c:CashInvestmentsDetailsLineComponent>
           </aura:if>
 
@@ -148,6 +155,7 @@
             label="Will JN Life Creditor Life Insurance be taken?"
             required="true"
             onchange="{!c.oninterestedInCreditorLifeChange}"
+            aura:id="jnLifeCreditorLifeInsurance"
           >
             <option value="">select one...</option>
             <aura:iteration items="{!v.interestedInCreditorLife}" var="item">
@@ -163,7 +171,7 @@
             padding="around-small"
           >
             <lightning:select
-              aura:id="creditor-life-selected"
+              aura:id="creditorLifeSelected"
               name="select1"
               label="Coverage Type"
               required="true"
@@ -203,7 +211,7 @@
             padding="around-small"
           >
             <lightning:select
-              aura:id="creditor-life-selected"
+              aura:id="creditorLifeSelected"
               name="select1"
               label="Life Insurance Coverage"
               required="true"
@@ -225,7 +233,7 @@
             padding="around-small"
           >
             <lightning:select
-              aura:id="creditor-life-not-selected"
+              aura:id="creditorLifeNotSelected"
               name="select1"
               label="Reason"
               required="true"
@@ -245,7 +253,7 @@
               padding="around-small"
             >
               <lightning:input
-                aura:id="other-reason"
+                aura:id="otherReason"
                 type="text"
                 name="select1"
                 label="Other"
@@ -289,6 +297,7 @@
                 label="Desired Statement Date"
                 required="true"
                 onchange="{!c.onMonthlyRepaymentDateChange}"
+                aura:id="desiredStatementDate"
               >
                 <option value="">select one...</option>
                 <aura:iteration items="{!v.monthlyRepaymentDate}" var="item">
