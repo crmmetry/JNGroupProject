@@ -78,6 +78,8 @@
     <pathAssistantSteps>
         <fieldNames>Request_ADJ_Exception_for_Credit__c</fieldNames>
         <fieldNames>Await_Credit_Exception_Decision__c</fieldNames>
+        <fieldNames>Exception_Approved_by__c</fieldNames>
+        <fieldNames>Date_of_Approval__c</fieldNames>
         <info
     >&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Do you need an Exception for this Loan? Please fill out the necessary fields, or select No to move on to the next step.&lt;/span&gt;&lt;/p&gt;</info>
         <picklistValueName>Preform Exception Handling</picklistValueName>

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Include_in_Loan_Amount_Processing_Fee__c</fullName>
+    <fullName>Financial_Institution_List__c</fullName>
     <externalId>false</externalId>
-    <label>Include in Loan Amount (Processing Fee)</label>
+    <label>Financial Institution</label>
     <required>false</required>
-    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
@@ -12,14 +11,14 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Yes</fullName>
+                <fullName>JN Bank Ltd.</fullName>
                 <default>false</default>
-                <label>Yes</label>
+                <label>JN Bank Ltd.</label>
             </value>
             <value>
-                <fullName>No</fullName>
+                <fullName>JN Fund Managers Ltd</fullName>
                 <default>false</default>
-                <label>No</label>
+                <label>JN Fund Managers Ltd</label>
             </value>
         </valueSetDefinition>
     </valueSet>

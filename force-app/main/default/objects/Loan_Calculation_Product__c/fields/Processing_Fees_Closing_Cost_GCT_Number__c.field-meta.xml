@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Processing_Fees_Closing_Cost_GCT_Number__c</fullName>
+    <description>Processing Fees Closing Cost(including GCT)</description>
+    <externalId>false</externalId>
+    <label>Processing Fees Closing Cost(GCT)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>
