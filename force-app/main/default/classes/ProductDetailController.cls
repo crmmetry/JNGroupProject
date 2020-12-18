@@ -77,6 +77,7 @@ public with sharing class ProductDetailController {
   }
 
   /**
+   * @deprecated - do not use
    * return a list of applicant wrappers related to an oppurtunity
    * @param {Id} oppId - Id of selected opportunity.
    * @return {creditRatingMap}
@@ -129,7 +130,9 @@ public with sharing class ProductDetailController {
     Id oppId,
     Decimal tenure
   ) {
-    List<ApplicantWrapper> applicants = getApplicants(oppId);
+    List<ApplicantWrapper> applicants = ProductDetailSelector.getApplicantDetails(
+      oppId
+    );
     applicants = getApplicantsCreditRating(applicants, tenure);
     return applicants;
   }
@@ -141,38 +144,9 @@ public with sharing class ProductDetailController {
    */
   @AuraEnabled
   public static List<Object> getApplicantsAssetsAndLiabilities(Id oppId) {
-    List<Applicant__c> applicants = [
-      SELECT
-        Id,
-        Statutory_Deductions_Numbers__c,
-        Rent_Strata_Maintenance__c,
-        Personal_Expenses_Monthly_Prior_Loan__c,
-        Savings_Pension_Insurance_Number__c,
-        Real_Estate_Monthly_Payment_Number__c,
-        Motor_Vehicle_Monthly_Payment_Number__c,
-        Other_Asset_Monthly_Payment_Number__c,
-        Other_Loan_Monthly_Payment_Number__c,
-        Gross_Monthly_Income__c,
-        Account__r.PersonBirthdate,
-        Credit_History_in_last_24_Months__c,
-        Assessment_of_Applicant_Net_Worth__c,
-        Rent_Board_Monthly_Prior_Loan__c,
-        Rent_Board_Monthly_After_Loan__c,
-        Gross_Monthly_IncomeC__c,
-        Strata_Maintenance_Monthly_Prior_Loan__c,
-        Strata_Maintenance_Monthly_After_Loan__c,
-        (
-          SELECT
-            Id,
-            Minimum_Payment_After_Calc__c,
-            Minimum_Payment_Calc__c,
-            Monthly_Payment_Prior__c,
-            Monthly_Payment_After__c
-          FROM Application_Assets_Liabilities__r
-        )
-      FROM Applicant__c
-      WHERE Opportunity__c = :oppId
-    ];
+    List<Applicant__c> applicants = ProductDetailSelector.getApplicantDetails(
+      oppId
+    );
     System.debug(applicants);
     List<Object> wrappers = new List<Object>();
     Map<String, Object> wrapperMap = new Map<String, Object>();
