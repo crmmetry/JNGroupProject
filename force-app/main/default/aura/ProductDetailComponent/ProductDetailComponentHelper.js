@@ -681,6 +681,7 @@
   ) {
     let oppId = component.get("v.recordId");
     let action = component.get("c.saveProductDetails");
+    this.showSpinner(component);
     action.setParams({
       opportunityId: oppId,
       productRecordTypes: productRecordTypes,
