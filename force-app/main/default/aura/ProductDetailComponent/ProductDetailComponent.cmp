@@ -53,6 +53,13 @@
     ]"
   />
 
+  <!--JN1-4210 : For validating fields-->
+  <aura:method
+    name="validateFields"
+    action="{!c.validateFields}"
+    access="public"
+  />
+
   <aura:attribute
     name="products"
     type="List"
@@ -127,6 +134,7 @@
               oppId="{!v.recordId}"
               jnDefaultConfigs="{!v.jnDefaultConfigs}"
               ParentContainer="{!v.ChildContainer}"
+              aura:id="autoLoanContainerComponent"
             >
             </c:AutoLoanContainerComponent>
           </aura:if>
@@ -136,6 +144,7 @@
               jnDefaultConfigs="{!v.jnDefaultConfigs}"
               oppId="{!v.recordId}"
               ParentContainer="{!v.ChildContainer}"
+              aura:id="unsecuredLoanContainerComponent"
             >
             </c:UnsecuredLoanContainerComponent>
           </aura:if>
@@ -144,6 +153,7 @@
               productPrice="{!v.productSelection.productPrice}"
               ParentContainer="{!v.ChildContainer}"
               jnDefaultConfigs="{!v.jnDefaultConfigs}"
+              aura:id="creditCardContainerComponent"
             >
             </c:CreditCardContainerComponent>
           </aura:if>
@@ -152,10 +162,16 @@
               productPrice="{!v.productSelection.productPrice}"
               ParentContainer="{!v.ChildContainer}"
               jnDefaultConfigs="{!v.jnDefaultConfigs}"
+              aura:id="lineOfCreditContainerComponent"
             >
             </c:LineOfCreditContainerComponent>
           </aura:if>
         </fieldset>
+        <lightning:button
+          label="Save Product Details"
+          onclick="{!c.validateFields}"
+          title="Save"
+        />
       </lightning:layoutItem>
     </lightning:card>
   </lightning:layout>

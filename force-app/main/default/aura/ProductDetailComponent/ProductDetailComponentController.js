@@ -129,5 +129,28 @@
       );
       component.set("v.ChildContainer", updatedContainer);
     }
+  },
+  /**
+   * JN1-4210 : For validating child component containers
+   * @param {*} component
+   * @param {*} event
+   * @param {*} helper
+   */
+  validateFields: function (component, event, helper) {
+    let containerComponent;
+    if (component.get("v.autoFlag")) {
+      containerComponent = component.find("autoLoanContainerComponent");
+    }
+    if (component.get("v.unsecuredFlag")) {
+      containerComponent = component.find("unsecuredLoanContainerComponent");
+    }
+    if (component.get("v.creditCardFlag")) {
+      containerComponent = component.find("creditCardContainerComponent");
+    }
+    if (component.get("v.lineOfCreditFlag")) {
+      containerComponent = component.find("lineOfCreditContainerComponent");
+    }
+
+    return containerComponent.validateFields(component);
   }
 });
