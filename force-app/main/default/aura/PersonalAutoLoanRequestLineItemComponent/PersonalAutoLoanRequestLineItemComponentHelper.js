@@ -86,18 +86,31 @@
   /**
    * Clear the deposit percentage from container when amount is toggeled
    */
-  clearDepositPercentageWhenAmountIsSelected: function (component) {
-    let childKeyValuePairs = [
-      {
-        key: "autoCollateralDepositPercentage",
-        value: 0
-      },
-      {
-        key: "computedAutoCollateralDepositFromPercentage",
-        value: 0
-      }
-    ];
-    this.updateChildContainerWithValue(component, childKeyValuePairs, false);
+  clearDepositPercentageAndDepositAmountWhenToggled: function (
+    component,
+    selected
+  ) {
+    if (selected === "amount") {
+      let childKeyValuePairs = [
+        {
+          key: "autoCollateralDepositPercentage",
+          value: 0
+        },
+        {
+          key: "computedAutoCollateralDepositFromPercentage",
+          value: 0
+        }
+      ];
+      this.updateChildContainerWithValue(component, childKeyValuePairs, false);
+    } else if (selected === "percent") {
+      let childKeyValuePairs = [
+        {
+          key: "autoCollateralDeposit",
+          value: 0
+        }
+      ];
+      this.updateChildContainerWithValue(component, childKeyValuePairs, false);
+    }
   },
   /**
    * Calculates deposit percentage amount
@@ -132,7 +145,8 @@
       !isZero(data.loanAmount) &&
       validNumber(data.loanAmount) &&
       !isZero(data.minimumOfPurchaseMarketValue) &&
-      validNumber(data.minimumOfPurchaseMarketValue)
+      validNumber(data.minimumOfPurchaseMarketValue) &&
+      depositAutoCollateralField !== undefined
     ) {
       let minimumAndDepositDifference =
         data.minimumOfPurchaseMarketValue - data.autoCollateralDeposit;
@@ -151,7 +165,8 @@
       !isZero(data.loanAmount) &&
       validNumber(data.loanAmount) &&
       !isZero(data.minimumOfPurchaseMarketValue) &&
-      validNumber(data.minimumOfPurchaseMarketValue)
+      validNumber(data.minimumOfPurchaseMarketValue) &&
+      depositComputedAutoCollateralField !== undefined
     ) {
       let minimumAndDepositDifference =
         data.minimumOfPurchaseMarketValue -
