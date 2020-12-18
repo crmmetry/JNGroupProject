@@ -66,9 +66,10 @@
   onMotorVehicleDepositFormatChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     console.log("selected", selected);
-    if (selected === "amount") {
-      helper.clearDepositPercentageWhenAmountIsSelected(component);
-    }
+    helper.clearDepositPercentageAndDepositAmountWhenToggled(
+      component,
+      selected
+    );
   },
 
   onPurchasePriceCurrencyChange: function (component, event, helper) {
