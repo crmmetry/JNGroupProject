@@ -3,15 +3,76 @@
     <custom>false</custom>
     <fieldPermissions>
         <editable>false</editable>
-        <field
-    >Application_Asset_Liability__c.Minimum_Payment_After_Calc__c</field>
+        <field>Applicant__c.Existing_Real_Estate_Rental_IC__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Application_Asset_Liability__c.Minimum_Payment_Calc__c</field>
+        <field>Applicant__c.Existing_Real_estate_Rental_II_C__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Applicant__c.Share_of_Profit_PartnershipC__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Applicant__c.Share_of_Profit_ShareholderC__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Applicant__c.Total_Inflows__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Loan_Calculation_Product__c.Account_Holder_s_text__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Loan_Calculation_Product__c.Account_Hypothecated_list__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Loan_Calculation_Product__c.Account_Type_List__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Annual_Interest_Rate_Deposit_Acct_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Deposit_Account_Balance_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Deposit_Account_Number_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Deposit_Account_Number_Prefix_text__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Loan_Calculation_Product__c.Financial_Institution_List__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <layoutAssignments>
+        <layout>Applicant__c-Application Details Layout</layout>
+    </layoutAssignments>
     <layoutAssignments>
         <layout
     >Application_Asset_Liability__c-Application Asset%2FLiability Layout</layout>
