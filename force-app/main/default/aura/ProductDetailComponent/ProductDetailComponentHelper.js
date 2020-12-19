@@ -638,7 +638,7 @@
    */
   showSpinner: function (component) {
     const spinner = component.find("spinner");
-    $A.util.toggleClass(spinner, "slds-hide");
+    $A.util.removeClass(spinner, "slds-hide");
   },
   /**
    * Hides spinner component.
@@ -681,7 +681,6 @@
   ) {
     let oppId = component.get("v.recordId");
     let action = component.get("c.saveProductDetails");
-    this.showSpinner(component);
     action.setParams({
       opportunityId: oppId,
       productRecordTypes: productRecordTypes,
@@ -715,7 +714,7 @@
     const isUnsecured = this.checkProductFamily(component, "Unsecured");
     //const isCreditCard = this.checkProductFamily(component, "Credit Card");
     if (isAuto) {
-      loanCalculationFields.concat([
+      loanCalculationFields = loanCalculationFields.concat([
         {
           localName: "stampDutyAuto",
           mappedName: "stampDuty",
@@ -723,7 +722,7 @@
         }
       ]);
     } else if (isUnsecured) {
-      loanCalculationFields.concat([
+      loanCalculationFields = loanCalculationFields.concat([
         {
           localName: "stampDutyUns",
           mappedName: "stampDuty",
@@ -829,9 +828,10 @@
     //product specific fields
     const updatedValues = this.contructProductSpecificDetailsFields(
       component,
-      loanCalculationProductFields,
-      loanCalculationFields
+      loanCalculationFields,
+      loanCalculationProductFields
     );
+    console.info("updatedValues", updatedValues);
     loanCalculationProductFields = updatedValues.loanCalculationProductFields;
     loanCalculationFields = updatedValues.loanCalculationFields;
     return {

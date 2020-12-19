@@ -139,6 +139,7 @@
   onSaveProductDetails: function (component, event, helper) {
     let fieldsValidated = true; //TODO: replace with logic to validate current component fields
     if (fieldsValidated) {
+      helper.showSpinner(component);
       let container = copyInto(
         component.get("v.ChildContainer"),
         component.get("v.jnDefaultConfigs")
