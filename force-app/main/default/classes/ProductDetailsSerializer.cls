@@ -148,4 +148,12 @@ public class ProductDetailsSerializer {
   public Decimal existingBalance;
   @AuraEnabled
   public String lifeInsuranceCoverage;
+  @AuraEnabled
+  public String vehicleClassification;
+  @AuraEnabled
+  public String yearOfVehicle;
+  @AuraEnabled
+  public String makeAndModelOfVehicle;
+  @AuraEnabled
+  public Decimal marketValue;
 }

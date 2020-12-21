@@ -335,6 +335,7 @@
             label="Make and Model of Vehicle"
             required="true"
             aura:id="makeModel"
+            maxlength="40"
           />
         </lightning:layoutItem>
         <lightning:layoutItem size="12" mediumDeviceSize="4"

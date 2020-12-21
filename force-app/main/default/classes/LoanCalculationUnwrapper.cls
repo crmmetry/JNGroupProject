@@ -37,6 +37,9 @@ public class LoanCalculationUnwrapper {
     record.Existing_Loan_Balance_Number__c = serializer.existingBalance;
     record.Life_Insurance_Coverage__c = serializer.lifeInsuranceCoverage;
     record.Interested_in_Creditor_Life__c = serializer.interestedInCreditorLife;
+    record.Vehicle_Classification__c = serializer.vehicleClassification;
+    record.Year_of_Motor_Vehicle__c = serializer.yearOfVehicle;
+    record.Make_and_Model_of_Motor_Vehicle__c = serializer.makeAndModelOfVehicle;
   }
   /**
    * save loan calculations oject
