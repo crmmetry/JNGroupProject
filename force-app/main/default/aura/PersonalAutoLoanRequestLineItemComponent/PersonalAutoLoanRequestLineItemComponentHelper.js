@@ -137,7 +137,7 @@
       "auto-collateral-deposit"
     );
     const depositComputedAutoCollateralField = component.find(
-      "auto-collateral-computed-deposit"
+      "aautoCollateralComputedDeposit"
     );
     if (
       !isZero(data.autoCollateralDeposit) &&

@@ -131,5 +131,34 @@
     let container = component.get("v.ChildContainer");
     container.monthlyRepaymentDate = selected;
     component.set("v.ChildContainer", container);
+  },
+  /** Validates cmp fields - JN1-4201
+   * @param {*} component
+   * @return - Boolean
+   */
+  validateCmpFields: function (component) {
+    let cmpFields = [
+      "collateralType",
+      "jnLifeCreditorLifeInsurance",
+      "creditorLifeSelected",
+      "otherReason",
+      "desiredStatementDate",
+      "creditorLifeNotSelected"
+    ];
+    let cashComponentValidate = false;
+    if (component.get("v.cashInvestmentFlag")) {
+      let cashInvestmentDetailsLineComponent = component.find(
+        "cashInvestmentDetailsLineComponent"
+      );
+      cashComponentValidate = cashInvestmentDetailsLineComponent.validateCmpFields(
+        component
+      );
+    }
+
+    let resultsFromChild = [
+      cashComponentValidate,
+      validateFields(component, cmpFields)
+    ];
+    return isValidComponent(resultsFromChild);
   }
 });

@@ -34,5 +34,19 @@
       applicantsMap
     );
     component.set("v.ParentContainer", data);
+  },
+  /**
+   * JN1-4210 : For validating fields
+   * @param {*} component
+   * @param {*} event
+   * @param {*} helper
+   */
+  validateFields: function (component, event, helper) {
+    let fieldsToValidateArray = [
+      "requestedYears",
+      "requestedMonths",
+      "requestedMarket"
+    ];
+    return validateFields(component, fieldsToValidateArray);
   }
 });

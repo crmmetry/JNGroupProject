@@ -156,5 +156,32 @@
     let creditRepaymentMap = component.get("v.ChildContainer");
     creditRepaymentMap.deductRepayment = selected;
     component.set("v.ChildContainer", creditRepaymentMap);
+  },
+  /**
+   * JN1-4210 : For validating fields
+   * @param {*} component
+   * @param {*} event
+   * @param {*} helper
+   */
+  validateFields: function (component, event, helper) {
+    let fieldsToValidateArray = [
+      "unsecuredInterestedInCreditorLife",
+      "unsecuredCoverageType",
+      "unsecuredIncludeCoverage",
+      "Reason",
+      "PolicyProvider",
+      "unsecuredOtherPolicyProvider",
+      "unsecuredOtherReason",
+      "unsecuredWaveProcessingFee",
+      "includeInLoanAmountId",
+      "unsecuredProcessingFeePercentPerAnum",
+      "unsecuredRepaymentMethod",
+      "unsecuredMonthlyRepaymentDate",
+      "unsecuredDeductFirstMonthRepayment",
+      "unsecuredProposedSavings",
+      "unsecuredPercentage",
+      "unsecuredAmount"
+    ];
+    return validateFields(component, fieldsToValidateArray);
   }
 });

@@ -28,6 +28,12 @@
     action="{!c.onChildContainerChange}"
     value="{!v.ChildContainer}"
   />
+  <!--JN1-4212 : For validating fields-->
+  <aura:method
+    name="validateFields"
+    action="{!c.validateFields}"
+    access="public"
+  />
 
   <aura:attribute name="notifyContainerChange" type="Boolean" default="true" />
 
@@ -81,6 +87,7 @@
         formatter="percent-fixed"
         required="true"
         step="0.01"
+        aura:id="locInterestRate"
       />
     </lightning:layoutItem>
     <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">

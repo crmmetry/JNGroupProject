@@ -173,5 +173,32 @@
     let creditRepaymentMap = component.get("v.ChildContainer");
     creditRepaymentMap.deductRepayment = selected;
     component.set("v.ChildContainer", creditRepaymentMap);
+  },
+  /** Validates cmp fields - JN1-4201
+   * @param {*} component
+   * @return - Boolean
+   */
+  validateCmpFields: function (component) {
+    let cmpFields = [
+      "credit-risk-rating",
+      "interestedProgramme",
+      "includePremium",
+      "interestedCreditorLife",
+      "Reason",
+      "PolicyProvider",
+      "otherPolicyProvider",
+      "otherReason",
+      "includeInLoanAmountId",
+      "indicateRepaymentMethod",
+      "dedicatedMonthlyRepaymentDate",
+      "proposedSavings",
+      "saving",
+      "amount",
+      "creditRiskScore",
+      "monthlyPremium",
+      "coverageType",
+      "indicateApplicableProcessingFees"
+    ];
+    return validateFields(component, cmpFields);
   }
 });

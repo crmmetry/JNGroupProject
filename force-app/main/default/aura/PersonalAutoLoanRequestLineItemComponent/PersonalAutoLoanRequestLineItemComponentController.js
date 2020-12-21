@@ -93,5 +93,27 @@
       }
     ];
     helper.updateChildContainerWithValue(component, childKeyValuePairs, false);
+  },
+  /** Validates child cmp fields - JN1-4201
+   * @param {*} component
+   * @return - Boolean
+   */
+  validateCmpFields: function (component) {
+    let cmpFields = [
+      "market",
+      "autoCollateralComputedDeposit",
+      "vehiclePrice",
+      "vehicleMarketValue",
+      "vehicleYear",
+      "makeModel",
+      "amount",
+      "years",
+      "months",
+      "autoCollateralDeposit",
+      "motorVehicleDeposit",
+      "loanPurpose",
+      "vehicleClassification"
+    ];
+    return validateFields(component, cmpFields);
   }
 });

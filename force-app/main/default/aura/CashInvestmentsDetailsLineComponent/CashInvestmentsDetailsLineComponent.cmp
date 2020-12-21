@@ -60,7 +60,12 @@
   $Resource.productDetailsGeneralFunctions)}"
     afterScriptsLoaded="{!c.scriptsLoaded}"
   />
-
+  <!--JN1-4021-->
+  <aura:method
+    name="validateCmpFields"
+    action="{!c.validateCmpFields}"
+    access="public"
+  />
   <!-- Handlers -->
   <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
   <aura:handler
@@ -83,7 +88,7 @@
       <div class="slds-form-element">
         <div class="slds-form-element__control">
           <lightning:select
-            aura:id="cash-investments-select-component"
+            aura:id="cashInvestmentsSelectComponent"
             name="select1"
             label="Financial Institution"
             required="true"
@@ -101,7 +106,7 @@
       <div class="slds-form-element">
         <div class="slds-form-element__control">
           <lightning:select
-            aura:id="cash-investments-select-component"
+            aura:id="cashInvestmentsSelectComponent"
             name="select1"
             label="Account Type"
             required="true"
@@ -125,7 +130,7 @@
         <div class="slds-form-element">
           <div class="slds-form-element__control">
             <lightning:input
-              aura:id="cash-investments-text-component"
+              aura:id="cashInvestmentsTextComponent"
               type="text"
               label="Deposit Account Number"
               value="{!v.ChildContainer.depositAccountNumber}"
@@ -151,7 +156,7 @@
             <div class="slds-form-element">
               <div class="slds-form-element__control">
                 <lightning:input
-                  aura:id="cash-investments-text-component"
+                  aura:id="cashInvestmentsTextComponent"
                   type="text"
                   label="Deposit Account Number Prefix"
                   value="{!v.ChildContainer.jnBankAccountNumberPrefix}"
@@ -170,7 +175,7 @@
             <div class="slds-form-element">
               <div class="slds-form-element__control">
                 <lightning:input
-                  aura:id="cash-investments-text-component"
+                  aura:id="cashInvestmentsTextComponent"
                   type="text"
                   label="Deposit Account Number"
                   value="{!v.ChildContainer.jnBankAccountNumber}"
@@ -186,7 +191,7 @@
       <div class="slds-form-element">
         <div class="slds-form-element__control">
           <lightning:input
-            aura:id="cash-investments-text-component"
+            aura:id="cashInvestmentsTextComponent"
             type="text"
             label="Account Holder(s)"
             value="{!v.ChildContainer.accountHolder}"
@@ -200,7 +205,7 @@
       <div class="slds-form-element">
         <div class="slds-form-element__control">
           <lightning:input
-            aura:id="cash-investments-numerical-component"
+            aura:id="cashInvestmentsNumericalComponent"
             type="number"
             label="Annual Interest Rate on Deposit Account"
             value="{!v.ChildContainer.annualInterestRate}"
@@ -216,7 +221,7 @@
       <div class="slds-form-element">
         <div class="slds-form-element__control">
           <lightning:select
-            aura:id="cash-investments-select-component"
+            aura:id="cashInvestmentsSelectComponent"
             name="select1"
             label="Is this account hypothecated for another loan?"
             required="true"
@@ -237,7 +242,7 @@
         padding="around-small"
       >
         <lightning:input
-          aura:id="cash-investments-numerical-component"
+          aura:id="cashInvestmentsNumericalComponent"
           type="number"
           label="Enter the Existing Loan Balance"
           value="{!v.ChildContainer.existingBalance}"
@@ -263,7 +268,7 @@
         </lightning:layoutItem> -->
         <lightning:layoutItem size="12">
           <lightning:input
-            aura:id="cash-investments-numerical-component"
+            aura:id="cashInvestmentsNumericalComponent"
             type="number"
             label="Deposit Account Balance"
             value="{!v.ChildContainer.depositBalance}"

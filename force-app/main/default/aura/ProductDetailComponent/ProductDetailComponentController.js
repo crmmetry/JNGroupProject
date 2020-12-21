@@ -132,13 +132,14 @@
   },
   /**
    * click handler for save button
+   * JN1-4210 : For validating child component containers
    * @param {*} component
    * @param {*} event
    * @param {*} helper
    */
   onSaveProductDetails: function (component, event, helper) {
-    let fieldsValidated = true; //TODO: replace with logic to validate current component fields
-    if (fieldsValidated) {
+    let fieldsValidatedCorrectly = helper.validateFields(component);
+    if (fieldsValidatedCorrectly) {
       helper.showSpinner(component);
       let container = copyInto(
         component.get("v.ChildContainer"),
@@ -168,7 +169,7 @@
     }
     return showToast(
       "Product Details Error",
-      "Sorry, an error was encountered. Please try again",
+      "The application details cannot be saved until all the required fields are filled out.",
       "error"
     );
   }
