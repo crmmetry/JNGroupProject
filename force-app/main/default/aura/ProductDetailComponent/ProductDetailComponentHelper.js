@@ -817,7 +817,10 @@
       { localName: "hypothecatedLoan" },
       { localName: "depositBalance" },
       { localName: "lifeInsuranceCoverage" },
-      { localName: "interestedInCreditorLife" }
+      { localName: "interestedInCreditorLife" },
+      { localName: "vehicleClassification" },
+      { localName: "yearOfVehicle" },
+      { localName: "makeAndModelOfVehicle" }
     ];
     let loanCalculationProductFields = [
       {
