@@ -266,65 +266,96 @@ window.annualFeesCalculator = function (
  * @param {*} jnDefaults
  * @return {Decimal}
  */
-window.ASLCalculator = function (container, jnDefault, riskFactor) {
+window.ASLCalculator = function (container, jnDefault, riskFactor = 0) {
+  let maxCreditLimit = 0;
   if (
     !validNumber(container.TDSRBefore) ||
     !validNumber(jnDefault.policyLimit) ||
-    !validNumber(container.TDSRBefore) ||
-    !validNumber(riskFactor)
+    !validNumber(container.TDSRAfter)
   ) {
+    console.log("ZERO was returned!!");
     return 0;
   }
   if (roundedValue(container.TDSRBefore / 100) > jnDefault.policyLimit) {
+    console.log("ZERO was returned!!");
     return 0;
   }
+  console.log("ASL Calculations have begun");
   // //Step 1:
   let annualGrossIncome = annualGrossIncomeCalculator(
     container.grossMonthlyIncome
   );
   // //Step 1.5:
-  let maxCredilLimit = maximumCreditLimitCalculator(
-    jnDefault.creditLimitMax,
-    jnDefault.creditLimitMin,
-    annualGrossIncome,
-    jnDefault.creditLimitThreshold
-  );
+  if (container.cashInvestmentFlag === false) {
+    maxCreditLimit = maximumCreditLimitCalculator(
+      jnDefault.creditLimitMax,
+      jnDefault.creditLimitMin,
+      annualGrossIncome,
+      jnDefault.creditLimitThreshold
+    );
+  } else {
+    maxCreditLimit = maximumCreditLimitCalculatorWithCashCollateral(
+      container.depositBalance,
+      jnDefault.LTVCeiling,
+      container.existingBalance
+    );
+  }
+  console.log("MCL: ", maxCreditLimit);
   //Step 2:
   let maxDebtPayment = maximumAllowableForMonthlyDebtPaymentsCalculator(
     jnDefault.policyLimit,
     container.grossMonthlyIncome
   );
+  console.log("Max debt payment: ", maxDebtPayment);
   //Step 3:
   let maxMinimumPayment = maximumAllowableForMinimumPaymentCalculator(
     maxDebtPayment,
     container.existingDebt
   );
+  console.log("maxMinimumPayment ", maxMinimumPayment);
   //Step 4:
   let computedMinimumPayment = computedMinimumPaymentFromCreditLimitCalculator(
     container,
     jnDefault,
     maxMinimumPayment
   );
+  console.log("computedMinimumPayment: ", computedMinimumPayment);
   //Step 5:
   let lowerCreditLimit = lowerCreditLimitCalculator(
     computedMinimumPayment,
-    maxCredilLimit
+    maxCreditLimit
   );
-  //Step 6:
-  let creditLimitAfterRisk = creditLimitRiskCalculator(
-    lowerCreditLimit,
-    riskFactor
-  );
-  //Step 7:
-  let startingLimit = startingCreditLimtCalculator(
-    creditLimitAfterRisk,
-    jnDefault.discountFactor
-  );
-  //Step 8
-  return approvedStartingLimitCalculator(
-    startingLimit,
-    container.requestedCreditLimit
-  );
+  console.log("lowerCreditLimit: ", lowerCreditLimit);
+  if (container.cashInvestmentFlag === false) {
+    //Step 6:
+    let creditLimitAfterRisk = creditLimitRiskCalculator(
+      lowerCreditLimit,
+      riskFactor
+    );
+    //Step 7:
+    let startingLimit = startingCreditLimtCalculator(
+      creditLimitAfterRisk,
+      jnDefault.discountFactor
+    );
+    //Step 8
+    return approvedStartingLimitCalculator(
+      startingLimit,
+      container.requestedCreditLimit
+    );
+  } else {
+    //Step 6 with cash collateral:
+    console.log("Cash collateral starting limit calculation");
+    let startingLimit = startingCreditLimtCalculatorWithCollateral(
+      jnDefault.minimumCreditLimitAllowable,
+      lowerCreditLimit
+    );
+    console.log("startingLimit: ", startingLimit);
+    //Step 7 with cash collateral
+    return approvedStartingLimitCalculator(
+      startingLimit,
+      container.requestedCreditLimit
+    );
+  }
 };
 /**
  * copies all the src properties into target

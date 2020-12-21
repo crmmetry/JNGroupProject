@@ -53,6 +53,10 @@ public class JNConfiguration {
   public decimal creditorLifeAnnualFee;
   @AuraEnabled
   public decimal creditLimitThreshold;
+  @AuraEnabled
+  public decimal minimumCreditLimitAllowable;
+  @AuraEnabled
+  public decimal LTVCeiling;
 
   public JNConfiguration(JN_Defaults__mdt record) {
     this.gct = record.GCT__c;
@@ -79,5 +83,7 @@ public class JNConfiguration {
     this.lineOfCreditLifeProtectionRate = record.Line_Of_Credit_Creditor_Life_Rate_Number__c; //JN1-4053 :: Creditor Life
     this.creditorLifeAnnualFee = record.Creditor_Life_Annual_Fee_Number__c; //JN1-4053 :: Creditor Life
     this.creditLimitThreshold = record.Credit_Limit_Allowable_Threshold_Number__c; //JN1-4160 :: ASL Calculations Technical Debt
+    this.minimumCreditLimitAllowable = record.Minimum_Credit_Allowable_Number__c; //JN1-4159 :: Credit facility with cash collateral
+    this.LTVCeiling = record.LTV_Ceiling_Number__c; //JN1-4159 :: Credit facility with cash collateral
   }
 }
