@@ -2,81 +2,333 @@
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
     <custom>true</custom>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Applicant__c.Existing_Real_Estate_Rental_IC__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Applicant__c.Existing_Real_estate_Rental_II_C__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Applicant__c.Share_of_Profit_PartnershipC__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Applicant__c.Share_of_Profit_ShareholderC__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Applicant__c.Total_Inflows__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
-        <field>Loan_Calculation_Product__c.Account_Holder_s_text__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Loan_Calculation_Product__c.Account_Hypothecated_list__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Loan_Calculation_Product__c.Account_Type_List__c</field>
+        <field
+    >Loan_Calculation_Product__c.Ability_to_Service_After_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field
-    >Loan_Calculation_Product__c.Annual_Interest_Rate_Deposit_Acct_Number__c</field>
+    >Loan_Calculation_Product__c.Ability_to_Service_Before_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field
-    >Loan_Calculation_Product__c.Deposit_Account_Balance_Number__c</field>
+    >Loan_Calculation_Product__c.Annual_Creditor_Life_Fee_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field
-    >Loan_Calculation_Product__c.Deposit_Account_Number_Number__c</field>
+    >Loan_Calculation_Product__c.Annual_Membership_Primary_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field
-    >Loan_Calculation_Product__c.Deposit_Account_Number_Prefix_text__c</field>
+    >Loan_Calculation_Product__c.Annual_Membership_Supplementary_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Loan_Calculation_Product__c.Financial_Institution_List__c</field>
+        <field
+    >Loan_Calculation_Product__c.Applicable_Processing_Fee_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Approved_Starting_Limit_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Loan_Calculation_Product__c.Assignment_Fee_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Loan_Calculation_Product__c.Collateral_Type_List__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Loan_Calculation_Product__c.Coverage_Type_List__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Creditor_Life_Insurance_Premium_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Deduct_1st_month_Payment_from_Loan_Flag__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Desired_Monthly_Repayment_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Loan_Calculation_Product__c.Desired_Statement_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Include_in_Loan_Amount_Flag__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Include_in_Loan_Amount_Processing_Flag__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Loan_Calculation_Product__c.Interest_Rate_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Interested_in_Creditor_Life_Flag__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.JN_Life_Creditor_Life_Premium_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Legal_Fees_including_GCT_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Loan_Amount_Market_Percentage_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Loan_Calculation_Product__c.Loan_Amount_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Loan_Calculation_Product__c.Loan_Calculation_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Loan_Calculation_Product__c.Loan_to_Value_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Minimum_Payment_per_Credit_Limit_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Monthly_Compulsory_Savings_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Monthly_Creditor_Life_Premium_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Monthly_PI_Loan_Amount_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Monthly_PI_Processing_Fee_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Monthly_P_I_Life_Insurance_Premium__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Loan_Calculation_Product__c.Months_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Loan_Calculation_Product__c.Policy_Limit_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Processing_Fees_Closing_Cost_GCT_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Processing_Fees_including_GCT_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Loan_Calculation_Product__c.Proposed_Savings_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Proposed_Savings_Percentage_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Loan_Calculation_Product__c.Repayment_Method_List__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Requested_Credit_Limit_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Loan_Calculation_Product__c.Stamp_Duty_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Loan_Calculation_Product__c.Starting_Limit_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Supplementary_Card_Holder_Count_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Total_Closing_Costs_Financed_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Loan_Calculation_Product__c.Total_Closing_Costs_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Total_Compulsory_Savings_Balance_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Total_Interest_Payment_Repayment_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Loan_Calculation_Product__c.Total_Loan_Amount_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Total_Monthly_Loan_Payment_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Total_Monthly_PI_Loan_Payment_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Total_Monthly_Saving_Loan_Payment_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Loan_Calculation_Product__c.Waive_Processing_Fee_Flag__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Loan_Calculation_Product__c.Years_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <layoutAssignments>
-        <layout>Applicant__c-Application Details Layout</layout>
+        <layout>Loan_Calculation_Product__c-Auto</layout>
+        <recordType>Loan_Calculation_Product__c.Auto</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Loan_Calculation_Product__c-Credit Card</layout>
+        <recordType>Loan_Calculation_Product__c.Credit_Card</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Loan_Calculation_Product__c-Line of Credit</layout>
+        <recordType>Loan_Calculation_Product__c.Line_of_Credit</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout
-    >Application_Asset_Liability__c-Application Asset%2FLiability Layout</layout>
+    >Loan_Calculation_Product__c-Loan Calculation Product Layout</layout>
     </layoutAssignments>
+    <layoutAssignments>
+        <layout>Loan_Calculation_Product__c-Unsecured</layout>
+        <recordType>Loan_Calculation_Product__c.Unsecured</recordType>
+    </layoutAssignments>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>Loan_Calculation_Product__c.Auto</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Loan_Calculation_Product__c.Credit_Card</recordType>
+        <visible>false</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Loan_Calculation_Product__c.Line_of_Credit</recordType>
+        <visible>false</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Loan_Calculation_Product__c.Unsecured</recordType>
+        <visible>false</visible>
+    </recordTypeVisibilities>
     <userLicense>Salesforce</userLicense>
     <userPermissions>
         <enabled>true</enabled>
