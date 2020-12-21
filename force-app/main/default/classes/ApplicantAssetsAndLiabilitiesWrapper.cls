@@ -9,6 +9,8 @@ public with sharing class ApplicantAssetsAndLiabilitiesWrapper {
   public Decimal minimumPaymentPrior; //JN1-3967
   @AuraEnabled
   public Decimal minimumPaymentAfter; //JN1-3967
+  @AuraEnabled
+  public Decimal percentApplicantPortion; //JN1-4231
 
   public ApplicantAssetsAndLiabilitiesWrapper(
     Application_Asset_Liability__c record
@@ -19,5 +21,6 @@ public with sharing class ApplicantAssetsAndLiabilitiesWrapper {
     this.monthlyLoanPaymentAfter = record.Monthly_Payment_After__c; //JN1-3967
     this.minimumPaymentPrior = record.Minimum_Payment_Calc__c; //JN1-3967
     this.minimumPaymentAfter = record.Minimum_Payment_After_Calc__c; //JN1-3967
+    this.percentApplicantPortion = record.Assets_and_Liabilities__r.Percent_Applicant_Portion__c; //JN1-4231
   }
 }

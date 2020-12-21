@@ -884,3 +884,20 @@ window.autoCollateralDepositPercentageCalculator = function (
   }
   return 0;
 };
+
+/**
+ * Calculates applicant portion loan payment for long summary
+ * @param {Object} container
+ * @return {Decimal}
+ */
+window.applicantPortionCalculator = function (
+  loanPaymentAmount,
+  portionPercentage
+) {
+  if (validNumber(loanPaymentAmount) && validNumber(portionPercentage)) {
+    console.log("Applicant Portion Calculator");
+    return roundedValue(
+      parseFloat(loanPaymentAmount) * parseFloat(portionPercentage)
+    );
+  }
+};

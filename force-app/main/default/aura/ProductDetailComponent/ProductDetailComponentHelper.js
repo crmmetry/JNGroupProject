@@ -160,9 +160,14 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         //update spinner status
+        console.log("Result: ", JSON.parse(JSON.stringify(result)));
+        console.log("Get Assets and Liabilities 1");
         this.checkSpinnerStatus(component, "assetsAndLiabilitiesForApplicants");
+        console.log("Get Assets and Liabilities 2");
         this.mergeWithChildContainer(component, result);
-        this.existingDebtCalculator(component, result);
+        console.log("Get Assets and Liabilities 3");
+        let newResult = this.applicantPortionLoanPaymentCalculation(result);
+        this.existingDebtCalculator(component, newResult);
       }
     });
     $A.enqueueAction(action);
@@ -271,6 +276,42 @@
       });
     });
     return total;
+  },
+  /**
+   * Calculate applicant portion of Monthly Loan Payment.
+   * @param {Array} containerValues
+   * @return {Array}
+   */
+  applicantPortionLoanPaymentCalculation: function (containerValues) {
+    console.log("Applicant Portion Claculation");
+    let applicantPortion = 0;
+    let loanPaymentBefore = 0;
+    let loanPaymentAfter = 0;
+    containerValues.forEach((element) => {
+      Object.keys(element).forEach((key) => {
+        if (key === PERCENT_APPLICANT_PORTION) applicantPortion = element[key];
+        if (key === MONTHLY_LOAN_PAYMENT_PRIOR)
+          loanPaymentBefore = element[key];
+        if (key === MONTHLY_LOAN_PAYMENT_AFTER) loanPaymentAfter = element[key];
+      });
+    });
+    console.log("Applicant Portion: ", applicantPortion);
+    console.log("loanPaymentBefore: ", loanPaymentBefore);
+    console.log("loanPaymentAfter: ", loanPaymentAfter);
+    let applicantPortionPrior = applicantPortionCalculator(
+      applicantPortion,
+      loanPaymentBefore
+    );
+    let applicantPotrionAfter = applicantPortionCalculator(
+      applicantPortion,
+      loanPaymentAfter
+    );
+    containerValues.push([
+      { key: "applicantPortionPrior", value: applicantPortionPrior },
+      { key: "applicantPotrionAfter", value: applicantPotrionAfter }
+    ]);
+    console.log("New Result: ", JSON.parse(JSON.stringify(containerValues)));
+    return containerValues;
   },
   /**
    * calculates  TDSR before

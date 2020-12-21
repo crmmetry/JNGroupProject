@@ -29,3 +29,6 @@ window.LINE_OF_CREDIT_APPLICANT_COVERAGE = [
   "Applicant 2 Only",
   "Applicant 1 and Applicant 2"
 ];
+window.PERCENT_APPLICANT_PORTION = "percentApplicantPortion";
+window.MONTHLY_LOAN_PAYMENT_PRIOR = "monthlyLoanPaymentPrior";
+window.MONTHLY_LOAN_PAYMENT_AFTER = "monthlyLoanPaymentAfter";
