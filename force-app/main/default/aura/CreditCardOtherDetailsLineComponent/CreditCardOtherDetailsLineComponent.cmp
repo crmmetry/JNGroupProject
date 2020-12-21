@@ -190,7 +190,7 @@
             padding="around-small"
           >
             <lightning:select
-              aura:id="creditor-life-selected"
+              aura:id="creditorLifeSelected"
               name="select1"
               label="Life Insurance Coverage"
               required="true"
