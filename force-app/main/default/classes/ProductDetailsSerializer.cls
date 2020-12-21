@@ -156,4 +156,10 @@ public class ProductDetailsSerializer {
   public String makeAndModelOfVehicle;
   @AuraEnabled
   public Decimal marketValue;
+  @AuraEnabled
+  public Decimal autoCollateralDeposit;
+  @AuraEnabled
+  public Decimal autoCollateralDepositPercentage;
+  @AuraEnabled
+  public Decimal computedAutoCollateralDepositFromPercentage;
 }

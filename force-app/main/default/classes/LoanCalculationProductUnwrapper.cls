@@ -44,6 +44,9 @@ public class LoanCalculationProductUnwrapper {
     record.Minimum_Payment_per_Credit_Limit_Number__c = serializer.minimumPayment;
     record.Monthly_Creditor_Life_Premium_Number__c = serializer.creditorLifePremiumForNonRevolvingLoan;
     record.Approved_Starting_Limit_Number__c = serializer.approvedStartingLimit;
+    record.Auto_Collateral_Deposit_Number__c = serializer.autoCollateralDeposit;
+    record.Auto_Collateral_DepositPercentage_Number__c = serializer.autoCollateralDepositPercentage;
+    record.Computed_Auto_Collateral_Deposit_Number__c = serializer.computedAutoCollateralDepositFromPercentage;
   }
   /**
    * save loan calculation product object

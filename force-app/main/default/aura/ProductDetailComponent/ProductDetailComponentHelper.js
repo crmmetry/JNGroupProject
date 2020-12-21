@@ -868,7 +868,10 @@
       { localName: "creditorLifeAnnualFee" },
       { localName: "minimumPayment" },
       { localName: "creditorLifePremiumForNonRevolvingLoan" },
-      { localName: "approvedStartingLimit" }
+      { localName: "approvedStartingLimit" },
+      { localName: "autoCollateralDeposit" },
+      { localName: "autoCollateralDepositPercentage" },
+      { localName: "computedAutoCollateralDepositFromPercentage" }
     ];
     //product specific fields
     const updatedValues = this.contructProductSpecificDetailsFields(
