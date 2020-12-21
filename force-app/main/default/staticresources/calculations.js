@@ -668,9 +668,6 @@ window.maximumCreditLimitCalculatorWithCashCollateral = function (
   LTVCeiling,
   existingLoanBalance
 ) {
-  console.log("Deposit balance: ", depositBalance);
-  console.log("LTV Celiling: ", LTVCeiling);
-  console.log("Existing Balance: ", existingLoanBalance);
   if (
     validNumber(depositBalance) &&
     validNumber(LTVCeiling) &&
@@ -814,11 +811,6 @@ window.startingCreditLimtCalculatorWithCollateral = function (
   lowerCreditLimit
 ) {
   if (validNumber(minCreditLimitAllowable) && validNumber(lowerCreditLimit)) {
-    console.log(
-      "Starting limit - maxCreditLimitAllowable: ",
-      minCreditLimitAllowable
-    );
-    console.log("Starting limit - lowerCreditLimit: ", lowerCreditLimit);
     return Math.max(
       parseFloat(minCreditLimitAllowable),
       parseFloat(lowerCreditLimit)

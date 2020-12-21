@@ -201,7 +201,7 @@
     } else if (isAuto || isUnsecured) {
       totalDebt = this.existingDebtCalculation(
         [
-          "monthlyLoanPaymentPrior",
+          "monthlyLoanApplicantPortionPrior",
           "minimumPaymentPrior",
           "rentBoardMonthlyPrior",
           "rentStrataMaintenanceFromLongSummaryPrior"
@@ -211,7 +211,7 @@
       );
       totalDebtAfter = this.existingDebtCalculation(
         [
-          "monthlyLoanPaymentAfter",
+          "monthlyLoanApplicantPortionAfter",
           "minimumPaymentAfter",
           "rentBoardMonthlyAfter",
           "rentStrataMaintenanceFromLongSummaryAfter"
@@ -330,7 +330,7 @@
       // Calculate TDSR After for non revolving loans
       tdsrAfter = nonRevolvingTDSRAfterCalculator(
         container.grossMonthlyIncomeFromLongSummary,
-        container.existingDebt,
+        container.existingDebtAfter,
         container.monthly_PI_LoanAmount
       );
     } else if (isCreditCard || isLineOfCredit) {
