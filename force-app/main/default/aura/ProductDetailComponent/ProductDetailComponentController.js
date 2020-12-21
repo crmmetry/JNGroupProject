@@ -16,16 +16,15 @@
       monthlyPrincipalInterestProcessingFee: 0,
       processingFeesGCT: 0,
       existingDebt: 0,
-      TDSRBefore: 0,
-      TDSRAfter: 0,
+      TDSRBefore: null,
+      TDSRAfter: null,
       minimumOfPurchaseMarketValue: 0,
-      LTVValue: 0,
-      riskRating: {}, //for multi applicants
+      LTVValue: null,
       creditRiskScore: 0,
       creditRiskRating: "None",
       minimumPayment: 0,
       approvedStartingLimit: 0,
-      cardType: "", //JN-4049 :: Added a field to track max the credit type,
+      cardType: "",
       primaryApplicantAnnualMembership: 0,
       supplementaryApplicantAnnualMembership: 0,
       numberOfSupplementaryCardHolders: 0,
@@ -69,7 +68,6 @@
       helper.TDSRCalculationAfter(component);
       helper.setCardType(component); //JN1-4049 :: Kirti R :: Calculate the credit type
       helper.annualFeesCalcualtions(component);
-      console.log("===Testing End===");
       notifyContainerChanges(component);
     }
   },
