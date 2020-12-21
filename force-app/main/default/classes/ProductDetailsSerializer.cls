@@ -148,4 +148,6 @@ public class ProductDetailsSerializer {
   public Decimal annualInterestRate;
   @AuraEnabled
   public Decimal existingBalance;
+  @AuraEnabled
+  public String lifeInsuranceCoverage;
 }

@@ -35,6 +35,8 @@ public class LoanCalculationUnwrapper {
     record.Hypothecated_Loan_Flag__c = serializer.hypothecatedLoan;
     record.Deposit_Account_Balance_Number__c = serializer.depositBalance;
     record.Existing_Loan_Balance_Number__c = serializer.existingBalance;
+    record.Life_Insurance_Coverage__c = serializer.lifeInsuranceCoverage;
+    record.Interested_in_Creditor_Life__c = serializer.interestedInCreditorLife;
   }
   /**
    * save loan calculations oject

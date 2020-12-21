@@ -743,6 +743,14 @@
           description: "stamp duty for unsecured loan"
         }
       ]);
+    } else if (isCreditCard || isLineOfCredit) {
+      loanCalculationFields = loanCalculationFields.concat([
+        {
+          localName: "interestedInCreditorLifeNonRevolving",
+          mappedName: "interestedInCreditorLife",
+          description: "Will JN Life Creditor Life Insurance be taken?"
+        }
+      ]);
     }
     return {
       loanCalculationProductFields: loanCalculationProductFields,
@@ -803,10 +811,8 @@
       { localName: "annualInterestRate" },
       { localName: "hypothecatedLoan" },
       { localName: "depositBalance" },
-      {
-        localName: "interestedInCreditorLifeNonRevolving",
-        description: "Will JN Life Creditor Life Insurance be taken?"
-      }
+      { localName: "lifeInsuranceCoverage" },
+      { localName: "interestedInCreditorLife" }
     ];
     let loanCalculationProductFields = [
       {
