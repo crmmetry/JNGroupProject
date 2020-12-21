@@ -59,25 +59,6 @@ public with sharing class ProductDetailSelector {
     return empWrapper;
   }
   /**
-   * gives the applicant asset and liability details
-   * @param {Id} oppId - opportunity Id
-   * @return {List<AssetAndLiabilityWrapper>} - returns list of asset and liabilities in wrapper format
-   */
-  // public static List<ApplicantAssetAndLiabilityWraqpper> getAssetsAndLiabilities(Id oppId){
-  //   List<ApplicantAssetAndLiabilityWraqpper> assetAndLiabilityList = [
-  //     SELECT
-  //     Id,
-  //     monthlyLoanPaymentPrior,
-  //     monthlyLoanPaymentAfter,
-  //     minimumPaymentPrior,
-  //     minimumPaymentAfter,
-  //     Assets_and_Liabilities__r.Percent_Applicant_Portion__c
-  //     FROM Application_Asset_Liability__c
-  //     WHERE Application__r.Opportunity__r.Id = :oppId
-  //   ];
-  //   List<ApplicantAssetsAndLiabilitiesWrapper> applicantAssetsAndLiabilitiesWrapperList = new List<ApplicantAssetsAndLiabilitiesWrapper>();
-  // }
-  /**
    * gives the applicant details
    * @param {Id} oppId - opportunity Id
    * @return {List<ApplicantWrapper>} - returns list of applicants in wrapper format

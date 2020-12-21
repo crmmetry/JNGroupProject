@@ -26,16 +26,22 @@ public with sharing class ApplicantAssetsAndLiabilitiesWrapper {
     this.minimumPaymentPrior = record.Minimum_Payment_Calc__c; //JN1-3967
     this.minimumPaymentAfter = record.Minimum_Payment_After_Calc__c; //JN1-3967
     this.percentApplicantPortion = record.Assets_and_Liabilities__r.Percent_Applicant_Portion__c; //JN1-4231
-    this.monthlyLoanApplicantPortionPrior = CalcualteApplicantLoanPortionPrior(
+    this.monthlyLoanApplicantPortionPrior = calcualteApplicantLoanPortion(
       monthlyLoanPaymentPrior,
       percentApplicantPortion
     );
-    this.monthlyLoanApplicantPortionAfter = CalcualteApplicantLoanPortionPrior(
+    this.monthlyLoanApplicantPortionAfter = calcualteApplicantLoanPortion(
       monthlyLoanPaymentAfter,
       percentApplicantPortion
     );
   }
-  private Decimal CalcualteApplicantLoanPortionPrior(
+  /**
+   * gives the account details
+   * @param {Decimal} amount - monthly loan payment
+   * @param {Decimal} percentage - percentage applicant portion to be paid
+   * @return {Decimal}
+   */
+  private Decimal calcualteApplicantLoanPortion(
     Decimal amount,
     Decimal percentage
   ) {

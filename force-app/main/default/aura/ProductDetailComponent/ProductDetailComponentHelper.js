@@ -273,29 +273,6 @@
     return total;
   },
   /**
-   * Calculate applicant portion of Monthly Loan Payment.
-   * @param {Array} containerValues
-   * @return {Array}
-   */
-  applicantPortionLoanPaymentCalculation: function (containerValues) {
-    let applicantPortion = 0;
-    let loanPaymentBefore = 0;
-    let loanPaymentAfter = 0;
-    containerValues.forEach((element) => {
-      Object.keys(element).forEach((key) => {
-        if (key === PERCENT_APPLICANT_PORTION) applicantPortion = element[key];
-        if (key === MONTHLY_LOAN_PAYMENT_PRIOR)
-          loanPaymentBefore = element[key];
-        if (key === MONTHLY_LOAN_PAYMENT_AFTER) loanPaymentAfter = element[key];
-      });
-    });
-    containerValues.push({
-      applicantPortionPrior: applicantPortionPrior,
-      applicantPortionAfter: applicantPotrionAfter
-    });
-    return containerValues;
-  },
-  /**
    * calculates  TDSR before
    * @param {*} component
    * @param {Object} data
