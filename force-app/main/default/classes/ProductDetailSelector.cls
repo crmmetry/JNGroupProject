@@ -58,8 +58,7 @@ public with sharing class ProductDetailSelector {
     }
     return empWrapper;
   }
-
-  /*
+  /**
    * gives the applicant details
    * @param {Id} oppId - opportunity Id
    * @return {List<ApplicantWrapper>} - returns list of applicants in wrapper format
@@ -91,7 +90,8 @@ public with sharing class ProductDetailSelector {
             Minimum_Payment_After_Calc__c,
             Minimum_Payment_Calc__c,
             Monthly_Payment_Prior__c,
-            Monthly_Payment_After__c
+            Monthly_Payment_After__c,
+            Assets_and_Liabilities__r.Percent_Applicant_Portion__c
           FROM Application_Assets_Liabilities__r
         )
       FROM Applicant__c
