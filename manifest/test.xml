@@ -1,69 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description
-  >Contains new fields on Loan Calc Prod Object, validation rule, updated PB for Opp Path, updated Opp Path, formula fields, page layouts from Applicant</description>
-       <types>
-            <members>Loan_Calculation_Product__c</members>
-            <name>CustomObject</name>
-        </types>
-    <types>
-        <members>Applicant__c.Existing_Real_Estate_Rental_IC__c</members>
-        <members>Applicant__c.Existing_Real_estate_Rental_II_C__c</members>
-        <members>Applicant__c.Share_of_Profit_PartnershipC__c</members>
-        <members>Applicant__c.Share_of_Profit_ShareholderC__c</members>
-        <members>Applicant__c.Total_Inflows__c</members>
-        <members>Loan_Calculation_Product__c.Account_Holder_s_text__c</members>
-        <members
-    >Loan_Calculation_Product__c.Account_Hypothecated_list__c</members>
-        <members>Loan_Calculation_Product__c.Account_Type_List__c</members>
-        <members
-    >Loan_Calculation_Product__c.Annual_Interest_Rate_Deposit_Acct_Number__c</members>
-        <members
-    >Loan_Calculation_Product__c.Deposit_Account_Balance_Number__c</members>
-        <members
-    >Loan_Calculation_Product__c.Deposit_Account_Number_Number__c</members>
-        <members
-    >Loan_Calculation_Product__c.Deposit_Account_Number_Prefix_text__c</members>
-        <members
-    >Loan_Calculation_Product__c.Financial_Institution_List__c</members>
-        <name>CustomField</name>
-    </types>
-    <types>
-        <members>Opportunity_Loan_Flow</members>
-        <name>Flow</name>
-    </types>
-    <types>
-        <members>Applicant__c-Application Details Layout</members>
-        <members>Applicant__c-Summary Applicant Details</members>
-        <members
-    >Application_Asset_Liability__c-Application Asset%2FLiability Layout</members>
-        <members
-    >FinServ__AssetsAndLiabilities__c-Credit Card%2FLine of Credit</members>
-        <members>FinServ__AssetsAndLiabilities__c-Life Insurance</members>
-        <members>FinServ__AssetsAndLiabilities__c-Motor Vehicle</members>
-        <members>FinServ__AssetsAndLiabilities__c-Other Assets</members>
-        <members>FinServ__AssetsAndLiabilities__c-Other Loans</members>
-        <members>FinServ__AssetsAndLiabilities__c-Pension</members>
-        <members>FinServ__AssetsAndLiabilities__c-Real Estate</members>
-        <members
-    >FinServ__AssetsAndLiabilities__c-Savings%2FChequing Account</members>
-        <name>Layout</name>
-    </types>
-    <types>
-        <members>Loan_Path</members>
-        <name>PathAssistant</name>
-    </types>
-    <types>
-        <members>Admin</members>
-        <members>Call Centre - Sales</members>
-        <members>JN - Sales Support</members>
-        <members>JN Bank - Sales Support</members>
-        <members>Sales - All Products</members>
-        <name>Profile</name>
-    </types>
-    <types>
-        <members>Opportunity.Exception_validation</members>
-        <name>ValidationRule</name>
-    </types>
-    <version>50.0</version>
+   	<types>
+		<members>Loan_Calculation_Applicant_Product__c</members>
+		<name>CustomObject</name>
+	</types>
+	<types>
+		<members>Financial_Institution_Secured_Line</members>
+		<name>GlobalValueSet</name>
+	</types>
+	<types>
+		<members>Admin</members>
+		<members>Call Centre - Sales</members>
+		<members>Sales - All Products</members>
+		<name>Profile</name>
+	</types>
+	<version>50.0</version>
 </Package>
