@@ -785,7 +785,18 @@
       { localName: "totalClosingCostsApplicantPayable" },
       { localName: "noCreditorLifeReason" },
       { localName: "policyProvider" },
-      { localName: "cardType" }
+      { localName: "cardType" },
+      { localName: "financialInstitution" },
+      { localName: "accountType" },
+      { localName: "depositAccountNumber" },
+      { localName: "accountHolder" },
+      { localName: "annualInterestRate" },
+      { localName: "hypothecatedLoan" },
+      { localName: "depositBalance" },
+      {
+        localName: "interestedInCreditorLifeNonRevolving",
+        description: "Will JN Life Creditor Life Insurance be taken?"
+      }
     ];
     let loanCalculationProductFields = [
       {
@@ -861,14 +872,11 @@
     let containerComponent;
     if (component.get("v.autoFlag")) {
       containerComponent = component.find("autoLoanContainerComponent");
-    }
-    if (component.get("v.unsecuredFlag")) {
+    } else if (component.get("v.unsecuredFlag")) {
       containerComponent = component.find("unsecuredLoanContainerComponent");
-    }
-    if (component.get("v.creditCardFlag")) {
+    } else if (component.get("v.creditCardFlag")) {
       containerComponent = component.find("creditCardContainerComponent");
-    }
-    if (component.get("v.lineOfCreditFlag")) {
+    } else if (component.get("v.lineOfCreditFlag")) {
       containerComponent = component.find("lineOfCreditContainerComponent");
     }
     return containerComponent.validateFields(component);

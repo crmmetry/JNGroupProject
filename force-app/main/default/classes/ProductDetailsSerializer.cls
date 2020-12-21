@@ -131,4 +131,21 @@ public class ProductDetailsSerializer {
   public Decimal creditorLifePremiumForNonRevolvingLoan;
   @AuraEnabled
   public Decimal approvedStartingLimit;
+
+  @AuraEnabled
+  public String financialInstitution;
+  @AuraEnabled
+  public String accountType;
+  @AuraEnabled
+  public String depositAccountNumber;
+  @AuraEnabled
+  public String accountHolder;
+  @AuraEnabled
+  public String hypothecatedLoan;
+  @AuraEnabled
+  public Decimal depositBalance;
+  @AuraEnabled
+  public Decimal annualInterestRate;
+  @AuraEnabled
+  public Decimal existingBalance;
 }

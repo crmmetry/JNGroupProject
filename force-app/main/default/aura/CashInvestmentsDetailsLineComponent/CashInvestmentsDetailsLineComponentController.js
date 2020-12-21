@@ -10,7 +10,8 @@
       annualInterestRate: 0,
       depositBalance: 0,
       existingBalance: 0,
-      loanToValueRatio: 0
+      loanToValueRatio: 0,
+      hypothecatedLoan: null
     };
     component.set("v.ChildContainer", data);
   },
@@ -51,6 +52,13 @@
 
   onAccountTypeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
+    let childKeyValuePairs = [
+      {
+        key: "accountType",
+        value: selected
+      }
+    ];
+    helper.updateChildContainer(component, childKeyValuePairs, false);
   },
 
   validateBalance: function (component, event, helper) {
@@ -78,7 +86,7 @@
     const selected = event.getSource().get("v.value");
     let childKeyValuePairs = [
       {
-        key: "existingBalance",
+        key: "hypothecatedLoan",
         value: selected
       }
     ];
