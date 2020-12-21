@@ -648,7 +648,7 @@
    */
   showSpinner: function (component) {
     const spinner = component.find("spinner");
-    $A.util.toggleClass(spinner, "slds-hide");
+    $A.util.removeClass(spinner, "slds-hide");
   },
   /**
    * Hides spinner component.
@@ -674,5 +674,232 @@
     } else {
       component.set("v.spinnerList", spinnerList);
     }
+  },
+  /**
+   * JN1-4001
+   * Saves product details
+   * @param {*} component
+   * @param {Array<String>} productRecordTypes
+   * @param {Object} loanCalculationFields
+   * @param {Object} loanCalculationProductFields
+   */
+  saveProductDetailsInfo: function (
+    component,
+    productRecordTypes,
+    loanCalculationFields,
+    loanCalculationProductFields
+  ) {
+    let oppId = component.get("v.recordId");
+    let action = component.get("c.saveProductDetails");
+    action.setParams({
+      opportunityId: oppId,
+      productRecordTypes: productRecordTypes,
+      loanCalculationProductFields: loanCalculationProductFields,
+      loanCalculationFields: loanCalculationFields
+    });
+    action.setCallback(this, function (response) {
+      this.hideSpinner(component);
+      let state = response.getState(); //Checking response status
+      if (state === "SUCCESS") {
+        showToast(
+          "Product Details Application",
+          "Product details was successfully saved",
+          "success"
+        );
+      }
+    });
+
+    $A.enqueueAction(action);
+  },
+  /**
+   * lists all the fields needed in saving product details, product specific selections
+   * @param {*} component
+   * @param {Object} loanCalculationProductFields
+   * @param {Object} loanCalculationFields
+   * @returns {Object}
+   */
+  contructProductSpecificDetailsFields: function (
+    component,
+    loanCalculationFields,
+    loanCalculationProductFields
+  ) {
+    const isAuto = this.checkProductFamily(component, "Auto");
+    const isLineOfCredit = this.checkProductFamily(component, "Line Of Credit");
+    const isUnsecured = this.checkProductFamily(component, "Unsecured");
+    const isCreditCard = this.checkProductFamily(component, "Credit Card");
+    if (isAuto) {
+      loanCalculationFields = loanCalculationFields.concat([
+        {
+          localName: "stampDutyAuto",
+          mappedName: "stampDuty",
+          description: "stamp duty for auto loan"
+        }
+      ]);
+    } else if (isUnsecured) {
+      loanCalculationFields = loanCalculationFields.concat([
+        {
+          localName: "stampDutyUns",
+          mappedName: "stampDuty",
+          description: "stamp duty for unsecured loan"
+        }
+      ]);
+    } else if (isCreditCard || isLineOfCredit) {
+      loanCalculationFields = loanCalculationFields.concat([
+        {
+          localName: "interestedInCreditorLifeNonRevolving",
+          mappedName: "interestedInCreditorLife",
+          description: "Will JN Life Creditor Life Insurance be taken?"
+        },
+        {
+          localName: "monthlyRepaymentDate",
+          description: "Desired Statement Date",
+          mappedName: "repaymentDate"
+        }
+      ]);
+    }
+    return {
+      loanCalculationProductFields: loanCalculationProductFields,
+      loanCalculationFields: loanCalculationFields
+    };
+  },
+  /**
+   * lists all the fields needed in saving product details
+   * @param {*} component
+   * @returns {Object}
+   */
+  contructProductDetailsFields: function (component) {
+    let loanCalculationFields = [
+      {
+        localName: "purchasePrice",
+        description: "Purchase Price of Vehicle"
+      },
+      {
+        localName: "marketValue",
+        description: "Market Value of Vehicle"
+      },
+      {
+        localName: "minimumOfPurchaseMarketValue",
+        description: "Minimum(MV,PP)"
+      },
+      {
+        localName: "loanAmount",
+        description: "Loan Amount"
+      },
+      {
+        localName: "interestedInPremiumFlag",
+        description: "Interested in Programme?"
+      },
+      {
+        localName: "jngiMonthlyPremium"
+      },
+      { localName: "jngiIncludeInLoan" },
+      {
+        localName: "includeInLoanAmountFlag",
+        description: "Include in Loan Amount processing fee"
+      },
+      { localName: "waiveProcessingFeeFlag" },
+      { localName: "jngiMotorPremium" },
+      { localName: "monthlyPIJNGIMotorPremium" },
+      { localName: "nsipp" },
+      { localName: "assignmentFee" },
+      { localName: "totalClosingCosts" },
+      { localName: "stampDutyAndAdminCharges" },
+      { localName: "totalFinancedByJN" },
+      { localName: "totalClosingCostsApplicantPayable" },
+      { localName: "noCreditorLifeReason" },
+      { localName: "policyProvider" },
+      { localName: "cardType" },
+      { localName: "financialInstitution" },
+      { localName: "accountType" },
+      { localName: "depositAccountNumber" },
+      { localName: "accountHolder" },
+      { localName: "annualInterestRate" },
+      { localName: "hypothecatedLoan" },
+      { localName: "depositBalance" },
+      { localName: "lifeInsuranceCoverage" },
+      { localName: "interestedInCreditorLife" }
+    ];
+    let loanCalculationProductFields = [
+      {
+        localName: "years",
+        description: "Loan Term Years"
+      },
+      {
+        localName: "months",
+        description: "Loan Term Months"
+      },
+      {
+        localName: "market",
+        description: "Loan Term Market"
+      },
+      { localName: "processingFeePercentagePerAnum" },
+      { localName: "repaymentDate" },
+      {
+        localName: "proposedSavingsPercentage",
+        description: "Motor Vehicle Deposit Percent"
+      },
+      {
+        localName: "proposedSavingsAmount",
+        description: "Motor Vehicle Deposit Amount"
+      },
+      { localName: "processingFeeClosingCost" },
+      { localName: "processingFeesGCT" },
+      { localName: "monthlyPrincipalInterestProcessingFee" },
+      { localName: "legalFee" },
+      { localName: "monthly_PI_LoanAmount" },
+      { localName: "jnLifeCreditorPremium" },
+      { localName: "monthlyCompulsorySavings" },
+      { localName: "totalCompulsorySavingsBalance" },
+      { localName: "monthlyJnLifeCreditor_PI_Premium" },
+      { localName: "totalLoanAmount" },
+      { localName: "totalMonthlyLoanPayment" },
+      { localName: "totalMonthly_PI_LoanPayment" },
+      { localName: "totalInterestPaymentBalance" },
+      { localName: "totalMonthlyLoanPaymentAndSavings" },
+      { localName: "jnCLPremiumFeesAndCharges" },
+      { localName: "monthlyJnLifeCreditor_PI_Premium" },
+      { localName: "TDSRBefore" },
+      { localName: "TDSRAfter" },
+      { localName: "policyLimit" },
+      { localName: "collateralType" },
+      { localName: "coverageType" },
+      { localName: "primaryApplicantAnnualMembership" },
+      { localName: "supplementaryApplicantAnnualMembership" },
+      { localName: "creditorLifeAnnualFee" },
+      { localName: "minimumPayment" },
+      { localName: "creditorLifePremiumForNonRevolvingLoan" },
+      { localName: "approvedStartingLimit" }
+    ];
+    //product specific fields
+    const updatedValues = this.contructProductSpecificDetailsFields(
+      component,
+      loanCalculationFields,
+      loanCalculationProductFields
+    );
+    loanCalculationProductFields = updatedValues.loanCalculationProductFields;
+    loanCalculationFields = updatedValues.loanCalculationFields;
+    return {
+      loanCalculationProductFields: loanCalculationProductFields,
+      loanCalculationFields: loanCalculationFields
+    };
+  },
+  /**
+   * JN1-4210 : For validating child component containers
+   * @param {*} component
+   * @param {*} event
+   * @param {*} helper
+   */
+  validateFields: function (component) {
+    let containerComponent;
+    if (component.get("v.autoFlag")) {
+      containerComponent = component.find("autoLoanContainerComponent");
+    } else if (component.get("v.unsecuredFlag")) {
+      containerComponent = component.find("unsecuredLoanContainerComponent");
+    } else if (component.get("v.creditCardFlag")) {
+      containerComponent = component.find("creditCardContainerComponent");
+    } else if (component.get("v.lineOfCreditFlag")) {
+      containerComponent = component.find("lineOfCreditContainerComponent");
+    }
+    return containerComponent.validateFields(component);
   }
 });

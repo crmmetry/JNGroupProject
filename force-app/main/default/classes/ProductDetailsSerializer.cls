@@ -34,8 +34,6 @@ public class ProductDetailsSerializer {
   @AuraEnabled
   public String repaymentMethod;
   @AuraEnabled
-  public String monthlyRepaymentDate;
-  @AuraEnabled
   public Decimal proposedSavingPercentage;
   @AuraEnabled
   public Decimal proposedSavingAmount;
@@ -47,8 +45,6 @@ public class ProductDetailsSerializer {
   public Decimal LTVValue;
   @AuraEnabled
   public Decimal existingDebt;
-  @AuraEnabled
-  public Decimal primaryApplicantAnnualMembership;
   @AuraEnabled
   public Decimal supplementaryApplicantAnnualMembership;
   @AuraEnabled
@@ -62,11 +58,7 @@ public class ProductDetailsSerializer {
   @AuraEnabled
   public Decimal monthly_PI_LoanAmount;
   @AuraEnabled
-  public Decimal minimumPayment;
-  @AuraEnabled
   public Decimal startingLimit;
-  @AuraEnabled
-  public Decimal approvedStartingLimit;
   @AuraEnabled
   public String cardType;
   @AuraEnabled
@@ -123,8 +115,37 @@ public class ProductDetailsSerializer {
   public Decimal totalClosingCostsApplicantPayable;
   @AuraEnabled
   public String noCreditorLifeReason;
-  // @AuraEnabled
-  // public Decimal totalFinancedByJN;
-  // @AuraEnabled
-  // public Decimal totalFinancedByJN;
+  @AuraEnabled
+  public String policyProvider;
+  @AuraEnabled
+  public Decimal primaryApplicantAnnualMembership;
+  @AuraEnabled
+  public Decimal numberOfSupplementaryCardHolders;
+  @AuraEnabled
+  public Decimal creditorLifeAnnualFee;
+  @AuraEnabled
+  public Decimal minimumPayment;
+  @AuraEnabled
+  public Decimal creditorLifePremiumForNonRevolvingLoan;
+  @AuraEnabled
+  public Decimal approvedStartingLimit;
+
+  @AuraEnabled
+  public String financialInstitution;
+  @AuraEnabled
+  public String accountType;
+  @AuraEnabled
+  public String depositAccountNumber;
+  @AuraEnabled
+  public String accountHolder;
+  @AuraEnabled
+  public String hypothecatedLoan;
+  @AuraEnabled
+  public Decimal depositBalance;
+  @AuraEnabled
+  public Decimal annualInterestRate;
+  @AuraEnabled
+  public Decimal existingBalance;
+  @AuraEnabled
+  public String lifeInsuranceCoverage;
 }

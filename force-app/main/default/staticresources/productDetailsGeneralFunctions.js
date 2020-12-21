@@ -4,6 +4,7 @@
 /**
  * Ver  Ticket#      Date            Author                  Purpose
  * 1.0  JN1-3969     4/12/2020      Ishwari G.(thinqloud)  To calculate the annual fees for primary applicant
+ * 2.0  JN1-4210     18/12/2020     Ishwari G.(thinqloud)   To validate the the array of result
  **/
 
 /**
@@ -22,8 +23,8 @@ function calculateSavings(data, totalMonthly_PI_LoanPayment) {
     let tenure = calculateMonths(data.years, data.months);
     let monthlySavings = basicMonthlyCompulsorySavingsCalculator(
       totalMonthly_PI_LoanPayment,
-      data.percentage,
-      data.amount
+      data.proposedSavingsPercentage,
+      data.proposedSavingsAmount
     );
     let monthlySavingsOverRepaymentPeriod = basicTotalMonthlyCompulsorySavingsCalculator(
       monthlySavings,
@@ -35,10 +36,10 @@ function calculateSavings(data, totalMonthly_PI_LoanPayment) {
       ),
       monthlyCompulsorySavings: parseFloat(monthlySavings)
     };
-  } else if (validNumbersWithObject(["amount"], data)) {
-    let totalCompulsorySavings = data.amount * tenure;
+  } else if (validNumbersWithObject(["proposedSavingsAmount"], data)) {
+    let totalCompulsorySavings = data.proposedSavingsAmount * tenure;
     return {
-      monthlyCompulsorySavings: data.amount,
+      monthlyCompulsorySavings: data.proposedSavingsAmount,
       totalCompulsorySavingsBalance: totalCompulsorySavings
     };
   } else {
@@ -542,6 +543,7 @@ window.creditCardAnnualFeesCalculation = function (
   }
   return ZERO;
 };
+
 /**
  * Checks if a number is ZERO
  * @param {Number} number
@@ -553,8 +555,51 @@ window.isZero = function (number) {
   }
   return false;
 };
-
-/** Validates fields
+/** *
+ * validates whether the supplied fields are valid, meaning not null, undefined etc
+ * @param {Object} childContainer
+ * @param {Object<Array>} values
+ * @returns {Object}
+ */
+window.persistentFieldsValidator = function (childContainer, values) {
+  const container = {};
+  if (values && childContainer) {
+    values.forEach((value) => {
+      if (childContainer.hasOwnProperty(value.localName)) {
+        if (
+          validNumber(childContainer[value.localName]) ||
+          !isEmpty(childContainer[value.localName])
+        ) {
+          if (value.hasOwnProperty("mappedName")) {
+            container[value.mappedName] = childContainer[value.localName];
+          } else {
+            container[value.localName] = childContainer[value.localName];
+          }
+        }
+      }
+    });
+    return container;
+  }
+  return null;
+};
+/**
+ * displays toast message
+ * @param {String} title
+ * @param {String} message
+ * @param {String} type
+ * @returns {Void}
+ */
+window.showToast = function (title, message, type) {
+  let toastEvent = $A.get("e.force:showToast");
+  toastEvent.setParams({
+    title: title,
+    message: message,
+    type: type
+  });
+  toastEvent.fire();
+};
+/**
+ * Validates fields
  * @param {*} component
  * @param {Array<String>} validationArray
  */
@@ -571,7 +616,25 @@ window.validateFields = function (component, validationArray) {
     }
   });
   return components.reduce(function (validSoFar, inputCmp) {
+    console.log(
+      "Id = ",
+      inputCmp.getLocalId(),
+      inputCmp.get("v.validity").valid
+    );
     inputCmp.showHelpMessageIfInvalid();
     return validSoFar && inputCmp.get("v.validity").valid;
   }, true);
+};
+
+/** JN1-4210
+ * Validates Component
+ * @param {Array<Boolean>} resultsFromChild
+ */
+window.isValidComponent = function (resultsFromChild) {
+  return resultsFromChild.every(function (result) {
+    if (result) {
+      return true;
+    }
+    return false;
+  });
 };

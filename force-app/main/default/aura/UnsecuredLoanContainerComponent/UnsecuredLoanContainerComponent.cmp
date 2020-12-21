@@ -8,6 +8,14 @@
   <aura:attribute name="jnDefaultConfigs" type="Map" />
   <aura:attribute name="oppId" type="Id" />
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+
+  <!--JN1-4210 : For validating fields-->
+  <aura:method
+    name="validateFields"
+    action="{!c.validateFields}"
+    access="public"
+  />
+
   <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
     <div class="slds-form-element">
       <div class="slds-form-element__control">
@@ -16,6 +24,7 @@
           label="Loan Purpose"
           required="true"
           onchange="{!c.onLoanPurposeChange}"
+          aura:id="unsecuredOnLoanPurposeChange"
         >
           <option value="">select one...</option>
           <aura:iteration items="{!v.loanPurpose}" var="item">
@@ -30,21 +39,25 @@
     ParentContainer="{!v.ParentContainer}"
     applicants="{!v.oppApplicants}"
     oppId="{!v.oppId}"
+    aura:id="requestedDetailsLineItemComponent"
   >
   </c:RequestedDetailsLineItemComponent>
 
   <c:UnsecuredLoanFeatureLineItemComponent
     ParentContainer="{!v.ParentContainer}"
+    aura:id="unsecuredLoanFeatureLineItemComponent"
   >
   </c:UnsecuredLoanFeatureLineItemComponent>
 
   <c:CreditCalculationsLineItemComponent
     ParentContainer="{!v.ParentContainer}"
     jnDefaultConfigs="{!v.jnDefaultConfigs}"
+    aura:id="creditCalculationsLineItemComponent"
   ></c:CreditCalculationsLineItemComponent>
 
   <c:TotalDebtServiceRatioLineItemComponent
     ParentContainer="{!v.ParentContainer}"
     jnDefaultConfigs="{!v.jnDefaultConfigs}"
+    aura:id="totalDebtServiceRatioLineItemComponent"
   ></c:TotalDebtServiceRatioLineItemComponent>
 </aura:component>

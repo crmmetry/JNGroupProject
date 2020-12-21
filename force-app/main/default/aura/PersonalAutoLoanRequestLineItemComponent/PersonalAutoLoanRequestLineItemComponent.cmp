@@ -97,7 +97,12 @@
     type="String"
     default="PersonalAutoLoanRequestLineItemComponent"
   />
-
+  <!--JN1-4201-->
+  <aura:method
+    name="validateFields"
+    action="{!c.validateFields}"
+    access="public"
+  />
   <fieldset class="slds-box slds-theme_default">
     <legend
       id="productdetailsform"
@@ -124,6 +129,7 @@
                 label="Loan Purpose"
                 required="true"
                 onchange="{! c.onLoanPurposeChange }"
+                aura:id="loanPurpose"
               >
                 <option value="">select one...</option>
                 <aura:iteration items="{!v.loanPurpose}" var="item">
@@ -159,6 +165,7 @@
                 name="number"
                 formatter="currency"
                 required="true"
+                aura:id="vehiclePrice"
               />
             </lightning:layoutItem>
           </lightning:layout>
@@ -184,6 +191,7 @@
           mediumDeviceSize="6"
           padding="around-small"
         >
+          <!--Kirti-->
           <lightning:input
             type="number"
             label="Market Value of Vehicle"
@@ -191,6 +199,7 @@
             name="number"
             formatter="currency"
             required="true"
+            aura:id="vehicleMarketValue"
           />
         </lightning:layoutItem>
         <lightning:layoutItem
@@ -217,6 +226,7 @@
             type="radio"
             required="true"
             onchange="{!c.onMotorVehicleDepositFormatChange}"
+            aura:id="motorVehicleDeposit"
           />
         </lightning:layoutItem>
         <aura:if isTrue="{!v.value == v.percent}">
@@ -227,8 +237,9 @@
           >
             <lightning:layout>
               <lightning:layoutItem size="4" mediumDeviceSize="2">
+                <!--Kirti-->
                 <lightning:input
-                  aura:id="auto-collateral-computed-deposit"
+                  aura:id="autoCollateralComputedDeposit"
                   type="number"
                   label="%"
                   value="{!v.ChildContainer.autoCollateralDepositPercentage}"
@@ -238,6 +249,7 @@
                 />
               </lightning:layoutItem>
               <lightning:layoutItem size="6" mediumDeviceSize="10">
+                <!--Kirti-->
                 <lightning:input
                   type="number"
                   label="Motor Vehicle Deposit"
@@ -260,7 +272,7 @@
             <lightning:layout>
               <lightning:layoutItem size="12" mediumDeviceSize="12">
                 <lightning:input
-                  aura:id="auto-collateral-deposit"
+                  aura:id="motorVehicleDeposit"
                   type="number"
                   label="Motor Vehicle Deposit"
                   value="{!v.ChildContainer.autoCollateralDeposit}"
@@ -285,6 +297,7 @@
             label="Vehicle Classification"
             required="true"
             onchange="{!c.onVehicleClassificationChange}"
+            aura:id="vehicleClassification"
           >
             <option value="">select one...</option>
             <aura:iteration items="{!v.vehicleClassification}" var="item">
@@ -297,6 +310,7 @@
           mediumDeviceSize="4"
           padding="around-small"
         >
+          <!--Kirti-->
           <lightning:input
             type="text"
             name="vehicle-year"
@@ -304,6 +318,7 @@
             label="Year of Motor Vehicle"
             required="true"
             pattern="^\d{4}$"
+            aura:id="vehicleYear"
             messageWhenPatternMismatch="This year is invalid!"
           />
         </lightning:layoutItem>
@@ -312,17 +327,20 @@
           mediumDeviceSize="4"
           padding="around-small"
         >
+          <!--Kirti-->
           <lightning:input
             type="text"
             name="make-model"
             value="{!v.ChildContainer.makeAndModelOfVehicle}"
             label="Make and Model of Vehicle"
             required="true"
+            aura:id="makeModel"
           />
         </lightning:layoutItem>
         <lightning:layoutItem size="12" mediumDeviceSize="4"
           ><h3 class="slds-section-title--divider">Loan Amount (JMD)*</h3>
           <div class="slds-p-top_medium"></div>
+          <!--Kirti-->
           <lightning:input
             type="number"
             label="Amount"
@@ -331,6 +349,7 @@
             formatter="currency"
             readonly="true"
             required="true"
+            aura:id="amount"
           />
         </lightning:layoutItem>
         <lightning:layoutItem size="12" mediumDeviceSize="4"
@@ -338,6 +357,7 @@
           <lightning:layout>
             <lightning:layoutItem size="6">
               <div class="slds-p-top_medium"></div>
+              <!--Kirti-->
               <lightning:input
                 type="number"
                 label="Years"
@@ -346,10 +366,12 @@
                 required="true"
                 max="10"
                 min="0"
+                aura:id="years"
               />
             </lightning:layoutItem>
             <lightning:layoutItem size="6">
               <div class="slds-p-top_medium">
+                <!--Kirti-->
                 <lightning:input
                   type="number"
                   label="Months"
@@ -358,6 +380,7 @@
                   required="true"
                   min="0"
                   max="12"
+                  aura:id="months"
                 />
               </div>
             </lightning:layoutItem>
@@ -375,6 +398,7 @@
               step="0.01"
               required="true"
               min="0.01"
+              aura:id="market"
             />
           </div>
         </lightning:layoutItem>

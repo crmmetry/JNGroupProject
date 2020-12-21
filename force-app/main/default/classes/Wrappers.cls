@@ -247,27 +247,4 @@ public with sharing class Wrappers {
       this.mobileNumber = record.Mobile_Number__c;
     }
   }
-  /**
-   * Used for wrapping a Opportunity Product
-   * @constructor ProductSelectionWrapper
-   */
-  public class ProductSelectionWrapper {
-    @AuraEnabled
-    public String productFamily;
-    @AuraEnabled
-    public String productName;
-    @AuraEnabled
-    public Decimal productPrice;
-
-    public ProductSelectionWrapper(OpportunityLineItem record) {
-      if (record == null) {
-        Wrappers.throwNullException(
-          'OpportunityLineItem record cannot be null'
-        );
-      }
-      this.productFamily = record.Product_Family__c;
-      this.productName = record.Name;
-      this.productPrice = record.UnitPrice;
-    }
-  }
 }

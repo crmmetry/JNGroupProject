@@ -1,5 +1,5 @@
 <aura:component>
-  <aura:registerEvent name="productDetailsEvent" type="c:ProductDetailsEvent"/>
+  <aura:registerEvent name="productDetailsEvent" type="c:ProductDetailsEvent" />
   <aura:attribute name="ChildContainer" type="Map" default="{}" />
   <aura:attribute name="ParentContainer" type="Map" default="{}" />
   <aura:attribute
@@ -91,6 +91,12 @@
   <aura:attribute name="applicants" type="List" />
   <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
   <aura:attribute name="processingFeeClosingCost" type="Decimal" />
+  <!--JN1-4021-->
+  <aura:method
+    name="validateFields"
+    action="{!c.validateFields}"
+    access="public"
+  />
   <ltng:require
     scripts="{!$Resource.calculations}"
     afterScriptsLoaded="{!c.scriptsLoaded}"
@@ -127,6 +133,7 @@
         />
       </lightning:layoutItem>
       <lightning:layoutItem size="6" padding="around-small">
+        <!--JN1-4201-->
         <lightning:input
           type="number"
           label="Monthly P&amp;I Loan Amount"
@@ -325,6 +332,7 @@
         ></lightning:layoutItem
       >
       <lightning:layoutItem size="6" padding="around-small">
+        <!--JN1-4201-->
         <lightning:input
           type="number"
           label="Loan Amount(%)"
@@ -332,6 +340,7 @@
           name="Market"
           formatter="percent"
           required="true"
+          aura:id="loanAmount"
         />
       </lightning:layoutItem>
       <lightning:layoutItem size="6" padding="around-small">
@@ -346,6 +355,7 @@
         />
       </lightning:layoutItem>
       <lightning:layoutItem size="6" padding="around-small">
+        <!--JN1-4201-->
         <lightning:input
           type="number"
           label="Monthly Payment(%)"
@@ -353,6 +363,7 @@
           name="Market"
           formatter="percent"
           required="true"
+          aura:id="monthlyPayment"
         />
       </lightning:layoutItem>
       <lightning:layoutItem size="6" padding="around-small">

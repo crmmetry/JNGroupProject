@@ -35,6 +35,15 @@ public class LoanCalculationProductUnwrapper {
     record.Policy_Limit_Number__c = serializer.policyLimit;
     record.Monthly_PI_Loan_Amount_Number__c = serializer.monthly_PI_LoanAmount;
     record.Creditor_Life_Insurance_Premium_Number__c = serializer.jnCLPremiumFeesAndCharges;
+    record.Collateral_Type_List__c = serializer.collateralType;
+    record.Coverage_Type_List__c = serializer.coverageType;
+    record.Annual_Membership_Primary_Number__c = serializer.primaryApplicantAnnualMembership;
+    record.Annual_Membership_Supplementary_Number__c = serializer.supplementaryApplicantAnnualMembership;
+    record.Supplementary_Card_Holder_Count_Number__c = serializer.numberOfSupplementaryCardHolders;
+    record.Annual_Creditor_Life_Fee_Number__c = serializer.creditorLifeAnnualFee;
+    record.Minimum_Payment_per_Credit_Limit_Number__c = serializer.minimumPayment;
+    record.Monthly_Creditor_Life_Premium_Number__c = serializer.creditorLifePremiumForNonRevolvingLoan;
+    record.Approved_Starting_Limit_Number__c = serializer.approvedStartingLimit;
   }
   /**
    * save loan calculation product object

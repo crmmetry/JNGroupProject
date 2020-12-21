@@ -97,7 +97,12 @@
     value="{!v.showOtherForReasonFlag}"
     action="{!c.onshowOtherForReasonFlagChange}"
   />
-
+  <!--JN1-4210 : For validating fields-->
+  <aura:method
+    name="validateFields"
+    action="{!c.validateFields}"
+    access="public"
+  />
   <!-- toggling attributes-->
   <aura:attribute
     name="showPolicyProviderFlag"
@@ -175,6 +180,7 @@
                 label="Interested in Creditor Life?"
                 required="true"
                 onchange="{!c.onInterestedInCreditorLifeChange}"
+                aura:id="unsecuredInterestedInCreditorLife"
               >
                 <option value="">select one...</option>
                 <aura:iteration
@@ -201,6 +207,7 @@
                   required="true"
                   onchange="{!c.onCoverageTypeChange}"
                   disabled="{!v.disableTogglerForJNLifeCLFields}"
+                  aura:id="unsecuredCoverageType"
                 >
                   <aura:iteration items="{!v.coverageType}" var="item">
                     <option value="{!item}">{!item}</option>
@@ -222,6 +229,7 @@
                   required="true"
                   onchange="{!c.onIncludeCoverageChange}"
                   disabled="{!v.disableTogglerForJNLifeCLFields}"
+                  aura:id="unsecuredIncludeCoverage"
                 >
                   <option value="">select one...</option>
                   <aura:iteration items="{!v.includeCoverage}" var="item">
@@ -284,6 +292,7 @@
               name="Policy Provider"
               value="{!v.otherPolicyProvider}"
               required="true"
+              aura:id="unsecuredOtherPolicyProvider"
             />
           </lightning:layoutItem>
         </aura:if>
@@ -300,6 +309,7 @@
               required="true"
               placeholer="Enter Reason here..."
               maxlength="150"
+              aura:id="unsecuredOtherReason"
             />
           </lightning:layoutItem>
         </aura:if>
@@ -318,6 +328,7 @@
                 label="Waive Processing Fee?"
                 required="true"
                 onchange="{!c.onWaiveProcessingFeeChange}"
+                aura:id="unsecuredWaveProcessingFee"
               >
                 <option value="">select one...</option>
                 <aura:iteration items="{!v.waveProcessingFee}" var="item">
@@ -369,6 +380,7 @@
                 required="true"
                 disabled="{!v.showIndicateApplicableProcessingFees}"
                 step="0.01"
+                aura:id="unsecuredProcessingFeePercentPerAnum"
               />
             </div>
           </div>
@@ -388,6 +400,7 @@
                 label="Indicate repayment method "
                 required="true"
                 onchange="{!c.onRepaymentMethodChange}"
+                aura:id="unsecuredRepaymentMethod"
               >
                 <option value="">select one...</option>
                 <aura:iteration items="{!v.repaymentMethod}" var="item">
@@ -409,6 +422,7 @@
                 label="Dedicated monthly repayment date"
                 required="true"
                 onchange="{!c.onMonthlyRepaymentDateChange}"
+                aura:id="unsecuredMonthlyRepaymentDate"
               >
                 <option value="">select one...</option>
                 <aura:iteration items="{!v.monthlyRepaymentDate}" var="item">
@@ -430,6 +444,7 @@
                 label="Deduct the 1st month repayment from loan proceeds?"
                 required="true"
                 onchange="{!c.onDeductFirstMonthRepaymentChange}"
+                aura:id="unsecuredDeductFirstMonthRepayment"
               >
                 <option value="">select one...</option>
                 <aura:iteration
@@ -453,6 +468,7 @@
             value="{! v.value }"
             type="radio"
             required="true"
+            aura:id="unsecuredProposedSavings"
           />
         </lightning:layoutItem>
         <aura:if isTrue="{!v.value == v.percent}">
@@ -464,10 +480,11 @@
             <lightning:input
               type="number"
               label="Savings(%)"
-              value="{!v.ChildContainer.percentage}"
+              value="{!v.ChildContainer.proposedSavingsPercentage}"
               formatter="percent-fixed"
               step="0.01"
               required="true"
+              aura:id="unsecuredPercentage"
             />
           </lightning:layoutItem>
         </aura:if>
@@ -480,10 +497,11 @@
             <lightning:input
               type="number"
               label="Amount(JMD)"
-              value="{!v.ChildContainer.amount}"
+              value="{!v.ChildContainer.proposedSavingsAmount}"
               formatter="currency"
               required="true"
               min="1000"
+              aura:id="unsecuredAmount"
             />
           </lightning:layoutItem>
         </aura:if>
