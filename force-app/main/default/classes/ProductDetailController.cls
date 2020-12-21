@@ -21,18 +21,6 @@ public with sharing class ProductDetailController {
     String collateral
   ) {
     try {
-      System.debug(
-        'Oppid=' +
-        oppId +
-        ' Ltv =' +
-        ltv +
-        'tdsrBefore =' +
-        tdsrBefore +
-        ' repaymentMethod =' +
-        repaymentMethod +
-        'collateral ' +
-        collateral
-      );
       RiskRatingWrapper wrapper = ProductDetailService.getRiskRatingWrapperV2(
         oppId,
         (Integer) ltv,
@@ -53,10 +41,9 @@ public with sharing class ProductDetailController {
    */
   @AuraEnabled
   public static Object getSingleProductFamilySelection(Id oppId) {
-    System.debug('Controller');
     OpportunityLineItem oppProduct = Util.getOpportunityProducts(oppId);
     if (oppProduct != null) {
-      Wrappers.ProductSelectionWrapper selection = new Wrappers.ProductSelectionWrapper(
+      ProductSelectionWrapper selection = new ProductSelectionWrapper(
         oppProduct
       );
       return selection;
@@ -201,7 +188,49 @@ public with sharing class ProductDetailController {
         record.Score_Range_Number__c
       );
     }
-    System.debug('Risk Ratings:' + riskRatingMap);
     return riskRatingMap;
+  }
+  /** *
+   * JN1-4001
+   * Saves product details information
+   * @param {Id} opportunityId
+   * @param {List<String>} productRecordTypes
+   * @return {Integer}
+   */
+  @AuraEnabled
+  public static Integer saveProductDetails(
+    Id opportunityId,
+    List<String> productRecordTypes,
+    Map<String, Object> loanCalculationFields,
+    Map<String, Object> loanCalculationProductFields
+  ) {
+    try {
+      String loanCalculationFieldsString = JSON.serialize(
+        loanCalculationFields
+      );
+      String loanCalculationProductFieldsString = JSON.serialize(
+        loanCalculationProductFields
+      );
+      ProductDetailsSerializer loanCalculation = (ProductDetailsSerializer) JSON.deserializeStrict(
+        loanCalculationFieldsString,
+        ProductDetailsSerializer.class
+      );
+      ProductDetailsSerializer loanCalculationProduct = (ProductDetailsSerializer) JSON.deserializeStrict(
+        loanCalculationProductFieldsString,
+        ProductDetailsSerializer.class
+      );
+      LoanCalculationUnwrapper loanCalculationUnwrapper = new LoanCalculationUnwrapper(
+        loanCalculation
+      );
+      Id loanCalculationId = loanCalculationUnwrapper.save(opportunityId);
+      LoanCalculationProductUnwrapper loanCalculationProductUnwrapper = new LoanCalculationProductUnwrapper(
+        loanCalculationProduct,
+        productRecordTypes
+      );
+      loanCalculationProductUnwrapper.save(loanCalculationId);
+      return Constants.STATUS_SUCCESS_CODE;
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
+    }
   }
 }

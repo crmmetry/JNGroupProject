@@ -71,6 +71,10 @@
         <value xsi:type="xsd:double">0.75</value>
     </values>
     <values>
+        <field>LTV_Ceiling_Number__c</field>
+        <value xsi:type="xsd:double">0.8</value>
+    </values>
+    <values>
         <field>Legal_Fee__c</field>
         <value xsi:type="xsd:double">1000.0</value>
     </values>
@@ -81,6 +85,10 @@
     <values>
         <field>Line_Of_Credit_Principal_Payment_Number__c</field>
         <value xsi:type="xsd:double">3.0</value>
+    </values>
+    <values>
+        <field>Minimum_Credit_Allowable_Number__c</field>
+        <value xsi:type="xsd:double">30000.0</value>
     </values>
     <values>
         <field>NSIPP_Registration_Fee__c</field>

@@ -53,7 +53,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Monthly_PI_Processing_Fee_Flag__c</field>
+                <field>Monthly_PI_Processing_Fee_Number__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -190,6 +190,30 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Collateral_Type_List__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Loan_Amount_Number__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Loan_Amount_Market_Percentage_Number__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Processing_Fees_Closing_Cost_GCT_Number__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Policy_Limit_Number__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Annual_Membership_Supplementary_Number__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Supplementary_Card_Holder_Count_Number__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

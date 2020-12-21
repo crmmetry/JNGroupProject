@@ -4,8 +4,8 @@
       repaymentMethod: "",
       repaymentDate: "",
       deductRepayment: "",
-      percentage: null,
-      amount: null,
+      proposedSavingsPercentage: null,
+      proposedSavingsAmount: null,
       selection: null,
       processingFeePercentagePerAnum: null,
       interested: "",
@@ -25,7 +25,7 @@
       component.get("v.ParentContainer"),
       component.get("v.ChildContainer")
     );
-    data['containerName'] = component.get("v.containerName");
+    data["containerName"] = component.get("v.containerName");
     component.set("v.ParentContainer", data);
     helper.onProposedSavingsChange(component);
     helper.toggleShowIndicateApplicableProcessingFees(
@@ -100,7 +100,18 @@
 
   onCoverageTypeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    console.log(selected);
+    let attributesToUpdate = [
+      {
+        key: "coverageType",
+        value: selected
+      }
+    ];
+    let data = updateChildContainerWithValue(
+      component,
+      attributesToUpdate,
+      false
+    );
+    component.set("v.ChildContainer", data);
   },
 
   onIncludeCoverageChange: function (component, event, helper) {
@@ -114,14 +125,14 @@
   onWaiveProcessingFeeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let creditRepaymentMap = component.get("v.ChildContainer");
-    creditRepaymentMap.waiveProcessingFeeFlag = selected === "Yes";
+    creditRepaymentMap.waiveProcessingFeeFlag = selected;
     component.set("v.ChildContainer", creditRepaymentMap);
   },
 
   onIncludeWaiveProcessingFeeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let creditRepaymentMap = component.get("v.ChildContainer");
-    creditRepaymentMap.includeInLoanAmountFlag = selected === "Yes";
+    creditRepaymentMap.includeInLoanAmountFlag = selected;
     component.set("v.ChildContainer", creditRepaymentMap);
   },
 
@@ -145,5 +156,32 @@
     let creditRepaymentMap = component.get("v.ChildContainer");
     creditRepaymentMap.deductRepayment = selected;
     component.set("v.ChildContainer", creditRepaymentMap);
+  },
+  /**
+   * JN1-4210 : For validating fields
+   * @param {*} component
+   * @param {*} event
+   * @param {*} helper
+   */
+  validateFields: function (component, event, helper) {
+    let fieldsToValidateArray = [
+      "unsecuredInterestedInCreditorLife",
+      "unsecuredCoverageType",
+      "unsecuredIncludeCoverage",
+      "Reason",
+      "PolicyProvider",
+      "unsecuredOtherPolicyProvider",
+      "unsecuredOtherReason",
+      "unsecuredWaveProcessingFee",
+      "includeInLoanAmountId",
+      "unsecuredProcessingFeePercentPerAnum",
+      "unsecuredRepaymentMethod",
+      "unsecuredMonthlyRepaymentDate",
+      "unsecuredDeductFirstMonthRepayment",
+      "unsecuredProposedSavings",
+      "unsecuredPercentage",
+      "unsecuredAmount"
+    ];
+    return validateFields(component, fieldsToValidateArray);
   }
 });

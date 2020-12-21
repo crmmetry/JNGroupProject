@@ -7,18 +7,27 @@
     description="Credit Card parent container"
   />
   <aura:attribute name="jnDefaultConfigs" type="Map" />
+  <!--JN1-4021-->
+  <aura:method
+    name="validateFields"
+    action="{!c.validateFields}"
+    access="public"
+  />
   <c:PersonalCreditCardRequestLineComponent
     productPrice="{!v.productPrice}"
     ParentContainer="{!v.ParentContainer}"
+    aura:id="personalCreditcardRequestLineCmp"
   ></c:PersonalCreditCardRequestLineComponent>
   <c:CreditCardOtherDetailsLineComponent
     ParentContainer="{!v.ParentContainer}"
     jnConfigs="{!v.jnDefaultConfigs}"
+    aura:id="creditCardOtherDetailsLineCmp"
   ></c:CreditCardOtherDetailsLineComponent>
   <!-- JN1-3969 -->
   <c:CreditCreditCardCreditCalculations
     ParentContainer="{!v.ParentContainer}"
     jnDefaultConfigs="{!v.jnDefaultConfigs}"
+    aura:id="creditCreditCardCreditCalculations"
   ></c:CreditCreditCardCreditCalculations>
   <c:TotalDebtServiceRatioLineItemComponent
     ParentContainer="{!v.ParentContainer}"

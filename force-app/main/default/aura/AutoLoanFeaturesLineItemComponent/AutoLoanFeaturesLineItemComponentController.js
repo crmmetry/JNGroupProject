@@ -4,8 +4,8 @@
       repaymentMethod: "",
       repaymentDate: "",
       deductRepayment: "",
-      percentage: null,
-      amount: null,
+      proposedSavingsPercentage: null,
+      proposedSavingsAmount: null,
       selection: null,
       processingFeePercentagePerAnum: null,
       interested: "",
@@ -119,6 +119,18 @@
 
   onCoverageTypeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
+    let attributesToUpdate = [
+      {
+        key: "coverageType",
+        value: selected
+      }
+    ];
+    let data = updateChildContainerWithValue(
+      component,
+      attributesToUpdate,
+      false
+    );
+    component.set("v.ChildContainer", data);
   },
 
   onIncludeCoverageChange: function (component, event, helper) {
@@ -131,14 +143,14 @@
   onWaiveProcessingFeeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let creditRepaymentMap = component.get("v.ChildContainer");
-    creditRepaymentMap.waiveProcessingFeeFlag = selected === "Yes";
+    creditRepaymentMap.waiveProcessingFeeFlag = selected;
     component.set("v.ChildContainer", creditRepaymentMap);
   },
 
   onIncludeWaiveProcessingFeeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let creditRepaymentMap = component.get("v.ChildContainer");
-    creditRepaymentMap.includeInLoanAmountFlag = selected === "Yes";
+    creditRepaymentMap.includeInLoanAmountFlag = selected;
     component.set("v.ChildContainer", creditRepaymentMap);
   },
 
@@ -161,5 +173,32 @@
     let creditRepaymentMap = component.get("v.ChildContainer");
     creditRepaymentMap.deductRepayment = selected;
     component.set("v.ChildContainer", creditRepaymentMap);
+  },
+  /** Validates cmp fields - JN1-4201
+   * @param {*} component
+   * @return - Boolean
+   */
+  validateFields: function (component) {
+    let cmpFields = [
+      "credit-risk-rating",
+      "interestedProgramme",
+      "includePremium",
+      "interestedCreditorLife",
+      "Reason",
+      "PolicyProvider",
+      "otherPolicyProvider",
+      "otherReason",
+      "includeInLoanAmountId",
+      "indicateRepaymentMethod",
+      "dedicatedMonthlyRepaymentDate",
+      "proposedSavings",
+      "saving",
+      "amount",
+      "creditRiskScore",
+      "monthlyPremium",
+      "coverageType",
+      "indicateApplicableProcessingFees"
+    ];
+    return validateFields(component, cmpFields);
   }
 });

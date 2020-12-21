@@ -19,6 +19,13 @@
     {'label': 'Amount(JMD)', 'value': 'amount'} 
     ]"
   />
+  <!--JN1-4210 : For validating fields-->
+  <aura:method
+    name="validateFields"
+    action="{!c.validateFields}"
+    access="public"
+  />
+
   <aura:attribute name="market" type="Decimal" default="" />
   <aura:attribute name="years" type="Integer" default="" />
   <aura:attribute name="months" type="Integer" default="" />
@@ -91,6 +98,7 @@
                 min="0"
                 max="10"
                 required="true"
+                aura:id="requestedYears"
               />
             </lightning:layoutItem>
             <lightning:layoutItem size="6">
@@ -103,6 +111,7 @@
                   required="true"
                   min="0"
                   max="12"
+                  aura:id="requestedMonths"
                 />
               </div>
             </lightning:layoutItem>
@@ -120,6 +129,7 @@
               max="99"
               required="true"
               step="0.01"
+              aura:id="requestedMarket"
             />
           </div>
         </lightning:layoutItem>
