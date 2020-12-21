@@ -10,7 +10,7 @@ public class LoanCalculationUnwrapper {
     record.Monthly_Premium__c = serializer.jngiMonthlyPremium;
     record.Waive_Process_Fee__c = serializer.waiveProcessingFeeFlag;
     record.Include_in_Loan_Amount_Processing_Fee__c = serializer.includeInLoanAmountFlag;
-    record.Coverage_Type__c = serializer.coverageType;
+    //record.Coverage_Type__c = serializer.coverageType;
     record.Type_of_Card__c = serializer.cardType;
     record.Purchase_Price_of_Vehicle__c = serializer.purchasePrice;
     record.Market_Value_of_Vehicle__c = serializer.marketValue;
@@ -26,6 +26,7 @@ public class LoanCalculationUnwrapper {
     record.Stamp_Duty__c = serializer.stampDuty;
     record.Creditor_Life_Denial_Reason_Text__c = serializer.noCreditorLifeReason;
     record.Name_of_Insurance_Provider__c = serializer.policyProvider;
+    record.Type_of_Card__c = serializer.cardType;
   }
   /**
    * save loan calculations oject

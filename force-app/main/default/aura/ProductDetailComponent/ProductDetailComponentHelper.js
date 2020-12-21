@@ -690,8 +690,12 @@
     action.setCallback(this, function (response) {
       this.hideSpinner(component);
       let state = response.getState(); //Checking response status
-      if (state !== "SUCCESS") {
-        console.info(response.getError());
+      if (state === "SUCCESS") {
+        showToast(
+          "Product Details Application",
+          "Product details was successfully saved",
+          "success"
+        );
       }
     });
 
@@ -780,7 +784,8 @@
       { localName: "totalFinancedByJN" },
       { localName: "totalClosingCostsApplicantPayable" },
       { localName: "noCreditorLifeReason" },
-      { localName: "policyProvider" }
+      { localName: "policyProvider" },
+      { localName: "cardType" }
     ];
     let loanCalculationProductFields = [
       {
@@ -823,7 +828,15 @@
       { localName: "monthlyJnLifeCreditor_PI_Premium" },
       { localName: "TDSRBefore" },
       { localName: "TDSRAfter" },
-      { localName: "policyLimit" }
+      { localName: "policyLimit" },
+      { localName: "collateralType" },
+      { localName: "coverageType" },
+      { localName: "primaryApplicantAnnualMembership" },
+      { localName: "supplementaryApplicantAnnualMembership" },
+      { localName: "creditorLifeAnnualFee" },
+      { localName: "minimumPayment" },
+      { localName: "creditorLifePremiumForNonRevolvingLoan" },
+      { localName: "approvedStartingLimit" }
     ];
     //product specific fields
     const updatedValues = this.contructProductSpecificDetailsFields(
@@ -831,7 +844,6 @@
       loanCalculationFields,
       loanCalculationProductFields
     );
-    console.info("updatedValues", updatedValues);
     loanCalculationProductFields = updatedValues.loanCalculationProductFields;
     loanCalculationFields = updatedValues.loanCalculationFields;
     return {

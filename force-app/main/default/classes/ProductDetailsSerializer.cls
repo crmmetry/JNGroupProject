@@ -48,8 +48,6 @@ public class ProductDetailsSerializer {
   @AuraEnabled
   public Decimal existingDebt;
   @AuraEnabled
-  public Decimal primaryApplicantAnnualMembership;
-  @AuraEnabled
   public Decimal supplementaryApplicantAnnualMembership;
   @AuraEnabled
   public Decimal existingDebtAfter;
@@ -62,11 +60,7 @@ public class ProductDetailsSerializer {
   @AuraEnabled
   public Decimal monthly_PI_LoanAmount;
   @AuraEnabled
-  public Decimal minimumPayment;
-  @AuraEnabled
   public Decimal startingLimit;
-  @AuraEnabled
-  public Decimal approvedStartingLimit;
   @AuraEnabled
   public String cardType;
   @AuraEnabled
@@ -125,8 +119,16 @@ public class ProductDetailsSerializer {
   public String noCreditorLifeReason;
   @AuraEnabled
   public String policyProvider;
-  // @AuraEnabled
-  // public Decimal totalFinancedByJN;
-  // @AuraEnabled
-  // public Decimal totalFinancedByJN;
+  @AuraEnabled
+  public Decimal primaryApplicantAnnualMembership;
+  @AuraEnabled
+  public Decimal numberOfSupplementaryCardHolders;
+  @AuraEnabled
+  public Decimal creditorLifeAnnualFee;
+  @AuraEnabled
+  public Decimal minimumPayment;
+  @AuraEnabled
+  public Decimal creditorLifePremiumForNonRevolvingLoan;
+  @AuraEnabled
+  public Decimal approvedStartingLimit;
 }
