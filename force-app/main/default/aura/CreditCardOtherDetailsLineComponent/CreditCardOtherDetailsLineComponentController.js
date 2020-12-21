@@ -28,10 +28,16 @@
 
   onCollateralTypeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
+    let flag = toggleCashInvestmentFlag(selected);
+    component.set("v.cashInvestmentFlag", flag);
     let childKeyValuePairs = [
       {
         key: "collateralType",
         value: selected
+      },
+      {
+        key: "cashInvestmentFlag",
+        value: flag
       }
     ];
     let data = updateChildContainerWithValue(
@@ -40,8 +46,6 @@
       false
     );
     component.set("v.ChildContainer", data);
-    let flag = toggleCashInvestmentFlag(selected);
-    component.set("v.cashInvestmentFlag", flag);
   },
 
   oninterestedInCreditorLifeChange: function (component, event, helper) {

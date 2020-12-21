@@ -515,11 +515,21 @@
       component,
       container.creditRiskRating
     );
-    if (isEmpty(riskFactor) === false) {
+    if (!container.cashInvestmentFlag && validNumber(riskFactor)) {
       let values = [
         {
           key: "approvedStartingLimit",
           value: ASLCalculator(container, jnDefaults, riskFactor)
+        }
+      ];
+      let data = updateChildContainerWithValue(component, values, false);
+      component.set("v.ChildContainer", data);
+      return values;
+    } else if (container.cashInvestmentFlag) {
+      let values = [
+        {
+          key: "approvedStartingLimit",
+          value: ASLCalculator(container, jnDefaults, null)
         }
       ];
       let data = updateChildContainerWithValue(component, values, false);
