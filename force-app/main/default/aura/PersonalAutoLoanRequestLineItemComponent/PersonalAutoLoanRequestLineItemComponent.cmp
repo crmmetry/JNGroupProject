@@ -99,8 +99,8 @@
   />
   <!--JN1-4201-->
   <aura:method
-    name="validateCmpFields"
-    action="{!c.validateCmpFields}"
+    name="validateFields"
+    action="{!c.validateFields}"
     access="public"
   />
   <fieldset class="slds-box slds-theme_default">

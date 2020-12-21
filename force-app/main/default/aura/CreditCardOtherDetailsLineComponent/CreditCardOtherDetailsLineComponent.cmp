@@ -42,11 +42,11 @@
     default="['Not Eligible','Other']"
   />
   <aura:attribute
-    name="coverageType"
+    name="lifeInsuranceOptions"
     type="List"
     default="['Life Protection','Life and Critical Illness Protection']"
   />
-  <aura:attribute name="creditorLifeCoverage" type="List" default="[]" />
+  <aura:attribute name="coverageTypeOptions" type="List" />
   <!--JN1-3928 :: Changed the type-->
   <aura:attribute
     name="repaymentMethod"
@@ -88,8 +88,8 @@
   <aura:attribute name="lineOfCreditFlag" type="Boolean" default="false" />
   <!--JN1-4021-->
   <aura:method
-    name="validateCmpFields"
-    action="{!c.validateCmpFields}"
+    name="validateFields"
+    action="{!c.validateFields}"
     access="public"
   />
   <!-- Static Resource -->
@@ -179,7 +179,7 @@
               disabled="{!v.disableCoverageTypeFlag}"
             >
               <option value="">select one...</option>
-              <aura:iteration items="{!v.coverageType}" var="item">
+              <aura:iteration items="{!v.coverageTypeOptions}" var="item">
                 <option value="{!item}">{!item}</option>
               </aura:iteration>
             </lightning:select>
@@ -198,7 +198,7 @@
               disabled="{!v.disableLifeInsuranceCoverageFlag}"
             >
               <option value="">select one...</option>
-              <aura:iteration items="{!v.creditorLifeCoverage}" var="item">
+              <aura:iteration items="{!v.lifeInsuranceOptions}" var="item">
                 <option value="{!item}">{!item}</option>
               </aura:iteration>
             </lightning:select>
@@ -219,7 +219,7 @@
               disabled="{!v.disableLifeInsuranceCoverageFlag}"
             >
               <option value="">select one...</option>
-              <aura:iteration items="{!v.creditorLifeCoverage}" var="item">
+              <aura:iteration items="{!v.lifeInsuranceOptions}" var="item">
                 <option value="{!item}">{!item}</option>
               </aura:iteration>
             </lightning:select>

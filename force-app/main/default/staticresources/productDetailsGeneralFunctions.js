@@ -616,6 +616,11 @@ window.validateFields = function (component, validationArray) {
     }
   });
   return components.reduce(function (validSoFar, inputCmp) {
+    console.log(
+      "Id = ",
+      inputCmp.getLocalId(),
+      inputCmp.get("v.validity").valid
+    );
     inputCmp.showHelpMessageIfInvalid();
     return validSoFar && inputCmp.get("v.validity").valid;
   }, true);

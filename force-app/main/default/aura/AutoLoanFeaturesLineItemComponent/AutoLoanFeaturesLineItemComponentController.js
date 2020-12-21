@@ -178,7 +178,7 @@
    * @param {*} component
    * @return - Boolean
    */
-  validateCmpFields: function (component) {
+  validateFields: function (component) {
     let cmpFields = [
       "credit-risk-rating",
       "interestedProgramme",

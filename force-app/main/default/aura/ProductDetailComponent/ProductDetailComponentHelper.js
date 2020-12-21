@@ -724,9 +724,9 @@
     loanCalculationProductFields
   ) {
     const isAuto = this.checkProductFamily(component, "Auto");
-    // const isLineOfCredit = this.checkProductFamily(component, "Line Of Credit");
+    const isLineOfCredit = this.checkProductFamily(component, "Line Of Credit");
     const isUnsecured = this.checkProductFamily(component, "Unsecured");
-    //const isCreditCard = this.checkProductFamily(component, "Credit Card");
+    const isCreditCard = this.checkProductFamily(component, "Credit Card");
     if (isAuto) {
       loanCalculationFields = loanCalculationFields.concat([
         {
@@ -749,6 +749,11 @@
           localName: "interestedInCreditorLifeNonRevolving",
           mappedName: "interestedInCreditorLife",
           description: "Will JN Life Creditor Life Insurance be taken?"
+        },
+        {
+          localName: "monthlyRepaymentDate",
+          description: "Desired Statement Date",
+          mappedName: "repaymentDate"
         }
       ]);
     }

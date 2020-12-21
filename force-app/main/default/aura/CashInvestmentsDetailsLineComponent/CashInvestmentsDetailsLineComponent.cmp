@@ -62,8 +62,8 @@
   />
   <!--JN1-4021-->
   <aura:method
-    name="validateCmpFields"
-    action="{!c.validateCmpFields}"
+    name="validateFields"
+    action="{!c.validateFields}"
     access="public"
   />
   <!-- Handlers -->

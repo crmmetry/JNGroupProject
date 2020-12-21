@@ -14,7 +14,7 @@
     );
     let resultsFromChild = [
       personalCreditCardRequestLineComponent.validateFields(component),
-      creditCardOtherDetailsLineComponent.validateCmpFields(component)
+      creditCardOtherDetailsLineComponent.validateFields(component)
     ];
     return isValidComponent(resultsFromChild);
   }

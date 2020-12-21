@@ -11,6 +11,7 @@
       monthlyRepaymentDate: null
     };
     component.set("v.ChildContainer", data);
+    component.set("v.coverageTypeOptions", LINE_OF_CREDIT_APPLICANT_COVERAGE);
   },
   scriptsLoaded: function (component, event, helper) {
     component.set("v.scriptsLoaded", true);
@@ -140,7 +141,7 @@
    * @param {*} component
    * @return - Boolean
    */
-  validateCmpFields: function (component) {
+  validateFields: function (component) {
     let cmpFields = [
       "collateralType",
       "jnLifeCreditorLifeInsurance",
@@ -149,16 +150,16 @@
       "desiredStatementDate",
       "creditorLifeNotSelected"
     ];
-    let cashComponentValidate = false;
+    let cashComponentValidate = true;
     if (component.get("v.cashInvestmentFlag")) {
       let cashInvestmentDetailsLineComponent = component.find(
         "cashInvestmentDetailsLineComponent"
       );
-      cashComponentValidate = cashInvestmentDetailsLineComponent.validateCmpFields(
+      cashComponentValidate = cashInvestmentDetailsLineComponent.validateFields(
         component
       );
     }
-
+    console.log("validateFields", cashComponentValidate);
     let resultsFromChild = [
       cashComponentValidate,
       validateFields(component, cmpFields)

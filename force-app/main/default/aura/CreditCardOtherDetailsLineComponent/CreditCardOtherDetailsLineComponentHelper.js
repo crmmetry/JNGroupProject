@@ -93,14 +93,9 @@
     let product = container.productFamily;
     if (product === CREDIT_CARD) {
       component.set("v.creditCardFlag", true);
-      component.set("v.creditorLifeCoverage", CREDIT_CARD_APPLICANT_COVERAGE);
     }
     if (product === LINE_OF_CREDIT) {
       component.set("v.lineOfCreditFlag", true);
-      component.set(
-        "v.creditorLifeCoverage",
-        LINE_OF_CREDIT_APPLICANT_COVERAGE
-      );
     }
   }
 });

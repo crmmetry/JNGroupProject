@@ -34,8 +34,6 @@ public class ProductDetailsSerializer {
   @AuraEnabled
   public String repaymentMethod;
   @AuraEnabled
-  public String monthlyRepaymentDate;
-  @AuraEnabled
   public Decimal proposedSavingPercentage;
   @AuraEnabled
   public Decimal proposedSavingAmount;

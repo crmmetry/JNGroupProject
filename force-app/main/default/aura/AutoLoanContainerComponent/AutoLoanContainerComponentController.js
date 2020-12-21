@@ -20,9 +20,9 @@
       "autoLoanCreditCalculationsLineCmp"
     );
     let resultsFromChild = [
-      personalAutoLoanRequestLineItemCmp.validateCmpFields(component),
-      autoLoanFeaturesLineItemCmp.validateCmpFields(component),
-      autoLoanCreditCalculationsLineCmp.validateCmpFields(component)
+      personalAutoLoanRequestLineItemCmp.validateFields(component),
+      autoLoanFeaturesLineItemCmp.validateFields(component),
+      autoLoanCreditCalculationsLineCmp.validateFields(component)
     ];
     return isValidComponent(resultsFromChild);
   }
