@@ -668,9 +668,6 @@ window.maximumCreditLimitCalculatorWithCashCollateral = function (
   LTVCeiling,
   existingLoanBalance
 ) {
-  console.log("Deposit balance: ", depositBalance);
-  console.log("LTV Celiling: ", LTVCeiling);
-  console.log("Existing Balance: ", existingLoanBalance);
   if (
     validNumber(depositBalance) &&
     validNumber(LTVCeiling) &&
@@ -814,11 +811,6 @@ window.startingCreditLimtCalculatorWithCollateral = function (
   lowerCreditLimit
 ) {
   if (validNumber(minCreditLimitAllowable) && validNumber(lowerCreditLimit)) {
-    console.log(
-      "Starting limit - maxCreditLimitAllowable: ",
-      minCreditLimitAllowable
-    );
-    console.log("Starting limit - lowerCreditLimit: ", lowerCreditLimit);
     return Math.max(
       parseFloat(minCreditLimitAllowable),
       parseFloat(lowerCreditLimit)
@@ -947,9 +939,8 @@ window.applicantPortionCalculator = function (
   portionPercentage
 ) {
   if (validNumber(loanPaymentAmount) && validNumber(portionPercentage)) {
-    console.log("Applicant Portion Calculator");
     return roundedValue(
-      parseFloat(loanPaymentAmount) * parseFloat(portionPercentage)
+      parseFloat(loanPaymentAmount) * (parseFloat(portionPercentage) / 100)
     );
   }
 };

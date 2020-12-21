@@ -160,14 +160,9 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         //update spinner status
-        console.log("Result: ", JSON.parse(JSON.stringify(result)));
-        console.log("Get Assets and Liabilities 1");
         this.checkSpinnerStatus(component, "assetsAndLiabilitiesForApplicants");
-        console.log("Get Assets and Liabilities 2");
         this.mergeWithChildContainer(component, result);
-        console.log("Get Assets and Liabilities 3");
-        let newResult = this.applicantPortionLoanPaymentCalculation(result);
-        this.existingDebtCalculator(component, newResult);
+        this.existingDebtCalculator(component, result);
       }
     });
     $A.enqueueAction(action);
@@ -206,7 +201,7 @@
     } else if (isAuto || isUnsecured) {
       totalDebt = this.existingDebtCalculation(
         [
-          "monthlyLoanPaymentPrior",
+          "monthlyLoanApplicantPortionPrior",
           "minimumPaymentPrior",
           "rentBoardMonthlyPrior",
           "rentStrataMaintenanceFromLongSummaryPrior"
@@ -216,7 +211,7 @@
       );
       totalDebtAfter = this.existingDebtCalculation(
         [
-          "monthlyLoanPaymentAfter",
+          "monthlyLoanApplicantPortionAfter",
           "minimumPaymentAfter",
           "rentBoardMonthlyAfter",
           "rentStrataMaintenanceFromLongSummaryAfter"
@@ -283,7 +278,6 @@
    * @return {Array}
    */
   applicantPortionLoanPaymentCalculation: function (containerValues) {
-    console.log("Applicant Portion Claculation");
     let applicantPortion = 0;
     let loanPaymentBefore = 0;
     let loanPaymentAfter = 0;
@@ -295,22 +289,10 @@
         if (key === MONTHLY_LOAN_PAYMENT_AFTER) loanPaymentAfter = element[key];
       });
     });
-    console.log("Applicant Portion: ", applicantPortion);
-    console.log("loanPaymentBefore: ", loanPaymentBefore);
-    console.log("loanPaymentAfter: ", loanPaymentAfter);
-    let applicantPortionPrior = applicantPortionCalculator(
-      applicantPortion,
-      loanPaymentBefore
-    );
-    let applicantPotrionAfter = applicantPortionCalculator(
-      applicantPortion,
-      loanPaymentAfter
-    );
-    containerValues.push([
-      { key: "applicantPortionPrior", value: applicantPortionPrior },
-      { key: "applicantPotrionAfter", value: applicantPotrionAfter }
-    ]);
-    console.log("New Result: ", JSON.parse(JSON.stringify(containerValues)));
+    containerValues.push({
+      applicantPortionPrior: applicantPortionPrior,
+      applicantPortionAfter: applicantPotrionAfter
+    });
     return containerValues;
   },
   /**
@@ -371,7 +353,7 @@
       // Calculate TDSR After for non revolving loans
       tdsrAfter = nonRevolvingTDSRAfterCalculator(
         container.grossMonthlyIncomeFromLongSummary,
-        container.existingDebt,
+        container.existingDebtAfter,
         container.monthly_PI_LoanAmount
       );
     } else if (isCreditCard || isLineOfCredit) {
