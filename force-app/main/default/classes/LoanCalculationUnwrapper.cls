@@ -45,6 +45,10 @@ public class LoanCalculationUnwrapper {
    */
   public Id save(Id opportunityId) {
     try {
+      Map<String, Id> recordTypeIds = Util.getRecordTypeids(
+        'Loan_Calculator__c'
+      );
+      this.record.RecordTypeId = recordTypeIds.get('Product_Details');
       this.record.Opportunity__c = opportunityId;
       insert this.record;
       return this.record.Id;
