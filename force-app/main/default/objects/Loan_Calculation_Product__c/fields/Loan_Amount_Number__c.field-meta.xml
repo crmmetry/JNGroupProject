@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Desired_Monthly_Repayment_Date__c</fullName>
-    <encryptionScheme>None</encryptionScheme>
+    <fullName>Loan_Amount_Number__c</fullName>
+    <description>Loan Amount for product</description>
     <externalId>false</externalId>
-    <label>Desired Monthly Repayment Date</label>
-    <length>255</length>
+    <label>Loan Amount</label>
+    <precision>18</precision>
     <required>false</required>
+    <scale>0</scale>
     <trackTrending>false</trackTrending>
-    <type>Text</type>
+    <type>Number</type>
     <unique>false</unique>
 </CustomField>
