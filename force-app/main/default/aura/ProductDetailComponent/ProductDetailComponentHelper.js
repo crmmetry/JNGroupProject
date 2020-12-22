@@ -874,7 +874,8 @@
       { localName: "approvedStartingLimit" },
       { localName: "autoCollateralDeposit" },
       { localName: "autoCollateralDepositPercentage" },
-      { localName: "computedAutoCollateralDepositFromPercentage" }
+      { localName: "computedAutoCollateralDepositFromPercentage" },
+      { localName: "loanPurpose" }
     ];
     //product specific fields
     const updatedValues = this.contructProductSpecificDetailsFields(

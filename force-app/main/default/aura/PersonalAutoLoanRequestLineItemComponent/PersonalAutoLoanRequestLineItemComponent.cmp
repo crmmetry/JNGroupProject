@@ -17,13 +17,7 @@
     ]"
   />
   <aura:attribute name="oppId" type="Id" />
-  <aura:attribute
-    name="loanPurpose"
-    type="List"
-    default="['Purchase new',
-    'Purchase used',
-    'Refinance']"
-  />
+  <aura:attribute name="loanPurposeOptions" type="List" />
   <aura:attribute
     name="purchasePriceCurrency"
     type="List"
@@ -132,7 +126,7 @@
                 aura:id="loanPurpose"
               >
                 <option value="">select one...</option>
-                <aura:iteration items="{!v.loanPurpose}" var="item">
+                <aura:iteration items="{!v.loanPurposeOptions}" var="item">
                   <option value="{!item}">{!item}</option>
                 </aura:iteration>
               </lightning:select>

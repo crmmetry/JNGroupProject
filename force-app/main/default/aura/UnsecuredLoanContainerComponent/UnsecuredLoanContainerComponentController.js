@@ -1,5 +1,7 @@
 ({
-  doInit: function (component, event, helper) {},
+  doInit: function (component, event, helper) {
+    component.set("v.loanPurposeOptions", UNSECURED_LOAN_PURPOSE);
+  },
   /**
    * JN1-4210 : For validating fields
    * @param {*} component

@@ -10,8 +10,6 @@ public class ProductDetailsSerializer {
   @AuraEnabled
   public Decimal minimumOfPurchaseMarketValue;
   @AuraEnabled
-  public Decimal marketValue;
-  @AuraEnabled
   public Decimal purchasePrice;
   @AuraEnabled
   public String interestedInPremiumFlag;
@@ -162,4 +160,6 @@ public class ProductDetailsSerializer {
   public Decimal autoCollateralDepositPercentage;
   @AuraEnabled
   public Decimal computedAutoCollateralDepositFromPercentage;
+  @AuraEnabled
+  public String loanPurpose;
 }
