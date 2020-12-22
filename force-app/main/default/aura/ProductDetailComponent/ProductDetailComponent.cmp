@@ -144,6 +144,7 @@
           </aura:if>
           <aura:if isTrue="{!v.creditCardFlag}">
             <c:CreditCardContainerComponent
+              productName="{!v.productSelection.productFamily}"
               productPrice="{!v.productSelection.productPrice}"
               ParentContainer="{!v.ChildContainer}"
               jnDefaultConfigs="{!v.jnDefaultConfigs}"
@@ -153,6 +154,7 @@
           </aura:if>
           <aura:if isTrue="{!v.lineOfCreditFlag}">
             <c:LineOfCreditContainerComponent
+              productName="{!v.productSelection.productFamily}"
               productPrice="{!v.productSelection.productPrice}"
               ParentContainer="{!v.ChildContainer}"
               jnDefaultConfigs="{!v.jnDefaultConfigs}"

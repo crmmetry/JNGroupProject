@@ -1,5 +1,6 @@
 <aura:component>
   <aura:attribute name="productPrice" type="Decimal" />
+  <aura:attribute name="productName" type="String" />
   <aura:attribute
     name="ParentContainer"
     type="Map"
@@ -14,6 +15,7 @@
     access="public"
   />
   <c:PersonalCreditCardRequestLineComponent
+    productName="{!v.productName}"
     productPrice="{!v.productPrice}"
     ParentContainer="{!v.ParentContainer}"
     aura:id="personalCreditcardRequestLineCmp"

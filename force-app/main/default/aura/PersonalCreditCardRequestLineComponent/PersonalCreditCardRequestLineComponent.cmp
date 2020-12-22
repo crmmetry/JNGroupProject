@@ -4,6 +4,17 @@
     type="List"
     default="['JMD','USD']"
   />
+  <aura:attribute name="productName" type="String" />
+  <aura:attribute
+    name="creditCard"
+    type="String"
+    default="JN Bank Credit Card"
+  />
+  <aura:attribute
+    name="lineOfCredit"
+    type="String"
+    default="JN Bank Line Of Credit"
+  />
   <aura:attribute name="numOfCardholders" type="List" default="['1','2']" />
   <aura:attribute name="productPrice" type="Decimal" />
   <aura:attribute
@@ -47,9 +58,20 @@
   />
 
   <lightning:layout multipleRows="true">
-    <lightning:layoutItem size="12">
-      <h2 class="slds-section-title--divider">Personal Credit Card Request</h2>
-    </lightning:layoutItem>
+    <aura:if isTrue="{!v.productName == v.creditCard}">
+      <lightning:layoutItem size="12">
+        <h2 class="slds-section-title--divider">
+          Personal Credit Card Request
+        </h2>
+      </lightning:layoutItem>
+    </aura:if>
+    <aura:if isTrue="{!v.productName == v.lineOfCredit}">
+      <lightning:layoutItem size="12">
+        <h2 class="slds-section-title--divider">
+          Personal Line Of Credit Request
+        </h2>
+      </lightning:layoutItem>
+    </aura:if>
     <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
       <lightning:layout>
         <!-- <lightning:layoutItem size="3" mediumDeviceSize="3">
