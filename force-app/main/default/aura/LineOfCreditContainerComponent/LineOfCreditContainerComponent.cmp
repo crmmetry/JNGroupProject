@@ -4,6 +4,7 @@
     type="List"
     default="['JMD','USD']"
   />
+  <aura:attribute name="productName" type="String" />
   <aura:attribute
     name="ParentContainer"
     type="Map"
@@ -83,6 +84,7 @@
     </lightning:layoutItem> 
   </lightning:layout>-->
   <c:PersonalCreditCardRequestLineComponent
+    productName="{!v.productName}"
     productPrice="{!v.productPrice}"
     ParentContainer="{!v.ParentContainer}"
     aura:id="personalCreditCardRequestLineComponent"
