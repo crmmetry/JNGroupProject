@@ -32,3 +32,17 @@ window.LINE_OF_CREDIT_APPLICANT_COVERAGE = [
 window.PERCENT_APPLICANT_PORTION = "percentApplicantPortion";
 window.MONTHLY_LOAN_PAYMENT_PRIOR = "monthlyLoanPaymentPrior";
 window.MONTHLY_LOAN_PAYMENT_AFTER = "monthlyLoanPaymentAfter";
+window.AUTO_LOAN_PURPOSE = [
+  "Purchase a Motor Vehicle",
+  "Refinance existing Auto Loan",
+  "Equity in a Motor Vehicle"
+];
+window.UNSECURED_LOAN_PURPOSE = [
+  "Asset Acquisition",
+  "Auto Repairs",
+  "Debt Consolidation",
+  "Education",
+  "Home Improvement",
+  "Medical Expenses",
+  "Other"
+];

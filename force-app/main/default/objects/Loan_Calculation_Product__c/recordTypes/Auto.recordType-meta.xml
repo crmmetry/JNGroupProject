@@ -47,6 +47,21 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Loan_Purpose_List__c</picklist>
+        <values>
+            <fullName>Equity in a Motor Vehicle</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchase a Motor Vehicle</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Refinance existing Auto Loan</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Repayment_Method_List__c</picklist>
         <values>
             <fullName>Over The Counter</fullName>

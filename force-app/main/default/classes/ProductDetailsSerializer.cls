@@ -10,8 +10,6 @@ public class ProductDetailsSerializer {
   @AuraEnabled
   public Decimal minimumOfPurchaseMarketValue;
   @AuraEnabled
-  public Decimal marketValue;
-  @AuraEnabled
   public Decimal purchasePrice;
   @AuraEnabled
   public String interestedInPremiumFlag;
@@ -148,4 +146,20 @@ public class ProductDetailsSerializer {
   public Decimal existingBalance;
   @AuraEnabled
   public String lifeInsuranceCoverage;
+  @AuraEnabled
+  public String vehicleClassification;
+  @AuraEnabled
+  public String yearOfVehicle;
+  @AuraEnabled
+  public String makeAndModelOfVehicle;
+  @AuraEnabled
+  public Decimal marketValue;
+  @AuraEnabled
+  public Decimal autoCollateralDeposit;
+  @AuraEnabled
+  public Decimal autoCollateralDepositPercentage;
+  @AuraEnabled
+  public Decimal computedAutoCollateralDepositFromPercentage;
+  @AuraEnabled
+  public String loanPurpose;
 }

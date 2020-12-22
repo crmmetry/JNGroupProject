@@ -3,6 +3,35 @@
     <custom>true</custom>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Loan_Calculation_Applicant_Product__c.Applicant_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Applicant_Product__c.Loan_Amount_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Applicant_Product__c.Loan_Amount_Ownership_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Applicant_Product__c.Loan_Calculation_Product_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Applicant_Product__c.Monthly_Payment_Ownership_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field
     >Loan_Calculation_Product__c.Ability_to_Service_After_Number__c</field>
         <readable>true</readable>
@@ -50,7 +79,25 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Auto_Collateral_DepositPercentage_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Auto_Collateral_Deposit_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Loan_Calculation_Product__c.Collateral_Type_List__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field
+    >Loan_Calculation_Product__c.Computed_Auto_Collateral_Deposit_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -130,6 +177,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Loan_Calculation_Product__c.Loan_Calculation_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Loan_Calculation_Product__c.Loan_Purpose_List__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

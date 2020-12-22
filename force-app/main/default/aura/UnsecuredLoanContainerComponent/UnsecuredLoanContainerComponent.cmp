@@ -2,7 +2,7 @@
   <aura:attribute name="ParentContainer" type="Map" default="{}" />
   <aura:attribute name="RequestedDetailsContainer" type="Map" default="{}" />
   <aura:attribute name="productPrice" type="Decimal" />
-  <aura:attribute name="loanPurpose" type="List" />
+  <aura:attribute name="loanPurposeOptions" type="List" />
   <aura:attribute name="LoanSavingsContainer" type="Map" default="{}" />
   <aura:attribute name="oppApplicants" type="List" />
   <aura:attribute name="jnDefaultConfigs" type="Map" />
@@ -27,7 +27,7 @@
           aura:id="unsecuredOnLoanPurposeChange"
         >
           <option value="">select one...</option>
-          <aura:iteration items="{!v.loanPurpose}" var="item">
+          <aura:iteration items="{!v.loanPurposeOptions}" var="item">
             <option value="{!item}">{!item}</option>
           </aura:iteration>
         </lightning:select>

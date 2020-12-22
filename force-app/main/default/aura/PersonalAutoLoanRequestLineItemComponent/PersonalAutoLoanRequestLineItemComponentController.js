@@ -16,6 +16,7 @@
       yearOfVehicle: 0
     };
     component.set("v.ChildContainer", personalAutoLoan);
+    component.set("v.loanPurposeOptions", AUTO_LOAN_PURPOSE);
   },
   scriptsLoaded: function (component, event, helper) {
     component.set("v.scriptsLoaded", true);

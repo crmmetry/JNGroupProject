@@ -47,6 +47,49 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Loan_Purpose_List__c</picklist>
+        <values>
+            <fullName>Asset Acquisition</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Auto Repairs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Debt Consolidation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Education</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Equity in a Motor Vehicle</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Improvement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medical Expenses</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchase a Motor Vehicle</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Refinance existing Auto Loan</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Repayment_Method_List__c</picklist>
         <values>
             <fullName>Over The Counter</fullName>
