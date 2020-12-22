@@ -519,7 +519,7 @@
             <div class="slds-form-element__control">
               <lightning:input
                 label="Credit Risk Score prior to application"
-                value="{!v.creditRiskScore}"
+                value="{!v.ParentContainer.creditRiskScore}"
                 type="number"
                 name="input1"
                 readonly="true"
@@ -537,7 +537,7 @@
             <div class="slds-form-element__control">
               <lightning:input
                 label="Credit Risk Rating prior to application"
-                value="{!v.creditRiskRating}"
+                value="{!v.ParentContainer.creditRiskRating}"
                 type="number"
                 formatter="percent-fixed"
                 name="input1"

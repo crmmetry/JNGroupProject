@@ -360,6 +360,7 @@
    * @param {*} helper
    */
   getCreditScoreRatings: function (component) {
+    console.log("get credit score ratings");
     let container = component.get("v.ChildContainer");
     const { LTVValue, repaymentMethod, TDSRBefore, collateralType } = container;
     let action = component.get("c.getCreditRiskRating");
@@ -384,6 +385,7 @@
         let state = response.getState();
         let result = response.getReturnValue();
         if (state === "SUCCESS") {
+          console.log("result: ", JSON.parse(JSON.stringify(result)));
           let values = [
             { key: "creditRiskScore", value: result.score },
             { key: "creditRiskRating", value: result.rating }
