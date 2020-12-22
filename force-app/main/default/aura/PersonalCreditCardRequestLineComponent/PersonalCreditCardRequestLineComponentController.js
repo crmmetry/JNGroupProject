@@ -15,7 +15,6 @@
       component.get("v.scriptsLoaded") &&
       component.get("v.notifyContainerChange")
     ) {
-      console.log(component.get("v.productName"));
       fireProductDetailsEvent(null, childContainer, component);
     }
   },
