@@ -133,11 +133,9 @@
    * Calculates deposit percentage amount
    */
   validateAutoCollateralDeposit: function (data, component) {
-    const depositAutoCollateralField = component.find(
-      "auto-collateral-deposit"
-    );
+    const depositAutoCollateralField = component.find("motorVehicleDeposit");
     const depositComputedAutoCollateralField = component.find(
-      "aautoCollateralComputedDeposit"
+      "autoCollateralComputedDeposit"
     );
     if (
       !isZero(data.autoCollateralDeposit) &&
@@ -148,6 +146,7 @@
       validNumber(data.minimumOfPurchaseMarketValue) &&
       !isEmpty(depositAutoCollateralField)
     ) {
+      console.log("Deposit amount entered and validation ran");
       let minimumAndDepositDifference =
         data.minimumOfPurchaseMarketValue - data.autoCollateralDeposit;
       if (data.loanAmount !== minimumAndDepositDifference) {
