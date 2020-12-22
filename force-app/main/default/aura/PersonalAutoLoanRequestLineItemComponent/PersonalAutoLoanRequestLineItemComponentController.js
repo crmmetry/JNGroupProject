@@ -113,7 +113,8 @@
       "autoCollateralDeposit",
       "motorVehicleDeposit",
       "loanPurpose",
-      "vehicleClassification"
+      "vehicleClassification",
+      "motorVehicleDepositRadioGroup"
     ];
     return validateFields(component, cmpFields);
   }

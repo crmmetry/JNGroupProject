@@ -220,7 +220,7 @@
             type="radio"
             required="true"
             onchange="{!c.onMotorVehicleDepositFormatChange}"
-            aura:id="motorVehicleDeposit"
+            aura:id="motorVehicleDepositRadioGroup"
           />
         </lightning:layoutItem>
         <aura:if isTrue="{!v.value == v.percent}">
