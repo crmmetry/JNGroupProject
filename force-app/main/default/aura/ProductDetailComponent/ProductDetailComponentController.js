@@ -107,7 +107,6 @@
         container,
         ["LTVValue", "TDSRBefore", "repaymentMethod", "collateralType"]
       );
-      console.log("Credit Score Changed", creditScoreChanged);
       if (creditScoreChanged) {
         helper.getCreditScoreRatings(component);
       }

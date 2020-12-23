@@ -39,7 +39,6 @@
         component.get("v.ChildContainer")
       );
       helper.resetProcessingFieldsValues(data, component);
-      console.log("Child Container", data);
       fireProductDetailsEvent(null, data, component);
     }
   },

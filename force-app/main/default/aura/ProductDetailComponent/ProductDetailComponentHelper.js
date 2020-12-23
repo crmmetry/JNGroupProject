@@ -366,10 +366,6 @@
     let LTVValue = this.LTVApplicableValue(component, container);
     const { repaymentMethod, TDSRBefore } = container;
     let action = component.get("c.getCreditRiskRating");
-    console.log(collateralType);
-    console.log(LTVValue);
-    console.log(TDSRBefore);
-    console.log(repaymentMethod);
     if (
       !isEmpty(collateralType) &&
       validNumber(LTVValue) &&
