@@ -40,19 +40,30 @@
   },
   onInterestedInJNGIChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
+    let childKeyValuePairs = [];
     if (selected === "Yes") {
       component.set("v.interestedInPremiumFlag", false);
     } else if (selected === "No") {
       component.find("includePremium").set("v.value", null);
-      let jngiPremium = component.get("v.ChildContainer");
-      jngiPremium.jngiMonthlyPremium = 0;
-      jngiPremium.jngiIncludeInLoan = null;
-      component.set("v.ChildContainer", jngiPremium);
+      childKeyValuePairs = childKeyValuePairs.concat([
+        {
+          key: "jngiMonthlyPremium",
+          value: 0
+        },
+        {
+          key: "jngiIncludeInLoan",
+          value: ""
+        }
+      ]);
       component.set("v.interestedInPremiumFlag", true);
     }
-    let jngiPremium = component.get("v.ChildContainer");
-    jngiPremium.interested = selected;
-    component.set("v.ChildContainer", jngiPremium);
+    childKeyValuePairs = childKeyValuePairs.concat([
+      {
+        key: "interestedInJNGIPremium",
+        value: selected
+      }
+    ]);
+    helper.updateChildContainer(component, childKeyValuePairs, false);
   },
   onProcessingFeePercentagePerAnumChange: function (component, event, helper) {
     const value = component.get("v.processingFeePercentagePerAnum");
@@ -62,9 +73,13 @@
   },
   onIncludePremiumChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    let jngiPremium = component.get("v.ChildContainer");
-    jngiPremium.jngiIncludeInLoan = selected;
-    component.set("v.ChildContainer", jngiPremium);
+    const childKeyValuePairs = [
+      {
+        key: "jngiIncludeInLoan",
+        value: selected
+      }
+    ];
+    helper.updateChildContainer(component, childKeyValuePairs, false);
   },
 
   onInterestedInCreditorLifeChange: function (component, event, helper) {

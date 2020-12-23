@@ -50,7 +50,7 @@
       helper.calculateSavings(component);
       //on jngi changes
       helper.onJNGIPremiumChange(component);
-      helper.calculateJNGIPMT(component);
+      //helper.calculateJNGIPMT(component);
       //on JN creditor life changes
       helper.calculateCreditorLifePremium(component);
       helper.setAssignmentFees(component);

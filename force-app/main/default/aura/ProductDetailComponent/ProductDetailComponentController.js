@@ -12,6 +12,8 @@
   doInit: function (component, event, helper) {
     component.set("v.ChildContainer", {
       monthly_PI_LoanAmount: 0,
+      jngiMotorPremium: 0,
+      monthlyPIJNGIMotorPremium: 0,
       processingFeeClosingCost: 0,
       monthlyPrincipalInterestProcessingFee: 0,
       processingFeesGCT: 0,
@@ -120,8 +122,12 @@
       attributesToUpdate = attributesToUpdate.concat(
         helper.processingFeeCalculation(container, component)
       );
+      //Calculate JNGI PMT
+      attributesToUpdate = attributesToUpdate.concat(
+        monthlyPIJNGIMotorPremiumCalculation(container)
+      );
       //non revovling loan calculations
-      helper.nonRevolvingLoanCalculations(component);
+      // helper.nonRevolvingLoanCalculations(component);
       const updatedContainer = updateChildContainerWithValue(
         component,
         attributesToUpdate,

@@ -106,5 +106,17 @@
 
   clearReasonOtherText: function (component) {
     component.set("v.otherReason", null);
+  },
+  updateChildContainer: function (
+    component,
+    containerValues,
+    shouldSetComponentValue
+  ) {
+    let data = updateChildContainerWithValue(
+      component,
+      containerValues,
+      shouldSetComponentValue
+    );
+    component.set("v.ChildContainer", data);
   }
 });

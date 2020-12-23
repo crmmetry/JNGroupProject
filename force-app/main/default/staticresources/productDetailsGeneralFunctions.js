@@ -168,6 +168,36 @@ window.monthlyPILoanAmountCalculation = function (container) {
   );
 };
 /**
+ * Calculates the monthly JNGI Premium in the auto credit calculations table.
+ */
+window.monthlyPIJNGIMotorPremiumCalculation = function (container) {
+  const pmtData = {
+    years: container.years,
+    months: container.months,
+    loanAmount: container.jngiMotorPremium,
+    market: container.market
+  };
+  if (
+    container.interestedInJNGIPremium === YES &&
+    container.jngiIncludeInLoan === YES
+  ) {
+    return [
+      {
+        key: "monthlyPIJNGIMotorPremium",
+        value: basicPMTCalculator(
+          ["years", "months", "loanAmount", "market"],
+          pmtData
+        )
+      }
+    ];
+  } else {
+    return [
+      { key: "monthlyPIJNGIMotorPremium", value: 0 },
+      { key: "jngiMotorPremium", value: 0 }
+    ];
+  }
+};
+/**
  * contructs and fire the product details application event
  * @param {String} type - specifies the intent of the event
  * @param {Object} payload
