@@ -34,8 +34,8 @@
       component.get("v.notifyContainerChange")
     ) {
       const data = copyInto(
-        component.get("v.ChildContainer"),
-        component.get("v.ParentContainer")
+        component.get("v.ParentContainer"),
+        component.get("v.ChildContainer")
       );
       helper.onProposedSavingsChange(component);
       helper.toggleShowIndicateApplicableProcessingFees(
