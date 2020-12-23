@@ -913,25 +913,19 @@
    * all the non revolving loan calculations
    * @param {*} component
    */
-  nonRevolvingLoanCalculations: function (component) {
+  nonRevolvingLoanCalculations: function (component, container) {
+    updateFirstPaymentInstallable(component);
     //on loan savings change
-    this.calculateSavings(component);
-    //on jngi changes
-    this.onJNGIPremiumChange(component);
-    this.calculateJNGIPMT(component);
-    //on JN creditor life changes
-    this.calculateCreditorLifePremium(component);
-    this.setAssignmentFees(component);
-    this.setEstimatedStampDutyFees(component);
+    calculateSavings(component, container);
     //calculate totals
-    this.totalLoanAmountCalculation(component);
-    this.totalMonthlyPILoanPaymentCalculation(component);
-    this.totalMonthlyPaymentCalculation(component);
-    this.totalInterestPaymentCalculation(component);
-    this.totalMonthlyLoanPaymentMonthlyCompulsorySavingsCalculation(component);
+    totalLoanAmountxCalculation(component);
+    totalMonthlyPILoanPaymentCalculation(component);
+    totalMonthlyPaymentCalculation(component);
+    totalInterestPaymentCalculation(component);
+    totalMonthlyLoanPaymentMonthlyCompulsorySavingsCalculation(component);
     //calculate total final costs
-    this.totalClosingCostCalculation(component);
-    this.totalClosingCostFinancedJNCalculation(component);
-    this.totalClosingCostPaidByApplicantCalculation(component);
+    totalClosingCostCalculation(component);
+    totalClosingCostFinancedJNCalculation(component);
+    totalClosingCostPaidByApplicantCalculation(component);
   }
 });

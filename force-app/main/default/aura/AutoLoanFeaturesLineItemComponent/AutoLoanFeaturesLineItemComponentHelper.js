@@ -28,7 +28,6 @@
   },
   onProposedSavingsChange: function (component) {
     const selected = component.get("v.value");
-    console.log(selected);
     let childContainer = component.get("v.ChildContainer");
     if (selected === "percent") {
       childContainer.proposedSavingsAmount = null;

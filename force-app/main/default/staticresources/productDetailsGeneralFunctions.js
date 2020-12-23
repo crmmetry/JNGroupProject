@@ -10,45 +10,252 @@
 /**
  * calculates savings
  * @param {Object} data
- * @param {Number} totalMonthly_PI_LoanPayment
  * @return {Object}
  */
-function calculateSavings(data, totalMonthly_PI_LoanPayment) {
+function calculateSavings(component, data) {
+  let totalCompulsorySavingsBalance = 0;
+  let monthlyCompulsorySavings = 0;
+  let {
+    totalMonthly_PI_LoanPayment,
+    proposedSavingsPercentage,
+    proposedSavingsAmount,
+    years,
+    months
+  } = data;
   if (
     validNumbersWithObject(
       ["totalMonthly_PI_LoanPayment", "months", "years"],
       data
     )
   ) {
-    let tenure = calculateMonths(data.years, data.months);
+    let tenure = calculateMonths(years, months);
     let monthlySavings = basicMonthlyCompulsorySavingsCalculator(
       totalMonthly_PI_LoanPayment,
-      data.proposedSavingsPercentage,
-      data.proposedSavingsAmount
+      proposedSavingsPercentage,
+      proposedSavingsAmount
     );
     let monthlySavingsOverRepaymentPeriod = basicTotalMonthlyCompulsorySavingsCalculator(
       monthlySavings,
       tenure
     );
-    return {
-      totalCompulsorySavingsBalance: parseFloat(
-        monthlySavingsOverRepaymentPeriod
-      ),
-      monthlyCompulsorySavings: parseFloat(monthlySavings)
-    };
+
+    totalCompulsorySavingsBalance = parseFloat(
+      monthlySavingsOverRepaymentPeriod
+    );
+    monthlyCompulsorySavings = parseFloat(monthlySavings);
   } else if (validNumbersWithObject(["proposedSavingsAmount"], data)) {
-    let totalCompulsorySavings = data.proposedSavingsAmount * tenure;
-    return {
-      monthlyCompulsorySavings: data.proposedSavingsAmount,
-      totalCompulsorySavingsBalance: totalCompulsorySavings
-    };
+    let totalCompulsorySavings = proposedSavingsAmount * tenure;
+
+    monthlyCompulsorySavings = proposedSavingsAmount;
+    totalCompulsorySavingsBalance = totalCompulsorySavings;
   } else {
-    return {
-      totalCompulsorySavingsBalance: 0,
-      monthlyCompulsorySavings: 0
-    };
+    totalCompulsorySavingsBalance = ZERO;
+    monthlyCompulsorySavings = ZERO;
   }
+  let values = [
+    {
+      key: totalCompulsorySavingsBalance,
+      value: totalCompulsorySavingsBalance
+    },
+    {
+      key: monthlyCompulsorySavings,
+      value: monthlyCompulsorySavings
+    }
+  ];
+  let result = updateChildContainerWithValue(component, values, false);
+  component.set("v.ChildContainer", result);
+  return result;
 }
+/**
+ * Calculates the total monthly loan payment in the credit calculations under totals.
+ */
+window.totalLoanAmountCalculation = function (component) {
+  const parentObj = component.get("v.ChildContainer");
+  let total = calculateTotalLoanAmount(
+    [
+      "loanAmount",
+      "jnLifeCreditorPremium",
+      "processingFeesGCT",
+      "jngiMotorPremium"
+    ],
+    parentObj
+  );
+  let values = [{ key: "totalLoanAmount", value: total }];
+  const data = updateChildContainerWithValue(component, values, false);
+  component.set("v.ChildContainer", data);
+  return data;
+};
+
+/**
+ * Calculates the total monthly P&I payment in credit calculations table.
+ */
+(window.totalMonthlyPILoanPaymentCalculation = function (component) {
+  const parentObj = component.get("v.ChildContainer");
+  let total = calculateTotalMonthlyPIPayment(
+    [
+      "monthly_PI_LoanAmount",
+      "monthlyJnLifeCreditor_PI_Premium",
+      "monthlyPrincipalInterestProcessingFee",
+      "monthlyPIJNGIMotorPremium"
+    ],
+    parentObj
+  );
+  let values = [{ key: "totalMonthly_PI_LoanPayment", value: total }];
+  const data = updateChildContainerWithValue(component, values, false);
+  component.set("v.ChildContainer", data);
+  return data;
+}),
+  /**
+   * Calculates the sum of total monthly loan payment and monthly compulsory savings under totals in credit calculations table.
+   */
+  (window.totalMonthlyLoanPaymentMonthlyCompulsorySavingsCalculation = function (
+    component
+  ) {
+    const parentObj = component.get("v.ChildContainer");
+    let total = calculateTotalMonthlyLoanCompulsoryPayment(
+      ["totalMonthlyLoanPayment", "monthlyCompulsorySavings"],
+      parentObj
+    );
+    let values = [{ key: "totalMonthlyLoanPaymentAndSavings", value: total }];
+    const data = updateChildContainerWithValue(component, values, false);
+    component.set("v.ChildContainer", data);
+    return data;
+  });
+/**
+ * Calculates the total interest payment.
+ */
+window.totalInterestPaymentCalculation = function (component) {
+  const parentObj = component.get("v.ChildContainer");
+  let totalMonthlyPIPayment = parentObj.totalMonthly_PI_LoanPayment;
+
+  const totalLoanAmount = parentObj.totalLoanAmount;
+  const years = parentObj.years;
+  const months = parentObj.months;
+  let total = calculateTotalInterestPayment(
+    totalMonthlyPIPayment,
+    totalLoanAmount,
+    years,
+    months
+  );
+  let values = [{ key: "totalInterestPaymentBalance", value: total }];
+  const data = updateChildContainerWithValue(component, values, false);
+  component.set("v.ChildContainer", data);
+  return data;
+};
+/**
+ * calculates total monthly payment
+ * @param {*} component
+ */
+window.totalMonthlyPaymentCalculation = function (component) {
+  const parentObj = component.get("v.ChildContainer");
+  let total = calculateTotalLoanAmount(
+    ["totalMonthly_PI_LoanPayment", "jngiMonthlyPremium"],
+    parentObj
+  );
+  let values = [{ key: "totalMonthlyLoanPayment", value: total }];
+  const data = updateChildContainerWithValue(component, values, false);
+  component.set("v.ChildContainer", data);
+  return data;
+};
+(window.getFieldsToCalculate = function (parentObj) {
+  let data = [];
+  //creditor life
+  if (parentObj.includeCreditorLifeInLoanAmount === "Yes") {
+    data.push("jnLifeCreditorPremium");
+  } else {
+    data.push("jnCLPremiumFeesAndCharges");
+  }
+  //jngi motor
+  if (parentObj.jngiIncludeInLoan === "Yes") {
+    data.push("jngiMotorPremium");
+  } else {
+    data.push("jngiMotorPremiumFeesAndCharges");
+  }
+  //processing fee
+  if (parentObj.includeInLoanAmountFlag === YES) {
+    data.push("processingFeesGCT");
+  } else {
+    data.push("processingFeeClosingCost");
+  }
+  return data;
+}),
+  /**
+   * Calculates the total closing cost.
+   */
+  (window.totalClosingCostCalculation = function (component) {
+    const parentObj = component.get("v.ChildContainer");
+    const jnDefault = component.get("v.jnDefaultConfigs");
+    const data = copyInto(jnDefault, parentObj);
+    let properties = [];
+    let total = 0;
+    let fieldsTocalculate = getFieldsToCalculate(parentObj);
+
+    if (data.estimatedStampDuty != 0 && data.assignmentFee != 0) {
+      properties = [
+        "stampDutyAuto",
+        "legalFee",
+        "nsipp",
+        "estimatedStampDutyAndAdminFee",
+        "assignmentFee"
+      ].concat(fieldsTocalculate);
+    } else {
+      properties = ["stampDutyAuto", "legalFee", "nsipp"].concat(
+        fieldsTocalculate
+      );
+    }
+    total = calculateTotalClosingCost(properties, data);
+    let values = [{ key: "totalClosingCost", value: total }];
+    const result = updateChildContainerWithValue(component, values, false);
+    component.set("v.ChildContainer", result);
+    return result;
+  });
+/**
+ * Calculates the total closing cost financed by JN.
+ */
+window.totalClosingCostFinancedJNCalculation = function (component) {
+  const parentObj = component.get("v.ChildContainer");
+  let total = calculateTotalClosingCostFinancedJN(
+    ["processingFeesGCT", "jnLifeCreditorPremium", "jngiMotorPremium"],
+    parentObj
+  );
+  let values = [{ key: "totalFinancedByJN", value: total }];
+  const result = updateChildContainerWithValue(component, values, false);
+  component.set("v.ChildContainer", result);
+  return result;
+};
+/**
+ * Calculates the total closing cost payable by applicant.
+ */
+window.totalClosingCostPaidByApplicantCalculation = function (component) {
+  let total = 0;
+  const parentObj = component.get("v.ChildContainer");
+  if (parentObj.totalClosingCost >= 0 && parentObj.totalFinancedByJN >= 0) {
+    total = calculateTotalClosingCostPayableByApplicant(
+      parentObj.totalClosingCost,
+      parentObj.totalFinancedByJN
+    );
+  }
+  let values = [{ key: "totalPayableByApplicant", value: total }];
+  const result = updateChildContainerWithValue(component, values, false);
+  component.set("v.ChildContainer", result);
+  return result;
+};
+/**
+ * Sets the 1st payment installment payable dependent on the deductRepayment is yes or no in the Closing Cost table.
+ */
+window.updateFirstPaymentInstallable = function (component) {
+  const parentObj = component.get("v.ChildContainer");
+  let firstPaymentInstallable = 0;
+  if (parentObj.deductRepayment === NO && parentObj.totalMonthlyLoanPayment) {
+    firstPaymentInstallable = parentObj.totalMonthlyLoanPayment;
+  }
+  let values = [
+    { key: "firstPaymentInstallable", value: firstPaymentInstallable }
+  ];
+  const result = updateChildContainerWithValue(component, values, false);
+  component.set("v.ChildContainer", result);
+  return result;
+};
 /*
  * Updates child container attributes and its values.
  */

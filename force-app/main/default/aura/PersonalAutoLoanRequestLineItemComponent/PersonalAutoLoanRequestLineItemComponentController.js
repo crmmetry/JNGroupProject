@@ -66,7 +66,6 @@
 
   onMotorVehicleDepositFormatChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-    console.log("selected", selected);
     helper.clearDepositPercentageAndDepositAmountWhenToggled(
       component,
       selected

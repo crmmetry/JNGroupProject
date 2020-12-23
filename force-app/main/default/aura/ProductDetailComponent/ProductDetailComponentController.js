@@ -121,7 +121,7 @@
         helper.processingFeeCalculation(container, component)
       );
       //non revovling loan calculations
-      helper.nonRevolvingLoanCalculations(component);
+      helper.nonRevolvingLoanCalculations(component, container);
       const updatedContainer = updateChildContainerWithValue(
         component,
         attributesToUpdate,

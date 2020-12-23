@@ -19,26 +19,38 @@
     };
     component.set("v.ChildContainer", data);
   },
-
+  /**
+   *
+   * @param {*} component
+   * @param {*} event
+   * @param {*} helper
+   */
   onChildContainerChange: function (component, event, helper) {
-    const data = Object.assign(
-      component.get("v.ParentContainer"),
-      component.get("v.ChildContainer")
-    );
-    data["containerName"] = component.get("v.containerName");
-    component.set("v.ParentContainer", data);
-    helper.onProposedSavingsChange(component);
-    helper.toggleShowIndicateApplicableProcessingFees(
-      component,
-      component.get("v.ChildContainer")
-    );
-    helper.toggleShowIncludeInLoanAmount(
-      component,
-      component.get("v.ChildContainer")
-    );
-    helper.resetProcessingFieldsValues(data, component);
+    if (
+      component.get("v.scriptsLoaded") &&
+      component.get("v.notifyContainerChange")
+    ) {
+      const data = copyInto(
+        component.get("v.ChildContainer"),
+        component.get("v.ParentContainer")
+      );
+      helper.onProposedSavingsChange(component);
+      helper.toggleShowIndicateApplicableProcessingFees(
+        component,
+        component.get("v.ChildContainer")
+      );
+      helper.toggleShowIncludeInLoanAmount(
+        component,
+        component.get("v.ChildContainer")
+      );
+      helper.resetProcessingFieldsValues(data, component);
+      fireProductDetailsEvent(
+        null,
+        component.get("v.ChildContainer"),
+        component
+      );
+    }
   },
-
   onProcessingFeePercentagePerAnumChange: function (component, event, helper) {
     const value = component.get("v.processingFeePercentagePerAnum");
     let creditRepaymentMap = component.get("v.ChildContainer");

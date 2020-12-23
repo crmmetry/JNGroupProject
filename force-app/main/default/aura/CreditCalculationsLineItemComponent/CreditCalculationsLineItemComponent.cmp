@@ -1,11 +1,11 @@
 <aura:component>
+  <aura:registerEvent name="productDetailsEvent" type="c:ProductDetailsEvent" />
   <aura:attribute
     name="containerName"
     type="String"
     default="CreditCalculationsLineItemComponent"
   />
-  <aura:registerEvent name="productDetailsEvent" type="c:ProductDetailsEvent" />
-
+  <aura:attribute name="notifyContainerChange" type="Boolean" default="true" />
   <aura:attribute name="ParentContainer" type="Map" default="{}" />
   <aura:attribute name="ChildContainer" type="Map" default="{}" />
   <aura:attribute name="loanAmount" type="Decimal" default="0" />
@@ -76,6 +76,11 @@
     name="change"
     action="{!c.onChildContainerChange}"
     value="{!v.ChildContainer}"
+  />
+  <aura:handler
+    name="change"
+    action="{!c.onParentContainerChange}"
+    value="{!v.ParentContainer}"
   />
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
   <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
@@ -179,7 +184,7 @@
         <lightning:input
           type="number"
           label="Monthly Compulsory Savings"
-          value="{!v.monthlyCompulsorySavings}"
+          value="{!v.ParentContainer.monthlyCompulsorySavings}"
           name="number"
           formatter="currency"
           required="true"
@@ -190,7 +195,7 @@
         <lightning:input
           type="number"
           label="Total Compulsory Savings Balance(Over Repayment Period)"
-          value="{!v.totalCompulsorySavingsBalance}"
+          value="{!v.ParentContainer.totalCompulsorySavingsBalance}"
           name="number"
           formatter="currency"
           required="true"
@@ -215,7 +220,7 @@
         <lightning:input
           type="number"
           label="Total Monthly Loan Payment"
-          value="{!v.totalMonthlyLoanPayment}"
+          value="{!v.ParentContainer.totalMonthlyLoanPayment}"
           name="number"
           formatter="currency"
           required="true"
@@ -226,7 +231,7 @@
         <lightning:input
           type="number"
           label="Total Monthly P&amp;I Loan Payment"
-          value="{!v.totalMonthly_PI_LoanPayment}"
+          value="{!v.ParentContainer.totalMonthly_PI_LoanPayment}"
           name="number"
           formatter="currency"
           required="true"
@@ -237,7 +242,7 @@
         <lightning:input
           type="number"
           label="Total Monthly Loan Payment + Monthly Loan Savings"
-          value="{!v.totalMonthlyLoanPaymentAndSavings}"
+          value="{!v.ParentContainer.totalMonthlyLoanPaymentAndSavings}"
           name="number"
           formatter="currency"
           required="true"
@@ -248,18 +253,18 @@
         <lightning:input
           type="number"
           label="Total Interest Payment(Over Repayment Period)"
-          value="{!v.totalInterestPaymentBalance}"
+          value="{!v.ParentContainer.totalInterestPaymentBalance}"
           name="number"
           formatter="currency"
           required="true"
           readonly="true"
         />
       </lightning:layoutItem>
-      <lightning:layoutItem size="12"
-        ><h2 class="slds-section-title--divider">
+      <lightning:layoutItem size="12">
+        <h2 class="slds-section-title--divider">
           Credit Repayment Allocation
-        </h2></lightning:layoutItem
-      >
+        </h2>
+      </lightning:layoutItem>
       <lightning:layoutItem size="12"
         ><label class="slds-form-element__label"
           >Please allocate the proposed loan amount and monthly payments among
@@ -267,9 +272,9 @@
         ></lightning:layoutItem
       >
       <lightning:layoutItem size="12"
-        ><b
-          ><h2 class="slds-form-element__label">Applicant 1</h2></b
-        ></lightning:layoutItem
+        ><b>
+          <h2 class="slds-form-element__label">Applicant 1</h2>
+        </b></lightning:layoutItem
       >
       <lightning:layoutItem size="6" padding="around-small">
         <lightning:input
@@ -317,7 +322,7 @@
       </lightning:layoutItem>
       <c:FeesAndChargesLineItemComponent
         deductRepaymentFlag="{!v.deductRepaymentFlag}"
-        processingFees="{!v.processingFeeClosingCost}"
+        processingFees="{!v.ParentContainer.processingFeeClosingCost}"
         includePremiumFlag="{!v.showPremiumInFeesAndCharges}"
         jngiMotorPremium="{!v.jngiMotorPremium}"
         assignmentFee="{!v.assignmentFee}"
@@ -325,11 +330,12 @@
         jnCreditorLifePremium="{!v.jnCLPremiumFeesAndCharges}"
         includeCLPremiumFlag="{!v.includeCLPremiumFlag}"
         jnDefaultConfigs="{!v.jnDefaultConfigs}"
-        totalClosingCosts="{!v.totalClosingCost}"
+        totalClosingCosts="{!v.ParentContainer.totalClosingCost}"
         payableInstallment="{!v.firstPaymentInstallable}"
-        totalClosingCostsJNFinanced="{!v.totalFinancedByJN}"
-        totalClosingCostsApplicantPayable="{!v.totalPayableByApplicant}"
-      ></c:FeesAndChargesLineItemComponent>
+        totalClosingCostsJNFinanced="{!v.ParentContainer.totalFinancedByJN}"
+        totalClosingCostsApplicantPayable="{!v.ParentContainer.totalPayableByApplicant}"
+      >
+      </c:FeesAndChargesLineItemComponent>
     </lightning:layout>
   </fieldset>
 </aura:component>

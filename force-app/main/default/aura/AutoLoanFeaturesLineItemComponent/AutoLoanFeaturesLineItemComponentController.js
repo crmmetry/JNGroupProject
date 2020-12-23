@@ -27,9 +27,9 @@
       component.get("v.scriptsLoaded") &&
       component.get("v.notifyContainerChange")
     ) {
-      const data = Object.assign(
-        component.get("v.ParentContainer"),
-        component.get("v.ChildContainer")
+      const data = copyInto(
+        component.get("v.ChildContainer"),
+        component.get("v.ParentContainer")
       );
       helper.onProposedSavingsChange(component);
       helper.toggleShowIndicateApplicableProcessingFees(component, data);

@@ -1,10 +1,5 @@
 ({
-  doinit: function (component, event, helper) {
-    console.log(
-      "Auto Loan Container: ",
-      component.get("v.CreditRepaymentContainer")
-    );
-  },
+  doinit: function (component, event, helper) {},
   /** Validates cmp fields - JN1-4201
    * @param {*} component
    * @return - Boolean
