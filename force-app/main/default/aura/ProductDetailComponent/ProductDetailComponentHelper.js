@@ -919,7 +919,7 @@
     //on loan savings change
     calculateSavings(component, container);
     //calculate totals
-    totalLoanAmountxCalculation(component);
+    totalLoanAmountCalculation(component);
     totalMonthlyPILoanPaymentCalculation(component);
     totalMonthlyPaymentCalculation(component);
     totalInterestPaymentCalculation(component);

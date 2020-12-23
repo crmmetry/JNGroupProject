@@ -347,12 +347,12 @@
     let jnDefaults = component.get("v.jnDefaultConfigs");
     if (data.policyProvider != null) {
       component.set("v.assignmentFee", jnDefaults.assignmentFee);
-      this.updateChildContainerWithValue(component, [
+      updateChildContainerNoNotification(component, [
         { key: "assignmentFee", value: jnDefaults.assignmentFee }
       ]);
     } else {
       component.set("v.assignmentFee", 0);
-      this.updateChildContainerWithValue(component, [
+      updateChildContainerNoNotification(component, [
         { key: "assignmentFee", value: 0 }
       ]);
     }
@@ -368,7 +368,7 @@
         "v.estimatedStampDuty",
         jnDefaults.estimatedStampDutyAndAdminFee
       );
-      this.updateChildContainerWithValue(component, [
+      updateChildContainerNoNotification(component, [
         {
           key: "estimatedStampDuty",
           value: jnDefaults.estimatedStampDutyAndAdminFee
@@ -376,7 +376,7 @@
       ]);
     } else {
       component.set("v.estimatedStampDuty", 0);
-      this.updateChildContainerWithValue(component, [
+      updateChildContainerNoNotification(component, [
         { key: "estimatedStampDuty", value: 0 }
       ]);
     }

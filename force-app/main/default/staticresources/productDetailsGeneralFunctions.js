@@ -12,7 +12,7 @@
  * @param {Object} data
  * @return {Object}
  */
-function calculateSavings(component, data) {
+window.calculateSavings = function (component, data) {
   let totalCompulsorySavingsBalance = 0;
   let monthlyCompulsorySavings = 0;
   let {
@@ -65,7 +65,7 @@ function calculateSavings(component, data) {
   let result = updateChildContainerWithValue(component, values, false);
   component.set("v.ChildContainer", result);
   return result;
-}
+};
 /**
  * Calculates the total monthly loan payment in the credit calculations under totals.
  */
