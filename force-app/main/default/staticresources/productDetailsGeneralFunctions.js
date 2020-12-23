@@ -293,28 +293,28 @@ window.calculateCreditorLifePremium = function (component) {
       data.loanAmount,
       data.rating
     );
-    component.set("v.jnCLPremiumFeesAndCharges", monthlyCLPremium);
     component.set("v.includeCLPremiumFlag", true);
-    component.set("v.jnLifeCreditorPremium", 0);
-    component.set("v.monthlyJnLifeCreditor_PI_Premium", 0);
     jnLifeCreditorPremium = 0;
     monthlyJnLifeCreditor_PI_Premium = 0;
-    this.updateChildContainerWithValue(component, [
-      { key: "jnLifeCreditorPremium", value: 0 },
-      { key: "monthlyJnLifeCreditor_PI_Premium", value: 0 },
-      { key: "jnCLPremiumFeesAndCharges", value: monthlyCLPremium }
-    ]);
-  } else if (data.interestedInCreditorLife === "No") {
-    component.set("v.jnCLPremiumFeesAndCharges", 0);
+    jnCLPremiumFeesAndCharges = monthlyCLPremium;
+  } else if (data.interestedInCreditorLife === NO) {
+    jnCLPremiumFeesAndCharges = 0;
+    jnLifeCreditorPremium = 0;
+    monthlyJnLifeCreditor_PI_Premium = 0;
     component.set("v.includeCLPremiumFlag", false);
-    component.set("v.jnLifeCreditorPremium", 0);
-    component.set("v.monthlyJnLifeCreditor_PI_Premium", 0);
-    this.updateChildContainerWithValue(component, [
-      { key: "jnLifeCreditorPremium", value: 0 },
-      { key: "monthlyJnLifeCreditor_PI_Premium", value: 0 },
-      { key: "jnCLPremiumFeesAndCharges", value: 0 }
-    ]);
   }
+
+  let values = [
+    { key: "jnLifeCreditorPremium", value: jnLifeCreditorPremium },
+    {
+      key: "monthlyJnLifeCreditor_PI_Premium",
+      value: monthlyJnLifeCreditor_PI_Premium
+    },
+    { key: "jnCLPremiumFeesAndCharges", value: jnCLPremiumFeesAndCharges }
+  ];
+  const result = updateChildContainerWithValue(component, values, false);
+  component.set("v.ChildContainer", result);
+  return result;
 };
 /*
  * Updates child container attributes and its values.

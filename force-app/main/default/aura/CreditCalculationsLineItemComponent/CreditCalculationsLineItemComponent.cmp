@@ -140,7 +140,7 @@
         <lightning:input
           type="number"
           label="JN Life Creditor Life Premium"
-          value="{!v.jnLifeCreditorPremium}"
+          value="{!v.ParentContainer.jnLifeCreditorPremium}"
           name="number"
           formatter="currency"
           required="true"
@@ -151,7 +151,7 @@
         <lightning:input
           type="number"
           label="Monthly JN Life Creditor Life P&amp;I Premium"
-          value="{!v.monthlyJnLifeCreditor_PI_Premium}"
+          value="{!v.ParentContainer.monthlyJnLifeCreditor_PI_Premium}"
           name="number"
           formatter="currency"
           required="true"
@@ -327,7 +327,7 @@
         jngiMotorPremium="{!v.jngiMotorPremium}"
         assignmentFee="{!v.assignmentFee}"
         stampDutyAndAdminCharges="{!v.estimatedStampDuty}"
-        jnCreditorLifePremium="{!v.jnCLPremiumFeesAndCharges}"
+        jnCreditorLifePremium="{!v.ParentContainer.jnCLPremiumFeesAndCharges}"
         includeCLPremiumFlag="{!v.includeCLPremiumFlag}"
         jnDefaultConfigs="{!v.jnDefaultConfigs}"
         totalClosingCosts="{!v.ParentContainer.totalClosingCost}"

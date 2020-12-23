@@ -914,6 +914,7 @@
    * @param {*} component
    */
   nonRevolvingLoanCalculations: function (component, container) {
+    calculateCreditorLifePremium(component);
     updateFirstPaymentInstallable(component);
     //on loan savings change
     calculateSavings(component, container);
