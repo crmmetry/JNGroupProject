@@ -54,11 +54,11 @@ window.calculateSavings = function (component, data) {
   }
   let values = [
     {
-      key: totalCompulsorySavingsBalance,
+      key: "totalCompulsorySavingsBalance",
       value: totalCompulsorySavingsBalance
     },
     {
-      key: monthlyCompulsorySavings,
+      key: "monthlyCompulsorySavings",
       value: monthlyCompulsorySavings
     }
   ];
