@@ -178,7 +178,7 @@
           <lightning:input
             type="number"
             label="Monthly P&amp;I JNGI Motor Premium"
-            value="{!v.monthlyPIJNGIMotorPremium}"
+            value="{!v.ParentContainer.monthlyPIJNGIMotorPremium}"
             name="number"
             formatter="currency"
             required="true"
@@ -279,7 +279,7 @@
         <lightning:input
           type="number"
           label="Total Loan amount"
-          value="{!v.totalLoanAmount}"
+          value="{!v.ParentContainer.totalLoanAmount}"
           name="number"
           formatter="currency"
           required="true"
