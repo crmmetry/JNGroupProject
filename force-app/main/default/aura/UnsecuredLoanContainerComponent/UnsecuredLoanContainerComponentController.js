@@ -2,6 +2,9 @@
   doInit: function (component, event, helper) {
     component.set("v.loanPurposeOptions", UNSECURED_LOAN_PURPOSE);
   },
+  scriptsLoaded: function (component, event, helper) {
+    component.set("v.scriptsLoaded", true);
+  },
   /**
    * JN1-4210 : For validating fields
    * @param {*} component
@@ -26,5 +29,15 @@
       creditCalculationsLineItemComponent.validateFields(component)
     ];
     return isValidComponent(resultsFromChild);
+  },
+  onLoanPurposeChange: function (component, event, helper) {
+    const selected = event.getSource().get("v.value");
+    let values = [
+      {
+        key: "loanPurpose",
+        value: selected
+      }
+    ];
+    //updateChildContainerWithValue(component, values, false);
   }
 });
