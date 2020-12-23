@@ -360,7 +360,6 @@
    * @param {*} helper
    */
   getCreditScoreRatings: function (component) {
-    console.log("get credit score ratings");
     let container = component.get("v.ChildContainer");
     let collateralType = this.collateralTypeApplicable(component, container);
     let LTVValue = this.LTVApplicableValue(component, container);
@@ -372,7 +371,6 @@
       validNumber(TDSRBefore) &&
       !isEmpty(repaymentMethod)
     ) {
-      console.log("All four values are valid");
       //show spinner
       this.showSpinner(component);
       action.setParams({
