@@ -1,14 +1,5 @@
 <aura:component>
-  <ltng:require
-    scripts="{!join(',', 
-  $Resource.constants,
-  $Resource.calculations, 
-  $Resource.productDetailsGeneralFunctions)}"
-    afterScriptsLoaded="{!c.scriptsLoaded}"
-  />
-  <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
   <aura:registerEvent name="productDetailsEvent" type="c:ProductDetailsEvent" />
-  <aura:attribute name="notifyContainerChange" type="Boolean" default="true" />
   <aura:attribute
     name="containerName"
     type="String"
@@ -28,7 +19,6 @@
     afterScriptsLoaded="{!c.scriptsLoaded}"
   />
   <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
-  <aura:registerEvent name="productDetailsEvent" type="c:ProductDetailsEvent" />
   <aura:attribute name="ParentContainer" type="Map" default="{}" />
   <aura:attribute name="ChildContainer" type="Map" default="{}" />
   <aura:attribute
