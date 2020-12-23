@@ -19,6 +19,9 @@
     };
     component.set("v.ChildContainer", data);
   },
+  scriptsLoaded: function (component, event, helper) {
+    component.set("v.scriptsLoaded", true);
+  },
   /**
    *
    * @param {*} component

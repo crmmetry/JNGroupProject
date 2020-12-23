@@ -157,7 +157,7 @@ window.totalMonthlyPaymentCalculation = function (component) {
   component.set("v.ChildContainer", data);
   return data;
 };
-(window.getFieldsToCalculate = function (parentObj) {
+window.getFieldsToCalculate = function (parentObj) {
   let data = [];
   //creditor life
   if (parentObj.includeCreditorLifeInLoanAmount === "Yes") {
@@ -178,37 +178,37 @@ window.totalMonthlyPaymentCalculation = function (component) {
     data.push("processingFeeClosingCost");
   }
   return data;
-}),
-  /**
-   * Calculates the total closing cost.
-   */
-  (window.totalClosingCostCalculation = function (component) {
-    const parentObj = component.get("v.ChildContainer");
-    const jnDefault = component.get("v.jnDefaultConfigs");
-    const data = copyInto(jnDefault, parentObj);
-    let properties = [];
-    let total = 0;
-    let fieldsTocalculate = getFieldsToCalculate(parentObj);
+};
+/**
+ * Calculates the total closing cost.
+ */
+window.totalClosingCostCalculation = function (component) {
+  const parentObj = component.get("v.ChildContainer");
+  const jnDefault = component.get("v.jnDefaultConfigs");
+  const data = copyInto(jnDefault, parentObj);
+  let properties = [];
+  let total = 0;
+  let fieldsTocalculate = getFieldsToCalculate(parentObj);
 
-    if (data.estimatedStampDuty != 0 && data.assignmentFee != 0) {
-      properties = [
-        "stampDutyAuto",
-        "legalFee",
-        "nsipp",
-        "estimatedStampDutyAndAdminFee",
-        "assignmentFee"
-      ].concat(fieldsTocalculate);
-    } else {
-      properties = ["stampDutyAuto", "legalFee", "nsipp"].concat(
-        fieldsTocalculate
-      );
-    }
-    total = calculateTotalClosingCost(properties, data);
-    let values = [{ key: "totalClosingCost", value: total }];
-    const result = updateChildContainerWithValue(component, values, false);
-    component.set("v.ChildContainer", result);
-    return result;
-  });
+  if (data.estimatedStampDuty != 0 && data.assignmentFee != 0) {
+    properties = [
+      "stampDutyAuto",
+      "legalFee",
+      "nsipp",
+      "estimatedStampDutyAndAdminFee",
+      "assignmentFee"
+    ].concat(fieldsTocalculate);
+  } else {
+    properties = ["stampDutyAuto", "legalFee", "nsipp"].concat(
+      fieldsTocalculate
+    );
+  }
+  total = calculateTotalClosingCost(properties, data);
+  let values = [{ key: "totalClosingCost", value: total }];
+  const result = updateChildContainerWithValue(component, values, false);
+  component.set("v.ChildContainer", result);
+  return result;
+};
 /**
  * Calculates the total closing cost financed by JN.
  */
@@ -255,6 +255,66 @@ window.updateFirstPaymentInstallable = function (component) {
   const result = updateChildContainerWithValue(component, values, false);
   component.set("v.ChildContainer", result);
   return result;
+};
+/**
+ * Calculates creditor life premium.
+ */
+window.calculateCreditorLifePremium = function (component) {
+  let data = component.get("v.ChildContainer");
+  let jnLifeCreditorPremium = 0;
+  let monthlyJnLifeCreditor_PI_Premium = 0;
+  let jnCLPremiumFeesAndCharges = 0;
+  if (
+    data.interestedInCreditorLife === YES &&
+    data.includeCreditorLifeInLoanAmount === YES
+  ) {
+    let monthlyCLPremium = basicJNLifePremiumCalculator(
+      data.loanAmount,
+      data.rating
+    );
+    jnLifeCreditorPremium = monthlyCLPremium;
+    const piProperties = {
+      years: data.years,
+      months: data.months,
+      loanAmount: monthlyCLPremium,
+      market: data.market
+    };
+    let pmtCLResult = basicPMTCalculator(
+      ["years", "months", "loanAmount", "market"],
+      piProperties
+    );
+    monthlyJnLifeCreditor_PI_Premium = pmtCLResult;
+    component.set("v.includeCLPremiumFlag", false);
+  } else if (
+    data.interestedInCreditorLife === YES &&
+    data.includeCreditorLifeInLoanAmount === NO
+  ) {
+    let monthlyCLPremium = basicJNLifePremiumCalculator(
+      data.loanAmount,
+      data.rating
+    );
+    component.set("v.jnCLPremiumFeesAndCharges", monthlyCLPremium);
+    component.set("v.includeCLPremiumFlag", true);
+    component.set("v.jnLifeCreditorPremium", 0);
+    component.set("v.monthlyJnLifeCreditor_PI_Premium", 0);
+    jnLifeCreditorPremium = 0;
+    monthlyJnLifeCreditor_PI_Premium = 0;
+    this.updateChildContainerWithValue(component, [
+      { key: "jnLifeCreditorPremium", value: 0 },
+      { key: "monthlyJnLifeCreditor_PI_Premium", value: 0 },
+      { key: "jnCLPremiumFeesAndCharges", value: monthlyCLPremium }
+    ]);
+  } else if (data.interestedInCreditorLife === "No") {
+    component.set("v.jnCLPremiumFeesAndCharges", 0);
+    component.set("v.includeCLPremiumFlag", false);
+    component.set("v.jnLifeCreditorPremium", 0);
+    component.set("v.monthlyJnLifeCreditor_PI_Premium", 0);
+    this.updateChildContainerWithValue(component, [
+      { key: "jnLifeCreditorPremium", value: 0 },
+      { key: "monthlyJnLifeCreditor_PI_Premium", value: 0 },
+      { key: "jnCLPremiumFeesAndCharges", value: 0 }
+    ]);
+  }
 };
 /*
  * Updates child container attributes and its values.
