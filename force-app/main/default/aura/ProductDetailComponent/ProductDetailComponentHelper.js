@@ -362,19 +362,26 @@
   getCreditScoreRatings: function (component) {
     console.log("get credit score ratings");
     let container = component.get("v.ChildContainer");
-    const { LTVValue, repaymentMethod, TDSRBefore, collateralType } = container;
+    let collateralType = this.collateralTypeApplicable(component, container);
+    let LTVValue = this.LTVApplicableValue(component, container);
+    const { repaymentMethod, TDSRBefore } = container;
     let action = component.get("c.getCreditRiskRating");
+    console.log(collateralType);
+    console.log(LTVValue);
+    console.log(TDSRBefore);
+    console.log(repaymentMethod);
     if (
       !isEmpty(collateralType) &&
       validNumber(LTVValue) &&
       validNumber(TDSRBefore) &&
       !isEmpty(repaymentMethod)
     ) {
+      console.log("All four values are valid");
       //show spinner
       this.showSpinner(component);
       action.setParams({
         oppId: component.get("v.recordId"),
-        ltv: this.LTVApplicableValue(component, container),
+        ltv: LTVValue,
         repaymentMethod: repaymentMethod,
         tdsrBefore: roundedValue(TDSRBefore),
         collateral: collateralType
@@ -414,6 +421,25 @@
       return roundedValue(container.LTVValue);
     }
     return 0;
+  },
+  /**
+   * checks whether current product family is auto or line of credit
+   * @param {*} component
+   * @param {Objec} container
+   * @return {Number} ltv
+   */
+  collateralTypeApplicable: function (component, container) {
+    const isAuto = this.checkProductFamily(component, "Auto");
+    const isLineOfCredit = this.checkProductFamily(component, "Line Of Credit");
+    const isUnsecured = this.checkProductFamily(component, "Unsecured");
+    const isCreditCard = this.checkProductFamily(component, "Credit Card");
+    if (isUnsecured) {
+      return "None";
+    } else if (isAuto) {
+      return "Motor Vehicle";
+    } else if (isCreditCard || isLineOfCredit) {
+      return container.collateralType;
+    }
   },
   /**
    * checks if the passed family is the selected product

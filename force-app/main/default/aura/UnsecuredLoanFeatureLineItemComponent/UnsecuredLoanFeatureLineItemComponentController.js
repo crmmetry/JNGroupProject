@@ -19,24 +19,29 @@
     };
     component.set("v.ChildContainer", data);
   },
-
+  scriptsLoaded: function (component, event, helper) {
+    component.set("v.scriptsLoaded", true);
+  },
   onChildContainerChange: function (component, event, helper) {
-    const data = Object.assign(
-      component.get("v.ParentContainer"),
-      component.get("v.ChildContainer")
-    );
-    data["containerName"] = component.get("v.containerName");
-    component.set("v.ParentContainer", data);
-    helper.onProposedSavingsChange(component);
-    helper.toggleShowIndicateApplicableProcessingFees(
-      component,
-      component.get("v.ChildContainer")
-    );
-    helper.toggleShowIncludeInLoanAmount(
-      component,
-      component.get("v.ChildContainer")
-    );
-    helper.resetProcessingFieldsValues(data, component);
+    if (
+      component.get("v.scriptsLoaded") &&
+      component.get("v.notifyContainerChange")
+    ) {
+      let data = copyInto(null, component.get("v.ParentContainer"));
+      data = copyInto(data, component.get("v.ChildContainer"));
+      helper.onProposedSavingsChange(component);
+      helper.toggleShowIndicateApplicableProcessingFees(
+        component,
+        component.get("v.ChildContainer")
+      );
+      helper.toggleShowIncludeInLoanAmount(
+        component,
+        component.get("v.ChildContainer")
+      );
+      helper.resetProcessingFieldsValues(data, component);
+      console.log("Child Container", data);
+      fireProductDetailsEvent(null, data, component);
+    }
   },
 
   onProcessingFeePercentagePerAnumChange: function (component, event, helper) {

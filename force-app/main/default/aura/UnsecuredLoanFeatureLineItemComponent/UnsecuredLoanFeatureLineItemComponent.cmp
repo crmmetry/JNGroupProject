@@ -4,6 +4,21 @@
     type="String"
     default="UnsecuredLoanFeatureLineItemComponent"
   />
+  <aura:attribute
+    name="notifyContainerChange"
+    type="Boolean"
+    default="true"
+    description="used to indicate whether the component should react to the ChildContainer changes"
+  />
+  <ltng:require
+    scripts="{!join(',', 
+    $Resource.constants,
+    $Resource.calculations, 
+    $Resource.productDetailsGeneralFunctions)}"
+    afterScriptsLoaded="{!c.scriptsLoaded}"
+  />
+  <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
+  <aura:registerEvent name="productDetailsEvent" type="c:ProductDetailsEvent" />
   <aura:attribute name="ParentContainer" type="Map" default="{}" />
   <aura:attribute name="ChildContainer" type="Map" default="{}" />
   <aura:attribute
@@ -538,7 +553,7 @@
               <lightning:input
                 label="Credit Risk Rating prior to application"
                 value="{!v.ParentContainer.creditRiskRating}"
-                type="number"
+                type="text"
                 formatter="percent-fixed"
                 name="input1"
                 readonly="true"
