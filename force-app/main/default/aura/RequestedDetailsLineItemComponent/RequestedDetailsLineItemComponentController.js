@@ -7,6 +7,7 @@
       market: null
     };
     component.set("v.ChildContainer", data);
+    component.set("v.loanPurposeOptions", UNSECURED_LOAN_PURPOSE);
   },
   scriptsLoaded: function (component, event, helper) {
     component.set("v.scriptsLoaded", true);
@@ -48,5 +49,15 @@
       "requestedMarket"
     ];
     return validateFields(component, fieldsToValidateArray);
+  },
+  onLoanPurposeChange: function (component, event, helper) {
+    const selected = event.getSource().get("v.value");
+    let values = [
+      {
+        key: "loanPurpose",
+        value: selected
+      }
+    ];
+    updateChildContainerWithValue(component, values, false);
   }
 });

@@ -1,7 +1,5 @@
 ({
-  doInit: function (component, event, helper) {
-    component.set("v.loanPurposeOptions", UNSECURED_LOAN_PURPOSE);
-  },
+  doInit: function (component, event, helper) {},
   scriptsLoaded: function (component, event, helper) {
     component.set("v.scriptsLoaded", true);
   },
@@ -29,15 +27,5 @@
       creditCalculationsLineItemComponent.validateFields(component)
     ];
     return isValidComponent(resultsFromChild);
-  },
-  onLoanPurposeChange: function (component, event, helper) {
-    const selected = event.getSource().get("v.value");
-    let values = [
-      {
-        key: "loanPurpose",
-        value: selected
-      }
-    ];
-    //updateChildContainerWithValue(component, values, false);
   }
 });

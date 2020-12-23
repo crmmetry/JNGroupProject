@@ -23,25 +23,6 @@
     action="{!c.validateFields}"
     access="public"
   />
-
-  <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
-    <div class="slds-form-element">
-      <div class="slds-form-element__control">
-        <lightning:select
-          name="select1"
-          label="Loan Purpose"
-          required="true"
-          onchange="{!c.onLoanPurposeChange}"
-          aura:id="unsecuredOnLoanPurposeChange"
-        >
-          <option value="">select one...</option>
-          <aura:iteration items="{!v.loanPurposeOptions}" var="item">
-            <option value="{!item}">{!item}</option>
-          </aura:iteration>
-        </lightning:select>
-      </div>
-    </div>
-  </lightning:layoutItem>
   <c:RequestedDetailsLineItemComponent
     productPrice="{!v.productPrice}"
     ParentContainer="{!v.ParentContainer}"
