@@ -27,10 +27,8 @@
       component.get("v.scriptsLoaded") &&
       component.get("v.notifyContainerChange")
     ) {
-      const data = copyInto(
-        component.get("v.ParentContainer"),
-        component.get("v.ChildContainer")
-      );
+      let data = copyInto(null, component.get("v.ParentContainer"));
+      data = copyInto(data, component.get("v.ChildContainer"));
       helper.onProposedSavingsChange(component);
       helper.toggleShowIndicateApplicableProcessingFees(component, data);
       helper.toggleShowIncludeInLoanAmount(component, data);
