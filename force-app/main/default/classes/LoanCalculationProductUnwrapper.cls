@@ -48,6 +48,8 @@ public class LoanCalculationProductUnwrapper {
     record.Auto_Collateral_DepositPercentage_Number__c = serializer.autoCollateralDepositPercentage;
     record.Computed_Auto_Collateral_Deposit_Number__c = serializer.computedAutoCollateralDepositFromPercentage;
     record.Loan_Purpose_List__c = serializer.loanPurpose;
+    record.Account_Type_List__c = serializer.accountType;
+    record.Stamp_Duty_Number__c = serializer.stampDuty;
   }
   /**
    * save loan calculation product object

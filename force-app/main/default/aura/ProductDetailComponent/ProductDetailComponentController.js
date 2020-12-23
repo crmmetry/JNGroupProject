@@ -120,6 +120,8 @@
       attributesToUpdate = attributesToUpdate.concat(
         helper.processingFeeCalculation(container, component)
       );
+      //non revovling loan calculations
+      helper.nonRevolvingLoanCalculations(component);
       const updatedContainer = updateChildContainerWithValue(
         component,
         attributesToUpdate,

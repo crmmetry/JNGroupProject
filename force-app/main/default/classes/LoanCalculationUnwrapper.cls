@@ -23,12 +23,11 @@ public class LoanCalculationUnwrapper {
     record.Estimated_Stamp_Duty_AdminCharges_Number__c = serializer.stampDutyAndAdminCharges;
     record.Total_Closing_Costs_Financed_JN_Number__c = serializer.totalFinancedByJN;
     record.TotalClosingCost_PayableApplicant_Number__c = serializer.totalClosingCostsApplicantPayable;
-    record.Stamp_Duty__c = serializer.stampDuty;
+    //record.Stamp_Duty__c = serializer.stampDuty;
     record.Creditor_Life_Denial_Reason_Text__c = serializer.noCreditorLifeReason;
     record.Name_of_Insurance_Provider__c = serializer.policyProvider;
     record.Type_of_Card__c = serializer.cardType;
     record.Financial_Institution__c = serializer.financialInstitution;
-    record.Account_Type__c = serializer.accountType;
     record.Deposit_Account_Number_Text__c = serializer.depositAccountNumber;
     record.Account_Holders__c = serializer.accountHolder;
     record.Annual_Interest_Rate_on_Deposit_Account__c = serializer.annualInterestRate;

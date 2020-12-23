@@ -908,5 +908,30 @@
       containerComponent = component.find("lineOfCreditContainerComponent");
     }
     return containerComponent.validateFields(component);
+  },
+  /**
+   * all the non revolving loan calculations
+   * @param {*} component
+   */
+  nonRevolvingLoanCalculations: function (component) {
+    //on loan savings change
+    this.calculateSavings(component);
+    //on jngi changes
+    this.onJNGIPremiumChange(component);
+    this.calculateJNGIPMT(component);
+    //on JN creditor life changes
+    this.calculateCreditorLifePremium(component);
+    this.setAssignmentFees(component);
+    this.setEstimatedStampDutyFees(component);
+    //calculate totals
+    this.totalLoanAmountCalculation(component);
+    this.totalMonthlyPILoanPaymentCalculation(component);
+    this.totalMonthlyPaymentCalculation(component);
+    this.totalInterestPaymentCalculation(component);
+    this.totalMonthlyLoanPaymentMonthlyCompulsorySavingsCalculation(component);
+    //calculate total final costs
+    this.totalClosingCostCalculation(component);
+    this.totalClosingCostFinancedJNCalculation(component);
+    this.totalClosingCostPaidByApplicantCalculation(component);
   }
 });

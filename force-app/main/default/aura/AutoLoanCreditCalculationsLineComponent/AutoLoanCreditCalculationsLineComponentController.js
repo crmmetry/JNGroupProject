@@ -4,12 +4,7 @@
    * @param {*} event
    * @param {*} helper
    */
-  doInit: function (component, event, helper) {
-    // let data = {
-    //   premium: 0
-    // };
-    // component.set("v.ChildContainer", data);
-  },
+  doInit: function (component, event, helper) {},
   scriptsLoaded: function (component, event, helper) {
     component.set("v.scriptsLoaded", true);
   },
@@ -19,7 +14,16 @@
    * @param {*} helper
    */
   onChildContainerChange: function (component, event, helper) {
-    fireProductDetailsEvent(null, component.get("v.ChildContainer"));
+    if (
+      component.get("v.scriptsLoaded") &&
+      component.get("v.notifyContainerChange")
+    ) {
+      fireProductDetailsEvent(
+        null,
+        component.get("v.ChildContainer"),
+        component
+      );
+    }
   },
   /**
    * @param {*} component
