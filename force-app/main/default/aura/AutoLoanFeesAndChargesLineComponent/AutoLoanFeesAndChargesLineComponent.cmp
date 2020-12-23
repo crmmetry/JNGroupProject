@@ -91,7 +91,7 @@
       <lightning:input
         type="number"
         label="JNGI Motor Premium (1st Year)"
-        value="{!v.jngiMotorPremium}"
+        value="{!v.ParentContainer.jngiMotorPremium}"
         name="number"
         formatter="currency"
         required="true"

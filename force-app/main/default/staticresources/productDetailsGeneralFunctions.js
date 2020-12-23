@@ -316,6 +316,88 @@ window.calculateCreditorLifePremium = function (component) {
   component.set("v.ChildContainer", result);
   return result;
 };
+/**
+ * Calculates JNGI first year premium.
+ */
+window.calcualateFirstYearPremium = function (premium) {
+  if (validNumber(premium)) {
+    return premium * 12;
+  }
+  return ZERO;
+};
+/**
+ * Calculates JNGI Premium for Credit Calculations and Fees and Charges.
+ */
+window.onJNGIPremiumChange = function (component) {
+  let parentContainer = component.get("v.ChildContainer");
+  let jngiMotorPremiumFeesAndCharges = 0;
+  let jngiMotorPremium = 0;
+  if (parentContainer.jngiIncludeInLoan == NO) {
+    component.set("v.showPremiumInCreditCalculations", false);
+    component.set("v.showPremiumInFeesAndCharges", true);
+    let firstYearPremium = calcualateFirstYearPremium(
+      parentContainer.jngiMonthlyPremium
+    );
+    jngiMotorPremium = 0;
+    jngiMotorPremiumFeesAndCharges = firstYearPremium;
+  } else if (parentContainer.jngiIncludeInLoan === "Yes") {
+    component.set("v.showPremiumInCreditCalculations", true);
+    component.set("v.showPremiumInFeesAndCharges", false);
+    let firstYearPremium = calcualateFirstYearPremium(
+      parentContainer.jngiMonthlyPremium
+    );
+    jngiMotorPremium = firstYearPremium;
+    jngiMotorPremiumFeesAndCharges = 0;
+  }
+  let values = [
+    {
+      key: "jngiMotorPremiumFeesAndCharges",
+      value: jngiMotorPremiumFeesAndCharges
+    },
+    {
+      key: "jngiMotorPremium",
+      value: jngiMotorPremium
+    }
+  ];
+  const result = updateChildContainerWithValue(component, values, false);
+  component.set("v.ChildContainer", result);
+  return result;
+};
+/**
+ * Calculates JNGI PI monthly payment.
+ */
+window.calculateJNGIPMT = function (component) {
+  let data = component.get("v.ChildContainer");
+  let monthlyPIJNGIMotorPremium = 0;
+  let jngiMotorPremium = 0;
+  const pmtData = {
+    years: data.years,
+    months: data.months,
+    loanAmount: data.jngiMotorPremium,
+    market: data.market
+  };
+  if (data.interested == YES && data.jngiIncludeInLoan == YES) {
+    const result = basicPMTCalculator(
+      ["years", "months", "loanAmount", "market"],
+      pmtData
+    );
+    monthlyPIJNGIMotorPremium = result;
+    jngiMotorPremium = data.jngiMotorPremium;
+  } else {
+    monthlyPIJNGIMotorPremium = 0;
+    jngiMotorPremium = 0;
+  }
+  let values = [
+    { key: "monthlyPIJNGIMotorPremium", value: monthlyPIJNGIMotorPremium },
+    {
+      key: "jngiMotorPremium",
+      value: jngiMotorPremium
+    }
+  ];
+  const result = updateChildContainerWithValue(component, values, false);
+  component.set("v.ChildContainer", result);
+  return result;
+};
 /*
  * Updates child container attributes and its values.
  */

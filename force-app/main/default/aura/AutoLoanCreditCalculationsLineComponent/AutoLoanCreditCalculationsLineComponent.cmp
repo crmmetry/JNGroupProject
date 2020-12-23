@@ -165,7 +165,7 @@
           <lightning:input
             type="number"
             label="JNGI Motor Premium (1st Year)"
-            value="{!v.jngiMotorPremium}"
+            value="{!v.ParentContainer.jngiMotorPremium}"
             name="number"
             formatter="currency"
             required="true"
@@ -395,7 +395,7 @@
       <c:AutoLoanFeesAndChargesLineComponent
         deductRepayment="{!v.deductRepaymentFlag}"
         includePremiumFlag="{!v.showPremiumInFeesAndCharges}"
-        jngiMotorPremium="{!v.jngiMotorPremiumFeesAndCharges}"
+        jngiMotorPremium="{!v.ParentContainer.jngiMotorPremiumFeesAndCharges}"
         processingFees="{!v.ParentContainer.processingFeeClosingCost}"
         assignmentFee="{!v.assignmentFee}"
         stampDutyAndAdminCharges="{!v.estimatedStampDuty}"

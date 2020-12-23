@@ -324,7 +324,7 @@
         deductRepaymentFlag="{!v.deductRepaymentFlag}"
         processingFees="{!v.ParentContainer.processingFeeClosingCost}"
         includePremiumFlag="{!v.showPremiumInFeesAndCharges}"
-        jngiMotorPremium="{!v.jngiMotorPremium}"
+        jngiMotorPremium="{!v.ParentContainer.jngiMotorPremium}"
         assignmentFee="{!v.assignmentFee}"
         stampDutyAndAdminCharges="{!v.estimatedStampDuty}"
         jnCreditorLifePremium="{!v.ParentContainer.jnCLPremiumFeesAndCharges}"

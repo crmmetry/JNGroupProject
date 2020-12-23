@@ -914,10 +914,12 @@
    * @param {*} component
    */
   nonRevolvingLoanCalculations: function (component, container) {
+    calculateSavings(component, container);
+    onJNGIPremiumChange(component);
+    calculateJNGIPMT(component);
     calculateCreditorLifePremium(component);
     updateFirstPaymentInstallable(component);
     //on loan savings change
-    calculateSavings(component, container);
     //calculate totals
     totalLoanAmountxCalculation(component);
     totalMonthlyPILoanPaymentCalculation(component);
