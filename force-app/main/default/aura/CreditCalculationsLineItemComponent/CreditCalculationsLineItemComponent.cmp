@@ -162,7 +162,7 @@
         <lightning:input
           type="number"
           label="Processing Fees (including GCT)"
-          value="{!v.processingFeesGCT}"
+          value="{!v.ParentContainer.processingFeesGCT}"
           name="number"
           formatter="currency"
           required="true"
@@ -173,7 +173,7 @@
         <lightning:input
           type="number"
           label="Monthly Principal and Interest (Processing Fees)"
-          value="{!v.monthlyPrincipalInterestProcessingFee}"
+          value="{!v.ParentContainer.monthlyPrincipalInterestProcessingFee}"
           name="number"
           formatter="currency"
           required="true"
@@ -331,7 +331,7 @@
         includeCLPremiumFlag="{!v.includeCLPremiumFlag}"
         jnDefaultConfigs="{!v.jnDefaultConfigs}"
         totalClosingCosts="{!v.ParentContainer.totalClosingCost}"
-        payableInstallment="{!v.firstPaymentInstallable}"
+        payableInstallment="{!v.ParentContainer.firstPaymentInstallable}"
         totalClosingCostsJNFinanced="{!v.ParentContainer.totalFinancedByJN}"
         totalClosingCostsApplicantPayable="{!v.ParentContainer.totalPayableByApplicant}"
       >
