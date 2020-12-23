@@ -31,7 +31,7 @@
    * @param {*} event
    * @param {*} helper
    */
-  onParenContainerChange: function (component, event, helper) {
+  onParentContainerChange: function (component, event, helper) {
     // on credit repayment changes
     helper.setDeductRepaymentFlag(component);
     //assignment fees

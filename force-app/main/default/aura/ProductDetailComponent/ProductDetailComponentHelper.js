@@ -921,7 +921,7 @@
     updateFirstPaymentInstallable(component);
     //on loan savings change
     //calculate totals
-    totalLoanAmountxCalculation(component);
+    totalLoanAmountCalculation(component);
     totalMonthlyPILoanPaymentCalculation(component);
     totalMonthlyPaymentCalculation(component);
     totalInterestPaymentCalculation(component);
