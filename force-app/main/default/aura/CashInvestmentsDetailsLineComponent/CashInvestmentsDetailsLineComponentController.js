@@ -61,27 +61,6 @@
     helper.updateChildContainer(component, childKeyValuePairs, false);
   },
 
-  validateBalance: function (component, event, helper) {
-    let data = component.get("v.ParentContainer");
-    const inputCmpArray = component.find("cashInvestmentsNumericalComponent");
-    inputCmpArray.forEach((element) => {
-      if (element.get("v.name") == "deposit") {
-        if (
-          element.get("v.value") >
-          calculatRequestedCreditBalanceLimit(data.requestedCreditLimit)
-        ) {
-          element.setCustomValidity(
-            "Balance cannot be greater than 80% of your requested card limit"
-          );
-          element.reportValidity();
-        } else {
-          element.setCustomValidity("");
-          element.reportValidity();
-        }
-      }
-    });
-  },
-
   onIsHypothecatedChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let childKeyValuePairs = [
