@@ -28,7 +28,7 @@ public with sharing class TestJNApplicantFlowController {
   public static void testController1() {
     List<Opportunity> opList = TestDataFactory.CreateOpportunities(1);
     List<Account> accList = TestDataFactory.CreateBasicAccounts(3, 'Test');
-    accList[0].Status_of_Address__pc = 'Own (with mortgage)';
+    accList[0].Status_of_Address__pc = Constants.OWN;
     accList[0].Years_at_Residence__pc = 4;
     accList[0]
       .Highest_Level_of_Education_attained__pc = 'University: Post Graduate';
@@ -104,7 +104,7 @@ public with sharing class TestJNApplicantFlowController {
   public static void testController() {
     List<Opportunity> opList = TestDataFactory.CreateOpportunities(1);
     List<Account> accList = TestDataFactory.CreateBasicAccounts(3, 'Test');
-    accList[0].Status_of_Address__pc = 'Own (with mortgage)';
+    accList[0].Status_of_Address__pc = Constants.OWN;
     accList[0].Years_at_Residence__pc = 4;
     accList[0]
       .Highest_Level_of_Education_attained__pc = 'University: Post Graduate';
