@@ -131,6 +131,7 @@ public with sharing class TestProductDetailController {
   public static void testJNConfigsMethod() {
     Test.startTest();
     JNConfiguration jnConfig = ProductDetailController.GetJNConfigs();
+    System.assert(jnConfig != null, 'jnConfig cannot be null');
     Test.stopTest();
   }
 
@@ -193,6 +194,44 @@ public with sharing class TestProductDetailController {
       'Cash/Investments'
     );
     System.assertEquals('R1', wrapper.rating);
+    Test.stopTest();
+  }
+  @isTest
+  public static void testSaveProductDetails() {
+    //loan calculation fields
+    Map<String, Object> loanCalculationFields = new Map<String, Object>{
+      'totalClosingCost' => 548.435,
+      'totalClosingCostsApplicantPayable' => 5435.323,
+      'jngiMonthlyPremium' => 43242,
+      'loanAmount' => 9450.32
+    };
+    //loan calculation product fields
+    Map<String, Object> loanCalculationProductFields = new Map<String, Object>{
+      'years' => 4,
+      'months' => 1,
+      'market' => 3.2
+    };
+    List<String> productRecordTypes = new List<String>{
+      Constants.AUTO_PRODUCT_FAMILY,
+      Constants.UNSECURED_PRODUCT_FAMILY,
+      Constants.LINEOFCREDIT_PRODUCT_FAMILY,
+      Constants.CREDITCARD_PRODUCT_FAMILY
+    };
+    Test.startTest();
+    List<Opportunity> opList = [SELECT Id FROM Opportunity];
+    System.assert(opList.size() > 0, 'opList needs to have atleast 1 record');
+    Id opportunityId = opList[0].Id;
+    Integer code = ProductDetailController.saveProductDetails(
+      opportunityId,
+      productRecordTypes,
+      loanCalculationFields,
+      loanCalculationProductFields
+    );
+    System.assertEquals(
+      Constants.STATUS_SUCCESS_CODE,
+      code,
+      'Code should equal ' + Constants.STATUS_SUCCESS_CODE
+    );
     Test.stopTest();
   }
 }

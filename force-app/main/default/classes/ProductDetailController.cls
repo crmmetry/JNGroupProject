@@ -64,26 +64,6 @@ public with sharing class ProductDetailController {
   }
 
   /**
-   * @deprecated - do not use
-   * return a list of applicant wrappers related to an oppurtunity
-   * @param {Id} oppId - Id of selected opportunity.
-   * @return {creditRatingMap}
-   */
-  private static List<ApplicantWrapper> getApplicants(Id oppId) {
-    List<ApplicantWrapper> applicantWrappers = new List<ApplicantWrapper>();
-    List<Applicant__c> applicants = [
-      SELECT Id, Account__r.PersonBirthdate
-      FROM Applicant__c
-      WHERE Opportunity__c = :oppId
-    ];
-    for (Applicant__c applicant : applicants) {
-      ApplicantWrapper appWrapper = new ApplicantWrapper(applicant);
-      applicantWrappers.add(appWrapper);
-    }
-    return applicantWrappers;
-  }
-
-  /**
    * return a map with applicants and their respective ratings
    * @param {List<ApplicantWrapper>} applicants - List of applicants.
    * @return {Map}
