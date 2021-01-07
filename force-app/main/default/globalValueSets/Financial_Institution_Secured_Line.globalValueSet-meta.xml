@@ -15,6 +15,18 @@
         <default>false</default>
         <label>Other</label>
     </customValue>
+    <customValue>
+        <fullName>JN Fund Managers Limited</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>JN Fund Managers Limited</label>
+    </customValue>
+    <customValue>
+        <fullName>JN Bank Limited</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>JN Bank Limited</label>
+    </customValue>
     <masterLabel>Financial Institution (Secured Line)</masterLabel>
     <sorted>false</sorted>
 </GlobalValueSet>

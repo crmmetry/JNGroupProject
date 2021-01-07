@@ -41,7 +41,7 @@ public class Constants {
   public static final String YEARS = 'years';
   public static final String YEAR = 'year';
   public static final String OWN = 'Own';
-  public static final String POST_GRADUATE = 'Post Graduate';
+  public static final String POST_GRADUATE = 'University: Post Graduate';
   public static final String UNDERGRADUATE_GRADUATE = 'Undergraduate';
   public static final String VOCATIONAL = 'Vocational';
 

@@ -4,5 +4,5 @@
     <active>true</active>
     <description>Check to see if Birthdate is in future</description>
     <errorConditionFormula>Birthdate &gt; Today()</errorConditionFormula>
-    <errorMessage>Date of birth can&#39;t be in the future.</errorMessage>
+    <errorMessage>Date of birth can&apos;t be in the future.</errorMessage>
 </ValidationRule>

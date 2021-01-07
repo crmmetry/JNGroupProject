@@ -162,7 +162,10 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Loan Calculation Products</pluralLabel>
-    <searchLayouts />
+    <searchLayouts>
+        <searchResultsAdditionalFields
+    >RECORDTYPE</searchResultsAdditionalFields>
+    </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

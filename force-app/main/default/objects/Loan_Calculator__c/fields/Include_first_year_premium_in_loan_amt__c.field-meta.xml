@@ -21,6 +21,18 @@
                 <default>false</default>
                 <label>No</label>
             </value>
+            <value>
+                <fullName>No (Paid by the Applicant)</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>No (Paid by the Applicant)</label>
+            </value>
+            <value>
+                <fullName>Yes (Include in Loan Amount)</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Yes (Include in Loan Amount)</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

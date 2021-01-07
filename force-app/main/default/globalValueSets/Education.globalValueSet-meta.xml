@@ -21,9 +21,9 @@
         <label>High School</label>
     </customValue>
     <customValue>
-        <fullName>Vocational Training Institutions</fullName>
+        <fullName>Vocational</fullName>
         <default>false</default>
-        <label>Vocational Training Institutions</label>
+        <label>Vocational</label>
     </customValue>
     <customValue>
         <fullName>Teacher Training Colleges</fullName>
@@ -41,14 +41,14 @@
         <label>Other College/Institutions</label>
     </customValue>
     <customValue>
-        <fullName>University: Undergraduate</fullName>
+        <fullName>Undergraduate</fullName>
         <default>false</default>
-        <label>University: Undergraduate</label>
+        <label>Undergraduate</label>
     </customValue>
     <customValue>
-        <fullName>University: Post Graduate</fullName>
+        <fullName>Post Graduate</fullName>
         <default>false</default>
-        <label>University: Post Graduate</label>
+        <label>Post Graduate</label>
     </customValue>
     <masterLabel>Education</masterLabel>
     <sorted>false</sorted>

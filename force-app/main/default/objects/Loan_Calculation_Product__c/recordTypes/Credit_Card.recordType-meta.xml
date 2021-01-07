@@ -5,9 +5,39 @@
     <description>Credit card product</description>
     <label>Credit Card</label>
     <picklistValues>
+        <picklist>Account_Hypothecated_list__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Account_Type_List__c</picklist>
+        <values>
+            <fullName>Fixed Deposit Account Types</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mutual Fund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Repo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Savings Account Types</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Collateral_Type_List__c</picklist>
         <values>
-            <fullName>Cash%2FInvestment</fullName>
+            <fullName>Cash%2FInvestments</fullName>
             <default>false</default>
         </values>
         <values>
@@ -43,6 +73,83 @@
         </values>
         <values>
             <fullName>No Suitable Applicants</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Deduct_1st_month_Payment_from_Loan_Flag__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Financial_Institution_List__c</picklist>
+        <values>
+            <fullName>JN Bank Ltd%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JN Fund Managers Ltd</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Include_in_Loan_Amount_Flag__c</picklist>
+        <values>
+            <fullName>No%2C Paid by Applicant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes%2C Add to Loan</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Include_in_Loan_Amount_JNGI_list__c</picklist>
+        <values>
+            <fullName>No%2C Paid by Applicant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes%2C Add to Loan</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Include_in_Loan_Amount_Processing_Flag__c</picklist>
+        <values>
+            <fullName>No%2C Paid by Applicant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes%2C Add to Loan</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Interested_in_Creditor_Life_Flag__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Interested_in_JNGI_SureCover_flag__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -101,6 +208,32 @@
         </values>
         <values>
             <fullName>Standing Order</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Vehicle_Classification_list__c</picklist>
+        <values>
+            <fullName>New</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Used %28Imported%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Used %28Local - Pre-owned%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Waive_Processing_Fee_Flag__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>

@@ -17,9 +17,9 @@
                 <label>Unsecured (None)</label>
             </value>
             <value>
-                <fullName>Cash/Investment</fullName>
+                <fullName>Cash/Investments</fullName>
                 <default>false</default>
-                <label>Cash/Investment</label>
+                <label>Cash/Investments</label>
             </value>
         </valueSetDefinition>
     </valueSet>
