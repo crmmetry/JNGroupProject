@@ -1,0 +1,504 @@
+<!--Ticket#       Modified By                Modified Date       Description
+*    JN1-4145        Kirti R.(TQ)               12/21/2020        Generate Credit Application Summary Document   -->
+<apex:page renderAs="advanced_pdf"
+           docType="html-5.0"
+
+  applyBodyTag="false">
+    <head>
+        
+    </head>
+    <apex:form >
+        
+        <div class="header">
+        <apex:image url="{!URLFOR($Resource.CreditCalculationsLogo)}"
+                    styleClass="logo"
+                    />
+    </div>
+       
+        <apex:stylesheet value="{!$Resource.CreditApplicationSummaryDocument}"/>
+        <div class="content" >
+        <div class="container">
+            <div class="detail">SUMMARY OF APPLICANT(S) PERSONAL INFORMATION</div>
+            <div>
+                <h5 class="applicant1">APPLICANT 1</h5>
+                <c:ApplicantComponent />
+            </div>
+            <div>
+                <h5 class="applicant1">APPLICANT 2</h5>
+                <c:ApplicantComponent />
+            </div>
+             <div>
+                <h5 class="applicant1">APPLICANT 3</h5>
+                <c:ApplicantComponent />
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="detail">SUMMARY OF PRODUCT DETAILS</div>
+            <div>
+                <h5 class="personalDetailHeader"><b>PERSONAL AUTO LOAN</b></h5>
+                <h5 class="applicant1">CREDIT DETAILS</h5>
+            </div>
+            <div style="margin-top:40px;font-size:small;">
+                <table  class="creditDetailTable"  cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td class="creditDetailFields">Loan Purpose:</td>
+                        <td class="creditDetailFields">Loan Term:</td>
+                        <td class="creditDetailFields">Interest Rate:</td>
+                        <td class="creditDetailFields">Market Value of Motor Vehicle:</td>
+                        <td class="creditDetailFields">Purchase Price of Vehicle:</td>
+                    </tr>
+                    <tr style="margin-top:5px;">
+                        <td class="creditDetailFieldValues">Purchase a Motor </td>
+                        <td class="creditDetailFieldValues">8 Years 0 months</td>
+                        <td class="creditDetailFieldValues">15% per annum</td>
+                        <td class="creditDetailFieldValues">JMD $4,500,000.00</td>
+                        <td class="creditDetailFieldValues">JMD $4,000,000.00</td>
+                    </tr>
+                </table>
+            </div>
+            <div style="margin-top:10px;font-size:small;">
+                <table class ="creditDetailTable" cellpadding="0" cellspacing="0">
+                    <tr style="margin-top:5px;">
+                        <td class="creditDetailFields">Vehicle Classification:</td>
+                        <td class="creditDetailFields">Vehicle Details (Year, Make, Model):* </td>
+                        <td class="creditDetailFields">Repayment Method:</td>
+                        <td class="creditDetailFields">Processing Fee:</td>
+                    </tr>
+                    <tr style="margin-top:5px;">
+                        <td class="creditDetailFieldValues">Used (Pre-owned) </td>
+                        <td class="creditDetailFieldValues">Mini Cooper </td>
+                        <td class="creditDetailFieldValues">Repayment Method:</td>
+                        <td class="creditDetailFieldValues">3.50% per annum</td>
+                    </tr>
+                </table>
+</div>
+           <div class="column" style ="width: 45%;">
+                    <h5 class="applicant1">TOTAL FINANCING</h5>
+                    <table class="totalFinancingTable">
+                        <tr>
+                            <td>+ Loan Amount (Market)</td>
+                            <td class="totalFinancingTableFieldsValues">JMD $3,500,000.00</td>
+                        </tr>
+                        <tr>
+                            <td>+ Loan Amount (JN Bank Staff 1)</td>
+                            <td class="totalFinancingTableFieldsValues">JMD $0.00</td>
+                        </tr>
+                        <tr>
+                            <td>+ Loan Amount (JN Employee 2)</td>
+                            <td class="totalFinancingTableFieldsValues">JMD $0.00</td>
+                        </tr>
+                        <tr>
+                            <td>+ Loan Amount (JN Employee 3)</td>
+                            <td class="totalFinancingTableFieldsValues">JMD $0.00</td>
+                        </tr>
+                        <tr>
+                            <td>+ JN Life Creditor Life Premium</td>
+                            <td class="totalFinancingTableFieldsValues">JMD $3,500,000.00</td>
+                        </tr>
+                        <tr>
+                            <td>+ Processing Fees</td>
+                            <td class="totalFinancingTableFieldsValues">JMD $0.00</td>
+                        </tr>
+                        <tr>
+                            <td>Total Loan Amount</td>
+                            <td class="totalFinancingTableLastFields">JMD $3,622,500.00</td>
+                        </tr>
+                        
+                    </table>
+                    <h5 class="applicant1">OTHER DETAILS</h5>
+                <div style="margin-left:2%;">
+                   <b>Moratorium Details</b> 
+                </div>
+                    <div class = "column" style="font-size:0.805em">Include a moratorium of loan repayments: </div><div class ="column boxed1">No</div>
+                <div >
+                   <br/><br/>
+                </div>
+                </div>
+            
+                        <div class="column" style="width: 45%;">
+                    
+                    <h5 class="applicant1">TOTAL LOAN REPAYMENT</h5>
+                    <table class="totalFinancingTable">
+                        <tr>
+                            <td>+ Monthly Loan Payment (Market) - P&amp;I</td>
+                            <td class="totalFinancingTableFieldsValues">JMD $62,808.92  </td>
+                        </tr>
+                        <tr>
+                            <td>+ Monthly Loan Payment (JN Employee 1) - P&amp;I</td>
+                            <td class="totalFinancingTableFieldsValues">JMD $0.00</td>
+                        </tr>
+                        <tr>
+                            <td>+ Monthly Loan Payment (JN Employee 2) - P&amp;I</td>
+                            <td class="totalFinancingTableFieldsValues">JMD $0.00</td>
+                        </tr><tr>
+                        <td>+ Monthly Loan Payment (JN Employee 3) - P&amp;I</td>
+                        <td class="totalFinancingTableFieldsValues">JMD $0.00</td>
+                        </tr><tr>
+                        <td>+ Monthly JN Life Creditor Life Premium - P&amp;I</td>
+                        <td class="totalFinancingTableFieldsValues">JMD $62,808.92</td>
+                        </tr><tr>
+                        <td>+ Monthly Processing Fees - P&amp;I</td>
+                        <td class="totalFinancingTableFieldsValues">JMD $2,198.31 </td>
+                        </tr>
+                        <tr>
+                            <td>Sub-Monthly Loan Payment</td>
+                            <td class="totalFinancingTableLastFields">JMD $65,007.23 </td>
+                        </tr>
+                    </table>
+                    <table class="totalChildFinancingTable" cellpadding="0" cellspacing="2" style="width:90%">
+                        <tr>
+                            <td><b>Monthly Loan Savings</b></td>
+                            <td class="totalFinancingTableLastFields">JMD $6,500.72 </td>
+                        </tr>
+                    </table>
+                    <table class="totalChildFinancingTable" cellpadding="0" cellspacing="2" style="width:90%">
+                        <tr>
+                            <td><b>Total Monthly Loan Payment</b></td>
+                            <td class="totalFinancingTableLastFields">JMD $71,507.95</td>
+                        </tr>
+                    </table>
+                    <table class="totalChildFinancingTable" cellpadding="0" cellspacing="2" style="width:90%">
+                        <tr>
+                            <td><b><div>Total Loan Savings Balance</div><div>(Over repayment period)</div></b></td>
+                            <td class="totalFinancingTableLastFields">JMD $624,069.42</td>
+                        </tr>
+                    </table>
+                    <table class="totalChildFinancingTable" cellpadding="0" cellspacing="2" style="width:90%">
+                        <tr>
+                            <td><b><div>Total Interest Payment</div><div>(Over repayment period) </div></b></td>
+                            <td class="totalFinancingTableLastFields">JMD $2,618,194.15</td>
+                        </tr>
+                    </table>
+               
+                </div>
+           <div>
+                <h5 class="personalDetailHeader"><b>PERSONAL UNSECURED LOAN</b></h5>
+                    <h5 class="applicant1">CREDIT DETAILS</h5>
+            </div>    
+           
+            <div style="margin-top:20px;font-size:small;">
+                <table class ="creditDetailTable" cellpadding="0" cellspacing="0">
+                    <tr style="margin-top:5px;">
+                        <td class="creditDetailFields">Loan Purpose:</td>
+                        <td class="creditDetailFields">Loan Term:</td>
+                        <td class="creditDetailFields">Interest Rate:</td>
+                        <td class="creditDetailFields">Repayment Method:</td>
+                        <td class="creditDetailFields">Processing Fee:</td>
+                    </tr>
+                    <tr style="margin-top:5px;">
+                        <td class="creditDetailFieldValues"> </td>
+                        <td class="creditDetailFieldValues">0 Years 0 months </td>
+                        <td class="creditDetailFieldValues">0.00% per annum</td>
+                        <td class="creditDetailFieldValues"> </td>
+                        <td class="creditDetailFieldValues">0.00% per annum</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="column" style ="width: 45%;">
+                    <h5 class="applicant1">TOTAL FINANCING</h5>
+                    <table class="totalFinancingTable">
+                        <tr>
+                            <td>+ Loan Amount (Market)</td>
+                            <td class="totalFinancingTableFieldsValues">JMD $3,500,000.00</td>
+                        </tr>
+                        <tr>
+                            <td>+ Loan Amount (JN Bank Staff 1)</td>
+                            <td class="totalFinancingTableFieldsValues">JMD $0.00</td>
+                        </tr>
+                        <tr>
+                            <td>+ Loan Amount (JN Employee 2)</td>
+                            <td class="totalFinancingTableFieldsValues">JMD $0.00</td>
+                        </tr>
+                        <tr>
+                            <td>+ Loan Amount (JN Employee 3)</td>
+                            <td class="totalFinancingTableFieldsValues">JMD $0.00</td>
+                        </tr>
+                        <tr>
+                            <td>+ JN Life Creditor Life Premium</td>
+                            <td class="totalFinancingTableFieldsValues">JMD $3,500,000.00</td>
+                        </tr>
+                        <tr>
+                            <td>+ Processing Fees</td>
+                            <td class="totalFinancingTableFieldsValues">JMD $0.00</td>
+                        </tr>
+                        <tr>
+                            <td>Total Loan Amount</td>
+                            <td class="totalFinancingTableLastFields">JMD $3,622,500.00</td>
+                        </tr>
+                        
+                    </table>
+                    <h5 class="applicant1">OTHER DETAILS</h5>
+                <div style="margin-left:2%;">
+                   <b>Moratorium Details</b> 
+                </div>
+                    <div class = "column" style="font-size:0.805em">Include a moratorium of loan repayments: </div><div class ="column boxed1">No</div>
+                <div >
+                   <br/><br/>
+                </div>
+                </div>
+            
+            <div class="column" style="width: 45%;">
+                    
+                    <h5 class="applicant1">TOTAL LOAN REPAYMENT</h5>
+                    <table class="totalFinancingTable">
+                        <tr>
+                            <td>+ Monthly Loan Payment (Market) - P&amp;I</td>
+                            <td class="totalFinancingTableFieldsValues">JMD $62,808.92  </td>
+                        </tr>
+                        <tr>
+                            <td>+ Monthly Loan Payment (JN Employee 1) - P &amp; I</td>
+                            <td class="totalFinancingTableFieldsValues">JMD $0.00</td>
+                        </tr>
+                        <tr>
+                            <td>+ Monthly Loan Payment (JN Employee 2) - P&amp;I</td>
+                            <td class="totalFinancingTableFieldsValues">JMD $0.00</td>
+                        </tr><tr>
+                        <td>+ Monthly Loan Payment (JN Employee 3) - P&amp;I</td>
+                        <td class="totalFinancingTableFieldsValues">JMD $0.00</td>
+                        </tr><tr>
+                        <td>+ Monthly JN Life Creditor Life Premium - P&amp;I</td>
+                        <td class="totalFinancingTableFieldsValues">JMD $62,808.92</td>
+                        </tr><tr>
+                        <td>+ Monthly Processing Fees - P&amp;I</td>
+                        <td class="totalFinancingTableFieldsValues">JMD $2,198.31 </td>
+                        </tr>
+                        <tr>
+                            <td>Sub-Monthly Loan Payment</td>
+                            <td class="totalFinancingTableLastFields">JMD $65,007.23 </td>
+                        </tr>
+                    </table>
+                    <table class="totalChildFinancingTable" cellpadding="0" cellspacing="2" style="width:90%">
+                        <tr>
+                            <td><b>Monthly Loan Savings</b></td>
+                            <td class="totalFinancingTableLastFields">JMD $6,500.72 </td>
+                        </tr>
+                    </table>
+                    <table class="totalChildFinancingTable" cellpadding="0" cellspacing="2" style="width:90%">
+                        <tr>
+                            <td><b>Total Monthly Loan Payment</b></td>
+                            <td class="totalFinancingTableLastFields">JMD $71,507.95</td>
+                        </tr>
+                    </table>
+                    <table class="totalChildFinancingTable	" cellpadding="0" cellspacing="2" style="width:90%">
+                        <tr>
+                            <td><b><div>Total Loan Savings Balance</div><div>(Over repayment period)</div></b></td>
+                            <td class="totalFinancingTableLastFields">JMD $624,069.42</td>
+                        </tr>
+                    </table>
+                    <table class="totalChildFinancingTable" cellpadding="0" cellspacing="2" style="width:90%">
+                        <tr>
+                            <td><b><div>Total Interest Payment</div><div>(Over repayment period) </div></b></td>
+                            <td class="totalFinancingTableLastFields">JMD $2,618,194.15</td>
+                        </tr>
+                    </table>
+                </div>
+            <!--PERSONAL CREDIT DETAIL STARTS-->
+             <h5 class="personalDetailHeader"><b>PERSONAL CREDIT CARD</b></h5>
+                    <h5 class="applicant1">CREDIT DETAILS</h5>
+                    <table class="childTable" cellpadding="0" cellspacing="0">
+                                
+                                <tr>
+                                    <td class="childRowFields">Collateral Type:</td>
+                                    <td class="childRowFields">Requested Limit:</td>
+                                    <td class="childRowFields">Interest Rate:</td>
+                                    <td class="childRowFields">Proposed Starting Limit:</td>
+                                </tr>
+                                <tr style="margin-top:10px;">
+                                    <td><div class="boxed">Jane Doe</div></td>
+                                    <td><div class="boxed">JMD $0.00 </div></td>
+                                    <td><div class="boxed">0.00% per annum</div></td>
+                                    <td><div class="boxed">JMD $0.00</div></td>
+                                </tr>
+                            </table>
+                            <h5 class="applicant1">COLLATERAL DETAILS</h5>
+            <div style="margin-top:40px;font-size:small;">
+                <table  class="creditDetailTable"  cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td class="creditDetailFields">Loan Purpose:</td>
+                        <td class="creditDetailFields">Loan Term:</td>
+                        <td class="creditDetailFields">Interest Rate:</td>
+                        <td class="creditDetailFields">Market Value of Motor Vehicle:</td>
+                        <td class="creditDetailFields">Purchase Price of Vehicle:</td>
+                    </tr>
+                    <tr style="margin-top:5px;">
+                        <td class="creditDetailFieldValues">Purchase a Motor </td>
+                        <td class="creditDetailFieldValues">8 Years 0 months</td>
+                        <td class="creditDetailFieldValues">15% per annum</td>
+                        <td class="creditDetailFieldValues">JMD $4,500,000.00</td>
+                        <td class="creditDetailFieldValues">JMD $4,000,000.00</td>
+                    </tr>
+                </table>
+            </div>
+            <h5 class="personalDetailHeader"><b>PERSONAL LINE OF CREDIT</b></h5>
+                    <h5 class="applicant1">CREDIT DETAILS</h5>
+                    <table class="childTable" cellpadding="0" cellspacing="0">
+                                
+                                <tr>
+                                    <td class="childRowFields">Collateral Type:</td>
+                                    <td class="childRowFields">Requested Limit:</td>
+                                    <td class="childRowFields">Interest Rate:</td>
+                                    <td class="childRowFields">Proposed Starting Limit:</td>
+                                </tr>
+                                <tr style="margin-top:10px;">
+                                    <td><div class="boxed">Jane Doe</div></td>
+                                    <td><div class="boxed">JMD $0.00 </div></td>
+                                    <td><div class="boxed">0.00% per annum</div></td>
+                                    <td><div class="boxed">JMD $0.00</div></td>
+                                </tr>
+                            </table>
+           <h5 class="applicant1">COLLATERAL DETAILS</h5>
+            <div style="margin-top:40px;font-size:small;">
+                <table  class="creditDetailTable"  cellpadding="0" cellspacing="0" style="margin-top:40px;font-size:small;">
+                    <tr>
+                        <td class="creditDetailFields">Financial Institution: </td>
+                        <td class="creditDetailFields">Interest Rate on Financial Asset*</td>
+                        <td class="creditDetailFields">Value of Financial Asset*</td>
+                     
+                    </tr>
+                    <tr style="margin-top:5px;">
+                        <td class="creditDetailFieldValues">Purchase a Motor </td>
+                        <td class="creditDetailFieldValues">0.00% per anum</td>
+                        <td class="creditDetailFieldValues">JMD $0.00</td>
+                       
+                    </tr>
+                </table>
+                <table  class="creditDetailTable"  cellpadding="0" cellspacing="0" style="margin-top:40px;font-size:small;">
+                    <tr>
+                        <td class="creditDetailFields">Property Classification: </td>
+                        <td class="creditDetailFields">Occupancy Type:</td>
+                        <td class="creditDetailFields">Name of the Valuer:</td>
+                     
+                    </tr>
+                    <tr style="margin-top:5px;">
+                        <td class="creditDetailFieldValues">Purchase a Motor </td>
+                        <td class="creditDetailFieldValues">0.00% per anum</td>
+                        <td class="creditDetailFieldValues">JMD $0.00</td>
+                       
+                    </tr>
+                </table>
+                <table  class="creditDetailTable"  cellpadding="0" cellspacing="0" style="margin-top:40px;font-size:small;">
+                    <tr>
+                        <td class="creditDetailFields">Date of Last Valuation: </td>
+                        <td class="creditDetailFields">Market Value:</td>
+                        <td class="creditDetailFields">Replacement Value:</td>
+                     	<td class="creditDetailFields">Forced Sale Value:</td>
+                    </tr>
+                    <tr style="margin-top:5px;">
+                        <td class="creditDetailFieldValues">Purchase a Motor </td>
+                        <td class="creditDetailFieldValues">0.00% per anum</td>
+                        <td class="creditDetailFieldValues">JMD $0.00</td>
+                       <td class="creditDetailFieldValues">JMD $0.00</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="detail">FINANCIAL &amp; RISK ASSESSMENT </div>
+            <div>
+                <h5 class="personalDetailHeader"><b>SUMMARY OF APPLICANT(S) FINANCIALS</b></h5>
+                <div class="applicant1"><b>APPLICANT 1</b></div>
+                <c:ApplicantSummary />
+                
+                <div class="applicant1"><b>APPLICANT 2</b></div>
+                <c:ApplicantSummary />
+                
+                <div class="applicant1"><b>APPLICANT 3</b></div>
+                <c:ApplicantSummary />
+                
+                <h5 class="personalDetailHeader"><b>SERVICING RATIOS</b></h5>
+                <h5 class="applicant1">LOAN TO VALUE RATIO - AUTO LOAN</h5>
+            	<div class ="loanToValueRatio">Total Loan Amount To Value</div> <div class="loanToValueRatio totalFinancingTableLastFields">JMD $0.00 </div>
+
+            <h5 class="applicant1">LOAN TO VALUE RATIO - CREDIT CARD</h5>
+            <div class ="loanToValueRatio">Total Credit Limit To Value of Asset</div> <div class="loanToValueRatio totalFinancingTableLastFields">JMD $0.00 </div>
+
+            <h5 class="applicant1">LOAN TO VALUE RATIO - LINE OF CREDIT</h5>
+            <div class ="loanToValueRatio">Total Credit Limit To Value of Asset</div> <div class="loanToValueRatio totalFinancingTableLastFields">JMD $0.00 </div>
+            <h5 class="applicant1">TOTAL DEBT SERVICE RATIO</h5>
+            <table  class="creditDetailTable"  cellpadding="0" cellspacing="0" style="margin-top:40px;font-size:small;">
+                <tr>
+                    <td class="creditDetailFields">Prior to Proposed Credit </td>
+                    <td class="totalFinancingTableLastFields">JMD $0.00</td>
+                    <td class="creditDetailFields">After Proposed Credit(s)</td>
+                    <td class="totalFinancingTableLastFields">JMD $0.00</td>
+                </tr>
+            </table>
+            <!--SERVICING RATIOS END -->
+            <h5 class="applicant1">APPLICATION RISK ASSESSMENT</h5>
+            <table class="creditDetailTable" cellpadding="0" cellspacing="0" style="margin-top:40px;font-size:small;">
+                <tr>
+                    <td class="riskTable">PRODUCT TYPE </td>
+                    <td class="riskTable">OVERALL RISK SCORE</td>
+                    <td class="riskTable">OVERALL RISK RATING</td>
+                </tr>
+                <tr>
+                    <td class="riskTableColumns">Auto Loan </td>
+                    <td class="riskTableColumns">0</td>
+                    <td class="riskTableColumns">TBD</td>
+                </tr>
+                <tr>
+                    <td class="riskTableColumns">Unsecured Loan </td>
+                    <td class="riskTableColumns">0</td>
+                    <td class="riskTableColumns">TBD</td>
+                </tr>
+                <tr>
+                    <td class="riskTableColumns">Credit Card</td>
+                    <td class="riskTableColumns">0</td>
+                    <td class="riskTableColumns">TBD</td>
+                </tr>
+                <tr>
+                    <td class="riskTableColumns">Line of Credit </td>
+                    <td class="riskTableColumns">0</td>
+                    <td class="riskTableColumns">0</td>
+                </tr>
+
+            </table>
+            <h5 class="applicant1">EXCEPTION DETAILS</h5>
+            <table  class="creditDetailTable"  cellpadding="0" cellspacing="0" style="margin-top:40px;font-size:small;">
+                <tr>
+                    <td class="riskTable">PRODUCT TYPE</td>
+                    <td class="riskTable">EXCEPTION APPROVED</td>
+                    <td class="riskTable">APPROVED BY</td>
+                    <td class="riskTable">DATE APPROVED</td>
+                </tr>
+                <tr>
+                    <td class="riskTableColumns">Auto Loan </td>
+                    <td class="riskTableColumns">N0</td>
+                    <td class="riskTableColumns">TBD</td>
+                    <td class="riskTableColumns">TBD</td>
+                </tr>
+                <tr>
+                    <td class="riskTableColumns">Unsecured Loan </td>
+                    <td class="riskTableColumns"></td>
+                    <td class="riskTableColumns">TBD</td>
+                    <td class="riskTableColumns">TBD</td>
+                </tr>
+                <tr>
+                    <td class="riskTableColumns">Credit Card</td>
+                    <td class="riskTableColumns">0</td>
+                    <td class="riskTableColumns">TBD</td>
+                    <td class="riskTableColumns">TBD</td>
+                </tr>
+                <tr>
+                    <td class="riskTableColumns">Line of Credit </td>
+                    <td class="riskTableColumns">0</td>
+                    <td class="riskTableColumns">0</td>
+                    <td class="riskTableColumns">TBD</td>
+                </tr>
+
+            </table>
+            </div>
+            
+            
+        </div>
+        <div class="container" style="width=100%;">
+            <div class="detail">ORIGINATION DETAILS</div>
+               <div class ="loanToValueRatio">Officer's Name</div> <div class="loanToValueRatio totalFinancingTableLastFields">Mary </div>
+               <div class ="loanToValueRatio">Location*</div> <div class="loanToValueRatio totalFinancingTableLastFields">Location </div>
+               <div class ="loanToValueRatio">Date Created*</div> <div class="loanToValueRatio totalFinancingTableLastFields">N0 </div>
+            </div>
+        </div>
+    </apex:form>
+</apex:page>

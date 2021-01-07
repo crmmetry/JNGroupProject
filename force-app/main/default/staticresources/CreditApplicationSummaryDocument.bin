@@ -1,0 +1,233 @@
+@page {
+  margin-top: 3cm;
+  @top-center {
+    content: element(header);
+  }
+  @bottom-left {
+    content: element(footer);
+  }
+}
+div.header {
+  padding: 10px;
+  position: running(header);
+}
+div.footer {
+  display: block;
+  padding: 5px;
+  margin-bottom: 100px;
+  position: running(footer);
+  font-size: 0.775em;
+}
+body {
+  font-family: "Gill Sans", sans-serif;
+
+  font-size: 0.785em;
+}
+.childRowFields {
+  font-size: 0.785em;
+  text-align: left;
+  line-height: 20px;
+  font-family: "Gill Sans", sans-serif;
+  text-align: center;
+}
+.boxed {
+  border: 2px solid rgb(191, 191, 191);
+  font-size: 0.785em;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 5px;
+  font-family: "Gill Sans", sans-serif;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+.applicant1 {
+  width: 98%;
+  font-size: 0.785em;
+  color: #000060;
+  margin-left: 5px;
+  border-bottom: 2px solid #0068ff;
+  font-family: "Gill Sans", sans-serif;
+}
+.detail {
+  font-size: 1em;
+  width: 100%;
+  color: white;
+  background-color: #0068ff;
+  font-family: "Gill Sans", sans-serif;
+  height: 20px;
+  text-align: center;
+  font-weight: bold;
+  padding-top: 10px;
+}
+.parentTable {
+  margin-left: 16px;
+  margin-right: 10px;
+  width: 95%;
+}
+.parentRow {
+  text-align: center;
+  border: 1px solid rgb(191, 191, 191);
+  border-right: 5px solid rgb(149, 149, 149);
+  width: 10%;
+  background-color: rgb(242, 242, 242);
+  text-align: center;
+  font-weight: bold;
+  line-height: 40px;
+}
+.childTable {
+  margin-left: 16px;
+  margin-right: 10px;
+  width: 95%;
+}
+.textArea {
+  font-style: italic;
+  font-family: "Gill Sans", sans-serif;
+  color: #0068ff;
+  font-size: 0.785em;
+  font-weight: bold;
+}
+.container {
+  margin-top: 10px;
+  border: 2px solid #0068ff;
+  padding-bottom: 10px;
+  bottom: 10px;
+}
+.personalDetailContainer {
+  border: 1px solid #00a1e0;
+  margin: 1px;
+  margin-top: -11px;
+}
+.personalDetailHeader {
+  font-size: 0.785em;
+  color: black;
+  background-color: #92d5f0;
+  height: 15px;
+  padding-top: 10px;
+}
+.creditDetailHeader {
+  width: 98%;
+  font-size: 0.785em;
+  color: #00a1e0;
+  margin-left: 5px;
+  border-bottom: 2px solid #00a1e0;
+  font-family: "Gill Sans", sans-serif;
+}
+.creditDetailFields {
+  border: 1px solid rgb(191, 191, 191);
+  border-top: 1px;
+  border-bottom: 1px;
+  font-family: "Gill Sans", sans-serif;
+  font-size: 0.8em;
+}
+.creditDetailFieldValues {
+  border: 1px solid rgb(191, 191, 191);
+  border-top: 1px;
+  text-align: center;
+  font-family: "Gill Sans", sans-serif;
+  font-size: 0.8em;
+}
+.creditDetailTable {
+  margin-left: 16px;
+  margin-right: 10px;
+  width: 95%;
+  font-size: 0.8em;
+}
+
+.totalFinancingTable {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+.column {
+  display: inline-block;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 10px;
+  font-size: 0.795em;
+}
+.boxed1 {
+  border: 2px solid rgb(191, 191, 191);
+  font-size: 0.785em;
+  text-align: center;
+  font-family: "Gill Sans", sans-serif;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.totalChildFinancingTable {
+  margin-top: 10px;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+
+  border: 1px solid rgb(191, 191, 191);
+  border-left: 1px;
+  border-right: 1px;
+}
+.totalFinancingTableFieldsValues {
+  border: 1px solid rgb(191, 191, 191);
+  border-bottom: 1px;
+}
+.totalFinancingTableBlankFields {
+  border: 1px solid rgb(191, 191, 191);
+  border-bottom: 1px;
+  background-color: rgb(191, 191, 191);
+  color: rgb(191, 191, 191);
+}
+.totalFinancingTableLastFields {
+  border: 1px solid rgb(191, 191, 191);
+  background-color: rgb(191, 191, 191);
+}
+.summaryTable {
+  width: 105%;
+  border-collapse: collapse;
+  border-color: #ccc;
+  font-size: 0.795em;
+  text-align: left;
+  line-height: 20px;
+}
+.summaryBlock {
+  display: inline-block;
+  width: 45%;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+.grayTH {
+  background-color: #d9d9d9;
+  text-align: center;
+}
+.grayTD {
+  background-color: #d9d9d9;
+  text-align: right;
+}
+.summarytd {
+  padding-left: 10px;
+  border: 1;
+}
+.loanToValueRatio {
+  display: inline;
+  padding-left: 15px;
+  line-height: 30px;
+  text-align: center;
+}
+.riskTable {
+  background-color: #d9d9d9;
+  line-height: 20px;
+  text-align: center;
+  font-size: 0.785em;
+  font-weight: bold;
+}
+.riskTableColumns {
+  border: 1px solid rgb(191, 191, 191);
+  text-align: center;
+  font-size: 0.785em;
+  line-height: 15px;
+}
+.logo {
+  width: 102%;
+  height: 100px;
+}
