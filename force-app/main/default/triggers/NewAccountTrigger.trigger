@@ -11,10 +11,10 @@ trigger NewAccountTrigger on Account(
     Trigger.newMap,
     Trigger.old
   );
-  NewAccountTriggerHandler.creditscoreonAccount(
-    Trigger.isUpdate,
-    Trigger.isDelete
-  );
+  // NewAccountTriggerHandler.creditscoreonAccount(
+  //   Trigger.isUpdate,
+  //   Trigger.isDelete
+  // );
   if (Trigger.isUpdate) {
     if (Trigger.isAfter) {
     } else {

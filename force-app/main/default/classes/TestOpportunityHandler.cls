@@ -189,6 +189,7 @@ insert testOpp;*/
       SELECT Id, IsStandard
       FROM Pricebook2
       WHERE Id = :standardPricebook.Id
+      FOR UPDATE
     ];
     //It should return true
     System.assertEquals(true, standardPricebook.IsStandard);

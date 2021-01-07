@@ -16,7 +16,7 @@ public class EmploymentTriggerHandler {
     EmploymentTriggerHandler.oldRecords = oldRecords;
   }
 
-  public static void creditScoreOnEmployment(
+  /*public static void creditScoreOnEmployment(
     Boolean isDelete,
     Boolean isUpdate
   ) {
@@ -75,7 +75,7 @@ public class EmploymentTriggerHandler {
         cs.CreditScoreFromOpp(oppIdSet);
       }
     }
-  }
+  }*/
   // makes sure only employment record can be current
   public static void checkCurrentEmployments() {
     if (!Util.IsExecuted('checkCurrentEmployments')) {

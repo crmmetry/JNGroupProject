@@ -11,10 +11,10 @@ trigger NewEmploymentTrigger on FinServ__Employment__c(
     Trigger.newMap,
     Trigger.old
   );
-  EmploymentTriggerHandler.creditScoreOnEmployment(
-    Trigger.isDelete,
-    Trigger.isUpdate
-  );
+  // EmploymentTriggerHandler.creditScoreOnEmployment(
+  //   Trigger.isDelete,
+  //   Trigger.isUpdate
+  // );
 
   if (Trigger.isUpdate) {
     if (Trigger.isAfter) {

@@ -15,7 +15,7 @@ public class NewAccountTriggerHandler {
     NewAccountTriggerHandler.oldMap = oldMap;
     NewAccountTriggerHandler.newMap = newMap;
   }
-  public static void creditscoreonAccount(Boolean isUpdate, Boolean isDelete) {
+  /*public static void creditscoreonAccount(Boolean isUpdate, Boolean isDelete) {
     // can only execute only per execution context
     if (!Util.IsExecuted('creditscoreonAccount')) {
       set<Id> oppIdSet = new Set<Id>();
@@ -61,7 +61,7 @@ public class NewAccountTriggerHandler {
         cs.CreditScoreFromOpp(oppIdSet);
       }
     }
-  }
+  }*/
   public static void assignMobileNumber() {
     for (Account record : accounts) {
       record.Mobile_Number__pc = record.PersonMobilePhone;

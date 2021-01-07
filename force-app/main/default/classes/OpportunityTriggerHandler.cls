@@ -121,7 +121,7 @@ public class OpportunityTriggerHandler {
       }
     }
   }
-  public static void creditScoreOppHandler() {
+  /*public static void creditScoreOppHandler() {
     if (!Util.IsExecuted('creditScoreOppHandler')) {
       system.debug('Trigger called=====================>');
       CreditScoreHelper cs = new CreditScoreHelper();
@@ -135,7 +135,7 @@ public class OpportunityTriggerHandler {
         cs.CreditScoreFromOpp(oppid);
       }
     }
-  }
+  }*/
   public static void lockRecordsForEditing() {
     String errMsg = 'This record is currently LOCKED due to it being in the stage of "Closed Won" or "Closed Lost". Click Reactivate button to enable record edit.';
     List<String> changedFields = getChangedFields();

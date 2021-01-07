@@ -14421,10 +14421,7 @@
         <apexPage>MyProfilePage</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
-    <pageAccesses>
-        <apexPage>PDFGenerator</apexPage>
-        <enabled>false</enabled>
-    </pageAccesses>
+
     <pageAccesses>
         <apexPage>PDFGeneratorMain</apexPage>
         <enabled>false</enabled>
