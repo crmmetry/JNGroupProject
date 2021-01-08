@@ -193,7 +193,7 @@ public with sharing class TestProductDetailController {
       'Over The Counter',
       'Cash/Investments'
     );
-    System.assertEquals('R1', wrapper.rating);
+    System.assertEquals('R2', wrapper.rating);
     Test.stopTest();
   }
   @isTest
