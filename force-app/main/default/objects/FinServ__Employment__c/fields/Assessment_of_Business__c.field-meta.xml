@@ -39,6 +39,12 @@
                 <default>false</default>
                 <label>Not Applicable</label>
             </value>
+            <value>
+                <fullName>Inadequate growth and or profit trends</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Inadequate growth and or profit trends</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
