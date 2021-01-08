@@ -6,6 +6,11 @@
         <label>Own</label>
     </customValue>
     <customValue>
+        <fullName>Own (without mortgage)</fullName>
+        <default>false</default>
+        <label>Own (without mortgage)</label>
+    </customValue>
+    <customValue>
         <fullName>Company</fullName>
         <default>false</default>
         <label>Company</label>
@@ -24,12 +29,6 @@
         <fullName>Other</fullName>
         <default>false</default>
         <label>Other</label>
-    </customValue>
-    <customValue>
-        <fullName>Own (with mortgage)</fullName>
-        <default>false</default>
-        <isActive>false</isActive>
-        <label>Own (with mortgage)</label>
     </customValue>
     <masterLabel>Address Status</masterLabel>
     <sorted>false</sorted>

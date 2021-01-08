@@ -4159,10 +4159,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Post Graduate</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Primary</fullName>
             <default>false</default>
         </values>
@@ -4171,11 +4167,15 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Undergraduate</fullName>
+            <fullName>University%3A Post Graduate</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Vocational</fullName>
+            <fullName>University%3A Undergraduate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vocational Training Institutions</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -6237,6 +6237,14 @@
         </values>
         <values>
             <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Own</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Own %28without mortgage%29</fullName>
             <default>false</default>
         </values>
         <values>

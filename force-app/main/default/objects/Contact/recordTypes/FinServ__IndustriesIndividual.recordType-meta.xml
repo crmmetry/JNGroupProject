@@ -3949,6 +3949,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Own</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Own %28without mortgage%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Rent</fullName>
             <default>false</default>
         </values>
