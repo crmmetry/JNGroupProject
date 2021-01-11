@@ -60,14 +60,7 @@
     ) {
       noNotifyContainerChanges(component);
       //Async Functions
-      helper.supplementaryCardHolderInit(component);
-      helper.TDSRCalculationBefore(component);
-      helper.ASLCalculations(component);
-      helper.calculateCreditorLife(component);
-      helper.minimumPaymentCalculations(component);
-      helper.TDSRCalculationAfter(component);
-      helper.setCardType(component); //JN1-4049 :: Kirti R :: Calculate the credit type
-      helper.annualFeesCalcualtions(component);
+      helper.revolvingLoanCalculations(component);
       notifyContainerChanges(component);
     }
   },
@@ -87,6 +80,10 @@
    * @param {*} helper
    */
   handleProductDetailsEvent: function (component, event, helper) {
+    const isAuto = checkProductFamily(component, "Auto");
+    const isUnsecured = checkProductFamily(component, "Unsecured");
+    const isLineOfCredit = checkProductFamily(component, "Line Of Credit");
+    const isCreditCard = checkProductFamily(component, "Credit Card");
     //const updatedContainer = {};
     if (component.get("v.scriptsLoaded")) {
       const oldChildContainer = copyInto(
@@ -121,7 +118,9 @@
         helper.processingFeeCalculation(container, component)
       );
       //non revovling loan calculations
-      helper.nonRevolvingLoanCalculations(component, container);
+      if (isAuto || isUnsecured) {
+        helper.nonRevolvingLoanCalculations(component, container);
+      }
       const updatedContainer = updateChildContainerWithValue(
         component,
         attributesToUpdate,

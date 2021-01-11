@@ -73,8 +73,9 @@ window.totalLoanAmountCalculation = function (component) {
   const parentObj = component.get("v.ChildContainer");
   const isAuto = this.checkProductFamily(component, "Auto");
   const isUnsecured = this.checkProductFamily(component, "Unsecured");
+  let total = 0;
   if (isAuto) {
-    let total = calculateTotalLoanAmount(
+    total = calculateTotalLoanAmount(
       [
         "loanAmount",
         "jnLifeCreditorPremium",
@@ -83,20 +84,16 @@ window.totalLoanAmountCalculation = function (component) {
       ],
       parentObj
     );
-    let values = [{ key: "totalLoanAmount", value: total }];
-    const data = updateChildContainerWithValue(component, values, false);
-    component.set("v.ChildContainer", data);
-    return data;
   } else if (isUnsecured) {
-    let total = calculateTotalLoanAmount(
+    total = calculateTotalLoanAmount(
       ["loanAmount", "jnLifeCreditorPremium", "processingFeesGCT"],
       parentObj
     );
-    let values = [{ key: "totalLoanAmount", value: total }];
-    const data = updateChildContainerWithValue(component, values, false);
-    component.set("v.ChildContainer", data);
-    return data;
   }
+  let values = [{ key: "totalLoanAmount", value: total }];
+  const data = updateChildContainerWithValue(component, values, false);
+  component.set("v.ChildContainer", data);
+  return data;
 };
 
 /**
@@ -106,8 +103,9 @@ window.totalLoanAmountCalculation = function (component) {
   const parentObj = component.get("v.ChildContainer");
   const isAuto = this.checkProductFamily(component, "Auto");
   const isUnsecured = this.checkProductFamily(component, "Unsecured");
+  let total = 0;
   if (isAuto) {
-    let total = calculateTotalMonthlyPIPayment(
+    total = calculateTotalMonthlyPIPayment(
       [
         "monthly_PI_LoanAmount",
         "monthlyJnLifeCreditor_PI_Premium",
@@ -116,12 +114,8 @@ window.totalLoanAmountCalculation = function (component) {
       ],
       parentObj
     );
-    let values = [{ key: "totalMonthly_PI_LoanPayment", value: total }];
-    const data = updateChildContainerWithValue(component, values, false);
-    component.set("v.ChildContainer", data);
-    return data;
   } else if (isUnsecured) {
-    let total = calculateTotalMonthlyPIPayment(
+    total = calculateTotalMonthlyPIPayment(
       [
         "monthly_PI_LoanAmount",
         "monthlyJnLifeCreditor_PI_Premium",
@@ -129,11 +123,11 @@ window.totalLoanAmountCalculation = function (component) {
       ],
       parentObj
     );
-    let values = [{ key: "totalMonthly_PI_LoanPayment", value: total }];
-    const data = updateChildContainerWithValue(component, values, false);
-    component.set("v.ChildContainer", data);
-    return data;
   }
+  let values = [{ key: "totalMonthly_PI_LoanPayment", value: total }];
+  const data = updateChildContainerWithValue(component, values, false);
+  component.set("v.ChildContainer", data);
+  return data;
 }),
   /**
    * Calculates the sum of total monthly loan payment and monthly compulsory savings under totals in credit calculations table.
@@ -179,25 +173,22 @@ window.totalMonthlyPaymentCalculation = function (component) {
   const parentObj = component.get("v.ChildContainer");
   const isAuto = this.checkProductFamily(component, "Auto");
   const isUnsecured = this.checkProductFamily(component, "Unsecured");
+  let total = 0;
   if (isAuto) {
-    let total = calculateTotalLoanAmount(
+    total = calculateTotalLoanAmount(
       ["totalMonthly_PI_LoanPayment", "jngiMonthlyPremium"],
       parentObj
     );
-    let values = [{ key: "totalMonthlyLoanPayment", value: total }];
-    const data = updateChildContainerWithValue(component, values, false);
-    component.set("v.ChildContainer", data);
-    return data;
   } else if (isUnsecured) {
-    let total = calculateTotalLoanAmount(
+    total = calculateTotalLoanAmount(
       ["totalMonthly_PI_LoanPayment"],
       parentObj
     );
-    let values = [{ key: "totalMonthlyLoanPayment", value: total }];
-    const data = updateChildContainerWithValue(component, values, false);
-    component.set("v.ChildContainer", data);
-    return data;
   }
+  let values = [{ key: "totalMonthlyLoanPayment", value: total }];
+  const data = updateChildContainerWithValue(component, values, false);
+  component.set("v.ChildContainer", data);
+  return data;
 };
 window.getFieldsToCalculate = function (parentObj) {
   let data = [];
@@ -248,9 +239,6 @@ window.totalClosingCostCalculation = function (component) {
       );
     }
     total = calculateTotalClosingCost(properties, data);
-    let values = [{ key: "totalClosingCost", value: total }];
-    const result = updateChildContainerWithValue(component, values, false);
-    component.set("v.ChildContainer", result);
     return result;
   } else if (isUnsecured) {
     if (
@@ -274,12 +262,10 @@ window.totalClosingCostCalculation = function (component) {
       ].concat(fieldsTocalculate);
     }
     total = calculateTotalClosingCost(properties, data);
-    console.info("TotalClosingCost = ", total);
-    component.set("v.totalClosingCost", total);
-    this.updateChildContainerWithValue(component, [
-      { key: "totalClosingCost", value: total }
-    ]);
   }
+  let values = [{ key: "totalClosingCost", value: total }];
+  const result = updateChildContainerWithValue(component, values, false);
+  component.set("v.ChildContainer", result);
 };
 /**
  * Calculates the total closing cost financed by JN.
@@ -288,25 +274,22 @@ window.totalClosingCostFinancedJNCalculation = function (component) {
   const parentObj = component.get("v.ChildContainer");
   const isAuto = this.checkProductFamily(component, "Auto");
   const isUnsecured = this.checkProductFamily(component, "Unsecured");
+  let total = 0;
   if (isAuto) {
-    let total = calculateTotalClosingCostFinancedJN(
+    total = calculateTotalClosingCostFinancedJN(
       ["processingFeesGCT", "jnLifeCreditorPremium", "jngiMotorPremium"],
       parentObj
     );
-    let values = [{ key: "totalFinancedByJN", value: total }];
-    const result = updateChildContainerWithValue(component, values, false);
-    component.set("v.ChildContainer", result);
-    return result;
   } else if (isUnsecured) {
-    let total = calculateTotalClosingCostFinancedJN(
+    total = calculateTotalClosingCostFinancedJN(
       ["processingFeesGCT", "jnLifeCreditorPremium"],
       parentObj
     );
-    let values = [{ key: "totalFinancedByJN", value: total }];
-    const result = updateChildContainerWithValue(component, values, false);
-    component.set("v.ChildContainer", result);
-    return result;
   }
+  let values = [{ key: "totalFinancedByJN", value: total }];
+  const result = updateChildContainerWithValue(component, values, false);
+  component.set("v.ChildContainer", result);
+  return result;
 };
 /**
  * Calculates the total closing cost payable by applicant.
