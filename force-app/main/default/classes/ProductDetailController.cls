@@ -41,10 +41,10 @@ public with sharing class ProductDetailController {
    */
   @AuraEnabled
   public static Object getSingleProductFamilySelection(Id oppId) {
-    OpportunityLineItem oppProduct = Util.getOpportunityProducts(oppId);
-    if (oppProduct != null) {
+    List<OpportunityLineItem> records = Util.getOpportunityProducts(oppId);
+    if (records.size() == 1) {
       ProductSelectionWrapper selection = new ProductSelectionWrapper(
-        oppProduct
+        records[0]
       );
       return selection;
     }

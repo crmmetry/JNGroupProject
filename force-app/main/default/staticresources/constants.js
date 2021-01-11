@@ -46,3 +46,4 @@ window.UNSECURED_LOAN_PURPOSE = [
   "Medical Expenses",
   "Other"
 ];
+window.NO_PRODUCT_FAMILY = "NO PRODUCT FAMILIY";

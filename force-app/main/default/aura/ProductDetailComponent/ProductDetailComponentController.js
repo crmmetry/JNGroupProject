@@ -39,6 +39,9 @@
       riskRatings: true
     };
     component.set("v.spinnerList", spinnerList);
+    component.set("v.productSelection", {
+      productFamily: "No Product Selected"
+    });
     helper.updateProductSelection(component);
   },
   /**
