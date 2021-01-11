@@ -39,13 +39,7 @@
       riskRatings: true
     };
     component.set("v.spinnerList", spinnerList);
-    //start showing spinners
-    helper.showSpinner(component);
     helper.updateProductSelection(component);
-    helper.getJNConfigurations(component);
-    helper.getAssetsAndLiabilitiesForApplicant(component);
-    helper.getRiskRatingFactorsMap(component);
-    //helper.getApplicants(component);
   },
   /**
    * listens for child container changes

@@ -8,6 +8,7 @@
    * @param {*} container
    */
   updateProductSelection: function (component) {
+    this.showSpinner(component);
     let oppId = component.get("v.recordId");
     let action = component.get("c.getSingleProductFamilySelection");
     action.setParams({
@@ -23,6 +24,9 @@
         let data = copyInto(component.get("v.ChildContainer"), result);
         component.set("v.ChildContainer", data);
         this.updateProductSelectedFlag(component);
+        this.getJNConfigurations(component);
+        this.getAssetsAndLiabilitiesForApplicant(component);
+        this.getRiskRatingFactorsMap(component);
       }
     });
 
