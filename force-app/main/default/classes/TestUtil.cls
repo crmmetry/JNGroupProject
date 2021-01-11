@@ -319,7 +319,7 @@ public class TestUtil {
 
     //scenario: 2 date passed in is a business hour
     Boolean isBusinessHours2 = Util.isWithinBusinessHours(currentDateTime);
-    System.assert(isBusinessHours2 == false, 'Should be business holiday');
+    System.assert(isBusinessHours2 == true, 'Should be business holiday');
 
     //scenario: 3 date passed in is a weekend day
     Boolean isBusinessHours3 = Util.isWithinBusinessHours(weekend);
