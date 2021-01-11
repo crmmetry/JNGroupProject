@@ -176,10 +176,10 @@
     let values = [];
     let totalDebt = 0;
     let totalDebtAfter = 0;
-    const isAuto = this.checkProductFamily(component, "Auto");
-    const isLineOfCredit = this.checkProductFamily(component, "Line Of Credit");
-    const isUnsecured = this.checkProductFamily(component, "Unsecured");
-    const isCreditCard = this.checkProductFamily(component, "Credit Card");
+    const isAuto = checkProductFamily(component, "Auto");
+    const isLineOfCredit = checkProductFamily(component, "Line Of Credit");
+    const isUnsecured = checkProductFamily(component, "Unsecured");
+    const isCreditCard = checkProductFamily(component, "Credit Card");
     if (isCreditCard || isLineOfCredit) {
       totalDebt = this.existingDebtCalculation(
         [
@@ -282,10 +282,10 @@
     let tdsrBefore = 0;
     let values = [];
     let container = component.get("v.ChildContainer");
-    const isAuto = this.checkProductFamily(component, "Auto");
-    const isLineOfCredit = this.checkProductFamily(component, "Line Of Credit");
-    const isUnsecured = this.checkProductFamily(component, "Unsecured");
-    const isCreditCard = this.checkProductFamily(component, "Credit Card");
+    const isAuto = checkProductFamily(component, "Auto");
+    const isLineOfCredit = checkProductFamily(component, "Line Of Credit");
+    const isUnsecured = checkProductFamily(component, "Unsecured");
+    const isCreditCard = checkProductFamily(component, "Credit Card");
     if (isAuto || isUnsecured) {
       tdsrBefore = TDSRBeforeCalculator(
         container.grossMonthlyIncomeFromLongSummary,
@@ -322,10 +322,10 @@
   TDSRCalculationAfter: function (component) {
     let container = component.get("v.ChildContainer");
     let tdsrAfter = 0;
-    const isAuto = this.checkProductFamily(component, "Auto");
-    const isLineOfCredit = this.checkProductFamily(component, "Line Of Credit");
-    const isUnsecured = this.checkProductFamily(component, "Unsecured");
-    const isCreditCard = this.checkProductFamily(component, "Credit Card");
+    const isAuto = checkProductFamily(component, "Auto");
+    const isLineOfCredit = checkProductFamily(component, "Line Of Credit");
+    const isUnsecured = checkProductFamily(component, "Unsecured");
+    const isCreditCard = checkProductFamily(component, "Credit Card");
     if (isAuto || isUnsecured) {
       // Calculate TDSR After for non revolving loans
       tdsrAfter = nonRevolvingTDSRAfterCalculator(
@@ -423,10 +423,10 @@
    * @return {Number} ltv
    */
   collateralTypeApplicable: function (component, container) {
-    const isAuto = this.checkProductFamily(component, "Auto");
-    const isLineOfCredit = this.checkProductFamily(component, "Line Of Credit");
-    const isUnsecured = this.checkProductFamily(component, "Unsecured");
-    const isCreditCard = this.checkProductFamily(component, "Credit Card");
+    const isAuto = checkProductFamily(component, "Auto");
+    const isLineOfCredit = checkProductFamily(component, "Line Of Credit");
+    const isUnsecured = checkProductFamily(component, "Unsecured");
+    const isCreditCard = checkProductFamily(component, "Credit Card");
     if (isUnsecured) {
       return "None";
     } else if (isAuto) {
@@ -434,19 +434,6 @@
     } else if (isCreditCard || isLineOfCredit) {
       return container.collateralType;
     }
-  },
-  /**
-   * checks if the passed family is the selected product
-   * @param {*} component
-   * @param {String} family
-   * @return {Boolean}
-   */
-  checkProductFamily: function (component, family) {
-    let selectedFlag = component.get("v.productSelection.productFamily");
-    if (selectedFlag && family) {
-      return selectedFlag.includes(family);
-    }
-    return false;
   },
   /**
    * JN1-3969
@@ -748,10 +735,10 @@
     loanCalculationFields,
     loanCalculationProductFields
   ) {
-    const isAuto = this.checkProductFamily(component, "Auto");
-    const isLineOfCredit = this.checkProductFamily(component, "Line Of Credit");
-    const isUnsecured = this.checkProductFamily(component, "Unsecured");
-    const isCreditCard = this.checkProductFamily(component, "Credit Card");
+    const isAuto = checkProductFamily(component, "Auto");
+    const isLineOfCredit = checkProductFamily(component, "Line Of Credit");
+    const isUnsecured = checkProductFamily(component, "Unsecured");
+    const isCreditCard = checkProductFamily(component, "Credit Card");
     if (isAuto) {
       loanCalculationFields = loanCalculationFields.concat([
         {
