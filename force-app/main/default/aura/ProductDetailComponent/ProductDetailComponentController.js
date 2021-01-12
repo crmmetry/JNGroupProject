@@ -54,13 +54,19 @@
    * @param {*} helper
    */
   onChildContainerChange: function (component, event, helper) {
+    const isLineOfCredit = checkProductFamily(component, "Line Of Credit");
+    const isCreditCard = checkProductFamily(component, "Credit Card");
     if (
       component.get("v.scriptsLoaded") &&
       component.get("v.notifyContainerChange")
     ) {
       noNotifyContainerChanges(component);
       //Async Functions
-      helper.revolvingLoanCalculations(component);
+      helper.TDSRCalculationBefore(component);
+      helper.TDSRCalculationAfter(component);
+      if (isLineOfCredit || isCreditCard) {
+        helper.revolvingLoanCalculations(component);
+      }
       notifyContainerChanges(component);
     }
   },
@@ -82,8 +88,6 @@
   handleProductDetailsEvent: function (component, event, helper) {
     const isAuto = checkProductFamily(component, "Auto");
     const isUnsecured = checkProductFamily(component, "Unsecured");
-    const isLineOfCredit = checkProductFamily(component, "Line Of Credit");
-    const isCreditCard = checkProductFamily(component, "Credit Card");
     //const updatedContainer = {};
     if (component.get("v.scriptsLoaded")) {
       const oldChildContainer = copyInto(
