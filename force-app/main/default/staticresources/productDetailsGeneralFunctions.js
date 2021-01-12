@@ -239,12 +239,8 @@ window.totalClosingCostCalculation = function (component) {
       );
     }
     total = calculateTotalClosingCost(properties, data);
-    return result;
   } else if (isUnsecured) {
-    if (
-      component.get("v.estimatedStampDuty") != 0 &&
-      component.get("v.assignmentFee") != 0
-    ) {
+    if (data.estimatedStampDuty != 0 && data.assignmentFee != 0) {
       console.info("Branch 1");
       properties = [
         "stampDutyUns",
@@ -266,6 +262,7 @@ window.totalClosingCostCalculation = function (component) {
   let values = [{ key: "totalClosingCost", value: total }];
   const result = updateChildContainerWithValue(component, values, false);
   component.set("v.ChildContainer", result);
+  return result;
 };
 /**
  * Calculates the total closing cost financed by JN.

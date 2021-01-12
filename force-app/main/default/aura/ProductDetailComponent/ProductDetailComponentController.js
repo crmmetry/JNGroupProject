@@ -60,12 +60,17 @@
     ) {
       const isLineOfCredit = checkProductFamily(component, "Line Of Credit");
       const isCreditCard = checkProductFamily(component, "Credit Card");
+      const isAuto = checkProductFamily(component, "Auto");
+      const isUnsecured = checkProductFamily(component, "Unsecured");
+      let container = component.get("v.ChildContainer");
       noNotifyContainerChanges(component);
       //Async Functions
       helper.TDSRCalculationBefore(component);
       helper.TDSRCalculationAfter(component);
       if (isLineOfCredit || isCreditCard) {
         helper.revolvingLoanCalculations(component);
+      } else if (isAuto || isUnsecured) {
+        helper.nonRevolvingLoanCalculations(component, container);
       }
       notifyContainerChanges(component);
     }
@@ -86,8 +91,6 @@
    * @param {*} helper
    */
   handleProductDetailsEvent: function (component, event, helper) {
-    const isAuto = checkProductFamily(component, "Auto");
-    const isUnsecured = checkProductFamily(component, "Unsecured");
     //const updatedContainer = {};
     if (component.get("v.scriptsLoaded")) {
       const oldChildContainer = copyInto(
@@ -121,10 +124,6 @@
       attributesToUpdate = attributesToUpdate.concat(
         helper.processingFeeCalculation(container, component)
       );
-      //non revovling loan calculations
-      if (isAuto || isUnsecured) {
-        helper.nonRevolvingLoanCalculations(component, container);
-      }
       const updatedContainer = updateChildContainerWithValue(
         component,
         attributesToUpdate,

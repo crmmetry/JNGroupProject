@@ -947,7 +947,7 @@
    * all the revolving loan calculations
    * @param {*} component
    */
-  revolvingLoanCalculations: function (component, container) {
+  revolvingLoanCalculations: function (component) {
     this.supplementaryCardHolderInit(component);
     this.ASLCalculations(component);
     this.calculateCreditorLife(component);
