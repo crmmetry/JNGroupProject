@@ -54,12 +54,12 @@
    * @param {*} helper
    */
   onChildContainerChange: function (component, event, helper) {
-    const isLineOfCredit = checkProductFamily(component, "Line Of Credit");
-    const isCreditCard = checkProductFamily(component, "Credit Card");
     if (
       component.get("v.scriptsLoaded") &&
       component.get("v.notifyContainerChange")
     ) {
+      const isLineOfCredit = checkProductFamily(component, "Line Of Credit");
+      const isCreditCard = checkProductFamily(component, "Credit Card");
       noNotifyContainerChanges(component);
       //Async Functions
       helper.TDSRCalculationBefore(component);
