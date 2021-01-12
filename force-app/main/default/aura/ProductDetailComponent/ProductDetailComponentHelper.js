@@ -8,6 +8,7 @@
    * @param {*} container
    */
   updateProductSelection: function (component) {
+    this.showSpinner(component);
     let oppId = component.get("v.recordId");
     let action = component.get("c.getSingleProductFamilySelection");
     action.setParams({
@@ -16,13 +17,17 @@
     action.setCallback(this, function (response) {
       let state = response.getState(); //Checking response status
       let result = response.getReturnValue();
-      if (state === "SUCCESS") {
+      this.hideSpinner(component);
+      if (state === "SUCCESS" && typeof result !== "string") {
         //update spinner status
-        this.checkSpinnerStatus(component, "productSelection");
+        //this.checkSpinnerStatus(component, "productSelection");
         component.set("v.productSelection", result);
         let data = copyInto(component.get("v.ChildContainer"), result);
         component.set("v.ChildContainer", data);
         this.updateProductSelectedFlag(component);
+        this.getJNConfigurations(component);
+        this.getAssetsAndLiabilitiesForApplicant(component);
+        this.getRiskRatingFactorsMap(component);
       }
     });
 
@@ -52,13 +57,15 @@
    * @param {*} container
    */
   getJNConfigurations: function (component) {
+    this.showSpinner(component);
     let action = component.get("c.GetJNConfigs");
     action.setCallback(this, function (response) {
+      this.hideSpinner(component);
       let state = response.getState(); //Checking response status
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         //update spinner status
-        this.checkSpinnerStatus(component, "jnConfigs");
+        //this.checkSpinnerStatus(component, "jnConfigs");
         component.set("v.jnDefaultConfigs", result);
       }
     });
@@ -69,13 +76,15 @@
    * @param {*} container
    */
   getRiskRatingFactorsMap: function (component) {
+    this.showSpinner(component);
     let action = component.get("c.getRiskRatingMap");
     action.setCallback(this, function (response) {
+      this.hideSpinner(component);
       let state = response.getState(); //Checking response status
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         //update spinner status
-        this.checkSpinnerStatus(component, "riskRatings");
+        //this.checkSpinnerStatus(component, "riskRatings");
         component.set("v.RiskRatings", result);
       }
     });
@@ -150,17 +159,19 @@
    * Gets Applicants Existing Debts.
    */
   getAssetsAndLiabilitiesForApplicant: function (component) {
+    this.showSpinner(component);
     let oppId = component.get("v.recordId");
     let action = component.get("c.getApplicantsAssetsAndLiabilities");
     action.setParams({
       oppId: oppId
     });
     action.setCallback(this, function (response) {
+      this.hideSpinner(component);
       let state = response.getState(); //Checking response status
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         //update spinner status
-        this.checkSpinnerStatus(component, "assetsAndLiabilitiesForApplicants");
+        //this.checkSpinnerStatus(component, "assetsAndLiabilitiesForApplicants");
         this.mergeWithChildContainer(component, result);
         this.existingDebtCalculator(component, result);
       }
