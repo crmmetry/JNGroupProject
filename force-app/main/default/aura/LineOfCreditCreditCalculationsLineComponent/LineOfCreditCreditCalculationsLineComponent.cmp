@@ -1,0 +1,108 @@
+<aura:component>
+  <aura:attribute name="cardType" type="String" />
+  <aura:attribute name="minimumPayment" type="Decimal" />
+  <aura:attribute name="monthlyCreditorLifePremium" type="String" />
+  <aura:attribute name="primaryApplicantAnnualMembership" type="String" />
+  <aura:attribute name="supplementaryApplicantAnnualMembership" type="String" />
+  <aura:attribute name="annualCreditorLifeFee" type="String" />
+  <!-- JN1-3969-->
+  <aura:attribute
+    name="ParentContainer"
+    type="Map"
+    default="{}"
+    description="Credit Card Other Detail Line Component container"
+  />
+
+  <fieldset class="slds-box slds-theme_default">
+    <legend
+      id="productdetailsform"
+      class="slds-text-heading_medium slds-p-vertical_medium"
+    >
+      Personal Line of Credit -
+      <span class="slds-text-heading_small">Credit Calculations</span>
+    </legend>
+    <form class="slds-form_stacked">
+      <lightning:layout multipleRows="true">
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="6"
+          padding="around-small"
+        >
+          <lightning:input
+            label="Starting Limit"
+            value="{!v.ParentContainer.approvedStartingLimit}"
+            type="number"
+            name="input1"
+            formatter="currency"
+            required="true"
+            readonly="true"
+          />
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="6"
+          padding="around-small"
+        >
+          <lightning:input
+            label="Minimum Payment as per Credit Limit"
+            value="{!v.ParentContainer.minimumPayment}"
+            type="number"
+            name="input1"
+            formatter="currency"
+            required="true"
+            readonly="true"
+          />
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="6"
+          padding="around-small"
+        >
+          <lightning:input
+            type="number"
+            label="Monthly Creditor Life Premium as per Credit Limit"
+            value="{!v.ParentContainer.creditorLifePremiumForNonRevolvingLoan}"
+            name="number"
+            formatter="currency"
+            required="true"
+            readonly="true"
+          />
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12">
+          <h2 class="slds-section-title--divider">Fees and Charges</h2>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="6"
+          padding="around-small"
+        >
+          <!-- JN1-3969 -->
+          <lightning:input
+            label="Annual Membership (Primary Applicant)"
+            value="{!v.ParentContainer.primaryApplicantAnnualMembership}"
+            type="number"
+            name="input1"
+            formatter="currency"
+            required="true"
+            readonly="true"
+          />
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="6"
+          padding="around-small"
+        >
+          <lightning:input
+            label="Annual Creditor Life Fee"
+            value="0"
+            type="number"
+            name="input1"
+            formatter="currency"
+            required="true"
+            readonly="true"
+          />
+        </lightning:layoutItem>
+      </lightning:layout>
+    </form>
+  </fieldset>
+</aura:component>

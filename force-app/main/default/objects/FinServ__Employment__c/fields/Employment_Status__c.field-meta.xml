@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Employment_Status__c</fullName>
-    <description>Created to replace the first Employment Status picklist with incorrect values.</description>
+    <description
+  >Created to replace the first Employment Status picklist with incorrect values.</description>
     <externalId>false</externalId>
     <label>Employment Status</label>
     <required>false</required>
@@ -25,6 +26,12 @@
                 <fullName>Unemployed</fullName>
                 <default>false</default>
                 <label>Unemployed</label>
+            </value>
+            <value>
+                <fullName>Pensioner</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Pensioner</label>
             </value>
         </valueSetDefinition>
     </valueSet>

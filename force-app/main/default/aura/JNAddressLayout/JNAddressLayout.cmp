@@ -1,13 +1,11 @@
 <aura:component access="GLOBAL" controller="JNSiteController">
-    <aura:registerEvent type="c:JNComponentEvent" name="jnEvent" />
-    <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
-    <aura:attribute name="SiteLead" type="Map" />
-     <aura:attribute name="countries" type="String[]" />
-     <aura:attribute name="addressTypes" type="String[]" />
-    <aura:attribute name="addressStatuses" type="String[]" />
-    <lightning:layout>
-        <lightning:layoutItem size="12">
-
-        </lightning:layoutItem>
-    </lightning:layout>	
+  <aura:registerEvent type="c:JNComponentEvent" name="jnEvent" />
+  <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+  <aura:attribute name="SiteLead" type="Map" />
+  <aura:attribute name="countries" type="String[]" />
+  <aura:attribute name="addressTypes" type="String[]" />
+  <aura:attribute name="addressStatuses" type="String[]" />
+  <lightning:layout>
+    <lightning:layoutItem size="12"> </lightning:layoutItem>
+  </lightning:layout>
 </aura:component>

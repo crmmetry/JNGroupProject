@@ -1,5 +1,5 @@
 ({
-  getPickListValues: function(component) {
+  getPickListValues: function (component) {
     const action = component.get("c.getPickListValuesList");
     action.setParams({
       objectApiName: "Lead",
@@ -8,11 +8,10 @@
         "Address_Status_PK__c",
         "Employer_Country__c",
         "Type_of_Business__c",
-        "Nature_of_Engagement__c",
-          
-      ],
+        "Nature_of_Engagement__c"
+      ]
     });
-    action.setCallback(this, function(response) {
+    action.setCallback(this, function (response) {
       const state = response.getState();
       if (state === "SUCCESS") {
         const values = response.getReturnValue();
@@ -32,17 +31,17 @@
     });
     $A.enqueueAction(action);
   },
-  updateApplicantInfo: function(component) {
+  updateApplicantInfo: function (component) {
     const action = component.get("c.updateApplicantTextInfo");
     action.setParams({
       applicantDetails: this.getEmploymentDetails(component),
       leadId: component.get("v.leadId")
     });
     this.sendEvents(component, ["showLoading"]);
-    action.setCallback(this, function(response) {
+    action.setCallback(this, function (response) {
       this.sendEvents(component, ["disableShowLoading"]);
       const state = response.getState();
-      if (state === "SUCCESS") {        
+      if (state === "SUCCESS") {
         this.sendEvents(component, ["navigateNext"], {});
       } else {
         console.error(JSON.parse(JSON.stringify(reponse.getError())));
@@ -50,7 +49,7 @@
     });
     $A.enqueueAction(action);
   },
-  sendEvents: function(component, events, data) {
+  sendEvents: function (component, events, data) {
     const eventToSend = component.getEvent("jnEvent");
     eventToSend.setParams({
       component: "JNApplicationForm",
@@ -59,7 +58,7 @@
     });
     eventToSend.fire();
   },
-  getEmploymentDetails: function(component) {
+  getEmploymentDetails: function (component) {
     const et = component.get("v.SiteLead.Primary_Employment_Type__c");
     switch (et) {
       case "Employed": {
@@ -72,5 +71,10 @@
         return component.get("v.SiteLeadUnemployed");
       }
     }
+  },
+  mapSiteLeadFields: function (componentSiteLead, siteLead) {
+    console.log("Current", JSON.parse(JSON.stringify(componentSiteLead)));
+    console.log("Main", JSON.parse(JSON.stringify(siteLead)));
+    return Object.assign(componentSiteLead, siteLead);
   }
 });

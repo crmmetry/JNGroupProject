@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
     <active>true</active>
     <entityName>Lead</entityName>
@@ -7,7 +7,8 @@
     <pathAssistantSteps>
         <fieldNames>Contact_Made__c</fieldNames>
         <fieldNames>Determine_if_product_is_correct_PK__c</fieldNames>
-        <info>&lt;p&gt;Gather &amp;amp; analyze additional Information&lt;/p&gt;&lt;p&gt;Agree next Steps with customer&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <info
+    >&lt;p&gt;Gather &amp;amp; analyze additional Information&lt;/p&gt;&lt;p&gt;Agree next Steps with customer&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
         <picklistValueName>Lead Analysis</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>

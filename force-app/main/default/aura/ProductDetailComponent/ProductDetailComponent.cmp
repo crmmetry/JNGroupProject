@@ -1,0 +1,177 @@
+<aura:component
+  implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
+  controller="ProductDetailController"
+>
+  <aura:handler
+    event="c:ProductDetailsEvent"
+    action="{!c.handleProductDetailsEvent}"
+  />
+  <aura:attribute name="notifyContainerChange" type="Boolean" default="true" />
+  <aura:attribute
+    name="isSupplementaryCountSet"
+    type="Boolean"
+    default="false"
+  />
+  <aura:handler
+    name="change"
+    value="{!v.ChildContainer}"
+    action="{!c.onChildContainerChange}"
+  />
+  <aura:attribute
+    name="ChildContainer"
+    type="Map"
+    default="{}"
+    description="child container"
+  />
+  <aura:attribute
+    name="spinnerList"
+    type="Object"
+    description="contains all the relevant data that must be loaded for the spinner to hide"
+  />
+  <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
+  <!-- Static Resource -->
+  <ltng:require
+    scripts="{!join(',', 
+  $Resource.constants,
+  $Resource.calculations, 
+  $Resource.productDetailsGeneralFunctions)}"
+    afterScriptsLoaded="{!c.scriptsLoaded}"
+  />
+  <aura:attribute name="applicants" type="List" />
+  <aura:attribute
+    name="options"
+    type="List"
+    default="[
+    {'label': 'Percentage(%)', 'value': 'percent'}, 
+    {'label': 'Amount(JMD)', 'value': 'amount'}
+    ]"
+  />
+
+  <!--JN1-4210 : For validating fields-->
+  <aura:method
+    name="validateFields"
+    action="{!c.validateFields}"
+    access="public"
+  />
+
+  <aura:attribute
+    name="products"
+    type="List"
+    default="Auto, Unsecured Loan, Credit Card"
+  />
+  <aura:attribute name="productSelection" type="Object" />
+  <aura:attribute
+    name="loanPurpose"
+    type="List"
+    default="['Auto','School','Debt']"
+  />
+  <aura:attribute name="value" type="String" default="" />
+  <aura:attribute name="percent" type="String" default="percent" />
+  <aura:attribute name="amount" type="String" default="amount" />
+  <aura:attribute name="recordId" type="Id" />
+  <aura:attribute name="autoFlag" type="Boolean" default="false" />
+  <aura:attribute name="unsecuredFlag" type="Boolean" default="false" />
+  <aura:attribute name="creditCardFlag" type="Boolean" default="false" />
+  <aura:attribute name="lineOfCreditFlag" type="Boolean" default="false" />
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+  <aura:attribute name="jnDefaultConfigs" type="Map" default="{}" />
+  <aura:attribute name="RiskRatings" type="Map" default="{}" />
+
+  <lightning:layout multipleRows="true">
+    <!-- spinner markup-->
+    <div class="slds-spinner_container slds-hide slds-" aura:id="spinner">
+      <div
+        role="status"
+        class="slds-spinner slds-spinner_large slds-spinner_brand"
+      >
+        <span class="slds-assistive-text">Loading</span>
+        <div class="slds-spinner__dot-a"></div>
+        <div class="slds-spinner__dot-b"></div>
+      </div>
+    </div>
+    <lightning:card>
+      <lightning:layoutItem size="12" padding="around-small">
+        <fieldset class="slds-box slds-theme_default">
+          <legend
+            id="productdetailsform"
+            class="slds-text-heading_medium slds-p-vertical_medium"
+          >
+            PRODUCT DETAILS
+          </legend>
+          <form class="slds-form_stacked">
+            <lightning:layout multipleRows="true">
+              <lightning:layoutItem size="12">
+                <h2 class="slds-section-title--divider">
+                  Product Selection &amp; Applicant Details
+                </h2>
+              </lightning:layoutItem>
+              <lightning:layoutItem
+                size="12"
+                mediumDeviceSize="6"
+                padding="around-small"
+              >
+                <lightning:input
+                  label="Product Selection"
+                  type="text"
+                  aura:id="selectProduct"
+                  id="productSelectionElement"
+                  value="{!v.productSelection.productFamily}"
+                  disabled="true"
+                  required="true"
+                />
+              </lightning:layoutItem>
+            </lightning:layout>
+          </form>
+          <aura:if isTrue="{!v.autoFlag}">
+            <c:AutoLoanContainerComponent
+              productPrice="{!v.productSelection.productPrice}"
+              oppId="{!v.recordId}"
+              jnDefaultConfigs="{!v.jnDefaultConfigs}"
+              ParentContainer="{!v.ChildContainer}"
+              aura:id="autoLoanContainerComponent"
+            >
+            </c:AutoLoanContainerComponent>
+          </aura:if>
+          <aura:if isTrue="{!v.unsecuredFlag}">
+            <c:UnsecuredLoanContainerComponent
+              productPrice="{!v.productSelection.productPrice}"
+              jnDefaultConfigs="{!v.jnDefaultConfigs}"
+              oppId="{!v.recordId}"
+              ParentContainer="{!v.ChildContainer}"
+              aura:id="unsecuredLoanContainerComponent"
+            >
+            </c:UnsecuredLoanContainerComponent>
+          </aura:if>
+          <aura:if isTrue="{!v.creditCardFlag}">
+            <c:CreditCardContainerComponent
+              productName="{!v.productSelection.productFamily}"
+              productPrice="{!v.productSelection.productPrice}"
+              ParentContainer="{!v.ChildContainer}"
+              jnDefaultConfigs="{!v.jnDefaultConfigs}"
+              aura:id="creditCardContainerComponent"
+            >
+            </c:CreditCardContainerComponent>
+          </aura:if>
+          <aura:if isTrue="{!v.lineOfCreditFlag}">
+            <c:LineOfCreditContainerComponent
+              productName="{!v.productSelection.productFamily}"
+              productPrice="{!v.productSelection.productPrice}"
+              ParentContainer="{!v.ChildContainer}"
+              jnDefaultConfigs="{!v.jnDefaultConfigs}"
+              aura:id="lineOfCreditContainerComponent"
+            >
+            </c:LineOfCreditContainerComponent>
+          </aura:if>
+          <div class="slds-align_absolute-center slds-var-m-top_large">
+            <lightning:button
+              label="Save Product Details"
+              onclick="{!c.onSaveProductDetails}"
+              variant="brand-outline"
+              title="Save Product Details"
+            />
+          </div>
+        </fieldset>
+      </lightning:layoutItem>
+    </lightning:card>
+  </lightning:layout>
+</aura:component>

@@ -1,9 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Invalid_AssistantPhone_Formula</fullName>
     <active>true</active>
-    <description>Ensures that the assistant phone field is properly validated.</description>
-    <errorConditionFormula>IF( OR(ISCHANGED(AssistantPhone) &amp;&amp; NOT(ISNULL(AssistantPhone )) &amp;&amp; NOT(ISBLANK(AssistantPhone)) &amp;&amp; !REGEX(AssistantPhone ,&#39;^\\d{10,25}$&#39;), ISNEW() &amp;&amp; NOT(ISNULL(AssistantPhone)) &amp;&amp; NOT(ISBLANK(AssistantPhone)) &amp;&amp; !REGEX(AssistantPhone,&#39;^\\d{10,25}$&#39;)),true,false)</errorConditionFormula>
+    <description
+  >Ensures that the assistant phone field is properly validated.</description>
+    <errorConditionFormula
+  >IF( OR(ISCHANGED(AssistantPhone) &amp;&amp; NOT(ISNULL(AssistantPhone )) &amp;&amp; NOT(ISBLANK(AssistantPhone)) &amp;&amp; !REGEX(AssistantPhone ,&apos;^\\d{10,25}$&apos;), ISNEW() &amp;&amp; NOT(ISNULL(AssistantPhone)) &amp;&amp; NOT(ISBLANK(AssistantPhone)) &amp;&amp; !REGEX(AssistantPhone,&apos;^\\d{10,25}$&apos;)),true,false)</errorConditionFormula>
     <errorDisplayField>AssistantPhone</errorDisplayField>
-    <errorMessage>Invalid format entered for assistant phone. The minimum number of digits should be 10</errorMessage>
+    <errorMessage
+  >Invalid format entered for assistant phone. The minimum number of digits should be 10</errorMessage>
 </ValidationRule>

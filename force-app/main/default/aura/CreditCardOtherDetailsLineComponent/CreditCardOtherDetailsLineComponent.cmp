@@ -1,0 +1,354 @@
+<aura:component>
+  <aura:registerEvent name="productDetailsEvent" type="c:ProductDetailsEvent" />
+  <aura:attribute
+    name="ParentContainer"
+    type="Map"
+    default="{}"
+    description="Credit Card parent container"
+  />
+
+  <aura:attribute name="jnConfigs" type="Map" default="{}" />
+
+  <aura:attribute
+    name="notifyContainerChange"
+    type="Boolean"
+    default="true"
+    description="used to indicate whether the component should react to the ChildContainer changes"
+  />
+  <aura:attribute
+    name="containerName"
+    type="String"
+    default="CreditCardOtherDetailLine"
+  />
+  <aura:attribute
+    name="ChildContainer"
+    type="Map"
+    default="{}"
+    description="Credit Card child container"
+  />
+  <aura:attribute
+    name="collateralType"
+    type="List"
+    default="['Unsecured (None)','Cash/Investments']"
+  />
+  <aura:attribute
+    name="interestedInCreditorLife"
+    type="List"
+    default="['Yes','No']"
+  />
+  <aura:attribute
+    name="noCreditorLifeReason"
+    type="List"
+    default="['Not Eligible','Other']"
+  />
+  <aura:attribute
+    name="lifeInsuranceOptions"
+    type="List"
+    default="['Life Protection','Life and Critical Illness Protection']"
+  />
+  <aura:attribute name="coverageTypeOptions" type="List" />
+  <!--JN1-3928 :: Changed the type-->
+  <aura:attribute
+    name="repaymentMethod"
+    type="String"
+    default="Over The Counter"
+  />
+  <!--JN1-3928 :: Added Monthly reypaymentDate attribute-->
+  <aura:attribute
+    name="monthlyRepaymentDate"
+    type="List"
+    default="['End of Month', '1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23',
+             '24','25','26','27','28','29','30']"
+  />
+  <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
+  <!-- Handlers -->
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+  <!-- Flags -->
+  <aura:attribute name="cashInvestmentFlag" type="Boolean" default="false" />
+  <aura:attribute name="noCreditorLifeFlag" type="Boolean" default="false" />
+  <aura:attribute name="yesCreditorLifeFlag" type="Boolean" default="true" />
+  <aura:attribute
+    name="disableLifeInsuranceCoverageFlag"
+    type="Boolean"
+    default="true"
+  />
+  <aura:attribute
+    name="disableCoverageTypeFlag"
+    type="Boolean"
+    default="true"
+  />
+  <aura:attribute
+    name="otherCreditorLifeReasonFlag"
+    type="Boolean"
+    default="false"
+  />
+  <aura:attribute name="creditCardFlag" type="Boolean" default="false" />
+
+  <aura:attribute name="lineOfCreditFlag" type="Boolean" default="false" />
+  <!--JN1-4021-->
+  <aura:method
+    name="validateFields"
+    action="{!c.validateFields}"
+    access="public"
+  />
+  <!-- Static Resource -->
+  <ltng:require
+    scripts="{!join(',', 
+  $Resource.constants,
+  $Resource.calculations, 
+  $Resource.productDetailsGeneralFunctions)}"
+    afterScriptsLoaded="{!c.scriptsLoaded}"
+  />
+  <aura:handler
+    name="change"
+    value="{!v.ChildContainer}"
+    action="{!c.onChildContainerChange}"
+  />
+  <fieldset class="slds-box slds-theme_default">
+    <legend
+      id="productdetailsform"
+      class="slds-text-heading_medium slds-p-vertical_medium"
+    >
+      Other Details
+    </legend>
+    <form class="slds-form_stacked">
+      <lightning:layout multipleRows="true">
+        <lightning:layoutItem size="12">
+          <h2 class="slds-section-title--divider">Collateral Details</h2>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="6"
+          padding="around-small"
+        >
+          <lightning:select
+            name="select1"
+            label="Collateral Type"
+            required="true"
+            onchange="{!c.onCollateralTypeChange}"
+            aura:id="collateralType"
+          >
+            <option value="">select one...</option>
+            <aura:iteration items="{!v.collateralType}" var="item">
+              <option value="{!item}">{!item}</option>
+            </aura:iteration>
+          </lightning:select>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12">
+          <aura:if isTrue="{!v.cashInvestmentFlag}">
+            <c:CashInvestmentsDetailsLineComponent
+              ParentContainer="{!v.ParentContainer}"
+              aura:id="cashInvestmentDetailsLineComponent"
+            ></c:CashInvestmentsDetailsLineComponent>
+          </aura:if>
+
+          <h2 class="slds-section-title--divider">Life Insurance Coverage</h2>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <lightning:select
+            name="select1"
+            label="Will JN Life Creditor Life Insurance be taken?"
+            required="true"
+            onchange="{!c.oninterestedInCreditorLifeChange}"
+            aura:id="jnLifeCreditorLifeInsurance"
+          >
+            <option value="">select one...</option>
+            <aura:iteration items="{!v.interestedInCreditorLife}" var="item">
+              <option value="{!item}">{!item}</option>
+            </aura:iteration>
+          </lightning:select>
+        </lightning:layoutItem>
+        <!-- Fields Shown when user selects yes for creditor life-->
+        <aura:if isTrue="{!and(v.yesCreditorLifeFlag, v.creditCardFlag)}">
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
+          >
+            <lightning:select
+              aura:id="creditorLifeSelected"
+              name="select1"
+              label="Coverage Type"
+              required="true"
+              onchange="{!c.onCoverageTypeChange}"
+              disabled="{!v.disableCoverageTypeFlag}"
+            >
+              <option value="">select one...</option>
+              <aura:iteration items="{!v.coverageTypeOptions}" var="item">
+                <option value="{!item}">{!item}</option>
+              </aura:iteration>
+            </lightning:select>
+          </lightning:layoutItem>
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
+          >
+            <lightning:select
+              aura:id="creditorLifeSelected"
+              name="select1"
+              label="Life Insurance Coverage"
+              required="true"
+              onchange="{!c.onLifeInsuranceCoverageChange}"
+              disabled="{!v.disableLifeInsuranceCoverageFlag}"
+            >
+              <option value="">select one...</option>
+              <aura:iteration items="{!v.lifeInsuranceOptions}" var="item">
+                <option value="{!item}">{!item}</option>
+              </aura:iteration>
+            </lightning:select>
+          </lightning:layoutItem>
+        </aura:if>
+        <aura:if isTrue="{!and(v.yesCreditorLifeFlag,v.lineOfCreditFlag)}">
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
+          >
+            <lightning:select
+              aura:id="creditorLifeSelected"
+              name="select1"
+              label="Life Insurance Coverage"
+              required="true"
+              onchange="{!c.onLifeInsuranceCoverageChange}"
+              disabled="{!v.disableLifeInsuranceCoverageFlag}"
+            >
+              <option value="">select one...</option>
+              <aura:iteration items="{!v.lifeInsuranceOptions}" var="item">
+                <option value="{!item}">{!item}</option>
+              </aura:iteration>
+            </lightning:select>
+          </lightning:layoutItem>
+        </aura:if>
+        <!-- Fields Shown when user selects no for creditor life-->
+        <aura:if isTrue="{!v.noCreditorLifeFlag}">
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
+          >
+            <lightning:select
+              aura:id="creditorLifeNotSelected"
+              name="select1"
+              label="Reason"
+              required="true"
+              onchange="{!c.onReasonChange}"
+            >
+              <option value="">select one...</option>
+              <aura:iteration items="{!v.noCreditorLifeReason}" var="item">
+                <option value="{!item}">{!item}</option>
+              </aura:iteration>
+            </lightning:select>
+          </lightning:layoutItem>
+          <!-- Fields Shown when user selects other for no credtior life reason-->
+          <aura:if isTrue="{!v.otherCreditorLifeReasonFlag}">
+            <lightning:layoutItem
+              size="12"
+              mediumDeviceSize="4"
+              padding="around-small"
+            >
+              <lightning:input
+                aura:id="otherReason"
+                type="text"
+                name="select1"
+                label="Other"
+                required="true"
+                value="{!v.ChildContainer.noCreditorLifeReason}"
+              />
+            </lightning:layoutItem>
+          </aura:if>
+        </aura:if>
+        <lightning:layoutItem size="12">
+          <h2 class="slds-section-title--divider">Credit Repayment</h2>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="6"
+          padding="around-small"
+        >
+          <div class="slds-form-element">
+            <div class="slds-form-element__control">
+              <!--JN1-3928 :: Changed to input -->
+              <lightning:input
+                name="repayment method"
+                label="Indicate repayment method "
+                required="true"
+                disabled="true"
+                value="{!v.repaymentMethod}"
+              />
+            </div>
+          </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="6"
+          padding="around-small"
+        >
+          <div class="slds-form-element">
+            <div class="slds-form-element__control">
+              <!--JN1-3928 :: Changed to picklist -->
+              <lightning:select
+                name="select1"
+                label="Desired Statement Date"
+                required="true"
+                onchange="{!c.onMonthlyRepaymentDateChange}"
+                aura:id="desiredStatementDate"
+              >
+                <option value="">select one...</option>
+                <aura:iteration items="{!v.monthlyRepaymentDate}" var="item">
+                  <option value="{!item}">{!item}</option>
+                </aura:iteration>
+              </lightning:select>
+            </div>
+          </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12">
+          <h2 class="slds-section-title--divider">
+            Credit Risk Pre-assessment
+          </h2>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="6"
+          padding="around-small"
+        >
+          <div class="slds-form-element">
+            <div class="slds-form-element__control">
+              <lightning:input
+                label="Credit Risk Score prior to application"
+                value="{!v.ParentContainer.creditRiskScore}"
+                type="number"
+                name="input1"
+                required="true"
+                readonly="true"
+              />
+            </div>
+          </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="6"
+          padding="around-small"
+        >
+          <div class="slds-form-element">
+            <div class="slds-form-element__control">
+              <lightning:input
+                label="Credit Risk Rating prior to application"
+                value="{!v.ParentContainer.creditRiskRating}"
+                type="text"
+                name="input1"
+                required="true"
+                readonly="true"
+              />
+            </div>
+          </div>
+        </lightning:layoutItem>
+      </lightning:layout>
+    </form>
+  </fieldset>
+</aura:component>

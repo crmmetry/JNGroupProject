@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Two-column layout for Banking Individual flexipage.</description>
+    <description
+  >Two-column layout for Banking Individual flexipage.</description>
     <flexiPageRegions>
         <componentInstances>
             <componentInstanceProperties>
@@ -25,7 +26,8 @@
                 <name>variant</name>
                 <value>linear</value>
             </componentInstanceProperties>
-            <componentName>runtime_sales_pathassistant:pathAssistant</componentName>
+            <componentName
+      >runtime_sales_pathassistant:pathAssistant</componentName>
             <visibilityRule>
                 <criteria>
                     <leftValue>{!Record.Applicant__pc}</leftValue>
@@ -55,7 +57,8 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <componentInstances>
-            <componentName>runtime_sales_activities:activityPanel</componentName>
+            <componentName
+      >runtime_sales_activities:activityPanel</componentName>
         </componentInstances>
         <name>facet-44285b14-348d-42d0-b4cc-da333282762b</name>
         <type>Facet</type>

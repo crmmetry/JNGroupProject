@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Product_Details</fullName>
     <active>true</active>
@@ -22,7 +22,8 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>IL - Auto Loan%2C Unsecured Loan%2C Term Share Loan</fullName>
+            <fullName
+      >IL - Auto Loan%2C Unsecured Loan%2C Term Share Loan</fullName>
             <default>false</default>
         </values>
         <values>
@@ -192,11 +193,11 @@
     <picklistValues>
         <picklist>Financial_Institution_LOC__c</picklist>
         <values>
-            <fullName>JN Bank Limited</fullName>
+            <fullName>JN Bank Ltd%2E</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>JN Fund Managers Limited</fullName>
+            <fullName>JN Fund Managers Ltd%2E</fullName>
             <default>false</default>
         </values>
         <values>
@@ -207,15 +208,26 @@
     <picklistValues>
         <picklist>Financial_Institution__c</picklist>
         <values>
-            <fullName>JN Bank Limited</fullName>
+            <fullName>JN Bank Ltd%2E</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>JN Fund Managers Limited</fullName>
+            <fullName>JN Fund Managers Ltd%2E</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Hypothecated_Loan_Flag__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -233,22 +245,22 @@
     <picklistValues>
         <picklist>Include_first_year_premium_in_loan_amt__c</picklist>
         <values>
-            <fullName>No %28Paid by the Applicant%29</fullName>
+            <fullName>No</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Yes %28Include in Loan Amount%29</fullName>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
         <picklist>Include_in_Loan_Amount_Processing_Fee__c</picklist>
         <values>
-            <fullName>No %28Paid by the Applicant%29</fullName>
+            <fullName>No</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Yes %28Include in Loan Amount%29</fullName>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -337,6 +349,17 @@
         </values>
         <values>
             <fullName>Legal Unit</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Life_Insurance_Coverage__c</picklist>
+        <values>
+            <fullName>Life Protection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Life and Critical Illness Protection</fullName>
             <default>false</default>
         </values>
     </picklistValues>

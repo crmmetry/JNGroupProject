@@ -1,0 +1,48 @@
+<aura:component>
+  <ltng:require scripts="{!$Resource.calculations}" />
+  <aura:attribute name="productPrice" type="Decimal" />
+  <aura:attribute name="oppId" type="Id" />
+  <aura:attribute name="oppApplicants" type="List" />
+  <aura:attribute name="jnDefaultConfigs" type="Map" />
+  <!--JN1-4021-->
+  <aura:method
+    name="validateFields"
+    action="{!c.validateFields}"
+    access="public"
+  />
+
+  <aura:attribute
+    name="ParentContainer"
+    type="Map"
+    default="{}"
+    description="Auto Loan parent container"
+  />
+
+  <c:PersonalAutoLoanRequestLineItemComponent
+    applicants="{!v.oppApplicants}"
+    oppId="{!v.oppId}"
+    productPrice="{!v.productPrice}"
+    ParentContainer="{!v.ParentContainer}"
+    aura:id="personalAutoLoanRequestLineItemCmp"
+  >
+  </c:PersonalAutoLoanRequestLineItemComponent>
+
+  <c:AutoLoanFeaturesLineItemComponent
+    ParentContainer="{!v.ParentContainer}"
+    aura:id="autoLoanFeaturesLineItemCmp"
+  >
+  </c:AutoLoanFeaturesLineItemComponent>
+
+  <c:AutoLoanCreditCalculationsLineComponent
+    ParentContainer="{!v.ParentContainer}"
+    jnDefaultConfigs="{!v.jnDefaultConfigs}"
+    aura:id="autoLoanCreditCalculationsLineCmp"
+  >
+  </c:AutoLoanCreditCalculationsLineComponent>
+
+  <c:TotalDebtServiceRatioLineItemComponent
+    ParentContainer="{!v.ParentContainer}"
+    jnDefaultConfigs="{!v.jnDefaultConfigs}"
+    aura:id="totalDebtServiceRatioLineItemCmp"
+  ></c:TotalDebtServiceRatioLineItemComponent>
+</aura:component>

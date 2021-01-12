@@ -27,8 +27,8 @@ h5 {
 .summary-table {
   margin: 5px;
 }
-.summary-table  tr:last-of-type {
-  border-bottom: 0px solid  white;
+.summary-table tr:last-of-type {
+  border-bottom: 0px solid white;
 }
 .content-table {
   margin-left: 16px;
@@ -48,10 +48,10 @@ td {
   padding: 8px 8px;
 }
 
- th {
+th {
   padding: 5px 5px;
 }
-.content-table  tr:nth-of-type(even) {
+.content-table tr:nth-of-type(even) {
   background-color: #f3f3f3;
   font-weight: bold;
 }

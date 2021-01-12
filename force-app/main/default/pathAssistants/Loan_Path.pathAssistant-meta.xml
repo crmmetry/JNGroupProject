@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
     <active>true</active>
     <entityName>Opportunity</entityName>
@@ -6,30 +6,37 @@
     <masterLabel>Loan Path</masterLabel>
     <pathAssistantSteps>
         <fieldNames>Record__c</fieldNames>
-        <info>&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;ADJ: AWAIT:&lt;/p&gt;&lt;p&gt;Adjudication has told you the outcome of their review. Record Adjudication&amp;#39;s decision in the key field to the left of this text.&lt;/p&gt;</info>
-        <picklistValueName>ADJUDICATION: AWAIT CREDIT DECISION</picklistValueName>
+        <info
+    >&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;ADJ: AWAIT:&lt;/p&gt;&lt;p&gt;Adjudication has told you the outcome of their review. Record Adjudication&amp;#39;s decision in the key field to the left of this text.&lt;/p&gt;</info>
+        <picklistValueName
+    >ADJUDICATION: AWAIT CREDIT DECISION</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
         <fieldNames>Closed_Status__c</fieldNames>
-        <info>&lt;p&gt;Final step! This loan was either disbursed, canceled, or otherwise lost.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;If the opportunity is closed won, please add the&lt;b&gt; Pheonix account number&lt;/b&gt;, &lt;b&gt;Pheonix Account Type&lt;/b&gt; and &lt;b&gt;Rim/Client No&lt;/b&gt; to the &lt;b&gt;&lt;i&gt;Closing Fields &lt;/i&gt;&lt;/b&gt;section on the Details tab of the Opprtunity.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;If the Opportunity is Closed and Lost, please add the &lt;b&gt;Closed Lost Reason&lt;/b&gt; &lt;span style=&quot;font-size: 13px;&quot;&gt;to the &lt;/span&gt;&lt;b style=&quot;font-size: 13px;&quot;&gt;&lt;i&gt;Closing Fields &lt;/i&gt;&lt;/b&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;section on the Details tab of the Opportunity. &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <info
+    >&lt;p&gt;Final step! This loan was either disbursed, canceled, or otherwise lost.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;If the opportunity is closed won, please add the&lt;b&gt; Pheonix account number&lt;/b&gt;, &lt;b&gt;Pheonix Account Type&lt;/b&gt; and &lt;b&gt;Rim/Client No&lt;/b&gt; to the &lt;b&gt;&lt;i&gt;Closing Fields &lt;/i&gt;&lt;/b&gt;section on the Details tab of the Opprtunity.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;If the Opportunity is Closed and Lost, please add the &lt;b&gt;Closed Lost Reason&lt;/b&gt; &lt;span style=&quot;font-size: 13px;&quot;&gt;to the &lt;/span&gt;&lt;b style=&quot;font-size: 13px;&quot;&gt;&lt;i&gt;Closing Fields &lt;/i&gt;&lt;/b&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;section on the Details tab of the Opportunity. &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
         <picklistValueName>Closing Step</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
         <fieldNames>Collect_check_Customer_PK__c</fieldNames>
-        <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Its time to collect all the documents on the Customer&amp;#39;s Document Checklist. Please indicate your progress in the key field to the left of this text.&lt;/span&gt;&lt;/p&gt;</info>
-        <picklistValueName>Collect and Check Customer Documents</picklistValueName>
+        <info
+    >&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Its time to collect all the documents on the Customer&amp;#39;s Document Checklist. Please indicate your progress in the key field to the left of this text.&lt;/span&gt;&lt;/p&gt;</info>
+        <picklistValueName
+    >Collect and Check Customer Documents</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
         <fieldNames>Personal_Details_Complete_PK__c</fieldNames>
         <fieldNames>Financial_Information_Complete_PK__c</fieldNames>
-        <info>&lt;p&gt;It&amp;#39;s time to complete the Customer&amp;#39;s Application form.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Step 1 is to complete the Applicant Profile(s). The Applicant Profile is comprised of the (1) Personal Details and (2) Financial Information forms.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;﻿Please indicate your progress in the key fields to the left of this text.&lt;/span&gt;&lt;/p&gt;</info>
+        <info
+    >&lt;p&gt;It&amp;#39;s time to complete the Customer&amp;#39;s Application form.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Step 1 is to complete the Applicant Profile(s). The Applicant Profile is comprised of the (1) Personal Details and (2) Financial Information forms.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;﻿Please indicate your progress in the key fields to the left of this text.&lt;/span&gt;&lt;/p&gt;</info>
         <picklistValueName>Complete Applicant Profile(s)</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
         <fieldNames>Loan_Request_Details_Complete_PK__c</fieldNames>
         <fieldNames>Credit_Calculations_Reviewed_PK__c</fieldNames>
         <fieldNames>Fees_and_Charges_Reviewed_PK__c</fieldNames>
-        <info>&lt;p&gt;Let&amp;#39;s continue completing the Customer&amp;#39;s Application form. You completed the Applicant Profile(s). Step 2 is to complete the Product(s) Details. Follow these simple steps:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;ol&gt;&lt;li&gt;Add each product for this application using the &amp;quot;Add Product&amp;quot; option&lt;/li&gt;&lt;li&gt;Click on the Product Details tab below and complete the relevant product information to compute the calculations.&lt;/li&gt;&lt;/ol&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;﻿Please indicate your progress in the key fields to the left of this text.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;TIP: If you completed the &amp;quot;Multi-Product&amp;quot; calculator for the Lead, the information will be pre-populated in the Product Details Tab. If you saved different scenarios, be sure to add the scenario the Customer wishes to proceed with, to the Opportunity.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <info
+    >&lt;p&gt;Let&amp;#39;s continue completing the Customer&amp;#39;s Application form. You completed the Applicant Profile(s). Step 2 is to complete the Product(s) Details. Follow these simple steps:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;ol&gt;&lt;li&gt;Add each product for this application using the &amp;quot;Add Product&amp;quot; option&lt;/li&gt;&lt;li&gt;Click on the Product Details tab below and complete the relevant product information to compute the calculations.&lt;/li&gt;&lt;/ol&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;﻿Please indicate your progress in the key fields to the left of this text.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;TIP: If you completed the &amp;quot;Multi-Product&amp;quot; calculator for the Lead, the information will be pre-populated in the Product Details Tab. If you saved different scenarios, be sure to add the scenario the Customer wishes to proceed with, to the Opportunity.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
         <picklistValueName>Complete Product Details</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
@@ -37,40 +44,51 @@
         <fieldNames>Await_Credit_Report_Picklist__c</fieldNames>
         <fieldNames>Request__c</fieldNames>
         <fieldNames>Await_Result_of_Sanction_Screen__c</fieldNames>
-        <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Before starting the loan application, please conduct necessary Credit Bureau and Sanction Screen checks. Please indicate your progress in the key fields to the left of this text.&lt;/span&gt;&lt;/p&gt;</info>
-        <picklistValueName>Conduct Customer Background Checks</picklistValueName>
+        <info
+    >&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Before starting the loan application, please conduct necessary Credit Bureau and Sanction Screen checks. Please indicate your progress in the key fields to the left of this text.&lt;/span&gt;&lt;/p&gt;</info>
+        <picklistValueName
+    >Conduct Customer Background Checks</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
         <fieldNames>Application_Form_Created_PK__c</fieldNames>
         <fieldNames>Statement_of_Affairs_gene_PK__c</fieldNames>
         <fieldNames>Credit_Scoring_Model_generated_PK__c</fieldNames>
         <fieldNames>Credit_Calculations_Generated_PK__c</fieldNames>
-        <info>&lt;p&gt;You have Completed the Application form! Generate the documents for customer review and signature, by clicking the respective buttons, at the end of the Product Details sheet.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;﻿Please indicate your progress in the key fields to the left of this text.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <info
+    >&lt;p&gt;You have Completed the Application form! Generate the documents for customer review and signature, by clicking the respective buttons, at the end of the Product Details sheet.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;﻿Please indicate your progress in the key fields to the left of this text.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
         <picklistValueName>Generate Application Documents</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
         <fieldNames>Receive_Review_Upload_Suspension_Memo__c</fieldNames>
         <fieldNames>Resubmit_Application_Supporting_Docs__c</fieldNames>
         <fieldNames>Contact_Customer_Since_Suspension_Memo__c</fieldNames>
-        <info>&lt;p&gt;Was your Loan Suspended?&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;﻿Please indicate your progress in the key fields to the left of this text.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
-        <picklistValueName>Post Submission Contact - RESUBMIT LOAN</picklistValueName>
+        <info
+    >&lt;p&gt;Was your Loan Suspended?&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;﻿Please indicate your progress in the key fields to the left of this text.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName
+    >Post Submission Contact - RESUBMIT LOAN</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
         <fieldNames>Contact_Customer_to_Sign_Security_Docs__c</fieldNames>
         <fieldNames>Submit_Security_Documentation_to_CRMU__c</fieldNames>
-        <info>&lt;p&gt;Congrats! Your Loan is now in the Processing stage. The customer has a few more documents to sign before we disburse funds.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;﻿Please indicate your progress in the key fields to the left of this text.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
-        <picklistValueName>Post Submission Contact – CUSTOMER SIGN PROCESSING DOCUMENTS</picklistValueName>
+        <info
+    >&lt;p&gt;Congrats! Your Loan is now in the Processing stage. The customer has a few more documents to sign before we disburse funds.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;﻿Please indicate your progress in the key fields to the left of this text.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName
+    >Post Submission Contact – CUSTOMER SIGN PROCESSING DOCUMENTS</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
         <fieldNames>Request_ADJ_Exception_for_Credit__c</fieldNames>
         <fieldNames>Await_Credit_Exception_Decision__c</fieldNames>
-        <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Do you need an Exception for this Loan? Please fill out the necessary fields, or select No to move on to the next step.&lt;/span&gt;&lt;/p&gt;</info>
+        <fieldNames>Exception_Approved_by__c</fieldNames>
+        <fieldNames>Date_of_Approval__c</fieldNames>
+        <info
+    >&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Do you need an Exception for this Loan? Please fill out the necessary fields, or select No to move on to the next step.&lt;/span&gt;&lt;/p&gt;</info>
         <picklistValueName>Preform Exception Handling</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
         <fieldNames>Scan_And_Upload_Documents__c</fieldNames>
         <fieldNames>Complete_Sharepoint_Forms_Retail__c</fieldNames>
-        <info>&lt;p&gt;SUBMIT LOAN:&lt;/p&gt;&lt;p&gt;It&amp;#39;s time to submit your loan to Adjudication. Follow your JN work instruction to submit the loan via the appropriate system.&lt;/p&gt;&lt;p&gt;TIP: Be sure to complete this step AS SOON AS you have successfully submitted the loan file to Adjudication, for accurate turn time reports.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <info
+    >&lt;p&gt;SUBMIT LOAN:&lt;/p&gt;&lt;p&gt;It&amp;#39;s time to submit your loan to Adjudication. Follow your JN work instruction to submit the loan via the appropriate system.&lt;/p&gt;&lt;p&gt;TIP: Be sure to complete this step AS SOON AS you have successfully submitted the loan file to Adjudication, for accurate turn time reports.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
         <picklistValueName>Submit Loan</picklistValueName>
     </pathAssistantSteps>
     <recordTypeName>Credit_Facility</recordTypeName>

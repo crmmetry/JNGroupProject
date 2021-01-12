@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>CancelEdit</actionName>
@@ -130,15 +130,21 @@
     <enableFeeds>false</enableFeeds>
     <externalSharingModel>Private</externalSharingModel>
     <searchLayouts>
-        <customTabListAdditionalFields>LastModifiedDate</customTabListAdditionalFields>
-        <customTabListAdditionalFields>LastModifiedBy</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >LastModifiedDate</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >LastModifiedBy</customTabListAdditionalFields>
         <customTabListAdditionalFields>Contact</customTabListAdditionalFields>
-        <customTabListAdditionalFields>Individual</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >Individual</customTabListAdditionalFields>
         <customTabListAdditionalFields>User</customTabListAdditionalFields>
-        <searchResultsAdditionalFields>LastModifiedDate</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>LastModifiedBy</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >LastModifiedDate</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >LastModifiedBy</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Contact</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Individual</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >Individual</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>User</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>

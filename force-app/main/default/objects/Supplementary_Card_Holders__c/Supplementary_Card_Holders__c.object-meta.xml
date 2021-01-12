@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>Accept</actionName>
@@ -156,12 +156,12 @@
     <label>Supplementary Card Holder</label>
     <nameField>
         <displayFormat>SCH-{000000000}</displayFormat>
-        <label>Supplementary Card Holder&#39;s Name</label>
+        <label>Supplementary Card Holder&apos;s Name</label>
         <trackHistory>false</trackHistory>
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Supplementary Card Holder</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts />
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

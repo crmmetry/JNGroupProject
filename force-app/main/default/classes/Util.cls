@@ -155,7 +155,9 @@ public with sharing class Util {
    */
 
   public static Boolean isWithinBusinessHours(Datetime currentDateTime) {
-    BusinessHours bh = GetActiveBusinessHours('JN Default Business Hours');
+    BusinessHours bh = GetActiveBusinessHours(
+      Constants.DEFAULT_BUSINESS_HOURS_NAME
+    );
     return BusinessHours.isWithin(bh.Id, currentDateTime);
   }
 
@@ -518,5 +520,18 @@ public with sharing class Util {
       currentTime.minute(),
       currentTime.second()
     );
+  }
+
+  /**
+   * Get all opportunity products related to an opportunity
+   * @param {Id} - oppId
+   * @return {List<OpportunityLineItem>}
+   */
+  public static List<OpportunityLineItem> getOpportunityProducts(Id oppId) {
+    return [
+      SELECT Id, Product_Family__c, Name, UnitPrice
+      FROM OpportunityLineItem
+      WHERE OpportunityId = :oppId
+    ];
   }
 }

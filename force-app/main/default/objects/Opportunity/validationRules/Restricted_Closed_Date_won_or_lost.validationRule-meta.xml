@@ -1,13 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Restricted_Closed_Date_won_or_lost</fullName>
     <active>false</active>
-    <description>Define a rule for a restricted Closed Date based on stage Closed Won or Closed Lost</description>
+    <description
+  >Define a rule for a restricted Closed Date based on stage Closed Won or Closed Lost</description>
     <errorConditionFormula>OR(
  CloseDate &lt;=  TODAY()-8,
  CloseDate  &gt; TODAY(),
  CloseDate &lt;  DATEVALUE(CreatedDate)
   
 )</errorConditionFormula>
-    <errorMessage>The Closed Date cannot be this far back in the past. Please contact Sales Support.</errorMessage>
+    <errorMessage
+  >The Closed Date cannot be this far back in the past. Please contact Sales Support.</errorMessage>
 </ValidationRule>

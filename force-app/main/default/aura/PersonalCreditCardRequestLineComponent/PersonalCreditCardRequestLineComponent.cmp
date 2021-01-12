@@ -1,0 +1,116 @@
+<aura:component>
+  <aura:attribute
+    name="creditLimitCurrency"
+    type="List"
+    default="['JMD','USD']"
+  />
+  <aura:attribute name="productName" type="String" />
+  <aura:attribute
+    name="creditCard"
+    type="String"
+    default="JN Bank Credit Card"
+  />
+  <aura:attribute
+    name="lineOfCredit"
+    type="String"
+    default="JN Bank Line Of Credit"
+  />
+  <aura:attribute name="numOfCardholders" type="List" default="['1','2']" />
+  <aura:attribute name="productPrice" type="Decimal" />
+  <aura:attribute
+    name="ChildContainer"
+    type="Map"
+    default="{}"
+    description="Credit Card child container"
+  />
+  <aura:attribute
+    name="ParentContainer"
+    type="Map"
+    default="{}"
+    description="Credit Card parent container"
+  />
+  <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
+  <aura:registerEvent name="productDetailsEvent" type="c:ProductDetailsEvent" />
+
+  <!-- Handlers -->
+  <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+  <aura:handler
+    name="change"
+    action="{!c.onChildContainerChange}"
+    value="{!v.ChildContainer}"
+  />
+  <!--JN1-4212 : For validating fields-->
+  <aura:method
+    name="validateFields"
+    action="{!c.validateFields}"
+    access="public"
+  />
+
+  <aura:attribute name="notifyContainerChange" type="Boolean" default="true" />
+
+  <!-- Static Resources -->
+  <ltng:require
+    scripts="{!join(',', 
+  $Resource.constants,
+  $Resource.calculations, 
+  $Resource.productDetailsGeneralFunctions)}"
+    afterScriptsLoaded="{!c.scriptsLoaded}"
+  />
+
+  <lightning:layout multipleRows="true">
+    <aura:if isTrue="{!v.productName == v.creditCard}">
+      <lightning:layoutItem size="12">
+        <h2 class="slds-section-title--divider">
+          Personal Credit Card Request
+        </h2>
+      </lightning:layoutItem>
+    </aura:if>
+    <aura:if isTrue="{!v.productName == v.lineOfCredit}">
+      <lightning:layoutItem size="12">
+        <h2 class="slds-section-title--divider">
+          Personal Line Of Credit Request
+        </h2>
+      </lightning:layoutItem>
+    </aura:if>
+    <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
+      <lightning:layout>
+        <!-- <lightning:layoutItem size="3" mediumDeviceSize="3">
+          <lightning:select
+            name="select1"
+            label="$"
+            required="true"
+            onchange="{!c.onCreditLimitCurrencyChange}"
+          >
+            <aura:iteration items="{!v.creditLimitCurrency}" var="item">
+              <option value="{!item}">{!item}</option>
+            </aura:iteration>
+          </lightning:select>
+        </lightning:layoutItem> -->
+        <lightning:layoutItem size="12">
+          <lightning:input
+            type="number"
+            label="Requested Credit Limit"
+            value="{!v.productPrice}"
+            name="number"
+            formatter="currency"
+            required="true"
+            readonly="true"
+          />
+        </lightning:layoutItem>
+      </lightning:layout>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
+      <lightning:input
+        type="number"
+        label="Interest Rate"
+        value="{!v.ChildContainer.interestRate}"
+        placeholder="per annum"
+        name="interestRate"
+        formatter="percent-fixed"
+        required="true"
+        step="0.01"
+        aura:id="locInterestRate"
+      />
+    </lightning:layoutItem>
+  </lightning:layout>
+</aura:component>

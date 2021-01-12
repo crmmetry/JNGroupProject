@@ -1,4 +1,0 @@
-<aura:component >
-        <c:DocumentChecklist />
-        <c:DocumentCriteriaHelper/>
-</aura:component>

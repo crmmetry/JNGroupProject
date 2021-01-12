@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomMetadata
+  xmlns="http://soap.sforce.com/2006/04/metadata"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+>
+    <label>Default</label>
+    <protected>false</protected>
+    <values>
+        <field>Assignment_Fee__c</field>
+        <value xsi:type="xsd:double">4538.63</value>
+    </values>
+    <values>
+        <field>Average_Balance_Minimum_Pay_Number__c</field>
+        <value xsi:type="xsd:double">5.0</value>
+    </values>
+    <values>
+        <field>CC_Creditor_Life_CI_Protection_Rate__c</field>
+        <value xsi:type="xsd:double">0.0041</value>
+    </values>
+    <values>
+        <field>CC_Creditor_Life_Protection_Rate_Number__c</field>
+        <value xsi:type="xsd:double">0.0026</value>
+    </values>
+    <values>
+        <field>Classic_Card_Fee__c</field>
+        <value xsi:type="xsd:double">2793.1</value>
+    </values>
+    <values>
+        <field>Credit_Card_Principal_Payment_Number__c</field>
+        <value xsi:type="xsd:double">2.5</value>
+    </values>
+    <values>
+        <field>Credit_Limit_Allowable_Max_Number__c</field>
+        <value xsi:type="xsd:double">0.3</value>
+    </values>
+    <values>
+        <field>Credit_Limit_Allowable_Min_Number__c</field>
+        <value xsi:type="xsd:double">0.2</value>
+    </values>
+    <values>
+        <field>Credit_Limit_Allowable_Threshold_Number__c</field>
+        <value xsi:type="xsd:double">3000000.0</value>
+    </values>
+    <values>
+        <field>Credit_Limit_Value__c</field>
+        <value xsi:type="xsd:double">500000.0</value>
+    </values>
+    <values>
+        <field>Creditor_Life_Annual_Fee_Number__c</field>
+        <value xsi:type="xsd:double">1000.0</value>
+    </values>
+    <values>
+        <field>Discount_Factor_Number__c</field>
+        <value xsi:type="xsd:double">0.33</value>
+    </values>
+    <values>
+        <field>Estimated_Stamp_Duty_Admin_Fee__c</field>
+        <value xsi:type="xsd:double">8000.0</value>
+    </values>
+    <values>
+        <field>GCT__c</field>
+        <value xsi:type="xsd:double">0.15</value>
+    </values>
+    <values>
+        <field>Gold_Card_Fee__c</field>
+        <value xsi:type="xsd:double">5353.45</value>
+    </values>
+    <values>
+        <field>LOC_Credit_Limit_Percent__c</field>
+        <value xsi:type="xsd:double">0.75</value>
+    </values>
+    <values>
+        <field>LTV_Ceiling_Number__c</field>
+        <value xsi:type="xsd:double">0.8</value>
+    </values>
+    <values>
+        <field>Legal_Fee__c</field>
+        <value xsi:type="xsd:double">1000.0</value>
+    </values>
+    <values>
+        <field>Line_Of_Credit_Creditor_Life_Rate_Number__c</field>
+        <value xsi:type="xsd:double">2.1E-4</value>
+    </values>
+    <values>
+        <field>Line_Of_Credit_Principal_Payment_Number__c</field>
+        <value xsi:type="xsd:double">3.0</value>
+    </values>
+    <values>
+        <field>Minimum_Credit_Allowable_Number__c</field>
+        <value xsi:type="xsd:double">30000.0</value>
+    </values>
+    <values>
+        <field>NSIPP_Registration_Fee__c</field>
+        <value xsi:type="xsd:double">1000.0</value>
+    </values>
+    <values>
+        <field>Policy_Limit__c</field>
+        <value xsi:type="xsd:double">0.5</value>
+    </values>
+    <values>
+        <field>Stamp_Duty_Auto__c</field>
+        <value xsi:type="xsd:double">530.0</value>
+    </values>
+    <values>
+        <field>Stamp_Duty_Uns__c</field>
+        <value xsi:type="xsd:double">20.0</value>
+    </values>
+    <values>
+        <field>Supplementary_Card_Fee__c</field>
+        <value xsi:type="xsd:double">1476.4</value>
+    </values>
+</CustomMetadata>

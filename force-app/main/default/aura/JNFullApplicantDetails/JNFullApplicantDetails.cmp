@@ -1,3 +1,8 @@
+<!-- 
+  Ver  Ticket#      Date            Author                 Purpose
+ * 1.0  JN1-4030     2/12/2020      Ishwari G.(thinqloud)  Showing fields based on selected source of income
+ * 1.0  JN1-4047     2/12/2020      Kirti R.(thinqloud)  Show fields based on selected expense detail
+-->
 <aura:component
   implements="lightning:availableForFlowScreens"
   access="global"
@@ -6,9 +11,18 @@
   <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
 
   <aura:attribute name="applicantId" type="String" />
+  <aura:attribute name="applicant" type="Applicant__c" />
+  <aura:attribute name="sourceOfIncome" type="List" />
+  <!-- JN1-4047 :: Added attribute to store selected expense detail -->
   <aura:attribute
-    name="applicant"
-    type="Applicant__c"
+    name="selectedExpenseDetail"
+    type="String"
+    default="Statutory Deductions"
+  />
+  <aura:attribute
+    name="expenseDetail"
+    type="List"
+    default="['Statutory Deductions','Property related expenses','Personal/family expenses','Utilities/Household expenses','Transport related expenses']"
   />
   <aura:attribute
     name="validate"
@@ -23,23 +37,16 @@
         horizontalAlign="space"
         verticalAlign="center"
       >
+        <!--JN1-4030 : START:-->
         <lightning:layoutItem
           flexibility="no-flex"
           size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
+          smallDeviceSize="12"
+          mediumDeviceSize="12"
+          largeDeviceSize="12"
           alignmentBump="right"
           padding="around-small"
         >
-          <!-- Salary_and_Allowances_as_per_pay_slips__c -->
-          <lightning:input
-            type="number"
-            label="Salary and Allowances (as per pay slips)"
-            formatter="Currency"
-            value="{!v.applicant.Salary_and_Allowances_as_per_pay_slips__c}"
-            aura:id="validation"
-          />
         </lightning:layoutItem>
         <lightning:layoutItem
           flexibility="no-flex"
@@ -50,182 +57,400 @@
           alignmentBump="right"
           padding="around-small"
         >
-          <!-- Gratuity in lieu of Pension -->
-          <lightning:input
-            type="number"
-            label="Gratuity in lieu of Pension"
-            formatter="Currency"
-            value="{!v.applicant.Gratuity_in_lieu_of_Pension__c}"
-            aura:id="validation"
-          />
+          <lightning:recordEditForm
+            objectApiName="Applicant__c"
+            recordId="{!v.applicantId}"
+          >
+            <lightning:inputField
+              fieldName="Applicable_sources_of_income__c"
+              aura:id="sourceOfIncome"
+              onchange="{!c.handleSourceOfIncomeChange}"
+            />
+          </lightning:recordEditForm>
         </lightning:layoutItem>
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Performance_Based_PayC__c -->
-          <lightning:input
-            type="number"
-            label="Performance-Based Pay"
-            formatter="Currency"
-            value="{!v.applicant.Performance_Based_Pay_Includes_Commissi__c }"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+      </lightning:layout>
+      <!--JN1-4030 : END :-->
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Net Profit - Sole Trader -->
-          <lightning:input
-            type="number"
-            label="Net Profit - Sole Trader"
-            formatter="Currency"
-            value="{!v.applicant.Net_Profit_Sole_Trader__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Director’s Emoluments - Director -->
-          <lightning:input
-            type="number"
-            label="Director’s Emoluments - Director"
-            formatter="Currency"
-            value="{!v.applicant.Director_s_Emoluments_Director__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Share of Profit - Partnership -->
-          <lightning:input
-            type="number"
-            label="Share of Profit - Partnership"
-            formatter="Currency"
-            value="{!v.applicant.Share_of_Profit_Partnership__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Share of Profit - Shareholder -->
-          <lightning:input
-            type="number"
-            label="Share of Profit - Shareholder"
-            formatter="Currency"
-            value="{!v.applicant.Share_of_Profit_Shareholder__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+      <lightning:layout
+        multipleRows="true"
+        horizontalAlign="space"
+        verticalAlign="center"
+      >
+        <!--JN1-4030 : START : based on selected source of income fields will be visible-->
+        <aura:iteration items="{!v.sourceOfIncome}" var="source">
+          <aura:if isTrue="{! source == 'Salary'}">
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="12"
+              mediumDeviceSize="12"
+              largeDeviceSize="12"
+              alignmentBump="right"
+              padding="around-small"
+            >
+              <div class="slds-text-heading_small">Salary</div>
+            </lightning:layoutItem>
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="6"
+              mediumDeviceSize="6"
+              largeDeviceSize="6"
+              alignmentBump="right"
+              padding="around-small"
+            >
+              <!-- Salary_and_Allowances_as_per_pay_slips__c -->
+              <lightning:input
+                type="number"
+                label="Salary and Allowances (as per pay slips)"
+                formatter="Currency"
+                value="{!v.applicant.Salary_and_Allowances_as_per_pay_slips__c}"
+                aura:id="validation"
+              />
+            </lightning:layoutItem>
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="6"
+              mediumDeviceSize="6"
+              largeDeviceSize="6"
+              alignmentBump="right"
+              padding="around-small"
+            >
+              <!-- Gratuity in lieu of Pension -->
+              <lightning:input
+                type="number"
+                label="Gratuity in lieu of Pension"
+                formatter="Currency"
+                value="{!v.applicant.Gratuity_in_lieu_of_Pension__c}"
+                aura:id="validation"
+              />
+            </lightning:layoutItem>
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="6"
+              mediumDeviceSize="6"
+              largeDeviceSize="6"
+              alignmentBump="right"
+              padding="around-small"
+            >
+              <!-- Performance_Based_PayC__c -->
+              <lightning:input
+                type="number"
+                label="Performance-Based Pay"
+                formatter="Currency"
+                value="{!v.applicant.Performance_Based_Pay_Includes_Commissi__c }"
+                aura:id="validation"
+              />
+            </lightning:layoutItem>
+          </aura:if>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Pension -->
-          <lightning:input
-            type="number"
-            label="Pension"
-            formatter="Currency"
-            value="{!v.applicant.Pension__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <aura:if isTrue="{! source == 'Net Profit (Sole Trader)'}">
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="12"
+              mediumDeviceSize="12"
+              largeDeviceSize="12"
+              alignmentBump="right"
+              padding="around-small"
+            >
+              <div class="slds-text-heading_small">Net Business Income</div>
+            </lightning:layoutItem>
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="6"
+              mediumDeviceSize="6"
+              largeDeviceSize="6"
+              alignmentBump="right"
+              padding="around-small"
+            >
+              <!-- Net Profit - Sole Trader -->
+              <lightning:input
+                type="number"
+                label="Net Business Income (sole trader)"
+                formatter="Currency"
+                value="{!v.applicant.Net_Profit_Sole_Trader__c}"
+                aura:id="validation"
+              />
+            </lightning:layoutItem>
+          </aura:if>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-          aura:id="validation"
-        >
-          <!-- Existing Real Estate Rental I -->
-          <lightning:input
-            type="number"
-            label="Existing Real Estate Rental I"
-            formatter="Currency"
-            value="{!v.applicant.Existing_Real_Estate_Rental_I__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <aura:if isTrue="{!source == 'Director\'s Emoluments (Director)'}">
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="12"
+              mediumDeviceSize="12"
+              largeDeviceSize="12"
+              alignmentBump="right"
+              padding="around-small"
+            >
+              <div class="slds-text-heading_small">Director's Emoluments</div>
+            </lightning:layoutItem>
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="6"
+              mediumDeviceSize="6"
+              largeDeviceSize="6"
+              alignmentBump="right"
+              padding="around-small"
+            >
+              <!-- Director’s Emoluments - Director -->
+              <lightning:input
+                type="number"
+                label="Director’s Emoluments - Director"
+                formatter="Currency"
+                value="{!v.applicant.Director_s_Emoluments_Director__c}"
+                aura:id="validation"
+              />
+            </lightning:layoutItem>
+          </aura:if>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Existing Real estate Rental II -->
-          <lightning:input
-            type="number"
-            label="Existing Real estate Rental II"
-            formatter="Currency"
-            value="{!v.applicant.Existing_Real_estate_Rental_II__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Projected Real Estate Rental -->
-          <lightning:input
-            type="number"
-            label="Projected Real Estate Rental"
-            formatter="Currency"
-            value="{!v.applicant.Projected_Real_Estate_Rental__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <aura:if isTrue="{!source == 'Share of Profits (Partnership)'}">
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="12"
+              mediumDeviceSize="12"
+              largeDeviceSize="12"
+              alignmentBump="right"
+              padding="around-small"
+            >
+              <div class="slds-text-heading_small">Partnership</div>
+            </lightning:layoutItem>
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="6"
+              mediumDeviceSize="6"
+              largeDeviceSize="6"
+              alignmentBump="right"
+              padding="around-small"
+            >
+              <!-- Share of Profit - Partnership -->
+              <lightning:input
+                type="number"
+                label="Share of Profit - Partnership"
+                formatter="Currency"
+                value="{!v.applicant.Share_of_Profit_Partnership__c}"
+                aura:id="validation"
+              />
+            </lightning:layoutItem>
+          </aura:if>
+
+          <aura:if isTrue="{!source == 'Share of Profit (Shareholder)'}">
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="12"
+              mediumDeviceSize="12"
+              largeDeviceSize="12"
+              alignmentBump="right"
+              padding="around-small"
+            >
+              <div class="slds-text-heading_small">
+                Share of Profit (Shareholder)
+              </div>
+            </lightning:layoutItem>
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="6"
+              mediumDeviceSize="6"
+              largeDeviceSize="6"
+              alignmentBump="right"
+              padding="around-small"
+            >
+              <!-- Share of Profit - Shareholder -->
+              <lightning:input
+                type="number"
+                label="Share of Profit - Shareholder"
+                formatter="Currency"
+                value="{!v.applicant.Share_of_Profit_Shareholder__c}"
+                aura:id="validation"
+              />
+            </lightning:layoutItem>
+          </aura:if>
+
+          <aura:if isTrue="{!source == 'Pension'}">
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="12"
+              mediumDeviceSize="12"
+              largeDeviceSize="12"
+              alignmentBump="right"
+              padding="around-small"
+            >
+              <div class="slds-text-heading_small">Pension</div>
+            </lightning:layoutItem>
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="6"
+              mediumDeviceSize="6"
+              largeDeviceSize="6"
+              alignmentBump="right"
+              padding="around-small"
+            >
+              <!-- Pension -->
+              <lightning:input
+                type="number"
+                label="Pension"
+                formatter="Currency"
+                value="{!v.applicant.Pension__c}"
+                aura:id="validation"
+              />
+            </lightning:layoutItem>
+          </aura:if>
+
+          <aura:if isTrue="{!source == 'Property Rental'}">
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="12"
+              mediumDeviceSize="12"
+              largeDeviceSize="12"
+              alignmentBump="right"
+              padding="around-small"
+            >
+              <div class="slds-text-heading_small">Property Rental</div>
+            </lightning:layoutItem>
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="6"
+              mediumDeviceSize="6"
+              largeDeviceSize="6"
+              alignmentBump="right"
+              padding="around-small"
+              aura:id="validation"
+            >
+              <!-- Existing Real Estate Rental I -->
+              <lightning:input
+                type="percent"
+                label="Existing Real Estate Rental I"
+                formatter="Currency"
+                value="{!v.applicant.Existing_Real_Estate_Rental_I__c}"
+                aura:id="validation"
+              />
+            </lightning:layoutItem>
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="6"
+              mediumDeviceSize="6"
+              largeDeviceSize="6"
+              alignmentBump="right"
+              padding="around-small"
+              aura:id="validation"
+            >
+              <!-- Ownership % - Real Estate Rental I -->
+              <lightning:input
+                type="number"
+                label="Ownership % - Real Estate Rental I"
+                formatter="percent-fixed"
+                step="0.01"
+                value="{!v.applicant.Ownership_Real_Estate_Rental__c}"
+                aura:id="validation"
+              />
+            </lightning:layoutItem>
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="6"
+              mediumDeviceSize="6"
+              largeDeviceSize="6"
+              alignmentBump="right"
+              padding="around-small"
+            >
+              <!-- Existing Real estate Rental II -->
+              <lightning:input
+                type="number"
+                label="Existing Real estate Rental II"
+                formatter="Currency"
+                value="{!v.applicant.Existing_Real_estate_Rental_II__c}"
+                aura:id="validation"
+              />
+            </lightning:layoutItem>
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="6"
+              mediumDeviceSize="6"
+              largeDeviceSize="6"
+              alignmentBump="right"
+              padding="around-small"
+              aura:id="validation"
+            >
+              <!-- Ownership % - Real Estate Rental II -->
+              <lightning:input
+                type="number"
+                label="Ownership % - Real Estate Rental II"
+                formatter="percent-fixed"
+                step="0.01"
+                value="{!v.applicant.Ownership_Real_Estate_Rental_II__c}"
+                aura:id="validation"
+              />
+            </lightning:layoutItem>
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="6"
+              mediumDeviceSize="6"
+              largeDeviceSize="6"
+              alignmentBump="right"
+              padding="around-small"
+            >
+              <!-- Projected Real Estate Rental -->
+              <!-- <lightning:input
+                type="number"
+                label="Projected Real Estate Rental"
+                formatter="Currency"
+                value="{!v.applicant.Projected_Real_Estate_Rental__c}"
+                aura:id="validation"
+              /> -->
+            </lightning:layoutItem>
+          </aura:if>
+
+          <aura:if isTrue="{!source == 'Other'}">
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="12"
+              mediumDeviceSize="12"
+              largeDeviceSize="12"
+              alignmentBump="right"
+              padding="around-small"
+            >
+              <div class="slds-text-heading_small">Other Income</div>
+            </lightning:layoutItem>
+
+            <lightning:layoutItem
+              flexibility="no-flex"
+              size="12"
+              smallDeviceSize="6"
+              mediumDeviceSize="6"
+              largeDeviceSize="6"
+              alignmentBump="right"
+              padding="around-small"
+            >
+              <!-- Other Income -->
+              <lightning:input
+                type="number"
+                label="Other Income"
+                formatter="Currency"
+                value="{!v.applicant.Other_Income__c}"
+                aura:id="validation"
+              />
+            </lightning:layoutItem>
+          </aura:if>
+        </aura:iteration>
+        <!--JN1-4030 : START :-->
       </lightning:layout>
     </lightning:accordionSection>
 
@@ -247,1113 +472,1205 @@
           alignmentBump="right"
           padding="around-small"
         >
-          <div class="slds-text-heading_medium">Statutory Deductions</div>
+          <!--JN1-4047 :: START :: Added a picklist for expense details-->
+          <lightning:select
+            name="monthlyExpenses"
+            label="Monthly Expenses"
+            aura:id="monthlyExpensesDetails"
+            onchange="{!c.handleExpenseDetailChange}"
+          >
+            <aura:iteration items="{!v.expenseDetail}" var="item">
+              <option value="{!item}">{!item}</option>
+            </aura:iteration>
+          </lightning:select>
         </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Income Tax Monthly Payment Prior Loan -->
-          <lightning:input
-            type="number"
-            label="Income Tax Monthly Payment Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Income_Tax_Monthly_Payment_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+        <aura:if isTrue="{! v.selectedExpenseDetail == 'Statutory Deductions'}">
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="12"
+            mediumDeviceSize="12"
+            largeDeviceSize="12"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <div class="slds-text-heading_medium">
+              Statutory Deductions
+            </div>
+          </lightning:layoutItem>
+          <!--JN1-4047 :: END :: Added a picklist for expense details-->
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Income Tax Monthly Payment Prior Loan -->
+            <lightning:input
+              type="number"
+              label="Income Tax Monthly Payment Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Income_Tax_Monthly_Payment_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- NIS_Contribution_Monthly_Prior_Loan__c -->
-          <lightning:input
-            type="number"
-            label="NIS Contribution Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.NIS_Contribution_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- NIS_Contribution_Monthly_Prior_Loan__c -->
+            <lightning:input
+              type="number"
+              label="NIS Contribution Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.NIS_Contribution_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- NHT Contributions Monthly Prior Loan -->
+            <lightning:input
+              type="number"
+              label="NHT Contributions Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.NHT_Contributions_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Education Tax Monthly Prior Loan -->
+            <lightning:input
+              type="number"
+              label="Education Tax Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Education_Tax_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="12"
+            mediumDeviceSize="12"
+            largeDeviceSize="12"
+            alignmentBump="right"
+            padding="around-small"
+          >
+          </lightning:layoutItem>
+        </aura:if>
+        <!--JN1-4047 :: Added a check to show Personal/family expenses-->
+        <aura:if
+          isTrue="{! v.selectedExpenseDetail == 'Personal/family expenses'}"
         >
-          <!-- NHT Contributions Monthly Prior Loan -->
-          <lightning:input
-            type="number"
-            label="NHT Contributions Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.NHT_Contributions_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Education Tax Monthly Prior Loan -->
-          <lightning:input
-            type="number"
-            label="Education Tax Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Education_Tax_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="12"
+            mediumDeviceSize="12"
+            largeDeviceSize="12"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <div class="slds-text-heading_medium">
+              Family Fees
+            </div>
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="12"
-          mediumDeviceSize="12"
-          largeDeviceSize="12"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <div class="slds-text-heading_medium">Family Fees</div>
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Food_Cost_Monthly_Prior_Loan__c -->
+            <lightning:input
+              type="number"
+              label="Food Cost Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Food_Cost_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Food_Costs_Monthly_After_Loan__c -->
+            <lightning:input
+              type="number"
+              label="Food Costs Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.Food_Costs_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Food_Cost_Monthly_Prior_Loan__c -->
-          <lightning:input
-            type="number"
-            label="Food Cost Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Food_Cost_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Food_Costs_Monthly_After_Loan__c -->
-          <lightning:input
-            type="number"
-            label="Food Costs Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.Food_Costs_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Personal Expenses Monthly Prior Loan -->
+            <lightning:input
+              type="number"
+              label="Personal Expenses Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Personal_Expenses_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Personal Expenses Monthly Prior Loan -->
-          <lightning:input
-            type="number"
-            label="Personal Expenses Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Personal_Expenses_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Personal Expenses Monthly After Loan -->
+            <lightning:input
+              type="number"
+              label="Personal Expenses Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.Personal_Expenses_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Personal Expenses Monthly After Loan -->
-          <lightning:input
-            type="number"
-            label="Personal Expenses Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.Personal_Expenses_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Child Care Costs Monthly Prior Loan -->
+            <lightning:input
+              type="number"
+              label="Child Care Costs Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Child_Care_Costs_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Child Care Costs Monthly Prior Loan -->
-          <lightning:input
-            type="number"
-            label="Child Care Costs Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Child_Care_Costs_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Personal Expenses Monthly After Loan -->
+            <lightning:input
+              type="number"
+              label="Child Care Costs Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.Child_Care_Costs_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Personal Expenses Monthly After Loan -->
-          <lightning:input
-            type="number"
-            label="Child Care Costs Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.Child_Care_Costs_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- School Costs Monthly Prior Loan -->
+            <lightning:input
+              type="number"
+              label="School Costs Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.School_Costs_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- School Costs Monthly Prior Loan -->
-          <lightning:input
-            type="number"
-            label="School Costs Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.School_Costs_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- School Costs Monthly After Loan -->
+            <lightning:input
+              type="number"
+              label="School Costs Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.School_Costs_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- School Costs Monthly After Loan -->
-          <lightning:input
-            type="number"
-            label="School Costs Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.School_Costs_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Health_Costs_Monthly_Prior_Loan__c -->
+            <lightning:input
+              type="number"
+              label="Health Costs Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Health_Costs_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Health_Costs_Monthly_Prior_Loan__c -->
-          <lightning:input
-            type="number"
-            label="Health Costs Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Health_Costs_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Health_Costs_Monthly_After_Loan__c -->
+            <lightning:input
+              type="number"
+              label="Health Costs Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.Health_Costs_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Health_Costs_Monthly_After_Loan__c -->
-          <lightning:input
-            type="number"
-            label="Health Costs Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.Health_Costs_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Other Personal/Family Costs Prior -->
+            <lightning:input
+              type="number"
+              label="Other Personal/Family Costs Prior"
+              formatter="Currency"
+              value="{!v.applicant.Other_Personal_Family_Monthly_Prior_Loan__c }"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Other Personal/Family Costs Prior -->
-          <lightning:input
-            type="number"
-            label="Other Personal/Family Costs Prior"
-            formatter="Currency"
-            value="{!v.applicant.Other_Personal_Family_Monthly_Prior_Loan__c }"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Other Personal/Family Costs Prior After -->
+            <lightning:input
+              type="number"
+              label="Other Personal/Family Costs Prior After"
+              formatter="Currency"
+              value="{!v.applicant.Other_Personal_Family_Costs_Prior_After__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="12"
+            mediumDeviceSize="12"
+            largeDeviceSize="12"
+            alignmentBump="right"
+            padding="around-small"
+          >
+          </lightning:layoutItem>
+        </aura:if>
+        <!--JN1-4047 :: Added a check to show Property related expenses-->
+        <aura:if
+          isTrue="{! v.selectedExpenseDetail == 'Property related expenses'}"
         >
-          <!-- Other Personal/Family Costs Prior After -->
-          <lightning:input
-            type="number"
-            label="Other Personal/Family Costs Prior After"
-            formatter="Currency"
-            value="{!v.applicant.Other_Personal_Family_Costs_Prior_After__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="12"
+            mediumDeviceSize="12"
+            largeDeviceSize="12"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <div class="slds-text-heading_medium">
+              Property Related
+            </div>
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="12"
-          mediumDeviceSize="12"
-          largeDeviceSize="12"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <div class="slds-text-heading_medium">Property Related</div>
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Rent/Board Monthly Prior Loan -->
+            <lightning:input
+              type="number"
+              label="Rent/Board Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Rent_Board_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Rent/Board Monthly Prior Loan -->
-          <lightning:input
-            type="number"
-            label="Rent/Board Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Rent_Board_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Rent/Board Monthly After Loan -->
+            <lightning:input
+              type="number"
+              label="Rent/Board Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.Rent_Board_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Rent/Board Monthly After Loan -->
-          <lightning:input
-            type="number"
-            label="Rent/Board Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.Rent_Board_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Strata Maintenance Monthly Prior Loan -->
+            <lightning:input
+              type="number"
+              label="Strata Maintenance Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Strata_Maintenance_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Strata Maintenance Monthly Prior Loan -->
-          <lightning:input
-            type="number"
-            label="Strata Maintenance Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Strata_Maintenance_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Strata Maintenance Monthly After Loan -->
+            <lightning:input
+              type="number"
+              label="Strata Maintenance Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.Strata_Maintenance_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Strata Maintenance Monthly After Loan -->
-          <lightning:input
-            type="number"
-            label="Strata Maintenance Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.Strata_Maintenance_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Property Tax Monthly Prior Loan -->
+            <lightning:input
+              type="number"
+              label="Property Tax Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Property_Tax_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Property Tax Monthly Prior Loan -->
-          <lightning:input
-            type="number"
-            label="Property Tax Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Property_Tax_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Property Tax Monthly After Loan -->
+            <lightning:input
+              type="number"
+              label="Property Tax Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.Property_Tax_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Property Tax Monthly After Loan -->
-          <lightning:input
-            type="number"
-            label="Property Tax Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.Property_Tax_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Property Insurance Monthly Prior Loan -->
+            <lightning:input
+              type="number"
+              label="Property Insurance Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Property_Insurance_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Property Insurance Monthly Prior Loan -->
-          <lightning:input
-            type="number"
-            label="Property Insurance Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Property_Insurance_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Property Insurance Monthly After Loan -->
+            <lightning:input
+              type="number"
+              label="Property Insurance Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.Property_Insurance_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Property Insurance Monthly After Loan -->
-          <lightning:input
-            type="number"
-            label="Property Insurance Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.Property_Insurance_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Property Maintenance Monthly Prior Loan -->
+            <lightning:input
+              type="number"
+              label="Property Maintenance Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Property_Maintenance_Monthly_Prior_loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Property Maintenance Monthly Prior Loan -->
-          <lightning:input
-            type="number"
-            label="Property Maintenance Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Property_Maintenance_Monthly_Prior_loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Property Maintenance Monthly After Loan -->
+            <lightning:input
+              type="number"
+              label="Property Maintenance Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.Property_Maintenance_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="12"
+            mediumDeviceSize="12"
+            largeDeviceSize="12"
+            alignmentBump="right"
+            padding="around-small"
+          >
+          </lightning:layoutItem>
+        </aura:if>
+        <!--JN1-4047 :: Added a check to show Utilities/Household expenses-->
+        <aura:if
+          isTrue="{! v.selectedExpenseDetail == 'Utilities/Household expenses'}"
         >
-          <!-- Property Maintenance Monthly After Loan -->
-          <lightning:input
-            type="number"
-            label="Property Maintenance Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.Property_Maintenance_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="12"
+            mediumDeviceSize="12"
+            largeDeviceSize="12"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <div class="slds-text-heading_medium">
+              House Fees
+            </div>
+          </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Electricity Monthly Prior Loan -->
+            <lightning:input
+              type="number"
+              label="Electricity Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Electricity_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="12"
-          mediumDeviceSize="12"
-          largeDeviceSize="12"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <div class="slds-text-heading_medium">House Fees</div>
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Electricity Monthly After Loan -->
+            <lightning:input
+              type="number"
+              label="Electricity Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.Electricity_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Electricity Monthly Prior Loan -->
-          <lightning:input
-            type="number"
-            label="Electricity Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Electricity_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Water Monthly Prior Loan -->
+            <lightning:input
+              type="number"
+              label="Water Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Water_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Electricity Monthly After Loan -->
-          <lightning:input
-            type="number"
-            label="Electricity Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.Electricity_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Water Monthly After Loan -->
+            <lightning:input
+              type="number"
+              label="Water Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.Water_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Water Monthly Prior Loan -->
-          <lightning:input
-            type="number"
-            label="Water Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Water_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Cell Phone/Landline Monthly Prior Loan-->
+            <lightning:input
+              type="number"
+              label="Cell Phone/Landline Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Cell_Phone_Landline_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Water Monthly After Loan -->
-          <lightning:input
-            type="number"
-            label="Water Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.Water_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Cell Phone/Landline Monthly After Loan -->
+            <lightning:input
+              type="number"
+              label="Cell Phone/Landline Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.Cell_Phone_Landline_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Cell Phone/Landline Monthly Prior Loan-->
-          <lightning:input
-            type="number"
-            label="Cell Phone/Landline Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Cell_Phone_Landline_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Internet/Cable Monthly Prior Loan -->
+            <lightning:input
+              type="number"
+              label="Internet/Cable Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Internet_Cable_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Cell Phone/Landline Monthly After Loan -->
-          <lightning:input
-            type="number"
-            label="Cell Phone/Landline Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.Cell_Phone_Landline_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Internet/Cable Monthly After Loan -->
+            <lightning:input
+              type="number"
+              label="Internet/Cable Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.Internet_Cable_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Internet/Cable Monthly Prior Loan -->
-          <lightning:input
-            type="number"
-            label="Internet/Cable Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Internet_Cable_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Cooking Gas Monthly Prior Loan -->
+            <lightning:input
+              type="number"
+              label="Cooking Gas Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Cooking_Gas_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Internet/Cable Monthly After Loan -->
-          <lightning:input
-            type="number"
-            label="Internet/Cable Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.Internet_Cable_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Cooking Gas Monthly After Loan -->
+            <lightning:input
+              type="number"
+              label="Cooking Gas Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.Cooking_Gas_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Cooking Gas Monthly Prior Loan -->
-          <lightning:input
-            type="number"
-            label="Cooking Gas Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Cooking_Gas_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- House Keeping Monthly Prior Loan -->
+            <lightning:input
+              type="number"
+              label="House Keeping Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.House_Keeping_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Cooking Gas Monthly After Loan -->
-          <lightning:input
-            type="number"
-            label="Cooking Gas Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.Cooking_Gas_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- House Keeping Costs Monthly After Loan -->
+            <lightning:input
+              type="number"
+              label="House Keeping Costs Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.House_Keeping_Costs_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- House Keeping Monthly Prior Loan -->
-          <lightning:input
-            type="number"
-            label="House Keeping Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.House_Keeping_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Other Utilities Monthly Prior Loan -->
+            <lightning:input
+              type="number"
+              label="Other Utilities Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Other_Utilities_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Other Utilities Monthly After Loan -->
+            <lightning:input
+              type="number"
+              label="Other Utilities Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.Other_Utilities_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="12"
+            mediumDeviceSize="12"
+            largeDeviceSize="12"
+            alignmentBump="right"
+            padding="around-small"
+          >
+          </lightning:layoutItem>
+        </aura:if>
+        <!--JN1-4047 :: Added a check to show Transportation Related-->
+        <aura:if
+          isTrue="{! v.selectedExpenseDetail == 'Transport related expenses'}"
         >
-          <!-- House Keeping Costs Monthly After Loan -->
-          <lightning:input
-            type="number"
-            label="House Keeping Costs Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.House_Keeping_Costs_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="12"
+            mediumDeviceSize="12"
+            largeDeviceSize="12"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <div class="slds-text-heading_medium">
+              Transportation Related
+            </div>
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Other Utilities Monthly Prior Loan -->
-          <lightning:input
-            type="number"
-            label="Other Utilities Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Other_Utilities_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Fares Monthly Prior Loan -->
+            <lightning:input
+              type="number"
+              label="Fares Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Fares_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Other Utilities Monthly After Loan -->
-          <lightning:input
-            type="number"
-            label="Other Utilities Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.Other_Utilities_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="12"
-          mediumDeviceSize="12"
-          largeDeviceSize="12"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <div class="slds-text-heading_medium">Transportation Related</div>
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Fares Monthly After Loan -->
+            <lightning:input
+              type="number"
+              label="Fares Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.Fares_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Petrol/Fuel Monthly Prior Loan -->
+            <lightning:input
+              type="number"
+              label="Petrol/Fuel Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Petrol_Fuel_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Petrol/Fuel Monthly After Loan -->
+            <lightning:input
+              type="number"
+              label="Petrol/Fuel Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.Petrol_Fuel_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Toll/Fees Monthly Prior Loan -->
+            <lightning:input
+              type="number"
+              label="Toll/Fees Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Toll_Fees_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Fares Monthly Prior Loan -->
-          <lightning:input
-            type="number"
-            label="Fares Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Fares_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Toll/Fees Monthly After Loan -->
+            <lightning:input
+              type="number"
+              label="Toll/Fees Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.Toll_Fees_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Fares Monthly After Loan -->
-          <lightning:input
-            type="number"
-            label="Fares Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.Fares_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Petrol/Fuel Monthly Prior Loan -->
-          <lightning:input
-            type="number"
-            label="Petrol/Fuel Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Petrol_Fuel_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Petrol/Fuel Monthly After Loan -->
-          <lightning:input
-            type="number"
-            label="Petrol/Fuel Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.Petrol_Fuel_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Toll/Fees Monthly Prior Loan -->
-          <lightning:input
-            type="number"
-            label="Toll/Fees Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Toll_Fees_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!--Motor V Insurance Monthly Prior Loan -->
+            <lightning:input
+              type="number"
+              label="Motor V Insurance Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Motor_V_Insurance_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Motor V Insurance Monthly After Loan -->
+            <lightning:input
+              type="number"
+              label="Motor V Insurance Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.Motor_V_Insurance_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Toll/Fees Monthly After Loan -->
-          <lightning:input
-            type="number"
-            label="Toll/Fees Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.Toll_Fees_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!--Motor Vehicle Reg Monthly Prior Loan -->
+            <lightning:input
+              type="number"
+              label="Motor Vehicle Reg Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Motor_Vehicle_Reg_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!--Motor V Insurance Monthly Prior Loan -->
-          <lightning:input
-            type="number"
-            label="Motor V Insurance Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Motor_V_Insurance_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Motor V Insurance Monthly After Loan -->
-          <lightning:input
-            type="number"
-            label="Motor V Insurance Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.Motor_V_Insurance_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Motor Vehicle Reg Monthly After Loan -->
+            <lightning:input
+              type="number"
+              label="Motor Vehicle Reg Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.Motor_Vehicle_Reg_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!--Motor Vehicle Reg Monthly Prior Loan -->
-          <lightning:input
-            type="number"
-            label="Motor Vehicle Reg Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Motor_Vehicle_Reg_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Motor Vehicle Fitness Monthly Prior Loan -->
+            <lightning:input
+              type="number"
+              label="Motor Vehicle Fitness Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Motor_Vehicle_Fitness_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Motor Vehicle Reg Monthly After Loan -->
-          <lightning:input
-            type="number"
-            label="Motor Vehicle Reg Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.Motor_Vehicle_Reg_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Motor Vehicle Fitness Monthly After Loan -->
+            <lightning:input
+              type="number"
+              label="Motor Vehicle Fitness Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.Motor_Vehicle_Fitness_Monthly_After_Loan__c }"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Motor Vehicle Fitness Monthly Prior Loan -->
-          <lightning:input
-            type="number"
-            label="Motor Vehicle Fitness Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Motor_Vehicle_Fitness_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Motor V Maintenance Monthly Prior -->
+            <lightning:input
+              type="number"
+              label="Motor V Maintenance Monthly Prior"
+              formatter="Currency"
+              value="{!v.applicant.Motor_V_Maintenance_Monthly_Before_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Motor Vehicle Fitness Monthly After Loan -->
-          <lightning:input
-            type="number"
-            label="Motor Vehicle Fitness Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.Motor_Vehicle_Fitness_Monthly_After_Loan__c }"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Motor V Maintenance Monthly After Loan -->
+            <lightning:input
+              type="number"
+              label="Motor V Maintenance Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.Motor_V_Maintenance_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Motor V Maintenance Monthly Prior -->
-          <lightning:input
-            type="number"
-            label="Motor V Maintenance Monthly Prior"
-            formatter="Currency"
-            value="{!v.applicant.Motor_V_Maintenance_Monthly_Before_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Other Transport Costs Monthly Prior Loan -->
+            <lightning:input
+              type="number"
+              label="Other Transport Costs Monthly Prior Loan"
+              formatter="Currency"
+              value="{!v.applicant.Other_Transport_Costs_Monthly_Prior_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Motor V Maintenance Monthly After Loan -->
-          <lightning:input
-            type="number"
-            label="Motor V Maintenance Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.Motor_V_Maintenance_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
-
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Other Transport Costs Monthly Prior Loan -->
-          <lightning:input
-            type="number"
-            label="Other Transport Costs Monthly Prior Loan"
-            formatter="Currency"
-            value="{!v.applicant.Other_Transport_Costs_Monthly_Prior_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
-
-        <lightning:layoutItem
-          flexibility="no-flex"
-          size="12"
-          smallDeviceSize="6"
-          mediumDeviceSize="6"
-          largeDeviceSize="6"
-          alignmentBump="right"
-          padding="around-small"
-        >
-          <!-- Other Transport Monthly After Loan -->
-          <lightning:input
-            type="number"
-            label="Other Transport Monthly After Loan"
-            formatter="Currency"
-            value="{!v.applicant.Other_Transport_Monthly_After_Loan__c}"
-            aura:id="validation"
-          />
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            flexibility="no-flex"
+            size="12"
+            smallDeviceSize="6"
+            mediumDeviceSize="6"
+            largeDeviceSize="6"
+            alignmentBump="right"
+            padding="around-small"
+          >
+            <!-- Other Transport Monthly After Loan -->
+            <lightning:input
+              type="number"
+              label="Other Transport Monthly After Loan"
+              formatter="Currency"
+              value="{!v.applicant.Other_Transport_Monthly_After_Loan__c}"
+              aura:id="validation"
+            />
+          </lightning:layoutItem>
+        </aura:if>
       </lightning:layout>
     </lightning:accordionSection>
   </lightning:accordion>

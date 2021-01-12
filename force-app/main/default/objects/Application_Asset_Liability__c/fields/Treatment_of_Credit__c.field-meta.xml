@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Treatment_of_Credit__c</fullName>
     <externalId>false</externalId>
@@ -12,19 +12,32 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Repay</fullName>
+                <fullName>Will Remain</fullName>
                 <default>false</default>
-                <label>Repay</label>
+                <label>Will Remain</label>
+            </value>
+            <value>
+                <fullName>Close Facility</fullName>
+                <default>false</default>
+                <label>Close Facility</label>
             </value>
             <value>
                 <fullName>Close</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>Close</label>
             </value>
             <value>
-                <fullName>Will Remain</fullName>
+                <fullName>Repay</fullName>
                 <default>false</default>
-                <label>Will Remain</label>
+                <isActive>false</isActive>
+                <label>Repay</label>
+            </value>
+            <value>
+                <fullName>Repay Facility</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Repay Facility</label>
             </value>
         </valueSetDefinition>
     </valueSet>

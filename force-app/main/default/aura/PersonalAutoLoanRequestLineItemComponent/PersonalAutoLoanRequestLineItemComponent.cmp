@@ -1,0 +1,405 @@
+<aura:component
+  implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
+  controller="ProductDetailController"
+>
+  <aura:attribute
+    name="notifyContainerChange"
+    type="Boolean"
+    default="true"
+    description="used to indicate whether the component should react to the ChildContainer changes"
+  />
+  <aura:attribute
+    name="options"
+    type="List"
+    default="[
+    {'label': 'Percentage(%)', 'value': 'percent'},
+    {'label': 'Amount($)', 'value': 'amount'}
+    ]"
+  />
+  <aura:attribute name="oppId" type="Id" />
+  <aura:attribute name="loanPurposeOptions" type="List" />
+  <aura:attribute
+    name="purchasePriceCurrency"
+    type="List"
+    default="['JMD','USD','GBP','YEN']"
+  />
+  <aura:attribute
+    name="marketCurrency"
+    type="List"
+    default="['JMD','USD','GBP','YEN']"
+  />
+  <aura:attribute name="purchasePrice" type="Decimal" default="" />
+  <aura:attribute name="marketValue" type="Decimal" default="" />
+  <aura:attribute
+    name="minimumOfPurchaseMarketValue"
+    type="Decimal"
+    default=""
+  />
+  <aura:attribute name="depositPercentage" type="Decimal" default="" />
+  <aura:attribute name="deposit" type="Decimal" default="" />
+  <aura:attribute name="productPrice" type="Decimal" />
+
+  <aura:attribute name="ChildContainer" type="Map" default="{}" />
+  <aura:attribute name="ParentContainer" type="Map" default="{}" />
+  <aura:handler
+    name="change"
+    action="{!c.onChildContainerChange}"
+    value="{!v.ChildContainer}"
+  />
+  <aura:handler
+    name="change"
+    action="{!c.onApplicantsChange}"
+    value="{!v.applicants}"
+  />
+  <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+
+  <aura:attribute
+    name="depositCurrency"
+    type="List"
+    default="['JMD','USD','GBP','YEN']"
+  />
+  <aura:attribute
+    name="vehicleClassification"
+    type="List"
+    default="['New',
+    'Used Imported',
+    'Used Pre-owned']"
+  />
+  <aura:attribute name="vehicleYear" type="Integer" default="" />
+  <aura:attribute name="makeandModel" type="String" default="" />
+  <aura:attribute name="market" type="Decimal" default="" />
+  <aura:attribute name="years" type="Integer" default="" />
+  <aura:attribute name="months" type="Integer" default="" />
+  <aura:attribute name="loanAmount" type="Decimal" default="" />
+
+  <aura:attribute name="value" type="String" default="" />
+  <aura:attribute name="percent" type="String" default="percent" />
+  <aura:attribute name="amount" type="String" default="amount" />
+
+  <aura:attribute name="applicants" type="List" />
+  <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
+
+  <ltng:require
+    scripts="{!join(',', 
+  $Resource.constants,
+  $Resource.calculations, 
+  $Resource.productDetailsGeneralFunctions)}"
+    afterScriptsLoaded="{!c.scriptsLoaded}"
+  />
+  <aura:attribute
+    name="containerName"
+    type="String"
+    default="PersonalAutoLoanRequestLineItemComponent"
+  />
+  <!--JN1-4201-->
+  <aura:method
+    name="validateFields"
+    action="{!c.validateFields}"
+    access="public"
+  />
+  <fieldset class="slds-box slds-theme_default">
+    <legend
+      id="productdetailsform"
+      class="slds-text-heading_medium slds-p-vertical_medium"
+    >
+      Personal Auto Loan Request
+    </legend>
+    <form class="slds-form_stacked">
+      <lightning:layout multipleRows="true">
+        <lightning:layoutItem size="12">
+          <h2 class="slds-section-title--divider">Collateral Details</h2>
+        </lightning:layoutItem>
+        <!-- <lightning:layoutItem size="12" padding="around-small">
+                <lightning:layout multipleRows="true"> -->
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="6"
+          padding="around-small"
+        >
+          <div class="slds-form-element">
+            <div class="slds-form-element__control">
+              <lightning:select
+                name="select1"
+                label="Loan Purpose"
+                required="true"
+                onchange="{! c.onLoanPurposeChange }"
+                aura:id="loanPurpose"
+              >
+                <option value="">select one...</option>
+                <aura:iteration items="{!v.loanPurposeOptions}" var="item">
+                  <option value="{!item}">{!item}</option>
+                </aura:iteration>
+              </lightning:select>
+            </div>
+          </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="6"
+          padding="around-small"
+        >
+          <lightning:layout>
+            <!-- <lightning:layoutItem size="3" mediumDeviceSize="3">
+              <lightning:select
+                name="select1"
+                label="$"
+                required="true"
+                onchange="{!c.onPurchasePriceCurrencyChange}"
+              >
+                <aura:iteration items="{!v.purchasePriceCurrency}" var="item">
+                  <option value="{!item}">{!item}</option>
+                </aura:iteration>
+              </lightning:select>
+            </lightning:layoutItem> -->
+            <lightning:layoutItem size="12" mediumDeviceSize="12">
+              <lightning:input
+                type="number"
+                label="Purchase Price of Vehicle"
+                value="{!v.ChildContainer.purchasePrice}"
+                name="number"
+                formatter="currency"
+                required="true"
+                aura:id="vehiclePrice"
+              />
+            </lightning:layoutItem>
+          </lightning:layout>
+        </lightning:layoutItem>
+        <!-- <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <lightning:select
+            name="select1"
+            label="Market Currency of Vehicle"
+            required="true"
+            onchange="{!c.onMarketCurrencyChange}"
+          >
+            <aura:iteration items="{!v.marketCurrency}" var="item">
+              <option value="{!item}">{!item}</option>
+            </aura:iteration>
+          </lightning:select>
+        </lightning:layoutItem> -->
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="6"
+          padding="around-small"
+        >
+          <!--Kirti-->
+          <lightning:input
+            type="number"
+            label="Market Value of Vehicle"
+            value="{!v.ChildContainer.marketValue}"
+            name="number"
+            formatter="currency"
+            required="true"
+            aura:id="vehicleMarketValue"
+          />
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="6"
+          padding="around-small"
+        >
+          <lightning:input
+            type="number"
+            label="Minimum(MV,PP)"
+            value="{!v.ParentContainer.minimumOfPurchaseMarketValue}"
+            name="number"
+            formatter="currency"
+            required="true"
+            disabled="true"
+          />
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12" padding="around-small">
+          <lightning:radioGroup
+            name="radioGroupRequired"
+            label="Motor Vehicle Deposit"
+            options="{! v.options }"
+            value="{! v.value }"
+            type="radio"
+            required="true"
+            onchange="{!c.onMotorVehicleDepositFormatChange}"
+            aura:id="motorVehicleDepositRadioGroup"
+          />
+        </lightning:layoutItem>
+        <aura:if isTrue="{!v.value == v.percent}">
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="12"
+            padding="around-small"
+          >
+            <lightning:layout>
+              <lightning:layoutItem size="4" mediumDeviceSize="2">
+                <!--Kirti-->
+                <lightning:input
+                  aura:id="autoCollateralComputedDeposit"
+                  type="number"
+                  label="%"
+                  value="{!v.ChildContainer.autoCollateralDepositPercentage}"
+                  formatter="fixed-percent"
+                  step="0.01"
+                  required="true"
+                />
+              </lightning:layoutItem>
+              <lightning:layoutItem size="6" mediumDeviceSize="10">
+                <!--Kirti-->
+                <lightning:input
+                  type="number"
+                  label="Motor Vehicle Deposit"
+                  value="{!v.ParentContainer.computedAutoCollateralDepositFromPercentage}"
+                  formatter="currency"
+                  required="true"
+                  readonly="true"
+                  messageWhenBadInput="Loan amount must be equal to the difference between the deposit and the minimum"
+                />
+              </lightning:layoutItem>
+            </lightning:layout>
+          </lightning:layoutItem>
+        </aura:if>
+        <aura:if isTrue="{!v.value == v.amount}">
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="6"
+            padding="around-small"
+          >
+            <lightning:layout>
+              <lightning:layoutItem size="12" mediumDeviceSize="12">
+                <lightning:input
+                  aura:id="motorVehicleDeposit"
+                  type="number"
+                  label="Motor Vehicle Deposit"
+                  value="{!v.ChildContainer.autoCollateralDeposit}"
+                  formatter="currency"
+                  required="true"
+                />
+              </lightning:layoutItem>
+            </lightning:layout>
+          </lightning:layoutItem>
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="6"
+          ></lightning:layoutItem>
+        </aura:if>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <lightning:select
+            name="select1"
+            label="Vehicle Classification"
+            required="true"
+            onchange="{!c.onVehicleClassificationChange}"
+            aura:id="vehicleClassification"
+          >
+            <option value="">select one...</option>
+            <aura:iteration items="{!v.vehicleClassification}" var="item">
+              <option value="{!item}">{!item}</option>
+            </aura:iteration>
+          </lightning:select>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <!--Kirti-->
+          <lightning:input
+            type="text"
+            name="vehicle-year"
+            value="{!v.ChildContainer.yearOfVehicle}"
+            label="Year of Motor Vehicle"
+            required="true"
+            pattern="^\d{4}$"
+            aura:id="vehicleYear"
+            messageWhenPatternMismatch="This year is invalid!"
+          />
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <!--Kirti-->
+          <lightning:input
+            type="text"
+            name="make-model"
+            value="{!v.ChildContainer.makeAndModelOfVehicle}"
+            label="Make and Model of Vehicle"
+            required="true"
+            aura:id="makeModel"
+            maxlength="40"
+          />
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12" mediumDeviceSize="4"
+          ><h3 class="slds-section-title--divider">Loan Amount (JMD)*</h3>
+          <div class="slds-p-top_medium"></div>
+          <!--Kirti-->
+          <lightning:input
+            type="number"
+            label="Amount"
+            value="{!v.ChildContainer.loanAmount}"
+            name="number"
+            formatter="currency"
+            readonly="true"
+            required="true"
+            aura:id="amount"
+          />
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12" mediumDeviceSize="4"
+          ><h3 class="slds-section-title--divider">Loan Term*</h3>
+          <lightning:layout>
+            <lightning:layoutItem size="6">
+              <div class="slds-p-top_medium"></div>
+              <!--Kirti-->
+              <lightning:input
+                type="number"
+                label="Years"
+                value="{!v.ChildContainer.years}"
+                name="number"
+                required="true"
+                max="10"
+                min="0"
+                aura:id="years"
+              />
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6">
+              <div class="slds-p-top_medium">
+                <!--Kirti-->
+                <lightning:input
+                  type="number"
+                  label="Months"
+                  value="{!v.ChildContainer.months}"
+                  name="number"
+                  required="true"
+                  min="0"
+                  max="12"
+                  aura:id="months"
+                />
+              </div>
+            </lightning:layoutItem>
+          </lightning:layout>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12" mediumDeviceSize="4"
+          ><h3 class="slds-section-title--divider">Interest Rate(%)*</h3>
+          <div class="slds-p-top_medium">
+            <lightning:input
+              type="number"
+              label="Market"
+              name="Market"
+              value="{!v.ChildContainer.market}"
+              formatter="percent-fixed"
+              step="0.01"
+              required="true"
+              min="0.01"
+              aura:id="market"
+            />
+          </div>
+        </lightning:layoutItem>
+      </lightning:layout>
+      <!-- </lightning:layoutItem>
+            </lightning:layout> -->
+    </form>
+  </fieldset>
+</aura:component>

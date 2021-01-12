@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Are_Assets_And_Liabilities_CompleteC__c</fullName>
     <externalId>false</externalId>
-    <formula>IF(assets_and_liabilities_rollup__c&gt;0,&#39;YES&#39;,&#39;NO&#39;)</formula>
+    <formula
+  >IF(assets_and_liabilities_rollup__c&gt;0,&apos;YES&apos;,&apos;NO&apos;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Are Assets And Liabilities Complete?</label>
     <required>false</required>

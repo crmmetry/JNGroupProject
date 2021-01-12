@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomMetadata
+  xmlns="http://soap.sforce.com/2006/04/metadata"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+>
+    <label>Loan to Value &gt;95%</label>
+    <protected>false</protected>
+    <values>
+        <field>Salaried_Score_Number__c</field>
+        <value xsi:type="xsd:double">380.0</value>
+    </values>
+    <values>
+        <field>Self_Employed_Score_Number__c</field>
+        <value xsi:type="xsd:double">380.0</value>
+    </values>
+    <values>
+        <field>Sub_Criteria_Option__c</field>
+        <value xsi:nil="true" />
+    </values>
+    <values>
+        <field>Sub_Criteria_Options__c</field>
+        <value xsi:type="xsd:string">&gt;95%</value>
+    </values>
+    <values>
+        <field>Sub_Criteria_Weight_Numbr__c</field>
+        <value xsi:type="xsd:double">5.0</value>
+    </values>
+    <values>
+        <field>Type__c</field>
+        <value
+      xsi:type="xsd:string"
+    >Loan to Value CC / Loan to Value LOC</value>
+    </values>
+</CustomMetadata>

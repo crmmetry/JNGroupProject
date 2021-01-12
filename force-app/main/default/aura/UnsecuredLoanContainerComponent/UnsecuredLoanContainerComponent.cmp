@@ -1,0 +1,52 @@
+<aura:component>
+  <aura:attribute name="ParentContainer" type="Map" default="{}" />
+  <aura:attribute name="RequestedDetailsContainer" type="Map" default="{}" />
+  <aura:attribute name="productPrice" type="Decimal" />
+  <aura:attribute name="loanPurposeOptions" type="List" />
+  <aura:attribute name="LoanSavingsContainer" type="Map" default="{}" />
+  <aura:attribute name="oppApplicants" type="List" />
+  <aura:attribute name="jnDefaultConfigs" type="Map" />
+  <aura:attribute name="oppId" type="Id" />
+  <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+  <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
+  <!-- Static Resource -->
+  <ltng:require
+    scripts="{!join(',', 
+  $Resource.constants,
+  $Resource.calculations, 
+  $Resource.productDetailsGeneralFunctions)}"
+    afterScriptsLoaded="{!c.scriptsLoaded}"
+  />
+  <!--JN1-4210 : For validating fields-->
+  <aura:method
+    name="validateFields"
+    action="{!c.validateFields}"
+    access="public"
+  />
+  <c:RequestedDetailsLineItemComponent
+    productPrice="{!v.productPrice}"
+    ParentContainer="{!v.ParentContainer}"
+    applicants="{!v.oppApplicants}"
+    oppId="{!v.oppId}"
+    aura:id="requestedDetailsLineItemComponent"
+  >
+  </c:RequestedDetailsLineItemComponent>
+
+  <c:UnsecuredLoanFeatureLineItemComponent
+    ParentContainer="{!v.ParentContainer}"
+    aura:id="unsecuredLoanFeatureLineItemComponent"
+  >
+  </c:UnsecuredLoanFeatureLineItemComponent>
+
+  <c:CreditCalculationsLineItemComponent
+    ParentContainer="{!v.ParentContainer}"
+    jnDefaultConfigs="{!v.jnDefaultConfigs}"
+    aura:id="creditCalculationsLineItemComponent"
+  ></c:CreditCalculationsLineItemComponent>
+
+  <c:TotalDebtServiceRatioLineItemComponent
+    ParentContainer="{!v.ParentContainer}"
+    jnDefaultConfigs="{!v.jnDefaultConfigs}"
+    aura:id="totalDebtServiceRatioLineItemComponent"
+  ></c:TotalDebtServiceRatioLineItemComponent>
+</aura:component>

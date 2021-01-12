@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FinServ__AutoLoan</fullName>
     <active>true</active>
-    <description>Represents a type of loan for financing a purchase of a motor vehicle.</description>
+    <description
+  >Represents a type of loan for financing a purchase of a motor vehicle.</description>
     <label>Auto Loan</label>
     <picklistValues>
         <picklist>FinServ__ClosureReason__c</picklist>

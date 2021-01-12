@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>Accept</actionName>
@@ -144,7 +144,8 @@
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <deprecated>false</deprecated>
-    <description>A holding within a client&#39;s investment account.</description>
+    <description
+  >A holding within a client&#39;s investment account.</description>
     <enableActivities>true</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
@@ -164,11 +165,16 @@
     </nameField>
     <pluralLabel>Financial Holdings</pluralLabel>
     <searchLayouts>
-        <searchResultsAdditionalFields>FinServ__FinancialAccount__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>FinServ__Securities__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>FinServ__Shares__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>FinServ__Price__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>FinServ__MarketValue__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >FinServ__FinancialAccount__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >FinServ__Securities__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >FinServ__Shares__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >FinServ__Price__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >FinServ__MarketValue__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>

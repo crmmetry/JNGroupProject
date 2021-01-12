@@ -1,11 +1,11 @@
 ({
-  getPickListValues: function(component) {
+  getPickListValues: function (component) {
     const action = component.get("c.getPickListValuesList");
     action.setParams({
       objectApiName: "Lead",
       fieldApiNames: ["Preferred_Location__c", "Loan_Purpose_UL__c"]
     });
-    action.setCallback(this, function(response) {
+    action.setCallback(this, function (response) {
       const state = response.getState();
       if (state === "SUCCESS") {
         const mappedList = response.getReturnValue();
@@ -17,5 +17,10 @@
       }
     });
     $A.enqueueAction(action);
+  },
+  mapSiteLeadFields: function (componentSiteLead, siteLead) {
+    console.log("Current", JSON.parse(JSON.stringify(componentSiteLead)));
+    console.log("Main", JSON.parse(JSON.stringify(siteLead)));
+    return Object.assign(componentSiteLead, siteLead);
   }
 });

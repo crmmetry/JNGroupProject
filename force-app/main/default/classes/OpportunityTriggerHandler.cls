@@ -121,21 +121,6 @@ public class OpportunityTriggerHandler {
       }
     }
   }
-  public static void creditScoreOppHandler() {
-    if (!Util.IsExecuted('creditScoreOppHandler')) {
-      system.debug('Trigger called=====================>');
-      CreditScoreHelper cs = new CreditScoreHelper();
-      Set<id> oppid = new Set<id>();
-      if (Trigger.isAfter) {
-        for (Opportunity opp : newRecords) {
-          oppid.add(opp.ID);
-        }
-      }
-      if (oppid.size() > 0) {
-        cs.CreditScoreFromOpp(oppid);
-      }
-    }
-  }
   public static void lockRecordsForEditing() {
     String errMsg = 'This record is currently LOCKED due to it being in the stage of "Closed Won" or "Closed Lost". Click Reactivate button to enable record edit.';
     List<String> changedFields = getChangedFields();
@@ -221,12 +206,6 @@ public class OpportunityTriggerHandler {
     Date now,
     String bhName
   ) {
-    String err1 = 'The Closed Date cannot be this far back in the past for this month. Please contact Sales Support.';
-    String err2 = 'The Closed Date cannot be this far back in the past. Please contact Sales Support.';
-    String err3 = 'The Closed Date cannot be greater than today. Please contact Sales Support.';
-    String err4 = 'The Closed Date year cannot be less this year. Please contact Sales Support.';
-    String err5 = 'The Closed Date cannot be a holiday. Please contact Sales Support.';
-
     Map<Date, Holiday> mappedHolidays = Util.getHolidays();
     BusinessHours bh = Util.GetActiveBusinessHours(bhName);
     Date minDate = Date.newinstance(now.year(), now.month(), now.day());
@@ -237,8 +216,8 @@ public class OpportunityTriggerHandler {
     System.debug('Min ' + minDate);
     for (Opportunity record : newRecords) {
       if (
-        record.StageName == 'Closed Lost' ||
-        record.StageName == 'Closed Won'
+        record.StageName == Constants.CLOSED_LOST_STATUS ||
+        record.StageName == Constants.CLOSED_WON_STATUS
       ) {
         Date closeDate = Date.newinstance(
           record.CloseDate.year(),
@@ -247,19 +226,19 @@ public class OpportunityTriggerHandler {
         );
         Integer closeDateMonth = record.CloseDate.month();
         if (Util.checkHoliday(closeDate, mappedHolidays)) {
-          record.CloseDate.addError(err5);
+          record.CloseDate.addError(Constants.CLOSE_DATE_ERR5);
         } else if (closeDate.year() < todayDate.year()) {
-          record.CloseDate.addError(err4);
+          record.CloseDate.addError(Constants.CLOSE_DATE_ERR4);
         } else {
           if (closeDate > todayDate) {
             // close date is greater than today
-            record.CloseDate.addError(err3);
+            record.CloseDate.addError(Constants.CLOSE_DATE_ERR3);
           } else if (closeDate < todayDate) {
             // close date month != current month
             if (closeDateMonth == currentMonth) {
               //check if closedate is less than maxPrevDays
               if (closeDate < minDate) {
-                record.CloseDate.addError(err1);
+                record.CloseDate.addError(Constants.CLOSE_DATE_ERR1);
               }
             } else {
               // close date is in previous month
@@ -277,7 +256,7 @@ public class OpportunityTriggerHandler {
               );
               System.debug(' acceptedDate ' + acceptedDate);
               if (closeDate < acceptedDate) {
-                record.CloseDate.addError(err2);
+                record.CloseDate.addError(Constants.CLOSE_DATE_ERR2);
               }
             }
           }

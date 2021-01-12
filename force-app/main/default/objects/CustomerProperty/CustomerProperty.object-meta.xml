@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>CancelEdit</actionName>
@@ -130,18 +130,30 @@
     <enableFeeds>false</enableFeeds>
     <externalSharingModel>Private</externalSharingModel>
     <searchLayouts>
-        <customTabListAdditionalFields>PrimaryOwner</customTabListAdditionalFields>
-        <customTabListAdditionalFields>FairMarketValue</customTabListAdditionalFields>
-        <customTabListAdditionalFields>PurchaseDate</customTabListAdditionalFields>
-        <lookupDialogsAdditionalFields>PrimaryOwner</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>FairMarketValue</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>PurchaseDate</lookupDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>PrimaryOwner</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>FairMarketValue</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>PurchaseDate</lookupPhoneDialogsAdditionalFields>
-        <searchResultsAdditionalFields>PrimaryOwner</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>FairMarketValue</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>PurchaseDate</searchResultsAdditionalFields>
+        <customTabListAdditionalFields
+    >PrimaryOwner</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >FairMarketValue</customTabListAdditionalFields>
+        <customTabListAdditionalFields
+    >PurchaseDate</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >PrimaryOwner</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >FairMarketValue</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields
+    >PurchaseDate</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >PrimaryOwner</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >FairMarketValue</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields
+    >PurchaseDate</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields
+    >PrimaryOwner</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >FairMarketValue</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields
+    >PurchaseDate</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
 </CustomObject>

@@ -1,12 +1,22 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-	<types>
-		<members>*</members>
-		<name>PathAssistant</name>
-	</types>
-	<types>
-		<members>OpportunityLineItem.Mortgage_must_correspondsing_products</members>
-		<name>ValidationRule</name>
-	</types>
-	<version>48.0</version>
+    <fullName>LoanPath</fullName>
+    <types>
+        <members>Opportunity.Loan Sales Process</members>
+        <name>BusinessProcess</name>
+    </types>
+    <types>
+        <members
+    >Application_Asset_Liability__c-Application Asset%2FLiability Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>Loan_Path</members>
+        <name>PathAssistant</name>
+    </types>
+    <types>
+        <members>Opportunity.Credit_Facility</members>
+        <name>RecordType</name>
+    </types>
+    <version>50.0</version>
 </Package>
