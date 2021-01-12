@@ -71,8 +71,8 @@ window.calculateSavings = function (component, data) {
  */
 window.totalLoanAmountCalculation = function (component) {
   const parentObj = component.get("v.ChildContainer");
-  const isAuto = this.checkProductFamily(component, "Auto");
-  const isUnsecured = this.checkProductFamily(component, "Unsecured");
+  const isAuto = checkProductFamily(component, "Auto");
+  const isUnsecured = checkProductFamily(component, "Unsecured");
   let total = 0;
   if (isAuto) {
     total = calculateTotalLoanAmount(
@@ -101,8 +101,8 @@ window.totalLoanAmountCalculation = function (component) {
  */
 (window.totalMonthlyPILoanPaymentCalculation = function (component) {
   const parentObj = component.get("v.ChildContainer");
-  const isAuto = this.checkProductFamily(component, "Auto");
-  const isUnsecured = this.checkProductFamily(component, "Unsecured");
+  const isAuto = checkProductFamily(component, "Auto");
+  const isUnsecured = checkProductFamily(component, "Unsecured");
   let total = 0;
   if (isAuto) {
     total = calculateTotalMonthlyPIPayment(
@@ -171,8 +171,8 @@ window.totalInterestPaymentCalculation = function (component) {
  */
 window.totalMonthlyPaymentCalculation = function (component) {
   const parentObj = component.get("v.ChildContainer");
-  const isAuto = this.checkProductFamily(component, "Auto");
-  const isUnsecured = this.checkProductFamily(component, "Unsecured");
+  const isAuto = checkProductFamily(component, "Auto");
+  const isUnsecured = checkProductFamily(component, "Unsecured");
   let total = 0;
   if (isAuto) {
     total = calculateTotalLoanAmount(
@@ -218,8 +218,8 @@ window.getFieldsToCalculate = function (parentObj) {
 window.totalClosingCostCalculation = function (component) {
   const parentObj = component.get("v.ChildContainer");
   const jnDefault = component.get("v.jnDefaultConfigs");
-  const isAuto = this.checkProductFamily(component, "Auto");
-  const isUnsecured = this.checkProductFamily(component, "Unsecured");
+  const isAuto = checkProductFamily(component, "Auto");
+  const isUnsecured = checkProductFamily(component, "Unsecured");
   const data = copyInto(jnDefault, parentObj);
   let properties = [];
   let total = 0;
@@ -269,8 +269,8 @@ window.totalClosingCostCalculation = function (component) {
  */
 window.totalClosingCostFinancedJNCalculation = function (component) {
   const parentObj = component.get("v.ChildContainer");
-  const isAuto = this.checkProductFamily(component, "Auto");
-  const isUnsecured = this.checkProductFamily(component, "Unsecured");
+  const isAuto = checkProductFamily(component, "Auto");
+  const isUnsecured = checkProductFamily(component, "Unsecured");
   let total = 0;
   if (isAuto) {
     total = calculateTotalClosingCostFinancedJN(
