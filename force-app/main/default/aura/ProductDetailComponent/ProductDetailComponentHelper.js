@@ -937,6 +937,9 @@
    * @param {*} component
    */
   nonRevolvingLoanCalculations: function (component, container) {
+    //tdsr calculations
+    this.TDSRCalculationBefore(component);
+    this.TDSRCalculationAfter(component);
     onJNGIPremiumChange(component);
     calculateJNGIPMT(component);
     totalMonthlyPILoanPaymentCalculation(component);
@@ -960,9 +963,11 @@
    */
   revolvingLoanCalculations: function (component) {
     this.supplementaryCardHolderInit(component);
+    this.TDSRCalculationBefore(component);
     this.ASLCalculations(component);
     this.calculateCreditorLife(component);
     this.minimumPaymentCalculations(component);
+    this.TDSRCalculationAfter(component);
     this.setCardType(component); //JN1-4049 :: Kirti R :: Calculate the credit type
     this.annualFeesCalcualtions(component);
   }

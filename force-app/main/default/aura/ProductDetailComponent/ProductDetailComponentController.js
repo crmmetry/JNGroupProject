@@ -61,9 +61,6 @@
       const isUnsecured = checkProductFamily(component, "Unsecured");
       let container = component.get("v.ChildContainer");
       noNotifyContainerChanges(component);
-      //Async Functions
-      helper.TDSRCalculationBefore(component);
-      helper.TDSRCalculationAfter(component);
       if (isLineOfCredit || isCreditCard) {
         helper.revolvingLoanCalculations(component);
       } else if (isAuto || isUnsecured) {

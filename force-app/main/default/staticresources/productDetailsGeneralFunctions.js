@@ -688,12 +688,10 @@ window.ASLCalculator = function (container, jnDefault, riskFactor = 0) {
     !validNumber(jnDefault.policyLimit) ||
     !validNumber(container.TDSRAfter)
   ) {
-    console.log("ZERO was returned!!");
-    return 0;
+    return ZERO;
   }
   if (roundedValue(container.TDSRBefore / 100) > jnDefault.policyLimit) {
-    console.log("ZERO was returned!!");
-    return 0;
+    return ZERO;
   }
   console.log("ASL Calculations have begun");
   // //Step 1:
@@ -715,32 +713,27 @@ window.ASLCalculator = function (container, jnDefault, riskFactor = 0) {
       container.existingBalance
     );
   }
-  console.log("MCL: ", maxCreditLimit);
   //Step 2:
   let maxDebtPayment = maximumAllowableForMonthlyDebtPaymentsCalculator(
     jnDefault.policyLimit,
     container.grossMonthlyIncome
   );
-  console.log("Max debt payment: ", maxDebtPayment);
   //Step 3:
   let maxMinimumPayment = maximumAllowableForMinimumPaymentCalculator(
     maxDebtPayment,
     container.existingDebt
   );
-  console.log("maxMinimumPayment ", maxMinimumPayment);
   //Step 4:
   let computedMinimumPayment = computedMinimumPaymentFromCreditLimitCalculator(
     container,
     jnDefault,
     maxMinimumPayment
   );
-  console.log("computedMinimumPayment: ", computedMinimumPayment);
   //Step 5:
   let lowerCreditLimit = lowerCreditLimitCalculator(
     computedMinimumPayment,
     maxCreditLimit
   );
-  console.log("lowerCreditLimit: ", lowerCreditLimit);
   if (container.cashInvestmentFlag === false) {
     //Step 6:
     let creditLimitAfterRisk = creditLimitRiskCalculator(
@@ -759,12 +752,10 @@ window.ASLCalculator = function (container, jnDefault, riskFactor = 0) {
     );
   } else {
     //Step 6 with cash collateral:
-    console.log("Cash collateral starting limit calculation");
     let startingLimit = startingCreditLimtCalculatorWithCollateral(
       jnDefault.minimumCreditLimitAllowable,
       lowerCreditLimit
     );
-    console.log("startingLimit: ", startingLimit);
     //Step 7 with cash collateral
     return approvedStartingLimitCalculator(
       startingLimit,
