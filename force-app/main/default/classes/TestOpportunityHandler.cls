@@ -11,11 +11,14 @@ public class TestOpportunityHandler {
       testOpps.get(i).AccountId = testAccts.get(i).Id;
     }
     insert testOpps;
+    insert TestDataFactory.CreateHoliday(
+      Date.newInstance(2020, 10, 4),
+      'Test Holiday Jamaica'
+    );
   }
 
   @isTest
   public static void shouldValidateBackDate() {
-    Test.startTest();
     DateTime now = System.now();
     // current date
     Date currentDate = Date.newInstance(2020, 10, 2);
@@ -23,13 +26,7 @@ public class TestOpportunityHandler {
     Date validBackDate = Date.newInstance(2020, 8, 6);
     // valid previous month backdated date
     Date validPrevBackDate = Date.newInstance(2020, 7, 30);
-
-    Holiday hol = TestDataFactory.CreateHoliday(
-      Date.newInstance(2020, 10, 4),
-      'Test Holiday'
-    );
-    insert hol;
-
+    Test.startTest();
     // populate values
     List<Opportunity> opps = new List<Opportunity>();
     for (Opportunity record : TestDataFactory.CreateOpportunities(5)) {
