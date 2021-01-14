@@ -71,15 +71,25 @@ window.calculateSavings = function (component, data) {
  */
 window.totalLoanAmountCalculation = function (component) {
   const parentObj = component.get("v.ChildContainer");
-  let total = calculateTotalLoanAmount(
-    [
-      "loanAmount",
-      "jnLifeCreditorPremium",
-      "processingFeesGCT",
-      "jngiMotorPremium"
-    ],
-    parentObj
-  );
+  const isAuto = checkProductFamily(component, "Auto");
+  const isUnsecured = checkProductFamily(component, "Unsecured");
+  let total = 0;
+  if (isAuto) {
+    total = calculateTotalLoanAmount(
+      [
+        "loanAmount",
+        "jnLifeCreditorPremium",
+        "processingFeesGCT",
+        "jngiMotorPremium"
+      ],
+      parentObj
+    );
+  } else if (isUnsecured) {
+    total = calculateTotalLoanAmount(
+      ["loanAmount", "jnLifeCreditorPremium", "processingFeesGCT"],
+      parentObj
+    );
+  }
   let values = [{ key: "totalLoanAmount", value: total }];
   const data = updateChildContainerWithValue(component, values, false);
   component.set("v.ChildContainer", data);
@@ -91,15 +101,29 @@ window.totalLoanAmountCalculation = function (component) {
  */
 (window.totalMonthlyPILoanPaymentCalculation = function (component) {
   const parentObj = component.get("v.ChildContainer");
-  let total = calculateTotalMonthlyPIPayment(
-    [
-      "monthly_PI_LoanAmount",
-      "monthlyJnLifeCreditor_PI_Premium",
-      "monthlyPrincipalInterestProcessingFee",
-      "monthlyPIJNGIMotorPremium"
-    ],
-    parentObj
-  );
+  const isAuto = checkProductFamily(component, "Auto");
+  const isUnsecured = checkProductFamily(component, "Unsecured");
+  let total = 0;
+  if (isAuto) {
+    total = calculateTotalMonthlyPIPayment(
+      [
+        "monthly_PI_LoanAmount",
+        "monthlyJnLifeCreditor_PI_Premium",
+        "monthlyPrincipalInterestProcessingFee",
+        "monthlyPIJNGIMotorPremium"
+      ],
+      parentObj
+    );
+  } else if (isUnsecured) {
+    total = calculateTotalMonthlyPIPayment(
+      [
+        "monthly_PI_LoanAmount",
+        "monthlyJnLifeCreditor_PI_Premium",
+        "monthlyPrincipalInterestProcessingFee"
+      ],
+      parentObj
+    );
+  }
   let values = [{ key: "totalMonthly_PI_LoanPayment", value: total }];
   const data = updateChildContainerWithValue(component, values, false);
   component.set("v.ChildContainer", data);
@@ -127,7 +151,6 @@ window.totalLoanAmountCalculation = function (component) {
 window.totalInterestPaymentCalculation = function (component) {
   const parentObj = component.get("v.ChildContainer");
   let totalMonthlyPIPayment = parentObj.totalMonthly_PI_LoanPayment;
-
   const totalLoanAmount = parentObj.totalLoanAmount;
   const years = parentObj.years;
   const months = parentObj.months;
@@ -148,10 +171,20 @@ window.totalInterestPaymentCalculation = function (component) {
  */
 window.totalMonthlyPaymentCalculation = function (component) {
   const parentObj = component.get("v.ChildContainer");
-  let total = calculateTotalLoanAmount(
-    ["totalMonthly_PI_LoanPayment", "jngiMonthlyPremium"],
-    parentObj
-  );
+  const isAuto = checkProductFamily(component, "Auto");
+  const isUnsecured = checkProductFamily(component, "Unsecured");
+  let total = 0;
+  if (isAuto) {
+    total = calculateTotalLoanAmount(
+      ["totalMonthly_PI_LoanPayment", "jngiMonthlyPremium"],
+      parentObj
+    );
+  } else if (isUnsecured) {
+    total = calculateTotalLoanAmount(
+      ["totalMonthly_PI_LoanPayment"],
+      parentObj
+    );
+  }
   let values = [{ key: "totalMonthlyLoanPayment", value: total }];
   const data = updateChildContainerWithValue(component, values, false);
   component.set("v.ChildContainer", data);
@@ -185,25 +218,47 @@ window.getFieldsToCalculate = function (parentObj) {
 window.totalClosingCostCalculation = function (component) {
   const parentObj = component.get("v.ChildContainer");
   const jnDefault = component.get("v.jnDefaultConfigs");
+  const isAuto = checkProductFamily(component, "Auto");
+  const isUnsecured = checkProductFamily(component, "Unsecured");
   const data = copyInto(jnDefault, parentObj);
   let properties = [];
   let total = 0;
   let fieldsTocalculate = getFieldsToCalculate(parentObj);
-
-  if (data.estimatedStampDuty != 0 && data.assignmentFee != 0) {
-    properties = [
-      "stampDutyAuto",
-      "legalFee",
-      "nsipp",
-      "estimatedStampDutyAndAdminFee",
-      "assignmentFee"
-    ].concat(fieldsTocalculate);
-  } else {
-    properties = ["stampDutyAuto", "legalFee", "nsipp"].concat(
-      fieldsTocalculate
-    );
+  if (isAuto) {
+    if (data.estimatedStampDuty != 0 && data.assignmentFee != 0) {
+      properties = [
+        "stampDutyAuto",
+        "legalFee",
+        "nsipp",
+        "estimatedStampDutyAndAdminFee",
+        "assignmentFee"
+      ].concat(fieldsTocalculate);
+    } else {
+      properties = ["stampDutyAuto", "legalFee", "nsipp"].concat(
+        fieldsTocalculate
+      );
+    }
+    total = calculateTotalClosingCost(properties, data);
+  } else if (isUnsecured) {
+    if (data.estimatedStampDuty != 0 && data.assignmentFee != 0) {
+      console.info("Branch 1");
+      properties = [
+        "stampDutyUns",
+        "legalFee",
+        "estimatedStampDutyAndAdminFee",
+        "assignmentFee",
+        "firstPaymentInstallable"
+      ].concat(fieldsTocalculate);
+    } else {
+      console.info("Branch 2");
+      properties = [
+        "stampDutyUns",
+        "legalFee",
+        "firstPaymentInstallable"
+      ].concat(fieldsTocalculate);
+    }
+    total = calculateTotalClosingCost(properties, data);
   }
-  total = calculateTotalClosingCost(properties, data);
   let values = [{ key: "totalClosingCost", value: total }];
   const result = updateChildContainerWithValue(component, values, false);
   component.set("v.ChildContainer", result);
@@ -214,10 +269,20 @@ window.totalClosingCostCalculation = function (component) {
  */
 window.totalClosingCostFinancedJNCalculation = function (component) {
   const parentObj = component.get("v.ChildContainer");
-  let total = calculateTotalClosingCostFinancedJN(
-    ["processingFeesGCT", "jnLifeCreditorPremium", "jngiMotorPremium"],
-    parentObj
-  );
+  const isAuto = checkProductFamily(component, "Auto");
+  const isUnsecured = checkProductFamily(component, "Unsecured");
+  let total = 0;
+  if (isAuto) {
+    total = calculateTotalClosingCostFinancedJN(
+      ["processingFeesGCT", "jnLifeCreditorPremium", "jngiMotorPremium"],
+      parentObj
+    );
+  } else if (isUnsecured) {
+    total = calculateTotalClosingCostFinancedJN(
+      ["processingFeesGCT", "jnLifeCreditorPremium"],
+      parentObj
+    );
+  }
   let values = [{ key: "totalFinancedByJN", value: total }];
   const result = updateChildContainerWithValue(component, values, false);
   component.set("v.ChildContainer", result);
@@ -623,12 +688,10 @@ window.ASLCalculator = function (container, jnDefault, riskFactor = 0) {
     !validNumber(jnDefault.policyLimit) ||
     !validNumber(container.TDSRAfter)
   ) {
-    console.log("ZERO was returned!!");
-    return 0;
+    return ZERO;
   }
   if (roundedValue(container.TDSRBefore / 100) > jnDefault.policyLimit) {
-    console.log("ZERO was returned!!");
-    return 0;
+    return ZERO;
   }
   console.log("ASL Calculations have begun");
   // //Step 1:
@@ -650,32 +713,27 @@ window.ASLCalculator = function (container, jnDefault, riskFactor = 0) {
       container.existingBalance
     );
   }
-  console.log("MCL: ", maxCreditLimit);
   //Step 2:
   let maxDebtPayment = maximumAllowableForMonthlyDebtPaymentsCalculator(
     jnDefault.policyLimit,
     container.grossMonthlyIncome
   );
-  console.log("Max debt payment: ", maxDebtPayment);
   //Step 3:
   let maxMinimumPayment = maximumAllowableForMinimumPaymentCalculator(
     maxDebtPayment,
     container.existingDebt
   );
-  console.log("maxMinimumPayment ", maxMinimumPayment);
   //Step 4:
   let computedMinimumPayment = computedMinimumPaymentFromCreditLimitCalculator(
     container,
     jnDefault,
     maxMinimumPayment
   );
-  console.log("computedMinimumPayment: ", computedMinimumPayment);
   //Step 5:
   let lowerCreditLimit = lowerCreditLimitCalculator(
     computedMinimumPayment,
     maxCreditLimit
   );
-  console.log("lowerCreditLimit: ", lowerCreditLimit);
   if (container.cashInvestmentFlag === false) {
     //Step 6:
     let creditLimitAfterRisk = creditLimitRiskCalculator(
@@ -694,12 +752,10 @@ window.ASLCalculator = function (container, jnDefault, riskFactor = 0) {
     );
   } else {
     //Step 6 with cash collateral:
-    console.log("Cash collateral starting limit calculation");
     let startingLimit = startingCreditLimtCalculatorWithCollateral(
       jnDefault.minimumCreditLimitAllowable,
       lowerCreditLimit
     );
-    console.log("startingLimit: ", startingLimit);
     //Step 7 with cash collateral
     return approvedStartingLimitCalculator(
       startingLimit,
@@ -986,4 +1042,18 @@ window.isValidComponent = function (resultsFromChild) {
     }
     return false;
   });
+};
+
+/**
+ * checks if the passed family is the selected product
+ * @param {*} component
+ * @param {String} family
+ * @return {Boolean}
+ */
+window.checkProductFamily = function (component, family) {
+  let selectedFlag = component.get("v.productSelection.productFamily");
+  if (selectedFlag && family) {
+    return selectedFlag.includes(family);
+  }
+  return false;
 };
