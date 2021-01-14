@@ -933,7 +933,7 @@
    * @param {*} helper
    */
   validateFields: function (component) {
-    let containerComponent;
+    let containerComponent = null;
     if (component.get("v.autoFlag")) {
       containerComponent = component.find("autoLoanContainerComponent");
     } else if (component.get("v.unsecuredFlag")) {
@@ -943,7 +943,10 @@
     } else if (component.get("v.lineOfCreditFlag")) {
       containerComponent = component.find("lineOfCreditContainerComponent");
     }
-    return containerComponent.validateFields(component);
+    if (containerComponent) {
+      return containerComponent.validateFields(component);
+    }
+    return false;
   },
   /**
    * all the non revolving loan calculations
