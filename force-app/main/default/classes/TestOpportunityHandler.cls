@@ -2,19 +2,27 @@
 public class TestOpportunityHandler {
   @testSetup
   static void setup() {
-    Integer count = 5;
-    // Create common test accounts
-    List<Account> testAccts = TestDataFactory.CreateBasicAccounts(count, 'ln');
-    insert testAccts;
-    List<Opportunity> testOpps = TestDataFactory.CreateOpportunities(count);
-    for (Integer i = 0; i < count; i++) {
-      testOpps.get(i).AccountId = testAccts.get(i).Id;
+    User newUser = TestDataFactory.CreateUser('leadjntester@test.com');
+    insert newUser;
+    System.assert(newUser != null, 'User is empty');
+    System.runAs(newUser) {
+      Integer count = 5;
+      // Create common test accounts
+      List<Account> testAccts = TestDataFactory.CreateBasicAccounts(
+        count,
+        'ln'
+      );
+      insert testAccts;
+      List<Opportunity> testOpps = TestDataFactory.CreateOpportunities(count);
+      for (Integer i = 0; i < count; i++) {
+        testOpps.get(i).AccountId = testAccts.get(i).Id;
+      }
+      insert testOpps;
+      insert TestDataFactory.CreateHoliday(
+        Date.newInstance(2020, 10, 4),
+        'Test Holiday Jamaica'
+      );
     }
-    insert testOpps;
-    insert TestDataFactory.CreateHoliday(
-      Date.newInstance(2020, 10, 4),
-      'Test Holiday Jamaica'
-    );
   }
 
   @isTest
@@ -34,7 +42,6 @@ public class TestOpportunityHandler {
       record.StageName = 'Closed Lost';
       opps.add(record);
     }
-    insert opps;
     Map<Id, Opportunity> mappedOpps = new Map<Id, Opportunity>();
 
     //scenario one: close date greater than current date
