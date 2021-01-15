@@ -14,6 +14,23 @@ public class TestDataFactory {
     }
     return contacts;
   }
+  public static List<Account> CreateBasicAccounts(
+    Integer count,
+    String lastName
+  ) {
+    Map<String, Id> recordTypeids = Util.getRecordTypeids('Account');
+    Id personAccountId = recordTypeids.get('PersonAccount');
+    List<Account> accounts = new List<Account>();
+    for (Integer i = 0; i < count; i++) {
+      Account c = new Account(
+        FirstName = 'Test ' + i,
+        LastName = lastName + 'i'
+      );
+      c.RecordTypeId = personAccountId;
+      accounts.add(c);
+    }
+    return accounts;
+  }
 
   public static Holiday CreateHoliday(Datetime holidate, String holidayName) {
     Holiday hol = new Holiday();
@@ -31,23 +48,6 @@ public class TestDataFactory {
       c.put(key, info.get(key));
     }
     return c;
-  }
-  public static List<Account> CreateBasicAccounts(
-    Integer count,
-    String lastName
-  ) {
-    Map<String, Id> recordTypeids = Util.getRecordTypeids('Account');
-    Id personAccountId = recordTypeids.get('PersonAccount');
-    List<Account> accounts = new List<Account>();
-    for (Integer i = 0; i < count; i++) {
-      Account c = new Account(
-        FirstName = 'Test ' + i,
-        LastName = lastName + 'i'
-      );
-      c.RecordTypeId = personAccountId;
-      accounts.add(c);
-    }
-    return accounts;
   }
 
   public static List<Loan_Calculator__c> CreateLoanCalculation(Integer count) {

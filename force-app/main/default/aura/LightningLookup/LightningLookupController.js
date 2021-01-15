@@ -43,7 +43,11 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       console.log("performLookupOnFocus");
       var defaultV = component.get("v.defaultValue");
       if (!(!defaultV || defaultV == "")) {
-        var newWhere = component.get('v.displayedFieldName')+"='"+defaultV.replace(/'/g,'\\\'') +"'"
+        var newWhere =
+          component.get("v.displayedFieldName") +
+          "='" +
+          defaultV.replace(/'/g, "\\'") +
+          "'";
         component.set("v.whereClause", newWhere);
       }
       helper.hlpPerformLookup(component, true);

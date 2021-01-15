@@ -1,5 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version="1.0" encoding="UTF-8" ?>
+<Flow
+  xmlns="http://soap.sforce.com/2006/04/metadata"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+>
     <assignments>
         <name>Account_Record_Assignment</name>
         <label>Account Record Assignment</label>
@@ -41,42 +44,49 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.Status_of_Address__pc</assignToReference>
+            <assignToReference
+      >AccountRecord.Status_of_Address__pc</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Status_of_address.crmmObjectSelected</elementReference>
+                <elementReference
+        >Status_of_address.crmmObjectSelected</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.Province_Parish_State__pc</assignToReference>
+            <assignToReference
+      >AccountRecord.Province_Parish_State__pc</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Province_Parish_State</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.Residential_Area_District__pc</assignToReference>
+            <assignToReference
+      >AccountRecord.Residential_Area_District__pc</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Residential_Area_District</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.Years_at_Residence__pc</assignToReference>
+            <assignToReference
+      >AccountRecord.Years_at_Residence__pc</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>timeataddress</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.Post_Office_Zip_Code__c</assignToReference>
+            <assignToReference
+      >AccountRecord.Post_Office_Zip_Code__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Post_office_Zip_Code</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.PersonMobilePhone</assignToReference>
+            <assignToReference
+      >AccountRecord.PersonMobilePhone</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>MobileNumber.value</elementReference>
@@ -90,7 +100,8 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.Business_Phone__pc</assignToReference>
+            <assignToReference
+      >AccountRecord.Business_Phone__pc</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>BusinessNumber.value</elementReference>
@@ -111,7 +122,8 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Current_Residence_less_than_2_years</targetReference>
+            <targetReference
+      >Current_Residence_less_than_2_years</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -120,49 +132,56 @@
         <locationX>1104</locationX>
         <locationY>263</locationY>
         <assignmentItems>
-            <assignToReference>AccountRecord.Street_1_Prev__c</assignToReference>
+            <assignToReference
+      >AccountRecord.Street_1_Prev__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Street_1_prev</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.Street_2_Prev__c</assignToReference>
+            <assignToReference
+      >AccountRecord.Street_2_Prev__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Street_2_prev</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.Street_3_Prev__c</assignToReference>
+            <assignToReference
+      >AccountRecord.Street_3_Prev__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Street_3_prev</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.City_Town_Prev__c</assignToReference>
+            <assignToReference
+      >AccountRecord.City_Town_Prev__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>City_Town_prev</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.Post_Office_Zip_Code_Prev__c</assignToReference>
+            <assignToReference
+      >AccountRecord.Post_Office_Zip_Code_Prev__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Post_Office_Zip_Code_prev</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.Province_Parish_State_Prev__c</assignToReference>
+            <assignToReference
+      >AccountRecord.Province_Parish_State_Prev__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Province_Parish_State_prev</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.Years_at_Residence_Prev__c</assignToReference>
+            <assignToReference
+      >AccountRecord.Years_at_Residence_Prev__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Years_at_Residence_prev</elementReference>
@@ -172,14 +191,17 @@
             <assignToReference>AccountRecord.Country_Prev__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Country_prev.crmmObjectSelected</elementReference>
+                <elementReference
+        >Country_prev.crmmObjectSelected</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.Residential_Area_District_Prev__c</assignToReference>
+            <assignToReference
+      >AccountRecord.Residential_Area_District_Prev__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Residential_Area_District_prev</elementReference>
+                <elementReference
+        >Residential_Area_District_prev</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -202,14 +224,16 @@
             <assignToReference>CountryPrevious</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>AccountRecord.Country_Prev__c</elementReference>
+                <elementReference
+        >AccountRecord.Country_Prev__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>StatusAddressDefault</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>AccountRecord.Status_of_Address__pc</elementReference>
+                <elementReference
+        >AccountRecord.Status_of_Address__pc</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -233,7 +257,8 @@
         </value>
     </choices>
     <decisions>
-        <description>Is the length of current residence less than two years?</description>
+        <description
+    >Is the length of current residence less than two years?</description>
         <name>Current_Residence_less_than_2_years</name>
         <label>Current Residence less than 2 years?</label>
         <locationX>617</locationX>
@@ -262,35 +287,38 @@
     <dynamicChoiceSets>
         <name>CountryChoices</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>Country__c</picklistField>
         <picklistObject>Account</picklistObject>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
         <name>StatusofAddress</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>Status_of_Address__pc</picklistField>
         <picklistObject>Account</picklistObject>
     </dynamicChoiceSets>
     <formulas>
         <name>CountryChoiceFormula</name>
         <dataType>String</dataType>
-        <expression>IF(IsBlank(Text({!AccountRecord.Country__c})), &apos;None&apos; , TEXT({!AccountRecord.Country__c}))</expression>
+        <expression
+    >IF(IsBlank(Text({!AccountRecord.Country__c})), &apos;None&apos; , TEXT({!AccountRecord.Country__c}))</expression>
     </formulas>
     <formulas>
         <name>StatusOfAddressFormula</name>
         <dataType>String</dataType>
-        <expression>IF(IsBlank(Text({!AccountRecord.Status_of_Address__pc})), &apos;None&apos; , TEXT({!AccountRecord.Status_of_Address__pc}))</expression>
+        <expression
+    >IF(IsBlank(Text({!AccountRecord.Status_of_Address__pc})), &apos;None&apos; , TEXT({!AccountRecord.Status_of_Address__pc}))</expression>
     </formulas>
     <formulas>
         <name>YearsAtResidenceCalc</name>
         <dataType>Boolean</dataType>
         <expression>{!AccountRecord.Years_at_Residence__pc} &lt; 2</expression>
     </formulas>
-    <interviewLabel>JNContactDetailsSubflow {!$Flow.CurrentDateTime}</interviewLabel>
+    <interviewLabel
+  >JNContactDetailsSubflow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>JNContactDetailsSubflow</label>
     <processMetadataValues>
         <name>BuilderType</name>
@@ -310,7 +338,8 @@
         <label>Account Record Lookup</label>
         <locationX>215</locationX>
         <locationY>159</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Set_Defaults</targetReference>
         </connector>
@@ -386,7 +415,8 @@
         </fields>
         <fields>
             <name>contactdetailstext</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Person Contact Details&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Person Contact Details&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -399,8 +429,10 @@
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;Cannot exceed a length of 40 characters.&lt;/p&gt;</errorMessage>
-                <formulaExpression>LEN ({!Street_1}) &lt;= 40</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;Cannot exceed a length of 40 characters.&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!Street_1}) &lt;= 40</formulaExpression>
             </validationRule>
         </fields>
         <fields>
@@ -413,7 +445,8 @@
             <fieldType>InputField</fieldType>
             <isRequired>false</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;Cannot exceed a length of 40 characters.&lt;/p&gt;</errorMessage>
+                <errorMessage
+        >&lt;p&gt;Cannot exceed a length of 40 characters.&lt;/p&gt;</errorMessage>
                 <formulaExpression>LEN ({!Street2}) &lt;= 40</formulaExpression>
             </validationRule>
         </fields>
@@ -427,8 +460,10 @@
             <fieldType>InputField</fieldType>
             <isRequired>false</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
-                <formulaExpression>LEN ({!Street_3}) &lt;= 40</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!Street_3}) &lt;= 40</formulaExpression>
             </validationRule>
         </fields>
         <fields>
@@ -441,7 +476,8 @@
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                <errorMessage
+        >&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
                 <formulaExpression>LEN ({!City}) &lt;= 40</formulaExpression>
             </validationRule>
         </fields>
@@ -449,42 +485,51 @@
             <name>Post_office_Zip_Code</name>
             <dataType>String</dataType>
             <defaultValue>
-                <elementReference>AccountRecord.Post_Office_Zip_Code__c</elementReference>
+                <elementReference
+        >AccountRecord.Post_Office_Zip_Code__c</elementReference>
             </defaultValue>
             <fieldText>Post Office/ Zip Code</fieldText>
             <fieldType>InputField</fieldType>
             <isRequired>false</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
-                <formulaExpression>LEN ({!Post_office_Zip_Code}) &lt;= 40</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!Post_office_Zip_Code}) &lt;= 40</formulaExpression>
             </validationRule>
         </fields>
         <fields>
             <name>Province_Parish_State</name>
             <dataType>String</dataType>
             <defaultValue>
-                <elementReference>AccountRecord.Province_Parish_State__pc</elementReference>
+                <elementReference
+        >AccountRecord.Province_Parish_State__pc</elementReference>
             </defaultValue>
             <fieldText>Province/Parish/State</fieldText>
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
-                <formulaExpression>LEN ({!Province_Parish_State}) &lt;= 40</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!Province_Parish_State}) &lt;= 40</formulaExpression>
             </validationRule>
         </fields>
         <fields>
             <name>Residential_Area_District</name>
             <dataType>String</dataType>
             <defaultValue>
-                <elementReference>AccountRecord.Residential_Area_District__pc</elementReference>
+                <elementReference
+        >AccountRecord.Residential_Area_District__pc</elementReference>
             </defaultValue>
             <fieldText>Residential Area/District</fieldText>
             <fieldType>InputField</fieldType>
             <isRequired>false</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
-                <formulaExpression>LEN ({!Residential_Area_District}) &lt;= 40</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!Residential_Area_District}) &lt;= 40</formulaExpression>
             </validationRule>
         </fields>
         <fields>
@@ -522,7 +567,8 @@
             <name>timeataddress</name>
             <dataType>Number</dataType>
             <defaultValue>
-                <elementReference>AccountRecord.Years_at_Residence__pc</elementReference>
+                <elementReference
+        >AccountRecord.Years_at_Residence__pc</elementReference>
             </defaultValue>
             <fieldText>How long have you resided at this address ?</fieldText>
             <fieldType>InputField</fieldType>
@@ -573,7 +619,8 @@
             <inputParameters>
                 <name>value</name>
                 <value>
-                    <elementReference>AccountRecord.PersonEmail</elementReference>
+                    <elementReference
+          >AccountRecord.PersonEmail</elementReference>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
@@ -592,7 +639,8 @@
             <inputParameters>
                 <name>value</name>
                 <value>
-                    <elementReference>AccountRecord.PersonMobilePhone</elementReference>
+                    <elementReference
+          >AccountRecord.PersonMobilePhone</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -623,7 +671,8 @@
             <inputParameters>
                 <name>value</name>
                 <value>
-                    <elementReference>AccountRecord.Home_Number__c</elementReference>
+                    <elementReference
+          >AccountRecord.Home_Number__c</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -648,7 +697,8 @@
             <inputParameters>
                 <name>value</name>
                 <value>
-                    <elementReference>AccountRecord.Business_Phone__pc</elementReference>
+                    <elementReference
+          >AccountRecord.Business_Phone__pc</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -673,7 +723,8 @@
             <inputParameters>
                 <name>value</name>
                 <value>
-                    <elementReference>AccountRecord.Other_Number__c</elementReference>
+                    <elementReference
+          >AccountRecord.Other_Number__c</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -731,19 +782,22 @@
         </fields>
         <fields>
             <name>Previous_Address_Details_screen</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219); font-size: 14px;&quot;&gt;&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt;﻿Previous Address Details&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219); font-size: 14px;&quot;&gt;&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt;﻿Previous Address Details&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>PreviousAddress_Description</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 12px; color: rgb(52, 152, 219);&quot;&gt;&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt;﻿Please enter the details of previous residence below:&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;font-size: 12px; color: rgb(52, 152, 219);&quot;&gt;&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt;﻿Please enter the details of previous residence below:&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>Street_1_prev</name>
             <dataType>String</dataType>
             <defaultValue>
-                <elementReference>AccountRecord.Street_1_Prev__c</elementReference>
+                <elementReference
+        >AccountRecord.Street_1_Prev__c</elementReference>
             </defaultValue>
             <fieldText>Street 1</fieldText>
             <fieldType>InputField</fieldType>
@@ -753,7 +807,8 @@
             <name>Street_2_prev</name>
             <dataType>String</dataType>
             <defaultValue>
-                <elementReference>AccountRecord.Street_2_Prev__c</elementReference>
+                <elementReference
+        >AccountRecord.Street_2_Prev__c</elementReference>
             </defaultValue>
             <fieldText>Street 2</fieldText>
             <fieldType>InputField</fieldType>
@@ -763,7 +818,8 @@
             <name>Street_3_prev</name>
             <dataType>String</dataType>
             <defaultValue>
-                <elementReference>AccountRecord.Street_3_Prev__c</elementReference>
+                <elementReference
+        >AccountRecord.Street_3_Prev__c</elementReference>
             </defaultValue>
             <fieldText>Street 3</fieldText>
             <fieldType>InputField</fieldType>
@@ -773,7 +829,8 @@
             <name>City_Town_prev</name>
             <dataType>String</dataType>
             <defaultValue>
-                <elementReference>AccountRecord.City_Town_Prev__c</elementReference>
+                <elementReference
+        >AccountRecord.City_Town_Prev__c</elementReference>
             </defaultValue>
             <fieldText>City/Town</fieldText>
             <fieldType>InputField</fieldType>
@@ -783,7 +840,8 @@
             <name>Post_Office_Zip_Code_prev</name>
             <dataType>String</dataType>
             <defaultValue>
-                <elementReference>AccountRecord.Post_Office_Zip_Code_Prev__c</elementReference>
+                <elementReference
+        >AccountRecord.Post_Office_Zip_Code_Prev__c</elementReference>
             </defaultValue>
             <fieldText>Post Office/Zip Code</fieldText>
             <fieldType>InputField</fieldType>
@@ -793,7 +851,8 @@
             <name>Residential_Area_District_prev</name>
             <dataType>String</dataType>
             <defaultValue>
-                <elementReference>AccountRecord.Residential_Area_District_Prev__c</elementReference>
+                <elementReference
+        >AccountRecord.Residential_Area_District_Prev__c</elementReference>
             </defaultValue>
             <fieldText>Residential Area/District</fieldText>
             <fieldType>InputField</fieldType>
@@ -803,7 +862,8 @@
             <name>Province_Parish_State_prev</name>
             <dataType>String</dataType>
             <defaultValue>
-                <elementReference>AccountRecord.Province_Parish_State_Prev__c</elementReference>
+                <elementReference
+        >AccountRecord.Province_Parish_State_Prev__c</elementReference>
             </defaultValue>
             <fieldText>Province/Parish/State</fieldText>
             <fieldType>InputField</fieldType>
@@ -844,7 +904,8 @@
             <name>Years_at_Residence_prev</name>
             <dataType>Number</dataType>
             <defaultValue>
-                <elementReference>AccountRecord.Years_at_Residence_Prev__c</elementReference>
+                <elementReference
+        >AccountRecord.Years_at_Residence_Prev__c</elementReference>
             </defaultValue>
             <fieldText>How long did you reside at this address?</fieldText>
             <fieldType>InputField</fieldType>

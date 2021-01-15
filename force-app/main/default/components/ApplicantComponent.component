@@ -1,132 +1,134 @@
-<apex:component >
-    <apex:stylesheet value="{!$Resource.CreditApplicationSummaryDocument}"/>
-    <table class="parentTable" cellpadding="0" cellspacing="0">
-        <tr>
-            <td class="parentRow">GENERAL DETAILS</td>
-            <td style="width:90%">
-                <table class="childTable" cellpadding="0" cellspacing="0">
-                    
-                    <tr>
-                        <td class="childRowFields">Name of Applicant:</td>
-                        <td class="childRowFields">Age of Applicant:</td>
-                        <td class="childRowFields">Gender:</td>
-                        <td class="childRowFields">Marital Status:</td>
-                    </tr>
-                    <tr style="margin-top:10px;">
-                        <td><div class="boxed">Jane Doe</div></td>
-                        <td><div class="boxed">0 Years</div></td>
-                        <td><div class="boxed">Male</div></td>
-                        <td><div class="boxed">Single</div></td>
-                    </tr>
-                </table>
-                <table class="childTable" cellpadding="1" cellspacing="1">
-                    
-                    <tr style="margin-top:20px;">
-                        <td class="childRowFields">Highest level of education attained:</td>
-                        <td class="childRowFields">Number of Dependents:</td>
-                        <td class="childRowFields">Status of Address:</td>
-                        <td class="childRowFields">Time living at Current Address:</td>
-                    </tr>
-                    <tr style="margin-top:10px;">
-                        <td><div class="boxed">Graduate</div></td>
-                        <td><div class="boxed">10</div></td>
-                        <td><div class="boxed">Residential</div></td>
-                        <td><div class="boxed">10</div></td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-    <div style="margin-top:10px;font-size:small;"></div>
-    <table class="parentTable" cellpadding="0" cellspacing="0">
-        <tr>
-            <td class="parentRow">EMPLOYMENT DETAILS</td>
-            <td style="width:90%">
-                <table class="childTable" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td class="textArea">Primary Type of Employment = Employed OR Unemployed OR Pensioner</td>
-                    </tr>
-                    <tr>
-                        <td class="childRowFields">Industry of Employment:</td>
-                        <td class="childRowFields">Professional Category:</td>
-                    </tr>
-                    <tr style="margin-top:10px;">
-                        <td><div class="boxed">Self Employed</div></td>
-                        <td><div class="boxed">IT</div></td>
-                        
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>     
-    
-    <!--EMPLOYMENT DETAILS-->
-    <div style="margin-top:10px;font-size:small;"></div>
-    <table class="parentTable" cellpadding="0" cellspacing="0">
-        <tr>
-            <td class="parentRow">EMPLOYMENT DETAILS</td>
-            <td style="width:90%">
-                <table class="childTable" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td class="textArea">Primary Type of Employment = Self-Employed</td>
-                    </tr>
-                    <tr>
-                        <td class="childRowFields">Type of Industry:</td>
-                        <td class="childRowFields">Nature of Engagement:</td>
-                        <td class="childRowFields">Assessment of Business's Working Capital:</td>
-                    </tr>
-                    <tr style="margin-top:10px;">
-                        <td><div class="boxed">Industrial</div></td>
-                        <td><div class="boxed">Employer</div></td>
-                        <td><div class="boxed">Bussiness</div></td>   
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-<!-- CREDIT ASSESSMENT -->
-<div style="margin-top:10px;font-size:small;"></div>
-<table class="parentTable" cellpadding="0" cellspacing="0">
+<apex:component>
+  <apex:stylesheet value="{!$Resource.CreditApplicationSummaryDocument}" />
+  <table class="parentTable" cellpadding="0" cellspacing="0">
     <tr>
-        <td class="parentRow">CREDIT ASSESSMENT</td>
-        <td style="width:90%">
-            <table class="childTable" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td class="childRowFields">CRIF Rating:</td>
-                    <td class="childRowFields">CreditInfo Rating:</td>
-                    <td class="childRowFields">Overall Credit Bureau Rating:</td>
-                </tr>
-                <tr style="margin-top:10px;">
-                    <td><div class="boxed">Industrial</div></td>
-                    <td><div class="boxed">Employer</div></td>
-                    <td><div class="boxed">Bussiness</div></td>   
-                </tr>
-            </table>
-        </td>
+      <td class="parentRow">GENERAL DETAILS</td>
+      <td style="width: 90%;">
+        <table class="childTable" cellpadding="0" cellspacing="0">
+          <tr>
+            <td class="childRowFields">Name of Applicant:</td>
+            <td class="childRowFields">Age of Applicant:</td>
+            <td class="childRowFields">Gender:</td>
+            <td class="childRowFields">Marital Status:</td>
+          </tr>
+          <tr style="margin-top: 10px;">
+            <td><div class="boxed">Jane Doe</div></td>
+            <td><div class="boxed">0 Years</div></td>
+            <td><div class="boxed">Male</div></td>
+            <td><div class="boxed">Single</div></td>
+          </tr>
+        </table>
+        <table class="childTable" cellpadding="1" cellspacing="1">
+          <tr style="margin-top: 20px;">
+            <td class="childRowFields">Highest level of education attained:</td>
+            <td class="childRowFields">Number of Dependents:</td>
+            <td class="childRowFields">Status of Address:</td>
+            <td class="childRowFields">Time living at Current Address:</td>
+          </tr>
+          <tr style="margin-top: 10px;">
+            <td><div class="boxed">Graduate</div></td>
+            <td><div class="boxed">10</div></td>
+            <td><div class="boxed">Residential</div></td>
+            <td><div class="boxed">10</div></td>
+          </tr>
+        </table>
+      </td>
     </tr>
-</table>
-<!-- JNBANK DETAILS -->
-<div style="margin-top:10px;font-size:small;"></div>
-<table class="parentTable" cellpadding="0" cellspacing="0">
+  </table>
+  <div style="margin-top: 10px; font-size: small;"></div>
+  <table class="parentTable" cellpadding="0" cellspacing="0">
     <tr>
-        <td class="parentRow">JN BANK DETAILS</td>
-        <td style="width:90%">
-            <table class="childTable" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td class="childRowFields">KYC Compliant?</td>
-                    <td class="childRowFields">Time as Member:</td>
-                    <td class="childRowFields">RIM Number:</td>
-                    <td class="childRowFields">Has the sanction screening resulted in a negative trace?</td>
-                </tr>
-                <tr style="margin-top:10px;">
-                    <td><div class="boxed">Industrial</div></td>
-                    <td><div class="boxed">Employer</div></td>
-                    <td><div class="boxed">Bussiness</div></td>
-                    <td><div class="boxed">Bussiness</div></td>
-                </tr>
-            </table>
-        </td>
+      <td class="parentRow">EMPLOYMENT DETAILS</td>
+      <td style="width: 90%;">
+        <table class="childTable" cellpadding="0" cellspacing="0">
+          <tr>
+            <td class="textArea">
+              Primary Type of Employment = Employed OR Unemployed OR Pensioner
+            </td>
+          </tr>
+          <tr>
+            <td class="childRowFields">Industry of Employment:</td>
+            <td class="childRowFields">Professional Category:</td>
+          </tr>
+          <tr style="margin-top: 10px;">
+            <td><div class="boxed">Self Employed</div></td>
+            <td><div class="boxed">IT</div></td>
+          </tr>
+        </table>
+      </td>
     </tr>
-</table>
+  </table>
 
+  <!--EMPLOYMENT DETAILS-->
+  <div style="margin-top: 10px; font-size: small;"></div>
+  <table class="parentTable" cellpadding="0" cellspacing="0">
+    <tr>
+      <td class="parentRow">EMPLOYMENT DETAILS</td>
+      <td style="width: 90%;">
+        <table class="childTable" cellpadding="0" cellspacing="0">
+          <tr>
+            <td class="textArea">Primary Type of Employment = Self-Employed</td>
+          </tr>
+          <tr>
+            <td class="childRowFields">Type of Industry:</td>
+            <td class="childRowFields">Nature of Engagement:</td>
+            <td class="childRowFields">
+              Assessment of Business's Working Capital:
+            </td>
+          </tr>
+          <tr style="margin-top: 10px;">
+            <td><div class="boxed">Industrial</div></td>
+            <td><div class="boxed">Employer</div></td>
+            <td><div class="boxed">Bussiness</div></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <!-- CREDIT ASSESSMENT -->
+  <div style="margin-top: 10px; font-size: small;"></div>
+  <table class="parentTable" cellpadding="0" cellspacing="0">
+    <tr>
+      <td class="parentRow">CREDIT ASSESSMENT</td>
+      <td style="width: 90%;">
+        <table class="childTable" cellpadding="0" cellspacing="0">
+          <tr>
+            <td class="childRowFields">CRIF Rating:</td>
+            <td class="childRowFields">CreditInfo Rating:</td>
+            <td class="childRowFields">Overall Credit Bureau Rating:</td>
+          </tr>
+          <tr style="margin-top: 10px;">
+            <td><div class="boxed">Industrial</div></td>
+            <td><div class="boxed">Employer</div></td>
+            <td><div class="boxed">Bussiness</div></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <!-- JNBANK DETAILS -->
+  <div style="margin-top: 10px; font-size: small;"></div>
+  <table class="parentTable" cellpadding="0" cellspacing="0">
+    <tr>
+      <td class="parentRow">JN BANK DETAILS</td>
+      <td style="width: 90%;">
+        <table class="childTable" cellpadding="0" cellspacing="0">
+          <tr>
+            <td class="childRowFields">KYC Compliant?</td>
+            <td class="childRowFields">Time as Member:</td>
+            <td class="childRowFields">RIM Number:</td>
+            <td class="childRowFields">
+              Has the sanction screening resulted in a negative trace?
+            </td>
+          </tr>
+          <tr style="margin-top: 10px;">
+            <td><div class="boxed">Industrial</div></td>
+            <td><div class="boxed">Employer</div></td>
+            <td><div class="boxed">Bussiness</div></td>
+            <td><div class="boxed">Bussiness</div></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
 </apex:component>

@@ -1,5 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version="1.0" encoding="UTF-8" ?>
+<Flow
+  xmlns="http://soap.sforce.com/2006/04/metadata"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+>
     <apiVersion>50.0</apiVersion>
     <assignments>
         <name>Account_Id</name>
@@ -10,7 +13,8 @@
             <assignToReference>IdCollection</assignToReference>
             <operator>Add</operator>
             <value>
-                <elementReference>CurrentApplication.Account__c</elementReference>
+                <elementReference
+        >CurrentApplication.Account__c</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -39,7 +43,8 @@
         <locationX>2094</locationX>
         <locationY>1091</locationY>
         <assignmentItems>
-            <assignToReference>SelectedApplication.RecordTypeId</assignToReference>
+            <assignToReference
+      >SelectedApplication.RecordTypeId</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>FullDetailsRecordTypeId</elementReference>
@@ -111,7 +116,8 @@
             <assignToReference>SelectedAccountID</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>CurrentApplication.Account__c</elementReference>
+                <elementReference
+        >CurrentApplication.Account__c</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -140,42 +146,49 @@
         <locationX>1611</locationX>
         <locationY>1035</locationY>
         <assignmentItems>
-            <assignToReference>SelectedApplication.Gross_Monthly_Income__c</assignToReference>
+            <assignToReference
+      >SelectedApplication.Gross_Monthly_Income__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Gross_Monthly_Income_short</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>SelectedApplication.Other_Income__c</assignToReference>
+            <assignToReference
+      >SelectedApplication.Other_Income__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Other_Monthly_Income_short</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>SelectedApplication.Rent_Strata_Maintenance__c</assignToReference>
+            <assignToReference
+      >SelectedApplication.Rent_Strata_Maintenance__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Rent_Strata_Maintenance_short</elementReference>
+                <elementReference
+        >Rent_Strata_Maintenance_short</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>SelectedApplication.Statutory_Deductions_Numbers__c</assignToReference>
+            <assignToReference
+      >SelectedApplication.Statutory_Deductions_Numbers__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Statutory_Deductions0</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>SelectedApplication.Personal_Expenses_Monthly_Prior_Loan__c</assignToReference>
+            <assignToReference
+      >SelectedApplication.Personal_Expenses_Monthly_Prior_Loan__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Personal_Expenses0</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>SelectedApplication.Savings_Pension_Insurance_Number__c</assignToReference>
+            <assignToReference
+      >SelectedApplication.Savings_Pension_Insurance_Number__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Savings_Pension_Insurance0</elementReference>
@@ -190,7 +203,8 @@
         <choiceText>{!DefaultAssessmentNetWorthFormula}</choiceText>
         <dataType>String</dataType>
         <value>
-            <elementReference>DefaultAssessmentNetWorthFormula</elementReference>
+            <elementReference
+      >DefaultAssessmentNetWorthFormula</elementReference>
         </value>
     </choices>
     <choices>
@@ -198,7 +212,8 @@
         <choiceText>{!DefaultCreditHistory24MonthsFormula}</choiceText>
         <dataType>String</dataType>
         <value>
-            <elementReference>DefaultCreditHistory24MonthsFormula</elementReference>
+            <elementReference
+      >DefaultCreditHistory24MonthsFormula</elementReference>
         </value>
     </choices>
     <choices>
@@ -245,7 +260,8 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Application_Account_id_Iteration</targetReference>
+                <targetReference
+        >Application_Account_id_Iteration</targetReference>
             </connector>
             <label>Active Employment</label>
         </rules>
@@ -263,7 +279,8 @@
             <name>Not_Started</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>ApplicationRecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >ApplicationRecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Empty_Application</stringValue>
@@ -278,10 +295,12 @@
             <name>Full_Details</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>ApplicationRecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >ApplicationRecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>Full_Details_Of_Income_Living_Expenses</stringValue>
+                    <stringValue
+          >Full_Details_Of_Income_Living_Expenses</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -293,7 +312,8 @@
             <name>Short_Summary</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>ApplicationRecordType.DeveloperName</leftValueReference>
+                <leftValueReference
+        >ApplicationRecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Short_Summary_of_Income</stringValue>
@@ -343,7 +363,8 @@
                 <leftValueReference>SelectedAccountID</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>CurrentApplication.Account__c</elementReference>
+                    <elementReference
+          >CurrentApplication.Account__c</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -365,11 +386,13 @@
                 <leftValueReference>SelectedRecordTypeId</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>ShortSummaryRecordTypeId</elementReference>
+                    <elementReference
+          >ShortSummaryRecordTypeId</elementReference>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Short_Summary_Selection_Screen</targetReference>
+                <targetReference
+        >Short_Summary_Selection_Screen</targetReference>
             </connector>
             <label>Short Summary Selected</label>
         </rules>
@@ -393,76 +416,83 @@
     <dynamicChoiceSets>
         <name>AssessmentApplicantNetWorthChoices</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>Assessment_of_Applicant_Net_Worth__c</picklistField>
         <picklistObject>Applicant__c</picklistObject>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
         <name>CreditHistory24MonthsChoices</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>Credit_History_in_last_24_Months__c</picklistField>
         <picklistObject>Applicant__c</picklistObject>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
         <name>CreditInfoRatingChoices</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>CreditInfo_Rating__c</picklistField>
         <picklistObject>Applicant__c</picklistObject>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
         <name>CRIFRatingChoices</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>CRIF_Rating__c</picklistField>
         <picklistObject>Applicant__c</picklistObject>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
         <name>JudgementsFiledChoices</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>Judgements_Filed__c</picklistField>
         <picklistObject>Applicant__c</picklistObject>
     </dynamicChoiceSets>
     <formulas>
         <name>DefaultAssessmentNetWorthFormula</name>
         <dataType>String</dataType>
-        <expression>IF(ISBLANK(TEXT({!SelectedApplication.Assessment_of_Applicant_Net_Worth__c})),&apos;Low Net Worth&apos;,TEXT({!SelectedApplication.Assessment_of_Applicant_Net_Worth__c}))</expression>
+        <expression
+    >IF(ISBLANK(TEXT({!SelectedApplication.Assessment_of_Applicant_Net_Worth__c})),&apos;Low Net Worth&apos;,TEXT({!SelectedApplication.Assessment_of_Applicant_Net_Worth__c}))</expression>
     </formulas>
     <formulas>
         <name>DefaultCreditHistory24MonthsFormula</name>
         <dataType>String</dataType>
-        <expression>IF(ISBLANK(TEXT({!SelectedApplication.Credit_History_in_last_24_Months__c})),&apos;No Delinquency&apos;, TEXT({!SelectedApplication.Credit_History_in_last_24_Months__c}))</expression>
+        <expression
+    >IF(ISBLANK(TEXT({!SelectedApplication.Credit_History_in_last_24_Months__c})),&apos;No Delinquency&apos;, TEXT({!SelectedApplication.Credit_History_in_last_24_Months__c}))</expression>
     </formulas>
     <formulas>
         <name>DefaultCreditInfoRatingFormula</name>
         <dataType>String</dataType>
-        <expression>IF(ISBLANK(TEXT({!SelectedApplication.CreditInfo_Rating__c})),&apos;Low Risk&apos;,TEXT({!SelectedApplication.CreditInfo_Rating__c}))</expression>
+        <expression
+    >IF(ISBLANK(TEXT({!SelectedApplication.CreditInfo_Rating__c})),&apos;Low Risk&apos;,TEXT({!SelectedApplication.CreditInfo_Rating__c}))</expression>
     </formulas>
     <formulas>
         <name>DefaultCRIFRatingFormula</name>
         <dataType>String</dataType>
-        <expression>IF(ISBLANK(TEXT({!SelectedApplication.CRIF_Rating__c})),&apos;Low Risk&apos;,TEXT({!SelectedApplication.CRIF_Rating__c}))</expression>
+        <expression
+    >IF(ISBLANK(TEXT({!SelectedApplication.CRIF_Rating__c})),&apos;Low Risk&apos;,TEXT({!SelectedApplication.CRIF_Rating__c}))</expression>
     </formulas>
     <formulas>
         <name>DefaultJudgementsFiledFormula</name>
         <dataType>String</dataType>
-        <expression>IF(ISBLANK(TEXT({!SelectedApplication.Judgements_Filed__c})),&apos;No&apos;, TEXT({!SelectedApplication.Judgements_Filed__c}))</expression>
+        <expression
+    >IF(ISBLANK(TEXT({!SelectedApplication.Judgements_Filed__c})),&apos;No&apos;, TEXT({!SelectedApplication.Judgements_Filed__c}))</expression>
     </formulas>
-    <interviewLabel>JNAccountApplicationSubflow {!$Flow.CurrentDateTime}</interviewLabel>
+    <interviewLabel
+  >JNAccountApplicationSubflow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>JNAccountApplicationSubflow</label>
     <loops>
         <name>Application_Account_id_Iteration</name>
         <label>Application Account id Iteration</label>
         <locationX>1523</locationX>
         <locationY>415</locationY>
-        <assignNextValueToReference>CurrentApplication</assignNextValueToReference>
+        <assignNextValueToReference
+    >CurrentApplication</assignNextValueToReference>
         <collectionReference>ApplicationsCollection</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -477,7 +507,8 @@
         <label>Application Iteration</label>
         <locationX>1073</locationX>
         <locationY>832</locationY>
-        <assignNextValueToReference>CurrentApplication</assignNextValueToReference>
+        <assignNextValueToReference
+    >CurrentApplication</assignNextValueToReference>
         <collectionReference>ApplicationsCollection</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -492,7 +523,8 @@
         <label>RecordTypeId Iteration</label>
         <locationX>804</locationX>
         <locationY>888</locationY>
-        <assignNextValueToReference>ApplicationRecordType</assignNextValueToReference>
+        <assignNextValueToReference
+    >ApplicationRecordType</assignNextValueToReference>
         <collectionReference>ApplicationRecordTypeIds</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -526,7 +558,8 @@
         <label>Get All Applications</label>
         <locationX>926</locationX>
         <locationY>557</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Application_Iteration</targetReference>
         </connector>
@@ -576,12 +609,14 @@
         <queriedFields>Strata_Maintenance_Monthly_Prior_Loan__c</queriedFields>
         <queriedFields>Property_Tax_Monthly_Prior_Loan__c</queriedFields>
         <queriedFields>Property_Insurance_Monthly_Prior_Loan__c</queriedFields>
-        <queriedFields>Property_Maintenance_Monthly_Prior_loan__c</queriedFields>
+        <queriedFields
+    >Property_Maintenance_Monthly_Prior_loan__c</queriedFields>
         <queriedFields>Rent_Board_Monthly_After_Loan__c</queriedFields>
         <queriedFields>Strata_Maintenance_Monthly_After_Loan__c</queriedFields>
         <queriedFields>Property_Tax_Monthly_After_Loan__c</queriedFields>
         <queriedFields>Property_Insurance_Monthly_After_Loan__c</queriedFields>
-        <queriedFields>Property_Maintenance_Monthly_After_Loan__c</queriedFields>
+        <queriedFields
+    >Property_Maintenance_Monthly_After_Loan__c</queriedFields>
         <queriedFields>Personal_Expenses_Monthly_Prior_Loan__c</queriedFields>
         <queriedFields>Personal_Expenses_Monthly_After_Loan__c</queriedFields>
         <queriedFields>Electricity_Monthly_Prior_Loan__c</queriedFields>
@@ -605,12 +640,16 @@
         <queriedFields>Petrol_Fuel_Monthly_After_Loan__c</queriedFields>
         <queriedFields>Motor_Vehicle_Reg_Monthly_Prior_Loan__c</queriedFields>
         <queriedFields>Motor_V_Insurance_Monthly_Prior_Loan__c</queriedFields>
-        <queriedFields>Motor_Vehicle_Fitness_Monthly_Prior_Loan__c</queriedFields>
-        <queriedFields>Motor_V_Maintenance_Monthly_Before_Loan__c</queriedFields>
-        <queriedFields>Other_Transport_Costs_Monthly_Prior_Loan__c</queriedFields>
+        <queriedFields
+    >Motor_Vehicle_Fitness_Monthly_Prior_Loan__c</queriedFields>
+        <queriedFields
+    >Motor_V_Maintenance_Monthly_Before_Loan__c</queriedFields>
+        <queriedFields
+    >Other_Transport_Costs_Monthly_Prior_Loan__c</queriedFields>
         <queriedFields>Motor_Vehicle_Reg_Monthly_After_Loan__c</queriedFields>
         <queriedFields>Motor_Vehicle_Monthly_After_Loan__c</queriedFields>
-        <queriedFields>Motor_Vehicle_Fitness_Monthly_After_Loan__c</queriedFields>
+        <queriedFields
+    >Motor_Vehicle_Fitness_Monthly_After_Loan__c</queriedFields>
         <queriedFields>Motor_V_Insurance_Monthly_After_Loan__c</queriedFields>
         <queriedFields>Other_Transport_Monthly_After_Loan__c</queriedFields>
         <queriedFields>Monthly_Living_Expenses__c</queriedFields>
@@ -623,7 +662,8 @@
         <queriedFields>Gross_Monthly_IncomeC__c</queriedFields>
         <queriedFields>JN_Group_Employee__c</queriedFields>
         <queriedFields>Gross_Monthly_Income__c</queriedFields>
-        <queriedFields>Other_Personal_Family_Costs_Prior_After__c</queriedFields>
+        <queriedFields
+    >Other_Personal_Family_Costs_Prior_After__c</queriedFields>
         <queriedFields>Other_Income__c</queriedFields>
         <queriedFields>Other_IncomeC__c</queriedFields>
         <queriedFields>Other_Monthly_Expenses_Prior_Loan__c</queriedFields>
@@ -637,7 +677,8 @@
         <label>Get Application RecordType</label>
         <locationX>745</locationX>
         <locationY>684</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>RecordTypeId_Iteration</targetReference>
         </connector>
@@ -656,12 +697,14 @@
         <queriedFields>Name</queriedFields>
     </recordLookups>
     <recordLookups>
-        <description>To collect the employment records from the employment object</description>
+        <description
+    >To collect the employment records from the employment object</description>
         <name>Get_Employment_Records</name>
         <label>Get Employment Records</label>
         <locationX>1320</locationX>
         <locationY>377</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Active_Employment</targetReference>
         </connector>
@@ -734,11 +777,13 @@
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
-            <targetReference>User_RecordType_Selection_Decision</targetReference>
+            <targetReference
+      >User_RecordType_Selection_Decision</targetReference>
         </connector>
         <fields>
             <name>ApplicationRecordTypesBtn</name>
-            <extensionName>runtime_industries_lending:flowPickArray</extensionName>
+            <extensionName
+      >runtime_industries_lending:flowPickArray</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
                 <name>choicesText</name>
@@ -799,7 +844,8 @@
         </fields>
         <fields>
             <name>Fullapplicantdetails_displaytext</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Full Details for Applicant&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Full Details for Applicant&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -836,7 +882,8 @@
             <inputParameters>
                 <name>currentStage</name>
                 <value>
-                    <elementReference>ApplicationSelectionStage</elementReference>
+                    <elementReference
+          >ApplicationSelectionStage</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -850,7 +897,8 @@
         </fields>
         <fields>
             <name>ApplicantSelection</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Applicant Selection&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Applicant Selection&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -903,19 +951,22 @@
         </fields>
         <fields>
             <name>Source_of_income</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Source of Income&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Source of Income&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>Summary_income_and_living</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219); font-size: 12px; background-color: rgb(255, 255, 255);&quot;&gt;Monthly Income&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219); font-size: 12px; background-color: rgb(255, 255, 255);&quot;&gt;Monthly Income&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>Gross_Monthly_Income_short</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>SelectedApplication.Gross_Monthly_Income__c</elementReference>
+                <elementReference
+        >SelectedApplication.Gross_Monthly_Income__c</elementReference>
             </defaultValue>
             <fieldText>Gross Monthly Income</fieldText>
             <fieldType>InputField</fieldType>
@@ -926,7 +977,8 @@
             <name>Other_Monthly_Income_short</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>SelectedApplication.Other_Income__c</elementReference>
+                <elementReference
+        >SelectedApplication.Other_Income__c</elementReference>
             </defaultValue>
             <fieldText>Other Income</fieldText>
             <fieldType>InputField</fieldType>
@@ -935,14 +987,16 @@
         </fields>
         <fields>
             <name>Monthly_expenses_heading</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219); font-size: 12px;&quot;&gt;Monthly Expenses&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219); font-size: 12px;&quot;&gt;Monthly Expenses&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>Statutory_Deductions0</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>SelectedApplication.Statutory_Deductions_Numbers__c</elementReference>
+                <elementReference
+        >SelectedApplication.Statutory_Deductions_Numbers__c</elementReference>
             </defaultValue>
             <fieldText>Statutory Deductions</fieldText>
             <fieldType>InputField</fieldType>
@@ -953,7 +1007,8 @@
             <name>Rent_Strata_Maintenance_short</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>SelectedApplication.Rent_Strata_Maintenance__c</elementReference>
+                <elementReference
+        >SelectedApplication.Rent_Strata_Maintenance__c</elementReference>
             </defaultValue>
             <fieldText>Monthly Rent/Strata Maintenance</fieldText>
             <fieldType>InputField</fieldType>
@@ -964,7 +1019,8 @@
             <name>Personal_Expenses0</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>SelectedApplication.Personal_Expenses_Monthly_Prior_Loan__c</elementReference>
+                <elementReference
+        >SelectedApplication.Personal_Expenses_Monthly_Prior_Loan__c</elementReference>
             </defaultValue>
             <fieldText>Personal Expenses</fieldText>
             <fieldType>InputField</fieldType>
@@ -975,7 +1031,8 @@
             <name>Savings_Pension_Insurance0</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>SelectedApplication.Savings_Pension_Insurance_Number__c</elementReference>
+                <elementReference
+        >SelectedApplication.Savings_Pension_Insurance_Number__c</elementReference>
             </defaultValue>
             <fieldText>Savings/Pension/Insurance</fieldText>
             <fieldType>InputField</fieldType>
@@ -995,7 +1052,8 @@
         <allowPause>true</allowPause>
         <fields>
             <name>NoEmployment</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 14px; color: rgb(241, 50, 50); background-color: rgb(255, 255, 255);&quot;&gt;I&apos;m sorry, you currently have no active employment records associated with this account. Please create one by starting the applicant information process. If you currently do have employment records, please update one with &quot;&lt;/span&gt;&lt;b style=&quot;font-size: 14px; color: rgb(241, 50, 50); background-color: rgb(255, 255, 255);&quot;&gt;Current Employment&lt;/b&gt;&lt;span style=&quot;font-size: 14px; color: rgb(241, 50, 50); background-color: rgb(255, 255, 255);&quot;&gt;&quot; equal to true.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;font-size: 14px; color: rgb(241, 50, 50); background-color: rgb(255, 255, 255);&quot;&gt;I&apos;m sorry, you currently have no active employment records associated with this account. Please create one by starting the applicant information process. If you currently do have employment records, please update one with &quot;&lt;/span&gt;&lt;b style=&quot;font-size: 14px; color: rgb(241, 50, 50); background-color: rgb(255, 255, 255);&quot;&gt;Current Employment&lt;/b&gt;&lt;span style=&quot;font-size: 14px; color: rgb(241, 50, 50); background-color: rgb(255, 255, 255);&quot;&gt;&quot; equal to true.&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>

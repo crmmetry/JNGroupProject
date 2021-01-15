@@ -1,5 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version="1.0" encoding="UTF-8" ?>
+<Flow
+  xmlns="http://soap.sforce.com/2006/04/metadata"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+>
     <assignments>
         <name>AddMoreAssignment</name>
         <label>AddMoreAssignment</label>
@@ -36,238 +39,281 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.FinServ__PrimaryOwner__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.FinServ__PrimaryOwner__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>PrimaryOwnerLookup.selectedValue</elementReference>
+                <elementReference
+        >PrimaryOwnerLookup.selectedValue</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.FinServ__JointOwner__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.FinServ__JointOwner__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>JointOwnerLookup.selectedValue</elementReference>
+                <elementReference
+        >JointOwnerLookup.selectedValue</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Monthly_Contribution_After_Loan__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Monthly_Contribution_After_Loan__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Monthly_Contribution_After_Loan</elementReference>
+                <elementReference
+        >Monthly_Contribution_After_Loan</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Type_of_Asset_Liability_Recording__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Type_of_Asset_Liability_Recording__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Type_of_Asset_Liablitiy</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Account_Balance__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Account_Balance__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Account_Balance</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Financial_Institution__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Financial_Institution__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Financial_Institution_mn</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Type_of_Account__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Type_of_Account__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Type_of_Account</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Asset_Credit_Limit__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Asset_Credit_Limit__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Asset_Credit_Limit</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Asset_Credit_Balance__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Asset_Credit_Balance__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Asset_Credit_Balance</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Percent_Average_Monthly_User__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Percent_Average_Monthly_User__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>PercentAverageMonthlyUse.value</elementReference>
+                <elementReference
+        >PercentAverageMonthlyUse.value</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Type_of_Card__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Type_of_Card__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Type_of_Card</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Minimum_Payment__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Minimum_Payment__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Minimum_Payment</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Cash_Value__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Cash_Value__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Cash_Value</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Overdraft_Limit__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Overdraft_Limit__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Overdraft_Limit</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Annual_Premium__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Annual_Premium__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Annual_Premium</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Vehicle_Details__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Vehicle_Details__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Vehicle_Details_Year_Make_Model</elementReference>
+                <elementReference
+        >Vehicle_Details_Year_Make_Model</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Lien_on_Asset__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Lien_on_Asset__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Lien_on_Asset</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Percent_Applicant_Portion__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Percent_Applicant_Portion__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>PercentApplicationPortion.value</elementReference>
+                <elementReference
+        >PercentApplicationPortion.value</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Total_Contributions_to_Date__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Total_Contributions_to_Date__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Total_Contribution_to_Date</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Monthly_Payment_Prior__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Monthly_Payment_Prior__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Monthly_Payment_Prior_to_Loan</elementReference>
+                <elementReference
+        >Monthly_Payment_Prior_to_Loan</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Address__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Address__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Address</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Property_Type__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Property_Type__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Property_Type</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Treatment_of_Credit__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Treatment_of_Credit__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Treatment_of_Creditx</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Account_Balance__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Account_Balance__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Account_Balance</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Type_of_Account__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Type_of_Account__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Type_of_Account</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Monthly_Savings_Investment__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Monthly_Savings_Investment__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Monthly_Savings_Investment</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Policy_Number__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Policy_Number__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Policy_Number</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Total_Market_Value__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Total_Market_Value__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Total_Market_Value</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Loan_Balance__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Loan_Balance__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Loan_Balance</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Monthly_Payment__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Monthly_Payment__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Monthly_payment</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Monthly_Contribution_After_Loan__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Monthly_Contribution_After_Loan__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Monthly_Contribution_After_Loan</elementReference>
+                <elementReference
+        >Monthly_Contribution_After_Loan</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Percent_Applicant_Portion__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Percent_Applicant_Portion__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>PercentApplicationPortion.value</elementReference>
+                <elementReference
+        >PercentApplicationPortion.value</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.RecordTypeId</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.RecordTypeId</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>RecordTypeSelectedCheck</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Pension_Scheme__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Pension_Scheme__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Pension_Scheme</elementReference>
@@ -290,224 +336,265 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.FinServ__PrimaryOwner__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.FinServ__PrimaryOwner__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>PrimaryOwnerLookup.selectedValue</elementReference>
+                <elementReference
+        >PrimaryOwnerLookup.selectedValue</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.FinServ__JointOwner__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.FinServ__JointOwner__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>PrimaryOwnerLookup.selectedValue</elementReference>
+                <elementReference
+        >PrimaryOwnerLookup.selectedValue</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Monthly_Contribution_After_Loan__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Monthly_Contribution_After_Loan__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Monthly_Contribution_After_Loan</elementReference>
+                <elementReference
+        >Monthly_Contribution_After_Loan</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Type_of_Asset_Liability_Recording__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Type_of_Asset_Liability_Recording__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Type_of_Asset_Liablitiy</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Account_Balance__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Account_Balance__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Account_Balance</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Financial_Institution__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Financial_Institution__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Financial_Institution_mn</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Type_of_Account__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Type_of_Account__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Type_of_Account</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Asset_Credit_Limit__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Asset_Credit_Limit__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Asset_Credit_Limit</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Asset_Credit_Balance__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Asset_Credit_Balance__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Asset_Credit_Balance</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Percent_Average_Monthly_User__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Percent_Average_Monthly_User__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>PercentAverageMonthlyUse.value</elementReference>
+                <elementReference
+        >PercentAverageMonthlyUse.value</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Type_of_Card__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Type_of_Card__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Type_of_Card</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Minimum_Payment__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Minimum_Payment__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Minimum_Payment</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Cash_Value__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Cash_Value__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Cash_Value</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Overdraft_Limit__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Overdraft_Limit__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Overdraft_Limit</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Annual_Premium__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Annual_Premium__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Annual_Premium</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Vehicle_Details__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Vehicle_Details__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Vehicle_Details_Year_Make_Model</elementReference>
+                <elementReference
+        >Vehicle_Details_Year_Make_Model</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Lien_on_Asset__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Lien_on_Asset__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <booleanValue>false</booleanValue>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Percent_Applicant_Portion__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Percent_Applicant_Portion__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>PercentApplicationPortion.value</elementReference>
+                <elementReference
+        >PercentApplicationPortion.value</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Total_Contributions_to_Date__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Total_Contributions_to_Date__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Total_Contribution_to_Date</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Monthly_Payment_Prior__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Monthly_Payment_Prior__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Monthly_Payment_Prior_to_Loan</elementReference>
+                <elementReference
+        >Monthly_Payment_Prior_to_Loan</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Monthly_Contribution_After_Loan__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Monthly_Contribution_After_Loan__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Monthly_Contribution_After_loanx</elementReference>
+                <elementReference
+        >Monthly_Contribution_After_loanx</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Address__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Address__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Address</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Property_Type__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Property_Type__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Property_Type</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Treatment_of_Credit__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Treatment_of_Credit__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Treatment_of_Creditx</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Account_Balance__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Account_Balance__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Account_Balance</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Type_of_Account__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Type_of_Account__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Type_of_Account</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Monthly_Savings_Investment__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Monthly_Savings_Investment__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Monthly_Savings_Investment</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Policy_Number__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Policy_Number__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Policy_Number</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Percent_Applicant_Portion__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Percent_Applicant_Portion__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>PercentApplicationPortion.value</elementReference>
+                <elementReference
+        >PercentApplicationPortion.value</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Total_Market_Value__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Total_Market_Value__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Total_Market_Value</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Loan_Balance__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Loan_Balance__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Loan_Balance</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Monthly_Payment__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Monthly_Payment__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Monthly_payment</elementReference>
@@ -537,227 +624,290 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.FinServ__PrimaryOwner__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.FinServ__PrimaryOwner__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.FinServ__PrimaryOwner__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.FinServ__PrimaryOwner__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.FinServ__JointOwner__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.FinServ__JointOwner__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.FinServ__JointOwner__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.FinServ__JointOwner__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Monthly_Contribution_After_Loan__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Monthly_Contribution_After_Loan__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Monthly_Contribution_After_Loan__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Monthly_Contribution_After_Loan__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Type_of_Asset_Liability_Recording__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Type_of_Asset_Liability_Recording__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Type_of_Asset_Liability_Recording__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Type_of_Asset_Liability_Recording__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Account_Balance__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Account_Balance__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Account_Balance__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Account_Balance__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Financial_Institution__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Financial_Institution__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Financial_Institution__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Financial_Institution__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Type_of_Account__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Type_of_Account__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Type_of_Account__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Type_of_Account__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Asset_Credit_Limit__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Asset_Credit_Limit__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Asset_Credit_Limit__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Asset_Credit_Limit__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Asset_Credit_Balance__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Asset_Credit_Balance__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Asset_Credit_Balance__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Asset_Credit_Balance__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Percent_Average_Monthly_User__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Percent_Average_Monthly_User__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Percent_Average_Monthly_User__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Percent_Average_Monthly_User__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Type_of_Card__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Type_of_Card__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Type_of_Card__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Type_of_Card__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Minimum_Payment__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Minimum_Payment__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Minimum_Payment__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Minimum_Payment__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Cash_Value__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Cash_Value__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Cash_Value__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Cash_Value__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Overdraft_Limit__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Overdraft_Limit__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Overdraft_Limit__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Overdraft_Limit__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Annual_Premium__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Annual_Premium__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Annual_Premium__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Annual_Premium__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Vehicle_Details__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Vehicle_Details__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Vehicle_Details__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Vehicle_Details__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Lien_on_Asset__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Lien_on_Asset__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Lien_on_Asset__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Lien_on_Asset__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Lien_on_Asset__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Lien_on_Asset__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Lien_on_Asset__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Lien_on_Asset__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Total_Contributions_to_Date__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Total_Contributions_to_Date__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Total_Contributions_to_Date__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Total_Contributions_to_Date__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Monthly_Payment_Prior__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Monthly_Payment_Prior__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Monthly_Payment_Prior__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Monthly_Payment_Prior__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Monthly_Contribution_After_Loan__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Monthly_Contribution_After_Loan__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Monthly_Contribution_After_Loan__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Monthly_Contribution_After_Loan__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Address__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Address__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>getAssetBaseonID.Address__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Property_Type__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Property_Type__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Property_Type__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Property_Type__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Treatment_of_Credit__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Treatment_of_Credit__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Treatment_of_Credit__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Treatment_of_Credit__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Account_Balance__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Account_Balance__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Account_Balance__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Account_Balance__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Type_of_Account__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Type_of_Account__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Type_of_Account__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Type_of_Account__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Monthly_Savings_Investment__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Monthly_Savings_Investment__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Monthly_Savings_Investment__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Monthly_Savings_Investment__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.RecordTypeId</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.RecordTypeId</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.RecordTypeId</elementReference>
+                <elementReference
+        >getAssetBaseonID.RecordTypeId</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Percent_Applicant_Portion__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Percent_Applicant_Portion__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Percent_Applicant_Portion__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Percent_Applicant_Portion__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Total_Market_Value__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Total_Market_Value__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Total_Market_Value__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Total_Market_Value__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Loan_Balance__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Loan_Balance__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Loan_Balance__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Loan_Balance__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AssetLiabilityRecord.Monthly_Payment__c</assignToReference>
+            <assignToReference
+      >AssetLiabilityRecord.Monthly_Payment__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>getAssetBaseonID.Monthly_Payment__c</elementReference>
+                <elementReference
+        >getAssetBaseonID.Monthly_Payment__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -911,14 +1061,16 @@
             <assignToReference>ChosenRecordTypeCollection</assignToReference>
             <operator>Add</operator>
             <value>
-                <stringValue>Pension Contributions or Individual Retirement Schemes</stringValue>
+                <stringValue
+        >Pension Contributions or Individual Retirement Schemes</stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>ChosenRecordTypeCollection</assignToReference>
             <operator>Add</operator>
             <value>
-                <stringValue>Savings/Current Accounts and Investments</stringValue>
+                <stringValue
+        >Savings/Current Accounts and Investments</stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -993,7 +1145,8 @@
         <choiceText>{!AssetLiabilityRecord.Treatment_of_Credit__c}</choiceText>
         <dataType>String</dataType>
         <value>
-            <elementReference>AssetLiabilityRecord.Treatment_of_Credit__c</elementReference>
+            <elementReference
+      >AssetLiabilityRecord.Treatment_of_Credit__c</elementReference>
         </value>
     </choices>
     <choices>
@@ -1001,15 +1154,18 @@
         <choiceText>{!AssetLiabilityRecord.Type_of_Account__c}</choiceText>
         <dataType>String</dataType>
         <value>
-            <elementReference>AssetLiabilityRecord.Type_of_Account__c</elementReference>
+            <elementReference
+      >AssetLiabilityRecord.Type_of_Account__c</elementReference>
         </value>
     </choices>
     <choices>
         <name>TypeofAssetLiabilityChoice</name>
-        <choiceText>{!AssetLiabilityRecord.Type_of_Asset_Liability_Recording__c}</choiceText>
+        <choiceText
+    >{!AssetLiabilityRecord.Type_of_Asset_Liability_Recording__c}</choiceText>
         <dataType>String</dataType>
         <value>
-            <elementReference>AssetLiabilityRecord.Type_of_Asset_Liability_Recording__c</elementReference>
+            <elementReference
+      >AssetLiabilityRecord.Type_of_Asset_Liability_Recording__c</elementReference>
         </value>
     </choices>
     <choices>
@@ -1017,7 +1173,8 @@
         <choiceText>{!AssetLiabilityRecord.Type_of_Card__c}</choiceText>
         <dataType>String</dataType>
         <value>
-            <elementReference>AssetLiabilityRecord.Type_of_Card__c</elementReference>
+            <elementReference
+      >AssetLiabilityRecord.Type_of_Card__c</elementReference>
         </value>
     </choices>
     <decisions>
@@ -1033,7 +1190,8 @@
             <name>I</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>AssetLiabilitiesCollection</leftValueReference>
+                <leftValueReference
+        >AssetLiabilitiesCollection</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -1058,7 +1216,8 @@
             <name>Assets_Found</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>AssetLiabilitiesCollection</leftValueReference>
+                <leftValueReference
+        >AssetLiabilitiesCollection</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -1080,7 +1239,8 @@
             <name>CreateAssets</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>assetlistbtn.selectedValue</leftValueReference>
+                <leftValueReference
+        >assetlistbtn.selectedValue</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>ADD NEW</stringValue>
@@ -1095,7 +1255,8 @@
             <name>EditAssets</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>assetlistbtn.selectedValue</leftValueReference>
+                <leftValueReference
+        >assetlistbtn.selectedValue</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
                     <stringValue>Add New</stringValue>
@@ -1117,14 +1278,16 @@
             <name>Assets_and_Liabilities_decision</name>
             <conditionLogic>or</conditionLogic>
             <conditions>
-                <leftValueReference>ChosenRecordType.selectedValue</leftValueReference>
+                <leftValueReference
+        >ChosenRecordType.selectedValue</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>0124P0000011gtYQAQ</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>getAssetBaseonID.RecordTypeId</leftValueReference>
+                <leftValueReference
+        >getAssetBaseonID.RecordTypeId</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>0124P0000011gtYQAQ</stringValue>
@@ -1136,14 +1299,16 @@
             <name>Credit_Card_Line_of_Credit</name>
             <conditionLogic>or</conditionLogic>
             <conditions>
-                <leftValueReference>ChosenRecordType.selectedValue</leftValueReference>
+                <leftValueReference
+        >ChosenRecordType.selectedValue</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>012q00000001gu6AAA</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>getAssetBaseonID.RecordTypeId</leftValueReference>
+                <leftValueReference
+        >getAssetBaseonID.RecordTypeId</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>012q00000001gu6AAA</stringValue>
@@ -1158,14 +1323,16 @@
             <name>Life_Insurance_Policies</name>
             <conditionLogic>or</conditionLogic>
             <conditions>
-                <leftValueReference>ChosenRecordType.selectedValue</leftValueReference>
+                <leftValueReference
+        >ChosenRecordType.selectedValue</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>012q00000001gu1AAA</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>getAssetBaseonID.RecordTypeId</leftValueReference>
+                <leftValueReference
+        >getAssetBaseonID.RecordTypeId</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>012q00000001gu1AAA</stringValue>
@@ -1180,14 +1347,16 @@
             <name>Motor_Vehicle</name>
             <conditionLogic>or</conditionLogic>
             <conditions>
-                <leftValueReference>ChosenRecordType.selectedValue</leftValueReference>
+                <leftValueReference
+        >ChosenRecordType.selectedValue</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>012q00000001gtmAAA</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>getAssetBaseonID.RecordTypeId</leftValueReference>
+                <leftValueReference
+        >getAssetBaseonID.RecordTypeId</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>012q00000001gtmAAA</stringValue>
@@ -1202,14 +1371,16 @@
             <name>Line_of_Credit</name>
             <conditionLogic>or</conditionLogic>
             <conditions>
-                <leftValueReference>ChosenRecordType.selectedValue</leftValueReference>
+                <leftValueReference
+        >ChosenRecordType.selectedValue</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>012q00000001guBAAQ</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>getAssetBaseonID.RecordTypeId</leftValueReference>
+                <leftValueReference
+        >getAssetBaseonID.RecordTypeId</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>012q00000001guBAAQ</stringValue>
@@ -1224,14 +1395,16 @@
             <name>Pension_desicision</name>
             <conditionLogic>or</conditionLogic>
             <conditions>
-                <leftValueReference>ChosenRecordType.selectedValue</leftValueReference>
+                <leftValueReference
+        >ChosenRecordType.selectedValue</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>012q00000001gtwAAA</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>getAssetBaseonID.RecordTypeId</leftValueReference>
+                <leftValueReference
+        >getAssetBaseonID.RecordTypeId</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>012q00000001gtwAAA</stringValue>
@@ -1246,7 +1419,8 @@
             <name>Real_Estate_decision</name>
             <conditionLogic>or</conditionLogic>
             <conditions>
-                <leftValueReference>ChosenRecordType.selectedValue</leftValueReference>
+                <leftValueReference
+        >ChosenRecordType.selectedValue</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Real Estate</stringValue>
@@ -1261,14 +1435,16 @@
             <name>Savings_Current_Accounts_and_Investments</name>
             <conditionLogic>or</conditionLogic>
             <conditions>
-                <leftValueReference>ChosenRecordType.selectedValue</leftValueReference>
+                <leftValueReference
+        >ChosenRecordType.selectedValue</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>012q00000001gtrAAA</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>getAssetBaseonID.RecordTypeId</leftValueReference>
+                <leftValueReference
+        >getAssetBaseonID.RecordTypeId</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>012q00000001gtrAAA</stringValue>
@@ -1296,7 +1472,8 @@
                 <leftValueReference>AssetLiabilityRecord.Id</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
-                    <elementReference>GetChoiceOptionTrueFalse</elementReference>
+                    <elementReference
+          >GetChoiceOptionTrueFalse</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -1308,80 +1485,80 @@
     <dynamicChoiceSets>
         <name>CountryPicklist</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>Country_of_Citizenship__c</picklistField>
         <picklistObject>Account</picklistObject>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
         <name>GenderSelect</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>FinServ__Gender__pc</picklistField>
         <picklistObject>Account</picklistObject>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
         <name>HighestEducation</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>Highest_Level_of_Education_attained__pc</picklistField>
         <picklistObject>Account</picklistObject>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
         <name>IndentificationType</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>Identification_Type__c</picklistField>
         <picklistObject>Account</picklistObject>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
         <name>IndustryPicklist</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>Industry__c</picklistField>
         <picklistObject>FinServ__Employment__c</picklistObject>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
         <name>MaritalStatus</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>Marital_Status__c</picklistField>
         <picklistObject>Account</picklistObject>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
         <name>OccupationPicklist</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>FinServ__Occupation__c</picklistField>
         <picklistObject>FinServ__Employment__c</picklistObject>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
         <name>PrimaryTypeEmployment</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>Primary_Employment_Type__c</picklistField>
         <picklistObject>Account</picklistObject>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
         <name>Proptype_PICKLIST</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>Property_Type__c</picklistField>
         <picklistObject>FinServ__AssetsAndLiabilities__c</picklistObject>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
         <name>PropTypePicklist</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>Property_Type__c</picklistField>
         <picklistObject>FinServ__AssetsAndLiabilities__c</picklistObject>
     </dynamicChoiceSets>
@@ -1399,44 +1576,46 @@
     <dynamicChoiceSets>
         <name>Treatment0fCreditPicklist</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>Treatment_of_Credit__c</picklistField>
         <picklistObject>FinServ__AssetsAndLiabilities__c</picklistObject>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
         <name>TypeofAccountPicklist</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>Type_of_Account__c</picklistField>
         <picklistObject>FinServ__AssetsAndLiabilities__c</picklistObject>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
         <name>TypeofAssetPicklist</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>Type_of_Asset_Liability_Recording__c</picklistField>
         <picklistObject>FinServ__AssetsAndLiabilities__c</picklistObject>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
         <name>TypeOfCard</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>Type_of_Card__c</picklistField>
         <picklistObject>FinServ__AssetsAndLiabilities__c</picklistObject>
     </dynamicChoiceSets>
     <formulas>
         <name>autosubmitprimary</name>
         <dataType>String</dataType>
-        <expression>IF(NOT(ISBLANK({!AssetLiabilityRecord.FinServ__PrimaryOwner__c})), {!AssetLiabilityRecord.FinServ__PrimaryOwner__c} , {!applicantList.selectedValue})</expression>
+        <expression
+    >IF(NOT(ISBLANK({!AssetLiabilityRecord.FinServ__PrimaryOwner__c})), {!AssetLiabilityRecord.FinServ__PrimaryOwner__c} , {!applicantList.selectedValue})</expression>
     </formulas>
     <formulas>
         <name>CustomerDetail</name>
         <dataType>String</dataType>
-        <expression>{!CustomerAssignment.Name}&amp;&quot;,&quot;&amp;{!CustomerAssignment.Mobile_Phone__c}</expression>
+        <expression
+    >{!CustomerAssignment.Name}&amp;&quot;,&quot;&amp;{!CustomerAssignment.Mobile_Phone__c}</expression>
     </formulas>
     <formulas>
         <name>getUsername</name>
@@ -1446,26 +1625,30 @@
     <formulas>
         <name>RecordTypeSelectedCheck</name>
         <dataType>String</dataType>
-        <expression>IF(NOT(ISBLANK({!ChosenRecordType.selectedValue})), {!ChosenRecordType.selectedValue},{!getAssetBaseonID.RecordTypeId})</expression>
+        <expression
+    >IF(NOT(ISBLANK({!ChosenRecordType.selectedValue})), {!ChosenRecordType.selectedValue},{!getAssetBaseonID.RecordTypeId})</expression>
     </formulas>
     <formulas>
         <name>setLien</name>
         <dataType>Boolean</dataType>
-        <expression>IF({!AssetLiabilityRecord.Lien_on_Asset__c}=True, True,False)</expression>
+        <expression
+    >IF({!AssetLiabilityRecord.Lien_on_Asset__c}=True, True,False)</expression>
     </formulas>
     <formulas>
         <name>setTonull</name>
         <dataType>String</dataType>
         <expression>null</expression>
     </formulas>
-    <interviewLabel>Applicant Assets and Liability {!$Flow.CurrentDateTime}</interviewLabel>
+    <interviewLabel
+  >Applicant Assets and Liability {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Applicant Assets and Liability</label>
     <loops>
         <name>GetAllApplicant</name>
         <label>GetAllApplicant</label>
         <locationX>362</locationX>
         <locationY>433</locationY>
-        <assignNextValueToReference>LoopStoreApplicant</assignNextValueToReference>
+        <assignNextValueToReference
+    >LoopStoreApplicant</assignNextValueToReference>
         <collectionReference>getOpportunity</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -1480,7 +1663,8 @@
         <label>loopJointOwnerShip</label>
         <locationX>1385</locationX>
         <locationY>566</locationY>
-        <assignNextValueToReference>PrimaryAssetCollection</assignNextValueToReference>
+        <assignNextValueToReference
+    >PrimaryAssetCollection</assignNextValueToReference>
         <collectionReference>AssetLiabilitiesCollection</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -1495,7 +1679,8 @@
         <label>PrimaryAssetLoop</label>
         <locationX>1043</locationX>
         <locationY>583</locationY>
-        <assignNextValueToReference>PrimaryAssetCollection</assignNextValueToReference>
+        <assignNextValueToReference
+    >PrimaryAssetCollection</assignNextValueToReference>
         <collectionReference>AssetLiabilitiesCollection</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -1555,7 +1740,8 @@
         <label>checkJointOwnership</label>
         <locationX>1262</locationX>
         <locationY>758</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Asset</targetReference>
         </connector>
@@ -1576,7 +1762,8 @@
         <label>GetAllAccount</label>
         <locationX>2778</locationX>
         <locationY>785</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assets_and_Liabilities</targetReference>
         </connector>
@@ -1590,7 +1777,8 @@
         <label>getApplicantDetails</label>
         <locationX>524</locationX>
         <locationY>330</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>AssignApplicantDetailsfromLoop</targetReference>
         </connector>
@@ -1601,7 +1789,8 @@
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>LoopStoreApplicant.Account__c</elementReference>
+                <elementReference
+        >LoopStoreApplicant.Account__c</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -1617,7 +1806,8 @@
         <label>getAssetBaseonID</label>
         <locationX>2031</locationX>
         <locationY>596</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>AssetLiablity_Assignment_add_0</targetReference>
         </connector>
@@ -1684,7 +1874,8 @@
         <label>GetAssetsList</label>
         <locationX>858</locationX>
         <locationY>761</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>AssetsFound</targetReference>
         </connector>
@@ -1705,7 +1896,8 @@
         <label>getOpportunity</label>
         <locationX>207</locationX>
         <locationY>627</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>GetAllApplicant</targetReference>
         </connector>
@@ -1745,7 +1937,8 @@
         </connector>
         <fields>
             <name>applicantList</name>
-            <extensionName>runtime_industries_lending:flowPickArray</extensionName>
+            <extensionName
+      >runtime_industries_lending:flowPickArray</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
                 <name>choicesText</name>
@@ -1784,7 +1977,8 @@
         </connector>
         <fields>
             <name>assetlistbtn</name>
-            <extensionName>runtime_industries_lending:flowPickArray</extensionName>
+            <extensionName
+      >runtime_industries_lending:flowPickArray</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
                 <name>choicesText</name>
@@ -1823,12 +2017,14 @@
         </connector>
         <fields>
             <name>disp_asset</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 20px; background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;{!$Flow.CurrentStage}&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;font-size: 20px; background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;{!$Flow.CurrentStage}&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>informationTitle</name>
-            <fieldText>&lt;p&gt;&lt;b&gt;Information Header&lt;/b&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt;&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b&gt;Information Header&lt;/b&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt;&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -1897,13 +2093,15 @@
             <inputParameters>
                 <name>defaultValue</name>
                 <value>
-                    <elementReference>getAssetBaseonID.FinServ__JointOwner__c</elementReference>
+                    <elementReference
+          >getAssetBaseonID.FinServ__JointOwner__c</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
                 <name>selectedValue</name>
                 <value>
-                    <elementReference>AssetLiabilityRecord.FinServ__JointOwner__c</elementReference>
+                    <elementReference
+          >AssetLiabilityRecord.FinServ__JointOwner__c</elementReference>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
@@ -1913,7 +2111,8 @@
             <name>Monthly_Contribution_After_Loan</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>AssetLiabilityRecord.Monthly_Contribution_After_Loan__c</elementReference>
+                <elementReference
+        >AssetLiabilityRecord.Monthly_Contribution_After_Loan__c</elementReference>
             </defaultValue>
             <fieldText>Monthly Contribution After Loan</fieldText>
             <fieldType>InputField</fieldType>
@@ -1925,7 +2124,8 @@
             <choiceReferences>TypeofAssetPicklist</choiceReferences>
             <choiceReferences>TypeofAssetLiabilityChoice</choiceReferences>
             <dataType>String</dataType>
-            <defaultSelectedChoiceReference>TypeofAssetLiabilityChoice</defaultSelectedChoiceReference>
+            <defaultSelectedChoiceReference
+      >TypeofAssetLiabilityChoice</defaultSelectedChoiceReference>
             <fieldText>Type of Asset Liablitiy</fieldText>
             <fieldType>DropdownBox</fieldType>
             <isRequired>true</isRequired>
@@ -1934,7 +2134,8 @@
             <name>Financial_Institution_mn</name>
             <dataType>String</dataType>
             <defaultValue>
-                <elementReference>AssetLiabilityRecord.Financial_Institution__c</elementReference>
+                <elementReference
+        >AssetLiabilityRecord.Financial_Institution__c</elementReference>
             </defaultValue>
             <fieldText>Financial Institution</fieldText>
             <fieldType>InputField</fieldType>
@@ -1963,7 +2164,8 @@
             <inputParameters>
                 <name>value</name>
                 <value>
-                    <elementReference>AssetLiabilityRecord.Percent_Applicant_Portion__c</elementReference>
+                    <elementReference
+          >AssetLiabilityRecord.Percent_Applicant_Portion__c</elementReference>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
@@ -1971,14 +2173,16 @@
             <visibilityRule>
                 <conditionLogic>or</conditionLogic>
                 <conditions>
-                    <leftValueReference>ChosenRecordType.selectedValue</leftValueReference>
+                    <leftValueReference
+          >ChosenRecordType.selectedValue</leftValueReference>
                     <operator>EqualTo</operator>
                     <rightValue>
                         <stringValue>Motor Vehicle</stringValue>
                     </rightValue>
                 </conditions>
                 <conditions>
-                    <leftValueReference>ChosenRecordType.selectedValue</leftValueReference>
+                    <leftValueReference
+          >ChosenRecordType.selectedValue</leftValueReference>
                     <operator>EqualTo</operator>
                     <rightValue>
                         <stringValue>Real Estate</stringValue>
@@ -2002,12 +2206,14 @@
         </connector>
         <fields>
             <name>disp_records</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 20px; background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;{!$Flow.CurrentStage}&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;font-size: 20px; background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;{!$Flow.CurrentStage}&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>ChosenRecordType</name>
-            <extensionName>runtime_industries_lending:flowPickArray</extensionName>
+            <extensionName
+      >runtime_industries_lending:flowPickArray</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
                 <name>choicesValues</name>
@@ -2018,13 +2224,15 @@
             <inputParameters>
                 <name>choicesText</name>
                 <value>
-                    <elementReference>ChosenRecordTypeCollection</elementReference>
+                    <elementReference
+          >ChosenRecordTypeCollection</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
                 <name>title</name>
                 <value>
-                    <stringValue>Select the type of Asset /  Liability </stringValue>
+                    <stringValue
+          >Select the type of Asset /  Liability </stringValue>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
@@ -2046,19 +2254,22 @@
         </connector>
         <fields>
             <name>disp_creditcard</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 20px; background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;{!$Flow.CurrentStage}&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;font-size: 20px; background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;{!$Flow.CurrentStage}&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>CreditCardDisp</name>
-            <fieldText>&lt;p&gt;&lt;b&gt;Credit Card/Line of Credit Summary&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b&gt;Credit Card/Line of Credit Summary&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>Asset_Credit_Limit</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>AssetLiabilityRecord.Asset_Credit_Limit__c</elementReference>
+                <elementReference
+        >AssetLiabilityRecord.Asset_Credit_Limit__c</elementReference>
             </defaultValue>
             <fieldText>Asset Credit Limit</fieldText>
             <fieldType>InputField</fieldType>
@@ -2069,7 +2280,8 @@
             <name>Asset_Credit_Balance</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>AssetLiabilityRecord.Account_Balance__c</elementReference>
+                <elementReference
+        >AssetLiabilityRecord.Account_Balance__c</elementReference>
             </defaultValue>
             <fieldText>Asset Credit Balance</fieldText>
             <fieldType>InputField</fieldType>
@@ -2089,7 +2301,8 @@
             <inputParameters>
                 <name>size</name>
                 <value>
-                    <elementReference>AssetLiabilityRecord.Percent_Average_Monthly_User__c</elementReference>
+                    <elementReference
+          >AssetLiabilityRecord.Percent_Average_Monthly_User__c</elementReference>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
@@ -2097,7 +2310,8 @@
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
                 <conditions>
-                    <leftValueReference>ChosenRecordType.selectedValue</leftValueReference>
+                    <leftValueReference
+          >ChosenRecordType.selectedValue</leftValueReference>
                     <operator>EqualTo</operator>
                     <rightValue>
                         <stringValue>Credit Card</stringValue>
@@ -2110,7 +2324,8 @@
             <choiceReferences>Treatment0fCreditPicklist</choiceReferences>
             <choiceReferences>TreatmentofCreditChoice</choiceReferences>
             <dataType>String</dataType>
-            <defaultSelectedChoiceReference>TreatmentofCreditChoice</defaultSelectedChoiceReference>
+            <defaultSelectedChoiceReference
+      >TreatmentofCreditChoice</defaultSelectedChoiceReference>
             <fieldText>Treatment Of Credit</fieldText>
             <fieldType>DropdownBox</fieldType>
             <isRequired>true</isRequired>
@@ -2120,14 +2335,16 @@
             <choiceReferences>TypeOfCard</choiceReferences>
             <choiceReferences>TypeOfCardChoice</choiceReferences>
             <dataType>String</dataType>
-            <defaultSelectedChoiceReference>TypeOfCardChoice</defaultSelectedChoiceReference>
+            <defaultSelectedChoiceReference
+      >TypeOfCardChoice</defaultSelectedChoiceReference>
             <fieldText>Type of Card</fieldText>
             <fieldType>DropdownBox</fieldType>
             <isRequired>true</isRequired>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
                 <conditions>
-                    <leftValueReference>ChosenRecordType.selectedValue</leftValueReference>
+                    <leftValueReference
+          >ChosenRecordType.selectedValue</leftValueReference>
                     <operator>EqualTo</operator>
                     <rightValue>
                         <stringValue>Credit Card</stringValue>
@@ -2139,7 +2356,8 @@
             <name>Minimum_Payment</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>AssetLiabilityRecord.Minimum_Payment__c</elementReference>
+                <elementReference
+        >AssetLiabilityRecord.Minimum_Payment__c</elementReference>
             </defaultValue>
             <fieldText>Minimum Payment</fieldText>
             <fieldType>InputField</fieldType>
@@ -2159,7 +2377,8 @@
         <allowPause>true</allowPause>
         <fields>
             <name>faultmsg</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;Add an applicant before attempting to add an asset&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;color: rgb(250, 76, 1);&quot;&gt;{!$Flow.FaultMessage}&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;Add an applicant before attempting to add an asset&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;color: rgb(250, 76, 1);&quot;&gt;{!$Flow.FaultMessage}&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
@@ -2178,19 +2397,22 @@
         </connector>
         <fields>
             <name>disp_life</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 20px; background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;{!$Flow.CurrentStage}&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;font-size: 20px; background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;{!$Flow.CurrentStage}&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>lifeinsurancedisp</name>
-            <fieldText>&lt;p&gt;&lt;b&gt;Life Insurance Summary&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b&gt;Life Insurance Summary&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>Cash_Value</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>AssetLiabilityRecord.Cash_Value__c</elementReference>
+                <elementReference
+        >AssetLiabilityRecord.Cash_Value__c</elementReference>
             </defaultValue>
             <fieldText>Cash Value</fieldText>
             <fieldType>InputField</fieldType>
@@ -2199,14 +2421,16 @@
         </fields>
         <fields>
             <name>LifeInsurancePolicy</name>
-            <fieldText>&lt;p&gt;&lt;b&gt;Life Insurance Policy&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b&gt;Life Insurance Policy&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>Policy_Number</name>
             <dataType>Number</dataType>
             <defaultValue>
-                <elementReference>AssetLiabilityRecord.Policy_Number__c</elementReference>
+                <elementReference
+        >AssetLiabilityRecord.Policy_Number__c</elementReference>
             </defaultValue>
             <fieldText>Policy Number</fieldText>
             <fieldType>InputField</fieldType>
@@ -2217,7 +2441,8 @@
             <name>Overdraft_Limit</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>AssetLiabilityRecord.Overdraft_Limit__c</elementReference>
+                <elementReference
+        >AssetLiabilityRecord.Overdraft_Limit__c</elementReference>
             </defaultValue>
             <fieldText>Overdraft Limit</fieldText>
             <fieldType>InputField</fieldType>
@@ -2228,7 +2453,8 @@
             <name>Annual_Premium</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>AssetLiabilityRecord.Annual_Premium__c</elementReference>
+                <elementReference
+        >AssetLiabilityRecord.Annual_Premium__c</elementReference>
             </defaultValue>
             <fieldText>Annual Premium</fieldText>
             <fieldType>InputField</fieldType>
@@ -2251,19 +2477,22 @@
         </connector>
         <fields>
             <name>disp_motorvehicle</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 20px; background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;{!$Flow.CurrentStage}&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;font-size: 20px; background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;{!$Flow.CurrentStage}&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>motorvehicleDisp</name>
-            <fieldText>&lt;p&gt;&lt;b&gt;Motor Vehicle Summary&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b&gt;Motor Vehicle Summary&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>Vehicle_Details_Year_Make_Model</name>
             <dataType>String</dataType>
             <defaultValue>
-                <elementReference>AssetLiabilityRecord.Vehicle_Details__c</elementReference>
+                <elementReference
+        >AssetLiabilityRecord.Vehicle_Details__c</elementReference>
             </defaultValue>
             <fieldText>Vehicle Details (Year , Make , Model)</fieldText>
             <fieldType>InputField</fieldType>
@@ -2273,7 +2502,8 @@
             <name>Total_Market_Value</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>AssetLiabilityRecord.Total_Market_Value__c</elementReference>
+                <elementReference
+        >AssetLiabilityRecord.Total_Market_Value__c</elementReference>
             </defaultValue>
             <fieldText>Total Market Value</fieldText>
             <fieldType>InputField</fieldType>
@@ -2284,7 +2514,8 @@
             <name>Loan_Balance</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>AssetLiabilityRecord.Loan_Balance__c</elementReference>
+                <elementReference
+        >AssetLiabilityRecord.Loan_Balance__c</elementReference>
             </defaultValue>
             <fieldText>Loan Balance</fieldText>
             <fieldType>InputField</fieldType>
@@ -2295,7 +2526,8 @@
             <name>Monthly_payment</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>AssetLiabilityRecord.Monthly_Payment__c</elementReference>
+                <elementReference
+        >AssetLiabilityRecord.Monthly_Payment__c</elementReference>
             </defaultValue>
             <fieldText>Monthly Payment</fieldText>
             <fieldType>InputField</fieldType>
@@ -2327,19 +2559,22 @@
         </connector>
         <fields>
             <name>disp_pension</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 20px; background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;{!$Flow.CurrentStage}&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;font-size: 20px; background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;{!$Flow.CurrentStage}&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>PensionScreenDisp</name>
-            <fieldText>&lt;p&gt;&lt;b&gt;Pension Summary&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b&gt;Pension Summary&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>Total_Contribution_to_Date</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>AssetLiabilityRecord.Total_Contributions_to_Date__c</elementReference>
+                <elementReference
+        >AssetLiabilityRecord.Total_Contributions_to_Date__c</elementReference>
             </defaultValue>
             <fieldText>Total Contribution to Date</fieldText>
             <fieldType>InputField</fieldType>
@@ -2350,7 +2585,8 @@
             <name>Pension_Scheme</name>
             <dataType>String</dataType>
             <defaultValue>
-                <elementReference>AssetLiabilityRecord.Pension_Scheme__c</elementReference>
+                <elementReference
+        >AssetLiabilityRecord.Pension_Scheme__c</elementReference>
             </defaultValue>
             <fieldText>Pension Scheme</fieldText>
             <fieldType>InputField</fieldType>
@@ -2360,7 +2596,8 @@
             <name>Monthly_Payment_Prior_to_Loan</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>AssetLiabilityRecord.Monthly_Payment_Prior__c</elementReference>
+                <elementReference
+        >AssetLiabilityRecord.Monthly_Payment_Prior__c</elementReference>
             </defaultValue>
             <fieldText>Monthly Payment Prior to Loan</fieldText>
             <fieldType>InputField</fieldType>
@@ -2371,7 +2608,8 @@
             <name>Monthly_Contribution_After_loanx</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>AssetLiabilityRecord.Monthly_Contribution_After_Loan__c</elementReference>
+                <elementReference
+        >AssetLiabilityRecord.Monthly_Contribution_After_Loan__c</elementReference>
             </defaultValue>
             <fieldText>Monthly Contribution After loan</fieldText>
             <fieldType>InputField</fieldType>
@@ -2394,12 +2632,14 @@
         </connector>
         <fields>
             <name>disp_realestate</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 20px; background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;{!$Flow.CurrentStage}&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;font-size: 20px; background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;{!$Flow.CurrentStage}&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>RealEstateDisp</name>
-            <fieldText>&lt;p&gt;&lt;b&gt;Real Estate&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b&gt;Real Estate&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -2430,7 +2670,8 @@
         <allowPause>false</allowPause>
         <fields>
             <name>politcal_saved_0_0_0</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;color: rgb(62, 124, 3); font-size: 28px;&quot;&gt;Assets &amp;amp; Liability Saved&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;color: rgb(62, 124, 3); font-size: 28px;&quot;&gt;Assets &amp;amp; Liability Saved&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -2468,19 +2709,22 @@
         </connector>
         <fields>
             <name>disp_savings</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 20px; background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;{!$Flow.CurrentStage}&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;font-size: 20px; background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;{!$Flow.CurrentStage}&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>Saving_and_investment</name>
-            <fieldText>&lt;p&gt;&lt;b&gt;Savings/Chequing/Investment Accounts&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b&gt;Savings/Chequing/Investment Accounts&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>Account_Balance</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>AssetLiabilityRecord.Account_Balance__c</elementReference>
+                <elementReference
+        >AssetLiabilityRecord.Account_Balance__c</elementReference>
             </defaultValue>
             <fieldText>Account Balance</fieldText>
             <fieldType>InputField</fieldType>
@@ -2489,7 +2733,8 @@
         </fields>
         <fields>
             <name>othersavings</name>
-            <fieldText>&lt;p&gt;&lt;b&gt;Other Savings/Chequing/Investment Accounts&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b&gt;Other Savings/Chequing/Investment Accounts&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -2505,7 +2750,8 @@
             <name>Monthly_Savings_Investment</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>AssetLiabilityRecord.Monthly_Savings_Investment__c</elementReference>
+                <elementReference
+        >AssetLiabilityRecord.Monthly_Savings_Investment__c</elementReference>
             </defaultValue>
             <fieldText>Monthly Savings/Investment</fieldText>
             <fieldType>InputField</fieldType>

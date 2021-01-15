@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
         <processMetadataValues>
@@ -43,7 +43,8 @@
         <inputParameters>
             <name>title</name>
             <value>
-                <stringValue>New Lead Assigned: {!myVariable_current.Id}</stringValue>
+                <stringValue
+        >New Lead Assigned: {!myVariable_current.Id}</stringValue>
             </value>
         </inputParameters>
         <inputParameters>
@@ -91,7 +92,7 @@ You have a new lead &quot;{!myVariable_current.Salutation} {!myVariable_current.
             <processMetadataValues>
                 <name>objectType</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -102,7 +103,8 @@ You have a new lead &quot;{!myVariable_current.Salutation} {!myVariable_current.
             </processMetadataValues>
             <name>recipientIds</name>
             <value>
-                <elementReference>myCollection_myRule_1_A1recipientIds</elementReference>
+                <elementReference
+        >myCollection_myRule_1_A1recipientIds</elementReference>
             </value>
         </inputParameters>
     </actionCalls>
@@ -135,10 +137,12 @@ You have a new lead &quot;{!myVariable_current.Salutation} {!myVariable_current.
         <locationX>0</locationX>
         <locationY>0</locationY>
         <assignmentItems>
-            <assignToReference>myCollection_myRule_1_A1recipientIds</assignToReference>
+            <assignToReference
+      >myCollection_myRule_1_A1recipientIds</assignToReference>
             <operator>Add</operator>
             <value>
-                <elementReference>myVariable_current.Owner:User.Id</elementReference>
+                <elementReference
+        >myVariable_current.Owner:User.Id</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -168,7 +172,8 @@ You have a new lead &quot;{!myVariable_current.Salutation} {!myVariable_current.
                 <leftValueReference>myVariable_old.OwnerId</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <elementReference>myVariable_current.OwnerId</elementReference>
+                    <elementReference
+          >myVariable_current.OwnerId</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -194,7 +199,8 @@ You have a new lead &quot;{!myVariable_current.Salutation} {!myVariable_current.
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
             <name>myRule_1</name>
-            <conditionLogic>(1 AND 2 AND 3) OR (1 AND 4 AND 5 AND 6)</conditionLogic>
+            <conditionLogic
+      >(1 AND 2 AND 3) OR (1 AND 4 AND 5 AND 6)</conditionLogic>
             <conditions>
                 <processMetadataValues>
                     <name>inputDataType</name>
@@ -226,7 +232,8 @@ You have a new lead &quot;{!myVariable_current.Salutation} {!myVariable_current.
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>isChangedRule_2_myRule_1_OwnerId</leftValueReference>
+                <leftValueReference
+        >isChangedRule_2_myRule_1_OwnerId</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -263,7 +270,8 @@ You have a new lead &quot;{!myVariable_current.Salutation} {!myVariable_current.
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.OwnerId</leftValueReference>
+                <leftValueReference
+        >myVariable_current.OwnerId</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -300,7 +308,8 @@ You have a new lead &quot;{!myVariable_current.Salutation} {!myVariable_current.
                         <stringValue>ID</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.OwnerId</leftValueReference>
+                <leftValueReference
+        >myVariable_current.OwnerId</leftValueReference>
                 <operator>StartsWith</operator>
                 <rightValue>
                     <stringValue>005</stringValue>
@@ -331,7 +340,8 @@ You have a new lead &quot;{!myVariable_current.Salutation} {!myVariable_current.
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Status</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Status</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Unqualified</stringValue>
@@ -374,7 +384,8 @@ You have a new lead &quot;{!myVariable_current.Salutation} {!myVariable_current.
                         <stringValue>Queue</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.OwnerId</leftValueReference>
+                <leftValueReference
+        >myVariable_current.OwnerId</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
                     <stringValue>00Gq0000003LkMfEAK</stringValue>
@@ -417,7 +428,8 @@ You have a new lead &quot;{!myVariable_current.Salutation} {!myVariable_current.
                         <stringValue>Queue</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.OwnerId</leftValueReference>
+                <leftValueReference
+        >myVariable_current.OwnerId</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
                     <stringValue>00Gq0000003LkMkEAK</stringValue>
@@ -473,14 +485,17 @@ You have a new lead &quot;{!myVariable_current.Salutation} {!myVariable_current.
         <processMetadataValues>
             <name>originalFormula</name>
             <value>
-                <stringValue>ISNEW() || ISCHANGED([Lead].OwnerId ) </stringValue>
+                <stringValue
+        >ISNEW() || ISCHANGED([Lead].OwnerId ) </stringValue>
             </value>
         </processMetadataValues>
         <name>formula_myRule_4</name>
         <dataType>Boolean</dataType>
-        <expression>ISNEW() || ISCHANGED({!myVariable_current.OwnerId} )</expression>
+        <expression
+    >ISNEW() || ISCHANGED({!myVariable_current.OwnerId} )</expression>
     </formulas>
-    <interviewLabel>Send_Notification_on_Assignment-24_InterviewLabel</interviewLabel>
+    <interviewLabel
+  >Send_Notification_on_Assignment-24_InterviewLabel</interviewLabel>
     <label>Send Notification on Assignment</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -574,7 +589,7 @@ You have a new lead &quot;{!myVariable_current.Salutation} {!myVariable_current.
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -654,7 +669,7 @@ You have a new lead &quot;{!myVariable_current.Salutation} {!myVariable_current.
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -665,12 +680,14 @@ You have a new lead &quot;{!myVariable_current.Salutation} {!myVariable_current.
             </processMetadataValues>
             <field>Assignment_Timestamp__c</field>
             <value>
-                <elementReference>formula_5_myRule_4_A1_7256179642</elementReference>
+                <elementReference
+        >formula_5_myRule_4_A1_7256179642</elementReference>
             </value>
         </inputAssignments>
         <object>Lead</object>
     </recordUpdates>
-    <startElementReference>isChangedDecision2_myRule_1_OwnerId</startElementReference>
+    <startElementReference
+  >isChangedDecision2_myRule_1_OwnerId</startElementReference>
     <status>Active</status>
     <variables>
         <name>myCollection_myRule_1_A1recipientIds</name>

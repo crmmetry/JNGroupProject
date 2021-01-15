@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
         <processMetadataValues>
@@ -50,7 +50,7 @@
             <processMetadataValues>
                 <name>objectType</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -92,7 +92,7 @@
             <processMetadataValues>
                 <name>objectType</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -157,7 +157,7 @@
             <processMetadataValues>
                 <name>objectType</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -199,7 +199,7 @@
             <processMetadataValues>
                 <name>objectType</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -264,7 +264,7 @@
             <processMetadataValues>
                 <name>objectType</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -306,7 +306,7 @@
             <processMetadataValues>
                 <name>objectType</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -371,7 +371,7 @@
             <processMetadataValues>
                 <name>objectType</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -413,7 +413,7 @@
             <processMetadataValues>
                 <name>objectType</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -478,7 +478,7 @@
             <processMetadataValues>
                 <name>objectType</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -520,7 +520,7 @@
             <processMetadataValues>
                 <name>objectType</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -552,7 +552,8 @@
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
             <name>myRule_1</name>
-            <conditionLogic>(1 OR 2 OR 3 OR 4 OR 6 OR 7 OR 8) AND  9 AND   5</conditionLogic>
+            <conditionLogic
+      >(1 OR 2 OR 3 OR 4 OR 6 OR 7 OR 8) AND  9 AND   5</conditionLogic>
             <conditions>
                 <processMetadataValues>
                     <name>inputDataType</name>
@@ -578,7 +579,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Service_of_Interest__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Service_of_Interest__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>JN Bank Auto Loan</stringValue>
@@ -609,7 +611,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Service_of_Interest__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Service_of_Interest__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>JN Bank Commercial Auto Loan</stringValue>
@@ -640,7 +643,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Service_of_Interest__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Service_of_Interest__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>JN Bank Cash Secured Loan</stringValue>
@@ -671,10 +675,12 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Service_of_Interest__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Service_of_Interest__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>JN Bank 12 to 1 Loan (Supersize Loan)</stringValue>
+                    <stringValue
+          >JN Bank 12 to 1 Loan (Supersize Loan)</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
@@ -702,10 +708,12 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.RecordType.Name</leftValueReference>
+                <leftValueReference
+        >myVariable_current.RecordType.Name</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <stringValue>Credit Facility (Auto Loan, Unsecured Loan, Credit Card, Line of Credit)</stringValue>
+                    <stringValue
+          >Credit Facility (Auto Loan, Unsecured Loan, Credit Card, Line of Credit)</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
@@ -733,7 +741,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Service_of_Interest__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Service_of_Interest__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>JN Bank Credit Card</stringValue>
@@ -764,7 +773,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Service_of_Interest__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Service_of_Interest__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>JN Bank Line Of Credit</stringValue>
@@ -795,7 +805,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Service_of_Interest__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Service_of_Interest__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>JN Bank Unsecured Loan</stringValue>
@@ -826,7 +837,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.IsConverted</leftValueReference>
+                <leftValueReference
+        >myVariable_current.IsConverted</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -878,7 +890,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Source_of_Submission__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Source_of_Submission__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Lead Portal</stringValue>
@@ -909,7 +922,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.IsConverted</leftValueReference>
+                <leftValueReference
+        >myVariable_current.IsConverted</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -964,7 +978,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Service_of_Interest__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Service_of_Interest__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>JN Bank Deposit Account</stringValue>
@@ -995,7 +1010,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.RecordType.Name</leftValueReference>
+                <leftValueReference
+        >myVariable_current.RecordType.Name</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
                     <stringValue>Savings / Chequing</stringValue>
@@ -1026,7 +1042,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.IsConverted</leftValueReference>
+                <leftValueReference
+        >myVariable_current.IsConverted</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -1081,7 +1098,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Service_of_Interest__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Service_of_Interest__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>JN Bank Mortgage Loan</stringValue>
@@ -1112,10 +1130,12 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Service_of_Interest__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Service_of_Interest__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>JN Bank Insurance Premium Financing</stringValue>
+                    <stringValue
+          >JN Bank Insurance Premium Financing</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
@@ -1143,7 +1163,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.RecordType.Name</leftValueReference>
+                <leftValueReference
+        >myVariable_current.RecordType.Name</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
                     <stringValue>Mortgage</stringValue>
@@ -1174,7 +1195,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.IsConverted</leftValueReference>
+                <leftValueReference
+        >myVariable_current.IsConverted</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -1205,7 +1227,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Service_of_Interest__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Service_of_Interest__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>JN Bank Commercial Auto Loan</stringValue>
@@ -1236,7 +1259,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Service_of_Interest__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Service_of_Interest__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>JN Bank Cash Secured Loan</stringValue>
@@ -1291,7 +1315,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Service_of_Interest__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Service_of_Interest__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>JN Bank Unsecured Loan</stringValue>
@@ -1322,7 +1347,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.LeadSource</leftValueReference>
+                <leftValueReference
+        >myVariable_current.LeadSource</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Online Application Form</stringValue>
@@ -1353,7 +1379,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.IsConverted</leftValueReference>
+                <leftValueReference
+        >myVariable_current.IsConverted</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -1408,7 +1435,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Service_of_Interest__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Service_of_Interest__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>JN Bank Credit Card</stringValue>
@@ -1439,7 +1467,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.LeadSource</leftValueReference>
+                <leftValueReference
+        >myVariable_current.LeadSource</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Online Application Form</stringValue>
@@ -1470,7 +1499,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.IsConverted</leftValueReference>
+                <leftValueReference
+        >myVariable_current.IsConverted</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -1482,7 +1512,8 @@
             <label>Credit Card</label>
         </rules>
     </decisions>
-    <description>Adjusting the record type name *edit* new flow Lead Record ID</description>
+    <description
+  >Adjusting the record type name *edit* new flow Lead Record ID</description>
     <interviewLabel>Adjust_Record_Type-26_InterviewLabel</interviewLabel>
     <label>Adjust Record Type</label>
     <processMetadataValues>
@@ -1574,7 +1605,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>

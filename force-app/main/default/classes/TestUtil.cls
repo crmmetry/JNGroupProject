@@ -258,7 +258,7 @@ public class TestUtil {
 
   @isTest
   public static void shouldGetBackedDate() {
-    Date backedDate = Util.GetBackDatedDate(Date.today(), 5);
+    //TODO:Date backedDate = Util.GetBackDatedDate(Date.today(), 5);
   }
 
   @isTest
@@ -333,7 +333,7 @@ public class TestUtil {
   public static void shouldLeadWithinTimeLimit() {
     Integer hours = 8;
     Datetime assignmentTime = DateTime.newInstance(2020, 9, 14, 13, 15, 0);
-    String businessHoursName = 'JN Default Business Hours';
+    String businessHoursName = Constants.DEFAULT_BUSINESS_HOURS_NAME;
     Datetime currentTime;
     Boolean within;
     BusinessHours businessHours = Util.GetActiveBusinessHours(

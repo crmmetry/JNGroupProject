@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <decisions>
         <processMetadataValues>
@@ -28,13 +28,15 @@
             <label>Update the Amount on Opp</label>
         </rules>
     </decisions>
-    <description>Updates the Opportunity Amount upon conversion of a Lead record - v2</description>
+    <description
+  >Updates the Opportunity Amount upon conversion of a Lead record - v2</description>
     <formulas>
         <name>formula_myRule_1</name>
         <dataType>Boolean</dataType>
         <expression>true</expression>
     </formulas>
-    <interviewLabel>Updating_the_Opportunity_Amount-2_InterviewLabel</interviewLabel>
+    <interviewLabel
+  >Updating_the_Opportunity_Amount-2_InterviewLabel</interviewLabel>
     <label>Updating the Opportunity  Amount</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -125,7 +127,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -174,7 +176,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -185,7 +187,8 @@
             </processMetadataValues>
             <field>Estimated_Amount__c</field>
             <value>
-                <elementReference>myVariable_current.Opportunity__r.Amount</elementReference>
+                <elementReference
+        >myVariable_current.Opportunity__r.Amount</elementReference>
             </value>
         </inputAssignments>
         <object>Lead</object>

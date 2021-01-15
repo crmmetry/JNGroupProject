@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <interviewLabel>Lead Adjust Record Type {!$Flow.CurrentDateTime}</interviewLabel>
+    <interviewLabel
+  >Lead Adjust Record Type {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Lead Adjust Record Type: Savings</label>
     <processMetadataValues>
         <name>BuilderType</name>
@@ -20,7 +21,8 @@
         <label>Get Record Type For Lead</label>
         <locationX>201</locationX>
         <locationY>219</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Correction_Assignment</targetReference>
         </connector>

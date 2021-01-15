@@ -5,27 +5,22 @@ trigger NewOpportunityTrigger on Opportunity(
   before update
 ) {
   OpportunityTriggerHandler.init(Trigger.new, Trigger.oldMap, Trigger.newMap);
-  System.debug('System debug opport');
   Set<id> oppid = new Set<id>();
   if (Trigger.isUpdate) {
-    if (Trigger.isAfter) {
-      for (Opportunity opp : Trigger.new) {
-        oppid.add(opp.ID);
-      }
-    } else {
-      System.debug('Before updating opportunity');
+    if (Trigger.isBefore) {
       OpportunityTriggerHandler.lockRecordsForEditing();
       OpportunityTriggerHandler.assignOpportunityRecordTypeName();
       //OpportunityTriggerHandler.validateApplicantProfileCompletion();
-      OpportunityTriggerHandler.validateCloseBackDate(2, 7, Date.today());
+      OpportunityTriggerHandler.validateCloseBackDate(
+        2,
+        7,
+        Date.today(),
+        Constants.DEFAULT_BUSINESS_HOURS_NAME
+      );
       OpportunityTriggerHandler.ProductsFamiliyValidation();
     }
   } else if (Trigger.isInsert) {
-    if (Trigger.isAfter) {
-      for (Opportunity opp : Trigger.new) {
-        oppid.add(opp.ID);
-      }
-    } else if (Trigger.isBefore) {
+    if (Trigger.isBefore) {
       OpportunityTriggerHandler.assignOpportunityRecordTypeName();
     }
   }
@@ -34,10 +29,4 @@ trigger NewOpportunityTrigger on Opportunity(
     Trigger.isUpdate,
     Trigger.isInsert
   ); // causing last contact made issues
-  /*if (oppid.size() > 0) {
-    if (CreditScoreHelper.FirstRun)
-      return;
-    CreditScoreHelper cs = new CreditScoreHelper();
-    cs.CreditScoreFromOpp(oppid);
-  }*/
 }

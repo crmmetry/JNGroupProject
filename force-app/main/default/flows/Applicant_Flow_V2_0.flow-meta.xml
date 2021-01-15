@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <assignments>
         <description>Assigns the choices for account selection</description>
@@ -21,7 +21,8 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Does_the_account_listed_below_belongs_to_you</targetReference>
+            <targetReference
+      >Does_the_account_listed_below_belongs_to_you</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -73,7 +74,8 @@
         </value>
     </choices>
     <decisions>
-        <description>Decides whether the user selected the account or not</description>
+        <description
+    >Decides whether the user selected the account or not</description>
         <name>AccountSelectionDecision</name>
         <label>AccountSelectionDecision</label>
         <locationX>662</locationX>
@@ -86,7 +88,8 @@
             <name>AccountSelected</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>AccountSelectionButtonPicklist.selectedValue</leftValueReference>
+                <leftValueReference
+        >AccountSelectionButtonPicklist.selectedValue</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <elementReference>AccountRecord.Name</elementReference>
@@ -99,7 +102,8 @@
         </rules>
     </decisions>
     <decisions>
-        <description>Checks if the account as an associated application</description>
+        <description
+    >Checks if the account as an associated application</description>
         <name>Application_Exist</name>
         <label>Application Exist</label>
         <locationX>1122</locationX>
@@ -107,12 +111,14 @@
         <defaultConnector>
             <targetReference>Get_Application_RecordType</targetReference>
         </defaultConnector>
-        <defaultConnectorLabel>Application  doesn&apos;t Exists</defaultConnectorLabel>
+        <defaultConnectorLabel
+    >Application  doesn&apos;t Exists</defaultConnectorLabel>
         <rules>
             <name>Application_Exists</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>AccountApplicationRecord</leftValueReference>
+                <leftValueReference
+        >AccountApplicationRecord</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -169,7 +175,8 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Cant_add_additional_applications</targetReference>
+                <targetReference
+        >Cant_add_additional_applications</targetReference>
             </connector>
             <label>No we cant</label>
         </rules>
@@ -184,7 +191,8 @@
             <name>Emergency_Contact_Continue</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>EmergencyContactContinuation</leftValueReference>
+                <leftValueReference
+        >EmergencyContactContinuation</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -213,20 +221,23 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Does_the_account_listed_below_belongs_to_you</targetReference>
+                <targetReference
+        >Does_the_account_listed_below_belongs_to_you</targetReference>
             </connector>
             <label>Add More</label>
         </rules>
     </decisions>
     <description>Adding fault screen</description>
-    <interviewLabel>Applicant Flow V2.0 {!$Flow.CurrentDateTime}</interviewLabel>
+    <interviewLabel
+  >Applicant Flow V2.0 {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Applicant Flow V2.0</label>
     <loops>
         <name>Existing_Application_Loop</name>
         <label>Existing Application Loop</label>
         <locationX>482</locationX>
         <locationY>108</locationY>
-        <assignNextValueToReference>CurrentApplicationLoopVariable</assignNextValueToReference>
+        <assignNextValueToReference
+    >CurrentApplicationLoopVariable</assignNextValueToReference>
         <collectionReference>AssignedApplications</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -254,7 +265,8 @@
         <label>Create Account Application</label>
         <locationX>1580</locationX>
         <locationY>1041</locationY>
-        <assignRecordIdToReference>CreatedApplicationId</assignRecordIdToReference>
+        <assignRecordIdToReference
+    >CreatedApplicationId</assignRecordIdToReference>
         <connector>
             <targetReference>Main_Applicant_Details</targetReference>
         </connector>
@@ -286,7 +298,8 @@
         <label>Get Application Record</label>
         <locationX>911</locationX>
         <locationY>1076</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Application_Exist</targetReference>
         </connector>
@@ -314,7 +327,8 @@
         <label>Get Application RecordType</label>
         <locationX>1128</locationX>
         <locationY>989</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_Account_Application</targetReference>
         </connector>
@@ -341,7 +355,8 @@
         <label>Get Assigned Applications</label>
         <locationX>1131</locationX>
         <locationY>210</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Applications_Exists</targetReference>
         </connector>
@@ -361,7 +376,8 @@
         <label>GetAccountRecord</label>
         <locationX>218</locationX>
         <locationY>495</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>AccountSelectionChoicesAssignment</targetReference>
         </connector>
@@ -378,12 +394,14 @@
         <queriedFields>Name</queriedFields>
     </recordLookups>
     <recordLookups>
-        <description>extracts the account  id from the opportunity record</description>
+        <description
+    >extracts the account  id from the opportunity record</description>
         <name>GetOpportunityRecord</name>
         <label>GetOpportunityRecord</label>
         <locationX>113</locationX>
         <locationY>689</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>GetAccountRecord</targetReference>
         </connector>
@@ -426,7 +444,8 @@
         </fields>
         <fields>
             <name>AddMoreApplicationDetails</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;color: rgb(52, 152, 219); font-size: 14px;&quot;&gt;Do you want to add more people?&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;color: rgb(52, 152, 219); font-size: 14px;&quot;&gt;Do you want to add more people?&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -464,7 +483,8 @@
         </fields>
         <fields>
             <name>NoExtraApplicationsText</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;font-size: 14px; color: rgb(231, 76, 60);&quot;&gt;Sorry you cannot add any more applicant this opportunity because every opportunity can have up to three applicants linked.&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;font-size: 14px; color: rgb(231, 76, 60);&quot;&gt;Sorry you cannot add any more applicant this opportunity because every opportunity can have up to three applicants linked.&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
@@ -496,12 +516,14 @@
         </fields>
         <fields>
             <name>personinfotext</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Person Information&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Person Information&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>AccountSelectionButtonPicklist</name>
-            <extensionName>runtime_industries_lending:flowPickArray</extensionName>
+            <extensionName
+      >runtime_industries_lending:flowPickArray</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
                 <name>choicesText</name>
@@ -518,7 +540,8 @@
             <inputParameters>
                 <name>title</name>
                 <value>
-                    <stringValue>Please create a new application or select one of the existing applicants below:</stringValue>
+                    <stringValue
+          >Please create a new application or select one of the existing applicants below:</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -578,7 +601,8 @@
         </fields>
         <fields>
             <name>text2</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;background-color: rgb(255, 255, 255); color: rgb(52, 152, 219); font-size: 14px;&quot;&gt;Main Applicant Form&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;background-color: rgb(255, 255, 255); color: rgb(52, 152, 219); font-size: 14px;&quot;&gt;Main Applicant Form&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -761,7 +785,8 @@
         <objectType>Account</objectType>
     </variables>
     <variables>
-        <description>Choices available to the user to select a account, can either be the account name or No</description>
+        <description
+    >Choices available to the user to select a account, can either be the account name or No</description>
         <name>AccuntSelectionChoices</name>
         <dataType>String</dataType>
         <isCollection>true</isCollection>

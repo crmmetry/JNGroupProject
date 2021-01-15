@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <assignments>
         <name>Assign_Holder_Name_and_id</name>
@@ -9,14 +9,16 @@
             <assignToReference>CardHolderNames</assignToReference>
             <operator>Add</operator>
             <value>
-                <elementReference>CurrentCardHolder.Card_Holder_Name__c</elementReference>
+                <elementReference
+        >CurrentCardHolder.Card_Holder_Name__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>CardHolderIds</assignToReference>
             <operator>Add</operator>
             <value>
-                <elementReference>CurrentCardHolder.Account__c</elementReference>
+                <elementReference
+        >CurrentCardHolder.Account__c</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -81,7 +83,8 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Get_Supplementary_Card_Holders</targetReference>
+                <targetReference
+        >Get_Supplementary_Card_Holders</targetReference>
             </connector>
             <label>Credit Cards Exist</label>
         </rules>
@@ -99,7 +102,8 @@
             <name>Yes_there_are</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>SupplementaryCardHoldersList</leftValueReference>
+                <leftValueReference
+        >SupplementaryCardHoldersList</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -134,14 +138,16 @@
         </rules>
     </decisions>
     <description>fixing TRN</description>
-    <interviewLabel>Supplementary Card Holder {!$Flow.CurrentDateTime}</interviewLabel>
+    <interviewLabel
+  >Supplementary Card Holder {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Supplementary Card Holder</label>
     <loops>
         <name>Set_Holder_Names</name>
         <label>Set Holder Names</label>
         <locationX>916</locationX>
         <locationY>346</locationY>
-        <assignNextValueToReference>CurrentCardHolder</assignNextValueToReference>
+        <assignNextValueToReference
+    >CurrentCardHolder</assignNextValueToReference>
         <collectionReference>SupplementaryCardHoldersList</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -191,13 +197,15 @@
         <inputAssignments>
             <field>Country_of_Citizenship__pc</field>
             <value>
-                <elementReference>Countryofcitizenship_sup.crmmObjectSelected</elementReference>
+                <elementReference
+        >Countryofcitizenship_sup.crmmObjectSelected</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>FinServ__Gender__pc</field>
             <value>
-                <elementReference>Gender_sup.crmmObjectSelected</elementReference>
+                <elementReference
+        >Gender_sup.crmmObjectSelected</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -221,7 +229,8 @@
         <inputAssignments>
             <field>Identification_Type_Country_of_issue__pc</field>
             <value>
-                <elementReference>Countryofissue_sup.crmmObjectSelected</elementReference>
+                <elementReference
+        >Countryofissue_sup.crmmObjectSelected</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -239,7 +248,8 @@
         <inputAssignments>
             <field>Marital_Status__c</field>
             <value>
-                <elementReference>Martialstatus_sup.crmmObjectSelected</elementReference>
+                <elementReference
+        >Martialstatus_sup.crmmObjectSelected</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -293,7 +303,8 @@
         <inputAssignments>
             <field>Residential_Area_District__pc</field>
             <value>
-                <elementReference>Residential_Area_District_sup</elementReference>
+                <elementReference
+        >Residential_Area_District_sup</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -317,7 +328,8 @@
         <inputAssignments>
             <field>Supplementary_Applicant_Relationship__c</field>
             <value>
-                <elementReference>RelationshipToApplicant_sup.crmmObjectSelected</elementReference>
+                <elementReference
+        >RelationshipToApplicant_sup.crmmObjectSelected</elementReference>
             </value>
         </inputAssignments>
         <object>Account</object>
@@ -349,7 +361,8 @@
         <label>Get Opportunity Products</label>
         <locationX>266</locationX>
         <locationY>50</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Credit_Cards_Exist</targetReference>
         </connector>
@@ -376,7 +389,8 @@
         <label>Get PersonAccount RecordTypeid</label>
         <locationX>266</locationX>
         <locationY>320</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Opportunity_Products</targetReference>
         </connector>
@@ -405,7 +419,8 @@
         <label>Get Supplementary Card Holders</label>
         <locationX>464</locationX>
         <locationY>213</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Existing_Card_Holders</targetReference>
         </connector>
@@ -454,7 +469,8 @@
         </fields>
         <fields>
             <name>text4</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219); font-size: 14px;&quot;&gt;Supplementary Card Holder Creation&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219); font-size: 14px;&quot;&gt;Supplementary Card Holder Creation&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -464,8 +480,10 @@
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;Cannot exceed a length of 40 characters.&lt;/p&gt;</errorMessage>
-                <formulaExpression>LEN ({!Person_First_Name}) &lt;= 40</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;Cannot exceed a length of 40 characters.&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!Person_First_Name}) &lt;= 40</formulaExpression>
             </validationRule>
         </fields>
         <fields>
@@ -475,8 +493,10 @@
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;Cannot exceed a length of 40 characters.&lt;/p&gt;</errorMessage>
-                <formulaExpression>LEN ({!Person_Last_Name}) &lt;= 40</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;Cannot exceed a length of 40 characters.&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!Person_Last_Name}) &lt;= 40</formulaExpression>
             </validationRule>
         </fields>
         <fields>
@@ -486,8 +506,10 @@
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;Enter a valid TRN&lt;/p&gt;</errorMessage>
-                <formulaExpression>REGEX({!Person_TRN}, &quot;((?:[0-9]{3}-[0-9]{3}-[0-9]{3})|(?:[0-9]{3}[0-9]{3}[0-9]{3}))&quot;)</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;Enter a valid TRN&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >REGEX({!Person_TRN}, &quot;((?:[0-9]{3}-[0-9]{3}-[0-9]{3})|(?:[0-9]{3}[0-9]{3}[0-9]{3}))&quot;)</formulaExpression>
             </validationRule>
         </fields>
         <fields>
@@ -547,8 +569,10 @@
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;Must be 18 years or older.&lt;/p&gt;</errorMessage>
-                <formulaExpression>Year( TODAY() ) - Year({!Date_of_Birth_sup}) &gt;=18</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;Must be 18 years or older.&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >Year( TODAY() ) - Year({!Date_of_Birth_sup}) &gt;=18</formulaExpression>
             </validationRule>
         </fields>
         <fields>
@@ -583,8 +607,10 @@
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 80 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
-                <formulaExpression>LEN ({!Occupation_sup}) &lt;= 80</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 80 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!Occupation_sup}) &lt;= 80</formulaExpression>
             </validationRule>
         </fields>
         <fields>
@@ -606,7 +632,8 @@
             <inputParameters>
                 <name>crmmObjectField</name>
                 <value>
-                    <stringValue>Supplementary_Applicant_Relationship__c</stringValue>
+                    <stringValue
+          >Supplementary_Applicant_Relationship__c</stringValue>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
@@ -619,8 +646,10 @@
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
-                <formulaExpression>LEN ({!Street_1_sup}) &lt;= 40</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!Street_1_sup}) &lt;= 40</formulaExpression>
             </validationRule>
         </fields>
         <fields>
@@ -630,8 +659,10 @@
             <fieldType>InputField</fieldType>
             <isRequired>false</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
-                <formulaExpression>LEN ({!Street_2_sup}) &lt;= 40</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!Street_2_sup}) &lt;= 40</formulaExpression>
             </validationRule>
         </fields>
         <fields>
@@ -641,8 +672,10 @@
             <fieldType>InputField</fieldType>
             <isRequired>false</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
-                <formulaExpression>LEN ({!Street_3_sup}) &lt;= 40</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!Street_3_sup}) &lt;= 40</formulaExpression>
             </validationRule>
         </fields>
         <fields>
@@ -652,8 +685,10 @@
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
-                <formulaExpression>LEN ({!City_Town_sup}) &lt;= 40</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!City_Town_sup}) &lt;= 40</formulaExpression>
             </validationRule>
         </fields>
         <fields>
@@ -663,8 +698,10 @@
             <fieldType>InputField</fieldType>
             <isRequired>false</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
-                <formulaExpression>LEN ({!Residential_Area_District_sup}) &lt;= 40</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!Residential_Area_District_sup}) &lt;= 40</formulaExpression>
             </validationRule>
         </fields>
         <fields>
@@ -674,8 +711,10 @@
             <fieldType>InputField</fieldType>
             <isRequired>false</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
-                <formulaExpression>LEN ({!Post_Office_Zip_Code_sup}) &lt;= 40</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!Post_Office_Zip_Code_sup}) &lt;= 40</formulaExpression>
             </validationRule>
         </fields>
         <fields>
@@ -685,8 +724,10 @@
             <fieldType>InputField</fieldType>
             <isRequired>false</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
-                <formulaExpression>LEN ({!Province_Parish_State}) &lt;= 40</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Cannot exceed a length of 40 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!Province_Parish_State}) &lt;= 40</formulaExpression>
             </validationRule>
         </fields>
         <fields>
@@ -708,7 +749,8 @@
             <inputParameters>
                 <name>crmmObjectField</name>
                 <value>
-                    <stringValue>Identification_Type_Country_of_issue__pc</stringValue>
+                    <stringValue
+          >Identification_Type_Country_of_issue__pc</stringValue>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
@@ -840,12 +882,14 @@
         </fields>
         <fields>
             <name>text7</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Supplementary Card Holder&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Supplementary Card Holder&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>text6</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219); background-color: rgb(255, 255, 255);&quot;&gt;Sorry, you currently do not have  any credit cards linked to your account.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219); background-color: rgb(255, 255, 255);&quot;&gt;Sorry, you currently do not have  any credit cards linked to your account.&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
@@ -876,7 +920,8 @@
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
-            <targetReference>Should_Add_Supplementary_Card_Holder</targetReference>
+            <targetReference
+      >Should_Add_Supplementary_Card_Holder</targetReference>
         </connector>
         <fields>
             <name>indicator1</name>
@@ -899,12 +944,14 @@
         </fields>
         <fields>
             <name>text2</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Supplementary Card Holder&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Supplementary Card Holder&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>text1</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219);&quot;&gt;Sorry. there are currently no supplementary card holders associated with your account, Do you want to add one to your account?&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219);&quot;&gt;Sorry. there are currently no supplementary card holders associated with your account, Do you want to add one to your account?&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -952,12 +999,14 @@
         </fields>
         <fields>
             <name>text3</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219);&quot;&gt;Supplementary Card Holder&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219);&quot;&gt;Supplementary Card Holder&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>existingcardholdersbtn</name>
-            <extensionName>runtime_industries_lending:flowPickArray</extensionName>
+            <extensionName
+      >runtime_industries_lending:flowPickArray</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
                 <name>choicesText</name>
@@ -974,7 +1023,8 @@
             <inputParameters>
                 <name>title</name>
                 <value>
-                    <stringValue>Existing Supplementary Card Holder</stringValue>
+                    <stringValue
+          >Existing Supplementary Card Holder</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>

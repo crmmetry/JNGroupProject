@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <assignments>
         <name>Account_Id_Assignment</name>
@@ -57,7 +57,8 @@
         </connector>
     </assignments>
     <decisions>
-        <description>Checks if any related account information was found</description>
+        <description
+    >Checks if any related account information was found</description>
         <name>CheckAccountLookup</name>
         <label>CheckAccountLookup</label>
         <locationX>569</locationX>
@@ -94,7 +95,8 @@
         </outputAssignments>
         <valueField>Id</valueField>
     </dynamicChoiceSets>
-    <interviewLabel>PersonInformationSubFlow {!$Flow.CurrentDateTime}</interviewLabel>
+    <interviewLabel
+  >PersonInformationSubFlow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>PersonInformationSubFlow</label>
     <loops>
         <description>loop over all the accounts found</description>
@@ -126,7 +128,8 @@
     </processMetadataValues>
     <processType>Flow</processType>
     <recordCreates>
-        <description>Creates the person account with first and last name</description>
+        <description
+    >Creates the person account with first and last name</description>
         <name>CreatePersonAccount</name>
         <label>CreatePersonAccount</label>
         <locationX>408</locationX>
@@ -144,7 +147,8 @@
         <inputAssignments>
             <field>Jamaican_Tax_Registration_Number__pc</field>
             <value>
-                <elementReference>Tax_Registration_Number_TRN_Text</elementReference>
+                <elementReference
+        >Tax_Registration_Number_TRN_Text</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -156,7 +160,8 @@
         <inputAssignments>
             <field>RecordTypeId</field>
             <value>
-                <elementReference>PersonAccountRecordTypeId.Id</elementReference>
+                <elementReference
+        >PersonAccountRecordTypeId.Id</elementReference>
             </value>
         </inputAssignments>
         <object>Account</object>
@@ -166,7 +171,8 @@
         <label>Get PersonAccount RecordTypeId</label>
         <locationX>699</locationX>
         <locationY>273</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>CreatePersonAccount</targetReference>
         </connector>
@@ -195,7 +201,8 @@
         <label>LookupAccountRecords</label>
         <locationX>358</locationX>
         <locationY>40</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>CheckAccountLookup</targetReference>
         </connector>
@@ -217,7 +224,8 @@
             <field>Jamaican_Tax_Registration_Number__pc</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Tax_Registration_Number_TRN_Text</elementReference>
+                <elementReference
+        >Tax_Registration_Number_TRN_Text</elementReference>
             </value>
         </filters>
         <object>Account</object>
@@ -239,7 +247,8 @@
         </connector>
         <fields>
             <name>PersonLokkup</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Person Information&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Person Information&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -257,12 +266,14 @@
         </fields>
         <fields>
             <name>PersonName</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Please enter the following information to search for a existing account in the system&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Please enter the following information to search for a existing account in the system&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>NoExistingApplicantText</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219);&quot;&gt;If search was attempted and no applicant could be found , a new account will be created with the provided first and last name&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219);&quot;&gt;If search was attempted and no applicant could be found , a new account will be created with the provided first and last name&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -286,8 +297,10 @@
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;Invalid TRN number&lt;/p&gt;</errorMessage>
-                <formulaExpression>REGEX({!Tax_Registration_Number_TRN_Text}, &quot;((?:[0-9]{3}-[0-9]{3}-[0-9]{3})|(?:[0-9]{3}[0-9]{3}[0-9]{3}))&quot;)</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;Invalid TRN number&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >REGEX({!Tax_Registration_Number_TRN_Text}, &quot;((?:[0-9]{3}-[0-9]{3}-[0-9]{3})|(?:[0-9]{3}[0-9]{3}[0-9]{3}))&quot;)</formulaExpression>
             </validationRule>
         </fields>
         <showFooter>true</showFooter>
@@ -303,7 +316,8 @@
         <allowPause>true</allowPause>
         <fields>
             <name>personselection</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;color: rgb(52, 152, 219); font-size: 14px;&quot;&gt;Person Selection&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;color: rgb(52, 152, 219); font-size: 14px;&quot;&gt;Person Selection&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -321,7 +335,8 @@
         </fields>
         <fields>
             <name>AccountSelectionBtnList</name>
-            <extensionName>runtime_industries_lending:flowPickArray</extensionName>
+            <extensionName
+      >runtime_industries_lending:flowPickArray</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
                 <name>choicesText</name>
@@ -338,7 +353,8 @@
             <inputParameters>
                 <name>title</name>
                 <value>
-                    <stringValue>Please select one of the account listed below</stringValue>
+                    <stringValue
+          >Please select one of the account listed below</stringValue>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
@@ -376,7 +392,8 @@
     <status>Active</status>
     <textTemplates>
         <name>JoinedAccountName</name>
-        <text>&lt;p&gt;{!AccountRecord.FirstName} &lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;{!AccountRecord.LastName}&lt;/span&gt;&lt;/p&gt;</text>
+        <text
+    >&lt;p&gt;{!AccountRecord.FirstName} &lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;{!AccountRecord.LastName}&lt;/span&gt;&lt;/p&gt;</text>
     </textTemplates>
     <variables>
         <description>id for account created or selected</description>
@@ -401,7 +418,8 @@
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <description>Account record to store user info for lookup or create</description>
+        <description
+    >Account record to store user info for lookup or create</description>
         <name>AccountRecord</name>
         <dataType>SObject</dataType>
         <isCollection>false</isCollection>

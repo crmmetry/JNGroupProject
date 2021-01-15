@@ -295,9 +295,12 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         var selectedId;
         component.set("v.selectedValue", selectedId);
       } else {
-        var searchWhereClause = component.get("v.displayedFieldName") + " LIKE '%" +
-        searchString.replace(/'/g,'\\\'') + "%'";
-    component.set("v.searchWhereClause", searchWhereClause);
+        var searchWhereClause =
+          component.get("v.displayedFieldName") +
+          " LIKE '%" +
+          searchString.replace(/'/g, "\\'") +
+          "%'";
+        component.set("v.searchWhereClause", searchWhereClause);
       }
 
       this.hlpGetRecords(component, false);
