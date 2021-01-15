@@ -13,8 +13,10 @@
  * @return {Object}
  */
 window.calculateSavings = function (component, data) {
+  console.log("Data: ", JSON.parse(JSON.stringify(data)));
   let totalCompulsorySavingsBalance = 0;
   let monthlyCompulsorySavings = 0;
+  let tenure = 0;
   let {
     totalMonthly_PI_LoanPayment,
     proposedSavingsPercentage,
@@ -28,7 +30,7 @@ window.calculateSavings = function (component, data) {
       data
     )
   ) {
-    let tenure = calculateMonths(years, months);
+    tenure = calculateMonths(years, months);
     let monthlySavings = basicMonthlyCompulsorySavingsCalculator(
       totalMonthly_PI_LoanPayment,
       proposedSavingsPercentage,
@@ -38,7 +40,6 @@ window.calculateSavings = function (component, data) {
       monthlySavings,
       tenure
     );
-
     totalCompulsorySavingsBalance = parseFloat(
       monthlySavingsOverRepaymentPeriod
     );
