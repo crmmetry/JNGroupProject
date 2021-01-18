@@ -398,7 +398,7 @@
         jngiMotorPremium="{!v.ParentContainer.jngiMotorPremiumFeesAndCharges}"
         processingFees="{!v.ParentContainer.processingFeeClosingCost}"
         assignmentFee="{!v.ParentContainer.assignmentFee}"
-        stampDutyAndAdminCharges="{!v.ParentContainer.estimatedStampDuty}"
+        stampDutyAndAdminCharges="{!v.ParentContainer.estimatedStampDutyAndAdminFee}"
         jnCreditorLifePremium="{!v.ParentContainer.jnCLPremiumFeesAndCharges}"
         includeCLPremiumFlag="{!v.includeCLPremiumFlag}"
         jnDefaultConfigs="{!v.jnDefaultConfigs}"

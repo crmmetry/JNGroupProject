@@ -220,7 +220,7 @@ window.totalClosingCostCalculation = function (component) {
   const jnDefault = component.get("v.jnDefaultConfigs");
   const isAuto = checkProductFamily(component, "Auto");
   const isUnsecured = checkProductFamily(component, "Unsecured");
-  const data = copyInto(jnDefault, parentObj);
+  const data = copyInto(parentObj, jnDefault);
   let properties = [];
   let total = 0;
   let fieldsTocalculate = getFieldsToCalculate(parentObj);
@@ -1089,14 +1089,14 @@ window.checkProductFamily = function (component, family) {
       );
       let values = [
         {
-          key: "estimatedStampDuty",
+          key: "estimatedStampDutyAndAdminFee",
           value: jnDefaults.estimatedStampDutyAndAdminFee
         }
       ];
       const result = updateChildContainerWithValue(component, values, false);
       component.set("v.ChildContainer", result);
     } else {
-      let values = [{ key: "estimatedStampDuty", value: 0 }];
+      let values = [{ key: "estimatedStampDutyAndAdminFee", value: 0 }];
       const result = updateChildContainerWithValue(component, values, false);
       component.set("v.ChildContainer", result);
     }
