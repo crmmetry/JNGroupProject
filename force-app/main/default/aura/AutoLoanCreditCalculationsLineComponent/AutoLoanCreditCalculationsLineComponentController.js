@@ -35,9 +35,9 @@
     // on credit repayment changes
     helper.setDeductRepaymentFlag(component);
     //assignment fees
-    helper.setAssignmentFees(component);
+    //helper.setAssignmentFees(component);
     //stamp duty
-    helper.setEstimatedStampDutyFees(component);
+    //helper.setEstimatedStampDutyFees(component);
   },
   /** Validates cmp fields - JN1-4201
    * @param {*} component

@@ -126,7 +126,7 @@
     <lightning:input
       type="number"
       label="Estimated Stamp Duty &amp; Admin Charges"
-      value="{!v.stampDutyAndAdminCharges}"
+      value="{!v.estimatedStampDuty}"
       name="number"
       formatter="currency"
       required="true"

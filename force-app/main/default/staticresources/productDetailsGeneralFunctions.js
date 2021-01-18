@@ -1057,3 +1057,47 @@ window.checkProductFamily = function (component, family) {
   }
   return false;
 };
+
+/**
+ * Set the assignment fee when the policy provider is updated.
+ */
+(window.setAssignmentFees = function (component) {
+  let data = component.get("v.ChildContainer");
+  let jnDefaults = component.get("v.jnDefaultConfigs");
+  console.log("jn defaults", JSON.parse(JSON.stringify(jnDefaults)));
+  if (data.policyProvider !== null) {
+    console.log("assignment fee ", jnDefaults.assignmentFee);
+    let values = [{ key: "assignmentFee", value: jnDefaults.assignmentFee }];
+    const result = updateChildContainerWithValue(component, values, false);
+    component.set("v.ChildContainer", result);
+  } else {
+    let values = [{ key: "assignmentFee", value: 0 }];
+    const result = updateChildContainerWithValue(component, values, false);
+    component.set("v.ChildContainer", result);
+  }
+}),
+  /**
+   * Set the estimated stamp duty fees when the policy provider is updated.
+   */
+  (window.setEstimatedStampDutyFees = function (component) {
+    let data = component.get("v.ChildContainer");
+    let jnDefaults = component.get("v.jnDefaultConfigs");
+    if (data.policyProvider !== null) {
+      console.log(
+        "estimate stamp duty fee ",
+        jnDefaults.estimatedStampDutyAndAdminFee
+      );
+      let values = [
+        {
+          key: "estimatedStampDuty",
+          value: jnDefaults.estimatedStampDutyAndAdminFee
+        }
+      ];
+      const result = updateChildContainerWithValue(component, values, false);
+      component.set("v.ChildContainer", result);
+    } else {
+      let values = [{ key: "estimatedStampDuty", value: 0 }];
+      const result = updateChildContainerWithValue(component, values, false);
+      component.set("v.ChildContainer", result);
+    }
+  });
