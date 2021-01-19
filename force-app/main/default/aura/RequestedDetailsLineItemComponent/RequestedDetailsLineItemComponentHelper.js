@@ -13,7 +13,6 @@
         let state = response.getState(); //Checking response status
         let result = response.getReturnValue();
         if (state === "SUCCESS") {
-          console.log("applicant result: ", result);
           component.set("v.applicants", result);
         }
       });
