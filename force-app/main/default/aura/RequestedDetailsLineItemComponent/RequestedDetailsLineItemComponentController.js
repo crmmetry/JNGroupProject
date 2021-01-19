@@ -13,12 +13,12 @@
     component.set("v.scriptsLoaded", true);
   },
   onChildContainerChange: function (component, event, helper) {
-    let container = component.get("v.ParentContainer");
     const childContainer = component.get("v.ChildContainer");
     if (
       component.get("v.scriptsLoaded") &&
       component.get("v.notifyContainerChange")
     ) {
+      helper.getApplicants(component);
       fireProductDetailsEvent(null, childContainer, component);
     }
   },
