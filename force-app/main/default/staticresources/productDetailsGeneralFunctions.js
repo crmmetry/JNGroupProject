@@ -694,7 +694,6 @@ window.ASLCalculator = function (container, jnDefault, riskFactor = 0) {
   if (roundedValue(container.TDSRBefore / 100) > jnDefault.policyLimit) {
     return ZERO;
   }
-  console.log("ASL Calculations have begun");
   // //Step 1:
   let annualGrossIncome = annualGrossIncomeCalculator(
     container.grossMonthlyIncome
@@ -1022,11 +1021,6 @@ window.validateFields = function (component, validationArray) {
     }
   });
   return components.reduce(function (validSoFar, inputCmp) {
-    console.log(
-      "Id = ",
-      inputCmp.getLocalId(),
-      inputCmp.get("v.validity").valid
-    );
     inputCmp.showHelpMessageIfInvalid();
     return validSoFar && inputCmp.get("v.validity").valid;
   }, true);
