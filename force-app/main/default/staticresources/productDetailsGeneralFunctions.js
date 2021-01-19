@@ -220,12 +220,12 @@ window.totalClosingCostCalculation = function (component) {
   const jnDefault = component.get("v.jnDefaultConfigs");
   const isAuto = checkProductFamily(component, "Auto");
   const isUnsecured = checkProductFamily(component, "Unsecured");
-  const data = copyInto(jnDefault, parentObj);
+  const data = copyInto(parentObj, jnDefault);
   let properties = [];
   let total = 0;
   let fieldsTocalculate = getFieldsToCalculate(parentObj);
   if (isAuto) {
-    if (data.estimatedStampDuty != 0 && data.assignmentFee != 0) {
+    if (isEmpty(data.policyProvider) === false) {
       properties = [
         "stampDutyAuto",
         "legalFee",
@@ -240,8 +240,7 @@ window.totalClosingCostCalculation = function (component) {
     }
     total = calculateTotalClosingCost(properties, data);
   } else if (isUnsecured) {
-    if (data.estimatedStampDuty != 0 && data.assignmentFee != 0) {
-      console.info("Branch 1");
+    if (isEmpty(data.policyProvider) === false) {
       properties = [
         "stampDutyUns",
         "legalFee",
@@ -250,7 +249,6 @@ window.totalClosingCostCalculation = function (component) {
         "firstPaymentInstallable"
       ].concat(fieldsTocalculate);
     } else {
-      console.info("Branch 2");
       properties = [
         "stampDutyUns",
         "legalFee",

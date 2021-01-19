@@ -29,7 +29,8 @@
       supplementaryApplicantAnnualMembership: 0,
       numberOfSupplementaryCardHolders: 0,
       repaymentMethod: "",
-      existingDebtAfter: 0
+      existingDebtAfter: 0,
+      policyProvider: null
     });
     //utilized to display spinners
     let spinnerList = {
