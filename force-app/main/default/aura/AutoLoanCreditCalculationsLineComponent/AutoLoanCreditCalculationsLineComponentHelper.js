@@ -345,13 +345,11 @@
   setAssignmentFees: function (component) {
     let data = component.get("v.ParentContainer");
     let jnDefaults = component.get("v.jnDefaultConfigs");
-    if (data.policyProvider !== null) {
+    if (data.policyProvider != null) {
       component.set("v.assignmentFee", jnDefaults.assignmentFee);
-      console.log("assignment fee ", jnDefaults.assignmentFee);
       updateChildContainerNoNotification(component, [
         { key: "assignmentFee", value: jnDefaults.assignmentFee }
       ]);
-      component.set("v.ChildContainer");
     } else {
       component.set("v.assignmentFee", 0);
       updateChildContainerNoNotification(component, [
@@ -363,16 +361,11 @@
    * Set the estimated stamp duty fees when the policy provider is updated.
    */
   setEstimatedStampDutyFees: function (component) {
-    console.log("Code check");
     let data = component.get("v.ParentContainer");
     let jnDefaults = component.get("v.jnDefaultConfigs");
-    if (data.policyProvider !== null) {
+    if (data.policyProvider != null) {
       component.set(
         "v.estimatedStampDuty",
-        jnDefaults.estimatedStampDutyAndAdminFee
-      );
-      console.log(
-        "estimate stamp duty fee ",
         jnDefaults.estimatedStampDutyAndAdminFee
       );
       updateChildContainerNoNotification(component, [
@@ -381,7 +374,6 @@
           value: jnDefaults.estimatedStampDutyAndAdminFee
         }
       ]);
-      component.set("v.ChildContainer");
     } else {
       component.set("v.estimatedStampDuty", 0);
       updateChildContainerNoNotification(component, [

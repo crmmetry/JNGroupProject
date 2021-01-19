@@ -950,8 +950,8 @@
     updateFirstPaymentInstallable(component);
     //on loan savings change
     //calculate totals
-    setAssignmentFees(component);
-    setEstimatedStampDutyFees(component);
+    // setAssignmentFees(component);
+    // setEstimatedStampDutyFees(component);
     totalLoanAmountCalculation(component);
     totalMonthlyPaymentCalculation(component);
     totalInterestPaymentCalculation(component);
