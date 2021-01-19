@@ -13,7 +13,6 @@
  * @return {Object}
  */
 window.calculateSavings = function (component, data) {
-  console.log("Data: ", JSON.parse(JSON.stringify(data)));
   let totalCompulsorySavingsBalance = 0;
   let monthlyCompulsorySavings = 0;
   let tenure = 0;
