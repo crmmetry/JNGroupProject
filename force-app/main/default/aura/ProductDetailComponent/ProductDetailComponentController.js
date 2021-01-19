@@ -30,9 +30,7 @@
       numberOfSupplementaryCardHolders: 0,
       repaymentMethod: "",
       existingDebtAfter: 0,
-      policyProvider: null,
-      estimatedStampDutyAndAdminFee: 0,
-      assignmentFee: 0
+      policyProvider: null
     });
     //utilized to display spinners
     let spinnerList = {
