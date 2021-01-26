@@ -1,0 +1,156 @@
+<aura:component>
+  <lightning:layout multipleRows="true">
+    <lightning:layoutItem size="3" mediumDeviceSize="3"
+      ><div class="slds-section-title--divider">
+        <h1>Debt Consolidation</h1>
+      </div></lightning:layoutItem
+    >
+    <lightning:layoutItem size="3" mediumDeviceSize="3"
+      ><div class="slds-section-title--divider">
+        <h6>Unverified Amount</h6>
+      </div></lightning:layoutItem
+    >
+    <lightning:layoutItem size="3" mediumDeviceSize="3"
+      ><div class="slds-section-title--divider slds-align_absolute-center">
+        <h6>True?</h6>
+      </div></lightning:layoutItem
+    >
+    <lightning:layoutItem size="3" mediumDeviceSize="3"
+      ><div class="slds-section-title--divider">
+        <h6>Verified Amount</h6>
+      </div></lightning:layoutItem
+    >
+  </lightning:layout>
+  <lightning:layout
+    multipleRows="true"
+    verticalAlign="center"
+    horizontalAlign="space"
+  >
+    <!-- ROW 1 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Debt Type</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input type="text"></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-align_absolute-center">
+        <lightning:input type="checkbox-button" name="true?" />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input type="text" disabled="true"></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 2 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Institution Debt is with</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input type="text"></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-align_absolute-center">
+        <lightning:input type="checkbox-button" name="true?" />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input type="text" disabled="true"></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 3 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Debt Amount</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="number"
+        formatter="currency"
+        step="0.01"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-align_absolute-center">
+        <lightning:input type="checkbox-button" name="true?" />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 4 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Life Insurance Policy Cash Value</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="number"
+        formatter="currency"
+        step="0.01"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-align_absolute-center">
+        <lightning:input type="checkbox-button" name="true?" />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 5 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Account #</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="number"
+        formatter="currency"
+        step="0.01"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-align_absolute-center">
+        <lightning:input type="checkbox-button" name="true?" />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 6 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Total Debt being consolidated</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="number"
+        formatter="currency"
+        step="0.01"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-align_absolute-center">
+        <lightning:input type="checkbox-button" name="true?" />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+      ></lightning:input>
+    </lightning:layoutItem>
+  </lightning:layout>
+</aura:component>

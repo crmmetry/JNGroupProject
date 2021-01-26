@@ -1,0 +1,183 @@
+<aura:component
+  implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
+>
+  <lightning:layout multipleRows="true">
+    <lightning:layoutItem size="3" mediumDeviceSize="3"
+      ><h1 class="slds-section-title--divider">Assets</h1></lightning:layoutItem
+    >
+    <lightning:layoutItem size="3" mediumDeviceSize="3"
+      ><h6 class="slds-section-title--divider">
+        Unverified Amount
+      </h6></lightning:layoutItem
+    >
+    <lightning:layoutItem size="3" mediumDeviceSize="3"
+      ><h6 class="slds-section-title--divider slds-align_absolute-center">
+        True?
+      </h6></lightning:layoutItem
+    >
+    <lightning:layoutItem size="3" mediumDeviceSize="3"
+      ><h6 class="slds-section-title--divider">
+        Verified Amount
+      </h6></lightning:layoutItem
+    >
+  </lightning:layout>
+  <lightning:layout
+    multipleRows="true"
+    verticalAlign="center"
+    horizontalAlign="space"
+  >
+    <!-- ROW 1 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Real Estate Holding(s)</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="number"
+        formatter="currency"
+        step="0.01"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-align_absolute-center slds-m-top_small">
+        <lightning:input type="checkbox-button" name="true?" />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 2 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Motor Vehicle(s)</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="number"
+        formatter="currency"
+        step="0.01"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem
+      size="3"
+      mediumDeviceSize="3"
+      flexibility="auto, no-grow"
+      padding="around-small"
+    >
+      <div class="slds-m-top_large">
+        <lightning:input type="checkbox-button" name="true?" />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 3 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="">
+        <h3>Savings/Current Account(s) &amp; Investment(s)</h3>
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="number"
+        formatter="currency"
+        step="0.01"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-align_absolute-center slds-m-top_small">
+        <lightning:input type="checkbox-button" name="true?" />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 4 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Life Insurance Policy Cash Value</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="number"
+        formatter="currency"
+        step="0.01"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-align_absolute-center slds-m-top_small">
+        <lightning:input type="checkbox-button" name="true?" />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 5 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Pension Contribution(s)</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="number"
+        formatter="currency"
+        step="0.01"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-align_absolute-center slds-m-top_small">
+        <lightning:input type="checkbox-button" name="true?" />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 6 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="">
+        <h3>Other Asset(s) - (Furniture and Appliances, Jewelery, Art etc)</h3>
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="number"
+        formatter="currency"
+        step="0.01"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-align_absolute-center slds-m-top_small">
+        <lightning:input type="checkbox-button" name="true?" />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+      ></lightning:input>
+    </lightning:layoutItem>
+  </lightning:layout>
+</aura:component>

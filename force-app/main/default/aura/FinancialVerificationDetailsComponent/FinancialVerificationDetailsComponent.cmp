@@ -1,0 +1,37 @@
+<aura:component
+  implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
+>
+  <lightning:card>
+    <c:AssetsVerificationLineComponent></c:AssetsVerificationLineComponent>
+    <c:LiabilitiesVerificationLineComponent></c:LiabilitiesVerificationLineComponent>
+    <c:MonthlyIncomeVerificationLineComponent></c:MonthlyIncomeVerificationLineComponent>
+    <c:MonthlyExpensesVerificationLineComponent></c:MonthlyExpensesVerificationLineComponent>
+    <c:NetWorthVerificationLineComponent></c:NetWorthVerificationLineComponent>
+    <c:DebtConsolidationVerificationLineComponent></c:DebtConsolidationVerificationLineComponent>
+    <lightning:layout horizontalAlign="space">
+      <lightning:layoutItem size="12" mediumDeviceSize="4">
+        <div class="slds-align_absolute-center slds-var-m-top_large">
+          <lightning:button
+            label="Check All"
+            variant="brand-outline"
+            title="Check All"
+          />
+        </div>
+      </lightning:layoutItem>
+      <lightning:layoutItem size="12" mediumDeviceSize="4">
+        <div class="slds-align_absolute-center slds-var-m-top_large">
+          <lightning:button label="Save" variant="brand" title="Save Details" />
+        </div>
+      </lightning:layoutItem>
+      <lightning:layoutItem size="12" mediumDeviceSize="4">
+        <div class="slds-align_absolute-center slds-var-m-top_large">
+          <lightning:button
+            label="Verify"
+            variant="brand"
+            title="Verify Details"
+          />
+        </div>
+      </lightning:layoutItem>
+    </lightning:layout>
+  </lightning:card>
+</aura:component>
