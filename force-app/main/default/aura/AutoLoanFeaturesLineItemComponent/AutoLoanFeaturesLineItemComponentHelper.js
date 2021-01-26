@@ -1,7 +1,7 @@
 ({
   toggleShowIncludeInLoanAmount: function (component, parentObj) {
     if (parentObj.hasOwnProperty("waiveProcessingFeeFlag")) {
-      if (parentObj.waiveProcessingFeeFlag) {
+      if (parentObj.waiveProcessingFeeFlag === YES) {
         component.set(`v.showIncludeInLoanAmount`, true);
       } else {
         component.set(`v.showIncludeInLoanAmount`, false);
@@ -11,7 +11,7 @@
   toggleShowIndicateApplicableProcessingFees: function (component, parentObj) {
     if (
       parentObj.hasOwnProperty("waiveProcessingFeeFlag") &&
-      parentObj.waiveProcessingFeeFlag === false
+      parentObj.waiveProcessingFeeFlag === NO
     ) {
       component.set("v.showIndicateApplicableProcessingFees", false);
     } else {
@@ -20,7 +20,7 @@
   },
   resetProcessingFieldsValues: function (data, component) {
     if (typeof data["waiveProcessingFeeFlag"] !== "undefined") {
-      if (data["waiveProcessingFeeFlag"] === true) {
+      if (data["waiveProcessingFeeFlag"] === YES) {
         component.set("v.processingFeePercentagePerAnum", null);
         component.find("includeInLoanAmountId").set("v.value", "select one...");
       }
@@ -28,13 +28,12 @@
   },
   onProposedSavingsChange: function (component) {
     const selected = component.get("v.value");
-    console.log(selected);
     let childContainer = component.get("v.ChildContainer");
     if (selected === "percent") {
-      childContainer.amount = null;
+      childContainer.proposedSavingsAmount = null;
       childContainer.selection = selected;
     } else if (selected === "amount") {
-      childContainer.percentage = null;
+      childContainer.proposedSavingsPercentage = null;
       childContainer.selection = selected;
     }
   },
@@ -107,5 +106,4 @@
   clearReasonOtherText: function (component) {
     component.set("v.otherReason", null);
   }
-
 });

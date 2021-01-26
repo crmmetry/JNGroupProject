@@ -10,7 +10,8 @@
       annualInterestRate: 0,
       depositBalance: 0,
       existingBalance: 0,
-      loanToValueRatio: 0
+      loanToValueRatio: 0,
+      hypothecatedLoan: null
     };
     component.set("v.ChildContainer", data);
   },
@@ -51,36 +52,20 @@
 
   onAccountTypeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
-  },
-
-  validateBalance: function (component, event, helper) {
-    let data = component.get("v.ParentContainer");
-    const inputCmpArray = component.find(
-      "cash-investments-numerical-component"
-    );
-    inputCmpArray.forEach((element) => {
-      if (element.get("v.name") == "deposit") {
-        if (
-          element.get("v.value") >
-          calculatRequestedCreditBalanceLimit(data.requestedCreditLimit)
-        ) {
-          element.setCustomValidity(
-            "Balance cannot be greater than 80% of your requested card limit"
-          );
-          element.reportValidity();
-        } else {
-          element.setCustomValidity("");
-          element.reportValidity();
-        }
+    let childKeyValuePairs = [
+      {
+        key: "accountType",
+        value: selected
       }
-    });
+    ];
+    helper.updateChildContainer(component, childKeyValuePairs, false);
   },
 
   onIsHypothecatedChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
     let childKeyValuePairs = [
       {
-        key: "existingBalance",
+        key: "hypothecatedLoan",
         value: selected
       }
     ];
@@ -90,5 +75,17 @@
 
   onDepositCurrencyChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
+  },
+  /** Validates child cmp fields - JN1-4201
+   * @param {*} component
+   * @return - Boolean
+   */
+  validateFields: function (component) {
+    let cmpFields = [
+      "cashInvestmentsNumericalComponent",
+      "cashInvestmentsSelectComponent",
+      "cashInvestmentsTextComponent"
+    ];
+    return validateFields(component, cmpFields);
   }
 });

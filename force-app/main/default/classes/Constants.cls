@@ -41,7 +41,7 @@ public class Constants {
   public static final String YEARS = 'years';
   public static final String YEAR = 'year';
   public static final String OWN = 'Own';
-  public static final String POST_GRADUATE = 'Post Graduate';
+  public static final String POST_GRADUATE = 'University: Post Graduate';
   public static final String UNDERGRADUATE_GRADUATE = 'Undergraduate';
   public static final String VOCATIONAL = 'Vocational';
 
@@ -54,4 +54,17 @@ public class Constants {
   public static final String UP_TO_TWO_YEARS = 'Good growth and or profit trends for up to 2 years';
   public static final String INADEQUATE = 'Inconsistent profit/growth trends';
   public static final String INCONSISTANT = 'Inadequate growth and/or profit trends';
+  public static final Integer STATUS_SUCCESS_CODE = 200;
+  public static final String AUTO_PRODUCT_FAMILY = 'JN Bank Auto Loan';
+  public static final String CREDITCARD_PRODUCT_FAMILY = 'JN Bank Credit Card';
+  public static final String UNSECURED_PRODUCT_FAMILY = 'JN Bank Unsecured Loan';
+  public static final String LINEOFCREDIT_PRODUCT_FAMILY = 'JN Bank Line Of Credit';
+  public static final String DEFAULT_BUSINESS_HOURS_NAME = 'JN Default Business Hours';
+  public static final String CLOSED_WON_STATUS = 'Closed Won';
+  public static final String CLOSED_LOST_STATUS = 'Closed Lost';
+  public static final String CLOSE_DATE_ERR1 = 'The Closed Date cannot be this far back in the past for this month. Please contact Sales Support.';
+  public static final String CLOSE_DATE_ERR2 = 'The Closed Date cannot be this far back in the past. Please contact Sales Support.';
+  public static final String CLOSE_DATE_ERR3 = 'The Closed Date cannot be greater than today. Please contact Sales Support.';
+  public static final String CLOSE_DATE_ERR4 = 'The Closed Date year cannot be less this year. Please contact Sales Support.';
+  public static final String CLOSE_DATE_ERR5 = 'The Closed Date cannot be a holiday. Please contact Sales Support.';
 }

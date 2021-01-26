@@ -16,20 +16,21 @@
       monthlyPrincipalInterestProcessingFee: 0,
       processingFeesGCT: 0,
       existingDebt: 0,
-      TDSRBefore: 0,
-      TDSRAfter: 0,
+      TDSRBefore: null,
+      TDSRAfter: null,
       minimumOfPurchaseMarketValue: 0,
-      LTVValue: 0,
-      riskRating: {}, //for multi applicants
+      LTVValue: null,
       creditRiskScore: 0,
       creditRiskRating: "None",
       minimumPayment: 0,
       approvedStartingLimit: 0,
-      cardType: "", //JN-4049 :: Added a field to track max the credit type,
+      cardType: "",
       primaryApplicantAnnualMembership: 0,
       supplementaryApplicantAnnualMembership: 0,
       numberOfSupplementaryCardHolders: 0,
-      repaymentMethod: ""
+      repaymentMethod: "",
+      existingDebtAfter: 0,
+      policyProvider: null
     });
     //utilized to display spinners
     let spinnerList = {
@@ -39,13 +40,10 @@
       riskRatings: true
     };
     component.set("v.spinnerList", spinnerList);
-    //start showing spinners
-    helper.showSpinner(component);
+    component.set("v.productSelection", {
+      productFamily: "No Product Selected"
+    });
     helper.updateProductSelection(component);
-    helper.getJNConfigurations(component);
-    helper.getAssetsAndLiabilitiesForApplicant(component);
-    helper.getRiskRatingFactorsMap(component);
-    //helper.getApplicants(component);
   },
   /**
    * listens for child container changes
@@ -58,17 +56,17 @@
       component.get("v.scriptsLoaded") &&
       component.get("v.notifyContainerChange")
     ) {
+      const isLineOfCredit = checkProductFamily(component, "Line Of Credit");
+      const isCreditCard = checkProductFamily(component, "Credit Card");
+      const isAuto = checkProductFamily(component, "Auto");
+      const isUnsecured = checkProductFamily(component, "Unsecured");
+      let container = component.get("v.ChildContainer");
       noNotifyContainerChanges(component);
-      //Async Functions
-      helper.supplementaryCardHolderInit(component);
-      helper.TDSRCalculationBefore(component);
-      helper.ASLCalculations(component);
-      helper.calculateCreditorLife(component);
-      helper.minimumPaymentCalculations(component);
-      helper.TDSRCalculationAfter(component);
-      helper.setCardType(component); //JN1-4049 :: Kirti R :: Calculate the credit type
-      helper.annualFeesCalcualtions(component);
-      console.log("===Testing End===");
+      if (isLineOfCredit || isCreditCard) {
+        helper.revolvingLoanCalculations(component);
+      } else if (isAuto || isUnsecured) {
+        helper.nonRevolvingLoanCalculations(component, container);
+      }
       notifyContainerChanges(component);
     }
   },
@@ -128,5 +126,48 @@
       );
       component.set("v.ChildContainer", updatedContainer);
     }
+  },
+  /**
+   * click handler for save button
+   * JN1-4210 : For validating child component containers
+   * @param {*} component
+   * @param {*} event
+   * @param {*} helper
+   */
+  onSaveProductDetails: function (component, event, helper) {
+    let fieldsValidatedCorrectly = helper.validateFields(component);
+    if (fieldsValidatedCorrectly) {
+      helper.showSpinner(component);
+      let container = copyInto(
+        component.get("v.ChildContainer"),
+        component.get("v.jnDefaultConfigs")
+      );
+      let productRecordTypes = [
+        component.get("v.productSelection.productFamily")
+      ]; //TODO: update in future to accomodate multiple products
+      let {
+        loanCalculationProductFields,
+        loanCalculationFields
+      } = helper.contructProductDetailsFields(component);
+      loanCalculationFields = persistentFieldsValidator(
+        container,
+        loanCalculationFields
+      );
+      loanCalculationProductFields = persistentFieldsValidator(
+        container,
+        loanCalculationProductFields
+      );
+      return helper.saveProductDetailsInfo(
+        component,
+        productRecordTypes,
+        loanCalculationFields,
+        loanCalculationProductFields
+      );
+    }
+    return showToast(
+      "Product Details Error",
+      "The application details cannot be saved until all the required fields are filled out.",
+      "error"
+    );
   }
 });

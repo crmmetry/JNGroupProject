@@ -31,7 +31,9 @@ public with sharing class JNConfigurations {
           CC_Creditor_Life_CI_Protection_Rate__c, //JN1-4053 :: Creditor Life
           Line_Of_Credit_Creditor_Life_Rate_Number__c, //JN1-4053 :: Creditor Life
           Creditor_Life_Annual_Fee_Number__c, //JN1-4053 :: Creditor Life
-          Credit_Limit_Allowable_Threshold_Number__c //JN1-4160 :: ASL Calculations Technical Debt
+          Credit_Limit_Allowable_Threshold_Number__c, //JN1-4160 :: ASL Calculations Technical Debt
+          Minimum_Credit_Allowable_Number__c, //JN1-4159 :: Credit facility with cash collateral
+          LTV_Ceiling_Number__c //JN1-4159 :: Credit facility with cash collateral
         FROM JN_Defaults__mdt
         WHERE Label = :Constants.DEFAULT_METADATA_LABEL
       ];

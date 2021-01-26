@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Minimum_Payment_Calc__c</fullName>
+    <externalId>false</externalId>
+    <formula
+  >$CustomMetadata.JN_Defaults__mdt.Default.Average_Balance_Minimum_Pay_Number__c *  IF (ISNULL(Assets_and_Liabilities__r.Average_Monthly_Usage__c),0,Assets_and_Liabilities__r.Average_Monthly_Usage__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Minimum Payment</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

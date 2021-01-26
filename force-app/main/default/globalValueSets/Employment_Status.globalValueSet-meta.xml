@@ -16,22 +16,27 @@
         <label>Unemployed</label>
     </customValue>
     <customValue>
+        <fullName>Pensioner</fullName>
+        <default>false</default>
+        <label>Pensioner</label>
+    </customValue>
+    <customValue>
         <fullName>Other</fullName>
         <default>false</default>
         <isActive>false</isActive>
         <label>Other</label>
     </customValue>
     <customValue>
-        <fullName>Probation</fullName>
-        <default>false</default>
-        <isActive>false</isActive>
-        <label>Probation</label>
-    </customValue>
-    <customValue>
         <fullName>Self Employed</fullName>
         <default>false</default>
         <isActive>false</isActive>
         <label>Self Employed</label>
+    </customValue>
+    <customValue>
+        <fullName>Probation</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Probation</label>
     </customValue>
     <masterLabel>Employment Status</masterLabel>
     <sorted>false</sorted>

@@ -27,6 +27,12 @@
                 <default>false</default>
                 <label>Unemployed</label>
             </value>
+            <value>
+                <fullName>Pensioner</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Pensioner</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

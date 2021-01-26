@@ -1,0 +1,185 @@
+/*
+    Sr#     Ticket#      Modified By                Modified Date       Description
+ *    1     JN1-4144      Ishwari Gaikwad.(TQ)      12/21/2020        created the pdf.  
+*/
+@page {
+  /*size:landscape;*/
+  margin-top: 2.4cm;
+  @top-center {
+    content: element(header);
+  }
+  @bottom-left {
+    content: element(footer);
+  }
+}
+div.header {
+  padding: 10px;
+  position: running(header);
+}
+div.footer {
+  display: block;
+  padding: 5px;
+  margin-bottom: 100px;
+  position: running(footer);
+  font-size: 0.775em;
+}
+
+.pagenumber:before {
+  content: counter(page);
+}
+.pagecount:before {
+  content: counter(pages);
+}
+.boxedDiv {
+  border: 2px solid #0070c0;
+  margin: 1px;
+}
+.subHeader {
+  background-color: #0070c0;
+  color: #fff;
+  text-align: center;
+}
+.logo {
+  width: 100%;
+  height: 75px;
+}
+.textStyle {
+  font-size: smaller;
+  text-align: center;
+  line-height: 20px;
+  font-family: "Gill Sans", sans-serif;
+  display: inline;
+}
+.borderedText {
+  font-size: smaller;
+  text-align: center;
+  line-height: 20px;
+  font-family: "Gill Sans", sans-serif;
+  display: inline;
+  border: 2px solid #d8d0d0;
+  padding-left: 45px;
+  padding-right: 45px;
+}
+.borderedText1 {
+  font-size: smaller;
+  text-align: center;
+  line-height: 20px;
+  font-family: "Gill Sans", sans-serif;
+  display: inline;
+  border: 2px solid #d8d0d0;
+}
+.contentTable {
+  margin-left: 2%;
+  width: 95%;
+  margin-top: 1%;
+  border-collapse: collapse;
+  border-color: #ccc;
+}
+.thead,
+.tr,
+.th {
+  font-size: 0.875em;
+  text-align: center;
+  line-height: 20px;
+  font-family: "Gill Sans", sans-serif;
+  background-color: #e1dfdf;
+  text-align: center;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+}
+.td {
+  font-size: smaller;
+  text-align: center;
+  line-height: 20px;
+  font-family: "Gill Sans", sans-serif;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+}
+.td1 {
+  font-size: smaller;
+  line-height: 20px;
+  font-family: "Gill Sans", sans-serif;
+  border-collapse: collapse;
+}
+.ratingTableHeader {
+  font-size: smaller;
+  text-align: center;
+  line-height: 30px;
+  font-family: "Gill Sans", sans-serif;
+  background-color: #0070c0;
+  text-align: center;
+  border-color: #ccc;
+  border-radius: 5px;
+}
+.ratingTable {
+  width: 100%;
+  margin-top: 1%;
+  border-color: #ccc;
+  border-radius: 5px;
+}
+.ratingth {
+  font-size: smaller;
+  text-align: center;
+  line-height: 30px;
+  font-family: "Gill Sans", sans-serif;
+  background-color: #0070c0;
+  color: white;
+  border-radius: 5px;
+  border-color: #ccc;
+  border-collapse: collapse;
+}
+.ratingTd,
+.ratingtr {
+  padding-left: 10px;
+  padding-right: 10px;
+  border-collapse: collapse;
+}
+.ratingTextLeft {
+  font-size: smaller;
+  text-align: left;
+  line-height: 20px;
+  font-family: "Gill Sans", sans-serif;
+  display: inline-block;
+  width: 25%;
+  border-collapse: collapse;
+}
+.ratingTextMiddel {
+  font-size: smaller;
+  text-align: center;
+  line-height: 20px;
+  font-family: "Gill Sans", sans-serif;
+  display: inline-block;
+  width: 25%;
+  border-collapse: collapse;
+}
+.ratingTextRight {
+  font-size: smaller;
+  text-align: right;
+  line-height: 20px;
+  font-family: "Gill Sans", sans-serif;
+  display: inline-block;
+  width: 25%;
+  border-collapse: collapse;
+}
+hr {
+  height: 2px;
+  background-color: #0070c0;
+  border: none;
+}
+.contentWidth {
+  margin-left: 2%;
+  width: 95%;
+  font-size: small;
+}
+.bgColor {
+  background-color: #e1dfdf;
+}
+.scoreModel {
+  padding-left: 35px;
+  padding-right: 35px;
+  background-color: #e1dfdf;
+}
+.bold {
+  color: #0070c0;
+  margin-top: 1%;
+}

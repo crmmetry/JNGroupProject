@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unsecured</fullName>
+    <active>true</active>
+    <description>Unsecured product</description>
+    <label>Unsecured</label>
+    <picklistValues>
+        <picklist>Account_Hypothecated_list__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Account_Type_List__c</picklist>
+        <values>
+            <fullName>Fixed Deposit Account Types</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mutual Fund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Repo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Savings Account Types</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Collateral_Type_List__c</picklist>
+        <values>
+            <fullName>Cash%2FInvestments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unsecured %28None%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Coverage_Type_List__c</picklist>
+        <values>
+            <fullName>Applicant 1 %26 Applicant 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Applicant 1 %26 Applicant 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Applicant 1 Only</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Applicant 2 %26 Applicant 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Applicant 2 Only</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Applicant 3 Only</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Suitable Applicants</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Deduct_1st_month_Payment_from_Loan_Flag__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Financial_Institution_List__c</picklist>
+        <values>
+            <fullName>JN Bank Ltd%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JN Fund Managers Ltd</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Include_in_Loan_Amount_Flag__c</picklist>
+        <values>
+            <fullName>No%2C Paid by Applicant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes%2C Add to Loan</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Include_in_Loan_Amount_JNGI_list__c</picklist>
+        <values>
+            <fullName>No%2C Paid by Applicant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes%2C Add to Loan</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Include_in_Loan_Amount_Processing_Flag__c</picklist>
+        <values>
+            <fullName>No%2C Paid by Applicant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes%2C Add to Loan</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Interested_in_Creditor_Life_Flag__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Interested_in_JNGI_SureCover_flag__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Loan_Purpose_List__c</picklist>
+        <values>
+            <fullName>Asset Acquisition</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Auto Repairs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Debt Consolidation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Education</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Improvement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medical Expenses</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Repayment_Method_List__c</picklist>
+        <values>
+            <fullName>Over The Counter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salary Deduction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standing Order</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Vehicle_Classification_list__c</picklist>
+        <values>
+            <fullName>New</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Used %28Imported%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Used %28Local - Pre-owned%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Waive_Processing_Fee_Flag__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

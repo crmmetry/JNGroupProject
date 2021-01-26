@@ -32,11 +32,14 @@
     let data = component.get("v.ParentContainer");
     if (totalPI >= 0 && data.months && data.years) {
       let tenure = calculateMonths(data.years, data.months);
-      if (data.percentage > 0 && data.percentage) {
+      if (
+        data.proposedSavingsPercentage > 0 &&
+        data.proposedSavingsPercentage
+      ) {
         let monthlySavings = basicMonthlyCompulsorySavingsCalculator(
           totalPI,
-          data.percentage,
-          data.amount
+          data.proposedSavingsPercentage,
+          data.proposedSavingsAmount
         );
         let monthlySavingsOverRepaymentPeriod = basicTotalMonthlyCompulsorySavingsCalculator(
           monthlySavings,
@@ -54,15 +57,18 @@
           },
           { key: "monthlyCompulsorySavings", value: parseFloat(monthlySavings) }
         ]);
-      } else if (data.amount > 0 && data.amount) {
-        component.set("v.monthlyCompulsorySavings", data.amount);
-        let totalCompulsorySavings = data.amount * tenure;
+      } else if (data.proposedSavingsAmount > 0 && data.proposedSavingsAmount) {
+        component.set("v.monthlyCompulsorySavings", data.proposedSavingsAmount);
+        let totalCompulsorySavings = data.proposedSavingsAmount * tenure;
         component.set(
           "v.totalCompulsorySavingsBalance",
           totalCompulsorySavings
         );
         this.updateChildContainerWithValue(component, [
-          { key: "monthlyCompulsorySavings", value: data.amount },
+          {
+            key: "monthlyCompulsorySavings",
+            value: data.proposedSavingsAmount
+          },
           {
             key: "totalCompulsorySavingsBalance",
             value: totalCompulsorySavings
@@ -261,7 +267,7 @@
       data.push("jngiMotorPremiumFeesAndCharges");
     }
     //processing fee
-    if (parentObj.includeInLoanAmountFlag) {
+    if (parentObj.includeInLoanAmountFlag === YES) {
       data.push("processingFeesGCT");
     } else {
       data.push("processingFeeClosingCost");
@@ -276,10 +282,6 @@
     const parentObj = component.get("v.ParentContainer");
     const jnDefault = component.get("v.jnDefaultConfigs");
     const data = Object.assign(parentObj, jnDefault);
-    console.info(
-      "TotalClosingCostCalculation",
-      JSON.parse(JSON.stringify(data))
-    );
     let properties = [];
     let total = 0;
     let fieldsTocalculate = this.getFieldsToCalculate(parentObj);
@@ -288,7 +290,6 @@
       component.get("v.estimatedStampDuty") != 0 &&
       component.get("v.assignmentFee") != 0
     ) {
-      console.info("Branch 1");
       properties = [
         "stampDutyAuto",
         "legalFee",
@@ -297,13 +298,11 @@
         "assignmentFee"
       ].concat(fieldsTocalculate);
     } else {
-      console.info("Branch 2");
       properties = ["stampDutyAuto", "legalFee", "nsipp"].concat(
         fieldsTocalculate
       );
     }
     total = calculateTotalClosingCost(properties, data);
-    console.info("TotalClosingCost = ", total);
     component.set("v.totalClosingCost", total);
     this.updateChildContainerWithValue(component, [
       { key: "totalClosingCost", value: total }
@@ -319,7 +318,6 @@
       parentObj
     );
     component.set("v.totalFinancedByJN", total);
-    console.info("TotalFinancedByJN = ", total);
     this.updateChildContainerWithValue(component, [
       { key: "totalFinancedByJN", value: total }
     ]);
@@ -335,7 +333,6 @@
         parentObj.totalClosingCost,
         parentObj.totalFinancedByJN
       );
-      console.log("ClosingCostPaidByApplicantCalculation = ", total);
       component.set("v.totalPayableByApplicant", total);
       this.updateChildContainerWithValue(component, [
         { key: "totalPayableByApplicant", value: total }
@@ -350,12 +347,12 @@
     let jnDefaults = component.get("v.jnDefaultConfigs");
     if (data.policyProvider != null) {
       component.set("v.assignmentFee", jnDefaults.assignmentFee);
-      this.updateChildContainerWithValue(component, [
+      updateChildContainerNoNotification(component, [
         { key: "assignmentFee", value: jnDefaults.assignmentFee }
       ]);
     } else {
       component.set("v.assignmentFee", 0);
-      this.updateChildContainerWithValue(component, [
+      updateChildContainerNoNotification(component, [
         { key: "assignmentFee", value: 0 }
       ]);
     }
@@ -371,7 +368,7 @@
         "v.estimatedStampDuty",
         jnDefaults.estimatedStampDutyAndAdminFee
       );
-      this.updateChildContainerWithValue(component, [
+      updateChildContainerNoNotification(component, [
         {
           key: "estimatedStampDuty",
           value: jnDefaults.estimatedStampDutyAndAdminFee
@@ -379,7 +376,7 @@
       ]);
     } else {
       component.set("v.estimatedStampDuty", 0);
-      this.updateChildContainerWithValue(component, [
+      updateChildContainerNoNotification(component, [
         { key: "estimatedStampDuty", value: 0 }
       ]);
     }
@@ -391,7 +388,6 @@
     const parentObj = component.get("v.ParentContainer");
     const jnDefault = component.get("v.jnDefaultConfigs");
     const data = Object.assign(parentObj, jnDefault);
-    console.log(JSON.parse(JSON.stringify(data)));
     let total = calculateTotalClosingCost(
       [
         "stampDutyUns",
@@ -403,7 +399,6 @@
       data
     );
     component.set("v.totalClosingCost", total);
-    console.log("Total Closing Cost: ", total);
     this.updateChildContainerWithValue(component, [
       { key: "totalClosingCost", value: total }
     ]);
@@ -469,7 +464,6 @@
       ["totalMonthlyLoanPayment", "monthlyCompulsorySavings"],
       parentObj
     );
-    console.info("totalMonthlyLoanPaymentAndSavings", total);
     component.set("v.totalMonthlyLoanPaymentAndSavings", total);
     this.updateChildContainerWithValue(component, [
       { key: "totalMonthlyLoanPaymentAndSavings", value: total }

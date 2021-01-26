@@ -137,13 +137,13 @@ public with sharing class Util {
    * Gets all the holidays in the system and returns a map.
    * @return Map<Date,Holiday>
    */
-  private static Map<Date, Holiday> getHolidays() {
+  public static Map<Date, Holiday> getHolidays() {
     Map<Date, Holiday> mappedHolidays = new Map<Date, Holiday>();
-    for (Holiday hDay : [
-      SELECT h.StartTimeInMinutes, h.Name, h.ActivityDate
-      FROM Holiday h
+    for (Holiday record : [
+      SELECT StartTimeInMinutes, Name, ActivityDate
+      FROM Holiday
     ]) {
-      mappedHolidays.put(hDay.ActivityDate, hDay);
+      mappedHolidays.put(record.ActivityDate, record);
     }
     return mappedHolidays;
   }
@@ -155,7 +155,9 @@ public with sharing class Util {
    */
 
   public static Boolean isWithinBusinessHours(Datetime currentDateTime) {
-    BusinessHours bh = GetActiveBusinessHours('JN Default Business Hours');
+    BusinessHours bh = GetActiveBusinessHours(
+      Constants.DEFAULT_BUSINESS_HOURS_NAME
+    );
     return BusinessHours.isWithin(bh.Id, currentDateTime);
   }
 
@@ -164,29 +166,58 @@ public with sharing class Util {
    * @param {DateTime} date - Date to be checked.
    * @return Boolean
    */
-  public static Boolean checkHoliday(Date dateRecord) {
-    Boolean result = false;
-    Map<Date, Holiday> mappedHolidays = getHolidays();
-    if (mappedHolidays.size() > 0) {
-      if (mappedHolidays.containsKey(dateRecord)) {
-        result = true;
-        return result;
-      }
+  public static Boolean checkHoliday(
+    Date dateRecord,
+    Map<Date, Holiday> mappedHolidays
+  ) {
+    if (mappedHolidays != null) {
+      return mappedHolidays.containsKey(dateRecord);
     }
-    return result;
+    return false;
   }
 
-  public static Date GetBackDatedDate(Date currentDate, Integer days) {
+  // public static Date GetBackDatedDate(Date currentDate, Integer days) {
+  //   Boolean isHoliday;
+  //   while (days > 0) {
+  //     DateTime dt = DateTime.newInstance(
+  //       currentDate.year(),
+  //       currentDate.month(),
+  //       currentDate.day()
+  //     );
+  //     isHoliday = checkHoliday(currentDate);
+  //     String day = dt.format('E');
+  //     if (day != 'Sat' && day != 'Sun' && !isHoliday) {
+  //       days -= 1;
+  //     }
+  //     if (days > 0) {
+  //       currentDate = currentDate.addDays(-1);
+  //     }
+  //   }
+  //   return currentDate;
+  // }
+
+  public static Date GetBackDatedDate(
+    Date currentDate,
+    Integer days,
+    BusinessHours bh,
+    Map<Date, Holiday> mappedHolidays
+  ) {
     Boolean isHoliday;
+    Boolean isBusinessHour;
+    System.debug('BH: ' + bh);
     while (days > 0) {
       DateTime dt = DateTime.newInstance(
         currentDate.year(),
         currentDate.month(),
-        currentDate.day()
+        currentDate.day(),
+        12,
+        0,
+        0
       );
-      isHoliday = checkHoliday(currentDate);
-      String day = dt.format('E');
-      if (day != 'Sat' && day != 'Sun' && !isHoliday) {
+      isHoliday = checkHoliday(currentDate, mappedHolidays);
+      isBusinessHour = BusinessHours.isWithin(bh.Id, dt);
+      System.debug('BH and Holidays: ' + isHoliday + ' ' + isBusinessHour);
+      if (isBusinessHour && isHoliday == false) {
         days -= 1;
       }
       if (days > 0) {
@@ -494,9 +525,9 @@ public with sharing class Util {
   /**
    * Get all opportunity products related to an opportunity
    * @param {Id} - oppId
-   * @return OpportunityLineItem
+   * @return {List<OpportunityLineItem>}
    */
-  public static OpportunityLineItem getOpportunityProducts(Id oppId) {
+  public static List<OpportunityLineItem> getOpportunityProducts(Id oppId) {
     return [
       SELECT Id, Product_Family__c, Name, UnitPrice
       FROM OpportunityLineItem

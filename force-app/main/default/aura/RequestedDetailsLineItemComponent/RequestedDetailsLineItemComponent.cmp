@@ -2,6 +2,13 @@
   implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
   controller="ProductDetailController"
 >
+  <aura:registerEvent name="productDetailsEvent" type="c:ProductDetailsEvent" />
+  <aura:attribute
+    name="notifyContainerChange"
+    type="Boolean"
+    default="true"
+    description="used to indicate whether the component should react to the ChildContainer changes"
+  />
   <aura:attribute name="ChildContainer" type="Map" default="{}" />
   <aura:attribute name="ParentContainer" type="Map" default="{}" />
   <aura:attribute
@@ -12,6 +19,13 @@
     {'label': 'Amount(JMD)', 'value': 'amount'} 
     ]"
   />
+  <!--JN1-4210 : For validating fields-->
+  <aura:method
+    name="validateFields"
+    action="{!c.validateFields}"
+    access="public"
+  />
+  <aura:attribute name="loanPurposeOptions" type="List" />
   <aura:attribute name="market" type="Decimal" default="" />
   <aura:attribute name="years" type="Integer" default="" />
   <aura:attribute name="months" type="Integer" default="" />
@@ -21,6 +35,8 @@
   <aura:attribute name="amount" type="String" default="amount" />
   <aura:attribute name="oppId" type="Id" />
   <aura:attribute name="applicants" type="List" />
+  <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
+
   <aura:handler
     name="change"
     action="{!c.onChildContainerChange}"
@@ -33,9 +49,19 @@
     value="{!v.applicants}"
   />
 
-  <ltng:require scripts="{!$Resource.calculations}" />
+  <ltng:require
+    scripts="{!join(',', 
+  $Resource.constants,
+  $Resource.calculations, 
+  $Resource.productDetailsGeneralFunctions)}"
+    afterScriptsLoaded="{!c.scriptsLoaded}"
+  />
 
- <aura:attribute name="containerName" type="String" default="RequestedDetailsLineItemComponent"/>
+  <aura:attribute
+    name="containerName"
+    type="String"
+    default="RequestedDetailsLineItemComponent"
+  />
   <fieldset class="slds-box slds-theme_default">
     <legend
       id="productdetailsform"
@@ -46,8 +72,8 @@
     <form class="slds-form_stacked">
       <lightning:layout multipleRows="true">
         <!--Layout for Headings-->
-        <lightning:layoutItem size="12" mediumDeviceSize="4"
-          ><h3 class="slds-section-title--divider">Loan Amount (JMD)*</h3>
+        <lightning:layoutItem size="12" mediumDeviceSize="4">
+          <h3 class="slds-section-title--divider">Loan Amount (JMD)*</h3>
           <div class="slds-var-p-top_medium"></div>
           <lightning:input
             type="number"
@@ -59,8 +85,8 @@
             required="true"
           />
         </lightning:layoutItem>
-        <lightning:layoutItem size="12" mediumDeviceSize="4"
-          ><h3 class="slds-section-title--divider">Loan Term*</h3>
+        <lightning:layoutItem size="12" mediumDeviceSize="4">
+          <h3 class="slds-section-title--divider">Loan Term*</h3>
           <lightning:layout>
             <lightning:layoutItem size="6">
               <div class="slds-var-p-top_medium"></div>
@@ -72,6 +98,7 @@
                 min="0"
                 max="10"
                 required="true"
+                aura:id="requestedYears"
               />
             </lightning:layoutItem>
             <lightning:layoutItem size="6">
@@ -84,13 +111,14 @@
                   required="true"
                   min="0"
                   max="12"
+                  aura:id="requestedMonths"
                 />
               </div>
             </lightning:layoutItem>
           </lightning:layout>
         </lightning:layoutItem>
-        <lightning:layoutItem size="12" mediumDeviceSize="4"
-          ><h3 class="slds-section-title--divider">Interest Rate(%)*</h3>
+        <lightning:layoutItem size="12" mediumDeviceSize="4">
+          <h3 class="slds-section-title--divider">Interest Rate(%)*</h3>
           <div class="slds-var-p-top_medium">
             <lightning:input
               type="number"
@@ -101,7 +129,26 @@
               max="99"
               required="true"
               step="0.01"
+              aura:id="requestedMarket"
             />
+          </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem mediumDeviceSize="4" largeDeviceSize="3" size="4">
+          <div class="slds-form-element">
+            <div class="slds-form-element__control">
+              <lightning:select
+                name="select1"
+                label="Loan Purpose"
+                required="true"
+                onchange="{!c.onLoanPurposeChange}"
+                aura:id="unsecuredOnLoanPurposeChange"
+              >
+                <option value="">select one...</option>
+                <aura:iteration items="{!v.loanPurposeOptions}" var="item">
+                  <option value="{!item}">{!item}</option>
+                </aura:iteration>
+              </lightning:select>
+            </div>
           </div>
         </lightning:layoutItem>
       </lightning:layout>

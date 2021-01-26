@@ -6,5 +6,5 @@
   >Error message when adding more than one contact to an individual account</description>
     <errorConditionFormula>1!=1</errorConditionFormula>
     <errorMessage
-  >The selected account has an Individual record type and can&#39;t have additional contacts associated with it</errorMessage>
+  >The selected account has an Individual record type and can&apos;t have additional contacts associated with it</errorMessage>
 </ValidationRule>

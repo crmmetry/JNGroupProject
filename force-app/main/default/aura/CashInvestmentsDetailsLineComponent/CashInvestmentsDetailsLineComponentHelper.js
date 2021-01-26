@@ -29,10 +29,10 @@
 
   clearDetailsWhenUnsecuredLoanSelected: function (component, data) {
     if (data.collateralType === "Unsecured (None)") {
-      resetComponentValue("cash-investments-select-component", component, null);
-      resetComponentValue("cash-investments-numerical-component", component, 0);
-      resetComponentValue("cash-investments-text-component", component, "");
-    
+      resetComponentValue("cashInvestmentsSelectComponent", component, null);
+      resetComponentValue("cashInvestmentsNumericalComponent", component, 0);
+      resetComponentValue("cashInvestmentsTextComponent", component, "");
+
       let childKeyValuePairs = [
         {
           key: "financialInstitution",

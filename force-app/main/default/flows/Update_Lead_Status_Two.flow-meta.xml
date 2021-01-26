@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <assignments>
         <name>Record_Assignment</name>
@@ -55,28 +55,32 @@
             <name>Qualified</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Lead_Records.RecordTypeId</leftValueReference>
+                <leftValueReference
+        >Lead_Records.RecordTypeId</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Savings_Chequing</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>Lead_Records.00Nq0000002KAmy</leftValueReference>
+                <leftValueReference
+        >Lead_Records.00Nq0000002KAmy</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Contact Made</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>Lead_Records.00Nq0000002KAnI</leftValueReference>
+                <leftValueReference
+        >Lead_Records.00Nq0000002KAnI</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Pre-Qualify Customer(s)</stringValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Update_Lead_Status_to_Qualified</targetReference>
+                <targetReference
+        >Update_Lead_Status_to_Qualified</targetReference>
             </connector>
             <label>Qualified</label>
         </rules>
@@ -102,7 +106,8 @@
         <label>Lead Records</label>
         <locationX>99</locationX>
         <locationY>141</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Record_Assignment</targetReference>
         </connector>

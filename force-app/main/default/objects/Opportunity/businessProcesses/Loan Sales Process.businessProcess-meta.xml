@@ -15,6 +15,10 @@
         <default>false</default>
     </values>
     <values>
+        <fullName>Complete Loan Application</fullName>
+        <default>false</default>
+    </values>
+    <values>
         <fullName>Customer Interview</fullName>
         <default>false</default>
     </values>

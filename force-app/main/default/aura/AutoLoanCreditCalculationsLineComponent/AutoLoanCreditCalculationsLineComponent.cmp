@@ -1,5 +1,5 @@
 <aura:component>
-  <aura:registerEvent name="productDetailsEvent" type="c:ProductDetailsEvent"/>
+  <aura:registerEvent name="productDetailsEvent" type="c:ProductDetailsEvent" />
   <aura:attribute name="ChildContainer" type="Map" default="{}" />
   <aura:attribute name="ParentContainer" type="Map" default="{}" />
   <aura:attribute
@@ -80,6 +80,11 @@
     action="{!c.onChildContainerChange}"
     value="{!v.ChildContainer}"
   />
+  <aura:handler
+    name="change"
+    action="{!c.onParentContainerChange}"
+    value="{!v.ParentContainer}"
+  />
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
   <aura:attribute name="jnDefaultConfigs" type="Map" default="{}" />
   <aura:attribute name="processingFeesGCT" type="Decimal" default="0" />
@@ -89,10 +94,26 @@
     default="0"
   />
   <aura:attribute name="applicants" type="List" />
-  <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
   <aura:attribute name="processingFeeClosingCost" type="Decimal" />
+  <!--JN1-4021-->
+  <aura:method
+    name="validateFields"
+    action="{!c.validateFields}"
+    access="public"
+  />
+  <!-- Static Resource -->
+  <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
+  <aura:attribute
+    name="notifyContainerChange"
+    type="Boolean"
+    default="true"
+    description="used to indicate whether the component should react to the ChildContainer changes"
+  />
   <ltng:require
-    scripts="{!$Resource.calculations}"
+    scripts="{!join(',', 
+      $Resource.constants,
+      $Resource.calculations, 
+      $Resource.productDetailsGeneralFunctions)}"
     afterScriptsLoaded="{!c.scriptsLoaded}"
   />
   <aura:attribute
@@ -127,6 +148,7 @@
         />
       </lightning:layoutItem>
       <lightning:layoutItem size="6" padding="around-small">
+        <!--JN1-4201-->
         <lightning:input
           type="number"
           label="Monthly P&amp;I Loan Amount"
@@ -143,7 +165,7 @@
           <lightning:input
             type="number"
             label="JNGI Motor Premium (1st Year)"
-            value="{!v.jngiMotorPremium}"
+            value="{!v.ParentContainer.jngiMotorPremium}"
             name="number"
             formatter="currency"
             required="true"
@@ -156,7 +178,7 @@
           <lightning:input
             type="number"
             label="Monthly P&amp;I JNGI Motor Premium"
-            value="{!v.monthlyPIJNGIMotorPremium}"
+            value="{!v.ParentContainer.monthlyPIJNGIMotorPremium}"
             name="number"
             formatter="currency"
             required="true"
@@ -188,7 +210,7 @@
         <lightning:input
           type="number"
           label="JN Life Creditor Life Premium"
-          value="{!v.jnLifeCreditorPremium}"
+          value="{!v.ParentContainer.jnLifeCreditorPremium}"
           name="number"
           formatter="currency"
           required="true"
@@ -199,7 +221,7 @@
         <lightning:input
           type="number"
           label="Monthly JN Life Creditor Life P&amp;I Premium"
-          value="{!v.monthlyJnLifeCreditor_PI_Premium}"
+          value="{!v.ParentContainer.monthlyJnLifeCreditor_PI_Premium}"
           name="number"
           formatter="currency"
           required="true"
@@ -232,7 +254,7 @@
         <lightning:input
           type="number"
           label="Monthly Compulsory Savings"
-          value="{!v.monthlyCompulsorySavings}"
+          value="{!v.ParentContainer.monthlyCompulsorySavings}"
           name="number"
           formatter="currency"
           required="true"
@@ -243,7 +265,7 @@
         <lightning:input
           type="number"
           label="Total Compulsory Savings Balance(Over Repayment Period)"
-          value="{!v.totalCompulsorySavingsBalance}"
+          value="{!v.ParentContainer.totalCompulsorySavingsBalance}"
           name="number"
           formatter="currency"
           required="true"
@@ -257,7 +279,7 @@
         <lightning:input
           type="number"
           label="Total Loan amount"
-          value="{!v.totalLoanAmount}"
+          value="{!v.ParentContainer.totalLoanAmount}"
           name="number"
           formatter="currency"
           required="true"
@@ -268,7 +290,7 @@
         <lightning:input
           type="number"
           label="Total Monthly Loan Payment"
-          value="{!v.totalMonthlyLoanPayment}"
+          value="{!v.ParentContainer.totalMonthlyLoanPayment}"
           name="number"
           formatter="currency"
           required="true"
@@ -279,7 +301,7 @@
         <lightning:input
           type="number"
           label="Total Monthly P&amp;I Loan Payment"
-          value="{!v.totalMonthly_PI_LoanPayment}"
+          value="{!v.ParentContainer.totalMonthly_PI_LoanPayment}"
           name="number"
           formatter="currency"
           required="true"
@@ -290,7 +312,7 @@
         <lightning:input
           type="number"
           label="Total Monthly Loan Payment + Monthly Loan Savings"
-          value="{!v.totalMonthlyLoanPaymentAndSavings}"
+          value="{!v.ParentContainer.totalMonthlyLoanPaymentAndSavings}"
           name="number"
           formatter="currency"
           required="true"
@@ -301,7 +323,7 @@
         <lightning:input
           type="number"
           label="Total Interest Payment(Over Repayment Period)"
-          value="{!v.totalInterestPaymentBalance}"
+          value="{!v.ParentContainer.totalInterestPaymentBalance}"
           name="number"
           formatter="currency"
           required="true"
@@ -325,6 +347,7 @@
         ></lightning:layoutItem
       >
       <lightning:layoutItem size="6" padding="around-small">
+        <!--JN1-4201-->
         <lightning:input
           type="number"
           label="Loan Amount(%)"
@@ -332,6 +355,7 @@
           name="Market"
           formatter="percent"
           required="true"
+          aura:id="loanAmount"
         />
       </lightning:layoutItem>
       <lightning:layoutItem size="6" padding="around-small">
@@ -346,6 +370,7 @@
         />
       </lightning:layoutItem>
       <lightning:layoutItem size="6" padding="around-small">
+        <!--JN1-4201-->
         <lightning:input
           type="number"
           label="Monthly Payment(%)"
@@ -353,6 +378,7 @@
           name="Market"
           formatter="percent"
           required="true"
+          aura:id="monthlyPayment"
         />
       </lightning:layoutItem>
       <lightning:layoutItem size="6" padding="around-small">
@@ -369,16 +395,16 @@
       <c:AutoLoanFeesAndChargesLineComponent
         deductRepayment="{!v.deductRepaymentFlag}"
         includePremiumFlag="{!v.showPremiumInFeesAndCharges}"
-        jngiMotorPremium="{!v.jngiMotorPremiumFeesAndCharges}"
+        jngiMotorPremium="{!v.ParentContainer.jngiMotorPremiumFeesAndCharges}"
         processingFees="{!v.ParentContainer.processingFeeClosingCost}"
         assignmentFee="{!v.assignmentFee}"
         stampDutyAndAdminCharges="{!v.estimatedStampDuty}"
-        jnCreditorLifePremium="{!v.jnCLPremiumFeesAndCharges}"
+        jnCreditorLifePremium="{!v.ParentContainer.jnCLPremiumFeesAndCharges}"
         includeCLPremiumFlag="{!v.includeCLPremiumFlag}"
         jnDefaultConfigs="{!v.jnDefaultConfigs}"
-        totalClosingCosts="{!v.totalClosingCost}"
-        totalClosingCostsJNFinanced="{!v.totalFinancedByJN}"
-        totalClosingCostsApplicantPayable="{!v.totalPayableByApplicant}"
+        totalClosingCosts="{!v.ParentContainer.totalClosingCost}"
+        totalClosingCostsJNFinanced="{!v.ParentContainer.totalFinancedByJN}"
+        totalClosingCostsApplicantPayable="{!v.ParentContainer.totalPayableByApplicant}"
       ></c:AutoLoanFeesAndChargesLineComponent>
     </lightning:layout>
   </fieldset>

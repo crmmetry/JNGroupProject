@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <assignments>
         <name>Assign_Affiliation_Record</name>
@@ -16,7 +16,8 @@
             <assignToReference>BasicIdCollection</assignToReference>
             <operator>Add</operator>
             <value>
-                <elementReference>JNAffiliationAccount.PersonContactId</elementReference>
+                <elementReference
+        >JNAffiliationAccount.PersonContactId</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -55,7 +56,8 @@
             <assignToReference>SelectedAffiliationId</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>JNAffiliationAccount.PersonContactId</elementReference>
+                <elementReference
+        >JNAffiliationAccount.PersonContactId</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -75,7 +77,8 @@
             <name>Yes_Exists</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>JNAffiliationsCollection</leftValueReference>
+                <leftValueReference
+        >JNAffiliationsCollection</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -93,21 +96,24 @@
         <locationX>2244</locationX>
         <locationY>519</locationY>
         <defaultConnector>
-            <targetReference>Create_Political_Contact_Relationship</targetReference>
+            <targetReference
+      >Create_Political_Contact_Relationship</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>No Affiliation</defaultConnectorLabel>
         <rules>
             <name>Existing_Affiliation</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>ExistingJNAffiliationContact</leftValueReference>
+                <leftValueReference
+        >ExistingJNAffiliationContact</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Existing_Political_Affiliation</targetReference>
+                <targetReference
+        >Existing_Political_Affiliation</targetReference>
             </connector>
             <label>Existing Affiliation?</label>
         </rules>
@@ -122,7 +128,8 @@
             <name>Yes</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>BasicPoliticalBtn.selectedValue</leftValueReference>
+                <leftValueReference
+        >BasicPoliticalBtn.selectedValue</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Yes</stringValue>
@@ -161,7 +168,8 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>AccountRecord.PersonMobilePhone</leftValueReference>
+                <leftValueReference
+        >AccountRecord.PersonMobilePhone</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <elementReference>PersonMobileNumber</elementReference>
@@ -181,7 +189,8 @@
         <label>JN Affiliations Loop</label>
         <locationX>1396</locationX>
         <locationY>514</locationY>
-        <assignNextValueToReference>JNAffiliationAccount</assignNextValueToReference>
+        <assignNextValueToReference
+    >JNAffiliationAccount</assignNextValueToReference>
         <collectionReference>JNAffiliationsCollection</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -247,14 +256,16 @@
         <label>Create Political Contact Relationship</label>
         <locationX>2262</locationX>
         <locationY>245</locationY>
-        <assignRecordIdToReference>ContactToContactId</assignRecordIdToReference>
+        <assignRecordIdToReference
+    >ContactToContactId</assignRecordIdToReference>
         <faultConnector>
             <targetReference>Fault_Message</targetReference>
         </faultConnector>
         <inputAssignments>
             <field>FinServ__Contact__c</field>
             <value>
-                <elementReference>AccountRecord.PersonContactId</elementReference>
+                <elementReference
+        >AccountRecord.PersonContactId</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -276,7 +287,8 @@
         <label>Get Account Record</label>
         <locationX>280</locationX>
         <locationY>198</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Reciprocal_Role</targetReference>
         </connector>
@@ -300,7 +312,8 @@
         <label>Get Accounts For JN Affiliations</label>
         <locationX>1217</locationX>
         <locationY>656</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Affiliations_Exists</targetReference>
         </connector>
@@ -345,7 +358,8 @@
         <label>Get Created Account ContactId</label>
         <locationX>1865</locationX>
         <locationY>931</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Contact_Id</targetReference>
         </connector>
@@ -366,7 +380,8 @@
         <label>Get existing Relationship</label>
         <locationX>2242</locationX>
         <locationY>692</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Existing_Affiliation_Relationship</targetReference>
         </connector>
@@ -374,7 +389,8 @@
             <field>FinServ__Contact__c</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>AccountRecord.PersonContactId</elementReference>
+                <elementReference
+        >AccountRecord.PersonContactId</elementReference>
             </value>
         </filters>
         <filters>
@@ -400,7 +416,8 @@
         <label>Get PersonAccount RecordTypeInfo</label>
         <locationX>733</locationX>
         <locationY>197</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Basic_Choices</targetReference>
         </connector>
@@ -428,7 +445,8 @@
         <label>Get Reciprocal Role</label>
         <locationX>522</locationX>
         <locationY>197</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_PersonAccount_RecordTypeInfo</targetReference>
         </connector>
@@ -473,12 +491,14 @@
         </fields>
         <fields>
             <name>text4</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;background-color: rgb(255, 255, 255); color: rgb(52, 152, 219); font-size: 14px;&quot;&gt;JN Bank Affiliation&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;background-color: rgb(255, 255, 255); color: rgb(52, 152, 219); font-size: 14px;&quot;&gt;JN Bank Affiliation&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>JNAffiliationAlreadyExists</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;font-size: 14px; color: rgb(244, 125, 104);&quot;&gt;﻿Sorry, you are already politically affiliated with this person.&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;font-size: 14px; color: rgb(244, 125, 104);&quot;&gt;﻿Sorry, you are already politically affiliated with this person.&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
@@ -542,12 +562,14 @@
         </fields>
         <fields>
             <name>text1</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 14px; color: rgb(52, 152, 219); background-color: rgb(255, 255, 255);&quot;&gt;JN Bank Affiliation&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;font-size: 14px; color: rgb(52, 152, 219); background-color: rgb(255, 255, 255);&quot;&gt;JN Bank Affiliation&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>BasicPoliticalBtn</name>
-            <extensionName>runtime_industries_lending:flowPickArray</extensionName>
+            <extensionName
+      >runtime_industries_lending:flowPickArray</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
                 <name>choicesText</name>
@@ -564,7 +586,8 @@
             <inputParameters>
                 <name>title</name>
                 <value>
-                    <stringValue>Do you want to add a JN affiliation?</stringValue>
+                    <stringValue
+          >Do you want to add a JN affiliation?</stringValue>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
@@ -599,12 +622,14 @@
         </fields>
         <fields>
             <name>text3</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 14px; color: rgb(52, 152, 219); background-color: rgb(255, 255, 255);&quot;&gt;JN Bank Affiliation&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;font-size: 14px; color: rgb(52, 152, 219); background-color: rgb(255, 255, 255);&quot;&gt;JN Bank Affiliation&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>PoliticalAffiliationsBtnSelection</name>
-            <extensionName>runtime_industries_lending:flowPickArray</extensionName>
+            <extensionName
+      >runtime_industries_lending:flowPickArray</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
                 <name>choicesText</name>
@@ -659,7 +684,8 @@
         </fields>
         <fields>
             <name>SameAccountText</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;color: rgb(240, 52, 52); font-size: 14px;&quot;&gt;The information you entered maps to your account, please try searching again. Thanks.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;color: rgb(240, 52, 52); font-size: 14px;&quot;&gt;The information you entered maps to your account, please try searching again. Thanks.&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
@@ -691,12 +717,14 @@
         </fields>
         <fields>
             <name>text2</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;background-color: rgb(255, 255, 255); color: rgb(52, 152, 219); font-size: 14px;&quot;&gt;JN Bank Affiliation&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;background-color: rgb(255, 255, 255); color: rgb(52, 152, 219); font-size: 14px;&quot;&gt;JN Bank Affiliation&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>NoExistingApplicantText</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219); font-size: 12px;&quot;&gt;﻿Please enter first , name and mobile number to search for an account, if no account is found, then a new one is immediately created and linked. &lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219); font-size: 12px;&quot;&gt;﻿Please enter first , name and mobile number to search for an account, if no account is found, then a new one is immediately created and linked. &lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -706,8 +734,10 @@
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;Cannot exceed a length of 40 characters.&lt;/p&gt;</errorMessage>
-                <formulaExpression>LEN ({!Person_First_Name}) &lt;= 40</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;Cannot exceed a length of 40 characters.&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!Person_First_Name}) &lt;= 40</formulaExpression>
             </validationRule>
         </fields>
         <fields>
@@ -717,8 +747,10 @@
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;Cannot exceed a length of 40 characters.&lt;/p&gt;</errorMessage>
-                <formulaExpression>LEN ({!Person_Last_Name}) &lt;= 40</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;Cannot exceed a length of 40 characters.&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!Person_Last_Name}) &lt;= 40</formulaExpression>
             </validationRule>
         </fields>
         <fields>

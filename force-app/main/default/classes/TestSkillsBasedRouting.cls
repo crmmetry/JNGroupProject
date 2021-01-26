@@ -35,8 +35,6 @@ public class TestSkillsBasedRouting {
     ];
 
     System.runAs(newUser) {
-      Test.startTest();
-
       //Create Group members for group
       GroupMember sales_team_member = new GroupMember();
       sales_team_member.UserOrGroupId = newUser.Id;
@@ -53,7 +51,7 @@ public class TestSkillsBasedRouting {
         leadRecord[i].Last_Contact_Made__c = System.now();
         leadRecord[i].OwnerId = salesTeam.Id;
       }
-
+      Test.startTest();
       leadRecord[0].Preferred_Location__c = 'Barbican';
       leadRecord[1].Preferred_Location__c = 'Junction';
       leadRecord[2].Preferred_Location__c = 'Gayle';

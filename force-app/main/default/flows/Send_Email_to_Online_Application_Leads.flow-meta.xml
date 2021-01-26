@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
         <processMetadataValues>
@@ -43,7 +43,8 @@
                 <leftValueReference>myVariable_old.Email</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <elementReference>myVariable_current.Email</elementReference>
+                    <elementReference
+          >myVariable_current.Email</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -92,7 +93,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.LeadSource</leftValueReference>
+                <leftValueReference
+        >myVariable_current.LeadSource</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Online Application Form</stringValue>
@@ -123,7 +125,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.FirstName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.FirstName</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -154,7 +157,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.LastName</leftValueReference>
+                <leftValueReference
+        >myVariable_current.LastName</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -185,7 +189,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Service_of_Interest__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Service_of_Interest__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -216,7 +221,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>isChangedRule_2_myRule_1_Email</leftValueReference>
+                <leftValueReference
+        >isChangedRule_2_myRule_1_Email</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -228,8 +234,10 @@
             <label>Lead Source is Online Application</label>
         </rules>
     </decisions>
-    <description>When a lead has the Source of &quot;Online&quot; an email is sent to the prospective member</description>
-    <interviewLabel>Send_Email_to_Online_Application_Leads-3_InterviewLabel</interviewLabel>
+    <description
+  >When a lead has the Source of &quot;Online&quot; an email is sent to the prospective member</description>
+    <interviewLabel
+  >Send_Email_to_Online_Application_Leads-3_InterviewLabel</interviewLabel>
     <label>Send Email to Online Application Leads</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -256,7 +264,8 @@
         </value>
     </processMetadataValues>
     <processType>Workflow</processType>
-    <startElementReference>isChangedDecision2_myRule_1_Email</startElementReference>
+    <startElementReference
+  >isChangedDecision2_myRule_1_Email</startElementReference>
     <status>Obsolete</status>
     <variables>
         <name>myVariable_current</name>

@@ -17,5 +17,15 @@
     ) {
       fireProductDetailsEvent(null, childContainer, component);
     }
+  },
+  /**
+   * JN1-4212 : For validating fields
+   * @param {*} component
+   * @param {*} event
+   * @param {*} helper
+   */
+  validateFields: function (component, event, helper) {
+    let fieldsToValidateArray = ["locInterestRate"];
+    return validateFields(component, fieldsToValidateArray);
   }
 });

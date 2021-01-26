@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Include_first_year_premium_in_loan_amt__c</fullName>
     <externalId>false</externalId>
@@ -12,14 +12,26 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Yes (Include in Loan Amount)</fullName>
+                <fullName>Yes</fullName>
                 <default>false</default>
-                <label>Yes (Include in Loan Amount)</label>
+                <label>Yes</label>
+            </value>
+            <value>
+                <fullName>No</fullName>
+                <default>false</default>
+                <label>No</label>
             </value>
             <value>
                 <fullName>No (Paid by the Applicant)</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>No (Paid by the Applicant)</label>
+            </value>
+            <value>
+                <fullName>Yes (Include in Loan Amount)</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Yes (Include in Loan Amount)</label>
             </value>
         </valueSetDefinition>
     </valueSet>

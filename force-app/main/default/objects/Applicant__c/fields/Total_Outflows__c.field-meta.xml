@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Total_Outflows__c</fullName>
     <externalId>false</externalId>
-    <formula>IF ( RecordType.Name = &quot;Short Summary of Income&quot;, ( Savings_Pension_Insurance_Number__c +   Personal_Expenses_Monthly_Prior_Loan__c + Statutory_Deductions_Numbers__c + Rent_Strata_Maintenance__c) , 
+    <formula
+  >IF ( RecordType.Name = &quot;Short Summary of Income&quot;, ( Savings_Pension_Insurance_Number__c +   Personal_Expenses_Monthly_Prior_Loan__c + Statutory_Deductions_Numbers__c + Rent_Strata_Maintenance__c) , 
 
 IF ( RecordType.Name = &quot;Full Details Of Income/Living Expenses&quot;, 
  (Property_Tax_Monthly_Prior_Loan__c +

@@ -21,18 +21,6 @@ public with sharing class ProductDetailController {
     String collateral
   ) {
     try {
-      System.debug(
-        'Oppid=' +
-        oppId +
-        ' Ltv =' +
-        ltv +
-        'tdsrBefore =' +
-        tdsrBefore +
-        ' repaymentMethod =' +
-        repaymentMethod +
-        'collateral ' +
-        collateral
-      );
       RiskRatingWrapper wrapper = ProductDetailService.getRiskRatingWrapperV2(
         oppId,
         (Integer) ltv,
@@ -53,11 +41,10 @@ public with sharing class ProductDetailController {
    */
   @AuraEnabled
   public static Object getSingleProductFamilySelection(Id oppId) {
-    System.debug('Controller');
-    OpportunityLineItem oppProduct = Util.getOpportunityProducts(oppId);
-    if (oppProduct != null) {
-      Wrappers.ProductSelectionWrapper selection = new Wrappers.ProductSelectionWrapper(
-        oppProduct
+    List<OpportunityLineItem> records = Util.getOpportunityProducts(oppId);
+    if (records.size() == 1) {
+      ProductSelectionWrapper selection = new ProductSelectionWrapper(
+        records[0]
       );
       return selection;
     }
@@ -74,25 +61,6 @@ public with sharing class ProductDetailController {
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
     }
-  }
-
-  /**
-   * return a list of applicant wrappers related to an oppurtunity
-   * @param {Id} oppId - Id of selected opportunity.
-   * @return {creditRatingMap}
-   */
-  private static List<ApplicantWrapper> getApplicants(Id oppId) {
-    List<ApplicantWrapper> applicantWrappers = new List<ApplicantWrapper>();
-    List<Applicant__c> applicants = [
-      SELECT Id, Account__r.PersonBirthdate
-      FROM Applicant__c
-      WHERE Opportunity__c = :oppId
-    ];
-    for (Applicant__c applicant : applicants) {
-      ApplicantWrapper appWrapper = new ApplicantWrapper(applicant);
-      applicantWrappers.add(appWrapper);
-    }
-    return applicantWrappers;
   }
 
   /**
@@ -129,7 +97,9 @@ public with sharing class ProductDetailController {
     Id oppId,
     Decimal tenure
   ) {
-    List<ApplicantWrapper> applicants = getApplicants(oppId);
+    List<ApplicantWrapper> applicants = ProductDetailSelector.getApplicantDetails(
+      oppId
+    );
     applicants = getApplicantsCreditRating(applicants, tenure);
     return applicants;
   }
@@ -141,33 +111,15 @@ public with sharing class ProductDetailController {
    */
   @AuraEnabled
   public static List<Object> getApplicantsAssetsAndLiabilities(Id oppId) {
-    List<Applicant__c> applicants = [
-      SELECT
-        Id,
-        Statutory_Deductions_Numbers__c,
-        Rent_Strata_Maintenance__c,
-        Personal_Expenses_Monthly_Prior_Loan__c,
-        Savings_Pension_Insurance_Number__c,
-        Real_Estate_Monthly_Payment_Number__c,
-        Motor_Vehicle_Monthly_Payment_Number__c,
-        Other_Asset_Monthly_Payment_Number__c,
-        Other_Loan_Monthly_Payment_Number__c,
-        Gross_Monthly_Income__c,
-        Account__r.PersonBirthdate,
-        Credit_History_in_last_24_Months__c,
-        Assessment_of_Applicant_Net_Worth__c,
-        (SELECT Id, Minimum_Payment__c FROM Application_Assets_Liabilities__r)
-      FROM Applicant__c
-      WHERE Opportunity__c = :oppId
-    ];
-    System.debug(applicants);
+    List<ApplicantWrapper> applicants = ProductDetailSelector.getApplicantDetails(
+      oppId
+    );
     List<Object> wrappers = new List<Object>();
     Map<String, Object> wrapperMap = new Map<String, Object>();
-
-    for (Applicant__c record : applicants) {
-      if (record.Application_Assets_Liabilities__r != null) {
+    for (ApplicantWrapper record : applicants) {
+      if (record.applicationAssetLiabilities != null) {
         for (
-          Application_Asset_Liability__c record2 : record.Application_Assets_Liabilities__r
+          Application_Asset_Liability__c record2 : record.applicationAssetLiabilities
         ) {
           ApplicantAssetsAndLiabilitiesWrapper assetAndLiabilityWrapper = new ApplicantAssetsAndLiabilitiesWrapper(
             record2
@@ -175,9 +127,7 @@ public with sharing class ProductDetailController {
           wrappers.add(assetAndLiabilityWrapper);
         }
       }
-      ApplicantWrapper appWrapper = new ApplicantWrapper(record);
-
-      wrappers.add(appWrapper);
+      wrappers.add(record);
     }
     return wrappers;
   }
@@ -218,7 +168,49 @@ public with sharing class ProductDetailController {
         record.Score_Range_Number__c
       );
     }
-    System.debug('Risk Ratings:' + riskRatingMap);
     return riskRatingMap;
+  }
+  /** *
+   * JN1-4001
+   * Saves product details information
+   * @param {Id} opportunityId
+   * @param {List<String>} productRecordTypes
+   * @return {Integer}
+   */
+  @AuraEnabled
+  public static Integer saveProductDetails(
+    Id opportunityId,
+    List<String> productRecordTypes,
+    Map<String, Object> loanCalculationFields,
+    Map<String, Object> loanCalculationProductFields
+  ) {
+    try {
+      String loanCalculationFieldsString = JSON.serialize(
+        loanCalculationFields
+      );
+      String loanCalculationProductFieldsString = JSON.serialize(
+        loanCalculationProductFields
+      );
+      ProductDetailsSerializer loanCalculation = (ProductDetailsSerializer) JSON.deserializeStrict(
+        loanCalculationFieldsString,
+        ProductDetailsSerializer.class
+      );
+      ProductDetailsSerializer loanCalculationProduct = (ProductDetailsSerializer) JSON.deserializeStrict(
+        loanCalculationProductFieldsString,
+        ProductDetailsSerializer.class
+      );
+      LoanCalculationUnwrapper loanCalculationUnwrapper = new LoanCalculationUnwrapper(
+        loanCalculation
+      );
+      Id loanCalculationId = loanCalculationUnwrapper.save(opportunityId);
+      LoanCalculationProductUnwrapper loanCalculationProductUnwrapper = new LoanCalculationProductUnwrapper(
+        loanCalculationProduct,
+        productRecordTypes
+      );
+      loanCalculationProductUnwrapper.save(loanCalculationId);
+      return Constants.STATUS_SUCCESS_CODE;
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
+    }
   }
 }

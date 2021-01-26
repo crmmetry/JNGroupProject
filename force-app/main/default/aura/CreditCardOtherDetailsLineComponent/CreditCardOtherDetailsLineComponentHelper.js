@@ -25,7 +25,7 @@
         component.set("v.disableLifeInsuranceCoverageFlag", false);
         component.set("v.disableCoverageTypeFlag", false);
         //clear fields that are not necessary when creditor life is not selected
-        resetComponentValue("creditor-life-selected", component, null);
+        resetComponentValue("creditorLifeSelected", component, null);
         //reset attributes on child container
         let childKeyValuePairsToBeReset = [
           {
@@ -44,8 +44,8 @@
         component.set("v.noCreditorLifeFlag", true);
         component.set("v.otherCreditorLifeReasonFlag", false);
         //clear fields that are not necessary when creditor life is selected
-        resetComponentValue("creditor-life-not-selected", component, null);
-        resetComponentValue("other-reason", component, "");
+        resetComponentValue("creditorLifeNotSelected", component, null);
+        resetComponentValue("otherReason", component, "");
         //reset attributes on child container
         let childKeyValuePairsToBeReset = [
           {
@@ -78,7 +78,7 @@
         component.set("v.otherCreditorLifeReasonFlag", true);
       } else {
         component.set("v.otherCreditorLifeReasonFlag", false);
-        resetComponentValue("other-reason", component, "");
+        resetComponentValue("otherReason", component, "");
       }
     }
   },
@@ -93,14 +93,9 @@
     let product = container.productFamily;
     if (product === CREDIT_CARD) {
       component.set("v.creditCardFlag", true);
-      component.set("v.creditorLifeCoverage", CREDIT_CARD_APPLICANT_COVERAGE);
     }
     if (product === LINE_OF_CREDIT) {
       component.set("v.lineOfCreditFlag", true);
-      component.set(
-        "v.creditorLifeCoverage",
-        LINE_OF_CREDIT_APPLICANT_COVERAGE
-      );
     }
   }
 });

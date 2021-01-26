@@ -2,46 +2,51 @@
   <aura:attribute name="ParentContainer" type="Map" default="{}" />
   <aura:attribute name="RequestedDetailsContainer" type="Map" default="{}" />
   <aura:attribute name="productPrice" type="Decimal" />
-  <aura:attribute name="loanPurpose" type="List" />
+  <aura:attribute name="loanPurposeOptions" type="List" />
   <aura:attribute name="LoanSavingsContainer" type="Map" default="{}" />
   <aura:attribute name="oppApplicants" type="List" />
   <aura:attribute name="jnDefaultConfigs" type="Map" />
   <aura:attribute name="oppId" type="Id" />
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
-  <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
-    <div class="slds-form-element">
-      <div class="slds-form-element__control">
-        <lightning:select
-          name="select1"
-          label="Loan Purpose"
-          required="true"
-          onchange="{!c.onLoanPurposeChange}"
-        >
-          <option value="">select one...</option>
-          <aura:iteration items="{!v.loanPurpose}" var="item">
-            <option value="{!item}">{!item}</option>
-          </aura:iteration>
-        </lightning:select>
-      </div>
-    </div>
-  </lightning:layoutItem>
+  <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
+  <!-- Static Resource -->
+  <ltng:require
+    scripts="{!join(',', 
+  $Resource.constants,
+  $Resource.calculations, 
+  $Resource.productDetailsGeneralFunctions)}"
+    afterScriptsLoaded="{!c.scriptsLoaded}"
+  />
+  <!--JN1-4210 : For validating fields-->
+  <aura:method
+    name="validateFields"
+    action="{!c.validateFields}"
+    access="public"
+  />
   <c:RequestedDetailsLineItemComponent
     productPrice="{!v.productPrice}"
     ParentContainer="{!v.ParentContainer}"
     applicants="{!v.oppApplicants}"
     oppId="{!v.oppId}"
+    aura:id="requestedDetailsLineItemComponent"
   >
   </c:RequestedDetailsLineItemComponent>
 
   <c:UnsecuredLoanFeatureLineItemComponent
     ParentContainer="{!v.ParentContainer}"
+    aura:id="unsecuredLoanFeatureLineItemComponent"
   >
   </c:UnsecuredLoanFeatureLineItemComponent>
 
   <c:CreditCalculationsLineItemComponent
     ParentContainer="{!v.ParentContainer}"
     jnDefaultConfigs="{!v.jnDefaultConfigs}"
+    aura:id="creditCalculationsLineItemComponent"
   ></c:CreditCalculationsLineItemComponent>
 
-  <c:TotalDebtServiceRatioLineItemComponent></c:TotalDebtServiceRatioLineItemComponent>
+  <c:TotalDebtServiceRatioLineItemComponent
+    ParentContainer="{!v.ParentContainer}"
+    jnDefaultConfigs="{!v.jnDefaultConfigs}"
+    aura:id="totalDebtServiceRatioLineItemComponent"
+  ></c:TotalDebtServiceRatioLineItemComponent>
 </aura:component>

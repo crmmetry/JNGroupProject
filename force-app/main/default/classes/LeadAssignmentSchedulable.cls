@@ -10,7 +10,7 @@ public with sharing class LeadAssignmentSchedulable implements Schedulable {
   }
   public LeadAssignmentSchedulable() {
     this.businessHoursInstance = Util.GetActiveBusinessHours(
-      'JN Default Business Hours'
+      Constants.DEFAULT_BUSINESS_HOURS_NAME
     );
     this.currentTime = System.now();
   }

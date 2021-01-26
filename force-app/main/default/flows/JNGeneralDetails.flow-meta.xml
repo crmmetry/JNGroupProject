@@ -1,26 +1,33 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version="1.0" encoding="UTF-8" ?>
+<Flow
+  xmlns="http://soap.sforce.com/2006/04/metadata"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+>
     <assignments>
         <name>Account_Record_Assignment</name>
         <label>Account Record Assignment</label>
         <locationX>604</locationX>
         <locationY>38</locationY>
         <assignmentItems>
-            <assignToReference>AccountRecord.FinServ__NumberOfDependents__pc</assignToReference>
+            <assignToReference
+      >AccountRecord.FinServ__NumberOfDependents__pc</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>NumbernOf_Dependents</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.FinServ__Gender__pc</assignToReference>
+            <assignToReference
+      >AccountRecord.FinServ__Gender__pc</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Person_Gender.crmmObjectSelected</elementReference>
+                <elementReference
+        >Person_Gender.crmmObjectSelected</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.Mother_s_Maiden_Name__c</assignToReference>
+            <assignToReference
+      >AccountRecord.Mother_s_Maiden_Name__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Mother_s_Maiden_Name</elementReference>
@@ -34,31 +41,39 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.Country_of_Citizenship__pc</assignToReference>
+            <assignToReference
+      >AccountRecord.Country_of_Citizenship__pc</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Country_Of_Citizenship.crmmObjectSelected</elementReference>
+                <elementReference
+        >Country_Of_Citizenship.crmmObjectSelected</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.FinServ__CountryOfBirth__pc</assignToReference>
+            <assignToReference
+      >AccountRecord.FinServ__CountryOfBirth__pc</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Country_of_birth.crmmObjectSelected</elementReference>
+                <elementReference
+        >Country_of_birth.crmmObjectSelected</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.Country_of_Residency__pc</assignToReference>
+            <assignToReference
+      >AccountRecord.Country_of_Residency__pc</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Country_of_residency.crmmObjectSelected</elementReference>
+                <elementReference
+        >Country_of_residency.crmmObjectSelected</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>AccountRecord.Highest_Level_of_Education_attained__pc</assignToReference>
+            <assignToReference
+      >AccountRecord.Highest_Level_of_Education_attained__pc</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>HighestLevelOfEducationAttained.crmmObjectSelected</elementReference>
+                <elementReference
+        >HighestLevelOfEducationAttained.crmmObjectSelected</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -74,42 +89,49 @@
             <assignToReference>GenderDefault</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>AccountRecord.FinServ__Gender__pc</elementReference>
+                <elementReference
+        >AccountRecord.FinServ__Gender__pc</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>CountryBirthDefault</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>AccountRecord.FinServ__CountryOfBirth__pc</elementReference>
+                <elementReference
+        >AccountRecord.FinServ__CountryOfBirth__pc</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>CountryResidencyDefault</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>AccountRecord.Country_of_Residency__pc</elementReference>
+                <elementReference
+        >AccountRecord.Country_of_Residency__pc</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>CountryCitizenshipDefault</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>AccountRecord.Country_of_Citizenship__pc</elementReference>
+                <elementReference
+        >AccountRecord.Country_of_Citizenship__pc</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>HighestLevelOfEducationDefault</assignToReference>
+            <assignToReference
+      >HighestLevelOfEducationDefault</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>AccountRecord.Highest_Level_of_Education_attained__pc</elementReference>
+                <elementReference
+        >AccountRecord.Highest_Level_of_Education_attained__pc</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>MothersMaidenNameDefault</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>AccountRecord.Mother_s_Maiden_Name__c</elementReference>
+                <elementReference
+        >AccountRecord.Mother_s_Maiden_Name__c</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -160,51 +182,56 @@
     <dynamicChoiceSets>
         <name>CountryOfCitizenshipChoices</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>Country_of_Citizenship__pc</picklistField>
         <picklistObject>Account</picklistObject>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
         <name>PersonGenderChoices</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>FinServ__Gender__pc</picklistField>
         <picklistObject>Account</picklistObject>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
         <name>PrimaryEmploymentTypeChoices</name>
         <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
         <picklistField>Primary_Employment_Type__pc</picklistField>
         <picklistObject>Account</picklistObject>
     </dynamicChoiceSets>
     <formulas>
         <name>CountryOfBirthFormula</name>
         <dataType>String</dataType>
-        <expression>IF(ISBLANK(TEXT({!AccountRecord.FinServ__CountryOfBirth__pc})),&apos;&apos;,TEXT({!AccountRecord.FinServ__CountryOfBirth__pc}))</expression>
+        <expression
+    >IF(ISBLANK(TEXT({!AccountRecord.FinServ__CountryOfBirth__pc})),&apos;&apos;,TEXT({!AccountRecord.FinServ__CountryOfBirth__pc}))</expression>
     </formulas>
     <formulas>
         <name>CountryOfCitizenshipFormula</name>
         <dataType>String</dataType>
-        <expression>IF(ISBLANK(TEXT({!AccountRecord.Country_of_Citizenship__pc})), &apos;&apos;, TEXT({!AccountRecord.Country_of_Citizenship__pc}))</expression>
+        <expression
+    >IF(ISBLANK(TEXT({!AccountRecord.Country_of_Citizenship__pc})), &apos;&apos;, TEXT({!AccountRecord.Country_of_Citizenship__pc}))</expression>
     </formulas>
     <formulas>
         <name>CountryOfResidencyFornula</name>
         <dataType>String</dataType>
-        <expression>IF(ISBLANK(TEXT({!AccountRecord.Country_of_Residency__pc})),&apos;Jamaica&apos;,TEXT({!AccountRecord.Country_of_Residency__pc}))</expression>
+        <expression
+    >IF(ISBLANK(TEXT({!AccountRecord.Country_of_Residency__pc})),&apos;Jamaica&apos;,TEXT({!AccountRecord.Country_of_Residency__pc}))</expression>
     </formulas>
     <formulas>
         <name>PersonGenderFormula</name>
         <dataType>String</dataType>
-        <expression>IF(ISBLANK(TEXT({!AccountRecord.FinServ__Gender__pc})), &apos;Other&apos;, TEXT({!AccountRecord.FinServ__Gender__pc}))</expression>
+        <expression
+    >IF(ISBLANK(TEXT({!AccountRecord.FinServ__Gender__pc})), &apos;Other&apos;, TEXT({!AccountRecord.FinServ__Gender__pc}))</expression>
     </formulas>
     <formulas>
         <name>PrimaryEmploymentTypeFormula</name>
         <dataType>String</dataType>
-        <expression>IF(ISBLANK(TEXT({!AccountRecord.Primary_Employment_Type__pc})), &apos;Other&apos;, TEXT({!AccountRecord.Primary_Employment_Type__pc}))</expression>
+        <expression
+    >IF(ISBLANK(TEXT({!AccountRecord.Primary_Employment_Type__pc})), &apos;Other&apos;, TEXT({!AccountRecord.Primary_Employment_Type__pc}))</expression>
     </formulas>
     <interviewLabel>JNGeneralDetails {!$Flow.CurrentDateTime}</interviewLabel>
     <label>JNGeneralDetailsSubflow</label>
@@ -222,12 +249,14 @@
     </processMetadataValues>
     <processType>Flow</processType>
     <recordLookups>
-        <description>Get general details from account with selected id</description>
+        <description
+    >Get general details from account with selected id</description>
         <name>GetAccount</name>
         <label>GetAccount</label>
         <locationX>193</locationX>
         <locationY>33</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Set_Defaults</targetReference>
         </connector>
@@ -306,7 +335,8 @@
         </fields>
         <fields>
             <name>PersonGeneralDetailstext</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;color: rgb(52, 152, 219); font-size: 14px;&quot;&gt;Person General Details&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;color: rgb(52, 152, 219); font-size: 14px;&quot;&gt;Person General Details&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -346,7 +376,8 @@
             <inputParameters>
                 <name>salutation</name>
                 <value>
-                    <elementReference>AccountRecord.Salutation</elementReference>
+                    <elementReference
+          >AccountRecord.Salutation</elementReference>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
@@ -367,29 +398,35 @@
             <name>NumbernOf_Dependents</name>
             <dataType>Number</dataType>
             <defaultValue>
-                <elementReference>AccountRecord.FinServ__NumberOfDependents__pc</elementReference>
+                <elementReference
+        >AccountRecord.FinServ__NumberOfDependents__pc</elementReference>
             </defaultValue>
             <fieldText>Number of Dependents</fieldText>
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
             <scale>0</scale>
             <validationRule>
-                <errorMessage>&lt;p&gt;Value must be greater than -1. &lt;/p&gt;</errorMessage>
-                <formulaExpression>{!NumbernOf_Dependents} &gt;= 0</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;Value must be greater than -1. &lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >{!NumbernOf_Dependents} &gt;= 0</formulaExpression>
             </validationRule>
         </fields>
         <fields>
             <name>PersonBirthDate</name>
             <dataType>Date</dataType>
             <defaultValue>
-                <elementReference>AccountRecord.PersonBirthdate</elementReference>
+                <elementReference
+        >AccountRecord.PersonBirthdate</elementReference>
             </defaultValue>
             <fieldText>Date of Birth</fieldText>
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;Must be 18 years or older.&lt;/p&gt;</errorMessage>
-                <formulaExpression>YEAR (TODAY())-YEAR({!PersonBirthDate})&gt;=18</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;Must be 18 years or older.&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >YEAR (TODAY())-YEAR({!PersonBirthDate})&gt;=18</formulaExpression>
             </validationRule>
         </fields>
         <fields>
@@ -427,7 +464,8 @@
             <name>Mother_s_Maiden_Name</name>
             <dataType>String</dataType>
             <defaultValue>
-                <elementReference>AccountRecord.Mother_s_Maiden_Name__c</elementReference>
+                <elementReference
+        >AccountRecord.Mother_s_Maiden_Name__c</elementReference>
             </defaultValue>
             <fieldText>Mother&apos;s Maiden Name</fieldText>
             <fieldType>InputField</fieldType>
@@ -440,13 +478,15 @@
             <inputParameters>
                 <name>crmmLabel</name>
                 <value>
-                    <stringValue>Highest Level of Education Attained</stringValue>
+                    <stringValue
+          >Highest Level of Education Attained</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
                 <name>crmmObjectField</name>
                 <value>
-                    <stringValue>Highest_Level_of_Education_attained__pc</stringValue>
+                    <stringValue
+          >Highest_Level_of_Education_attained__pc</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -458,7 +498,8 @@
             <inputParameters>
                 <name>crmmObjectSelected</name>
                 <value>
-                    <elementReference>HighestLevelOfEducationDefault</elementReference>
+                    <elementReference
+          >HighestLevelOfEducationDefault</elementReference>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
@@ -520,7 +561,8 @@
             <inputParameters>
                 <name>crmmObjectSelected</name>
                 <value>
-                    <elementReference>CountryCitizenshipDefault</elementReference>
+                    <elementReference
+          >CountryCitizenshipDefault</elementReference>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>

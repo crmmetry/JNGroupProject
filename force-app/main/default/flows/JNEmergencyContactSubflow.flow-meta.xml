@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
         <name>Mock_Accounts</name>
@@ -47,7 +47,8 @@
         <inputParameters>
             <name>accountsToSave</name>
             <value>
-                <elementReference>NeededEmergencyContactsToSave</elementReference>
+                <elementReference
+        >NeededEmergencyContactsToSave</elementReference>
             </value>
         </inputParameters>
     </actionCalls>
@@ -117,7 +118,8 @@
             <assignToReference>EmergencyContactIdCollection</assignToReference>
             <operator>Add</operator>
             <value>
-                <elementReference>ContactToContactRecord.FinServ__RelatedContact__c</elementReference>
+                <elementReference
+        >ContactToContactRecord.FinServ__RelatedContact__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -140,7 +142,8 @@
             <assignToReference>PersonContactIds</assignToReference>
             <operator>Add</operator>
             <value>
-                <elementReference>EmergencyContactBtnCollection.selectedValue</elementReference>
+                <elementReference
+        >EmergencyContactBtnCollection.selectedValue</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -153,112 +156,129 @@
         <locationX>1614</locationX>
         <locationY>1416</locationY>
         <assignmentItems>
-            <assignToReference>EmergencyAccountRecord.Street_1__pc</assignToReference>
+            <assignToReference
+      >EmergencyAccountRecord.Street_1__pc</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Street1_ec</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>EmergencyAccountRecord.Street_2__pc</assignToReference>
+            <assignToReference
+      >EmergencyAccountRecord.Street_2__pc</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Street2_ec</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>EmergencyAccountRecord.Street_3__pc</assignToReference>
+            <assignToReference
+      >EmergencyAccountRecord.Street_3__pc</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Street3_ec</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>EmergencyAccountRecord.City_Town__pc</assignToReference>
+            <assignToReference
+      >EmergencyAccountRecord.City_Town__pc</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>CityTown_ec</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>EmergencyAccountRecord.Post_Office_Zip_Code__pc</assignToReference>
+            <assignToReference
+      >EmergencyAccountRecord.Post_Office_Zip_Code__pc</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>PostOffice_ec</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>EmergencyAccountRecord.Residential_Area_District__pc</assignToReference>
+            <assignToReference
+      >EmergencyAccountRecord.Residential_Area_District__pc</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>ResidentialArea_ec</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>EmergencyAccountRecord.Country__c</assignToReference>
+            <assignToReference
+      >EmergencyAccountRecord.Country__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Country.crmmObjectSelected</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>EmergencyAccountRecord.PersonMobilePhone</assignToReference>
+            <assignToReference
+      >EmergencyAccountRecord.PersonMobilePhone</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>MobileNumber_ec.value</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>EmergencyAccountRecord.Business_Phone__pc</assignToReference>
+            <assignToReference
+      >EmergencyAccountRecord.Business_Phone__pc</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>BusinessNumber_ec.value</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>EmergencyAccountRecord.PersonHomePhone</assignToReference>
+            <assignToReference
+      >EmergencyAccountRecord.PersonHomePhone</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>HomeNumber_ec.value</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>EmergencyAccountRecord.PersonEmail</assignToReference>
+            <assignToReference
+      >EmergencyAccountRecord.PersonEmail</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Email_ec.value</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>EmergencyAccountRecord.Emergency_Contact_Relationship__pc</assignToReference>
+            <assignToReference
+      >EmergencyAccountRecord.Emergency_Contact_Relationship__pc</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>EmergencyContact_Relationship.crmmObjectSelected</elementReference>
+                <elementReference
+        >EmergencyContact_Relationship.crmmObjectSelected</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>EmergencyAccountRecord.RecordTypeId</assignToReference>
+            <assignToReference
+      >EmergencyAccountRecord.RecordTypeId</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>PersonAccountRecordTypeId</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>EmergencyAccountRecord.FirstName</assignToReference>
+            <assignToReference
+      >EmergencyAccountRecord.FirstName</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Person_First_Name</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>EmergencyAccountRecord.LastName</assignToReference>
+            <assignToReference
+      >EmergencyAccountRecord.LastName</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Person_Last_Name</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>EmergencyAccountRecord.Province_Parish_State__pc</assignToReference>
+            <assignToReference
+      >EmergencyAccountRecord.Province_Parish_State__pc</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Province_Parish_State_ec</elementReference>
@@ -274,7 +294,8 @@
         <locationX>1274</locationX>
         <locationY>1093</locationY>
         <assignmentItems>
-            <assignToReference>ShouldContinueEmergencyContact</assignToReference>
+            <assignToReference
+      >ShouldContinueEmergencyContact</assignToReference>
             <operator>Assign</operator>
             <value>
                 <booleanValue>false</booleanValue>
@@ -314,7 +335,8 @@
             <name>Contacts_Found</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>EmergencyContactsCollection</leftValueReference>
+                <leftValueReference
+        >EmergencyContactsCollection</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -425,12 +447,14 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>EmergencyContact_AdditionalDetails</targetReference>
+                <targetReference
+        >EmergencyContact_AdditionalDetails</targetReference>
             </connector>
             <label>Create this Account</label>
         </rules>
     </decisions>
-    <description>The added decision when a number of contacts were inputted.</description>
+    <description
+  >The added decision when a number of contacts were inputted.</description>
     <formulas>
         <name>ContactsNeeded</name>
         <dataType>Number</dataType>
@@ -442,14 +466,16 @@
         <dataType>String</dataType>
         <expression>TEXT({!EmergencyContactCount})</expression>
     </formulas>
-    <interviewLabel>JNEmergencyContactSubflow {!$Flow.CurrentDateTime}</interviewLabel>
+    <interviewLabel
+  >JNEmergencyContactSubflow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>JNEmergencyContactSubflow</label>
     <loops>
         <name>Contact_Contact_Iteration</name>
         <label>Contact-Contact Iteration</label>
         <locationX>423</locationX>
         <locationY>1093</locationY>
-        <assignNextValueToReference>ContactToContactRecord</assignNextValueToReference>
+        <assignNextValueToReference
+    >ContactToContactRecord</assignNextValueToReference>
         <collectionReference>EmergencyContactsCollection</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -464,7 +490,8 @@
         <label>Needed Emergency Contacts Loop</label>
         <locationX>1614</locationX>
         <locationY>811</locationY>
-        <assignNextValueToReference>EmergencyContactLoopVariable</assignNextValueToReference>
+        <assignNextValueToReference
+    >EmergencyContactLoopVariable</assignNextValueToReference>
         <collectionReference>MockedContacts</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -505,7 +532,8 @@
         <label>Get  Account Record</label>
         <locationX>220</locationX>
         <locationY>1345</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_PersonAccount_RecordType_Id</targetReference>
         </connector>
@@ -541,15 +569,18 @@
         <label>Get Emergency Contact Relationships</label>
         <locationX>823</locationX>
         <locationY>1253</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Check_Emergency_Contacts_Existence</targetReference>
+            <targetReference
+      >Check_Emergency_Contacts_Existence</targetReference>
         </connector>
         <filters>
             <field>FinServ__Contact__c</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>AccountRecord.PersonContactId</elementReference>
+                <elementReference
+        >AccountRecord.PersonContactId</elementReference>
             </value>
         </filters>
         <filters>
@@ -571,7 +602,8 @@
         <label>Get PersonAccount RecordType Id</label>
         <locationX>458</locationX>
         <locationY>1249</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Reciprocal_Role</targetReference>
         </connector>
@@ -600,7 +632,8 @@
         <label>Get Reciprocal Role</label>
         <locationX>644</locationX>
         <locationY>1378</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Emergency_Contact</targetReference>
         </connector>
@@ -650,12 +683,14 @@
         </fields>
         <fields>
             <name>text2</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;color: rgb(52, 152, 219); font-size: 14px; background-color: rgb(255, 255, 255);&quot;&gt;Person Emergency Contacts&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;color: rgb(52, 152, 219); font-size: 14px; background-color: rgb(255, 255, 255);&quot;&gt;Person Emergency Contacts&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>NoEmergencyContactText</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Please enter the following information to add a emergency contact&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Please enter the following information to add a emergency contact&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -665,8 +700,10 @@
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;Cannot exceed a length of 40 characters.&lt;/p&gt;</errorMessage>
-                <formulaExpression>LEN ({!Person_First_Name}) &lt;= 40</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;Cannot exceed a length of 40 characters.&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!Person_First_Name}) &lt;= 40</formulaExpression>
             </validationRule>
         </fields>
         <fields>
@@ -676,8 +713,10 @@
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
             <validationRule>
-                <errorMessage>&lt;p&gt;Cannot exceed a length of 40 characters.&lt;/p&gt;</errorMessage>
-                <formulaExpression>LEN ({!Person_Last_Name}) &lt;= 40</formulaExpression>
+                <errorMessage
+        >&lt;p&gt;Cannot exceed a length of 40 characters.&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!Person_Last_Name}) &lt;= 40</formulaExpression>
             </validationRule>
         </fields>
         <fields>
@@ -737,7 +776,8 @@
         </fields>
         <fields>
             <name>text1</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Person Emergency Contacts&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Person Emergency Contacts&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -747,13 +787,15 @@
             <inputParameters>
                 <name>contactIds</name>
                 <value>
-                    <elementReference>EmergencyContactIdCollection</elementReference>
+                    <elementReference
+          >EmergencyContactIdCollection</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
                 <name>title</name>
                 <value>
-                    <stringValue>The following are your current emergency contacts, do you want to add another?</stringValue>
+                    <stringValue
+          >The following are your current emergency contacts, do you want to add another?</stringValue>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
@@ -801,12 +843,14 @@
         </fields>
         <fields>
             <name>text3</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Person Emergency Contacts&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Person Emergency Contacts&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>EmergencyContactBtnCollection</name>
-            <extensionName>runtime_industries_lending:flowPickArray</extensionName>
+            <extensionName
+      >runtime_industries_lending:flowPickArray</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
                 <name>choicesText</name>
@@ -823,7 +867,8 @@
             <inputParameters>
                 <name>title</name>
                 <value>
-                    <stringValue>Please select one of the following as an emergency contact</stringValue>
+                    <stringValue
+          >Please select one of the following as an emergency contact</stringValue>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
@@ -841,7 +886,8 @@
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
-            <targetReference>Emergency_Contact_Details_Assignment</targetReference>
+            <targetReference
+      >Emergency_Contact_Details_Assignment</targetReference>
         </connector>
         <fields>
             <name>EmergencyContactCreation_indicator</name>
@@ -858,7 +904,8 @@
         </fields>
         <fields>
             <name>EmergencyContact</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219); font-size: 14px;&quot;&gt;Additional Emergency Contact - Details&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219); font-size: 14px;&quot;&gt;Additional Emergency Contact - Details&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -894,7 +941,8 @@
             <inputParameters>
                 <name>crmmObjectField</name>
                 <value>
-                    <stringValue>Emergency_Contact_Relationship__pc</stringValue>
+                    <stringValue
+          >Emergency_Contact_Relationship__pc</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -1094,12 +1142,14 @@
         </fields>
         <fields>
             <name>EmergencyContactConfirmation</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Emergency Contact Confirmation&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Emergency Contact Confirmation&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>MinimumNotMet</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219);&quot;&gt;﻿ You currently have {!EmergencyContactCountText} emergency contact(s) associated with this account. However, to continue, you need at least &lt;/span&gt;&lt;span style=&quot;color: rgb(52, 152, 219); font-family: var(--lwc-fontFamily,&amp;quot;Salesforce Sans&amp;quot;, Arial, sans-serif); font-size: var(--lwc-fontSize3,0.8125rem); background-color: var(--lwc-colorBackgroundInput,rgb(255, 255, 255));&quot;&gt;{!ContactsNeeded} more emergency contact(s). &lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;color: rgb(52, 152, 219);&quot;&gt;﻿ You currently have {!EmergencyContactCountText} emergency contact(s) associated with this account. However, to continue, you need at least &lt;/span&gt;&lt;span style=&quot;color: rgb(52, 152, 219); font-family: var(--lwc-fontFamily,&amp;quot;Salesforce Sans&amp;quot;, Arial, sans-serif); font-size: var(--lwc-fontSize3,0.8125rem); background-color: var(--lwc-colorBackgroundInput,rgb(255, 255, 255));&quot;&gt;{!ContactsNeeded} more emergency contact(s). &lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
@@ -1147,7 +1197,8 @@
         </fields>
         <fields>
             <name>AdditionalEmergencyContacts</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;How many Emergency Contacts would you like to add? &lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText
+      >&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;How many Emergency Contacts would you like to add? &lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -1289,7 +1340,8 @@
         <objectType>FinServ__ContactContactRelation__c</objectType>
     </variables>
     <variables>
-        <description>stores the lookup for emergency contacts when searched with first and last name</description>
+        <description
+    >stores the lookup for emergency contacts when searched with first and last name</description>
         <name>EmergencyContactsCreationCollection</name>
         <dataType>SObject</dataType>
         <isCollection>true</isCollection>
@@ -1410,7 +1462,8 @@
         <objectType>FinServ__ReciprocalRole__c</objectType>
     </variables>
     <variables>
-        <description>id for contact to contact relationship created</description>
+        <description
+    >id for contact to contact relationship created</description>
         <name>SavedContactToContactId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>

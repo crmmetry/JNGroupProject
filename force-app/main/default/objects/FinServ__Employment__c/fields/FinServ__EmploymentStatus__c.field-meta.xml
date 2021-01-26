@@ -39,6 +39,12 @@
                 <label>Home Maker</label>
             </value>
             <value>
+                <fullName>Pensioner</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Pensioner</label>
+            </value>
+            <value>
                 <fullName>Retired</fullName>
                 <default>false</default>
                 <isActive>false</isActive>

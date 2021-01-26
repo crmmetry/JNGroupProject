@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <decisions>
         <processMetadataValues>
@@ -43,7 +43,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Contact_Made__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Contact_Made__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -95,7 +96,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Run_Loan_Scenarios__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Run_Loan_Scenarios__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -108,7 +110,8 @@
         </rules>
     </decisions>
     <description>to track the date/ time for the field updates</description>
-    <interviewLabel>Field_History_Tracking_for_Formula_Fields-3_InterviewLabel</interviewLabel>
+    <interviewLabel
+  >Field_History_Tracking_for_Formula_Fields-3_InterviewLabel</interviewLabel>
     <label>Field History Tracking for Formula Fields</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -202,7 +205,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -213,7 +216,8 @@
             </processMetadataValues>
             <field>Make_Customer_Contact_Date_Time_text__c</field>
             <value>
-                <elementReference>myVariable_current.Contact_Made__c</elementReference>
+                <elementReference
+        >myVariable_current.Contact_Made__c</elementReference>
             </value>
         </inputAssignments>
         <object>Lead</object>
@@ -282,7 +286,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -293,7 +297,8 @@
             </processMetadataValues>
             <field>Run_Loan_Scenario_Date_Time__c</field>
             <value>
-                <elementReference>myVariable_current.Run_Loan_Scenarios__c</elementReference>
+                <elementReference
+        >myVariable_current.Run_Loan_Scenarios__c</elementReference>
             </value>
         </inputAssignments>
         <object>Lead</object>

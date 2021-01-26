@@ -14,6 +14,23 @@ public class TestDataFactory {
     }
     return contacts;
   }
+  public static List<Account> CreateBasicAccounts(
+    Integer count,
+    String lastName
+  ) {
+    Map<String, Id> recordTypeids = Util.getRecordTypeids('Account');
+    Id personAccountId = recordTypeids.get('PersonAccount');
+    List<Account> accounts = new List<Account>();
+    for (Integer i = 0; i < count; i++) {
+      Account c = new Account(
+        FirstName = 'Test ' + i,
+        LastName = lastName + 'i'
+      );
+      c.RecordTypeId = personAccountId;
+      accounts.add(c);
+    }
+    return accounts;
+  }
 
   public static Holiday CreateHoliday(Datetime holidate, String holidayName) {
     Holiday hol = new Holiday();
@@ -31,23 +48,6 @@ public class TestDataFactory {
       c.put(key, info.get(key));
     }
     return c;
-  }
-  public static List<Account> CreateBasicAccounts(
-    Integer count,
-    String lastName
-  ) {
-    Map<String, Id> recordTypeids = Util.getRecordTypeids('Account');
-    Id personAccountId = recordTypeids.get('PersonAccount');
-    List<Account> accounts = new List<Account>();
-    for (Integer i = 0; i < count; i++) {
-      Account c = new Account(
-        FirstName = 'Test ' + i,
-        LastName = lastName + 'i'
-      );
-      c.RecordTypeId = personAccountId;
-      accounts.add(c);
-    }
-    return accounts;
   }
 
   public static List<Loan_Calculator__c> CreateLoanCalculation(Integer count) {
@@ -81,6 +81,7 @@ public class TestDataFactory {
   }
 
   public static List<Lead> CreateLeads(Integer count) {
+    Map<String, Id> recordTypes = Util.getRecordTypeids('Lead');
     List<Lead> records = new List<Lead>();
     for (Integer i = 0; i < count; i++) {
       Lead c = new Lead();
@@ -91,6 +92,7 @@ public class TestDataFactory {
       c.Estimated_Amount__c = 50000.00;
       c.Service_of_Interest__c = 'JN Bank Credit Card';
       c.Company = COMPANY;
+      c.RecordTypeId = recordTypes.get('Loan');
       //c.Status = 'Qualified';
       //c.LeadSource = 'Credit Card Form';
       records.add(c);
@@ -140,8 +142,6 @@ public class TestDataFactory {
       Name = name
     );
     return record;
-  }
-  public static void CreateSupplementaryCardHolders() {
   }
 
   public static Task CreateTask(Id ownerId, Id whoId) {
@@ -230,5 +230,41 @@ public class TestDataFactory {
     role.RecordTypeId = recordTypesMap.get('ContactRole');
     role.FinServ__InverseRole__c = name + ' Dependent';
     return role;
+  }
+
+  //JN1-4184
+  public static FinServ__AssetsAndLiabilities__c CreateAssetsAndLiabilities(
+    Id accountId,
+    Id recordTypeId,
+    String assetName
+  ) {
+    FinServ__AssetsAndLiabilities__c record = new FinServ__AssetsAndLiabilities__c();
+    record.FinServ__PrimaryOwner__c = accountId;
+    record.Name = assetName;
+    record.FinServ__Amount__c = 500.00;
+    return record;
+  }
+  //JN1-4184
+  public static Application_Asset_Liability__c CreateApplicantAssetsAndLiabilities(
+    Id applicantId,
+    Id assetAndLiabilitiesId
+  ) {
+    Application_Asset_Liability__c record = new Application_Asset_Liability__c();
+    record.Application__c = applicantId;
+    record.Assets_and_Liabilities__c = assetAndLiabilitiesId;
+    return record;
+  }
+  //JN1-4184
+  public static List<Supplementary_Card_Holders__c> CreateSupplementaryCardHolders(
+    Integer count,
+    Id oppId
+  ) {
+    List<Supplementary_Card_Holders__c> cardHoldersList = new List<Supplementary_Card_Holders__c>();
+    for (Integer i = 0; i < count; i++) {
+      Supplementary_Card_Holders__c cardHolder = new Supplementary_Card_Holders__c();
+      cardHolder.Opportunity__c = oppId;
+      cardHoldersList.add(cardHolder);
+    }
+    return cardHoldersList;
   }
 }

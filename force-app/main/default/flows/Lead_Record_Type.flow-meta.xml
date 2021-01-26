@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <interviewLabel>Lead Record Type {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Lead Record Type : Credit Facility</label>
@@ -20,7 +20,8 @@
         <label>Get Lead Record Id from PB</label>
         <locationX>362</locationX>
         <locationY>209</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Update_the_Record</targetReference>
         </connector>

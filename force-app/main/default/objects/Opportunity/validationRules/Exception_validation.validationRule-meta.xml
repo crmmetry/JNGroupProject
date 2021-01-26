@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Exception_validation</fullName>
+    <active>true</active>
+    <description
+  >User must enter values in the Approved By and Date of Approval fields if the Exception for Credit is granted and the Exception Decision is received</description>
+    <errorConditionFormula>IF(
+AND(
+ISPICKVAL( Request_ADJ_Exception_for_Credit__c, &quot;Yes&quot;), 
+ISPICKVAL( Await_Credit_Exception_Decision__c,&quot;Received&quot;)
+), 
+AND(ISBLANK( Date_of_Approval__c) ,ISBLANK( Exception_Approved_by__c )),NULL 
+)</errorConditionFormula>
+    <errorMessage
+  >Please enter the Name of the Approver and the Date</errorMessage>
+</ValidationRule>

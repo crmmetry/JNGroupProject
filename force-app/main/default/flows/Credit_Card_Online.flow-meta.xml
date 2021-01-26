@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <interviewLabel>Credit Card Online {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Credit Card Online</label>
@@ -20,7 +20,8 @@
         <label>Get Credit Card</label>
         <locationX>365</locationX>
         <locationY>280</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Update_Credit_Card</targetReference>
         </connector>

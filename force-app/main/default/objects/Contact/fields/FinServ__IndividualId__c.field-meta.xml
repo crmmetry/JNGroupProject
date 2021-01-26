@@ -3,7 +3,7 @@
     <fullName>FinServ__IndividualId__c</fullName>
     <deprecated>false</deprecated>
     <description
-  >Unique ID that relates this individual&#39;s contact record to its account record.</description>
+  >Unique ID that relates this individual&apos;s contact record to its account record.</description>
     <externalId>false</externalId>
     <formula>Account.FinServ__IndividualId__c</formula>
     <label>Individual ID</label>

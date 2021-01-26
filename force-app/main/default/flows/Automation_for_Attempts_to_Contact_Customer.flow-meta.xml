@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
         <processMetadataValues>
@@ -63,7 +63,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Disqualified_Flag__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Disqualified_Flag__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -115,7 +116,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Disqualified_Flag__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Disqualified_Flag__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -127,8 +129,10 @@
             <label>Disqualified Based on Time is FALSE</label>
         </rules>
     </decisions>
-    <description>Updates status if the agent fails to contact customer on multiple attempts and triggers an email</description>
-    <interviewLabel>Automation_for_Attempts_to_Contact_Customer-1_InterviewLabel</interviewLabel>
+    <description
+  >Updates status if the agent fails to contact customer on multiple attempts and triggers an email</description>
+    <interviewLabel
+  >Automation_for_Attempts_to_Contact_Customer-1_InterviewLabel</interviewLabel>
     <label>Automation for Attempts to Contact Customer</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -222,7 +226,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -302,7 +306,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>

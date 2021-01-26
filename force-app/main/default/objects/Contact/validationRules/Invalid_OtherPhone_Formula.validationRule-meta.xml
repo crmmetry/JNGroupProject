@@ -5,7 +5,7 @@
     <description
   >Ensures that the other phone field is properly validated.</description>
     <errorConditionFormula
-  >IF( OR(ISCHANGED(OtherPhone) &amp;&amp; NOT(ISNULL(OtherPhone)) &amp;&amp; NOT(ISBLANK(OtherPhone)) &amp;&amp; !REGEX(OtherPhone ,&#39;^\\d{10,25}$&#39;), ISNEW() &amp;&amp; NOT(ISNULL(OtherPhone)) &amp;&amp; NOT(ISBLANK(OtherPhone)) &amp;&amp; !REGEX(OtherPhone,&#39;^\\d{10,25}$&#39;)),true,false)</errorConditionFormula>
+  >IF( OR(ISCHANGED(OtherPhone) &amp;&amp; NOT(ISNULL(OtherPhone)) &amp;&amp; NOT(ISBLANK(OtherPhone)) &amp;&amp; !REGEX(OtherPhone ,&apos;^\\d{10,25}$&apos;), ISNEW() &amp;&amp; NOT(ISNULL(OtherPhone)) &amp;&amp; NOT(ISBLANK(OtherPhone)) &amp;&amp; !REGEX(OtherPhone,&apos;^\\d{10,25}$&apos;)),true,false)</errorConditionFormula>
     <errorDisplayField>OtherPhone</errorDisplayField>
     <errorMessage
   >Invalid format entered for other phone. The minimum number of digits should be 10</errorMessage>

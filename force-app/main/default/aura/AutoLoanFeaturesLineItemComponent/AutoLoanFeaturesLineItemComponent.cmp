@@ -95,6 +95,13 @@
   />
   <aura:attribute name="ChildContainer" type="Map" default="{}" />
   <aura:attribute name="ParentContainer" type="Map" default="{}" />
+  <!--JN1-4021-->
+  <aura:method
+    name="validateFields"
+    action="{!c.validateFields}"
+    access="public"
+  />
+
   <!-- aura handlers -->
   <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
   <aura:handler
@@ -190,11 +197,13 @@
         >
           <div class="slds-form-element">
             <div class="slds-form-element__control">
+              <!--JN1-4021-->
               <lightning:select
                 name="select1"
                 label="Interested in Programme?"
                 required="true"
                 onchange="{!c.onInterestedInJNGIChange}"
+                aura:id="interestedProgramme"
               >
                 <option value="">select one...</option>
                 <aura:iteration items="{!v.interestedInJNGI}" var="item">
@@ -211,6 +220,7 @@
         >
           <div class="slds-form-element">
             <div class="slds-form-element__control">
+              <!--JN1-4021-->
               <lightning:select
                 aura:id="includePremium"
                 name="select1"
@@ -241,6 +251,7 @@
             disabled="{!v.interestedInPremiumFlag}"
             required="true"
             min="1"
+            aura:id="monthlyPremium"
           />
         </lightning:layoutItem>
         <lightning:layoutItem size="12">
@@ -255,11 +266,13 @@
         >
           <div class="slds-form-element">
             <div class="slds-form-element__control">
+              <!--JN1-4021-->
               <lightning:select
                 name="select1"
                 label="Interested in Creditor Life?"
                 required="true"
                 onchange="{!c.onInterestedInCreditorLifeChange}"
+                aura:id="interestedCreditorLife"
               >
                 <option value="">select one...</option>
                 <aura:iteration
@@ -286,6 +299,7 @@
                   required="true"
                   onchange="{!c.onCoverageTypeChange}"
                   disabled="{!v.disableTogglerForJNLifeCLFields}"
+                  aura:id="coverageType"
                 >
                   <aura:iteration items="{!v.coverageType}" var="item">
                     <option value="{!item}">{!item}</option>
@@ -363,12 +377,14 @@
             mediumDeviceSize="6"
             padding="around-small"
           >
+            <!--JN1-4021-->
             <lightning:input
               type="text"
               label="Enter Policy Provider"
               name="Policy Provider"
               value="{!v.otherPolicyProvider}"
               required="true"
+              aura:id="otherPolicyProvider"
             />
           </lightning:layoutItem>
         </aura:if>
@@ -378,6 +394,7 @@
             mediumDeviceSize="6"
             padding="around-small"
           >
+            <!--JN1-4021-->
             <lightning:textarea
               name="Reason"
               label="Enter reason"
@@ -385,6 +402,7 @@
               required="true"
               placeholer="Enter Reason here..."
               maxlength="150"
+              aura:id="otherReason"
             />
           </lightning:layoutItem>
         </aura:if>
@@ -419,6 +437,7 @@
         >
           <div class="slds-form-element">
             <div class="slds-form-element__control">
+              <!--JN1-4021-->
               <lightning:select
                 name="select1"
                 label="Include in Loan Amount"
@@ -454,6 +473,7 @@
                 required="true"
                 disabled="{!v.showIndicateApplicableProcessingFees}"
                 step="0.01"
+                aura:id="indicateApplicableProcessingFees"
               />
             </div>
           </div>
@@ -473,6 +493,7 @@
                 label="Indicate repayment method "
                 required="true"
                 onchange="{!c.onRepaymentMethodChange}"
+                aura:id="indicateRepaymentMethod"
               >
                 <option value="">select one...</option>
                 <aura:iteration items="{!v.repaymentMethod}" var="item">
@@ -494,6 +515,7 @@
                 label="Dedicated monthly repayment date"
                 required="true"
                 onchange="{!c.onMonthlyRepaymentDateChange}"
+                aura:id="dedicatedMonthlyRepaymentDate"
               >
                 <option value="">select one...</option>
                 <aura:iteration items="{!v.monthlyRepaymentDate}" var="item">
@@ -514,6 +536,7 @@
             value="{! v.value }"
             type="radio"
             required="true"
+            aura:id="proposedSavings"
           />
         </lightning:layoutItem>
         <aura:if isTrue="{!v.value == v.percent}">
@@ -525,10 +548,11 @@
             <lightning:input
               type="number"
               label="Savings(%)"
-              value="{!v.ChildContainer.percentage}"
+              value="{!v.ChildContainer.proposedSavingsPercentage}"
               formatter="percent-fixed"
               step="0.01"
               required="true"
+              aura:id="saving"
             />
           </lightning:layoutItem>
         </aura:if>
@@ -541,10 +565,11 @@
             <lightning:input
               type="number"
               label="Amount(JMD)"
-              value="{!v.ChildContainer.amount}"
+              value="{!v.ChildContainer.proposedSavingsAmount}"
               formatter="currency"
               required="true"
               min="1000"
+              aura:id="amount"
             />
           </lightning:layoutItem>
         </aura:if>
@@ -567,6 +592,7 @@
                 name="input1"
                 required="true"
                 readonly="true"
+                aura:id="creditRiskScore"
               />
             </div>
           </div>

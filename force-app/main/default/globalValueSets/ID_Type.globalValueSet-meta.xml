@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <customValue>
-        <fullName>Driver&#39;s Licence</fullName>
+        <fullName>Driver&apos;s Licence</fullName>
         <default>false</default>
-        <label>Driver&#39;s Licence</label>
+        <label>Driver&apos;s Licence</label>
     </customValue>
     <customValue>
         <fullName>National ID</fullName>

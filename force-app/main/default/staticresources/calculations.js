@@ -218,10 +218,10 @@ window.basicProcessingFeesCalculator = function (
   let defaultValue = 0;
   const shouldWaiveProcessingFee =
     parentObj.hasOwnProperty("waiveProcessingFeeFlag") === false ||
-    parentObj.waiveProcessingFeeFlag === true;
+    parentObj.waiveProcessingFeeFlag === YES;
   const shouldIncludeInLoanAmountFlag =
     parentObj.hasOwnProperty("includeInLoanAmountFlag") === true &&
-    parentObj.includeInLoanAmountFlag === true;
+    parentObj.includeInLoanAmountFlag === YES;
   gct = calculateGCT(gct);
   if (shouldIncludeInLoanAmountFlag) {
     if (
@@ -554,8 +554,36 @@ window.TDSRAfterCalculator = function (grossIncome, totalDebt, minimumPayment) {
   ) {
     return 0;
   }
+
   return roundedValue(
     ((parseFloat(totalDebt) + parseFloat(minimumPayment)) /
+      parseFloat(grossIncome)) *
+      100
+  );
+};
+
+/**
+ * Calculates TDSR After for non revolving loans
+ * @param {Decimal} grossIncome
+ * @param {Decimal} totalDebt
+ * @param {Decimal} monthlyPI
+ * @return {Decimal}
+ */
+window.nonRevolvingTDSRAfterCalculator = function (
+  grossIncome,
+  totalDebt,
+  monthlyPI
+) {
+  if (
+    validNumber(grossIncome) === false ||
+    validNumber(totalDebt) === false ||
+    validNumber(monthlyPI) === false
+  ) {
+    return 0;
+  }
+
+  return roundedValue(
+    ((parseFloat(totalDebt) + parseFloat(monthlyPI)) /
       parseFloat(grossIncome)) *
       100
   );
@@ -583,7 +611,7 @@ function fieldValidator(fields, container) {
     }
   });
 }
-//ASL Step Calculations
+//ASL Step Calculations when no collateral is selected
 /**
  * ASL Calculation Step 1: Calculate Annual Gross Income
  * @param {Decimal} monthlyGrossIncome
@@ -623,6 +651,31 @@ window.maximumCreditLimitCalculator = function (
     }
     return roundedValue(
       parseFloat(minCreditLimitAllowable) * parseFloat(annualGrossIncome)
+    );
+  }
+  return 0;
+};
+
+/**
+ * ASL w/ Cash Collateral Calculation Step 1: Calculate Maximum Credit Limit Allowable
+ * @param {Decimal} depositBalance
+ * @param {Decimal} LTVCeiling
+ * @param {Decimal} existingLoanBalance
+ * @return {Decimal}
+ */
+window.maximumCreditLimitCalculatorWithCashCollateral = function (
+  depositBalance,
+  LTVCeiling,
+  existingLoanBalance
+) {
+  if (
+    validNumber(depositBalance) &&
+    validNumber(LTVCeiling) &&
+    validNumber(existingLoanBalance)
+  ) {
+    return roundedValue(
+      parseFloat(depositBalance) * parseFloat(LTVCeiling) -
+        parseFloat(existingLoanBalance)
     );
   }
   return 0;
@@ -727,7 +780,7 @@ window.creditLimitRiskCalculator = function (
 };
 
 /**
- * ASL Calculation Step 7: Calculate Credit Limit after risk rating
+ * ASL Calculation Step 7: Calculate Interim starting limit
  * @param {Decimal} creditLimitAfterRisk
  * @param {Decimal} discountFactor
  * @return {Decimal}
@@ -742,6 +795,25 @@ window.startingCreditLimtCalculator = function (
         (parseFloat(creditLimitAfterRisk) * parseFloat(discountFactor) * 2) /
           10000
       ) * 10000
+    );
+  }
+  return 0;
+};
+
+/**
+ * ASL Calculation Step 7: Calculate Credit Limit after risk rating
+ * @param {Decimal} maxCreditLimitAllowable
+ * @param {Decimal} lowerCreditLimit
+ * @return {Decimal}
+ */
+window.startingCreditLimtCalculatorWithCollateral = function (
+  minCreditLimitAllowable,
+  lowerCreditLimit
+) {
+  if (validNumber(minCreditLimitAllowable) && validNumber(lowerCreditLimit)) {
+    return Math.max(
+      parseFloat(minCreditLimitAllowable),
+      parseFloat(lowerCreditLimit)
     );
   }
   return 0;
@@ -836,6 +908,23 @@ window.lineOfCreditCreditorLifeCalculator = function (
     validNumber(lineOfCreditCreditorLifeRate)
   ) {
     return roundedValue(approvedStartingLimit * lineOfCreditCreditorLifeRate);
+  }
+  return 0;
+};
+
+/**
+ * Calculates percentage amount for auto collateral deposit
+ * @param {Object} container
+ * @return {Decimal}
+ */
+window.autoCollateralDepositPercentageCalculator = function (
+  depositPercent,
+  minimum
+) {
+  if (validNumber(depositPercent) && validNumber(minimum)) {
+    return roundedValue(
+      (parseFloat(depositPercent) / 100) * parseFloat(minimum)
+    );
   }
   return 0;
 };

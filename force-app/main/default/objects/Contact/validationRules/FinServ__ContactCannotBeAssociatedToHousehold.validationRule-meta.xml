@@ -5,7 +5,7 @@
     <description
   >Check to see if contact is associated directly to household</description>
     <errorConditionFormula
-  >Account.RecordType.DeveloperName=&#39;IndustriesHousehold&#39;</errorConditionFormula>
+  >Account.RecordType.DeveloperName=&apos;IndustriesHousehold&apos;</errorConditionFormula>
     <errorMessage
-  >Can&#39;t associate a lead or contact to a household account.</errorMessage>
+  >Can&apos;t associate a lead or contact to a household account.</errorMessage>
 </ValidationRule>

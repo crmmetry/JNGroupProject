@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <decisions>
         <name>isChangedDecision2_myRule_1_Status</name>
@@ -6,7 +6,8 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>isChangedDecision5_myRule_4_Status</targetReference>
+            <targetReference
+      >isChangedDecision5_myRule_4_Status</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
@@ -23,11 +24,13 @@
                 <leftValueReference>myVariable_old.Status</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <elementReference>myVariable_current.Status</elementReference>
+                    <elementReference
+          >myVariable_current.Status</elementReference>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>isChangedDecision5_myRule_4_Status</targetReference>
+                <targetReference
+        >isChangedDecision5_myRule_4_Status</targetReference>
             </connector>
             <label>isChangedRule_2_myRule_1_Status</label>
         </rules>
@@ -55,7 +58,8 @@
                 <leftValueReference>myVariable_old.Status</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <elementReference>myVariable_current.Status</elementReference>
+                    <elementReference
+          >myVariable_current.Status</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -81,7 +85,8 @@
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
             <name>myRule_1</name>
-            <conditionLogic>(1 AND 2 AND 3) OR (1 AND 3 AND 4) OR (4 AND 3)</conditionLogic>
+            <conditionLogic
+      >(1 AND 2 AND 3) OR (1 AND 3 AND 4) OR (4 AND 3)</conditionLogic>
             <conditions>
                 <processMetadataValues>
                     <name>inputDataType</name>
@@ -107,7 +112,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>isChangedRule_2_myRule_1_Status</leftValueReference>
+                <leftValueReference
+        >isChangedRule_2_myRule_1_Status</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -138,7 +144,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Lead_Disqualified__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Lead_Disqualified__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>NO</stringValue>
@@ -169,7 +176,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Status</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Status</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Unqualified</stringValue>
@@ -200,7 +208,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Lead_Disqualified__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Lead_Disqualified__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -226,7 +235,8 @@
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
             <name>myRule_4</name>
-            <conditionLogic>(1 AND 2 AND 3) OR (1 AND 2 AND 4) OR (4 AND 2)</conditionLogic>
+            <conditionLogic
+      >(1 AND 2 AND 3) OR (1 AND 2 AND 4) OR (4 AND 2)</conditionLogic>
             <conditions>
                 <processMetadataValues>
                     <name>inputDataType</name>
@@ -252,7 +262,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>isChangedRule_5_myRule_4_Status</leftValueReference>
+                <leftValueReference
+        >isChangedRule_5_myRule_4_Status</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -283,7 +294,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Status</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Status</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
                     <stringValue>Unqualified</stringValue>
@@ -314,7 +326,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Lead_Disqualified__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Lead_Disqualified__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>YES</stringValue>
@@ -345,7 +358,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Lead_Disqualified__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Lead_Disqualified__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -448,7 +462,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -528,7 +542,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -544,7 +558,8 @@
         </inputAssignments>
         <object>Lead</object>
     </recordUpdates>
-    <startElementReference>isChangedDecision2_myRule_1_Status</startElementReference>
+    <startElementReference
+  >isChangedDecision2_myRule_1_Status</startElementReference>
     <status>Active</status>
     <variables>
         <name>myVariable_current</name>

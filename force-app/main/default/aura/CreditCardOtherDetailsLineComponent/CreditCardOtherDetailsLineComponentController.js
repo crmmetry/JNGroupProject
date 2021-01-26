@@ -11,6 +11,7 @@
       monthlyRepaymentDate: null
     };
     component.set("v.ChildContainer", data);
+    component.set("v.coverageTypeOptions", LINE_OF_CREDIT_APPLICANT_COVERAGE);
   },
   scriptsLoaded: function (component, event, helper) {
     component.set("v.scriptsLoaded", true);
@@ -28,10 +29,16 @@
 
   onCollateralTypeChange: function (component, event, helper) {
     const selected = event.getSource().get("v.value");
+    let flag = toggleCashInvestmentFlag(selected);
+    component.set("v.cashInvestmentFlag", flag);
     let childKeyValuePairs = [
       {
         key: "collateralType",
         value: selected
+      },
+      {
+        key: "cashInvestmentFlag",
+        value: flag
       }
     ];
     let data = updateChildContainerWithValue(
@@ -40,8 +47,6 @@
       false
     );
     component.set("v.ChildContainer", data);
-    let flag = toggleCashInvestmentFlag(selected);
-    component.set("v.cashInvestmentFlag", flag);
   },
 
   oninterestedInCreditorLifeChange: function (component, event, helper) {
@@ -131,5 +136,34 @@
     let container = component.get("v.ChildContainer");
     container.monthlyRepaymentDate = selected;
     component.set("v.ChildContainer", container);
+  },
+  /** Validates cmp fields - JN1-4201
+   * @param {*} component
+   * @return - Boolean
+   */
+  validateFields: function (component) {
+    let cmpFields = [
+      "collateralType",
+      "jnLifeCreditorLifeInsurance",
+      "creditorLifeSelected",
+      "otherReason",
+      "desiredStatementDate",
+      "creditorLifeNotSelected"
+    ];
+    let cashComponentValidate = true;
+    if (component.get("v.cashInvestmentFlag")) {
+      let cashInvestmentDetailsLineComponent = component.find(
+        "cashInvestmentDetailsLineComponent"
+      );
+      cashComponentValidate = cashInvestmentDetailsLineComponent.validateFields(
+        component
+      );
+    }
+    console.log("validateFields", cashComponentValidate);
+    let resultsFromChild = [
+      cashComponentValidate,
+      validateFields(component, cmpFields)
+    ];
+    return isValidComponent(resultsFromChild);
   }
 });
