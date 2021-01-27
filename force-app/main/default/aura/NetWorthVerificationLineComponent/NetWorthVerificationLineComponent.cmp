@@ -1,4 +1,18 @@
 <aura:component>
+  <aura:attribute name="toggleCheckAll" type="Boolean" />
+  <aura:attribute name="auraIdList" type="List" />
+  <aura:registerEvent name="NetWorthEvent" type="c:NetWorthVerificationEvent" />
+  <aura:handler
+    name="NetWorthEvent"
+    event="c:NetWorthVerificationEvent"
+    action="{!c.handleComponentEvent}"
+  />
+  <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
+  <aura:handler
+    name="change"
+    action="{!c.onToggleCheckAlChange}"
+    value="{!v.toggleCheckAll}"
+  />
   <lightning:layout multipleRows="true">
     <lightning:layoutItem size="12" mediumDeviceSize="12"
       ><div class="slds-section-title--divider">
@@ -20,19 +34,25 @@
         type="number"
         formatter="currency"
         step="0.01"
+        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class="center-align">
-        <lightning:input type="checkbox-button" name="true?" />
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="totalAssets"
+          oncommit="{!c.fireComponentEvent}"
+        />
       </div>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="totalAssets"
         type="number"
         formatter="currency"
         step="0.01"
-        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 2 -->
@@ -44,19 +64,25 @@
         type="number"
         formatter="currency"
         step="0.01"
+        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class="center-align">
-        <lightning:input type="checkbox-button" name="true?" />
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="totalLiabilities"
+          oncommit="{!c.fireComponentEvent}"
+        />
       </div>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="totalLiabilities"
         type="number"
         formatter="currency"
         step="0.01"
-        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 3 -->
@@ -68,19 +94,25 @@
         type="number"
         formatter="currency"
         step="0.01"
+        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class="center-align">
-        <lightning:input type="checkbox-button" name="true?" />
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="netWorth"
+          oncommit="{!c.fireComponentEvent}"
+        />
       </div>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="netWorth"
         type="number"
         formatter="currency"
         step="0.01"
-        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
   </lightning:layout>

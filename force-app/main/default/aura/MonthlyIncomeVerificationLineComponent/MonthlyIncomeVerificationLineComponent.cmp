@@ -1,4 +1,21 @@
 <aura:component>
+  <aura:attribute name="toggleCheckAll" type="Boolean" default="false" />
+  <aura:attribute name="auraIdList" type="List" />
+  <aura:registerEvent
+    name="MonthlyIncomeEvent"
+    type="c:MonthlyIncomeVerificationEvent"
+  />
+  <aura:handler
+    name="MonthlyIncomeEvent"
+    event="c:MonthlyIncomeVerificationEvent"
+    action="{!c.handleComponentEvent}"
+  />
+  <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
+  <aura:handler
+    name="change"
+    action="{!c.onToggleCheckAlChange}"
+    value="{!v.toggleCheckAll}"
+  />
   <lightning:layout multipleRows="true">
     <lightning:layoutItem size="12" mediumDeviceSize="12"
       ><div class="slds-section-title--divider">
@@ -16,15 +33,23 @@
       <div class=""><h3>Indicate Primary Source of income:</h3></div>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <lightning:input type="text"></lightning:input>
+      <lightning:input type="text" disabled="true"></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class="center-align">
-        <lightning:input type="checkbox-button" name="true?" />
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="primaryIncomeSource"
+          oncommit="{!c.fireComponentEvent}"
+        />
       </div>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <lightning:input type="text" disabled="true"></lightning:input>
+      <lightning:input
+        type="text"
+        aura:id="primaryIncomeSource"
+      ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 2 -->
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -35,19 +60,25 @@
         type="number"
         formatter="currency"
         step="0.01"
+        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class="center-align">
-        <lightning:input type="checkbox-button" name="true?" />
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="grossSalaryAllowances"
+          oncommit="{!c.fireComponentEvent}"
+        />
       </div>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="grossSalaryAllowances"
         type="number"
         formatter="currency"
         step="0.01"
-        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 3 -->
@@ -64,19 +95,25 @@
         type="number"
         formatter="currency"
         step="0.01"
+        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class="center-align">
-        <lightning:input type="checkbox-button" name="true?" />
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="otherIncome"
+          oncommit="{!c.fireComponentEvent}"
+        />
       </div>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="otherIncome"
         type="number"
         formatter="currency"
         step="0.01"
-        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 4 -->
@@ -88,19 +125,25 @@
         type="number"
         formatter="currency"
         step="0.01"
+        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class="center-align">
-        <lightning:input type="checkbox-button" name="true?" />
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="netBusinessIncomeSoleTrader"
+          oncommit="{!c.fireComponentEvent}"
+        />
       </div>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="netBusinessIncomeSoleTrader"
         type="number"
         formatter="currency"
         step="0.01"
-        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 5 -->
@@ -112,19 +155,25 @@
         type="number"
         formatter="currency"
         step="0.01"
+        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class="center-align">
-        <lightning:input type="checkbox-button" name="true?" />
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="directorEmoluments"
+          oncommit="{!c.fireComponentEvent}"
+        />
       </div>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="directorEmoluments"
         type="number"
         formatter="currency"
         step="0.01"
-        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 6 -->
@@ -136,19 +185,25 @@
         type="number"
         formatter="currency"
         step="0.01"
+        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class="center-align">
-        <lightning:input type="checkbox-button" name="true?" />
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="netBusinessIncomePartnership"
+          oncommit="{!c.fireComponentEvent}"
+        />
       </div>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="netBusinessIncomePartnership"
         type="number"
         formatter="currency"
         step="0.01"
-        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 7 -->
@@ -160,19 +215,25 @@
         type="number"
         formatter="currency"
         step="0.01"
+        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class="center-align">
-        <lightning:input type="checkbox-button" name="true?" />
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="netBusinessIncomeCompanyShareholding"
+          oncommit="{!c.fireComponentEvent}"
+        />
       </div>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="netBusinessIncomeCompanyShareholding"
         type="number"
         formatter="currency"
         step="0.01"
-        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 8 -->
@@ -184,19 +245,25 @@
         type="number"
         formatter="currency"
         step="0.01"
+        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class="center-align">
-        <lightning:input type="checkbox-button" name="true?" />
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="pension"
+          oncommit="{!c.fireComponentEvent}"
+        />
       </div>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="pension"
         type="number"
         formatter="currency"
         step="0.01"
-        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 9 -->
@@ -208,19 +275,25 @@
         type="number"
         formatter="currency"
         step="0.01"
+        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class="center-align">
-        <lightning:input type="checkbox-button" name="true?" />
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="propertyRental"
+          oncommit="{!c.fireComponentEvent}"
+        />
       </div>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="propertyRental"
         type="number"
         formatter="currency"
         step="0.01"
-        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 10 -->
@@ -232,19 +305,25 @@
         type="number"
         formatter="currency"
         step="0.01"
+        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class="center-align">
-        <lightning:input type="checkbox-button" name="true?" />
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="totalOtherIncome"
+          oncommit="{!c.fireComponentEvent}"
+        />
       </div>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="totalOtherIncome"
         type="number"
         formatter="currency"
         step="0.01"
-        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 11 -->
@@ -256,19 +335,25 @@
         type="number"
         formatter="currency"
         step="0.01"
+        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class="center-align">
-        <lightning:input type="checkbox-button" name="true?" />
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="totalMonthlyIncome"
+          oncommit="{!c.fireComponentEvent}"
+        />
       </div>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="totalMonthlyIncome"
         type="number"
         formatter="currency"
         step="0.01"
-        disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
   </lightning:layout>

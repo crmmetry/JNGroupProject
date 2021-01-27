@@ -1,13 +1,34 @@
 <aura:component
   implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
 >
+  <aura:attribute name="toggleCheckAll" type="Boolean" default="false" />
+  <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
+  <ltng:require
+    scripts="{
+    $Resource.constants,
+    $Resource.calculations, 
+    $Resource.productDetailsGeneralFunctions)}"
+    afterScriptsLoaded="{!c.scriptsLoaded}"
+  />
   <lightning:card>
-    <c:AssetsVerificationLineComponent></c:AssetsVerificationLineComponent>
-    <c:LiabilitiesVerificationLineComponent></c:LiabilitiesVerificationLineComponent>
-    <c:MonthlyIncomeVerificationLineComponent></c:MonthlyIncomeVerificationLineComponent>
-    <c:MonthlyExpensesVerificationLineComponent></c:MonthlyExpensesVerificationLineComponent>
-    <c:NetWorthVerificationLineComponent></c:NetWorthVerificationLineComponent>
-    <c:DebtConsolidationVerificationLineComponent></c:DebtConsolidationVerificationLineComponent>
+    <c:AssetsVerificationLineComponent
+      toggleCheckAll="{!v.toggleCheckAll}"
+    ></c:AssetsVerificationLineComponent>
+    <c:LiabilitiesVerificationLineComponent
+      toggleCheckAll="{!v.toggleCheckAll}"
+    ></c:LiabilitiesVerificationLineComponent>
+    <c:MonthlyIncomeVerificationLineComponent
+      toggleCheckAll="{!v.toggleCheckAll}"
+    ></c:MonthlyIncomeVerificationLineComponent>
+    <c:MonthlyExpensesVerificationLineComponent
+      toggleCheckAll="{!v.toggleCheckAll}"
+    ></c:MonthlyExpensesVerificationLineComponent>
+    <c:NetWorthVerificationLineComponent
+      toggleCheckAll="{!v.toggleCheckAll}"
+    ></c:NetWorthVerificationLineComponent>
+    <c:DebtConsolidationVerificationLineComponent
+      toggleCheckAll="{!v.toggleCheckAll}"
+    ></c:DebtConsolidationVerificationLineComponent>
     <lightning:layout horizontalAlign="space">
       <lightning:layoutItem size="12" mediumDeviceSize="4">
         <div class="slds-align_absolute-center slds-var-m-top_large">
@@ -15,6 +36,7 @@
             label="Check All"
             variant="brand-outline"
             title="Check All"
+            onclick="{!c.toggleCheckBoxes}"
           />
         </div>
       </lightning:layoutItem>
