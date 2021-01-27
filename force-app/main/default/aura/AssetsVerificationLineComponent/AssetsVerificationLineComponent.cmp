@@ -11,7 +11,7 @@
       </h6></lightning:layoutItem
     >
     <lightning:layoutItem size="3" mediumDeviceSize="3"
-      ><h6 class="slds-section-title--divider slds-align_absolute-center">
+      ><h6 class="slds-section-title--divider center-align">
         True?
       </h6></lightning:layoutItem
     >
@@ -27,22 +27,38 @@
     horizontalAlign="space"
   >
     <!-- ROW 1 -->
-    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+    <lightning:layoutItem
+      size="3"
+      mediumDeviceSize="3"
+      padding="horizontal-small"
+    >
       <div class=""><h3>Real Estate Holding(s)</h3></div>
     </lightning:layoutItem>
-    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+    <lightning:layoutItem
+      size="3"
+      mediumDeviceSize="3"
+      padding="horizontal-small"
+    >
       <lightning:input
         type="number"
         formatter="currency"
         step="0.01"
       ></lightning:input>
     </lightning:layoutItem>
-    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class="slds-align_absolute-center slds-m-top_small">
+    <lightning:layoutItem
+      size="3"
+      mediumDeviceSize="3"
+      padding="horizontal-small"
+    >
+      <div class="slds-m-top_large center-align">
         <lightning:input type="checkbox-button" name="true?" />
       </div>
     </lightning:layoutItem>
-    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+    <lightning:layoutItem
+      size="3"
+      mediumDeviceSize="3"
+      padding="horizontal-small"
+    >
       <lightning:input
         type="number"
         formatter="currency"
@@ -67,7 +83,7 @@
       flexibility="auto, no-grow"
       padding="around-small"
     >
-      <div class="slds-m-top_large">
+      <div class="slds-m-top_large center-align">
         <lightning:input type="checkbox-button" name="true?" />
       </div>
     </lightning:layoutItem>
@@ -93,7 +109,7 @@
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class="slds-align_absolute-center slds-m-top_small">
+      <div class="slds-m-top_large center-align">
         <lightning:input type="checkbox-button" name="true?" />
       </div>
     </lightning:layoutItem>
@@ -117,7 +133,7 @@
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class="slds-align_absolute-center slds-m-top_small">
+      <div class="slds-m-top_large center-align">
         <lightning:input type="checkbox-button" name="true?" />
       </div>
     </lightning:layoutItem>
@@ -141,7 +157,7 @@
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class="slds-align_absolute-center slds-m-top_small">
+      <div class="slds-m-top_large center-align">
         <lightning:input type="checkbox-button" name="true?" />
       </div>
     </lightning:layoutItem>
@@ -167,7 +183,7 @@
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class="slds-align_absolute-center slds-m-top_small">
+      <div class="slds-m-top_large center-align">
         <lightning:input type="checkbox-button" name="true?" />
       </div>
     </lightning:layoutItem>

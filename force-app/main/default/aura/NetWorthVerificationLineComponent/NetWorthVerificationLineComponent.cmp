@@ -1,23 +1,8 @@
 <aura:component>
   <lightning:layout multipleRows="true">
-    <lightning:layoutItem size="3" mediumDeviceSize="3"
+    <lightning:layoutItem size="12" mediumDeviceSize="12"
       ><div class="slds-section-title--divider">
         <h1>Net Worth</h1>
-      </div></lightning:layoutItem
-    >
-    <lightning:layoutItem size="3" mediumDeviceSize="3"
-      ><div class="slds-section-title--divider">
-        <h6>Unverified Amount</h6>
-      </div></lightning:layoutItem
-    >
-    <lightning:layoutItem size="3" mediumDeviceSize="3"
-      ><div class="slds-section-title--divider slds-align_absolute-center">
-        <h6>True?</h6>
-      </div></lightning:layoutItem
-    >
-    <lightning:layoutItem size="3" mediumDeviceSize="3"
-      ><div class="slds-section-title--divider">
-        <h6>Verified Amount</h6>
       </div></lightning:layoutItem
     >
   </lightning:layout>
@@ -38,7 +23,7 @@
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class="slds-align_absolute-center">
+      <div class="center-align">
         <lightning:input type="checkbox-button" name="true?" />
       </div>
     </lightning:layoutItem>
@@ -62,7 +47,7 @@
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class="slds-align_absolute-center">
+      <div class="center-align">
         <lightning:input type="checkbox-button" name="true?" />
       </div>
     </lightning:layoutItem>
@@ -86,7 +71,7 @@
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class="slds-align_absolute-center">
+      <div class="center-align">
         <lightning:input type="checkbox-button" name="true?" />
       </div>
     </lightning:layoutItem>
