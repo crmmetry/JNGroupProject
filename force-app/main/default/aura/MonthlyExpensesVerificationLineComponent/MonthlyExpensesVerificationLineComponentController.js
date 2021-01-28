@@ -10,6 +10,17 @@
       "totalStatuaryDeductions",
       "totalMonthlyExpenses"
     ];
+    let verifiedMonthlyExpenses = {
+      totalMonthlyLoanPayments: null,
+      mortgagePayment: null,
+      utilitiesAndHouseholdExpenses: null,
+      personalAndFamilyExpenses: null,
+      transportationExpenses: null,
+      otherExpenses: null,
+      totalStatutoryDeductions: null,
+      totalMonthlyExpenses: null
+    };
+    component.set("v.verifiedMonthlyExpensesMap", verifiedMonthlyExpenses);
     component.set("v.auraIdList", auraList);
     console.log("component was initialised");
   },
@@ -60,5 +71,17 @@
     } else {
       inputCmp.set("v.disabled", false);
     }
+  },
+
+  onVerifiedMonthlyExpensesMapChange: function (component, event) {
+    console.log(
+      JSON.parse(JSON.stringify(component.get("v.verifiedMonthlyExpensesMap")))
+    );
+    let verifiedMonthlyExpensesData = component.get(
+      "v.verifiedMonthlyExpensesMap"
+    );
+    let verifiedData = component.get("v.verifiedDataMap");
+    let data = Object.assign(verifiedData, verifiedMonthlyExpensesData);
+    component.set("v.verifiedDataMap", data);
   }
 });

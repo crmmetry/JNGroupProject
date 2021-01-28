@@ -2,6 +2,12 @@
   doinit: function (component, event) {
     let auraList = ["totalAssets", "totalLiabilities", "netWorth"];
     component.set("v.auraIdList", auraList);
+    let verifiedNetWorth = {
+      totalAssets: null,
+      totalLiabilities: null,
+      netWorth: null
+    };
+    component.set("v.verifiedNetWorthMap", verifiedNetWorth);
     console.log("component was initialised");
   },
   onToggleCheckAlChange: function (component, event, helper) {
@@ -51,5 +57,15 @@
     } else {
       inputCmp.set("v.disabled", false);
     }
+  },
+
+  onVerifiedNetWorthMapChange: function (component, event) {
+    console.log(
+      JSON.parse(JSON.stringify(component.get("v.verifiedNetWorthMap")))
+    );
+    let verifiedNetWorthData = component.get("v.verifiedNetWorthMap");
+    let verifiedData = component.get("v.verifiedDataMap");
+    let data = Object.assign(verifiedData, verifiedNetWorthData);
+    component.set("v.verifiedDataMap", data);
   }
 });

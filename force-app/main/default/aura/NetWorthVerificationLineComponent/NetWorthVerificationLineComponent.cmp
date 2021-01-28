@@ -1,6 +1,13 @@
 <aura:component>
   <aura:attribute name="toggleCheckAll" type="Boolean" />
   <aura:attribute name="auraIdList" type="List" />
+  <aura:attribute name="verifiedNetWorthMap" type="Map" />
+  <aura:attribute name="verifiedDataMap" type="Map" default="{}" />
+  <aura:handler
+    name="change"
+    action="{!c.onVerifiedNetWorthMapChange}"
+    value="{!v.verifiedNetWorthMap}"
+  />
   <aura:registerEvent name="NetWorthEvent" type="c:NetWorthVerificationEvent" />
   <aura:handler
     name="NetWorthEvent"
@@ -53,6 +60,8 @@
         type="number"
         formatter="currency"
         step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedNetWorthMap.totalAssets}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 2 -->
@@ -83,6 +92,8 @@
         type="number"
         formatter="currency"
         step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedNetWorthMap.totalLiabilities}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 3 -->
@@ -113,6 +124,8 @@
         type="number"
         formatter="currency"
         step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedNetWorthMap.netWorth}"
       ></lightning:input>
     </lightning:layoutItem>
   </lightning:layout>

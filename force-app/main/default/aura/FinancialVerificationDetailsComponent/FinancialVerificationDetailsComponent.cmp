@@ -2,7 +2,15 @@
   implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
 >
   <aura:attribute name="toggleCheckAll" type="Boolean" default="false" />
+  <aura:attribute name="VerifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="UnverifiedDataMap" type="Map" />
   <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
+  <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
+  <aura:handler
+    name="change"
+    action="{!c.onVerifiedDataMapChange}"
+    value="{!v.VerifiedDataMap}"
+  />
   <ltng:require
     scripts="{
     $Resource.constants,
@@ -13,18 +21,23 @@
   <lightning:card>
     <c:AssetsVerificationLineComponent
       toggleCheckAll="{!v.toggleCheckAll}"
+      verifiedDataMap="{!v.VerifiedDataMap}"
     ></c:AssetsVerificationLineComponent>
     <c:LiabilitiesVerificationLineComponent
       toggleCheckAll="{!v.toggleCheckAll}"
+      verifiedDataMap="{!v.VerifiedDataMap}"
     ></c:LiabilitiesVerificationLineComponent>
     <c:MonthlyIncomeVerificationLineComponent
       toggleCheckAll="{!v.toggleCheckAll}"
+      verifiedDataMap="{!v.VerifiedDataMap}"
     ></c:MonthlyIncomeVerificationLineComponent>
     <c:MonthlyExpensesVerificationLineComponent
       toggleCheckAll="{!v.toggleCheckAll}"
+      verifiedDataMap="{!v.VerifiedDataMap}"
     ></c:MonthlyExpensesVerificationLineComponent>
     <c:NetWorthVerificationLineComponent
       toggleCheckAll="{!v.toggleCheckAll}"
+      verifiedDataMap="{!v.VerifiedDataMap}"
     ></c:NetWorthVerificationLineComponent>
     <c:DebtConsolidationVerificationLineComponent
       toggleCheckAll="{!v.toggleCheckAll}"

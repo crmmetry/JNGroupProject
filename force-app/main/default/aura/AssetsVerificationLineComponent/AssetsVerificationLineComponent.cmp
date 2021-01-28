@@ -3,6 +3,13 @@
 >
   <aura:attribute name="toggleCheckAll" type="Boolean" />
   <aura:attribute name="auraIdList" type="List" />
+  <aura:attribute name="verifiedAssetsMap" type="Map" />
+  <aura:attribute name="verifiedDataMap" type="Map" default="{}" />
+  <aura:handler
+    name="change"
+    action="{!c.onVerifiedAssetsMapChange}"
+    value="{!v.verifiedAssetsMap}"
+  />
   <aura:registerEvent name="AssetsEvent" type="c:AssetsVerificationEvent" />
   <aura:handler
     name="AssetsEvent"
@@ -84,6 +91,8 @@
         type="number"
         formatter="currency"
         step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedAssetsMap.realEstateHoldingAssets}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 2 -->
@@ -119,6 +128,8 @@
         type="number"
         formatter="currency"
         step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedAssetsMap.motorVehicleAssets}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 3 -->
@@ -151,6 +162,8 @@
         type="number"
         formatter="currency"
         step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedAssetsMap.savingsAccountInvestmentAssets}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 4 -->
@@ -181,6 +194,8 @@
         type="number"
         formatter="currency"
         step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedAssetsMap.lifeInsuranceAssets}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 5 -->
@@ -211,6 +226,8 @@
         type="number"
         formatter="currency"
         step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedAssetsMap.pensionAssets}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 6 -->
@@ -243,6 +260,8 @@
         type="number"
         formatter="currency"
         step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedAssetsMap.otherAssets}"
       ></lightning:input>
     </lightning:layoutItem>
   </lightning:layout>

@@ -4,6 +4,7 @@
       "debtType",
       "debtInstitution",
       "debtAmount",
+      "lifeInsurance",
       "accountNumber",
       "totalDebt"
     ];

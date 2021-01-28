@@ -1,6 +1,14 @@
 <aura:component>
   <aura:attribute name="toggleCheckAll" type="Boolean" />
   <aura:attribute name="auraIdList" type="List" />
+  <aura:attribute name="verifiedLiabilitiesMap" type="Map" />
+  <aura:attribute name="verifiedDataMap" type="Map" default="{}" />
+  <aura:handler
+    name="change"
+    action="{!c.onVerifiedLiabilitiesMapChange}"
+    value="{!v.verifiedLiabilitiesMap}"
+  />
+
   <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
   <aura:registerEvent
     name="LiabilitiesEvent"
@@ -56,6 +64,8 @@
         type="number"
         formatter="currency"
         step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedLiabilitiesMap.mortgageBalance}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 2 -->
@@ -90,6 +100,8 @@
         type="number"
         formatter="currency"
         step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedLiabilitiesMap.outstandingBalanceOnLoans}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 3 -->
@@ -122,6 +134,8 @@
         type="number"
         formatter="currency"
         step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedLiabilitiesMap.averageCreditBalance}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 4 -->
@@ -152,6 +166,8 @@
         type="number"
         formatter="currency"
         step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedLiabilitiesMap.averageLineOfCreditBalance}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 5 -->
@@ -182,6 +198,8 @@
         type="number"
         formatter="currency"
         step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedLiabilitiesMap.otherDebts}"
       ></lightning:input>
     </lightning:layoutItem>
   </lightning:layout>

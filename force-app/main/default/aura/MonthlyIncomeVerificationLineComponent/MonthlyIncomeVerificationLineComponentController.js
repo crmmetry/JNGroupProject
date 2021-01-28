@@ -14,6 +14,20 @@
       "totalMonthlyIncome"
     ];
     component.set("v.auraIdList", auraList);
+    let verifiedMonthlyIncome = {
+      primarySourceOfIncome: null,
+      grossSalaryAllowances: null,
+      otherIncome: null,
+      netBusinessIncomeSoleTrader: null,
+      netBusinessIncomePartnership: null,
+      netBusinessIncomeCompanyShareholding: null,
+      directorEmoluments: null,
+      pensionIncome: null,
+      propertyRental: null,
+      totalOtherIncome: null,
+      totalMonthlyIncome: null
+    };
+    component.set("v.verifiedMonthlyIncomeMap", verifiedMonthlyIncome);
     console.log("component was initialised");
   },
   onToggleCheckAlChange: function (component, event, helper) {
@@ -63,5 +77,15 @@
     } else {
       inputCmp.set("v.disabled", false);
     }
+  },
+
+  onVerifiedMonthlyIncomeMapChange: function (component, event) {
+    console.log(
+      JSON.parse(JSON.stringify(component.get("v.verifiedMonthlyIncomeMap")))
+    );
+    let verifiedMonthlyIncomeData = component.get("v.verifiedMonthlyIncomeMap");
+    let verifiedData = component.get("v.verifiedDataMap");
+    let data = Object.assign(verifiedData, verifiedMonthlyIncomeData);
+    component.set("v.verifiedDataMap", data);
   }
 });

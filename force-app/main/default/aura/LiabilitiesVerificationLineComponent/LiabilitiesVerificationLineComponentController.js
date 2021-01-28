@@ -8,6 +8,14 @@
       "otherDebts"
     ];
     component.set("v.auraIdList", auraList);
+    let verifiedLiabilities = {
+      mortgageBalance: null,
+      outstandingBalanceOnLoans: null,
+      averageCreditBalance: null,
+      averageLineOfCreditBalance: null,
+      otherDebts: null
+    };
+    component.set("v.verifiedLiabilitiesMap", verifiedLiabilities);
     console.log("component was initialised");
   },
   onToggleCheckAlChange: function (component, event, helper) {
@@ -57,5 +65,15 @@
     } else {
       inputCmp.set("v.disabled", false);
     }
+  },
+
+  onVerifiedLiabilitiesMapChange: function (component, event) {
+    console.log(
+      JSON.parse(JSON.stringify(component.get("v.verifiedLiabilitiesMap")))
+    );
+    let verifiedLiabilitiesData = component.get("v.verifiedLiabilitiesMap");
+    let verifiedData = component.get("v.verifiedDataMap");
+    let data = Object.assign(verifiedData, verifiedLiabilitiesData);
+    component.set("v.verifiedDataMap", data);
   }
 });

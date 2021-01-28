@@ -9,6 +9,15 @@
       "otherAssets"
     ];
     component.set("v.auraIdList", auraList);
+    let verifiedAssets = {
+      realEstateHoldingAssets: null,
+      motorVehicleAssets: null,
+      savingsAccountInvestmentAssets: null,
+      lifeInsuranceAssets: null,
+      pensionAssets: null,
+      otherAssets: null
+    };
+    component.set("v.verifiedAssetsMap", verifiedAssets);
     console.log("component was initialised");
   },
   onToggleCheckAlChange: function (component, event, helper) {
@@ -58,5 +67,15 @@
     } else {
       inputCmp.set("v.disabled", false);
     }
+  },
+
+  onVerifiedAssetsMapChange: function (component, event) {
+    console.log(
+      JSON.parse(JSON.stringify(component.get("v.verifiedAssetsMap")))
+    );
+    let verifiedAssetsData = component.get("v.verifiedAssetsMap");
+    let verifiedData = component.get("v.verifiedDataMap");
+    let data = Object.assign(verifiedData, verifiedAssetsData);
+    component.set("v.verifiedDataMap", data);
   }
 });
