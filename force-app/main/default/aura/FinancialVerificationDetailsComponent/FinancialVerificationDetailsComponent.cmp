@@ -1,6 +1,8 @@
 <aura:component
   implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
+  controller="FinancialDetailsController"
 >
+  <aura:attribute name="recordId" type="Id" />
   <aura:attribute name="toggleCheckAll" type="Boolean" default="false" />
   <aura:attribute name="VerifiedDataMap" type="Map" default="{}" />
   <aura:attribute name="UnverifiedDataMap" type="Map" />

@@ -1,48 +1,6 @@
 ({
-  doinit: function (component, event) {
-    // let verifiedMap = {
-    //   //Assets
-    //   realEstateHoldingAssets: null,
-    //   motorVehicleAssets: null,
-    //   savingsAccountInvestmentAssets: null,
-    //   lifeInsuranceAssets: null,
-    //   pensionAssets: null,
-    //   otherAssets: null,
-    //   //Liabilities
-    //   mortgageBalance: null,
-    //   outstandingBalanceOnLoans: null,
-    //   averageCreditBalance: null,
-    //   averageLineOfCreditBalance: null,
-    //   otherDebts: null,
-    //   //Monthly Income
-    //   primarySourceOfIncome: null,
-    //   grossSalaryAllowances: null,
-    //   otherIncome: null,
-    //   netBusinessIncomeSoleTrader: null,
-    //   netBusinessIncomePartnership: null,
-    //   netBusinessIncomeCompanyShareholding: null,
-    //   directorEmoluments: null,
-    //   pensionIncome: null,
-    //   propertyRental: null,
-    //   totalOtherIncome: null,
-    //   totalMonthlyIncome: null,
-    //   //Monthly Expenses
-    //   totalMonthlyLoanPayments: null,
-    //   mortgagePayment: null,
-    //   utilitiesAndHouseholdExpenses: null,
-    //   personalAndFamilyExpenses: null,
-    //   transportationExpenses: null,
-    //   otherExpenses: null,
-    //   totalStatutoryDeductions: null,
-    //   totalMonthlyExpenses: null,
-    //   //NetWorth
-    //   totalAssets: null,
-    //   totalLiabilities: null,
-    //   netWorth: null
-    // }
-    // component.set("v.VerifiedDataMap", verifiedMap);
-    // helper.getDebtsConsolidated
-    // helper.getUnverifiedFinancialInfo
+  doinit: function (component, event, helper) {
+    helper.getUnverifiedFinancialInfo(component);
   },
 
   toggleCheckBoxes: function (component, event, helper) {
