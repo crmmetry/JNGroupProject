@@ -3,6 +3,7 @@
   <aura:attribute name="auraIdList" type="List" />
   <aura:attribute name="verifiedLiabilitiesMap" type="Map" />
   <aura:attribute name="verifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="unverifiedDataMap" type="Map" default="{}" />
   <aura:handler
     name="change"
     action="{!c.onVerifiedLiabilitiesMapChange}"
@@ -46,6 +47,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.mortgageBalance}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -82,6 +84,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.outstandingBalanceOnLoans}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -116,6 +119,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.averageCreditBalance}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -148,6 +152,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.averageLineOfCreditBalance}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -180,6 +185,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.otherDebts}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">

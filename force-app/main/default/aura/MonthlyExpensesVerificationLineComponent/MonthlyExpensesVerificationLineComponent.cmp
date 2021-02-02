@@ -3,6 +3,8 @@
   <aura:attribute name="auraIdList" type="List" />
   <aura:attribute name="verifiedMonthlyExpensesMap" type="Map" />
   <aura:attribute name="verifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="unverifiedDataMap" type="Map" default="{}" />
+
   <aura:handler
     name="change"
     action="{!c.onVerifiedMonthlyExpensesMapChange}"
@@ -49,6 +51,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.totalMonthlyLoanPayments}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -81,6 +84,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.mortgagePayment}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -117,6 +121,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.utilitiesAndHouseholdExpenses}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -151,6 +156,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.personalAndFamilyExpenses}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -187,6 +193,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.transportationExpenses}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -223,6 +230,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.otherExpenses}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -255,6 +263,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.totalStatutoryDeductions}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -287,6 +296,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.totalMonthlyExpenses}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">

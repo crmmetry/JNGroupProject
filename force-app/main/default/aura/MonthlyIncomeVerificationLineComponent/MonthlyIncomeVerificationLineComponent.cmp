@@ -3,6 +3,7 @@
   <aura:attribute name="auraIdList" type="List" />
   <aura:attribute name="verifiedMonthlyIncomeMap" type="Map" />
   <aura:attribute name="verifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="unverifiedDataMap" type="Map" default="{}" />
   <aura:handler
     name="change"
     action="{!c.onVerifiedMonthlyIncomeMapChange}"
@@ -40,7 +41,11 @@
       <div class=""><h3>Indicate Primary Source of income:</h3></div>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <lightning:input type="text" disabled="true"></lightning:input>
+      <lightning:input
+        type="text"
+        disabled="true"
+        value="{!v.unverifiedDataMap.primarySourceOfIncome}"
+      ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <div class="slds-m-top_large center-align">
@@ -70,6 +75,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.grossSalaryAllowances}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -107,6 +113,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.otherIncome}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -139,6 +146,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.netBusinessIncomeSoleTrader}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -171,6 +179,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.directorEmoluments}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -203,6 +212,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.netBusinessIncomePartnership}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -235,6 +245,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.netBusinessIncomeCompanyShareholding}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -267,6 +278,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.pensionIncome}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -299,6 +311,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.propertyRental}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">

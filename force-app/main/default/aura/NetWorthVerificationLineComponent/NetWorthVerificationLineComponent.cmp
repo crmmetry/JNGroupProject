@@ -3,6 +3,7 @@
   <aura:attribute name="auraIdList" type="List" />
   <aura:attribute name="verifiedNetWorthMap" type="Map" />
   <aura:attribute name="verifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="unverifiedDataMap" type="Map" default="{}" />
   <aura:handler
     name="change"
     action="{!c.onVerifiedNetWorthMapChange}"
@@ -42,6 +43,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.totalAssets}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -74,6 +76,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.totalLiabilities}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -106,6 +109,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.netWorth}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">

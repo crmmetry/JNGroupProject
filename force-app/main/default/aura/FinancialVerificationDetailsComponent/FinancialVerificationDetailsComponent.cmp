@@ -24,22 +24,27 @@
     <c:AssetsVerificationLineComponent
       toggleCheckAll="{!v.toggleCheckAll}"
       verifiedDataMap="{!v.VerifiedDataMap}"
+      unverifiedDataMap="{!v.UnverifiedDataMap}"
     ></c:AssetsVerificationLineComponent>
     <c:LiabilitiesVerificationLineComponent
       toggleCheckAll="{!v.toggleCheckAll}"
       verifiedDataMap="{!v.VerifiedDataMap}"
+      unverifiedDataMap="{!v.UnverifiedDataMap}"
     ></c:LiabilitiesVerificationLineComponent>
     <c:MonthlyIncomeVerificationLineComponent
       toggleCheckAll="{!v.toggleCheckAll}"
       verifiedDataMap="{!v.VerifiedDataMap}"
+      unverifiedDataMap="{!v.UnverifiedDataMap}"
     ></c:MonthlyIncomeVerificationLineComponent>
     <c:MonthlyExpensesVerificationLineComponent
       toggleCheckAll="{!v.toggleCheckAll}"
       verifiedDataMap="{!v.VerifiedDataMap}"
+      unverifiedDataMap="{!v.UnverifiedDataMap}"
     ></c:MonthlyExpensesVerificationLineComponent>
     <c:NetWorthVerificationLineComponent
       toggleCheckAll="{!v.toggleCheckAll}"
       verifiedDataMap="{!v.VerifiedDataMap}"
+      unverifiedDataMap="{!v.UnverifiedDataMap}"
     ></c:NetWorthVerificationLineComponent>
     <c:DebtConsolidationVerificationLineComponent
       toggleCheckAll="{!v.toggleCheckAll}"

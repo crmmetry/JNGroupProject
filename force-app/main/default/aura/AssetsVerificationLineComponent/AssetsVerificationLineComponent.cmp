@@ -5,6 +5,7 @@
   <aura:attribute name="auraIdList" type="List" />
   <aura:attribute name="verifiedAssetsMap" type="Map" />
   <aura:attribute name="verifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="unverifiedDataMap" type="Map" default="{}" />
   <aura:handler
     name="change"
     action="{!c.onVerifiedAssetsMapChange}"
@@ -65,6 +66,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.realEstateHoldings}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem
@@ -105,6 +107,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.motorVehicles}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem
@@ -144,6 +147,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.savingsAccountsAndInvestments}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -176,6 +180,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.lifeInsuranceAssets}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -208,6 +213,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.pensionAssets}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -242,6 +248,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
+        value="{!v.unverifiedDataMap.otherAssets}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">

@@ -64,6 +64,9 @@
     if (checkedValue) {
       inputCmp.set("v.disabled", true);
       //set value to the value of related unverified amount
+      //add verified to component string as aura id
+      //reference the aura id and reverence the attribute value
+      //set the value of inputCmp  as that of the unverified amount
     } else {
       inputCmp.set("v.disabled", false);
     }
