@@ -92,7 +92,7 @@
                         <lightning:layoutItem size="5" >
                             <th class="" scope="col">
                                 <div class="slds-truncate" title="Action">
-                                    <lightning:input label="monthlyPayment" maxLength="10"  variant="label-hidden" value="{!v.totalMonthlyPayment}"/>
+                                    <lightning:input label="monthlyPayment" formatter="Currency" type="number" maxLength="10" value="{!v.totalMonthlyPayment}" variant="label-hidden"/>
                                 </div>
                             </th>
                         </lightning:layoutItem>

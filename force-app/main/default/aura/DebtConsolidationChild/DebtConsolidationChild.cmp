@@ -8,7 +8,7 @@
         <lightning:input label="DebtInstitution" value="{!v.record.DebtInstitution}" variant="label-hidden"/>
     </lightning:layoutItem>
     <lightning:layoutItem size="4" padding="around-small">
-        <lightning:input aura:id="DebtAmount" type="number" label="DebtAmount" value="{!v.record.DebtAmount}" variant="label-hidden" oncommit="{!c.onChange}"/>
+       <lightning:input aura:id="DebtAmount" type="number" formatter="Currency" label="DebtAmount" value="{!v.record.DebtAmount}" variant="label-hidden" oncommit="{!c.onChange}"/>
     </lightning:layoutItem>
     
 </aura:component>
