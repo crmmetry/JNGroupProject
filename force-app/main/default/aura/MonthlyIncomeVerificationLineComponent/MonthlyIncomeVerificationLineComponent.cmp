@@ -42,6 +42,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="primaryIncomeSourceUnverified"
         type="text"
         disabled="true"
         value="{!v.unverifiedDataMap.primarySourceOfIncome}"
@@ -71,6 +72,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="grossSalaryAllowancesUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -109,6 +111,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="otherIncomeUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -143,6 +146,7 @@
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
         type="number"
+        aura:id="netBusinessIncomeSoleTraderUnverified"
         formatter="currency"
         step="0.01"
         disabled="true"
@@ -175,6 +179,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="directorEmolumentsUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -208,6 +213,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="netBusinessIncomePartnershipUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -241,6 +247,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="netBusinessIncomeCompanyShareholdingUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -274,6 +281,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="pensionUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -307,6 +315,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="propertyRentalUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -340,6 +349,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="totalOtherIncomeUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -372,6 +382,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="totalMonthlyIncomeUnverified"
         type="number"
         formatter="currency"
         step="0.01"

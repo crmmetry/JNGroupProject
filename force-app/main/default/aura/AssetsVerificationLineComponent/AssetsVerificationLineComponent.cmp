@@ -62,6 +62,7 @@
       padding="horizontal-small"
     >
       <lightning:input
+        aura:id="realEstateHoldingsUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -103,6 +104,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="motorVehiclesUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -143,6 +145,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="savingsAccountUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -176,6 +179,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="lifeInsuranceUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -209,6 +213,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="pensionUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -244,6 +249,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="otherAssetsUnverified"
         type="number"
         formatter="currency"
         step="0.01"

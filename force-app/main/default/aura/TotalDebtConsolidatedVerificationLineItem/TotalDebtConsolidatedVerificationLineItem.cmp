@@ -1,0 +1,61 @@
+<aura:component>
+  <aura:attribute name="toggleCheckAll" type="Boolean" default="false" />
+  <aura:attribute name="auraIdList" type="List" />
+  <aura:attribute name="debtInfo" type="Map" />
+  <aura:attribute name="unverifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="verifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="totalDebtMap" type="Map" default="{}" />
+  <aura:registerEvent
+    name="TotalDebtConsolidatedEvent"
+    type="c:TotalDebtConsolidatedVerificationEvent"
+  />
+  <aura:handler
+    name="TotalDebtConsolidatedEvent"
+    event="c:TotalDebtConsolidatedVerificationEvent"
+    action="{!c.handleComponentEvent}"
+  />
+  <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
+  <aura:handler
+    name="change"
+    action="{!c.onToggleCheckAlChange}"
+    value="{!v.toggleCheckAll}"
+  />
+  <lightning:layout
+    multipleRows="true"
+    verticalAlign="center"
+    horizontalAlign="space"
+  >
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Total Debt being consolidated</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="totalDebtUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="totalDebt"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="totalDebt"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.totalDebtMap.totalDebtAmount}"
+      ></lightning:input>
+    </lightning:layoutItem>
+  </lightning:layout>
+</aura:component>

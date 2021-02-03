@@ -3,9 +3,11 @@
   controller="FinancialDetailsController"
 >
   <aura:attribute name="recordId" type="Id" />
+  <aura:attribute name="listOfDebtIndices" type="List" default="0" />
   <aura:attribute name="toggleCheckAll" type="Boolean" default="false" />
   <aura:attribute name="VerifiedDataMap" type="Map" default="{}" />
   <aura:attribute name="UnverifiedDataMap" type="Map" />
+  <aura:attribute name="UnverifiedDebts" type="List" />
   <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
   <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
   <aura:handler
@@ -46,9 +48,24 @@
       verifiedDataMap="{!v.VerifiedDataMap}"
       unverifiedDataMap="{!v.UnverifiedDataMap}"
     ></c:NetWorthVerificationLineComponent>
-    <c:DebtConsolidationVerificationLineComponent
+    <lightning:layout multipleRows="true">
+      <lightning:layoutItem size="12" mediumDeviceSize="12"
+        ><div class="slds-section-title--divider">
+          <h1>Debt Consolidation</h1>
+        </div></lightning:layoutItem
+      >
+    </lightning:layout>
+    <aura:iteration items="{!v.UnverifiedDebts}" var="item">
+      <c:DebtConsolidationVerificationLineComponent
+        toggleCheckAll="{!v.toggleCheckAll}"
+        debtInfo="{!item}"
+      ></c:DebtConsolidationVerificationLineComponent>
+    </aura:iteration>
+    <c:TotalDebtConsolidatedVerificationLineItem
       toggleCheckAll="{!v.toggleCheckAll}"
-    ></c:DebtConsolidationVerificationLineComponent>
+      verifiedDataMap="{!v.VerifiedDataMap}"
+      unverifiedDataMap="{!v.UnverifiedDataMap}"
+    ></c:TotalDebtConsolidatedVerificationLineItem>
     <lightning:layout horizontalAlign="space">
       <lightning:layoutItem size="12" mediumDeviceSize="4">
         <div class="slds-align_absolute-center slds-var-m-top_large">
@@ -62,7 +79,12 @@
       </lightning:layoutItem>
       <lightning:layoutItem size="12" mediumDeviceSize="4">
         <div class="slds-align_absolute-center slds-var-m-top_large">
-          <lightning:button label="Save" variant="brand" title="Save Details" />
+          <lightning:button
+            label="Save"
+            variant="brand"
+            title="Save Details"
+            onclick="{!c.saveFinancialDetails}"
+          />
         </div>
       </lightning:layoutItem>
       <lightning:layoutItem size="12" mediumDeviceSize="4">

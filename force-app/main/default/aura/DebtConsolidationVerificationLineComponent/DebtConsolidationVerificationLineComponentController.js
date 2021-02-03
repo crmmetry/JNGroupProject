@@ -1,13 +1,6 @@
 ({
   doinit: function (component, event) {
-    let auraList = [
-      "debtType",
-      "debtInstitution",
-      "debtAmount",
-      "lifeInsurance",
-      "accountNumber",
-      "totalDebt"
-    ];
+    let auraList = ["debtType", "debtInstitution", "debtAmount"];
     component.set("v.auraIdList", auraList);
     console.log("component was initialised");
   },
@@ -22,6 +15,8 @@
         inputCmpIdList.forEach((element) => {
           let inputCmp = component.find(element);
           inputCmp.set("v.disabled", true);
+          let unverifiedCmp = component.find(element.concat("Unverified"));
+          inputCmp.set("v.value", unverifiedCmp.get("v.value"));
         });
       } else {
         //set all verified fields to undisabled
@@ -29,6 +24,7 @@
         inputCmpIdList.forEach((element) => {
           let inputCmp = component.find(element);
           inputCmp.set("v.disabled", false);
+          inputCmp.set("v.value", null);
         });
       }
       console.log("component checkbox set to true");

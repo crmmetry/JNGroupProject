@@ -47,6 +47,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="totalValueMonthlyLoansUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -80,6 +81,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="mortgagePaymentUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -117,6 +119,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="utilitiesHouseholdExpensesUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -152,6 +155,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="personalAndFamilyExpensesUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -189,6 +193,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="transportationUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -226,6 +231,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="otherExpensesUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -259,6 +265,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="totalStatuaryDeductionsUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -292,6 +299,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="totalMonthlyExpensesUnverified"
         type="number"
         formatter="currency"
         step="0.01"

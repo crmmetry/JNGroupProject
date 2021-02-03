@@ -43,6 +43,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="mortgageBalanceUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -80,6 +81,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="outstandingBalanceUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -115,6 +117,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="averageCreditBalanceUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -148,6 +151,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="averageLineOfCreditBalanceUnverified"
         type="number"
         formatter="currency"
         step="0.01"
@@ -181,6 +185,7 @@
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
+        aura:id="otherDebtsUnverified"
         type="number"
         formatter="currency"
         step="0.01"
