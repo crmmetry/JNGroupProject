@@ -1,6 +1,6 @@
 <design:component label="Debt Consolidation">
-    <design:attribute name="applicantId" label="Applicant Id"/>
-    <design:attribute name="totalDebtAmount" Label="Total Consolidated Amount"/>
-    <design:attribute name="totalMonthlyPayment" Label="Total Monthly Payment"/>
-    <design:attribute name="loanPurpose" Label="Loan Purpose"/>
+  <design:attribute name="applicantId" label="Applicant Id" />
+  <design:attribute name="totalDebtAmount" Label="Total Consolidated Amount" />
+  <design:attribute name="totalMonthlyPayment" Label="Total Monthly Payment" />
+  <design:attribute name="loanPurpose" Label="Loan Purpose" />
 </design:component>

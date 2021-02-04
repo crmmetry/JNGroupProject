@@ -1,4 +1,4 @@
 <aura:event type="COMPONENT">
-    <aura:attribute name="attributeValue" type="Decimal"/>
-    <aura:attribute name="rowToDelete" type="String"/>
+  <aura:attribute name="attributeValue" type="Decimal" />
+  <aura:attribute name="rowToDelete" type="String" />
 </aura:event>

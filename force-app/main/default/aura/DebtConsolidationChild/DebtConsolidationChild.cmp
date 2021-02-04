@@ -1,14 +1,33 @@
-<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
-    
-    <aura:attribute name="record" type="Object" default="{
+<aura:component
+  implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction"
+  access="global"
+>
+  <aura:attribute
+    name="record"
+    type="Object"
+    default="{
                                                          'DebtInstitution' : '',
-                                                         'DebtAmount' : '' }"/>
-    <aura:registerEvent name="setAttribute" type="c:ChangeInDebtAmount"/>
-    <lightning:layoutItem size="4" padding="around-small">
-        <lightning:input label="DebtInstitution" value="{!v.record.DebtInstitution}" variant="label-hidden"/>
-    </lightning:layoutItem>
-    <lightning:layoutItem size="4" padding="around-small">
-       <lightning:input aura:id="DebtAmount" type="number" formatter="Currency" label="DebtAmount" value="{!v.record.DebtAmount}" variant="label-hidden" oncommit="{!c.onChange}"/>
-    </lightning:layoutItem>
-    
+                                                         'DebtAmount' : '' }"
+  />
+  <aura:attribute name="indexIndetity" type="String" />
+  <aura:registerEvent name="setAttribute" type="c:ChangeInDebtAmount" />
+  <lightning:layoutItem size="4" padding="around-small">
+    <lightning:input
+      label="DebtInstitution"
+      value="{!v.record.DebtInstitution}"
+      variant="label-hidden"
+    />
+  </lightning:layoutItem>
+  <lightning:layoutItem size="4" padding="around-small">
+    <lightning:input
+      aura:id="DebtAmount"
+      name="{!v.indexIndetity}"
+      type="number"
+      formatter="Currency"
+      label="DebtAmount"
+      value="{!v.record.DebtAmount}"
+      variant="label-hidden"
+      oncommit="{!c.onChange}"
+    />
+  </lightning:layoutItem>
 </aura:component>
