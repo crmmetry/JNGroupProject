@@ -3,7 +3,7 @@
    * Retrieves All financial Details belonging to an applicant on the opportunity.
    * @param {*} container
    */
-  getUnverifiedFinancialInfo: function (component) {
+  getFinancialInfo: function (component) {
     let action = component.get("c.getApplicantFinancialDetails");
     let oppId = component.get("v.recordId");
     action.setParams({
@@ -13,7 +13,7 @@
       let state = response.getState(); //Checking response status
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
-        component.set("v.UnverifiedDataMap", result);
+        component.set("v.FinancialDataMap", result);
         console.log(JSON.parse(JSON.stringify(result)));
       }
     });
@@ -44,6 +44,35 @@
           "debts to be consolidated",
           JSON.parse(JSON.stringify(result))
         );
+      }
+    });
+    $A.enqueueAction(action);
+  },
+
+  saveFinancialDetailsAndDebtsHelper: function (component) {
+    let verifiedFinancialData = component.get("v.VerifiedDataMap");
+    let debtConsolidated = component.get("v.VerifiedDebts");
+    let oppId = component.get("v.recordId");
+    console.log(
+      "verified financial details",
+      JSON.parse(JSON.stringify(verifiedFinancialData))
+    );
+    console.log(
+      "verified debts list",
+      JSON.parse(JSON.stringify(debtConsolidated))
+    );
+    let action = component.get("c.saveFinancialDetailsAndConsolidatedDebts");
+    //let oppId = component.get("v.recordId");
+    action.setParams({
+      financialDetailsMap: verifiedFinancialData,
+      oppId: oppId,
+      consolidatedDebts: debtConsolidated
+    });
+    action.setCallback(this, function (response) {
+      let state = response.getState(); //Checking response status
+      let result = response.getReturnValue();
+      if (state === "SUCCESS") {
+        console.log("SUCCESS");
       }
     });
     $A.enqueueAction(action);

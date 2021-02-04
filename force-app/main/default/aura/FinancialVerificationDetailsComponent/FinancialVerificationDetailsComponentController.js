@@ -1,7 +1,8 @@
 ({
   doinit: function (component, event, helper) {
-    helper.getUnverifiedFinancialInfo(component);
+    helper.getFinancialInfo(component);
     helper.getDebtsTobeConsolidated(component);
+    helper.getVerifiedFianncialINfor(component);
   },
 
   toggleCheckBoxes: function (component, event, helper) {
@@ -29,9 +30,9 @@
 
   onVerifiedDataMapChange: function (component, event) {
     console.log(JSON.parse(JSON.stringify(component.get("v.VerifiedDataMap"))));
-  }
+  },
 
-  // saveFinancialDetails: function (component, event) {
-  //   helper.saveFinancialDetailsAndDebtsHelper(component);
-  // }
+  saveFinancialDetails: function (component, event, helper) {
+    helper.saveFinancialDetailsAndDebtsHelper(component);
+  }
 });

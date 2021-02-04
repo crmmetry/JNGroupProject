@@ -4,13 +4,13 @@ public with sharing class DebtConsolidationUnwrapper {
   @AuraEnabled
   public Id oppId;
 
-  public DebtConsolidationUnwrapper(Application_Asset_Liability__c wrapper) {
+  public DebtConsolidationUnwrapper(DebtsConsolidatedWrapper wrapper) {
     this.record = [
       SELECT
         Id,
         Debt_Amount_VERIFIED_Number__c,
         Institution_Debt_is_with_VERIFIED_list__c,
-        Debt_Type_VERIFIED_List
+        Debt_Type_VERIFIED_List__c
       FROM Application_Asset_Liability__c
       WHERE Id = :wrapper.Id
     ];

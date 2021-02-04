@@ -3,11 +3,13 @@
   controller="FinancialDetailsController"
 >
   <aura:attribute name="recordId" type="Id" />
+  <aura:attribute name="FinancialDataMap" type="Map" />
   <aura:attribute name="listOfDebtIndices" type="List" default="0" />
   <aura:attribute name="toggleCheckAll" type="Boolean" default="false" />
   <aura:attribute name="VerifiedDataMap" type="Map" default="{}" />
   <aura:attribute name="UnverifiedDataMap" type="Map" />
   <aura:attribute name="UnverifiedDebts" type="List" />
+  <aura:attribute name="VerifiedDebts" type="List" />
   <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
   <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
   <aura:handler
@@ -59,6 +61,7 @@
       <c:DebtConsolidationVerificationLineComponent
         toggleCheckAll="{!v.toggleCheckAll}"
         debtInfo="{!item}"
+        listOfVerifiedDebts="{!v.VerifiedDebts}"
       ></c:DebtConsolidationVerificationLineComponent>
     </aura:iteration>
     <c:TotalDebtConsolidatedVerificationLineItem

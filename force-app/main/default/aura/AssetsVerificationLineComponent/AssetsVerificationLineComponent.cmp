@@ -67,7 +67,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
-        value="{!v.unverifiedDataMap.realEstateHoldings}"
+        value="{!v.unverifiedDataMap.realEstateHoldingsAssets}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem
@@ -95,7 +95,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedAssetsMap.realEstateHoldingAssets}"
+        value="{!v.verifiedAssetsMap.realEstateHoldingsAssets}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 2 -->
@@ -109,7 +109,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
-        value="{!v.unverifiedDataMap.motorVehicles}"
+        value="{!v.unverifiedDataMap.motorVehicleAssets}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem
@@ -150,7 +150,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
-        value="{!v.unverifiedDataMap.savingsAccountsAndInvestments}"
+        value="{!v.unverifiedDataMap.savingsAccountsAndInvestmentsAssets}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">

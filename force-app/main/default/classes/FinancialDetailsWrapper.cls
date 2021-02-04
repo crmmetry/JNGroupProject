@@ -1,12 +1,12 @@
 public with sharing class FinancialDetailsWrapper {
   @AuraEnabled
-  public Id Id;
+  public String Id;
   @AuraEnabled
-  public Decimal realEstateHoldings;
+  public Decimal realEstateHoldingsAssets;
   @AuraEnabled
-  public Decimal motorVehicles;
+  public Decimal motorVehicleAssets;
   @AuraEnabled
-  public Decimal savingsAccountsAndInvestments;
+  public Decimal savingsAccountsAndInvestmentsAssets;
   @AuraEnabled
   public Decimal lifeInsuranceAssets;
   @AuraEnabled
@@ -67,12 +67,80 @@ public with sharing class FinancialDetailsWrapper {
   public Decimal totalLiabilities;
   @AuraEnabled
   public Decimal netWorth;
+  @AuraEnabled
+  public String IdVerified;
+  @AuraEnabled
+  public Decimal realEstateHoldingsAssetsVerified;
+  @AuraEnabled
+  public Decimal motorVehicleAssetsVerified;
+  @AuraEnabled
+  public Decimal savingsAccountsAndInvestmentsAssetsVerified;
+  @AuraEnabled
+  public Decimal lifeInsuranceAssetsVerified;
+  @AuraEnabled
+  public Decimal pensionAssetsVerified;
+  @AuraEnabled
+  public Decimal otherAssetsVerified;
+  @AuraEnabled
+  public Decimal mortgageBalanceVerified;
+  @AuraEnabled
+  public Decimal outstandingBalanceOnLoansVerified;
+  @AuraEnabled
+  public Decimal averageCreditBalanceVerified;
+  @AuraEnabled
+  public Decimal averageLineOfCreditBalanceVerified;
+  @AuraEnabled
+  public Decimal totalMonthlyLoanPaymentsVerified;
+  @AuraEnabled
+  public Decimal otherDebtsVerified;
+  @AuraEnabled
+  public Decimal mortgagePaymentVerified;
+  @AuraEnabled
+  public Decimal utilitiesAndHouseholdExpensesVerified;
+  @AuraEnabled
+  public Decimal personalAndFamilyExpensesVerified;
+  @AuraEnabled
+  public Decimal transportationExpensesVerified;
+  @AuraEnabled
+  public Decimal otherExpensesVerified;
+  @AuraEnabled
+  public Decimal totalStatutoryDeductionsVerified;
+  @AuraEnabled
+  public Decimal totalMonthlyExpensesVerified;
+  @AuraEnabled
+  public String primarySourceOfIncomeVerified;
+  @AuraEnabled
+  public Decimal grossSalaryAllowancesVerified;
+  @AuraEnabled
+  public Decimal otherIncomeVerified;
+  @AuraEnabled
+  public Decimal netBusinessIncomeSoleTraderVerified;
+  @AuraEnabled
+  public Decimal netBusinessIncomePartnershipVerified;
+  @AuraEnabled
+  public Decimal netBusinessIncomeCompanyShareholdingVerified;
+  @AuraEnabled
+  public Decimal directorEmolumentsVerified;
+  @AuraEnabled
+  public Decimal pensionIncomeVerified;
+  @AuraEnabled
+  public Decimal propertyRentalVerified;
+  // @AuraEnabled
+  // public Decimal totalOtherIncome;
+  // @AuraEnabled
+  // public Decimal totalMonthlyIncome;
+  @AuraEnabled
+  public Decimal totalAssetsVerified;
+  @AuraEnabled
+  public Decimal totalLiabilitiesVerified;
+  @AuraEnabled
+  public Decimal netWorthVerified;
 
   public FinancialDetailsWrapper(Applicant__c record) {
     this.Id = record.Id;
-    this.realEstateHoldings = record.Real_Estate_Market_Value_Number__c;
-    this.motorVehicles = record.Motor_Vehicle_Market_Value_Number__c;
-    this.savingsAccountsAndInvestments = record.Savings_Deposit_Investments__c;
+    this.realEstateHoldingsAssets = record.Real_Estate_Market_Value_Number__c;
+    this.motorVehicleAssets = record.Motor_Vehicle_Market_Value_Number__c;
+    this.savingsAccountsAndInvestmentsAssets = record.Savings_Deposit_Investments__c;
     this.lifeInsuranceAssets = record.Life_Insurance_Cash_Value__c;
     this.pensionAssets = record.Pension_IRS_Total_Contribution__c;
     this.otherAssets = record.Other_Asset_Market_Value_Number__c;

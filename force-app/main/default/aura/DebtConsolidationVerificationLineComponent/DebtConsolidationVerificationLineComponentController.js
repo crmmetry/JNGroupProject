@@ -3,6 +3,13 @@
     let auraList = ["debtType", "debtInstitution", "debtAmount"];
     component.set("v.auraIdList", auraList);
     console.log("component was initialised");
+    let debtInfo = {
+      debtType: null,
+      debtAmount: null,
+      debtInstitution: null,
+      accountNumber: null
+    };
+    component.set("v.verifiedDebtInfo", debtInfo);
   },
   onToggleCheckAlChange: function (component, event, helper) {
     console.log("check all change handler");
@@ -48,11 +55,22 @@
     let componentName = event.getParam("componentName");
     let checkedValue = event.getParam("checkedVar");
     let inputCmp = component.find(componentName);
+    let unverifiedInputCmp = component.find(componentName.concat("Unverified"));
     if (checkedValue) {
       inputCmp.set("v.disabled", true);
       //set value to the value of related unverified amount
+      inputCmp.set("v.value", unverifiedInputCmp.get("v.value"));
     } else {
       inputCmp.set("v.disabled", false);
+      inputCmp.set("v.value", null);
     }
+  },
+
+  onVerifiedDebtInfoChange: function (component, event) {
+    let verifiedDebtData = component.get("v.verifiedDebtInfo");
+    let verifiedDebtList = component.get("v.listOfVerifiedDebts");
+    verifiedDebtList.push(verifiedDebtData);
+    component.set("v.listOfVerifiedDebts", verifiedDebtList);
+    console.log("Verified Debts", JSON.parse(JSON.stringify(verifiedDebtList)));
   }
 });

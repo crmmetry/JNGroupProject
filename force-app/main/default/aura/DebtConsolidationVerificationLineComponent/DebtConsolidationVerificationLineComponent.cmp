@@ -2,6 +2,8 @@
   <aura:attribute name="toggleCheckAll" type="Boolean" default="false" />
   <aura:attribute name="auraIdList" type="List" />
   <aura:attribute name="debtInfo" type="Map" />
+  <aura:attribute name="verifiedDebtInfo" type="Map" />
+  <aura:attribute name="listOfVerifiedDebts" type="List" />
   <aura:registerEvent
     name="DebtConsolidationEvent"
     type="c:DebtConsolidationVerificationEvent"
@@ -16,6 +18,11 @@
     name="change"
     action="{!c.onToggleCheckAlChange}"
     value="{!v.toggleCheckAll}"
+  />
+  <aura:handler
+    name="change"
+    action="{!c.onVerifiedDebtInfoChange}"
+    value="{!v.verifiedDebtInfo}"
   />
   <lightning:layout
     multipleRows="true"
@@ -37,6 +44,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
+        value="{!v.verifiedDebtInfo.accountNumber}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 2 -->
@@ -66,6 +74,7 @@
         type="text"
         aura:id="debtType"
         placeholder="NULL"
+        value="{!v.verifiedDebtInfo.debtType}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 3 -->
@@ -95,6 +104,7 @@
         type="text"
         aura:id="debtInstitution"
         placeholder="NULL"
+        value="{!v.verifiedDebtInfo.debtInstitution}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 4 -->
@@ -128,6 +138,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
+        value="{!v.verifiedDebtInfo.debtAmount}"
       ></lightning:input>
     </lightning:layoutItem>
   </lightning:layout>

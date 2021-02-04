@@ -10,9 +10,9 @@
     ];
     component.set("v.auraIdList", auraList);
     let verifiedAssets = {
-      realEstateHoldingAssets: null,
+      realEstateHoldingsAssets: null,
       motorVehicleAssets: null,
-      savingsAccountInvestmentAssets: null,
+      savingsAccountsAndInvestmentsAssets: null,
       lifeInsuranceAssets: null,
       pensionAssets: null,
       otherAssets: null

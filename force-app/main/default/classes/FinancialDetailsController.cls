@@ -45,10 +45,42 @@ public with sharing class FinancialDetailsController {
    */
   @AuraEnabled
   public static Integer saveFinancialDetailsAndConsolidatedDebts(
-    Map<String, String> financialDetailsMap,
-    List<Map<String, String>> consolidatedDebts
+    Map<String, Object> financialDetailsMap,
+    String oppId,
+    List<Map<String, Object>> consolidatedDebts
   ) {
+    List<SObject> recordsToBeUpdated = new List<SObject>();
     try {
+      //Serializing Applicant Details Object
+      String jsonValuesForFinancialDetails = json.serialize(
+        financialDetailsMap
+      );
+      FinancialDetailsWrapper financialWrapper = (FinancialDetailsWrapper) json.deserialize(
+        jsonValuesForFinancialDetails,
+        FinancialDetailsWrapper.class
+      );
+      FinancialDetailsUnwrapper financialUnwrapper = new FinancialDetailsUnwrapper(
+        financialWrapper,
+        oppId
+      );
+      Applicant__c applicantDetails = financialUnwrapper.record;
+      recordsToBeUpdated.add(applicantDetails);
+      System.debug('Applicant records' + recordsToBeUpdated);
+      //Serializing Debt Consolidation Objects
+      for (Map<String, Object> debts : consolidatedDebts) {
+        String jsonValuesForDebtConsolidations = json.serialize(debts);
+        DebtsConsolidatedWrapper debtWrapper = (DebtsConsolidatedWrapper) json.deserialize(
+          jsonValuesForDebtConsolidations,
+          DebtsConsolidatedWrapper.class
+        );
+        DebtConsolidationUnwrapper debtUnwrapper = new DebtConsolidationUnwrapper(
+          debtWrapper
+        );
+        Application_Asset_Liability__c debtRecord = debtUnwrapper.record;
+        recordsToBeUpdated.add(debtRecord);
+      }
+      System.debug('Aplicant Details: ' + applicantDetails);
+      update recordsToBeUpdated;
       return Constants.STATUS_SUCCESS_CODE;
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
