@@ -182,7 +182,7 @@ public with sharing class FinancialDetailsWrapper {
     this.mortgagePaymentVerified = record.Mortgage_Rent_VERIFIED_Number__c;
     this.utilitiesAndHouseholdExpensesVerified = record.Utilities_Household_Expenses_VERIFIED__c;
     this.personalAndFamilyExpensesVerified = record.Personal_and_Family_Expenses_VERIFIED__c;
-    this.transportationExpenses = record.Transportation_VERIFIED_Number__c;
+    this.transportationExpensesVerified = record.Transportation_VERIFIED_Number__c;
     this.otherExpensesVerified = record.Other_Expenses_VERIFIED_Number__c;
     this.totalStatutoryDeductionsVerified = record.Statutory_Deductions_Numbers__c;
     this.totalMonthlyExpensesVerified = record.Total_Monthly_Expenses_Verified_Number__c;

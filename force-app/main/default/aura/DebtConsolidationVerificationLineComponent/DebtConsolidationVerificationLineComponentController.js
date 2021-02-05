@@ -1,15 +1,10 @@
 ({
-  doinit: function (component, event) {
-    let auraList = ["debtType", "debtInstitution", "debtAmount"];
-    component.set("v.auraIdList", auraList);
-    console.log("component was initialised");
-    let debtInfo = {
-      debtType: null,
-      debtAmount: null,
-      debtInstitution: null,
-      accountNumber: null
-    };
-    component.set("v.verifiedDebtInfo", debtInfo);
+  doinit: function (component, event, helper) {
+    helper.parseDebtInfo(component);
+    console.log(
+      "DEBT INFO",
+      JSON.parse(JSON.stringify(component.get("v.debtInfo")))
+    );
   },
   onToggleCheckAlChange: function (component, event, helper) {
     console.log("check all change handler");
@@ -66,11 +61,14 @@
     }
   },
 
-  onVerifiedDebtInfoChange: function (component, event) {
+  onVerifiedDebtInfoChange: function (component, event, helper) {
+    // let verifiedDebtData = component.get("v.verifiedDebtInfo");
+    // console.log('verified debt info change', JSON.parse(JSON.stringify(verifiedDebtData)));
+    // helper.deduplicateVerifiedChildDebtInfo(component, verifiedDebtData);
     let verifiedDebtData = component.get("v.verifiedDebtInfo");
-    let verifiedDebtList = component.get("v.listOfVerifiedDebts");
-    verifiedDebtList.push(verifiedDebtData);
-    component.set("v.listOfVerifiedDebts", verifiedDebtList);
-    console.log("Verified Debts", JSON.parse(JSON.stringify(verifiedDebtList)));
+    let index = component.get("v.debtIndex");
+    let parentComponentDebts = component.get("v.listOfVerifiedDebts");
+    parentComponentDebts[index] = verifiedDebtData;
+    console.log("Index: ", debtIndex);
   }
 });

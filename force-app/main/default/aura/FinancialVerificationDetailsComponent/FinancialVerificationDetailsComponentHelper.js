@@ -36,14 +36,10 @@
       let state = response.getState(); //Checking response status
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
-        component.set("v.UnverifiedDebts", result);
-        // result.forEach(element => {
-        //   indexList.push(1);
-        // });
-        // component.set("v.listOfDebtIndices", indexList);
+        component.set("v.ConsolidatedDebts", result);
         console.log(
           "debts to be consolidated",
-          JSON.parse(JSON.stringify(result))
+          JSON.parse(JSON.stringify(component.get("v.ConsolidatedDebts")))
         );
       }
     });
@@ -96,5 +92,38 @@
     component.set("v.UnverifiedDataMap", unverifiedMap);
     console.log("verified map", JSON.parse(JSON.stringify(verifiedMap)));
     console.log("unverified map", JSON.parse(JSON.stringify(unverifiedMap)));
+  },
+
+  parseDebtConsolidatedData: function (component) {
+    let consolidatedDebtsList = component.get("v.ConsolidatedDebts");
+    let verifiedDebts = [];
+    let unverifiedDebts = [];
+    //const test = `${Verified}Verified`;
+    consolidatedDebtsList.forEach((consolidatedDebt) => {
+      let verifiedDebt = new Map();
+      let unverifiedDebt = new Map();
+      let consolidatedDebtKeys = Object.keys(consolidatedDebt);
+      consolidatedDebtKeys.forEach((consolidatedDebtKey) => {
+        if (consolidatedDebtKey.includes("Verified")) {
+          verifiedDebt[consolidatedDebtKey] =
+            consolidatedDebt[consolidatedDebtKey];
+        } else {
+          unverifiedDebt[consolidatedDebtKey] =
+            consolidatedDebt[consolidatedDebtKey];
+        }
+      });
+      verifiedDebts.push(verifiedDebt);
+      unverifiedDebts.push(unverifiedDebt);
+    });
+    component.set("v.VerifiedDebts", verifiedDebts);
+    component.set("v.UnverifiedDebts", unverifiedDebts);
+    console.log(
+      "parsed verified debts",
+      JSON.parse(JSON.stringify(verifiedDebts))
+    );
+    console.log(
+      "parsed unverified debts",
+      JSON.parse(JSON.stringify(unverifiedDebts))
+    );
   }
 });

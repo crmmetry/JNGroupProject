@@ -9,6 +9,7 @@
   <aura:attribute name="VerifiedDataMap" type="Map" default="{}" />
   <aura:attribute name="UnverifiedDataMap" type="Map" default="{}" />
   <aura:attribute name="UnverifiedDebts" type="List" />
+  <aura:attribute name="ConsolidatedDebts" type="List" />
   <aura:attribute name="VerifiedDebts" type="List" />
   <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
   <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
@@ -16,6 +17,11 @@
     name="change"
     action="{!c.onVerifiedDataMapChange}"
     value="{!v.VerifiedDataMap}"
+  />
+  <aura:handler
+    name="change"
+    action="{!c.onVerifiedDebtsChange}"
+    value="{!v.VerifiedDebts}"
   />
   <ltng:require
     scripts="{
@@ -57,11 +63,12 @@
         </div></lightning:layoutItem
       >
     </lightning:layout>
-    <aura:iteration items="{!v.UnverifiedDebts}" var="item">
+    <aura:iteration items="{!v.ConsolidatedDebts}" var="item" indexVar="index">
       <c:DebtConsolidationVerificationLineComponent
         toggleCheckAll="{!v.toggleCheckAll}"
         debtInfo="{!item}"
         listOfVerifiedDebts="{!v.VerifiedDebts}"
+        debtIndex="{!index}"
       ></c:DebtConsolidationVerificationLineComponent>
     </aura:iteration>
     <c:TotalDebtConsolidatedVerificationLineItem

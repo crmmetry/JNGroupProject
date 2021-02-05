@@ -31,6 +31,13 @@
     console.log(JSON.parse(JSON.stringify(component.get("v.VerifiedDataMap"))));
   },
 
+  onVerifiedDebtsChange: function (component) {
+    console.log(
+      "verified debts change!!!!!!!!: ",
+      JSON.parse(JSON.stringify(component.get("v.VerifiedDebts")))
+    );
+  },
+
   saveFinancialDetails: function (component, event, helper) {
     helper.saveFinancialDetailsAndDebtsHelper(component);
   }

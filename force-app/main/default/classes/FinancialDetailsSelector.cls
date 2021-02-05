@@ -113,7 +113,10 @@ public with sharing class FinancialDetailsSelector {
         Debt_Type_List__c,
         Debt_Amount_Number__c,
         Institution_Debt_List__c,
-        Life_Insurance_Cash_Value_Number__c
+        Life_Insurance_Cash_Value_Number__c,
+        Debt_Type_VERIFIED_List__c,
+        Debt_Amount_VERIFIED_Number__c,
+        Institution_Debt_is_with_VERIFIED_list__c
       FROM Application_Asset_Liability__c
       WHERE
         Application__r.Opportunity__c = :oppId
