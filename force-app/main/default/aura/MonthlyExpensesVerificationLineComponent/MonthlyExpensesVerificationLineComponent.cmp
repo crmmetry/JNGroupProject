@@ -72,7 +72,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedMonthlyExpensesMap.totalMonthlyLoanPayments}"
+        value="{!v.verifiedDataMap.totalMonthlyLoanPaymentsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 2 -->
@@ -106,7 +106,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedMonthlyExpensesMap.mortgagePayment}"
+        value="{!v.verifiedDataMap.mortgagePaymentVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 3 -->
@@ -144,7 +144,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedMonthlyExpensesMap.utilitiesAndHouseholdExpenses}"
+        value="{!v.verifiedDataMap.utilitiesAndHouseholdExpensesVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 4 -->
@@ -180,7 +180,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedMonthlyExpensesMap.personalAndFamilyExpenses}"
+        value="{!v.verifiedDataMap.personalAndFamilyExpensesVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 5 -->
@@ -218,7 +218,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedMonthlyExpensesMap.transportationExpenses}"
+        value="{!v.verifiedDataMap.transportationExpensesVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 6 -->
@@ -256,7 +256,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedMonthlyExpensesMap.otherExpenses}"
+        value="{!v.verifiedDataMap.otherExpensesVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 7 -->
@@ -290,7 +290,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedMonthlyExpensesMap.totalStatutoryDeductions}"
+        value="{!v.verifiedDataMap.totalStatutoryDeductionsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 8 -->
@@ -324,7 +324,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedMonthlyExpensesMap.totalMonthlyExpenses}"
+        value="{!v.verifiedDataMap.totalMonthlyExpensesVerified}"
       ></lightning:input>
     </lightning:layoutItem>
   </lightning:layout>

@@ -2,8 +2,8 @@
   <aura:attribute name="toggleCheckAll" type="Boolean" />
   <aura:attribute name="auraIdList" type="List" />
   <aura:attribute name="verifiedLiabilitiesMap" type="Map" />
-  <aura:attribute name="verifiedDataMap" type="Map" default="{}" />
-  <aura:attribute name="unverifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="verifiedDataMap" type="Map" />
+  <aura:attribute name="unverifiedDataMap" type="Map" />
   <aura:handler
     name="change"
     action="{!c.onVerifiedLiabilitiesMapChange}"
@@ -68,7 +68,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedLiabilitiesMap.mortgageBalance}"
+        value="{!v.verifiedDataMap.mortgageBalanceVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 2 -->
@@ -106,7 +106,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedLiabilitiesMap.outstandingBalanceOnLoans}"
+        value="{!v.verifiedDataMap.outstandingBalanceOnLoansVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 3 -->
@@ -142,7 +142,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedLiabilitiesMap.averageCreditBalance}"
+        value="{!v.verifiedDataMap.averageCreditBalanceVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 4 -->
@@ -176,7 +176,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedLiabilitiesMap.averageLineOfCreditBalance}"
+        value="{!v.verifiedDataMap.averageLineOfCreditBalanceVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 5 -->
@@ -210,7 +210,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedLiabilitiesMap.otherDebts}"
+        value="{!v.verifiedDataMap.otherDebtsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
   </lightning:layout>

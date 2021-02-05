@@ -68,8 +68,6 @@ public with sharing class FinancialDetailsWrapper {
   @AuraEnabled
   public Decimal netWorth;
   @AuraEnabled
-  public String IdVerified;
-  @AuraEnabled
   public Decimal realEstateHoldingsAssetsVerified;
   @AuraEnabled
   public Decimal motorVehicleAssetsVerified;
@@ -169,5 +167,36 @@ public with sharing class FinancialDetailsWrapper {
     this.totalAssets = record.Total_Assets_Calc__c;
     this.totalLiabilities = record.Total_Liabilities_Calc__c;
     this.netWorth = record.Net_Worth_Calc__c;
+    this.realEstateHoldingsAssetsVerified = record.Real_Estate_Holding_s_VERIFIED_Number__c;
+    this.motorVehicleAssetsVerified = record.Motor_Vehicle_s_VERIFIED__c;
+    this.savingsAccountsAndInvestmentsAssetsVerified = record.Savings_Current_Account_s_Investment_VER__c;
+    this.lifeInsuranceAssetsVerified = record.Life_Insurance_Policy_Cash_Value_VER_Num__c;
+    this.pensionAssetsVerified = record.Pension_Contribution_s_VERIFIED_Number__c;
+    this.otherAssetsVerified = record.Other_Asset_s_VERIFIED_Number__c;
+    this.mortgageBalanceVerified = record.Mortgage_Balance_VERIFIED_Number__c;
+    this.outstandingBalanceOnLoansVerified = record.Other_Loan_s_VERIFIED_Number__c;
+    this.averageCreditBalanceVerified = record.Average_Credit_Card_Balances_VERIFIED__c;
+    this.averageLineOfCreditBalanceVerified = record.Average_Line_of_Credit_Balance_VERIFIED__c;
+    this.otherDebtsVerified = record.Other_Debt_VERIFIED_Number__c;
+    this.totalMonthlyLoanPaymentsVerified = record.Total_Monthly_Loan_Payments_VERIFIED__c;
+    this.mortgagePaymentVerified = record.Mortgage_Rent_VERIFIED_Number__c;
+    this.utilitiesAndHouseholdExpensesVerified = record.Utilities_Household_Expenses_VERIFIED__c;
+    this.personalAndFamilyExpensesVerified = record.Personal_and_Family_Expenses_VERIFIED__c;
+    this.transportationExpenses = record.Transportation_VERIFIED_Number__c;
+    this.otherExpensesVerified = record.Other_Expenses_VERIFIED_Number__c;
+    this.totalStatutoryDeductionsVerified = record.Statutory_Deductions_Numbers__c;
+    this.totalMonthlyExpensesVerified = record.Total_Monthly_Expenses_Verified_Number__c;
+    this.primarySourceOfIncomeVerified = record.Primary_Source_of_Income_List__c;
+    this.grossSalaryAllowancesVerified = record.Gross_Monthly_Income_VERIFIED_Number__c;
+    this.otherIncomeVerified = record.Other_Income_VERIFIED_Number__c;
+    this.netBusinessIncomeSoleTraderVerified = record.Net_Profit_Sole_Trader_VERIFIED_Number__c;
+    this.netBusinessIncomePartnershipVerified = record.Share_of_Profit_Partnership_VERIFIED__c;
+    this.netBusinessIncomeCompanyShareholdingVerified = record.Share_of_Profit_Shareholder_VERIFIED__c;
+    this.directorEmolumentsVerified = record.Director_s_Emoluments_Director_VERIFIED__c;
+    this.pensionIncomeVerified = record.Pension_VERIFIED_Number__c;
+    this.propertyRentalVerified = record.Property_Rental_VERIFIED_Number__c;
+    this.totalAssetsVerified = record.Total_Assets_Verified_Number__c;
+    this.totalLiabilitiesVerified = record.Total_Liabilities_Verified_Number__c;
+    this.netWorthVerified = record.Net_Worth_Verified_Number__c;
   }
 }

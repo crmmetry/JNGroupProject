@@ -63,7 +63,7 @@
         type="text"
         aura:id="primaryIncomeSource"
         placeholder="NULL"
-        value="{!v.verifiedMonthlyIncomeMap.primarySourceOfIncome}"
+        value="{!v.verifiedDataMap.primarySourceOfIncomeVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 2 -->
@@ -97,7 +97,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedMonthlyIncomeMap.grossSalaryAllowances}"
+        value="{!v.verifiedDataMap.grossSalaryAllowancesVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 3 -->
@@ -136,7 +136,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedMonthlyIncomeMap.otherIncome}"
+        value="{!v.verifiedDataMap.otherIncomeVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 4 -->
@@ -170,7 +170,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedMonthlyIncomeMap.netBusinessIncomeSoleTrader}"
+        value="{!v.verifiedDataMap.netBusinessIncomeSoleTraderVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 5 -->
@@ -204,7 +204,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedMonthlyIncomeMap.directorEmoluments}"
+        value="{!v.verifiedDataMap.directorEmolumentsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 6 -->
@@ -238,7 +238,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedMonthlyIncomeMap.netBusinessIncomePartnership}"
+        value="{!v.verifiedDataMap.netBusinessIncomePartnershipVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 7 -->
@@ -272,7 +272,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedMonthlyIncomeMap.netBusinessIncomeCompanyShareholding}"
+        value="{!v.verifiedDataMap.netBusinessIncomeCompanyShareholdingVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 8 -->
@@ -306,7 +306,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedMonthlyIncomeMap.pensionIncome}"
+        value="{!v.verifiedDataMap.pensionIncomeVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 9 -->
@@ -340,7 +340,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedMonthlyIncomeMap.propertyRental}"
+        value="{!v.verifiedDataMap.propertyRentalVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 10 -->
@@ -373,7 +373,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedMonthlyIncomeMap.totalOtherIncome}"
+        value="{!v.verifiedDataMap.totalOtherIncomeVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 11 -->
@@ -406,7 +406,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedMonthlyIncomeMap.totalMonthlyIncome}"
+        value="{!v.verifiedDataMap.totalMonthlyIncomeVerified}"
       ></lightning:input>
     </lightning:layoutItem>
   </lightning:layout>

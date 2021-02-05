@@ -2,7 +2,6 @@
   doinit: function (component, event, helper) {
     helper.getFinancialInfo(component);
     helper.getDebtsTobeConsolidated(component);
-    helper.getVerifiedFianncialINfor(component);
   },
 
   toggleCheckBoxes: function (component, event, helper) {

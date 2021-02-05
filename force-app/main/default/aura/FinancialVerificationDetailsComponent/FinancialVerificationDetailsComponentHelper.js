@@ -14,7 +14,8 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         component.set("v.FinancialDataMap", result);
-        console.log(JSON.parse(JSON.stringify(result)));
+        console.log("financial map", JSON.parse(JSON.stringify(result)));
+        this.parseFinancialDataIntoVerifiedAndUnverifiedData(component);
       }
     });
     $A.enqueueAction(action);
@@ -76,5 +77,24 @@
       }
     });
     $A.enqueueAction(action);
+  },
+
+  parseFinancialDataIntoVerifiedAndUnverifiedData: function (component) {
+    let financialMap = component.get("v.FinancialDataMap");
+    let verifiedMap = new Map();
+    let unverifiedMap = new Map();
+    for (let key in financialMap) {
+      if (key.includes("Verified")) {
+        console.log("verified field", key);
+        verifiedMap[key] = financialMap[key];
+      } else {
+        console.log("unverified field", key);
+        unverifiedMap[key] = financialMap[key];
+      }
+    }
+    component.set("v.VerifiedDataMap", verifiedMap);
+    component.set("v.UnverifiedDataMap", unverifiedMap);
+    console.log("verified map", JSON.parse(JSON.stringify(verifiedMap)));
+    console.log("unverified map", JSON.parse(JSON.stringify(unverifiedMap)));
   }
 });

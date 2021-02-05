@@ -95,7 +95,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedAssetsMap.realEstateHoldingsAssets}"
+        value="{!v.verifiedDataMap.realEstateHoldingsAssetsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 2 -->
@@ -134,7 +134,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedAssetsMap.motorVehicleAssets}"
+        value="{!v.verifiedDataMap.motorVehicleAssetsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 3 -->
@@ -170,7 +170,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedAssetsMap.savingsAccountInvestmentAssets}"
+        value="{!v.verifiedDataMap.savingsAccountInvestmentAssetsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 4 -->
@@ -204,7 +204,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedAssetsMap.lifeInsuranceAssets}"
+        value="{!v.verifiedDataMap.lifeInsuranceAssetsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 5 -->
@@ -238,7 +238,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedAssetsMap.pensionAssets}"
+        value="{!v.verifiedDataMap.pensionAssetsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 6 -->
@@ -274,7 +274,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedAssetsMap.otherAssets}"
+        value="{!v.verifiedDataMap.otherAssetsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
   </lightning:layout>

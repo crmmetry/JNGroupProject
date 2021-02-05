@@ -2,7 +2,7 @@
   <aura:attribute name="toggleCheckAll" type="Boolean" />
   <aura:attribute name="auraIdList" type="List" />
   <aura:attribute name="verifiedNetWorthMap" type="Map" />
-  <aura:attribute name="verifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="verifiedDataMap" type="Map" />
   <aura:attribute name="unverifiedDataMap" type="Map" default="{}" />
   <aura:handler
     name="change"
@@ -64,7 +64,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedNetWorthMap.totalAssets}"
+        value="{!v.verifiedDataMap.totalAssetsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 2 -->
@@ -98,7 +98,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedNetWorthMap.totalLiabilities}"
+        value="{!v.verifiedDataMap.totalLiabilitiesVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 3 -->
@@ -132,7 +132,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedNetWorthMap.netWorth}"
+        value="{!v.verifiedDataMap.netWorthVerified}"
       ></lightning:input>
     </lightning:layoutItem>
   </lightning:layout>

@@ -76,7 +76,8 @@ public with sharing class FinancialDetailsSelector {
         Transportation_VERIFIED_Number__c,
         Other_Expenses_VERIFIED_Number__c,
         Statutory_Deductions_VERIFIED_Number__c,
-        Total_Monthly_Expenses_Verified_Number__c
+        Total_Monthly_Expenses_Verified_Number__c,
+        Primary_Source_of_Income_List__c
       FROM Applicant__c
       WHERE Opportunity__c = :oppId AND RecordTypeId = :IDMRecordTypeId
     ];
