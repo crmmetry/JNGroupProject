@@ -13,16 +13,17 @@
   <aura:attribute name="VerifiedDebts" type="List" />
   <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
   <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
+  <aura:handler event="c:DebtInfoEvent" action="{!c.handleDebtInfoEvent}" />
   <aura:handler
     name="change"
     action="{!c.onVerifiedDataMapChange}"
     value="{!v.VerifiedDataMap}"
   />
-  <aura:handler
+  <!-- <aura:handler
     name="change"
     action="{!c.onVerifiedDebtsChange}"
-    value="{!v.VerifiedDebts}"
-  />
+    value="{!v.ConsolidatedDebts}"
+  /> -->
   <ltng:require
     scripts="{
     $Resource.constants,
@@ -69,6 +70,7 @@
         debtInfo="{!item}"
         listOfVerifiedDebts="{!v.VerifiedDebts}"
         debtIndex="{!index}"
+        consolidatedDebts="{!v.ConsolidatedDebts}"
       ></c:DebtConsolidationVerificationLineComponent>
     </aura:iteration>
     <c:TotalDebtConsolidatedVerificationLineItem

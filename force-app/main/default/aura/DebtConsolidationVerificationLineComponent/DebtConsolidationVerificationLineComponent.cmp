@@ -5,10 +5,12 @@
   <aura:attribute name="verifiedDebtInfo" type="Map" />
   <aura:attribute name="listOfVerifiedDebts" type="List" />
   <aura:attribute name="debtIndex" type="Integer" />
+  <aura:attribute name="consolidatedDebts" type="List" />
   <aura:registerEvent
     name="DebtConsolidationEvent"
     type="c:DebtConsolidationVerificationEvent"
   />
+  <aura:registerEvent name="DebtInfoEvent" type="c:DebtInfoEvent" />
   <aura:handler
     name="DebtConsolidationEvent"
     event="c:DebtConsolidationVerificationEvent"
@@ -23,7 +25,7 @@
   <aura:handler
     name="change"
     action="{!c.onVerifiedDebtInfoChange}"
-    value="{!v.verifiedDebtInfo}"
+    value="{!v.debtInfo}"
   />
   <lightning:layout
     multipleRows="true"
@@ -45,7 +47,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDebtInfo.accountNumber}"
+        value="{!v.debtInfo.accountNumber}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 2 -->
@@ -75,7 +77,7 @@
         type="text"
         aura:id="debtType"
         placeholder="NULL"
-        value="{!v.verifiedDebtInfo.debtTypeVerified}"
+        value="{!v.debtInfo.debtTypeVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 3 -->
@@ -105,7 +107,7 @@
         type="text"
         aura:id="debtInstitution"
         placeholder="NULL"
-        value="{!v.verifiedDebtInfo.institutionDebtVerified}"
+        value="{!v.debtInfo.institutionDebtVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 4 -->
@@ -139,7 +141,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDebtInfo.debtAmountVerified}"
+        value="{!v.debtInfo.debtAmountVerified}"
       ></lightning:input>
     </lightning:layoutItem>
   </lightning:layout>

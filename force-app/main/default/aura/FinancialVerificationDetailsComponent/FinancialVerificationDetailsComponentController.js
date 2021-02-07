@@ -34,7 +34,20 @@
   onVerifiedDebtsChange: function (component) {
     console.log(
       "verified debts change!!!!!!!!: ",
-      JSON.parse(JSON.stringify(component.get("v.VerifiedDebts")))
+      JSON.parse(JSON.stringify(component.get("v.ConsolidatedDebts")))
+    );
+  },
+
+  handleDebtInfoEvent: function (component, event) {
+    const debtData = event.getParam("data");
+    const index = event.getParam("index");
+    const consolidatedDebts = component.get("v.ConsolidatedDebts");
+    consolidatedDebts[index] = debtData;
+    //component.set("v.ConsolidatedDebts", consolidatedDebts );
+    console.log("debtInfo", JSON.parse(JSON.stringify(debtData)));
+    console.log(
+      "Consolidated Debts",
+      JSON.parse(JSON.stringify(component.get("v.ConsolidatedDebts")))
     );
   },
 

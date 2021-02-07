@@ -1,10 +1,16 @@
 ({
   doinit: function (component, event, helper) {
-    helper.parseDebtInfo(component);
-    console.log(
-      "DEBT INFO",
-      JSON.parse(JSON.stringify(component.get("v.debtInfo")))
-    );
+    // helper.parseDebtInfo(component);
+    // console.log(
+    //   "DEBT INFO",
+    //   JSON.parse(JSON.stringify(component.get("v.debtInfo")))
+    // );
+    // const debtIndex = component.get("v.debtIndex");
+    // console.log("Index", debtIndex);
+    // const consolidatedDebts = component.get("v.consolidatedDebts");
+    // const consolidatedDebt = consolidatedDebts[debtIndex];
+    // console.log("Index", consolidatedDebt);
+    // component.set("v.debtInfo",consolidatedDebt );
   },
   onToggleCheckAlChange: function (component, event, helper) {
     console.log("check all change handler");
@@ -62,13 +68,13 @@
   },
 
   onVerifiedDebtInfoChange: function (component, event, helper) {
-    // let verifiedDebtData = component.get("v.verifiedDebtInfo");
-    // console.log('verified debt info change', JSON.parse(JSON.stringify(verifiedDebtData)));
-    // helper.deduplicateVerifiedChildDebtInfo(component, verifiedDebtData);
-    let verifiedDebtData = component.get("v.verifiedDebtInfo");
-    let index = component.get("v.debtIndex");
-    let parentComponentDebts = component.get("v.listOfVerifiedDebts");
-    parentComponentDebts[index] = verifiedDebtData;
-    console.log("Index: ", debtIndex);
+    console.log("Event Fired");
+    let debtInfoEvent = $A.get("e.c:DebtInfoEvent");
+    debtInfoEvent.setParams({
+      index: component.get("v.debtIndex"),
+      data: component.get("v.debtInfo")
+    });
+    debtInfoEvent.fire();
+    console.log("Event Fired");
   }
 });
