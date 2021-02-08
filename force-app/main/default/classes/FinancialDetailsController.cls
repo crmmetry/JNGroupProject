@@ -57,7 +57,6 @@ public with sharing class FinancialDetailsController {
         Constants.FINACIAL_VERIFICATION_CUSTOM_PERMISSION_ERROR
       );
     }
-    System.debug('Debts Consolidated' + consolidatedDebts);
     List<SObject> recordsToBeUpdated = new List<SObject>();
     List<Applicant__c> applicantRecords = new List<Applicant__c>();
     List<Application_Asset_Liability__c> debtRecords = new List<Application_Asset_Liability__c>();
@@ -89,10 +88,8 @@ public with sharing class FinancialDetailsController {
         Application_Asset_Liability__c debtRecord = debtUnwrapper.record;
         debtRecords.add(debtRecord);
       }
-      System.debug('Aplicant Details: ' + applicantDetails);
       recordsToBeUpdated.addAll(applicantRecords);
       recordsToBeUpdated.addAll(debtRecords);
-      System.debug('records to be updated: ' + recordsToBeUpdated);
       update recordsToBeUpdated;
       return Constants.STATUS_SUCCESS_CODE;
     } catch (Exception e) {

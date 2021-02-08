@@ -13,7 +13,6 @@ public with sharing class FinancialDetailsSelector {
       'Instant_Designing_Module_IDM',
       recordTypesMapForApplicants
     );
-    System.debug('IDM recordtype Id: ' + IDMRecordTypeId);
     Applicant__c applicantObj = [
       SELECT
         Id,
@@ -81,7 +80,6 @@ public with sharing class FinancialDetailsSelector {
       FROM Applicant__c
       WHERE Opportunity__c = :oppId AND RecordTypeId = :IDMRecordTypeId
     ];
-    System.debug('Applicant Fileds ' + applicantObj);
     if (applicantObj != null) {
       financialDetailWrapper = new FinancialDetailsWrapper(applicantObj);
     }
@@ -106,7 +104,6 @@ public with sharing class FinancialDetailsSelector {
       'Debt_Consolidation',
       recordTypesMapForApplicantsAssetsAndLiabilities
     );
-    System.debug('IDM recordtype Id: ' + debtConsolidationId);
     List<Application_Asset_Liability__c> consolidatedDebts = [
       SELECT
         Id,
@@ -123,18 +120,12 @@ public with sharing class FinancialDetailsSelector {
         Application__r.Opportunity__c = :oppId
         AND RecordTypeId = :debtConsolidationId
     ];
-    System.debug('Debts ' + consolidatedDebts);
     if (consolidatedDebts != null) {
-      System.debug('Debt Consolidated not null');
       for (Application_Asset_Liability__c debt : consolidatedDebts) {
-        System.debug('Loop Entered for debts');
         debtsWrapper = new DebtsConsolidatedWrapper(debt);
-        System.debug('Debt consolidated wrapper: ' + debtsWrapper);
         debtWrapperList.add(debtsWrapper);
-        System.debug('Debt consolidated wrapper: ' + debtsWrapper);
       }
     }
-    System.debug('Debts Wrappers: ' + debtWrapperList);
     return debtWrapperList;
   }
 }

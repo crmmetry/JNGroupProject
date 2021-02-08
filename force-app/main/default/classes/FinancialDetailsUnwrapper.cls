@@ -148,6 +148,5 @@ public with sharing class FinancialDetailsUnwrapper {
     record.Total_Assets_Verified_Number__c = wrapper.totalAssetsVerified;
     record.Total_Liabilities_Verified_Number__c = wrapper.totalLiabilitiesVerified;
     record.Net_Worth_Verified_Number__c = wrapper.netWorthVerified;
-    System.debug('Applicant Record' + record);
   }
 }
