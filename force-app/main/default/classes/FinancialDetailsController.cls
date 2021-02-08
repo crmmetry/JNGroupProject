@@ -49,7 +49,18 @@ public with sharing class FinancialDetailsController {
     String oppId,
     List<Map<String, Object>> consolidatedDebts
   ) {
+    Boolean hasCustomPermission = FeatureManagement.checkPermission(
+      'Financial_Verification_Permission'
+    );
+    if (!hasCustomPermission) {
+      throw new AuraException(
+        Constants.FINACIAL_VERIFICATION_CUSTOM_PERMISSION_ERROR
+      );
+    }
+    System.debug('Debts Consolidated' + consolidatedDebts);
     List<SObject> recordsToBeUpdated = new List<SObject>();
+    List<Applicant__c> applicantRecords = new List<Applicant__c>();
+    List<Application_Asset_Liability__c> debtRecords = new List<Application_Asset_Liability__c>();
     try {
       //Serializing Applicant Details Object
       String jsonValuesForFinancialDetails = json.serialize(
@@ -64,22 +75,24 @@ public with sharing class FinancialDetailsController {
         oppId
       );
       Applicant__c applicantDetails = financialUnwrapper.record;
-      recordsToBeUpdated.add(applicantDetails);
-      System.debug('Applicant records' + recordsToBeUpdated);
+      applicantRecords.add(applicantDetails);
       //Serializing Debt Consolidation Objects
-      // for (Map<String, Object> debts : consolidatedDebts) {
-      //   String jsonValuesForDebtConsolidations = json.serialize(debts);
-      //   DebtsConsolidatedWrapper debtWrapper = (DebtsConsolidatedWrapper) json.deserialize(
-      //     jsonValuesForDebtConsolidations,
-      //     DebtsConsolidatedWrapper.class
-      //   );
-      //   DebtConsolidationUnwrapper debtUnwrapper = new DebtConsolidationUnwrapper(
-      //     debtWrapper
-      //   );
-      //   Application_Asset_Liability__c debtRecord = debtUnwrapper.record;
-      //   recordsToBeUpdated.add(debtRecord);
-      // }
+      for (Map<String, Object> debts : consolidatedDebts) {
+        String jsonValuesForDebtConsolidations = json.serialize(debts);
+        DebtsConsolidatedWrapper debtWrapper = (DebtsConsolidatedWrapper) json.deserialize(
+          jsonValuesForDebtConsolidations,
+          DebtsConsolidatedWrapper.class
+        );
+        DebtConsolidationUnwrapper debtUnwrapper = new DebtConsolidationUnwrapper(
+          debtWrapper
+        );
+        Application_Asset_Liability__c debtRecord = debtUnwrapper.record;
+        debtRecords.add(debtRecord);
+      }
       System.debug('Aplicant Details: ' + applicantDetails);
+      recordsToBeUpdated.addAll(applicantRecords);
+      recordsToBeUpdated.addAll(debtRecords);
+      System.debug('records to be updated: ' + recordsToBeUpdated);
       update recordsToBeUpdated;
       return Constants.STATUS_SUCCESS_CODE;
     } catch (Exception e) {

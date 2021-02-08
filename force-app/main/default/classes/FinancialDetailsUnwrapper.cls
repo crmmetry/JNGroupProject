@@ -8,7 +8,7 @@ public with sharing class FinancialDetailsUnwrapper {
   @AuraEnabled
   public Decimal motorVehicles;
   @AuraEnabled
-  public Decimal savingsAccountsAndInvestmentsAssets;
+  public Decimal savingsAccountInvestmentAssetsVerified;
   @AuraEnabled
   public Decimal lifeInsuranceAssets;
   @AuraEnabled
@@ -119,7 +119,7 @@ public with sharing class FinancialDetailsUnwrapper {
     ];
     record.Real_Estate_Holding_s_VERIFIED_Number__c = wrapper.realEstateHoldingsAssetsVerified;
     record.Motor_Vehicle_s_VERIFIED__c = wrapper.motorVehicleAssetsVerified;
-    record.Savings_Current_Account_s_Investment_VER__c = wrapper.savingsAccountsAndInvestmentsAssetsVerified;
+    record.Savings_Current_Account_s_Investment_VER__c = wrapper.savingsAccountInvestmentAssetsVerified;
     record.Life_Insurance_Policy_Cash_Value_VER_Num__c = wrapper.lifeInsuranceAssetsVerified;
     record.Pension_Contribution_s_VERIFIED_Number__c = wrapper.pensionAssetsVerified;
     record.Other_Asset_s_VERIFIED_Number__c = wrapper.otherAssetsVerified;

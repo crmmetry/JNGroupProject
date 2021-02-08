@@ -48,7 +48,7 @@
 
   saveFinancialDetailsAndDebtsHelper: function (component) {
     let verifiedFinancialData = component.get("v.VerifiedDataMap");
-    let debtConsolidated = component.get("v.VerifiedDebts");
+    let debtConsolidated = component.get("v.ConsolidatedDebts");
     let oppId = component.get("v.recordId");
     console.log(
       "verified financial details",
@@ -70,6 +70,15 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         console.log("SUCCESS");
+      } else {
+        //call showtoast
+        let errors = response.getError();
+        let message = "Unknown error"; // Default error message
+        // Retrieve the error message sent by the server
+        if (errors && Array.isArray(errors) && errors.length > 0) {
+          message = errors[0].message;
+        }
+        this.showToast("Custom Permission Error", message, "error");
       }
     });
     $A.enqueueAction(action);
@@ -125,5 +134,15 @@
       "parsed unverified debts",
       JSON.parse(JSON.stringify(unverifiedDebts))
     );
+  },
+
+  showToast: function (title, message, type) {
+    let toastEvent = $A.get("e.force:showToast");
+    toastEvent.setParams({
+      title: title,
+      message: message,
+      type: type
+    });
+    toastEvent.fire();
   }
 });

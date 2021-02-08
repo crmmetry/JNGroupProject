@@ -150,7 +150,7 @@
         formatter="currency"
         step="0.01"
         disabled="true"
-        value="{!v.unverifiedDataMap.savingsAccountsAndInvestmentsAssets}"
+        value="{!v.unverifiedDataMap.savingsAccountInvestmentAssets}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">

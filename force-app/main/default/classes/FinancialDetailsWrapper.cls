@@ -6,7 +6,7 @@ public with sharing class FinancialDetailsWrapper {
   @AuraEnabled
   public Decimal motorVehicleAssets;
   @AuraEnabled
-  public Decimal savingsAccountsAndInvestmentsAssets;
+  public Decimal savingsAccountInvestmentAssets;
   @AuraEnabled
   public Decimal lifeInsuranceAssets;
   @AuraEnabled
@@ -72,7 +72,7 @@ public with sharing class FinancialDetailsWrapper {
   @AuraEnabled
   public Decimal motorVehicleAssetsVerified;
   @AuraEnabled
-  public Decimal savingsAccountsAndInvestmentsAssetsVerified;
+  public Decimal savingsAccountInvestmentAssetsVerified;
   @AuraEnabled
   public Decimal lifeInsuranceAssetsVerified;
   @AuraEnabled
@@ -138,7 +138,7 @@ public with sharing class FinancialDetailsWrapper {
     this.Id = record.Id;
     this.realEstateHoldingsAssets = record.Real_Estate_Market_Value_Number__c;
     this.motorVehicleAssets = record.Motor_Vehicle_Market_Value_Number__c;
-    this.savingsAccountsAndInvestmentsAssets = record.Savings_Deposit_Investments__c;
+    this.savingsAccountInvestmentAssets = record.Savings_Deposit_Investments__c;
     this.lifeInsuranceAssets = record.Life_Insurance_Cash_Value__c;
     this.pensionAssets = record.Pension_IRS_Total_Contribution__c;
     this.otherAssets = record.Other_Asset_Market_Value_Number__c;
@@ -169,7 +169,7 @@ public with sharing class FinancialDetailsWrapper {
     this.netWorth = record.Net_Worth_Calc__c;
     this.realEstateHoldingsAssetsVerified = record.Real_Estate_Holding_s_VERIFIED_Number__c;
     this.motorVehicleAssetsVerified = record.Motor_Vehicle_s_VERIFIED__c;
-    this.savingsAccountsAndInvestmentsAssetsVerified = record.Savings_Current_Account_s_Investment_VER__c;
+    this.savingsAccountInvestmentAssetsVerified = record.Savings_Current_Account_s_Investment_VER__c;
     this.lifeInsuranceAssetsVerified = record.Life_Insurance_Policy_Cash_Value_VER_Num__c;
     this.pensionAssetsVerified = record.Pension_Contribution_s_VERIFIED_Number__c;
     this.otherAssetsVerified = record.Other_Asset_s_VERIFIED_Number__c;

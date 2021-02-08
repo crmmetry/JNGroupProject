@@ -110,6 +110,7 @@ public with sharing class FinancialDetailsSelector {
     List<Application_Asset_Liability__c> consolidatedDebts = [
       SELECT
         Id,
+        Account_Number__c,
         Debt_Type_List__c,
         Debt_Amount_Number__c,
         Institution_Debt_List__c,
