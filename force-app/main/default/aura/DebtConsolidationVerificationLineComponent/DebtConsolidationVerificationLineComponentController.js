@@ -1,5 +1,8 @@
 ({
-  doinit: function (component, event, helper) {},
+  doinit: function (component, event, helper) {
+    let auraList = ["debtType", "debtInstitution", "debtAmount"];
+    component.set("v.auraIdList", auraList);
+  },
   onToggleCheckAlChange: function (component, event, helper) {
     let checkBoxCmp = component.find("verificationToggle");
     checkBoxCmp.forEach((element) => {
