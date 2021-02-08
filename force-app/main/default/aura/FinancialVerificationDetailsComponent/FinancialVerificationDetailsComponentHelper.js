@@ -14,7 +14,6 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         component.set("v.FinancialDataMap", result);
-        console.log("financial map", JSON.parse(JSON.stringify(result)));
         this.parseFinancialDataIntoVerifiedAndUnverifiedData(component);
       }
     });
@@ -37,10 +36,6 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         component.set("v.ConsolidatedDebts", result);
-        console.log(
-          "debts to be consolidated",
-          JSON.parse(JSON.stringify(component.get("v.ConsolidatedDebts")))
-        );
       }
     });
     $A.enqueueAction(action);
@@ -50,14 +45,6 @@
     let verifiedFinancialData = component.get("v.VerifiedDataMap");
     let debtConsolidated = component.get("v.ConsolidatedDebts");
     let oppId = component.get("v.recordId");
-    console.log(
-      "verified financial details",
-      JSON.parse(JSON.stringify(verifiedFinancialData))
-    );
-    console.log(
-      "verified debts list",
-      JSON.parse(JSON.stringify(debtConsolidated))
-    );
     let action = component.get("c.saveFinancialDetailsAndConsolidatedDebts");
     //let oppId = component.get("v.recordId");
     action.setParams({
@@ -69,7 +56,11 @@
       let state = response.getState(); //Checking response status
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
-        console.log("SUCCESS");
+        this.showToast(
+          "Successful Save",
+          "Your information has been successfully saved!",
+          "success"
+        );
       } else {
         //call showtoast
         let errors = response.getError();
@@ -90,17 +81,13 @@
     let unverifiedMap = new Map();
     for (let key in financialMap) {
       if (key.includes("Verified")) {
-        console.log("verified field", key);
         verifiedMap[key] = financialMap[key];
       } else {
-        console.log("unverified field", key);
         unverifiedMap[key] = financialMap[key];
       }
     }
     component.set("v.VerifiedDataMap", verifiedMap);
     component.set("v.UnverifiedDataMap", unverifiedMap);
-    console.log("verified map", JSON.parse(JSON.stringify(verifiedMap)));
-    console.log("unverified map", JSON.parse(JSON.stringify(unverifiedMap)));
   },
 
   parseDebtConsolidatedData: function (component) {
@@ -126,14 +113,6 @@
     });
     component.set("v.VerifiedDebts", verifiedDebts);
     component.set("v.UnverifiedDebts", unverifiedDebts);
-    console.log(
-      "parsed verified debts",
-      JSON.parse(JSON.stringify(verifiedDebts))
-    );
-    console.log(
-      "parsed unverified debts",
-      JSON.parse(JSON.stringify(unverifiedDebts))
-    );
   },
 
   showToast: function (title, message, type) {

@@ -9,7 +9,6 @@
   },
 
   onToggleCheckAlChange: function (component, event, helper) {
-    console.log("check all change handler");
     let checkBoxCmp = component.find("verificationToggle");
     checkBoxCmp.set("v.checked", component.get("v.toggleCheckAll"));
     if (component.get("v.toggleCheckAll")) {
@@ -30,15 +29,12 @@
         inputCmp.set("v.value", null);
       });
     }
-    console.log("component checkbox set to true");
   },
 
   fireComponentEvent: function (cmp, event) {
     let cmpEvent = cmp.getEvent("TotalDebtConsolidatedEvent");
     let checkBoxCmpName = event.getSource().get("v.name");
     let checkBoxValue = event.getSource().get("v.checked");
-    console.log(checkBoxCmpName);
-    console.log(checkBoxValue);
     cmpEvent.setParams({
       componentName: checkBoxCmpName,
       checkedVar: checkBoxValue

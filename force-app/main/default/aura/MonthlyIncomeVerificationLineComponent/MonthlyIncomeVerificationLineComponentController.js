@@ -28,10 +28,8 @@
       totalMonthlyIncome: null
     };
     component.set("v.verifiedMonthlyIncomeMap", verifiedMonthlyIncome);
-    console.log("component was initialised");
   },
   onToggleCheckAlChange: function (component, event, helper) {
-    console.log("check all change handler");
     let checkBoxCmp = component.find("verificationToggle");
     checkBoxCmp.forEach((element) => {
       element.set("v.checked", component.get("v.toggleCheckAll"));
@@ -53,7 +51,6 @@
           inputCmp.set("v.value", null);
         });
       }
-      console.log("component checkbox set to true");
     });
   },
 
@@ -61,8 +58,6 @@
     let cmpEvent = cmp.getEvent("MonthlyIncomeEvent");
     let checkBoxCmpName = event.getSource().get("v.name");
     let checkBoxValue = event.getSource().get("v.checked");
-    console.log(checkBoxCmpName);
-    console.log(checkBoxValue);
     cmpEvent.setParams({
       componentName: checkBoxCmpName,
       checkedVar: checkBoxValue
@@ -89,9 +84,6 @@
   },
 
   onVerifiedMonthlyIncomeMapChange: function (component, event) {
-    console.log(
-      JSON.parse(JSON.stringify(component.get("v.verifiedMonthlyIncomeMap")))
-    );
     let verifiedMonthlyIncomeData = component.get("v.verifiedMonthlyIncomeMap");
     let verifiedData = component.get("v.verifiedDataMap");
     let data = Object.assign(verifiedData, verifiedMonthlyIncomeData);

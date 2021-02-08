@@ -1,19 +1,6 @@
 ({
-  doinit: function (component, event, helper) {
-    // helper.parseDebtInfo(component);
-    // console.log(
-    //   "DEBT INFO",
-    //   JSON.parse(JSON.stringify(component.get("v.debtInfo")))
-    // );
-    // const debtIndex = component.get("v.debtIndex");
-    // console.log("Index", debtIndex);
-    // const consolidatedDebts = component.get("v.consolidatedDebts");
-    // const consolidatedDebt = consolidatedDebts[debtIndex];
-    // console.log("Index", consolidatedDebt);
-    // component.set("v.debtInfo",consolidatedDebt );
-  },
+  doinit: function (component, event, helper) {},
   onToggleCheckAlChange: function (component, event, helper) {
-    console.log("check all change handler");
     let checkBoxCmp = component.find("verificationToggle");
     checkBoxCmp.forEach((element) => {
       element.set("v.checked", component.get("v.toggleCheckAll"));
@@ -35,7 +22,6 @@
           inputCmp.set("v.value", null);
         });
       }
-      console.log("component checkbox set to true");
     });
   },
 
@@ -43,8 +29,6 @@
     let cmpEvent = cmp.getEvent("DebtConsolidationEvent");
     let checkBoxCmpName = event.getSource().get("v.name");
     let checkBoxValue = event.getSource().get("v.checked");
-    console.log(checkBoxCmpName);
-    console.log(checkBoxValue);
     cmpEvent.setParams({
       componentName: checkBoxCmpName,
       checkedVar: checkBoxValue
@@ -68,13 +52,11 @@
   },
 
   onVerifiedDebtInfoChange: function (component, event, helper) {
-    console.log("Event Fired");
     let debtInfoEvent = $A.get("e.c:DebtInfoEvent");
     debtInfoEvent.setParams({
       index: component.get("v.debtIndex"),
       data: component.get("v.debtInfo")
     });
     debtInfoEvent.fire();
-    console.log("Event Fired");
   }
 });
