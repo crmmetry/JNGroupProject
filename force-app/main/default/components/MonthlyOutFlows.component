@@ -1,0 +1,197 @@
+<!--
+    Sr#     Ticket#      Modified By                Modified Date       Description 
+ * 	  1		JN1-4279	  Ishwari Gaikwad.(TQ)		02/09/2021		  created pdf.
+-->
+<apex:component>
+  <div class="summaryBlock">
+    <table border="1" class="contentTable2">
+      <thead class="thead">
+        <tr class="tr">
+          <th colspan="2" class="th">
+            Expense Details (Note: For accuracy, compute ANNUAL and divide by
+            12)
+          </th>
+          <th class="th">Monthly Payment (Prior to loan)</th>
+          <th class="th">Monthly Payment (After loan)</th>
+        </tr>
+      </thead>
+      <tbody class="extraSpace">
+        <tr>
+          <td rowspan="4" class="td">Statutory Deduction</td>
+          <td class="td">Income Tax</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">NIS Contributions</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">NHT Contributions</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">Education Tax</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+
+        <tr>
+          <td rowspan="5" class="td">PROPERTY RELATED</td>
+          <td class="td">Rent/Board</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">Strata Maintenance</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">Property Tax</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">Property Insurance</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">Property Maintenance</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+
+        <tr>
+          <td rowspan="6" class="td">PERSONAL/ FAMILY</td>
+          <td class="td">Personal Expenses</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">Food Costs</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">Child Care Costs</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">School Costs</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">Health Cost</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">Other Personal/Family Costs</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="summaryBlock">
+    <table border="1" class="contentTable2">
+      <thead class="thead">
+        <tr class="tr">
+          <th colspan="2" class="th">
+            Expense Details (Note: For accuracy, compute ANNUAL and divide by
+            12)
+          </th>
+          <th class="th">Monthly Payment (Prior to loan)</th>
+          <th class="th">Monthly Payment (After loan)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="7" class="td">UTILITIES/ HOUSEHOLD</td>
+          <td class="td">Electricity</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">Water</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">Cell Phone/Landline</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">Internet/Cable</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">Cooking Gas</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">House Keeping Costs</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">Other Utilities</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+
+        <tr>
+          <td rowspan="8" class="td">TRANSPORTATION RELATED</td>
+          <td class="td">Fares</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">Petrol/Fuel</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">Toll Fees</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">Motor Vehicle Insurance</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">Motor Vehicle Registration</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">Motor Vehicle Fitness</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">Motor Vehicle Maintenance</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+        <tr>
+          <td class="td">Other Transportation Costs</td>
+          <td class="td"></td>
+          <td class="td"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</apex:component>

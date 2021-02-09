@@ -1,0 +1,16 @@
+<!--
+    Sr#     Ticket#      Modified By                Modified Date       Description 
+ * 	  1		JN1-4279	  Ishwari Gaikwad.(TQ)		02/09/2021		  created pdf.
+-->
+<apex:component>
+  <table border="1" class="contentTable1">
+    <tr>
+      <td class="td2">Prior</td>
+      <td class="td2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="td2">After</td>
+      <td class="td2">&nbsp;</td>
+    </tr>
+  </table>
+</apex:component>
