@@ -133,6 +133,10 @@ public with sharing class FinancialDetailsWrapper {
   public Decimal totalLiabilitiesVerified;
   @AuraEnabled
   public Decimal netWorthVerified;
+  @AuraEnabled
+  public Decimal totalDebtConsolidated;
+  @AuraEnabled
+  public Decimal totalDebtConsolidatedVerified;
 
   public FinancialDetailsWrapper(Applicant__c record) {
     this.Id = record.Id;
@@ -198,5 +202,7 @@ public with sharing class FinancialDetailsWrapper {
     this.totalAssetsVerified = record.Total_Assets_Verified_Number__c;
     this.totalLiabilitiesVerified = record.Total_Liabilities_Verified_Number__c;
     this.netWorthVerified = record.Net_Worth_Verified_Number__c;
+    this.totalDebtConsolidated = record.Total_Amount_Consolidated__c;
+    this.totalDebtConsolidatedVerified = record.Total_Amount_Consolidation_VERIFIED__c;
   }
 }

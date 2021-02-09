@@ -84,6 +84,7 @@ public with sharing class FinancialDetailsUnwrapper {
     this.record = [
       SELECT
         Id,
+        Total_Amount_Consolidation_VERIFIED__c,
         Real_Estate_Holding_s_VERIFIED_Number__c,
         Motor_Vehicle_s_VERIFIED__c,
         Savings_Current_Account_s_Investment_VER__c,
@@ -148,5 +149,6 @@ public with sharing class FinancialDetailsUnwrapper {
     record.Total_Assets_Verified_Number__c = wrapper.totalAssetsVerified;
     record.Total_Liabilities_Verified_Number__c = wrapper.totalLiabilitiesVerified;
     record.Net_Worth_Verified_Number__c = wrapper.netWorthVerified;
+    record.Total_Amount_Consolidation_VERIFIED__c = wrapper.totalDebtConsolidatedVerified;
   }
 }

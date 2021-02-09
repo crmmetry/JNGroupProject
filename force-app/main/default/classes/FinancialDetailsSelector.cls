@@ -16,6 +16,8 @@ public with sharing class FinancialDetailsSelector {
     Applicant__c applicantObj = [
       SELECT
         Id,
+        Total_Amount_Consolidated__c,
+        Total_Amount_Consolidation_VERIFIED__c,
         Real_Estate_Market_Value_Number__c,
         Motor_Vehicle_Market_Value_Number__c,
         Savings_Deposit_Investments__c,
