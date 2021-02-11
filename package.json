@@ -27,7 +27,7 @@
     "husky": "^4.2.1",
     "lint-staged": "^10.0.7",
     "prettier": "2.0.5",
-    "prettier-plugin-apex": "1.7.0"
+    "prettier-plugin-apex": "^1.8.0"
   },
   "husky": {
     "hooks": {
@@ -44,7 +44,5 @@
   },
   "author": "Crmmetry",
   "license": "ISC",
-  "dependencies": {
-    "diff2html": "^3.2.0"
-  }
+  "dependencies": {}
 }
