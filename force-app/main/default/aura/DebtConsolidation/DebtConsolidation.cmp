@@ -1,4 +1,7 @@
-<aura:component implements="lightning:availableForFlowScreens" access="global">
+<aura:component
+  implements="lightning:availableForFlowScreens,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction"
+  access="global"
+>
   <aura:attribute name="applicantId" type="String" />
   <aura:attribute name="studentLoanRecords" type="Object[]" />
   <aura:attribute name="motorvehicalRecords" type="Object[]" />
@@ -9,9 +12,8 @@
   <aura:attribute name="otherRecords" type="Object[]" />
   <aura:attribute name="loanPurpose" type="String" />
   <aura:attribute name="loadComponent" type="Boolean" default="true" />
-  <aura:attribute name="totalMonthlyPayment" type="Decimal" default="0.0" />
+
   <aura:attribute name="totalDebtAmount" type="Decimal" default="0.0" />
-  <aura:attribute name="totalDebtAmtMap" type="Map" default="{}" />
   <aura:attribute
     name="debtTypes"
     type="List"
@@ -23,156 +25,191 @@
                                                           'Hire Purchase',
                                                           'Other']"
   />
-
+  <!-- <aura:handler name="init" value="{!this}" action="{!c.doinit}"/> -->
   <aura:handler
     name="setAttribute"
     event="c:ChangeInDebtAmount"
     action="{!c.ChangeInDebtAmount}"
   />
-
-  <div class="slds-section slds-is-open">
-    <div aria-hidden="false" class="slds-section__content">
-      <div class="slds-grid">
-        <div class="slds-col slds-size_1-of-2">
-          <lightning:select
-            name="debtType"
-            label="Select Debt Type"
-            variant="label-inline"
-            required="true"
-            aura:id="debtType"
+  <div class="slds-m-around_xx-large">
+    <aura:if isTrue="{!v.loadComponent}">
+      <section
+        role="dialog"
+        tabindex="-1"
+        aria-labelledby="modal-heading-01"
+        aria-modal="true"
+        aria-describedby="modal-content-id-1"
+        class="slds-modal slds-fade-in-open slds-modal_medium"
+      >
+        <div class="slds-modal__container">
+          <!-- Modal Header -->
+          <header class="slds-modal__header">
+            <h2
+              id="modal-heading-01"
+              class="slds-text-heading_medium slds-hyphenate"
+            >
+              Debt Consolidation
+            </h2>
+          </header>
+          <!-- Main Body of Modal -->
+          <div
+            class="slds-modal__content slds-p-around_medium"
+            id="modal-content-id-1"
           >
-            <option text="--None--"></option>
-            <aura:iteration items="{!v.debtTypes}" var="debtType">
-              <option text="{!debtType}"></option>
-            </aura:iteration>
-          </lightning:select>
+            <div class="slds-section slds-is-open">
+              <div aria-hidden="false" class="slds-section__content">
+                <div class="slds-grid">
+                  <div class="slds-col slds-size_1-of-2">
+                    <lightning:select
+                      name="debtType"
+                      label="Select Debt Type"
+                      variant="label-inline"
+                      required="true"
+                      aura:id="debtType"
+                    >
+                      <option text="--None--"></option>
+                      <aura:iteration items="{!v.debtTypes}" var="debtType">
+                        <option text="{!debtType}"></option>
+                      </aura:iteration>
+                    </lightning:select>
+                  </div>
+                  <div
+                    class="slds-col slds-size_1-of-2"
+                    style="padding-left: 3%; padding-top: 3%;"
+                  >
+                    <a onclick="{!c.add}">
+                      <lightning:icon
+                        iconName="utility:add"
+                        alternativeText="add"
+                        size="small"
+                      />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <aura:if
+              isTrue="{!v.unsecuredLoanRecords.length > 0 ? true : false}"
+            >
+              <c:DebtConsolidationParent
+                records="{!v.unsecuredLoanRecords}"
+                debtTypeName="Unsecured Loan"
+              />
+            </aura:if>
+            <aura:if
+              isTrue="{!v.motorvehicalRecords.length > 0 ? true : false}"
+            >
+              <c:DebtConsolidationParent
+                records="{!v.motorvehicalRecords}"
+                debtTypeName="Motor Vehicle Loan"
+              />
+            </aura:if>
+            <aura:if isTrue="{!v.homeLoanRecords.length > 0 ? true : false}">
+              <c:DebtConsolidationParent
+                records="{!v.homeLoanRecords}"
+                debtTypeName="Mortgage/ Home Equity Loan"
+              />
+            </aura:if>
+            <aura:if isTrue="{!v.creditCardRecords.length > 0 ? true : false}">
+              <c:DebtConsolidationParent
+                records="{!v.creditCardRecords}"
+                debtTypeName="Credit Card"
+              />
+            </aura:if>
+            <aura:if isTrue="{!v.studentLoanRecords.length > 0 ? true : false}">
+              <c:DebtConsolidationParent
+                records="{!v.studentLoanRecords}"
+                debtTypeName="Student Loan"
+              />
+            </aura:if>
+            <aura:if
+              isTrue="{!v.hirePurchaseRecords.length > 0 ? true : false}"
+            >
+              <c:DebtConsolidationParent
+                records="{!v.hirePurchaseRecords}"
+                debtTypeName="Hire Purchase"
+              />
+            </aura:if>
+            <aura:if isTrue="{!v.otherRecords.length > 0 ? true : false}">
+              <c:DebtConsolidationParent
+                records="{!v.otherRecords}"
+                debtTypeName="Other"
+              />
+            </aura:if>
+
+            <table
+              class="slds-table slds-table_cell-buffer slds-table_bordered"
+            >
+              <thead>
+                <aura:if isTrue="loanPurpose != null ? true : false">
+                  <tr class="slds-line-height_reset">
+                    <lightning:layout>
+                      <lightning:layoutItem size="4">
+                        <th class="" scope="col">
+                          <div class="slds-truncate" title=""></div>
+                        </th>
+                      </lightning:layoutItem>
+                      <lightning:layoutItem size="3">
+                        <th class="" scope="col">
+                          <div
+                            class="slds-truncate layoutBox"
+                            title="Total Monthly Payment"
+                          >
+                            Total Monthly Payment
+                          </div>
+                        </th>
+                      </lightning:layoutItem>
+                      <lightning:layoutItem size="5">
+                        <th class="" scope="col">
+                          <div class="slds-truncate" title="Action">
+                            <lightning:input
+                              label="monthlyPayment"
+                              maxlength="10"
+                              variant="label-hidden"
+                            />
+                          </div>
+                        </th>
+                      </lightning:layoutItem>
+                    </lightning:layout>
+                  </tr>
+                </aura:if>
+                <tr class="slds-line-height_reset">
+                  <lightning:layout>
+                    <lightning:layoutItem size="4">
+                      <th class="" scope="col">
+                        <div class="slds-truncate" title=""></div>
+                      </th>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem size="3">
+                      <th class="" scope="col">
+                        <div
+                          class="slds-truncate layoutBox"
+                          title="Total Amount Consolidated"
+                        >
+                          Total Amount Consolidated
+                        </div>
+                      </th>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem size="5">
+                      <th class="" scope="col">
+                        <div class="slds-truncate" title="Action">
+                          <lightning:formattedNumber
+                            value="{!v.totalDebtAmount}"
+                            style="currency"
+                            currencyCode="USD"
+                          />
+                        </div>
+                      </th>
+                    </lightning:layoutItem>
+                  </lightning:layout>
+                </tr>
+              </thead>
+            </table>
+          </div>
         </div>
-        <div
-          class="slds-col slds-size_1-of-2"
-          style="padding-left: 3%; padding-top: 3%;"
-        >
-          <a onclick="{!c.add}">
-            <lightning:icon
-              iconName="utility:add"
-              alternativeText="add"
-              size="small"
-            />
-          </a>
-        </div>
-      </div>
-    </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
   </div>
-
-  <aura:if isTrue="{!v.unsecuredLoanRecords.length > 0 ? true : false}">
-    <c:DebtConsolidationParent
-      records="{!v.unsecuredLoanRecords}"
-      debtTypeName="Unsecured Loan"
-    />
-  </aura:if>
-  <aura:if isTrue="{!v.motorvehicalRecords.length > 0 ? true : false}">
-    <c:DebtConsolidationParent
-      records="{!v.motorvehicalRecords}"
-      debtTypeName="Motor Vehicle Loan"
-    />
-  </aura:if>
-  <aura:if isTrue="{!v.homeLoanRecords.length > 0 ? true : false}">
-    <c:DebtConsolidationParent
-      records="{!v.homeLoanRecords}"
-      debtTypeName="Mortgage/ Home Equity Loan"
-    />
-  </aura:if>
-  <aura:if isTrue="{!v.creditCardRecords.length > 0 ? true : false}">
-    <c:DebtConsolidationParent
-      records="{!v.creditCardRecords}"
-      debtTypeName="Credit Card"
-    />
-  </aura:if>
-  <aura:if isTrue="{!v.studentLoanRecords.length > 0 ? true : false}">
-    <c:DebtConsolidationParent
-      records="{!v.studentLoanRecords}"
-      debtTypeName="Student Loan"
-    />
-  </aura:if>
-  <aura:if isTrue="{!v.hirePurchaseRecords.length > 0 ? true : false}">
-    <c:DebtConsolidationParent
-      records="{!v.hirePurchaseRecords}"
-      debtTypeName="Hire Purchase"
-    />
-  </aura:if>
-  <aura:if isTrue="{!v.otherRecords.length > 0 ? true : false}">
-    <c:DebtConsolidationParent
-      records="{!v.otherRecords}"
-      debtTypeName="Other"
-    />
-  </aura:if>
-
-  <table class="slds-table slds-table_cell-buffer slds-table_bordered">
-    <thead>
-      <aura:if isTrue="{!v.loanPurpose == 'Debt Consolidation' ? true : false}">
-        <tr class="slds-line-height_reset">
-          <lightning:layout>
-            <lightning:layoutItem size="4">
-              <th class="" scope="col">
-                <div class="slds-truncate" title=""></div>
-              </th>
-            </lightning:layoutItem>
-            <lightning:layoutItem size="3">
-              <th class="" scope="col">
-                <div
-                  class="slds-truncate layoutBox"
-                  title="Total Monthly Payment"
-                >
-                  Total Monthly Payment
-                </div>
-              </th>
-            </lightning:layoutItem>
-            <lightning:layoutItem size="5">
-              <th class="" scope="col">
-                <div class="slds-truncate" title="Action">
-                  <lightning:input
-                    label="monthlyPayment"
-                    formatter="Currency"
-                    type="number"
-                    maxlength="10"
-                    value="{!v.totalMonthlyPayment}"
-                    variant="label-hidden"
-                  />
-                </div>
-              </th>
-            </lightning:layoutItem>
-          </lightning:layout>
-        </tr>
-      </aura:if>
-      <tr class="slds-line-height_reset">
-        <lightning:layout>
-          <lightning:layoutItem size="4">
-            <th class="" scope="col">
-              <div class="slds-truncate" title=""></div>
-            </th>
-          </lightning:layoutItem>
-          <lightning:layoutItem size="3">
-            <th class="" scope="col">
-              <div
-                class="slds-truncate layoutBox"
-                title="Total Amount Consolidated"
-              >
-                Total Amount Consolidated
-              </div>
-            </th>
-          </lightning:layoutItem>
-          <lightning:layoutItem size="5">
-            <th class="" scope="col">
-              <div class="slds-truncate" title="Action">
-                <lightning:formattedNumber
-                  value="{!v.totalDebtAmount}"
-                  style="currency"
-                  currencyCode="USD"
-                />
-              </div>
-            </th>
-          </lightning:layoutItem>
-        </lightning:layout>
-      </tr>
-    </thead>
-  </table>
 </aura:component>

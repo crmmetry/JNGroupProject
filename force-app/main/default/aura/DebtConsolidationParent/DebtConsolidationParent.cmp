@@ -52,10 +52,7 @@
             {!index + 1}.
           </div>
         </lightning:layoutItem>
-        <c:DebtConsolidationChild
-          record="{!record}"
-          indexIndetity="{!index + '_'+v.debtTypeName}"
-        />
+        <c:DebtConsolidationChild record="{!record}" />
         <lightning:layoutItem size="3" padding="around-small">
           <a name="{!index + '_'+v.debtTypeName}" onclick="{!c.remove}">
             <lightning:icon

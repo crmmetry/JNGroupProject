@@ -9,7 +9,6 @@
                                                          'DebtInstitution' : '',
                                                          'DebtAmount' : '' }"
   />
-  <aura:attribute name="indexIndetity" type="String" />
   <aura:registerEvent name="setAttribute" type="c:ChangeInDebtAmount" />
   <lightning:layoutItem size="4" padding="around-small">
     <lightning:input
@@ -21,9 +20,7 @@
   <lightning:layoutItem size="4" padding="around-small">
     <lightning:input
       aura:id="DebtAmount"
-      name="{!v.indexIndetity}"
       type="number"
-      formatter="Currency"
       label="DebtAmount"
       value="{!v.record.DebtAmount}"
       variant="label-hidden"

@@ -33,15 +33,12 @@
       component.set("v.otherRecords", existingRows);
     }
   },
+
   ChangeInDebtAmount: function (component, event, helper) {
     let eventValue = event.getParam("attributeValue");
     let rowToDelete = event.getParam("rowToDelete");
-    let totalDebtMap = component.get("v.totalDebtAmtMap");
     if (eventValue != undefined) {
-      let string1 = eventValue.split(":");
-      totalDebtMap[string1[0]] = string1[1];
-      component.set("v.totalDebtAmtMap", totalDebtMap);
-      helper.calculateDebtAmt(component, totalDebtMap);
+      helper.calculateDebtAmt(component, eventValue);
     } else if (rowToDelete != undefined) {
       helper.remove(component, rowToDelete);
     }
