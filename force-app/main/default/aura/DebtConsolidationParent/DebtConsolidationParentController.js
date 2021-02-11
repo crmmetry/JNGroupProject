@@ -1,7 +1,7 @@
 ({
   remove: function (component, event, helper) {
-    var indexPosition = event.target.name;
-    var setEvent = component.getEvent("setAttribute");
+    let indexPosition = event.target.name;
+    let setEvent = component.getEvent("setAttribute");
     setEvent.setParams({ rowToDelete: indexPosition });
     setEvent.fire();
   }
