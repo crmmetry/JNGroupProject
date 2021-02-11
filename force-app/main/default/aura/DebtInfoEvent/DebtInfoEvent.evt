@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION" description="Event template">
+    <aura:attribute name="Index" type="Integer" />
+    <aura:attribute name="data" type="Map" />
+</aura:event>
+

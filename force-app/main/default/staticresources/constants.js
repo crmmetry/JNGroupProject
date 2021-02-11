@@ -47,3 +47,5 @@ window.UNSECURED_LOAN_PURPOSE = [
   "Other"
 ];
 window.NO_PRODUCT_FAMILY = "NO PRODUCT FAMILIY";
+window.CHECK_ALL = "Check All";
+window.UNCHECK_ALL = "Uncheck All";
