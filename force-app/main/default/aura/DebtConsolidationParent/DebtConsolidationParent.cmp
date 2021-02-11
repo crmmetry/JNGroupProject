@@ -1,0 +1,68 @@
+<aura:component
+  implements="lightning:availableForFlowScreens,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction"
+  access="global"
+>
+  <aura:attribute name="debtTypeName" type="String" />
+  <aura:attribute name="records" type="Object[]" />
+  <aura:registerEvent name="setAttribute" type="c:ChangeInDebtAmount" />
+  <lightning:card>
+    <h3 class="slds-section-title--divider">
+      <b>{!v.debtTypeName +' ('+ v.records.length+')'}</b>
+    </h3>
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+      <thead>
+        <tr class="slds-line-height_reset">
+          <lightning:layout>
+            <lightning:layoutItem flexibility="auto, no-grow">
+              <th class="" scope="col">
+                <div class="slds-truncate" title="Sno">#</div>
+              </th>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="4">
+              <th class="" scope="col">
+                <div class="slds-truncate" title="Debt Institution">
+                  Debt Institution
+                </div>
+              </th>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="4">
+              <th class="" scope="col">
+                <div class="slds-truncate" title="Debt Amount ($)">
+                  Debt Amount ($)
+                </div>
+              </th>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="4">
+              <th class="" scope="col">
+                <div class="slds-truncate" title="Action">Action</div>
+              </th>
+            </lightning:layoutItem>
+          </lightning:layout>
+        </tr>
+      </thead>
+    </table>
+
+    <aura:iteration items="{!v.records}" var="record" indexVar="index">
+      <lightning:layout>
+        <lightning:layoutItem
+          padding="around-small"
+          flexibility="auto, no-grow"
+        >
+          <div class="slds-text-heading_small slds-text-align_center">
+            {!index + 1}.
+          </div>
+        </lightning:layoutItem>
+        <c:DebtConsolidationChild record="{!record}" />
+        <lightning:layoutItem size="3" padding="around-small">
+          <a name="{!index + '_'+v.debtTypeName}" onclick="{!c.remove}">
+            <lightning:icon
+              iconName="utility:close"
+              alternativeText="delete"
+              size="small"
+            />
+          </a>
+        </lightning:layoutItem>
+      </lightning:layout>
+    </aura:iteration>
+  </lightning:card>
+</aura:component>
