@@ -49,3 +49,5 @@ window.UNSECURED_LOAN_PURPOSE = [
 window.NO_PRODUCT_FAMILY = "NO PRODUCT FAMILIY";
 window.NO_APPLICANTS_FOUND =
   "Please ensure that an Applicant has been created for the current Opportunity before proceeding.";
+window.CHECK_ALL = "Check All";
+window.UNCHECK_ALL = "Uncheck All";

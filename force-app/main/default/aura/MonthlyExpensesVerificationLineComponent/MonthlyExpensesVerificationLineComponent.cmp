@@ -1,0 +1,331 @@
+<aura:component>
+  <aura:attribute name="toggleCheckAll" type="Boolean" default="false" />
+  <aura:attribute name="auraIdList" type="List" />
+  <aura:attribute name="verifiedMonthlyExpensesMap" type="Map" />
+  <aura:attribute name="verifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="unverifiedDataMap" type="Map" default="{}" />
+
+  <aura:handler
+    name="change"
+    action="{!c.onVerifiedMonthlyExpensesMapChange}"
+    value="{!v.verifiedMonthlyExpensesMap}"
+  />
+  <aura:registerEvent
+    name="MonthlyExpensesEvent"
+    type="c:MonthlyExpensesVerificationEvent"
+  />
+  <aura:handler
+    name="MonthlyExpensesEvent"
+    event="c:MonthlyExpensesVerificationEvent"
+    action="{!c.handleComponentEvent}"
+  />
+  <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
+  <aura:handler
+    name="change"
+    action="{!c.onToggleCheckAlChange}"
+    value="{!v.toggleCheckAll}"
+  />
+  <lightning:layout multipleRows="true">
+    <lightning:layoutItem size="12" mediumDeviceSize="12"
+      ><div class="slds-section-title--divider">
+        <h1>Monthly Expenses</h1>
+      </div></lightning:layoutItem
+    >
+  </lightning:layout>
+  <lightning:layout
+    multipleRows="true"
+    verticalAlign="center"
+    horizontalAlign="space"
+  >
+    <!-- ROW 1 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="">
+        <h3>
+          Total Value of Monthly Loan Payments (Car Loan, Personal Loans etc.)
+        </h3>
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="totalValueMonthlyLoansUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.totalMonthlyLoanPayments}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="totalValueMonthlyLoans"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="totalValueMonthlyLoans"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.totalMonthlyLoanPaymentsVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 2 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Mortgage Payment, Rent</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="mortgagePaymentUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.mortgagePayment}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="mortgagePayment"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="mortgagePayment"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.mortgagePaymentVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 3 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="">
+        <h3>
+          Utilties and Household Expenses (Electricity, Water, Gas, Cell Phone)
+        </h3>
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="utilitiesHouseholdExpensesUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.utilitiesAndHouseholdExpenses}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="utilitiesHouseholdExpenses"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="utilitiesHouseholdExpenses"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.utilitiesAndHouseholdExpensesVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 4 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="">
+        <h3>Personal and Family Expenses (Food, Health, Child Care etc.)</h3>
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="personalAndFamilyExpensesUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.personalAndFamilyExpenses}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="personalAndFamilyExpenses"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="personalAndFamilyExpenses"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.personalAndFamilyExpensesVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 5 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="">
+        <h3>
+          Transportation (Fuel, Fare, Toll, Vehicle Maintenance and Insurance)
+        </h3>
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="transportationUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.transportationExpenses}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="transportation"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="transportation"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.transportationExpensesVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 6 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="">
+        <h3>
+          Other Expenses (Property Related, Strata Maintenance, Tuition, etc.)
+        </h3>
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="otherExpensesUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.otherExpenses}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="otherExpenses"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="otherExpenses"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.otherExpensesVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 7 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Total Statutory Deductions</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="totalStatuaryDeductionsUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.totalStatutoryDeductions}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="totalStatuaryDeductions"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="totalStatuaryDeductions"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.totalStatutoryDeductionsVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 8 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Total Monthly Expenses</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="totalMonthlyExpensesUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.totalMonthlyExpenses}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="totalMonthlyExpenses"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="totalMonthlyExpenses"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.totalMonthlyExpensesVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+  </lightning:layout>
+</aura:component>

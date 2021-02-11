@@ -175,6 +175,21 @@ public class TestDataFactory {
     return record;
   }
 
+  public static PermissionSetAssignment CreatePermissionSetAssignment(
+    Id userId,
+    String permissionSetName
+  ) {
+    PermissionSet ps = [
+      SELECT Id
+      FROM PermissionSet
+      WHERE Name = :permissionSetName
+    ];
+    return new PermissionSetAssignment(
+      AssigneeId = userId,
+      PermissionSetId = ps.Id
+    );
+  }
+
   public static Product2 CreateProduct(String family, String name) {
     Product2 record = new Product2(Name = name, Family = family);
     return record;
