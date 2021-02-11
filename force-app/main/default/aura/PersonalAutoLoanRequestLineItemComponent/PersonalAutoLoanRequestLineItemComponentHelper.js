@@ -20,14 +20,11 @@
         let state = response.getState(); //Checking response status
         let result = response.getReturnValue();
         if (state === "SUCCESS") {
-          component.set("v.applicants", result);
-          console.log(result);
-          console.log(
-            "applicants: ",
-            JSON.parse(JSON.stringify(component.get("v.applicants")))
-          );
-        } else {
-          console.log("rror", response.getError());
+          if (result === NO_APPLICANTS_FOUND) {
+            showToast("Applcant Not Found!", NO_APPLICANTS_FOUND, "error");
+          } else {
+            component.set("v.applicants", result);
+          }
         }
       });
       $A.enqueueAction(action);

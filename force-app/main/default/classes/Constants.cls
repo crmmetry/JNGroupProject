@@ -67,4 +67,5 @@ public class Constants {
   public static final String CLOSE_DATE_ERR3 = 'The Closed Date cannot be greater than today. Please contact Sales Support.';
   public static final String CLOSE_DATE_ERR4 = 'The Closed Date year cannot be less this year. Please contact Sales Support.';
   public static final String CLOSE_DATE_ERR5 = 'The Closed Date cannot be a holiday. Please contact Sales Support.';
+  public static final String NO_APPLICANTS_FOUND = 'Please ensure that an Applicant has been created for the current Opportunity before proceeding.';
 }
