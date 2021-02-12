@@ -14,6 +14,7 @@ public class AutoCreditScoreModelController {
     
     //Credit Product
     public String productCategry{get; set;}
+    public String productCategryToDisplay{get; set;}
     
     //Loan Amount
     public Double loanAmt{get; set;}
@@ -101,7 +102,7 @@ public class AutoCreditScoreModelController {
 	public Decimal collateralWeightage{get; set;}
     
     //Ability to Service 
-    public Decimal abilityToService {get; set;}
+    public String abilityToService {get; set;}
     public Decimal abilityToServiceScore{get; set;}
 	public Decimal abilityToServiceWeightage{get; set;}
     
@@ -147,6 +148,7 @@ public class AutoCreditScoreModelController {
         
         //Get product Category Value
         productCategry = getProductCategory(applicantObject.Opportunity__c);
+        formatProductCatg(productCategry);
         
         //Get Loan Amount/Limit Value
         getLoanCalculationApplicantProduct(applicantObject.Opportunity__c, applicantId);
@@ -184,7 +186,6 @@ public class AutoCreditScoreModelController {
         ProductDetailService prdDetailSrv = new ProductDetailService();
         personAccountWrapper = ProductDetailSelector.getAccount(applicantObject.Account__c);
         
-        //ageString = String.ValueOf(calculateAge(personAccount.PersonBirthdate));
         ageString = prdDetailSrv.getSubCriteriaOption(Constants.AGE,String.ValueOf(personAccountWrapper.age));
         
         //Get the value of Education
@@ -196,32 +197,49 @@ public class AutoCreditScoreModelController {
 		//Get the value of Years at Current Residence
 		yearsAtResidentString = prdDetailSrv.getSubCriteriaOption(Constants.YEARS_AT_RESIDENCE, String.valueOf(personAccountWrapper.yearsAtResident));
 		
+		//Get the value of Credit History in the last 24 months
+        creditHistoryLast24Months= prdDetailSrv.getSubCriteriaOption(Constants.CREDIT_HISTORY, applicantObject.Credit_History_in_last_24_Months__c);    
+            
+        //Get the value of Net Worth 
+        assessmentOfApplicantNetWorth = prdDetailSrv.getSubCriteriaOption(Constants.NET_WORTH, applicantObject.Assessment_of_Applicant_Net_Worth__c);
+            
+        //Get the value of Employment Status
+    	emplStatus = prdDetailSrv.getSubCriteriaOption(Constants.EMPLOYMENT_STATUS, employWrapper.EmploymentStatus);
+        
+        //Get the value of Industry of Employment
+        industryName = prdDetailSrv.getSubCriteriaOption(Constants.INDUSTRY, employWrapper.industry);
+
         //Get the value of Length of Current Employment
 		lengthOfEmploymentString = prdDetailSrv.getSubCriteriaOption(Constants.LENGTH_OF_EMPLOYMENT, String.valueOf(employWrapper.lengthOfEmployment));
+        
+        //Get the value of Professional Category
+        professionalCategory = prdDetailSrv.getSubCriteriaOption(Constants.PROFESSIONAL_CATEGORY, employWrapper.professionalCategory);
         
         oppObject = [SELECT Id, Collateral_CC__c, Loan_to_ValueCC__c, AccountId
                           FROM Opportunity 
                           WHERE Id =: applicantObject.Opportunity__c];
 
         oppWrpr = new OpportunityWrapper(oppObject);
-        
         subCritOptionWrpr = ProductDetailService.getSubcriteriaOptions(applicantObject.Opportunity__c);
     	CreditScoreModelWrapper creditWrapper = new CreditScoreModelWrapper(subCritOptionWrpr); 
         
+        //Get the value in Collateral
+        collateralName = prdDetailSrv.getSubCriteriaOption(Constants.COLLATERAL, subCritOptionWrpr.collateral);
+        
+        //Get the value in Ability to Service
+        abilityToService = prdDetailSrv.getSubCriteriaOption(Constants.ABILITY_TO_SERVICE, String.ValueOf(subCritOptionWrpr.ablitityToService));
+        
+        //Get the value in Repayment Method
+        repaymntMethod = prdDetailSrv.getSubCriteriaOption(Constants.REPAYMENT_METHOD, subCritOptionWrpr.repaymentMethod);
+        
         //Assign the value of Score and Weightage to each row  
         assignScoreaAndWeightage(creditWrapper.fieldScoreMap);
-        
         
         //Get the value in Total Weighted Score
         totalWeightedScore = creditWrapper.finalScore;
         
         //Get the value in Credit Risk Rating 
         creditRiskRatingValue = creditWrapper.riskRating.rating;
-        
-		collateralName = subCritOptionWrpr.collateral;    
-        abilityToService = subCritOptionWrpr.ablitityToService;    
-        repaymntMethod = subCritOptionWrpr.repaymentMethod;    
-        
     } 
     
     private void assignScoreaAndWeightage(Map<String, List<Decimal>> mapOfScoreWeightage){
@@ -385,7 +403,6 @@ public class AutoCreditScoreModelController {
         
     }
     
-    
     private Applicant__c getApplicant(Id applicantId){
         Applicant__c applicantObjectInstance;
         applicantObjectInstance = [SELECT 
@@ -485,12 +502,23 @@ public class AutoCreditScoreModelController {
         return formattedApplicationID;
     }
     
+    private void formatProductCatg(string prodctCtg){
+        productCategryToDisplay='';
+        if(prodctCtg == Constants.AUTO_PRODUCT_FAMILY){
+            productCategryToDisplay = Constants.AUTO_PRODUCT_FAMILY_FOR_DISPLAY; 
+        }else if(prodctCtg == Constants.CREDITCARD_PRODUCT_FAMILY){
+            productCategryToDisplay = Constants.CREDITCARD_PRODUCT_FAMILY_FOR_DISPLAY;
+        }else if(prodctCtg == Constants.UNSECURED_PRODUCT_FAMILY){
+            productCategryToDisplay = Constants.UNSECURED_PRODUCT_FAMILY_FOR_DISPLAY;
+        }else if(prodctCtg == Constants.LINEOFCREDIT_PRODUCT_FAMILY){
+            productCategryToDisplay = Constants.LINEOFCREDIT_PRODUCT_FAMILY_FOR_DISPLAY;
+        }
+    }
+        
     private void getLoanCalculationApplicantProduct(Id oppId, Id applicantId){
         list<Loan_Calculation_Applicant_Product__c> applicantLoanCalPrdct;
         list<Loan_Calculator__c> loanCalculator;
-        list<Loan_Calculation_Product__c> loanCalPrdct;
-        
-        
+        list<Loan_Calculation_Product__c> loanCalPrdct; 
         id loanCalId;
             
         applicantLoanCalPrdct = [SELECT Loan_Amount_Number__c FROM Loan_Calculation_Applicant_Product__c WHERE Applicant_Id__c=: applicantId];

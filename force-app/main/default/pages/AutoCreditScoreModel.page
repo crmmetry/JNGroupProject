@@ -16,8 +16,7 @@
                 <b>SUMMARY OF MODEL PARAMETERS</b>
             </div>
             
-            <table style="margin-left:2%;width:95%;margin-top:1%;">
-                
+            <table style="margin-left:1%;width:98%;margin-top:1%;">
                 <tr>
                     <td class="td1">
                         <div class="textStyle" style="font-size:smaller;">1. Type of Application:* </div>
@@ -35,7 +34,7 @@
                 <tr >
                     <td class="td1">
                         <div class="textStyle">2. Credit Product:* </div>
-                        <div class="textStyle borderedText1" style="padding-left:20px;padding-right:25px;">{!productCategry}</div>
+                        <div class="textStyle borderedText1" style="padding-left:20px;padding-right:25px;">{!productCategryToDisplay}</div>
                     </td>
                     <td class="td1">
                         <div class="textStyle">4. Loan Amount/Limit </div>
@@ -137,25 +136,25 @@
                      </tr>
                      <tr class="td">
                      <td style="text-align: left;">Credit History in the last 24 months</td>
-                         <td>{!applicantObject.Credit_History_in_last_24_Months__c}</td>
+                         <td>{!creditHistoryLast24Months}</td>
                          <td class="bgColor">{!creditHistoryLast24Score}</td>
                          <td class="bgColor">{!creditHistoryLast24Weightage}</td>
                      </tr>
                      <tr class="td">
                      <td style="text-align: left;">Net Worth</td>
-                         <td>{!applicantObject.Assessment_of_Applicant_Net_Worth__c}</td>
+                         <td>{!assessmentOfApplicantNetWorth}</td>
                          <td class="bgColor">{!assessmentOfApplicantNetWorthScore}</td>
                          <td class="bgColor">{!assessmentOfApplicantNetWorthWeightage}</td>
                      </tr>
                      <tr class="td">
                      <td style="text-align: left;">Employment Status</td>
-                         <td>{!employWrapper.EmploymentStatus}</td>
+                         <td>{!emplStatus}</td>
                          <td class="bgColor">{!emplStatusScore}</td>
                          <td class="bgColor">{!emplStatusWeightage}</td>
                      </tr>
                      <tr class="td">
                      <td style="text-align: left;">Industry of Employment</td>
-                         <td>{!employWrapper.industry}</td>
+                         <td>{!industryName}</td>
                          <td class="bgColor">{!industryNameScore}</td>
                          <td class="bgColor">{!industryNameWeightage}</td>
                      </tr>
@@ -167,7 +166,7 @@
                      </tr>
                      <tr class="td">
                      <td style="text-align: left;">Professional Category</td>
-                         <td>{!employWrapper.professionalCategory}</td>
+                         <td>{!professionalCategory}</td>
                          <td class="bgColor">{!professionalCategoryScore}</td>
                          <td class="bgColor">{!professionalCategoryWeightage}</td>
                      </tr>
