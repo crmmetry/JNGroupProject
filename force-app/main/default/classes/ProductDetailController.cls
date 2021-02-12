@@ -101,7 +101,7 @@ public with sharing class ProductDetailController {
       applicants = getApplicantsCreditRating(applicants, tenure);
       return applicants;
     }
-    return Constants.NO_APPLICANTS_FOUND;
+    return -1;
   }
 
   /**

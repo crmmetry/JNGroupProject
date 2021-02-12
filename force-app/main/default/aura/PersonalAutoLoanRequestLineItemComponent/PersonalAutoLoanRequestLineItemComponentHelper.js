@@ -20,8 +20,9 @@
         let state = response.getState(); //Checking response status
         let result = response.getReturnValue();
         if (state === "SUCCESS") {
-          if (result === NO_APPLICANTS_FOUND) {
-            showToast("Applcant Not Found!", NO_APPLICANTS_FOUND, "error");
+          if (result === -1) {
+            component.set("v.applicants", {});
+            //showToast("Applcant Not Found!", NO_APPLICANTS_FOUND, "error");
           } else {
             component.set("v.applicants", result);
           }
