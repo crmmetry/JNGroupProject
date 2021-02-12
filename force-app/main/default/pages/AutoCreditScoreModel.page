@@ -2,342 +2,290 @@
     Sr#     Ticket#      Modified By                Modified Date       Description
  *    1     JN1-4144      Ishwari Gaikwad.(TQ)      12/21/2020        created the pdf.  
 */ -->
-<apex:page
-  renderAs="pdf"
-  applyBodyTag="false"
-  standardStylesheets="false"
-  applyHtmlTag="false"
-  showHeader="false"
->
-  <apex:stylesheet value="{!$Resource.AutoCreditScoreModelCSS}" />
-  <apex:form>
+<apex:page renderAs="pdf" applyBodyTag="false" controller="AutoCreditScoreModelController" standardStylesheets="false" applyHtmlTag="false" showHeader="false">
+        <apex:stylesheet value="{!$Resource.AutoCreditScoreModelCSS}"/>
+    <apex:form >
     <div class="header">
-      <apex:image
-        url="{!URLFOR($Resource.Credit_Score_Model_Header)}"
-        styleClass="logo"
-      />
+        <apex:image url="{!URLFOR($Resource.Credit_Score_Model_Header)}"
+                    styleClass="logo"
+                    />
     </div>
-    <div class="content">
-      <div class="boxedDiv">
-        <div class="subHeader">
-          <b>SUMMARY OF MODEL PARAMETERS</b>
+    <div class="content" >
+        <div class="boxedDiv" >
+            <div class="subHeader">
+                <b>SUMMARY OF MODEL PARAMETERS</b>
+            </div>
+            
+            <table style="margin-left:2%;width:95%;margin-top:1%;">
+                
+                <tr>
+                    <td class="td1">
+                        <div class="textStyle" style="font-size:smaller;">1. Type of Application:* </div>
+                        <div  class="textStyle borderedText1" style="padding-left:15px;padding-right:15px;" >Personal</div>
+                    </td>
+                    <td class="td1">
+                        <div class="textStyle">3. Date of Application </div>
+                        <div class="textStyle borderedText1" style="padding-left:40px;padding-right:35px;" >{!dateString}</div>
+                    </td>
+                    <td class="td1">
+                        <div class="textStyle">5. Applicantion ID:* </div>
+                        <div class="textStyle borderedText1" style="padding-left:15px;padding-right:15px;">{!applicationIdString}</div>
+                    </td>
+                </tr>
+                <tr >
+                    <td class="td1">
+                        <div class="textStyle">2. Credit Product:* </div>
+                        <div class="textStyle borderedText1" style="padding-left:20px;padding-right:25px;">{!productCategry}</div>
+                    </td>
+                    <td class="td1">
+                        <div class="textStyle">4. Loan Amount/Limit </div>
+                        <div class="textStyle borderedText1" style="padding-left:15px;padding-right:15px;">{!loanAmt}/{!loanAmtLimit}</div>
+                    </td>
+                    <td class="td1">
+                        <div class="textStyle">6. Number of Applicant(s): </div>
+                        <div class="textStyle borderedText1" style="padding-left:60px;padding-right:55px;">{!totalNumberOfApplicants}</div>
+                    </td>
+                </tr>
+            </table>
         </div>
-
-        <table style="margin-left: 2%; width: 95%; margin-top: 1%;">
-          <tr>
-            <td class="td1">
-              <div class="textStyle" style="font-size: smaller;">
-                1. Type of Application:*
-              </div>
-              <div
-                class="textStyle borderedText1"
-                style="padding-left: 15px; padding-right: 15px;"
-              >
-                Personal
-              </div>
-            </td>
-            <td class="td1">
-              <div class="textStyle">3. Date of Application</div>
-              <div
-                class="textStyle borderedText1"
-                style="padding-left: 40px; padding-right: 35px;"
-              >
-                15-Dec-20
-              </div>
-            </td>
-            <td class="td1">
-              <div class="textStyle">5. Applicantion ID:*</div>
-              <div
-                class="textStyle borderedText1"
-                style="padding-left: 15px; padding-right: 15px;"
-              >
-                C1-100258798-12/15/2020
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="td1">
-              <div class="textStyle">2. Credit Product:*</div>
-              <div
-                class="textStyle borderedText1"
-                style="padding-left: 20px; padding-right: 25px;"
-              >
-                Auto Loan
-              </div>
-            </td>
-            <td class="td1">
-              <div class="textStyle">4. Loan Amount/Limit</div>
-              <div
-                class="textStyle borderedText1"
-                style="padding-left: 15px; padding-right: 15px;"
-              >
-                JMD $10,000,000.00
-              </div>
-            </td>
-            <td class="td1">
-              <div class="textStyle">6. Number of Applicant(s):</div>
-              <div
-                class="textStyle borderedText1"
-                style="padding-left: 60px; padding-right: 55px;"
-              >
-                1
-              </div>
-            </td>
-          </tr>
-        </table>
-      </div>
-      <br />
-      <div class="boxedDiv">
-        <div class="subHeader">
-          <b>SUMMARY OF PERSONAL CREDIT SCORING MODEL</b>
+        <br/>
+         <div class="boxedDiv">
+             <div class="subHeader">
+                 <b>SUMMARY OF PERSONAL CREDIT SCORING MODEL</b>
+            </div>
+            
+             <div class="contentWidth">
+                 <b class="bold">APPLICANT 1</b>
+                 <hr/>
+             </div>
+             
+            <table class="contentWidth">
+                <tr >
+                    <td class="td1">
+                        <div class="textStyle">Name of Applicant:* </div>
+                        <div class="textStyle borderedText">{!nameOfApplicant}</div>
+                    </td>
+                    <td class="td1">
+                        <div class="textStyle">Is the Applicant a Politcally Exposed Person (PEP)?* </div>
+                        <div class="textStyle borderedText">{!isApplicantPolicExpoxed}</div>
+                    </td>
+                </tr>
+                <tr >
+                    <td class="td1">
+                        <div class="textStyle">Tax Registration Number:* </div>
+                        <div class="textStyle borderedText">{!jamaicanTaxNumber}</div>
+                    </td>
+                    <td class="td1">
+                        <div class="textStyle">Has the sanction screening(s) resulted in a negative trace?* </div>
+                        <div class="textStyle borderedText">{!hasSanctionNegativeTrace}</div>
+                    </td>
+                </tr>
+                
+                 <tr >
+                    <td class="td1">
+                        <div class="textStyle">Primary Income Type:* </div>
+                        <div class="textStyle borderedText">{!primaryEmploymentType}</div>
+                    </td>
+                    <td class="td1">
+                        <div class="textStyle">Assessed Monthly Income:* </div>
+                        <div class="textStyle borderedText">
+                            <apex:outputText value=" {!applicantObject.CurrencyIsoCode}"/>
+                            <apex:outputText value="{0,Number,###,###,##0.00}">
+                                <apex:param value="{!grossMonthlyIncome}"/>
+                            </apex:outputText></div>
+                    </td>
+                </tr>
+            </table>
+             
+             <table border="1" class="contentTable">
+                 <thead class="thead">
+                     <tr class="tr">
+                     <th class="th"> INPUTS</th>
+                     <th class="th"> RESPONSES</th>
+                     <th class="th"> CREDIT SCORE</th>
+                     <th class="th"> WEIGHTED SCORE</th>
+                     </tr>
+                     
+                 </thead>
+                 <tbody>
+                 <tr ><td colspan="4" style="text-align: center;background-color: #b0d2fb;font-size:small;">
+                     APPLICANT DETAILS
+                     </td></tr>
+                     <tr class="td">
+                         <td style="text-align: left;">Age</td>
+                         <td>{!ageString}</td>
+                         <td class="bgColor">{!ageScore}</td>
+                         <td class="bgColor">{!ageWeightage}</td>
+                     </tr>
+                     <tr class="td">
+                     <td style="text-align: left;">Education</td>
+                         <td>{!educationString}</td>
+                         <td class="bgColor">{!educationScore}</td>
+                         <td class="bgColor">{!educationWeightage}</td>
+                     </tr>
+                     <tr class="td">
+                     <td style="text-align: left;">Residential Status</td>
+                         <td>{!statusOfAddressString}</td>
+                         <td class="bgColor">{!statusOfAddressScore}</td>
+                         <td class="bgColor">{!statusOfAddressWeightage}</td>
+                     </tr>
+                     <tr class="td">
+                     <td style="text-align: left;">Years at Current Residence</td>
+                         <td>{!yearsAtResidentString}</td>
+                         <td class="bgColor">{!yearsAtResidentScore}</td>
+                         <td class="bgColor">{!yearsAtResidentWeightage}</td>
+                     </tr>
+                     <tr class="td">
+                     <td style="text-align: left;">Credit History in the last 24 months</td>
+                         <td>{!applicantObject.Credit_History_in_last_24_Months__c}</td>
+                         <td class="bgColor">{!creditHistoryLast24Score}</td>
+                         <td class="bgColor">{!creditHistoryLast24Weightage}</td>
+                     </tr>
+                     <tr class="td">
+                     <td style="text-align: left;">Net Worth</td>
+                         <td>{!applicantObject.Assessment_of_Applicant_Net_Worth__c}</td>
+                         <td class="bgColor">{!assessmentOfApplicantNetWorthScore}</td>
+                         <td class="bgColor">{!assessmentOfApplicantNetWorthWeightage}</td>
+                     </tr>
+                     <tr class="td">
+                     <td style="text-align: left;">Employment Status</td>
+                         <td>{!employWrapper.EmploymentStatus}</td>
+                         <td class="bgColor">{!emplStatusScore}</td>
+                         <td class="bgColor">{!emplStatusWeightage}</td>
+                     </tr>
+                     <tr class="td">
+                     <td style="text-align: left;">Industry of Employment</td>
+                         <td>{!employWrapper.industry}</td>
+                         <td class="bgColor">{!industryNameScore}</td>
+                         <td class="bgColor">{!industryNameWeightage}</td>
+                     </tr>
+                     <tr class="td">
+                     <td style="text-align: left;">Length of Current Employment</td>
+                         <td>>{!lengthOfEmploymentString}</td>
+                         <td class="bgColor">{!lengthOfEmploymentScore}</td>
+                         <td class="bgColor">{!lengthOfEmploymentWeightage}</td>
+                     </tr>
+                     <tr class="td">
+                     <td style="text-align: left;">Professional Category</td>
+                         <td>{!employWrapper.professionalCategory}</td>
+                         <td class="bgColor">{!professionalCategoryScore}</td>
+                         <td class="bgColor">{!professionalCategoryWeightage}</td>
+                     </tr>
+                 </tbody>
+             </table>
+             <br/>
+             <div class="contentWidth">
+                 <b class="bold">COLLATERAL DETAILS</b>
+                 <hr/>
+             </div>
+             <table border="1" class="contentTable">
+                 <thead class="thead">
+                     <tr class="tr">
+                         <th class="th"> INPUTS</th>
+                     <th class="th"> RESPONSES</th>
+                     <th class="th"> CREDIT SCORE</th>
+                     <th class="th"> WEIGHTED SCORE</th>
+                     </tr>
+                     
+                 </thead>
+                 <tbody>
+                     <tr class="td">
+                         <td style="text-align: left;">Collateral</td>
+                         <td>{!collateralName}</td>
+                         <td class="bgColor">{!collateralScore}</td>
+                         <td class="bgColor">{!collateralWeightage}</td>
+                     </tr>
+                     <tr class="td">
+                     <td style="text-align: left;">Ability to Service</td>
+                         <td>{!abilityToService}</td>
+                         <td class="bgColor">{!abilityToServiceScore}</td>
+                         <td class="bgColor">{!abilityToServiceWeightage}</td>
+                     </tr>
+                     <tr class="td">
+                     <td style="text-align: left;">Repayment Method</td>
+                         <td>{!repaymntMethod}</td>
+                         <td class="bgColor">{!repaymntMethodScore}</td>
+                         <td class="bgColor">{!repaymntMethodWeightage}</td>
+                     </tr>
+                     
+                 </tbody>
+             </table>
+             <table style="margin-left:1%;width:95%;margin-top:1%;">
+                 <tr>
+                     <td style="text-align:right;"> <div class="textStyle"><b>Total Weighted Score</b> </div>
+                        <div class="textStyle borderedText scoreModel"><b>{!totalWeightedScore}</b></div>
+                     </td>
+                     <td> <div class="textStyle"><b>Credit Risk Rating</b> </div>
+                        <div class="textStyle borderedText scoreModel"><b>{!creditRiskRatingValue}</b></div>
+                     </td>
+                 </tr>
+             </table>
+             <table border="2" class="ratingTable" cellpadding="2">
+                 <thead class="ratingTableHeader">
+                     <th class="ratingth">R1 - Excellent</th>
+                     <th class="ratingth">R2 - Good</th>
+                     <th class="ratingth">R3 - Average</th>
+                     <th class="ratingth">R4 - Acceptable</th>
+                     <th class="ratingth">R5 - Marginal</th>
+                     <th class="ratingth">R6 - Potential Problem</th>
+                     <th class="ratingth">R7 - Substandard</th>
+                     <th class="ratingth">R8 - NPL Doubtful</th>
+                 </thead>
+                 <tbody style="border-collapse:collapse;">
+                 	<tr class="ratingtr"><td class="ratingTd">
+                       <div class="ratingTextLeft"> 789 </div>
+                        <div class="ratingTextMiddel"> - </div>
+                        <div class="ratingTextRight"> 866 </div>                     	
+                     </td>
+                     <td class="ratingTd">
+                     	<div class="ratingTextLeft"> 712 </div>
+                        <div class="ratingTextMiddel"> - </div>
+                        <div class="ratingTextRight"> 788 </div>
+                     </td>
+                     <td class="ratingTd">
+                     	<div class="ratingTextLeft"> 634 </div>
+                        <div class="ratingTextMiddel"> - </div>
+                        <div class="ratingTextRight"> 711 </div>
+                     </td>
+                     <td class="ratingTd">
+                     	<div class="ratingTextLeft"> 557 </div>
+                        <div class="ratingTextMiddel"> - </div>
+                        <div class="ratingTextRight"> 633 </div>
+                     </td>
+                     <td class="ratingTd">
+                     	<div class="ratingTextLeft"> 479 </div>
+                        <div class="ratingTextMiddel"> - </div>
+                        <div class="ratingTextRight"> 556 </div>
+                     </td>
+                     <td class="ratingTd">
+                     	<div class="ratingTextLeft"> 401 </div>
+                        <div class="ratingTextMiddel"> - </div>
+                        <div class="ratingTextRight"> 478 </div>
+                     </td>
+                     <td class="ratingTd">
+                     	<div class="ratingTextLeft"> 324 </div>
+                        <div class="ratingTextMiddel"> - </div>
+                        <div class="ratingTextRight"> 400 </div>
+                     </td>
+                     <td class="ratingTd">
+                     	<div class="ratingTextLeft"> 246 </div>
+                        <div class="ratingTextMiddel"> - </div>
+                        <div class="ratingTextRight"> 323 </div>
+                     </td></tr>
+                 </tbody>
+             </table>
         </div>
-
-        <div class="contentWidth">
-          <b class="bold">APPLICANT 1</b>
-          <hr />
-        </div>
-
-        <table class="contentWidth">
-          <tr>
-            <td class="td1">
-              <div class="textStyle">Name of Applicant:*</div>
-              <div class="textStyle borderedText">Peter Samuels</div>
-            </td>
-            <td class="td1">
-              <div class="textStyle">
-                Is the Applicant a Politcally Exposed Person (PEP)?*
-              </div>
-              <div class="textStyle borderedText">No</div>
-            </td>
-          </tr>
-          <tr>
-            <td class="td1">
-              <div class="textStyle">Tax Registration Number:*</div>
-              <div class="textStyle borderedText">100-258-798</div>
-            </td>
-            <td class="td1">
-              <div class="textStyle">
-                Has the sanction screening(s) resulted in a negative trace?*
-              </div>
-              <div class="textStyle borderedText">&nbsp;</div>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="td1">
-              <div class="textStyle">Primary Income Type:*</div>
-              <div class="textStyle borderedText">Salaried</div>
-            </td>
-            <td class="td1">
-              <div class="textStyle">Assessed Monthly Income:*</div>
-              <div class="textStyle borderedText">JMD $1,250,000.00</div>
-            </td>
-          </tr>
-        </table>
-
-        <table border="1" class="contentTable">
-          <thead class="thead">
-            <tr class="tr">
-              <th class="th">INPUTS</th>
-              <th class="th">RESPONSES</th>
-              <th class="th">CREDIT SCORE</th>
-              <th class="th">WEIGHTED SCORE</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td
-                colspan="4"
-                style="
-                  text-align: center;
-                  background-color: #b0d2fb;
-                  font-size: small;
-                "
-              >
-                APPLICANT DETAILS
-              </td>
-            </tr>
-            <tr class="td">
-              <td style="text-align: left;">Age</td>
-              <td>Over 50</td>
-              <td class="bgColor">430</td>
-              <td class="bgColor">13</td>
-            </tr>
-            <tr class="td">
-              <td style="text-align: left;">Education</td>
-              <td>Post Graduate</td>
-              <td class="bgColor">750</td>
-              <td class="bgColor">30</td>
-            </tr>
-            <tr class="td">
-              <td style="text-align: left;">Residential Status</td>
-              <td>Own</td>
-              <td class="bgColor">950</td>
-              <td class="bgColor">10</td>
-            </tr>
-            <tr class="td">
-              <td style="text-align: left;">Years at Current Residence</td>
-              <td>>3 years</td>
-              <td class="bgColor">900</td>
-              <td class="bgColor">27</td>
-            </tr>
-            <tr class="td">
-              <td style="text-align: left;">
-                Credit History in the last 24 months
-              </td>
-              <td>1 - 10 days Delinquent</td>
-              <td class="bgColor">975</td>
-              <td class="bgColor">146</td>
-            </tr>
-            <tr class="td">
-              <td style="text-align: left;">Net Worth</td>
-              <td>Strong net worth</td>
-              <td class="bgColor">1200</td>
-              <td class="bgColor">36</td>
-            </tr>
-            <tr class="td">
-              <td style="text-align: left;">Employment Status</td>
-              <td>Permanent</td>
-              <td class="bgColor">1000</td>
-              <td class="bgColor">110</td>
-            </tr>
-            <tr class="td">
-              <td style="text-align: left;">Industry of Employment</td>
-              <td>Manufacturing</td>
-              <td class="bgColor">375</td>
-              <td class="bgColor">8</td>
-            </tr>
-            <tr class="td">
-              <td style="text-align: left;">Length of Current Employment</td>
-              <td>>5 years</td>
-              <td class="bgColor">900</td>
-              <td class="bgColor">36</td>
-            </tr>
-            <tr class="td">
-              <td style="text-align: left;">Professional Category</td>
-              <td>Professional</td>
-              <td class="bgColor">600</td>
-              <td class="bgColor">30</td>
-            </tr>
-          </tbody>
-        </table>
-        <br />
-        <div class="contentWidth">
-          <b class="bold">COLLATERAL DETAILS</b>
-          <hr />
-        </div>
-        <table border="1" class="contentTable">
-          <thead class="thead">
-            <tr class="tr">
-              <th class="th">INPUTS</th>
-              <th class="th">RESPONSES</th>
-              <th class="th">CREDIT SCORE</th>
-              <th class="th">WEIGHTED SCORE</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="td">
-              <td style="text-align: left;">Collateral</td>
-              <td>86%-90%</td>
-              <td class="bgColor">470</td>
-              <td class="bgColor">24</td>
-            </tr>
-            <tr class="td">
-              <td style="text-align: left;">Ability to Service</td>
-              <td>TDSR (1% - 25%)</td>
-              <td class="bgColor">750</td>
-              <td class="bgColor">188</td>
-            </tr>
-            <tr class="td">
-              <td style="text-align: left;">Repayment Method</td>
-              <td>Salary Deduction</td>
-              <td class="bgColor">900</td>
-              <td class="bgColor">90</td>
-            </tr>
-          </tbody>
-        </table>
-        <table style="margin-left: 1%; width: 95%; margin-top: 1%;">
-          <tr>
-            <td style="text-align: right;">
-              <div class="textStyle"><b>Total Weighted Score</b></div>
-              <div class="textStyle borderedText scoreModel"><b>782.15</b></div>
-            </td>
-            <td>
-              <div class="textStyle"><b>Credit Risk Rating</b></div>
-              <div class="textStyle borderedText scoreModel"><b>R2</b></div>
-            </td>
-          </tr>
-        </table>
-        <table border="2" class="ratingTable" cellpadding="2">
-          <thead class="ratingTableHeader">
-            <th class="ratingth">R1 - Excellent</th>
-            <th class="ratingth">R2 - Good</th>
-            <th class="ratingth">R3 - Average</th>
-            <th class="ratingth">R4 - Acceptable</th>
-            <th class="ratingth">R5 - Marginal</th>
-            <th class="ratingth">R6 - Potential Problem</th>
-            <th class="ratingth">R7 - Substandard</th>
-            <th class="ratingth">R8 - NPL Doubtful</th>
-          </thead>
-          <tbody style="border-collapse: collapse;">
-            <tr class="ratingtr">
-              <td class="ratingTd">
-                <div class="ratingTextLeft">789</div>
-                <div class="ratingTextMiddel">-</div>
-                <div class="ratingTextRight">866</div>
-              </td>
-              <td class="ratingTd">
-                <div class="ratingTextLeft">712</div>
-                <div class="ratingTextMiddel">-</div>
-                <div class="ratingTextRight">788</div>
-              </td>
-              <td class="ratingTd">
-                <div class="ratingTextLeft">634</div>
-                <div class="ratingTextMiddel">-</div>
-                <div class="ratingTextRight">711</div>
-              </td>
-              <td class="ratingTd">
-                <div class="ratingTextLeft">557</div>
-                <div class="ratingTextMiddel">-</div>
-                <div class="ratingTextRight">633</div>
-              </td>
-              <td class="ratingTd">
-                <div class="ratingTextLeft">479</div>
-                <div class="ratingTextMiddel">-</div>
-                <div class="ratingTextRight">556</div>
-              </td>
-              <td class="ratingTd">
-                <div class="ratingTextLeft">401</div>
-                <div class="ratingTextMiddel">-</div>
-                <div class="ratingTextRight">478</div>
-              </td>
-              <td class="ratingTd">
-                <div class="ratingTextLeft">324</div>
-                <div class="ratingTextMiddel">-</div>
-                <div class="ratingTextRight">400</div>
-              </td>
-              <td class="ratingTd">
-                <div class="ratingTextLeft">246</div>
-                <div class="ratingTextMiddel">-</div>
-                <div class="ratingTextRight">323</div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
     </div>
     <div class="footer">
-      <table style="width: 100%;">
-        <tr>
-          <td style="text-align: left;">Credit Scoring Model (Sales)</td>
-          <td style="text-align: center;">
-            Page <span class="pagenumber" /> of <span class="pagecount" />
-          </td>
-          <td style="text-align: right;">
-            J-LODM-703-F83- Ver 2-September 23, 2020
-          </td>
-        </tr>
-      </table>
+        
+        <table style="width:100%">
+            <tr>
+            <td style="text-align:left;">Credit Scoring Model (Sales)</td>
+                <td style="text-align:center;">Page <span class="pagenumber"/> of <span class="pagecount"/></td>
+                <td style="text-align:right;">J-LODM-703-F83- Ver 2-September 23, 2020</td>
+            </tr>
+        </table>
+        
     </div>
-  </apex:form>
+    </apex:form>
 </apex:page>

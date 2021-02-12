@@ -15,7 +15,7 @@ public class CreditScoreModelWrapper {
   public Map<String, List<PersonalCreditScoreModelWrapper>> personalCreditScoreMap;
   @AuraEnabled
   public ProductDetailService psd;
-
+public Map<String, List<Decimal>> fieldScoreMap = new Map<String, List<Decimal>>();
   /**
    * Constructor of the class
    * Initializes all the values
@@ -305,6 +305,7 @@ public class CreditScoreModelWrapper {
         ? creditModelWrapper.selfEmployedScore
         : 0;
     }
+      fieldScoreMap.put(creditModelWrapper.type , new List<Decimal>{score, score * creditModelWrapper.subCriteriaWeight / 100}); 
     return score * creditModelWrapper.subCriteriaWeight / 100;
   }
 
