@@ -269,7 +269,7 @@ window.basicProcessingFeesCalculator = function (
  */
 window.basicJNLifePremiumCalculator = function (loanAmount, creditRating) {
   if (
-    validNumber(loanAmount) === false &&
+    validNumber(loanAmount) === false ||
     validNumber(creditRating) === false
   ) {
     return 0;
