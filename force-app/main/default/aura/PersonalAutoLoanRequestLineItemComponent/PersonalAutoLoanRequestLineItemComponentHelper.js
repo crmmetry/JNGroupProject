@@ -1,16 +1,11 @@
 ({
   //TODO: SHOULD BE OPTIMIZED, query applicants once then query there rating on subsequent calls
   getApplicants: function (component) {
-    console.log("getApplicants called");
     let oppId = component.get("v.oppId");
     let data = component.get("v.ChildContainer");
-    console.log(oppId);
-    console.log(JSON.stringify(data));
     if (data.years && data.months) {
-      console.log("server side called");
       //TODO: REVIEW with travis
       let tenure = calculateMonths(data.years, data.months) / 12;
-      console.log("tenure and oppId:", tenure, oppId);
       let action = component.get("c.getApplicantsRating");
       action.setParams({
         oppId: oppId,
@@ -22,7 +17,7 @@
         if (state === "SUCCESS") {
           if (result === -1) {
             component.set("v.applicants", {});
-            //showToast("Applcant Not Found!", NO_APPLICANTS_FOUND, "error");
+            showToast("Applcant Not Found!", NO_APPLICANTS_FOUND, "error");
           } else {
             component.set("v.applicants", result);
           }
@@ -144,7 +139,6 @@
       validNumber(data.minimumOfPurchaseMarketValue) &&
       !isEmpty(depositAutoCollateralField)
     ) {
-      console.log("Deposit amount entered and validation ran");
       let minimumAndDepositDifference =
         data.minimumOfPurchaseMarketValue - data.autoCollateralDeposit;
       if (data.loanAmount !== minimumAndDepositDifference) {

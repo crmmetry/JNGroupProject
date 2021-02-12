@@ -268,6 +268,12 @@ window.basicProcessingFeesCalculator = function (
  * @return {Deciaml}
  */
 window.basicJNLifePremiumCalculator = function (loanAmount, creditRating) {
+  if (
+    validNumber(loanAmount) === false &&
+    validNumber(creditRating) === false
+  ) {
+    return 0;
+  }
   return roundedValue((loanAmount / 1000) * creditRating);
 };
 /**

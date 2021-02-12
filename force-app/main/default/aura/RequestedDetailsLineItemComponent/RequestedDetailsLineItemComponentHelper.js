@@ -15,7 +15,7 @@
         if (state === "SUCCESS") {
           if (result === -1) {
             component.set("v.applicants", {});
-            //showToast("Applcant Not Found!", NO_APPLICANTS_FOUND, "error");
+            showToast("Applcant Not Found!", NO_APPLICANTS_FOUND, "error");
           } else {
             component.set("v.applicants", result);
           }
