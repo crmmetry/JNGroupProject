@@ -47,7 +47,7 @@ public with sharing class ApplicantWrapper {
   public Decimal grossMonthlyIncomeFromLongSummary; //JN1-3967
   @AuraEnabled
   public List<Application_Asset_Liability__c> applicationAssetLiabilities;
-
+    
   public ApplicantWrapper(Applicant__c record) {
     this.Id = record.Id;
     if (record.Account__r != null) {
@@ -76,17 +76,20 @@ public with sharing class ApplicantWrapper {
   }
 
   private Integer calculateAge(Date dob) {
-    Integer currentYear = Date.today().year();
-    Integer currentMonth = Date.today().month();
-    Integer currentDay = Date.today().day();
-    Integer birthYear = dob.year();
-    Integer birthMonth = dob.month();
-    Integer birthDay = dob.day();
-    Integer age = currentYear - birthYear;
-    if (!(currentMonth >= birthMonth) && !(currentDay >= birthday)) {
-      return age - 1;
-    }
-    return age;
+      Integer currentYear = Date.today().year();
+      Integer currentMonth = Date.today().month();
+      Integer currentDay = Date.today().day();
+      if (dob==Null){
+          return - 1;
+              }  
+      Integer birthYear = dob.year();
+      Integer birthMonth = dob.month();
+      Integer birthDay = dob.day();
+      Integer age = currentYear - birthYear;
+      if (!(currentMonth >= birthMonth) && !(currentDay >= birthday)) {
+          return age - 1;
+      }
+      return age;
   }
 
   private void checkCreditorLifeEligibility() {
