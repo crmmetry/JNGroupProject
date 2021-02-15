@@ -1,6 +1,6 @@
 <!--
-    Sr#     Ticket#      Modified By                Modified Date       Description 
- * 	  1		JN1-4279	  Ishwari Gaikwad.(TQ)		02/09/2021		  created pdf.
+Sr#     Ticket#      Modified By                Modified Date       Description 
+* 	  1		JN1-4279	  Ishwari Gaikwad.(TQ)		02/09/2021		  created pdf.
 -->
 <apex:page
   renderAs="pdf"
@@ -248,418 +248,436 @@
           E - Existing Debt P - Proposed
         </b>
       </center>
-      <h5 class="header-inside">REAL ESTATE HOLDING(S)</h5>
-      <table border="1" class="contentTable" style="margin-top: 0%;">
-        <thead class="thead">
-          <tr class="tr">
-            <th></th>
-            <th class="th">Property Address</th>
-            <th class="th">Total Market Value</th>
-            <th class="th">Lender(s)</th>
-            <th class="th">Loan Balance</th>
-            <th class="th">Monthly Payment</th>
-          </tr>
-        </thead>
-        <tbody>
-          <apex:repeat value="{!realEstateWrapperList}" var="asset">
-            <tr>
-              <td class="td">E1</td>
-              <td class="td">{!asset.details}</td>
-              <td class="td">{!asset.marketvalue}</td>
-              <td class="td">{!asset.lender}</td>
-              <td class="td">
-                <c:TableInCell
-                  before="{!asset.loanBalanceBefore}"
-                  after="{!asset.loanBalanceAfter}"
-                />
-              </td>
-              <td class="td">
-                <c:TableInCell
-                  before="{!asset.monthlyPaymentBefore}"
-                  after="{!asset.monthlyPaymentAfter}"
-                />
-              </td>
+      <div style="page-break-inside: avoid;">
+        <h5 class="header-inside">REAL ESTATE HOLDING(S)</h5>
+        <table border="1" class="contentTable" style="margin-top: 0%;">
+          <thead class="thead">
+            <tr class="tr">
+              <th></th>
+              <th class="th">Property Address</th>
+              <th class="th">Total Market Value</th>
+              <th class="th">Lender(s)</th>
+              <th class="th">Loan Balance</th>
+              <th class="th">Monthly Payment</th>
             </tr>
-          </apex:repeat>
-        </tbody>
-      </table>
-      <h5 class="header-inside">MOTOR VEHICLE(S)</h5>
-      <table border="1" class="contentTable" style="margin-top: 0%;">
-        <thead class="thead">
-          <tr class="tr">
-            <th></th>
-            <th class="th">Vehicle Details</th>
-            <th class="th">Total Market Value</th>
-            <th class="th">Lender(s)</th>
-            <th class="th">Loan Balance</th>
-            <th class="th">Monthly Payment</th>
-          </tr>
-        </thead>
-        <tbody>
-          <apex:repeat value="{!motorVehicalWrapperList}" var="asset">
-            <tr>
-              <td class="td">E1</td>
-              <td class="td">{!asset.details}</td>
-              <td class="td">{!asset.marketvalue}</td>
-              <td class="td">{!asset.lender}</td>
-              <td class="td">
-                <c:TableInCell
-                  before="{!asset.loanBalanceBefore}"
-                  after="{!asset.loanBalanceAfter}"
-                />
-              </td>
-              <td class="td">
-                <c:TableInCell
-                  before="{!asset.monthlyPaymentBefore}"
-                  after="{!asset.monthlyPaymentAfter}"
-                />
-              </td>
+          </thead>
+          <tbody>
+            <apex:repeat value="{!realEstateWrapperList}" var="asset">
+              <tr>
+                <td class="td">E1</td>
+                <td class="td">{!asset.details}</td>
+                <td class="td">{!asset.marketvalue}</td>
+                <td class="td">{!asset.lender}</td>
+                <td class="td">
+                  <c:TableInCell
+                    before="{!asset.loanBalanceBefore}"
+                    after="{!asset.loanBalanceAfter}"
+                  />
+                </td>
+                <td class="td">
+                  <c:TableInCell
+                    before="{!asset.monthlyPaymentBefore}"
+                    after="{!asset.monthlyPaymentAfter}"
+                  />
+                </td>
+              </tr>
+            </apex:repeat>
+          </tbody>
+        </table>
+      </div>
+      <div style="page-break-inside: avoid;">
+        <h5 class="header-inside">MOTOR VEHICLE(S)</h5>
+        <table border="1" class="contentTable" style="margin-top: 0%;">
+          <thead class="thead">
+            <tr class="tr">
+              <th></th>
+              <th class="th">Vehicle Details</th>
+              <th class="th">Total Market Value</th>
+              <th class="th">Lender(s)</th>
+              <th class="th">Loan Balance</th>
+              <th class="th">Monthly Payment</th>
             </tr>
-          </apex:repeat>
-        </tbody>
-      </table>
-
-      <h5 class="header-inside">OTHER ASSET(S)</h5>
-      <table border="1" class="contentTable" style="margin-top: 0%;">
-        <thead class="thead">
-          <tr class="tr">
-            <th></th>
-            <th class="th">Asset Details</th>
-            <th class="th">Total Market Value</th>
-            <th class="th">Lender(s)</th>
-            <th class="th">Loan Balance</th>
-            <th class="th">Monthly Payment</th>
-          </tr>
-        </thead>
-        <tbody>
-          <apex:repeat value="{!otherAssetsWrapperList}" var="asset">
-            <tr>
-              <td class="td">E1</td>
-              <td class="td">{!asset.details}</td>
-              <td class="td">{!asset.marketvalue}</td>
-              <td class="td">{!asset.lender}</td>
-              <td class="td">
-                <c:TableInCell
-                  before="{!asset.loanBalanceBefore}"
-                  after="{!asset.loanBalanceAfter}"
-                />
-              </td>
-              <td class="td">
-                <c:TableInCell
-                  before="{!asset.monthlyPaymentBefore}"
-                  after="{!asset.monthlyPaymentAfter}"
-                />
-              </td>
+          </thead>
+          <tbody>
+            <apex:repeat value="{!motorVehicalWrapperList}" var="asset">
+              <tr>
+                <td class="td">E1</td>
+                <td class="td">{!asset.details}</td>
+                <td class="td">{!asset.marketvalue}</td>
+                <td class="td">{!asset.lender}</td>
+                <td class="td">
+                  <c:TableInCell
+                    before="{!asset.loanBalanceBefore}"
+                    after="{!asset.loanBalanceAfter}"
+                  />
+                </td>
+                <td class="td">
+                  <c:TableInCell
+                    before="{!asset.monthlyPaymentBefore}"
+                    after="{!asset.monthlyPaymentAfter}"
+                  />
+                </td>
+              </tr>
+            </apex:repeat>
+          </tbody>
+        </table>
+      </div>
+      <div style="page-break-inside: avoid;">
+        <h5 class="header-inside">OTHER ASSET(S)</h5>
+        <table border="1" class="contentTable" style="margin-top: 0%;">
+          <thead class="thead">
+            <tr class="tr">
+              <th></th>
+              <th class="th">Asset Details</th>
+              <th class="th">Total Market Value</th>
+              <th class="th">Lender(s)</th>
+              <th class="th">Loan Balance</th>
+              <th class="th">Monthly Payment</th>
             </tr>
-          </apex:repeat>
-        </tbody>
-      </table>
-
-      <h5 class="header-inside">OTHER LOAN(S)</h5>
-      <table border="1" class="contentTable">
-        <thead class="thead">
-          <tr class="tr">
-            <th></th>
-            <th class="th" style="width: 50%;">Institution</th>
-            <th class="th">Value of Debt</th>
-            <th class="th">Monthly Payment</th>
-          </tr>
-        </thead>
-        <tbody>
-          <apex:repeat value="{!otherLoanWrapperList}" var="asset">
-            <tr>
-              <td class="td">E1</td>
-              <td class="td">{!asset.details}</td>
-              <td class="td">
-                <c:TableInCell
-                  before="{!asset.loanBalanceBefore}"
-                  after="{!asset.loanBalanceAfter}"
-                />
-              </td>
-              <td class="td">
-                <c:TableInCell
-                  before="{!asset.monthlyPaymentBefore}"
-                  after="{!asset.monthlyPaymentAfter}"
-                />
-              </td>
+          </thead>
+          <tbody>
+            <apex:repeat value="{!otherAssetsWrapperList}" var="asset">
+              <tr>
+                <td class="td">E1</td>
+                <td class="td">{!asset.details}</td>
+                <td class="td">{!asset.marketvalue}</td>
+                <td class="td">{!asset.lender}</td>
+                <td class="td">
+                  <c:TableInCell
+                    before="{!asset.loanBalanceBefore}"
+                    after="{!asset.loanBalanceAfter}"
+                  />
+                </td>
+                <td class="td">
+                  <c:TableInCell
+                    before="{!asset.monthlyPaymentBefore}"
+                    after="{!asset.monthlyPaymentAfter}"
+                  />
+                </td>
+              </tr>
+            </apex:repeat>
+          </tbody>
+        </table>
+      </div>
+      <div style="page-break-inside: avoid;">
+        <h5 class="header-inside">OTHER LOAN(S)</h5>
+        <table border="1" class="contentTable">
+          <thead class="thead">
+            <tr class="tr">
+              <th></th>
+              <th class="th" style="width: 50%;">Institution</th>
+              <th class="th">Value of Debt</th>
+              <th class="th">Monthly Payment</th>
             </tr>
-          </apex:repeat>
-        </tbody>
-      </table>
-
-      <h5 class="header-inside">CREDIT CARD(S)</h5>
-      <table border="1" class="contentTable">
-        <thead class="thead">
-          <tr class="tr">
-            <th></th>
-            <th class="th">Financial Institution</th>
-            <th class="th">Type of Card</th>
-            <th class="th">Credit Card Limit</th>
-            <th class="th">Average Balance (6-12 months)</th>
-            <th class="th">Credit Card Balance</th>
-            <th class="th">Minimum Payment</th>
-          </tr>
-        </thead>
-        <tbody>
-          <apex:repeat value="{!creditCardWrapperList}" var="asset">
-            <tr>
-              <td class="td">E1</td>
-              <td class="td">{!asset.finacialInstitution}</td>
-              <td class="td">{!asset.cardType}</td>
-              <td class="td">{!asset.creditLimit}</td>
-              <td class="td">{!asset.avgLimit}</td>
-              <td class="td">
-                <c:TableInCell
-                  before="{!asset.creditCardBalance_before}"
-                  after="{!asset.creditCardBalance_After}"
-                />
-              </td>
-              <td class="td">
-                <c:TableInCell
-                  before="{!asset.minimumPayment_before}"
-                  after="{!asset.minimumPayment_After}"
-                />
-              </td>
+          </thead>
+          <tbody>
+            <apex:repeat value="{!otherLoanWrapperList}" var="asset">
+              <tr>
+                <td class="td">E1</td>
+                <td class="td">{!asset.details}</td>
+                <td class="td">
+                  <c:TableInCell
+                    before="{!asset.loanBalanceBefore}"
+                    after="{!asset.loanBalanceAfter}"
+                  />
+                </td>
+                <td class="td">
+                  <c:TableInCell
+                    before="{!asset.monthlyPaymentBefore}"
+                    after="{!asset.monthlyPaymentAfter}"
+                  />
+                </td>
+              </tr>
+            </apex:repeat>
+          </tbody>
+        </table>
+      </div>
+      <div style="page-break-inside: avoid;">
+        <h5 class="header-inside">CREDIT CARD(S)</h5>
+        <table border="1" class="contentTable">
+          <thead class="thead">
+            <tr class="tr">
+              <th></th>
+              <th class="th">Financial Institution</th>
+              <th class="th">Type of Card</th>
+              <th class="th">Credit Card Limit</th>
+              <th class="th">Average Balance (6-12 months)</th>
+              <th class="th">Credit Card Balance</th>
+              <th class="th">Minimum Payment</th>
             </tr>
-          </apex:repeat>
-        </tbody>
-      </table>
-
-      <h5 class="header-inside">LINE(S) OF CREDIT</h5>
-      <table border="1" class="contentTable">
-        <thead class="thead">
-          <tr class="tr">
-            <th></th>
-            <th class="th">Financial Institution</th>
-            <th class="th">Type of Card</th>
-            <th class="th">Credit Card Limit</th>
-            <th class="th">Average Balance (6-12 months)</th>
-            <th class="th">Credit Card Balance</th>
-            <th class="th">Minimum Payment</th>
-          </tr>
-        </thead>
-        <tbody>
-          <apex:repeat value="{!lineOfCreditWrapperList}" var="asset">
-            <tr>
-              <td class="td">E1</td>
-              <td class="td">{!asset.finacialInstitution}</td>
-              <td class="td">{!asset.cardType}</td>
-              <td class="td">{!asset.creditLimit}</td>
-              <td class="td">{!asset.avgLimit}</td>
-              <td class="td">
-                <c:TableInCell
-                  before="{!asset.creditCardBalance_before}"
-                  after="{!asset.creditCardBalance_After}"
-                />
-              </td>
-              <td class="td">
-                <c:TableInCell
-                  before="{!asset.minimumPayment_before}"
-                  after="{!asset.minimumPayment_After}"
-                />
-              </td>
+          </thead>
+          <tbody>
+            <apex:repeat value="{!creditCardWrapperList}" var="asset">
+              <tr>
+                <td class="td">E1</td>
+                <td class="td">{!asset.finacialInstitution}</td>
+                <td class="td">{!asset.cardType}</td>
+                <td class="td">{!asset.creditLimit}</td>
+                <td class="td">{!asset.avgLimit}</td>
+                <td class="td">
+                  <c:TableInCell
+                    before="{!asset.creditCardBalance_before}"
+                    after="{!asset.creditCardBalance_After}"
+                  />
+                </td>
+                <td class="td">
+                  <c:TableInCell
+                    before="{!asset.minimumPayment_before}"
+                    after="{!asset.minimumPayment_After}"
+                  />
+                </td>
+              </tr>
+            </apex:repeat>
+          </tbody>
+        </table>
+      </div>
+      <div style="page-break-inside: avoid;">
+        <h5 class="header-inside">LINE(S) OF CREDIT</h5>
+        <table border="1" class="contentTable">
+          <thead class="thead">
+            <tr class="tr">
+              <th></th>
+              <th class="th">Financial Institution</th>
+              <th class="th">Type of Card</th>
+              <th class="th">Credit Card Limit</th>
+              <th class="th">Average Balance (6-12 months)</th>
+              <th class="th">Credit Card Balance</th>
+              <th class="th">Minimum Payment</th>
             </tr>
-          </apex:repeat>
-        </tbody>
-      </table>
-
-      <h5 class="header-inside">SAVING/CURRENT ACCOUNTS &amp; INVESTMENTS</h5>
-      <table border="1" class="contentTable">
-        <thead class="thead">
-          <tr class="tr">
-            <th></th>
-            <th class="th">Financial Institution</th>
-            <th class="th">Account Type</th>
-            <th class="th">Account Balance</th>
-            <th class="th">Overdraft Limit</th>
-            <th class="th">Monthly Savings/Investments (Prior to loan)</th>
-            <th class="th">Monthly Savings/Investments (After loan)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <apex:repeat value="{!savingsAccountWrapperList}" var="asset">
-            <tr>
-              <td class="td">P(A)</td>
-              <td class="td">{!asset.finacialInstitution}</td>
-              <td class="td">{!asset.accountType}</td>
-              <td class="td">{!asset.balance}</td>
-              <td class="td">{!asset.overdraftLimit}</td>
-              <td class="td">{!asset.investment_before}</td>
-              <td class="td">{!asset.investment_after}</td>
+          </thead>
+          <tbody>
+            <apex:repeat value="{!lineOfCreditWrapperList}" var="asset">
+              <tr>
+                <td class="td">E1</td>
+                <td class="td">{!asset.finacialInstitution}</td>
+                <td class="td">{!asset.cardType}</td>
+                <td class="td">{!asset.creditLimit}</td>
+                <td class="td">{!asset.avgLimit}</td>
+                <td class="td">
+                  <c:TableInCell
+                    before="{!asset.creditCardBalance_before}"
+                    after="{!asset.creditCardBalance_After}"
+                  />
+                </td>
+                <td class="td">
+                  <c:TableInCell
+                    before="{!asset.minimumPayment_before}"
+                    after="{!asset.minimumPayment_After}"
+                  />
+                </td>
+              </tr>
+            </apex:repeat>
+          </tbody>
+        </table>
+      </div>
+      <div style="page-break-inside: avoid;">
+        <h5 class="header-inside">SAVING/CURRENT ACCOUNTS &amp; INVESTMENTS</h5>
+        <table border="1" class="contentTable">
+          <thead class="thead">
+            <tr class="tr">
+              <th></th>
+              <th class="th">Financial Institution</th>
+              <th class="th">Account Type</th>
+              <th class="th">Account Balance</th>
+              <th class="th">Overdraft Limit</th>
+              <th class="th">Monthly Savings/Investments (Prior to loan)</th>
+              <th class="th">Monthly Savings/Investments (After loan)</th>
             </tr>
-          </apex:repeat>
-        </tbody>
-      </table>
-
-      <h5 class="header-inside">LIFE INSURANCE POLICIES HELD</h5>
-      <table border="1" class="contentTable">
-        <thead class="thead">
-          <tr class="tr">
-            <th></th>
-            <th class="th">Financial Institution</th>
-            <th class="th">Policy Number</th>
-            <th class="th">Cash Value</th>
-            <th class="th">Sum Insured</th>
-            <th class="th">Annual Premium</th>
-          </tr>
-        </thead>
-        <tbody>
-          <apex:repeat value="{!lifeInsuranceWrapperList}" var="asset">
-            <tr>
-              <td class="td">P(A)</td>
-              <td class="td">{!asset.finacialInstitution}</td>
-              <td class="td">{!asset.policyNumber}</td>
-              <td class="td">{!asset.cashValue}</td>
-              <td class="td">{!asset.sumInsured}</td>
-              <td class="td">{!asset.annualPremium}</td>
+          </thead>
+          <tbody>
+            <apex:repeat value="{!savingsAccountWrapperList}" var="asset">
+              <tr>
+                <td class="td">P(A)</td>
+                <td class="td">{!asset.finacialInstitution}</td>
+                <td class="td">{!asset.accountType}</td>
+                <td class="td">{!asset.balance}</td>
+                <td class="td">{!asset.overdraftLimit}</td>
+                <td class="td">{!asset.investment_before}</td>
+                <td class="td">{!asset.investment_after}</td>
+              </tr>
+            </apex:repeat>
+          </tbody>
+        </table>
+      </div>
+      <div style="page-break-inside: avoid;">
+        <h5 class="header-inside">LIFE INSURANCE POLICIES HELD</h5>
+        <table border="1" class="contentTable">
+          <thead class="thead">
+            <tr class="tr">
+              <th></th>
+              <th class="th">Financial Institution</th>
+              <th class="th">Policy Number</th>
+              <th class="th">Cash Value</th>
+              <th class="th">Sum Insured</th>
+              <th class="th">Annual Premium</th>
             </tr>
-          </apex:repeat>
-        </tbody>
-      </table>
-
-      <h5 class="header-inside">
-        PENSION CONTRIBUTIONS OR INDIVIDUAL RETIREMENT SCHEME
-      </h5>
-      <table border="1" class="contentTable">
-        <thead class="thead">
-          <tr class="tr">
-            <th></th>
-            <th class="th">Pension Scheme/Individual Retirement Scheme</th>
-            <th class="th">Total Contributions to Date</th>
-            <th class="th">Monthly Contribution (Prior to loan)</th>
-            <th class="th">Monthly Contribution (After loan)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <apex:repeat value="{!pensionWrapperList}" var="asset">
-            <tr>
-              <td class="td">P(A)</td>
-              <td class="td">{!asset.pensionScheme}</td>
-              <td class="td">{!asset.contributionToDate}</td>
-              <td class="td">{!asset.montlyContribution_before}</td>
-              <td class="td">{!asset.montlyContribution_After}</td>
+          </thead>
+          <tbody>
+            <apex:repeat value="{!lifeInsuranceWrapperList}" var="asset">
+              <tr>
+                <td class="td">P(A)</td>
+                <td class="td">{!asset.finacialInstitution}</td>
+                <td class="td">{!asset.policyNumber}</td>
+                <td class="td">{!asset.cashValue}</td>
+                <td class="td">{!asset.sumInsured}</td>
+                <td class="td">{!asset.annualPremium}</td>
+              </tr>
+            </apex:repeat>
+          </tbody>
+        </table>
+      </div>
+      <div style="page-break-inside: avoid;">
+        <h5 class="header-inside">
+          PENSION CONTRIBUTIONS OR INDIVIDUAL RETIREMENT SCHEME
+        </h5>
+        <table border="1" class="contentTable">
+          <thead class="thead">
+            <tr class="tr">
+              <th></th>
+              <th class="th">Pension Scheme/Individual Retirement Scheme</th>
+              <th class="th">Total Contributions to Date</th>
+              <th class="th">Monthly Contribution (Prior to loan)</th>
+              <th class="th">Monthly Contribution (After loan)</th>
             </tr>
-          </apex:repeat>
-        </tbody>
-      </table>
-
-      <h5 class="header-inside">CONTINGIENT LIABILITIES</h5>
-      <table border="1" class="contentTable">
-        <thead class="thead">
-          <tr class="tr">
-            <th></th>
-            <th class="th" style="width: 50%;">Institution</th>
-            <th class="th">Value of Debt</th>
-            <th class="th">Monthly Payment</th>
-          </tr>
-        </thead>
-        <tbody>
-          <apex:repeat value="{!liabilitiesWrapperList}" var="asset">
-            <tr>
-              <td class="td">E1</td>
-              <td class="td">{!asset.details}</td>
-              <td class="td">
-                <c:TableInCell
-                  before="{!asset.valueOfDebtBefore}"
-                  after="{!asset.valueOfDebtAfter}"
-                />
-              </td>
-              <td class="td">
-                <c:TableInCell
-                  before="{!asset.monthlyPaymentBefore}"
-                  after="{!asset.monthlyPaymentAfter}"
-                />
-              </td>
+          </thead>
+          <tbody>
+            <apex:repeat value="{!pensionWrapperList}" var="asset">
+              <tr>
+                <td class="td">P(A)</td>
+                <td class="td">{!asset.pensionScheme}</td>
+                <td class="td">{!asset.contributionToDate}</td>
+                <td class="td">{!asset.montlyContribution_before}</td>
+                <td class="td">{!asset.montlyContribution_After}</td>
+              </tr>
+            </apex:repeat>
+          </tbody>
+        </table>
+      </div>
+      <div style="page-break-inside: avoid;">
+        <h5 class="header-inside">CONTINGIENT LIABILITIES</h5>
+        <table border="1" class="contentTable">
+          <thead class="thead">
+            <tr class="tr">
+              <th></th>
+              <th class="th" style="width: 50%;">Institution</th>
+              <th class="th">Value of Debt</th>
+              <th class="th">Monthly Payment</th>
             </tr>
-          </apex:repeat>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <apex:repeat value="{!liabilitiesWrapperList}" var="asset">
+              <tr>
+                <td class="td">E1</td>
+                <td class="td">{!asset.details}</td>
+                <td class="td">
+                  <c:TableInCell
+                    before="{!asset.valueOfDebtBefore}"
+                    after="{!asset.valueOfDebtAfter}"
+                  />
+                </td>
+                <td class="td">
+                  <c:TableInCell
+                    before="{!asset.monthlyPaymentBefore}"
+                    after="{!asset.monthlyPaymentAfter}"
+                  />
+                </td>
+              </tr>
+            </apex:repeat>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <div class="boxedDiv">
       <div class="subHeader">
         <b>DETAILS OF MONTHLY INFLOWS &amp; OUTFLOWS</b>
       </div>
-      <h5 class="header-inside">MONTHLY INFLOWS</h5>
-      <table border="1" class="contentTable">
-        <thead class="thead">
-          <tr class="tr">
-            <th class="th leftAlign">
-              Income Source (Note: For accuracy, compute ANNUAL and divide by
-              12)
-            </th>
-            <th class="th">Assessed Monthly Income</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="td leftAlign">
-              Salary and Allowances (As per payslips, bank statements or
-              negotiated cheques)
-            </td>
-            <td class="td">{!appWrapper.salaryAndAllownce}</td>
-          </tr>
-          <tr>
-            <td class="td leftAlign">Gratuity in lieu of Pension</td>
-            <td class="td">{!appWrapper.gratutyInLieu}</td>
-          </tr>
-          <tr>
-            <td class="td leftAlign">
-              Performance-Based Pay (Includes: Commission, Overtime, Bonus)
-            </td>
-            <td class="td">{!appWrapper.performanceBasedPay}</td>
-          </tr>
-          <tr>
-            <td class="td leftAlign">Net Profit - Sole Trader</td>
-            <td class="td">{!appWrapper.netProfit}</td>
-          </tr>
-          <tr>
-            <td class="td leftAlign">
-              Director's Emoluments - Company Director
-            </td>
-            <td class="td">{!appWrapper.directorsEmoluments}</td>
-          </tr>
-          <tr>
-            <td class="td leftAlign">Share of Profit - Partnership</td>
-            <td class="td">{!appWrapper.shareOfPartnershipProfit}</td>
-          </tr>
-          <tr>
-            <td class="td leftAlign">Share of Profit - Company Shareholder</td>
-            <td class="td">{!appWrapper.shareOfShareholderProfit}</td>
-          </tr>
-          <tr>
-            <td class="td leftAlign">Pension</td>
-            <td class="td">{!applicantObj.Pension__c}</td>
-          </tr>
-          <tr>
-            <td class="td leftAlign">
-              Existing Real Estate Rental I (where rental of property is not
-              treated as a business)
-            </td>
-            <td class="td">{!appWrapper.realEstateRental_I}</td>
-          </tr>
-          <tr>
-            <td class="td leftAlign">
-              Existing Real Estate Rental II (where rental of property is
-              treated as a business)
-            </td>
-            <td class="td">{!appWrapper.realEstateRental_II}</td>
-          </tr>
-          <tr>
-            <td class="td leftAlign">Projected Real Estate Rental</td>
-            <td class="td"></td>
-          </tr>
-          <tr>
-            <td class="td leftAlign">Other Income</td>
-            <td class="td">{!applicantObj.Other_Income__c}</td>
-          </tr>
-        </tbody>
-      </table>
-      <h5 class="header-inside">MONTHLY OUTFLOWS</h5>
-      <c:MonthlyOutFlows
-        applicantWrapper="{!applicantWrapper}"
-        applicant="{!applicantObj}"
-      />
+      <div style="page-break-inside: avoid;">
+        <h5 class="header-inside">MONTHLY INFLOWS</h5>
+        <table border="1" class="contentTable">
+          <thead class="thead">
+            <tr class="tr">
+              <th class="th leftAlign">
+                Income Source (Note: For accuracy, compute ANNUAL and divide by
+                12)
+              </th>
+              <th class="th">Assessed Monthly Income</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td leftAlign">
+                Salary and Allowances (As per payslips, bank statements or
+                negotiated cheques)
+              </td>
+              <td class="td">{!appWrapper.salaryAndAllownce}</td>
+            </tr>
+            <tr>
+              <td class="td leftAlign">Gratuity in lieu of Pension</td>
+              <td class="td">{!appWrapper.gratutyInLieu}</td>
+            </tr>
+            <tr>
+              <td class="td leftAlign">
+                Performance-Based Pay (Includes: Commission, Overtime, Bonus)
+              </td>
+              <td class="td">{!appWrapper.performanceBasedPay}</td>
+            </tr>
+            <tr>
+              <td class="td leftAlign">Net Profit - Sole Trader</td>
+              <td class="td">{!appWrapper.netProfit}</td>
+            </tr>
+            <tr>
+              <td class="td leftAlign">
+                Director's Emoluments - Company Director
+              </td>
+              <td class="td">{!appWrapper.directorsEmoluments}</td>
+            </tr>
+            <tr>
+              <td class="td leftAlign">Share of Profit - Partnership</td>
+              <td class="td">{!appWrapper.shareOfPartnershipProfit}</td>
+            </tr>
+            <tr>
+              <td class="td leftAlign">
+                Share of Profit - Company Shareholder
+              </td>
+              <td class="td">{!appWrapper.shareOfShareholderProfit}</td>
+            </tr>
+            <tr>
+              <td class="td leftAlign">Pension</td>
+              <td class="td">{!applicantObj.Pension__c}</td>
+            </tr>
+            <tr>
+              <td class="td leftAlign">
+                Existing Real Estate Rental I (where rental of property is not
+                treated as a business)
+              </td>
+              <td class="td">{!appWrapper.realEstateRental_I}</td>
+            </tr>
+            <tr>
+              <td class="td leftAlign">
+                Existing Real Estate Rental II (where rental of property is
+                treated as a business)
+              </td>
+              <td class="td">{!appWrapper.realEstateRental_II}</td>
+            </tr>
+            <tr>
+              <td class="td leftAlign">Projected Real Estate Rental</td>
+              <td class="td"></td>
+            </tr>
+            <tr>
+              <td class="td leftAlign">Other Income</td>
+              <td class="td">{!applicantObj.Other_Income__c}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="page-break-inside: avoid;">
+        <h5 class="header-inside">MONTHLY OUTFLOWS</h5>
+        <c:MonthlyOutFlows
+          applicantWrapper="{!applicantWrapper}"
+          applicant="{!applicantObj}"
+        />
+      </div>
     </div>
 
     <h5 class="p">
