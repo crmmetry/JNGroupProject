@@ -50,6 +50,10 @@ public class LoanCalculationProductUnwrapper {
     record.Loan_Purpose_List__c = serializer.loanPurpose;
     record.Account_Type_List__c = serializer.accountType;
     record.Stamp_Duty_Number__c = serializer.stampDuty;
+    record.Assignment_Fee_Number__c = serializer.assignmentFee;
+    record.Total_Closing_Costs_Financed_JN_Number__c = serializer.totalFinancedByJN;
+    record.TotalClosingCost_PayableApplicant_Number__c = serializer.totalClosingCostsApplicantPayable;
+    record.Total_Closing_Costs_Number__c = serializer.totalClosingCost;
   }
   /**
    * save loan calculation product object

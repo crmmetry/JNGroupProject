@@ -18,11 +18,7 @@ public class LoanCalculationUnwrapper {
     record.JNGI_Motor_Premium_1st_Year__c = serializer.jngiMotorPremium;
     record.Monthly_JNGI_Motor_Premium_1st_Year__c = serializer.monthlyPIJNGIMotorPremium;
     record.NSIPP_Registration_Fees_Number__c = serializer.nsipp;
-    record.Assignment_Fee_Number__c = serializer.assignmentFee;
-    record.Total_Closing_Costs_Number__c = serializer.totalClosingCost;
     record.Estimated_Stamp_Duty_AdminCharges_Number__c = serializer.stampDutyAndAdminCharges;
-    record.Total_Closing_Costs_Financed_JN_Number__c = serializer.totalFinancedByJN;
-    record.TotalClosingCost_PayableApplicant_Number__c = serializer.totalClosingCostsApplicantPayable;
     //record.Stamp_Duty__c = serializer.stampDuty;
     record.Creditor_Life_Denial_Reason_Text__c = serializer.noCreditorLifeReason;
     record.Name_of_Insurance_Provider__c = serializer.policyProvider;

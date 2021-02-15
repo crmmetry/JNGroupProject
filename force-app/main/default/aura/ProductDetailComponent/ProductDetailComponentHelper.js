@@ -750,7 +750,7 @@
     const isUnsecured = checkProductFamily(component, "Unsecured");
     const isCreditCard = checkProductFamily(component, "Credit Card");
     if (isAuto) {
-      loanCalculationFields = loanCalculationFields.concat([
+      loanCalculationProductFields = loanCalculationProductFields.concat([
         {
           localName: "stampDutyAuto",
           mappedName: "stampDuty",
@@ -758,7 +758,7 @@
         }
       ]);
     } else if (isUnsecured) {
-      loanCalculationFields = loanCalculationFields.concat([
+      loanCalculationProductFields = loanCalculationProductFields.concat([
         {
           localName: "stampDutyUns",
           mappedName: "stampDuty",
@@ -823,7 +823,6 @@
       { localName: "jngiMotorPremium" },
       { localName: "monthlyPIJNGIMotorPremium" },
       { localName: "nsipp" },
-      { localName: "assignmentFee" },
       { localName: "totalClosingCosts" },
       { localName: "stampDutyAndAdminCharges" },
       { localName: "totalFinancedByJN" },
@@ -897,7 +896,8 @@
       { localName: "autoCollateralDeposit" },
       { localName: "autoCollateralDepositPercentage" },
       { localName: "computedAutoCollateralDepositFromPercentage" },
-      { localName: "loanPurpose" }
+      { localName: "loanPurpose" },
+      { localName: "assignmentFee" }
     ];
     //product specific fields
     const updatedValues = this.contructProductSpecificDetailsFields(
