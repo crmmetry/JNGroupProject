@@ -1,0 +1,24 @@
+<aura:component>
+  <aura:attribute name="title" type="string" />
+  <aura:attribute name="content" type="string" />
+  <a href="#" class="slds-box slds-box_link slds-box_x-small slds-media">
+    <div
+      class="slds-media__figure slds-media__figure_fixed-width slds-align_absolute-center slds-var-m-left_xx-small"
+    >
+      <lightning:icon
+        iconName="utility:color_swatch"
+        size="large"
+        alternativeText="color swatch"
+      />
+    </div>
+    <div
+      class="slds-media__body slds-border_left slds-var-p-around_small"
+      onclick="{!c.onDocumentClick}"
+    >
+      <h2 class="slds-truncate slds-text-heading_small" title="{v.title}">
+        {v.title}
+      </h2>
+      <p class="slds-var-m-top_small">{!v.content}</p>
+    </div>
+  </a>
+</aura:component>

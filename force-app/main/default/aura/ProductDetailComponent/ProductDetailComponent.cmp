@@ -18,6 +18,18 @@
     action="{!c.onChildContainerChange}"
   />
   <aura:attribute
+    name="generateDocumentsFlag"
+    type="Boolean"
+    default="false"
+    description="decides whether to hide/show documents to be generated"
+  />
+  <aura:attribute
+    name="showGeneratedDocumentsFlag"
+    type="Boolean"
+    default="false"
+    description="decides whether to hide/show documents to be generated all"
+  />
+  <aura:attribute
     name="ChildContainer"
     type="Map"
     default="{}"
@@ -29,6 +41,7 @@
     description="contains all the relevant data that must be loaded for the spinner to hide"
   />
   <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
+  <aura:attribute name="documentsForGeneration" type="Array" default="[]" />
   <!-- Static Resource -->
   <ltng:require
     scripts="{!join(',', 
@@ -162,14 +175,43 @@
             >
             </c:LineOfCreditContainerComponent>
           </aura:if>
-          <div class="slds-align_absolute-center slds-var-m-top_large">
+          <div
+            class="slds-align_absolute-center slds-var-m-top_large slds-var-p-horizontal_small"
+          >
             <lightning:button
               label="Save Product Details"
               onclick="{!c.onSaveProductDetails}"
               variant="brand-outline"
               title="Save Product Details"
             />
+            <aura:if isTrue="{!v.generateDocumentsFlag}">
+              <lightning:button
+                label="Generate Documents"
+                onclick="{!c.onGenerateDocuments}"
+                variant="brand-outline"
+                title="Generate Documents"
+              />
+            </aura:if>
           </div>
+          <aura:if isTrue="{!v.showGeneratedDocumentsFlag}">
+            <div class="slds-var-p-around_small slds-box">
+              <div
+                class="slds-grid slds-gutters slds-grid_vertical-align-start slds-grid_vertical-align-center"
+              >
+                <aura:iteration
+                  items="{!v.documentsForGeneration}"
+                  item="{!document}"
+                >
+                  <div class="slds-size_4-of-12">
+                    <c:ProductDetailDocument
+                      title=""
+                      content=""
+                    ></c:ProductDetailDocument>
+                  </div>
+                </aura:iteration>
+              </div>
+            </div>
+          </aura:if>
         </fieldset>
       </lightning:layoutItem>
     </lightning:card>

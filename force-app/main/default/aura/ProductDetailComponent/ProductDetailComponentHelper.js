@@ -93,16 +93,16 @@
 
   /**
    * Retrieves All applicants belonging to a particular opportunity.
-   * @deprecated
-   * @param {*} container
+   * @param {*} component
    */
-  getApplicants: function (component, oppId, tenure) {
-    let action = component.get("c.getApplicantsRating");
+  getApplicants: function (component) {
+    let action = component.get("c.getApplicants");
     action.setParams({
-      oppId: oppId,
-      tenure: tenure
+      oppId: component.get("v.recordId")
     });
+    this.showSpinner(component);
     action.setCallback(this, function (response) {
+      this.hideSpinner(component);
       let state = response.getState(); //Checking response status
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
@@ -110,6 +110,7 @@
         if (applicants.length > 1) {
           component.set("v.multipleApplicantsFlag", true);
         }
+        //build generated documents here array
       }
     });
     $A.enqueueAction(action);
