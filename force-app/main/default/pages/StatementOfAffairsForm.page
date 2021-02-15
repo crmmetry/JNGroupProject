@@ -1,0 +1,734 @@
+<!--
+    Sr#     Ticket#      Modified By                Modified Date       Description 
+ * 	  1		JN1-4279	  Ishwari Gaikwad.(TQ)		02/09/2021		  created pdf.
+-->
+<apex:page renderAs="pdf"
+           applyBodyTag="false"
+           standardStylesheets="false"
+           applyHtmlTag="false"
+           showHeader="false"
+           controller="StatementOfAffairsFormController"
+           >
+    <apex:stylesheet value="{!$Resource.AutoCreditScoreModelCSS}" />
+    
+        <div class="header">
+            <apex:image url="{!URLFOR($Resource.Statement_Of_Affairs)}"
+                        styleClass="logo"
+                        />
+        </div>
+        <div class="content">
+            <table style="width: 100%; margin-top: 1%;" border="0">
+                <tr>
+                    <td class="td">Name of Applicant:
+                        <div class="greyBox">{!applicantObj.Account__r.Name}</div>                    
+                    </td>
+                    <td class="td">Product Combination:
+                        <div class="greyBox">&nbsp;</div>   
+                    </td>
+                    <td class="td">Currency of Financials:
+                        <div class="greyBox">{!applicantObj.CurrencyIsoCode}</div>
+                    </td>
+                    <td class="td">Date of Application:
+                        <div class="greyBox">{!TODAY()}</div>
+                    </td>
+                </tr>
+            </table>
+            <div class="boxedDiv">
+                <div class="subHeader">
+                    <b>SUMMARY OF APPLICANT'S FINANCIALS</b>
+                </div>
+                <h5 class="header-inside">CREDIT DETAILS</h5>
+                
+                <table border="1" class="summaryTable">
+                    <thead class="thead">
+                        <tr class="tr">
+                            <th class="th blueBG">ASSETS</th>
+                            <th class="th blueBG">VALUE<br/>
+                                (Before Proposed Loan)</th>
+                            <th class="th blueBG">VALUE<br/>
+                                (After Proposed Loan)</th>
+                            <th class="th blueBG" >LIABILITIES</th>
+                            <th class="th blueBG" >VALUE<br/>
+                                (Before Proposed Loan)</th>
+                            <th class="th blueBG" >VALUE<br/>
+                                (After Proposed Loan)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="td">Real Estate</td>
+                            <td class="td">{!realEstateSummaryBefore}</td>
+                            <td class="td">{!realEstateSummaryAfter}</td>
+                            <td class="td">Loan(s) on Real Estate</td>
+                            <td class="td">{!realEstateSummaryBefore_Loan}</td>
+                            <td class="td">{!realEstateSummaryAfter_Loan}</td>
+                        </tr>
+                        <tr>
+                            <td class="td">Motor Vehicle(s)</td>
+                            <td class="td">{!MotorVehicalSummaryBefore}</td>
+                            <td class="td">{!MotorVehicalSummaryAfter}</td>
+                            <td class="td">Loan(s) on Motor Vehicle</td>
+                            <td class="td">{!MotorVehicalSummaryBefore_Loan}</td>
+                            <td class="td">{!MotorVehicalSummaryAfter_Loan}</td>
+                        </tr>
+                        <tr>
+                            <td class="td">Other Asset(s)</td>
+                            <td class="td">{!OtherAssetsSummaryBefore}</td>
+                            <td class="td">{!OtherAssetsSummaryAfter}</td>
+                            <td class="td">Loan(s) Other Assets</td>
+                            <td class="td">{!OtherAssetsSummaryBefore_Loan}</td>
+                            <td class="td">{!OtherAssetsSummaryAfter_Loan}</td>
+                        </tr>
+                        <tr>
+                            <td class="td">Life Insurance Cash Value</td>
+                            <td class="td">{!realEstateSummaryBefore}</td>
+                            <td class="td">{!realEstateSummaryBefore}</td>
+                            <td class="td">Other Loan(s)</td>
+                            <td class="td">{!OtherLoanSummaryBefore_Loan}</td>
+                            <td class="td">{!OtherLoanSummaryAfter_Loan}</td>
+                        </tr>
+                        <tr>
+                            <td class="td">Saving/Investment/
+                                Current Account(s) Balance</td>
+                            <td class="td"></td>
+                            <td class="td"></td>
+                            <td class="td">Credit Card &amp; Line of Credit
+                                Balances</td>
+                            <td class="td"></td>
+                            <td class="td"></td>
+                        </tr>
+                        <tr>
+                            <td class="td">Pension Contribution</td>
+                            <td class="td"></td>
+                            <td class="td"></td>
+                            <td class="td">Current Account(s) Overdraft</td>
+                            <td class="td"></td>
+                            <td class="td"></td>
+                        </tr>
+                        <tr>
+                            <td class="td"></td>
+                            <td class="td"></td>
+                            <td class="td"></td>
+                            <td class="td">Contingent Liabilities</td>
+                            <td class="td"></td>
+                            <td class="td"></td>
+                        </tr>
+                        <tr>
+                            <td class="td blueBG">TOTAL ASSETS</td>
+                            <td class="td blueBG"></td>
+                            <td class="td blueBG"></td>
+                            <td class="td blueBG">TOTAL LIABILITIES</td>
+                            <td class="td blueBG"></td>
+                            <td class="td blueBG"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="text-align:right;" class="td">Net Worth<br/>
+                                (Total Assets less Total Liabilities)</td>
+                            <td class="td blueBG"></td>
+                            <td class="td blueBG"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h5 class="header-inside">SUMMARY OF MONTHLY INFLOWS &amp; OUTFLOWS</h5>
+                
+                <table border="1" class="summaryTable">
+                    <thead class="thead">
+                        <tr class="tr">
+                            <th class="th blueBG" >INFLOWS</th>
+                            <th class="th blueBG" >VALUE<br/>
+                                (Before Proposed Loan)</th>
+                            <th class="th blueBG" >OUTFLOWS</th>
+                            <th class="th blueBG" >VALUE<br/>
+                                (Before Proposed Loan)</th>
+                            <th class="th blueBG">VALUE<br/>
+                                (After Proposed Loan)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="td">Income (Regular Employed)</td>
+                            <td class="td">{!applicantWrapper.incomeRegularEmployed}</td>
+                            <td class="td">Installment Payments</td>
+                            <td class="td">N/A</td>
+                            <td class="td">N/A</td>
+                        </tr>
+                        <tr>
+                            <td class="td">Income (Performance-Based Pay)</td>
+                            <td class="td">{!applicantWrapper.incomePerformanceBased}</td>
+                            <td class="td">Life Insurance Payments</td>
+                            <td class="td">N/A</td>
+                            <td class="td">N/A</td>
+                        </tr>
+                        <tr>
+                            <td class="td">Income (Self-Employed)</td>
+                            <td class="td">{!applicantWrapper.incomeSelfEmployed}</td>
+                            <td class="td">Savings/Investments</td>
+                            <td class="td">N/A</td>
+                            <td class="td">N/A</td>
+                        </tr>
+                        <tr>
+                            <td class="td">Real Estate Rental Income</td>
+                            <td class="td">{!applicantWrapper.inflowsRealEstateIncome}</td>
+                            <td class="td">Pension Contribution</td>
+                            <td class="td">N/A</td>
+                            <td class="td">N/A</td>
+                        </tr>
+                        <tr>
+                            <td class="td">Pension </td>
+                            <td class="td">{!applicantObj.Pension__c}</td>
+                            <td class="td">Property Related Costs</td>
+                            <td class="td">{!applicantWrapper.outflowsPropertyRelatedCostPrior}</td>
+                            <td class="td">{!applicantWrapper.outflowsPropertyRelatedCostAfter}</td>
+                        </tr>
+                        <tr>
+                            <td class="td">Other Income</td>
+                            <td class="td">{!applicantObj.Other_Income__c}</td>
+                            <td class="td">Personal/Family Costs</td>
+                            <td class="td">{!applicantWrapper.outflowsPersonalCostPrior}</td>
+                            <td class="td">{!applicantWrapper.outflowsPersonalCostAfter}</td>
+                        </tr>
+                        <tr>
+                            <td class="td blueBG">Total Gross Monthly Income</td>
+                            <td class="td blueBG">{!applicantWrapper.inflowsTotalMonthlyIncome}</td>
+                            <td class="td">Utilities/Household Expenses</td>
+                            <td class="td">{!applicantWrapper.outflowsUtilityExpencesPrior}</td>
+                            <td class="td">{!applicantWrapper.outflowsUtilityExpencesAfter}</td>
+                        </tr>
+                        <tr>
+                            <td class="td">Less Statutory Deductions </td>
+                            <td class="td">{!applicantWrapper.inflowsLessStatutoryDeduction}</td>
+                            <td class="td">Transportation Costs</td>
+                            <td class="td">{!applicantWrapper.outflowsTransportExpencesPrior}</td>
+                            <td class="td">{!applicantWrapper.outflowsTransportExpencesAfter}</td>
+                        </tr>
+                        <tr>
+                            <td class="td blueBG">TOTAL INFLOWS</td>
+                            <td class="td blueBG">{!applicantWrapper.totalInflows}</td>
+                            <td class="td blueBG">TOTAL OUTFLOWS</td>
+                            <td class="td blueBG">{!applicantWrapper.totalOutflowbefore}</td>
+                            <td class="td blueBG">{!applicantWrapper.totalOutflowbefore}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="td" style="text-align:right;">Residual Income After Commitments<br/>
+                                (Total Inflows less Total Outflows)</td>
+                            <td class="td blueBG">{!applicantWrapper.recidualIncomeAfterCommitments}</td>
+                            <td class="td blueBG"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="page-break-after:always;"></div>
+            <div class="boxedDiv">
+                <div class="subHeader">
+                    <b>DETAILS OF ASSETS &amp; LIABILITIES</b>
+                </div>
+                <center><b style="color:#0171c2;font-size: 0.585em;font-family: 'Gill Sans', sans-serif;">
+                    E - Existing Debt  P - Proposed
+                </b></center>
+                <h5 class="header-inside">REAL ESTATE HOLDING(S)</h5> 
+                <table border="1" class="contentTable" style="margin-top: 0%;">
+                    <thead class="thead">
+                        <tr class="tr">
+                            <th></th>
+                            <th class="th">Property Address</th>
+                            <th class="th">Total Market Value</th>
+                            <th class="th">Lender(s)</th>
+                            <th class="th">Loan Balance</th>
+                            <th class="th">Monthly Payment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!realEstateWrapperList}" var="asset">
+                            <tr>
+                                <td  class="td">E1</td>
+                                <td  class="td">{!asset.details}</td>
+                                <td  class="td">{!asset.marketvalue}</td>
+                                <td  class="td">{!asset.lender}</td>
+                                <td  class="td">
+                                    <c:TableInCell before="{!asset.loanBalanceBefore}" after="{!asset.loanBalanceAfter}"/>
+                                </td>
+                                <td  class="td">
+                                    <c:TableInCell before="{!asset.monthlyPaymentBefore}" after="{!asset.monthlyPaymentAfter}"/>
+                                </td>
+                            </tr>
+                        </apex:repeat>
+                        
+                    </tbody>
+                </table>
+                <h5 class="header-inside">MOTOR VEHICLE(S)</h5> 
+                <table border="1" class="contentTable" style="margin-top: 0%;">
+                    <thead class="thead">
+                        <tr class="tr">
+                            <th></th>
+                            <th class="th">Vehicle Details</th>
+                            <th class="th">Total Market Value</th>
+                            <th class="th">Lender(s)</th>
+                            <th class="th">Loan Balance</th>
+                            <th class="th">Monthly Payment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!motorVehicalWrapperList}" var="asset">
+                            <tr>
+                                <td  class="td">E1</td>
+                                <td  class="td">{!asset.details}</td>
+                                <td  class="td">{!asset.marketvalue}</td>
+                                <td  class="td">{!asset.lender}</td>
+                                <td  class="td">
+                                    <c:TableInCell before="{!asset.loanBalanceBefore}" after="{!asset.loanBalanceAfter}"/>
+                                </td>
+                                <td  class="td">
+                                    <c:TableInCell before="{!asset.monthlyPaymentBefore}" after="{!asset.monthlyPaymentAfter}"/>
+                                </td>
+                            </tr>
+                        </apex:repeat>
+                        
+                    </tbody>
+                </table>
+                
+                <h5 class="header-inside">OTHER ASSET(S)</h5> 
+                <table border="1" class="contentTable" style="margin-top: 0%;">
+                    <thead class="thead">
+                        <tr class="tr">
+                            <th></th>
+                            <th class="th">Asset Details</th>
+                            <th class="th">Total Market Value</th>
+                            <th class="th">Lender(s)</th>
+                            <th class="th">Loan Balance</th>
+                            <th class="th">Monthly Payment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!otherAssetsWrapperList}" var="asset">
+                            <tr>
+                                <td  class="td">E1</td>
+                                <td  class="td">{!asset.details}</td>
+                                <td  class="td">{!asset.marketvalue}</td>
+                                <td  class="td">{!asset.lender}</td>
+                                <td  class="td">
+                                    <c:TableInCell before="{!asset.loanBalanceBefore}" after="{!asset.loanBalanceAfter}"/>
+                                </td>
+                                <td  class="td">
+                                    <c:TableInCell before="{!asset.monthlyPaymentBefore}" after="{!asset.monthlyPaymentAfter}"/>
+                                </td>
+                            </tr>
+                        </apex:repeat>
+                        
+                    </tbody>
+                </table>
+                
+                <h5 class="header-inside">OTHER LOAN(S)</h5> 
+                <table border="1" class="contentTable">
+                    <thead class="thead" >
+                        <tr class="tr">
+                            <th></th>
+                            <th class="th" style="width:50%;">Institution</th>
+                            <th class="th">Value of Debt</th>
+                            <th class="th">Monthly Payment</th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                        <apex:repeat value="{!otherLoanWrapperList}" var="asset">
+                            <tr>
+                                <td  class="td">E1</td>
+                                <td  class="td">{!asset.details}</td>
+                                <td  class="td">
+                                    <c:TableInCell before="{!asset.loanBalanceBefore}" after="{!asset.loanBalanceAfter}"/>
+                                </td>
+                                <td  class="td">
+                                    <c:TableInCell before="{!asset.monthlyPaymentBefore}" after="{!asset.monthlyPaymentAfter}"/>
+                                </td>
+                            </tr>
+                        </apex:repeat>
+                        
+                    </tbody>
+                        
+                </table>
+                
+                <h5 class="header-inside">CREDIT CARD(S)</h5> 
+                <c:SubDetailsComponent type="CREDIT CARD"/>
+                
+                <h5 class="header-inside">LINE(S) OF CREDIT</h5> 
+                <c:SubDetailsComponent type="LINE(S) OF CREDIT"/>
+                
+                <h5 class="header-inside">SAVING/CURRENT ACCOUNTS &amp; INVESTMENTS</h5> 
+                <table border="1" class="contentTable">
+                    <thead class="thead" >
+                        <tr class="tr">
+                            <th></th>
+                            <th class="th">Financial Institution</th>
+                            <th class="th">Account Type </th>
+                            <th class="th">Account Balance</th>
+                            <th class="th">Overdraft Limit</th>
+                            <th class="th">Monthly
+                                Savings/Investments
+                                (Prior to loan)</th>
+                            <th class="th">Monthly
+                                Savings/Investments
+                                (After loan)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="td">P(A)</td>
+                            <td class="td">JN Bank</td>
+                            <td class="td">Savings</td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                        </tr>
+                        <tr>
+                            <td class="td">P(U)</td>
+                            <td class="td">JN Bank</td>
+                            <td class="td">Savings</td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                        </tr>
+                        <tr>
+                            <td class="td">E1</td>
+                            <td class="td">#ERROR!</td>
+                            <td class="td">#ERROR!</td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                        </tr>
+                        <tr>
+                            <td class="td">E2</td>
+                            <td class="td">#ERROR!</td>
+                            <td class="td">#ERROR!</td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                        </tr>
+                        <tr>
+                            <td class="td">E3</td>
+                            <td class="td">#ERROR!</td>
+                            <td class="td">#ERROR!</td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                        </tr>
+                        <tr>
+                            <td class="td">E4</td>
+                            <td class="td">#ERROR!</td>
+                            <td class="td">#ERROR!</td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                        </tr>
+                        <tr>
+                            <td class="td">E5</td>
+                            <td class="td">#ERROR!</td>
+                            <td class="td">#ERROR!</td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                        </tr>
+                        <tr>
+                            <td class="td">E6</td>
+                            <td class="td">#ERROR!</td>
+                            <td class="td">#ERROR!</td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                        </tr>
+                        <tr>
+                            <td class="td">E7</td>
+                            <td class="td">#ERROR!</td>
+                            <td class="td">#ERROR!</td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                        </tr>
+                        <tr>
+                            <td class="td">E8</td>
+                            <td class="td">#ERROR!</td>
+                            <td class="td">#ERROR!</td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                        </tr>
+                        <tr>
+                            <td class="td">E9</td>
+                            <td class="td">#ERROR!</td>
+                            <td class="td">#ERROR!</td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                        </tr>
+                        <tr>
+                            <td class="td">E10</td>
+                            <td class="td">#ERROR!</td>
+                            <td class="td">#ERROR!</td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h5 class="header-inside">LIFE INSURANCE POLICIES HELD</h5>
+                <table border="1" class="contentTable">
+                    <thead class="thead" >
+                        <tr class="tr">
+                            <th></th>
+                            <th class="th">Financial Institution</th>
+                            <th class="th">Policy Number </th>
+                            <th class="th">Cash Value</th>
+                            <th class="th">Sum Insured</th>
+                            <th class="th">Annual Premium</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="td">E1</td>
+                            <td class="td">#ERROR!</td>
+                            <td class="td">#ERROR!</td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                        </tr>
+                        <tr>
+                            <td class="td">E2</td>
+                            <td class="td">#ERROR!</td>
+                            <td class="td">#ERROR!</td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                        </tr>
+                        <tr>
+                            <td class="td">E3</td>
+                            <td class="td">#ERROR!</td>
+                            <td class="td">#ERROR!</td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                        </tr>
+                        <tr>
+                            <td class="td">E4</td>
+                            <td class="td">#ERROR!</td>
+                            <td class="td">#ERROR!</td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                        </tr>
+                        <tr>
+                            <td class="td">E5</td>
+                            <td class="td">#ERROR!</td>
+                            <td class="td">#ERROR!</td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h5 class="header-inside">PENSION CONTRIBUTIONS OR INDIVIDUAL RETIREMENT SCHEME</h5>
+                <table border="1" class="contentTable">
+                    <thead class="thead" >
+                        <tr class="tr">
+                            <th></th>
+                            <th class="th">Pension Scheme/Individual Retirement Scheme</th>
+                            <th class="th">Total Contributions to Date</th>
+                            <th class="th">Monthly Contribution
+                                (Prior to loan)</th>
+                            <th class="th">Monthly Contribution
+                                (After loan)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="td">E1</td>
+                            <td class="td">#ERROR!</td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                        </tr>
+                        <tr>
+                             <td class="td">E2</td>
+                            <td class="td">#ERROR!</td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                            <td  class="td"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h5 class="header-inside">CONTINGIENT LIABILITIES</h5>
+                <table border="1" class="contentTable">
+                    <thead class="thead" >
+                        <tr class="tr">
+                            <th></th>
+                            <th class="th" style="width:50%;">Institution</th>
+                            <th class="th">Value of Debt</th>
+                            <th class="th">Monthly Payment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="td">E1</td>
+                            <td class="td">#ERROR!</td>
+                            <td  class="td">
+                                <c:TableInCell />
+                            </td>
+                            <td  class="td">
+                                <c:TableInCell />
+                            </td>
+                        </tr>
+                        <tr>
+                             <td class="td">E2</td>
+                            <td class="td">#ERROR!</td>
+                            <td  class="td">
+                                <c:TableInCell />
+                            </td>
+                            <td  class="td">
+                                <c:TableInCell />
+                            </td>
+                        </tr>
+                        <tr>
+                             <td class="td">E3</td>
+                            <td class="td">#ERROR!</td>
+                            <td  class="td">
+                                <c:TableInCell />
+                            </td>
+                            <td  class="td">
+                                <c:TableInCell />
+                            </td>
+                        </tr>
+                        <tr>
+                             <td class="td">E4</td>
+                            <td class="td">#ERROR!</td>
+                            <td  class="td">
+                                <c:TableInCell />
+                            </td>
+                            <td  class="td">
+                                <c:TableInCell />
+                            </td>
+                        </tr>
+                        <tr>
+                             <td class="td">E5</td>
+                            <td class="td">#ERROR!</td>
+                            <td  class="td">
+                                <c:TableInCell />
+                            </td>
+                            <td  class="td">
+                                <c:TableInCell />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="boxedDiv">
+                <div class="subHeader">
+                    <b>DETAILS OF MONTHLY INFLOWS &amp; OUTFLOWS</b>
+                </div>
+                <h5 class="header-inside">MONTHLY INFLOWS</h5> 
+                <table border="1" class="contentTable">
+                    <thead class="thead">
+                        <tr class="tr">
+                            <th class="th leftAlign">Income Source (Note: For accuracy, compute ANNUAL and divide by 12)</th>
+                            <th class="th">Assessed Monthly Income</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="td leftAlign">Salary and Allowances (As per payslips, bank statements or negotiated cheques)</td>
+                            <td class="td">{!appWrapper.salaryAndAllownce}</td>
+                        </tr>
+                        <tr>
+                            <td class="td leftAlign">Gratuity in lieu of Pension</td>
+                            <td class="td">{!appWrapper.gratutyInLieu}</td>
+                        </tr>
+                        <tr>
+                            <td class="td leftAlign">Performance-Based Pay (Includes: Commission, Overtime, Bonus)</td>
+                            <td class="td">{!appWrapper.performanceBasedPay}</td>
+                        </tr>
+                        <tr>
+                            <td class="td leftAlign">Net Profit - Sole Trader</td>
+                            <td class="td">{!appWrapper.netProfit}</td>
+                        </tr>
+                        <tr>
+                            <td class="td leftAlign">Director's Emoluments - Company Director</td>
+                            <td class="td">{!appWrapper.directorsEmoluments}</td>
+                        </tr>
+                        <tr>
+                            <td class="td leftAlign">Share of Profit - Partnership</td>
+                            <td class="td">{!appWrapper.shareOfPartnershipProfit}</td>
+                        </tr>
+                        <tr>
+                            <td class="td leftAlign">Share of Profit - Company Shareholder</td>
+                            <td class="td">{!appWrapper.shareOfShareholderProfit}</td>
+                        </tr>
+                        <tr>
+                            <td class="td leftAlign">Pension</td>
+                            <td class="td">{!applicantObj.Pension__c}</td>
+                        </tr>
+                        <tr>
+                            <td class="td leftAlign">Existing Real Estate Rental I
+                                (where rental of property is not treated as a business)</td>
+                            <td class="td">{!appWrapper.realEstateRental_I}</td>
+                        </tr>
+                        <tr>
+                            <td class="td leftAlign">Existing Real Estate Rental II
+                                (where rental of property is treated as a business)</td>
+                            <td class="td">{!appWrapper.realEstateRental_II}</td>
+                        </tr>
+                        <tr>
+                            <td class="td leftAlign">Projected Real Estate Rental</td>
+                            <td class="td"></td>
+                        </tr>
+                        <tr>
+                            <td class="td leftAlign">Other Income</td>
+                            <td class="td">{!applicantObj.Other_Income__c}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h5 class="header-inside">MONTHLY OUTFLOWS</h5>
+                <c:MonthlyOutFlows applicantWrapper="{!applicantWrapper}"
+                                   applicant="{!applicantObj}"/>
+            </div>
+            
+               <h5 class="p">
+                  I CERTIFY THAT THE INFORMATION GIVEN ABOVE AND OVERLEAF IS TRUE AND ACCURATE AND UNDERSTAND THAT THE SAID INFORMATION FORMS PART OF MY CURRENT
+                CREDIT APPLICATION ON WHICH CONDITIONS ARE STATED.  
+            </h5>
+            <table style="width:70%; margin-left:20%;">
+                <tr>
+                	<td>
+                    	Signature of Applicant:<div class="textStyle borderedText">&nbsp;</div>
+                    </td>
+                    <td>
+                    	Date Signed:<div class="textStyle borderedText">&nbsp;</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="footer">
+      <table style="width: 100%;">
+        <tr>
+          <td style="text-align: left;">Statement of Affairs J-LODM-710-F10-Ver 8-September 23, 2020</td>
+          <td style="text-align: center;">
+            Page <span class="pagenumber" /> of <span class="pagecount" />
+          </td>
+          <td style="text-align: right;">
+            Applicant's Initials: _______________________________
+          </td>
+        </tr>
+      </table>
+    </div>
+</apex:page>

@@ -1,0 +1,202 @@
+<!--
+    Sr#     Ticket#      Modified By                Modified Date       Description 
+ * 	  1		JN1-4279	  Ishwari Gaikwad.(TQ)		02/09/2021		  created pdf.
+-->
+<apex:component >
+    <apex:attribute name="applicantWrapper" type="Object" description=""/>
+    <apex:attribute name="applicant" type="Applicant__c" description=""/>
+    <div class="summaryBlock">
+        <table border="1" class="contentTable2">
+            <thead class="thead">
+                <tr class="tr">
+                    <th colspan="2" class="th">Expense Details
+                        (Note: For accuracy, compute ANNUAL
+                        and divide by 12)</th>
+                    <th class="th">Monthly Payment
+                        (Prior to loan)</th>
+                    <th class="th">Monthly Payment
+                        (After loan)</th>
+                </tr>
+            </thead>
+            <tbody class="extraSpace">
+                <tr>
+                    <td rowspan="4" class="td">Statutory Deduction</td>
+                    <td class="td ">Income Tax</td>
+                    <td class="td">{!IF(applicant.Income_Tax_Monthly_Payment_Prior_Loan__c != NULL, applicant.Income_Tax_Monthly_Payment_Prior_Loan__c ,0)}</td>
+                    <td class="td"></td>
+                </tr>
+                <tr>
+                    <td class="td">NIS Contributions</td>
+                    <td class="td">{!IF(applicant.NIS_Contribution_Monthly_Prior_Loan__c != NULL,applicant.NIS_Contribution_Monthly_Prior_Loan__c ,0)}</td>
+                    <td class="td"></td>
+                </tr>
+                <tr>
+                    <td class="td">NHT Contributions</td>
+                    <td class="td">{!IF(applicant.NHT_Contributions_Monthly_Prior_Loan__c != NULL,applicant.NHT_Contributions_Monthly_Prior_Loan__c ,0)}</td>
+                    <td class="td"></td>
+                </tr>
+                <tr>
+                    <td class="td">Education Tax</td>
+                    <td class="td">{!IF(applicant.Education_Tax_Monthly_Prior_Loan__c != NULL,applicant.Education_Tax_Monthly_Prior_Loan__c  ,0)}</td>
+                    <td class="td"></td>
+                </tr>
+                
+                <tr>
+                    <td rowspan="5" class="td">PROPERTY RELATED</td>
+                    <td class="td">Rent/Board</td>
+                    <td class="td">{!IF(applicant.Rent_Board_Monthly_Prior_Loan__c != NULL,applicant.Rent_Board_Monthly_Prior_Loan__c ,0)}</td>
+                    <td class="td">{!IF(applicant.Rent_Board_Monthly_After_Loan__c != NULL,applicant.Rent_Board_Monthly_After_Loan__c ,0)}</td>
+                </tr>
+                <tr>
+                    <td class="td">Strata Maintenance</td>
+                    <td class="td">{!IF(applicant.Strata_Maintenance_Monthly_Prior_Loan__c != NULL,applicant.Strata_Maintenance_Monthly_Prior_Loan__c ,0)}</td>
+                    <td class="td">{!IF(applicant.Strata_Maintenance_Monthly_After_Loan__c != NULL,applicant.Strata_Maintenance_Monthly_After_Loan__c ,0)}</td>
+                </tr>
+                <tr>
+                    <td class="td">Property Tax</td>
+                    <td class="td">{!IF(applicant.Property_Tax_Monthly_Prior_Loan__c != NULL,applicant.Property_Tax_Monthly_Prior_Loan__c ,0)}</td>
+                    <td class="td">{!IF(applicant.Property_Tax_Monthly_After_Loan__c != NULL,applicant.Property_Tax_Monthly_After_Loan__c ,0)}</td>
+                </tr>
+                <tr>
+                    <td class="td">Property Insurance</td>
+                    <td class="td">{!IF(applicant.Property_Insurance_Monthly_Prior_Loan__c != NULL,applicant.Property_Insurance_Monthly_Prior_Loan__c ,0)}</td>
+                    <td class="td">{!IF(applicant.Property_Insurance_Monthly_After_Loan__c != NULL,applicant.Property_Insurance_Monthly_After_Loan__c ,0)}</td>
+                </tr>
+                <tr>
+                    <td class="td">Property Maintenance</td>
+                    <td class="td">{!IF(applicant.Property_Maintenance_Monthly_Prior_loan__c != NULL, applicant.Property_Maintenance_Monthly_Prior_loan__c,0)}</td>
+                    <td class="td">{!IF(applicant.Property_Maintenance_Monthly_After_Loan__c != NULL,applicant.Property_Maintenance_Monthly_After_Loan__c ,0)}</td>
+                </tr>
+                
+                <tr>
+                    <td rowspan="6" class="td">PERSONAL/ FAMILY</td>
+                    <td class="td">Personal Expenses</td>
+                    <td class="td">{!IF(applicant.Personal_Expenses_Monthly_Prior_Loan__c != NULL,applicant.Personal_Expenses_Monthly_Prior_Loan__c ,0)}</td>
+                    <td class="td">{!IF(applicant.Personal_Expenses_Monthly_After_Loan__c != NULL,applicant.Personal_Expenses_Monthly_After_Loan__c ,0)}</td>
+                </tr>
+                <tr>
+                    <td class="td">Food Costs</td>
+                    <td class="td">{!IF(applicant.Food_Cost_Monthly_Prior_Loan__c != NULL, applicant.Food_Cost_Monthly_Prior_Loan__c,0)}</td>
+                    <td class="td">{!IF(applicant.Food_Costs_Monthly_After_Loan__c != NULL, applicant.Food_Costs_Monthly_After_Loan__c,0)}</td>
+                </tr>
+                <tr>
+                    <td class="td">Child Care Costs</td>
+                    <td class="td">{!IF(applicant.Child_Care_Costs_Monthly_Prior_Loan__c != NULL,applicant.Child_Care_Costs_Monthly_Prior_Loan__c ,0)}</td>
+                    <td class="td">{!IF(applicant.Child_Care_Costs_Monthly_After_Loan__c != NULL,applicant.Child_Care_Costs_Monthly_After_Loan__c ,0)}</td>
+                </tr>
+                <tr>
+                    <td class="td">School Costs</td>
+                    <td class="td">{!IF(applicant.School_Costs_Monthly_Prior_Loan__c != NULL,applicant.School_Costs_Monthly_Prior_Loan__c ,0)}</td>
+                    <td class="td">{!IF(applicant.School_Costs_Monthly_After_Loan__c != NULL,applicant.School_Costs_Monthly_After_Loan__c ,0)}</td>
+                </tr>
+                <tr>
+                    <td class="td">Health Cost</td>
+                    <td class="td">{!IF(applicant.Health_Costs_Monthly_Prior_Loan__c != NULL,applicant.Health_Costs_Monthly_Prior_Loan__c ,0)}</td>
+                    <td class="td">{!IF(applicant.Health_Costs_Monthly_After_Loan__c != NULL, applicant.Health_Costs_Monthly_After_Loan__c,0)}</td>
+                </tr>
+                <tr>
+                    <td class="td">Other Personal/Family Costs</td>
+                    <td class="td">{!IF(applicant.Other_Personal_Family_Costs_Prior_After__c != NULL,applicant.Other_Personal_Family_Costs_Prior_After__c ,0)}</td>
+                    <td class="td">{!IF(applicant.Other_Personal_Family_Costs_Prior_After__c != NULL,applicant.Other_Personal_Family_Costs_Prior_After__c ,0)}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="summaryBlock" >
+        <table border="1" class="contentTable2">
+            <thead class="thead">
+                <tr class="tr">
+                    <th colspan="2" class="th">Expense Details
+                        (Note: For accuracy, compute ANNUAL
+                        and divide by 12)</th>
+                    <th class="th">Monthly Payment
+                        (Prior to loan)</th>
+                    <th class="th">Monthly Payment
+                        (After loan)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="7" class="td">UTILITIES/ HOUSEHOLD</td>
+                    <td class="td">Electricity</td>
+                    <td class="td">{!IF(applicant.Electricity_Monthly_Prior_Loan__c != NULL,applicant.Electricity_Monthly_Prior_Loan__c ,0)}</td>
+                    <td class="td">{!IF(applicant.Electricity_Monthly_After_Loan__c != NULL, applicant.Electricity_Monthly_After_Loan__c,0)}</td>
+                </tr>
+                <tr>
+                    <td class="td">Water</td>
+                    <td class="td">{!IF(applicant.Water_Monthly_Prior_Loan__c != NULL,applicant.Water_Monthly_Prior_Loan__c ,0)}</td>
+                    <td class="td">{!IF(applicant.Water_Monthly_After_Loan__c != NULL,applicant.Water_Monthly_After_Loan__c ,0)}</td>
+                </tr>
+                <tr>
+                    <td class="td">Cell Phone/Landline</td>
+                    <td class="td">{!IF(applicant.Cell_Phone_Landline_Monthly_Prior_Loan__c != NULL,applicant.Cell_Phone_Landline_Monthly_Prior_Loan__c ,0)}</td>
+                    <td class="td">{!IF(applicant.Cell_Phone_Landline_Monthly_After_Loan__c != NULL,applicant.Cell_Phone_Landline_Monthly_After_Loan__c ,0)}</td>
+                </tr>
+                <tr>
+                    <td class="td">Internet/Cable</td>
+                    <td class="td">{!IF(applicant.Internet_Cable_Monthly_Prior_Loan__c != NULL,applicant.Internet_Cable_Monthly_Prior_Loan__c ,0)}</td>
+                    <td class="td">{!IF(applicant.Internet_Cable_Monthly_After_Loan__c != NULL,applicant.Internet_Cable_Monthly_After_Loan__c ,0)}</td>
+                </tr>
+                <tr>
+                    <td class="td">Cooking Gas</td>
+                    <td class="td">{!IF(applicant.Cooking_Gas_Monthly_Prior_Loan__c != NULL,applicant.Cooking_Gas_Monthly_Prior_Loan__c ,0)}</td>
+                    <td class="td">{!IF(applicant.Cooking_Gas_Monthly_After_Loan__c != NULL,applicant.Cooking_Gas_Monthly_After_Loan__c  ,0)}</td>
+                </tr>
+                <tr>
+                    <td class="td">House Keeping Costs</td>
+                    <td class="td">{!IF(applicant.House_Keeping_Monthly_Prior_Loan__c != NULL,applicant.House_Keeping_Monthly_Prior_Loan__c ,0)}</td>
+                    <td class="td">{!IF(applicant.House_Keeping_Costs_Monthly_After_Loan__c != NULL,applicant.House_Keeping_Costs_Monthly_After_Loan__c ,0)}</td>
+                </tr>
+                <tr>
+                    <td class="td">Other Utilities</td>
+                    <td class="td">{!IF(applicant.Other_Utilities_Monthly_Prior_Loan__c != NULL,applicant.Other_Utilities_Monthly_Prior_Loan__c ,0)}</td>
+                    <td class="td">{!IF(applicant.Other_Utilities_Monthly_After_Loan__c != NULL,applicant.Other_Utilities_Monthly_After_Loan__c ,0)}</td>
+                </tr>
+                
+                
+                <tr>
+                    <td rowspan="8" class="td">TRANSPORTATION RELATED</td>
+                    <td class="td">Fares</td>
+                    <td class="td">{!IF(applicant.Fares_Monthly_Prior_Loan__c != NULL, applicant.Fares_Monthly_Prior_Loan__c,0)}</td>
+                    <td class="td">{!IF(applicant.Fares_Monthly_After_Loan__c != NULL, applicant.Fares_Monthly_After_Loan__c,0)}</td>
+                </tr>
+                <tr>
+                    <td class="td">Petrol/Fuel</td>
+                    <td class="td">{!IF(applicant.Petrol_Fuel_Monthly_Prior_Loan__c != NULL,applicant.Petrol_Fuel_Monthly_Prior_Loan__c ,0)}</td>
+                    <td class="td">{!IF(applicant.Petrol_Fuel_Monthly_After_Loan__c != NULL,applicant.Petrol_Fuel_Monthly_After_Loan__c ,0)}</td>
+                </tr>
+                <tr>
+                    <td class="td">Toll Fees</td>
+                    <td class="td">{!IF(applicant.Toll_Fees_Monthly_Prior_Loan__c != NULL, applicant.Toll_Fees_Monthly_Prior_Loan__c,0)}</td>
+                    <td class="td">{!IF(applicant.Toll_Fees_Monthly_After_Loan__c != NULL,applicant.Toll_Fees_Monthly_After_Loan__c ,0)}</td>
+                </tr>
+                <tr>
+                    <td class="td">Motor Vehicle Insurance</td>
+                    <td class="td">{!IF(applicant.Motor_V_Insurance_Monthly_Prior_Loan__c != NULL,applicant.Motor_V_Insurance_Monthly_Prior_Loan__c ,0)}</td>
+                    <td class="td">{!IF(applicant.Motor_V_Insurance_Monthly_After_Loan__c != NULL, applicant.Motor_V_Insurance_Monthly_After_Loan__c,0)}</td>
+                </tr>
+                <tr>
+                    <td class="td">Motor Vehicle Registration</td>
+                    <td class="td">{!IF(applicant.Motor_Vehicle_Reg_Monthly_Prior_Loan__c != NULL,applicant.Motor_Vehicle_Reg_Monthly_Prior_Loan__c ,0)}</td>
+                    <td class="td">{!IF(applicant.Motor_Vehicle_Reg_Monthly_After_Loan__c != NULL, applicant.Motor_Vehicle_Reg_Monthly_After_Loan__c,0)}</td>
+                </tr>
+                <tr>
+                    <td class="td">Motor Vehicle Fitness</td>
+                    <td class="td">{!IF(applicant.Other_Utilities_Monthly_Prior_Loan__c != NULL,applicant.Other_Utilities_Monthly_Prior_Loan__c ,0)}</td>
+                    <td class="td">{!IF(applicant.Other_Utilities_Monthly_Prior_Loan__c != NULL, applicant.Other_Utilities_Monthly_Prior_Loan__c,0)}</td>
+                </tr>
+                <tr>
+                    <td class="td">Motor Vehicle Maintenance</td>
+                    <td class="td">{!IF(applicant.Motor_V_Maintenance_Monthly_Before_Loan__c != NULL, applicant.Motor_V_Maintenance_Monthly_Before_Loan__c,0)}</td>
+                    <td class="td">{!IF(applicant.Motor_V_Maintenance_Monthly_After_Loan__c != NULL,applicant.Motor_V_Maintenance_Monthly_After_Loan__c != NULL ,0)}</td>
+                </tr>
+                <tr>
+                    <td class="td">Other Transportation Costs</td>
+                    <td class="td">{!IF(applicant.Other_Transport_Costs_Monthly_Prior_Loan__c != NULL,applicant.Other_Transport_Costs_Monthly_Prior_Loan__c ,0)}</td>
+                    <td class="td">{!IF(applicant.Other_Transport_Monthly_After_Loan__c != NULL,applicant.Other_Transport_Monthly_After_Loan__c != NULL ,0)}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</apex:component>
