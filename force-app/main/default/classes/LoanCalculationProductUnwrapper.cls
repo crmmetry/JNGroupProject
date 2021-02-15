@@ -24,7 +24,6 @@ public class LoanCalculationProductUnwrapper {
     record.Monthly_Compulsory_Savings_Number__c = serializer.monthlyCompulsorySavings;
     record.Total_Compulsory_Savings_Balance_Number__c = serializer.totalCompulsorySavingsBalance;
     record.Monthly_Creditor_Life_Premium_Number__c = serializer.monthlyJnLifeCreditor_PI_Premium;
-    record.Total_Loan_Amount_Number__c = serializer.totalLoanAmount;
     record.Total_Monthly_Loan_Payment_Number__c = serializer.totalMonthlyLoanPayment;
     record.Total_Monthly_PI_Loan_Payment_Number__c = serializer.totalMonthly_PI_LoanPayment;
     record.Total_Interest_Payment_Repayment_Number__c = serializer.totalInterestPaymentBalance;
@@ -44,16 +43,34 @@ public class LoanCalculationProductUnwrapper {
     record.Minimum_Payment_per_Credit_Limit_Number__c = serializer.minimumPayment;
     record.Monthly_Creditor_Life_Premium_Number__c = serializer.creditorLifePremiumForNonRevolvingLoan;
     record.Approved_Starting_Limit_Number__c = serializer.approvedStartingLimit;
-    record.Auto_Collateral_Deposit_Number__c = serializer.autoCollateralDeposit;
-    record.Auto_Collateral_DepositPercentage_Number__c = serializer.autoCollateralDepositPercentage;
+    record.Motor_Vehicle_Deposit_Number__c = serializer.autoCollateralDeposit;
+    record.Motor_Vehicle_Deposit_Percentage_Number__c = serializer.autoCollateralDepositPercentage;
     record.Computed_Auto_Collateral_Deposit_Number__c = serializer.computedAutoCollateralDepositFromPercentage;
     record.Loan_Purpose_List__c = serializer.loanPurpose;
     record.Account_Type_List__c = serializer.accountType;
     record.Stamp_Duty_Number__c = serializer.stampDuty;
     record.Assignment_Fee_Number__c = serializer.assignmentFee;
-    record.Total_Closing_Costs_Financed_JN_Number__c = serializer.totalFinancedByJN;
-    record.TotalClosingCost_PayableApplicant_Number__c = serializer.totalClosingCostsApplicantPayable;
+    record.Total_Closing_Costs_Financed_Number__c = serializer.totalFinancedByJN;
+    record.Total_Closing_Costs_By_Client_Number__c = serializer.totalPayableByApplicant;
     record.Total_Closing_Costs_Number__c = serializer.totalClosingCost;
+    record.Loan_Amount_Number__c = serializer.loanAmount;
+    record.Waive_Processing_Fee_Flag__c = serializer.waiveProcessingFeeFlag;
+    record.Include_in_Loan_Amount_Processing_Flag__c = serializer.includeInLoanAmountFlag;
+    record.Interested_in_Creditor_Life_Flag__c = serializer.interestedInCreditorLife;
+    record.Include_in_Loan_Amount_Flag__c = serializer.includeCreditorLifeInLoanAmount;
+    record.Deduct_1st_month_Payment_from_Loan_Flag__c = serializer.deductRepayment;
+    record.JNGI_Motor_Premium_1st_Year_during_Numbe__c = serializer.jngiMotorPremiumFeesAndCharges;
+    record.Monthly_P_I_JNGI_Motor_Premium_Number__c = serializer.monthlyPIJNGIMotorPremium;
+    record.Estimated_Stamp_Duty_Admin_Charges_Numb__c = serializer.estimatedStampDutyAndAdminFee;
+    record.NSIPP_Registration_Fees_Number__c = serializer.nsipp;
+    record.Market_Value_of_Vehicle_Number__c = serializer.marketValue;
+    record.Purchase_Price_of_Vehicle_Number__c = serializer.purchasePrice;
+    record.Minimum_of_Purchase_Price_Market_Number__c = serializer.minimumOfPurchaseMarketValue;
+    record.Year_of_Motor_Vehicle_Number__c = serializer.yearOfVehicle;
+    record.Vehicle_Classification_list__c = serializer.vehicleClassification;
+    record.Make_and_Model_of_Motor_Vehicle_text__c = serializer.makeAndModelOfVehicle;
+    record.Monthly_JNGI_Motor_Premium_Number__c = serializer.jngiMonthlyPremium;
+    record.Include_in_Loan_Amount_JNGI_list__c = serializer.jngiIncludeInLoan;
   }
   /**
    * save loan calculation product object

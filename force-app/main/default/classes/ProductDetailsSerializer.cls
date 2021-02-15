@@ -22,7 +22,7 @@ public class ProductDetailsSerializer {
   @AuraEnabled
   public String coverageType;
   @AuraEnabled
-  public String includeInLoanAmountCreditorLife;
+  public String includeCreditorLifeInLoanAmount;
   @AuraEnabled
   public String waiveProcessingFeeFlag;
   @AuraEnabled
@@ -110,7 +110,7 @@ public class ProductDetailsSerializer {
   @AuraEnabled
   public Decimal totalFinancedByJN;
   @AuraEnabled
-  public Decimal totalClosingCostsApplicantPayable;
+  public Decimal totalPayableByApplicant;
   @AuraEnabled
   public String noCreditorLifeReason;
   @AuraEnabled
@@ -149,7 +149,7 @@ public class ProductDetailsSerializer {
   @AuraEnabled
   public String vehicleClassification;
   @AuraEnabled
-  public String yearOfVehicle;
+  public Decimal yearOfVehicle;
   @AuraEnabled
   public String makeAndModelOfVehicle;
   @AuraEnabled
@@ -162,4 +162,10 @@ public class ProductDetailsSerializer {
   public Decimal computedAutoCollateralDepositFromPercentage;
   @AuraEnabled
   public String loanPurpose;
+  @AuraEnabled
+  public String deductRepayment;
+  @AuraEnabled
+  public Decimal jngiMotorPremiumFeesAndCharges;
+  @AuraEnabled
+  public Decimal estimatedStampDutyAndAdminFee;
 }
