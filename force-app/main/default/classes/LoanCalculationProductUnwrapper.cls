@@ -10,7 +10,7 @@ public class LoanCalculationProductUnwrapper {
     this.record.recordTypeId = assignRecordType(recordTypes);
     record.Years_Number__c = serializer.years;
     record.Months_Number__c = serializer.months;
-    record.Loan_Amount_Market_Percentage_Number__c = serializer.market;
+    //record.Loan_Amount_Market_Percentage_Number__c = serializer.market;
     record.Applicable_Processing_Fee_Number__c = serializer.processingFeePercentagePerAnum;
     record.Repayment_Method_List__c = serializer.repaymentMethod;
     record.Desired_Monthly_Repayment_Date__c = serializer.repaymentDate;
@@ -71,6 +71,12 @@ public class LoanCalculationProductUnwrapper {
     record.Make_and_Model_of_Motor_Vehicle_text__c = serializer.makeAndModelOfVehicle;
     record.Monthly_JNGI_Motor_Premium_Number__c = serializer.jngiMonthlyPremium;
     record.Include_in_Loan_Amount_JNGI_list__c = serializer.jngiIncludeInLoan;
+    record.Interest_Rate_Number__c = serializer.market;
+    record.Total_Loan_Amount_Number__c = serializer.totalLoanAmount;
+    record.X1st_Month_s_Instalment_Payable_Number__c = serializer.totalMonthlyLoanPayment;
+    record.Interested_in_JNGI_SureCover_flag__c = serializer.interested;
+    record.Requested_Credit_Limit_Number__c = serializer.requestedCreditLimit;
+    //record.Requested_Credit_Limit_Number__c = serializer.requestedCreditLimit;
   }
   /**
    * save loan calculation product object

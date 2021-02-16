@@ -18,5 +18,17 @@
       });
       $A.enqueueAction(action);
     }
+  },
+
+  /**
+   * Updates child container attributes and its values.
+   */
+  updateChildContainerWithValue: function (component, values) {
+    let childContainer = component.get("v.ChildContainer");
+    values.forEach((element) => {
+      //component.set(`v.${element.key}`, element.value);
+      childContainer[element.key] = element.value;
+    });
+    component.set("v.ChildContainer", childContainer);
   }
 });

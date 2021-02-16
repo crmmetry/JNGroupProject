@@ -843,6 +843,10 @@
         description: "Loan Term Months"
       },
       {
+        localName: "interested",
+        description: "Interested in JNGI Programme"
+      },
+      {
         localName: "market",
         description: "Loan Term Market"
       },
@@ -880,6 +884,7 @@
       { localName: "totalCompulsorySavingsBalance" },
       { localName: "monthlyJnLifeCreditor_PI_Premium" },
       { localName: "totalLoanAmount" },
+      { localName: "firstPaymentInstallable" },
       { localName: "totalMonthlyLoanPayment" },
       { localName: "totalMonthly_PI_LoanPayment" },
       { localName: "totalInterestPaymentBalance" },
@@ -903,6 +908,7 @@
       { localName: "loanPurpose" },
       { localName: "assignmentFee" },
       { localName: "includeCreditorLifeInLoanAmount" },
+      { localName: "requestedCreditLimit" },
       //copied
       {
         localName: "jngiMonthlyPremium"

@@ -10,9 +10,13 @@ public class ProductDetailsSerializer {
   @AuraEnabled
   public Decimal minimumOfPurchaseMarketValue;
   @AuraEnabled
+  public Decimal requestedCreditLimit;
+  @AuraEnabled
   public Decimal purchasePrice;
   @AuraEnabled
   public String interestedInPremiumFlag;
+  @AuraEnabled
+  public String interested;
   @AuraEnabled
   public String jngiIncludeInLoan;
   @AuraEnabled
@@ -168,4 +172,6 @@ public class ProductDetailsSerializer {
   public Decimal jngiMotorPremiumFeesAndCharges;
   @AuraEnabled
   public Decimal estimatedStampDutyAndAdminFee;
+  @AuraEnabled
+  public Decimal firstPaymentInstallable;
 }
