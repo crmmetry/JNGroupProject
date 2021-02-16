@@ -13,7 +13,12 @@
         let state = response.getState(); //Checking response status
         let result = response.getReturnValue();
         if (state === "SUCCESS") {
-          component.set("v.applicants", result);
+          if (result === -1) {
+            component.set("v.applicants", {});
+            showToast("Applcant Not Found!", NO_APPLICANTS_FOUND, "error");
+          } else {
+            component.set("v.applicants", result);
+          }
         }
       });
       $A.enqueueAction(action);
