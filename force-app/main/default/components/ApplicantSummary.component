@@ -1,77 +1,169 @@
-<apex:component>
-  <div class="summaryBlock">
-    <table class="summaryTable" cellpadding="0" cellspacing="0" border="1">
-      <tr>
-        <td style="width: 28%; border: 0;">&nbsp;</td>
-        <td class="grayTH"><b>Prior to Proposed Loan</b></td>
-        <td class="grayTH"><b>After Proposed Loan</b></td>
-      </tr>
-    </table>
-    <div style="margin-top: 10px; font-size: small;"></div>
-    <table class="summaryTable" cellpadding="1" cellspacing="0" border="1">
-      <tr>
-        <td class="grayTD"><b>Total Assets</b></td>
-        <td class="summarytd">JMD$7,000,000.00</td>
-        <td class="summarytd">JMD$9,700,000.00</td>
-      </tr>
-      <tr>
-        <td class="grayTD"><b>Total Liabilities</b></td>
-        <td class="summarytd">JMD$2,000,000.00</td>
-        <td class="summarytd">JMD$4,173,500.00</td>
-      </tr>
-      <tr>
-        <td class="grayTD"><b>Net Worth</b></td>
-        <td class="summarytd">JMD$5,000,000.00</td>
-        <td class="summarytd">JMD$5,526,500.00</td>
-      </tr>
-    </table>
-    <div style="margin-top: 10px; font-size: small;"></div>
-    <table class="summaryTable" cellpadding="1" cellspacing="0" border="1">
-      <tr>
-        <td class="grayTD" style="width: 28%;">
-          <b>Gross Monthly Income</b><br /><br />
-        </td>
-        <td class="summarytd">JMD $0.00</td>
-        <td class="summarytd">JMD $0.00<br /></td>
-      </tr>
-    </table>
-  </div>
-
-  <div class="summaryBlock">
-    <table class="summaryTable" cellpadding="0" cellspacing="0" border="1">
-      <tr>
-        <td style="width: 32%; border: 0;">&nbsp;</td>
-        <td class="grayTH"><b>Prior to Proposed Loan</b></td>
-        <td class="grayTH"><b>After Proposed Loan</b></td>
-      </tr>
-    </table>
-    <div style="margin-top: 10px; font-size: small;"></div>
-    <table class="summaryTable" cellpadding="1" cellspacing="0" border="1">
-      <tr>
-        <td class="grayTD"><b>Monthly Inflows</b></td>
-        <td class="summarytd">JMD $0.00</td>
-        <td class="summarytd">JMD $0.00</td>
-      </tr>
-      <tr>
-        <td class="grayTD"><b>Monthly Outflows</b></td>
-        <td class="summarytd">JMD $80,000.00</td>
-        <td class="summarytd">JMD $122,904.77</td>
-      </tr>
-      <tr>
-        <td class="grayTD"><b>Residual Income</b></td>
-        <td class="summarytd">JMD -$80,000.00</td>
-        <td class="summarytd">JMD -$122,904.77</td>
-      </tr>
-    </table>
-    <div style="margin-top: 10px; font-size: small;"></div>
-    <table class="summaryTable" cellpadding="1" cellspacing="0" border="1">
-      <tr>
-        <td class="grayTD" style="width: 32%;">
-          <b>Existing Monthly Installment Payments</b>
-        </td>
-        <td class="summarytd">JMD $80,000.00</td>
-        <td class="summarytd">JMD $119,004.34</td>
-      </tr>
-    </table>
-  </div>
+<apex:component >
+    <apex:attribute name="applicantEmpWrapperObj" type="ApplicantAndEmployementWrapper" description=""/>
+    <div  class="summaryBlock">                
+        <table class="summaryTable" cellpadding="0" cellspacing="0" border="1" >
+            <tr>
+                <td style="width:28%; border: 0;">&nbsp;</td>
+                <td class="grayTH"><b>Prior to Proposed Loan</b></td>
+                <td class="grayTH"><b>After Proposed Loan</b></td>
+            </tr>
+        </table>
+        <div style="margin-top:10px;font-size:small;"></div>
+        <table class="summaryTable" cellpadding="1" cellspacing="0" border="1">
+            <tr>
+                <td class="grayTD"><b>Total Assets</b></td>
+                <td class="summarytd">
+                	<apex:outputText value="{!applicantEmpWrapperObj.currencyCode}"/>
+                    <apex:outputText value=" "/>
+                    <apex:outputText value="{0,Number,###,###,##0.00}">
+                        <apex:param value="{!applicantEmpWrapperObj.totalAssetsPriorLoan}"/>
+                    </apex:outputText>
+                </td>
+                
+                <td class="summarytd"><apex:outputText value="{!applicantEmpWrapperObj.currencyCode}"/>
+                    <apex:outputText value=" "/>
+                    <apex:outputText value="{0,Number,###,###,##0.00}">
+                        <apex:param value="{!applicantEmpWrapperObj.totalAssetsAfterLoan}"/>
+                    </apex:outputText>
+                </td>
+            </tr>
+            <tr>
+                <td class="grayTD"><b>Total Liabilities</b></td>
+                <td class="summarytd">
+                    <apex:outputText value="{!applicantEmpWrapperObj.currencyCode}"/>
+                    <apex:outputText value=" "/>
+                    <apex:outputText value="{0,Number,###,###,##0.00}">
+                        <apex:param value="{!applicantEmpWrapperObj.totalLiabilitiesPriorLoan}"/>
+                    </apex:outputText>
+                </td>
+                <td class="summarytd">
+                    <apex:outputText value="{!applicantEmpWrapperObj.currencyCode}"/>
+                    <apex:outputText value=" "/>
+                    <apex:outputText value="{0,Number,###,###,##0.00}">
+                        <apex:param value="{!applicantEmpWrapperObj.totalLiabilitiesAfterLoan}"/>
+                    </apex:outputText>
+                </td>
+            </tr>
+            <tr>
+                <td class="grayTD"><b>Net Worth</b></td>
+                <td class="summarytd">
+                	<apex:outputText value="{!applicantEmpWrapperObj.currencyCode}"/>
+                    <apex:outputText value=" "/>
+                    <apex:outputText value="{0,Number,###,###,##0.00}">
+                        <apex:param value="{!applicantEmpWrapperObj.netWorthPriorLoan}"/>
+                    </apex:outputText>
+                </td>
+                <td class="summarytd">
+                	<apex:outputText value="{!applicantEmpWrapperObj.currencyCode}"/>
+                    <apex:outputText value=" "/>
+                    <apex:outputText value="{0,Number,###,###,##0.00}">
+                        <apex:param value="{!applicantEmpWrapperObj.netWorthAfterLoan}"/>
+                    </apex:outputText>
+                </td>
+            </tr>
+        </table>  
+        <div style="margin-top:10px;font-size:small;"></div>
+        <table class="summaryTable" cellpadding="1" cellspacing="0" border="1">
+            <tr>
+                <td class="grayTD" style="width:28%;"><b>Gross Monthly Income</b><br/><br/></td>
+                <td class="summarytd">
+                    <apex:outputText value="{!applicantEmpWrapperObj.currencyCode}"/>
+                    <apex:outputText value=" "/>
+                    <apex:outputText value="{0,Number,###,###,##0.00}">
+                        <apex:param value="{!applicantEmpWrapperObj.grossMonthlyIncomePriorLoan}"/>
+                    </apex:outputText></td>
+                <td class="summarytd">
+                    <apex:outputText value="{!applicantEmpWrapperObj.currencyCode}"/>
+                    <apex:outputText value=" "/>
+                    <apex:outputText value="{0,Number,###,###,##0.00}">
+                        <apex:param value="{!applicantEmpWrapperObj.grossMonthlyIncomeAfterLoan}"/>
+                    </apex:outputText>
+                    <br/></td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="summaryBlock">
+        <table class="summaryTable " cellpadding="0" cellspacing="0" border="1" >
+            <tr>
+                <td style="width:32%; border: 0;">&nbsp;</td>
+                <td class="grayTH"><b>Prior to Proposed Loan</b></td>
+                <td class="grayTH"><b>After Proposed Loan</b></td>
+            </tr>
+        </table>
+        <div style="margin-top:10px;font-size:small;"></div>
+        <table class="summaryTable" cellpadding="1" cellspacing="0" border="1">
+            <tr>
+                <td class="grayTD"><b>Monthly Inflows</b></td>
+                <td class="summarytd">
+                    <apex:outputText value="{!applicantEmpWrapperObj.currencyCode}"/>
+                    <apex:outputText value=" "/>
+                    <apex:outputText value="{0,Number,###,###,##0.00}">
+                        <apex:param value="{!applicantEmpWrapperObj.monthlyInflowsPriorLoan}"/>
+                    </apex:outputText>
+                </td>
+                <td class="summarytd">
+                	<apex:outputText value="{!applicantEmpWrapperObj.currencyCode}"/>
+                    <apex:outputText value=" "/>
+                    <apex:outputText value="{0,Number,###,###,##0.00}">
+                        <apex:param value="{!applicantEmpWrapperObj.monthlyInflowsAfterLoan}"/>
+                    </apex:outputText>
+                </td>
+            </tr>
+            <tr>
+                <td class="grayTD"><b>Monthly Outflows</b></td>
+                <td class="summarytd">
+                	<apex:outputText value="{!applicantEmpWrapperObj.currencyCode}"/>
+                    <apex:outputText value=" "/>
+                    <apex:outputText value="{0,Number,###,###,##0.00}">
+                        <apex:param value="{!applicantEmpWrapperObj.monthlyOutflowsPriorLoan}"/>
+                    </apex:outputText>
+                </td>
+                <td class="summarytd">
+                	<apex:outputText value="{!applicantEmpWrapperObj.currencyCode}"/>
+                    <apex:outputText value=" "/>
+                    <apex:outputText value="{0,Number,###,###,##0.00}">
+                        <apex:param value="{!applicantEmpWrapperObj.monthlyOutflowsAfterLoan}"/>
+                    </apex:outputText>
+                </td>
+            </tr>
+            <tr>
+                <td class="grayTD"><b>Residual Income</b></td>
+                <td class="summarytd">
+                	<apex:outputText value="{!applicantEmpWrapperObj.currencyCode}"/>
+                    <apex:outputText value=" "/>
+                    <apex:outputText value="{0,Number,###,###,##0.00}">
+                        <apex:param value="{!applicantEmpWrapperObj.residualIncomePriorLoan}"/>
+                    </apex:outputText>
+                </td>
+                <td class="summarytd">
+                	<apex:outputText value="{!applicantEmpWrapperObj.currencyCode}"/>
+                    <apex:outputText value=" "/>
+                    <apex:outputText value="{0,Number,###,###,##0.00}">
+                        <apex:param value="{!applicantEmpWrapperObj.residualIncomeAfterLoan}"/>
+                    </apex:outputText>
+                </td>
+            </tr>
+        </table>   
+        <div style="margin-top:10px;font-size:small;"></div>
+        <table class="summaryTable" cellpadding="1" cellspacing="0" border="1">
+            <tr>
+                <td class="grayTD" style="width:32%;"><b>Existing Monthly Installment Payments</b></td>
+                <td class="summarytd">
+                	<apex:outputText value="{!applicantEmpWrapperObj.currencyCode}"/>
+                    <apex:outputText value=" "/>
+                    <apex:outputText value="{0,Number,###,###,##0.00}">
+                        <apex:param value="{!applicantEmpWrapperObj.existingMonthlyPaymntsPriorLoan}"/>
+                    </apex:outputText>
+                </td>
+                <td class="summarytd">
+                	<apex:outputText value="{!applicantEmpWrapperObj.currencyCode}"/>
+                    <apex:outputText value=" "/>
+                    <apex:outputText value="{0,Number,###,###,##0.00}">
+                        <apex:param value="{!applicantEmpWrapperObj.existingMonthlyPaymntsAfterLoan}"/>
+                    </apex:outputText>
+                </td>
+            </tr>
+        </table>
+    </div>
 </apex:component>

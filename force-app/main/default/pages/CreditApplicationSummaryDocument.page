@@ -7,6 +7,7 @@
     <head>
         
     </head>
+    <apex:variable value="{!1}" var="rowNum"/>
     <apex:form >
         
         <div class="header">
@@ -20,8 +21,9 @@
                 <div class="detail">SUMMARY OF APPLICANT(S) PERSONAL INFORMATION</div>
                 <apex:repeat value="{!applicantAndEmplWrapperList}" var="applicantEmpObj">
                     <div>
-                        <h5 class="applicant1">APPLICANT 1</h5>
+                        <h5 class="applicant1">APPLICANT {!FLOOR(rowNum)}</h5>
                         <c:ApplicantComponent applicantEmpWrapperObj="{!applicantEmpObj}"/>
+                        <apex:variable var="rowNum" value="{!rowNum + 1}"/>
                     </div>
                 </apex:repeat>
             </div>    
@@ -390,14 +392,11 @@
             <div class="detail">FINANCIAL &amp; RISK ASSESSMENT </div>
             <div>
                 <h5 class="personalDetailHeader"><b>SUMMARY OF APPLICANT(S) FINANCIALS</b></h5>
-                <div class="applicant1"><b>APPLICANT 1</b></div>
-                <c:ApplicantSummary />
+                <apex:repeat value="{!applicantAndEmplWrapperList}" var="applicantEmpObj">
+                	<div class="applicant1"><b>APPLICANT 1</b></div>
+                	<c:ApplicantSummary applicantEmpWrapperObj="{!applicantEmpObj}"/>    
+                </apex:repeat>
                 
-                <div class="applicant1"><b>APPLICANT 2</b></div>
-                <c:ApplicantSummary />
-                
-                <div class="applicant1"><b>APPLICANT 3</b></div>
-                <c:ApplicantSummary />
                 
                 <h5 class="personalDetailHeader"><b>SERVICING RATIOS</b></h5>
                 <h5 class="applicant1">LOAN TO VALUE RATIO - AUTO LOAN</h5>
@@ -457,27 +456,27 @@
                 </tr>
                 <tr>
                     <td class="riskTableColumns">Auto Loan </td>
-                    <td class="riskTableColumns">N0</td>
-                    <td class="riskTableColumns">TBD</td>
-                    <td class="riskTableColumns">TBD</td>
+                    <td class="riskTableColumns">{!opportunityObj.Request_ADJ_Exception_for_Credit__c}</td>
+                    <td class="riskTableColumns">{!opportunityObj.Exception_Approved_by__c}</td>
+                    <td class="riskTableColumns">{!opportunityObj.Date_of_Approval__c}</td>
                 </tr>
                 <tr>
                     <td class="riskTableColumns">Unsecured Loan </td>
-                    <td class="riskTableColumns"></td>
-                    <td class="riskTableColumns">TBD</td>
-                    <td class="riskTableColumns">TBD</td>
+                    <td class="riskTableColumns">{!opportunityObj.Request_ADJ_Exception_for_Credit__c}</td>
+                    <td class="riskTableColumns">{!opportunityObj.Exception_Approved_by__c}</td>
+                    <td class="riskTableColumns">{!opportunityObj.Date_of_Approval__c}</td>
                 </tr>
                 <tr>
                     <td class="riskTableColumns">Credit Card</td>
-                    <td class="riskTableColumns">0</td>
-                    <td class="riskTableColumns">TBD</td>
-                    <td class="riskTableColumns">TBD</td>
+                    <td class="riskTableColumns">{!opportunityObj.Request_ADJ_Exception_for_Credit__c}</td>
+                    <td class="riskTableColumns">{!opportunityObj.Exception_Approved_by__c}</td>
+                    <td class="riskTableColumns">{!opportunityObj.Date_of_Approval__c}</td>
                 </tr>
                 <tr>
                     <td class="riskTableColumns">Line of Credit </td>
-                    <td class="riskTableColumns">0</td>
-                    <td class="riskTableColumns">0</td>
-                    <td class="riskTableColumns">TBD</td>
+                    <td class="riskTableColumns">{!opportunityObj.Request_ADJ_Exception_for_Credit__c}</td>
+                    <td class="riskTableColumns">{!opportunityObj.Exception_Approved_by__c}</td>
+                    <td class="riskTableColumns">{!opportunityObj.Date_of_Approval__c}</td>
                 </tr>
 
             </table>
@@ -487,9 +486,12 @@
         </div>
         <div class="container" style="width=100%;">
             <div class="detail">ORIGINATION DETAILS</div>
-               <div class ="loanToValueRatio">Officer's Name</div> <div class="loanToValueRatio totalFinancingTableLastFields">Mary </div>
-               <div class ="loanToValueRatio">Location*</div> <div class="loanToValueRatio totalFinancingTableLastFields">Location </div>
-               <div class ="loanToValueRatio">Date Created*</div> <div class="loanToValueRatio totalFinancingTableLastFields">N0 </div>
+               <div class ="loanToValueRatio">Officer's Name</div> 
+            <div class="loanToValueRatio totalFinancingTableLastFields">Mary</div>
+               <div class ="loanToValueRatio">Location*</div> 
+            <div class="loanToValueRatio totalFinancingTableLastFields"> Location</div>
+               <div class ="loanToValueRatio">Date Created*</div> 
+            <div class="loanToValueRatio totalFinancingTableLastFields"> Date </div>
             </div>
         </div>
     </apex:form>

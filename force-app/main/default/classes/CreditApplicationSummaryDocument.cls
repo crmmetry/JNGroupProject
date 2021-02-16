@@ -5,6 +5,7 @@
 public class CreditApplicationSummaryDocument {  
     //Opportunity ID
     public Id opportunityId{get;set;}
+    public Opportunity opportunityObj{get;set;}
 	public list<Applicant__c> applicanList{get;set;}
     public list<ApplicantAndEmployementWrapper> applicantAndEmplWrapperList{get;set;}
     
@@ -14,6 +15,8 @@ public class CreditApplicationSummaryDocument {
         opportunityId = ApexPages.currentPage().getParameters().get('Id');
         //Get the list of Applicants of the provided Opportunity Id
         applicanList = getListOfApplicants(opportunityId);
+        //Get the opportunity object 
+        opportunityObj = getOpportunityObj(opportunityId);
         //Define the list of Account Ids
         list<Id> accountIds = new list<Id>();
         //Define map of Account Id and its related Employment records
@@ -46,12 +49,76 @@ public class CreditApplicationSummaryDocument {
             applicantAndEmplWrapperList.add(appEmpWrap);
         }
     }
-   
+   	
+    private Opportunity getOpportunityObj(Id oppId){
+          if(oppId!=Null){
+            Opportunity oppObj = new Opportunity();
+            oppObj = [SELECT ID, 
+                      Request_ADJ_Exception_for_Credit__c, 
+                      Exception_Approved_by__c, 
+                      Date_of_Approval__c 
+                      FROM Opportunity 
+                      WHERE Id =:oppId];
+            return oppObj;
+        }
+        return null;
+    }
+    
+    private list<Loan_Calculation_Product__c> getListOfLoanCalProdcts(Id oppId){
+        list<Loan_Calculation_Product__c> loanCalProduct = new list<Loan_Calculation_Product__c>();
+        Loan_Calculator__c loanCalculator = new Loan_Calculator__c();
+        loanCalculator = [SELECT id 
+                   FROM Loan_Calculator__c 
+                   WHERE Opportunity__c =:oppId LIMIT 1];
+        
+        if(loanCalculator!= Null){
+        	loanCalProduct = [SELECT Loan_Purpose_List__c, 
+                              		Years_Number__c, 
+                              		Interest_Rate_Number__c, 
+                              		Market_Value_of_Vehicle_Number__c,
+                              		Purchase_Price_of_Vehicle_Number__c,
+                              		Vehicle_Classification_list__c,
+                              		Make_and_Model_of_Motor_Vehicle_text__c,
+                              		Repayment_Method_List__c,
+                              		Applicable_Processing_Fee_Number__c,
+                              		Loan_Amount_Number__c,
+                              		JN_Life_Creditor_Life_Premium_Number__c,
+                              		Processing_Fees_including_GCT_Number__c,
+                              		Total_Loan_Amount_Number__c,
+                              		Monthly_PI_Loan_Amount_Number__c,
+                              		Monthly_P_I_Life_Insurance_Premium__c,
+                              		Monthly_PI_Processing_Fee_Flag__c,
+                              		Monthly_P_I_JNGI_Motor_Premium_Number__c,
+                              		Monthly_JNGI_Motor_Premium_Number__c,
+                              		Total_Monthly_PI_Loan_Payment_Number__c,
+                              		Monthly_Compulsory_Savings_Number__c,
+                              		Total_Monthly_Saving_Loan_Payment_Number__c,
+                              		Total_Compulsory_Savings_Balance_Number__c,
+                              		Total_Interest_Payment_Repayment_Number__c,
+                              		Collateral_Type_List__c,
+                              		Requested_Credit_Limit_Number__c,
+                              		Starting_Limit_Number__c,
+                              		Financial_Institution_List__c,
+                              		Account_Holder_s_text__c,
+                              		Annual_Interest_Rate_Deposit_Acct_Number__c,
+                              		Deposit_Account_Balance_Number__c,
+                              		Existing_Loan_Balance_Number__c,
+                              		Account_Hypothecated_list__c
+                              FROM Loan_Calculation_Product__c
+                              WHERE Loan_Calculation_Id__c =:loanCalculator.Id];    
+        }
+        if(loanCalProduct!=Null){
+            if(loanCalProduct.size()>0){
+                return loanCalProduct;
+            }
+        }
+        return Null;
+    }
+        
     private list<Applicant__c> getListOfApplicants(Id oppId) {
         
         list<Applicant__c> applicantList = new list<Applicant__c>();
-        applicantList = [SELECT Account__c,
-                         		Account__r.Name,
+        applicantList = [SELECT Account__c,Account__r.Name,
                          		Account__r.FinServ__Age__pc,
                          		Account__r.FinServ__Gender__pc,
                          		Account__r.Marital_Status__c,
@@ -84,9 +151,41 @@ public class CreditApplicationSummaryDocument {
                          		Time_as_Member_Months__c, 
                          		Rim_Number__c,
                          		Sanction_Screening_has_Negative_Trace__c,
-                         		
                          		Affiliation_Type__c,
-                         		JN_Group_Employee__c	
+                         		JN_Group_Employee__c,
+                         //-----FINANCIAL & RISK ASSESSMENT------//
+                         //-----Assets Prior to Proposed Loan-----//
+                         		Real_Estate_Market_Value_Number__c,
+                         		Motor_Vehicle_Market_Value_Number__c,
+                         		Other_Asset_Market_Value_Number__c,
+                         		Life_Insurance_Cash_Value__c,
+                         		Savings_Current_Account_s_Investment_VER__c,
+                         		Savings_Deposit_Investments__c,
+                         		Pension__c,
+                         //-----Market Value of Asset on Proposed Loan-----//
+                         		Market_Value_Number__c,		
+                         
+                         //-----Total Liabilities--------//
+                         		Real_Estate_Loan_Balance_Number__c,
+                         		Motor_Vehicle_Loan_Balance_Number__c,
+                         		Other_Asset_Loan_Balance_Number__c,
+                         		Other_Loan_Loan_Balance_Number__c,
+                         		Average_Credit_Card_Balances_Number__c,
+                         		Average_Line_of_Credit_Balance_Number__c,
+                         
+                         		Total_Inflows__c,
+                         		Total_Outflows__c,
+                         //-----Existing Monthly Instalment Payments--------//
+                         		Cell_Phone_Landline_Monthly_Prior_Loan__c,
+                         		Child_Care_Costs_Monthly_Prior_Loan__c,
+                         		Cooking_Gas_Monthly_Prior_Loan__c,
+                         		Education_Tax_Monthly_Prior_Loan__c,
+                         		Electricity_Monthly_Prior_Loan__c,
+                         		Fares_Monthly_Prior_Loan__c,
+                         		Food_Cost_Monthly_Prior_Loan__c,
+                         		Health_Costs_Monthly_Prior_Loan__c
+                         		
+                         		
                               FROM Applicant__c
                               WHERE Opportunity__c = :oppId];
         if (applicantList != null) {
