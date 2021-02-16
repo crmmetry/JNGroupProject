@@ -91,8 +91,8 @@ Sr#     Ticket#      Modified By                Modified Date       Description
           </tr>
           <tr>
             <td class="td">Saving/Investment/ Current Account(s) Balance</td>
-            <td class="td"></td>
-            <td class="td"></td>
+            <td class="td">{!savingsAccountBalance_Before}</td>
+            <td class="td">{!savingsAccountBalance_After }</td>
             <td class="td">Credit Card &amp; Line of Credit Balances</td>
             <td class="td">{!ccAndLocBalance_Before}</td>
             <td class="td">{!ccAndLocBalance_After}</td>
@@ -125,8 +125,8 @@ Sr#     Ticket#      Modified By                Modified Date       Description
             <td colspan="4" style="text-align: right;" class="td">
               Net Worth<br /> (Total Assets less Total Liabilities)
             </td>
-            <td class="td blueBG"></td>
-            <td class="td blueBG"></td>
+            <td class="td blueBG">{!netWorth_Before}</td>
+            <td class="td blueBG">{!netWorth_After}</td>
           </tr>
         </tbody>
       </table>

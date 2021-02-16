@@ -42,11 +42,18 @@ public class StatementOfAffairsFormController {
   public Decimal totalAssets_after { get; set; }
   public Decimal totalLiabilities_before { get; set; }
   public Decimal totalLiabilities_after { get; set; }
+  public Decimal savingsAccountBalance_Before { get; set; }
+  public Decimal savingsAccountBalance_After { get; set; }
+  public Decimal netWorth_Before { get; set; }
+  public Decimal netWorth_After { get; set; }
+  public Decimal applicantAllotedAmountFromProposedLoan { get; set; }
+
   public StatementOfAffairsFormController() {
     recordTypesMap = Util.getRecordTypeids('FinServ__AssetsAndLiabilities__c');
     SET<Id> assetsIdSet = new Set<Id>();
     applicantId = ApexPages.currentPage().getParameters().get('Id');
-
+    Decimal monthlyPaymentOwnership;
+    Decimal totalMonthlyLoanPayment;
     realEstateSummaryBefore = 0;
     realEstateSummaryAfter = 0;
     realEstateSummaryBefore_Loan = 0;
@@ -75,6 +82,11 @@ public class StatementOfAffairsFormController {
     totalAssets_after = 0;
     totalLiabilities_before = 0;
     totalLiabilities_after = 0;
+    savingsAccountBalance_Before = 0;
+    savingsAccountBalance_After = 0;
+    netWorth_Before = 0;
+    netWorth_After = 0;
+
     applicantObj = [
       SELECT
         Id,
@@ -150,6 +162,14 @@ public class StatementOfAffairsFormController {
         (
           SELECT Id, Assets_and_Liabilities__c, Name
           FROM Application_Assets_Liabilities__r
+        ),
+        (
+          SELECT
+            ID,
+            Monthly_Payment_Ownership_Number__c,
+            Loan_Calculation_Product_Id__c,
+            Loan_Calculation_Product_Id__r.Total_Monthly_Loan_Payment_Number__c
+          FROM Loan_Calculation_Applicant_Products__r
         )
       FROM Applicant__c
       WHERE Id = :applicantId
@@ -165,6 +185,16 @@ public class StatementOfAffairsFormController {
           assetsIdSet.add(assets.Assets_and_Liabilities__c);
         }
       }
+      monthlyPaymentOwnership = checkIfPercentNull(
+        applicantObj.Loan_Calculation_Applicant_Products__r[0]
+          .Monthly_Payment_Ownership_Number__c
+      );
+      totalMonthlyLoanPayment = checkIfNull(
+        applicantObj.Loan_Calculation_Applicant_Products__r[0]
+          .Loan_Calculation_Product_Id__r.Total_Monthly_Loan_Payment_Number__c
+      );
+      applicantAllotedAmountFromProposedLoan =
+        monthlyPaymentOwnership * totalMonthlyLoanPayment;
 
       if (assetsIdSet.size() > 0) {
         List<FinServ__AssetsAndLiabilities__c> assetsList = [
@@ -579,9 +609,11 @@ public class StatementOfAffairsFormController {
       if (asset.Type_of_Loan__c == 'Unsecured') {
         if (asset.Treatment_of_Credit__c == 'Will Remain') {
           this.monthlyPaymentAfter =
-            asset.Percent_Applicant_Portion__c * asset.Monthly_Payment__c + 0; // to be added
+            asset.Percent_Applicant_Portion__c * asset.Monthly_Payment__c +
+            this.soa.applicantAllotedAmountFromProposedLoan;
           this.loanBalanceAfter =
-            asset.Percent_Ownership__c * asset.Loan_Balance_After__c + 0; // to be added
+            asset.Percent_Ownership__c * asset.Loan_Balance_After__c +
+            this.soa.applicantAllotedAmountFromProposedLoan;
         } else if (asset.Treatment_of_Credit__c == 'Close facility') {
           this.monthlyPaymentAfter = 0.0;
           this.loanBalanceAfter = 0.0;
@@ -694,6 +726,9 @@ public class StatementOfAffairsFormController {
       this.soa.currentAccountOverdraft_After += checkIfNull(
         this.overdraftLimit
       );
+
+      this.soa.savingsAccountBalance_Before += checkIfNull(this.balance);
+      this.soa.savingsAccountBalance_After += checkIfNull(this.balance);
     }
   }
   public class LifeInsuranceWrapper {
@@ -760,9 +795,11 @@ public class StatementOfAffairsFormController {
       if (asset.Type_of_Loan__c == 'Unsecured') {
         if (asset.Treatment_of_Credit__c == 'Will Remain') {
           this.monthlyPaymentAfter =
-            asset.Percent_Applicant_Portion__c * asset.Monthly_Payment__c + 0; // to be added
+            asset.Percent_Applicant_Portion__c * asset.Monthly_Payment__c +
+            this.soa.applicantAllotedAmountFromProposedLoan;
           this.valueOfDebtAfter =
-            asset.Percent_Ownership__c * asset.Loan_Balance_After__c + 0; // to be added
+            asset.Percent_Ownership__c * asset.Loan_Balance_After__c +
+            this.soa.applicantAllotedAmountFromProposedLoan;
         } else if (asset.Treatment_of_Credit__c == 'Close facility') {
           this.monthlyPaymentAfter = 0.0;
           this.valueOfDebtAfter = 0.0;
@@ -865,5 +902,9 @@ public class StatementOfAffairsFormController {
       this.OtherLoanSummaryAfter_Loan +
       this.currentAccountOverdraft_After +
       this.ccAndLocBalance_After;
+
+    this.netWorth_Before =
+      this.totalAssets_before - this.totalLiabilities_before;
+    this.netWorth_After = this.totalAssets_after - this.totalLiabilities_after;
   }
 }
