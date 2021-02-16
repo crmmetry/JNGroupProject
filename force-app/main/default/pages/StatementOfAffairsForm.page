@@ -27,7 +27,7 @@ Sr#     Ticket#      Modified By                Modified Date       Description
         </td>
         <td class="td">
           Product Combination:
-          <div class="greyBox">&nbsp;</div>
+          <div class="greyBox">{!productCombination}</div>
         </td>
         <td class="td">
           Currency of Financials:

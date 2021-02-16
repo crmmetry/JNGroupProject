@@ -47,7 +47,7 @@ public class StatementOfAffairsFormController {
   public Decimal netWorth_Before { get; set; }
   public Decimal netWorth_After { get; set; }
   public Decimal applicantAllotedAmountFromProposedLoan { get; set; }
-
+  public Object productCombination { get; set; }
   public StatementOfAffairsFormController() {
     recordTypesMap = Util.getRecordTypeids('FinServ__AssetsAndLiabilities__c');
     SET<Id> assetsIdSet = new Set<Id>();
@@ -86,12 +86,13 @@ public class StatementOfAffairsFormController {
     savingsAccountBalance_After = 0;
     netWorth_Before = 0;
     netWorth_After = 0;
-
+    applicantAllotedAmountFromProposedLoan = 0;
     applicantObj = [
       SELECT
         Id,
         Name,
         Account__r.Name,
+        Opportunity__c,
         CurrencyIsoCode,
         Salary_and_Allowances_as_per_pay_slips__c,
         Gratuity_in_lieu_of_Pension__c,
@@ -176,6 +177,14 @@ public class StatementOfAffairsFormController {
     ];
 
     if (applicantObj <> null) {
+      object productDetails = ProductDetailController.getSingleProductFamilySelection(
+        applicantObj.Opportunity__c
+      );
+
+      if (productDetails <> 'None') {
+        productCombination = ((ProductSelectionWrapper) productDetails)
+          .productFamily;
+      }
       appWrapper = new ApplicantWrapper(applicantObj);
       applicantWrapper = new ApplicantWrapperClass(appWrapper, applicantObj);
       if (applicantObj.Application_Assets_Liabilities__r.size() > 0) {
@@ -185,17 +194,18 @@ public class StatementOfAffairsFormController {
           assetsIdSet.add(assets.Assets_and_Liabilities__c);
         }
       }
-      monthlyPaymentOwnership = checkIfPercentNull(
-        applicantObj.Loan_Calculation_Applicant_Products__r[0]
-          .Monthly_Payment_Ownership_Number__c
-      );
-      totalMonthlyLoanPayment = checkIfNull(
-        applicantObj.Loan_Calculation_Applicant_Products__r[0]
-          .Loan_Calculation_Product_Id__r.Total_Monthly_Loan_Payment_Number__c
-      );
-      applicantAllotedAmountFromProposedLoan =
-        monthlyPaymentOwnership * totalMonthlyLoanPayment;
-
+      if (applicantObj.Loan_Calculation_Applicant_Products__r.size() > 0) {
+        monthlyPaymentOwnership = checkIfPercentNull(
+          applicantObj.Loan_Calculation_Applicant_Products__r[0]
+            .Monthly_Payment_Ownership_Number__c
+        );
+        totalMonthlyLoanPayment = checkIfNull(
+          applicantObj.Loan_Calculation_Applicant_Products__r[0]
+            .Loan_Calculation_Product_Id__r.Total_Monthly_Loan_Payment_Number__c
+        );
+        applicantAllotedAmountFromProposedLoan =
+          monthlyPaymentOwnership * totalMonthlyLoanPayment;
+      }
       if (assetsIdSet.size() > 0) {
         List<FinServ__AssetsAndLiabilities__c> assetsList = [
           SELECT
@@ -244,9 +254,6 @@ public class StatementOfAffairsFormController {
         if (assetsList.size() > 0) {
           assetsCalculations(assetsList);
         }
-        system.debug('realEstateWrapperList ::' + realEstateWrapperList);
-        system.debug('motorVehicalWrapperList ::' + motorVehicalWrapperList);
-        system.debug('otherAssetsWrapperList ::' + otherAssetsWrapperList);
       }
     }
   }
@@ -487,12 +494,6 @@ public class StatementOfAffairsFormController {
         this.monthlyPaymentAfter = 0.0;
         this.loanBalanceAfter = 0.0;
       }
-      system.debug(
-        'soa.realEstateSummaryBefore :: ' + this.soa.realEstateSummaryBefore
-      );
-      system.debug(
-        'this.monthlyPaymentBefore; :: ' + this.monthlyPaymentBefore
-      );
       this.soa.realEstateSummaryBefore += this.monthlyPaymentBefore;
       this.soa.realEstateSummaryBefore_Loan += this.loanBalanceBefore;
 
