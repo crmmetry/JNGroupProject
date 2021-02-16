@@ -42,7 +42,7 @@ public class LoanCalculationProductUnwrapper {
     record.Annual_Creditor_Life_Fee_Number__c = serializer.creditorLifeAnnualFee;
     record.Minimum_Payment_per_Credit_Limit_Number__c = serializer.minimumPayment;
     record.Monthly_Creditor_Life_Premium_Number__c = serializer.creditorLifePremiumForNonRevolvingLoan;
-    record.Approved_Starting_Limit_Number__c = serializer.approvedStartingLimit;
+    record.Starting_Limit_Number__c = serializer.approvedStartingLimit;
     record.Motor_Vehicle_Deposit_Number__c = serializer.autoCollateralDeposit;
     record.Motor_Vehicle_Deposit_Percentage_Number__c = serializer.autoCollateralDepositPercentage;
     record.Computed_Auto_Collateral_Deposit_Number__c = serializer.computedAutoCollateralDepositFromPercentage;
@@ -76,7 +76,16 @@ public class LoanCalculationProductUnwrapper {
     record.X1st_Month_s_Instalment_Payable_Number__c = serializer.totalMonthlyLoanPayment;
     record.Interested_in_JNGI_SureCover_flag__c = serializer.interested;
     record.Requested_Credit_Limit_Number__c = serializer.requestedCreditLimit;
-    //record.Requested_Credit_Limit_Number__c = serializer.requestedCreditLimit;
+    record.Financial_Institution_List__c = serializer.financialInstitution;
+    //record.Deposit_Account_Number_Number__c = serializer.jnBankAccountNumber;
+    record.Deposit_Account_Number_Number__c = serializer.depositAccountNumber;
+    record.Deposit_Account_Number_Prefix_text__c = serializer.jnBankAccountNumberPrefix;
+    record.Account_Holder_s_text__c = serializer.accountHolder;
+    record.Account_Hypothecated_list__c = serializer.hypothecatedLoan;
+    record.Annual_Interest_Rate_Deposit_Acct_Number__c = serializer.annualInterestRate;
+    record.Deposit_Account_Balance_Number__c = serializer.depositBalance;
+    record.Life_Insurance_Coverage_List__c = serializer.lifeInsuranceCoverage;
+    //record.Desired_Statement_Date__c = serializer.repaymentDate;
   }
   /**
    * save loan calculation product object

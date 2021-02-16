@@ -131,7 +131,10 @@ public class ProductDetailsSerializer {
   public Decimal creditorLifePremiumForNonRevolvingLoan;
   @AuraEnabled
   public Decimal approvedStartingLimit;
-
+  @AuraEnabled
+  public Decimal jnBankAccountNumber;
+  @AuraEnabled
+  public String jnBankAccountNumberPrefix;
   @AuraEnabled
   public String financialInstitution;
   @AuraEnabled

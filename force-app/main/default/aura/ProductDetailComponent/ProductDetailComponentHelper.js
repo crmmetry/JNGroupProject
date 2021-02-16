@@ -766,7 +766,7 @@
         }
       ]);
     } else if (isCreditCard || isLineOfCredit) {
-      loanCalculationFields = loanCalculationFields.concat([
+      loanCalculationProductFields = loanCalculationFields.concat([
         {
           localName: "interestedInCreditorLifeNonRevolving",
           mappedName: "interestedInCreditorLife",
@@ -928,7 +928,9 @@
       { localName: "hypothecatedLoan" },
       { localName: "depositBalance" },
       { localName: "lifeInsuranceCoverage" },
-      { localName: "makeAndModelOfVehicle" }
+      { localName: "makeAndModelOfVehicle" },
+      { localName: "jnBankAccountNumber" },
+      { localName: "jnBankAccountNumberPrefix" }
     ];
     //product specific fields
     const updatedValues = this.contructProductSpecificDetailsFields(
