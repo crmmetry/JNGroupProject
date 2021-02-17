@@ -54,7 +54,17 @@ public with sharing class ApplicantAndEmployementWrapper {
     public Decimal existingMonthlyPaymntsPriorLoan {get;set;}
     public Decimal existingMonthlyPaymntsAfterLoan {get;set;}
     
-    public ApplicantAndEmployementWrapper(Applicant__c record, list<EmploymentWrapper> emploWrapperList){
+    public Decimal sum_Total_Market_Value {get;set;}
+    public Decimal sum_Account_Balance {get;set;}
+    public Decimal sum_Total_Contributions_to_Date {get;set;}
+    public Decimal sum_Asset_Credit_Balance {get;set;}
+    
+    public ApplicantAndEmployementWrapper(Applicant__c record, list<EmploymentWrapper> emploWrapperList, Decimal sumTotalMarketValue, Decimal sumAccountBalance, Decimal sumTotalContributionstoDate, Decimal sumTotalAssetCreditBalance){        
+        sum_Total_Market_Value = sumTotalMarketValue;
+        sum_Account_Balance = sumAccountBalance;
+        sum_Total_Contributions_to_Date = sumTotalContributionstoDate;
+        sum_Asset_Credit_Balance = sumTotalAssetCreditBalance;
+            
         appWrp = new ApplicantWrapper(record);
         applicantName = record.Account__r.Name;
         currencyCode = record.CurrencyIsoCode;
@@ -94,18 +104,13 @@ public with sharing class ApplicantAndEmployementWrapper {
         if(record.Total_Inflows__c!=Null){
             monthlyInflowsPriorLoan = record.Total_Inflows__c;
         }
-        monthlyOutflowsPriorLoan = 0;
-        if(record.Total_Outflows__c!=Null){
-            monthlyOutflowsPriorLoan = record.Total_Outflows__c;
-        }
         monthlyInflowsAfterLoan = 0;
         if(record.Total_Inflows__c!=Null){
             monthlyInflowsAfterLoan = record.Total_Inflows__c;
         }
-        monthlyOutflowsAfterLoan = 0;
-        if(record.Total_Outflows__c!=Null){
-            monthlyOutflowsAfterLoan = record.Total_Outflows__c;
-        }
+        getMonthlyOutFlowsPriorLoan(record);
+        getMonthlyOutFlowsAfterLoan(record);
+        
         residualIncomePriorLoan = monthlyInflowsPriorLoan - monthlyOutflowsPriorLoan;
         residualIncomeAfterLoan = monthlyInflowsAfterLoan - monthlyOutflowsAfterLoan;
         
@@ -150,7 +155,7 @@ public with sharing class ApplicantAndEmployementWrapper {
         Decimal savings_Deposit_Investments;
         Decimal pension;
         totalAssetsPriorLoan = 0.0;
-        
+
         if(record.Real_Estate_Market_Value_Number__c!=Null){
         	real_Estate_MktValue = record.Real_Estate_Market_Value_Number__c;     
         }else{
@@ -176,14 +181,17 @@ public with sharing class ApplicantAndEmployementWrapper {
         }else{
             savings_Deposit_Investments = 0;
         }
-        if(record.Pension__c!=Null){
-        	pension = record.Pension__c;     
+        if(record.Pension_IRS_Total_Contribution__c!=Null){
+        	pension = record.Pension_IRS_Total_Contribution__c;     
         }else{
             pension = 0;
         }
-        totalAssetsPriorLoan = real_Estate_MktValue + 
-            					motor_Vehicle_MktValue + 
-            					other_Asset_MktValue + 
+        totalAssetsPriorLoan =  sum_Total_Market_Value + 
+            					sum_Account_Balance +
+            					sum_Total_Contributions_to_Date +
+            					motor_Vehicle_MktValue + 					
+            					other_Asset_MktValue + 					
+            					real_Estate_MktValue + 
             					life_Insurance_Cash_Value + 
             					savings_Deposit_Investments + 
             					pension;
@@ -247,7 +255,8 @@ public with sharing class ApplicantAndEmployementWrapper {
             lineofCredit_loan = 0;
         }
         
-        totalLiabilitiesPriorLoan = real_Estate_loan + 
+        totalLiabilitiesPriorLoan = sum_Asset_Credit_Balance + 
+            						real_Estate_loan + 
             						motor_Vehicle_loan + 
             						other_Asset_loan +
             						other_loan +
@@ -259,6 +268,217 @@ public with sharing class ApplicantAndEmployementWrapper {
         totalLiabilitiesAfterLoan = 0.0;
         //---coming soon---
         //find the specific field for "Loan Balance on Prosposed Loan"
+    }
+    public void getMonthlyOutFlowsPriorLoan(Applicant__c record){
+        monthlyOutflowsPriorLoan = 0;
+        if(record.Property_Tax_Monthly_Prior_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Property_Tax_Monthly_Prior_Loan__c;     
+        }
+        if(record.Property_Insurance_Monthly_Prior_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Property_Insurance_Monthly_Prior_Loan__c;     
+        }
+        if(record.Property_Maintenance_Monthly_Prior_loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Property_Maintenance_Monthly_Prior_loan__c;     
+        }
+        if(record.Personal_Expenses_Monthly_Prior_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Personal_Expenses_Monthly_Prior_Loan__c;     
+        }
+        if(record.Food_Cost_Monthly_Prior_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Food_Cost_Monthly_Prior_Loan__c;     
+        }
+        if(record.Child_Care_Costs_Monthly_Prior_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Child_Care_Costs_Monthly_Prior_Loan__c;     
+        }
+        if(record.School_Costs_Monthly_Prior_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.School_Costs_Monthly_Prior_Loan__c;     
+        }
+        if(record.Health_Costs_Monthly_Prior_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Health_Costs_Monthly_Prior_Loan__c;     
+        }
+        if(record.Other_Personal_Family_Monthly_Prior_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Other_Personal_Family_Monthly_Prior_Loan__c;     
+        }
+        if(record.Electricity_Monthly_Prior_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Electricity_Monthly_Prior_Loan__c;     
+        }
+        if(record.Water_Monthly_Prior_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Water_Monthly_Prior_Loan__c;     
+        }
+        if(record.Cell_Phone_Landline_Monthly_Prior_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Cell_Phone_Landline_Monthly_Prior_Loan__c;     
+        }
+        if(record.Internet_Cable_Monthly_Prior_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Internet_Cable_Monthly_Prior_Loan__c;     
+        }
+        if(record.Cooking_Gas_Monthly_Prior_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Cooking_Gas_Monthly_Prior_Loan__c;     
+        }
+        if(record.House_Keeping_Monthly_Prior_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.House_Keeping_Monthly_Prior_Loan__c;     
+        }
+        if(record.Other_Utilities_Monthly_Prior_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Other_Utilities_Monthly_Prior_Loan__c;     
+        }
+
+        if(record.Fares_Monthly_Prior_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Fares_Monthly_Prior_Loan__c;     
+        }
+        if(record.Petrol_Fuel_Monthly_Prior_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Petrol_Fuel_Monthly_Prior_Loan__c;     
+        }
+        if(record.Toll_Fees_Monthly_Prior_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Toll_Fees_Monthly_Prior_Loan__c;     
+        }
+        if(record.Motor_V_Insurance_Monthly_Prior_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Motor_V_Insurance_Monthly_Prior_Loan__c;     
+        }
+        if(record.Motor_Vehicle_Reg_Monthly_Prior_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Motor_Vehicle_Reg_Monthly_Prior_Loan__c;     
+        }
+        if(record.Motor_Vehicle_Fitness_Monthly_Prior_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Motor_Vehicle_Fitness_Monthly_Prior_Loan__c;     
+        }
+        if(record.Motor_V_Maintenance_Monthly_Before_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Motor_V_Maintenance_Monthly_Before_Loan__c;     
+        }
+        if(record.Other_Transport_Costs_Monthly_Prior_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Other_Transport_Costs_Monthly_Prior_Loan__c;     
+        }
+        if(record.Savings_Pension_Insurance_Number__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Savings_Pension_Insurance_Number__c;     
+        }        
+        if(record.Personal_Expenses_Monthly_Prior_Loan__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Personal_Expenses_Monthly_Prior_Loan__c;     
+        }
+        if(record.Statutory_Deductions_Numbers__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Statutory_Deductions_Numbers__c;     
+        }
+        if(record.Rent_Strata_Maintenance__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Rent_Strata_Maintenance__c;     
+        }
+        if(record.Motor_Vehicle_Monthly_Payment_Number__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Motor_Vehicle_Monthly_Payment_Number__c;     
+        }
+        if(record.Other_Asset_Monthly_Payment_Number__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Other_Asset_Monthly_Payment_Number__c;     
+        }
+        if(record.Other_Loan_Monthly_Payment_Number__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Other_Loan_Monthly_Payment_Number__c;     
+        }
+        if(record.Real_Estate_Monthly_Payment_Number__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Real_Estate_Monthly_Payment_Number__c;     
+        }
+    }
+    public void getMonthlyOutFlowsAfterLoan(Applicant__c record){
+        monthlyOutflowsAfterLoan = 0;
+        if(record.Cell_Phone_Landline_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Cell_Phone_Landline_Monthly_After_Loan__c;     
+        }
+        if(record.Child_Care_Costs_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Child_Care_Costs_Monthly_After_Loan__c;     
+        }
+        if(record.Cooking_Gas_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Cooking_Gas_Monthly_After_Loan__c;     
+        }
+        if(record.Electricity_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Electricity_Monthly_After_Loan__c;     
+        }
+        if(record.Fares_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Fares_Monthly_After_Loan__c;     
+        }
+		if(record.Food_Costs_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Food_Costs_Monthly_After_Loan__c;     
+        }
+        if(record.Health_Costs_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Health_Costs_Monthly_After_Loan__c;     
+        }
+        if(record.House_Keeping_Costs_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.House_Keeping_Costs_Monthly_After_Loan__c;     
+        }
+        if(record.Internet_Cable_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Internet_Cable_Monthly_After_Loan__c;     
+        }
+        if(record.Motor_V_Insurance_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Motor_V_Insurance_Monthly_After_Loan__c;     
+        }
+        if(record.Motor_V_Maintenance_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Motor_V_Maintenance_Monthly_After_Loan__c;     
+        }
+        if(record.Motor_Vehicle_Fitness_Monthly_After_Loan__c !=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Motor_Vehicle_Fitness_Monthly_After_Loan__c;     
+        }
+        if(record.Motor_Vehicle_Monthly_After_Loan__c !=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Motor_Vehicle_Monthly_After_Loan__c;     
+        }
+        if(record.Motor_Vehicle_Reg_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Motor_Vehicle_Reg_Monthly_After_Loan__c;     
+        }
+        if(record.Other_Personal_Family_Costs_Prior_After__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Other_Personal_Family_Costs_Prior_After__c;     
+        }
+        if(record.Other_Transport_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Other_Transport_Monthly_After_Loan__c;     
+        }
+        if(record.Other_Utilities_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Other_Utilities_Monthly_After_Loan__c;     
+        }
+        if(record.Personal_Expenses_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Personal_Expenses_Monthly_After_Loan__c;     
+        }
+        if(record.Petrol_Fuel_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Petrol_Fuel_Monthly_After_Loan__c;     
+        }
+        if(record.Property_Insurance_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Property_Insurance_Monthly_After_Loan__c;     
+        }
+        if(record.Property_Maintenance_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Property_Maintenance_Monthly_After_Loan__c;     
+        }
+        if(record.Property_Tax_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Property_Tax_Monthly_After_Loan__c;     
+        }
+        if(record.Rent_Board_Strata_After_TDSR__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Rent_Board_Strata_After_TDSR__c;     
+        }
+        if(record.Rent_Board_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Rent_Board_Monthly_After_Loan__c;     
+        }
+        if(record.School_Costs_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.School_Costs_Monthly_After_Loan__c;     
+        }
+        if(record.Strata_Maintenance_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Strata_Maintenance_Monthly_After_Loan__c;     
+        }
+        if(record.Toll_Fees_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Toll_Fees_Monthly_After_Loan__c;     
+        }
+        if(record.Water_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Water_Monthly_After_Loan__c;     
+        }
+        if(record.Savings_Pension_Insurance_Number__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Savings_Pension_Insurance_Number__c;     
+        }
+        if(record.Personal_Expenses_Monthly_After_Loan__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Personal_Expenses_Monthly_After_Loan__c;     
+        }
+        if(record.Statutory_Deductions_Numbers__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Statutory_Deductions_Numbers__c;     
+        }
+        if(record.Rent_Strata_Maintenance__c!=Null){
+            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Rent_Strata_Maintenance__c;     
+        }
+        if(record.Motor_Vehicle_Monthly_Payment_Number__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Motor_Vehicle_Monthly_Payment_Number__c;     
+        }
+        if(record.Other_Asset_Monthly_Payment_Number__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Other_Asset_Monthly_Payment_Number__c;     
+        }
+        if(record.Other_Loan_Monthly_Payment_Number__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Other_Loan_Monthly_Payment_Number__c;     
+        }
+        if(record.Real_Estate_Monthly_Payment_Number__c!=Null){
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Real_Estate_Monthly_Payment_Number__c;     
+        }
     }
     
     public void getExistingmnthlyPaymnt(Applicant__c record){
