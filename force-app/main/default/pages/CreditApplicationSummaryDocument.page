@@ -8,6 +8,7 @@
         
     </head>
     <apex:variable value="{!1}" var="rowNum"/>
+    
     <apex:form >
         
         <div class="header">
@@ -424,9 +425,12 @@
             <div class="detail">FINANCIAL &amp; RISK ASSESSMENT </div>
             <div>
                 <h5 class="personalDetailHeader"><b>SUMMARY OF APPLICANT(S) FINANCIALS</b></h5>
+                <apex:variable value="{!1}" var="rowNum"/>
                 <apex:repeat value="{!applicantAndEmplWrapperList}" var="applicantEmpObj">
-                	<div class="applicant1"><b>APPLICANT 1</b></div>
+                	<div class="applicant1"><b>APPLICANT {!FLOOR(rowNum)}</b>
+                    </div>
                 	<c:ApplicantSummary applicantEmpWrapperObj="{!applicantEmpObj}"/>    
+                    <apex:variable var="rowNum" value="{!rowNum + 1}"/>
                 </apex:repeat>
                 
                 

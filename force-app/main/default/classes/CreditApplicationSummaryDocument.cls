@@ -39,9 +39,14 @@ public class CreditApplicationSummaryDocument {
         if(accountIds!=Null){
         	emplmntRecordsOfAccount = get_MapOfAccountId_And_EmployementRecords(accountIds);    
         }
+        //Get a map of Applicant Id and Summation of AssretLiability fields
         map<Id, FinServ__AssetsAndLiabilities__c> mapOfApplIdVsSumOfAssetsLiability = new map<Id, FinServ__AssetsAndLiabilities__c>();
         mapOfApplIdVsSumOfAssetsLiability = getApplicant_And_AssetsLiabilitySum();
         
+        //Get a map of Applicant Id and Summation of Monthly OutFlow fields
+        map<Id, map<string, decimal>> mapOfMontlyOutFlowFields = New map<Id, map<string, decimal>>(); 
+        mapOfMontlyOutFlowFields = getValuesForMonthlyOutflow();
+            
         //populate the applicantAndEmplWrapperList
         if(applicanList!=Null){
             for(Applicant__c applicantObj : applicanList){
@@ -62,6 +67,7 @@ public class CreditApplicationSummaryDocument {
                 Decimal sumAccount_Balance = 0;
                 Decimal sumTotal_Contributions_to_Date = 0;
                 Decimal sumTotal_AssetCreditBalance = 0;
+                Decimal sumCashValue = 0;
                 
                 if(mapOfApplIdVsSumOfAssetsLiability.containsKey(applicantObj.Id)==True){
                     FinServ__AssetsAndLiabilities__c assetLiabilityObj;
@@ -71,9 +77,15 @@ public class CreditApplicationSummaryDocument {
                     sumAccount_Balance = assetLiabilityObj.Account_Balance__c;
                     sumTotal_Contributions_to_Date = assetLiabilityObj.Total_Contributions_to_Date__c;
                     sumTotal_AssetCreditBalance = assetLiabilityObj.Asset_Credit_Balance__c;
+                    sumCashValue = assetLiabilityObj.Cash_Value__c;
+                }
+                
+                map<string, decimal> map_Of_Monthly_Out_Flow_Fields = new map<string, decimal>();
+                if(mapOfMontlyOutFlowFields.containsKey(applicantObj.Id)==True){
+                    map_Of_Monthly_Out_Flow_Fields = mapOfMontlyOutFlowFields.get(applicantObj.Id);
                 }
 
-                ApplicantAndEmployementWrapper appEmpWrap = new ApplicantAndEmployementWrapper(applicantObj, emploWrapperList, sumTotal_Market_Value, sumAccount_Balance, sumTotal_Contributions_to_Date, sumTotal_AssetCreditBalance);
+                ApplicantAndEmployementWrapper appEmpWrap = new ApplicantAndEmployementWrapper(applicantObj, emploWrapperList, sumTotal_Market_Value, sumAccount_Balance, sumTotal_Contributions_to_Date, sumTotal_AssetCreditBalance, sumCashValue, map_Of_Monthly_Out_Flow_Fields);
                 applicantAndEmplWrapperList.add(appEmpWrap);
             }
         }
@@ -301,6 +313,90 @@ public class CreditApplicationSummaryDocument {
         return employmentRecordsOfAccount;       
     }
     
+    private map<Id, map<string, decimal>> getValuesForMonthlyOutflow(){
+        list<Application_Asset_Liability__c> applAssetLiabList = New list<Application_Asset_Liability__c>();
+		map<Id, map<string, decimal>> mapOf_ApplicantId_and_AppAssetsLiabObj = new map<Id, map<string, decimal>>();
+        if(applicantIds==Null){
+            return Null;
+        }
+        applAssetLiabList = [SELECT Overdraft_Limit_Number__c, 
+                             		Loan_Balance_Prior__c, 
+                             		Monthly_Payment_Prior_Calc_App_Portion__c,
+                             		Minimum_Payment_Calc__c,
+                             		Application__c
+                             FROM Application_Asset_Liability__c 
+                             WHERE Application__c IN :applicantIds];
+        
+        if(applAssetLiabList != Null){
+            if(applAssetLiabList.size()>0){
+                for(Application_Asset_Liability__c appAssetLiab_Record : applAssetLiabList){
+                    if(mapOf_ApplicantId_and_AppAssetsLiabObj.containsKey(appAssetLiab_Record.Application__c)==True){
+         				decimal overdraft_Limit_Number = 0;
+                        decimal loan_Balance_Prior = 0;
+                        decimal monthly_Payment_Prior_Calc_App_Portion = 0;
+                        decimal minimum_Payment_Calc = 0;
+                        map<string, decimal> mapOfFields = new map<string, decimal>();
+                        mapOfFields = mapOf_ApplicantId_and_AppAssetsLiabObj.get(appAssetLiab_Record.Application__c);
+                        
+                        overdraft_Limit_Number = mapOfFields.get('Overdraft_Limit_Number__c'); 
+                        if(appAssetLiab_Record.Overdraft_Limit_Number__c!=Null){
+                            overdraft_Limit_Number = overdraft_Limit_Number + appAssetLiab_Record.Overdraft_Limit_Number__c;
+                        }
+                        mapOfFields.put('Overdraft_Limit_Number__c', overdraft_Limit_Number);
+                        
+                        loan_Balance_Prior = mapOfFields.get('Loan_Balance_Prior__c'); 
+                        if(appAssetLiab_Record.Loan_Balance_Prior__c!=Null){
+                            loan_Balance_Prior = loan_Balance_Prior + appAssetLiab_Record.Loan_Balance_Prior__c;
+                        }
+                        mapOfFields.put('Loan_Balance_Prior__c', loan_Balance_Prior);
+                        
+                        monthly_Payment_Prior_Calc_App_Portion = mapOfFields.get('Monthly_Payment_Prior_Calc_App_Portion__c');
+                        if(appAssetLiab_Record.Monthly_Payment_Prior_Calc_App_Portion__c!=Null){
+                            monthly_Payment_Prior_Calc_App_Portion = monthly_Payment_Prior_Calc_App_Portion + appAssetLiab_Record.Monthly_Payment_Prior_Calc_App_Portion__c;
+                        }
+                        mapOfFields.put('Monthly_Payment_Prior_Calc_App_Portion__c', monthly_Payment_Prior_Calc_App_Portion);
+                        
+                        minimum_Payment_Calc = mapOfFields.get('Minimum_Payment_Calc__c');
+                        if(appAssetLiab_Record.Minimum_Payment_Calc__c!=Null){
+                            minimum_Payment_Calc = minimum_Payment_Calc + appAssetLiab_Record.Minimum_Payment_Calc__c;
+                        }
+                        mapOfFields.put('Minimum_Payment_Calc__c', minimum_Payment_Calc);
+                        mapOf_ApplicantId_and_AppAssetsLiabObj.put(appAssetLiab_Record.Application__c, mapOfFields);
+                    }else{
+                        decimal overdraft_Limit_Number = 0;
+                        decimal loan_Balance_Prior = 0;
+                        decimal monthly_Payment_Prior_Calc_App_Portion = 0;
+                        decimal minimum_Payment_Calc = 0;
+                        map<string, decimal> mapOfFields = new map<string, decimal>();
+                        
+                        if(appAssetLiab_Record.Overdraft_Limit_Number__c!=Null){
+                            overdraft_Limit_Number = overdraft_Limit_Number + appAssetLiab_Record.Overdraft_Limit_Number__c;
+                        }
+                        mapOfFields.put('Overdraft_Limit_Number__c',overdraft_Limit_Number);
+                        
+                        if(appAssetLiab_Record.Loan_Balance_Prior__c!=Null){
+                            loan_Balance_Prior = loan_Balance_Prior + appAssetLiab_Record.Loan_Balance_Prior__c;
+                        }
+                        mapOfFields.put('Loan_Balance_Prior__c', loan_Balance_Prior);
+                        
+                        if(appAssetLiab_Record.Monthly_Payment_Prior_Calc_App_Portion__c!=Null){
+                            monthly_Payment_Prior_Calc_App_Portion = monthly_Payment_Prior_Calc_App_Portion + appAssetLiab_Record.Monthly_Payment_Prior_Calc_App_Portion__c;
+                        }
+                        mapOfFields.put('Monthly_Payment_Prior_Calc_App_Portion__c', monthly_Payment_Prior_Calc_App_Portion);
+                        
+                        if(appAssetLiab_Record.Minimum_Payment_Calc__c!=Null){
+                            minimum_Payment_Calc = minimum_Payment_Calc + appAssetLiab_Record.Minimum_Payment_Calc__c;
+                        }
+                        mapOfFields.put('Minimum_Payment_Calc__c', minimum_Payment_Calc);
+                        mapOf_ApplicantId_and_AppAssetsLiabObj.put(appAssetLiab_Record.Application__c, mapOfFields);
+                    }
+                }
+            }
+        }
+        system.debug('getValuesForMonthlyOutflow =' + mapOf_ApplicantId_and_AppAssetsLiabObj);
+        return mapOf_ApplicantId_and_AppAssetsLiabObj;
+    }
+        
     private map<Id, FinServ__AssetsAndLiabilities__c> getApplicant_And_AssetsLiabilitySum(){
         list<Application_Asset_Liability__c> applAssetLiabList = New list<Application_Asset_Liability__c>();
         map<Id, FinServ__AssetsAndLiabilities__c> mapOf_ApplicantId_and_AssetsLiabObj = new map<Id, FinServ__AssetsAndLiabilities__c>();
@@ -310,7 +406,8 @@ public class CreditApplicationSummaryDocument {
                              		Assets_and_Liabilities__r.Total_Market_Value__c,
                              		Assets_and_Liabilities__r.Total_Contributions_to_Date__c,
                              		Assets_and_Liabilities__r.Account_Balance__c,
-                             		Assets_and_Liabilities__r.Asset_Credit_Balance__c
+                             		Assets_and_Liabilities__r.Asset_Credit_Balance__c,
+                             		Assets_and_Liabilities__r.Cash_Value__c
                              FROM Application_Asset_Liability__c 
                              WHERE Application__c IN :applicantIds];
         
@@ -322,6 +419,7 @@ public class CreditApplicationSummaryDocument {
                         decimal account_Balance = 0;
                         decimal total_Contributions_to_Date = 0;
                         decimal total_Asset_Credit_Balance = 0;
+                        decimal cashValue = 0;
                         FinServ__AssetsAndLiabilities__c assetLiabilityObj = New FinServ__AssetsAndLiabilities__c();
                         
                         if(appAssetLiab_Record.Assets_and_Liabilities__r.Total_Market_Value__c!=Null){
@@ -336,11 +434,15 @@ public class CreditApplicationSummaryDocument {
                         if(appAssetLiab_Record.Assets_and_Liabilities__r.Asset_Credit_Balance__c!=Null){
                             total_Asset_Credit_Balance = total_Asset_Credit_Balance + appAssetLiab_Record.Assets_and_Liabilities__r.Asset_Credit_Balance__c;
                         }
+                        if(appAssetLiab_Record.Assets_and_Liabilities__r.Cash_Value__c!=Null){
+                            cashValue = cashValue + appAssetLiab_Record.Assets_and_Liabilities__r.Cash_Value__c;
+                        }
                         assetLiabilityObj = mapOf_ApplicantId_and_AssetsLiabObj.get(appAssetLiab_Record.Application__c);
                         assetLiabilityObj.Total_Market_Value__c =assetLiabilityObj.Total_Market_Value__c + mrktValue;
                         assetLiabilityObj.Account_Balance__c = assetLiabilityObj.Account_Balance__c + account_Balance;
                         assetLiabilityObj.Total_Contributions_to_Date__c = assetLiabilityObj.Total_Contributions_to_Date__c + total_Contributions_to_Date;
                         assetLiabilityObj.Asset_Credit_Balance__c = assetLiabilityObj.Asset_Credit_Balance__c + total_Asset_Credit_Balance;
+                        assetLiabilityObj.Cash_Value__c = assetLiabilityObj.Cash_Value__c + cashValue;
                         mapOf_ApplicantId_and_AssetsLiabObj.put(appAssetLiab_Record.Application__c, assetLiabilityObj);
                         
                     }else{
@@ -348,6 +450,7 @@ public class CreditApplicationSummaryDocument {
                         decimal account_Balance = 0;
                         decimal total_Contributions_to_Date = 0;
                         decimal total_Asset_Credit_Balance = 0;
+                        decimal cashValue = 0;
                         FinServ__AssetsAndLiabilities__c assetLiabilityObj = New FinServ__AssetsAndLiabilities__c();
                         
                         if(appAssetLiab_Record.Assets_and_Liabilities__r.Total_Market_Value__c!=Null){
@@ -366,10 +469,15 @@ public class CreditApplicationSummaryDocument {
                             total_Asset_Credit_Balance = total_Asset_Credit_Balance + appAssetLiab_Record.Assets_and_Liabilities__r.Asset_Credit_Balance__c;
                         }
 
+                        if(appAssetLiab_Record.Assets_and_Liabilities__r.Cash_Value__c!=Null){
+                            cashValue = cashValue + appAssetLiab_Record.Assets_and_Liabilities__r.Cash_Value__c;
+                        }
+                        
                         assetLiabilityObj.Total_Market_Value__c = mrktValue;
                         assetLiabilityObj.Account_Balance__c = account_Balance;
                         assetLiabilityObj.Total_Contributions_to_Date__c = total_Contributions_to_Date;
                         assetLiabilityObj.Asset_Credit_Balance__c = total_Asset_Credit_Balance;
+                        assetLiabilityObj.Cash_Value__c = cashValue;
                         mapOf_ApplicantId_and_AssetsLiabObj.put(appAssetLiab_Record.Application__c, assetLiabilityObj);
                     }  
                 }

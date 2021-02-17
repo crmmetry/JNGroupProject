@@ -58,13 +58,15 @@ public with sharing class ApplicantAndEmployementWrapper {
     public Decimal sum_Account_Balance {get;set;}
     public Decimal sum_Total_Contributions_to_Date {get;set;}
     public Decimal sum_Asset_Credit_Balance {get;set;}
+    public Decimal sum_Cash_Value_Asset {get;set;}
     
-    public ApplicantAndEmployementWrapper(Applicant__c record, list<EmploymentWrapper> emploWrapperList, Decimal sumTotalMarketValue, Decimal sumAccountBalance, Decimal sumTotalContributionstoDate, Decimal sumTotalAssetCreditBalance){        
+    public ApplicantAndEmployementWrapper(Applicant__c record, list<EmploymentWrapper> emploWrapperList, Decimal sumTotalMarketValue, Decimal sumAccountBalance, Decimal sumTotalContributionstoDate, Decimal sumTotalAssetCreditBalance, Decimal sum_Cash_Value, map<string, decimal> mapOfMonthlyOutFlow_Fields){        
         sum_Total_Market_Value = sumTotalMarketValue;
         sum_Account_Balance = sumAccountBalance;
         sum_Total_Contributions_to_Date = sumTotalContributionstoDate;
         sum_Asset_Credit_Balance = sumTotalAssetCreditBalance;
-            
+        sum_Cash_Value_Asset = sum_Cash_Value;
+        
         appWrp = new ApplicantWrapper(record);
         applicantName = record.Account__r.Name;
         currencyCode = record.CurrencyIsoCode;
@@ -108,7 +110,7 @@ public with sharing class ApplicantAndEmployementWrapper {
         if(record.Total_Inflows__c!=Null){
             monthlyInflowsAfterLoan = record.Total_Inflows__c;
         }
-        getMonthlyOutFlowsPriorLoan(record);
+        getMonthlyOutFlowsPriorLoan(record, mapOfMonthlyOutFlow_Fields);
         getMonthlyOutFlowsAfterLoan(record);
         
         residualIncomePriorLoan = monthlyInflowsPriorLoan - monthlyOutflowsPriorLoan;
@@ -116,9 +118,11 @@ public with sharing class ApplicantAndEmployementWrapper {
         
         getTotalAssetsPriorToLoan(record);
         getTotalAssetsAfterLoan(record);
-        getTotalLiabilitiesPriorToLoan(record);
+        getTotalLiabilitiesPriorToLoan(record, mapOfMonthlyOutFlow_Fields);
         getTotalLiabilitiesAfterLoan(record);
-        getExistingmnthlyPaymnt(record);
+        getExistingMonthlyInstallmentPriorLoan(record, mapOfMonthlyOutFlow_Fields);
+        getExistingMonthlyInstallmentAfterLoan(record, mapOfMonthlyOutFlow_Fields);
+        
         netWorthPriorLoan = totalAssetsPriorLoan - totalLiabilitiesPriorLoan;
         netWorthAfterLoan = totalAssetsAfterLoan - totalLiabilitiesAfterLoan;
         jnGroup = record.JN_Group_Employee__c;
@@ -198,26 +202,30 @@ public with sharing class ApplicantAndEmployementWrapper {
     }
     
     public void getTotalAssetsAfterLoan(Applicant__c record){
-        Double mrktValue;
-        totalAssetsAfterLoan = 0.0;
+        totalAssetsAfterLoan = totalAssetsPriorLoan + 
+            					sum_Cash_Value_Asset;
         
-        if(record.Market_Value_Number__c!=Null){
-        	mrktValue = record.Market_Value_Number__c;     
-        }else{
-            mrktValue = 0;
-        }
-        
-        totalAssetsAfterLoan = totalAssetsPriorLoan + mrktValue;
     }
     
-    public void getTotalLiabilitiesPriorToLoan(Applicant__c record){
-        Double real_Estate_loan;
-        Double motor_Vehicle_loan;
-        Double other_Asset_loan;
-        Double other_loan;
-        Double credit_Card_loan;
-        Double lineofCredit_loan;
+    public void getTotalLiabilitiesPriorToLoan(Applicant__c record, map<string, decimal> mapOf_MonthlyOutFlow_Fields){
+        Decimal real_Estate_loan;
+        Decimal motor_Vehicle_loan;
+        Decimal other_Asset_loan;
+        Decimal other_loan;
+        Decimal credit_Card_loan;
+        Decimal lineofCredit_loan;
+        Decimal loan_Balance_Prior = 0;
+        Decimal overdraft_LimitNumber = 0;
+        
         totalLiabilitiesPriorLoan = 0.0;
+        
+        if(mapOf_MonthlyOutFlow_Fields.get('Loan_Balance_Prior__c')!=Null){
+        	loan_Balance_Prior = 0 + mapOf_MonthlyOutFlow_Fields.get('Loan_Balance_Prior__c');    
+        }
+        
+        if(mapOf_MonthlyOutFlow_Fields.get('Overdraft_Limit_Number__c')!=Null){
+        	overdraft_LimitNumber = 0 + mapOf_MonthlyOutFlow_Fields.get('Overdraft_Limit_Number__c');    
+        }
         
         if(record.Real_Estate_Loan_Balance_Number__c!=Null){
         	real_Estate_loan = record.Real_Estate_Loan_Balance_Number__c;     
@@ -261,16 +269,52 @@ public with sharing class ApplicantAndEmployementWrapper {
             						other_Asset_loan +
             						other_loan +
             						credit_Card_loan +
-            						lineofCredit_loan;
+            						lineofCredit_loan +
+            						loan_Balance_Prior +
+            						overdraft_LimitNumber;
     }
     
     public void getTotalLiabilitiesAfterLoan(Applicant__c record){
         totalLiabilitiesAfterLoan = 0.0;
+        totalLiabilitiesAfterLoan = totalLiabilitiesPriorLoan;
         //---coming soon---
-        //find the specific field for "Loan Balance on Prosposed Loan"
+        //find the specific field for "Starting Limit Number"
     }
-    public void getMonthlyOutFlowsPriorLoan(Applicant__c record){
+    public void getExistingMonthlyInstallmentPriorLoan(Applicant__c record, map<string, decimal> mapOf_MonthlyOutFlow_Fields){
+        decimal mnlyPymntPriorCalcApp = 0;
+        decimal minimumPymntCalc = 0;
+        existingMonthlyPaymntsPriorLoan = 0;
+        
+        
+        if(mapOf_MonthlyOutFlow_Fields.get('Monthly_Payment_Prior_Calc_App_Portion__c')!=Null){
+            mnlyPymntPriorCalcApp = mapOf_MonthlyOutFlow_Fields.get('Monthly_Payment_Prior_Calc_App_Portion__c');    
+            existingMonthlyPaymntsPriorLoan = existingMonthlyPaymntsPriorLoan + mnlyPymntPriorCalcApp; 
+        }
+        
+        if(mapOf_MonthlyOutFlow_Fields.get('Minimum_Payment_Calc__c')!=Null){
+            minimumPymntCalc = mapOf_MonthlyOutFlow_Fields.get('Minimum_Payment_Calc__c');
+            existingMonthlyPaymntsPriorLoan = existingMonthlyPaymntsPriorLoan + minimumPymntCalc;
+        }
+    }
+    public void getExistingMonthlyInstallmentAfterLoan(Applicant__c record, map<string, decimal> mapOf_MonthlyOutFlow_Fields){
+        existingMonthlyPaymntsAfterLoan = 0;
+        existingMonthlyPaymntsAfterLoan = existingMonthlyPaymntsPriorLoan;
+    }
+    public void getMonthlyOutFlowsPriorLoan(Applicant__c record, map<string, decimal> mapOf_MonthlyOutFlow_Fields){
         monthlyOutflowsPriorLoan = 0;
+        decimal mnlyPymntPriorCalcApp = 0;
+        decimal minimumPymntCalc = 0;
+        
+        if(mapOf_MonthlyOutFlow_Fields.get('Monthly_Payment_Prior_Calc_App_Portion__c')!=Null){
+            mnlyPymntPriorCalcApp = mapOf_MonthlyOutFlow_Fields.get('Monthly_Payment_Prior_Calc_App_Portion__c');    
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + mnlyPymntPriorCalcApp; 
+        }
+        
+        if(mapOf_MonthlyOutFlow_Fields.get('Minimum_Payment_Calc__c')!=Null){
+            minimumPymntCalc = mapOf_MonthlyOutFlow_Fields.get('Minimum_Payment_Calc__c');
+            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + minimumPymntCalc;
+        }
+        
         if(record.Property_Tax_Monthly_Prior_Loan__c!=Null){
             monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Property_Tax_Monthly_Prior_Loan__c;     
         }
