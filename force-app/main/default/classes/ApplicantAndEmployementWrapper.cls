@@ -60,7 +60,17 @@ public with sharing class ApplicantAndEmployementWrapper {
     public Decimal sum_Asset_Credit_Balance {get;set;}
     public Decimal sum_Cash_Value_Asset {get;set;}
     
-    public ApplicantAndEmployementWrapper(Applicant__c record, list<EmploymentWrapper> emploWrapperList, Decimal sumTotalMarketValue, Decimal sumAccountBalance, Decimal sumTotalContributionstoDate, Decimal sumTotalAssetCreditBalance, Decimal sum_Cash_Value, map<string, decimal> mapOfMonthlyOutFlow_Fields){        
+    public ApplicantAndEmployementWrapper(Applicant__c record, 
+                                          list<EmploymentWrapper> emploWrapperList, 
+                                          Decimal sumTotalMarketValue, 
+                                          Decimal sumAccountBalance, 
+                                          Decimal sumTotalContributionstoDate, 
+                                          Decimal sumTotalAssetCreditBalance, 
+                                          Decimal sum_Cash_Value, 
+                                          map<string, decimal> mapOfMonthlyOutFlow_Fields, 
+                                          Map<string, Decimal> loan_Calcul_Products_Fields, 
+                                          map<string, decimal> mapOfMonthlyPaymntAfterFields, 
+                                          map<string, decimal> mapOfMinimumPaymntAfterFields){        
         sum_Total_Market_Value = sumTotalMarketValue;
         sum_Account_Balance = sumAccountBalance;
         sum_Total_Contributions_to_Date = sumTotalContributionstoDate;
@@ -87,9 +97,9 @@ public with sharing class ApplicantAndEmployementWrapper {
         affiliationType = record.Affiliation_Type__c;
         pep = record.Account__r.Political_Exposure__pc;
         if(pep){
-            pepString = 'Yes';
+            pepString = Constants.YESSTRING;
         }else{
-            pepString = 'No';
+            pepString = Constants.NOSTRING;
         }
         
         grossMonthlyIncomePriorLoan = 0;
@@ -111,17 +121,25 @@ public with sharing class ApplicantAndEmployementWrapper {
             monthlyInflowsAfterLoan = record.Total_Inflows__c;
         }
         getMonthlyOutFlowsPriorLoan(record, mapOfMonthlyOutFlow_Fields);
-        getMonthlyOutFlowsAfterLoan(record);
+        getMonthlyOutFlowsAfterLoan(record, 
+                                    loan_Calcul_Products_Fields, 
+                                    mapOfMonthlyPaymntAfterFields, 
+                                    mapOfMinimumPaymntAfterFields);
         
         residualIncomePriorLoan = monthlyInflowsPriorLoan - monthlyOutflowsPriorLoan;
         residualIncomeAfterLoan = monthlyInflowsAfterLoan - monthlyOutflowsAfterLoan;
         
         getTotalAssetsPriorToLoan(record);
-        getTotalAssetsAfterLoan(record);
+        getTotalAssetsAfterLoan(record, loan_Calcul_Products_Fields);
+        
         getTotalLiabilitiesPriorToLoan(record, mapOfMonthlyOutFlow_Fields);
-        getTotalLiabilitiesAfterLoan(record);
+        getTotalLiabilitiesAfterLoan(record, loan_Calcul_Products_Fields);
+        
         getExistingMonthlyInstallmentPriorLoan(record, mapOfMonthlyOutFlow_Fields);
-        getExistingMonthlyInstallmentAfterLoan(record, mapOfMonthlyOutFlow_Fields);
+        getExistingMonthlyInstallmentAfterLoan(record, mapOfMonthlyOutFlow_Fields, 
+                                               loan_Calcul_Products_Fields, 
+                                               mapOfMonthlyPaymntAfterFields, 
+                                               mapOfMinimumPaymntAfterFields);
         
         netWorthPriorLoan = totalAssetsPriorLoan - totalLiabilitiesPriorLoan;
         netWorthAfterLoan = totalAssetsAfterLoan - totalLiabilitiesAfterLoan;
@@ -201,13 +219,22 @@ public with sharing class ApplicantAndEmployementWrapper {
             					pension;
     }
     
-    public void getTotalAssetsAfterLoan(Applicant__c record){
+    public void getTotalAssetsAfterLoan(Applicant__c record, 
+                                        Map<string, Decimal> loan_Calc_Prdcts_Fields){
         totalAssetsAfterLoan = totalAssetsPriorLoan + 
             					sum_Cash_Value_Asset;
         
+        if(loan_Calc_Prdcts_Fields!=Null){
+            if(loan_Calc_Prdcts_Fields.get(Constants.MARKETVALUEOFVEHICLENUMBER_C)!=Null){
+                totalAssetsAfterLoan = 
+                    totalAssetsAfterLoan + 
+                    loan_Calc_Prdcts_Fields.get(Constants.MARKETVALUEOFVEHICLENUMBER_C);
+            }
+        }        
     }
     
-    public void getTotalLiabilitiesPriorToLoan(Applicant__c record, map<string, decimal> mapOf_MonthlyOutFlow_Fields){
+    public void getTotalLiabilitiesPriorToLoan(Applicant__c record, 
+                                               map<string, decimal> mapOf_MonthlyOutFlow_Fields){
         Decimal real_Estate_loan;
         Decimal motor_Vehicle_loan;
         Decimal other_Asset_loan;
@@ -219,12 +246,16 @@ public with sharing class ApplicantAndEmployementWrapper {
         
         totalLiabilitiesPriorLoan = 0.0;
         
-        if(mapOf_MonthlyOutFlow_Fields.get('Loan_Balance_Prior__c')!=Null){
-        	loan_Balance_Prior = 0 + mapOf_MonthlyOutFlow_Fields.get('Loan_Balance_Prior__c');    
+        if(mapOf_MonthlyOutFlow_Fields.get(Constants.LOANBALANCEPRIOR_C)!=Null){
+        	loan_Balance_Prior = 
+                0 + 
+                mapOf_MonthlyOutFlow_Fields.get(Constants.LOANBALANCEPRIOR_C);    
         }
         
-        if(mapOf_MonthlyOutFlow_Fields.get('Overdraft_Limit_Number__c')!=Null){
-        	overdraft_LimitNumber = 0 + mapOf_MonthlyOutFlow_Fields.get('Overdraft_Limit_Number__c');    
+        if(mapOf_MonthlyOutFlow_Fields.get(Constants.OVERDRAFTLIMITNUMBER_C)!=Null){
+        	overdraft_LimitNumber = 
+                0 + 
+                mapOf_MonthlyOutFlow_Fields.get(Constants.OVERDRAFTLIMITNUMBER_C);    
         }
         
         if(record.Real_Estate_Loan_Balance_Number__c!=Null){
@@ -274,67 +305,137 @@ public with sharing class ApplicantAndEmployementWrapper {
             						overdraft_LimitNumber;
     }
     
-    public void getTotalLiabilitiesAfterLoan(Applicant__c record){
+    public void getTotalLiabilitiesAfterLoan(Applicant__c record, 
+                                             Map<string, Decimal> loan_Calc_Prdcts_Fields){
         totalLiabilitiesAfterLoan = 0.0;
         totalLiabilitiesAfterLoan = totalLiabilitiesPriorLoan;
-        //---coming soon---
-        //find the specific field for "Starting Limit Number"
+        
+        if(loan_Calc_Prdcts_Fields!=Null){
+            if(loan_Calc_Prdcts_Fields.get(Constants.STARTINGLIMITNUMBER_c)!=Null){
+                totalLiabilitiesAfterLoan = 
+                    totalLiabilitiesAfterLoan + 
+                    loan_Calc_Prdcts_Fields.get(Constants.STARTINGLIMITNUMBER_c);
+            }
+        } 
     }
-    public void getExistingMonthlyInstallmentPriorLoan(Applicant__c record, map<string, decimal> mapOf_MonthlyOutFlow_Fields){
+    
+    public void getExistingMonthlyInstallmentPriorLoan(Applicant__c record, 
+                                                       map<string, decimal> mapOf_MonthlyOutFlow_Fields){
         decimal mnlyPymntPriorCalcApp = 0;
         decimal minimumPymntCalc = 0;
         existingMonthlyPaymntsPriorLoan = 0;
         
         
-        if(mapOf_MonthlyOutFlow_Fields.get('Monthly_Payment_Prior_Calc_App_Portion__c')!=Null){
-            mnlyPymntPriorCalcApp = mapOf_MonthlyOutFlow_Fields.get('Monthly_Payment_Prior_Calc_App_Portion__c');    
-            existingMonthlyPaymntsPriorLoan = existingMonthlyPaymntsPriorLoan + mnlyPymntPriorCalcApp; 
+        if(mapOf_MonthlyOutFlow_Fields.get(Constants.MONTHLY_PAYMNT_PRIOR_CALC_APP_PORTION_C)!=Null){
+            mnlyPymntPriorCalcApp = 
+                mapOf_MonthlyOutFlow_Fields.get(Constants.MONTHLY_PAYMNT_PRIOR_CALC_APP_PORTION_C);    
+            existingMonthlyPaymntsPriorLoan = 
+                existingMonthlyPaymntsPriorLoan + 
+                mnlyPymntPriorCalcApp; 
         }
         
-        if(mapOf_MonthlyOutFlow_Fields.get('Minimum_Payment_Calc__c')!=Null){
-            minimumPymntCalc = mapOf_MonthlyOutFlow_Fields.get('Minimum_Payment_Calc__c');
-            existingMonthlyPaymntsPriorLoan = existingMonthlyPaymntsPriorLoan + minimumPymntCalc;
+        if(mapOf_MonthlyOutFlow_Fields.get(Constants.MINIMUM_PAYMNT_CALC_C)!=Null){
+            minimumPymntCalc = mapOf_MonthlyOutFlow_Fields.get(Constants.MINIMUM_PAYMNT_CALC_C);
+            existingMonthlyPaymntsPriorLoan = 
+                existingMonthlyPaymntsPriorLoan + 
+                minimumPymntCalc;
         }
     }
-    public void getExistingMonthlyInstallmentAfterLoan(Applicant__c record, map<string, decimal> mapOf_MonthlyOutFlow_Fields){
+
+    public void getExistingMonthlyInstallmentAfterLoan(Applicant__c record, 
+                                                       map<string, decimal> mapOf_MonthlyOutFlow_Fields, 
+                                                       Map<string, Decimal> loan_Calc_Prdcts_Fields,
+                                                       map<string, decimal> mapOfMnlyPayAfter, 
+                                                       map<string, decimal> mapOfMinPayAfter)
+    {
         existingMonthlyPaymntsAfterLoan = 0;
-        existingMonthlyPaymntsAfterLoan = existingMonthlyPaymntsPriorLoan;
+            
+        if(mapOfMnlyPayAfter!=Null){
+            if(mapOfMnlyPayAfter.get(Constants.MONTHLY_PAYMENT_AFTER_C)!=Null){
+                existingMonthlyPaymntsAfterLoan = 
+                    existingMonthlyPaymntsAfterLoan + 
+                    mapOfMnlyPayAfter.get(Constants.MONTHLY_PAYMENT_AFTER_C);
+            }  
+        }
+        
+        if(mapOfMinPayAfter!=Null){
+            if(mapOfMinPayAfter.get(Constants.MINIMUM_PAYMENT_AFTER_C)!=Null){
+                existingMonthlyPaymntsAfterLoan = 
+                    existingMonthlyPaymntsAfterLoan + 
+                    mapOfMinPayAfter.get(Constants.MINIMUM_PAYMENT_AFTER_C);
+            }
+        }
+        
+        if(loan_Calc_Prdcts_Fields!=Null){
+            if(loan_Calc_Prdcts_Fields.get(Constants.TOTAL_MONTHLY_LOAN_PAYMENT_NUMBER_C)!=Null){
+                existingMonthlyPaymntsAfterLoan = 
+                    existingMonthlyPaymntsAfterLoan + 
+                    loan_Calc_Prdcts_Fields.get(Constants.TOTAL_MONTHLY_LOAN_PAYMENT_NUMBER_C);
+            }
+            if(loan_Calc_Prdcts_Fields.get(Constants.MINIMUM_PAYMENT_PER_CREDIT_LIMIT_NUMBER_C)!=Null){
+                existingMonthlyPaymntsAfterLoan = 
+                    existingMonthlyPaymntsAfterLoan + 
+                    loan_Calc_Prdcts_Fields.get(Constants.MINIMUM_PAYMENT_PER_CREDIT_LIMIT_NUMBER_C);
+            }
+        }
+        
     }
-    public void getMonthlyOutFlowsPriorLoan(Applicant__c record, map<string, decimal> mapOf_MonthlyOutFlow_Fields){
+    
+    public void getMonthlyOutFlowsPriorLoan(Applicant__c record, 
+                                            map<string, decimal> mapOf_MonthlyOutFlow_Fields){
         monthlyOutflowsPriorLoan = 0;
         decimal mnlyPymntPriorCalcApp = 0;
         decimal minimumPymntCalc = 0;
         
-        if(mapOf_MonthlyOutFlow_Fields.get('Monthly_Payment_Prior_Calc_App_Portion__c')!=Null){
-            mnlyPymntPriorCalcApp = mapOf_MonthlyOutFlow_Fields.get('Monthly_Payment_Prior_Calc_App_Portion__c');    
-            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + mnlyPymntPriorCalcApp; 
+        if(mapOf_MonthlyOutFlow_Fields.get(Constants.MONTHLY_PAYMNT_PRIOR_CALC_APP_PORTION_C)!=Null){
+            mnlyPymntPriorCalcApp = 
+                mapOf_MonthlyOutFlow_Fields.get(Constants.MONTHLY_PAYMNT_PRIOR_CALC_APP_PORTION_C);    
+            monthlyOutflowsPriorLoan = 
+                monthlyOutflowsPriorLoan + 
+                mnlyPymntPriorCalcApp; 
         }
         
-        if(mapOf_MonthlyOutFlow_Fields.get('Minimum_Payment_Calc__c')!=Null){
-            minimumPymntCalc = mapOf_MonthlyOutFlow_Fields.get('Minimum_Payment_Calc__c');
-            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + minimumPymntCalc;
+        if(mapOf_MonthlyOutFlow_Fields.get(Constants.MINIMUM_PAYMNT_CALC_C)!=Null){
+            minimumPymntCalc = mapOf_MonthlyOutFlow_Fields.get(Constants.MINIMUM_PAYMNT_CALC_C);
+            monthlyOutflowsPriorLoan = 
+                monthlyOutflowsPriorLoan + 
+                minimumPymntCalc;
         }
         
         if(record.Property_Tax_Monthly_Prior_Loan__c!=Null){
-            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Property_Tax_Monthly_Prior_Loan__c;     
+            monthlyOutflowsPriorLoan = 
+                monthlyOutflowsPriorLoan + 
+                record.Property_Tax_Monthly_Prior_Loan__c;     
         }
         if(record.Property_Insurance_Monthly_Prior_Loan__c!=Null){
-            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Property_Insurance_Monthly_Prior_Loan__c;     
+            monthlyOutflowsPriorLoan = 
+                monthlyOutflowsPriorLoan + 
+                record.Property_Insurance_Monthly_Prior_Loan__c;     
         }
         if(record.Property_Maintenance_Monthly_Prior_loan__c!=Null){
-            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Property_Maintenance_Monthly_Prior_loan__c;     
+            monthlyOutflowsPriorLoan = 
+                monthlyOutflowsPriorLoan + 
+                record.Property_Maintenance_Monthly_Prior_loan__c;     
         }
         if(record.Personal_Expenses_Monthly_Prior_Loan__c!=Null){
-            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Personal_Expenses_Monthly_Prior_Loan__c;     
+            monthlyOutflowsPriorLoan = 
+                monthlyOutflowsPriorLoan + 
+                record.Personal_Expenses_Monthly_Prior_Loan__c;     
         }
         if(record.Food_Cost_Monthly_Prior_Loan__c!=Null){
-            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Food_Cost_Monthly_Prior_Loan__c;     
+            monthlyOutflowsPriorLoan = 
+                monthlyOutflowsPriorLoan + 
+                record.Food_Cost_Monthly_Prior_Loan__c;     
         }
         if(record.Child_Care_Costs_Monthly_Prior_Loan__c!=Null){
-            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Child_Care_Costs_Monthly_Prior_Loan__c;     
+            monthlyOutflowsPriorLoan = 
+                monthlyOutflowsPriorLoan + 
+                record.Child_Care_Costs_Monthly_Prior_Loan__c;     
         }
         if(record.School_Costs_Monthly_Prior_Loan__c!=Null){
-            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.School_Costs_Monthly_Prior_Loan__c;     
+            monthlyOutflowsPriorLoan = 
+                monthlyOutflowsPriorLoan + 
+                record.School_Costs_Monthly_Prior_Loan__c;     
         }
         if(record.Health_Costs_Monthly_Prior_Loan__c!=Null){
             monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Health_Costs_Monthly_Prior_Loan__c;     
@@ -413,115 +514,221 @@ public with sharing class ApplicantAndEmployementWrapper {
             monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Real_Estate_Monthly_Payment_Number__c;     
         }
     }
-    public void getMonthlyOutFlowsAfterLoan(Applicant__c record){
+    
+    public void getMonthlyOutFlowsAfterLoan(Applicant__c record, 
+                                            Map<string, Decimal> loan_Calc_Prdcts_Fields, 
+                                            map<string, decimal> mapOfMnlyPayAfter, 
+                                            map<string, decimal> mapOfMinPayAfter)
+    {
         monthlyOutflowsAfterLoan = 0;
+        if(mapOfMnlyPayAfter!=Null){
+            if(mapOfMnlyPayAfter.get(Constants.MONTHLY_PAYMENT_AFTER_C)!=Null){
+                monthlyOutflowsAfterLoan = 
+                    monthlyOutflowsAfterLoan + 
+                    mapOfMnlyPayAfter.get(Constants.MONTHLY_PAYMENT_AFTER_C);
+            }  
+        }
+        
+        if(mapOfMinPayAfter!=Null){
+            if(mapOfMinPayAfter.get(Constants.MINIMUM_PAYMENT_AFTER_C)!=Null){
+                monthlyOutflowsAfterLoan = 
+                    monthlyOutflowsAfterLoan + 
+                    mapOfMinPayAfter.get(Constants.MINIMUM_PAYMENT_AFTER_C);
+            }
+        }
+        
+        if(loan_Calc_Prdcts_Fields!=Null){
+            if(loan_Calc_Prdcts_Fields.get(Constants.TOTAL_MONTHLY_LOAN_PAYMENT_NUMBER_C)!=Null){
+                monthlyOutflowsAfterLoan = 
+                    monthlyOutflowsAfterLoan + 
+                    loan_Calc_Prdcts_Fields.get(Constants.TOTAL_MONTHLY_LOAN_PAYMENT_NUMBER_C);
+            }
+            if(loan_Calc_Prdcts_Fields.get(Constants.MINIMUM_PAYMENT_PER_CREDIT_LIMIT_NUMBER_C)!=Null){
+                monthlyOutflowsAfterLoan = 
+                    monthlyOutflowsAfterLoan + 
+                    loan_Calc_Prdcts_Fields.get(Constants.MINIMUM_PAYMENT_PER_CREDIT_LIMIT_NUMBER_C);
+            }
+        }
+        
         if(record.Cell_Phone_Landline_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Cell_Phone_Landline_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Cell_Phone_Landline_Monthly_After_Loan__c;     
         }
         if(record.Child_Care_Costs_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Child_Care_Costs_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Child_Care_Costs_Monthly_After_Loan__c;     
         }
         if(record.Cooking_Gas_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Cooking_Gas_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Cooking_Gas_Monthly_After_Loan__c;     
         }
         if(record.Electricity_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Electricity_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Electricity_Monthly_After_Loan__c;     
         }
         if(record.Fares_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Fares_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Fares_Monthly_After_Loan__c;     
         }
 		if(record.Food_Costs_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Food_Costs_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Food_Costs_Monthly_After_Loan__c;     
         }
         if(record.Health_Costs_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Health_Costs_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Health_Costs_Monthly_After_Loan__c;     
         }
         if(record.House_Keeping_Costs_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.House_Keeping_Costs_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.House_Keeping_Costs_Monthly_After_Loan__c;     
         }
         if(record.Internet_Cable_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Internet_Cable_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Internet_Cable_Monthly_After_Loan__c;     
         }
         if(record.Motor_V_Insurance_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Motor_V_Insurance_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Motor_V_Insurance_Monthly_After_Loan__c;     
         }
         if(record.Motor_V_Maintenance_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Motor_V_Maintenance_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Motor_V_Maintenance_Monthly_After_Loan__c;     
         }
         if(record.Motor_Vehicle_Fitness_Monthly_After_Loan__c !=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Motor_Vehicle_Fitness_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Motor_Vehicle_Fitness_Monthly_After_Loan__c;     
         }
         if(record.Motor_Vehicle_Monthly_After_Loan__c !=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Motor_Vehicle_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Motor_Vehicle_Monthly_After_Loan__c;     
         }
         if(record.Motor_Vehicle_Reg_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Motor_Vehicle_Reg_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Motor_Vehicle_Reg_Monthly_After_Loan__c;     
         }
         if(record.Other_Personal_Family_Costs_Prior_After__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Other_Personal_Family_Costs_Prior_After__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Other_Personal_Family_Costs_Prior_After__c;     
         }
         if(record.Other_Transport_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Other_Transport_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Other_Transport_Monthly_After_Loan__c;     
         }
         if(record.Other_Utilities_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Other_Utilities_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Other_Utilities_Monthly_After_Loan__c;     
         }
         if(record.Personal_Expenses_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Personal_Expenses_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Personal_Expenses_Monthly_After_Loan__c;     
         }
         if(record.Petrol_Fuel_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Petrol_Fuel_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Petrol_Fuel_Monthly_After_Loan__c;     
         }
         if(record.Property_Insurance_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Property_Insurance_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Property_Insurance_Monthly_After_Loan__c;     
         }
         if(record.Property_Maintenance_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Property_Maintenance_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Property_Maintenance_Monthly_After_Loan__c;     
         }
         if(record.Property_Tax_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Property_Tax_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Property_Tax_Monthly_After_Loan__c;     
         }
         if(record.Rent_Board_Strata_After_TDSR__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Rent_Board_Strata_After_TDSR__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Rent_Board_Strata_After_TDSR__c;     
         }
         if(record.Rent_Board_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Rent_Board_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Rent_Board_Monthly_After_Loan__c;     
         }
         if(record.School_Costs_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.School_Costs_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.School_Costs_Monthly_After_Loan__c;     
         }
         if(record.Strata_Maintenance_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Strata_Maintenance_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Strata_Maintenance_Monthly_After_Loan__c;     
         }
         if(record.Toll_Fees_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Toll_Fees_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Toll_Fees_Monthly_After_Loan__c;     
         }
         if(record.Water_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Water_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Water_Monthly_After_Loan__c;     
         }
         if(record.Savings_Pension_Insurance_Number__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Savings_Pension_Insurance_Number__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Savings_Pension_Insurance_Number__c;     
         }
         if(record.Personal_Expenses_Monthly_After_Loan__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Personal_Expenses_Monthly_After_Loan__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Personal_Expenses_Monthly_After_Loan__c;     
         }
         if(record.Statutory_Deductions_Numbers__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Statutory_Deductions_Numbers__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Statutory_Deductions_Numbers__c;     
         }
         if(record.Rent_Strata_Maintenance__c!=Null){
-            monthlyOutflowsAfterLoan = monthlyOutflowsAfterLoan + record.Rent_Strata_Maintenance__c;     
+            monthlyOutflowsAfterLoan = 
+                monthlyOutflowsAfterLoan + 
+                record.Rent_Strata_Maintenance__c;     
         }
         if(record.Motor_Vehicle_Monthly_Payment_Number__c!=Null){
-            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Motor_Vehicle_Monthly_Payment_Number__c;     
+            monthlyOutflowsPriorLoan = 
+                monthlyOutflowsPriorLoan + 
+                record.Motor_Vehicle_Monthly_Payment_Number__c;     
         }
         if(record.Other_Asset_Monthly_Payment_Number__c!=Null){
-            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Other_Asset_Monthly_Payment_Number__c;     
+            monthlyOutflowsPriorLoan = 
+                monthlyOutflowsPriorLoan + 
+                record.Other_Asset_Monthly_Payment_Number__c;     
         }
         if(record.Other_Loan_Monthly_Payment_Number__c!=Null){
-            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Other_Loan_Monthly_Payment_Number__c;     
+            monthlyOutflowsPriorLoan = 
+                monthlyOutflowsPriorLoan + 
+                record.Other_Loan_Monthly_Payment_Number__c;     
         }
         if(record.Real_Estate_Monthly_Payment_Number__c!=Null){
-            monthlyOutflowsPriorLoan = monthlyOutflowsPriorLoan + record.Real_Estate_Monthly_Payment_Number__c;     
+            monthlyOutflowsPriorLoan = 
+                monthlyOutflowsPriorLoan + 
+                record.Real_Estate_Monthly_Payment_Number__c;     
         }
     }
     
