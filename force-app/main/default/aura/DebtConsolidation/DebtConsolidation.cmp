@@ -13,6 +13,7 @@
   <aura:attribute name="loanPurpose" type="String" />
   <aura:attribute name="loadComponent" type="Boolean" default="true" />
 
+
   <aura:attribute name="totalDebtAmount" type="Decimal" default="0.0" />
   <aura:attribute
     name="debtTypes"
