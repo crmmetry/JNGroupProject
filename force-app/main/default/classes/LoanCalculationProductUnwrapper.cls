@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+ * @group             :
+ * @last modified on  : 02-18-2021
+ * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+ * Modifications Log
+ * Ver   Date         Author                               Modification
+ * 1.0   02-18-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
+ **/
 public class LoanCalculationProductUnwrapper {
   private static final String TAG = 'LoanCalculationUnwrapper';
   @AuraEnabled

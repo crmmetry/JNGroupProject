@@ -930,7 +930,8 @@
       { localName: "lifeInsuranceCoverage" },
       { localName: "makeAndModelOfVehicle" },
       { localName: "jnBankAccountNumber" },
-      { localName: "jnBankAccountNumberPrefix" }
+      { localName: "jnBankAccountNumberPrefix" },
+      { localName: "numberOfSupplementaryCardHolders" }
     ];
     //product specific fields
     const updatedValues = this.contructProductSpecificDetailsFields(
