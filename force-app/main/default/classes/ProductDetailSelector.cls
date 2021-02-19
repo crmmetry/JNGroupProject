@@ -189,4 +189,29 @@ public with sharing class ProductDetailSelector {
     }
     return supplementaryWrapperList;
   }
+
+  /*
+   * gets the loan calculation product record related to a rubicon opportunity
+   * @param {Id} oppId - opportunity Id
+   * @return {LoanCalculationProductWrapper} - returns  opportunity details in wrapper format
+   */
+  public static LoanCalculationProductWrapper getLoanCalculationRecord(
+    Id oppId
+  ) {
+    LoanCalculationProductWrapper loanWrapper;
+    Loan_Calculation_Product__c loanObj = [
+      SELECT
+        Id,
+        Loan_Amount_Market_Percentage_Number__c,
+        Approved_Starting_Limit_Number__c,
+        Minimum_Payment_per_Credit_Limit_Number__c
+      FROM Loan_Calculation_Product__c
+      WHERE Loan_Calculation_Id__r.Opportunity__c = :oppId
+    ];
+    if (loanObj != null) {
+      loanWrapper = new LoanCalculationProductWrapper(loanObj);
+    }
+
+    return loanWrapper;
+  }
 }
