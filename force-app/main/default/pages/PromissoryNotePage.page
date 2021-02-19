@@ -38,7 +38,7 @@
             <tr>
                 <td class="td1">Amount:</td>
                 <td class="td1" colspan="2">
-                    <apex:outputText value=" {!applicantObject.CurrencyIsoCode}"/>
+                    <apex:outputText value=" {!loanCalculProductObj.CurrencyIsoCode}"/>
                     <apex:outputText value="{0,Number,###,###,##0.00}">
                         <apex:param value="{!loanCalculProductObj.Loan_Amount_Number__c}"/>
                     </apex:outputText>
@@ -52,18 +52,18 @@
                         on demand to <b><u>JN BANK LIMITED</u></b>, its assignee(s) or any holder of this Note in due course 
                         (hereinafter called the “Holder”) at 2-4, Constant Spring Road, Kingston 10, Jamaica, or 
                         such other place as the Holder may designate, the sum of <b>
-                        <apex:outputText value=" {!applicantObject.CurrencyIsoCode}"/>
+                        <apex:outputText value=" {!loanCalculProductObj.CurrencyIsoCode}"/>
                         <apex:outputText value="{0,Number,###,###,##0.00}">
                             <apex:param value="{!loanCalculProductObj.Loan_Amount_Number__c}"/>
-                        </apex:outputText> (please insert sum here in words and figures) </b>
+                        </apex:outputText> 
+                        (<apex:outputText value=" {!loanCalculProductObj.CurrencyIsoCode}"/> {!loan_Amount_In_Words}) </b>
                         (hereinafter called the “Principal Sum”) together with interest thereon, 
                         calculated on a daily basis based on a 365 day year and accruing interest from the date hereof until
                         paid in full.  It is further agreed that the Principal Sum and interest thereon under this Note is
                         payable monthly, unless stated otherwise by the Holder.    
                     </p>
                     <p style="text-align: justify;  text-justify: inter-word;">
-                        The rate of interest on this Note as at the date hereof is <b>{!loanCalculProductObj.Interest_Rate_Number__c}% (please insert interest 
-                        rate here in words and figures)</b> per annum, and is variable by the Holder from time to 
+                        The rate of interest on this Note as at the date hereof is <b>{!loanCalculProductObj.Interest_Rate_Number__c}% ({!intrest_Rate_In_Words}%)</b> per annum, and is variable by the Holder from time to 
                         time, both before and after the demand of payment and judgment and without the 
                         requirement of individual notice by the Holder.                        
                     </p>

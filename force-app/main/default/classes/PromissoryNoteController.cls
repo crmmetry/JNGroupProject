@@ -1,5 +1,5 @@
-//Sample Applicant Ids are a15f0000002F8z5AAC 	a15f0000002F9sIAAS
 //Sample Opportunities Id 006f000000PhctcAAB  006f000000PhpadAAB
+//Sample Applicant Ids are a15f0000002F8z5AAC 	a15f0000002F9sIAAS
 //Sample Account Id 001f000001dJOzdAAG	001f000001dXjJ9AAK
 public class PromissoryNoteController {
     //Date of Application
@@ -8,45 +8,57 @@ public class PromissoryNoteController {
     
     //Application ID
     public String applicationIdString{get;set;}
-    public Id applicantId{get;set;}
+    public Id OpportId{get;set;}
     
     public Account personAccount {get; set;}
-    public Applicant__c applicantObject{get; set;}
     public Opportunity oppObject {get; set;}
     public Loan_Calculation_Product__c loanCalculProductObj {get; set;}
     
+    public String loan_Amount_In_Words {get;set;}
+    public String intrest_Rate_In_Words {get;set;}
+    
     public PromissoryNoteController(){
-        //Get applicant id from URL
-        applicantId = ApexPages.currentPage().getParameters().get(Constants.ID_STRING);
+        //Get opportunity id from URL
+        OpportId = ApexPages.currentPage().getParameters().get(Constants.ID_STRING);
         
-        if(applicantId!=Null){
+        if(OpportId!=Null){
             //Form the date of application value to display in vf page
             dateOfApplication = date.today();
             dateString = dateOfApplication.format();
             
-            //Get applicant objects by using the applicant id from URL
-            applicantObject = getApplicant(applicantId);
+            //Get Opportunity by using the id from URL
+            oppObject = getOpportunityObj(OpportId);
             
             //Get account objects
-            personAccount = getAccount(applicantObject.Account__c);
+            personAccount = getAccount(oppObject.AccountId);
             
-            //Get Loan Amount/Limit Value
-            loanCalculProductObj = getLoanCalculationProduct(applicantObject.Opportunity__c);
+            //Get Loan_Calculation_Product__c
+            loanCalculProductObj = getLoanCalculationProduct(OpportId);
+            if(loanCalculProductObj!=Null){
+                if(loanCalculProductObj.Loan_Amount_Number__c !=Null){
+                    long loanAmt = (long) loanCalculProductObj.Loan_Amount_Number__c;
+                    loan_Amount_In_Words = NumberToWordsConverterClass.Number_To_Words(loanAmt);    
+                }
+                
+                if(loanCalculProductObj.Interest_Rate_Number__c !=Null){
+                    long interestRate = (long) loanCalculProductObj.Interest_Rate_Number__c;
+                    intrest_Rate_In_Words = NumberToWordsConverterClass.Number_To_Words(interestRate);    
+                }    
+            }
         }
-       // Apexpages.currentPage().getHeaders().put('content-disposition', 'attachment; filename= PromissoryNote'); 
+        //Apexpages.currentPage().getHeaders().put('content-disposition', 'attachment; filename= PromissoryNote'); 
     }
     
-    private Applicant__c getApplicant(Id applicantId){
-        Applicant__c applicantObjectInstance;
-        applicantObjectInstance = [SELECT 	Id, 
-                                   			Opportunity__c,
-                                   			Account__c,
-                                   			CurrencyIsoCode
-                                   FROM Applicant__c 
-                                   WHERE Id =:applicantId];
+    private Opportunity getOpportunityObj(Id OppId){
+        Opportunity oppObjectInstance;
+        oppObjectInstance = [SELECT Id,
+                  					Product_Details__c,
+                             		AccountId
+                  			FROM Opportunity 
+                  			WHERE Id =: oppId];
         
-        if(applicantObjectInstance!=Null){
-            return applicantObjectInstance;
+        if(oppObjectInstance!=Null){
+            return oppObjectInstance;
         }else{
             return Null;
         }
@@ -72,20 +84,15 @@ public class PromissoryNoteController {
     }
     
     private Loan_Calculation_Product__c getLoanCalculationProduct(Id oppId){
-        Opportunity OppObj = new Opportunity();
         list<Loan_Calculation_Product__c> loanCalPrdct; 
         Loan_Calculation_Product__c loanCalculationProductObj;
-        
-        OppObj = [SELECT Id,
-                  Product_Details__c
-                  FROM Opportunity 
-                  WHERE Id =: oppId];
      
-        if(OppObj!=Null){
+        if(oppObject!=Null){
             loanCalPrdct = [SELECT Loan_Amount_Number__c,
-                            		Interest_Rate_Number__c
+                            		Interest_Rate_Number__c,
+                            		CurrencyIsoCode
                             FROM Loan_Calculation_Product__c 
-                            WHERE Loan_Calculation_Id__c =: OppObj.Product_Details__c];
+                            WHERE Loan_Calculation_Id__c =: oppObject.Product_Details__c];
             
             if(loanCalPrdct != Null){
                 if(loanCalPrdct.size()>0){
