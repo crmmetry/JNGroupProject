@@ -515,7 +515,7 @@
                     border-bottom: 1px solid rgb(191, 191, 191);
                   "
                 >
-                  ##
+                  {!prod.Opportunity__r.Auto_Loan_Phoenix_Account_Number__c}
                 </td>
               </tr>
             </table>
@@ -963,7 +963,7 @@
                     border-bottom: 1px solid rgb(191, 191, 191);
                   "
                 >
-                  ##
+                  {!prod.Opportunity__r.Unsecured_Loan_Phoenix_Account_Number__c}
                 </td>
               </tr>
             </table>
