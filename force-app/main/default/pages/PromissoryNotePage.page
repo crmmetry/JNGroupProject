@@ -1,0 +1,132 @@
+<!--/*
+    Sr#     Ticket#      Modified By                Modified Date       Description  renderAs="pdf"
+ *    1     RUB-29       Sunil P                     02/19/2021        created the pdf.  
+*/ -->
+<!--/<apex:page applyHtmlTag="false"  contentType="application/msword#solitaire1.doc" applyBodyTag="false" controller="PromissoryNoteController" 
+           standardStylesheets="false" showHeader="false"> -->
+    
+    <apex:page applyHtmlTag="false" renderAs="pdf" controller="PromissoryNoteController" 
+           standardStylesheets="false" showHeader="false">
+        
+    <apex:stylesheet value="{!$Resource.PromissoryNoteCSS}"/>
+    <apex:form >
+        <table style="margin-right:2%;margin-left:2%;width:98%;margin-top:2%;">
+            <tr>
+                <td class="tdh1" colspan="3">PROMISSORY NOTE</td>
+            </tr>
+            <tr>
+                <td class="tdh2" colspan="3">(Time or Demand)</td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td class="tdh2Right">Individual</td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td class="tdh2Right">(S.I.)</td>
+            </tr> 
+            <tr>
+                <td class="td1">To:</td>
+                <td class="boldText1">JN BANK LIMITED</td>
+                <td class="td1"></td>
+            </tr>
+            <tr>
+                <td class="td1">Date:</td>
+                <td class="td1">{!dateString}</td>
+                <td class="td1"></td>
+            </tr>
+            <tr>
+                <td class="td1">Amount:</td>
+                <td class="td1" colspan="2">
+                    <apex:outputText value=" {!applicantObject.CurrencyIsoCode}"/>
+                    <apex:outputText value="{0,Number,###,###,##0.00}">
+                        <apex:param value="{!loanCalculProductObj.Loan_Amount_Number__c}"/>
+                    </apex:outputText>
+                </td>
+                <td class="td1"></td>
+            </tr>
+            <tr>
+                <td class="td1" colspan="3">
+                    <p style="text-align: justify;  text-justify: inter-word;">
+                        The undersigned for value received unconditionally <b>PROMISES</b> to <b>PAY</b> 
+                        on demand to <b><u>JN BANK LIMITED</u></b>, its assignee(s) or any holder of this Note in due course 
+                        (hereinafter called the “Holder”) at 2-4, Constant Spring Road, Kingston 10, Jamaica, or 
+                        such other place as the Holder may designate, the sum of <b>
+                        <apex:outputText value=" {!applicantObject.CurrencyIsoCode}"/>
+                        <apex:outputText value="{0,Number,###,###,##0.00}">
+                            <apex:param value="{!loanCalculProductObj.Loan_Amount_Number__c}"/>
+                        </apex:outputText> (please insert sum here in words and figures) </b>
+                        (hereinafter called the “Principal Sum”) together with interest thereon, 
+                        calculated on a daily basis based on a 365 day year and accruing interest from the date hereof until
+                        paid in full.  It is further agreed that the Principal Sum and interest thereon under this Note is
+                        payable monthly, unless stated otherwise by the Holder.    
+                    </p>
+                    <p style="text-align: justify;  text-justify: inter-word;">
+                        The rate of interest on this Note as at the date hereof is <b>{!loanCalculProductObj.Interest_Rate_Number__c}% (please insert interest 
+                        rate here in words and figures)</b> per annum, and is variable by the Holder from time to 
+                        time, both before and after the demand of payment and judgment and without the 
+                        requirement of individual notice by the Holder.                        
+                    </p>
+                    <p style="text-align: justify;  text-justify: inter-word;">
+                        Unpaid Interest and Principal on this Note shall be compounded at monthly rests at
+                        an interest rate of 5.00% per annum above the rate of interest applicable in 
+                        respect of the Principal Sum at the relevant time.                        
+                    </p>
+                    <p style="text-align: justify;  text-justify: inter-word;">
+                        The undersigned irrevocably and unconditionally waives all requirements as to 
+                        diligence, presentment, demand, protest and notice of dishonor and all other notices
+                        of any kind in the enforcement of this Note.
+                    </p>
+                    <p style="text-align: justify;  text-justify: inter-word;">
+                        The term “undersigned” means the person or persons executing this Note and where there
+                        is more than one, each of them shall be jointly and severally liable to the Holder.
+                    </p>
+                    <p style="text-align: justify;  text-justify: inter-word;">
+                        This Note shall be governed by and construed in accordance with the Laws of Jamaica.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td class="td1">Signature:</td>
+                <td class="td1">________________________</td>
+                <td class="td1"></td>
+            </tr>
+            <tr>
+                <td class="td1">Name:</td>
+                <td class="td1"><u>{!personAccount.Name}</u></td>
+                <td class="td1"></td>
+            </tr>
+            <tr>
+                <td class="td1">Address:</td>
+                <td class="td1"><u>{!personAccount.Street_1__pc}</u></td>
+                <td class="td1"></td>
+            </tr>
+            <tr>
+                <td class="td1"></td>
+                <td class="td1"><u>{!personAccount.Street_2__pc}</u></td>
+                <td class="td1"></td>
+            </tr>
+            <tr>
+                <td class="td1"></td>
+                <td class="td1"><u>{!personAccount.Street_3__pc} {!personAccount.City_Town__pc}</u></td>
+                <td class="td1"></td>
+            </tr>
+            <tr>
+                <td class="td1"></td>
+                <td class="td1"><u>{!personAccount.Residential_Area_District__pc} {!personAccount.Province_Parish_State__pc}</u></td>
+                <td class="td1"></td>
+            </tr>
+            <tr>
+                <td class="td1"></td>
+                <td class="td1"><u>{!personAccount.Post_Office_Zip_Code__pc} {!personAccount.Country__c}</u></td>
+                <td class="td1"></td>
+            </tr>
+            <tr>
+                <td class="td1">Witness:</td>
+                <td class="td1">________________________</td>
+                <td class="td1"></td>
+            </tr>
+        </table>      
+    </apex:form>
+        
+</apex:page>

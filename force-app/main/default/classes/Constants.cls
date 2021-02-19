@@ -83,5 +83,5 @@ public class Constants {
     public static final String YESSTRING = 'Yes';  
     public static final String NOSTRING = 'No';  
     
-    
+    public static final String ID_STRING = 'Id';
 }

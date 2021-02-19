@@ -1,0 +1,77 @@
+h1 {
+    color : red;
+}
+
+#myClass {
+    color : blue;
+}
+
+.boldText1 {
+    font-size: large;
+    text-align: left;
+    line-height: 20px;
+    font-family: "Gill Sans", sans-serif;
+    border-collapse: collapse;  
+    font-weight: bold;
+}
+.boldText2 {
+    
+    font-size: small;
+    line-height: 20px;
+    font-family: "Gill Sans", sans-serif;
+    font-weight: bold;
+    border-collapse: collapse;  
+}
+
+
+.tdh1 {
+    font-size: large;
+    text-align: center;
+    line-height: 20px;
+    font-family: "Gill Sans", sans-serif;
+    border-collapse: collapse;  
+    font-weight: bold;
+}
+
+.tdh2 {
+    font-size: Medium;
+    text-align: center;
+    line-height: 20px;
+    font-family: "Gill Sans", sans-serif;
+    border-collapse: collapse;  
+    font-weight: bold;
+}
+
+.tdh2Right {
+    font-size: Medium;
+    text-align: Right;
+    line-height: 20px;
+    font-family: "Gill Sans", sans-serif;
+    border-collapse: collapse;  
+    font-weight: bold;
+}
+.tdh2Center {
+    font-size: Medium;
+    text-align: center;
+    line-height: 20px;
+    font-family: "Gill Sans", sans-serif;
+    border-collapse: collapse;  
+    font-weight: bold;
+}
+
+
+.td1 {
+    font-size: Small;
+    text-align: left;
+    line-height: 20px;
+    font-family: "Gill Sans", sans-serif;
+    border-collapse: collapse;  
+}
+
+.td2 {
+    font-size: Small;
+    text-align: right;
+    line-height: 20px;
+    font-family: "Gill Sans", sans-serif;
+    border-collapse: collapse;  
+}
