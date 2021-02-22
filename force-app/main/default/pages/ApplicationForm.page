@@ -795,83 +795,55 @@
               </div>
             </div>
 
-            <div class="headerInBlue" style="margin-top: 10px;">
-              <b>MORATORIUM DETAILS</b>
-            </div>
-            <div
-              class="summaryBlock"
-              style="font-size: 0.685em; line-height: 20px;"
-            >
-              <div class="summaryBlock">
-                <table
-                  style="margin-left: 16px; margin-right: 10px; width: 95%;"
-                  cellpadding="0"
-                  cellspacing="0"
-                >
-                  <tr>
-                    <td>Include a moratorium of loan repayments:</td>
-                  </tr>
-                  <tr style="margin-top: 5px;">
-                    <td style="border-bottom: 1px solid rgb(191, 191, 191);">
-                      ##
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <div class="summaryBlock">
-                <table
-                  style="margin-left: 16px; margin-right: 10px; width: 95%;"
-                  cellpadding="0"
-                  cellspacing="0"
-                >
-                  <tr>
-                    <td>Indicate Type:</td>
-                  </tr>
-                  <tr style="margin-top: 5px;">
-                    <td style="border-bottom: 1px solid rgb(191, 191, 191);">
-                      ##
-                    </td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-            <div
-              class="summaryBlock"
-              style="font-size: 0.685em; line-height: 20px;"
-            >
-              <div class="summaryBlock">
-                <table
-                  style="margin-left: 16px; margin-right: 10px; width: 95%;"
-                  cellpadding="0"
-                  cellspacing="0"
-                >
-                  <tr>
-                    <td>Indicate Term:</td>
-                  </tr>
-                  <tr style="margin-top: 5px;">
-                    <td style="border-bottom: 1px solid rgb(191, 191, 191);">
-                      ##
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <div class="summaryBlock">
-                <table
-                  style="margin-left: 16px; margin-right: 10px; width: 95%;"
-                  cellpadding="0"
-                  cellspacing="0"
-                >
-                  <tr>
-                    <td>Other Post-Moratorium Details:</td>
-                  </tr>
-                  <tr style="margin-top: 5px;">
-                    <td style="border-bottom: 1px solid rgb(191, 191, 191);">
-                      ##
-                    </td>
-                  </tr>
-                </table>
-              </div>
-            </div>
+            <!--  <div class="headerInBlue" style="margin-top:10px;">
+                            <b>MORATORIUM DETAILS</b>
+                        </div>
+                        <div class="summaryBlock" style="font-size:0.685em;line-height:20px;"> 
+                            <div class="summaryBlock">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Include a moratorium of loan repayments:</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">##</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="summaryBlock">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Indicate Type:</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">##</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="summaryBlock" style="font-size:0.685em;line-height:20px;">
+                            <div class="summaryBlock">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Indicate Term:</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">##</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="summaryBlock">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Other Post-Moratorium Details:</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">##</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>-->
 
             <div class="headerInBlue" style="margin-top: 10px;">
               <b>JN LIFE SINGLE PREMIUM CREDITOR LIFE INSURANCE</b>

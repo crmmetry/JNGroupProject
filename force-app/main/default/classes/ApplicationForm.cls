@@ -473,6 +473,10 @@ public class ApplicationForm {
           SELECT
             id,
             Opportunity__r.Campaign.Name,
+            Opportunity__r.Credit_Card_Phoenix_Account_Number__c,
+            Opportunity__r.Line_of_Credit_Phoenix_Account_Number__c,
+            Opportunity__r.Auto_Loan_Phoenix_Account_Number__c,
+            Opportunity__r.Unsecured_Loan_Phoenix_Account_Number__c,
             Nick_Name_Of_Calculation__c,
             Will_card_used_by_authorized_cardholders__c,
             Lead_and_Referral__c,
@@ -649,7 +653,10 @@ public class ApplicationForm {
                 Deposit_Account_Balance_Number__c,
                 Account_Hypothecated_list__c,
                 Existing_Loan_Balance_Number__c,
-                Requested_Credit_Limit_Number__c
+                Requested_Credit_Limit_Number__c,
+                Annual_Creditor_Life_Fee_Number__c,
+                Annual_Membership_Primary_Number__c,
+                Annual_Membership_Supplementary_Number__c
               FROM Loan_Calculation_Products__r
               ORDER BY CreatedDate DESC
             )
