@@ -3,8 +3,6 @@
     let total = 0;
     for (let key in totalDebtMap) {
       total = parseFloat(total) + parseFloat(totalDebtMap[key]);
-      console.log("key->",key);
-      console.log("value->",totalDebtMap[key]);
     }
     component.set("v.totalDebtAmount", total);
   },

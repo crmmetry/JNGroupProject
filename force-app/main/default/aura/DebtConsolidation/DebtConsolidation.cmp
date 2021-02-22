@@ -15,17 +15,17 @@
   <aura:attribute name="totalDebtAmtMap" type="Map" default="{}" />
   <aura:attribute name="appAssetLiabilityList" type="Application_Asset_Liability__c[]"></aura:attribute>
   <aura:attribute
-    name="debtTypes"
-    type="List"
-    default="['Unsecured Loan',
-                                                          'Motor Vehicle Loan',
-                                                          'Mortgage/ Home Equity Loan',
-                                                          'Credit Card',
-                                                          'Student Loan',
-                                                          'Hire Purchase',
-                                                          'Other']"
-  />
-
+                    name="debtTypes"
+                    type="List"
+                    default="['Unsecured Loan',
+                             'Motor Vehicle Loan',
+                             'Mortgage/ Home Equity Loan',
+                             'Credit Card',
+                             'Student Loan',
+                             'Hire Purchase',
+                             'Other']"
+                    />   
+    
   <aura:handler
     name="setAttribute"
     event="c:ChangeInDebtAmount"
@@ -177,13 +177,7 @@
       </tr>
     </thead>
   </table>
-    <div class="slds-col modal-footer slds-modal__footer"
-         >
-        <lightning:button label="Save"
-                          iconPosition="right"
-                          variant="brand"
-                          class="slds-button"
-                          onclick="{!c.saveRecords}"
-                          />
-    </div>
+    <c:flowFooter availableActions="{!v.availableActions}"
+    navigateFlowEvent="{!c.saveRecords}"/>
+    
 </aura:component>

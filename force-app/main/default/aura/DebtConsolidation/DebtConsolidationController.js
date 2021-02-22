@@ -51,7 +51,6 @@
         let applicantId = component.get("v.applicantId");
         let unsecuredLoanRecords = component.get("v.unsecuredLoanRecords");
         let objunsecuredLoanRecords = JSON.parse(JSON.stringify(unsecuredLoanRecords));
-        debugger;
         for (let ulElement of objunsecuredLoanRecords)
         {
             
@@ -59,12 +58,9 @@
             record.Debt_Type_List__c = "Unsecured Loan";
             record.Institution_Debt_List__c = ulElement['DebtInstitution'];
             record.Debt_Amount_Number__c = ulElement['DebtAmount'];
-            record.Application__c = applicantId;
-            console.log("ulElement['Id']",ulElement['Id']);
             if(ulElement['Id'] != undefined && ulElement['Id'] !=null && ulElement['Id'] !=''){
               record.Id = ulElement['Id'];
             }
-            console.log("record::",record);
             listOfRecordsToInsert.push(record);
         }
         let homeLoanRecords = component.get("v.homeLoanRecords");
@@ -75,7 +71,6 @@
             record.Debt_Type_List__c = "Mortgage/ Home Equity Loan";
             record.Institution_Debt_List__c = hlElement['DebtInstitution'];
             record.Debt_Amount_Number__c = hlElement['DebtAmount'];
-            record.Application__c = applicantId;
             if(hlElement['Id'] != undefined && hlElement['Id'] !=null && hlElement['Id'] !=''){
               record.Id = hlElement['Id'];  
             }
@@ -89,7 +84,6 @@
             record.Debt_Type_List__c = "Motor Vehicle Loan";
             record.Institution_Debt_List__c = mvElement['DebtInstitution'];
             record.Debt_Amount_Number__c = mvElement['DebtAmount'];
-            record.Application__c = applicantId;
             if(mvElement['Id'] != undefined && mvElement['Id'] !=null && mvElement['Id'] !=''){
               record.Id = mvElement['Id'];  
             }
@@ -103,7 +97,6 @@
             record.Debt_Type_List__c = "Credit Card";
             record.Institution_Debt_List__c = ccrElement['DebtInstitution'];
             record.Debt_Amount_Number__c = ccrElement['DebtAmount'];
-            record.Application__c = applicantId;
             if(ccrElement['Id'] != undefined && ccrElement['Id'] !=null && ccrElement['Id'] !=''){
               record.Id = ccrElement['Id'];  
             }
@@ -117,7 +110,6 @@
             record.Debt_Type_List__c = "Student Loan";
             record.Institution_Debt_List__c = slElement['DebtInstitution'];
             record.Debt_Amount_Number__c = slElement['DebtAmount'];
-            record.Application__c = applicantId;
             if(slElement['Id'] != undefined && slElement['Id'] !=null && slElement['Id'] !=''){
               record.Id = slElement['Id'];  
             }
@@ -131,7 +123,6 @@
             record.Debt_Type_List__c = "Hire Purchase";
             record.Institution_Debt_List__c = hpElement['DebtInstitution'];
             record.Debt_Amount_Number__c = hpElement['DebtAmount'];
-            record.Application__c = applicantId;
             if(hpElement['Id'] != undefined && hpElement['Id'] !=null && hpElement['Id'] !=''){
               record.Id = hpElement['Id'];  
             }
@@ -145,18 +136,17 @@
             record.Debt_Type_List__c = "Other";
             record.Institution_Debt_List__c = otherElement['DebtInstitution'];
             record.Debt_Amount_Number__c = otherElement['DebtAmount'];
-            record.Application__c = applicantId;
             if(otherElement['Id'] != undefined && otherElement['Id'] !=null && otherElement['Id'] !=''){
               record.Id = otherElement['Id'];  
             }
             listOfRecordsToInsert.push(record);
         }
-        console.log("listOfRecordsToInsert::",listOfRecordsToInsert);        
         let action = component.get("c.saveAssetLiablityRecords");
         let totalConsolidatedAmount = component.get("v.totalDebtAmount");
         let totalMonthlyAmount = component.get("v.totalMonthlyPayment");
         action.setParams({
             recordList : listOfRecordsToInsert,
+            applId : applicantId,
             totalMonthly : totalMonthlyAmount,
             totalConsolidated : totalConsolidatedAmount
             
@@ -167,9 +157,11 @@
             }
         });
         $A.enqueueAction(action);
+        
+        var navigate = component.get("v.navigateFlow");
+        navigate(event.getParam("action"));
     },
     doInit: function(component, event, helper){
-        debugger;
         let applicantId = component.get("v.applicantId");
         let action = component.get("c.getAssetLiabilityRecords");
         action.setParams({
@@ -181,9 +173,7 @@
                 let controllerResponse = response.getReturnValue();
                 let totalDebtMap = component.get("v.totalDebtAmtMap");
                 for(let allRecords of controllerResponse){
-                    console.log("allRecords::",allRecords);
                     let newRow = { DebtInstitution: allRecords.Institution_Debt_List__c, DebtAmount: allRecords.Debt_Amount_Number__c, Id: allRecords.Id};
-                    console.log("newRow::",newRow);
                     let debtTypeSelected = allRecords.Debt_Type_List__c;
                     let totalConsolidatedAmount = allRecords.Application__r.Total_Amount_Consolidated__c;
                     let totalMonthlyAmount = allRecords.Application__r.Total_Monthly_Payment__c;
@@ -191,7 +181,6 @@
                     if (debtTypeSelected == "Unsecured Loan") {
                         existingRows = component.get("v.unsecuredLoanRecords");
                         existingRows.push(newRow);
-                        console.log("existingRows::",existingRows);
                         component.set("v.unsecuredLoanRecords", existingRows);
                         
                         let length = existingRows.length-1;
