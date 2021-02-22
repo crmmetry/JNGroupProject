@@ -19,7 +19,7 @@ public class PromissoryNoteController {
     
     public PromissoryNoteController(){
         //Get opportunity id from URL
-        OpportId = ApexPages.currentPage().getParameters().get(Constants.ID_STRING);
+        OpportId = ApexPages.currentPage().getParameters().get(Constants.URL_PARAM_ID_STRING);
         
         if(OpportId!=Null){
             //Form the date of application value to display in vf page
@@ -46,7 +46,7 @@ public class PromissoryNoteController {
                 }    
             }
         }
-        //Apexpages.currentPage().getHeaders().put('content-disposition', 'attachment; filename= PromissoryNote'); 
+        Apexpages.currentPage().getHeaders().put('content-disposition', 'attachment; filename= PromissoryNote.pdf'); 
     }
     
     private Opportunity getOpportunityObj(Id OppId){
