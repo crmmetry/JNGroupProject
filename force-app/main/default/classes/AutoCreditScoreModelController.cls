@@ -131,7 +131,7 @@ public class AutoCreditScoreModelController {
     Public CreditScoreModelWrapper creditScoreMdlWrpr;
     
     public Decimal fnalScore{get; set;} 
-        
+    
     public AutoCreditScoreModelController(){        
         //Form the date of application value to display in vf page
         dateOfApplication = date.today();
@@ -139,107 +139,109 @@ public class AutoCreditScoreModelController {
         
         //Get applicant id from URL
         applicantId = ApexPages.currentPage().getParameters().get('Id');
+        if(applicantId!=Null){
         
-        //Get applicant objects by using the applicant id from URL
-        applicantObject = getApplicant(applicantId);
-        
-        //Get account objects
-        personAccount = getAccount(applicantObject.Account__c);
-        
-        //Get product Category Value
-        productCategry = getProductCategory(applicantObject.Opportunity__c);
-        formatProductCatg(productCategry);
-        
-        //Get Loan Amount/Limit Value
-        getLoanCalculationApplicantProduct(applicantObject.Opportunity__c, applicantId);
-        
-        //Get Jamaican Tax Number Value
-        jamaicanTaxNumber = personAccount.Jamaican_Tax_Registration_Number__pc;
-        
-        //Get formatted Application ID Value
-        applicationIdString = formApplicationId(productCategry, jamaicanTaxNumber, dateString);
-        
-        //Get Name of Applicant Value
-        nameOfApplicant = personAccount.Name;
-        
-        //Get value - Is the Applicant a Politcally Exposed Person (PEP)?* 
-        if(personAccount.Political_Exposure__pc == True){
-            isApplicantPolicExpoxed = 'Yes';    
-        }else{
-            isApplicantPolicExpoxed = 'No';    
+            //Get applicant objects by using the applicant id from URL
+            applicantObject = getApplicant(applicantId);
+    
+            //Get account objects
+            personAccount = getAccount(applicantObject.Account__c);
+            
+            //Get product Category Value
+            productCategry = getProductCategory(applicantObject.Opportunity__c);
+            formatProductCatg(productCategry);
+            
+            //Get Loan Amount/Limit Value
+            getLoanCalculationApplicantProduct(applicantObject.Opportunity__c, applicantId);
+            
+            //Get Jamaican Tax Number Value
+            jamaicanTaxNumber = personAccount.Jamaican_Tax_Registration_Number__pc;
+            
+            //Get formatted Application ID Value
+            applicationIdString = formApplicationId(productCategry, jamaicanTaxNumber, dateString);
+            
+            //Get Name of Applicant Value
+            nameOfApplicant = personAccount.Name;
+            
+            //Get value - Is the Applicant a Politcally Exposed Person (PEP)?* 
+            if(personAccount.Political_Exposure__pc == True){
+                isApplicantPolicExpoxed = 'Yes';    
+            }else{
+                isApplicantPolicExpoxed = 'No';    
+            }
+            
+            //Get value - Has the sanction screening(s) resulted in a negative trace?*
+            hasSanctionNegativeTrace = applicantObject.Sanction_Screening_has_Negative_Trace__c;
+            
+            //Get the employment information 
+            employWrapper = ProductDetailSelector.getEmployemntDetails(applicantObject.Account__c);
+            primaryEmploymentType = employWrapper.employmentType;
+            
+            //Get the value of Assessed Monthly Income:
+            grossMonthlyIncome = applicantObject.Gross_Monthly_IncomeC__c;
+            
+            //Get the Number of Applicant(s):
+            totalNumberOfApplicants = getNumberOfApplicants(applicantObject.Opportunity__c);
+            
+            //Get the value of Age
+            ProductDetailService prdDetailSrv = new ProductDetailService();
+            personAccountWrapper = ProductDetailSelector.getAccount(applicantObject.Account__c);
+            
+            ageString = prdDetailSrv.getSubCriteriaOption(Constants.AGE,String.ValueOf(personAccountWrapper.age));
+            
+            //Get the value of Education
+            educationString = prdDetailSrv.getSubCriteriaOption(Constants.EDUCATION, personAccountWrapper.highestLevelOfEducation);
+            
+            //Get the value of Residential Status
+            statusOfAddressString = prdDetailSrv.getSubCriteriaOption(Constants.STATUS_OF_ADDRESS, personAccountWrapper.statusOfAddress);
+            
+            //Get the value of Years at Current Residence
+            yearsAtResidentString = prdDetailSrv.getSubCriteriaOption(Constants.YEARS_AT_RESIDENCE, String.valueOf(personAccountWrapper.yearsAtResident));
+            
+            //Get the value of Credit History in the last 24 months
+            creditHistoryLast24Months= prdDetailSrv.getSubCriteriaOption(Constants.CREDIT_HISTORY, applicantObject.Credit_History_in_last_24_Months__c);    
+            
+            //Get the value of Net Worth 
+            assessmentOfApplicantNetWorth = prdDetailSrv.getSubCriteriaOption(Constants.NET_WORTH, applicantObject.Assessment_of_Applicant_Net_Worth__c);
+            
+            //Get the value of Employment Status
+            emplStatus = prdDetailSrv.getSubCriteriaOption(Constants.EMPLOYMENT_STATUS, employWrapper.EmploymentStatus);
+            
+            //Get the value of Industry of Employment
+            industryName = prdDetailSrv.getSubCriteriaOption(Constants.INDUSTRY, employWrapper.industry);
+            
+            //Get the value of Length of Current Employment
+            lengthOfEmploymentString = prdDetailSrv.getSubCriteriaOption(Constants.LENGTH_OF_EMPLOYMENT, String.valueOf(employWrapper.lengthOfEmployment));
+            
+            //Get the value of Professional Category
+            professionalCategory = prdDetailSrv.getSubCriteriaOption(Constants.PROFESSIONAL_CATEGORY, employWrapper.professionalCategory);
+            
+            oppObject = [SELECT Id, Collateral_CC__c, Loan_to_ValueCC__c, AccountId
+                         FROM Opportunity 
+                         WHERE Id =: applicantObject.Opportunity__c];
+            
+            oppWrpr = new OpportunityWrapper(oppObject);
+            subCritOptionWrpr = ProductDetailService.getSubcriteriaOptions(applicantObject.Opportunity__c);
+            CreditScoreModelWrapper creditWrapper = new CreditScoreModelWrapper(subCritOptionWrpr); 
+            
+            //Get the value in Collateral
+            collateralName = prdDetailSrv.getSubCriteriaOption(Constants.COLLATERAL, subCritOptionWrpr.collateral);
+            
+            //Get the value in Ability to Service
+            abilityToService = prdDetailSrv.getSubCriteriaOption(Constants.ABILITY_TO_SERVICE, String.ValueOf(subCritOptionWrpr.ablitityToService));
+            
+            //Get the value in Repayment Method
+            repaymntMethod = prdDetailSrv.getSubCriteriaOption(Constants.REPAYMENT_METHOD, subCritOptionWrpr.repaymentMethod);
+            
+            //Assign the value of Score and Weightage to each row  
+            assignScoreaAndWeightage(creditWrapper.fieldScoreMap);
+            
+            //Get the value in Total Weighted Score
+            totalWeightedScore = creditWrapper.finalScore;
+            
+            //Get the value in Credit Risk Rating 
+            creditRiskRatingValue = creditWrapper.riskRating.rating;
         }
-		
-        //Get value - Has the sanction screening(s) resulted in a negative trace?*
-        hasSanctionNegativeTrace = applicantObject.Sanction_Screening_has_Negative_Trace__c;
-        
-        //Get the employment information 
-        employWrapper = ProductDetailSelector.getEmployemntDetails(applicantObject.Account__c);
-		primaryEmploymentType = employWrapper.employmentType;
-        
-        //Get the value of Assessed Monthly Income:
-        grossMonthlyIncome = applicantObject.Gross_Monthly_IncomeC__c;
-        
-        //Get the Number of Applicant(s):
-        totalNumberOfApplicants = getNumberOfApplicants(applicantObject.Opportunity__c);
-        
-        //Get the value of Age
-        ProductDetailService prdDetailSrv = new ProductDetailService();
-        personAccountWrapper = ProductDetailSelector.getAccount(applicantObject.Account__c);
-        
-        ageString = prdDetailSrv.getSubCriteriaOption(Constants.AGE,String.ValueOf(personAccountWrapper.age));
-        
-        //Get the value of Education
-       	educationString = prdDetailSrv.getSubCriteriaOption(Constants.EDUCATION, personAccountWrapper.highestLevelOfEducation);
-        
-        //Get the value of Residential Status
-		statusOfAddressString = prdDetailSrv.getSubCriteriaOption(Constants.STATUS_OF_ADDRESS, personAccountWrapper.statusOfAddress);
-        
-		//Get the value of Years at Current Residence
-		yearsAtResidentString = prdDetailSrv.getSubCriteriaOption(Constants.YEARS_AT_RESIDENCE, String.valueOf(personAccountWrapper.yearsAtResident));
-		
-		//Get the value of Credit History in the last 24 months
-        creditHistoryLast24Months= prdDetailSrv.getSubCriteriaOption(Constants.CREDIT_HISTORY, applicantObject.Credit_History_in_last_24_Months__c);    
-            
-        //Get the value of Net Worth 
-        assessmentOfApplicantNetWorth = prdDetailSrv.getSubCriteriaOption(Constants.NET_WORTH, applicantObject.Assessment_of_Applicant_Net_Worth__c);
-            
-        //Get the value of Employment Status
-    	emplStatus = prdDetailSrv.getSubCriteriaOption(Constants.EMPLOYMENT_STATUS, employWrapper.EmploymentStatus);
-        
-        //Get the value of Industry of Employment
-        industryName = prdDetailSrv.getSubCriteriaOption(Constants.INDUSTRY, employWrapper.industry);
-
-        //Get the value of Length of Current Employment
-		lengthOfEmploymentString = prdDetailSrv.getSubCriteriaOption(Constants.LENGTH_OF_EMPLOYMENT, String.valueOf(employWrapper.lengthOfEmployment));
-        
-        //Get the value of Professional Category
-        professionalCategory = prdDetailSrv.getSubCriteriaOption(Constants.PROFESSIONAL_CATEGORY, employWrapper.professionalCategory);
-        
-        oppObject = [SELECT Id, Collateral_CC__c, Loan_to_ValueCC__c, AccountId
-                          FROM Opportunity 
-                          WHERE Id =: applicantObject.Opportunity__c];
-
-        oppWrpr = new OpportunityWrapper(oppObject);
-        subCritOptionWrpr = ProductDetailService.getSubcriteriaOptions(applicantObject.Opportunity__c);
-    	CreditScoreModelWrapper creditWrapper = new CreditScoreModelWrapper(subCritOptionWrpr); 
-        
-        //Get the value in Collateral
-        collateralName = prdDetailSrv.getSubCriteriaOption(Constants.COLLATERAL, subCritOptionWrpr.collateral);
-        
-        //Get the value in Ability to Service
-        abilityToService = prdDetailSrv.getSubCriteriaOption(Constants.ABILITY_TO_SERVICE, String.ValueOf(subCritOptionWrpr.ablitityToService));
-        
-        //Get the value in Repayment Method
-        repaymntMethod = prdDetailSrv.getSubCriteriaOption(Constants.REPAYMENT_METHOD, subCritOptionWrpr.repaymentMethod);
-        
-        //Assign the value of Score and Weightage to each row  
-        assignScoreaAndWeightage(creditWrapper.fieldScoreMap);
-        
-        //Get the value in Total Weighted Score
-        totalWeightedScore = creditWrapper.finalScore;
-        
-        //Get the value in Credit Risk Rating 
-        creditRiskRatingValue = creditWrapper.riskRating.rating;
     } 
     
     private void assignScoreaAndWeightage(Map<String, List<Decimal>> mapOfScoreWeightage){
