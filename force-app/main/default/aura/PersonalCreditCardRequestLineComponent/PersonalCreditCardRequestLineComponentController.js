@@ -2,7 +2,7 @@
   doInit: function (component, event, helper) {
     let data = {
       requestedCreditLimit: component.get("v.productPrice"),
-      interestRate: null
+      market: null
     };
     component.set("v.ChildContainer", data);
   },

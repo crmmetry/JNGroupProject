@@ -103,7 +103,7 @@
       <lightning:input
         type="number"
         label="Interest Rate"
-        value="{!v.ChildContainer.interestRate}"
+        value="{!v.ChildContainer.market}"
         placeholder="per annum"
         name="interestRate"
         formatter="percent-fixed"
