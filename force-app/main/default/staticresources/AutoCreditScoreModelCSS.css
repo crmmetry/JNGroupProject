@@ -1,6 +1,7 @@
 /*
     Sr#     Ticket#      Modified By                Modified Date       Description
  *    1     JN1-4144      Ishwari Gaikwad.(TQ)      12/21/2020        created the pdf.  
+ * 	  2		JN1-4279	  Ishwari Gaikwad.(TQ)		02/09/2021		  created pdf.
 */
 @page {
   /*size:landscape;*/
@@ -30,6 +31,11 @@ div.footer {
 .pagecount:before {
   content: counter(pages);
 }
+.div.content {
+  display: block;
+  page-break-after: always;
+  font-size: 0.775em;
+}
 .boxedDiv {
   border: 2px solid #0070c0;
   margin: 1px;
@@ -38,6 +44,14 @@ div.footer {
   background-color: #0070c0;
   color: #fff;
   text-align: center;
+}
+.headerInBlue {
+  background-color: #b1d2fa;
+  color: #050505;
+  font-size: smaller;
+  text-align: center;
+  line-height: 20px;
+  font-family: "Gill Sans", sans-serif;
 }
 .logo {
   width: 100%;
@@ -90,7 +104,6 @@ div.footer {
 .td {
   font-size: smaller;
   text-align: center;
-  line-height: 20px;
   font-family: "Gill Sans", sans-serif;
   border-collapse: collapse;
   border: 1px solid #ccc;
@@ -101,6 +114,7 @@ div.footer {
   font-family: "Gill Sans", sans-serif;
   border-collapse: collapse;
 }
+
 .ratingTableHeader {
   font-size: smaller;
   text-align: center;
@@ -182,4 +196,73 @@ hr {
 .bold {
   color: #0070c0;
   margin-top: 1%;
+}
+.greyBox {
+  text-align: center;
+  border: 1px solid rgb(191, 191, 191);
+  background-color: rgb(224, 224, 224);
+  line-height: 160%;
+}
+
+.header-inside {
+  width: 98%;
+  font-size: 0.785em;
+  color: #000060;
+  margin-left: 5px;
+  border-bottom: 2px solid #0070c0;
+  font-family: "Gill Sans", sans-serif;
+}
+.summaryTable {
+  margin-left: 2%;
+  width: 95%;
+  margin-top: 1%;
+  border-collapse: collapse;
+  border-color: #ccc;
+  font-size: 0.795em;
+  text-align: left;
+  line-height: 20px;
+}
+.contentTable1 {
+  width: 100%;
+  border-collapse: collapse;
+  border-color: #ccc;
+}
+.td2 {
+  padding-left: 20px;
+  text-align: left;
+  font-family: "Gill Sans", sans-serif;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+  font-size: 0.795em;
+}
+.p {
+  text-align: left;
+  font-family: "Gill Sans", sans-serif;
+  font-size: smaller;
+}
+.summaryBlock {
+  display: inline-block;
+  width: 49%;
+}
+.blueBG {
+  background-color: #c8f0fa;
+}
+.leftAlign {
+  text-align: left;
+}
+.contentTable2 {
+  margin-left: 0%;
+  width: 100%;
+  margin-top: 1%;
+  border-collapse: collapse;
+  border-color: #ccc;
+}
+.extraSpace {
+  line-height: 20.5px;
+}
+.smallSectionHeader {
+  margin-left: 16px;
+  margin-right: 10px;
+  width: 95%;
+  font-size: smaller;
 }
