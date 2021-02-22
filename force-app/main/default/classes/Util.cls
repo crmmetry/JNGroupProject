@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+ * @group             :
+ * @last modified on  : 02-22-2021
+ * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+ * Modifications Log
+ * Ver   Date         Author                               Modification
+ * 1.0   02-22-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
+ **/
 public with sharing class Util {
   public static final String AccountRole = 'AccountRole';
   public static final String ContactRole = 'ContactRole';
@@ -529,7 +539,7 @@ public with sharing class Util {
    */
   public static List<OpportunityLineItem> getOpportunityProducts(Id oppId) {
     return [
-      SELECT Id, Product_Family__c, Name, UnitPrice
+      SELECT Id, Product_Family__c, Name, UnitPrice, Product2.Name
       FROM OpportunityLineItem
       WHERE OpportunityId = :oppId
     ];

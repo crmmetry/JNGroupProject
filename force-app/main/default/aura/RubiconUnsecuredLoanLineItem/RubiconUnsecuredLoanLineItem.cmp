@@ -1,0 +1,331 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 02-22-2021
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+  Modifications Log 
+  Ver   Date         Author                               Modification
+  1.0   02-22-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
+-->
+<aura:component
+  implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
+  controller="RubiconProductDetailsController"
+>
+  <aura:attribute name="ParentContainer" type="Map" />
+  <aura:attribute name="requestedLoanCurrency" type="List" />
+  <aura:attribute name="methodFeePayment" type="List" />
+  <aura:attribute name="includeCreditorLifeInLoanAmount" type="List" />
+
+  <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+  <legend
+    id="productdetailsform"
+    class="slds-text-heading_medium slds-p-vertical_medium"
+  >
+    Requested Details
+  </legend>
+  <lightning:layout multipleRows="true">
+    <!--Layout for Headings-->
+    <lightning:layoutItem size="12" mediumDeviceSize="4">
+      <h3 class="slds-section-title--divider">
+        Loan Amount - Market Financing
+      </h3>
+      <div class="slds-var-p-top_medium"></div>
+      <lightning:input
+        type="number"
+        label="Amount"
+        value="{!v.UnsecuredLoanContainer.loanAmount}"
+        name="number"
+        formatter="currency"
+        required="true"
+      />
+    </lightning:layoutItem>
+    <lightning:layoutItem size="12" mediumDeviceSize="4">
+      <h3 class="slds-section-title--divider">
+        Loan Term (months) - Market Financing
+      </h3>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="12" mediumDeviceSize="4">
+      <div class="slds-var-p-top_medium">
+        <lightning:input
+          type="number"
+          label="Months"
+          value="{!v.UnsecuredLoanContainer.loanTerm}"
+          name="number"
+          required="true"
+          min="0"
+          max="12"
+        />
+      </div>
+    </lightning:layoutItem>
+
+    <lightning:layoutItem size="12" mediumDeviceSize="4">
+      <h3 class="slds-section-title--divider">
+        Interest Rate - Market Financing
+      </h3>
+      <div class="slds-var-p-top_medium">
+        <lightning:input
+          type="number"
+          label="Market"
+          value="{!v.ParentContainer.market}"
+          name="Market"
+          formatter="percent-fixed"
+          max="99"
+          required="true"
+          step="0.01"
+          aura:id="requestedMarket"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
+      <lightning:select
+        name="select1"
+        label="Currency of Loan Requested"
+        required="true"
+        onchange="{!c.onRequestedLoanCurrencyChange}"
+      >
+        <aura:iteration items="{!v.requestedLoanCurrency}" var="item">
+          <option value="{!item}">{!item}</option>
+        </aura:iteration>
+      </lightning:select>
+    </lightning:layoutItem>
+
+    <lightning:layoutItem size="12" mediumDeviceSize="4">
+      <lightning:input
+        type="number"
+        label="Age at end of requested loan term"
+        value="{!v.UnsecuredLoanContainer.ageAtEndOfLoanTerm}"
+        name="age"
+        required="true"
+      />
+    </lightning:layoutItem>
+    <lightning:layoutItem size="12" mediumDeviceSize="12">
+      <legend
+        id="creditCalcualtions"
+        class="slds-text-heading_medium slds-var-p-vertical_medium"
+      >
+        Personal Unsecured Loan -
+        <span class="slds-text-heading_small">Credit Calculations</span>
+      </legend>
+    </lightning:layoutItem>
+
+    <lightning:layoutItem size="6" padding="around-small">
+      <lightning:input
+        type="number"
+        label="Total Loan Amount"
+        value="{!v.ParentContainer.totalLoanAmount}"
+        name="number"
+        formatter="currency"
+        required="true"
+        readonly="true"
+      />
+    </lightning:layoutItem>
+
+    <lightning:layoutItem size="6" padding="around-small">
+      <lightning:input
+        type="number"
+        label="Monthly Loan Payment"
+        value="{!v.ParentContainer.totalMonthlyLoanPayment}"
+        name="number"
+        formatter="currency"
+        required="true"
+        readonly="true"
+      />
+    </lightning:layoutItem>
+    <lightning:layoutItem size="6" padding="around-small">
+      <lightning:input
+        type="number"
+        label="Monthly Loan Savings"
+        value="{!v.ParentContainer.monthlyCompulsorySavings}"
+        name="number"
+        formatter="currency"
+        required="true"
+        readonly="true"
+      />
+    </lightning:layoutItem>
+    <lightning:layoutItem size="6" padding="around-small">
+      <lightning:input
+        type="number"
+        label="JN Creditor Life Insurance Premium"
+        value="{!v.ParentContainer.jnCreditorLifePremium}"
+        name="number"
+        formatter="currency"
+        required="true"
+        readonly="true"
+      />
+    </lightning:layoutItem>
+    <lightning:layoutItem size="6" padding="around-small">
+      <lightning:input
+        type="number"
+        label="Total Loan Savings Balance(Over repayment period)"
+        value="{!v.ParentContainer.totalLoanSavingsBalance}"
+        name="number"
+        formatter="currency"
+        required="true"
+        readonly="true"
+      />
+    </lightning:layoutItem>
+    <lightning:layoutItem size="6" padding="around-small">
+      <lightning:input
+        type="number"
+        label="Total Interest Payment (Over repayment period)"
+        value="{!v.ParentContainer.totalInterestPayment}"
+        name="number"
+        formatter="currency"
+        required="true"
+        readonly="true"
+      />
+    </lightning:layoutItem>
+
+    <lightning:layoutItem size="12">
+      <h2 class="slds-section-title--divider">Closing Cost</h2>
+    </lightning:layoutItem>
+
+    <lightning:layoutItem size="6" padding="around-small">
+      <lightning:input
+        type="number"
+        label="Legal Fees (including GCT)"
+        value="{!v.legalFees}"
+        name="number"
+        formatter="currency"
+        required="true"
+        readonly="true"
+      />
+    </lightning:layoutItem>
+    <lightning:layoutItem size="6" padding="around-small">
+      <lightning:input
+        type="number"
+        label="Processing Fees (including GCT)"
+        value="{!v.ParentContainer.processingFees}"
+        name="number"
+        formatter="currency"
+        required="true"
+        readonly="true"
+      />
+    </lightning:layoutItem>
+    <lightning:layoutItem size="6" padding="around-small">
+      <lightning:input
+        type="number"
+        label="Credit Report Fee"
+        value="{!v.ParentContainer.creditReportFee}"
+        name="number"
+        formatter="currency"
+        required="true"
+        readonly="true"
+      />
+    </lightning:layoutItem>
+
+    <lightning:layoutItem size="6" padding="around-small">
+      <lightning:input
+        type="number"
+        label="Creditor Life Insurance Rate"
+        value="{!v.ParentContainer.creditorLifeInsuranceRate}"
+        name="number"
+        formatter="currency"
+        required="true"
+        readonly="true"
+      />
+    </lightning:layoutItem>
+
+    <lightning:layoutItem size="6" padding="around-small">
+      <lightning:input
+        type="number"
+        label="Monthly JN Life Creditor Life Premium"
+        value="{!v.ParentContainer.monthlyJNLifePremium}"
+        name="number"
+        formatter="currency"
+        required="true"
+        readonly="true"
+      />
+    </lightning:layoutItem>
+
+    <lightning:layoutItem size="6" padding="around-small">
+      <lightning:input
+        type="number"
+        label="Total Fees"
+        value="{!v.ParentContainer.totalFees}"
+        name="number"
+        formatter="currency"
+        required="true"
+        readonly="true"
+      />
+    </lightning:layoutItem>
+
+    <lightning:layoutItem size="12">
+      <h2 class="slds-section-title--divider">
+        Credit Repayment
+      </h2>
+    </lightning:layoutItem>
+
+    <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
+      <lightning:select
+        name="methodRepayment"
+        label="Method of Fee Payment"
+        required="true"
+        onchange="{!c.onMethodFeePaymentChange}"
+      >
+        <aura:iteration items="{!v.methodFeePayment}" var="item">
+          <option value="{!item}">{!item}</option>
+        </aura:iteration>
+      </lightning:select>
+    </lightning:layoutItem>
+
+    <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
+      <lightning:select
+        name="repaymentMethod"
+        label="Repayment Method"
+        required="true"
+        onchange="{!c.onRepaymentMethodChange}"
+      >
+        <aura:iteration items="{!v.repaymentMethod}" var="item">
+          <option value="{!item}">{!item}</option>
+        </aura:iteration>
+      </lightning:select>
+    </lightning:layoutItem>
+
+    <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
+      <lightning:select
+        name="includeCreditorLifeInLoanAmount"
+        label="Include Creditor Life in loan amount?"
+        required="true"
+        onchange="{!c.onIncludeCreditorLifeInLoanAmountChange}"
+      >
+        <aura:iteration items="{!v.includeCreditorLifeInLoanAmount}" var="item">
+          <option value="{!item}">{!item}</option>
+        </aura:iteration>
+      </lightning:select>
+    </lightning:layoutItem>
+
+    <lightning:layoutItem size="4" padding="around-small">
+      <lightning:input
+        type="text"
+        label="Financial Account"
+        value="{!v.ParentContainer.financialAccount}"
+        name="financialAccount"
+        required="true"
+        readonly="true"
+      />
+    </lightning:layoutItem>
+
+    <lightning:layoutItem size="4" padding="around-small">
+      <lightning:input
+        type="text"
+        label="Account number"
+        value="{!v.ParentContainer.accountNumber}"
+        name="accountNumber"
+        required="true"
+      />
+    </lightning:layoutItem>
+
+    <lightning:layoutItem size="4" padding="around-small">
+      <lightning:input
+        type="text"
+        label="Account type"
+        value="{!v.ParentContainer.accountType}"
+        name="accountType"
+        required="true"
+        readonly="true"
+      />
+    </lightning:layoutItem>
+  </lightning:layout>
+</aura:component>

@@ -2,7 +2,7 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 02-19-2021
+  @last modified on  : 02-22-2021
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
   Modifications Log 
   Ver   Date         Author                               Modification
@@ -14,8 +14,16 @@
 >
   <aura:attribute name="recordId" type="Id" />
   <aura:attribute name="IDMDataMap" type="Map" />
+  <aura:attribute name="cardType" type="String" />
+  <aura:attribute name="hasSupplementaryCardHolders" type="String" />
 
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+
+  <c:RubiconCreditCardLineItem
+    ParentContainer="{!v.IDMDataMap}"
+    cardType="{!v.cardType}"
+    hasSupplementaryCardHolders="{!v.hasSupplementaryCardHolders}"
+  ></c:RubiconCreditCardLineItem>
 
   <c:RubiconCreditCardLineItem
     ParentContainer="{!v.IDMDataMap}"
