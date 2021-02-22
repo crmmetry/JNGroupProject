@@ -1,3 +1,13 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 02-18-2021
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+  Modifications Log 
+  Ver   Date         Author                               Modification
+  1.0   02-18-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
+-->
 <aura:component>
   <aura:attribute
     name="creditLimitCurrency"
@@ -72,20 +82,8 @@
         </h2>
       </lightning:layoutItem>
     </aura:if>
-    <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
+    <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
       <lightning:layout>
-        <!-- <lightning:layoutItem size="3" mediumDeviceSize="3">
-          <lightning:select
-            name="select1"
-            label="$"
-            required="true"
-            onchange="{!c.onCreditLimitCurrencyChange}"
-          >
-            <aura:iteration items="{!v.creditLimitCurrency}" var="item">
-              <option value="{!item}">{!item}</option>
-            </aura:iteration>
-          </lightning:select>
-        </lightning:layoutItem> -->
         <lightning:layoutItem size="12">
           <lightning:input
             type="number"
@@ -99,7 +97,7 @@
         </lightning:layoutItem>
       </lightning:layout>
     </lightning:layoutItem>
-    <lightning:layoutItem size="12" mediumDeviceSize="6" padding="around-small">
+    <lightning:layoutItem size="12" mediumDeviceSize="4" padding="around-small">
       <lightning:input
         type="number"
         label="Interest Rate"
@@ -112,5 +110,21 @@
         aura:id="locInterestRate"
       />
     </lightning:layoutItem>
+    <aura:if isTrue="{!v.productName == v.creditCard}">
+      <lightning:layoutItem
+        size="12"
+        mediumDeviceSize="4"
+        padding="around-small"
+      >
+        <lightning:input
+          type="number"
+          label="Supplementary Cardholder/s"
+          value="{!v.ParentContainer.numberOfSupplementaryCardHolders}"
+          name="numberOfSupplmentaryCardHolders"
+          required="true"
+          readonly="true"
+        />
+      </lightning:layoutItem>
+    </aura:if>
   </lightning:layout>
 </aura:component>
