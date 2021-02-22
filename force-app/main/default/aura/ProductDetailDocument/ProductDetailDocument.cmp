@@ -1,6 +1,7 @@
 <aura:component>
   <aura:attribute name="title" type="string" />
   <aura:attribute name="content" type="string" />
+  <aura:attribute name="data" type="Map" default="{}" />
   <a href="#" class="slds-box slds-box_link slds-box_x-small slds-media">
     <div
       class="slds-media__figure slds-media__figure_fixed-width slds-align_absolute-center slds-var-m-left_xx-small"

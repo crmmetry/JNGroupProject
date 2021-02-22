@@ -194,7 +194,21 @@
             </aura:if>
           </div>
           <aura:if isTrue="{!v.showGeneratedDocumentsFlag}">
-            <div class="slds-var-p-around_small slds-box">
+            <div class="slds-box">
+              <!--Documents to be generated for Instalment Loans-->
+              <div class="slds-p-around_small">
+                <p class="slds-text-heading_medium slds-text-align_left">
+                  Documents to be generated for Instalment Loans
+                </p>
+                <div class="slds-m-top_small"></div>
+              </div>
+              <!--Documents to be generated for Revolving Loans-->
+              <div class="slds-p-around_small">
+                <p class="slds-text-heading_medium slds-text-align_left">
+                  Documents to be generated for Revolving Loans
+                </p>
+                <div class="slds-m-top_small"></div>
+              </div>
               <div
                 class="slds-grid slds-gutters slds-grid_vertical-align-start slds-grid_vertical-align-center"
               >

@@ -184,5 +184,6 @@
       "v.showGeneratedDocumentsFlag"
     );
     component.set("v.showGeneratedDocumentsFlag", !!showGeneratedDocumentsFlag);
-  }
+  },
+  addGeneratedDocumentsData: function (component, event, helper) {}
 });
