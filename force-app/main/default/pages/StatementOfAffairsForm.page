@@ -262,9 +262,10 @@ Sr#     Ticket#      Modified By                Modified Date       Description
             </tr>
           </thead>
           <tbody>
+            <apex:variable value="{!1}" var="Counter" />
             <apex:repeat value="{!realEstateWrapperList}" var="asset">
               <tr>
-                <td class="td">E1</td>
+                <td class="td">E{!Counter}</td>
                 <td class="td">{!asset.details}</td>
                 <td class="td">{!asset.marketvalue}</td>
                 <td class="td">{!asset.lender}</td>
@@ -281,6 +282,7 @@ Sr#     Ticket#      Modified By                Modified Date       Description
                   />
                 </td>
               </tr>
+              <apex:variable value="{!Counter + 1}" var="Counter" />
             </apex:repeat>
           </tbody>
         </table>
@@ -299,9 +301,10 @@ Sr#     Ticket#      Modified By                Modified Date       Description
             </tr>
           </thead>
           <tbody>
+            <apex:variable value="{!1}" var="Counter" />
             <apex:repeat value="{!motorVehicalWrapperList}" var="asset">
               <tr>
-                <td class="td">E1</td>
+                <td class="td">E{!Counter}</td>
                 <td class="td">{!asset.details}</td>
                 <td class="td">{!asset.marketvalue}</td>
                 <td class="td">{!asset.lender}</td>
@@ -318,6 +321,7 @@ Sr#     Ticket#      Modified By                Modified Date       Description
                   />
                 </td>
               </tr>
+              <apex:variable value="{!Counter + 1}" var="Counter" />
             </apex:repeat>
           </tbody>
         </table>
@@ -336,9 +340,10 @@ Sr#     Ticket#      Modified By                Modified Date       Description
             </tr>
           </thead>
           <tbody>
+            <apex:variable value="{!1}" var="Counter" />
             <apex:repeat value="{!otherAssetsWrapperList}" var="asset">
               <tr>
-                <td class="td">E1</td>
+                <td class="td">E{!Counter}</td>
                 <td class="td">{!asset.details}</td>
                 <td class="td">{!asset.marketvalue}</td>
                 <td class="td">{!asset.lender}</td>
@@ -355,6 +360,7 @@ Sr#     Ticket#      Modified By                Modified Date       Description
                   />
                 </td>
               </tr>
+              <apex:variable value="{!Counter + 1}" var="Counter" />
             </apex:repeat>
           </tbody>
         </table>
@@ -371,9 +377,10 @@ Sr#     Ticket#      Modified By                Modified Date       Description
             </tr>
           </thead>
           <tbody>
+            <apex:variable value="{!1}" var="Counter" />
             <apex:repeat value="{!otherLoanWrapperList}" var="asset">
               <tr>
-                <td class="td">E1</td>
+                <td class="td">E{!Counter}</td>
                 <td class="td">{!asset.details}</td>
                 <td class="td">
                   <c:TableInCell
@@ -388,6 +395,7 @@ Sr#     Ticket#      Modified By                Modified Date       Description
                   />
                 </td>
               </tr>
+              <apex:variable value="{!Counter + 1}" var="Counter" />
             </apex:repeat>
           </tbody>
         </table>
@@ -407,9 +415,10 @@ Sr#     Ticket#      Modified By                Modified Date       Description
             </tr>
           </thead>
           <tbody>
+            <apex:variable value="{!1}" var="Counter" />
             <apex:repeat value="{!creditCardWrapperList}" var="asset">
               <tr>
-                <td class="td">E1</td>
+                <td class="td">E{!Counter}</td>
                 <td class="td">{!asset.finacialInstitution}</td>
                 <td class="td">{!asset.cardType}</td>
                 <td class="td">{!asset.creditLimit}</td>
@@ -427,6 +436,7 @@ Sr#     Ticket#      Modified By                Modified Date       Description
                   />
                 </td>
               </tr>
+              <apex:variable value="{!Counter + 1}" var="Counter" />
             </apex:repeat>
           </tbody>
         </table>
@@ -446,9 +456,10 @@ Sr#     Ticket#      Modified By                Modified Date       Description
             </tr>
           </thead>
           <tbody>
+            <apex:variable value="{!1}" var="Counter" />
             <apex:repeat value="{!lineOfCreditWrapperList}" var="asset">
               <tr>
-                <td class="td">E1</td>
+                <td class="td">E{!Counter}</td>
                 <td class="td">{!asset.finacialInstitution}</td>
                 <td class="td">{!asset.cardType}</td>
                 <td class="td">{!asset.creditLimit}</td>
@@ -466,6 +477,7 @@ Sr#     Ticket#      Modified By                Modified Date       Description
                   />
                 </td>
               </tr>
+              <apex:variable value="{!Counter + 1}" var="Counter" />
             </apex:repeat>
           </tbody>
         </table>
@@ -485,9 +497,10 @@ Sr#     Ticket#      Modified By                Modified Date       Description
             </tr>
           </thead>
           <tbody>
+            <apex:variable value="{!1}" var="Counter" />
             <apex:repeat value="{!savingsAccountWrapperList}" var="asset">
               <tr>
-                <td class="td">P(A)</td>
+                <td class="td">E{!Counter}</td>
                 <td class="td">{!asset.finacialInstitution}</td>
                 <td class="td">{!asset.accountType}</td>
                 <td class="td">{!asset.balance}</td>
@@ -495,6 +508,7 @@ Sr#     Ticket#      Modified By                Modified Date       Description
                 <td class="td">{!asset.investment_before}</td>
                 <td class="td">{!asset.investment_after}</td>
               </tr>
+              <apex:variable value="{!Counter + 1}" var="Counter" />
             </apex:repeat>
           </tbody>
         </table>
@@ -513,15 +527,17 @@ Sr#     Ticket#      Modified By                Modified Date       Description
             </tr>
           </thead>
           <tbody>
+            <apex:variable value="{!1}" var="Counter" />
             <apex:repeat value="{!lifeInsuranceWrapperList}" var="asset">
               <tr>
-                <td class="td">P(A)</td>
+                <td class="td">E{!Counter}</td>
                 <td class="td">{!asset.finacialInstitution}</td>
                 <td class="td">{!asset.policyNumber}</td>
                 <td class="td">{!asset.cashValue}</td>
                 <td class="td">{!asset.sumInsured}</td>
                 <td class="td">{!asset.annualPremium}</td>
               </tr>
+              <apex:variable value="{!Counter + 1}" var="Counter" />
             </apex:repeat>
           </tbody>
         </table>
@@ -541,14 +557,16 @@ Sr#     Ticket#      Modified By                Modified Date       Description
             </tr>
           </thead>
           <tbody>
+            <apex:variable value="{!1}" var="Counter" />
             <apex:repeat value="{!pensionWrapperList}" var="asset">
               <tr>
-                <td class="td">P(A)</td>
+                <td class="td">E{!Counter}</td>
                 <td class="td">{!asset.pensionScheme}</td>
                 <td class="td">{!asset.contributionToDate}</td>
                 <td class="td">{!asset.montlyContribution_before}</td>
                 <td class="td">{!asset.montlyContribution_After}</td>
               </tr>
+              <apex:variable value="{!Counter + 1}" var="Counter" />
             </apex:repeat>
           </tbody>
         </table>
@@ -565,9 +583,10 @@ Sr#     Ticket#      Modified By                Modified Date       Description
             </tr>
           </thead>
           <tbody>
+            <apex:variable value="{!1}" var="Counter" />
             <apex:repeat value="{!liabilitiesWrapperList}" var="asset">
               <tr>
-                <td class="td">E1</td>
+                <td class="td">E{!Counter}</td>
                 <td class="td">{!asset.details}</td>
                 <td class="td">
                   <c:TableInCell
@@ -582,6 +601,7 @@ Sr#     Ticket#      Modified By                Modified Date       Description
                   />
                 </td>
               </tr>
+              <apex:variable value="{!Counter + 1}" var="Counter" />
             </apex:repeat>
           </tbody>
         </table>

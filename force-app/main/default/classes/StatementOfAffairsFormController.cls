@@ -50,10 +50,9 @@ public class StatementOfAffairsFormController {
   public Object productCombination { get; set; }
   public StatementOfAffairsFormController() {
     recordTypesMap = Util.getRecordTypeids('FinServ__AssetsAndLiabilities__c');
-    SET<Id> assetsIdSet = new Set<Id>();
+
     applicantId = ApexPages.currentPage().getParameters().get('Id');
-    Decimal monthlyPaymentOwnership;
-    Decimal totalMonthlyLoanPayment;
+
     realEstateSummaryBefore = 0;
     realEstateSummaryAfter = 0;
     realEstateSummaryBefore_Loan = 0;
@@ -87,6 +86,52 @@ public class StatementOfAffairsFormController {
     netWorth_Before = 0;
     netWorth_After = 0;
     applicantAllotedAmountFromProposedLoan = 0;
+    getApplicantData(applicantId);
+  }
+
+  public StatementOfAffairsFormController(Id applicantId) {
+    recordTypesMap = Util.getRecordTypeids('FinServ__AssetsAndLiabilities__c');
+
+    realEstateSummaryBefore = 0;
+    realEstateSummaryAfter = 0;
+    realEstateSummaryBefore_Loan = 0;
+    realEstateSummaryAfter_Loan = 0;
+    MotorVehicalSummaryBefore = 0;
+    MotorVehicalSummaryAfter = 0;
+    MotorVehicalSummaryBefore_Loan = 0;
+    MotorVehicalSummaryAfter_Loan = 0;
+    OtherAssetsSummaryBefore = 0;
+    OtherAssetsSummaryAfter = 0;
+    OtherAssetsSummaryBefore_Loan = 0;
+    OtherAssetsSummaryAfter_Loan = 0;
+    contigentLiabilitiesSummaryBefore = 0;
+    contigentLiabilitiesSummaryAfter = 0;
+    OtherLoanSummaryBefore_Loan = 0;
+    OtherLoanSummaryAfter_Loan = 0;
+    currentAccountOverdraft_Before = 0;
+    currentAccountOverdraft_After = 0;
+    lifeInsurance_Before = 0;
+    lifeInsurance_After = 0;
+    PensionContribution_Before = 0;
+    PensionContribution_After = 0;
+    ccAndLocBalance_Before = 0;
+    ccAndLocBalance_After = 0;
+    totalAssets_before = 0;
+    totalAssets_after = 0;
+    totalLiabilities_before = 0;
+    totalLiabilities_after = 0;
+    savingsAccountBalance_Before = 0;
+    savingsAccountBalance_After = 0;
+    netWorth_Before = 0;
+    netWorth_After = 0;
+    applicantAllotedAmountFromProposedLoan = 0;
+    getApplicantData(applicantId);
+  }
+
+  public void getApplicantData(Id applicantId) {
+    Decimal monthlyPaymentOwnership;
+    Decimal totalMonthlyLoanPayment;
+    SET<Id> assetsIdSet = new Set<Id>();
     applicantObj = [
       SELECT
         Id,
@@ -180,11 +225,12 @@ public class StatementOfAffairsFormController {
       object productDetails = ProductDetailController.getSingleProductFamilySelection(
         applicantObj.Opportunity__c
       );
-
+      system.debug('productDetails' + productDetails);
       if (productDetails <> 'None') {
         productCombination = ((ProductSelectionWrapper) productDetails)
           .productFamily;
       }
+      system.debug('productCombination' + productCombination);
       appWrapper = new ApplicantWrapper(applicantObj);
       applicantWrapper = new ApplicantWrapperClass(appWrapper, applicantObj);
       if (applicantObj.Application_Assets_Liabilities__r.size() > 0) {
@@ -195,7 +241,7 @@ public class StatementOfAffairsFormController {
         }
       }
       if (applicantObj.Loan_Calculation_Applicant_Products__r.size() > 0) {
-        monthlyPaymentOwnership = checkIfPercentNull(
+        monthlyPaymentOwnership = getPercentage(
           applicantObj.Loan_Calculation_Applicant_Products__r[0]
             .Monthly_Payment_Ownership_Number__c
         );
@@ -254,10 +300,12 @@ public class StatementOfAffairsFormController {
         if (assetsList.size() > 0) {
           assetsCalculations(assetsList);
         }
+        system.debug('realEstateWrapperList ::' + realEstateWrapperList);
+        system.debug('motorVehicalWrapperList ::' + motorVehicalWrapperList);
+        system.debug('otherAssetsWrapperList ::' + otherAssetsWrapperList);
       }
     }
   }
-
   private class ApplicantWrapper {
     public Decimal salaryAndAllownce { get; set; }
     public Decimal gratutyInLieu { get; set; }
@@ -279,16 +327,16 @@ public class StatementOfAffairsFormController {
       this.performanceBasedPay = checkIfNull(
         applicantObj.Performance_Based_PayC__c
       );
-      this.netProfit = checkIfNull(applicantObj.Net_Profit_Sole_Trader__c);
+      this.netProfit =
+        checkIfNull(applicantObj.Net_Profit_Sole_Trader__c) * 0.7;
       this.directorsEmoluments = checkIfNull(
         applicantObj.Director_s_Emoluments_Director__c
       );
       this.shareOfPartnershipProfit = checkIfNull(
         applicantObj.Share_of_Profit_Partnership__c
       );
-      this.shareOfShareholderProfit = checkIfNull(
-        applicantObj.Share_of_Profit_Shareholder__c
-      );
+      this.shareOfShareholderProfit =
+        checkIfNull(applicantObj.Share_of_Profit_Shareholder__c) * 0.7;
       this.realEstateRental_I = checkIfNull(
         applicantObj.Existing_Real_Estate_Rental_I__c
       );
@@ -332,9 +380,9 @@ public class StatementOfAffairsFormController {
         wrapper.shareOfShareholderProfit;
 
       this.inflowsRealEstateIncome =
-        checkIfNull(applicantObj.Ownership_Real_Estate_Rental__c) *
+        getPercentage(applicantObj.Ownership_Real_Estate_Rental__c) *
         wrapper.realEstateRental_I +
-        checkIfNull(applicantObj.Ownership_Real_Estate_Rental_II__c) *
+        getPercentage(applicantObj.Ownership_Real_Estate_Rental_II__c) *
         wrapper.realEstateRental_II;
 
       this.inflowsTotalMonthlyIncome =
@@ -347,29 +395,13 @@ public class StatementOfAffairsFormController {
         wrapper.shareOfShareholderProfit +
         wrapper.realEstateRental_I +
         wrapper.realEstateRental_II +
-        (applicantObj.Pension__c <> null ? applicantObj.Pension__c : 0);
+        checkIfNull(applicantObj.Pension__c);
 
       this.inflowsLessStatutoryDeduction =
-        checkIfNull(
-          applicantObj.Income_Tax_Monthly_Payment_Prior_Loan__c <> null
-            ? applicantObj.Income_Tax_Monthly_Payment_Prior_Loan__c
-            : 0
-        ) +
-        checkIfNull(
-          applicantObj.NIS_Contribution_Monthly_Prior_Loan__c <> null
-            ? applicantObj.NIS_Contribution_Monthly_Prior_Loan__c
-            : 0
-        ) +
-        checkIfNull(
-          applicantObj.NHT_Contributions_Monthly_Prior_Loan__c <> null
-            ? applicantObj.NHT_Contributions_Monthly_Prior_Loan__c
-            : 0
-        ) +
-        checkIfNull(
-          applicantObj.Education_Tax_Monthly_Prior_Loan__c <> null
-            ? applicantObj.Education_Tax_Monthly_Prior_Loan__c
-            : 0
-        );
+        checkIfNull(applicantObj.Income_Tax_Monthly_Payment_Prior_Loan__c) +
+        checkIfNull(applicantObj.NIS_Contribution_Monthly_Prior_Loan__c) +
+        checkIfNull(applicantObj.NHT_Contributions_Monthly_Prior_Loan__c) +
+        checkIfNull(applicantObj.Education_Tax_Monthly_Prior_Loan__c);
 
       this.totalInflows =
         this.inflowsTotalMonthlyIncome - this.inflowsLessStatutoryDeduction;
@@ -474,16 +506,21 @@ public class StatementOfAffairsFormController {
       this.details = asset.Address__c;
       this.marketvalue =
         asset.Percent_Ownership__c * asset.Total_Market_Value__c;
+      this.lender = asset.Lender__c;
       if (asset.Lien_on_Asset__c) {
         this.monthlyPaymentBefore =
-          asset.Percent_Applicant_Portion__c * asset.Monthly_Payment_Prior__c;
+          getPercentage(asset.Percent_Applicant_Portion__c) *
+          asset.Monthly_Payment_Prior__c;
         this.loanBalanceBefore =
-          asset.Percent_Ownership__c * asset.Loan_Balance_Prior__c;
+          getPercentage(asset.Percent_Ownership__c) *
+          asset.Loan_Balance_Prior__c;
         if (asset.Treatment_of_Credit__c == 'Will Remain') {
           this.monthlyPaymentAfter =
-            asset.Percent_Applicant_Portion__c * asset.Monthly_Payment__c;
+            getPercentage(asset.Percent_Applicant_Portion__c) *
+            asset.Monthly_Payment__c;
           this.loanBalanceAfter =
-            asset.Percent_Ownership__c * asset.Loan_Balance_After__c;
+            getPercentage(asset.Percent_Ownership__c) *
+            asset.Loan_Balance_After__c;
         } else if (asset.Treatment_of_Credit__c == 'Close facility') {
           this.monthlyPaymentAfter = 0.0;
           this.loanBalanceAfter = 0.0;
@@ -494,11 +531,17 @@ public class StatementOfAffairsFormController {
         this.monthlyPaymentAfter = 0.0;
         this.loanBalanceAfter = 0.0;
       }
-      this.soa.realEstateSummaryBefore += this.monthlyPaymentBefore;
-      this.soa.realEstateSummaryBefore_Loan += this.loanBalanceBefore;
+      this.soa.realEstateSummaryBefore += checkIfNull(
+        this.monthlyPaymentBefore
+      );
+      this.soa.realEstateSummaryBefore_Loan += checkIfNull(
+        this.loanBalanceBefore
+      );
 
-      this.soa.realEstateSummaryAfter += this.monthlyPaymentAfter;
-      this.soa.realEstateSummaryAfter_Loan += this.loanBalanceAfter;
+      this.soa.realEstateSummaryAfter += checkIfNull(this.monthlyPaymentAfter);
+      this.soa.realEstateSummaryAfter_Loan += checkIfNull(
+        this.loanBalanceAfter
+      );
     }
   }
   public class MotorVehicalWrapper {
@@ -517,17 +560,22 @@ public class StatementOfAffairsFormController {
       this.soa = soa;
       this.details = asset.Vehicle_Details__c;
       this.marketvalue =
-        asset.Percent_Ownership__c * asset.Total_Market_Value__c;
+        getPercentage(asset.Percent_Ownership__c) * asset.Total_Market_Value__c;
+      this.lender = asset.Lender__c;
       if (asset.Lien_on_Asset__c) {
         this.monthlyPaymentBefore =
-          asset.Percent_Applicant_Portion__c * asset.Monthly_Payment_Prior__c;
+          getPercentage(asset.Percent_Applicant_Portion__c) *
+          asset.Monthly_Payment_Prior__c;
         this.loanBalanceBefore =
-          asset.Percent_Ownership__c * asset.Loan_Balance_Prior__c;
+          getPercentage(asset.Percent_Ownership__c) *
+          asset.Loan_Balance_Prior__c;
         if (asset.Treatment_of_Credit__c == 'Will Remain') {
           this.monthlyPaymentAfter =
-            asset.Percent_Applicant_Portion__c * asset.Monthly_Payment__c;
+            getPercentage(asset.Percent_Applicant_Portion__c) *
+            asset.Monthly_Payment__c;
           this.loanBalanceAfter =
-            asset.Percent_Ownership__c * asset.Loan_Balance_After__c;
+            getPercentage(asset.Percent_Ownership__c) *
+            asset.Loan_Balance_After__c;
         } else if (asset.Treatment_of_Credit__c == 'Close facility') {
           this.monthlyPaymentAfter = 0.0;
           this.loanBalanceAfter = 0.0;
@@ -538,11 +586,19 @@ public class StatementOfAffairsFormController {
         this.monthlyPaymentAfter = 0.0;
         this.loanBalanceAfter = 0.0;
       }
-      this.soa.MotorVehicalSummaryBefore += this.monthlyPaymentBefore;
-      this.soa.MotorVehicalSummaryBefore_Loan += this.loanBalanceBefore;
+      this.soa.MotorVehicalSummaryBefore += checkIfNull(
+        this.monthlyPaymentBefore
+      );
+      this.soa.MotorVehicalSummaryBefore_Loan += checkIfNull(
+        this.loanBalanceBefore
+      );
 
-      this.soa.MotorVehicalSummaryAfter += this.monthlyPaymentAfter;
-      this.soa.MotorVehicalSummaryAfter_Loan += this.loanBalanceAfter;
+      this.soa.MotorVehicalSummaryAfter += checkIfNull(
+        this.monthlyPaymentAfter
+      );
+      this.soa.MotorVehicalSummaryAfter_Loan += checkIfNull(
+        this.loanBalanceAfter
+      );
     }
   }
   public class OtherAssetsWrapper {
@@ -561,18 +617,22 @@ public class StatementOfAffairsFormController {
       this.soa = soa;
       this.details = asset.Description_of_Asset__c;
       this.marketvalue =
-        asset.Percent_Ownership__c * asset.Total_Market_Value__c;
+        getPercentage(asset.Percent_Ownership__c) * asset.Total_Market_Value__c;
       this.lender = asset.Lender__c;
       if (asset.Lien_on_Asset__c) {
         this.monthlyPaymentBefore =
-          asset.Percent_Applicant_Portion__c * asset.Monthly_Payment_Prior__c;
+          getPercentage(asset.Percent_Applicant_Portion__c) *
+          asset.Monthly_Payment_Prior__c;
         this.loanBalanceBefore =
-          asset.Percent_Ownership__c * asset.Loan_Balance_Prior__c;
+          getPercentage(asset.Percent_Ownership__c) *
+          asset.Loan_Balance_Prior__c;
         if (asset.Treatment_of_Credit__c == 'Will Remain') {
           this.monthlyPaymentAfter =
-            asset.Percent_Applicant_Portion__c * asset.Monthly_Payment__c;
+            getPercentage(asset.Percent_Applicant_Portion__c) *
+            asset.Monthly_Payment__c;
           this.loanBalanceAfter =
-            asset.Percent_Ownership__c * asset.Loan_Balance_After__c;
+            getPercentage(asset.Percent_Ownership__c) *
+            asset.Loan_Balance_After__c;
         } else if (asset.Treatment_of_Credit__c == 'Close facility') {
           this.monthlyPaymentAfter = 0.0;
           this.loanBalanceAfter = 0.0;
@@ -583,11 +643,17 @@ public class StatementOfAffairsFormController {
         this.monthlyPaymentAfter = 0.0;
         this.loanBalanceAfter = 0.0;
       }
-      this.soa.OtherAssetsSummaryBefore += this.monthlyPaymentBefore;
-      this.soa.OtherAssetsSummaryBefore_Loan += this.loanBalanceBefore;
+      this.soa.OtherAssetsSummaryBefore += checkIfNull(
+        this.monthlyPaymentBefore
+      );
+      this.soa.OtherAssetsSummaryBefore_Loan += checkIfNull(
+        this.loanBalanceBefore
+      );
 
-      this.soa.OtherAssetsSummaryAfter += this.monthlyPaymentAfter;
-      this.soa.OtherAssetsSummaryAfter_Loan += this.loanBalanceAfter;
+      this.soa.OtherAssetsSummaryAfter += checkIfNull(this.monthlyPaymentAfter);
+      this.soa.OtherAssetsSummaryAfter_Loan += checkIfNull(
+        this.loanBalanceAfter
+      );
     }
   }
   public class OtherLoansWrapper {
@@ -604,16 +670,19 @@ public class StatementOfAffairsFormController {
       this.soa = soa;
       this.details = asset.Financial_Institution__c;
       this.monthlyPaymentBefore =
-        asset.Percent_Applicant_Portion__c * asset.Monthly_Payment_Prior__c;
+        getPercentage(asset.Percent_Applicant_Portion__c) *
+        asset.Monthly_Payment_Prior__c;
       this.loanBalanceBefore =
-        asset.Percent_Ownership__c * asset.Loan_Balance_Prior__c;
+        getPercentage(asset.Percent_Ownership__c) * asset.Loan_Balance_Prior__c;
       if (asset.Type_of_Loan__c == 'Unsecured') {
         if (asset.Treatment_of_Credit__c == 'Will Remain') {
           this.monthlyPaymentAfter =
-            asset.Percent_Applicant_Portion__c * asset.Monthly_Payment__c +
+            getPercentage(asset.Percent_Applicant_Portion__c) *
+            asset.Monthly_Payment__c +
             this.soa.applicantAllotedAmountFromProposedLoan;
           this.loanBalanceAfter =
-            asset.Percent_Ownership__c * asset.Loan_Balance_After__c +
+            getPercentage(asset.Percent_Ownership__c) *
+            asset.Loan_Balance_After__c +
             this.soa.applicantAllotedAmountFromProposedLoan;
         } else if (asset.Treatment_of_Credit__c == 'Close facility') {
           this.monthlyPaymentAfter = 0.0;
@@ -621,9 +690,11 @@ public class StatementOfAffairsFormController {
         }
       } else if (asset.Type_of_Loan__c == 'Cash-Secured') {
         this.monthlyPaymentAfter =
-          asset.Percent_Applicant_Portion__c * asset.Monthly_Payment__c;
+          getPercentage(asset.Percent_Applicant_Portion__c) *
+          asset.Monthly_Payment__c;
         this.loanBalanceAfter =
-          asset.Percent_Ownership__c * asset.Loan_Balance_After__c;
+          getPercentage(asset.Percent_Ownership__c) *
+          asset.Loan_Balance_After__c;
         if (asset.Treatment_of_Credit__c == 'Close facility') {
           this.monthlyPaymentAfter = 0.0;
           this.loanBalanceAfter = 0.0;
@@ -665,8 +736,12 @@ public class StatementOfAffairsFormController {
       } else {
         this.creditCardBalance_After = 0.0;
       }
-      this.soa.ccAndLocBalance_Before += this.creditCardBalance_before;
-      this.soa.ccAndLocBalance_After += this.creditCardBalance_After;
+      this.soa.ccAndLocBalance_Before += checkIfNull(
+        this.creditCardBalance_before
+      );
+      this.soa.ccAndLocBalance_After += checkIfNull(
+        this.creditCardBalance_After
+      );
     }
   }
   public class LineOfCreditWrapper {
@@ -698,8 +773,12 @@ public class StatementOfAffairsFormController {
       } else {
         this.creditCardBalance_After = 0.0;
       }
-      this.soa.ccAndLocBalance_Before += this.creditCardBalance_before;
-      this.soa.ccAndLocBalance_After += this.creditCardBalance_After;
+      this.soa.ccAndLocBalance_Before += checkIfNull(
+        this.creditCardBalance_before
+      );
+      this.soa.ccAndLocBalance_After += checkIfNull(
+        this.creditCardBalance_After
+      );
     }
   }
   public class SavingsAccountWrapper {
@@ -788,18 +867,19 @@ public class StatementOfAffairsFormController {
       this.soa = soa;
       this.details = asset.Financial_Institution__c;
       this.monthlyPaymentBefore =
-        (checkIfPercentNull(asset.Percent_Applicant_Portion__c) / 100) *
+        getPercentage(asset.Percent_Applicant_Portion__c) *
         asset.Monthly_Payment_Prior__c;
       this.valueOfDebtBefore =
-        (checkIfPercentNull(asset.Percent_Ownership__c) / 100) *
-        asset.Loan_Balance_Prior__c;
+        getPercentage(asset.Percent_Ownership__c) * asset.Loan_Balance_Prior__c;
       if (asset.Type_of_Loan__c == 'Unsecured') {
         if (asset.Treatment_of_Credit__c == 'Will Remain') {
           this.monthlyPaymentAfter =
-            asset.Percent_Applicant_Portion__c * asset.Monthly_Payment__c +
+            getPercentage(asset.Percent_Applicant_Portion__c) *
+            asset.Monthly_Payment__c +
             this.soa.applicantAllotedAmountFromProposedLoan;
           this.valueOfDebtAfter =
-            asset.Percent_Ownership__c * asset.Loan_Balance_After__c +
+            getPercentage(asset.Percent_Ownership__c) *
+            asset.Loan_Balance_After__c +
             this.soa.applicantAllotedAmountFromProposedLoan;
         } else if (asset.Treatment_of_Credit__c == 'Close facility') {
           this.monthlyPaymentAfter = 0.0;
@@ -807,9 +887,11 @@ public class StatementOfAffairsFormController {
         }
       } else if (asset.Type_of_Loan__c == 'Cash-Secured') {
         this.monthlyPaymentAfter =
-          asset.Percent_Applicant_Portion__c * asset.Monthly_Payment__c;
+          getPercentage(asset.Percent_Applicant_Portion__c) *
+          asset.Monthly_Payment__c;
         this.valueOfDebtAfter =
-          asset.Percent_Ownership__c * asset.Loan_Balance_After__c;
+          getPercentage(asset.Percent_Ownership__c) *
+          asset.Loan_Balance_After__c;
         if (asset.Treatment_of_Credit__c == 'Close facility') {
           this.monthlyPaymentAfter = 0.0;
           this.valueOfDebtAfter = 0.0;
@@ -831,6 +913,10 @@ public class StatementOfAffairsFormController {
   public static Decimal checkIfPercentNull(Decimal value) {
     return (value <> null ? value : 100.0);
   }
+  public static Decimal getPercentage(Decimal value) {
+    return (value <> null ? (value / 100) : 1.0);
+  }
+
   public void assetsCalculations(
     List<FinServ__AssetsAndLiabilities__c> assetsList
   ) {
