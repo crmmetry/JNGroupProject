@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 02-22-2021
+ * @last modified on  : 02-24-2021
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -43,6 +43,12 @@ public inherited sharing class LoanCalculationProductWrapper {
   public Decimal monthlyJNLifePremium;
   @AuraEnabled
   public Decimal totalFees;
+  @AuraEnabled
+  public Decimal policyLimit;
+  @AuraEnabled
+  public Decimal tdsrAfter;
+  @AuraEnabled
+  public Decimal tdsrBefore;
 
   public LoanCalculationProductWrapper(Loan_Calculation_Product__c record) {
     this.market = record.Loan_Amount_Market_Percentage_Number__c;
@@ -60,7 +66,10 @@ public inherited sharing class LoanCalculationProductWrapper {
     this.stampDuty = record.Stamp_Duty_Number__c;
     this.creditReportFee = record.Credit_Report_Fee_Number__c;
     this.creditorLifeInsuranceRate = record.Creditor_Life_Insurance_Rate_Number__c;
-    this.monthlyJNLifePremium = record.Creditor_Life_Insurance_Rate_Number__c;
+    this.monthlyJNLifePremium = record.Monthly_P_I_Life_Insurance_Premium__c;
     this.totalFees = record.Total_Closing_Costs_Number__c;
+    this.policyLimit = record.Policy_Limit_Number__c;
+    this.tdsrAfter = record.Ability_to_Service_After_Number__c;
+    this.tdsrBefore = record.Ability_to_Service_Before_Number__c;
   }
 }

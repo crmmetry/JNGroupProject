@@ -148,14 +148,18 @@ public with sharing class ProductDetailSelector {
         Collateral_CC__c,
         Collateral_LOC__c,
         Loan_to_ValueCC__c,
-        Loan_to_ValueLOC__c
-      FROM opportunity
+        Loan_to_ValueLOC__c,
+        Pre_Approval_list__c,
+        Final_Assessment_Decision_list__c,
+        FinServ__FinancialAccount__r.Name,
+        FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
+        FinServ__FinancialAccount__r.Account_Type_List__c
+      FROM Opportunity
       WHERE Id = :oppId
     ];
     if (oppObj != null) {
       oppWrapper = new OpportunityWrapper(oppObj);
     }
-
     return oppWrapper;
   }
 
@@ -217,9 +221,14 @@ public with sharing class ProductDetailSelector {
         Stamp_Duty_Number__c,
         Credit_Report_Fee_Number__c,
         Creditor_Life_Insurance_Rate_Number__c,
-        Total_Closing_Costs_Number__c
+        Total_Closing_Costs_Number__c,
+        Policy_Limit_Number__c,
+        Ability_to_Service_After_Number__c,
+        Ability_to_Service_Before_Number__c,
+        Monthly_P_I_Life_Insurance_Premium__c
       FROM Loan_Calculation_Product__c
       WHERE Loan_Calculation_Id__r.Opportunity__c = :oppId
+      ORDER BY CreatedDate DESC
       LIMIT 1
     ];
     if (loanObj != null) {

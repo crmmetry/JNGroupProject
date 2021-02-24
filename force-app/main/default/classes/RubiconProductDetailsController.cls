@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 02-22-2021
+ * @last modified on  : 02-24-2021
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -16,6 +16,28 @@ public inherited sharing class RubiconProductDetailsController {
     );
     if (loanProductRecord != null) {
       return loanProductRecord;
+    }
+    return Constants.NONE;
+  }
+
+  @AuraEnabled
+  public static Object getApplicantsDetails(Id oppId) {
+    List<ApplicantWrapper> applicants = ProductDetailSelector.getApplicantDetails(
+      oppId
+    );
+    if (applicants.size() > 0) {
+      return applicants;
+    }
+    return Constants.NONE;
+  }
+
+  @AuraEnabled
+  public static Object getOpportunityDetails(Id oppId) {
+    OpportunityWrapper opportunity = ProductDetailSelector.getOpportunityDetails(
+      oppId
+    );
+    if (opportunity != null) {
+      return opportunity;
     }
     return Constants.NONE;
   }
