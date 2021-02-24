@@ -4,6 +4,7 @@ public class DocumentChecklistItemTriggerHandler {
         list<Opportunity> oppListToUpdate = new list<Opportunity>();
         Map<Id, DocumentType> mapOfDocTypeObject = GetMapOfDocTypeObject(docChkListItems);
         
+        
         for(DocumentChecklistItem docItem : docChkListItems){
             if(ParentObjectType(docItem.ParentRecordId) == Constants.OPPORTUNITYSTRING){
                 

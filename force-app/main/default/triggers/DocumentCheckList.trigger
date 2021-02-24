@@ -6,6 +6,7 @@ trigger DocumentCheckList on DocumentChecklistItem (before insert, after insert,
             DocumentChecklistItemTriggerHandler.CheckDocumentType(Trigger.New);
         }else if(Trigger.isBefore){
             
+            
         }
     }else if(Trigger.isUpdate){
         if(Trigger.isAfter){
