@@ -2081,6 +2081,15 @@
         >Type_of_credit_loc_long.crmmObjectSelected</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >SelectedAssetLiability.Asset_Credit_Balance__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference
+        >Asset_Credit_Balance_short_line_0</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>Update_or_Create_Assets</targetReference>
         </connector>
@@ -2687,8 +2696,8 @@
     <decisions>
         <name>Long_Short_Lines_of_Credit</name>
         <label>Long Short Lines of Credit</label>
-        <locationX>2634</locationX>
-        <locationY>699</locationY>
+        <locationX>2313</locationX>
+        <locationY>678</locationY>
         <defaultConnector>
             <targetReference>Assign_Defaults_0_0_0_0_0_0_0</targetReference>
         </defaultConnector>
@@ -3455,21 +3464,14 @@
                     <elementReference>CreateChoice</elementReference>
                 </rightValue>
             </conditions>
-            <conditions>
-                <leftValueReference
-        >SelectedAssetLiability.Id</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
             <connector>
                 <targetReference>Set_Asset_Primary_Owner_0</targetReference>
             </connector>
             <label>Create New Asset</label>
         </rules>
     </decisions>
-    <description>adding full details (sprint 4)</description>
+    <description
+  >Reverted the changes for Rub 191 - Update Financial Flow Flag</description>
     <dynamicChoiceSets>
         <name>PropertyTypeChoices</name>
         <dataType>Picklist</dataType>
@@ -5285,6 +5287,13 @@
                 <value>
                     <elementReference
           >AssetsTreatmentOfCreditDefault</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>recordTypeId</name>
+                <value>
+                    <elementReference
+          >MotorVehicleRecordTypeId</elementReference>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
