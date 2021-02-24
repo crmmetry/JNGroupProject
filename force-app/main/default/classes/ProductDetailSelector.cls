@@ -67,6 +67,7 @@ public with sharing class ProductDetailSelector {
     List<Applicant__c> applicantList = [
       SELECT
         Id,
+        Name,
         Credit_History_in_last_24_Months__c,
         Assessment_of_Applicant_Net_Worth__c,
         Statutory_Deductions_Numbers__c,

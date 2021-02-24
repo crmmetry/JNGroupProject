@@ -74,6 +74,7 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS" && result != "None") {
         component.set("v.applicantAge", result[0].age);
+        component.set("v.ApplicantDetails", result[0]);
         console.log("Applicant Details: ", JSON.parse(JSON.stringify(result)));
       }
     });

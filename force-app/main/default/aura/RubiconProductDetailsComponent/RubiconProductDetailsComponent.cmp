@@ -20,6 +20,7 @@
   <aura:attribute name="applicationId" type="String" />
   <aura:attribute name="OpportunityDataMap" type="Map" />
   <aura:attribute name="ProductSelectionMap" type="Map" />
+  <aura:attribute name="ApplicantDetails" type="Map" />
   <aura:attribute
     name="numberOfApplicants"
     type="List"
@@ -153,7 +154,7 @@
           <lightning:input
             type="text"
             label="ApplicationID"
-            value="{!v.applicationId}"
+            value="{!v.ApplicantDetails.name}"
             name="applicationId"
             required="true"
             readonly="true"
