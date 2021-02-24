@@ -23,9 +23,37 @@
     component.set("v.scriptsLoaded", true);
   },
 
-  onVerifiedDataMapChange: function (component, event) {},
+  submitButtonAction: function (component, event, helper) {
+    helper.updateOpportunity(
+      component,
+      "Final_Assessment_Submitted_flag__c",
+      true,
+      "Submit"
+    );
+    if (component.get("v.isSubmitted")) {
+      this.showToast(
+        "Submission Successful",
+        "Fianancial Details was submitted successfully",
+        "success"
+      );
+    }
+  },
 
-  onVerifiedDebtsChange: function (component) {},
+  verifyButtonAction: function (component, event, helper) {
+    helper.updateOpportunity(
+      component,
+      "Documents_Financial_Info_Verified_flag__c",
+      true,
+      "Verify"
+    );
+    if (component.get("v.isVerified")) {
+      this.showToast(
+        "Verification Successful",
+        "Fianancial Details was verified successfully",
+        "success"
+      );
+    }
+  },
 
   handleDebtInfoEvent: function (component, event) {
     const debtData = event.getParam("data");

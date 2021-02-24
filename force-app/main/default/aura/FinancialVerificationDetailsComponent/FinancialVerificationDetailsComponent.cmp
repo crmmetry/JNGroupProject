@@ -1,3 +1,13 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 02-24-2021
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+  Modifications Log 
+  Ver   Date         Author                               Modification
+  1.0   02-24-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
+-->
 <aura:component
   implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
   controller="FinancialDetailsController"
@@ -12,6 +22,8 @@
   <aura:attribute name="ConsolidatedDebts" type="List" />
   <aura:attribute name="VerifiedDebts" type="List" />
   <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
+  <aura:attribute name="isSubmitted" type="Boolean" default="false" />
+  <aura:attribute name="isVerified" type="Boolean" default="false" />
   <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
   <aura:handler event="c:DebtInfoEvent" action="{!c.handleDebtInfoEvent}" />
   <aura:handler
@@ -79,7 +91,7 @@
       unverifiedDataMap="{!v.UnverifiedDataMap}"
     ></c:TotalDebtConsolidatedVerificationLineItem>
     <lightning:layout horizontalAlign="space">
-      <lightning:layoutItem size="12" mediumDeviceSize="4">
+      <lightning:layoutItem size="12" mediumDeviceSize="3">
         <div class="slds-align_absolute-center slds-var-m-top_large">
           <lightning:button
             label="Check All"
@@ -89,7 +101,7 @@
           />
         </div>
       </lightning:layoutItem>
-      <lightning:layoutItem size="12" mediumDeviceSize="4">
+      <lightning:layoutItem size="12" mediumDeviceSize="3">
         <div class="slds-align_absolute-center slds-var-m-top_large">
           <lightning:button
             label="Save"
@@ -99,12 +111,23 @@
           />
         </div>
       </lightning:layoutItem>
+      <lightning:layoutItem size="12" mediumDeviceSize="3">
+        <div class="slds-align_absolute-center slds-var-m-top_large">
+          <lightning:button
+            label="Submit"
+            variant="brand"
+            title="Submit Details"
+            onclick="{!c.submitButtonAction}"
+          />
+        </div>
+      </lightning:layoutItem>
       <lightning:layoutItem size="12" mediumDeviceSize="4">
         <div class="slds-align_absolute-center slds-var-m-top_large">
           <lightning:button
             label="Verify"
             variant="brand"
             title="Verify Details"
+            onclick="{!c.verifyButtonAction}"
           />
         </div>
       </lightning:layoutItem>
