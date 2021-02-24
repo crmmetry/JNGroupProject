@@ -199,21 +199,24 @@
           </div>
           <aura:if isTrue="{!v.showGeneratedDocumentsFlag}">
             <div class="slds-box" style="margin-top: 2%;">
-              <!--Documents to be generated for Instalment Loans-->
-              <div class="slds-p-around_small">
-                <p class="slds-text-heading_medium slds-text-align_left">
-                  Documents to be generated for Instalment Loans
-                </p>
-                <div class="slds-m-top_small"></div>
-              </div>
-              <!--Documents to be generated for Revolving Loans-->
-              <div class="slds-p-around_small">
-                <p class="slds-text-heading_medium slds-text-align_left">
-                  Documents to be generated for Revolving Loans
-                </p>
-                <div class="slds-m-top_small"></div>
-              </div>
-
+              <aura:if isTrue="{!or(v.autoFlag , v.unsecuredFlag)}">
+                <!--Documents to be generated for Instalment Loans-->
+                <div class="slds-p-around_small">
+                  <p class="slds-text-heading_medium slds-text-align_left">
+                    Documents to be generated for Instalment Loans
+                  </p>
+                  <div class="slds-m-top_small"></div>
+                </div>
+              </aura:if>
+              <aura:if isTrue="{!or(v.creditCardFlag,v.lineOfCreditFlag)}">
+                <!--Documents to be generated for Revolving Loans-->
+                <div class="slds-p-around_small">
+                  <p class="slds-text-heading_medium slds-text-align_left">
+                    Documents to be generated for Revolving Loans
+                  </p>
+                  <div class="slds-m-top_small"></div>
+                </div>
+              </aura:if>
               <div class="slds-grid slds-gutters slds-wrap">
                 <aura:iteration
                   items="{!v.documentsForGeneration}"
