@@ -192,5 +192,6 @@
     ];
     component.set("v.documentsForGeneration", documentList);
     component.set("v.showGeneratedDocumentsFlag", !showGeneratedDocumentsFlag);
-  }
+  },
+  addGeneratedDocumentsData: function (component, event, helper) {}
 });
