@@ -36,10 +36,10 @@ public inherited sharing class TestDebtConsolidationRecordController {
         insert listRecords;
         
         Application_Asset_Liability__c applAssetLiabilityToInsert = TestDataFactory.CreateApplicantAssetsAndLiabilities(applicant.Id, assetLiability.Id);
+        applAssetLiabilityToInsert.Debt_Type_List__c='Unsecured Loan';
         listRecords.add(applAssetLiabilityToInsert);
-
-
-        DebtConsolidationRecordController.saveAssetLiablityRecords(listRecords, applicant.Id, Decimal.valueOf(1000),Decimal.valueOf(500));
+        
+        DebtConsolidationRecordController.saveAssetLiablityRecords(listRecords, applicant.Id,accList[0].Id, Decimal.valueOf(1000),Decimal.valueOf(500));
         List<Application_Asset_Liability__c> getRecords = DebtConsolidationRecordController.getAssetLiabilityRecords(applicant.Id);
         System.assertEquals(listRecords.size(), getRecords.size());
 

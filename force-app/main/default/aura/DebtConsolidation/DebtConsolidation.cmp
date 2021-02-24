@@ -14,6 +14,7 @@
   <aura:attribute name="totalDebtAmount" type="Decimal" default="0.0" />
   <aura:attribute name="totalDebtAmtMap" type="Map" default="{}" />
   <aura:attribute name="appAssetLiabilityList" type="Application_Asset_Liability__c[]"></aura:attribute>
+  <aura:attribute name="accountId" type="String"></aura:attribute>
   <aura:attribute
                     name="debtTypes"
                     type="List"

@@ -49,6 +49,7 @@
     saveRecords: function(component, event, helper){
         let listOfRecordsToInsert = component.get("v.appAssetLiabilityList");
         let applicantId = component.get("v.applicantId");
+        let accountId = component.get("v.accountId");
         let unsecuredLoanRecords = component.get("v.unsecuredLoanRecords");
         let objunsecuredLoanRecords = JSON.parse(JSON.stringify(unsecuredLoanRecords));
         for (let ulElement of objunsecuredLoanRecords)
@@ -147,6 +148,7 @@
         action.setParams({
             recordList : listOfRecordsToInsert,
             applId : applicantId,
+            accId : accountId,
             totalMonthly : totalMonthlyAmount,
             totalConsolidated : totalConsolidatedAmount
             
