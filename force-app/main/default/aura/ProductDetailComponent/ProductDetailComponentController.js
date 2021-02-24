@@ -159,6 +159,7 @@
         container,
         loanCalculationProductFields
       );
+      component.set("v.generateDocumentsFlag", true);
       return helper.saveProductDetailsInfo(
         component,
         productRecordTypes,
@@ -183,6 +184,13 @@
     const showGeneratedDocumentsFlag = component.get(
       "v.showGeneratedDocumentsFlag"
     );
-    component.set("v.showGeneratedDocumentsFlag", !!showGeneratedDocumentsFlag);
+    let documentList = [
+      "Statement Of Affaires",
+      "Credit Scoring Model",
+      "Application Form",
+      "Credit Summary Document"
+    ];
+    component.set("v.documentsForGeneration", documentList);
+    component.set("v.showGeneratedDocumentsFlag", !showGeneratedDocumentsFlag);
   }
 });

@@ -41,7 +41,11 @@
     description="contains all the relevant data that must be loaded for the spinner to hide"
   />
   <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
-  <aura:attribute name="documentsForGeneration" type="Array" default="[]" />
+  <aura:attribute
+    name="documentsForGeneration"
+    type="List"
+    default="['Statement Of Affaires','Application Form','Credit Scoring Model','Credit Summary Document']"
+  />
   <!-- Static Resource -->
   <ltng:require
     scripts="{!join(',', 
@@ -194,20 +198,97 @@
             </aura:if>
           </div>
           <aura:if isTrue="{!v.showGeneratedDocumentsFlag}">
-            <div class="slds-var-p-around_small slds-box">
-              <div
-                class="slds-grid slds-gutters slds-grid_vertical-align-start slds-grid_vertical-align-center"
-              >
+            <div
+              class="slds-var-p-around_small slds-box"
+              style="margin-top: 2%;"
+            >
+              <div class="slds-grid slds-gutters slds-wrap">
                 <aura:iteration
                   items="{!v.documentsForGeneration}"
-                  item="{!document}"
+                  var="document"
+                  indexVar="index"
                 >
-                  <div class="slds-size_4-of-12">
-                    <c:ProductDetailDocument
-                      title=""
-                      content=""
-                    ></c:ProductDetailDocument>
-                  </div>
+                  <aura:if
+                    isTrue="{!and(document == 'Statement Of Affaires' ,or(v.autoFlag , v.unsecuredFlag))}"
+                  >
+                    <aura:iteration
+                      items="{!v.applicants}"
+                      var="applicant"
+                      indexVar="index"
+                    >
+                      <div
+                        class="slds-col slds-size_4-of-12"
+                        style="margin-top: 1%;"
+                      >
+                        <c:ProductDetailDocument
+                          title="{!document}"
+                          content="{!'Applicant '+add(index,1)}"
+                          URL="{!'/apex/StatementOfAffairsForm?id='+ applicant.Id}"
+                        ></c:ProductDetailDocument>
+                      </div>
+                    </aura:iteration>
+                  </aura:if>
+
+                  <aura:if isTrue="{!document == 'Credit Scoring Model'}">
+                    <aura:iteration
+                      items="{!v.applicants}"
+                      var="applicant"
+                      indexVar="index"
+                    >
+                      <div
+                        class="slds-col slds-size_4-of-12"
+                        style="margin-top: 1%;"
+                      >
+                        <c:ProductDetailDocument
+                          title="{!document}"
+                          content="{!'Applicant '+add(index,1)}"
+                          URL="{!'/apex/AutoCreditScoreModel?Id='+ applicant.Id}"
+                        ></c:ProductDetailDocument>
+                      </div>
+                    </aura:iteration>
+                  </aura:if>
+                  <br />
+                  <aura:if
+                    isTrue="{!and(document == 'Application Form',or(v.autoFlag,v.unsecuredFlag))}"
+                  >
+                    <div
+                      class="slds-col slds-size_4-of-12"
+                      style="margin-top: 1%;"
+                    >
+                      <c:ProductDetailDocument
+                        title="{!document}"
+                        content=""
+                        URL="{!'/apex/ApplicationForm?oppid='+ v.recordId}"
+                      ></c:ProductDetailDocument>
+                    </div>
+                  </aura:if>
+                  <aura:if
+                    isTrue="{!and(document == 'Application Form',or(v.creditCardFlag,v.lineOfCreditFlag))}"
+                  >
+                    <div
+                      class="slds-col slds-size_4-of-12"
+                      style="margin-top: 1%;"
+                    >
+                      <c:ProductDetailDocument
+                        title="{!document}"
+                        content=""
+                        URL="{!'/apex/ApplicationForm_SOA?oppid='+ v.recordId}"
+                      ></c:ProductDetailDocument>
+                    </div>
+                  </aura:if>
+                  <br />
+                  <aura:if isTrue="{!document == 'Credit Summary Document'}">
+                    <div
+                      class="slds-col slds-size_4-of-12"
+                      style="margin-top: 1%;"
+                    >
+                      <c:ProductDetailDocument
+                        title="{!document}"
+                        content=""
+                        URL="{!'/apex/CreditApplicationSummaryDocument?id='+ v.recordId}"
+                      ></c:ProductDetailDocument>
+                    </div>
+                  </aura:if>
                 </aura:iteration>
               </div>
             </div>
