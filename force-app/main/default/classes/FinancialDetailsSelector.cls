@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+ * @group             :
+ * @last modified on  : 02-25-2021
+ * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+ * Modifications Log
+ * Ver   Date         Author                               Modification
+ * 1.0   02-25-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
+ **/
 public with sharing class FinancialDetailsSelector {
   /**
    * Returns all the unverified fields for an applicant financial details
@@ -10,7 +20,7 @@ public with sharing class FinancialDetailsSelector {
       'Applicant__c'
     );
     String IDMRecordTypeId = Util.getMappedRecordTypeId(
-      'Instant_Designing_Module_IDM',
+      'Instant_Decisioning_Module_IDM',
       recordTypesMapForApplicants
     );
     Applicant__c applicantObj = [
