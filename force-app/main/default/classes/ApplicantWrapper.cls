@@ -8,6 +8,8 @@ public with sharing class ApplicantWrapper {
   @AuraEnabled
   public Date dob;
   @AuraEnabled
+  public String name;
+  @AuraEnabled
   public Integer age;
   @AuraEnabled
   public Decimal rating;
@@ -73,6 +75,7 @@ public with sharing class ApplicantWrapper {
     this.rentStrataMaintenanceFromLongSummaryAfter = record.Strata_Maintenance_Monthly_After_Loan__c; //JN1-3967
     this.grossMonthlyIncomeFromLongSummary = record.Gross_Monthly_IncomeC__c;
     this.applicationAssetLiabilities = record.Application_Assets_Liabilities__r;
+    this.name = record.Name;
   }
 
   private Integer calculateAge(Date dob) {

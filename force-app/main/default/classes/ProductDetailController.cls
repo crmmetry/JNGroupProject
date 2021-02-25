@@ -93,15 +93,15 @@ public with sharing class ProductDetailController {
   }
 
   @AuraEnabled
-  public static List<ApplicantWrapper> getApplicantsRating(
-    Id oppId,
-    Decimal tenure
-  ) {
+  public static Object getApplicantsRating(Id oppId, Decimal tenure) {
     List<ApplicantWrapper> applicants = ProductDetailSelector.getApplicantDetails(
       oppId
     );
-    applicants = getApplicantsCreditRating(applicants, tenure);
-    return applicants;
+    if (applicants.size() > 0) {
+      applicants = getApplicantsCreditRating(applicants, tenure);
+      return applicants;
+    }
+    return -1;
   }
 
   /**
@@ -151,6 +151,7 @@ public with sharing class ProductDetailController {
       throw new AuraHandledException(e.getStackTraceString());
     }
   }
+
   /** *
    * retrievesrisk rating matrix.
    * @return Map
