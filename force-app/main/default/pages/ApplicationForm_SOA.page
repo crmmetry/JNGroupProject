@@ -599,7 +599,9 @@
                 </apex:pageBlock>-->
 
         <!--- PersonalAuto loan Loan -->
-        <apex:pageBlock>
+        <apex:pageBlock
+          rendered="{!If(AND(isCCFound, prod.Loan_Calculation_Products__r.size > 0 ),true,false)}"
+        >
           <div>
             <h5 class="header-inside">PERSONAL CREDIT CARD REQUEST</h5>
 
@@ -913,7 +915,9 @@
           </div>
         </apex:pageBlock>
 
-        <apex:pageBlock>
+        <apex:pageBlock
+          rendered="{!If(AND(isLocFound, prod.Loan_Calculation_Products__r.size > 0 ),true,false)}"
+        >
           <div>
             <h5 class="header-inside">PERSONAL LINE OF CREDIT REQUEST</h5>
 
