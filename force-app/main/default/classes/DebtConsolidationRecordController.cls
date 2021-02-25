@@ -61,11 +61,13 @@ public static Boolean saveAssetLiablityRecords(List<Application_Asset_Liability_
     }
 }
     List<String> debtTypeList = new List<String>();
+    Set<String> debtTypeSet = new Set<String>();
     for(Application_Asset_Liability__c assetLibRec : recordList){
         if(assetLibRec.Id == null){
             debtTypeList.add(assetLibRec.Debt_Type_List__c);
         }
     }
+    debtTypeList.addAll(debtTypeSet);
     if(!debtTypeList.isEmpty() && debtTypeList.size()>0){
         for(String debtType : debtTypeList){
             FinServ__AssetsAndLiabilities__c newRecord = new FinServ__AssetsAndLiabilities__c();
