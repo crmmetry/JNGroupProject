@@ -478,7 +478,7 @@ public class StatementOfAffairsFormController {
         this.outflowsUtilityExpencesPrior +
         this.outflowsTransportExpencesPrior;
 
-      this.totalOutflowbefore =
+      this.totalOutflowAfter =
         this.outflowsPropertyRelatedCostAfter +
         this.outflowsPersonalCostAfter +
         this.outflowsUtilityExpencesAfter +
