@@ -10,7 +10,6 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS" && typeof result !== "string") {
         component.set("v.IDMDataMap", result);
-        console.log("IDM Map: ", JSON.parse(JSON.stringify(result)));
       }
     });
     $A.enqueueAction(action);
@@ -31,10 +30,6 @@
           component.set("v.cardType", "Gold");
         }
         component.set("v.ProductSelectionMap", result);
-        console.log(
-          "Product Family data: ",
-          JSON.parse(JSON.stringify(result))
-        );
       }
     });
     $A.enqueueAction(action);
@@ -54,10 +49,6 @@
         } else {
           component.set("v.hasSupplementaryCardHolders", "No");
         }
-        console.log(
-          "Supplementary Cardholder info: ",
-          JSON.parse(JSON.stringify(result))
-        );
       }
     });
     $A.enqueueAction(action);
@@ -75,7 +66,6 @@
       if (state === "SUCCESS" && result != "None") {
         component.set("v.applicantAge", result[0].age);
         component.set("v.ApplicantDetails", result[0]);
-        console.log("Applicant Details: ", JSON.parse(JSON.stringify(result)));
       }
     });
     $A.enqueueAction(action);
@@ -92,7 +82,6 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS" && result != "None") {
         component.set("v.OpportunityDataMap", result);
-        console.log("Opp Details: ", JSON.parse(JSON.stringify(result)));
       }
     });
     $A.enqueueAction(action);
@@ -109,8 +98,6 @@
       if (state === "SUCCESS") {
         const values = response.getReturnValue();
         component.set("v.loanPurpose", values["Loan_Purpose_List__c"]);
-      } else {
-        console.error(JSON.parse(JSON.stringify(reponse.getError())));
       }
     });
     $A.enqueueAction(action);
