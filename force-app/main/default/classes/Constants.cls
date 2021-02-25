@@ -98,5 +98,8 @@ public class Constants {
     public static final String OPPORTUNITYSTRING = 'Opportunity';
     public static final String DOCUMENTTYPEPROMISSORYNOTE = 'Promissory_Note';
     public static final String DOCUMENTTYSIGNEDSALARYDED = 'Signed_Salary_Deduction';
+    
+    
+  
 
 }

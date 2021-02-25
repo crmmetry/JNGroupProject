@@ -195,13 +195,19 @@
                          <td class="bgColor">{!collateralWeightage}</td>
                      </tr>
                      <tr class="td">
-                     <td style="text-align: left;">Ability to Service</td>
+                         <td style="text-align: left;">Loan to Value</td>
+                         <td>{!loanToValue}</td>
+                         <td class="bgColor">{!loanToValueScore}</td>
+                         <td class="bgColor">{!loanToValueWeightage}</td>
+                     </tr>
+                     <tr class="td">
+                         <td style="text-align: left;">Ability to Service</td>
                          <td>{!abilityToService}</td>
                          <td class="bgColor">{!abilityToServiceScore}</td>
                          <td class="bgColor">{!abilityToServiceWeightage}</td>
                      </tr>
                      <tr class="td">
-                     <td style="text-align: left;">Repayment Method</td>
+                         <td style="text-align: left;">Repayment Method</td>
                          <td>{!repaymntMethod}</td>
                          <td class="bgColor">{!repaymntMethodScore}</td>
                          <td class="bgColor">{!repaymntMethodWeightage}</td>
@@ -231,12 +237,13 @@
                      <th class="ratingth">R8 - NPL Doubtful</th>
                  </thead>
                  <tbody style="border-collapse:collapse;">
-                 	<tr class="ratingtr"><td class="ratingTd">
+                 	<tr class="ratingtr">
+                      <td class="ratingTd">
                        <div class="ratingTextLeft"> 789 </div>
                         <div class="ratingTextMiddel"> - </div>
                         <div class="ratingTextRight"> 866 </div>                     	
                      </td>
-                     <td class="ratingTd">
+                     <td class="ratingTd" Style="width:11%">
                      	<div class="ratingTextLeft"> 712 </div>
                         <div class="ratingTextMiddel"> - </div>
                         <div class="ratingTextRight"> 788 </div>
@@ -256,7 +263,7 @@
                         <div class="ratingTextMiddel"> - </div>
                         <div class="ratingTextRight"> 556 </div>
                      </td>
-                     <td class="ratingTd">
+                     <td class="ratingTd" Style="width:16%">
                      	<div class="ratingTextLeft"> 401 </div>
                         <div class="ratingTextMiddel"> - </div>
                         <div class="ratingTextRight"> 478 </div>

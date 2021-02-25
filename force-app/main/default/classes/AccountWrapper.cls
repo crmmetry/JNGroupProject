@@ -11,7 +11,7 @@ public class AccountWrapper {
   public Decimal age;
   @AuraEnabled
   public String highestLevelOfEducation;
-
+  
   public AccountWrapper(Account accountObj) {
     this.age = Decimal.valueOf(calculateAge(accountObj.PersonBirthdate));
     this.statusOfAddress = accountObj.Status_of_Address__pc;
@@ -24,6 +24,18 @@ public class AccountWrapper {
    * @return {Integer}
    */
   private Integer calculateAge(Date dob) {
+      if(dob==Null){
+          return - 1;
+      }
+      if(dob.year()==Null){
+          return - 1;
+      }
+      if(dob.month()==Null){
+          return - 1;
+      }
+      if(dob.day()==Null){
+          return - 1;
+      }
     Integer currentYear = Date.today().year();
     Integer currentMonth = Date.today().month();
     Integer currentDay = Date.today().day();
