@@ -99,6 +99,7 @@ public class Constants {
     public static final String DOCUMENTTYPEPROMISSORYNOTE = 'Promissory_Note';
     public static final String DOCUMENTTYSIGNEDSALARYDED = 'Signed_Salary_Deduction';
     
+    public static final String DOCCHKLISTITEM_SOBJECT = 'DocumentChecklistItem';
     
   
 
