@@ -1,12 +1,14 @@
 ({
-  calculateDebtAmt: function (component, debtAmount) {
-    let existingValue = component.get("v.totalDebtAmount");
-    existingValue = parseFloat(existingValue) + parseFloat(debtAmount);
-    existingValue = existingValue;
-    component.set("v.totalDebtAmount", existingValue);
+  calculateDebtAmt: function (component, totalDebtMap) {
+    let total = 0;
+    for (let key in totalDebtMap) {
+      total = parseFloat(total) + parseFloat(totalDebtMap[key]);
+    }
+    component.set("v.totalDebtAmount", total);
   },
   remove: function (component, rowToDelete) {
     let deletedDebtAmt;
+    let totalDebtAmtMap = component.get("v.totalDebtAmtMap");
     let string1 = rowToDelete.split("_");
     if (string1[1] == "Unsecured Loan") {
       let existingRecords = component.get("v.unsecuredLoanRecords");
@@ -44,7 +46,8 @@
       existingRecords.splice(string1[0], 1);
       component.set("v.otherRecords", existingRecords);
     }
-
-    this.calculateDebtAmt(component, -deletedDebtAmt);
+    delete totalDebtAmtMap[rowToDelete];
+    component.set("v.totalDebtAmtMap", totalDebtAmtMap);
+    this.calculateDebtAmt(component, totalDebtAmtMap);
   }
 });
