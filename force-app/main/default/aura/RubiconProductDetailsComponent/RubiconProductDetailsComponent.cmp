@@ -2,7 +2,7 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 02-24-2021
+  @last modified on  : 02-25-2021
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
   Modifications Log 
   Ver   Date         Author                               Modification
@@ -24,7 +24,7 @@
   <aura:attribute
     name="numberOfApplicants"
     type="List"
-    default="['Unsecured Loan', 'Credit Card']"
+    default="['One (1) Applicant', 'Two (2) Applicants', 'Three (3) Applicants']"
   />
   <aura:attribute name="jointApplication" type="List" default="['Yes', 'No']" />
   <aura:attribute name="primaryApplicant" type="List" default="['Yes', 'No']" />
