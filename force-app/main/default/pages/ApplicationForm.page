@@ -19,16 +19,15 @@
     />
   </div>
   <div class="content">
+    <apex:variable value="{!1}" var="Counter" />
     <apex:repeat value="{!lst}" var="app" id="repeatapp" rows="">
       <div class="boxedDiv">
         <div class="subHeader">
-          <b>PERSONAL &amp; FINANCIAL DETAILS - APPLICANT 1</b>
+          <b>PERSONAL &amp; FINANCIAL DETAILS - APPLICANT {!Counter}</b>
         </div>
-        <c:ApplicationForm_Applicant
-          app="{!app}"
-          emergencyContacts="{!emergencyContacts}"
-        />
+        <c:ApplicationForm_Applicant app="{!app}" />
       </div>
+      <apex:variable value="{!Counter + 1}" var="Counter" />
     </apex:repeat>
     <div class="boxedDiv">
       <div class="subHeader">
