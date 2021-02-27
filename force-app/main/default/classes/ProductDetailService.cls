@@ -44,7 +44,7 @@ public class ProductDetailService {
    * @return {string} - return the value stored in subcriteria option of custom metadata
    */
   public string parseNumberOfYearsAtResidence(
-    Integer fieldValue,
+    Decimal fieldValue,
     List<PersonalCreditScoreModelWrapper> personalCreditScore
   ) {
     String subCriteriaOption;
@@ -73,7 +73,7 @@ public class ProductDetailService {
    * @return {string} - return the value stored in subcriteria option of custom metadata
    */
   public string parseLengthOfCurrentEmployment(
-    Integer fieldValue,
+    Decimal fieldValue,
     List<PersonalCreditScoreModelWrapper> personalCreditScore
   ) {
     String subCriteriaOption;
@@ -102,7 +102,7 @@ public class ProductDetailService {
    * @return {string} - return the value stored in subcriteria option of custom metadata
    */
   public string parseLoanToValue(
-    Integer fieldValue,
+    Decimal fieldValue,
     List<PersonalCreditScoreModelWrapper> personalCreditScore
   ) {
     String subCriteriaOption;
@@ -129,7 +129,7 @@ public class ProductDetailService {
    * @return {string} - return the value stored in subcriteria option of custom metadata
    */
   public string parseAbilityToService(
-    Integer fieldValue,
+    Decimal fieldValue,
     List<PersonalCreditScoreModelWrapper> personalCreditScore
   ) {
     String subCriteriaOption;
@@ -165,7 +165,7 @@ public class ProductDetailService {
    * @param {String} range -
    * @return {boolean} - return boolean value to show if given value is within range or not
    */
-  public boolean isWithinRange(Integer fieldValue, String range) {
+  public boolean isWithinRange(Decimal fieldValue, String range) {
     Boolean flag = false;
     if (range.contains('>')) {
       if (fieldValue > Integer.ValueOf(range.remove('>').trim())) {
@@ -283,7 +283,7 @@ public class ProductDetailService {
       } else if (fieldName.equalsIgnoreCase(Constants.YEARS_AT_RESIDENCE)) {
         if (personalCreditModelMap.containsKey(Constants.YEARS_AT_RESIDENCE)) {
           subCriteriaOption = parseNumberOfYearsAtResidence(
-            Integer.ValueOf(fieldValue),
+            Decimal.ValueOf(fieldValue),
             personalCreditModelMap.get(Constants.YEARS_AT_RESIDENCE)
           );
         } else {
@@ -294,7 +294,7 @@ public class ProductDetailService {
           personalCreditModelMap.containsKey(Constants.LENGTH_OF_EMPLOYMENT)
         ) {
           subCriteriaOption = parseLengthOfCurrentEmployment(
-            Integer.ValueOf(fieldValue),
+            Decimal.ValueOf(fieldValue),
             personalCreditModelMap.get(Constants.LENGTH_OF_EMPLOYMENT)
           );
         } else {
@@ -303,7 +303,7 @@ public class ProductDetailService {
       } else if (fieldName.equalsIgnoreCase(Constants.LOAN_TO_VALUE)) {
         if (personalCreditModelMap.containsKey(Constants.LOAN_TO_VALUE)) {
           subCriteriaOption = parseLoanToValue(
-            Integer.ValueOf(fieldValue),
+            Decimal.ValueOf(fieldValue),
             personalCreditModelMap.get(Constants.LOAN_TO_VALUE)
           );
         } else {
@@ -312,7 +312,7 @@ public class ProductDetailService {
       } else if (fieldName.equalsIgnoreCase(Constants.ABILITY_TO_SERVICE)) {
         if (personalCreditModelMap.containsKey(Constants.ABILITY_TO_SERVICE)) {
           subCriteriaOption = parseAbilityToService(
-            Integer.valueOf(fieldValue),
+            Decimal.valueOf(fieldValue),
             personalCreditModelMap.get(Constants.ABILITY_TO_SERVICE)
           );
         } else {
