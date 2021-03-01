@@ -128,7 +128,7 @@ public class CreditApplicationSummaryDocument {
         
         //Get OVERALL RISK SCORE and OVERALL RISK RATING
         loan_Cal_App_Prdct = new Loan_Calculation_Applicant_Product__c();
-        //getCreditScore_And_CreditRiskRating();
+        
         if(loanCalculationProductIds!=Null && applicanList!=Null){
         	getLoanCalculationApplicationProduct(applIds, loanCalculationProductIds);    
         }
@@ -490,7 +490,8 @@ public class CreditApplicationSummaryDocument {
                          		Electricity_Monthly_Prior_Loan__c,
                          		Fares_Monthly_Prior_Loan__c,
                          		Food_Cost_Monthly_Prior_Loan__c,
-                         		Health_Costs_Monthly_Prior_Loan__c
+                         		Health_Costs_Monthly_Prior_Loan__c,
+                         		CurrencyIsoCode
 
                               FROM Applicant__c
                          WHERE Opportunity__c = :oppId];
@@ -523,7 +524,8 @@ public class CreditApplicationSummaryDocument {
                                  			Assessment_of_Business__c,
                                  			Assessment_of_Statement__c,
                                  			FinServ__EmploymentStatus__c,
-                                 			FinServ__LengthOfEmployment__c
+                                 			FinServ__LengthOfEmployment__c,
+                                 			RecordTypeId
                                  FROM Employment__r) 
                           FROM Account 
                           WHERE Id IN :account_Ids]){
@@ -641,7 +643,7 @@ public class CreditApplicationSummaryDocument {
     private map<Id, map<string, decimal>> getValuesForMonthlyOutflow(){
         list<Application_Asset_Liability__c> applAssetLiabList = 
             New list<Application_Asset_Liability__c>();
-        
+          
 		map<Id, map<string, decimal>> mapOf_ApplicantId_and_AppAssetsLiabObj = 
             new map<Id, map<string, decimal>>();
         
