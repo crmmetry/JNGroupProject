@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+ * @group             :
+ * @last modified on  : 02-26-2021
+ * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+ * Modifications Log
+ * Ver   Date         Author                               Modification
+ * 1.0   02-26-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
+ **/
 public class LoanCalculationUnwrapper {
   private static final String TAG = 'LoanCalculationUnwrapper';
   @AuraEnabled
@@ -16,7 +26,7 @@ public class LoanCalculationUnwrapper {
     record.Name_of_Insurance_Provider__c = serializer.policyProvider;
     record.Type_of_Card__c = serializer.cardType;
     record.Financial_Institution__c = serializer.financialInstitution;
-    record.Deposit_Account_Number_Text__c = serializer.depositAccountNumber;
+    //record.Deposit_Account_Number_Text__c = serializer.depositAccountNumber;
     record.Account_Holders__c = serializer.accountHolder;
     record.Annual_Interest_Rate_on_Deposit_Account__c = serializer.annualInterestRate;
     record.Hypothecated_Loan_Flag__c = serializer.hypothecatedLoan;

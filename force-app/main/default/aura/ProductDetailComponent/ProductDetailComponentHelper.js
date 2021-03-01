@@ -766,7 +766,7 @@
         }
       ]);
     } else if (isCreditCard || isLineOfCredit) {
-      loanCalculationProductFields = loanCalculationFields.concat([
+      loanCalculationProductFields = loanCalculationProductFields.concat([
         {
           localName: "interestedInCreditorLifeNonRevolving",
           mappedName: "interestedInCreditorLife",

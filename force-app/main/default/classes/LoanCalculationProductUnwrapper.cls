@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+ * @group             :
+ * @last modified on  : 02-26-2021
+ * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+ * Modifications Log
+ * Ver   Date         Author                               Modification
+ * 1.0   02-26-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
+ **/
 public class LoanCalculationProductUnwrapper {
   private static final String TAG = 'LoanCalculationUnwrapper';
   @AuraEnabled
@@ -10,7 +20,6 @@ public class LoanCalculationProductUnwrapper {
     this.record.recordTypeId = assignRecordType(recordTypes);
     record.Years_Number__c = serializer.years;
     record.Months_Number__c = serializer.months;
-    //record.Loan_Amount_Market_Percentage_Number__c = serializer.market;
     record.Applicable_Processing_Fee_Number__c = serializer.processingFeePercentagePerAnum;
     record.Repayment_Method_List__c = serializer.repaymentMethod;
     record.Desired_Monthly_Repayment_Date__c = serializer.repaymentDate;
@@ -77,15 +86,19 @@ public class LoanCalculationProductUnwrapper {
     record.Interested_in_JNGI_SureCover_flag__c = serializer.interested;
     record.Requested_Credit_Limit_Number__c = serializer.requestedCreditLimit;
     record.Financial_Institution_List__c = serializer.financialInstitution;
-    //record.Deposit_Account_Number_Number__c = serializer.jnBankAccountNumber;
-    record.Deposit_Account_Number_Number__c = serializer.depositAccountNumber;
+    if (serializer.jnBankAccountNumber != null) {
+      record.Deposit_Account_Number_Number__c = serializer.jnBankAccountNumber;
+    }
+    if (serializer.depositAccountNumber != null) {
+      record.Deposit_Account_Number_Number__c = serializer.depositAccountNumber;
+    }
     record.Deposit_Account_Number_Prefix_text__c = serializer.jnBankAccountNumberPrefix;
     record.Account_Holder_s_text__c = serializer.accountHolder;
     record.Account_Hypothecated_list__c = serializer.hypothecatedLoan;
     record.Annual_Interest_Rate_Deposit_Acct_Number__c = serializer.annualInterestRate;
     record.Deposit_Account_Balance_Number__c = serializer.depositBalance;
     record.Life_Insurance_Coverage_List__c = serializer.lifeInsuranceCoverage;
-    //record.Desired_Statement_Date__c = serializer.repaymentDate;
+    record.Desired_Statement_Date__c = serializer.repaymentDate;
   }
   /**
    * save loan calculation product object
