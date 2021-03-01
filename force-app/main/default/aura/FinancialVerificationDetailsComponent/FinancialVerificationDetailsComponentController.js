@@ -23,6 +23,10 @@
     component.set("v.scriptsLoaded", true);
   },
 
+  onVerifiedDataMapChange: function (component, event) {},
+
+  onVerifiedDebtsChange: function (component) {},
+
   submitButtonAction: function (component, event, helper) {
     helper.updateOpportunity(
       component,
