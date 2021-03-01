@@ -373,27 +373,7 @@ public class CreditApplicationSummaryDocument {
             }
         }
     }
-    
-    private void getCreditScore_And_CreditRiskRating(){
-       list<Loan_Calculation_Applicant_Product__c> loanCalAppPrdct = 
-           new list<Loan_Calculation_Applicant_Product__c>();
-        
-        if(loanCalculationProduct!=Null){
-            loanCalAppPrdct = [SELECT 
-                               			Id,
-                               			Credit_Score_Number__c, 
-                            	   		Credit_Risk_Rating_Text__c 
-                               FROM 
-             		                  	Loan_Calculation_Applicant_Product__c 
-                               WHERE 
-                    		           	Loan_Calculation_Product_Id__c = :loanCalculationProduct.Id];
-            if(loanCalAppPrdct!=Null){
-                if(loanCalAppPrdct.size()>0){
-                    loan_Cal_App_Prdct = loanCalAppPrdct.get(0);     
-                }
-            }
-        }
-    }    
+       
     private list<Applicant__c> getListOfApplicants(Id oppId) {
         
         list<Applicant__c> applicantList = new list<Applicant__c>();
