@@ -101,5 +101,54 @@
       }
     });
     $A.enqueueAction(action);
+  },
+
+  submitRubiconProductDetails: function (component) {
+    let oppId = component.get("v.recordId");
+    let fieldValueSets = {
+      Product_Details_flag__c: true,
+      Pre_Assessment_Submitted_flag__c: true
+    };
+    const action = component.get("c.updateFieldsOnOpportunity");
+    action.setParams({
+      oppId: oppId,
+      fieldValueSets: fieldValueSets
+    });
+    action.setCallback(this, function (response) {
+      const state = response.getState();
+      const result = response.getReturnValue();
+      if (state === "SUCCESS") {
+        console.log("save successful");
+        this.showToast(
+          "Submission Successful",
+          "Product Details was submitted successfully",
+          "success"
+        );
+      } else {
+        this.showToast(
+          "Submission Failed",
+          "Product Details was not submitted successfully",
+          "error"
+        );
+      }
+    });
+    $A.enqueueAction(action);
+  },
+
+  /**
+   * displays toast message
+   * @param {String} title
+   * @param {String} message
+   * @param {String} type
+   * @returns {Void}
+   */
+  showToast: function (title, message, type) {
+    let toastEvent = $A.get("e.force:showToast");
+    toastEvent.setParams({
+      title: title,
+      message: message,
+      type: type
+    });
+    toastEvent.fire();
   }
 });

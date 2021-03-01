@@ -204,7 +204,7 @@ public with sharing class ProductDetailSelector {
     Id oppId
   ) {
     LoanCalculationProductWrapper loanWrapper;
-    Loan_Calculation_Product__c loanObj = [
+    List<Loan_Calculation_Product__c> loanObj = [
       SELECT
         Id,
         Loan_Amount_Market_Percentage_Number__c,
@@ -232,8 +232,8 @@ public with sharing class ProductDetailSelector {
       ORDER BY CreatedDate DESC
       LIMIT 1
     ];
-    if (loanObj != null) {
-      loanWrapper = new LoanCalculationProductWrapper(loanObj);
+    if (loanObj.size() == 1) {
+      loanWrapper = new LoanCalculationProductWrapper(loanObj[0]);
     }
 
     return loanWrapper;
