@@ -82,6 +82,9 @@ public with sharing class ApplicantWrapper {
     Integer currentYear = Date.today().year();
     Integer currentMonth = Date.today().month();
     Integer currentDay = Date.today().day();
+    if (dob == null) {
+      return -1;
+    }
     Integer birthYear = dob.year();
     Integer birthMonth = dob.month();
     Integer birthDay = dob.day();

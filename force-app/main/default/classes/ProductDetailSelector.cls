@@ -18,7 +18,10 @@ public with sharing class ProductDetailSelector {
         Years_at_Residence__pc,
         Highest_Level_of_Education_attained__pc,
         FinServ__Age__pc,
-        PersonBirthdate
+        PersonBirthdate,
+        Name,
+        Political_Exposure__pc,
+        Jamaican_Tax_Registration_Number__pc
       FROM Account
       WHERE Id = :accountId
     ];

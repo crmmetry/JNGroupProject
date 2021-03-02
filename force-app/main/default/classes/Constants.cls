@@ -68,4 +68,28 @@ public class Constants {
   public static final String CLOSE_DATE_ERR4 = 'The Closed Date year cannot be less this year. Please contact Sales Support.';
   public static final String CLOSE_DATE_ERR5 = 'The Closed Date cannot be a holiday. Please contact Sales Support.';
   public static final String FINACIAL_VERIFICATION_CUSTOM_PERMISSION_ERROR = 'Sorry, you do not have the correct permissions to edit this page. Please contact your System Administrator for more information.';
+
+  public static final String AUTO_PRODUCT_FAMILY_FOR_DISPLAY = 'Auto Loan';
+  public static final String CREDITCARD_PRODUCT_FAMILY_FOR_DISPLAY = 'Credit Card';
+  public static final String UNSECURED_PRODUCT_FAMILY_FOR_DISPLAY = 'Unsecured Loan';
+  public static final String LINEOFCREDIT_PRODUCT_FAMILY_FOR_DISPLAY = 'Line Of Credit';
+
+  public static final String STARTINGLIMITNUMBER_C = 'Starting_Limit_Number__c';
+  public static final String MARKETVALUEOFVEHICLENUMBER_C = 'Market_Value_of_Vehicle_Number__c';
+  public static final String MONTHLY_PAYMNT_PRIOR_CALC_APP_PORTION_C = 'Monthly_Payment_Prior_Calc_App_Portion__c';
+  public static final String MINIMUM_PAYMNT_CALC_C = 'Minimum_Payment_Calc__c';
+  public static final String TOTAL_MONTHLY_LOAN_PAYMENT_NUMBER_C = 'Total_Monthly_Loan_Payment_Number__c';
+  public static final String MINIMUM_PAYMENT_PER_CREDIT_LIMIT_NUMBER_C = 'Minimum_Payment_per_Credit_Limit_Number__c';
+  public static final String MONTHLY_PAYMENT_AFTER_C = 'Monthly_Payment_After__c';
+  public static final String MINIMUM_PAYMENT_AFTER_C = 'Minimum_Payment_After__c';
+  public static final String OVERDRAFTLIMITNUMBER_C = 'Overdraft_Limit_Number__c';
+  public static final String LOANBALANCEPRIOR_C = 'Loan_Balance_Prior__c';
+
+  public static final String WILL_REMAIN_STRING = 'Will Remain';
+  public static final String REPAY_FACILITY_STRING = 'Repay Facility';
+
+  public static final String YESSTRING = 'Yes';
+  public static final String NOSTRING = 'No';
+
+  public static final String ID_STRING = 'Id';
 }

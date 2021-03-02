@@ -1,9 +1,16 @@
 <apex:component>
   <apex:stylesheet value="{!$Resource.CreditApplicationSummaryDocument}" />
+  <apex:attribute name="applicantObj" type="Applicant__c" description="" />
+  <apex:attribute
+    name="applicantEmpWrapperObj"
+    type="ApplicantAndEmployementWrapper"
+    description=""
+  />
+
   <table class="parentTable" cellpadding="0" cellspacing="0">
     <tr>
-      <td class="parentRow">GENERAL DETAILS</td>
-      <td style="width: 90%;">
+      <td class="parentRow" style="width: 15%;">GENERAL DETAILS</td>
+      <td style="width: 85%;">
         <table class="childTable" cellpadding="0" cellspacing="0">
           <tr>
             <td class="childRowFields">Name of Applicant:</td>
@@ -12,10 +19,22 @@
             <td class="childRowFields">Marital Status:</td>
           </tr>
           <tr style="margin-top: 10px;">
-            <td><div class="boxed">Jane Doe</div></td>
-            <td><div class="boxed">0 Years</div></td>
-            <td><div class="boxed">Male</div></td>
-            <td><div class="boxed">Single</div></td>
+            <td>
+              <div class="boxed">{!applicantEmpWrapperObj.applicantName}</div>
+            </td>
+            <td>
+              <div class="boxed">{!applicantEmpWrapperObj.ageOfApplicant}</div>
+            </td>
+            <td>
+              <div class="boxed">
+                {!applicantEmpWrapperObj.genderOfApplicant}
+              </div>
+            </td>
+            <td>
+              <div class="boxed">
+                {!applicantEmpWrapperObj.maritalStatusOfApplicant}
+              </div>
+            </td>
           </tr>
         </table>
         <table class="childTable" cellpadding="1" cellspacing="1">
@@ -26,10 +45,24 @@
             <td class="childRowFields">Time living at Current Address:</td>
           </tr>
           <tr style="margin-top: 10px;">
-            <td><div class="boxed">Graduate</div></td>
-            <td><div class="boxed">10</div></td>
-            <td><div class="boxed">Residential</div></td>
-            <td><div class="boxed">10</div></td>
+            <td>
+              <div class="boxed">
+                {!applicantEmpWrapperObj.highestEducationOfApplicant}
+              </div>
+            </td>
+            <td>
+              <div class="boxed">
+                {!applicantEmpWrapperObj.numberOfDependent}
+              </div>
+            </td>
+            <td>
+              <div class="boxed">{!applicantEmpWrapperObj.statusOfAddress}</div>
+            </td>
+            <td>
+              <div class="boxed">
+                {!applicantEmpWrapperObj.timeLivingAtAddress}
+              </div>
+            </td>
           </tr>
         </table>
       </td>
@@ -38,8 +71,8 @@
   <div style="margin-top: 10px; font-size: small;"></div>
   <table class="parentTable" cellpadding="0" cellspacing="0">
     <tr>
-      <td class="parentRow">EMPLOYMENT DETAILS</td>
-      <td style="width: 90%;">
+      <td class="parentRow" style="width: 15%;">EMPLOYMENT DETAILS</td>
+      <td style="width: 85%;">
         <table class="childTable" cellpadding="0" cellspacing="0">
           <tr>
             <td class="textArea">
@@ -51,8 +84,16 @@
             <td class="childRowFields">Professional Category:</td>
           </tr>
           <tr style="margin-top: 10px;">
-            <td><div class="boxed">Self Employed</div></td>
-            <td><div class="boxed">IT</div></td>
+            <td>
+              <div class="boxed">
+                {!applicantEmpWrapperObj.type_of_Industry}
+              </div>
+            </td>
+            <td>
+              <div class="boxed">
+                {!applicantEmpWrapperObj.professional_Category}
+              </div>
+            </td>
           </tr>
         </table>
       </td>
@@ -63,8 +104,8 @@
   <div style="margin-top: 10px; font-size: small;"></div>
   <table class="parentTable" cellpadding="0" cellspacing="0">
     <tr>
-      <td class="parentRow">EMPLOYMENT DETAILS</td>
-      <td style="width: 90%;">
+      <td class="parentRow" style="width: 15%;">EMPLOYMENT DETAILS</td>
+      <td style="width: 85%;">
         <table class="childTable" cellpadding="0" cellspacing="0">
           <tr>
             <td class="textArea">Primary Type of Employment = Self-Employed</td>
@@ -77,9 +118,45 @@
             </td>
           </tr>
           <tr style="margin-top: 10px;">
-            <td><div class="boxed">Industrial</div></td>
-            <td><div class="boxed">Employer</div></td>
-            <td><div class="boxed">Bussiness</div></td>
+            <td>
+              <div class="boxed">
+                {!applicantEmpWrapperObj.type_of_Industry}
+              </div>
+            </td>
+            <td>
+              <div class="boxed">
+                {!applicantEmpWrapperObj.nature_of_Engagement}
+              </div>
+            </td>
+            <td>
+              <div class="boxed">
+                {!applicantEmpWrapperObj.assment_of_Business_Working_Capital}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="childRowFields">Length of Trade:</td>
+            <td class="childRowFields">
+              Assessment of Business's Financial Performance:
+            </td>
+            <td class="childRowFields">
+              Assessment of Business's Financial Statement Support:
+            </td>
+          </tr>
+          <tr style="margin-top: 10px;">
+            <td>
+              <div class="boxed">{!applicantEmpWrapperObj.length_of_Trade}</div>
+            </td>
+            <td>
+              <div class="boxed">
+                {!applicantEmpWrapperObj.assment_of_Business_Financial_Performance}
+              </div>
+            </td>
+            <td>
+              <div class="boxed">
+                {!applicantEmpWrapperObj.assment_of_Business_Financial_Statement_Support}
+              </div>
+            </td>
           </tr>
         </table>
       </td>
@@ -89,8 +166,8 @@
   <div style="margin-top: 10px; font-size: small;"></div>
   <table class="parentTable" cellpadding="0" cellspacing="0">
     <tr>
-      <td class="parentRow">CREDIT ASSESSMENT</td>
-      <td style="width: 90%;">
+      <td class="parentRow" style="width: 15%;">CREDIT ASSESSMENT</td>
+      <td style="width: 85%;">
         <table class="childTable" cellpadding="0" cellspacing="0">
           <tr>
             <td class="childRowFields">CRIF Rating:</td>
@@ -98,9 +175,19 @@
             <td class="childRowFields">Overall Credit Bureau Rating:</td>
           </tr>
           <tr style="margin-top: 10px;">
-            <td><div class="boxed">Industrial</div></td>
-            <td><div class="boxed">Employer</div></td>
-            <td><div class="boxed">Bussiness</div></td>
+            <td>
+              <div class="boxed">{!applicantEmpWrapperObj.crif_Rating}</div>
+            </td>
+            <td>
+              <div class="boxed">
+                {!applicantEmpWrapperObj.creditInfo_Rating}
+              </div>
+            </td>
+            <td>
+              <div class="boxed">
+                {!applicantEmpWrapperObj.overAllCreditBureau}
+              </div>
+            </td>
           </tr>
         </table>
       </td>
@@ -110,8 +197,8 @@
   <div style="margin-top: 10px; font-size: small;"></div>
   <table class="parentTable" cellpadding="0" cellspacing="0">
     <tr>
-      <td class="parentRow">JN BANK DETAILS</td>
-      <td style="width: 90%;">
+      <td class="parentRow" style="width: 15%;">JN BANK DETAILS</td>
+      <td style="width: 85%;">
         <table class="childTable" cellpadding="0" cellspacing="0">
           <tr>
             <td class="childRowFields">KYC Compliant?</td>
@@ -122,10 +209,32 @@
             </td>
           </tr>
           <tr style="margin-top: 10px;">
-            <td><div class="boxed">Industrial</div></td>
-            <td><div class="boxed">Employer</div></td>
-            <td><div class="boxed">Bussiness</div></td>
-            <td><div class="boxed">Bussiness</div></td>
+            <td><div class="boxed">{!applicantEmpWrapperObj.is_KYC}</div></td>
+            <td>
+              <div class="boxed">{!applicantEmpWrapperObj.timeAsMember}</div>
+            </td>
+            <td>
+              <div class="boxed">{!applicantEmpWrapperObj.RIM_Number}</div>
+            </td>
+            <td>
+              <div class="boxed">
+                {!applicantEmpWrapperObj.hasNegativeScreening}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="childRowFields" colspan="2">Affiliation Type:</td>
+            <td class="childRowFields">PEP?</td>
+            <td class="childRowFields">JN Group Employee?</td>
+          </tr>
+          <tr style="margin-top: 10px;">
+            <td colspan="2">
+              <div class="boxed">{!applicantEmpWrapperObj.affiliationType}</div>
+            </td>
+            <td>
+              <div class="boxed">{!applicantEmpWrapperObj.pepString}</div>
+            </td>
+            <td><div class="boxed">{!applicantEmpWrapperObj.jnGroup}</div></td>
           </tr>
         </table>
       </td>
