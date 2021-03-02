@@ -49,34 +49,33 @@
             </tr>
             <tr style="margin-top: 5px;">
               <td class="creditDetailFieldValues">
-                {!auto_LoanCalculationProduct.Loan_Purpose_List__c}
+                {!loanCalculationProduct.Loan_Purpose_List__c}
               </td>
               <td class="creditDetailFieldValues">
-                {!auto_LoanCalculationProduct.Years_Number__c} Years
-                {!auto_LoanCalculationProduct.Months_Number__c} months
+                {!loanCalculationProduct.Years_Number__c}
               </td>
               <td class="creditDetailFieldValues">
-                {!auto_LoanCalculationProduct.Interest_Rate_Number__c}
+                {!loanCalculationProduct.Interest_Rate_Number__c}
               </td>
               <td class="creditDetailFieldValues">
                 <apex:outputText
-                  value="{!auto_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!auto_LoanCalculationProduct.Market_Value_of_Vehicle_Number__c}"
+                    value="{!loanCalculationProduct.Market_Value_of_Vehicle_Number__c}"
                   />
                 </apex:outputText>
               </td>
               <td class="creditDetailFieldValues">
                 <apex:outputText
-                  value="{!auto_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!auto_LoanCalculationProduct.Purchase_Price_of_Vehicle_Number__c}"
+                    value="{!loanCalculationProduct.Purchase_Price_of_Vehicle_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -95,16 +94,16 @@
             </tr>
             <tr style="margin-top: 5px;">
               <td class="creditDetailFieldValues">
-                {!auto_LoanCalculationProduct.Vehicle_Classification_list__c}
+                {!loanCalculationProduct.Vehicle_Classification_list__c}
               </td>
               <td class="creditDetailFieldValues">
-                {!auto_LoanCalculationProduct.Make_and_Model_of_Motor_Vehicle_text__c}
+                {!loanCalculationProduct.Make_and_Model_of_Motor_Vehicle_text__c}
               </td>
               <td class="creditDetailFieldValues">
-                {!auto_LoanCalculationProduct.Repayment_Method_List__c}
+                {!loanCalculationProduct.Repayment_Method_List__c}
               </td>
               <td class="creditDetailFieldValues">
-                {!auto_LoanCalculationProduct.Applicable_Processing_Fee_Number__c}
+                {!loanCalculationProduct.Applicable_Processing_Fee_Number__c}
               </td>
             </tr>
           </table>
@@ -116,12 +115,12 @@
               <td>+ Loan Amount (Market)</td>
               <td class="totalFinancingTableFieldsValues">
                 <apex:outputText
-                  value="{!auto_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!auto_LoanCalculationProduct.Loan_Amount_Number__c}"
+                    value="{!loanCalculationProduct.Loan_Amount_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -142,12 +141,12 @@
               <td>+ JN Life Creditor Life Premium</td>
               <td class="totalFinancingTableFieldsValues">
                 <apex:outputText
-                  value="{!auto_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!auto_LoanCalculationProduct.JN_Life_Creditor_Life_Premium_Number__c}"
+                    value="{!loanCalculationProduct.JN_Life_Creditor_Life_Premium_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -156,12 +155,12 @@
               <td>+ Processing Fees</td>
               <td class="totalFinancingTableFieldsValues">
                 <apex:outputText
-                  value="{!auto_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!auto_LoanCalculationProduct.Processing_Fees_including_GCT_Number__c}"
+                    value="{!loanCalculationProduct.Processing_Fees_including_GCT_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -170,12 +169,12 @@
               <td>+ JNGI Motor 1st Year Premium</td>
               <td class="totalFinancingTableFieldsValues">
                 <apex:outputText
-                  value="{!auto_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!auto_LoanCalculationProduct.JNGI_Motor_Premium_1st_Year_during_Numbe__c}"
+                    value="{!loanCalculationProduct.JNGI_Motor_Premium_1st_Year_during_Numbe__c}"
                   />
                 </apex:outputText>
               </td>
@@ -185,12 +184,12 @@
               <td>Total Loan Amount</td>
               <td class="totalFinancingTableLastFields">
                 <apex:outputText
-                  value="{!auto_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!auto_LoanCalculationProduct.Total_Loan_Amount_Number__c}"
+                    value="{!loanCalculationProduct.Total_Loan_Amount_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -214,12 +213,12 @@
               <td>+ Monthly Loan Payment (Market) - P&amp;I</td>
               <td class="totalFinancingTableFieldsValues">
                 <apex:outputText
-                  value="{!auto_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!auto_LoanCalculationProduct.Monthly_PI_Loan_Amount_Number__c}"
+                    value="{!loanCalculationProduct.Monthly_PI_Loan_Amount_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -241,12 +240,12 @@
               <td>+ Monthly JN Life Creditor Life Premium - P&amp;I</td>
               <td class="totalFinancingTableFieldsValues">
                 <apex:outputText
-                  value="{!auto_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!auto_LoanCalculationProduct.Monthly_P_I_Life_Insurance_Premium__c}"
+                    value="{!loanCalculationProduct.Monthly_P_I_Life_Insurance_Premium__c}"
                   />
                 </apex:outputText>
               </td>
@@ -255,12 +254,12 @@
               <td>+ Monthly Processing Fees - P&amp;I</td>
               <td class="totalFinancingTableFieldsValues">
                 <apex:outputText
-                  value="{!auto_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!auto_LoanCalculationProduct.Monthly_PI_Processing_Fee_Flag__c}"
+                    value="{!loanCalculationProduct.Monthly_PI_Processing_Fee_Flag__c}"
                   />
                 </apex:outputText>
               </td>
@@ -269,12 +268,12 @@
               <td>+ Monthly JNGI Motor 1st Year Premium - P&amp;I</td>
               <td class="totalFinancingTableFieldsValues">
                 <apex:outputText
-                  value="{!auto_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!auto_LoanCalculationProduct.Monthly_P_I_JNGI_Motor_Premium_Number__c}"
+                    value="{!loanCalculationProduct.Monthly_P_I_JNGI_Motor_Premium_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -283,12 +282,12 @@
               <td>+ Monthly JNGI Motor Premium (1/12 Payment)</td>
               <td class="totalFinancingTableFieldsValues">
                 <apex:outputText
-                  value="{!auto_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!auto_LoanCalculationProduct.Monthly_JNGI_Motor_Premium_Number__c}"
+                    value="{!loanCalculationProduct.Monthly_JNGI_Motor_Premium_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -297,12 +296,12 @@
               <td>Sub-Monthly Loan Payment</td>
               <td class="totalFinancingTableLastFields">
                 <apex:outputText
-                  value="{!auto_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!auto_LoanCalculationProduct.Total_Monthly_PI_Loan_Payment_Number__c}"
+                    value="{!loanCalculationProduct.Total_Monthly_PI_Loan_Payment_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -318,12 +317,12 @@
               <td><b>Monthly Loan Savings</b></td>
               <td class="totalFinancingTableLastFields">
                 <apex:outputText
-                  value="{!auto_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!auto_LoanCalculationProduct.Monthly_Compulsory_Savings_Number__c}"
+                    value="{!loanCalculationProduct.Monthly_Compulsory_Savings_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -339,12 +338,12 @@
               <td><b>Total Monthly Loan Payment</b></td>
               <td class="totalFinancingTableLastFields">
                 <apex:outputText
-                  value="{!auto_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!auto_LoanCalculationProduct.Total_Monthly_Saving_Loan_Payment_Number__c}"
+                    value="{!loanCalculationProduct.Total_Monthly_Saving_Loan_Payment_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -365,12 +364,12 @@
               </td>
               <td class="totalFinancingTableLastFields">
                 <apex:outputText
-                  value="{!auto_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!auto_LoanCalculationProduct.Total_Compulsory_Savings_Balance_Number__c}"
+                    value="{!loanCalculationProduct.Total_Compulsory_Savings_Balance_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -391,12 +390,12 @@
               </td>
               <td class="totalFinancingTableLastFields">
                 <apex:outputText
-                  value="{!auto_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!auto_LoanCalculationProduct.Total_Interest_Payment_Repayment_Number__c}"
+                    value="{!loanCalculationProduct.Total_Interest_Payment_Repayment_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -419,19 +418,19 @@
             </tr>
             <tr style="margin-top: 5px;">
               <td class="creditDetailFieldValues">
-                {!Unsecured_LoanCalculationProduct.Loan_Purpose_List__c}
+                {!loanCalculationProduct.Loan_Purpose_List__c}
               </td>
               <td class="creditDetailFieldValues">
-                {!Unsecured_LoanCalculationProduct.Years_Number__c}
+                {!loanCalculationProduct.Years_Number__c}
               </td>
               <td class="creditDetailFieldValues">
-                {!Unsecured_LoanCalculationProduct.Interest_Rate_Number__c}
+                {!loanCalculationProduct.Interest_Rate_Number__c}
               </td>
               <td class="creditDetailFieldValues">
-                {!Unsecured_LoanCalculationProduct.Repayment_Method_List__c}
+                {!loanCalculationProduct.Repayment_Method_List__c}
               </td>
               <td class="creditDetailFieldValues">
-                {!Unsecured_LoanCalculationProduct.Applicable_Processing_Fee_Number__c}
+                {!loanCalculationProduct.Applicable_Processing_Fee_Number__c}
               </td>
             </tr>
           </table>
@@ -443,12 +442,12 @@
               <td>+ Loan Amount (Market)</td>
               <td class="totalFinancingTableFieldsValues">
                 <apex:outputText
-                  value="{!Unsecured_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!Unsecured_LoanCalculationProduct.Loan_Amount_Number__c}"
+                    value="{!loanCalculationProduct.Loan_Amount_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -469,12 +468,12 @@
               <td>+ JN Life Creditor Life Premium</td>
               <td class="totalFinancingTableFieldsValues">
                 <apex:outputText
-                  value="{!Unsecured_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!Unsecured_LoanCalculationProduct.JN_Life_Creditor_Life_Premium_Number__c}"
+                    value="{!loanCalculationProduct.JN_Life_Creditor_Life_Premium_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -483,12 +482,12 @@
               <td>+ Processing Fees</td>
               <td class="totalFinancingTableFieldsValues">
                 <apex:outputText
-                  value="{!Unsecured_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!Unsecured_LoanCalculationProduct.Processing_Fees_including_GCT_Number__c}"
+                    value="{!loanCalculationProduct.Processing_Fees_including_GCT_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -497,12 +496,12 @@
               <td>Total Loan Amount</td>
               <td class="totalFinancingTableLastFields">
                 <apex:outputText
-                  value="{!Unsecured_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!Unsecured_LoanCalculationProduct.Total_Loan_Amount_Number__c}"
+                    value="{!loanCalculationProduct.Total_Loan_Amount_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -526,12 +525,12 @@
               <td>+ Monthly Loan Payment (Market) - P&amp;I</td>
               <td class="totalFinancingTableFieldsValues">
                 <apex:outputText
-                  value="{!Unsecured_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!Unsecured_LoanCalculationProduct.Monthly_PI_Loan_Amount_Number__c}"
+                    value="{!loanCalculationProduct.Monthly_PI_Loan_Amount_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -552,12 +551,12 @@
               <td>+ Monthly JN Life Creditor Life Premium - P&amp;I</td>
               <td class="totalFinancingTableFieldsValues">
                 <apex:outputText
-                  value="{!Unsecured_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!Unsecured_LoanCalculationProduct.Monthly_P_I_Life_Insurance_Premium__c}"
+                    value="{!loanCalculationProduct.Monthly_P_I_Life_Insurance_Premium__c}"
                   />
                 </apex:outputText>
               </td>
@@ -566,12 +565,12 @@
               <td>+ Monthly Processing Fees - P&amp;I</td>
               <td class="totalFinancingTableFieldsValues">
                 <apex:outputText
-                  value="{!Unsecured_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!Unsecured_LoanCalculationProduct.Monthly_PI_Processing_Fee_Flag__c}"
+                    value="{!loanCalculationProduct.Monthly_PI_Processing_Fee_Flag__c}"
                   />
                 </apex:outputText>
               </td>
@@ -580,12 +579,12 @@
               <td>Sub-Monthly Loan Payment</td>
               <td class="totalFinancingTableLastFields">
                 <apex:outputText
-                  value="{!Unsecured_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!Unsecured_LoanCalculationProduct.Total_Monthly_PI_Loan_Payment_Number__c}"
+                    value="{!loanCalculationProduct.Total_Monthly_PI_Loan_Payment_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -601,12 +600,12 @@
               <td><b>Monthly Loan Savings</b></td>
               <td class="totalFinancingTableLastFields">
                 <apex:outputText
-                  value="{!Unsecured_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!Unsecured_LoanCalculationProduct.Monthly_Compulsory_Savings_Number__c}"
+                    value="{!loanCalculationProduct.Monthly_Compulsory_Savings_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -622,12 +621,12 @@
               <td><b>Total Monthly Loan Payment</b></td>
               <td class="totalFinancingTableLastFields">
                 <apex:outputText
-                  value="{!Unsecured_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!Unsecured_LoanCalculationProduct.Total_Monthly_Saving_Loan_Payment_Number__c}"
+                    value="{!loanCalculationProduct.Total_Monthly_Saving_Loan_Payment_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -648,12 +647,12 @@
               </td>
               <td class="totalFinancingTableLastFields">
                 <apex:outputText
-                  value="{!Unsecured_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!Unsecured_LoanCalculationProduct.Total_Compulsory_Savings_Balance_Number__c}"
+                    value="{!loanCalculationProduct.Total_Compulsory_Savings_Balance_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -674,12 +673,12 @@
               </td>
               <td class="totalFinancingTableLastFields">
                 <apex:outputText
-                  value="{!Unsecured_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!Unsecured_LoanCalculationProduct.Total_Interest_Payment_Repayment_Number__c}"
+                    value="{!loanCalculationProduct.Total_Interest_Payment_Repayment_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -699,36 +698,36 @@
           <tr style="margin-top: 10px;">
             <td>
               <div class="boxed">
-                {!CreditCard_LoanCalculationProduct.Collateral_Type_List__c}
+                {!loanCalculationProduct.Collateral_Type_List__c}
               </div>
             </td>
             <td>
               <div class="boxed">
                 <apex:outputText
-                  value="{!CreditCard_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!CreditCard_LoanCalculationProduct.Requested_Credit_Limit_Number__c}"
+                    value="{!loanCalculationProduct.Requested_Credit_Limit_Number__c}"
                   />
                 </apex:outputText>
               </div>
             </td>
             <td>
               <div class="boxed">
-                {!CreditCard_LoanCalculationProduct.Interest_Rate_Number__c}
+                {!loanCalculationProduct.Interest_Rate_Number__c}
               </div>
             </td>
             <td>
               <div class="boxed">
                 <apex:outputText
-                  value="{!CreditCard_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!CreditCard_LoanCalculationProduct.Starting_Limit_Number__c}"
+                    value="{!loanCalculationProduct.Starting_Limit_Number__c}"
                   />
                 </apex:outputText>
               </div>
@@ -745,7 +744,6 @@
           >
             <tr>
               <td class="creditDetailFields">Financial Institution:</td>
-              <td class="creditDetailFields">Account Holder(s):</td>
               <td class="creditDetailFields">
                 Interest Rate on Financial Asset*
               </td>
@@ -753,22 +751,19 @@
             </tr>
             <tr style="margin-top: 5px;">
               <td class="creditDetailFieldValues">
-                {!CreditCard_LoanCalculationProduct.Financial_Institution_List__c}
+                {!loanCalculationProduct.Financial_Institution_List__c}
               </td>
               <td class="creditDetailFieldValues">
-                {!CreditCard_LoanCalculationProduct.Account_Holder_s_text__c}
-              </td>
-              <td class="creditDetailFieldValues">
-                {!CreditCard_LoanCalculationProduct.Annual_Interest_Rate_Deposit_Acct_Number__c}
+                {!loanCalculationProduct.Annual_Interest_Rate_Deposit_Acct_Number__c}
               </td>
               <td class="creditDetailFieldValues">
                 <apex:outputText
-                  value="{!CreditCard_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!CreditCard_LoanCalculationProduct.Deposit_Account_Balance_Number__c}"
+                    value="{!loanCalculationProduct.Deposit_Account_Balance_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -782,17 +777,17 @@
             <tr style="margin-top: 5px;">
               <td class="creditDetailFieldValues">
                 <apex:outputText
-                  value="{!CreditCard_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!CreditCard_LoanCalculationProduct.Existing_Loan_Balance_Number__c}"
+                    value="{!loanCalculationProduct.Existing_Loan_Balance_Number__c}"
                   />
                 </apex:outputText>
               </td>
               <td class="creditDetailFieldValues">
-                {!CreditCard_LoanCalculationProduct.Account_Hypothecated_list__c}
+                {!loanCalculationProduct.Account_Hypothecated_list__c}
               </td>
             </tr>
           </table>
@@ -809,36 +804,36 @@
           <tr style="margin-top: 10px;">
             <td>
               <div class="boxed">
-                {!LineofCredit_LoanCalculationProduct.Collateral_Type_List__c}
+                {!loanCalculationProduct.Collateral_Type_List__c}
               </div>
             </td>
             <td>
               <div class="boxed">
                 <apex:outputText
-                  value="{!LineofCredit_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!LineofCredit_LoanCalculationProduct.Requested_Credit_Limit_Number__c}"
+                    value="{!loanCalculationProduct.Requested_Credit_Limit_Number__c}"
                   />
                 </apex:outputText>
               </div>
             </td>
             <td>
               <div class="boxed">
-                {!LineofCredit_LoanCalculationProduct.Interest_Rate_Number__c}
+                {!loanCalculationProduct.Interest_Rate_Number__c}
               </div>
             </td>
             <td>
               <div class="boxed">
                 <apex:outputText
-                  value="{!LineofCredit_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!LineofCredit_LoanCalculationProduct.Starting_Limit_Number__c}"
+                    value="{!loanCalculationProduct.Starting_Limit_Number__c}"
                   />
                 </apex:outputText>
               </div>
@@ -855,7 +850,6 @@
           >
             <tr>
               <td class="creditDetailFields">Financial Institution:</td>
-              <td class="creditDetailFields">Account Holder(s)</td>
               <td class="creditDetailFields">
                 Interest Rate on Financial Asset*
               </td>
@@ -863,22 +857,19 @@
             </tr>
             <tr style="margin-top: 5px;">
               <td class="creditDetailFieldValues">
-                {!LineofCredit_LoanCalculationProduct.Financial_Institution_List__c}
+                {!loanCalculationProduct.Financial_Institution_List__c}
               </td>
               <td class="creditDetailFieldValues">
-                {!LineofCredit_LoanCalculationProduct.Account_Holder_s_text__c}
-              </td>
-              <td class="creditDetailFieldValues">
-                {!LineofCredit_LoanCalculationProduct.Annual_Interest_Rate_Deposit_Acct_Number__c}
+                {!loanCalculationProduct.Annual_Interest_Rate_Deposit_Acct_Number__c}
               </td>
               <td class="creditDetailFieldValues">
                 <apex:outputText
-                  value="{!LineofCredit_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!LineofCredit_LoanCalculationProduct.Deposit_Account_Balance_Number__c}"
+                    value="{!loanCalculationProduct.Deposit_Account_Balance_Number__c}"
                   />
                 </apex:outputText>
               </td>
@@ -892,21 +883,21 @@
             </tr>
             <tr style="margin-top: 5px;">
               <td class="creditDetailFieldValues">
-                {!LineofCredit_LoanCalculationProduct.Account_Holder_s_text__c}
+                {!loanCalculationProduct.Account_Holder_s_text__c}
               </td>
               <td class="creditDetailFieldValues">
                 <apex:outputText
-                  value="{!LineofCredit_LoanCalculationProduct.CurrencyIsoCode}"
+                  value="{!loanCalculationProduct.CurrencyIsoCode}"
                 />
                 <apex:outputText value=" " />
                 <apex:outputText value="{0,Number,###,###,##0.00}">
                   <apex:param
-                    value="{!LineofCredit_LoanCalculationProduct.Existing_Loan_Balance_Number__c}"
+                    value="{!loanCalculationProduct.Deposit_Account_Balance_Number__c}"
                   />
                 </apex:outputText>
               </td>
               <td class="creditDetailFieldValues">
-                {!LineofCredit_LoanCalculationProduct.Account_Hypothecated_list__c}
+                {!loanCalculationProduct.Account_Hypothecated_list__c}
               </td>
             </tr>
           </table>
@@ -962,12 +953,12 @@
           <div class="loanToValueRatio">Total Loan Amount To Value</div>
           <div class="loanToValueRatio totalFinancingTableLastFields">
             <apex:outputText
-              value="{!auto_LoanCalculationProduct.CurrencyIsoCode}"
+              value="{!loanCalculationProduct.CurrencyIsoCode}"
             />
             <apex:outputText value=" " />
             <apex:outputText value="{0,Number,###,###,##0.00}">
               <apex:param
-                value="{!auto_LoanCalculationProduct.Loan_to_Value_Number__c}"
+                value="{!loanCalculationProduct.Loan_to_Value_Number__c}"
               />
             </apex:outputText>
           </div>
@@ -978,12 +969,12 @@
           </div>
           <div class="loanToValueRatio totalFinancingTableLastFields">
             <apex:outputText
-              value="{!CreditCard_LoanCalculationProduct.CurrencyIsoCode}"
+              value="{!loanCalculationProduct.CurrencyIsoCode}"
             />
             <apex:outputText value=" " />
             <apex:outputText value="{0,Number,###,###,##0.00}">
               <apex:param
-                value="{!CreditCard_LoanCalculationProduct.Loan_to_Value_Number__c}"
+                value="{!loanCalculationProduct.Loan_to_Value_Number__c}"
               />
             </apex:outputText>
           </div>
@@ -994,12 +985,12 @@
           </div>
           <div class="loanToValueRatio totalFinancingTableLastFields">
             <apex:outputText
-              value="{!LineofCredit_LoanCalculationProduct.CurrencyIsoCode}"
+              value="{!loanCalculationProduct.CurrencyIsoCode}"
             />
             <apex:outputText value=" " />
             <apex:outputText value="{0,Number,###,###,##0.00}">
               <apex:param
-                value="{!LineofCredit_LoanCalculationProduct.Loan_to_Value_Number__c}"
+                value="{!loanCalculationProduct.Loan_to_Value_Number__c}"
               />
             </apex:outputText>
           </div>
@@ -1053,37 +1044,37 @@
             <tr>
               <td class="riskTableColumns">Auto Loan</td>
               <td class="riskTableColumns">
-                {!auto_LoanCalculationApplProduct.Credit_Score_Number__c}
+                {!loan_Cal_App_Prdct.Credit_Score_Number__c}
               </td>
               <td class="riskTableColumns">
-                {!auto_LoanCalculationApplProduct.Credit_Risk_Rating_Text__c}
+                {!loan_Cal_App_Prdct.Credit_Risk_Rating_Text__c}
               </td>
             </tr>
             <tr>
               <td class="riskTableColumns">Unsecured Loan</td>
               <td class="riskTableColumns">
-                {!Unsecured_LoanCalculationApplProduct.Credit_Score_Number__c}
+                {!loan_Cal_App_Prdct.Credit_Score_Number__c}
               </td>
               <td class="riskTableColumns">
-                {!Unsecured_LoanCalculationApplProduct.Credit_Risk_Rating_Text__c}
+                {!loan_Cal_App_Prdct.Credit_Risk_Rating_Text__c}
               </td>
             </tr>
             <tr>
               <td class="riskTableColumns">Credit Card</td>
               <td class="riskTableColumns">
-                {!CreditCard_LoanCalculationApplProduct.Credit_Score_Number__c}
+                {!loan_Cal_App_Prdct.Credit_Score_Number__c}
               </td>
               <td class="riskTableColumns">
-                {!CreditCard_LoanCalculationApplProduct.Credit_Risk_Rating_Text__c}
+                {!loan_Cal_App_Prdct.Credit_Risk_Rating_Text__c}
               </td>
             </tr>
             <tr>
               <td class="riskTableColumns">Line of Credit</td>
               <td class="riskTableColumns">
-                {!LineofCredit_LoanCalculationApplProduct.Credit_Score_Number__c}
+                {!loan_Cal_App_Prdct.Credit_Score_Number__c}
               </td>
               <td class="riskTableColumns">
-                {!LineofCredit_LoanCalculationApplProduct.Credit_Risk_Rating_Text__c}
+                {!loan_Cal_App_Prdct.Credit_Risk_Rating_Text__c}
               </td>
             </tr>
           </table>
@@ -1154,17 +1145,13 @@
       <div class="container" style="width=100%;">
         <div class="detail">ORIGINATION DETAILS</div>
         <div class="loanToValueRatio">Officer's Name</div>
-        <div class="loanToValueRatio totalFinancingTableLastFields">
-          ______________
-        </div>
+        <div class="loanToValueRatio totalFinancingTableLastFields">Mary</div>
         <div class="loanToValueRatio">Location*</div>
         <div class="loanToValueRatio totalFinancingTableLastFields">
-          ______________
+          Location
         </div>
         <div class="loanToValueRatio">Date Created*</div>
-        <div class="loanToValueRatio totalFinancingTableLastFields">
-          ______________
-        </div>
+        <div class="loanToValueRatio totalFinancingTableLastFields">Date</div>
       </div>
     </div>
   </apex:form>

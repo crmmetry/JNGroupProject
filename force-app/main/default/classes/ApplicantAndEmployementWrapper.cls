@@ -19,10 +19,6 @@ public with sharing class ApplicantAndEmployementWrapper {
   public String crif_Rating { get; set; }
   public String creditInfo_Rating { get; set; }
   public String overAllCreditBureau { get; set; }
-
-  public String creditHistoryin24mnths { get; set; }
-  public String assessmentofApplicantNetWorth { get; set; }
-
   public String is_KYC { get; set; }
   public Decimal timeAsMember { get; set; }
   public String RIM_Number { get; set; }
@@ -95,16 +91,11 @@ public with sharing class ApplicantAndEmployementWrapper {
     crif_Rating = record.CRIF_Rating__c;
     creditInfo_Rating = record.CreditInfo_Rating__c;
     overAllCreditBureau = record.Overall_Credit_Bureau_Rating__c;
-
-    creditHistoryin24mnths = record.Credit_History_in_last_24_Months__c;
-    assessmentofApplicantNetWorth = record.Assessment_of_Applicant_Net_Worth__c;
-
     is_KYC = record.Is_applicant_KYC_Compliant__c;
     timeAsMember = record.Time_as_Member_Months__c;
     RIM_Number = record.Rim_Number__c;
     hasNegativeScreening = record.Sanction_Screening_has_Negative_Trace__c;
     affiliationType = record.Affiliation_Type__c;
-
     pep = record.Account__r.Political_Exposure__pc;
     if (pep) {
       pepString = Constants.YESSTRING;

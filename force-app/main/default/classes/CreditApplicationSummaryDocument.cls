@@ -12,39 +12,7 @@ public class CreditApplicationSummaryDocument {
   }
   public list<Id> applicantIds = new List<Id>();
   public Loan_Calculation_Product__c loanCalculationProduct { get; set; }
-  public map<string, Id> loanCalculationProductIds;
-  public Loan_Calculation_Product__c auto_LoanCalculationProduct { get; set; }
-  public Loan_Calculation_Product__c CreditCard_LoanCalculationProduct {
-    get;
-    set;
-  }
-  public Loan_Calculation_Product__c LineofCredit_LoanCalculationProduct {
-    get;
-    set;
-  }
-  public Loan_Calculation_Product__c Unsecured_LoanCalculationProduct {
-    get;
-    set;
-  }
-
   public Loan_Calculation_Applicant_Product__c loan_Cal_App_Prdct { get; set; }
-
-  public Loan_Calculation_Applicant_Product__c auto_LoanCalculationApplProduct {
-    get;
-    set;
-  }
-  public Loan_Calculation_Applicant_Product__c CreditCard_LoanCalculationApplProduct {
-    get;
-    set;
-  }
-  public Loan_Calculation_Applicant_Product__c LineofCredit_LoanCalculationApplProduct {
-    get;
-    set;
-  }
-  public Loan_Calculation_Applicant_Product__c Unsecured_LoanCalculationApplProduct {
-    get;
-    set;
-  }
 
   /**
    *	Method  :	CreditApplicationSummaryDocument
@@ -54,6 +22,9 @@ public class CreditApplicationSummaryDocument {
    *	Purpose :	This is constructor method. This function prepares the data required to display on the
    *				CreditApplicationSummaryDocument.vfp page. Below types of data is prepared to be disaplyed.
    *				Applicant record
+   *				Applicant record
+   *				Applicant record
+   *				Applicant record
    **/
   public CreditApplicationSummaryDocument() {
     applicantAndEmplWrapperList = new List<ApplicantAndEmployementWrapper>();
@@ -61,15 +32,6 @@ public class CreditApplicationSummaryDocument {
     opportunityId = ApexPages.currentPage().getParameters().get('Id');
     //Get the list of Applicants of the provided Opportunity Id
     applicanList = getListOfApplicants(opportunityId);
-    list<id> applIds = new List<id>();
-    if (applicanList != null) {
-      if (applicanList.size() > 0) {
-        for (Applicant__c record : applicanList) {
-          applIds.add(record.Id);
-        }
-      }
-    }
-
     //Get the opportunity object
     opportunityObj = getOpportunityObj(opportunityId);
     //Get the list of Loan Calculation Product
@@ -77,47 +39,6 @@ public class CreditApplicationSummaryDocument {
 
     if (opportunityObj != null) {
       loanCalculationProductList = getListOfLoanCalProdcts(opportunityObj);
-      boolean autoFlag, creditCardFlag, lineOfCreditFlag, unsecureFlag;
-      autoFlag = false;
-      creditCardFlag = false;
-      lineOfCreditFlag = false;
-      unsecureFlag = false;
-      loanCalculationProductIds = new Map<string, Id>();
-
-      for (
-        Loan_Calculation_Product__c loanCalProdctObj : loanCalculationProductList
-      ) {
-        String recordTypeDevName;
-        recordTypeDevName = Schema.getGlobalDescribe()
-          .get('Loan_Calculation_Product__c')
-          .getDescribe()
-          .getRecordTypeInfosById()
-          .get(loanCalProdctObj.RecordTypeId)
-          .getDeveloperName();
-        if (recordTypeDevName == 'Auto' && autoFlag == false) {
-          autoFlag = true;
-          auto_LoanCalculationProduct = loanCalProdctObj;
-          loanCalculationProductIds.Put('Auto', loanCalProdctObj.Id);
-        }
-        if (recordTypeDevName == 'Credit_Card' && creditCardFlag == false) {
-          creditCardFlag = true;
-          CreditCard_LoanCalculationProduct = loanCalProdctObj;
-          loanCalculationProductIds.Put('Credit_Card', loanCalProdctObj.Id);
-        }
-        if (
-          recordTypeDevName == 'Line_of_Credit' &&
-          lineOfCreditFlag == false
-        ) {
-          lineOfCreditFlag = true;
-          LineofCredit_LoanCalculationProduct = loanCalProdctObj;
-          loanCalculationProductIds.Put('Line_of_Credit', loanCalProdctObj.Id);
-        }
-        if (recordTypeDevName == 'Unsecured' && unsecureFlag == false) {
-          unsecureFlag = true;
-          Unsecured_LoanCalculationProduct = loanCalProdctObj;
-          loanCalculationProductIds.Put('Unsecured', loanCalProdctObj.Id);
-        }
-      }
     }
     //Get the list of Loan Calculation Product Fields for calculations
     Map<string, Decimal> loan_CalculationProductsFields = new Map<string, Decimal>();
@@ -159,11 +80,7 @@ public class CreditApplicationSummaryDocument {
 
     //Get OVERALL RISK SCORE and OVERALL RISK RATING
     loan_Cal_App_Prdct = new Loan_Calculation_Applicant_Product__c();
-    //getCreditScore_And_CreditRiskRating();
-    if (loanCalculationProductIds != null && applicanList != null) {
-      getLoanCalculationApplicationProduct(applIds, loanCalculationProductIds);
-    }
-
+    getCreditScore_And_CreditRiskRating();
     //populate the applicantAndEmplWrapperList
     if (applicanList != null) {
       for (Applicant__c applicantObj : applicanList) {
@@ -323,7 +240,6 @@ public class CreditApplicationSummaryDocument {
         Id,
         Loan_Purpose_List__c,
         Years_Number__c,
-        Months_Number__c,
         Interest_Rate_Number__c,
         Market_Value_of_Vehicle_Number__c,
         Purchase_Price_of_Vehicle_Number__c,
@@ -358,10 +274,8 @@ public class CreditApplicationSummaryDocument {
         Loan_to_Value_Number__c,
         CurrencyIsoCode,
         Ability_to_Service_Before_Number__c,
-        Ability_to_Service_After_Number__c,
         Total_Monthly_Loan_Payment_Number__c,
-        Minimum_Payment_per_Credit_Limit_Number__c,
-        RecordTypeId
+        Minimum_Payment_per_Credit_Limit_Number__c
       FROM Loan_Calculation_Product__c
       WHERE Loan_Calculation_Id__c = :oppId.Product_Details__c
     ];
@@ -375,91 +289,22 @@ public class CreditApplicationSummaryDocument {
     return null;
   }
 
-  private void getLoanCalculationApplicationProduct(
-    list<id> applicant_Ids,
-    map<string, id> loanCalcProdctIds
-  ) {
-    boolean autoFlag, creditCardFlag, lineOfCreditFlag, unsecureFlag;
-    id autoId, creditCardId, lineOfCreditId, unsecuredId;
-    autoFlag = false;
-    creditCardFlag = false;
-    lineOfCreditFlag = false;
-    unsecureFlag = false;
+  private void getCreditScore_And_CreditRiskRating() {
+    list<Loan_Calculation_Applicant_Product__c> loanCalAppPrdct = new List<Loan_Calculation_Applicant_Product__c>();
 
-    if (loanCalcProdctIds.get('Auto') != null) {
-      autoId = loanCalcProdctIds.get('Auto');
-    }
-    if (loanCalcProdctIds.get('Credit_Card') != null) {
-      creditCardId = loanCalcProdctIds.get('Credit_Card');
-    }
-    if (loanCalcProdctIds.get('Line_of_Credit') != null) {
-      lineOfCreditId = loanCalcProdctIds.get('Line_of_Credit');
-    }
-    if (loanCalcProdctIds.get('Unsecured') != null) {
-      unsecuredId = loanCalcProdctIds.get('Unsecured');
-    }
-
-    List<Loan_Calculation_Applicant_Product__c> loanCalcAppProductList = new List<Loan_Calculation_Applicant_Product__c>();
-
-    loanCalcAppProductList = [
-      SELECT
-        Id,
-        Credit_Score_Number__c,
-        Credit_Risk_Rating_Text__c,
-        Loan_Calculation_Product_Id__c
-      FROM Loan_Calculation_Applicant_Product__c
-      WHERE
-        Loan_Calculation_Product_Id__c IN :loanCalcProdctIds.values()
-        AND Applicant_Id__c IN :applicant_Ids
-    ];
-
-    if (loanCalcAppProductList != null) {
-      for (
-        Loan_Calculation_Applicant_Product__c record : loanCalcAppProductList
-      ) {
-        if (autoId != null) {
-          if (
-            record.Loan_Calculation_Product_Id__c == autoId &&
-            autoFlag == false
-          ) {
-            auto_LoanCalculationApplProduct = record;
-            autoFlag = true;
-          }
-        }
-
-        if (creditCardId != null) {
-          if (
-            record.Loan_Calculation_Product_Id__c == creditCardId &&
-            creditCardFlag == false
-          ) {
-            CreditCard_LoanCalculationApplProduct = record;
-            creditCardFlag = true;
-          }
-        }
-
-        if (lineOfCreditId != null) {
-          if (
-            record.Loan_Calculation_Product_Id__c == lineOfCreditId &&
-            lineOfCreditFlag == false
-          ) {
-            LineofCredit_LoanCalculationApplProduct = record;
-            lineOfCreditFlag = true;
-          }
-        }
-
-        if (unsecuredId != null) {
-          if (
-            record.Loan_Calculation_Product_Id__c == unsecuredId &&
-            unsecureFlag == false
-          ) {
-            Unsecured_LoanCalculationApplProduct = record;
-            unsecureFlag = true;
-          }
+    if (loanCalculationProduct != null) {
+      loanCalAppPrdct = [
+        SELECT Id, Credit_Score_Number__c, Credit_Risk_Rating_Text__c
+        FROM Loan_Calculation_Applicant_Product__c
+        WHERE Loan_Calculation_Product_Id__c = :loanCalculationProduct.Id
+      ];
+      if (loanCalAppPrdct != null) {
+        if (loanCalAppPrdct.size() > 0) {
+          loan_Cal_App_Prdct = loanCalAppPrdct.get(0);
         }
       }
     }
   }
-
   private list<Applicant__c> getListOfApplicants(Id oppId) {
     list<Applicant__c> applicantList = new List<Applicant__c>();
     applicantList = [
