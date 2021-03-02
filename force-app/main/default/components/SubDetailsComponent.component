@@ -2,6 +2,7 @@
     Sr#     Ticket#      Modified By                Modified Date       Description 
  * 	  1		JN1-4279	  Ishwari Gaikwad.(TQ)		02/09/2021		  created pdf.
 -->
+<<<<<<< HEAD
 <apex:component>
   <apex:attribute
     name="type"
@@ -262,3 +263,78 @@
     </tbody>
   </table>
 </apex:component>
+=======
+<apex:component>
+  <apex:attribute name="type" type="String" required="true" description="" />
+
+  <table border="1" class="contentTable" style="margin-top: 0%;">
+    <thead
+      class="thead"
+      style="{!IF(type == 'REAL ESTATE HOLDING','','display:none;')}"
+    >
+      <tr class="tr">
+        <th></th>
+        <th class="th">Property Address</th>
+        <th class="th">Total Market Value</th>
+        <th class="th">Lender(s)</th>
+        <th class="th">Loan Balance</th>
+        <th class="th">Monthly Payment</th>
+      </tr>
+    </thead>
+    <thead
+      class="thead"
+      style="{!IF(type == 'MOTOR VEHICLE','','display:none;')}"
+    >
+      <tr class="tr">
+        <th></th>
+        <th class="th">Vehicle Details</th>
+        <th class="th">Total Market Value</th>
+        <th class="th">Lender(s)</th>
+        <th class="th">Loan Balance</th>
+        <th class="th">Monthly Payment</th>
+      </tr>
+    </thead>
+    <thead
+      class="thead"
+      style="{!IF(type == 'OTHER ASSET','','display:none;')}"
+    >
+      <tr class="tr">
+        <th></th>
+        <th class="th">Asset Details</th>
+        <th class="th">Total Market Value</th>
+        <th class="th">Lender(s)</th>
+        <th class="th">Loan Balance</th>
+        <th class="th">Monthly Payment</th>
+      </tr>
+    </thead>
+    <thead
+      class="thead"
+      style="{!IF(type == 'CREDIT CARD','','display:none;')}"
+    >
+      <tr class="tr">
+        <th></th>
+        <th class="th">Financial Institution</th>
+        <th class="th">Type of Card</th>
+        <th class="th">Credit Card Limit</th>
+        <th class="th">Average Balance (6-12 months)</th>
+        <th class="th">Credit Card Balance</th>
+        <th class="th">Minimum Payment</th>
+      </tr>
+    </thead>
+    <thead
+      class="thead"
+      style="{!IF(type == 'LINE(S) OF CREDIT','','display:none;')}"
+    >
+      <tr class="tr">
+        <th></th>
+        <th class="th">Financial Institution</th>
+        <th class="th">Type of Line</th>
+        <th class="th">Line of Credit Limit</th>
+        <th class="th">Average Balance (6-12 months)</th>
+        <th class="th">Line of Credit Balance</th>
+        <th class="th">Minimum Payment</th>
+      </tr>
+    </thead>
+  </table>
+</apex:component>
+>>>>>>> a26f732ebfe914424b73e0f5718138a181a22177
