@@ -1,3 +1,13 @@
+<!--
+  @description       : 
+  @author            : Travis Allen
+  @group             : 
+  @last modified on  : 03-02-2021
+  @last modified by  : Travis Allen
+  Modifications Log 
+  Ver   Date         Author         Modification
+  1.0   03-02-2021   Travis Allen   Initial Version
+-->
 <aura:component>
   <aura:attribute name="toggleCheckAll" type="Boolean" default="false" />
   <aura:attribute name="auraIdList" type="List" />
@@ -43,9 +53,7 @@
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <lightning:input
         aura:id="accountNumber"
-        type="number"
-        formatter="currency"
-        step="0.01"
+        type="text"
         placeholder="NULL"
         value="{!v.debtInfo.accountNumber}"
       ></lightning:input>
