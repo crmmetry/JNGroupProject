@@ -8,6 +8,8 @@ public with sharing class ApplicantWrapper {
   @AuraEnabled
   public Date dob;
   @AuraEnabled
+  public String name;
+  @AuraEnabled
   public Integer age;
   @AuraEnabled
   public Decimal rating;
@@ -56,6 +58,7 @@ public with sharing class ApplicantWrapper {
     }
 
     this.checkCreditorLifeEligibility();
+    this.name = record.Name;
     if (record.Statutory_Deductions_Numbers__c != null) {
       this.salutaryDeductions = record.Statutory_Deductions_Numbers__c;
     }

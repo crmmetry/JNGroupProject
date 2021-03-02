@@ -3,7 +3,6 @@
    * @return - Boolean
    */
   validateFields: function (component) {
-    console.log("Credit");
     let personalCreditcardRequestLineCmp = component.find(
       "personalCreditcardRequestLineCmp"
     );

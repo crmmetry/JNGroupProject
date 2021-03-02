@@ -160,6 +160,7 @@ public with sharing class ProductDetailController {
       throw new AuraHandledException(e.getStackTraceString());
     }
   }
+
   /** *
    * retrievesrisk rating matrix.
    * @return Map
