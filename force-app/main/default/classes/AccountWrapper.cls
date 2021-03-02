@@ -24,6 +24,18 @@ public class AccountWrapper {
    * @return {Integer}
    */
   private Integer calculateAge(Date dob) {
+    if (dob == null) {
+      return -1;
+    }
+    if (dob.year() == null) {
+      return -1;
+    }
+    if (dob.month() == null) {
+      return -1;
+    }
+    if (dob.day() == null) {
+      return -1;
+    }
     Integer currentYear = Date.today().year();
     Integer currentMonth = Date.today().month();
     Integer currentDay = Date.today().day();

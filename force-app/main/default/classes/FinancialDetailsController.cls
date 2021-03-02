@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+ * @group             :
+ * @last modified on  : 02-24-2021
+ * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+ * Modifications Log
+ * Ver   Date         Author                               Modification
+ * 1.0   02-24-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
+ **/
 public with sharing class FinancialDetailsController {
   /**
    * RUB-63
@@ -20,6 +30,26 @@ public with sharing class FinancialDetailsController {
   /**
    * RUB-63
    * return a list containing all the debts belonging to an Applicant to be consolidated
+   * @param {Id} oppId - opportunity Id.
+   */
+  @AuraEnabled
+  public static void updateFieldOnOpportunity(
+    Id oppId,
+    String fieldAPIName,
+    Object value
+  ) {
+    try {
+      Opportunity oppRecord = new Opportunity(Id = oppId);
+      oppRecord.put(fieldAPIName, value);
+      update oppRecord;
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getStackTraceString());
+    }
+  }
+
+  /**
+   * RUB-193
+   * updates opportunity record
    * @param {Id} oppId - opportunity Id.
    * @return {List<DebtConsolidatedWrapper>} - returns  applicant financial details in wrapper format
    */

@@ -34,6 +34,7 @@ div.footer {
 .div.content {
   display: block;
   page-break-after: always;
+  font-size: 0.775em;
 }
 .boxedDiv {
   border: 2px solid #0070c0;
@@ -43,6 +44,14 @@ div.footer {
   background-color: #0070c0;
   color: #fff;
   text-align: center;
+}
+.headerInBlue {
+  background-color: #b1d2fa;
+  color: #050505;
+  font-size: smaller;
+  text-align: center;
+  line-height: 20px;
+  font-family: "Gill Sans", sans-serif;
 }
 .logo {
   width: 100%;
@@ -105,6 +114,7 @@ div.footer {
   font-family: "Gill Sans", sans-serif;
   border-collapse: collapse;
 }
+
 .ratingTableHeader {
   font-size: smaller;
   text-align: center;
@@ -249,4 +259,10 @@ hr {
 }
 .extraSpace {
   line-height: 20.5px;
+}
+.smallSectionHeader {
+  margin-left: 16px;
+  margin-right: 10px;
+  width: 95%;
+  font-size: smaller;
 }
