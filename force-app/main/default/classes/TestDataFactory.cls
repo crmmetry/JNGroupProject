@@ -298,4 +298,22 @@ public class TestDataFactory {
     }
     return cardHoldersList;
   }
+    
+    public static DocumentChecklistItem CreateDocumentCheckListItem(Id parentRecordId, Id docTypeId, String nameOfRecord, String statusOfRecord){
+		DocumentChecklistItem docChkListItem = new DocumentChecklistItem();
+        docChkListItem.ParentRecordId = parentRecordId;
+        docChkListItem.DocumentTypeId = docTypeId;
+        docChkListItem.Name = nameOfRecord;
+        docChkListItem.Status = statusOfRecord;
+        
+        return docChkListItem;
+    }
+     public static ContentVersion CreateContentVersionRecord(String Title, String PathOnClient, String blobData, boolean IsMajorVersion){
+       ContentVersion contentVersion = new ContentVersion();
+        contentVersion.Title = Title;
+        contentVersion.PathOnClient = PathOnClient;
+        contentVersion.VersionData = Blob.valueOf(blobData);
+        contentVersion.IsMajorVersion = IsMajorVersion;
+     	return contentVersion;   
+    }
 }
