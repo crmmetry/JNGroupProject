@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+ * @group             :
+ * @last modified on  : 03-02-2021
+ * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+ * Modifications Log
+ * Ver   Date         Author                               Modification
+ * 1.0   03-02-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
+ **/
 public with sharing class FinancialDetailsWrapper {
   @AuraEnabled
   public String Id;
@@ -159,7 +169,7 @@ public with sharing class FinancialDetailsWrapper {
     this.otherExpenses = record.Other_Expenses_Number__c;
     this.totalStatutoryDeductions = record.Statutory_Deductions_Numbers__c;
     this.totalMonthlyExpenses = record.Total_Expenses_Calc__c;
-    this.primarySourceOfIncome = record.Applicable_sources_of_income__c;
+    this.primarySourceOfIncome = record.Primary_Source_of_Income_List__c;
     this.grossSalaryAllowances = record.Gross_Monthly_Income__c;
     this.otherIncome = record.Other_Income__c;
     this.netBusinessIncomeSoleTrader = record.Net_Profit_Sole_Trader__c;
