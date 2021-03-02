@@ -56,29 +56,68 @@ public with sharing class ApplicantWrapper {
     }
 
     this.checkCreditorLifeEligibility();
-    this.salutaryDeductions = record.Statutory_Deductions_Numbers__c;
-    this.rentStrataMaintenance = record.Rent_Strata_Maintenance__c;
-    this.personalMonthlyExpensesPriorLoan = record.Personal_Expenses_Monthly_Prior_Loan__c;
-    this.savingsPensionInsurance = record.Savings_Pension_Insurance_Number__c;
-    this.realEstateMonthlyPayment = record.Real_Estate_Monthly_Payment_Number__c;
-    this.motorVehicleMonthlyRepayment = record.Motor_Vehicle_Monthly_Payment_Number__c;
-    this.otherAssetMonthlyPayment = record.Other_Asset_Monthly_Payment_Number__c;
-    this.otherLoanMonthlyPayment = record.Other_Loan_Monthly_Payment_Number__c;
-    this.grossMonthlyIncome = record.Gross_Monthly_Income__c;
-    this.creditHistoryInLast24Month = record.Credit_History_in_last_24_Months__c; //JN1-4045
-    this.assessmentOfApplicantNetWorth = record.Assessment_of_Applicant_Net_Worth__c; //JN1-4045
-    this.rentBoardMonthlyPrior = record.Rent_Board_Monthly_Prior_Loan__c; //JN1-3967
-    this.rentBoardMonthlyAfter = record.Rent_Board_Monthly_After_Loan__c; //JN1-3967
-    this.rentStrataMaintenanceFromLongSummaryPrior = record.Strata_Maintenance_Monthly_Prior_Loan__c; //JN1-3967
-    this.rentStrataMaintenanceFromLongSummaryAfter = record.Strata_Maintenance_Monthly_After_Loan__c; //JN1-3967
-    this.grossMonthlyIncomeFromLongSummary = record.Gross_Monthly_IncomeC__c;
-    this.applicationAssetLiabilities = record.Application_Assets_Liabilities__r;
+    if (record.Statutory_Deductions_Numbers__c != null) {
+      this.salutaryDeductions = record.Statutory_Deductions_Numbers__c;
+    }
+    if (record.Rent_Strata_Maintenance__c != null) {
+      this.rentStrataMaintenance = record.Rent_Strata_Maintenance__c;
+    }
+    if (record.Personal_Expenses_Monthly_Prior_Loan__c != null) {
+      this.personalMonthlyExpensesPriorLoan = record.Personal_Expenses_Monthly_Prior_Loan__c;
+    }
+    if (record.Savings_Pension_Insurance_Number__c != null) {
+      this.savingsPensionInsurance = record.Savings_Pension_Insurance_Number__c;
+    }
+    if (record.Real_Estate_Monthly_Payment_Number__c != null) {
+      this.realEstateMonthlyPayment = record.Real_Estate_Monthly_Payment_Number__c;
+    }
+    if (record.Motor_Vehicle_Monthly_Payment_Number__c != null) {
+      this.motorVehicleMonthlyRepayment = record.Motor_Vehicle_Monthly_Payment_Number__c;
+    }
+    if (record.Other_Asset_Monthly_Payment_Number__c != null) {
+      this.otherAssetMonthlyPayment = record.Other_Asset_Monthly_Payment_Number__c;
+    }
+    if (record.Other_Loan_Monthly_Payment_Number__c != null) {
+      this.otherLoanMonthlyPayment = record.Other_Loan_Monthly_Payment_Number__c;
+    }
+    if (record.Gross_Monthly_Income__c != null) {
+      this.grossMonthlyIncome = record.Gross_Monthly_Income__c;
+    }
+
+    if (record.Credit_History_in_last_24_Months__c != null) {
+      this.creditHistoryInLast24Month = record.Credit_History_in_last_24_Months__c; //JN1-4045
+    }
+    if (record.Assessment_of_Applicant_Net_Worth__c != null) {
+      this.assessmentOfApplicantNetWorth = record.Assessment_of_Applicant_Net_Worth__c; //JN1-4045
+    }
+
+    if (record.Rent_Board_Monthly_Prior_Loan__c != null) {
+      this.rentBoardMonthlyPrior = record.Rent_Board_Monthly_Prior_Loan__c; //JN1-3967
+    }
+    if (record.Rent_Board_Monthly_After_Loan__c != null) {
+      this.rentBoardMonthlyAfter = record.Rent_Board_Monthly_After_Loan__c; //JN1-3967
+    }
+    if (record.Strata_Maintenance_Monthly_Prior_Loan__c != null) {
+      this.rentStrataMaintenanceFromLongSummaryPrior = record.Strata_Maintenance_Monthly_Prior_Loan__c; //JN1-3967
+    }
+    if (record.Strata_Maintenance_Monthly_After_Loan__c != null) {
+      this.rentStrataMaintenanceFromLongSummaryAfter = record.Strata_Maintenance_Monthly_After_Loan__c; //JN1-3967
+    }
+    if (record.Gross_Monthly_IncomeC__c != null) {
+      this.grossMonthlyIncomeFromLongSummary = record.Gross_Monthly_IncomeC__c;
+    }
+    if (record.Application_Assets_Liabilities__r != null) {
+      this.applicationAssetLiabilities = record.Application_Assets_Liabilities__r;
+    }
   }
 
   private Integer calculateAge(Date dob) {
     Integer currentYear = Date.today().year();
     Integer currentMonth = Date.today().month();
     Integer currentDay = Date.today().day();
+    if (dob == null) {
+      return -1;
+    }
     Integer birthYear = dob.year();
     Integer birthMonth = dob.month();
     Integer birthDay = dob.day();

@@ -5,6 +5,7 @@
 <apex:page
   renderAs="pdf"
   applyBodyTag="false"
+  controller="AutoCreditScoreModelController"
   standardStylesheets="false"
   applyHtmlTag="false"
   showHeader="false"
@@ -23,7 +24,7 @@
           <b>SUMMARY OF MODEL PARAMETERS</b>
         </div>
 
-        <table style="margin-left: 2%; width: 95%; margin-top: 1%;">
+        <table style="margin-left: 1%; width: 98%; margin-top: 1%;">
           <tr>
             <td class="td1">
               <div class="textStyle" style="font-size: smaller;">
@@ -42,7 +43,7 @@
                 class="textStyle borderedText1"
                 style="padding-left: 40px; padding-right: 35px;"
               >
-                15-Dec-20
+                {!dateString}
               </div>
             </td>
             <td class="td1">
@@ -51,7 +52,7 @@
                 class="textStyle borderedText1"
                 style="padding-left: 15px; padding-right: 15px;"
               >
-                C1-100258798-12/15/2020
+                {!applicationIdString}
               </div>
             </td>
           </tr>
@@ -62,7 +63,7 @@
                 class="textStyle borderedText1"
                 style="padding-left: 20px; padding-right: 25px;"
               >
-                Auto Loan
+                {!productCategryToDisplay}
               </div>
             </td>
             <td class="td1">
@@ -71,7 +72,7 @@
                 class="textStyle borderedText1"
                 style="padding-left: 15px; padding-right: 15px;"
               >
-                JMD $10,000,000.00
+                {!loanAmt}/{!loanAmtLimit}
               </div>
             </td>
             <td class="td1">
@@ -80,7 +81,7 @@
                 class="textStyle borderedText1"
                 style="padding-left: 60px; padding-right: 55px;"
               >
-                1
+                {!totalNumberOfApplicants}
               </div>
             </td>
           </tr>
@@ -101,36 +102,45 @@
           <tr>
             <td class="td1">
               <div class="textStyle">Name of Applicant:*</div>
-              <div class="textStyle borderedText">Peter Samuels</div>
+              <div class="textStyle borderedText">{!nameOfApplicant}</div>
             </td>
             <td class="td1">
               <div class="textStyle">
                 Is the Applicant a Politcally Exposed Person (PEP)?*
               </div>
-              <div class="textStyle borderedText">No</div>
+              <div class="textStyle borderedText">
+                {!isApplicantPolicExpoxed}
+              </div>
             </td>
           </tr>
           <tr>
             <td class="td1">
               <div class="textStyle">Tax Registration Number:*</div>
-              <div class="textStyle borderedText">100-258-798</div>
+              <div class="textStyle borderedText">{!jamaicanTaxNumber}</div>
             </td>
             <td class="td1">
               <div class="textStyle">
                 Has the sanction screening(s) resulted in a negative trace?*
               </div>
-              <div class="textStyle borderedText">&nbsp;</div>
+              <div class="textStyle borderedText">
+                {!hasSanctionNegativeTrace}
+              </div>
             </td>
           </tr>
 
           <tr>
             <td class="td1">
               <div class="textStyle">Primary Income Type:*</div>
-              <div class="textStyle borderedText">Salaried</div>
+              <div class="textStyle borderedText">{!primaryEmploymentType}</div>
             </td>
             <td class="td1">
               <div class="textStyle">Assessed Monthly Income:*</div>
-              <div class="textStyle borderedText">JMD $1,250,000.00</div>
+              <div class="textStyle borderedText">
+                <apex:outputText value=" {!applicantObject.CurrencyIsoCode}" />
+                <apex:outputText value="{0,Number,###,###,##0.00}">
+                  <apex:param value="{!grossMonthlyIncome}" />
+                </apex:outputText>
+              </div>
             </td>
           </tr>
         </table>
@@ -159,65 +169,65 @@
             </tr>
             <tr class="td">
               <td style="text-align: left;">Age</td>
-              <td>Over 50</td>
-              <td class="bgColor">430</td>
-              <td class="bgColor">13</td>
+              <td>{!ageString}</td>
+              <td class="bgColor">{!ageScore}</td>
+              <td class="bgColor">{!ageWeightage}</td>
             </tr>
             <tr class="td">
               <td style="text-align: left;">Education</td>
-              <td>Post Graduate</td>
-              <td class="bgColor">750</td>
-              <td class="bgColor">30</td>
+              <td>{!educationString}</td>
+              <td class="bgColor">{!educationScore}</td>
+              <td class="bgColor">{!educationWeightage}</td>
             </tr>
             <tr class="td">
               <td style="text-align: left;">Residential Status</td>
-              <td>Own</td>
-              <td class="bgColor">950</td>
-              <td class="bgColor">10</td>
+              <td>{!statusOfAddressString}</td>
+              <td class="bgColor">{!statusOfAddressScore}</td>
+              <td class="bgColor">{!statusOfAddressWeightage}</td>
             </tr>
             <tr class="td">
               <td style="text-align: left;">Years at Current Residence</td>
-              <td>>3 years</td>
-              <td class="bgColor">900</td>
-              <td class="bgColor">27</td>
+              <td>{!yearsAtResidentString}</td>
+              <td class="bgColor">{!yearsAtResidentScore}</td>
+              <td class="bgColor">{!yearsAtResidentWeightage}</td>
             </tr>
             <tr class="td">
               <td style="text-align: left;">
                 Credit History in the last 24 months
               </td>
-              <td>1 - 10 days Delinquent</td>
-              <td class="bgColor">975</td>
-              <td class="bgColor">146</td>
+              <td>{!creditHistoryLast24Months}</td>
+              <td class="bgColor">{!creditHistoryLast24Score}</td>
+              <td class="bgColor">{!creditHistoryLast24Weightage}</td>
             </tr>
             <tr class="td">
               <td style="text-align: left;">Net Worth</td>
-              <td>Strong net worth</td>
-              <td class="bgColor">1200</td>
-              <td class="bgColor">36</td>
+              <td>{!assessmentOfApplicantNetWorth}</td>
+              <td class="bgColor">{!assessmentOfApplicantNetWorthScore}</td>
+              <td class="bgColor">{!assessmentOfApplicantNetWorthWeightage}</td>
             </tr>
             <tr class="td">
               <td style="text-align: left;">Employment Status</td>
-              <td>Permanent</td>
-              <td class="bgColor">1000</td>
-              <td class="bgColor">110</td>
+              <td>{!emplStatus}</td>
+              <td class="bgColor">{!emplStatusScore}</td>
+              <td class="bgColor">{!emplStatusWeightage}</td>
             </tr>
             <tr class="td">
               <td style="text-align: left;">Industry of Employment</td>
-              <td>Manufacturing</td>
-              <td class="bgColor">375</td>
-              <td class="bgColor">8</td>
+              <td>{!industryName}</td>
+              <td class="bgColor">{!industryNameScore}</td>
+              <td class="bgColor">{!industryNameWeightage}</td>
             </tr>
             <tr class="td">
               <td style="text-align: left;">Length of Current Employment</td>
-              <td>>5 years</td>
-              <td class="bgColor">900</td>
-              <td class="bgColor">36</td>
+              <td>>{!lengthOfEmploymentString}</td>
+              <td class="bgColor">{!lengthOfEmploymentScore}</td>
+              <td class="bgColor">{!lengthOfEmploymentWeightage}</td>
             </tr>
             <tr class="td">
               <td style="text-align: left;">Professional Category</td>
-              <td>Professional</td>
-              <td class="bgColor">600</td>
-              <td class="bgColor">30</td>
+              <td>{!professionalCategory}</td>
+              <td class="bgColor">{!professionalCategoryScore}</td>
+              <td class="bgColor">{!professionalCategoryWeightage}</td>
             </tr>
           </tbody>
         </table>
@@ -238,21 +248,27 @@
           <tbody>
             <tr class="td">
               <td style="text-align: left;">Collateral</td>
-              <td>86%-90%</td>
-              <td class="bgColor">470</td>
-              <td class="bgColor">24</td>
+              <td>{!collateralName}</td>
+              <td class="bgColor">{!collateralScore}</td>
+              <td class="bgColor">{!collateralWeightage}</td>
+            </tr>
+            <tr class="td">
+              <td style="text-align: left;">Loan to Value</td>
+              <td>{!loanToValue}</td>
+              <td class="bgColor">{!loanToValueScore}</td>
+              <td class="bgColor">{!loanToValueWeightage}</td>
             </tr>
             <tr class="td">
               <td style="text-align: left;">Ability to Service</td>
-              <td>TDSR (1% - 25%)</td>
-              <td class="bgColor">750</td>
-              <td class="bgColor">188</td>
+              <td>{!abilityToService}</td>
+              <td class="bgColor">{!abilityToServiceScore}</td>
+              <td class="bgColor">{!abilityToServiceWeightage}</td>
             </tr>
             <tr class="td">
               <td style="text-align: left;">Repayment Method</td>
-              <td>Salary Deduction</td>
-              <td class="bgColor">900</td>
-              <td class="bgColor">90</td>
+              <td>{!repaymntMethod}</td>
+              <td class="bgColor">{!repaymntMethodScore}</td>
+              <td class="bgColor">{!repaymntMethodWeightage}</td>
             </tr>
           </tbody>
         </table>
@@ -260,11 +276,15 @@
           <tr>
             <td style="text-align: right;">
               <div class="textStyle"><b>Total Weighted Score</b></div>
-              <div class="textStyle borderedText scoreModel"><b>782.15</b></div>
+              <div class="textStyle borderedText scoreModel">
+                <b>{!totalWeightedScore}</b>
+              </div>
             </td>
             <td>
               <div class="textStyle"><b>Credit Risk Rating</b></div>
-              <div class="textStyle borderedText scoreModel"><b>R2</b></div>
+              <div class="textStyle borderedText scoreModel">
+                <b>{!creditRiskRatingValue}</b>
+              </div>
             </td>
           </tr>
         </table>
@@ -286,7 +306,7 @@
                 <div class="ratingTextMiddel">-</div>
                 <div class="ratingTextRight">866</div>
               </td>
-              <td class="ratingTd">
+              <td class="ratingTd" style="width: 11%;">
                 <div class="ratingTextLeft">712</div>
                 <div class="ratingTextMiddel">-</div>
                 <div class="ratingTextRight">788</div>
@@ -306,7 +326,7 @@
                 <div class="ratingTextMiddel">-</div>
                 <div class="ratingTextRight">556</div>
               </td>
-              <td class="ratingTd">
+              <td class="ratingTd" style="width: 16%;">
                 <div class="ratingTextLeft">401</div>
                 <div class="ratingTextMiddel">-</div>
                 <div class="ratingTextRight">478</div>
