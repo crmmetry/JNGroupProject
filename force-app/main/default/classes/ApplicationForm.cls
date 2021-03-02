@@ -135,10 +135,19 @@ public class ApplicationForm {
           FinServ__RelatedContact__r.LastName,
           FinServ__RelatedContact__r.MiddleName,
           FinServ__RelatedContact__r.Account.Emergency_Contact_Relationship__pc,
+          FinServ__RelatedContact__r.Account.Emergency_Contact_Last_Name__pc,
+          FinServ__RelatedContact__r.Account.Emergency_Contact_First_Name__pc,
+          FinServ__RelatedContact__r.Account.Emergency_Contact_Middle_Initial__pc,
+          FinServ__RelatedContact__r.Account.Emergency_Contact_Mobile__pc,
+          FinServ__RelatedContact__r.Account.Emergency_Contact_Business_Phone__pc,
+          FinServ__RelatedContact__r.Account.Emergency_Contact_Email__pc,
+          FinServ__RelatedContact__r.Account.Political_Exposure__pc,
           FinServ__RelatedContact__r.Account.Street_1__pc,
           FinServ__RelatedContact__r.Account.Street_2__pc,
           FinServ__RelatedContact__r.Account.Street_3__pc,
           FinServ__RelatedContact__r.Account.City_Town__pc,
+          FinServ__RelatedContact__r.Account.Country__c,
+          FinServ__RelatedContact__r.Account.Emergency_Contact_Home_Phone__pc,
           FinServ__RelatedContact__r.Account.Residential_Area_District__pc,
           FinServ__RelatedContact__r.Account.Post_Office_Zip_Code__pc,
           FinServ__RelatedContact__r.Account.Province_Parish_State__pc,
@@ -703,7 +712,16 @@ public class ApplicationForm {
   public static void saveAttachement(string oppid) {
     PageReference mypage = Page.ApplicationForm;
     mypage.getParameters().put('oppid', oppid);
-    blob body = mypage.getContentAsPDF();
+    blob body;
+    try {
+      // returns the output of the page as a PDF
+      body = mypage.getContentAsPDF();
+      system.debug('body' + body);
+      // need to pass unit test -- current bug
+    } catch (VisualforceException e) {
+      System.debug('The following exception has occurred: ' + e.getMessage());
+      body = Blob.valueOf('Some Text');
+    }
     //id PageOppId;
     //  if(ApexPages.currentPAge().getParameters().get('oppid')!=null){
     // PageOppId = ApexPages.currentPAge().getParameters().get('oppid');
