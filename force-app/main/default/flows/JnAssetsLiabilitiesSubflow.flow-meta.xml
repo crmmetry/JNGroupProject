@@ -3455,14 +3455,6 @@
                     <elementReference>CreateChoice</elementReference>
                 </rightValue>
             </conditions>
-            <conditions>
-                <leftValueReference
-        >SelectedAssetLiability.Id</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
             <connector>
                 <targetReference>Set_Asset_Primary_Owner_0</targetReference>
             </connector>
@@ -5285,6 +5277,13 @@
                 <value>
                     <elementReference
           >AssetsTreatmentOfCreditDefault</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>recordTypeId</name>
+                <value>
+                    <elementReference
+          >MotorVehicleRecordTypeId</elementReference>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
