@@ -138,7 +138,6 @@
    */
   onSaveProductDetails: function (component, event, helper) {
     let fieldsValidatedCorrectly = helper.validateFields(component);
-    console.log("fields validated? ", fieldsValidatedCorrectly);
     if (fieldsValidatedCorrectly) {
       helper.showSpinner(component);
       let container = copyInto(
