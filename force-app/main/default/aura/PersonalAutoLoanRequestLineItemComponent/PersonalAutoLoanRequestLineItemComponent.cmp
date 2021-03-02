@@ -62,8 +62,8 @@
     name="vehicleClassification"
     type="List"
     default="['New',
-    'Used Imported',
-    'Used Pre-owned']"
+    'Used (Imported)',
+    'Used (Local - Pre-owned)']"
   />
   <aura:attribute name="vehicleYear" type="Integer" default="" />
   <aura:attribute name="makeandModel" type="String" default="" />

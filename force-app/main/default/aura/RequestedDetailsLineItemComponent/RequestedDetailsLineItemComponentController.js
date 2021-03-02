@@ -14,6 +14,7 @@
   },
   onChildContainerChange: function (component, event, helper) {
     const childContainer = component.get("v.ChildContainer");
+    console.log(JSON.parse(JSON.stringify(childContainer)));
     if (
       component.get("v.scriptsLoaded") &&
       component.get("v.notifyContainerChange")
@@ -25,16 +26,18 @@
 
   onApplicantsChange: function (component, event, helper) {
     let applicant = component.get("v.applicants");
-    const applicantsMap = {
-      id: applicant[0].Id,
-      rating: applicant[0].rating,
-      age: applicant[0].age
-    };
-    const data = Object.assign(
-      component.get("v.ParentContainer"),
-      applicantsMap
-    );
-    component.set("v.ParentContainer", data);
+    if (applicant != {}) {
+      const applicantsMap = {
+        id: applicant[0].Id,
+        rating: applicant[0].rating,
+        age: applicant[0].age
+      };
+      const data = Object.assign(
+        component.get("v.ParentContainer"),
+        applicantsMap
+      );
+      component.set("v.ParentContainer", data);
+    }
   },
   /**
    * JN1-4210 : For validating fields
@@ -58,6 +61,7 @@
         value: selected
       }
     ];
-    updateChildContainerWithValue(component, values, false);
+    console.log(selected);
+    helper.updateChildContainerWithValue(component, values, false);
   }
 });

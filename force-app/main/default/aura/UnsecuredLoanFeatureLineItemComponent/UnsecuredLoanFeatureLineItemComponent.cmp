@@ -49,7 +49,11 @@
     type="List"
     default="['Sagicor','Gaurdian','Other']"
   />
-  <aura:attribute name="coverageType" type="List" default="['Applicant 1']" />
+  <aura:attribute
+    name="coverageType"
+    type="List"
+    default="['Applicant 1 Only']"
+  />
   <aura:attribute name="includeCoverage" type="List" default="['Yes','No']" />
   <aura:attribute name="waveProcessingFee" type="List" default="['Yes','No']" />
   <aura:attribute
@@ -224,6 +228,7 @@
                   disabled="{!v.disableTogglerForJNLifeCLFields}"
                   aura:id="unsecuredCoverageType"
                 >
+                  <option value="">select one...</option>
                   <aura:iteration items="{!v.coverageType}" var="item">
                     <option value="{!item}">{!item}</option>
                   </aura:iteration>

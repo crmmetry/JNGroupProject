@@ -1,0 +1,18 @@
+<!--
+    Sr#     Ticket#      Modified By                Modified Date       Description 
+ * 	  1		JN1-4279	  Ishwari Gaikwad.(TQ)		02/09/2021		  created pdf.
+-->
+<apex:component>
+  <apex:attribute name="before" type="Decimal" description="" />
+  <apex:attribute name="after" type="Decimal" description="" />
+  <table border="1" class="contentTable1">
+    <tr>
+      <td class="td2">Prior</td>
+      <td class="td2">{!before}</td>
+    </tr>
+    <tr>
+      <td class="td2">After</td>
+      <td class="td2">{!after}</td>
+    </tr>
+  </table>
+</apex:component>

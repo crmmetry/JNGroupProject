@@ -93,16 +93,16 @@
 
   /**
    * Retrieves All applicants belonging to a particular opportunity.
-   * @deprecated
-   * @param {*} container
+   * @param {*} component
    */
-  getApplicants: function (component, oppId, tenure) {
-    let action = component.get("c.getApplicantsRating");
+  getApplicants: function (component) {
+    let action = component.get("c.getApplicants");
     action.setParams({
-      oppId: oppId,
-      tenure: tenure
+      oppId: component.get("v.recordId")
     });
+    this.showSpinner(component);
     action.setCallback(this, function (response) {
+      this.hideSpinner(component);
       let state = response.getState(); //Checking response status
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
@@ -110,6 +110,7 @@
         if (applicants.length > 1) {
           component.set("v.multipleApplicantsFlag", true);
         }
+        //build generated documents here array
       }
     });
     $A.enqueueAction(action);
@@ -750,7 +751,7 @@
     const isUnsecured = checkProductFamily(component, "Unsecured");
     const isCreditCard = checkProductFamily(component, "Credit Card");
     if (isAuto) {
-      loanCalculationFields = loanCalculationFields.concat([
+      loanCalculationProductFields = loanCalculationProductFields.concat([
         {
           localName: "stampDutyAuto",
           mappedName: "stampDuty",
@@ -758,7 +759,7 @@
         }
       ]);
     } else if (isUnsecured) {
-      loanCalculationFields = loanCalculationFields.concat([
+      loanCalculationProductFields = loanCalculationProductFields.concat([
         {
           localName: "stampDutyUns",
           mappedName: "stampDuty",
@@ -766,7 +767,7 @@
         }
       ]);
     } else if (isCreditCard || isLineOfCredit) {
-      loanCalculationFields = loanCalculationFields.concat([
+      loanCalculationProductFields = loanCalculationFields.concat([
         {
           localName: "interestedInCreditorLifeNonRevolving",
           mappedName: "interestedInCreditorLife",
@@ -791,6 +792,35 @@
    */
   contructProductDetailsFields: function (component) {
     let loanCalculationFields = [
+      // {
+      //   localName: "jngiMonthlyPremium"
+      // },
+      // { localName: "jngiIncludeInLoan" },
+      // { localName: "jngiMotorPremium" },
+      // { localName: "monthlyPIJNGIMotorPremium" },
+      // { localName: "stampDutyAndAdminCharges" },
+      // { localName: "noCreditorLifeReason" },
+      // { localName: "policyProvider" },
+      // { localName: "cardType" },
+      // { localName: "financialInstitution" },
+      // { localName: "accountType" },
+      // { localName: "depositAccountNumber" },
+      // { localName: "accountHolder" },
+      // { localName: "annualInterestRate" },
+      // { localName: "hypothecatedLoan" },
+      // { localName: "depositBalance" },
+      // { localName: "lifeInsuranceCoverage" },
+      // { localName: "makeAndModelOfVehicle" }
+    ];
+    let loanCalculationProductFields = [
+      {
+        localName: "years",
+        description: "Loan Term Years"
+      },
+      {
+        localName: "minimumOfPurchaseMarketValue",
+        description: "Minimum(MV,PP)"
+      },
       {
         localName: "purchasePrice",
         description: "Purchase Price of Vehicle"
@@ -799,59 +829,23 @@
         localName: "marketValue",
         description: "Market Value of Vehicle"
       },
+      { localName: "waiveProcessingFeeFlag" },
+      { localName: "deductRepayment" },
       {
-        localName: "minimumOfPurchaseMarketValue",
-        description: "Minimum(MV,PP)"
+        localName: "interestedInPremiumFlag",
+        description: "Interested in Programme?"
       },
       {
         localName: "loanAmount",
         description: "Loan Amount"
       },
       {
-        localName: "interestedInPremiumFlag",
-        description: "Interested in Programme?"
-      },
-      {
-        localName: "jngiMonthlyPremium"
-      },
-      { localName: "jngiIncludeInLoan" },
-      {
-        localName: "includeInLoanAmountFlag",
-        description: "Include in Loan Amount processing fee"
-      },
-      { localName: "waiveProcessingFeeFlag" },
-      { localName: "jngiMotorPremium" },
-      { localName: "monthlyPIJNGIMotorPremium" },
-      { localName: "nsipp" },
-      { localName: "assignmentFee" },
-      { localName: "totalClosingCosts" },
-      { localName: "stampDutyAndAdminCharges" },
-      { localName: "totalFinancedByJN" },
-      { localName: "totalClosingCostsApplicantPayable" },
-      { localName: "noCreditorLifeReason" },
-      { localName: "policyProvider" },
-      { localName: "cardType" },
-      { localName: "financialInstitution" },
-      { localName: "accountType" },
-      { localName: "depositAccountNumber" },
-      { localName: "accountHolder" },
-      { localName: "annualInterestRate" },
-      { localName: "hypothecatedLoan" },
-      { localName: "depositBalance" },
-      { localName: "lifeInsuranceCoverage" },
-      { localName: "interestedInCreditorLife" },
-      { localName: "vehicleClassification" },
-      { localName: "yearOfVehicle" },
-      { localName: "makeAndModelOfVehicle" }
-    ];
-    let loanCalculationProductFields = [
-      {
-        localName: "years",
-        description: "Loan Term Years"
-      },
-      {
         localName: "months",
         description: "Loan Term Months"
+      },
+      {
+        localName: "interested",
+        description: "Interested in JNGI Programme"
       },
       {
         localName: "market",
@@ -867,6 +861,20 @@
         localName: "proposedSavingsAmount",
         description: "Motor Vehicle Deposit Amount"
       },
+      {
+        localName: "includeInLoanAmountFlag",
+        description: "Include in Loan Amount processing fee"
+      },
+      { localName: "vehicleClassification" },
+      { localName: "yearOfVehicle" },
+      { localName: "nsipp" },
+      { localName: "estimatedStampDutyAndAdminFee" },
+      { localName: "jngiMotorPremiumFeesAndCharges" },
+      { localName: "interestedInCreditorLife" },
+      { localName: "repaymentMethod" },
+      { localName: "totalClosingCost" },
+      { localName: "totalFinancedByJN" },
+      { localName: "totalPayableByApplicant" },
       { localName: "processingFeeClosingCost" },
       { localName: "processingFeesGCT" },
       { localName: "monthlyPrincipalInterestProcessingFee" },
@@ -877,6 +885,7 @@
       { localName: "totalCompulsorySavingsBalance" },
       { localName: "monthlyJnLifeCreditor_PI_Premium" },
       { localName: "totalLoanAmount" },
+      { localName: "firstPaymentInstallable" },
       { localName: "totalMonthlyLoanPayment" },
       { localName: "totalMonthly_PI_LoanPayment" },
       { localName: "totalInterestPaymentBalance" },
@@ -897,7 +906,33 @@
       { localName: "autoCollateralDeposit" },
       { localName: "autoCollateralDepositPercentage" },
       { localName: "computedAutoCollateralDepositFromPercentage" },
-      { localName: "loanPurpose" }
+      { localName: "loanPurpose" },
+      { localName: "assignmentFee" },
+      { localName: "includeCreditorLifeInLoanAmount" },
+      { localName: "requestedCreditLimit" },
+      //copied
+      {
+        localName: "jngiMonthlyPremium"
+      },
+      { localName: "jngiIncludeInLoan" },
+      { localName: "jngiMotorPremium" },
+      { localName: "monthlyPIJNGIMotorPremium" },
+      { localName: "stampDutyAndAdminCharges" },
+      { localName: "noCreditorLifeReason" },
+      { localName: "policyProvider" },
+      { localName: "cardType" },
+      { localName: "financialInstitution" },
+      { localName: "accountType" },
+      { localName: "depositAccountNumber" },
+      { localName: "accountHolder" },
+      { localName: "annualInterestRate" },
+      { localName: "hypothecatedLoan" },
+      { localName: "depositBalance" },
+      { localName: "lifeInsuranceCoverage" },
+      { localName: "makeAndModelOfVehicle" },
+      { localName: "jnBankAccountNumber" },
+      { localName: "jnBankAccountNumberPrefix" },
+      { localName: "numberOfSupplementaryCardHolders" }
     ];
     //product specific fields
     const updatedValues = this.contructProductSpecificDetailsFields(

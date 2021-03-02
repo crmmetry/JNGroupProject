@@ -26,7 +26,7 @@ public class ProductDetailService {
    * @return {Map<string, Personal_Credit_Score_Model__mdt>}
    */
   public string parseAgeRange(
-    Integer age,
+    Decimal age,
     List<PersonalCreditScoreModelWrapper> personalCreditScore
   ) {
     for (PersonalCreditScoreModelWrapper creditScore : personalCreditScore) {
@@ -44,7 +44,7 @@ public class ProductDetailService {
    * @return {string} - return the value stored in subcriteria option of custom metadata
    */
   public string parseNumberOfYearsAtResidence(
-    Integer fieldValue,
+    Decimal fieldValue,
     List<PersonalCreditScoreModelWrapper> personalCreditScore
   ) {
     String subCriteriaOption;
@@ -73,7 +73,7 @@ public class ProductDetailService {
    * @return {string} - return the value stored in subcriteria option of custom metadata
    */
   public string parseLengthOfCurrentEmployment(
-    Integer fieldValue,
+    Decimal fieldValue,
     List<PersonalCreditScoreModelWrapper> personalCreditScore
   ) {
     String subCriteriaOption;
@@ -102,7 +102,7 @@ public class ProductDetailService {
    * @return {string} - return the value stored in subcriteria option of custom metadata
    */
   public string parseLoanToValue(
-    Integer fieldValue,
+    Decimal fieldValue,
     List<PersonalCreditScoreModelWrapper> personalCreditScore
   ) {
     String subCriteriaOption;
@@ -129,7 +129,7 @@ public class ProductDetailService {
    * @return {string} - return the value stored in subcriteria option of custom metadata
    */
   public string parseAbilityToService(
-    Integer fieldValue,
+    Decimal fieldValue,
     List<PersonalCreditScoreModelWrapper> personalCreditScore
   ) {
     String subCriteriaOption;
@@ -165,7 +165,7 @@ public class ProductDetailService {
    * @param {String} range -
    * @return {boolean} - return boolean value to show if given value is within range or not
    */
-  public boolean isWithinRange(Integer fieldValue, String range) {
+  public boolean isWithinRange(Decimal fieldValue, String range) {
     Boolean flag = false;
     if (range.contains('>')) {
       if (fieldValue > Integer.ValueOf(range.remove('>').trim())) {
@@ -188,7 +188,7 @@ public class ProductDetailService {
    * @param {String} range - range of matrix record.
    * @return {void}
    */
-  public boolean isWithinBound(String range, integer fieldValue) {
+  public boolean isWithinBound(String range, Decimal fieldValue) {
     Boolean flag = false;
     if (range.contains('-')) {
       List<String> ranges = range.split('-');
@@ -253,6 +253,8 @@ public class ProductDetailService {
       subCriteriaOption = Constants.INCONSISTANT_AND_OR;
     } else if (fieldValue.equalsIgnoreCase(Constants.INADEQUATE)) {
       subCriteriaOption = Constants.INADEQUATE_AND_OR;
+    } else {
+      subCriteriaOption = fieldValue;
     }
     return subCriteriaOption;
   }
@@ -272,7 +274,7 @@ public class ProductDetailService {
       if (fieldName.equalsIgnoreCase(Constants.AGE)) {
         if (personalCreditModelMap.containsKey(Constants.AGE)) {
           subCriteriaOption = parseAgeRange(
-            Integer.ValueOf(fieldValue),
+            Decimal.ValueOf(fieldValue),
             personalCreditModelMap.get(Constants.AGE)
           );
         } else {
@@ -281,7 +283,7 @@ public class ProductDetailService {
       } else if (fieldName.equalsIgnoreCase(Constants.YEARS_AT_RESIDENCE)) {
         if (personalCreditModelMap.containsKey(Constants.YEARS_AT_RESIDENCE)) {
           subCriteriaOption = parseNumberOfYearsAtResidence(
-            Integer.ValueOf(fieldValue),
+            Decimal.ValueOf(fieldValue),
             personalCreditModelMap.get(Constants.YEARS_AT_RESIDENCE)
           );
         } else {
@@ -292,7 +294,7 @@ public class ProductDetailService {
           personalCreditModelMap.containsKey(Constants.LENGTH_OF_EMPLOYMENT)
         ) {
           subCriteriaOption = parseLengthOfCurrentEmployment(
-            Integer.ValueOf(fieldValue),
+            Decimal.ValueOf(fieldValue),
             personalCreditModelMap.get(Constants.LENGTH_OF_EMPLOYMENT)
           );
         } else {
@@ -301,7 +303,7 @@ public class ProductDetailService {
       } else if (fieldName.equalsIgnoreCase(Constants.LOAN_TO_VALUE)) {
         if (personalCreditModelMap.containsKey(Constants.LOAN_TO_VALUE)) {
           subCriteriaOption = parseLoanToValue(
-            Integer.ValueOf(fieldValue),
+            Decimal.ValueOf(fieldValue),
             personalCreditModelMap.get(Constants.LOAN_TO_VALUE)
           );
         } else {
@@ -310,7 +312,7 @@ public class ProductDetailService {
       } else if (fieldName.equalsIgnoreCase(Constants.ABILITY_TO_SERVICE)) {
         if (personalCreditModelMap.containsKey(Constants.ABILITY_TO_SERVICE)) {
           subCriteriaOption = parseAbilityToService(
-            Integer.valueOf(fieldValue),
+            Decimal.valueOf(fieldValue),
             personalCreditModelMap.get(Constants.ABILITY_TO_SERVICE)
           );
         } else {
@@ -336,6 +338,18 @@ public class ProductDetailService {
         if (
           personalCreditModelMap.containsKey(Constants.FINANCIAL_PERFORMANCE)
         ) {
+          subCriteriaOption = getFinacialPerformance(fieldValue);
+        }
+      } else if (fieldName.equalsIgnoreCase(Constants.COLLATERAL)) {
+        if (personalCreditModelMap.containsKey(Constants.COLLATERAL)) {
+          subCriteriaOption = getFinacialPerformance(fieldValue);
+        }
+      } else if (fieldName.equalsIgnoreCase(Constants.ABILITY_TO_SERVICE)) {
+        if (personalCreditModelMap.containsKey(Constants.ABILITY_TO_SERVICE)) {
+          subCriteriaOption = getFinacialPerformance(fieldValue);
+        }
+      } else if (fieldName.equalsIgnoreCase(Constants.REPAYMENT_METHOD)) {
+        if (personalCreditModelMap.containsKey(Constants.REPAYMENT_METHOD)) {
           subCriteriaOption = getFinacialPerformance(fieldValue);
         }
       } else {
@@ -369,14 +383,7 @@ public class ProductDetailService {
     AccountWrapper accWrapper = ProductDetailSelector.getAccount(
       oppWrapper.accountId
     );
-    /* List<LoanCalculationsWrapper> loanCalculationsList = ProductDetailSelector.getLoanCalculations(
-      oppId
-    );
-    //TODO: VALUES ARE PASSED FROM THE PRODUCT DETAIL AURA COMPONENT CURRENTLY
-    LoanCalculationsWrapper loanCalculatins = loanCalculationsList.size() > 0
-      ? loanCalculationsList[0]
-      : null;
-      */
+
     LoanCalculationsWrapper loanCalWrapper = new LoanCalculationsWrapper();
     loanCalWrapper.repaymentMethod = repaymentMethod;
     loanCalWrapper.abilityToServiceCC = tdsr;
@@ -396,9 +403,41 @@ public class ProductDetailService {
       empWrapper,
       applicant
     );
-    System.debug('SubCriteriaOptionWrapper = ' + subCriteriaOptions);
+
     return subCriteriaOptions;
   }
+
+  public static SubCriteriaOptionWrapper getSubcriteriaOptionsForApplicant(
+    Id oppId,
+    ApplicantWrapper applicantWrp
+  ) {
+    OpportunityWrapper oppWrapper = ProductDetailSelector.getOpportunityDetails(
+      oppId
+    );
+    AccountWrapper accWrapper = ProductDetailSelector.getAccount(
+      oppWrapper.accountId
+    );
+    List<LoanCalculationsWrapper> loanCalculationsList = ProductDetailSelector.getLoanCalculations(
+      oppId
+    );
+
+    LoanCalculationsWrapper loanCalculatins = loanCalculationsList.size() > 0
+      ? loanCalculationsList[0]
+      : null;
+    EmploymentWrapper empWrapper = ProductDetailSelector.getEmployemntDetails(
+      oppWrapper.accountId
+    );
+
+    SubCriteriaOptionWrapper subCriteriaOptions = new SubCriteriaOptionWrapper(
+      accWrapper,
+      oppWrapper,
+      loanCalculatins,
+      empWrapper,
+      applicantWrp
+    );
+    return subCriteriaOptions;
+  }
+
   /** *
    * Get the SubCriteriaOptionsWrapper.
    * @param {Id} oppId - opportunityId
@@ -414,6 +453,7 @@ public class ProductDetailService {
     List<LoanCalculationsWrapper> loanCalculationsList = ProductDetailSelector.getLoanCalculations(
       oppId
     );
+
     LoanCalculationsWrapper loanCalculatins = loanCalculationsList.size() > 0
       ? loanCalculationsList[0]
       : null;

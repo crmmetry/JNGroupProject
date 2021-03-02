@@ -1,0 +1,281 @@
+<aura:component
+  implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
+>
+  <aura:attribute name="toggleCheckAll" type="Boolean" />
+  <aura:attribute name="auraIdList" type="List" />
+  <aura:attribute name="verifiedAssetsMap" type="Map" />
+  <aura:attribute name="verifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="unverifiedDataMap" type="Map" default="{}" />
+  <aura:handler
+    name="change"
+    action="{!c.onVerifiedAssetsMapChange}"
+    value="{!v.verifiedAssetsMap}"
+  />
+  <aura:registerEvent name="AssetsEvent" type="c:AssetsVerificationEvent" />
+  <aura:handler
+    name="AssetsEvent"
+    event="c:AssetsVerificationEvent"
+    action="{!c.handleComponentEvent}"
+  />
+  <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
+  <aura:handler
+    name="change"
+    action="{!c.onToggleCheckAlChange}"
+    value="{!v.toggleCheckAll}"
+  />
+  <lightning:layout multipleRows="true">
+    <lightning:layoutItem size="3" mediumDeviceSize="3"
+      ><h1 class="slds-section-title--divider">Assets</h1></lightning:layoutItem
+    >
+    <lightning:layoutItem size="3" mediumDeviceSize="3"
+      ><h6 class="slds-section-title--divider">
+        Unverified Amount
+      </h6></lightning:layoutItem
+    >
+    <lightning:layoutItem size="3" mediumDeviceSize="3"
+      ><h6 class="slds-section-title--divider center-align">
+        True?
+      </h6></lightning:layoutItem
+    >
+    <lightning:layoutItem size="3" mediumDeviceSize="3"
+      ><h6 class="slds-section-title--divider">
+        Verified Amount
+      </h6></lightning:layoutItem
+    >
+  </lightning:layout>
+  <lightning:layout
+    multipleRows="true"
+    verticalAlign="center"
+    horizontalAlign="space"
+  >
+    <!-- ROW 1 -->
+    <lightning:layoutItem
+      size="3"
+      mediumDeviceSize="3"
+      padding="horizontal-small"
+    >
+      <div class=""><h3>Real Estate Holding(s)</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem
+      size="3"
+      mediumDeviceSize="3"
+      padding="horizontal-small"
+    >
+      <lightning:input
+        aura:id="realEstateHoldingsUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.realEstateHoldingsAssets}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem
+      size="3"
+      mediumDeviceSize="3"
+      padding="horizontal-small"
+    >
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          aura:id="verificationToggle"
+          type="checkbox-button"
+          name="realEstateHoldings"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem
+      size="3"
+      mediumDeviceSize="3"
+      padding="horizontal-small"
+    >
+      <lightning:input
+        aura:id="realEstateHoldings"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.realEstateHoldingsAssetsVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 2 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Motor Vehicle(s)</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="motorVehiclesUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.motorVehicleAssets}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem
+      size="3"
+      mediumDeviceSize="3"
+      flexibility="auto, no-grow"
+      padding="around-small"
+    >
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          aura:id="verificationToggle"
+          type="checkbox-button"
+          name="motorVehicles"
+          onchange="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="motorVehicles"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.motorVehicleAssetsVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 3 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="">
+        <h3>Savings/Current Account(s) &amp; Investment(s)</h3>
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="savingsAccountUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.savingsAccountInvestmentAssets}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          aura:id="verificationToggle"
+          type="checkbox-button"
+          name="savingsAccount"
+          onchange="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="savingsAccount"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.savingsAccountInvestmentAssetsVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 4 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Life Insurance Policy Cash Value</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="lifeInsuranceUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.lifeInsuranceAssets}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          aura:id="verificationToggle"
+          type="checkbox-button"
+          name="lifeInsurance"
+          onchange="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="lifeInsurance"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.lifeInsuranceAssetsVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 5 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Pension Contribution(s)</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="pensionUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.pensionAssets}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          aura:id="verificationToggle"
+          type="checkbox-button"
+          name="pension"
+          onchange="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="pension"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.pensionAssetsVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 6 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="">
+        <h3>Other Asset(s) - (Furniture and Appliances, Jewelery, Art etc)</h3>
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="otherAssetsUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.otherAssets}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          aura:id="verificationToggle"
+          type="checkbox-button"
+          name="otherAssets"
+          onchange="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="otherAssets"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.otherAssetsVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+  </lightning:layout>
+</aura:component>
