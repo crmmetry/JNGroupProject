@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+ * @group             :
+ * @last modified on  : 03-02-2021
+ * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+ * Modifications Log
+ * Ver   Date         Author                               Modification
+ * 1.0   03-02-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
+ **/
 public with sharing class FinancialDetailsUnwrapper {
   @AuraEnabled
   public String Id;
@@ -137,7 +147,7 @@ public with sharing class FinancialDetailsUnwrapper {
     record.Other_Expenses_VERIFIED_Number__c = wrapper.otherExpensesVerified;
     record.Statutory_Deductions_VERIFIED_Number__c = wrapper.totalStatutoryDeductionsVerified;
     record.Total_Monthly_Expenses_Verified_Number__c = wrapper.totalMonthlyExpensesVerified;
-    record.Primary_Source_of_Income_List__c = wrapper.primarySourceOfIncomeVerified;
+    record.Primary_Source_of_Income_VERIFIED_list__c = wrapper.primarySourceOfIncomeVerified;
     record.Gross_Monthly_Income_VERIFIED_Number__c = wrapper.grossSalaryAllowancesVerified;
     record.Other_Income_VERIFIED_Number__c = wrapper.otherIncomeVerified;
     record.Net_Profit_Sole_Trader_VERIFIED_Number__c = wrapper.netBusinessIncomeSoleTraderVerified;

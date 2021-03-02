@@ -115,6 +115,29 @@
     component.set("v.UnverifiedDebts", unverifiedDebts);
   },
 
+  updateOpportunity: function (component, fieldName, value, btnLabel) {
+    let action = component.get("c.updateFieldOnOpportunity");
+    let oppId = component.get("v.recordId");
+    action.setParams({
+      oppId: oppId,
+      fieldAPIName: fieldName,
+      value: value
+    });
+    action.setCallback(this, function (response) {
+      //let indexList = [];
+      let state = response.getState(); //Checking response status
+      let result = response.getReturnValue();
+      if (state === "SUCCESS") {
+        if (btnLabel == "Submit") {
+          component.set("v.isSubmitted", value);
+        } else if (btnLabel == "Verify") {
+          component.set("v.isVerified", value);
+        }
+      }
+    });
+    $A.enqueueAction(action);
+  },
+
   showToast: function (title, message, type) {
     let toastEvent = $A.get("e.force:showToast");
     toastEvent.setParams({
