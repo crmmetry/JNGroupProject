@@ -2,8 +2,8 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 02-22-2021
- * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+ * @last modified on  : 03-02-2021
+ * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
  * 1.0   02-22-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
@@ -142,7 +142,7 @@ public class ProductDetailsSerializer {
   @AuraEnabled
   public Decimal approvedStartingLimit;
   @AuraEnabled
-  public Decimal jnBankAccountNumber;
+  public String jnBankAccountNumber;
   @AuraEnabled
   public String jnBankAccountNumberPrefix;
   @AuraEnabled

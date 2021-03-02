@@ -767,7 +767,7 @@
         }
       ]);
     } else if (isCreditCard || isLineOfCredit) {
-      loanCalculationProductFields = loanCalculationFields.concat([
+      loanCalculationProductFields = loanCalculationProductFields.concat([
         {
           localName: "interestedInCreditorLifeNonRevolving",
           mappedName: "interestedInCreditorLife",
@@ -801,7 +801,7 @@
       // { localName: "stampDutyAndAdminCharges" },
       // { localName: "noCreditorLifeReason" },
       // { localName: "policyProvider" },
-      // { localName: "cardType" },
+      { localName: "cardType" }
       // { localName: "financialInstitution" },
       // { localName: "accountType" },
       // { localName: "depositAccountNumber" },
@@ -932,6 +932,7 @@
       { localName: "makeAndModelOfVehicle" },
       { localName: "jnBankAccountNumber" },
       { localName: "jnBankAccountNumberPrefix" },
+      { localName: "existingBalance" },
       { localName: "numberOfSupplementaryCardHolders" }
     ];
     //product specific fields
