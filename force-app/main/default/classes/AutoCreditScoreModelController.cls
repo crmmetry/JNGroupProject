@@ -1,7 +1,4 @@
 //Sample Applicant Ids are a15f0000002F8z5AAC 	a15f0000002F9sIAAS
-//Sample Opportunities Id 006f000000PhctcAAB  006f000000PhpadAAB
-//Sample Account Id 001f000001dJOzdAAG	001f000001dXjJ9AAK
-
 public class AutoCreditScoreModelController {
   //----- SUMMARY OF MODEL PARAMETERS ----//
   //Date of Application
@@ -100,8 +97,15 @@ public class AutoCreditScoreModelController {
   public Decimal collateralScore { get; set; }
   public Decimal collateralWeightage { get; set; }
 
+  //Loan To Value
+  public String loanToValue { get; set; }
+  public Decimal loanToValueScore { get; set; }
+  public Decimal loanToValueValue { get; set; }
+  public Decimal loanToValueWeightage { get; set; }
+
   //Ability to Service
   public String abilityToService { get; set; }
+  public Decimal abilityToServiceValue { get; set; }
   public Decimal abilityToServiceScore { get; set; }
   public Decimal abilityToServiceWeightage { get; set; }
 
@@ -120,11 +124,6 @@ public class AutoCreditScoreModelController {
   public Applicant__c applicantObject { get; set; }
   public Loan_Calculator__c loanCalculator { get; set; }
   public Account personAccount { get; set; }
-  public Opportunity oppObject { get; set; }
-
-  public AccountWrapper personAccountWrapper { get; set; }
-  public EmploymentWrapper employWrapper { get; set; }
-  public OpportunityWrapper oppWrpr { get; set; }
 
   public SubCriteriaOptionWrapper subCritOptionWrpr;
   public CreditScoreModelWrapper creditScoreMdlWrpr;
@@ -138,165 +137,126 @@ public class AutoCreditScoreModelController {
 
     //Get applicant id from URL
     applicantId = ApexPages.currentPage().getParameters().get('Id');
+    if (applicantId != null) {
+      //Get applicant objects by using the applicant id from URL
+      applicantObject = getApplicant(applicantId);
+      ApplicantWrapper applicantWrp = new ApplicantWrapper(applicantObject);
 
-    //Get applicant objects by using the applicant id from URL
-    applicantObject = getApplicant(applicantId);
+      //Get account objects
+      personAccount = getAccount(applicantObject.Account__c);
 
-    //Get account objects
-    personAccount = getAccount(applicantObject.Account__c);
+      //Get product Category Value
+      productCategry = getProductCategory(applicantObject.Opportunity__c);
+      formatProductCatg(productCategry);
 
-    //Get product Category Value
-    productCategry = getProductCategory(applicantObject.Opportunity__c);
-    formatProductCatg(productCategry);
+      //Get Loan Amount/Limit Value
+      getLoanCalculationApplicantProduct(
+        applicantObject.Opportunity__c,
+        applicantId,
+        applicantObject.Opportunity__r.Product_Details__c
+      );
 
-    //Get Loan Amount/Limit Value
-    getLoanCalculationApplicantProduct(
-      applicantObject.Opportunity__c,
-      applicantId
-    );
+      //Get Jamaican Tax Number Value
+      jamaicanTaxNumber = personAccount.Jamaican_Tax_Registration_Number__pc;
 
-    //Get Jamaican Tax Number Value
-    jamaicanTaxNumber = personAccount.Jamaican_Tax_Registration_Number__pc;
+      //Get formatted Application ID Value
+      applicationIdString = formApplicationId(
+        productCategry,
+        jamaicanTaxNumber,
+        dateString
+      );
 
-    //Get formatted Application ID Value
-    applicationIdString = formApplicationId(
-      productCategry,
-      jamaicanTaxNumber,
-      dateString
-    );
+      //Get Name of Applicant Value
+      nameOfApplicant = personAccount.Name;
 
-    //Get Name of Applicant Value
-    nameOfApplicant = personAccount.Name;
+      //Get value - Is the Applicant a Politcally Exposed Person (PEP)?*
+      if (personAccount.Political_Exposure__pc == true) {
+        isApplicantPolicExpoxed = 'Yes';
+      } else {
+        isApplicantPolicExpoxed = 'No';
+      }
 
-    //Get value - Is the Applicant a Politcally Exposed Person (PEP)?*
-    if (personAccount.Political_Exposure__pc == true) {
-      isApplicantPolicExpoxed = 'Yes';
-    } else {
-      isApplicantPolicExpoxed = 'No';
+      //Get value - Has the sanction screening(s) resulted in a negative trace?*
+      hasSanctionNegativeTrace = applicantObject.Sanction_Screening_has_Negative_Trace__c;
+
+      //Get the value of Assessed Monthly Income:
+      grossMonthlyIncome = applicantObject.Gross_Monthly_IncomeC__c;
+
+      //Get the Number of Applicant(s):
+      totalNumberOfApplicants = getNumberOfApplicants(
+        applicantObject.Opportunity__c
+      );
+
+      //Get the value of Credit History in the last 24 months
+      ProductDetailService prdDetailSrv = new ProductDetailService();
+
+      creditHistoryLast24Months = prdDetailSrv.getSubCriteriaOption(
+        Constants.CREDIT_HISTORY,
+        applicantObject.Credit_History_in_last_24_Months__c
+      );
+
+      //Get the value of Net Worth
+      assessmentOfApplicantNetWorth = prdDetailSrv.getSubCriteriaOption(
+        Constants.NET_WORTH,
+        applicantObject.Assessment_of_Applicant_Net_Worth__c
+      );
+
+      subCritOptionWrpr = ProductDetailService.getSubcriteriaOptionsForApplicant(
+        applicantObject.Opportunity__c,
+        applicantWrp
+      );
+      subCritOptionWrpr.collateral = collateralName;
+      subCritOptionWrpr.loanToValue = loanToValueValue;
+      subCritOptionWrpr.ablitityToService = abilityToServiceValue;
+      subCritOptionWrpr.repaymentMethod = repaymntMethod;
+
+      CreditScoreModelWrapper creditWrapper = new CreditScoreModelWrapper(
+        subCritOptionWrpr
+      );
+
+      ageString = prdDetailSrv.getSubCriteriaOption(
+        Constants.AGE,
+        String.ValueOf(subCritOptionWrpr.age)
+      );
+      educationString = prdDetailSrv.getSubCriteriaOption(
+        Constants.EDUCATION,
+        subCritOptionWrpr.education
+      );
+      statusOfAddressString = prdDetailSrv.getSubCriteriaOption(
+        Constants.STATUS_OF_ADDRESS,
+        subCritOptionWrpr.residentialStatus
+      );
+      yearsAtResidentString = prdDetailSrv.getSubCriteriaOption(
+        Constants.YEARS_AT_RESIDENCE,
+        String.valueOf(subCritOptionWrpr.yearsAtCurrentResidence)
+      );
+      primaryEmploymentType = subCritOptionWrpr.employmentType;
+      emplStatus = prdDetailSrv.getSubCriteriaOption(
+        Constants.EMPLOYMENT_STATUS,
+        subCritOptionWrpr.employmentStatus
+      );
+      industryName = prdDetailSrv.getSubCriteriaOption(
+        Constants.INDUSTRY,
+        subCritOptionWrpr.industryOfEmployment
+      );
+      lengthOfEmploymentString = prdDetailSrv.getSubCriteriaOption(
+        Constants.LENGTH_OF_EMPLOYMENT,
+        String.valueOf(subCritOptionWrpr.lengthOfCurrentEmployment)
+      );
+      professionalCategory = prdDetailSrv.getSubCriteriaOption(
+        Constants.PROFESSIONAL_CATEGORY,
+        subCritOptionWrpr.professionalCategory
+      );
+
+      //Assign the value of Score and Weightage to each row
+      assignScoreaAndWeightage(creditWrapper.fieldScoreMap);
+
+      //Get the value in Total Weighted Score
+      totalWeightedScore = creditWrapper.finalScore;
+
+      //Get the value in Credit Risk Rating
+      creditRiskRatingValue = creditWrapper.riskRating.rating;
     }
-
-    //Get value - Has the sanction screening(s) resulted in a negative trace?*
-    hasSanctionNegativeTrace = applicantObject.Sanction_Screening_has_Negative_Trace__c;
-
-    //Get the employment information
-    employWrapper = ProductDetailSelector.getEmployemntDetails(
-      applicantObject.Account__c
-    );
-    primaryEmploymentType = employWrapper.employmentType;
-
-    //Get the value of Assessed Monthly Income:
-    grossMonthlyIncome = applicantObject.Gross_Monthly_IncomeC__c;
-
-    //Get the Number of Applicant(s):
-    totalNumberOfApplicants = getNumberOfApplicants(
-      applicantObject.Opportunity__c
-    );
-
-    //Get the value of Age
-    ProductDetailService prdDetailSrv = new ProductDetailService();
-    personAccountWrapper = ProductDetailSelector.getAccount(
-      applicantObject.Account__c
-    );
-
-    ageString = prdDetailSrv.getSubCriteriaOption(
-      Constants.AGE,
-      String.ValueOf(personAccountWrapper.age)
-    );
-
-    //Get the value of Education
-    educationString = prdDetailSrv.getSubCriteriaOption(
-      Constants.EDUCATION,
-      personAccountWrapper.highestLevelOfEducation
-    );
-
-    //Get the value of Residential Status
-    statusOfAddressString = prdDetailSrv.getSubCriteriaOption(
-      Constants.STATUS_OF_ADDRESS,
-      personAccountWrapper.statusOfAddress
-    );
-
-    //Get the value of Years at Current Residence
-    yearsAtResidentString = prdDetailSrv.getSubCriteriaOption(
-      Constants.YEARS_AT_RESIDENCE,
-      String.valueOf(personAccountWrapper.yearsAtResident)
-    );
-
-    //Get the value of Credit History in the last 24 months
-    creditHistoryLast24Months = prdDetailSrv.getSubCriteriaOption(
-      Constants.CREDIT_HISTORY,
-      applicantObject.Credit_History_in_last_24_Months__c
-    );
-
-    //Get the value of Net Worth
-    assessmentOfApplicantNetWorth = prdDetailSrv.getSubCriteriaOption(
-      Constants.NET_WORTH,
-      applicantObject.Assessment_of_Applicant_Net_Worth__c
-    );
-
-    //Get the value of Employment Status
-    emplStatus = prdDetailSrv.getSubCriteriaOption(
-      Constants.EMPLOYMENT_STATUS,
-      employWrapper.EmploymentStatus
-    );
-
-    //Get the value of Industry of Employment
-    industryName = prdDetailSrv.getSubCriteriaOption(
-      Constants.INDUSTRY,
-      employWrapper.industry
-    );
-
-    //Get the value of Length of Current Employment
-    lengthOfEmploymentString = prdDetailSrv.getSubCriteriaOption(
-      Constants.LENGTH_OF_EMPLOYMENT,
-      String.valueOf(employWrapper.lengthOfEmployment)
-    );
-
-    //Get the value of Professional Category
-    professionalCategory = prdDetailSrv.getSubCriteriaOption(
-      Constants.PROFESSIONAL_CATEGORY,
-      employWrapper.professionalCategory
-    );
-
-    oppObject = [
-      SELECT Id, Collateral_CC__c, Loan_to_ValueCC__c, AccountId
-      FROM Opportunity
-      WHERE Id = :applicantObject.Opportunity__c
-    ];
-
-    oppWrpr = new OpportunityWrapper(oppObject);
-    subCritOptionWrpr = ProductDetailService.getSubcriteriaOptions(
-      applicantObject.Opportunity__c
-    );
-    CreditScoreModelWrapper creditWrapper = new CreditScoreModelWrapper(
-      subCritOptionWrpr
-    );
-
-    //Get the value in Collateral
-    collateralName = prdDetailSrv.getSubCriteriaOption(
-      Constants.COLLATERAL,
-      subCritOptionWrpr.collateral
-    );
-
-    //Get the value in Ability to Service
-    abilityToService = prdDetailSrv.getSubCriteriaOption(
-      Constants.ABILITY_TO_SERVICE,
-      String.ValueOf(subCritOptionWrpr.ablitityToService)
-    );
-
-    //Get the value in Repayment Method
-    repaymntMethod = prdDetailSrv.getSubCriteriaOption(
-      Constants.REPAYMENT_METHOD,
-      subCritOptionWrpr.repaymentMethod
-    );
-
-    //Assign the value of Score and Weightage to each row
-    assignScoreaAndWeightage(creditWrapper.fieldScoreMap);
-
-    //Get the value in Total Weighted Score
-    totalWeightedScore = creditWrapper.finalScore;
-
-    //Get the value in Credit Risk Rating
-    creditRiskRatingValue = creditWrapper.riskRating.rating;
   }
 
   private void assignScoreaAndWeightage(
@@ -440,6 +400,18 @@ public class AutoCreditScoreModelController {
       }
     }
 
+    lstOfScoreAndWeight = mapOfScoreWeightage.get(Constants.LOAN_TO_VALUE);
+    if (lstOfScoreAndWeight != null) {
+      if (lstOfScoreAndWeight.size() > 0) {
+        if (lstOfScoreAndWeight.get(0) != null) {
+          loanToValueScore = lstOfScoreAndWeight.get(0);
+        }
+        if (lstOfScoreAndWeight.get(1) != null) {
+          loanToValueWeightage = lstOfScoreAndWeight.get(1);
+        }
+      }
+    }
+
     lstOfScoreAndWeight = mapOfScoreWeightage.get(Constants.ABILITY_TO_SERVICE);
     if (lstOfScoreAndWeight != null) {
       if (lstOfScoreAndWeight.size() > 0) {
@@ -467,18 +439,35 @@ public class AutoCreditScoreModelController {
 
   private Applicant__c getApplicant(Id applicantId) {
     Applicant__c applicantObjectInstance;
+
     applicantObjectInstance = [
       SELECT
-        Sanction_Screening_has_Negative_Trace__c,
-        Gross_Monthly_IncomeC__c,
         Credit_History_in_last_24_Months__c,
+        Sanction_Screening_has_Negative_Trace__c,
         Assessment_of_Applicant_Net_Worth__c,
+        Statutory_Deductions_Numbers__c,
+        Rent_Strata_Maintenance__c,
+        Personal_Expenses_Monthly_Prior_Loan__c,
+        Savings_Pension_Insurance_Number__c,
+        Real_Estate_Monthly_Payment_Number__c,
+        Motor_Vehicle_Monthly_Payment_Number__c,
+        Other_Asset_Monthly_Payment_Number__c,
+        Other_Loan_Monthly_Payment_Number__c,
+        Gross_Monthly_Income__c,
+        Account__r.PersonBirthdate,
+        Rent_Board_Monthly_Prior_Loan__c,
+        Rent_Board_Monthly_After_Loan__c,
+        Gross_Monthly_IncomeC__c,
+        Strata_Maintenance_Monthly_Prior_Loan__c,
+        Strata_Maintenance_Monthly_After_Loan__c,
         Opportunity__c,
+        Opportunity__r.Product_Details__c,
         Account__c,
         CurrencyIsoCode
       FROM Applicant__c
       WHERE Id = :applicantId
     ];
+
     if (applicantObjectInstance != null) {
       return applicantObjectInstance;
     } else {
@@ -523,20 +512,6 @@ public class AutoCreditScoreModelController {
     } else {
       return null;
     }
-  }
-
-  private Integer calculateAge(Date dob) {
-    Integer currentYear = Date.today().year();
-    Integer currentMonth = Date.today().month();
-    Integer currentDay = Date.today().day();
-    Integer birthYear = dob.year();
-    Integer birthMonth = dob.month();
-    Integer birthDay = dob.day();
-    Integer age = currentYear - birthYear;
-    if (!(currentMonth >= birthMonth) && !(currentDay >= birthday)) {
-      return age - 1;
-    }
-    return age;
   }
 
   private string getProductCategory(Id oppId) {
@@ -589,11 +564,14 @@ public class AutoCreditScoreModelController {
     }
   }
 
-  private void getLoanCalculationApplicantProduct(Id oppId, Id applicantId) {
+  private void getLoanCalculationApplicantProduct(
+    Id oppId,
+    Id applicantId,
+    id loanCalculatorId
+  ) {
     list<Loan_Calculation_Applicant_Product__c> applicantLoanCalPrdct;
     list<Loan_Calculator__c> loanCalculator;
     list<Loan_Calculation_Product__c> loanCalPrdct;
-    id loanCalId;
 
     applicantLoanCalPrdct = [
       SELECT Loan_Amount_Number__c
@@ -606,26 +584,46 @@ public class AutoCreditScoreModelController {
       }
     }
 
-    loanCalculator = [
-      SELECT Id
-      FROM Loan_Calculator__c
-      WHERE Opportunity__c = :oppId
-    ];
-    if (loanCalculator != null) {
-      if (loanCalculator.size() > 0) {
-        loanCalId = loanCalculator.get(0).Id;
-      }
-    }
-
     loanCalPrdct = [
-      SELECT Requested_Credit_Limit_Number__c
+      SELECT
+        Requested_Credit_Limit_Number__c,
+        Collateral_Type_List__c,
+        Loan_to_Value_Number__c,
+        Ability_to_Service_Before_Number__c,
+        Repayment_Method_List__c
       FROM Loan_Calculation_Product__c
-      WHERE Loan_Calculation_Id__c = :loanCalId
+      WHERE Loan_Calculation_Id__c = :loanCalculatorId
     ];
-
     if (loanCalPrdct != null) {
       if (loanCalPrdct.size() > 0) {
-        loanAmtLimit = loanCalPrdct.get(0).Requested_Credit_Limit_Number__c;
+        loanAmtLimit = 0;
+        collateralName = '';
+        loanToValue = '';
+        abilityToService = '';
+        repaymntMethod = '';
+
+        if (loanCalPrdct.get(0).Requested_Credit_Limit_Number__c != null) {
+          loanAmtLimit = loanCalPrdct.get(0).Requested_Credit_Limit_Number__c;
+        }
+        if (loanCalPrdct.get(0).Collateral_Type_List__c != null) {
+          collateralName = loanCalPrdct.get(0).Collateral_Type_List__c;
+        }
+        if (loanCalPrdct.get(0).Loan_to_Value_Number__c != null) {
+          loanToValueValue = loanCalPrdct.get(0).Loan_to_Value_Number__c;
+          loanToValue = String.ValueOf(
+            loanCalPrdct.get(0).Loan_to_Value_Number__c
+          );
+        }
+        if (loanCalPrdct.get(0).Ability_to_Service_Before_Number__c != null) {
+          abilityToServiceValue = loanCalPrdct.get(0)
+            .Ability_to_Service_Before_Number__c;
+          abilityToService = String.ValueOf(
+            loanCalPrdct.get(0).Ability_to_Service_Before_Number__c
+          );
+        }
+        if (loanCalPrdct.get(0).Repayment_Method_List__c != null) {
+          repaymntMethod = loanCalPrdct.get(0).Repayment_Method_List__c;
+        }
       }
     }
   }

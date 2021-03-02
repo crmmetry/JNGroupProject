@@ -219,7 +219,7 @@
             </tr>
             <tr class="td">
               <td style="text-align: left;">Length of Current Employment</td>
-              <td>>{!lengthOfEmploymentString}</td>
+              <td>{!lengthOfEmploymentString}</td>
               <td class="bgColor">{!lengthOfEmploymentScore}</td>
               <td class="bgColor">{!lengthOfEmploymentWeightage}</td>
             </tr>
@@ -251,6 +251,12 @@
               <td>{!collateralName}</td>
               <td class="bgColor">{!collateralScore}</td>
               <td class="bgColor">{!collateralWeightage}</td>
+            </tr>
+            <tr class="td">
+              <td style="text-align: left;">Loan to Value</td>
+              <td>{!loanToValue}</td>
+              <td class="bgColor">{!loanToValueScore}</td>
+              <td class="bgColor">{!loanToValueWeightage}</td>
             </tr>
             <tr class="td">
               <td style="text-align: left;">Ability to Service</td>
@@ -300,7 +306,7 @@
                 <div class="ratingTextMiddel">-</div>
                 <div class="ratingTextRight">866</div>
               </td>
-              <td class="ratingTd">
+              <td class="ratingTd" style="width: 11%;">
                 <div class="ratingTextLeft">712</div>
                 <div class="ratingTextMiddel">-</div>
                 <div class="ratingTextRight">788</div>
@@ -320,7 +326,7 @@
                 <div class="ratingTextMiddel">-</div>
                 <div class="ratingTextRight">556</div>
               </td>
-              <td class="ratingTd">
+              <td class="ratingTd" style="width: 16%;">
                 <div class="ratingTextLeft">401</div>
                 <div class="ratingTextMiddel">-</div>
                 <div class="ratingTextRight">478</div>

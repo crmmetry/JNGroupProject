@@ -40,6 +40,7 @@ public class CreditScoreModelWrapper {
   public Decimal getRiskScore(SubCriteriaOptionWrapper subCriteriaOption) {
     Decimal score = 0;
     Decimal finalScore = 0;
+
     if (subCriteriaOption.age != null) {
       score = calculateScore(
         personalCreditScoreMap.get(Constants.AGE),
@@ -49,7 +50,6 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
-      System.debug('Age Score = ' + score);
     }
     if (subCriteriaOption.residentialStatus != null) {
       score = calculateScore(
@@ -60,7 +60,6 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
-      System.debug('Status of Address Score = ' + score);
     }
     if (subCriteriaOption.yearsAtCurrentResidence != null) {
       score = calculateScore(
@@ -71,8 +70,8 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
-      System.debug('Years at Residence Score = ' + score);
     }
+
     if (subCriteriaOption.creditHistory != null) {
       score = calculateScore(
         personalCreditScoreMap.get(Constants.CREDIT_HISTORY),
@@ -81,8 +80,8 @@ public class CreditScoreModelWrapper {
           subCriteriaOption.creditHistory
         )
       );
+
       finalScore += score;
-      System.debug('Credit history Score = ' + score);
     }
     if (subCriteriaOption.netWorth != null) {
       score = calculateScore(
@@ -93,7 +92,6 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
-      System.debug('Net worth Score = ' + score);
     }
     if (subCriteriaOption.employmentStatus != null) {
       score = calculateScore(
@@ -104,7 +102,6 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
-      System.debug('Employment status Score = ' + score);
     }
     if (subCriteriaOption.industryOfEmployment != null) {
       List<PersonalCreditScoreModelWrapper> typeList = new List<PersonalCreditScoreModelWrapper>();
@@ -130,7 +127,6 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
-      System.debug('Industry Employment Score = ' + score);
     }
     if (subCriteriaOption.lengthOfCurrentEmployment != null) {
       score = calculateScore(
@@ -141,7 +137,6 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
-      System.debug('Length of Employment Score = ' + score);
     }
     if (subCriteriaOption.professionalCategory != null) {
       score = calculateScore(
@@ -152,7 +147,6 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
-      System.debug('Professional Category Score = ' + score);
     }
     if (subCriteriaOption.natureOfEngagement != null) {
       score = calculateScore(
@@ -163,7 +157,6 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
-      System.debug('Nature of engagment Score = ' + score);
     }
     if (subCriteriaOption.financialPerformance != null) {
       score = calculateScore(
@@ -174,7 +167,6 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
-      System.debug('Financial performance Score = ' + score);
     }
     if (subCriteriaOption.financialStatementSupport != null) {
       score = calculateScore(
@@ -185,7 +177,6 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
-      System.debug('Financial Statement support Score = ' + score);
     }
     if (subCriteriaOption.lengthOfTrade != null) {
       score = calculateScore(
@@ -196,7 +187,6 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
-      System.debug('Length of trade Score = ' + score);
     }
     if (subCriteriaOption.collateral != null) {
       score = calculateScore(
@@ -207,7 +197,6 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
-      System.debug('Collateral Score = ' + score);
     }
     if (subCriteriaOption.loanToValue != null) {
       score = calculateScore(
@@ -218,7 +207,6 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
-      System.debug('LTV Score = ' + score);
     }
     if (subCriteriaOption.ablitityToService != null) {
       score = calculateScore(
@@ -229,7 +217,6 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
-      System.debug('TDSR Score = ' + score);
     }
     if (subCriteriaOption.repaymentMethod != null) {
       score = calculateScore(
@@ -240,7 +227,6 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
-      System.debug('Repayment method Score = ' + score);
     }
     if (subCriteriaOption.workingCapital != null) {
       score = calculateScore(
@@ -251,7 +237,6 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
-      System.debug('Working capital Score = ' + score);
     }
     if (subCriteriaOption.education != null) {
       score = calculateScore(
@@ -262,7 +247,6 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
-      System.debug('Education Score = ' + score);
     }
     return finalScore;
   }

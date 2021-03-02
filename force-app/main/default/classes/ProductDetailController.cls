@@ -91,6 +91,15 @@ public with sharing class ProductDetailController {
     }
     return applicantsWithRating;
   }
+  /**
+   * gets all the applicants for given opportunity
+   * @param {Id} oppId
+   * @return {List<ApplicantWrapper>}
+   */
+  @AuraEnabled
+  public static List<ApplicantWrapper> getApplicants(Id oppId) {
+    return ProductDetailSelector.getApplicantDetails(oppId);
+  }
 
   @AuraEnabled
   public static Object getApplicantsRating(Id oppId, Decimal tenure) {

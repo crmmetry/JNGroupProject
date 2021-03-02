@@ -1,5 +1,9 @@
-<aura:component implements="lightning:availableForFlowScreens" access="global" controller="DebtConsolidationRecordController">
-  <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+<aura:component
+  implements="lightning:availableForFlowScreens"
+  access="global"
+  controller="DebtConsolidationRecordController"
+>
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
   <aura:attribute name="applicantId" type="String" />
   <aura:attribute name="studentLoanRecords" type="Object[]" />
   <aura:attribute name="motorvehicalRecords" type="Object[]" />
@@ -13,20 +17,23 @@
   <aura:attribute name="totalMonthlyPayment" type="Decimal" default="0.0" />
   <aura:attribute name="totalDebtAmount" type="Decimal" default="0.0" />
   <aura:attribute name="totalDebtAmtMap" type="Map" default="{}" />
-  <aura:attribute name="appAssetLiabilityList" type="Application_Asset_Liability__c[]"></aura:attribute>
+  <aura:attribute
+    name="appAssetLiabilityList"
+    type="Application_Asset_Liability__c[]"
+  ></aura:attribute>
   <aura:attribute name="accountId" type="String"></aura:attribute>
   <aura:attribute
-                    name="debtTypes"
-                    type="List"
-                    default="['Unsecured Loan',
+    name="debtTypes"
+    type="List"
+    default="['Unsecured Loan',
                              'Motor Vehicle Loan',
                              'Mortgage/ Home Equity Loan',
                              'Credit Card',
                              'Student Loan',
                              'Hire Purchase',
                              'Other']"
-                    />   
-    
+  />
+
   <aura:handler
     name="setAttribute"
     event="c:ChangeInDebtAmount"
@@ -178,7 +185,8 @@
       </tr>
     </thead>
   </table>
-    <c:flowFooter availableActions="{!v.availableActions}"
-    navigateFlowEvent="{!c.saveRecords}"/>
-    
+  <c:flowFooter
+    availableActions="{!v.availableActions}"
+    navigateFlowEvent="{!c.saveRecords}"
+  />
 </aura:component>

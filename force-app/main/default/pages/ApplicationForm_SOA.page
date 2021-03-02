@@ -1,0 +1,1344 @@
+<apex:page
+  renderAs="pdf"
+  applyBodyTag="false"
+  standardStylesheets="false"
+  applyHtmlTag="false"
+  showHeader="false"
+  controller="ApplicationForm"
+>
+  <apex:stylesheet value="{!$Resource.AutoCreditScoreModelCSS}" />
+
+  <div class="header">
+    <apex:image
+      url="{!URLFOR($Resource.Application_Form_Header)}"
+      styleClass="logo"
+    />
+  </div>
+  <div class="content">
+    <apex:repeat value="{!lst}" var="app" id="repeatapp" rows="">
+      <div class="boxedDiv">
+        <div class="subHeader">
+          <b>PERSONAL &amp; FINANCIAL DETAILS - APPLICANT 1</b>
+        </div>
+        <c:ApplicationForm_Applicant
+          app="{!app}"
+          emergencyContacts="{!emergencyContacts}"
+        />
+        <c:ApplicantFinancial applicantObj="{!app.applicant}" />
+      </div>
+    </apex:repeat>
+    <div class="boxedDiv">
+      <div class="subHeader">
+        <b>CREDIT REQUEST DETAILS</b>
+      </div>
+      <apex:repeat
+        value="{!ProductDetails }"
+        var="prod"
+        rendered="{!ProductDetails.size>0}"
+      >
+        <!--- PersonalAuto loan Loan -->
+        <!-- <apex:pageBlock rendered="{!If(AND(isAutoFound, prod.Loan_Calculation_Products__r.size > 0 ),true,false) }">
+                    <div>
+                        <h5 class="header-inside">AUTO LOAN REQUEST</h5>
+                        
+                        <div class="summaryBlock" style="font-size:0.685em;line-height:20px;">
+                            <div class="headerInBlue" style="margin-left:2%;margin-right:2%;">
+                                <b> REQUEST DETAILS</b>
+                            </div>
+                            <div style="margin-top:5px;">
+                                <div class="summaryBlock">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td >Loan Amount:</td>
+                                        </tr>
+                                        <tr style="margin-top:5px;">
+                                            <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Loan_Amount_Number__c}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="summaryBlock">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td colspan="4">Loan Term:</td>
+                                        </tr>
+                                        <tr style="margin-top:5px;">
+                                            <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Years_Number__c}</td>
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);"> years </td>
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Months_Number__c}</td>
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);"> months</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                                <div class="summaryBlock">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td >Interest Rate:</td>
+                                        </tr>
+                                        <tr style="margin-top:5px;">
+                                            <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Interest_Rate_Number__c}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="summaryBlock">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td >Promotional Group:</td>
+                                        </tr>
+                                        <tr style="margin-top:5px;">
+                                            <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Opportunity__r.Campaign.Name}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                                <div class="summaryBlock">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td >Proposed Total Monthly Payment:</td>
+                                        </tr>
+                                        <tr style="margin-top:5px;">
+                                            <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Total_Monthly_Saving_Loan_Payment_Number__c}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="summaryBlock">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td >Monthly Compulsory Savings:</td>
+                                        </tr>
+                                        <tr style="margin-top:5px;">
+                                            <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Monthly_Compulsory_Savings_Number__c}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="summaryBlock"  style="font-size:0.685em;line-height:20px;">
+                            <div class="headerInBlue" style="margin-left:2%;margin-right:2%;">
+                                <b> COLLATERAL DETAILS</b>
+                            </div>
+                            
+                            <div style="margin-top:5px;">
+                                <div class="summaryBlock">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td >Loan Purpose:</td>
+                                        </tr>
+                                        <tr style="margin-top:5px;">
+                                            <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Loan_Purpose_List__c}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="summaryBlock">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td >Vehicle Classification:</td>
+                                        </tr>
+                                        <tr style="margin-top:5px;">
+                                            <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Vehicle_Classification_list__c}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                                <div class="summaryBlock" style="width:95%;">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td >Vehicle Details (Year, Make, Model):*</td>
+                                        </tr>
+                                        <tr style="margin-top:5px;">
+                                            <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Year_of_Motor_Vehicle_Number__c}
+                                                {!prod.Loan_Calculation_Products__r[0].Make_and_Model_of_Motor_Vehicle_text__c}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                                <div class="summaryBlock">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td >Market Value of Motor Vehicle:</td>
+                                        </tr>
+                                        <tr style="margin-top:5px;">
+                                            <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Market_Value_of_Vehicle_Number__c}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="summaryBlock">
+                                    <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td >Purchase Price of Vehicle*</td>
+                                        </tr>
+                                        <tr style="margin-top:5px;">
+                                            <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Purchase_Price_of_Vehicle_Number__c}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="headerInBlue" style="margin-top:10px;">
+                            <b>PROCESSING FEES</b>
+                        </div>
+                        <div class="summaryBlock" style="font-size:0.685em;line-height:20px;">
+                            <div class="summaryBlock">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Processing Fee (Includig GCT):</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Processing_Fees_including_GCT_Number__c}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="summaryBlock">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Processing Fee ($):</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Applicable_Processing_Fee_Number__c}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="summaryBlock" style="font-size:0.685em;line-height:20px;">
+                            <div class="summaryBlock" style="width:95%;">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Do you wish to obtain additional funding to finance processing fees?</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Include_in_Loan_Amount_Processing_Flag__c}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="headerInBlue" style="margin-top:10px;">
+                            <b>MORATORIUM DETAILS</b>
+                        </div>
+                        <div class="summaryBlock" style="font-size:0.685em;line-height:20px;"> 
+                            <div class="summaryBlock">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Include a moratorium of loan repayments:</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">##</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="summaryBlock">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Indicate Type:</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">##</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="summaryBlock" style="font-size:0.685em;line-height:20px;">
+                            <div class="summaryBlock">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Indicate Term:</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">##</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="summaryBlock">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Other Post-Moratorium Details:</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">##</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="headerInBlue" style="margin-top:10px;">
+                            <b>MOTOR VEHICLE INSURANCE</b>
+                        </div>
+                        
+                        <table style="width:98%;font-size:0.685em;line-height:20px;">
+                            <tr>
+                                <td style="width:85%;">Would you like to insure your motor vehicle with JNGI SureCover Programme?</td>
+                                <td style="width:15%;border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Interested_in_JNGI_SureCover_flag__c}</td>
+                            </tr>
+                            <tr>
+                                <td style="width:85%;">Proposed JNGI Motor Insurance Premium (Annual):</td>
+                                <td style="width:15%;border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].JNGI_Motor_Premium_1st_Year_during_Numbe__c}</td>
+                            </tr>
+                            <tr>
+                                <td style="width:85%;">Do you wish to obtain funding to finance payment of the JNGI Motor Insurance Premium for the first year of the loan?</td>
+                                <td style="width:15%;border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Include_in_Loan_Amount_JNGI_list__c}</td>
+                            </tr>
+                        </table>
+                        
+                        
+                        <div class="headerInBlue" style="margin-top:10px;">
+                            <b>JN LIFE SINGLE PREMIUM CREDITOR LIFE INSURANCE</b>
+                        </div>
+                        <table style="width:98%;font-size:0.685em;line-height:20px;">
+                            <tr>
+                                <td style="width:85%;">Would you like JN Life Single Premium Creditor Life Insurance?</td>
+                                <td style="width:15%;border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Interested_in_Creditor_Life_Flag__c}</td>
+                            </tr>
+                            <tr>
+                                <td style="width:85%;">Do you wish to obtain additional funding to finance payment of the Single Premium Creditor Life Insurance Premium?</td>
+                                <td style="width:15%;border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Include_in_Loan_Amount_Flag__c}</td>
+                            </tr>
+                            <tr>
+                                <td style="width:85%;">
+                                    <table>
+                                        <tr>
+                                            <td style="width:60%;">Proposed JN Life Single Premium Creditor Life Insurance Premium:</td>
+                                            <td style="width:25%;border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].JN_Life_Creditor_Life_Premium_Number__c}</td>
+                                            <td style="width:15%;text-align:right;">Coverage Type:</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td style="width:15%;border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Coverage_Type_List__c}</td>
+                            </tr>
+                        </table>
+                        
+                        <div class="headerInBlue" style="margin-top:10px;">
+                            <b>FEES &amp; CHARGES</b>
+                        </div>
+                        <table style="width:98%;font-size:0.685em;line-height:20px;">
+                            <tr>
+                                <td style="width:20%;">Total Fees and Charges:</td>
+                                <td style="width:15%;border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Total_Closing_Costs_Number__c}</td>
+                                <td style="width:50%;">JN Bank is authorized to deduct fees/charges from Account Number:</td>
+                                <td style="width:15%;border-bottom: 1px solid rgb(191, 191, 191);">##</td>
+                            </tr>
+                        </table>
+                        
+                        <div class="headerInBlue" style="margin-top:10px;">
+                            <b>CREDIT REPAYMENT</b>
+                        </div>
+                        
+                        <table style="width:98%;font-size:0.685em;line-height:20px;">
+                            <tr>
+                                <td style="width:20%;">Indicate repayment method:</td>
+                                <td style="width:20%;border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Repayment_Method_List__c}</td>
+                                <td style="width:45%;">Indicate the Applicant(s) desired repayment date:</td>
+                                <td style="width:15%;border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Desired_Monthly_Repayment_Date__c} <sup>th</sup> of the month</td>
+                            </tr>
+                        </table>
+                        <table style="width:98%;font-size:0.585em;margin-top:10px;font-style:italic;">
+                            <tr>
+                                <td style="width:100%;">Please note that in the event that the disbursement of the loan does not coincide with the desired due date, there will be an incremental increase in your first month's
+                                    payment to the account for the interest which would have accrued on the loan from the date of disbursement to your desired due date. This will become due for payment on
+                                    your chosen date of the following month, along with the regular monthly installment. Subsequent installments will be based on a regular monthly cycle.</td>
+                                
+                            </tr>
+                        </table>
+                    </div>
+                </apex:pageBlock>-->
+
+        <!--- Personal Unsecured Loan -->
+        <!--<apex:pageBlock rendered="{!If(AND(isUnFound, prod.Loan_Calculation_Products__r.size > 0 ),true,false)}">
+                    <div>
+                        <h5 class="header-inside">PERSONAL UNSECURED LOAN REQUEST</h5>
+                        
+                        <div class="headerInBlue" style="margin-left:2%;margin-right:2%;">
+                            <b> REQUEST DETAILS</b>
+                        </div>
+                        <div class="summaryBlock" style="font-size:0.685em;line-height:20px;">
+                            <div class="summaryBlock">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Loan Amount:</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Loan_Amount_Number__c}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="summaryBlock">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td colspan="4">Loan Term:</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Years_Number__c}</td>
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);"> years </td>
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Months_Number__c}</td>
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);"> months</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="summaryBlock" style="font-size:0.685em;line-height:20px;">
+                            <div class="summaryBlock" style="width:95%;">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Loan Purpose:</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Loan_Purpose_List__c}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="summaryBlock" style="font-size:0.685em;line-height:20px;">
+                            <div class="summaryBlock">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Interest Rate:</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Interest_Rate_Number__c}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="summaryBlock">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Promotional Group:</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Opportunity__r.Campaign.Name}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="summaryBlock" style="font-size:0.685em;line-height:20px;">
+                            <div class="summaryBlock" >
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Proposed Total Monthly Payment:</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Total_Monthly_Saving_Loan_Payment_Number__c}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="summaryBlock">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Monthly Compulsory Savings:</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Monthly_Compulsory_Savings_Number__c}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="headerInBlue" style="margin-top:10px;">
+                            <b>PROCESSING FEES</b>
+                        </div>
+                        
+                        <div class="summaryBlock" style="font-size:0.685em;line-height:20px;">
+                            <div class="summaryBlock">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Processing Fee (Includig GCT):</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Applicable_Processing_Fee_Number__c}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="summaryBlock">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Processing Fee ($):</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Processing_Fees_including_GCT_Number__c}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="summaryBlock" style="font-size:0.685em;line-height:20px;">
+                            <div class="summaryBlock" style="width:95%;">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Do you wish to obtain additional funding to finance processing fees?</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Include_in_Loan_Amount_Processing_Flag__c}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="headerInBlue" style="margin-top:10px;">
+                            <b>MORATORIUM DETAILS</b>
+                        </div>
+                        <div class="summaryBlock" style="font-size:0.685em;line-height:20px;"> 
+                            <div class="summaryBlock">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Include a moratorium of loan repayments:</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">##</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="summaryBlock">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Indicate Type:</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">##</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="summaryBlock" style="font-size:0.685em;line-height:20px;">
+                            <div class="summaryBlock">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Indicate Term:</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">##</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="summaryBlock">
+                                <table style="margin-left:16px;margin-right:10px;width:95%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td >Other Post-Moratorium Details:</td>
+                                    </tr>
+                                    <tr style="margin-top:5px;">
+                                        <td style="border-bottom: 1px solid rgb(191, 191, 191);">##</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="headerInBlue" style="margin-top:10px;">
+                            <b>JN LIFE SINGLE PREMIUM CREDITOR LIFE INSURANCE</b>
+                        </div>
+                        
+                        <table style="width:98%;font-size:0.685em;line-height:20px;">
+                            <tr>
+                                <td style="width:85%;">Would you like JN Life Single Premium Creditor Life Insurance?</td>
+                                <td style="width:15%;border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Interested_in_Creditor_Life_Flag__c}</td>
+                            </tr>
+                            <tr>
+                                <td style="width:85%;">Do you wish to obtain additional funding to finance payment of the Single Premium Creditor Life Insurance Premium?</td>
+                                <td style="width:15%;border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Include_in_Loan_Amount_Flag__c}</td>
+                            </tr>
+                            <tr>
+                                <td style="width:85%;">
+                                    <table>
+                                        <tr>
+                                            <td style="width:60%;">Proposed JN Life Single Premium Creditor Life Insurance Premium:</td>
+                                            <td style="width:25%;border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].JN_Life_Creditor_Life_Premium_Number__c}</td>
+                                            <td style="width:15%;text-align:right;">Coverage Type:</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td style="width:15%;border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Coverage_Type_List__c}</td>
+                            </tr>
+                        </table>
+                        
+                        <div class="headerInBlue" style="margin-top:10px;">
+                            <b>FEES &amp; CHARGES</b>
+                        </div>
+                        
+                        <table style="width:98%;font-size:0.685em;line-height:20px;">
+                            <tr>
+                                <td style="width:20%;">Total Fees and Charges:</td>
+                                <td style="width:15%;border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Total_Closing_Costs_Number__c}</td>
+                                <td style="width:50%;">JN Bank is authorized to deduct fees/charges from Account Number:</td>
+                                <td style="width:15%;border-bottom: 1px solid rgb(191, 191, 191);">##</td>
+                            </tr>
+                        </table>
+                        
+                        <div class="headerInBlue" style="margin-top:10px;">
+                            <b>CREDIT REPAYMENT</b>
+                        </div>
+                        
+                        <table style="width:98%;font-size:0.685em;line-height:20px;">
+                            <tr>
+                                <td style="width:20%;">Indicate repayment method:</td>
+                                <td style="width:20%;border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Repayment_Method_List__c}</td>
+                                <td style="width:45%;">Indicate the Applicant(s) desired repayment date:</td>
+                                <td style="width:15%;border-bottom: 1px solid rgb(191, 191, 191);">{!prod.Loan_Calculation_Products__r[0].Desired_Monthly_Repayment_Date__c} <sup>th</sup> of the month</td>
+                            </tr>
+                        </table>
+                        <table style="width:98%;font-size:0.585em;margin-top:10px;font-style:italic;">
+                            <tr>
+                                <td style="width:100%;">Please note that in the event that the disbursement of the loan does not coincide with the desired due date, there will be an incremental increase in your first month's
+                                    payment to the account for the interest which would have accrued on the loan from the date of disbursement to your desired due date. This will become due for payment on
+                                    your chosen date of the following month, along with the regular monthly installment. Subsequent installments will be based on a regular monthly cycle.</td>
+                                
+                            </tr>
+                        </table>
+                    </div>
+                </apex:pageBlock>-->
+
+        <!--- PersonalAuto loan Loan -->
+        <apex:pageBlock
+          rendered="{!If(AND(isCCFound, prod.Loan_Calculation_Products__r.size > 0 ),true,false)}"
+        >
+          <div>
+            <h5 class="header-inside">PERSONAL CREDIT CARD REQUEST</h5>
+
+            <div
+              class="summaryBlock"
+              style="font-size: 0.685em; line-height: 20px;"
+            >
+              <div
+                class="headerInBlue"
+                style="margin-left: 2%; margin-right: 2%;"
+              >
+                <b> REQUEST DETAILS</b>
+              </div>
+              <div style="margin-top: 5px;">
+                <div class="summaryBlock">
+                  <table
+                    style="margin-left: 16px; margin-right: 10px; width: 95%;"
+                    cellpadding="0"
+                    cellspacing="0"
+                  >
+                    <tr>
+                      <td>Credit Card Requested Limit:</td>
+                    </tr>
+                    <tr style="margin-top: 5px;">
+                      <td style="border-bottom: 1px solid rgb(191, 191, 191);">
+                        JMD
+                        {!prod.Loan_Calculation_Products__r[0].Requested_Credit_Limit_Number__c}
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="summaryBlock">
+                  <table
+                    style="margin-left: 16px; margin-right: 10px; width: 95%;"
+                    cellpadding="0"
+                    cellspacing="0"
+                  >
+                    <tr>
+                      <td>Type of Collateral:</td>
+                    </tr>
+                    <tr style="margin-top: 5px;">
+                      <td style="border-bottom: 1px solid rgb(191, 191, 191);">
+                        {!prod.Loan_Calculation_Products__r[0].Collateral_Type_List__c}
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+
+                <div class="summaryBlock">
+                  <table
+                    style="margin-left: 16px; margin-right: 10px; width: 95%;"
+                    cellpadding="0"
+                    cellspacing="0"
+                  >
+                    <tr>
+                      <td>Interest Rate on Credit Card:</td>
+                    </tr>
+                    <tr style="margin-top: 5px;">
+                      <td style="border-bottom: 1px solid rgb(191, 191, 191);">
+                        {!prod.Loan_Calculation_Products__r[0].Interest_Rate_Number__c}
+                        <i>per annum</i>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="summaryBlock">
+                  <table
+                    style="margin-left: 16px; margin-right: 10px; width: 95%;"
+                    cellpadding="0"
+                    cellspacing="0"
+                  >
+                    <tr>
+                      <td>Promotional Group:</td>
+                    </tr>
+                    <tr style="margin-top: 5px;">
+                      <td style="border-bottom: 1px solid rgb(191, 191, 191);">
+                        {!prod.Opportunity__r.Campaign.Name}
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="summaryBlock"
+              style="font-size: 0.685em; line-height: 20px;"
+            >
+              <div
+                class="headerInBlue"
+                style="margin-left: 2%; margin-right: 2%;"
+              >
+                <b> OTHER CREDIT CARD DETAILS</b>
+              </div>
+
+              <div style="margin-top: 5px;">
+                <div class="summaryBlock" style="width: 70%;">
+                  <table
+                    style="margin-left: 16px; margin-right: 10px; width: 95%;"
+                    cellpadding="0"
+                    cellspacing="0"
+                  >
+                    <tr>
+                      <td>
+                        Will this card be used to conduct transactions on behalf
+                        of someone other than the authorized cardholders?
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="summaryBlock" style="width: 25%;">
+                  <table
+                    style="margin-left: 16px; margin-right: 10px; width: 95%;"
+                    cellpadding="0"
+                    cellspacing="0"
+                  >
+                    <tr style="margin-top: 5px;">
+                      <td style="border-bottom: 1px solid rgb(191, 191, 191);">
+                        ####
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+
+                <div class="summaryBlock" style="width: 70%;">
+                  <table
+                    style="margin-left: 16px; margin-right: 10px; width: 95%;"
+                    cellpadding="0"
+                    cellspacing="0"
+                  >
+                    <tr>
+                      <td>Indicate the Applicant(s) desired statement date:</td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="summaryBlock" style="width: 25%;">
+                  <table
+                    style="margin-left: 16px; margin-right: 10px; width: 95%;"
+                    cellpadding="0"
+                    cellspacing="0"
+                  >
+                    <tr style="margin-top: 5px;">
+                      <td style="border-bottom: 1px solid rgb(191, 191, 191);">
+                        {!prod.Loan_Calculation_Products__r[0].Desired_Statement_Date__c}<sup>
+                          th</sup
+                        >
+                        of the month
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="headerInBlue" style="margin-top: 10px;">
+              <b>COLLATERAL DETAILS - CASH/INVESTMENT</b>
+            </div>
+            <table style="width: 98%; font-size: 0.685em; line-height: 20px;">
+              <tr>
+                <td style="width: 15%;">Financial Institution:</td>
+                <td
+                  style="
+                    width: 45%;
+                    border-bottom: 1px solid rgb(191, 191, 191);
+                  "
+                >
+                  {!prod.Loan_Calculation_Products__r[0].Financial_Institution_List__c}
+                </td>
+                <td style="width: 20%; text-align: right;">
+                  Interest Rate on Asset:
+                </td>
+                <td
+                  style="
+                    width: 20%;
+                    border-bottom: 1px solid rgb(191, 191, 191);
+                    text-align: center;
+                  "
+                >
+                  {!prod.Loan_Calculation_Products__r[0].Annual_Interest_Rate_Deposit_Acct_Number__c}
+                  <div style="font-style: italic;">
+                    per annum
+                  </div>
+                </td>
+              </tr>
+            </table>
+            <table style="width: 98%; font-size: 0.685em; line-height: 20px;">
+              <tr>
+                <td style="width: 15%;">Account Holder(s):</td>
+                <td
+                  style="
+                    width: 45%;
+                    border-bottom: 1px solid rgb(191, 191, 191);
+                  "
+                >
+                  {!prod.Loan_Calculation_Products__r[0].Account_Holder_s_text__c}
+                </td>
+                <td style="width: 20%; text-align: right;">
+                  Value of Financial Asset:
+                </td>
+                <td
+                  style="
+                    width: 20%;
+                    border-bottom: 1px solid rgb(191, 191, 191);
+                    text-align: center;
+                  "
+                >
+                  JMD &nbsp;
+                  {!prod.Loan_Calculation_Products__r[0].Deposit_Account_Balance_Number__c}
+                </td>
+              </tr>
+            </table>
+            <table style="width: 98%; font-size: 0.685em; line-height: 20px;">
+              <tr>
+                <td style="width: 35%;">
+                  Is this Financial Asset hypothecated for another loan?
+                </td>
+                <td
+                  style="
+                    width: 25%;
+                    border-bottom: 1px solid rgb(191, 191, 191);
+                  "
+                >
+                  {!prod.Loan_Calculation_Products__r[0].Account_Hypothecated_list__c}
+                </td>
+                <td style="width: 20%; text-align: right;">
+                  Total Existing Loan Balance:
+                </td>
+                <td
+                  style="
+                    width: 20%;
+                    border-bottom: 1px solid rgb(191, 191, 191);
+                    text-align: center;
+                  "
+                >
+                  JMD &nbsp;
+                  {!prod.Loan_Calculation_Products__r[0].Existing_Loan_Balance_Number__c}
+                </td>
+              </tr>
+            </table>
+
+            <div class="headerInBlue" style="margin-top: 10px;">
+              <b>JN LIFE SINGLE PREMIUM CREDITOR LIFE INSURANCE</b>
+            </div>
+            <table style="width: 98%; font-size: 0.685em; line-height: 20px;">
+              <tr>
+                <td>
+                  <table>
+                    <tr>
+                      <td style="width: 45%;">
+                        Would you like JN Life Credit Card Creditor Life
+                        Insurance?
+                      </td>
+                      <td
+                        style="
+                          width: 10%;
+                          border-bottom: 1px solid rgb(191, 191, 191);
+                        "
+                      >
+                        {!prod.Loan_Calculation_Products__r[0].Interested_in_Creditor_Life_Flag__c}
+                      </td>
+                      <td style="width: 30%; text-align: right;">
+                        Indicate the type of coverage required:
+                      </td>
+                      <td
+                        style="
+                          width: 15%;
+                          border-bottom: 1px solid rgb(191, 191, 191);
+                        "
+                      >
+                        {!prod.Loan_Calculation_Products__r[0].Coverage_Type_List__c}
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+
+            <div class="headerInBlue" style="margin-top: 10px;">
+              <b>FEES &amp; CHARGES</b>
+            </div>
+            <table style="width: 98%; font-size: 0.685em; line-height: 20px;">
+              <tr>
+                <td style="width: 20%;">Total Fees and Charges:</td>
+                <td
+                  style="
+                    width: 15%;
+                    border-bottom: 1px solid rgb(191, 191, 191);
+                  "
+                >
+                  JMD &nbsp;
+                  {!prod.Loan_Calculation_Products__r[0].Annual_Creditor_Life_Fee_Number__c
+                  +
+                  prod.Loan_Calculation_Products__r[0].Annual_Membership_Primary_Number__c
+                  +
+                  prod.Loan_Calculation_Products__r[0].Annual_Membership_Supplementary_Number__c}
+                </td>
+                <td style="width: 50%;">
+                  JN Bank is authorized to deduct fees/charges from Account
+                  Number:
+                </td>
+                <td
+                  style="
+                    width: 15%;
+                    border-bottom: 1px solid rgb(191, 191, 191);
+                  "
+                >
+                  {!prod.Opportunity__r.Credit_Card_Phoenix_Account_Number__c}
+                </td>
+              </tr>
+            </table>
+          </div>
+        </apex:pageBlock>
+
+        <apex:pageBlock
+          rendered="{!If(AND(isLocFound, prod.Loan_Calculation_Products__r.size > 0 ),true,false)}"
+        >
+          <div>
+            <h5 class="header-inside">PERSONAL LINE OF CREDIT REQUEST</h5>
+
+            <div
+              class="summaryBlock"
+              style="font-size: 0.685em; line-height: 20px;"
+            >
+              <div
+                class="headerInBlue"
+                style="margin-left: 2%; margin-right: 2%;"
+              >
+                <b> REQUEST DETAILS</b>
+              </div>
+              <div style="margin-top: 5px;">
+                <div class="summaryBlock">
+                  <table
+                    style="margin-left: 16px; margin-right: 10px; width: 95%;"
+                    cellpadding="0"
+                    cellspacing="0"
+                  >
+                    <tr>
+                      <td>Line of Credit Requested Limit:</td>
+                    </tr>
+                    <tr style="margin-top: 5px;">
+                      <td style="border-bottom: 1px solid rgb(191, 191, 191);">
+                        JMD
+                        &nbsp;{!prod.Loan_Calculation_Products__r[0].Requested_Credit_Limit_Number__c}
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="summaryBlock">
+                  <table
+                    style="margin-left: 16px; margin-right: 10px; width: 95%;"
+                    cellpadding="0"
+                    cellspacing="0"
+                  >
+                    <tr>
+                      <td>Type of Collateral:</td>
+                    </tr>
+                    <tr style="margin-top: 5px;">
+                      <td style="border-bottom: 1px solid rgb(191, 191, 191);">
+                        {!prod.Loan_Calculation_Products__r[0].Collateral_Type_List__c}
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+
+                <div class="summaryBlock">
+                  <table
+                    style="margin-left: 16px; margin-right: 10px; width: 95%;"
+                    cellpadding="0"
+                    cellspacing="0"
+                  >
+                    <tr>
+                      <td>Interest Rate on Credit Card:</td>
+                    </tr>
+                    <tr style="margin-top: 5px;">
+                      <td style="border-bottom: 1px solid rgb(191, 191, 191);">
+                        {!prod.Loan_Calculation_Products__r[0].Interest_Rate_Number__c}<i
+                          >per annum</i
+                        >
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="summaryBlock">
+                  <table
+                    style="margin-left: 16px; margin-right: 10px; width: 95%;"
+                    cellpadding="0"
+                    cellspacing="0"
+                  >
+                    <tr>
+                      <td>Promotional Group:</td>
+                    </tr>
+                    <tr style="margin-top: 5px;">
+                      <td style="border-bottom: 1px solid rgb(191, 191, 191);">
+                        {!prod.Opportunity__r.Campaign.Name}
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="summaryBlock"
+              style="font-size: 0.685em; line-height: 20px;"
+            >
+              <div
+                class="headerInBlue"
+                style="margin-left: 2%; margin-right: 2%; margin-bottom: 20%;"
+              >
+                <b> OTHER CREDIT CARD DETAILS</b>
+              </div>
+
+              <div style="margin-top: 5px;">
+                <div class="summaryBlock" style="width: 70%;">
+                  <table
+                    style="margin-left: 16px; margin-right: 10px; width: 95%;"
+                    cellpadding="0"
+                    cellspacing="0"
+                  >
+                    <tr>
+                      <td>Indicate the Applicant(s) desired statement date:</td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="summaryBlock" style="width: 25%;">
+                  <table
+                    style="margin-left: 16px; margin-right: 10px; width: 95%;"
+                    cellpadding="0"
+                    cellspacing="0"
+                  >
+                    <tr style="margin-top: 5px;">
+                      <td style="border-bottom: 1px solid rgb(191, 191, 191);">
+                        {!prod.Loan_Calculation_Products__r[0].Desired_Statement_Date__c}
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="headerInBlue" style="margin-top: 10px;">
+              <b>COLLATERAL DETAILS - CASH/INVESTMENT</b>
+            </div>
+            <table style="width: 98%; font-size: 0.685em; line-height: 20px;">
+              <tr>
+                <td style="width: 15%;">Financial Institution:</td>
+                <td
+                  style="
+                    width: 45%;
+                    border-bottom: 1px solid rgb(191, 191, 191);
+                  "
+                >
+                  {!prod.Loan_Calculation_Products__r[0].Financial_Institution_List__c}
+                </td>
+                <td style="width: 20%; text-align: right;">
+                  Interest Rate on Asset:
+                </td>
+                <td
+                  style="
+                    width: 20%;
+                    border-bottom: 1px solid rgb(191, 191, 191);
+                  "
+                >
+                  {!prod.Loan_Calculation_Products__r[0].Annual_Interest_Rate_Deposit_Acct_Number__c}
+                </td>
+              </tr>
+            </table>
+            <table style="width: 98%; font-size: 0.685em; line-height: 20px;">
+              <tr>
+                <td style="width: 15%;">Account Holder(s):</td>
+                <td
+                  style="
+                    width: 45%;
+                    border-bottom: 1px solid rgb(191, 191, 191);
+                  "
+                >
+                  {!prod.Loan_Calculation_Products__r[0].Account_Holder_s_text__c}
+                </td>
+                <td style="width: 20%; text-align: right;">
+                  Value of Financial Asset:
+                </td>
+                <td
+                  style="
+                    width: 20%;
+                    border-bottom: 1px solid rgb(191, 191, 191);
+                  "
+                >
+                  {!prod.Loan_Calculation_Products__r[0].Deposit_Account_Balance_Number__c}
+                </td>
+              </tr>
+            </table>
+            <table style="width: 98%; font-size: 0.685em; line-height: 20px;">
+              <tr>
+                <td style="width: 35%;">
+                  Is this Financial Asset hypothecated for another loan?
+                </td>
+                <td
+                  style="
+                    width: 25%;
+                    border-bottom: 1px solid rgb(191, 191, 191);
+                  "
+                >
+                  {!prod.Loan_Calculation_Products__r[0].Account_Hypothecated_list__c}
+                </td>
+                <td style="width: 20%; text-align: right;">
+                  Total Existing Loan Balance:
+                </td>
+                <td
+                  style="
+                    width: 20%;
+                    border-bottom: 1px solid rgb(191, 191, 191);
+                  "
+                >
+                  {!prod.Loan_Calculation_Products__r[0].Existing_Loan_Balance_Number__c}
+                </td>
+              </tr>
+            </table>
+
+            <div class="headerInBlue" style="margin-top: 10px;">
+              <b>LIFE INSURANCE COVERAGE</b>
+            </div>
+            <table style="width: 100%; font-size: 0.685em; line-height: 20px;">
+              <tr>
+                <td>
+                  <table>
+                    <tr>
+                      <td style="width: 55%;">
+                        Is the Applicant interested in JN Life Bulk Premium
+                        Creditor Life Insurance?
+                      </td>
+                      <td
+                        style="
+                          width: 15%;
+                          border-bottom: 1px solid rgb(191, 191, 191);
+                        "
+                      >
+                        {!prod.Loan_Calculation_Products__r[0].Interested_in_Creditor_Life_Flag__c}
+                      </td>
+                      <td style="width: 15%; text-align: right;">
+                        Coverage Type:
+                      </td>
+                      <td
+                        style="
+                          width: 15%;
+                          border-bottom: 1px solid rgb(191, 191, 191);
+                        "
+                      >
+                        {!prod.Loan_Calculation_Products__r[0].Coverage_Type_List__c}
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+            <div class="headerInBlue" style="margin-top: 10px;">
+              <b>FEES &amp; CHARGES</b>
+            </div>
+            <table style="width: 98%; font-size: 0.685em; line-height: 20px;">
+              <tr>
+                <td style="width: 20%;">Total Fees and Charges:</td>
+                <td
+                  style="
+                    width: 15%;
+                    border-bottom: 1px solid rgb(191, 191, 191);
+                  "
+                >
+                  {!prod.Loan_Calculation_Products__r[0].Annual_Creditor_Life_Fee_Number__c
+                  +
+                  prod.Loan_Calculation_Products__r[0].Annual_Membership_Primary_Number__c
+                  +
+                  prod.Loan_Calculation_Products__r[0].Annual_Membership_Supplementary_Number__c}
+                </td>
+                <td style="width: 50%;">
+                  JN Bank is authorized to deduct fees/charges from Account
+                  Number:
+                </td>
+                <td
+                  style="
+                    width: 15%;
+                    border-bottom: 1px solid rgb(191, 191, 191);
+                  "
+                >
+                  {!prod.Opportunity__r.Line_of_Credit_Phoenix_Account_Number__c}
+                </td>
+              </tr>
+            </table>
+          </div>
+        </apex:pageBlock>
+      </apex:repeat>
+    </div>
+    <div class="boxedDiv">
+      <div class="subHeader">
+        <b>APPLICANT(S) DECLARATION</b>
+      </div>
+      <div
+        style="
+          margin-left: 5px;
+          margin-top: 15px;
+          font-size: 10px;
+          font-weight: bold;
+        "
+        class="p"
+      >
+        THE ABOVE APPLICATION IS SUBMITTED FOR THE PURPOSE OF OBTAINING CREDIT
+        AND ALL INFORMATION HEREIN IS CERTIFIED TO BE TRUE, COMPLETE, AND
+        CORRECT. I/WE AUTHORIZE JN BANK LIMITED (HEREINAFTER CALLED "JN") TO
+        MAKE WHATEVER CREDIT INQUIRIES IT DEEMS NECESSARY IN CONNECTION WITH THE
+        CREDIT APPLICATION OR IN THE COURSE OF REVIEW OR COLLECTION OF ANY
+        CREDIT EXTENDED IN RELIANCE ON THIS APPLICATION. I/WE AUTHORIZE AND
+        INSTRUCT ANY PERSON, INCLUDING BUT NOT LIMITED TO, ALL LOCAL, OR
+        GOVERNMENT AGENCIES, OR CONSUMER REPORTING AGENCIES, TO COMPLETE AND
+        FURNISH JN WITH ANY INFORMATION IT MAY HAVE OR OBTAIN IN RESPONSE TO
+        SUCH CREDIT INQUIRIES, AND AGREE THAT SUCH INFORMATION, ALONG WITH THIS
+        APPLICATION, SHALL REMAIN JN'S PROPERTY WHETHER OR NOT CREDIT IS
+        EXTENDED.
+      </div>
+      <div
+        style="
+          margin-left: 5px;
+          margin-top: 5px;
+          font-size: 10px;
+          font-weight: bold;
+        "
+        class="p"
+      >
+        JN IS HEREBY FURTHER AUTHORIZED TO SHARE THIS APPLICATION AND CREDIT
+        INFORMATION WITH ITS AFFILIATES OR OTHER LENDERS, WHICH MAY CONSIDER
+        MY/OUR APPLICATION FOR LOAN APPROVAL OR PURCHASE. THIS STATEMENT DOES
+        NOT LIMIT JN'S RIGHT TO SELL OR ASSIGN ANY LOANS TO A THIRD PARTY.
+      </div>
+      <h5 class="header-inside">APPLICANT(S) SIGNATURE</h5>
+      <div style="margin-top: 5px; margin-bottom: 15px; font-size: small;">
+        <apex:pageBlock rendered="{!if(totalNumberOfAppli>=1,true,false)}">
+          <table
+            style="margin-left: 10px; margin-right: 15px; width: 90%;"
+            cellpadding="0"
+            cellspacing="0"
+          >
+            <tr>
+              <td style="text-align: right;">Signature of Applicant 1:</td>
+              <td
+                style="
+                  text-align: center;
+                  border: 1px solid rgb(191, 191, 191);
+                  height: 30px;
+                  width: 200px;
+                "
+              ></td>
+              <td style="text-align: right;">Date Signed:</td>
+              <td
+                style="
+                  text-align: center;
+                  border: 1px solid rgb(191, 191, 191);
+                  width: 200px;
+                "
+              ></td>
+            </tr>
+          </table>
+        </apex:pageBlock>
+        <apex:pageBlock rendered="{!if(totalNumberOfAppli>=2,true,false)}">
+          <table
+            style="
+              margin-left: 10px;
+              margin-top: 5px;
+              margin-right: 15px;
+              width: 90%;
+            "
+            cellpadding="0"
+            cellspacing="0"
+          >
+            <tr>
+              <td style="text-align: right;">Signature of Applicant 2:</td>
+              <td
+                style="
+                  text-align: center;
+                  border: 1px solid rgb(191, 191, 191);
+                  height: 30px;
+                  width: 200px;
+                "
+              ></td>
+              <td style="text-align: right;">Date Signed:</td>
+              <td
+                style="
+                  text-align: center;
+                  border: 1px solid rgb(191, 191, 191);
+                  width: 200px;
+                "
+              ></td>
+            </tr>
+          </table>
+        </apex:pageBlock>
+        <apex:pageBlock rendered="{!if(totalNumberOfAppli>=3,true,false)}">
+          <table
+            style="
+              margin-left: 10px;
+              margin-top: 5px;
+              margin-right: 15px;
+              width: 90%;
+            "
+            cellpadding="0"
+            cellspacing="0"
+          >
+            <tr>
+              <td style="text-align: right;">Signature of Applicant 3:</td>
+              <td
+                style="
+                  text-align: center;
+                  border: 1px solid rgb(191, 191, 191);
+                  height: 30px;
+                  width: 200px;
+                "
+              ></td>
+              <td style="text-align: right;">Date Signed:</td>
+              <td
+                style="
+                  text-align: center;
+                  border: 1px solid rgb(191, 191, 191);
+                  width: 200px;
+                "
+              ></td>
+            </tr>
+          </table>
+        </apex:pageBlock>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <table style="width: 100%;">
+      <tr>
+        <td style="text-align: left;">{!$Label.ApplicationFormText}</td>
+        <td style="text-align: center;">
+          Page <span class="pagenumber" /> of <span class="pagecount" />
+        </td>
+        <td style="text-align: right;">
+          Applicant's Initials: _______________________________
+        </td>
+      </tr>
+    </table>
+  </div>
+</apex:page>
