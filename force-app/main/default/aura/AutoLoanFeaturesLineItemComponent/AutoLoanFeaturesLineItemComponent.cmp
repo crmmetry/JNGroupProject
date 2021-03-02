@@ -43,7 +43,11 @@
   <aura:attribute name="interestedInJNGI" type="List" default="['Yes','No']" />
   <aura:attribute name="includePremium" type="List" default="['Yes','No']" />
   <aura:attribute name="monthlyPremium" type="Decimal" default="" />
-  <aura:attribute name="coverageType" type="List" default="['Applicant 1']" />
+  <aura:attribute
+    name="coverageType"
+    type="List"
+    default="['Applicant 1 Only']"
+  />
   <aura:attribute name="includeCoverage" type="List" default="['Yes','No']" />
   <aura:attribute name="waveProcessingFee" type="List" default="['Yes','No']" />
   <aura:attribute
@@ -301,6 +305,7 @@
                   disabled="{!v.disableTogglerForJNLifeCLFields}"
                   aura:id="coverageType"
                 >
+                  <option value="">select one...</option>
                   <aura:iteration items="{!v.coverageType}" var="item">
                     <option value="{!item}">{!item}</option>
                   </aura:iteration>
