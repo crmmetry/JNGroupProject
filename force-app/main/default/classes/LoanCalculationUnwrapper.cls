@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 02-26-2021
+ * @last modified on  : 03-02-2021
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -31,7 +31,6 @@ public class LoanCalculationUnwrapper {
     record.Annual_Interest_Rate_on_Deposit_Account__c = serializer.annualInterestRate;
     record.Hypothecated_Loan_Flag__c = serializer.hypothecatedLoan;
     record.Deposit_Account_Balance_Number__c = serializer.depositBalance;
-    record.Existing_Loan_Balance_Number__c = serializer.existingBalance;
     record.Life_Insurance_Coverage__c = serializer.lifeInsuranceCoverage;
   }
   /**

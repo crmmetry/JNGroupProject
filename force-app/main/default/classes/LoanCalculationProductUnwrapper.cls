@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 02-26-2021
+ * @last modified on  : 03-02-2021
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -99,6 +99,7 @@ public class LoanCalculationProductUnwrapper {
     record.Deposit_Account_Balance_Number__c = serializer.depositBalance;
     record.Life_Insurance_Coverage_List__c = serializer.lifeInsuranceCoverage;
     record.Desired_Statement_Date__c = serializer.repaymentDate;
+    record.Existing_Loan_Balance_Number__c = serializer.existingBalance;
   }
   /**
    * save loan calculation product object

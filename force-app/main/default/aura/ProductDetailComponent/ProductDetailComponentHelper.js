@@ -800,7 +800,7 @@
       // { localName: "stampDutyAndAdminCharges" },
       // { localName: "noCreditorLifeReason" },
       // { localName: "policyProvider" },
-      // { localName: "cardType" },
+      { localName: "cardType" }
       // { localName: "financialInstitution" },
       // { localName: "accountType" },
       // { localName: "depositAccountNumber" },
@@ -930,7 +930,8 @@
       { localName: "lifeInsuranceCoverage" },
       { localName: "makeAndModelOfVehicle" },
       { localName: "jnBankAccountNumber" },
-      { localName: "jnBankAccountNumberPrefix" }
+      { localName: "jnBankAccountNumberPrefix" },
+      { localName: "existingBalance" }
     ];
     //product specific fields
     const updatedValues = this.contructProductSpecificDetailsFields(
