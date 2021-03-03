@@ -300,7 +300,7 @@
                       <c:ProductDetailDocument
                         title="{!document}"
                         content=""
-                        URL="{!'/apex/CreditApplicationSummaryDocument?id='+ v.recordId}"
+                        URL="{!'/apex/CreditApplicationSummaryDocument?Id='+ v.recordId}"
                       ></c:ProductDetailDocument>
                     </div>
                   </aura:if>
