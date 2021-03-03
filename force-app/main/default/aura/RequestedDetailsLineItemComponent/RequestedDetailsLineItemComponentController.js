@@ -14,7 +14,6 @@
   },
   onChildContainerChange: function (component, event, helper) {
     const childContainer = component.get("v.ChildContainer");
-    console.log(JSON.parse(JSON.stringify(childContainer)));
     if (
       component.get("v.scriptsLoaded") &&
       component.get("v.notifyContainerChange")
@@ -61,7 +60,6 @@
         value: selected
       }
     ];
-    console.log(selected);
     helper.updateChildContainerWithValue(component, values, false);
   }
 });

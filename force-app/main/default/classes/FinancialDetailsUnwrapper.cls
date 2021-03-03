@@ -3,7 +3,7 @@
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
  * @last modified on  : 03-02-2021
- * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+ * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
  * 1.0   03-02-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
@@ -88,7 +88,7 @@ public with sharing class FinancialDetailsUnwrapper {
       'Applicant__c'
     );
     String IDMRecordTypeId = Util.getMappedRecordTypeId(
-      'Instant_Designing_Module_IDM',
+      'Instant_Decisioning_Module_IDM',
       recordTypesMapForApplicants
     );
     this.record = [
