@@ -3,6 +3,8 @@
  * 1.0  JN1-4045     25/11/2020      Ishwari G.(thinqloud)  Added constants to refere values from custom metadata
  **/
 public class Constants {
+  public static final String SUCCESS = 'Success';
+  public static final String FAILED = 'Failed';
   public static final String NONE = 'None';
   public static final String DEFAULT_METADATA_LABEL = 'Default';
   public static final String INVALID_TENURE = 'Sorry an invalid tenure has been entered. Please be reminded a tenure has to be greater than 0 and less than 10.';
