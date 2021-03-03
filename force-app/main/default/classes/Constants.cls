@@ -96,9 +96,16 @@ public class Constants {
     public static final String NOSTRING = 'No';  
     
     public static final String OPPORTUNITYSTRING = 'Opportunity';
+    public static final String OPPORTUNITY_PRE_ASSESSMENT_STAGE = 'Submitting for Pre-Assessment';
     public static final String DOCUMENTTYPEPROMISSORYNOTE = 'Promissory_Note';
     public static final String DOCUMENTTYSIGNEDSALARYDED = 'Signed_Salary_Deduction';
+    public static final String DOCUMENT_PROOF_OF_INCOME_AUDITEDFINSTATEMENT = 'Proof_of_income_Audited_Financial_Statements';
+    public static final String DOCUMENT_PROOF_OF_INCOME_BNKSTATEMENT = 'Proof_of_income_Bank_Statements';
+    public static final String DOCUMENT_PROOF_OF_INCOME_OTHER = 'Proof_of_income_Other';
+    public static final String DOCUMENT_PROOF_OF_INCOME_PAYSLIP = 'Proof_of_income_Payslips';
+    public static final String DOCUMENT_PROOF_OF_INCOME_UNAUDITED_FINSTATEMENT = 'Proof_of_income_Unaudited_Financial_Statements';
     
+    public static final String DOCCHKLISTITEM_SOBJECT = 'DocumentChecklistItem';
     
   
 
