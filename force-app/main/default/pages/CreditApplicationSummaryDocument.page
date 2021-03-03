@@ -769,27 +769,27 @@
                 </tr>
                 <tr>
                     <td class="riskTableColumns">Auto Loan </td>
-                    <td class="riskTableColumns">{!opportunityObj.Request_ADJ_Exception_for_Credit__c}</td>
-                    <td class="riskTableColumns">{!opportunityObj.Exception_Approved_by__c}</td>
-                    <td class="riskTableColumns">{!opportunityObj.Date_of_Approval__c}</td>
+                    <td class="riskTableColumns">{!Auto_Request_ADJ_Exception_for_Credit}</td>
+                    <td class="riskTableColumns">{!Auto_Exception_Approved_by}</td>
+                    <td class="riskTableColumns">{!Auto_Date_of_Approval}</td>
                 </tr>
                 <tr>
                     <td class="riskTableColumns">Unsecured Loan </td>
-                    <td class="riskTableColumns">{!opportunityObj.Request_ADJ_Exception_for_Credit__c}</td>
-                    <td class="riskTableColumns">{!opportunityObj.Exception_Approved_by__c}</td>
-                    <td class="riskTableColumns">{!opportunityObj.Date_of_Approval__c}</td>
+                    <td class="riskTableColumns">{!Unsecured_Loan_Request_ADJ_Exception_for_Credit}</td>
+                    <td class="riskTableColumns">{!Unsecured_Loan_Exception_Approved_by}</td>
+                    <td class="riskTableColumns">{!Unsecured_Loan_Date_of_Approval}</td>
                 </tr>
                 <tr>
                     <td class="riskTableColumns">Credit Card</td>
-                    <td class="riskTableColumns">{!opportunityObj.Request_ADJ_Exception_for_Credit__c}</td>
-                    <td class="riskTableColumns">{!opportunityObj.Exception_Approved_by__c}</td>
-                    <td class="riskTableColumns">{!opportunityObj.Date_of_Approval__c}</td>
+                    <td class="riskTableColumns">{!Credit_Card_Request_ADJ_Exception_for_Credit}</td>
+                    <td class="riskTableColumns">{!Credit_Card_Exception_Approved_by}</td>
+                    <td class="riskTableColumns">{!Credit_Card_Date_of_Approval}</td>
                 </tr>
                 <tr>
                     <td class="riskTableColumns">Line of Credit </td>
-                    <td class="riskTableColumns">{!opportunityObj.Request_ADJ_Exception_for_Credit__c}</td>
-                    <td class="riskTableColumns">{!opportunityObj.Exception_Approved_by__c}</td>
-                    <td class="riskTableColumns">{!opportunityObj.Date_of_Approval__c}</td>
+                    <td class="riskTableColumns">{!Line_of_Credit_Request_ADJ_Exception_for_Credit}</td>
+                    <td class="riskTableColumns">{!Line_of_Credit_Exception_Approved_by}</td>
+                    <td class="riskTableColumns">{!Line_of_Credit_Date_of_Approval}</td>
                 </tr>
 
             </table>
