@@ -17,7 +17,7 @@
       onclick="{!c.onDocumentClick}"
       name="{!v.URL}"
     >
-      <h2 class="slds-truncate slds-text-heading_small" title="{v.title}">
+      <h2 class="slds-truncate slds-text-heading_small" title="{!v.title}">
         {!v.title}
       </h2>
       <p class="slds-var-m-top_small">{!v.content}</p>
