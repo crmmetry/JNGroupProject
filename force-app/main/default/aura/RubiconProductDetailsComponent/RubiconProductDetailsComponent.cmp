@@ -2,7 +2,7 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 02-25-2021
+  @last modified on  : 03-01-2021
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
   Modifications Log 
   Ver   Date         Author                               Modification
@@ -260,6 +260,28 @@
             readonly="true"
           />
         </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        ></lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <lightning:button
+            label="Submit Product Details"
+            onclick="{!c.onSubmitRubiconProductDetailsAction}"
+            variant="brand-outline"
+            title="Submit"
+          />
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        ></lightning:layoutItem>
       </lightning:layout>
     </fieldset>
   </lightning:layout>
