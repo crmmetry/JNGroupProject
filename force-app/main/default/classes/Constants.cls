@@ -27,6 +27,7 @@ public class Constants {
   public static final String LENGTH_OF_TRADE = 'Length of trade';
   public static final String COLLATERAL = 'Collateral CC / Collateral LOC';
   public static final String LOAN_TO_VALUE = 'Loan to Value CC / Loan to Value LOC';
+    public static final String LOAN_TO_VALUE_STRING = 'Loan to Value';
   public static final String ABILITY_TO_SERVICE = 'Ability to Service CC / Ability to Service LOC';
   public static final String REPAYMENT_METHOD = 'Repayment Method CC / Repayment Method LOC';
 
@@ -55,10 +56,13 @@ public class Constants {
   public static final String INADEQUATE = 'Inconsistent profit/growth trends';
   public static final String INCONSISTANT = 'Inadequate growth and/or profit trends';
   public static final Integer STATUS_SUCCESS_CODE = 200;
+
+
   public static final String AUTO_PRODUCT_FAMILY = 'JN Bank Auto Loan';
   public static final String CREDITCARD_PRODUCT_FAMILY = 'JN Bank Credit Card';
   public static final String UNSECURED_PRODUCT_FAMILY = 'JN Bank Unsecured Loan';
   public static final String LINEOFCREDIT_PRODUCT_FAMILY = 'JN Bank Line Of Credit';
+
   public static final String DEFAULT_BUSINESS_HOURS_NAME = 'JN Default Business Hours';
   public static final String CLOSED_WON_STATUS = 'Closed Won';
   public static final String CLOSED_LOST_STATUS = 'Closed Lost';
@@ -67,4 +71,39 @@ public class Constants {
   public static final String CLOSE_DATE_ERR3 = 'The Closed Date cannot be greater than today. Please contact Sales Support.';
   public static final String CLOSE_DATE_ERR4 = 'The Closed Date year cannot be less this year. Please contact Sales Support.';
   public static final String CLOSE_DATE_ERR5 = 'The Closed Date cannot be a holiday. Please contact Sales Support.';
+  public static final String NO_APPLICANTS_FOUND = 'Please ensure that an Applicant has been created for the current Opportunity before proceeding.';
+  public static final String FINACIAL_VERIFICATION_CUSTOM_PERMISSION_ERROR = 'Sorry, you do not have the correct permissions to edit this page. Please contact your System Administrator for more information.';
+   public static final String AUTO_PRODUCT_FAMILY_FOR_DISPLAY = 'Auto Loan';
+    public static final String CREDITCARD_PRODUCT_FAMILY_FOR_DISPLAY = 'Credit Card';
+    public static final String UNSECURED_PRODUCT_FAMILY_FOR_DISPLAY = 'Unsecured Loan';
+    public static final String LINEOFCREDIT_PRODUCT_FAMILY_FOR_DISPLAY = 'Line Of Credit';
+    
+    public static final String STARTINGLIMITNUMBER_C = 'Starting_Limit_Number__c';  
+    public static final String MARKETVALUEOFVEHICLENUMBER_C = 'Market_Value_of_Vehicle_Number__c';  
+    public static final String MONTHLY_PAYMNT_PRIOR_CALC_APP_PORTION_C = 'Monthly_Payment_Prior_Calc_App_Portion__c';
+    public static final String MINIMUM_PAYMNT_CALC_C  = 'Minimum_Payment_Calc__c'; 
+    public static final String TOTAL_MONTHLY_LOAN_PAYMENT_NUMBER_C  = 'Total_Monthly_Loan_Payment_Number__c'; 
+    public static final String MINIMUM_PAYMENT_PER_CREDIT_LIMIT_NUMBER_C  = 'Minimum_Payment_per_Credit_Limit_Number__c';
+    public static final String MONTHLY_PAYMENT_AFTER_C  = 'Monthly_Payment_After__c'; 
+    public static final String MINIMUM_PAYMENT_AFTER_C  = 'Minimum_Payment_After__c'; 
+    public static final String OVERDRAFTLIMITNUMBER_C  = 'Overdraft_Limit_Number__c';
+    public static final String LOANBALANCEPRIOR_C  = 'Loan_Balance_Prior__c';
+    
+    public static final String WILL_REMAIN_STRING = 'Will Remain'; 
+    public static final String REPAY_FACILITY_STRING  = 'Repay Facility'; 
+    
+    public static final String YESSTRING = 'Yes';  
+    public static final String NOSTRING = 'No';  
+    
+    public static final String OPPORTUNITYSTRING = 'Opportunity';
+    public static final String OPPORTUNITY_PRE_ASSESSMENT_STAGE = 'Submitting for Pre-Assessment';
+    public static final String DOCUMENTTYPEPROMISSORYNOTE = 'Promissory_Note';
+    public static final String DOCUMENTTYSIGNEDSALARYDED = 'Signed_Salary_Deduction';
+    public static final String DOCUMENT_PROOF_OF_INCOME_AUDITEDFINSTATEMENT = 'Proof_of_income_Audited_Financial_Statements';
+    public static final String DOCUMENT_PROOF_OF_INCOME_BNKSTATEMENT = 'Proof_of_income_Bank_Statements';
+    public static final String DOCUMENT_PROOF_OF_INCOME_OTHER = 'Proof_of_income_Other';
+    public static final String DOCUMENT_PROOF_OF_INCOME_PAYSLIP = 'Proof_of_income_Payslips';
+    public static final String DOCUMENT_PROOF_OF_INCOME_UNAUDITED_FINSTATEMENT = 'Proof_of_income_Unaudited_Financial_Statements';
+    
+    public static final String DOCCHKLISTITEM_SOBJECT = 'DocumentChecklistItem';
 }

@@ -18,7 +18,10 @@ public with sharing class ProductDetailSelector {
         Years_at_Residence__pc,
         Highest_Level_of_Education_attained__pc,
         FinServ__Age__pc,
-        PersonBirthdate
+        PersonBirthdate,
+        Name,
+        Political_Exposure__pc,
+        Jamaican_Tax_Registration_Number__pc
       FROM Account
       WHERE Id = :accountId
     ];
@@ -36,23 +39,27 @@ public with sharing class ProductDetailSelector {
    */
   public static EmploymentWrapper getEmployemntDetails(Id accountId) {
     EmploymentWrapper empWrapper;
-    FinServ__Employment__c employment = [
-      SELECT
-        Id,
-        FinServ__EmploymentStatus__c,
-        Employment_Status__c,
-        Industry__c,
-        FinServ__LengthOfEmployment__c,
-        Professional_Category__c,
-        Assessment_of_Business_Working_Capita__c,
-        Nature_of_Engagement__c,
-        Assessment_of_Business__c,
-        Assessment_of_Statement__c,
-        Length_of_Trade__c,
-        RecordTypeId
-      FROM FinServ__Employment__c
-      WHERE Account__c = :accountId AND Current_Employment__c = TRUE
-    ];
+      FinServ__Employment__c employment = New FinServ__Employment__c(); 
+      try{
+          employment = [SELECT
+                          Id,
+                          FinServ__EmploymentStatus__c,
+                          Employment_Status__c,
+                          Industry__c,
+                          FinServ__LengthOfEmployment__c,
+                          Professional_Category__c,
+                          Assessment_of_Business_Working_Capita__c,
+                          Nature_of_Engagement__c,
+                          Assessment_of_Business__c,
+                          Assessment_of_Statement__c,
+                          Length_of_Trade__c,
+                          RecordTypeId
+                        FROM FinServ__Employment__c
+                        WHERE Account__c = :accountId AND Current_Employment__c = TRUE];
+      }catch(exception e){
+          return Null;
+      }
+
     if (employment != null) {
       empWrapper = new EmploymentWrapper(employment);
     }
