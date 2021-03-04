@@ -15,7 +15,7 @@ public class CreditScoreModelWrapper {
   public Map<String, List<PersonalCreditScoreModelWrapper>> personalCreditScoreMap;
   @AuraEnabled
   public ProductDetailService psd;
-  public Map<String, List<Decimal>> fieldScoreMap = new Map<String, List<Decimal>>();
+public Map<String, List<Decimal>> fieldScoreMap = new Map<String, List<Decimal>>();
   /**
    * Constructor of the class
    * Initializes all the values
@@ -40,8 +40,8 @@ public class CreditScoreModelWrapper {
   public Decimal getRiskScore(SubCriteriaOptionWrapper subCriteriaOption) {
     Decimal score = 0;
     Decimal finalScore = 0;
-
-    if (subCriteriaOption.age != null) {
+    
+      if (subCriteriaOption.age != null) {
       score = calculateScore(
         personalCreditScoreMap.get(Constants.AGE),
         psd.getSubCriteriaOption(
@@ -50,6 +50,7 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
+      
     }
     if (subCriteriaOption.residentialStatus != null) {
       score = calculateScore(
@@ -70,10 +71,12 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
+   
     }
-
+     
     if (subCriteriaOption.creditHistory != null) {
-      score = calculateScore(
+     
+        score = calculateScore(
         personalCreditScoreMap.get(Constants.CREDIT_HISTORY),
         psd.getSubCriteriaOption(
           Constants.CREDIT_HISTORY,
@@ -82,6 +85,7 @@ public class CreditScoreModelWrapper {
       );
 
       finalScore += score;
+      
     }
     if (subCriteriaOption.netWorth != null) {
       score = calculateScore(
@@ -92,6 +96,7 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
+      
     }
     if (subCriteriaOption.employmentStatus != null) {
       score = calculateScore(
@@ -102,6 +107,7 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
+      
     }
     if (subCriteriaOption.industryOfEmployment != null) {
       List<PersonalCreditScoreModelWrapper> typeList = new List<PersonalCreditScoreModelWrapper>();
@@ -127,6 +133,7 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
+      
     }
     if (subCriteriaOption.lengthOfCurrentEmployment != null) {
       score = calculateScore(
@@ -137,6 +144,7 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
+      
     }
     if (subCriteriaOption.professionalCategory != null) {
       score = calculateScore(
@@ -147,6 +155,7 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
+      
     }
     if (subCriteriaOption.natureOfEngagement != null) {
       score = calculateScore(
@@ -157,6 +166,7 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
+      
     }
     if (subCriteriaOption.financialPerformance != null) {
       score = calculateScore(
@@ -167,6 +177,7 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
+      
     }
     if (subCriteriaOption.financialStatementSupport != null) {
       score = calculateScore(
@@ -177,6 +188,7 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
+      
     }
     if (subCriteriaOption.lengthOfTrade != null) {
       score = calculateScore(
@@ -187,16 +199,14 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
+      
     }
-    if (subCriteriaOption.collateral != null) {
-      score = calculateScore(
-        personalCreditScoreMap.get(Constants.COLLATERAL),
-        psd.getSubCriteriaOption(
-          Constants.COLLATERAL,
-          subCriteriaOption.collateral
-        )
-      );
-      finalScore += score;
+      if (subCriteriaOption.collateral != null) {
+          score = calculateScore(personalCreditScoreMap.get(Constants.COLLATERAL),
+                                 psd.getSubCriteriaOption(Constants.COLLATERAL,subCriteriaOption.collateral)
+                                );
+          finalScore += score;
+          
     }
     if (subCriteriaOption.loanToValue != null) {
       score = calculateScore(
@@ -207,6 +217,7 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
+      
     }
     if (subCriteriaOption.ablitityToService != null) {
       score = calculateScore(
@@ -217,9 +228,10 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
+      
     }
-    if (subCriteriaOption.repaymentMethod != null) {
-      score = calculateScore(
+    if (subCriteriaOption.repaymentMethod != null) {    
+        score = calculateScore(
         personalCreditScoreMap.get(Constants.REPAYMENT_METHOD),
         psd.getSubCriteriaOption(
           Constants.REPAYMENT_METHOD,
@@ -227,6 +239,7 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
+      
     }
     if (subCriteriaOption.workingCapital != null) {
       score = calculateScore(
@@ -237,6 +250,7 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
+      
     }
     if (subCriteriaOption.education != null) {
       score = calculateScore(
@@ -247,6 +261,7 @@ public class CreditScoreModelWrapper {
         )
       );
       finalScore += score;
+      
     }
     return finalScore;
   }
@@ -289,15 +304,7 @@ public class CreditScoreModelWrapper {
         ? creditModelWrapper.selfEmployedScore
         : 0;
     }
-    fieldScoreMap.put(
-      creditModelWrapper.type,
-      new List<Decimal>{
-        score,
-        score *
-        creditModelWrapper.subCriteriaWeight /
-        100
-      }
-    );
+      fieldScoreMap.put(creditModelWrapper.type , new List<Decimal>{score, score * creditModelWrapper.subCriteriaWeight / 100}); 
     return score * creditModelWrapper.subCriteriaWeight / 100;
   }
 

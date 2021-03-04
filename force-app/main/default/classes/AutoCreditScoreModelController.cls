@@ -463,7 +463,8 @@ public class AutoCreditScoreModelController {
         Opportunity__c,
         Opportunity__r.Product_Details__c,
         Account__c,
-        CurrencyIsoCode
+        CurrencyIsoCode,
+        Name
       FROM Applicant__c
       WHERE Id = :applicantId
     ];

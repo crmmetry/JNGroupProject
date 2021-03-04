@@ -1,8 +1,10 @@
-//Sample Opportunity Id 006f000000PhctcAAB
-//006f000000PhpadAAB	006f000000Pd1E6AAJ
-
+/*
+ *Name  :  CreditApplicationSummaryDocument
+ *Author:  Thinqloud Solutions
+ *Date  :  Mar 03, 2021
+ *Purpose : This class is to prepare the data to be displayed on the CreditApplicationSummaryDocument.vfp page.
+ */
 public class CreditApplicationSummaryDocument {
-  //Opportunity ID
   public Id opportunityId { get; set; }
   public Opportunity opportunityObj { get; set; }
   public list<Applicant__c> applicanList { get; set; }
@@ -12,26 +14,76 @@ public class CreditApplicationSummaryDocument {
   }
   public list<Id> applicantIds = new List<Id>();
   public Loan_Calculation_Product__c loanCalculationProduct { get; set; }
+  public map<string, Id> loanCalculationProductIds;
+  public Loan_Calculation_Product__c auto_LoanCalculationProduct { get; set; }
+  public Loan_Calculation_Product__c CreditCard_LoanCalculationProduct {
+    get;
+    set;
+  }
+  public Loan_Calculation_Product__c LineofCredit_LoanCalculationProduct {
+    get;
+    set;
+  }
+  public Loan_Calculation_Product__c Unsecured_LoanCalculationProduct {
+    get;
+    set;
+  }
+
   public Loan_Calculation_Applicant_Product__c loan_Cal_App_Prdct { get; set; }
 
-  /**
-   *	Method  :	CreditApplicationSummaryDocument
-   *	Author	:	Thinqloud Solutions
-   *	Param	:
-   *	Returns	:
-   *	Purpose :	This is constructor method. This function prepares the data required to display on the
-   *				CreditApplicationSummaryDocument.vfp page. Below types of data is prepared to be disaplyed.
-   *				Applicant record
-   *				Applicant record
-   *				Applicant record
-   *				Applicant record
-   **/
+  public Loan_Calculation_Applicant_Product__c auto_LoanCalculationApplProduct {
+    get;
+    set;
+  }
+  public Loan_Calculation_Applicant_Product__c CreditCard_LoanCalculationApplProduct {
+    get;
+    set;
+  }
+  public Loan_Calculation_Applicant_Product__c LineofCredit_LoanCalculationApplProduct {
+    get;
+    set;
+  }
+  public Loan_Calculation_Applicant_Product__c Unsecured_LoanCalculationApplProduct {
+    get;
+    set;
+  }
+
+  public String Auto_Request_ADJ_Exception_for_Credit { get; set; }
+  public String Unsecured_Loan_Request_ADJ_Exception_for_Credit { get; set; }
+  public String Credit_Card_Request_ADJ_Exception_for_Credit { get; set; }
+  public String Line_of_Credit_Request_ADJ_Exception_for_Credit { get; set; }
+
+  public String Auto_Exception_Approved_by { get; set; }
+  public String Unsecured_Loan_Exception_Approved_by { get; set; }
+  public String Credit_Card_Exception_Approved_by { get; set; }
+  public String Line_of_Credit_Exception_Approved_by { get; set; }
+
+  public String Auto_Date_of_Approval { get; set; }
+  public String Unsecured_Loan_Date_of_Approval { get; set; }
+  public String Credit_Card_Date_of_Approval { get; set; }
+  public String Line_of_Credit_Date_of_Approval { get; set; }
+
+  /*
+   *Name  :  CreditApplicationSummaryDocument
+   *Author:  Thinqloud Solutions
+   *Date  :  Mar 03, 2021
+   *Purpose : This is class constructor and it prepares the data to be displayed on the CreditApplicationSummaryDocument.vfp page.
+   */
   public CreditApplicationSummaryDocument() {
     applicantAndEmplWrapperList = new List<ApplicantAndEmployementWrapper>();
     //Get the Opportunity id from URL
     opportunityId = ApexPages.currentPage().getParameters().get('Id');
     //Get the list of Applicants of the provided Opportunity Id
     applicanList = getListOfApplicants(opportunityId);
+    list<id> applIds = new List<id>();
+    if (applicanList != null) {
+      if (applicanList.size() > 0) {
+        for (Applicant__c record : applicanList) {
+          applIds.add(record.Id);
+        }
+      }
+    }
+
     //Get the opportunity object
     opportunityObj = getOpportunityObj(opportunityId);
     //Get the list of Loan Calculation Product
@@ -39,6 +91,82 @@ public class CreditApplicationSummaryDocument {
 
     if (opportunityObj != null) {
       loanCalculationProductList = getListOfLoanCalProdcts(opportunityObj);
+      boolean autoFlag, creditCardFlag, lineOfCreditFlag, unsecureFlag;
+      autoFlag = false;
+      creditCardFlag = false;
+      lineOfCreditFlag = false;
+      unsecureFlag = false;
+      loanCalculationProductIds = new Map<string, Id>();
+
+      Auto_Request_ADJ_Exception_for_Credit = '';
+      Unsecured_Loan_Request_ADJ_Exception_for_Credit = '';
+      Credit_Card_Request_ADJ_Exception_for_Credit = '';
+      Line_of_Credit_Request_ADJ_Exception_for_Credit = '';
+
+      Auto_Exception_Approved_by = '';
+      Unsecured_Loan_Exception_Approved_by = '';
+      Credit_Card_Exception_Approved_by = '';
+      Line_of_Credit_Exception_Approved_by = '';
+
+      Auto_Date_of_Approval = '';
+      Unsecured_Loan_Date_of_Approval = '';
+      Credit_Card_Date_of_Approval = '';
+      Line_of_Credit_Date_of_Approval = '';
+
+      for (
+        Loan_Calculation_Product__c loanCalProdctObj : loanCalculationProductList
+      ) {
+        String recordTypeDevName;
+        recordTypeDevName = Schema.getGlobalDescribe()
+          .get('Loan_Calculation_Product__c')
+          .getDescribe()
+          .getRecordTypeInfosById()
+          .get(loanCalProdctObj.RecordTypeId)
+          .getDeveloperName();
+        if (recordTypeDevName == 'Auto' && autoFlag == false) {
+          autoFlag = true;
+          auto_LoanCalculationProduct = loanCalProdctObj;
+          loanCalculationProductIds.Put('Auto', loanCalProdctObj.Id);
+          Auto_Request_ADJ_Exception_for_Credit = opportunityObj.Request_ADJ_Exception_for_Credit__c;
+          Auto_Exception_Approved_by = opportunityObj.Exception_Approved_by__c;
+          Auto_Date_of_Approval = String.valueOf(
+            opportunityObj.Date_of_Approval__c
+          );
+        }
+        if (recordTypeDevName == 'Credit_Card' && creditCardFlag == false) {
+          creditCardFlag = true;
+          CreditCard_LoanCalculationProduct = loanCalProdctObj;
+          loanCalculationProductIds.Put('Credit_Card', loanCalProdctObj.Id);
+          Credit_Card_Request_ADJ_Exception_for_Credit = opportunityObj.Request_ADJ_Exception_for_Credit__c;
+          Credit_Card_Exception_Approved_by = opportunityObj.Exception_Approved_by__c;
+          Credit_Card_Date_of_Approval = String.valueOf(
+            opportunityObj.Date_of_Approval__c
+          );
+        }
+        if (
+          recordTypeDevName == 'Line_of_Credit' &&
+          lineOfCreditFlag == false
+        ) {
+          lineOfCreditFlag = true;
+          LineofCredit_LoanCalculationProduct = loanCalProdctObj;
+          loanCalculationProductIds.Put('Line_of_Credit', loanCalProdctObj.Id);
+          Line_of_Credit_Request_ADJ_Exception_for_Credit = opportunityObj.Request_ADJ_Exception_for_Credit__c;
+          Line_of_Credit_Exception_Approved_by = opportunityObj.Exception_Approved_by__c;
+          Line_of_Credit_Date_of_Approval = String.valueOf(
+            opportunityObj.Date_of_Approval__c
+          );
+        }
+        if (recordTypeDevName == 'Unsecured' && unsecureFlag == false) {
+          unsecureFlag = true;
+          Unsecured_LoanCalculationProduct = loanCalProdctObj;
+          loanCalculationProductIds.Put('Unsecured', loanCalProdctObj.Id);
+          Unsecured_Loan_Request_ADJ_Exception_for_Credit = opportunityObj.Request_ADJ_Exception_for_Credit__c;
+          Unsecured_Loan_Exception_Approved_by = opportunityObj.Exception_Approved_by__c;
+          Unsecured_Loan_Date_of_Approval = String.valueOf(
+            opportunityObj.Date_of_Approval__c
+          );
+        }
+      }
     }
     //Get the list of Loan Calculation Product Fields for calculations
     Map<string, Decimal> loan_CalculationProductsFields = new Map<string, Decimal>();
@@ -80,7 +208,11 @@ public class CreditApplicationSummaryDocument {
 
     //Get OVERALL RISK SCORE and OVERALL RISK RATING
     loan_Cal_App_Prdct = new Loan_Calculation_Applicant_Product__c();
-    getCreditScore_And_CreditRiskRating();
+
+    if (loanCalculationProductIds != null && applicanList != null) {
+      getLoanCalculationApplicationProduct(applIds, loanCalculationProductIds);
+    }
+
     //populate the applicantAndEmplWrapperList
     if (applicanList != null) {
       for (Applicant__c applicantObj : applicanList) {
@@ -161,6 +293,12 @@ public class CreditApplicationSummaryDocument {
       }
     }
   }
+  /*
+   *Name  :  getMapOfLoanCalcProductsFields
+   *Author:  Thinqloud Solutions
+   *Date  :  Mar 03, 2021
+   *Purpose : Get the map of Loan Calculation Products records.
+   */
 
   private Map<string, Decimal> getMapOfLoanCalcProductsFields() {
     Map<string, Decimal> loanCalculationProductsFields = new Map<string, Decimal>();
@@ -212,6 +350,12 @@ public class CreditApplicationSummaryDocument {
     }
     return loanCalculationProductsFields;
   }
+  /*
+   *Name  :  getOpportunityObj
+   *Author:  Thinqloud Solutions
+   *Date  :  Mar 03, 2021
+   *Purpose : Returns the opportunity Object.
+   */
 
   private Opportunity getOpportunityObj(Id oppId) {
     if (oppId != null) {
@@ -230,6 +374,12 @@ public class CreditApplicationSummaryDocument {
     }
     return null;
   }
+  /*
+   *Name  :  getListOfLoanCalProdcts
+   *Author:  Thinqloud Solutions
+   *Date  :  Mar 03, 2021
+   *Purpose : Get list of Loan Calculation Products of the given Opportunity.
+   */
 
   private list<Loan_Calculation_Product__c> getListOfLoanCalProdcts(
     Opportunity oppId
@@ -240,6 +390,7 @@ public class CreditApplicationSummaryDocument {
         Id,
         Loan_Purpose_List__c,
         Years_Number__c,
+        Months_Number__c,
         Interest_Rate_Number__c,
         Market_Value_of_Vehicle_Number__c,
         Purchase_Price_of_Vehicle_Number__c,
@@ -274,8 +425,10 @@ public class CreditApplicationSummaryDocument {
         Loan_to_Value_Number__c,
         CurrencyIsoCode,
         Ability_to_Service_Before_Number__c,
+        Ability_to_Service_After_Number__c,
         Total_Monthly_Loan_Payment_Number__c,
-        Minimum_Payment_per_Credit_Limit_Number__c
+        Minimum_Payment_per_Credit_Limit_Number__c,
+        RecordTypeId
       FROM Loan_Calculation_Product__c
       WHERE Loan_Calculation_Id__c = :oppId.Product_Details__c
     ];
@@ -289,22 +442,104 @@ public class CreditApplicationSummaryDocument {
     return null;
   }
 
-  private void getCreditScore_And_CreditRiskRating() {
-    list<Loan_Calculation_Applicant_Product__c> loanCalAppPrdct = new List<Loan_Calculation_Applicant_Product__c>();
+  /*
+   *Name  :  getLoanCalculationApplicationProduct
+   *Author:  Thinqloud Solutions
+   *Date  :  Mar 03, 2021
+   *Purpose : Get list of Loan Calculation Application Products of the given Applicant.
+   */
 
-    if (loanCalculationProduct != null) {
-      loanCalAppPrdct = [
-        SELECT Id, Credit_Score_Number__c, Credit_Risk_Rating_Text__c
-        FROM Loan_Calculation_Applicant_Product__c
-        WHERE Loan_Calculation_Product_Id__c = :loanCalculationProduct.Id
-      ];
-      if (loanCalAppPrdct != null) {
-        if (loanCalAppPrdct.size() > 0) {
-          loan_Cal_App_Prdct = loanCalAppPrdct.get(0);
+  private void getLoanCalculationApplicationProduct(
+    list<id> applicant_Ids,
+    map<string, id> loanCalcProdctIds
+  ) {
+    boolean autoFlag, creditCardFlag, lineOfCreditFlag, unsecureFlag;
+    id autoId, creditCardId, lineOfCreditId, unsecuredId;
+    autoFlag = false;
+    creditCardFlag = false;
+    lineOfCreditFlag = false;
+    unsecureFlag = false;
+
+    if (loanCalcProdctIds.get('Auto') != null) {
+      autoId = loanCalcProdctIds.get('Auto');
+    }
+    if (loanCalcProdctIds.get('Credit_Card') != null) {
+      creditCardId = loanCalcProdctIds.get('Credit_Card');
+    }
+    if (loanCalcProdctIds.get('Line_of_Credit') != null) {
+      lineOfCreditId = loanCalcProdctIds.get('Line_of_Credit');
+    }
+    if (loanCalcProdctIds.get('Unsecured') != null) {
+      unsecuredId = loanCalcProdctIds.get('Unsecured');
+    }
+
+    List<Loan_Calculation_Applicant_Product__c> loanCalcAppProductList = new List<Loan_Calculation_Applicant_Product__c>();
+
+    loanCalcAppProductList = [
+      SELECT
+        Id,
+        Credit_Score_Number__c,
+        Credit_Risk_Rating_Text__c,
+        Loan_Calculation_Product_Id__c
+      FROM Loan_Calculation_Applicant_Product__c
+      WHERE
+        Loan_Calculation_Product_Id__c IN :loanCalcProdctIds.values()
+        AND Applicant_Id__c IN :applicant_Ids
+    ];
+
+    if (loanCalcAppProductList != null) {
+      for (
+        Loan_Calculation_Applicant_Product__c record : loanCalcAppProductList
+      ) {
+        if (autoId != null) {
+          if (
+            record.Loan_Calculation_Product_Id__c == autoId &&
+            autoFlag == false
+          ) {
+            auto_LoanCalculationApplProduct = record;
+            autoFlag = true;
+          }
+        }
+
+        if (creditCardId != null) {
+          if (
+            record.Loan_Calculation_Product_Id__c == creditCardId &&
+            creditCardFlag == false
+          ) {
+            CreditCard_LoanCalculationApplProduct = record;
+            creditCardFlag = true;
+          }
+        }
+
+        if (lineOfCreditId != null) {
+          if (
+            record.Loan_Calculation_Product_Id__c == lineOfCreditId &&
+            lineOfCreditFlag == false
+          ) {
+            LineofCredit_LoanCalculationApplProduct = record;
+            lineOfCreditFlag = true;
+          }
+        }
+
+        if (unsecuredId != null) {
+          if (
+            record.Loan_Calculation_Product_Id__c == unsecuredId &&
+            unsecureFlag == false
+          ) {
+            Unsecured_LoanCalculationApplProduct = record;
+            unsecureFlag = true;
+          }
         }
       }
     }
   }
+
+  /*
+   *Name  :  getListOfApplicants
+   *Author:  Thinqloud Solutions
+   *Date  :  Mar 03, 2021
+   *Purpose : Get list of Applicants.
+   */
   private list<Applicant__c> getListOfApplicants(Id oppId) {
     list<Applicant__c> applicantList = new List<Applicant__c>();
     applicantList = [
@@ -419,7 +654,9 @@ public class CreditApplicationSummaryDocument {
         Electricity_Monthly_Prior_Loan__c,
         Fares_Monthly_Prior_Loan__c,
         Food_Cost_Monthly_Prior_Loan__c,
-        Health_Costs_Monthly_Prior_Loan__c
+        Health_Costs_Monthly_Prior_Loan__c,
+        CurrencyIsoCode,
+        Name
       FROM Applicant__c
       WHERE Opportunity__c = :oppId
     ];
@@ -437,6 +674,13 @@ public class CreditApplicationSummaryDocument {
       return null;
     }
   }
+
+  /*
+   *Name  :  get_MapOfAccountId_And_EmployementRecords
+   *Author:  Thinqloud Solutions
+   *Date  :  Mar 03, 2021
+   *Purpose : Get the map of Account Id and its Employment records.
+   */
 
   private Map<Id, list<FinServ__Employment__c>> get_MapOfAccountId_And_EmployementRecords(
     list<Id> account_Ids
@@ -456,7 +700,8 @@ public class CreditApplicationSummaryDocument {
             Assessment_of_Business__c,
             Assessment_of_Statement__c,
             FinServ__EmploymentStatus__c,
-            FinServ__LengthOfEmployment__c
+            FinServ__LengthOfEmployment__c,
+            RecordTypeId
           FROM Employment__r
         )
       FROM Account
@@ -467,6 +712,12 @@ public class CreditApplicationSummaryDocument {
     return employmentRecordsOfAccount;
   }
 
+  /*
+   *Name  :  getMonthlyPymntAfter_ValuesForMonthlyOutflowAfterLoan
+   *Author:  Thinqloud Solutions
+   *Date  :  Mar 03, 2021
+   *Purpose : Get the map of values to calculate Monthly Out flow After Loan
+   */
   private map<Id, map<string, decimal>> getMonthlyPymntAfter_ValuesForMonthlyOutflowAfterLoan() {
     list<Application_Asset_Liability__c> applAssetLiabList = new List<Application_Asset_Liability__c>();
 
@@ -537,6 +788,13 @@ public class CreditApplicationSummaryDocument {
     }
     return map_Of_ApplicantId_and_MonthlyPayAfter;
   }
+
+  /*
+   *Name  :  getMinimumPymntAfter_ValuesForMonthlyOutflowAfterLoan
+   *Author:  Thinqloud Solutions
+   *Date  :  Mar 03, 2021
+   *Purpose : Get the map of values to calculate Monthly Out flow After Loan
+   */
 
   private map<Id, map<string, decimal>> getMinimumPymntAfter_ValuesForMonthlyOutflowAfterLoan() {
     list<Application_Asset_Liability__c> applAssetLiabList = new List<Application_Asset_Liability__c>();
@@ -612,6 +870,13 @@ public class CreditApplicationSummaryDocument {
     }
     return map_Of_ApplicantId_and_MinPayAfter;
   }
+
+  /*
+   *Name  :  getValuesForMonthlyOutflow
+   *Author:  Thinqloud Solutions
+   *Date  :  Mar 03, 2021
+   *Purpose : Get the map of values to calculate Monthly Out flow
+   */
 
   private map<Id, map<string, decimal>> getValuesForMonthlyOutflow() {
     list<Application_Asset_Liability__c> applAssetLiabList = new List<Application_Asset_Liability__c>();
@@ -760,6 +1025,12 @@ public class CreditApplicationSummaryDocument {
     return mapOf_ApplicantId_and_AppAssetsLiabObj;
   }
 
+  /*
+   *Name  :  getApplicant_And_AssetsLiabilitySum
+   *Author:  Thinqloud Solutions
+   *Date  :  Mar 03, 2021
+   *Purpose : Get the map of Assets of the applicant
+   */
   private map<Id, FinServ__AssetsAndLiabilities__c> getApplicant_And_AssetsLiabilitySum() {
     list<Application_Asset_Liability__c> applAssetLiabList = new List<Application_Asset_Liability__c>();
     map<Id, FinServ__AssetsAndLiabilities__c> mapOf_ApplicantId_and_AssetsLiabObj = new Map<Id, FinServ__AssetsAndLiabilities__c>();
