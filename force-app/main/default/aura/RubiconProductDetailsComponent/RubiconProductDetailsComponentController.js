@@ -6,5 +6,9 @@
     helper.getApplicantsMap(component);
     helper.getOpportunityDataMap(component);
     helper.setPickListValues(component);
+  },
+
+  onSubmitRubiconProductDetailsAction: function (component, event, helper) {
+    helper.submitRubiconProductDetails(component);
   }
 });

@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 02-24-2021
+ * @last modified on  : 03-01-2021
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -112,5 +112,23 @@ public inherited sharing class RubiconProductDetailsController {
     }
 
     return mapFields;
+  }
+
+  @AuraEnabled
+  public static Object updateFieldsOnOpportunity(
+    Id oppId,
+    Map<String, Object> fieldValueSets
+  ) {
+    try {
+      Opportunity oppRecord = new Opportunity(Id = oppId);
+      for (String key : fieldValueSets.keySet()) {
+        oppRecord.put(key, fieldValueSets.get(key));
+      }
+      update oppRecord;
+      System.debug('Update Successful: ' + oppRecord);
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getStackTraceString());
+    }
+    return Constants.SUCCESS;
   }
 }
