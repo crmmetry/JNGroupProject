@@ -3757,7 +3757,6 @@
                 </table>
               </td>
             </tr>
-            a
           </table>
         </div>
       </apex:repeat>
