@@ -106,7 +106,4 @@ public class Constants {
     public static final String DOCUMENT_PROOF_OF_INCOME_UNAUDITED_FINSTATEMENT = 'Proof_of_income_Unaudited_Financial_Statements';
     
     public static final String DOCCHKLISTITEM_SOBJECT = 'DocumentChecklistItem';
-    
-  
-
 }
