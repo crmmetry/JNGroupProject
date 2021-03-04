@@ -54,10 +54,12 @@ public class SubCriteriaOptionWrapper {
     ApplicantWrapper applicantWrapper
   ) {
     if (applicantWrapper != null) {
+      
       this.creditHistory = applicantWrapper.creditHistoryInLast24Month;
       this.netWorth = applicantWrapper.assessmentOfApplicantNetWorth;
       this.creditHistory = applicantWrapper.creditHistoryInLast24Month;
       this.netWorth = applicantWrapper.assessmentOfApplicantNetWorth;
+     
     }
     if (empWrapper != null) {
       this.employmentType = empWrapper.employmentType;
@@ -77,15 +79,18 @@ public class SubCriteriaOptionWrapper {
       this.residentialStatus = accWrapper.statusOfAddress;
       this.yearsAtCurrentResidence = accWrapper.yearsAtResident;
       this.age = accWrapper.age;
+      
     }
 
     if (oppWrapper != null) {
       this.collateral = oppWrapper.collateralCC;
       this.loanToValue = oppWrapper.loanToValueCC;
+      
     }
     if (loanCalcWrapper != null) {
       this.ablitityToService = loanCalcWrapper.abilityToServiceCC;
       this.repaymentMethod = loanCalcWrapper.repaymentMethod;
+      
     }
   }
 }

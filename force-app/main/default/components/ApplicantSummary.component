@@ -1,6 +1,5 @@
-<apex:component>
-  <apex:attribute
-    name="applicantEmpWrapperObj"
+<apex:component >
+  <apex:attribute name="applicantEmpWrapperObj"
     type="ApplicantAndEmployementWrapper"
     description=""
   />
@@ -20,8 +19,7 @@
           <apex:outputText value="{!applicantEmpWrapperObj.currencyCode}" />
           <apex:outputText value=" " />
           <apex:outputText value="{0,Number,###,###,##0.00}">
-            <apex:param
-              value="{!applicantEmpWrapperObj.totalAssetsPriorLoan}"
+            <apex:param value="{!applicantEmpWrapperObj.totalAssetsPriorLoan}"
             />
           </apex:outputText>
         </td>
@@ -30,8 +28,7 @@
           <apex:outputText value="{!applicantEmpWrapperObj.currencyCode}" />
           <apex:outputText value=" " />
           <apex:outputText value="{0,Number,###,###,##0.00}">
-            <apex:param
-              value="{!applicantEmpWrapperObj.totalAssetsAfterLoan}"
+            <apex:param value="{!applicantEmpWrapperObj.totalAssetsAfterLoan}"
             />
           </apex:outputText>
         </td>
@@ -42,8 +39,7 @@
           <apex:outputText value="{!applicantEmpWrapperObj.currencyCode}" />
           <apex:outputText value=" " />
           <apex:outputText value="{0,Number,###,###,##0.00}">
-            <apex:param
-              value="{!applicantEmpWrapperObj.totalLiabilitiesPriorLoan}"
+            <apex:param value="{!applicantEmpWrapperObj.totalLiabilitiesPriorLoan}"
             />
           </apex:outputText>
         </td>
@@ -51,8 +47,7 @@
           <apex:outputText value="{!applicantEmpWrapperObj.currencyCode}" />
           <apex:outputText value=" " />
           <apex:outputText value="{0,Number,###,###,##0.00}">
-            <apex:param
-              value="{!applicantEmpWrapperObj.totalLiabilitiesAfterLoan}"
+            <apex:param value="{!applicantEmpWrapperObj.totalLiabilitiesAfterLoan}"
             />
           </apex:outputText>
         </td>
@@ -85,8 +80,7 @@
           <apex:outputText value="{!applicantEmpWrapperObj.currencyCode}" />
           <apex:outputText value=" " />
           <apex:outputText value="{0,Number,###,###,##0.00}">
-            <apex:param
-              value="{!applicantEmpWrapperObj.grossMonthlyIncomePriorLoan}"
+            <apex:param value="{!applicantEmpWrapperObj.grossMonthlyIncomePriorLoan}"
             />
           </apex:outputText>
         </td>
@@ -94,8 +88,7 @@
           <apex:outputText value="{!applicantEmpWrapperObj.currencyCode}" />
           <apex:outputText value=" " />
           <apex:outputText value="{0,Number,###,###,##0.00}">
-            <apex:param
-              value="{!applicantEmpWrapperObj.grossMonthlyIncomeAfterLoan}"
+            <apex:param value="{!applicantEmpWrapperObj.grossMonthlyIncomeAfterLoan}"
             />
           </apex:outputText>
           <br />
@@ -120,8 +113,7 @@
           <apex:outputText value="{!applicantEmpWrapperObj.currencyCode}" />
           <apex:outputText value=" " />
           <apex:outputText value="{0,Number,###,###,##0.00}">
-            <apex:param
-              value="{!applicantEmpWrapperObj.monthlyInflowsPriorLoan}"
+            <apex:param value="{!applicantEmpWrapperObj.monthlyInflowsPriorLoan}"
             />
           </apex:outputText>
         </td>
@@ -129,8 +121,7 @@
           <apex:outputText value="{!applicantEmpWrapperObj.currencyCode}" />
           <apex:outputText value=" " />
           <apex:outputText value="{0,Number,###,###,##0.00}">
-            <apex:param
-              value="{!applicantEmpWrapperObj.monthlyInflowsAfterLoan}"
+            <apex:param value="{!applicantEmpWrapperObj.monthlyInflowsAfterLoan}"
             />
           </apex:outputText>
         </td>
@@ -141,8 +132,7 @@
           <apex:outputText value="{!applicantEmpWrapperObj.currencyCode}" />
           <apex:outputText value=" " />
           <apex:outputText value="{0,Number,###,###,##0.00}">
-            <apex:param
-              value="{!applicantEmpWrapperObj.monthlyOutflowsPriorLoan}"
+            <apex:param value="{!applicantEmpWrapperObj.monthlyOutflowsPriorLoan}"
             />
           </apex:outputText>
         </td>
@@ -150,8 +140,7 @@
           <apex:outputText value="{!applicantEmpWrapperObj.currencyCode}" />
           <apex:outputText value=" " />
           <apex:outputText value="{0,Number,###,###,##0.00}">
-            <apex:param
-              value="{!applicantEmpWrapperObj.monthlyOutflowsAfterLoan}"
+            <apex:param value="{!applicantEmpWrapperObj.monthlyOutflowsAfterLoan}"
             />
           </apex:outputText>
         </td>
@@ -162,8 +151,7 @@
           <apex:outputText value="{!applicantEmpWrapperObj.currencyCode}" />
           <apex:outputText value=" " />
           <apex:outputText value="{0,Number,###,###,##0.00}">
-            <apex:param
-              value="{!applicantEmpWrapperObj.residualIncomePriorLoan}"
+            <apex:param value="{!applicantEmpWrapperObj.residualIncomePriorLoan}"
             />
           </apex:outputText>
         </td>
@@ -171,8 +159,7 @@
           <apex:outputText value="{!applicantEmpWrapperObj.currencyCode}" />
           <apex:outputText value=" " />
           <apex:outputText value="{0,Number,###,###,##0.00}">
-            <apex:param
-              value="{!applicantEmpWrapperObj.residualIncomeAfterLoan}"
+            <apex:param value="{!applicantEmpWrapperObj.residualIncomeAfterLoan}"
             />
           </apex:outputText>
         </td>
@@ -188,8 +175,7 @@
           <apex:outputText value="{!applicantEmpWrapperObj.currencyCode}" />
           <apex:outputText value=" " />
           <apex:outputText value="{0,Number,###,###,##0.00}">
-            <apex:param
-              value="{!applicantEmpWrapperObj.existingMonthlyPaymntsPriorLoan}"
+            <apex:param value="{!applicantEmpWrapperObj.existingMonthlyPaymntsPriorLoan}"
             />
           </apex:outputText>
         </td>
@@ -197,8 +183,7 @@
           <apex:outputText value="{!applicantEmpWrapperObj.currencyCode}" />
           <apex:outputText value=" " />
           <apex:outputText value="{0,Number,###,###,##0.00}">
-            <apex:param
-              value="{!applicantEmpWrapperObj.existingMonthlyPaymntsAfterLoan}"
+            <apex:param value="{!applicantEmpWrapperObj.existingMonthlyPaymntsAfterLoan}"
             />
           </apex:outputText>
         </td>

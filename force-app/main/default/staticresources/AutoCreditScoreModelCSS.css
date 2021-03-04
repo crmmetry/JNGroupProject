@@ -34,7 +34,7 @@ div.footer {
 .div.content {
   display: block;
   page-break-after: always;
-  font-size: 0.775em;
+    font-size: 0.775em;
 }
 .boxedDiv {
   border: 2px solid #0070c0;
@@ -112,7 +112,7 @@ div.footer {
   font-size: smaller;
   line-height: 20px;
   font-family: "Gill Sans", sans-serif;
-  border-collapse: collapse;
+  border-collapse: collapse;  
 }
 
 .ratingTableHeader {
@@ -260,9 +260,9 @@ hr {
 .extraSpace {
   line-height: 20.5px;
 }
-.smallSectionHeader {
-  margin-left: 16px;
-  margin-right: 10px;
-  width: 95%;
-  font-size: smaller;
+.smallSectionHeader{
+    margin-left:16px;
+    margin-right:10px;
+    width:95%;
+    font-size:smaller;
 }
