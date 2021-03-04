@@ -199,4 +199,48 @@ public with sharing class ProductDetailSelector {
     }
     return supplementaryWrapperList;
   }
+
+  /*
+   * gets the loan calculation product record related to a rubicon opportunity
+   * @param {Id} oppId - opportunity Id
+   * @return {LoanCalculationProductWrapper} - returns  opportunity details in wrapper format
+   */
+  public static LoanCalculationProductWrapper getLoanCalculationRecord(
+    Id oppId
+  ) {
+    LoanCalculationProductWrapper loanWrapper;
+    List<Loan_Calculation_Product__c> loanObj = [
+      SELECT
+        Id,
+        Loan_Amount_Market_Percentage_Number__c,
+        Approved_Starting_Limit_Number__c,
+        Minimum_Payment_per_Credit_Limit_Number__c,
+        Total_Loan_Amount_Number__c,
+        Monthly_Interest_Rate_Number__c,
+        Total_Monthly_Loan_Payment_Number__c,
+        Monthly_Compulsory_Savings_Number__c,
+        Creditor_Life_Insurance_Premium_Number__c,
+        Total_Compulsory_Savings_Balance_Number__c,
+        Total_Interest_Payment_Repayment_Number__c,
+        Legal_Fees_including_GCT_Number__c,
+        Processing_Fees_including_GCT_Number__c,
+        Stamp_Duty_Number__c,
+        Credit_Report_Fee_Number__c,
+        Creditor_Life_Insurance_Rate_Number__c,
+        Total_Closing_Costs_Number__c,
+        Policy_Limit_Number__c,
+        Ability_to_Service_After_Number__c,
+        Ability_to_Service_Before_Number__c,
+        Monthly_P_I_Life_Insurance_Premium__c
+      FROM Loan_Calculation_Product__c
+      WHERE Loan_Calculation_Id__r.Opportunity__c = :oppId
+      ORDER BY CreatedDate DESC
+      LIMIT 1
+    ];
+    if (loanObj.size() == 1) {
+      loanWrapper = new LoanCalculationProductWrapper(loanObj[0]);
+    }
+
+    return loanWrapper;
+  }
 }
