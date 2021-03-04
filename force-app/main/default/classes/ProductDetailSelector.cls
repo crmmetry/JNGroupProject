@@ -93,6 +93,7 @@ public with sharing class ProductDetailSelector {
         Gross_Monthly_IncomeC__c,
         Strata_Maintenance_Monthly_Prior_Loan__c,
         Strata_Maintenance_Monthly_After_Loan__c,
+        Name,
         (
           SELECT
             Id,
