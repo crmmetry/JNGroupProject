@@ -106,16 +106,17 @@ public class PromissoryNoteController_Test {
     );
 
     //Execute an update DML on the Pricebook2 recordapplicant.to make IsStandard to true
-    update standardPricebook;
+    //update standardPricebook;
 
     //Query for the Pricebook2 recordapplicant.to check IsStandard field
-    standardPricebook = [
-      SELECT Id, IsStandard
-      FROM Pricebook2
-      WHERE Id = :standardPricebook.Id
-    ];
-    //It should return true
-    System.assertEquals(true, standardPricebook.IsStandard);
+    /*standardPricebook = [
+            SELECT Id, IsStandard
+            FROM Pricebook2
+            WHERE Id = :standardPricebook.Id
+            FOR UPDATE
+        ];
+        //It should return true
+        System.assertEquals(true, standardPricebook.IsStandard);*/
 
     List<PricebookEntry> priceBookEntries = new List<PricebookEntry>();
     for (Product2 record : products) {
