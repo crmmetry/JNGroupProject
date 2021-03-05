@@ -1,6 +1,6 @@
 @isTest
 public class TestDataFactory {
-  // test variables
+  // test variables 
   public static final String PHONE = '8767578495';
   public static final String COMPANY = 'ABC Company';
   public static List<Contact> CreateBasicContacts(
@@ -59,10 +59,8 @@ public class TestDataFactory {
     }
     return loanCalculator;
   }
-
-  public static List<Loan_Calculation_Product__c> CreateLoanCalculationProduct(
-    Integer count
-  ) {
+    
+    public static List<Loan_Calculation_Product__c> CreateLoanCalculationProduct(Integer count) {
     List<Loan_Calculation_Product__c> loanCalculatorPrdct = new List<Loan_Calculation_Product__c>();
     for (Integer i = 0; i < count; i++) {
       Loan_Calculation_Product__c loanCalPrdct = new Loan_Calculation_Product__c();
@@ -71,9 +69,7 @@ public class TestDataFactory {
     return loanCalculatorPrdct;
   }
 
-  public static List<Loan_Calculation_Applicant_Product__c> CreateLoanCalculationApplicationPrdct(
-    Integer count
-  ) {
+    public static List<Loan_Calculation_Applicant_Product__c> CreateLoanCalculationApplicationPrdct(Integer count) {
     List<Loan_Calculation_Applicant_Product__c> loanCalculatorApplPrdctlst = new List<Loan_Calculation_Applicant_Product__c>();
     for (Integer i = 0; i < count; i++) {
       Loan_Calculation_Applicant_Product__c loanCalApplPrdct = new Loan_Calculation_Applicant_Product__c();
@@ -81,7 +77,7 @@ public class TestDataFactory {
     }
     return loanCalculatorApplPrdctlst;
   }
-
+    
   public static List<Opportunity> CreateOpportunities(Integer count) {
     List<Opportunity> records = new List<Opportunity>();
     for (Integer i = 0; i < count; i++) {
@@ -175,14 +171,14 @@ public class TestDataFactory {
     tsk.Type = 'Call';
     return tsk;
   }
-
+    
   public static GroupMember CreateGroupMember(Id userId, Id groupId) {
     GroupMember record = new GroupMember();
     record.UserOrGroupId = userId;
     record.GroupId = groupId;
     return record;
   }
-
+    
   public static User CreateUser(String uniqueUserName) {
     Profile p = [SELECT Id FROM Profile WHERE Name = 'System Administrator'];
     User record = new User(
@@ -199,26 +195,16 @@ public class TestDataFactory {
     return record;
   }
 
-  public static PermissionSetAssignment CreatePermissionSetAssignment(
-    Id userId,
-    String permissionSetName
-  ) {
-    PermissionSet ps = [
-      SELECT Id
-      FROM PermissionSet
-      WHERE Name = :permissionSetName
-    ];
-    return new PermissionSetAssignment(
-      AssigneeId = userId,
-      PermissionSetId = ps.Id
-    );
+  public static PermissionSetAssignment CreatePermissionSetAssignment(Id userId, String permissionSetName){
+    PermissionSet ps = [SELECT Id FROM PermissionSet WHERE Name = :permissionSetName];
+    return new PermissionSetAssignment(AssigneeId = userId, PermissionSetId = ps.Id);
   }
 
   public static Product2 CreateProduct(String family, String name) {
     Product2 record = new Product2(Name = name, Family = family);
     return record;
   }
-
+    
   public static Pricebook2 CreatePriceBook2(String name) {
     Pricebook2 record = new Pricebook2(Name = name);
     return record;
@@ -286,7 +272,7 @@ public class TestDataFactory {
     record.FinServ__PrimaryOwner__c = accountId;
     record.Name = assetName;
     record.FinServ__Amount__c = 500.00;
-    record.RecordTypeId = recordTypeId;
+      record.RecordTypeId = recordTypeId;
     return record;
   }
   //JN1-4184
@@ -312,4 +298,22 @@ public class TestDataFactory {
     }
     return cardHoldersList;
   }
+    
+    public static DocumentChecklistItem CreateDocumentCheckListItem(Id parentRecordId, Id docTypeId, String nameOfRecord, String statusOfRecord){
+		DocumentChecklistItem docChkListItem = new DocumentChecklistItem();
+        docChkListItem.ParentRecordId = parentRecordId;
+        docChkListItem.DocumentTypeId = docTypeId;
+        docChkListItem.Name = nameOfRecord;
+        docChkListItem.Status = statusOfRecord;
+        
+        return docChkListItem;
+    }
+     public static ContentVersion CreateContentVersionRecord(String Title, String PathOnClient, String blobData, boolean IsMajorVersion){
+       ContentVersion contentVersion = new ContentVersion();
+        contentVersion.Title = Title;
+        contentVersion.PathOnClient = PathOnClient;
+        contentVersion.VersionData = Blob.valueOf(blobData);
+        contentVersion.IsMajorVersion = IsMajorVersion;
+     	return contentVersion;   
+    }
 }
