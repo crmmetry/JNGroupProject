@@ -2,8 +2,8 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 03-01-2021
-  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+  @last modified on  : 03-05-2021
+  @last modified by  : Travis Allen
   Modifications Log 
   Ver   Date         Author                               Modification
   1.0   02-19-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
@@ -38,6 +38,11 @@
     name="unsecuredLoan"
     type="String"
     default="JN Bank Unsecured Loan"
+  />
+  <aura:attribute
+    name="indicatePrimaryApplicantToggle"
+    type="Boolean"
+    default="false"
   />
 
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
@@ -83,28 +88,31 @@
             required="true"
             onchange="{!c.onJointApplicationChange}"
           >
+            <option value="">select one...</option>
             <aura:iteration items="{!v.jointApplication}" var="item">
               <option value="{!item}">{!item}</option>
             </aura:iteration>
           </lightning:select>
         </lightning:layoutItem>
 
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="4"
-          padding="around-small"
-        >
-          <lightning:select
-            name="numberOfApplicants"
-            label="Indicate Number of Applicant(s)"
-            required="true"
-            onchange="{!c.onNumberOfApplicantsChange}"
+        <aura:if isTrue="{!v.indicatePrimaryApplicantToggle}">
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
           >
-            <aura:iteration items="{!v.numberOfApplicants}" var="item">
-              <option value="{!item}">{!item}</option>
-            </aura:iteration>
-          </lightning:select>
-        </lightning:layoutItem>
+            <lightning:select
+              name="numberOfApplicants"
+              label="Indicate Number of Applicant(s)"
+              required="true"
+              onchange="{!c.onNumberOfApplicantsChange}"
+            >
+              <aura:iteration items="{!v.numberOfApplicants}" var="item">
+                <option value="{!item}">{!item}</option>
+              </aura:iteration>
+            </lightning:select>
+          </lightning:layoutItem>
+        </aura:if>
 
         <lightning:layoutItem
           size="12"
