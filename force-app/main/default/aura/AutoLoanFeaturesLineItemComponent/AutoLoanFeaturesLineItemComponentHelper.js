@@ -41,7 +41,6 @@
   showReasonWhenCLIsNotTaken: function (component) {
     component.set("v.interestedInCreditorLifeFlag", false);
     component.set("v.showReasonFlag", true);
-    console.log("Interested in CreditorLife is false");
   },
 
   showReasonWhenCLIsTaken: function (component) {

@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+ * @group             :
+ * @last modified on  : 03-02-2021
+ * @last modified by  : Travis Allen
+ * Modifications Log
+ * Ver   Date         Author                               Modification
+ * 1.0   02-22-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
+ **/
 public class ProductDetailsSerializer {
   @AuraEnabled
   public Integer years;
@@ -10,9 +20,13 @@ public class ProductDetailsSerializer {
   @AuraEnabled
   public Decimal minimumOfPurchaseMarketValue;
   @AuraEnabled
+  public Decimal requestedCreditLimit;
+  @AuraEnabled
   public Decimal purchasePrice;
   @AuraEnabled
   public String interestedInPremiumFlag;
+  @AuraEnabled
+  public String interested;
   @AuraEnabled
   public String jngiIncludeInLoan;
   @AuraEnabled
@@ -22,7 +36,7 @@ public class ProductDetailsSerializer {
   @AuraEnabled
   public String coverageType;
   @AuraEnabled
-  public String includeInLoanAmountCreditorLife;
+  public String includeCreditorLifeInLoanAmount;
   @AuraEnabled
   public String waiveProcessingFeeFlag;
   @AuraEnabled
@@ -110,7 +124,7 @@ public class ProductDetailsSerializer {
   @AuraEnabled
   public Decimal totalFinancedByJN;
   @AuraEnabled
-  public Decimal totalClosingCostsApplicantPayable;
+  public Decimal totalPayableByApplicant;
   @AuraEnabled
   public String noCreditorLifeReason;
   @AuraEnabled
@@ -127,7 +141,10 @@ public class ProductDetailsSerializer {
   public Decimal creditorLifePremiumForNonRevolvingLoan;
   @AuraEnabled
   public Decimal approvedStartingLimit;
-
+  @AuraEnabled
+  public String jnBankAccountNumber;
+  @AuraEnabled
+  public String jnBankAccountNumberPrefix;
   @AuraEnabled
   public String financialInstitution;
   @AuraEnabled
@@ -149,7 +166,7 @@ public class ProductDetailsSerializer {
   @AuraEnabled
   public String vehicleClassification;
   @AuraEnabled
-  public String yearOfVehicle;
+  public Decimal yearOfVehicle;
   @AuraEnabled
   public String makeAndModelOfVehicle;
   @AuraEnabled
@@ -162,4 +179,12 @@ public class ProductDetailsSerializer {
   public Decimal computedAutoCollateralDepositFromPercentage;
   @AuraEnabled
   public String loanPurpose;
+  @AuraEnabled
+  public String deductRepayment;
+  @AuraEnabled
+  public Decimal jngiMotorPremiumFeesAndCharges;
+  @AuraEnabled
+  public Decimal estimatedStampDutyAndAdminFee;
+  @AuraEnabled
+  public Decimal firstPaymentInstallable;
 }

@@ -13,10 +13,27 @@
         let state = response.getState(); //Checking response status
         let result = response.getReturnValue();
         if (state === "SUCCESS") {
-          component.set("v.applicants", result);
+          if (result === -1) {
+            component.set("v.applicants", {});
+            showToast("Applcant Not Found!", NO_APPLICANTS_FOUND, "error");
+          } else {
+            component.set("v.applicants", result);
+          }
         }
       });
       $A.enqueueAction(action);
     }
+  },
+
+  /**
+   * Updates child container attributes and its values.
+   */
+  updateChildContainerWithValue: function (component, values) {
+    let childContainer = component.get("v.ChildContainer");
+    values.forEach((element) => {
+      //component.set(`v.${element.key}`, element.value);
+      childContainer[element.key] = element.value;
+    });
+    component.set("v.ChildContainer", childContainer);
   }
 });

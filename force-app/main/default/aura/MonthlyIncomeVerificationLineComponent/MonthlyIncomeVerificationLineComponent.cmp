@@ -1,0 +1,413 @@
+<aura:component>
+  <aura:attribute name="toggleCheckAll" type="Boolean" default="false" />
+  <aura:attribute name="auraIdList" type="List" />
+  <aura:attribute name="verifiedMonthlyIncomeMap" type="Map" />
+  <aura:attribute name="verifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="unverifiedDataMap" type="Map" default="{}" />
+  <aura:handler
+    name="change"
+    action="{!c.onVerifiedMonthlyIncomeMapChange}"
+    value="{!v.verifiedMonthlyIncomeMap}"
+  />
+  <aura:registerEvent
+    name="MonthlyIncomeEvent"
+    type="c:MonthlyIncomeVerificationEvent"
+  />
+  <aura:handler
+    name="MonthlyIncomeEvent"
+    event="c:MonthlyIncomeVerificationEvent"
+    action="{!c.handleComponentEvent}"
+  />
+  <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
+  <aura:handler
+    name="change"
+    action="{!c.onToggleCheckAlChange}"
+    value="{!v.toggleCheckAll}"
+  />
+  <lightning:layout multipleRows="true">
+    <lightning:layoutItem size="12" mediumDeviceSize="12"
+      ><div class="slds-section-title--divider">
+        <h1>Monthly Income</h1>
+      </div></lightning:layoutItem
+    >
+  </lightning:layout>
+  <lightning:layout
+    multipleRows="true"
+    verticalAlign="center"
+    horizontalAlign="space"
+  >
+    <!-- ROW 1 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Indicate Primary Source of income:</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="primaryIncomeSourceUnverified"
+        type="text"
+        disabled="true"
+        value="{!v.unverifiedDataMap.primarySourceOfIncome}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="primaryIncomeSource"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="text"
+        aura:id="primaryIncomeSource"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.primarySourceOfIncomeVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 2 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Gross Salary and Allowances (Total)</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="grossSalaryAllowancesUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.grossSalaryAllowances}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="grossSalaryAllowances"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="grossSalaryAllowances"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.grossSalaryAllowancesVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 3 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="">
+        <h3>
+          Other Income (Bonuses, Gratuities, Dividends, Performance-Based
+          Incentives, Alimony, Remittances)
+        </h3>
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="otherIncomeUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.otherIncome}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="otherIncome"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="otherIncome"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.otherIncomeVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 4 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Net Business Income - Sole Trader</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="number"
+        aura:id="netBusinessIncomeSoleTraderUnverified"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.netBusinessIncomeSoleTrader}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="netBusinessIncomeSoleTrader"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="netBusinessIncomeSoleTrader"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.netBusinessIncomeSoleTraderVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 5 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Director's Emoluments - Director (Total)</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="directorEmolumentsUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.directorEmoluments}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="directorEmoluments"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="directorEmoluments"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.directorEmolumentsVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 6 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Net Business Income - Partnership</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="netBusinessIncomePartnershipUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.netBusinessIncomePartnership}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="netBusinessIncomePartnership"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="netBusinessIncomePartnership"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.netBusinessIncomePartnershipVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 7 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Net Business Income - Company Shareholding</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="netBusinessIncomeCompanyShareholdingUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.netBusinessIncomeCompanyShareholding}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="netBusinessIncomeCompanyShareholding"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="netBusinessIncomeCompanyShareholding"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.netBusinessIncomeCompanyShareholdingVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 8 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Pension (Total)</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="pensionUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.pensionIncome}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="pension"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="pension"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.pensionIncomeVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 9 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Property Rental</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="propertyRentalUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.propertyRental}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="propertyRental"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="propertyRental"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.propertyRentalVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 10 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Total Other Income</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="totalOtherIncomeUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="totalOtherIncome"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="totalOtherIncome"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.totalOtherIncomeVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 11 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Total Monthly Income</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="totalMonthlyIncomeUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="totalMonthlyIncome"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="totalMonthlyIncome"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.totalMonthlyIncomeVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+  </lightning:layout>
+</aura:component>

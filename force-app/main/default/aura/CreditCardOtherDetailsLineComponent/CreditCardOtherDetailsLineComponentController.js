@@ -159,7 +159,6 @@
         component
       );
     }
-    console.log("validateFields", cashComponentValidate);
     let resultsFromChild = [
       cashComponentValidate,
       validateFields(component, cmpFields)

@@ -1,0 +1,136 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 02-24-2021
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+  Modifications Log 
+  Ver   Date         Author                               Modification
+  1.0   02-24-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
+-->
+<aura:component
+  implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
+  controller="FinancialDetailsController"
+>
+  <aura:attribute name="recordId" type="Id" />
+  <aura:attribute name="FinancialDataMap" type="Map" default="{}" />
+  <aura:attribute name="listOfDebtIndices" type="List" default="0" />
+  <aura:attribute name="toggleCheckAll" type="Boolean" default="false" />
+  <aura:attribute name="VerifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="UnverifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="UnverifiedDebts" type="List" />
+  <aura:attribute name="ConsolidatedDebts" type="List" />
+  <aura:attribute name="VerifiedDebts" type="List" />
+  <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
+  <aura:attribute name="isSubmitted" type="Boolean" default="false" />
+  <aura:attribute name="isVerified" type="Boolean" default="false" />
+  <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
+  <aura:handler event="c:DebtInfoEvent" action="{!c.handleDebtInfoEvent}" />
+  <aura:handler
+    name="change"
+    action="{!c.onVerifiedDataMapChange}"
+    value="{!v.VerifiedDataMap}"
+  />
+  <!-- <aura:handler
+    name="change"
+    action="{!c.onVerifiedDebtsChange}"
+    value="{!v.ConsolidatedDebts}"
+  /> -->
+  <ltng:require
+    scripts="{
+    $Resource.constants,
+    $Resource.calculations, 
+    $Resource.productDetailsGeneralFunctions)}"
+    afterScriptsLoaded="{!c.scriptsLoaded}"
+  />
+  <lightning:card>
+    <c:AssetsVerificationLineComponent
+      toggleCheckAll="{!v.toggleCheckAll}"
+      verifiedDataMap="{!v.VerifiedDataMap}"
+      unverifiedDataMap="{!v.UnverifiedDataMap}"
+    ></c:AssetsVerificationLineComponent>
+    <c:LiabilitiesVerificationLineComponent
+      toggleCheckAll="{!v.toggleCheckAll}"
+      verifiedDataMap="{!v.VerifiedDataMap}"
+      unverifiedDataMap="{!v.UnverifiedDataMap}"
+    ></c:LiabilitiesVerificationLineComponent>
+    <c:MonthlyIncomeVerificationLineComponent
+      toggleCheckAll="{!v.toggleCheckAll}"
+      verifiedDataMap="{!v.VerifiedDataMap}"
+      unverifiedDataMap="{!v.UnverifiedDataMap}"
+    ></c:MonthlyIncomeVerificationLineComponent>
+    <c:MonthlyExpensesVerificationLineComponent
+      toggleCheckAll="{!v.toggleCheckAll}"
+      verifiedDataMap="{!v.VerifiedDataMap}"
+      unverifiedDataMap="{!v.UnverifiedDataMap}"
+    ></c:MonthlyExpensesVerificationLineComponent>
+    <c:NetWorthVerificationLineComponent
+      toggleCheckAll="{!v.toggleCheckAll}"
+      verifiedDataMap="{!v.VerifiedDataMap}"
+      unverifiedDataMap="{!v.UnverifiedDataMap}"
+    ></c:NetWorthVerificationLineComponent>
+    <lightning:layout multipleRows="true">
+      <lightning:layoutItem size="12" mediumDeviceSize="12"
+        ><div class="slds-section-title--divider">
+          <h1>Debt Consolidation</h1>
+        </div></lightning:layoutItem
+      >
+    </lightning:layout>
+    <aura:iteration items="{!v.ConsolidatedDebts}" var="item" indexVar="index">
+      <c:DebtConsolidationVerificationLineComponent
+        toggleCheckAll="{!v.toggleCheckAll}"
+        debtInfo="{!item}"
+        listOfVerifiedDebts="{!v.VerifiedDebts}"
+        debtIndex="{!index}"
+        consolidatedDebts="{!v.ConsolidatedDebts}"
+      ></c:DebtConsolidationVerificationLineComponent>
+    </aura:iteration>
+    <c:TotalDebtConsolidatedVerificationLineItem
+      toggleCheckAll="{!v.toggleCheckAll}"
+      verifiedDataMap="{!v.VerifiedDataMap}"
+      unverifiedDataMap="{!v.UnverifiedDataMap}"
+    ></c:TotalDebtConsolidatedVerificationLineItem>
+    <lightning:layout horizontalAlign="space">
+      <lightning:layoutItem size="12" mediumDeviceSize="3">
+        <div class="slds-align_absolute-center slds-var-m-top_large">
+          <lightning:button
+            label="Check All"
+            variant="brand-outline"
+            title="Check All"
+            onclick="{!c.toggleCheckBoxes}"
+          />
+        </div>
+      </lightning:layoutItem>
+      <lightning:layoutItem size="12" mediumDeviceSize="3">
+        <div class="slds-align_absolute-center slds-var-m-top_large">
+          <lightning:button
+            label="Save"
+            variant="brand"
+            title="Save Details"
+            onclick="{!c.saveFinancialDetails}"
+          />
+        </div>
+      </lightning:layoutItem>
+      <lightning:layoutItem size="12" mediumDeviceSize="3">
+        <div class="slds-align_absolute-center slds-var-m-top_large">
+          <lightning:button
+            label="Submit"
+            variant="brand"
+            title="Submit Details"
+            onclick="{!c.submitButtonAction}"
+          />
+        </div>
+      </lightning:layoutItem>
+      <lightning:layoutItem size="12" mediumDeviceSize="4">
+        <div class="slds-align_absolute-center slds-var-m-top_large">
+          <lightning:button
+            label="Verify"
+            variant="brand"
+            title="Verify Details"
+            onclick="{!c.verifyButtonAction}"
+          />
+        </div>
+      </lightning:layoutItem>
+    </lightning:layout>
+  </lightning:card>
+</aura:component>

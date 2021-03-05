@@ -140,7 +140,6 @@
     } else {
       data.push("processingFeeClosingCost");
     }
-    console.log("data", data);
     return data;
   },
   /**
@@ -150,10 +149,6 @@
     const parentObj = component.get("v.ParentContainer");
     const jnDefault = component.get("v.jnDefaultConfigs");
     const data = Object.assign(parentObj, jnDefault);
-    console.info(
-      "TotalClosingCostCalculation",
-      JSON.parse(JSON.stringify(data))
-    );
     let properties = [];
     let total = 0;
     let fieldsTocalculate = this.getFieldsToCalculate(parentObj);
@@ -206,13 +201,11 @@
   totalClosingCostPaidByApplicantCalculation: function (component) {
     let total = 0;
     const parentObj = component.get("v.ParentContainer");
-    console.log(parentObj.totalClosingCost, parentObj.totalFinancedByJN);
     if (parentObj.totalClosingCost >= 0 && parentObj.totalFinancedByJN >= 0) {
       total = calculateTotalClosingCostPayableByApplicant(
         parentObj.totalClosingCost,
         parentObj.totalFinancedByJN
       );
-      console.log("ClosingCostPaidByApplicantCalculation = ", total);
       component.set("v.totalPayableByApplicant", total);
       this.updateChildContainerWithValue(component, [
         { key: "totalPayableByApplicant", value: total }
@@ -262,7 +255,6 @@
       parentObj
     );
     component.set("v.totalMonthly_PI_LoanPayment", total);
-    console.log("Total Monthly PI: ", total);
     this.updateChildContainerWithValue(component, [
       { key: "totalMonthly_PI_LoanPayment", value: total }
     ]);

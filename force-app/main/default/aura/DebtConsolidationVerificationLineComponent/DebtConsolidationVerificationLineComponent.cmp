@@ -1,0 +1,156 @@
+<!--
+  @description       : 
+  @author            : Travis Allen
+  @group             : 
+  @last modified on  : 03-02-2021
+  @last modified by  : Travis Allen
+  Modifications Log 
+  Ver   Date         Author         Modification
+  1.0   03-02-2021   Travis Allen   Initial Version
+-->
+<aura:component>
+  <aura:attribute name="toggleCheckAll" type="Boolean" default="false" />
+  <aura:attribute name="auraIdList" type="List" />
+  <aura:attribute name="debtInfo" type="Map" />
+  <aura:attribute name="verifiedDebtInfo" type="Map" />
+  <aura:attribute name="listOfVerifiedDebts" type="List" />
+  <aura:attribute name="debtIndex" type="Integer" />
+  <aura:attribute name="consolidatedDebts" type="List" />
+  <aura:registerEvent
+    name="DebtConsolidationEvent"
+    type="c:DebtConsolidationVerificationEvent"
+  />
+  <aura:registerEvent name="DebtInfoEvent" type="c:DebtInfoEvent" />
+  <aura:handler
+    name="DebtConsolidationEvent"
+    event="c:DebtConsolidationVerificationEvent"
+    action="{!c.handleComponentEvent}"
+  />
+  <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
+  <aura:handler
+    name="change"
+    action="{!c.onToggleCheckAlChange}"
+    value="{!v.toggleCheckAll}"
+  />
+  <aura:handler
+    name="change"
+    action="{!c.onVerifiedDebtInfoChange}"
+    value="{!v.debtInfo}"
+  />
+  <lightning:layout
+    multipleRows="true"
+    verticalAlign="center"
+    horizontalAlign="space"
+  >
+    <!-- ROW 1 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Account #</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="accountNumber"
+        type="text"
+        placeholder="NULL"
+        value="{!v.debtInfo.accountNumber}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 2 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Debt Type</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="text"
+        disabled="true"
+        value="{!v.debtInfo.debtType}"
+        aura:id="debtTypeUnverified"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="debtType"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="text"
+        aura:id="debtType"
+        placeholder="NULL"
+        value="{!v.debtInfo.debtTypeVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 3 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Institution Debt is with</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="text"
+        disabled="true"
+        value="{!v.debtInfo.institutionDebt}"
+        aura:id="debtInstitutionUnverified"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="debtInstitution"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        type="text"
+        aura:id="debtInstitution"
+        placeholder="NULL"
+        value="{!v.debtInfo.institutionDebtVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 4 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Debt Amount</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="debtAmountUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.debtInfo.debtAmount}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="debtAmount"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="debtAmount"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.debtInfo.debtAmountVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+  </lightning:layout>
+</aura:component>

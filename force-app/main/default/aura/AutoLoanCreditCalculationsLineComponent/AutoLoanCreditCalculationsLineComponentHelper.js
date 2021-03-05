@@ -185,7 +185,6 @@
       this.updateChildContainerWithValue(component, [
         { key: "monthlyJnLifeCreditor_PI_Premium", value: pmtCLResult }
       ]);
-      console.log(monthlyCLPremium, pmtCLResult);
       component.set("v.includeCLPremiumFlag", false);
     } else if (
       data.interestedInCreditorLife === "Yes" &&
@@ -272,7 +271,6 @@
     } else {
       data.push("processingFeeClosingCost");
     }
-    console.log("data", data);
     return data;
   },
   /**

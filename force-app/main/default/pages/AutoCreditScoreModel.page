@@ -160,7 +160,7 @@
                      </tr>
                      <tr class="td">
                      <td style="text-align: left;">Length of Current Employment</td>
-                         <td>>{!lengthOfEmploymentString}</td>
+                         <td>{!lengthOfEmploymentString}</td>
                          <td class="bgColor">{!lengthOfEmploymentScore}</td>
                          <td class="bgColor">{!lengthOfEmploymentWeightage}</td>
                      </tr>

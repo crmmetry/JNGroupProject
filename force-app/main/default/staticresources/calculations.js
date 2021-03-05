@@ -268,6 +268,12 @@ window.basicProcessingFeesCalculator = function (
  * @return {Deciaml}
  */
 window.basicJNLifePremiumCalculator = function (loanAmount, creditRating) {
+  if (
+    validNumber(loanAmount) === false ||
+    validNumber(creditRating) === false
+  ) {
+    return 0;
+  }
   return roundedValue((loanAmount / 1000) * creditRating);
 };
 /**
@@ -733,11 +739,11 @@ window.computedMinimumPaymentFromCreditLimitCalculator = function (
   }
   if (
     validNumber(mmp) &&
-    validNumber(container.interestRate) &&
+    validNumber(container.market) &&
     validNumber(principalPayment)
   ) {
     let cmp = Math.trunc(
-      (mmp / (parseFloat(container.interestRate) / 12 + principalPayment)) * 100
+      (mmp / (parseFloat(container.market) / 12 + principalPayment)) * 100
     );
     return roundedValue(Math.round(cmp / 10000) * 10000);
   }
@@ -854,11 +860,11 @@ window.minimumPaymentCalculatorWithASL = function (container, jnDefault, mmp) {
   }
   if (
     validNumber(mmp) &&
-    validNumber(container.interestRate) &&
+    validNumber(container.market) &&
     validNumber(principalPayment)
   ) {
     return roundedValue(
-      ((container.interestRate / 12 + principalPayment) * mmp) / 100
+      ((container.market / 12 + principalPayment) * mmp) / 100
     );
   }
   return 0;

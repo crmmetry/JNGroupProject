@@ -1,0 +1,139 @@
+<aura:component>
+  <aura:attribute name="toggleCheckAll" type="Boolean" />
+  <aura:attribute name="auraIdList" type="List" />
+  <aura:attribute name="verifiedNetWorthMap" type="Map" />
+  <aura:attribute name="verifiedDataMap" type="Map" />
+  <aura:attribute name="unverifiedDataMap" type="Map" default="{}" />
+  <aura:handler
+    name="change"
+    action="{!c.onVerifiedNetWorthMapChange}"
+    value="{!v.verifiedNetWorthMap}"
+  />
+  <aura:registerEvent name="NetWorthEvent" type="c:NetWorthVerificationEvent" />
+  <aura:handler
+    name="NetWorthEvent"
+    event="c:NetWorthVerificationEvent"
+    action="{!c.handleComponentEvent}"
+  />
+  <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
+  <aura:handler
+    name="change"
+    action="{!c.onToggleCheckAlChange}"
+    value="{!v.toggleCheckAll}"
+  />
+  <lightning:layout multipleRows="true">
+    <lightning:layoutItem size="12" mediumDeviceSize="12"
+      ><div class="slds-section-title--divider">
+        <h1>Net Worth</h1>
+      </div></lightning:layoutItem
+    >
+  </lightning:layout>
+  <lightning:layout
+    multipleRows="true"
+    verticalAlign="center"
+    horizontalAlign="space"
+  >
+    <!-- ROW 1 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Total Assets</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="totalAssetsUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.totalAssets}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="totalAssets"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="totalAssets"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.totalAssetsVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 2 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Total Liabilities</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="totalLiabilitiesUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.totalLiabilities}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="totalLiabilities"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="totalLiabilities"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.totalLiabilitiesVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <!-- ROW 3 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Net Worth</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="netWorthUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.netWorth}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="netWorth"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="netWorth"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.netWorthVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+  </lightning:layout>
+</aura:component>

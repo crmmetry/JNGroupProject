@@ -1,0 +1,207 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 02-24-2021
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+  Modifications Log 
+  Ver   Date         Author                               Modification
+  1.0   02-19-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
+-->
+<aura:component
+  implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
+  controller="RubiconProductDetailsController"
+>
+  <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+  <aura:attribute name="ParentContainer" type="Map" />
+  <aura:attribute name="CreditCardContainer" type="Map" />
+  <aura:attribute name="cardType" type="String" />
+  <aura:attribute name="creditLimitCurrency" type="List" />
+  <aura:attribute name="coverageTypes" type="List" />
+  <aura:attribute name="hasSupplementaryCardHolders" type="String" />
+
+  <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+
+  <lightning:layout multipleRows="true">
+    <fieldset class="slds-box slds-theme_default">
+      <legend
+        id="rubiconProductdetailsform"
+        class="slds-text-heading_medium slds-p-vertical_small"
+      >
+        Credit Card Details
+      </legend>
+
+      <lightning:layout multipleRows="true">
+        <lightning:layoutItem size="12">
+          <h2 class="slds-section-title--divider">
+            Personal Credit Card Request
+          </h2>
+        </lightning:layoutItem>
+
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <lightning:select
+            name="select1"
+            label="Currency of Credit Card Requested"
+            required="true"
+            onchange="{!c.onCreditLimitCurrencyChange}"
+          >
+            <aura:iteration items="{!v.creditLimitCurrency}" var="item">
+              <option value="{!item}">{!item}</option>
+            </aura:iteration>
+          </lightning:select>
+        </lightning:layoutItem>
+
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <lightning:input
+            type="number"
+            label="Requested Limit"
+            value="{!v.CreditCardContainer.requestedLimit}"
+            name="number"
+            formatter="currency"
+            required="true"
+            readonly="true"
+          />
+        </lightning:layoutItem>
+
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <lightning:input
+            type="number"
+            label="Monthly Interest Rate"
+            value="{!v.ParentContainer.monthlyInterestRate}"
+            placeholder="per month"
+            name="monthlyInterestRate"
+            formatter="percent-fixed"
+            required="true"
+            readonly="true"
+            step="0.01"
+            aura:id="locInterestRate"
+          />
+        </lightning:layoutItem>
+
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <lightning:select
+            name="coverageType"
+            label="Coverage Type"
+            required="true"
+            onchange="{!c.onCoverageTypeChange}"
+          >
+            <aura:iteration items="{!v.coverageTypes}" var="item">
+              <option value="{!item}">{!item}</option>
+            </aura:iteration>
+          </lightning:select>
+        </lightning:layoutItem>
+
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <lightning:input
+            type="text"
+            label="Indicate the JN Bank Promotion"
+            value="{!v.CreditCardContainer.jnBankPromotion}"
+            name="jnBankPromortion"
+            required="true"
+          />
+        </lightning:layoutItem>
+
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <lightning:input
+            type="text"
+            label="Supplementary Card Holder Requested?"
+            value="{!v.hasSupplementaryCardHolders}"
+            name="jnBankPromortion"
+            required="true"
+            readonly="true"
+          />
+        </lightning:layoutItem>
+
+        <lightning:layoutItem size="12" mediumDeviceSize="12">
+          <h2 class="slds-section-title--divider">
+            Credit Calculations
+          </h2>
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <lightning:input
+            label="Starting Limit"
+            value="{!v.ParentContainer.startingLimit}"
+            type="number"
+            name="startingLimit"
+            formatter="currency"
+            required="true"
+            readonly="true"
+          />
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <lightning:input
+            label="Type of Card"
+            value="{!v.ParentContainer.cardType}"
+            type="text"
+            name="cardType"
+            readonly="true"
+            required="true"
+            disabled="true"
+          />
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="4"
+          padding="around-small"
+        >
+          <lightning:input
+            label="Minimum Payment as per Credit Limit"
+            value="{!v.ParentContainer.minimumPayment}"
+            type="number"
+            name="input1"
+            formatter="currency"
+            required="true"
+            readonly="true"
+          />
+        </lightning:layoutItem>
+        <lightning:layoutItem
+          size="12"
+          mediumDeviceSize="6"
+          padding="around-small"
+        >
+          <lightning:input
+            type="number"
+            label="Annual Interest Rate on Credit Card"
+            value="{!v.ParentContainer.market}"
+            name="number"
+            formatter="currency"
+            required="true"
+            readonly="true"
+          />
+        </lightning:layoutItem>
+      </lightning:layout>
+    </fieldset>
+  </lightning:layout>
+</aura:component>

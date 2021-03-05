@@ -1,0 +1,755 @@
+<apex:component controller="FinancialDataWrapper">
+  <apex:attribute
+    name="applicantObj"
+    type="Applicant__c"
+    description=""
+    assignTo="{!applicant}"
+  />
+  <h5 class="header-inside">FINANCIAL DETAILS</h5>
+  <table
+    style="
+      width: 98%;
+      font-size: 0.585em;
+      margin-top: 10px;
+      font-style: italic;
+    "
+  >
+    <tr>
+      <td style="width: 100%;">
+        The currency of each applicant's income and expenses are represented in
+        Jamaican Dollars (JMD).
+      </td>
+    </tr>
+  </table>
+  <div class="headerInBlue">
+    <b>SUMMARY OF INCOME AND LIVING EXPENSES</b>
+  </div>
+
+  <div style="margin-top: 15px; font-size: 0.685em;">
+    <table
+      style="margin-left: 16px; margin-right: 10px; width: 95%;"
+      cellpadding="0"
+      cellspacing="0"
+    >
+      <tr>
+        <td
+          style="
+            border: 1px solid rgb(191, 191, 191);
+            border-top: 1px;
+            border-bottom: 1px;
+          "
+        >
+          Gross Monthly Income:
+        </td>
+        <td
+          style="
+            border: 1px solid rgb(191, 191, 191);
+            border-left: 1px;
+            border-top: 1px;
+            border-bottom: 1px;
+          "
+        >
+          Other Monthly Income
+        </td>
+        <td
+          style="
+            border: 1px solid rgb(191, 191, 191);
+            border-left: 1px;
+            border-top: 1px;
+            border-bottom: 1px;
+          "
+        >
+          Monthly Personal Expenses
+        </td>
+        <td
+          style="
+            border: 1px solid rgb(191, 191, 191);
+            border-left: 1px;
+            border-top: 1px;
+            border-bottom: 1px;
+          "
+        >
+          Monthly Rent/Strata Maintenance
+        </td>
+        <td
+          style="
+            border: 1px solid rgb(191, 191, 191);
+            border-left: 1px;
+            border-top: 1px;
+            border-bottom: 1px;
+          "
+        >
+          Monthly Savings/Pension/Insurance
+        </td>
+      </tr>
+      <tr style="margin-top: 5px;">
+        <td
+          style="
+            border: 1px solid rgb(191, 191, 191);
+            border-top: 1px;
+            text-align: center;
+          "
+        >
+          {!applicantObj.Gross_Monthly_Income__c}
+        </td>
+        <td
+          style="
+            border: 1px solid rgb(191, 191, 191);
+            border-left: 1px;
+            border-top: 1px;
+            text-align: center;
+          "
+        >
+          {!applicantObj.Other_Income__c}
+        </td>
+        <td
+          style="
+            border: 1px solid rgb(191, 191, 191);
+            border-left: 1px;
+            border-top: 1px;
+            text-align: center;
+          "
+        >
+          {!applicantObj.Personal_Expenses_Monthly_Prior_Loan__c}
+        </td>
+        <td
+          style="
+            border: 1px solid rgb(191, 191, 191);
+            border-left: 1px;
+            border-top: 1px;
+            text-align: center;
+          "
+        >
+          {!applicantObj.Rent_Strata_Maintenance__c}
+        </td>
+        <td
+          style="
+            border: 1px solid rgb(191, 191, 191);
+            border-left: 1px;
+            border-top: 1px;
+            text-align: center;
+          "
+        >
+          {!applicantObj.Savings_Pension_Insurance_Number__c}
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="headerInBlue">
+    <b>SUMMARY OF ASSETS AND LIABILITIES</b>
+  </div>
+
+  <div style="margin-top: 15px; font-size: 0.685em;">
+    <table
+      style="margin-left: 16px; margin-right: 10px; width: 95%;"
+      cellpadding="0"
+      cellspacing="0"
+    >
+      <tr>
+        <td
+          style="
+            border: 1px solid rgb(191, 191, 191);
+            border-top: 1px;
+            border-bottom: 1px;
+          "
+        >
+          Overdraft Limit
+        </td>
+        <td
+          style="
+            border: 1px solid rgb(191, 191, 191);
+            border-left: 1px;
+            border-top: 1px;
+            border-bottom: 1px;
+          "
+        >
+          Life Insurance (Cash Value)
+        </td>
+        <td
+          style="
+            border: 1px solid rgb(191, 191, 191);
+            border-left: 1px;
+            border-top: 1px;
+            border-bottom: 1px;
+          "
+        >
+          Pension/IRS (Total Contribution)
+        </td>
+        <td
+          style="
+            border: 1px solid rgb(191, 191, 191);
+            border-left: 1px;
+            border-top: 1px;
+            border-bottom: 1px;
+          "
+        >
+          Savings/Deposit/Investments
+        </td>
+        <td
+          style="
+            border: 1px solid rgb(191, 191, 191);
+            border-left: 1px;
+            border-top: 1px;
+            border-bottom: 1px;
+          "
+        >
+          Other Liabilities
+        </td>
+      </tr>
+      <tr style="margin-top: 5px;">
+        <td
+          style="
+            border: 1px solid rgb(191, 191, 191);
+            border-top: 1px;
+            text-align: center;
+          "
+        >
+          {!applicantObj.Overdraft_Limit__c}
+        </td>
+        <td
+          style="
+            border: 1px solid rgb(191, 191, 191);
+            border-left: 1px;
+            border-top: 1px;
+            text-align: center;
+          "
+        >
+          {!applicantObj.Life_Insurance_Cash_Value__c}
+        </td>
+        <td
+          style="
+            border: 1px solid rgb(191, 191, 191);
+            border-left: 1px;
+            border-top: 1px;
+            text-align: center;
+          "
+        >
+          {!applicantObj.Pension_IRS_Total_Contribution__c}
+        </td>
+        <td
+          style="
+            border: 1px solid rgb(191, 191, 191);
+            border-left: 1px;
+            border-top: 1px;
+            text-align: center;
+          "
+        >
+          {!applicantObj.Savings_Deposit_Investments__c}
+        </td>
+        <td
+          style="
+            border: 1px solid rgb(191, 191, 191);
+            border-left: 1px;
+            border-top: 1px;
+            text-align: center;
+          "
+        >
+          {!applicantObj.Other_Loan_Loan_Balance_Number__c}
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <table
+    style="
+      margin-left: 16px;
+      margin-right: 10px;
+      width: 95%;
+      font-size: 0.785em;
+      margin-top: 15px;
+    "
+    cellpadding="0"
+    cellspacing="0"
+  >
+    <tr>
+      <td
+        class="td"
+        style="
+          text-align: top;
+          border: 1px solid rgb(191, 191, 191);
+          border-right: 3px solid rgb(149, 149, 149);
+          width: 10%;
+          background-color: rgb(242, 242, 242);
+          text-align: center;
+        "
+      >
+        <b>REAL ESTATE HOLDING(S)</b>
+      </td>
+      <td style="width: 90%;">
+        <table
+          style="
+            margin-left: 16px;
+            margin-right: 10px;
+            width: 98%;
+            border: 1px solid rgb(191, 191, 191);
+            line-height: 20px;
+          "
+          cellpadding="0"
+          cellspacing="0"
+        >
+          <tr>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            ></td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>MARKET VALUE</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>LENDER</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>LOAN BALANCE <br />(PRIOR TO CREDIT)</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>MONTHLY PAYMENT<br /> (PRIOR TO CREDIT)</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>LOAN BALANCE<br /> (AFTER CREDIT)</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>MONTHLY PAYMENT <br />(AFTER CREDIT)</b>
+            </td>
+          </tr>
+          <tr>
+            <td class="td">1</td>
+            <td class="td">
+              {!applicantObj.Real_Estate_Market_Value_Number__c}
+            </td>
+            <td class="td">####</td>
+            <td class="td">
+              {!applicantObj.Real_Estate_Loan_Balance_Number__c}
+            </td>
+            <td class="td">
+              {!applicantObj.Real_Estate_Monthly_Payment_Number__c}
+            </td>
+            <td class="td">####</td>
+            <td class="td">####</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <table
+    style="
+      margin-left: 16px;
+      margin-right: 10px;
+      width: 95%;
+      font-size: 0.785em;
+      margin-top: 15px;
+    "
+    cellpadding="0"
+    cellspacing="0"
+  >
+    <tr>
+      <td
+        class="td"
+        style="
+          text-align: top;
+          border: 1px solid rgb(191, 191, 191);
+          border-right: 3px solid rgb(149, 149, 149);
+          width: 10%;
+          background-color: rgb(242, 242, 242);
+          text-align: center;
+        "
+      >
+        <b>MOTOR VEHICLE(S)</b>
+      </td>
+      <td style="width: 90%;">
+        <table
+          style="
+            margin-left: 16px;
+            margin-right: 10px;
+            width: 98%;
+            border: 1px solid rgb(191, 191, 191);
+            line-height: 20px;
+          "
+          cellpadding="0"
+          cellspacing="0"
+        >
+          <tr>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            ></td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>MARKET VALUE</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>LENDER</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>LOAN BALANCE <br />(PRIOR TO CREDIT)</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>MONTHLY PAYMENT <br /> (PRIOR TO CREDIT)</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>LOAN BALANCE <br />(AFTER CREDIT)</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>MONTHLY PAYMENT <br />(AFTER CREDIT)</b>
+            </td>
+          </tr>
+          <tr>
+            <td class="td">1</td>
+            <td class="td">
+              {!applicantObj.Motor_Vehicle_Market_Value_Number__c}
+            </td>
+            <td class="td">####</td>
+            <td class="td">
+              {!applicantObj.Motor_Vehicle_Loan_Balance_Number__c}
+            </td>
+            <td class="td">
+              {!applicantObj.Motor_Vehicle_Monthly_Payment_Number__c}
+            </td>
+            <td class="td">####</td>
+            <td class="td">####</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <table
+    style="
+      margin-left: 16px;
+      margin-right: 10px;
+      width: 95%;
+      font-size: 0.785em;
+      margin-top: 15px;
+    "
+    cellpadding="0"
+    cellspacing="0"
+  >
+    <tr>
+      <td
+        class="td"
+        style="
+          text-align: top;
+          border: 1px solid rgb(191, 191, 191);
+          border-right: 3px solid rgb(149, 149, 149);
+          width: 10%;
+          background-color: rgb(242, 242, 242);
+          text-align: center;
+        "
+      >
+        <b>OTHER ASSET(S)</b>
+      </td>
+      <td style="width: 90%;">
+        <table
+          style="
+            margin-left: 16px;
+            margin-right: 10px;
+            width: 98%;
+            border: 1px solid rgb(191, 191, 191);
+            border-collapse: collapse;
+            line-height: 20px;
+          "
+          cellpadding="0"
+          cellspacing="0"
+        >
+          <tr style="border: 1px solid rgb(191, 191, 191);">
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            ></td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>MARKET VALUE</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>LENDER</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>LOAN BALANCE <br />(PRIOR TO CREDIT)</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>MONTHLY PAYMENT<br /> (PRIOR TO CREDIT)</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>LOAN BALANCE<br /> (AFTER CREDIT)</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>MONTHLY PAYMENT<br /> (AFTER CREDIT)</b>
+            </td>
+          </tr>
+          <tr>
+            <td class="td">1</td>
+            <td class="td">
+              {!applicantObj.Other_Asset_Market_Value_Number__c}
+            </td>
+            <td class="td">####</td>
+            <td class="td">
+              {!applicantObj.Other_Asset_Loan_Balance_Number__c}
+            </td>
+            <td class="td">
+              {!applicantObj.Other_Asset_Monthly_Payment_Number__c}
+            </td>
+            <td class="td">####</td>
+            <td class="td">####</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <table
+    style="
+      margin-left: 16px;
+      margin-right: 10px;
+      width: 95%;
+      font-size: 0.785em;
+      margin-top: 15px;
+      page-break-inside: avoid;
+    "
+    cellpadding="0"
+    cellspacing="0"
+  >
+    <tr>
+      <td
+        class="td"
+        style="
+          text-align: top;
+          border: 1px solid rgb(191, 191, 191);
+          border-right: 3px solid rgb(149, 149, 149);
+          width: 10%;
+          background-color: rgb(242, 242, 242);
+          text-align: center;
+        "
+      >
+        <b>CREDIT CARD(S)</b>
+      </td>
+      <td style="width: 90%;">
+        <table
+          style="
+            margin-left: 16px;
+            margin-right: 10px;
+            width: 98%;
+            border: 1px solid rgb(191, 191, 191);
+            line-height: 20px;
+          "
+          cellpadding="0"
+          cellspacing="0"
+        >
+          <tr>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>LENDER</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>CREDIT CARD LIMIT</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>CURRENT BALANCE <br />(PRIOR TO CREDIT)</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>MINIMUM PAYMENT<br /> (PRIOR TO CREDIT)</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>CURRENT BALANCE<br /> (AFTER CREDIT)</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>MINIMUM PAYMENT <br />(AFTER CREDIT)</b>
+            </td>
+          </tr>
+          <apex:repeat
+            value="{!applicantObj.Application_Assets_Liabilities__r}"
+            var="assets"
+          >
+            <tr
+              style="{!If(assets.Assets_and_Liabilities__r.RecordType.DeveloperName == 'Credit_Cards','','display:none;') }"
+            >
+              <td class="td">{!assets.Assets_and_Liabilities__r.Lender__c}</td>
+              <td class="td">
+                {!assets.Assets_and_Liabilities__r.Asset_Credit_Limit__c}
+              </td>
+              <td class="td">
+                {!assets.Assets_and_Liabilities__r.Asset_Credit_Balance__c}
+              </td>
+              <td class="td">{!assets.Minimum_Payment_Calc__c}</td>
+              <td class="td">
+                {!assets.Assets_and_Liabilities__r.Asset_Credit_Balance_After__c}
+              </td>
+              <td class="td">{!assets.Minimum_Payment_After_Calc__c}</td>
+            </tr>
+          </apex:repeat>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <table
+    style="
+      margin-left: 16px;
+      margin-right: 10px;
+      width: 95%;
+      font-size: 0.785em;
+      margin-top: 15px;
+      page-break-inside: avoid;
+    "
+    cellpadding="0"
+    cellspacing="0"
+  >
+    <tr>
+      <td
+        class="td"
+        style="
+          text-align: top;
+          border: 1px solid rgb(191, 191, 191);
+          border-right: 3px solid rgb(149, 149, 149);
+          width: 10%;
+          background-color: rgb(242, 242, 242);
+          text-align: center;
+        "
+      >
+        <b>LINE(S) OF CREDIT</b>
+      </td>
+      <td style="width: 90%;">
+        <table
+          style="
+            margin-left: 16px;
+            margin-right: 10px;
+            width: 98%;
+            border: 1px solid rgb(191, 191, 191);
+            line-height: 20px;
+          "
+          cellpadding="0"
+          cellspacing="0"
+        >
+          <tr>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>LENDER</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>LINE OF CREDIT LIMIT</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>CURRENT BALANCE <br />(PRIOR TO CREDIT)</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>MINIMUM PAYMENT<br /> (PRIOR TO CREDIT)</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>CURRENT BALANCE<br /> (AFTER CREDIT)</b>
+            </td>
+            <td
+              class="td"
+              style="background-color: rgb(242, 242, 242); text-align: center;"
+            >
+              <b>MINIMUM PAYMENT <br />(AFTER CREDIT)</b>
+            </td>
+          </tr>
+          <apex:repeat
+            value="{!applicantObj.Application_Assets_Liabilities__r}"
+            var="assets"
+          >
+            <tr
+              style="{!If(assets.Assets_and_Liabilities__r.RecordType.DeveloperName == 'Lines_of_Credit','','display:none;') }"
+            >
+              <td class="td">{!assets.Assets_and_Liabilities__r.Lender__c}</td>
+              <td class="td">
+                {!assets.Assets_and_Liabilities__r.Asset_Credit_Limit__c}
+              </td>
+              <td class="td">
+                {!assets.Assets_and_Liabilities__r.Asset_Credit_Balance__c}
+              </td>
+              <td class="td">{!assets.Minimum_Payment_Calc__c}</td>
+              <td class="td">
+                {!assets.Assets_and_Liabilities__r.Asset_Credit_Balance_After__c}
+              </td>
+              <td class="td">{!assets.Minimum_Payment_After_Calc__c}</td>
+            </tr>
+          </apex:repeat>
+        </table>
+      </td>
+    </tr>
+  </table>
+</apex:component>

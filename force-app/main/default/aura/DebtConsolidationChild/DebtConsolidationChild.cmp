@@ -1,0 +1,50 @@
+<aura:component
+  implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction"
+  access="global"
+  controller="JNSiteController"
+>
+  <aura:attribute
+    name="record"
+    type="Object"
+    default="{
+                             'DebtInstitution' : '',
+                             'DebtAmount' : '',
+                             'Id' : '' }"
+  />
+  <aura:attribute name="DebtInstitution" type="String"> </aura:attribute>
+  <aura:handler name="init" value="{!this}" action="{!c.Init}" />
+  <aura:attribute type="String[]" name="debtInstitutions" />
+  <aura:attribute name="indexIndetity" type="String" />
+  <aura:registerEvent name="setAttribute" type="c:ChangeInDebtAmount" />
+  <lightning:layoutItem size="4" padding="around-small">
+    <lightning:select
+      name="DebtInstitution"
+      label="Debt Institution"
+      variant="label-hidden"
+      onchange="{!c.onDebtInstitutionChange}"
+      required="false"
+      aura:id="debtInstitution"
+      class="slds-align_absolute-center"
+      value="{!v.record.DebtInstitution}"
+    >
+      <option value="">select one...</option>
+      <aura:iteration items="{!v.debtInstitutions}" var="item">
+        <option value="{!item}" selected="{!v.record.DebtInstitution == item}">
+          {!item}
+        </option>
+      </aura:iteration>
+    </lightning:select>
+  </lightning:layoutItem>
+  <lightning:layoutItem size="4" padding="around-small">
+    <lightning:input
+      aura:id="DebtAmount"
+      name="{!v.indexIndetity}"
+      type="number"
+      formatter="Currency"
+      label="DebtAmount"
+      value="{!v.record.DebtAmount}"
+      variant="label-hidden"
+      oncommit="{!c.onChange}"
+    />
+  </lightning:layoutItem>
+</aura:component>

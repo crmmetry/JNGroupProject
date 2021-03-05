@@ -43,7 +43,6 @@
     component.set("v.productSelection", {
       productFamily: "No Product Selected"
     });
-    helper.updateProductSelection(component);
   },
   /**
    * listens for child container changes
@@ -78,6 +77,9 @@
    */
   scriptsLoaded: function (component, event, helper) {
     component.set("v.scriptsLoaded", true);
+    //call server functions here
+    helper.updateProductSelection(component);
+    helper.getApplicants(component);
   },
   /**
    * Handles products detail event and manages all non specific calculations and bubbles the results to the approprite children.
@@ -157,6 +159,7 @@
         container,
         loanCalculationProductFields
       );
+      component.set("v.generateDocumentsFlag", true);
       return helper.saveProductDetailsInfo(
         component,
         productRecordTypes,
@@ -169,5 +172,26 @@
       "The application details cannot be saved until all the required fields are filled out.",
       "error"
     );
-  }
+  },
+  /**
+   * click handler for generate documents button
+   * JN1-4294
+   * @param {*} component
+   * @param {*} event
+   * @param {*} helper
+   */
+  onGenerateDocuments: function (component, event, helper) {
+    const showGeneratedDocumentsFlag = component.get(
+      "v.showGeneratedDocumentsFlag"
+    );
+    let documentList = [
+      "Statement Of Affaires",
+      "Credit Scoring Model",
+      "Application Form",
+      "Credit Summary Document"
+    ];
+    component.set("v.documentsForGeneration", documentList);
+    component.set("v.showGeneratedDocumentsFlag", !showGeneratedDocumentsFlag);
+  },
+  addGeneratedDocumentsData: function (component, event, helper) {}
 });

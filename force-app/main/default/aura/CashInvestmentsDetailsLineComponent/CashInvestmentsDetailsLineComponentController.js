@@ -3,9 +3,9 @@
     let data = {
       financialInstitution: null,
       accountType: null,
-      jnBankAccountNumberPrefix: "",
+      jnBankAccountNumberPrefix: null,
       jnBankAccountNumber: null,
-      depositAccountNumber: "",
+      depositAccountNumber: null,
       accountHolder: "",
       annualInterestRate: 0,
       depositBalance: 0,

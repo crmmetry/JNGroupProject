@@ -59,8 +59,10 @@ public class TestDataFactory {
     }
     return loanCalculator;
   }
-    
-    public static List<Loan_Calculation_Product__c> CreateLoanCalculationProduct(Integer count) {
+
+  public static List<Loan_Calculation_Product__c> CreateLoanCalculationProduct(
+    Integer count
+  ) {
     List<Loan_Calculation_Product__c> loanCalculatorPrdct = new List<Loan_Calculation_Product__c>();
     for (Integer i = 0; i < count; i++) {
       Loan_Calculation_Product__c loanCalPrdct = new Loan_Calculation_Product__c();
@@ -69,7 +71,9 @@ public class TestDataFactory {
     return loanCalculatorPrdct;
   }
 
-    public static List<Loan_Calculation_Applicant_Product__c> CreateLoanCalculationApplicationPrdct(Integer count) {
+  public static List<Loan_Calculation_Applicant_Product__c> CreateLoanCalculationApplicationPrdct(
+    Integer count
+  ) {
     List<Loan_Calculation_Applicant_Product__c> loanCalculatorApplPrdctlst = new List<Loan_Calculation_Applicant_Product__c>();
     for (Integer i = 0; i < count; i++) {
       Loan_Calculation_Applicant_Product__c loanCalApplPrdct = new Loan_Calculation_Applicant_Product__c();
@@ -77,7 +81,7 @@ public class TestDataFactory {
     }
     return loanCalculatorApplPrdctlst;
   }
-    
+
   public static List<Opportunity> CreateOpportunities(Integer count) {
     List<Opportunity> records = new List<Opportunity>();
     for (Integer i = 0; i < count; i++) {
@@ -171,14 +175,14 @@ public class TestDataFactory {
     tsk.Type = 'Call';
     return tsk;
   }
-    
+
   public static GroupMember CreateGroupMember(Id userId, Id groupId) {
     GroupMember record = new GroupMember();
     record.UserOrGroupId = userId;
     record.GroupId = groupId;
     return record;
   }
-    
+
   public static User CreateUser(String uniqueUserName) {
     Profile p = [SELECT Id FROM Profile WHERE Name = 'System Administrator'];
     User record = new User(
@@ -195,16 +199,26 @@ public class TestDataFactory {
     return record;
   }
 
-  public static PermissionSetAssignment CreatePermissionSetAssignment(Id userId, String permissionSetName){
-    PermissionSet ps = [SELECT Id FROM PermissionSet WHERE Name = :permissionSetName];
-    return new PermissionSetAssignment(AssigneeId = userId, PermissionSetId = ps.Id);
+  public static PermissionSetAssignment CreatePermissionSetAssignment(
+    Id userId,
+    String permissionSetName
+  ) {
+    PermissionSet ps = [
+      SELECT Id
+      FROM PermissionSet
+      WHERE Name = :permissionSetName
+    ];
+    return new PermissionSetAssignment(
+      AssigneeId = userId,
+      PermissionSetId = ps.Id
+    );
   }
 
   public static Product2 CreateProduct(String family, String name) {
     Product2 record = new Product2(Name = name, Family = family);
     return record;
   }
-    
+
   public static Pricebook2 CreatePriceBook2(String name) {
     Pricebook2 record = new Pricebook2(Name = name);
     return record;
@@ -272,7 +286,7 @@ public class TestDataFactory {
     record.FinServ__PrimaryOwner__c = accountId;
     record.Name = assetName;
     record.FinServ__Amount__c = 500.00;
-      record.RecordTypeId = recordTypeId;
+    record.RecordTypeId = recordTypeId;
     return record;
   }
   //JN1-4184

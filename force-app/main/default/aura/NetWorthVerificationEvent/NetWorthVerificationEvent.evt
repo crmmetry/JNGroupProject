@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" description="Event template">
+    <aura:attribute name="componentName" type="String"/>
+    <aura:attribute name="checkedVar" type="Boolean"/>
+</aura:event>
