@@ -2,8 +2,8 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 02-24-2021
-  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+  @last modified on  : 03-05-2021
+  @last modified by  : Travis Allen
   Modifications Log 
   Ver   Date         Author                               Modification
   1.0   02-22-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
@@ -208,6 +208,19 @@
             readonly="true"
           />
         </lightning:layoutItem>
+
+        <lightning:layoutItem size="6" padding="around-small">
+          <lightning:input
+            type="number"
+            label="Stamp Duty"
+            value="{!v.ParentContainer.stampDuty}"
+            name="number"
+            formatter="currency"
+            required="true"
+            readonly="true"
+          />
+        </lightning:layoutItem>
+
         <lightning:layoutItem size="6" padding="around-small">
           <lightning:input
             type="number"
