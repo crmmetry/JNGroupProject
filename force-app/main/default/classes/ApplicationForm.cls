@@ -33,7 +33,6 @@ public class ApplicationForm {
 
     if (ApexPages.currentPage().getParameters().containsKey('oppid')) {
       string oppid = ApexPages.currentPage().getParameters().get('oppid');
-      system.debug('oppid ====>' + oppid);
       if (string.isNotBlank(oppid)) {
         ApplicationForm(oppid);
         fillProductDetails(oppid);
@@ -57,7 +56,6 @@ public class ApplicationForm {
 
     if (ApexPages.currentPage().getParameters().containsKey('oppid')) {
       string oppid = ApexPages.currentPage().getParameters().get('oppid');
-      system.debug('oppid ====>' + oppid);
       if (string.isNotBlank(oppid)) {
         ApplicationForm(oppid);
         fillProductDetails(oppid);
@@ -123,8 +121,7 @@ public class ApplicationForm {
         applicantMap.put(a.Account__c, a);
       }
     }
-    system.debug('accid======' + accid);
-    system.debug('conid=============' + conid);
+
     if (conid.size() > 0) {
       Set<id> accountIds = new Set<Id>();
       List<FinServ__ContactContactRelation__c> EmergencyContactlst = [
@@ -162,7 +159,7 @@ public class ApplicationForm {
           FinServ__RelatedContact__c IN :conid
           AND FinServ__Role__r.Name = 'Emergency Contact'
       ];
-      system.debug('EmergencyContactlst===>' + EmergencyContactlst);
+
       Set<id> emergencyAccountIds = new Set<Id>();
       if (EmergencyContactlst.size() > 0) {
         for (FinServ__ContactContactRelation__c c : EmergencyContactlst) {
@@ -417,7 +414,6 @@ public class ApplicationForm {
           List<FinServ__ContactContactRelation__c> BankAff = new List<FinServ__ContactContactRelation__c>();
           pa = a;
           applicant = applicantMap.get(a.id);
-          system.debug('Account id ==>' + a.id);
           if (AccidVsEmrConLst.containsKey(a.FinServ__PrimaryContact__c)) {
             EmerConlst = AccidVsEmrConLst.get(a.FinServ__PrimaryContact__c);
           }
@@ -430,12 +426,6 @@ public class ApplicationForm {
           if (MapBankAff.containsKey(a.FinServ__PrimaryContact__c)) {
             BankAff = MapBankAff.get(a.FinServ__PrimaryContact__c);
           }
-
-          system.debug('Person Account ==>' + pa);
-          system.debug('EmerConlst ==>' + EmerConlst);
-          system.debug('emplst ==>' + emplst);
-          system.debug('PoliticalExp ==>' + PoliEx);
-          system.debug('BankAff ==>' + BankAff);
 
           lst.add(
             new WrapperApplicationForm(
@@ -452,7 +442,6 @@ public class ApplicationForm {
         }
       }
     }
-    system.debug('Final Wrapper =======>' + lst);
   }
   private static void SetCalendarValues(List<FinServ__Employment__c> records) {
     Map<String, Integer> values;
@@ -477,7 +466,6 @@ public class ApplicationForm {
     if (opplst.size() > 0) {
       if (string.isNotBlank(opplst[0].Product_Details__c)) {
         string loanid = opplst[0].Product_Details__c;
-        system.debug('loanid=====' + loanid);
         ProductDetails = [
           SELECT
             id,
@@ -687,28 +675,10 @@ public class ApplicationForm {
             ? true
             : false;
         }
-        system.debug('ProductDetails=====' + ProductDetails);
       }
     }
   }
 
-  /* public void callfuturemethod(){
-        string OppId;
-        if(ApexPages.currentPAge().getParameters().get('oppid')!=null){
-            OppId = ApexPages.currentPAge().getParameters().get('oppid');
-            // ApplicationForm1();
-            
-            creatingPdfBlob();
-            //PageReference mypage = Page.ApplicationForm;
-              //mypage.getParameters().put('oppid', OppId);
-            
-            //blob body = blob.toPDF(str);// mypage.getContentAsPDF(); //
-            //system.debug('Myblob 1====>'+body); 
-            saveAttachement(oppid);
-            
-        } 
-    }*/
-  //@Future(callout=true)
   public static void saveAttachement(string oppid) {
     PageReference mypage = Page.ApplicationForm;
     mypage.getParameters().put('oppid', oppid);
@@ -716,21 +686,11 @@ public class ApplicationForm {
     try {
       // returns the output of the page as a PDF
       body = mypage.getContentAsPDF();
-      system.debug('body' + body);
       // need to pass unit test -- current bug
     } catch (VisualforceException e) {
-      System.debug('The following exception has occurred: ' + e.getMessage());
       body = Blob.valueOf('Some Text');
     }
-    //id PageOppId;
-    //  if(ApexPages.currentPAge().getParameters().get('oppid')!=null){
-    // PageOppId = ApexPages.currentPAge().getParameters().get('oppid');
-    //ApplicationForm1();
-    system.debug('attach====' + OppId);
-    //PageReference pdf = Page.ApplicationForm;
     Attachment attach = new Attachment();
-    //Blob body;
-    //body = pdf.getContentAsPDF();
     attach.Body = body;
     attach.ContentType = 'application/pdf';
 
@@ -738,8 +698,6 @@ public class ApplicationForm {
     attach.IsPrivate = false;
     attach.ParentId = oppid;
     insert attach;
-    system.debug('attach====' + attach);
-    //}
   }
 
   public string str = '';
