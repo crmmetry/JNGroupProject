@@ -118,22 +118,6 @@ public inherited sharing class TestRubiconProductDetailsController {
     cardHolderList[1].Account__c = accList[2].id;
     insert cardHolderList;
 
-    // Map<String, Id> recordTypeMap1 = Util.getRecordTypeids(
-    // 'FinServ__AssetsAndLiabilities__c '
-    // );
-    // FinServ__AssetsAndLiabilities__c assetsAndLiabilities = TestDataFactory.CreateAssetsAndLiabilities(
-    // accList[0].id,
-    // recordTypeMap1.get('NonfinancialAsset'),
-    // 'Gold'
-    // );
-    // insert assetsAndLiabilities;
-
-    // Application_Asset_Liability__c applicantAssetsAndLiabilities = TestDataFactory.CreateApplicantAssetsAndLiabilities(
-    // applicant.Id,
-    // assetsAndLiabilities.Id
-    // );
-    // insert applicantAssetsAndLiabilities;
-
     List<Loan_Calculator__c> loanCalculationRecord = TestDataFactory.CreateLoanCalculation(
       1
     );
@@ -238,7 +222,6 @@ public inherited sharing class TestRubiconProductDetailsController {
       opList[0].Id,
       mapFields
     );
-    //List<Opportunity> newOpList = [SELECT Id, Amount FROM Opportunity WHERE Id = :opList[0].Id];
     System.assert(
       result === Constants.SUCCESS,
       'Opportunity Record Was not updated'
