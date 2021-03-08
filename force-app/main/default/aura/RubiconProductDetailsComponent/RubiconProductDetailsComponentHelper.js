@@ -24,12 +24,20 @@
       let state = response.getState();
       let result = response.getReturnValue();
       if (state === "SUCCESS" && typeof result !== "string") {
+        component.set("v.showComponentToggle", true);
         if (result.productName.includes("Classic")) {
           component.set("v.cardType", "Classic");
         } else {
           component.set("v.cardType", "Gold");
         }
         component.set("v.ProductSelectionMap", result);
+      } else {
+        component.set("v.showComponentToggle", false);
+        this.showToast(
+          "Oops, Something went wrong!",
+          "Please check to ensure the correct product is selected for this opportunity.",
+          "error"
+        );
       }
     });
     $A.enqueueAction(action);
