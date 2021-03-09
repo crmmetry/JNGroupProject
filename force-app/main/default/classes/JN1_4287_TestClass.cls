@@ -145,7 +145,7 @@ public class JN1_4287_TestClass {
       Id = Test.getStandardPricebookId(),
       IsActive = true
     );
-    update priceBook2Obj;
+    //Update priceBook2Obj;
 
     //------Create PriceBookEntry--------//
     PricebookEntryObj = TestDataFactory.CreatePriceBookEntry(
