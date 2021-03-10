@@ -292,7 +292,8 @@ public class StatementOfAffairsFormController {
             Monthly_Contribution_After_Loan__c,
             RecordTypeId,
             Type_of_Loan__c,
-            Treatment_of_Credit__c
+            Treatment_of_Credit__c,
+            Account_Balance__c
           FROM FinServ__AssetsAndLiabilities__c
           WHERE Id IN :assetsIdSet
         ];
@@ -800,7 +801,7 @@ public class StatementOfAffairsFormController {
       this.soa = soa;
       this.finacialInstitution = asset.Financial_Institution__c;
       this.accountType = asset.Type_of_Account__c;
-      this.balance = asset.Average_Monthly_Usage__c;
+      this.balance = asset.Account_Balance__c;
       this.overdraftLimit = asset.Overdraft_Limit__c;
       this.investment_before = asset.Monthly_Savings_Investment__c;
       this.investment_after = asset.Monthly_Saving_Investment_after_Loan__c;

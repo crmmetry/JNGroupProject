@@ -461,6 +461,7 @@ public class StatementOfAffairsForm_Test {
     assetsAndLiabilities6.Monthly_Contribution_After_Loan__c = 2000.00;
     assetsAndLiabilities6.Type_of_Loan__c = 'Unsecured';
     assetsAndLiabilities6.Treatment_of_Credit__c = 'Close facility';
+    assetsAndLiabilities6.Account_Balance__c = 30000;
     assetsList.add(assetsAndLiabilities6);
     FinServ__AssetsAndLiabilities__c assetsAndLiabilities7 = TestDataFactory.CreateAssetsAndLiabilities(
       accList[0].id,
