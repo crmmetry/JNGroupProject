@@ -2,7 +2,7 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 03-05-2021
+  @last modified on  : 03-08-2021
   @last modified by  : Travis Allen
   Modifications Log 
   Ver   Date         Author                               Modification
@@ -21,6 +21,7 @@
   <aura:attribute name="OpportunityDataMap" type="Map" />
   <aura:attribute name="ProductSelectionMap" type="Map" />
   <aura:attribute name="ApplicantDetails" type="Map" />
+  <aura:attribute name="showComponentToggle" type="Boolean" default="false" />
   <aura:attribute
     name="numberOfApplicants"
     type="List"
@@ -46,251 +47,252 @@
   />
 
   <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
-
-  <lightning:layout multipleRows="true">
-    <fieldset class="slds-box slds-theme_default">
-      <legend
-        id="rubiconProductdetailsform"
-        class="slds-text-heading_medium slds-p-vertical_medium"
-      >
-        PRODUCT DETAILS - RUBICON
-      </legend>
-
-      <lightning:layout multipleRows="true">
-        <lightning:layoutItem size="12">
-          <h2 class="slds-section-title--divider">
-            Application Details
-          </h2>
-        </lightning:layoutItem>
-
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="6"
-          padding="around-small"
+  <aura:if isTrue="{!v.showComponentToggle}">
+    <lightning:layout multipleRows="true">
+      <fieldset class="slds-box slds-theme_default">
+        <legend
+          id="rubiconProductdetailsform"
+          class="slds-text-heading_medium slds-p-vertical_medium"
         >
-          <lightning:input
-            type="text"
-            label="Select the applicable product combination (product family)"
-            value="{!v.ProductSelectionMap.productFamily}"
-            name="productSelection"
-            required="true"
-          />
-        </lightning:layoutItem>
+          PRODUCT DETAILS - RUBICON
+        </legend>
 
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="2"
-          padding="around-small"
-        >
-          <lightning:select
-            name="jointApplication"
-            label="Joint Application"
-            required="true"
-            onchange="{!c.onJointApplicationChange}"
+        <lightning:layout multipleRows="true">
+          <lightning:layoutItem size="12">
+            <h2 class="slds-section-title--divider">
+              Application Details
+            </h2>
+          </lightning:layoutItem>
+
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="6"
+            padding="around-small"
           >
-            <option value="">select one...</option>
-            <aura:iteration items="{!v.jointApplication}" var="item">
-              <option value="{!item}">{!item}</option>
-            </aura:iteration>
-          </lightning:select>
-        </lightning:layoutItem>
+            <lightning:input
+              type="text"
+              label="Select the applicable product combination (product family)"
+              value="{!v.ProductSelectionMap.productFamily}"
+              name="productSelection"
+              required="true"
+            />
+          </lightning:layoutItem>
 
-        <aura:if isTrue="{!v.indicatePrimaryApplicantToggle}">
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="2"
+            padding="around-small"
+          >
+            <lightning:select
+              name="jointApplication"
+              label="Joint Application"
+              required="true"
+              onchange="{!c.onJointApplicationChange}"
+            >
+              <option value="">select one...</option>
+              <aura:iteration items="{!v.jointApplication}" var="item">
+                <option value="{!item}">{!item}</option>
+              </aura:iteration>
+            </lightning:select>
+          </lightning:layoutItem>
+
+          <aura:if isTrue="{!v.indicatePrimaryApplicantToggle}">
+            <lightning:layoutItem
+              size="12"
+              mediumDeviceSize="4"
+              padding="around-small"
+            >
+              <lightning:select
+                name="numberOfApplicants"
+                label="Indicate Number of Applicant(s)"
+                required="true"
+                onchange="{!c.onNumberOfApplicantsChange}"
+              >
+                <aura:iteration items="{!v.numberOfApplicants}" var="item">
+                  <option value="{!item}">{!item}</option>
+                </aura:iteration>
+              </lightning:select>
+            </lightning:layoutItem>
+          </aura:if>
+
           <lightning:layoutItem
             size="12"
             mediumDeviceSize="4"
             padding="around-small"
           >
             <lightning:select
-              name="numberOfApplicants"
-              label="Indicate Number of Applicant(s)"
+              name="primaryApplicant"
+              label="Primary Applicant?"
               required="true"
-              onchange="{!c.onNumberOfApplicantsChange}"
+              onchange="{!c.onPrimaryApplicantChange}"
             >
-              <aura:iteration items="{!v.numberOfApplicants}" var="item">
+              <aura:iteration items="{!v.primaryApplicant}" var="item">
                 <option value="{!item}">{!item}</option>
               </aura:iteration>
             </lightning:select>
           </lightning:layoutItem>
-        </aura:if>
 
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="4"
-          padding="around-small"
-        >
-          <lightning:select
-            name="primaryApplicant"
-            label="Primary Applicant?"
-            required="true"
-            onchange="{!c.onPrimaryApplicantChange}"
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
           >
-            <aura:iteration items="{!v.primaryApplicant}" var="item">
-              <option value="{!item}">{!item}</option>
-            </aura:iteration>
-          </lightning:select>
-        </lightning:layoutItem>
+            <lightning:select
+              name="loanPurpose"
+              label="Loan Purpose"
+              required="true"
+              onchange="{!c.onLoanPurposeChange}"
+            >
+              <aura:iteration items="{!v.loanPurpose}" var="item">
+                <option value="{!item}">{!item}</option>
+              </aura:iteration>
+            </lightning:select>
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="4"
-          padding="around-small"
-        >
-          <lightning:select
-            name="loanPurpose"
-            label="Loan Purpose"
-            required="true"
-            onchange="{!c.onLoanPurposeChange}"
+          <lightning:layoutItem size="12">
+            <h2 class="slds-section-title--divider">
+              General Details
+            </h2>
+          </lightning:layoutItem>
+
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
           >
-            <aura:iteration items="{!v.loanPurpose}" var="item">
-              <option value="{!item}">{!item}</option>
-            </aura:iteration>
-          </lightning:select>
-        </lightning:layoutItem>
+            <lightning:input
+              type="text"
+              label="ApplicationID"
+              value="{!v.ApplicantDetails.name}"
+              name="applicationId"
+              required="true"
+              readonly="true"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem size="12">
-          <h2 class="slds-section-title--divider">
-            General Details
-          </h2>
-        </lightning:layoutItem>
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
+          >
+            <lightning:input
+              type="text"
+              label="Pre-Assessment Decision"
+              value="{!v.OpportunityDataMap.preAssessmentDecision}"
+              name="preAssessmentDecision"
+              required="true"
+              readonly="true"
+            />
+          </lightning:layoutItem>
 
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="4"
-          padding="around-small"
-        >
-          <lightning:input
-            type="text"
-            label="ApplicationID"
-            value="{!v.ApplicantDetails.name}"
-            name="applicationId"
-            required="true"
-            readonly="true"
-          />
-        </lightning:layoutItem>
-
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="4"
-          padding="around-small"
-        >
-          <lightning:input
-            type="text"
-            label="Pre-Assessment Decision"
-            value="{!v.OpportunityDataMap.preAssessmentDecision}"
-            name="preAssessmentDecision"
-            required="true"
-            readonly="true"
-          />
-        </lightning:layoutItem>
-
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="4"
-          padding="around-small"
-        >
-          <lightning:input
-            type="text"
-            label="Final-Assessment Decision"
-            value="{!v.OpportunityDataMap.finalAssessmentDecision}"
-            name="finalAssessmentDecision"
-            required="true"
-            readonly="true"
-          />
-        </lightning:layoutItem>
-        <aura:if
-          isTrue="{!v.ProductSelectionMap.productFamily == v.creditCard}"
-        >
-          <c:RubiconCreditCardLineItem
-            ParentContainer="{!v.IDMDataMap}"
-            cardType="{!v.cardType}"
-            hasSupplementaryCardHolders="{!v.hasSupplementaryCardHolders}"
-          ></c:RubiconCreditCardLineItem>
-        </aura:if>
-        <aura:if
-          isTrue="{!v.ProductSelectionMap.productFamily == v.unsecuredLoan}"
-        >
-          <c:RubiconUnsecuredLoanLineItem
-            ParentContainer="{!v.IDMDataMap}"
-            applicantAge="{!v.applicantAge}"
-            OpportunityDetails="{!v.OpportunityDataMap}"
-          ></c:RubiconUnsecuredLoanLineItem>
-        </aura:if>
-        <lightning:layoutItem size="12">
-          <h2 class="slds-section-title--divider">
-            Total Debt Service Ratio
-          </h2>
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="4"
-          padding="around-small"
-        >
-          <lightning:input
-            type="number"
-            label="Total Debt Service Ratio (Policy Limit)"
-            value="{!v.IDMDataMap.policyLimit}"
-            name="Market"
-            formatter="percent"
-            required="true"
-            readonly="true"
-          />
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="4"
-          padding="around-small"
-        >
-          <lightning:input
-            type="number"
-            label="Total Debt Service Ratio (Prior to proposed credit)"
-            value="{!v.IDMDataMap.tdsrBefore}"
-            name="Market"
-            step="0.01"
-            formatter="percent-fixed"
-            required="true"
-            readonly="true"
-          />
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="4"
-          padding="around-small"
-        >
-          <lightning:input
-            type="number"
-            label="Total Debt Service Ratio (debt consolidation)"
-            value="{!v.IDMDataMap.tdsrAfter}"
-            name="Market"
-            step="0.01"
-            formatter="percent-fixed"
-            required="true"
-            readonly="true"
-          />
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="4"
-          padding="around-small"
-        ></lightning:layoutItem>
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="4"
-          padding="around-small"
-        >
-          <lightning:button
-            label="Submit Product Details"
-            onclick="{!c.onSubmitRubiconProductDetailsAction}"
-            variant="brand-outline"
-            title="Submit"
-          />
-        </lightning:layoutItem>
-        <lightning:layoutItem
-          size="12"
-          mediumDeviceSize="4"
-          padding="around-small"
-        ></lightning:layoutItem>
-      </lightning:layout>
-    </fieldset>
-  </lightning:layout>
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
+          >
+            <lightning:input
+              type="text"
+              label="Final-Assessment Decision"
+              value="{!v.OpportunityDataMap.finalAssessmentDecision}"
+              name="finalAssessmentDecision"
+              required="true"
+              readonly="true"
+            />
+          </lightning:layoutItem>
+          <aura:if
+            isTrue="{!v.ProductSelectionMap.productFamily == v.creditCard}"
+          >
+            <c:RubiconCreditCardLineItem
+              ParentContainer="{!v.IDMDataMap}"
+              cardType="{!v.cardType}"
+              hasSupplementaryCardHolders="{!v.hasSupplementaryCardHolders}"
+            ></c:RubiconCreditCardLineItem>
+          </aura:if>
+          <aura:if
+            isTrue="{!v.ProductSelectionMap.productFamily == v.unsecuredLoan}"
+          >
+            <c:RubiconUnsecuredLoanLineItem
+              ParentContainer="{!v.IDMDataMap}"
+              applicantAge="{!v.applicantAge}"
+              OpportunityDetails="{!v.OpportunityDataMap}"
+            ></c:RubiconUnsecuredLoanLineItem>
+          </aura:if>
+          <lightning:layoutItem size="12">
+            <h2 class="slds-section-title--divider">
+              Total Debt Service Ratio
+            </h2>
+          </lightning:layoutItem>
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
+          >
+            <lightning:input
+              type="number"
+              label="Total Debt Service Ratio (Policy Limit)"
+              value="{!v.IDMDataMap.policyLimit}"
+              name="Market"
+              formatter="percent"
+              required="true"
+              readonly="true"
+            />
+          </lightning:layoutItem>
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
+          >
+            <lightning:input
+              type="number"
+              label="Total Debt Service Ratio (Prior to proposed credit)"
+              value="{!v.IDMDataMap.tdsrBefore}"
+              name="Market"
+              step="0.01"
+              formatter="percent-fixed"
+              required="true"
+              readonly="true"
+            />
+          </lightning:layoutItem>
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
+          >
+            <lightning:input
+              type="number"
+              label="Total Debt Service Ratio (debt consolidation)"
+              value="{!v.IDMDataMap.tdsrAfter}"
+              name="Market"
+              step="0.01"
+              formatter="percent-fixed"
+              required="true"
+              readonly="true"
+            />
+          </lightning:layoutItem>
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
+          ></lightning:layoutItem>
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
+          >
+            <lightning:button
+              label="Submit Product Details"
+              onclick="{!c.onSubmitRubiconProductDetailsAction}"
+              variant="brand-outline"
+              title="Submit"
+            />
+          </lightning:layoutItem>
+          <lightning:layoutItem
+            size="12"
+            mediumDeviceSize="4"
+            padding="around-small"
+          ></lightning:layoutItem>
+        </lightning:layout>
+      </fieldset>
+    </lightning:layout>
+  </aura:if>
 </aura:component>
