@@ -18,10 +18,18 @@ public with sharing class ProductDetailSelector {
         Years_at_Residence__pc,
         Highest_Level_of_Education_attained__pc,
         FinServ__Age__pc,
+
+
+
+
         PersonBirthdate,
         Name,
         Political_Exposure__pc,
         Jamaican_Tax_Registration_Number__pc
+
+
+
+
       FROM Account
       WHERE Id = :accountId
     ];
@@ -39,28 +47,40 @@ public with sharing class ProductDetailSelector {
    */
   public static EmploymentWrapper getEmployemntDetails(Id accountId) {
     EmploymentWrapper empWrapper;
-    FinServ__Employment__c employment = new FinServ__Employment__c();
-    try {
-      employment = [
-        SELECT
-          Id,
-          FinServ__EmploymentStatus__c,
-          Employment_Status__c,
-          Industry__c,
-          FinServ__LengthOfEmployment__c,
-          Professional_Category__c,
-          Assessment_of_Business_Working_Capita__c,
-          Nature_of_Engagement__c,
-          Assessment_of_Business__c,
-          Assessment_of_Statement__c,
-          Length_of_Trade__c,
-          RecordTypeId
-        FROM FinServ__Employment__c
-        WHERE Account__c = :accountId AND Current_Employment__c = TRUE
-      ];
-    } catch (exception e) {
-      return null;
-    }
+
+
+
+      FinServ__Employment__c employment = New FinServ__Employment__c(); 
+      try{
+          employment = [SELECT
+
+
+
+        Id,
+        FinServ__EmploymentStatus__c,
+        Employment_Status__c,
+        Industry__c,
+        FinServ__LengthOfEmployment__c,
+        Professional_Category__c,
+        Assessment_of_Business_Working_Capita__c,
+        Nature_of_Engagement__c,
+        Assessment_of_Business__c,
+        Assessment_of_Statement__c,
+        Length_of_Trade__c,
+        RecordTypeId
+      FROM FinServ__Employment__c
+
+
+
+
+                        WHERE Account__c = :accountId AND Current_Employment__c = TRUE];
+      }catch(exception e){
+          return Null;
+      }
+
+
+
+
 
     if (employment != null) {
       empWrapper = new EmploymentWrapper(employment);
@@ -76,6 +96,10 @@ public with sharing class ProductDetailSelector {
     List<Applicant__c> applicantList = [
       SELECT
         Id,
+
+
+
+
         Credit_History_in_last_24_Months__c,
         Assessment_of_Applicant_Net_Worth__c,
         Statutory_Deductions_Numbers__c,
@@ -93,7 +117,11 @@ public with sharing class ProductDetailSelector {
         Gross_Monthly_IncomeC__c,
         Strata_Maintenance_Monthly_Prior_Loan__c,
         Strata_Maintenance_Monthly_After_Loan__c,
+
+
         Name,
+
+
         (
           SELECT
             Id,
@@ -158,13 +186,24 @@ public with sharing class ProductDetailSelector {
         Collateral_CC__c,
         Collateral_LOC__c,
         Loan_to_ValueCC__c,
+		Pre_Approval_list__c,
+        Final_Assessment_Decision_list__c,
+        FinServ__FinancialAccount__r.Name,
+        FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
+		FinServ__FinancialAccount__r.Account_Type_List__c,
         Loan_to_ValueLOC__c
       FROM opportunity
+
+
       WHERE Id = :oppId
     ];
     if (oppObj != null) {
       oppWrapper = new OpportunityWrapper(oppObj);
     }
+
+
+
+
 
     return oppWrapper;
   }
@@ -199,6 +238,9 @@ public with sharing class ProductDetailSelector {
     }
     return supplementaryWrapperList;
   }
+
+
+
 
   /*
    * gets the loan calculation product record related to a rubicon opportunity
@@ -243,4 +285,7 @@ public with sharing class ProductDetailSelector {
 
     return loanWrapper;
   }
+
+
+
 }
