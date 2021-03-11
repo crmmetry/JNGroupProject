@@ -2,8 +2,8 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 03-02-2021
- * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+ * @last modified on  : 03-08-2021
+ * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
  * 1.0   03-02-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
@@ -198,9 +198,9 @@ public with sharing class FinancialDetailsWrapper {
     this.personalAndFamilyExpensesVerified = record.Personal_and_Family_Expenses_VERIFIED__c;
     this.transportationExpensesVerified = record.Transportation_VERIFIED_Number__c;
     this.otherExpensesVerified = record.Other_Expenses_VERIFIED_Number__c;
-    this.totalStatutoryDeductionsVerified = record.Statutory_Deductions_Numbers__c;
+    this.totalStatutoryDeductionsVerified = record.Statutory_Deductions_VERIFIED_Number__c;
     this.totalMonthlyExpensesVerified = record.Total_Monthly_Expenses_Verified_Number__c;
-    this.primarySourceOfIncomeVerified = record.Primary_Source_of_Income_List__c;
+    this.primarySourceOfIncomeVerified = record.Primary_Source_of_Income_VERIFIED_list__c;
     this.grossSalaryAllowancesVerified = record.Gross_Monthly_Income_VERIFIED_Number__c;
     this.otherIncomeVerified = record.Other_Income_VERIFIED_Number__c;
     this.netBusinessIncomeSoleTraderVerified = record.Net_Profit_Sole_Trader_VERIFIED_Number__c;

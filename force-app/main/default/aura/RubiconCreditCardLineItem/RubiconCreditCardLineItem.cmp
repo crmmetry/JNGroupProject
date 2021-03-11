@@ -2,8 +2,8 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 02-24-2021
-  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+  @last modified on  : 03-04-2021
+  @last modified by  : Travis Allen
   Modifications Log 
   Ver   Date         Author                               Modification
   1.0   02-19-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
@@ -163,7 +163,7 @@
         >
           <lightning:input
             label="Type of Card"
-            value="{!v.ParentContainer.cardType}"
+            value="{!v.cardType}"
             type="text"
             name="cardType"
             readonly="true"

@@ -10,5 +10,14 @@
 
   onSubmitRubiconProductDetailsAction: function (component, event, helper) {
     helper.submitRubiconProductDetails(component);
+  },
+
+  onJointApplicationChange: function (component, event, helper) {
+    const selected = event.getSource().get("v.value");
+    if (selected == "Yes") {
+      component.set("v.indicatePrimaryApplicantToggle", true);
+    } else {
+      component.set("v.indicatePrimaryApplicantToggle", false);
+    }
   }
 });
