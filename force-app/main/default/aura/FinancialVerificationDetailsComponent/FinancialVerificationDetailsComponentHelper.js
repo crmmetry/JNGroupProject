@@ -87,6 +87,7 @@
       }
     }
     component.set("v.VerifiedDataMap", verifiedMap);
+    console.log(JSON.parse(JSON.stringify(verifiedMap)));
     component.set("v.UnverifiedDataMap", unverifiedMap);
   },
 
