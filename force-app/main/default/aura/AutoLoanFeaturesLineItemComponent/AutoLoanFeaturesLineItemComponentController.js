@@ -180,13 +180,11 @@
     let cmpFields = [
       "credit-risk-rating",
       "interestedProgramme",
-      "includePremium",
       "interestedCreditorLife",
       "Reason",
       "PolicyProvider",
       "otherPolicyProvider",
       "otherReason",
-      "includeInLoanAmountId",
       "indicateRepaymentMethod",
       "dedicatedMonthlyRepaymentDate",
       "proposedSavings",
@@ -194,9 +192,40 @@
       "amount",
       "creditRiskScore",
       "monthlyPremium",
-      "coverageType",
-      "indicateApplicableProcessingFees"
+      "coverageType"
     ];
-    return validateFields(component, cmpFields);
+    let showIncludeInLoanAmount = true;
+    if (!component.get("v.showIncludeInLoanAmount")) {
+      let autoLoanFeatureComponentFields = ["includeInLoanAmountId"];
+      showIncludeInLoanAmount = validateFields(
+        component,
+        autoLoanFeatureComponentFields
+      );
+    }
+    let interestedInPremiumFlag = true;
+    if (!component.get("v.interestedInPremiumFlag")) {
+      let autoLoanFeatureComponentFields2 = ["includePremium"];
+      interestedInPremiumFlag = validateFields(
+        component,
+        autoLoanFeatureComponentFields2
+      );
+    }
+    let showIndicateApplicableProcessingFees = true;
+    if (!component.get("v.showIndicateApplicableProcessingFees")) {
+      let autoLoanFeatureComponentFields1 = [
+        "indicateApplicableProcessingFees"
+      ];
+      showIndicateApplicableProcessingFees = validateFields(
+        component,
+        autoLoanFeatureComponentFields1
+      );
+    }
+    let resultsFromChild = [
+      showIncludeInLoanAmount,
+      showIndicateApplicableProcessingFees,
+      interestedInPremiumFlag,
+      validateFields(component, cmpFields)
+    ];
+    return isValidComponent(resultsFromChild);
   }
 });

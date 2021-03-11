@@ -180,7 +180,6 @@
       "unsecuredOtherPolicyProvider",
       "unsecuredOtherReason",
       "unsecuredWaveProcessingFee",
-      "includeInLoanAmountId",
       "unsecuredProcessingFeePercentPerAnum",
       "unsecuredRepaymentMethod",
       "unsecuredMonthlyRepaymentDate",
@@ -189,6 +188,18 @@
       "unsecuredPercentage",
       "unsecuredAmount"
     ];
-    return validateFields(component, fieldsToValidateArray);
+    let showIncludeInLoanAmount = true;
+    if (!component.get("v.showIncludeInLoanAmount")) {
+      let unsecureLoanFeatureComponentFields = ["includeInLoanAmountId"];
+      showIncludeInLoanAmount = validateFields(
+        component,
+        autoLoanFeatureComponentFields
+      );
+    }
+    let resultsFromChild = [
+      showIncludeInLoanAmount,
+      validateFields(component, fieldsToValidateArray)
+    ];
+    return isValidComponent(resultsFromChild);
   }
 });
