@@ -7,7 +7,7 @@
     <assignments>
         <name>Assigning_Defaults_for_Previous_Emloyment_Self</name>
         <label>Assigning Defaults for Previous Emloyment Self</label>
-        <locationX>2420</locationX>
+        <locationX>2421</locationX>
         <locationY>200</locationY>
         <assignmentItems>
             <assignToReference>CountryDefault</assignToReference>
@@ -2909,7 +2909,7 @@
         <name>Previous_Employment_Screen</name>
         <label>Previous Employment Screen</label>
         <locationX>2221</locationX>
-        <locationY>851</locationY>
+        <locationY>852</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -3607,7 +3607,7 @@
                 <name>crmmObjectSelected</name>
                 <value>
                     <elementReference
-          >SelectedEmploymentRecord.Employment_Status__c</elementReference>
+          >Employment_Self_Employed_status</elementReference>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
