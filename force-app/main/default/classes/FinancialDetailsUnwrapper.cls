@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 03-02-2021
+ * @last modified on  : 03-11-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -124,7 +124,8 @@ public with sharing class FinancialDetailsUnwrapper {
         Transportation_VERIFIED_Number__c,
         Other_Expenses_VERIFIED_Number__c,
         Statutory_Deductions_VERIFIED_Number__c,
-        Total_Monthly_Expenses_Verified_Number__c
+        Total_Monthly_Expenses_Verified_Number__c,
+        Total_Monthly_Loan_Payments_VERIFIED__c
       FROM Applicant__c
       WHERE Opportunity__c = :oppId AND RecordTypeId = :IDMRecordTypeId
     ];
