@@ -1,7 +1,7 @@
 /**
- * Ver  Ticket#      Date            Author                 Purpose
- * 1.0  JN1-4045     25/11/2020      Ishwari G.(thinqloud)  Added constants to refere values from custom metadata
- **/
+* Ver  Ticket#      Date            Author                 Purpose
+* 1.0  JN1-4045     25/11/2020      Ishwari G.(thinqloud)  Added constants to refere values from custom metadata
+**/
 public class Constants {
   public static final String NONE = 'None';
   public static final String SUCCESS = 'Success';
