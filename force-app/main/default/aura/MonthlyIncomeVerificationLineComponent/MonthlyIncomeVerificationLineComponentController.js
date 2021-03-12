@@ -1,5 +1,6 @@
 ({
-  doinit: function (component, event) {
+  doinit: function (component, event, helper) {
+    helper.setPickListValues(component);
     let auraList = [
       "primaryIncomeSource",
       "grossSalaryAllowances",

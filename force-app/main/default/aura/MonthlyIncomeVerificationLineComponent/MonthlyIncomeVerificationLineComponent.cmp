@@ -1,9 +1,20 @@
-<aura:component>
+<!--
+  @description       : 
+  @author            : Travis Allen
+  @group             : 
+  @last modified on  : 03-12-2021
+  @last modified by  : Travis Allen
+  Modifications Log 
+  Ver   Date         Author         Modification
+  1.0   03-11-2021   Travis Allen   Initial Version
+-->
+<aura:component controller="FinancialDetailsController">
   <aura:attribute name="toggleCheckAll" type="Boolean" default="false" />
   <aura:attribute name="auraIdList" type="List" />
   <aura:attribute name="verifiedMonthlyIncomeMap" type="Map" />
   <aura:attribute name="verifiedDataMap" type="Map" default="{}" />
   <aura:attribute name="unverifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="primarySourceOfIncome" type="List" default="[]" />
   <aura:handler
     name="change"
     action="{!c.onVerifiedMonthlyIncomeMapChange}"
@@ -58,13 +69,21 @@
         />
       </div>
     </lightning:layoutItem>
-    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <lightning:input
-        type="text"
+
+    <lightning:layoutItem size="12" mediumDeviceSize="3" padding="around-small">
+      <lightning:select
         aura:id="primaryIncomeSource"
-        placeholder="NULL"
-        value="{!v.verifiedDataMap.primarySourceOfIncomeVerified}"
-      ></lightning:input>
+        name="primarySourceOFIncome"
+        required="true"
+        label=""
+      >
+        <option value="{!v.verifiedDataMap.primarySourceOfIncomeVerified}"
+          >{!v.verifiedDataMap.primarySourceOfIncomeVerified}</option
+        >
+        <aura:iteration items="{!v.primarySourceOfIncome}" var="item">
+          <option value="{!item}">{!item}</option>
+        </aura:iteration>
+      </lightning:select>
     </lightning:layoutItem>
     <!-- ROW 2 -->
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">

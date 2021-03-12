@@ -2,8 +2,8 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 02-24-2021
- * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+ * @last modified on  : 03-11-2021
+ * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
  * 1.0   02-24-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
@@ -65,6 +65,34 @@ public with sharing class FinancialDetailsController {
     } catch (Exception e) {
       throw new AuraHandledException(e.getStackTraceString());
     }
+  }
+
+  @AuraEnabled
+  public static Object getPickListValuesList(
+    String objectApiName,
+    List<String> fieldApiNames
+  ) {
+    String recordTypeId;
+    List<String> pickListValuesList = new List<String>();
+    Map<String, List<String>> mapFields = new Map<String, List<String>>();
+    List<String> specificValues;
+    Map<String, Schema.SObjectType> globalDescription = Schema.getGlobalDescribe();
+    Schema.sObjectType sObjType = globalDescription.get(objectApiName);
+    Schema.DescribeSObjectResult r1 = sObjType.getDescribe();
+    Map<String, Schema.SObjectField> mapFieldList = r1.fields.getMap();
+
+    for (String fieldApiName : fieldApiNames) {
+      Schema.SObjectField field = mapFieldList.get(fieldApiName);
+      Schema.DescribeFieldResult fieldResult = field.getDescribe();
+      List<Schema.PicklistEntry> ple = fieldResult.getPicklistValues();
+      pickListValuesList = new List<String>();
+      for (Schema.PicklistEntry pickListVal : ple) {
+        pickListValuesList.add(pickListVal.getLabel());
+      }
+      mapFields.put(fieldApiName, pickListValuesList);
+    }
+
+    return mapFields;
   }
 
   /** *

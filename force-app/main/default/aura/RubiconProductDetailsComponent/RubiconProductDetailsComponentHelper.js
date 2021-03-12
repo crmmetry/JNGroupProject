@@ -126,7 +126,6 @@
       const state = response.getState();
       const result = response.getReturnValue();
       if (state === "SUCCESS") {
-        console.log("save successful");
         this.showToast(
           "Submission Successful",
           "Product Details was submitted successfully",

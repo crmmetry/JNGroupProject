@@ -31,7 +31,6 @@
       oppId: oppId
     });
     action.setCallback(this, function (response) {
-      //let indexList = [];
       let state = response.getState(); //Checking response status
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
@@ -46,7 +45,6 @@
     let debtConsolidated = component.get("v.ConsolidatedDebts");
     let oppId = component.get("v.recordId");
     let action = component.get("c.saveFinancialDetailsAndConsolidatedDebts");
-    //let oppId = component.get("v.recordId");
     action.setParams({
       financialDetailsMap: verifiedFinancialData,
       oppId: oppId,
@@ -94,7 +92,6 @@
     let consolidatedDebtsList = component.get("v.ConsolidatedDebts");
     let verifiedDebts = [];
     let unverifiedDebts = [];
-    //const test = `${Verified}Verified`;
     consolidatedDebtsList.forEach((consolidatedDebt) => {
       let verifiedDebt = new Map();
       let unverifiedDebt = new Map();
@@ -124,7 +121,6 @@
       value: value
     });
     action.setCallback(this, function (response) {
-      //let indexList = [];
       let state = response.getState(); //Checking response status
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
