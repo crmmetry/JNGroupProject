@@ -62,6 +62,7 @@ public class CreditApplicationSummaryDocument {
   public String Unsecured_Loan_Date_of_Approval { get; set; }
   public String Credit_Card_Date_of_Approval { get; set; }
   public String Line_of_Credit_Date_of_Approval { get; set; }
+  public static Map<String, Id> recordTypesMap { get; set; }
 
   /*
    *Name  :  CreditApplicationSummaryDocument
@@ -112,18 +113,21 @@ public class CreditApplicationSummaryDocument {
       Unsecured_Loan_Date_of_Approval = '';
       Credit_Card_Date_of_Approval = '';
       Line_of_Credit_Date_of_Approval = '';
-      if (loanCalculationProductList != null) {
-        if (loanCalculationProductList.size() > 0) {
+      recordTypesMap = Util.getRecordTypeids('Loan_Calculation_Product__c');
+
+      if (loanCalculationProductList != null && recordTypesMap != null) {
+        if (
+          loanCalculationProductList.size() > 0 &&
+          recordTypesMap.size() > 0
+        ) {
           for (
             Loan_Calculation_Product__c loanCalProdctObj : loanCalculationProductList
           ) {
             String recordTypeDevName;
-            recordTypeDevName = Schema.getGlobalDescribe()
-              .get('Loan_Calculation_Product__c')
-              .getDescribe()
-              .getRecordTypeInfosById()
-              .get(loanCalProdctObj.RecordTypeId)
-              .getDeveloperName();
+            recordTypeDevName = Util.getRecordTypeDevName(
+              loanCalProdctObj.RecordTypeId,
+              recordTypesMap
+            );
             if (recordTypeDevName == 'Auto' && autoFlag == false) {
               autoFlag = true;
               auto_LoanCalculationProduct = loanCalProdctObj;
