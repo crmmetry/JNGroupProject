@@ -213,6 +213,11 @@ public with sharing class ProductDetailController {
         loanCalculation
       );
       Id loanCalculationId = loanCalculationUnwrapper.save(opportunityId);
+      Opportunity newOpportunity = new Opportunity(
+        id = opportunityId,
+        Product_Details__c = loanCalculationId
+      );
+      update newOpportunity;
       LoanCalculationProductUnwrapper loanCalculationProductUnwrapper = new LoanCalculationProductUnwrapper(
         loanCalculationProduct,
         productRecordTypes
