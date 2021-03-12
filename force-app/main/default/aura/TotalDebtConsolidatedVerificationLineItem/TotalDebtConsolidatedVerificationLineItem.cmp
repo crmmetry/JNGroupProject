@@ -1,3 +1,13 @@
+<!--
+  @description       : 
+  @author            : Travis Allen
+  @group             : 
+  @last modified on  : 03-11-2021
+  @last modified by  : Travis Allen
+  Modifications Log 
+  Ver   Date         Author         Modification
+  1.0   03-11-2021   Travis Allen   Initial Version
+-->
 <aura:component>
   <aura:attribute name="toggleCheckAll" type="Boolean" default="false" />
   <aura:attribute name="auraIdList" type="List" />
@@ -56,6 +66,41 @@
         step="0.01"
         placeholder="NULL"
         value="{!v.verifiedDataMap.totalDebtConsolidatedVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="">
+        <h3>Total Monthly Payment for Debts Being Consolidated</h3>
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="totalMonthlyPaymentUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        disabled="true"
+        value="{!v.unverifiedDataMap.totalMonthlyPayment}"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="totalMonthlyPayment"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="totalMonthlyPayment"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        value="{!v.verifiedDataMap.totalMonthlyPaymentVerified}"
       ></lightning:input>
     </lightning:layoutItem>
   </lightning:layout>

@@ -1,6 +1,6 @@
 ({
   doinit: function (component, event) {
-    let auraList = ["totalDebt"];
+    let auraList = ["totalDebt", "totalMonthlyPayment"];
     component.set("v.auraIdList", auraList);
     let totalDebt = {
       totalDebtAmount: null

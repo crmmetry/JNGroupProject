@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 03-08-2021
+ * @last modified on  : 03-11-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -80,7 +80,6 @@ public with sharing class FinancialDetailsSelector {
         Share_of_Profit_Shareholder_VERIFIED__c,
         Pension_VERIFIED_Number__c,
         Property_Rental_VERIFIED_Number__c,
-        Total_Monthly_Loan_Payments_VERIFIED__c,
         Mortgage_Rent_VERIFIED_Number__c,
         Utilities_Household_Expenses_VERIFIED__c,
         Personal_and_Family_Expenses_VERIFIED__c,
@@ -89,7 +88,9 @@ public with sharing class FinancialDetailsSelector {
         Statutory_Deductions_VERIFIED_Number__c,
         Total_Monthly_Expenses_Verified_Number__c,
         Primary_Source_of_Income_List__c,
-        Primary_Source_of_Income_VERIFIED_list__c
+        Primary_Source_of_Income_VERIFIED_list__c,
+        Total_Monthly_Loan_Payments_Number__c,
+        Total_Monthly_Loan_Payments_VERIFIED__c
       FROM Applicant__c
       WHERE Opportunity__c = :oppId AND RecordTypeId = :IDMRecordTypeId
     ];

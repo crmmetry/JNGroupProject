@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 03-08-2021
+ * @last modified on  : 03-11-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -147,6 +147,10 @@ public with sharing class FinancialDetailsWrapper {
   public Decimal totalDebtConsolidated;
   @AuraEnabled
   public Decimal totalDebtConsolidatedVerified;
+  @AuraEnabled
+  public Decimal totalMonthlyPayment;
+  @AuraEnabled
+  public Decimal totalMonthlyPaymentVerified;
 
   public FinancialDetailsWrapper(Applicant__c record) {
     this.Id = record.Id;
@@ -214,5 +218,7 @@ public with sharing class FinancialDetailsWrapper {
     this.netWorthVerified = record.Net_Worth_Verified_Number__c;
     this.totalDebtConsolidated = record.Total_Amount_Consolidated__c;
     this.totalDebtConsolidatedVerified = record.Total_Amount_Consolidation_VERIFIED__c;
+    this.totalMonthlyPayment = record.Total_Monthly_Loan_Payments_Number__c;
+    this.totalMonthlyPaymentVerified = record.Total_Monthly_Loan_Payments_VERIFIED__c;
   }
 }
