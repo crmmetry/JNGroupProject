@@ -2,8 +2,8 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 03-01-2021
- * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+ * @last modified on  : 03-08-2021
+ * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
  * 1.0   02-19-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
@@ -74,7 +74,12 @@ public inherited sharing class RubiconProductDetailsController {
       ProductSelectionWrapper selection = new ProductSelectionWrapper(
         records[0]
       );
-      return selection;
+      if (
+        selection.productFamily == Constants.CREDITCARD_PRODUCT_FAMILY ||
+        selection.productFamily == Constants.UNSECURED_PRODUCT_FAMILY
+      ) {
+        return selection;
+      }
     }
     return Constants.NONE;
   }

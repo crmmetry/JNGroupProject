@@ -2,8 +2,8 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 02-25-2021
- * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+ * @last modified on  : 03-08-2021
+ * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
  * 1.0   02-25-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
@@ -88,7 +88,8 @@ public with sharing class FinancialDetailsSelector {
         Other_Expenses_VERIFIED_Number__c,
         Statutory_Deductions_VERIFIED_Number__c,
         Total_Monthly_Expenses_Verified_Number__c,
-        Primary_Source_of_Income_List__c
+        Primary_Source_of_Income_List__c,
+        Primary_Source_of_Income_VERIFIED_list__c
       FROM Applicant__c
       WHERE Opportunity__c = :oppId AND RecordTypeId = :IDMRecordTypeId
     ];

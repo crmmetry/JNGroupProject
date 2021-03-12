@@ -791,27 +791,11 @@
    * @returns {Object}
    */
   contructProductDetailsFields: function (component) {
-    let loanCalculationFields = [
-      // {
-      //   localName: "jngiMonthlyPremium"
-      // },
-      // { localName: "jngiIncludeInLoan" },
-      // { localName: "jngiMotorPremium" },
-      // { localName: "monthlyPIJNGIMotorPremium" },
-      // { localName: "stampDutyAndAdminCharges" },
-      // { localName: "noCreditorLifeReason" },
-      // { localName: "policyProvider" },
-      { localName: "cardType" }
-      // { localName: "financialInstitution" },
-      // { localName: "accountType" },
-      // { localName: "depositAccountNumber" },
-      // { localName: "accountHolder" },
-      // { localName: "annualInterestRate" },
-      // { localName: "hypothecatedLoan" },
-      // { localName: "depositBalance" },
-      // { localName: "lifeInsuranceCoverage" },
-      // { localName: "makeAndModelOfVehicle" }
-    ];
+    const isCreditCard = checkProductFamily(component, "Credit Card");
+    let loanCalculationFields = [];
+    if (isCreditCard) {
+      loanCalculationFields = [{ localName: "cardType" }];
+    }
     let loanCalculationProductFields = [
       {
         localName: "years",
