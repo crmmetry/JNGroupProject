@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : Travis Allen
+ * @group             :
+ * @last modified on  : 03-12-2021
+ * @last modified by  : Travis Allen
+ * Modifications Log
+ * Ver   Date         Author         Modification
+ * 1.0   03-12-2021   Travis Allen   Initial Version
+ **/
 @isTest
 public with sharing class TestFinancialVerificationController {
   @TestSetup
@@ -180,5 +190,22 @@ public with sharing class TestFinancialVerificationController {
       System.assert(status == Constants.STATUS_SUCCESS_CODE, 'Save Failed');
       Test.stopTest();
     }
+  }
+
+  @isTest
+  public static void testGetPickListValues() {
+    Test.startTest();
+
+    List<String> names = new List<String>();
+
+    names.add('Type');
+    names.add('Highest_Level_of_Education_attained__pc');
+
+    Object pickListValues = FinancialDetailsController.getPickListValuesList(
+      'Account',
+      names
+    );
+    System.assert(pickListValues != null, 'Picklists fields not being added.');
+    Test.stopTest();
   }
 }

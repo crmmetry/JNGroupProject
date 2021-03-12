@@ -2,7 +2,7 @@
   @description       : 
   @author            : Travis Allen
   @group             : 
-  @last modified on  : 03-11-2021
+  @last modified on  : 03-12-2021
   @last modified by  : Travis Allen
   Modifications Log 
   Ver   Date         Author         Modification
@@ -69,14 +69,7 @@
         />
       </div>
     </lightning:layoutItem>
-    <!-- <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <lightning:input
-        type="text"
-        aura:id="primaryIncomeSource" 
-        placeholder="NULL"
-        value="{!v.verifiedDataMap.primarySourceOfIncomeVerified}"
-      ></lightning:input>
-    </lightning:layoutItem> -->
+
     <lightning:layoutItem size="12" mediumDeviceSize="3" padding="around-small">
       <lightning:select
         aura:id="primaryIncomeSource"
