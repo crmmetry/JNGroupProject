@@ -36,11 +36,6 @@ public class ApplicationForm {
       if (string.isNotBlank(oppid)) {
         ApplicationForm(oppid);
         fillProductDetails(oppid);
-        // if(!CreditScoreHelper.FirstRun){
-        // CreditScoreHelper.FirstRun=true;
-        //saveAttachement(oppid);
-
-        //}
       }
     }
   }
@@ -132,19 +127,12 @@ public class ApplicationForm {
           FinServ__RelatedContact__r.LastName,
           FinServ__RelatedContact__r.MiddleName,
           FinServ__RelatedContact__r.Account.Emergency_Contact_Relationship__pc,
-          FinServ__RelatedContact__r.Account.Emergency_Contact_Last_Name__pc,
-          FinServ__RelatedContact__r.Account.Emergency_Contact_First_Name__pc,
-          FinServ__RelatedContact__r.Account.Emergency_Contact_Middle_Initial__pc,
-          FinServ__RelatedContact__r.Account.Emergency_Contact_Mobile__pc,
-          FinServ__RelatedContact__r.Account.Emergency_Contact_Business_Phone__pc,
-          FinServ__RelatedContact__r.Account.Emergency_Contact_Email__pc,
           FinServ__RelatedContact__r.Account.Political_Exposure__pc,
           FinServ__RelatedContact__r.Account.Street_1__pc,
           FinServ__RelatedContact__r.Account.Street_2__pc,
           FinServ__RelatedContact__r.Account.Street_3__pc,
           FinServ__RelatedContact__r.Account.City_Town__pc,
           FinServ__RelatedContact__r.Account.Country__c,
-          FinServ__RelatedContact__r.Account.Emergency_Contact_Home_Phone__pc,
           FinServ__RelatedContact__r.Account.Residential_Area_District__pc,
           FinServ__RelatedContact__r.Account.Post_Office_Zip_Code__pc,
           FinServ__RelatedContact__r.Account.Province_Parish_State__pc,
@@ -153,7 +141,11 @@ public class ApplicationForm {
           FinServ__RelatedContact__r.Account.PersonHomePhone,
           FinServ__RelatedContact__r.Account.Personal_Email__c,
           FinServ__RelatedContact__r.Account.PersonOtherPhone,
-          FinServ__RelatedContact__r.Account.FinServ__CountryOfBirth__pc
+          FinServ__RelatedContact__r.Account.FinServ__CountryOfBirth__pc,
+          FinServ__RelatedContact__r.Account.FirstName,
+          FinServ__RelatedContact__r.Account.LastName,
+          FinServ__RelatedContact__r.Account.MiddleName,
+          FinServ__RelatedContact__r.Account.PersonEmail
         FROM FinServ__ContactContactRelation__c
         WHERE
           FinServ__RelatedContact__c IN :conid
@@ -354,6 +346,7 @@ public class ApplicationForm {
           Identification_Number__pc,
           Identification_Type_Expiration__pc,
           Identification_Type_Country_of_issue__pc,
+          Identification_Country_of_Issue__c,
           Jamaican_Tax_Registration_Number__pc,
           Street_1__pc,
           Street_2__pc,
@@ -373,6 +366,7 @@ public class ApplicationForm {
           // JN1-2780
           PersonBirthdate,
           Mother_s_Maiden_Name__pc,
+          Mother_s_Maiden_Name__c,
           ID_Expiration_Date__c,
           Identification_Number__c,
           Marital_Status__c,

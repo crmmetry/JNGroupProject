@@ -205,7 +205,7 @@
           >
             <apex:outputText value="{0,date,dd-MM-yy}">
               <apex:param
-                value="{!app.ApplicantPersonAccount.Date_of_Birth__c}"
+                value="{!app.ApplicantPersonAccount.PersonBirthdate}"
               />
             </apex:outputText>
           </td>
@@ -217,7 +217,7 @@
               text-align: center;
             "
           >
-            {!app.ApplicantPersonAccount.Place_of_Birth__pc}
+            {!app.ApplicantPersonAccount.FinServ__CountryOfBirth__pc}
           </td>
           <!-- JN1-2780-->
           <td
@@ -228,7 +228,7 @@
               text-align: center;
             "
           >
-            {!app.ApplicantPersonAccount.Mother_s_Maiden_Name__pc}
+            {!app.ApplicantPersonAccount.Mother_s_Maiden_Name__c}
           </td>
         </tr>
       </table>
@@ -459,7 +459,7 @@
               text-align: center;
             "
           >
-            {!app.ApplicantPersonAccount.Identification_Number__pc}
+            {!app.ApplicantPersonAccount.Identification_Number__c}
           </td>
           <td
             style="
@@ -471,7 +471,7 @@
           >
             <apex:outputText value="{0,date,dd-MM-yy}">
               <apex:param
-                value="{!app.ApplicantPersonAccount.Identification_Type_Expiration__pc}"
+                value="{!app.ApplicantPersonAccount.ID_Expiration_Date__c}"
               />
             </apex:outputText>
           </td>
@@ -483,7 +483,7 @@
               text-align: center;
             "
           >
-            {!app.ApplicantPersonAccount.Identification_Type_Country_of_issue__pc}
+            {!app.ApplicantPersonAccount.Identification_Country_of_Issue__c}
           </td>
           <td
             style="
@@ -769,7 +769,7 @@
                 text-align: center;
               "
             >
-              {!app.ApplicantPersonAccount.Status_of_Address__c}
+              {!app.ApplicantPersonAccount.Status_of_Address__pc}
             </td>
           </tr>
         </table>
@@ -1355,7 +1355,7 @@
                         text-align: center;
                       "
                     >
-                      {!eapp.FinServ__RelatedContact__r.Account.Emergency_Contact_Last_Name__pc}
+                      {!eapp.FinServ__RelatedContact__r.Account.LastName}
                     </td>
                     <td
                       style="
@@ -1365,7 +1365,7 @@
                         text-align: center;
                       "
                     >
-                      {!eapp.FinServ__RelatedContact__r.Account.Emergency_Contact_First_Name__pc}
+                      {!eapp.FinServ__RelatedContact__r.Account.FirstName}
                     </td>
                     <!--JN1-2782-->
                     <td
@@ -1376,7 +1376,7 @@
                         text-align: center;
                       "
                     >
-                      {!eapp.FinServ__RelatedContact__r.Account.Emergency_Contact_Middle_Initial__pc}
+                      {!eapp.FinServ__RelatedContact__r.Account.MiddleName}
                     </td>
                     <td
                       style="
@@ -1658,7 +1658,7 @@
                         text-align: center;
                       "
                     >
-                      {!eapp.FinServ__RelatedContact__r.Account.Emergency_Contact_Mobile__pc}
+                      {!eapp.FinServ__RelatedContact__r.Account.PersonMobilePhone}
                     </td>
                     <td
                       style="
@@ -1668,7 +1668,7 @@
                         text-align: center;
                       "
                     >
-                      {!eapp.FinServ__RelatedContact__r.Account.Emergency_Contact_Home_Phone__pc}
+                      {!eapp.FinServ__RelatedContact__r.Account.PersonHomePhone}
                     </td>
                     <td
                       style="
@@ -1678,7 +1678,7 @@
                         text-align: center;
                       "
                     >
-                      {!eapp.FinServ__RelatedContact__r.Account.Emergency_Contact_Business_Phone__pc}
+                      {!eapp.FinServ__RelatedContact__r.Account.Business_Phone__pc}
                     </td>
 
                     <td
@@ -1689,7 +1689,7 @@
                         text-align: center;
                       "
                     >
-                      {!eapp.FinServ__RelatedContact__r.Account.Emergency_Contact_Email__pc}
+                      {!eapp.FinServ__RelatedContact__r.Account.PersonEmail}
                     </td>
                   </tr>
                 </table>
