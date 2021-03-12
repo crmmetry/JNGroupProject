@@ -1,6 +1,7 @@
 /***
  * Ver  Ticket#      Date            Author                 Purpose
  * 1.0  JN1-4045     23/11/2020      Ishwari G.(thinqloud)  Wrapper for Opportunity Object
+ * 2.0  JN1 - 4359   12/03/2021      Sunil                  Null Condition check is added
  **/
 public with sharing class OpportunityWrapper {
   @AuraEnabled
