@@ -41,7 +41,7 @@
     default="JN Bank Unsecured Loan"
   />
   <aura:attribute
-    name="indicatePrimaryApplicantToggle"
+    name="primaryApplicantToggle"
     type="Boolean"
     default="false"
   />
@@ -98,7 +98,7 @@
               </lightning:select>
             </lightning:layoutItem>
 
-            <aura:if isTrue="{!v.indicatePrimaryApplicantToggle}">
+            <aura:if isTrue="{!v.primaryApplicantToggle}">
               <lightning:layoutItem
                 size="12"
                 mediumDeviceSize="4"
@@ -115,24 +115,24 @@
                   </aura:iteration>
                 </lightning:select>
               </lightning:layoutItem>
-            </aura:if>
 
-            <lightning:layoutItem
-              size="12"
-              mediumDeviceSize="4"
-              padding="around-small"
-            >
-              <lightning:select
-                name="primaryApplicant"
-                label="Primary Applicant?"
-                required="true"
-                onchange="{!c.onPrimaryApplicantChange}"
+              <lightning:layoutItem
+                size="12"
+                mediumDeviceSize="4"
+                padding="around-small"
               >
-                <aura:iteration items="{!v.primaryApplicant}" var="item">
-                  <option value="{!item}">{!item}</option>
-                </aura:iteration>
-              </lightning:select>
-            </lightning:layoutItem>
+                <lightning:select
+                  name="primaryApplicant"
+                  label="Primary Applicant?"
+                  required="true"
+                  onchange="{!c.onPrimaryApplicantChange}"
+                >
+                  <aura:iteration items="{!v.primaryApplicant}" var="item">
+                    <option value="{!item}">{!item}</option>
+                  </aura:iteration>
+                </lightning:select>
+              </lightning:layoutItem>
+            </aura:if>
           </aura:if>
           <lightning:layoutItem
             size="12"
