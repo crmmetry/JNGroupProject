@@ -34,7 +34,7 @@
       } else {
         component.set("v.showComponentToggle", false);
         this.showToast(
-          "Oops, Something went wrong!",
+          "Oops! Something went wrong!",
           "Please check to ensure the correct product is selected for this opportunity.",
           "error"
         );
