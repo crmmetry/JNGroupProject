@@ -15,13 +15,13 @@ public with sharing class TestFinancialVerificationController {
     User testUser = TestDataFactory.CreateUser('testRubiconUser@email.com');
     insert testUser;
 
-    System.runAs(testUser) {
-      PermissionSetAssignment psa = TestDataFactory.CreatePermissionSetAssignment(
-        testUser.Id,
-        'Financial_Verification_Audit'
-      );
-      insert psa;
+    PermissionSetAssignment psa = TestDataFactory.CreatePermissionSetAssignment(
+      testUser.Id,
+      'Financial_Verification_Audit'
+    );
+    insert psa;
 
+    System.runAs(testUser) {
       List<Opportunity> testOpps = TestDataFactory.CreateOpportunities(1);
       testOpps[0].StageName = 'Customer Interview';
       testOpps[0].CloseDate = Date.today().addDays(6);
@@ -38,7 +38,7 @@ public with sharing class TestFinancialVerificationController {
         'Applicant__c'
       );
       String IDMRecordTypeId = Util.getMappedRecordTypeId(
-        'Instant_Designing_Module_IDM',
+        'Instant_Decisioning_Module_IDM',
         recordTypesMapForApplicants
       );
       Applicant__c applicant = TestDataFactory.CreateApplicant(
@@ -206,6 +206,25 @@ public with sharing class TestFinancialVerificationController {
       names
     );
     System.assert(pickListValues != null, 'Picklists fields not being added.');
+    Test.stopTest();
+  }
+
+  @isTest
+  public static void testUpdateFieldsOnOpportunity() {
+    List<Opportunity> opList = [SELECT Id, Amount FROM Opportunity];
+    Map<String, Object> mapFields = new Map<String, Object>();
+    Test.startTest();
+    FinancialDetailsController.updateFieldOnOpportunity(
+      opList[0].Id,
+      'Amount',
+      1000
+    );
+    Opportunity testOpp = [
+      SELECT Id, Amount
+      FROM Opportunity
+      WHERE Amount = 1000
+    ];
+    System.assert(testOpp != null, 'Opportunity Record Was not updated');
     Test.stopTest();
   }
 }
