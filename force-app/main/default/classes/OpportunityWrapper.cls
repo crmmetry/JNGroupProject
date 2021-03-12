@@ -21,13 +21,34 @@ public with sharing class OpportunityWrapper {
   public String financialAccountType;
 
   public OpportunityWrapper(Opportunity opp) {
-    this.collateralCC = opp.Collateral_CC__c;
-    this.loanToValueCC = opp.Loan_to_ValueCC__c;
-    this.accountId = opp.AccountId;
-    this.preAssessmentDecision = opp.Pre_Approval_list__c;
-    this.finalAssessmentDecision = opp.Final_Assessment_Decision_list__c;
-    this.financialAccountName = opp.FinServ__FinancialAccount__r.Name;
-    this.financialAccountNumber = opp.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c;
-    this.financialAccountType = opp.FinServ__FinancialAccount__r.Account_Type_List__c;
+    if (opp != null) {
+      if (opp.Collateral_CC__c != null) {
+        this.collateralCC = opp.Collateral_CC__c;
+      }
+      if (opp.Loan_to_ValueCC__c != null) {
+        this.loanToValueCC = opp.Loan_to_ValueCC__c;
+      }
+      if (opp.AccountId != null) {
+        this.accountId = opp.AccountId;
+      }
+      if (opp.Pre_Approval_list__c != null) {
+        this.preAssessmentDecision = opp.Pre_Approval_list__c;
+      }
+      if (opp.Final_Assessment_Decision_list__c != null) {
+        this.finalAssessmentDecision = opp.Final_Assessment_Decision_list__c;
+      }
+      if (opp.FinServ__FinancialAccount__r.Name != null) {
+        this.financialAccountName = opp.FinServ__FinancialAccount__r.Name;
+      }
+      if (
+        opp.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c !=
+        null
+      ) {
+        this.financialAccountNumber = opp.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c;
+      }
+      if (opp.FinServ__FinancialAccount__r.Account_Type_List__c != null) {
+        this.financialAccountType = opp.FinServ__FinancialAccount__r.Account_Type_List__c;
+      }
+    }
   }
 }
