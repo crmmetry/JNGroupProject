@@ -112,59 +112,65 @@ public class CreditApplicationSummaryDocument {
       Unsecured_Loan_Date_of_Approval = '';
       Credit_Card_Date_of_Approval = '';
       Line_of_Credit_Date_of_Approval = '';
-
-      for (
-        Loan_Calculation_Product__c loanCalProdctObj : loanCalculationProductList
-      ) {
-        String recordTypeDevName;
-        recordTypeDevName = Schema.getGlobalDescribe()
-          .get('Loan_Calculation_Product__c')
-          .getDescribe()
-          .getRecordTypeInfosById()
-          .get(loanCalProdctObj.RecordTypeId)
-          .getDeveloperName();
-        if (recordTypeDevName == 'Auto' && autoFlag == false) {
-          autoFlag = true;
-          auto_LoanCalculationProduct = loanCalProdctObj;
-          loanCalculationProductIds.Put('Auto', loanCalProdctObj.Id);
-          Auto_Request_ADJ_Exception_for_Credit = opportunityObj.Request_ADJ_Exception_for_Credit__c;
-          Auto_Exception_Approved_by = opportunityObj.Exception_Approved_by__c;
-          Auto_Date_of_Approval = String.valueOf(
-            opportunityObj.Date_of_Approval__c
-          );
-        }
-        if (recordTypeDevName == 'Credit_Card' && creditCardFlag == false) {
-          creditCardFlag = true;
-          CreditCard_LoanCalculationProduct = loanCalProdctObj;
-          loanCalculationProductIds.Put('Credit_Card', loanCalProdctObj.Id);
-          Credit_Card_Request_ADJ_Exception_for_Credit = opportunityObj.Request_ADJ_Exception_for_Credit__c;
-          Credit_Card_Exception_Approved_by = opportunityObj.Exception_Approved_by__c;
-          Credit_Card_Date_of_Approval = String.valueOf(
-            opportunityObj.Date_of_Approval__c
-          );
-        }
-        if (
-          recordTypeDevName == 'Line_of_Credit' &&
-          lineOfCreditFlag == false
-        ) {
-          lineOfCreditFlag = true;
-          LineofCredit_LoanCalculationProduct = loanCalProdctObj;
-          loanCalculationProductIds.Put('Line_of_Credit', loanCalProdctObj.Id);
-          Line_of_Credit_Request_ADJ_Exception_for_Credit = opportunityObj.Request_ADJ_Exception_for_Credit__c;
-          Line_of_Credit_Exception_Approved_by = opportunityObj.Exception_Approved_by__c;
-          Line_of_Credit_Date_of_Approval = String.valueOf(
-            opportunityObj.Date_of_Approval__c
-          );
-        }
-        if (recordTypeDevName == 'Unsecured' && unsecureFlag == false) {
-          unsecureFlag = true;
-          Unsecured_LoanCalculationProduct = loanCalProdctObj;
-          loanCalculationProductIds.Put('Unsecured', loanCalProdctObj.Id);
-          Unsecured_Loan_Request_ADJ_Exception_for_Credit = opportunityObj.Request_ADJ_Exception_for_Credit__c;
-          Unsecured_Loan_Exception_Approved_by = opportunityObj.Exception_Approved_by__c;
-          Unsecured_Loan_Date_of_Approval = String.valueOf(
-            opportunityObj.Date_of_Approval__c
-          );
+      if (loanCalculationProductList != null) {
+        if (loanCalculationProductList.size() > 0) {
+          for (
+            Loan_Calculation_Product__c loanCalProdctObj : loanCalculationProductList
+          ) {
+            String recordTypeDevName;
+            recordTypeDevName = Schema.getGlobalDescribe()
+              .get('Loan_Calculation_Product__c')
+              .getDescribe()
+              .getRecordTypeInfosById()
+              .get(loanCalProdctObj.RecordTypeId)
+              .getDeveloperName();
+            if (recordTypeDevName == 'Auto' && autoFlag == false) {
+              autoFlag = true;
+              auto_LoanCalculationProduct = loanCalProdctObj;
+              loanCalculationProductIds.Put('Auto', loanCalProdctObj.Id);
+              Auto_Request_ADJ_Exception_for_Credit = opportunityObj.Request_ADJ_Exception_for_Credit__c;
+              Auto_Exception_Approved_by = opportunityObj.Exception_Approved_by__c;
+              Auto_Date_of_Approval = String.valueOf(
+                opportunityObj.Date_of_Approval__c
+              );
+            }
+            if (recordTypeDevName == 'Credit_Card' && creditCardFlag == false) {
+              creditCardFlag = true;
+              CreditCard_LoanCalculationProduct = loanCalProdctObj;
+              loanCalculationProductIds.Put('Credit_Card', loanCalProdctObj.Id);
+              Credit_Card_Request_ADJ_Exception_for_Credit = opportunityObj.Request_ADJ_Exception_for_Credit__c;
+              Credit_Card_Exception_Approved_by = opportunityObj.Exception_Approved_by__c;
+              Credit_Card_Date_of_Approval = String.valueOf(
+                opportunityObj.Date_of_Approval__c
+              );
+            }
+            if (
+              recordTypeDevName == 'Line_of_Credit' &&
+              lineOfCreditFlag == false
+            ) {
+              lineOfCreditFlag = true;
+              LineofCredit_LoanCalculationProduct = loanCalProdctObj;
+              loanCalculationProductIds.Put(
+                'Line_of_Credit',
+                loanCalProdctObj.Id
+              );
+              Line_of_Credit_Request_ADJ_Exception_for_Credit = opportunityObj.Request_ADJ_Exception_for_Credit__c;
+              Line_of_Credit_Exception_Approved_by = opportunityObj.Exception_Approved_by__c;
+              Line_of_Credit_Date_of_Approval = String.valueOf(
+                opportunityObj.Date_of_Approval__c
+              );
+            }
+            if (recordTypeDevName == 'Unsecured' && unsecureFlag == false) {
+              unsecureFlag = true;
+              Unsecured_LoanCalculationProduct = loanCalProdctObj;
+              loanCalculationProductIds.Put('Unsecured', loanCalProdctObj.Id);
+              Unsecured_Loan_Request_ADJ_Exception_for_Credit = opportunityObj.Request_ADJ_Exception_for_Credit__c;
+              Unsecured_Loan_Exception_Approved_by = opportunityObj.Exception_Approved_by__c;
+              Unsecured_Loan_Date_of_Approval = String.valueOf(
+                opportunityObj.Date_of_Approval__c
+              );
+            }
+          }
         }
       }
     }
