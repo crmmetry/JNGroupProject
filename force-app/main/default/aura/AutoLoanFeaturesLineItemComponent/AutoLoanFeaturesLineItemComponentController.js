@@ -194,14 +194,6 @@
       "monthlyPremium",
       "coverageType"
     ];
-    let showIncludeInLoanAmount = true;
-    if (!component.get("v.showIncludeInLoanAmount")) {
-      let autoLoanFeatureComponentFields = ["includeInLoanAmountId"];
-      showIncludeInLoanAmount = validateFields(
-        component,
-        autoLoanFeatureComponentFields
-      );
-    }
     let interestedInPremiumFlag = true;
     if (!component.get("v.interestedInPremiumFlag")) {
       let autoLoanFeatureComponentFields2 = ["includePremium"];
@@ -209,7 +201,25 @@
         component,
         autoLoanFeatureComponentFields2
       );
+    } else {
+      let inputCmp = component.find("includePremium");
+      $A.util.removeClass(inputCmp, "slds-has-error"); // remove red border
+      $A.util.addClass(inputCmp, "hide-error-message"); // hide error message
     }
+
+    let showIncludeInLoanAmount = true;
+    if (!component.get("v.showIncludeInLoanAmount")) {
+      let autoLoanFeatureComponentFields = ["includeInLoanAmountId"];
+      showIncludeInLoanAmount = validateFields(
+        component,
+        autoLoanFeatureComponentFields
+      );
+    } else {
+      let inputCmp = component.find("includeInLoanAmountId");
+      $A.util.removeClass(inputCmp, "slds-has-error"); // remove red border
+      $A.util.addClass(inputCmp, "hide-error-message"); // hide error message
+    }
+
     let showIndicateApplicableProcessingFees = true;
     if (!component.get("v.showIndicateApplicableProcessingFees")) {
       let autoLoanFeatureComponentFields1 = [
@@ -219,7 +229,12 @@
         component,
         autoLoanFeatureComponentFields1
       );
+    } else {
+      let inputCmp = component.find("indicateApplicableProcessingFees");
+      $A.util.removeClass(inputCmp, "slds-has-error"); // remove red border
+      $A.util.addClass(inputCmp, "hide-error-message"); // hide error message
     }
+
     let resultsFromChild = [
       showIncludeInLoanAmount,
       showIndicateApplicableProcessingFees,

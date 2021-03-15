@@ -1,2 +1,4 @@
-.THIS {
+.THIS .hide-error-message > .slds-form-element__help {
+  display: none;
+  color: white;
 }

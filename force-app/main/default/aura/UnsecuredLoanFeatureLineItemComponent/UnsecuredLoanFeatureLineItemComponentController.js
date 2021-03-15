@@ -195,6 +195,10 @@
         component,
         autoLoanFeatureComponentFields
       );
+    } else {
+      let inputCmp = component.find("includeInLoanAmountId");
+      $A.util.removeClass(inputCmp, "slds-has-error"); // remove red border
+      $A.util.addClass(inputCmp, "hide-error-message"); // hide error message
     }
     let resultsFromChild = [
       showIncludeInLoanAmount,
