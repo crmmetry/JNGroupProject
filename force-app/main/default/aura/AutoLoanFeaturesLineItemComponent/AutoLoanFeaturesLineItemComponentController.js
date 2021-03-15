@@ -177,7 +177,6 @@
    * @return - Boolean
    */
   validateFields: function (component) {
-    debugger;
     let cmpFields = [
       "credit-risk-rating",
       "interestedProgramme",
