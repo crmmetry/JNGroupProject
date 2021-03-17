@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : Remario Richards
+ * @group             :
+ * @last modified on  : 03-17-2021
+ * @last modified by  : Remario Richards
+ * Modifications Log
+ * Ver   Date         Author             Modification
+ * 1.0   03-17-2021   Remario Richards   Initial Version
+ **/
 public class NewAccountTriggerHandler {
   private static final String TAG = 'AccountTriggerHandler';
   private static List<Account> accounts;
@@ -73,10 +83,15 @@ public class NewAccountTriggerHandler {
       Map<String, FinServ__ReciprocalRole__c> mappedRoles = Util.GetRoleRelationships(
         'ContactRole'
       );
-      List<Id> roleIds = new List<String>{
-        mappedRoles.get('Political Affiliation').id,
-        mappedRoles.get('JN Affiliation').id
-      };
+
+      List<Id> roleIds = new List<String>();
+      if (mappedRoles.containsKey('Political Affiliation')) {
+        roleIds.add(mappedRoles.get('Political Affiliation').Id);
+      }
+      if (mappedRoles.containsKey('JN Affiliation')) {
+        roleIds.add(mappedRoles.get('JN Affiliation').Id);
+      }
+
       List<Id> contactIds = new List<Id>();
       Map<Id, Account> mappedAccounts = new Map<Id, Account>();
       for (Account record : accounts) {
