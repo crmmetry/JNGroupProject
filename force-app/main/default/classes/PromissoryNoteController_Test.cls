@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : Remario Richards
+ * @group             :
+ * @last modified on  : 03-19-2021
+ * @last modified by  : Remario Richards
+ * Modifications Log
+ * Ver   Date         Author             Modification
+ * 1.0   03-19-2021   Remario Richards   Initial Version
+ **/
 @isTest
 public class PromissoryNoteController_Test {
   @isTest
@@ -62,11 +72,11 @@ public class PromissoryNoteController_Test {
     loanCalcProductList[0].Vehicle_Classification_list__c = 'New';
     loanCalcProductList[0].Months_Number__c = 7;
     loanCalcProductList[0].Collateral_Type_List__c = 'Cash/Investments';
-    loanCalcProductList[0].Desired_Statement_Date__c = date.newInstance(
-      System.Today().year(),
-      2,
-      11
-    );
+    // loanCalcProductList[0].Desired_Statement_Date__c = date.newInstance(
+    //     System.Today().year() ,
+    //     2,
+    //     11
+    // );
     loanCalcProductList[0].Financial_Institution_List__c = 'JN Bank Ltd.';
     loanCalcProductList[0].Annual_Interest_Rate_Deposit_Acct_Number__c = 2;
     loanCalcProductList[0].Account_Holder_s_text__c = 'test';

@@ -194,7 +194,9 @@ public with sharing class ProductDetailController {
     Map<String, Object> loanCalculationFields,
     Map<String, Object> loanCalculationProductFields
   ) {
+    Savepoint sp;
     try {
+      sp = Database.setSavepoint();
       String loanCalculationFieldsString = JSON.serialize(
         loanCalculationFields
       );
@@ -225,6 +227,7 @@ public with sharing class ProductDetailController {
       loanCalculationProductUnwrapper.save(loanCalculationId);
       return Constants.STATUS_SUCCESS_CODE;
     } catch (Exception e) {
+      Database.rollback(sp);
       throw new AuraHandledException(e.getMessage());
     }
   }

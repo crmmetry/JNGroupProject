@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : Remario Richards
+ * @group             :
+ * @last modified on  : 03-19-2021
+ * @last modified by  : Remario Richards
+ * Modifications Log
+ * Ver   Date         Author             Modification
+ * 1.0   03-19-2021   Remario Richards   Initial Version
+ **/
 //Sample Opportunities Id 006f000000PhctcAAB  006f000000PhpadAAB
 //Sample Applicant Ids are a15f0000002F8z5AAC 	a15f0000002F9sIAAS
 //Sample Account Id 001f000001dJOzdAAG	001f000001dXjJ9AAK
@@ -19,9 +29,7 @@ public class PromissoryNoteController {
 
   public PromissoryNoteController() {
     //Get opportunity id from URL
-    OpportId = ApexPages.currentPage()
-      .getParameters()
-      .get(Constants.URL_PARAM_ID_STRING);
+    OpportId = ApexPages.currentPage().getParameters().get('Id');
 
     if (OpportId != null) {
       //Form the date of application value to display in vf page

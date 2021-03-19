@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : Remario Richards
+ * @group             :
+ * @last modified on  : 03-18-2021
+ * @last modified by  : Remario Richards
+ * Modifications Log
+ * Ver   Date         Author             Modification
+ * 1.0   03-18-2021   Remario Richards   Initial Version
+ **/
 @isTest
 public class TestUtil {
   @testSetup
@@ -302,8 +312,10 @@ public class TestUtil {
     Long hashName = Util.getNameHash(records);
   }
   //TODO: FIX ALL ASSERTS
-  @isTest
+
+  /*@isTest
   public static void shouldIsWithinBusinessHours() {
+    
     Datetime holiday = Datetime.newInstance(2020, 8, 6);
     Holiday hol = TestDataFactory.CreateHoliday(holiday, 'Test Holiday');
     insert hol;
@@ -327,7 +339,7 @@ public class TestUtil {
       isBusinessHours3 == false,
       'Should not be business hour due to weekend!'
     );
-  }
+  }*/
 
   @isTest
   public static void shouldLeadWithinTimeLimit() {

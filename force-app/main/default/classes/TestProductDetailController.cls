@@ -112,11 +112,11 @@ public with sharing class TestProductDetailController {
     insert cardHolderList;
 
     Map<String, Id> recordTypeMap1 = Util.getRecordTypeids(
-      'FinServ__AssetsAndLiabilities__c '
+      'FinServ__AssetsAndLiabilities__c'
     );
     FinServ__AssetsAndLiabilities__c assetsAndLiabilities = TestDataFactory.CreateAssetsAndLiabilities(
       accList[0].id,
-      recordTypeMap1.get('NonfinancialAsset'),
+      recordTypeMap1.get('Real_Estate'),
       'Gold'
     );
     insert assetsAndLiabilities;
@@ -159,7 +159,7 @@ public with sharing class TestProductDetailController {
   public static void testApplicantRating() {
     List<Opportunity> opList = [SELECT Id FROM Opportunity];
     Test.startTest();
-    List<ApplicantWrapper> applicantWrapperList = ProductDetailController.getApplicantsRating(
+    Object applicantWrapperList = (List<ApplicantWrapper>) ProductDetailController.getApplicantsRating(
       opList[0].id,
       2.00
     );
@@ -201,7 +201,6 @@ public with sharing class TestProductDetailController {
     //loan calculation fields
     Map<String, Object> loanCalculationFields = new Map<String, Object>{
       'totalClosingCost' => 548.435,
-      'totalClosingCostsApplicantPayable' => 5435.323,
       'jngiMonthlyPremium' => 43242,
       'loanAmount' => 9450.32
     };
