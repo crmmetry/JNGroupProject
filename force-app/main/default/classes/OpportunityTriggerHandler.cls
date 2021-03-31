@@ -312,7 +312,7 @@ public class OpportunityTriggerHandler {
         Boolean savingsChequing = false;
         for (OpportunityLineItem lineItem : newRecord.OpportunityLineItems) {
           switch on lineItem.Product_Family__c {
-            when 'JN Bank Auto Loan', 'JN Bank Commercial Auto Loan' {
+            when 'JN Bank Auto Loan' {
               autoLoan = true;
             }
             when 'JN Bank Line Of Credit' {
@@ -330,7 +330,8 @@ public class OpportunityTriggerHandler {
               savingsChequing = true;
             }
             when 'JN Bank Insurance Premium Financing',
-              'JN Bank Cash Secured Loan' {
+              'JN Bank Cash Secured Loan',
+              'JN Bank Commercial Auto Loan' {
               mortgage = true;
             }
           }
