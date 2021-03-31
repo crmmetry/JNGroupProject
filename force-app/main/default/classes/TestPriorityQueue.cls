@@ -1,8 +1,18 @@
+/**
+ * @description       :
+ * @author            : Remario Richards
+ * @group             :
+ * @last modified on  : 03-19-2021
+ * @last modified by  : Remario Richards
+ * Modifications Log
+ * Ver   Date         Author             Modification
+ * 1.0   03-19-2021   Remario Richards   Initial Version
+ **/
 @isTest
 public class TestPriorityQueue {
   @TestSetup
   public static void setup() {
-    User newUser = TestDataFactory.CreateUser('ta@test.com');
+    User newUser = TestDataFactory.CreateUser('produser12@test.com');
     insert newUser;
   }
 
@@ -37,7 +47,7 @@ public class TestPriorityQueue {
 
   @isTest
   public static void shouldGetPeek() {
-    User u = [SELECT Id FROM USER WHERE UserName = 'ta@test.com'];
+    User u = [SELECT Id FROM USER WHERE UserName = 'produser12@test.com'];
     Worker a = new Worker(u.Id, 5, 'Jamaica');
     PriorityQueue prio_queue = new PriorityQueue(
       new SkillComparator(),
@@ -51,7 +61,7 @@ public class TestPriorityQueue {
 
   @isTest
   public static void shouldAddElementToQueueAndPoll() {
-    User u = [SELECT Id FROM USER WHERE UserName = 'ta@test.com'];
+    User u = [SELECT Id FROM USER WHERE UserName = 'produser12@test.com'];
     Worker a = new Worker(u.Id, 5, 'Jamaica');
     PriorityQueue prio_queue = new PriorityQueue(
       new SkillComparator(),
@@ -63,7 +73,7 @@ public class TestPriorityQueue {
 
   @isTest
   public static void shouldAddMultipleElementsToQueueAndClear() {
-    User u = [SELECT Id FROM USER WHERE UserName = 'ta@test.com'];
+    User u = [SELECT Id FROM USER WHERE UserName = 'produser12@test.com'];
     PriorityQueue prio_queue = new PriorityQueue(
       new SkillComparator(),
       TestPriorityQueue.Worker.class
@@ -80,7 +90,7 @@ public class TestPriorityQueue {
 
   @isTest
   public static void shouldAddMultipleElementsToQueueAndPoll() {
-    User u = [SELECT Id FROM USER WHERE UserName = 'ta@test.com'];
+    User u = [SELECT Id FROM USER WHERE UserName = 'produser12@test.com'];
     PriorityQueue prio_queue = new PriorityQueue(
       new SkillComparator(),
       TestPriorityQueue.Worker.class
@@ -96,7 +106,7 @@ public class TestPriorityQueue {
 
   @isTest
   public static void shouldThrowContainsException() {
-    User u = [SELECT Id FROM USER WHERE UserName = 'ta@test.com'];
+    User u = [SELECT Id FROM USER WHERE UserName = 'produser12@test.com'];
     Worker a = new Worker(u.Id, 5, 'Jamaica');
     PriorityQueue prio_queue = new PriorityQueue(
       new SkillComparator(),
@@ -121,7 +131,7 @@ public class TestPriorityQueue {
 
   @isTest
   public static void shouldRemoveElement() {
-    User u = [SELECT Id FROM USER WHERE UserName = 'ta@test.com'];
+    User u = [SELECT Id FROM USER WHERE UserName = 'produser12@test.com'];
     Worker a = new Worker(u.Id, 5, 'Jamaica');
     PriorityQueue prio_queue = new PriorityQueue(
       new SkillComparator(),
@@ -133,7 +143,7 @@ public class TestPriorityQueue {
 
   @isTest
   public static void shouldReturnArrayOfAQueue() {
-    User u = [SELECT Id FROM USER WHERE UserName = 'ta@test.com'];
+    User u = [SELECT Id FROM USER WHERE UserName = 'produser12@test.com'];
     Worker a = new Worker(u.Id, 5, 'Jamaica');
     PriorityQueue prio_queue = new PriorityQueue(
       new SkillComparator(),
@@ -146,7 +156,7 @@ public class TestPriorityQueue {
   @isTest
   public static void shouldContains() {
     TestQueue test_queue = new TestQueue(TestPriorityQueue.Worker.class);
-    User u = [SELECT Id FROM USER WHERE UserName = 'ta@test.com'];
+    User u = [SELECT Id FROM USER WHERE UserName = 'produser12@test.com'];
     Worker a = new Worker(u.Id, 5, 'Jamaica');
     try {
       test_queue.data.add(a);
@@ -164,7 +174,7 @@ public class TestPriorityQueue {
   @isTest
   public static void shouldContainsWhenFalse() {
     TestQueue test_queue = new TestQueue(TestPriorityQueue.Worker.class);
-    User u = [SELECT Id FROM USER WHERE UserName = 'ta@test.com'];
+    User u = [SELECT Id FROM USER WHERE UserName = 'produser12@test.com'];
     Worker a = new Worker(u.Id, 5, 'Jamaica');
     try {
       //test_queue.data.add(a);
@@ -181,7 +191,7 @@ public class TestPriorityQueue {
 
   @isTest
   public static void shouldTestContainsAllWhenFalse() {
-    User u = [SELECT Id FROM USER WHERE UserName = 'ta@test.com'];
+    User u = [SELECT Id FROM USER WHERE UserName = 'produser12@test.com'];
     TestQueue test_queue = new TestQueue(TestPriorityQueue.Worker.class);
     TestQueue test_queue2 = new TestQueue(TestPriorityQueue.Worker.class);
     Worker a = new Worker(u.Id, 5, 'Jamaica');
@@ -204,7 +214,7 @@ public class TestPriorityQueue {
 
   @isTest
   public static void shouldTestContainsAllWhenTrue() {
-    User u = [SELECT Id FROM USER WHERE UserName = 'ta@test.com'];
+    User u = [SELECT Id FROM USER WHERE UserName = 'produser12@test.com'];
     PriorityQueue prio_queue = new PriorityQueue(
       new SkillComparator(),
       TestPriorityQueue.Worker.class
@@ -232,7 +242,7 @@ public class TestPriorityQueue {
 
   @isTest
   public static void shouldAddAllElementsOfAQueue() {
-    User u = [SELECT Id FROM USER WHERE UserName = 'ta@test.com'];
+    User u = [SELECT Id FROM USER WHERE UserName = 'produser12@test.com'];
     Worker a = new Worker(u.Id, 5, 'Jamaica');
     PriorityQueue prio_queue = new PriorityQueue(
       new SkillComparator(),
@@ -379,7 +389,7 @@ public class TestPriorityQueue {
   @isTest
   public static void shouldTestAbstractQueueOfferMethod() {
     TestQueue2 test_queue = new TestQueue2(TestPriorityQueue.Worker.class);
-    User u = [SELECT Id FROM USER WHERE UserName = 'ta@test.com'];
+    User u = [SELECT Id FROM USER WHERE UserName = 'produser12@test.com'];
     Worker a = new Worker(u.Id, 5, 'Jamaica');
     Boolean result = test_queue.offer(a);
     System.assert(result, 'Offer method returns false');

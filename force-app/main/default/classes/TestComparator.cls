@@ -1,14 +1,24 @@
+/**
+ * @description       :
+ * @author            : Remario Richards
+ * @group             :
+ * @last modified on  : 03-19-2021
+ * @last modified by  : Remario Richards
+ * Modifications Log
+ * Ver   Date         Author             Modification
+ * 1.0   03-19-2021   Remario Richards   Initial Version
+ **/
 @isTest
 public class TestComparator {
   @TestSetup
   public static void setup() {
-    User newUser = TestDataFactory.CreateUser('ta@test.com');
+    User newUser = TestDataFactory.CreateUser('produser1@test.com');
     insert newUser;
   }
 
   @isTest
   public static void shouldCompareWorkerObject() {
-    User u = [SELECT Id FROM USER WHERE UserName = 'ta@test.com'];
+    User u = [SELECT Id FROM USER WHERE UserName = 'produser1@test.com'];
     Worker a = new Worker(u.Id, 5, 'Jamaica');
     Worker b = new Worker(u.id, 5, 'Kingston');
     SkillComparator skill_comp = new SkillComparator();

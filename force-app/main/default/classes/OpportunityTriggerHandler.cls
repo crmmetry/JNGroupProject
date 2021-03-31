@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : Remario Richards
+ * @group             :
+ * @last modified on  : 03-31-2021
+ * @last modified by  : Remario Richards
+ * Modifications Log
+ * Ver   Date         Author             Modification
+ * 1.0   03-31-2021   Remario Richards   Initial Version
+ **/
 public class OpportunityTriggerHandler {
   private static String Tag = 'OpportunityTriggerHandler';
   private static List<Opportunity> newRecords;
@@ -305,7 +315,7 @@ public class OpportunityTriggerHandler {
             when 'JN Bank Auto Loan', 'JN Bank Commercial Auto Loan' {
               autoLoan = true;
             }
-            when 'JN Bank Line Of Credit', 'JN Bank Cash Secured Loan' {
+            when 'JN Bank Line Of Credit' {
               lineOfCredit = true;
             }
             when 'JN Bank Term Share Loan',
@@ -318,6 +328,10 @@ public class OpportunityTriggerHandler {
             }
             when 'JN Bank Deposit Account' {
               savingsChequing = true;
+            }
+            when 'JN Bank Insurance Premium Financing',
+              'JN Bank Cash Secured Loan' {
+              mortgage = true;
             }
           }
           if (lineItem.Product_Family__c.contains('JN Bank Mortgage')) {
