@@ -54,6 +54,15 @@ public class TestSimpleLoanCalculationController {
       newLead.Id
     );
     Test.stopTest();
+    System.assertEquals(
+      2,
+      [
+        SELECT Id, Number_of_Loans_Scenerios_Run__c
+        FROM Lead
+        WHERE Id = :newLead.Id
+      ]
+      .Number_of_Loans_Scenerios_Run__c
+    );
   }
   //Scenario 2: Lead when no loan cal object saved prior
   @isTest
@@ -98,5 +107,14 @@ public class TestSimpleLoanCalculationController {
       newLead.Id
     );
     Test.stopTest();
+    System.assertEquals(
+      1,
+      [
+        SELECT Id, Number_of_Loans_Scenerios_Run__c
+        FROM Lead
+        WHERE Id = :newLead.Id
+      ]
+      .Number_of_Loans_Scenerios_Run__c
+    );
   }
 }
