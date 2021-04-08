@@ -45,10 +45,12 @@
         ".......radioGrpValue==>" +
         radioGrpValue
     );
+    let recordId = component.get("v.recordId");
     var action = component.get("c.SaveLoanCalculation");
     action.setParams({
       CalculationData: calculatedData,
-      radioGrpName: radioGrpValue
+      radioGrpName: radioGrpValue,
+      leadId: recordId
     });
     action.setCallback(this, function (response) {
       var state = response.getState();
