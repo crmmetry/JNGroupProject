@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 04-08-2021
+ * @last modified on  : 04-09-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -33,7 +33,6 @@ public class SimpleLoanCalculationController {
         'RevolvingCreditLimitSecured',
         'Revolving Credit Limit Secured'
       );
-      //rtMap.put('MultiProductCalculator', value);
 
       Loan_Calculator__c LoanObj = (Loan_Calculator__c) JSON.deserialize(
         CalculationData,
@@ -58,13 +57,19 @@ public class SimpleLoanCalculationController {
     }
     return 'Saved';
   }
-
+  /**
+   * Calculates the amount of loan scenarios ran on a lead.
+   * @{params} - leadId
+   * @{return} - Lead
+   */
   private static Lead updateNumberOfScenariosRunOnLead(String leadId) {
-    Lead currentLead = [
+    List<Lead> leads = [
       SELECT Id, Number_of_Loans_Scenerios_Run__c
       FROM Lead
       WHERE Id = :leadId
+      WITH SECURITY_ENFORCED
     ];
+    Lead currentLead = leads[0];
     if (
       currentLead.Number_of_Loans_Scenerios_Run__c == null ||
       currentLead.Number_of_Loans_Scenerios_Run__c == 0

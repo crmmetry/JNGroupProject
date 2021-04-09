@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 04-08-2021
+ * @last modified on  : 04-09-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -41,7 +41,6 @@ public class TestSimpleLoanCalculationController {
     loanCal.Monthly_Gross_Income__c = 3000.00;
     loanCal.Existing_Monthly_Credit_Payment__c = 500.00;
     loanCal.Total_Monthly__c = 1000.00;
-    insert loanCal;
 
     String recordTypeName = 'InstallmentPayment';
 
@@ -54,19 +53,11 @@ public class TestSimpleLoanCalculationController {
       newLead.Id
     );
     Test.stopTest();
-    System.assertEquals(
-      2,
-      [
-        SELECT Id, Number_of_Loans_Scenerios_Run__c
-        FROM Lead
-        WHERE Id = :newLead.Id
-      ]
-      .Number_of_Loans_Scenerios_Run__c
-    );
+    System.assertEquals(1, [SELECT Id FROM Loan_Calculator__c].size());
   }
   //Scenario 2: Lead when no loan cal object saved prior
   @isTest
-  public static void shouldSaveLoanCalculationWhenNoneExists() {
+  public static void shouldUpdateRunLoanScenarios() {
     List<Lead> leads = [SELECT Id FROM Lead];
 
     Lead newLead = leads[0];
@@ -75,17 +66,6 @@ public class TestSimpleLoanCalculationController {
 
     Opportunity opp = opportunities[0];
     Test.startTest();
-    // Map<String,Object> calculationData = new Map<String,Object>{
-    //       'sObject' => 'Loan_Calculator__c',
-    //       'Lead_and_Referral__c' => newLead.Id,
-    //       'Opportunity__c' => opp.Id,
-    //       'Interest_Rate__c' => 15.0,
-    //       'Total_Monthly__c' => 1000.00,
-    //       'Reqeusted_Limit__c' => 10000.00,
-    //       'Monthly_Gross_Income__c' => 3000.00,
-    //       'Existing_Monthly_Credit_Payment__c' => 500.00,
-    //       'Total_Monthly__c' => 1000.00
-    // };
 
     Loan_Calculator__c loanCal = TestDataFactory.CreateLoanCalculation(1)[0];
     loanCal.Lead_and_Referral__c = newLead.Id;
@@ -113,6 +93,7 @@ public class TestSimpleLoanCalculationController {
         SELECT Id, Number_of_Loans_Scenerios_Run__c
         FROM Lead
         WHERE Id = :newLead.Id
+        WITH SECURITY_ENFORCED
       ]
       .Number_of_Loans_Scenerios_Run__c
     );
