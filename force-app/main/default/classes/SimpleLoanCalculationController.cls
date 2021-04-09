@@ -1,11 +1,23 @@
+/**
+ * @description       :
+ * @author            : Travis Allen
+ * @group             :
+ * @last modified on  : 04-09-2021
+ * @last modified by  : Travis Allen
+ * Modifications Log
+ * Ver   Date         Author         Modification
+ * 1.0   04-08-2021   Travis Allen   Initial Version
+ **/
 public class SimpleLoanCalculationController {
   private static final String TAG = 'SimpleLoanCalculationController';
   @AuraEnabled
   public static Object SaveLoanCalculation(
     String CalculationData,
-    String radioGrpName
+    String radioGrpName,
+    String leadId
   ) {
     String returnStr = '';
+    List<SObject> recordsToUpsert = new List<SObject>();
     try {
       Map<String, String> rtMap = new Map<String, String>();
       rtMap.put(
@@ -21,7 +33,6 @@ public class SimpleLoanCalculationController {
         'RevolvingCreditLimitSecured',
         'Revolving Credit Limit Secured'
       );
-      //rtMap.put('MultiProductCalculator', value);
 
       Loan_Calculator__c LoanObj = (Loan_Calculator__c) JSON.deserialize(
         CalculationData,
@@ -32,7 +43,10 @@ public class SimpleLoanCalculationController {
           .get(rtMap.get(radioGrpName))
           .getRecordTypeId();
         LoanObj.recordTypeId = rtID;
-        insert LoanObj;
+        Lead updatedLead = updateNumberOfScenariosRunOnLead(leadId);
+        recordsToUpsert.add(updatedLead);
+        recordsToUpsert.add(LoanObj);
+        upsert recordsToUpsert;
 
         return [SELECT Name FROM Loan_Calculator__c WHERE Id = :LoanObj.Id]
         .Name;
@@ -42,5 +56,28 @@ public class SimpleLoanCalculationController {
       return new AuraException(ex.getMessage());
     }
     return 'Saved';
+  }
+  /**
+   * Calculates the amount of loan scenarios ran on a lead.
+   * @{params} - leadId
+   * @{return} - Lead
+   */
+  private static Lead updateNumberOfScenariosRunOnLead(String leadId) {
+    List<Lead> leads = [
+      SELECT Id, Number_of_Loans_Scenerios_Run__c
+      FROM Lead
+      WHERE Id = :leadId
+      WITH SECURITY_ENFORCED
+    ];
+    Lead currentLead = leads[0];
+    if (
+      currentLead.Number_of_Loans_Scenerios_Run__c == null ||
+      currentLead.Number_of_Loans_Scenerios_Run__c == 0
+    ) {
+      currentLead.Number_of_Loans_Scenerios_Run__c = 1;
+    } else {
+      currentLead.Number_of_Loans_Scenerios_Run__c += 1;
+    }
+    return currentLead;
   }
 }
