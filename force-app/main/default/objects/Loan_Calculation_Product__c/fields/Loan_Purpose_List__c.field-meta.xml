@@ -61,6 +61,31 @@
                 <default>false</default>
                 <label>Equity in a Motor Vehicle</label>
             </value>
+            <value>
+                <fullName>Vacation</fullName>
+                <default>false</default>
+                <label>Vacation</label>
+            </value>
+            <value>
+                <fullName>Emergency Expenses</fullName>
+                <default>false</default>
+                <label>Emergency Expenses</label>
+            </value>
+            <value>
+                <fullName>Purchase of Appliances</fullName>
+                <default>false</default>
+                <label>Purchase of Appliances</label>
+            </value>
+            <value>
+                <fullName>Vehicle Financing</fullName>
+                <default>false</default>
+                <label>Vehicle Financing</label>
+            </value>
+            <value>
+                <fullName>Wedding Expenses</fullName>
+                <default>false</default>
+                <label>Wedding Expenses</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

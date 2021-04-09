@@ -26,6 +26,36 @@
                 <default>false</default>
                 <label>Over The Counter</label>
             </value>
+            <value>
+                <fullName>Savings</fullName>
+                <default>false</default>
+                <label>Savings</label>
+            </value>
+            <value>
+                <fullName>Dividends</fullName>
+                <default>false</default>
+                <label>Dividends</label>
+            </value>
+            <value>
+                <fullName>Alimony</fullName>
+                <default>false</default>
+                <label>Alimony</label>
+            </value>
+            <value>
+                <fullName>Remittances</fullName>
+                <default>false</default>
+                <label>Remittances</label>
+            </value>
+            <value>
+                <fullName>Rental Income</fullName>
+                <default>false</default>
+                <label>Rental Income</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

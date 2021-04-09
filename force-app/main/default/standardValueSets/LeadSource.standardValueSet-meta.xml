@@ -2,6 +2,21 @@
 <StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <sorted>false</sorted>
     <standardValue>
+        <fullName>Data Mining</fullName>
+        <default>false</default>
+        <label>Data Mining</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Walk-Ins</fullName>
+        <default>false</default>
+        <label>Walk-Ins</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Sales Prospect</fullName>
+        <default>false</default>
+        <label>Sales Prospect</label>
+    </standardValue>
+    <standardValue>
         <fullName>Advertisement</fullName>
         <default>false</default>
         <label>Advertisement</label>
@@ -45,26 +60,6 @@
         <fullName>Webinar</fullName>
         <default>false</default>
         <label>Webinar</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Website</fullName>
-        <default>false</default>
-        <label>Website</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Unsecured Loan Form</fullName>
-        <default>false</default>
-        <label>Unsecured Loan Form</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Credit Card Form</fullName>
-        <default>false</default>
-        <label>Credit Card Form</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Lead Portal</fullName>
-        <default>false</default>
-        <label>Lead Portal</label>
     </standardValue>
     <standardValue>
         <fullName>Online Application Form</fullName>

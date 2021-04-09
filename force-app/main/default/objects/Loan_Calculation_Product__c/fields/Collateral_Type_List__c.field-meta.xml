@@ -21,6 +21,12 @@
                 <default>false</default>
                 <label>Cash/Investments</label>
             </value>
+            <value>
+                <fullName>Cash/Investment</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Cash/Investment</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
