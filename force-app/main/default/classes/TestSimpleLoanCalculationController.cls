@@ -3,7 +3,7 @@
  * @author            : Travis Allen
  * @group             :
  * @last modified on  : 04-09-2021
- * @last modified by  : Travis Allen
+ * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author         Modification
  * 1.0   04-08-2021   Travis Allen   Initial Version
@@ -93,7 +93,6 @@ public class TestSimpleLoanCalculationController {
         SELECT Id, Number_of_Loans_Scenerios_Run__c
         FROM Lead
         WHERE Id = :newLead.Id
-        WITH SECURITY_ENFORCED
       ]
       .Number_of_Loans_Scenerios_Run__c
     );
