@@ -829,7 +829,7 @@ window.nonRevolvingCreditorLifeCalculator = function (jnDefaults, container) {
     jnDefaults.creditCardLifeProtectionAndCriticalIllnessRate;
   let lifeProtectionRate = jnDefaults.creditCardLifeProtectionRate;
   let lineOfCreditCreditorLifeRate = jnDefaults.lineOfCreditLifeProtectionRate;
-  let coverageType = container.coverageType;
+  let coverageType = container.lifeInsuranceCoverage;
   let ASL = container.approvedStartingLimit;
   let product = container.productFamily;
   if (product === CREDIT_CARD) {
