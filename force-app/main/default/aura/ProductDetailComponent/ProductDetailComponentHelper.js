@@ -173,6 +173,10 @@
       if (state === "SUCCESS") {
         //update spinner status
         //this.checkSpinnerStatus(component, "assetsAndLiabilitiesForApplicants");
+        console.log(
+          "Applicant Assets and Liabilities",
+          JSON.parse(JSON.stringify(result))
+        );
         this.mergeWithChildContainer(component, result);
         this.existingDebtCalculator(component, result);
       }
