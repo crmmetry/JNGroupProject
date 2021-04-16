@@ -399,7 +399,7 @@ window.calculateTotalClosingCostPayableByApplicant = function (
  * @return {Number}
  */
 window.calculateTotalLoanAmount = function (properties, parentObj) {
-  return parseFloat(basicTotalsCalculator(properties, parentObj));
+  return basicTotalsCalculator(properties, parentObj);
 };
 /**
  * calculates total monthly loan payment
