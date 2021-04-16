@@ -90,6 +90,8 @@ window.totalLoanAmountCalculation = function (component) {
       parentObj
     );
   }
+  console.log("Total type: ", typeof total);
+  console.log("total", total);
   let values = [{ key: "totalLoanAmount", value: total }];
   const data = updateChildContainerWithValue(component, values, false);
   component.set("v.ChildContainer", data);
