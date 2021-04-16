@@ -2,8 +2,8 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 02-22-2021
-  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+  @last modified on  : 04-16-2021
+  @last modified by  : Travis Allen
   Modifications Log 
   Ver   Date         Author                               Modification
   1.0   02-22-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
@@ -219,7 +219,7 @@
         <lightning:input
           type="number"
           label="Total Loan amount"
-          value="{!v.totalLoanAmount}"
+          value="{!v.ParentContainer.totalLoanAmount}"
           name="number"
           formatter="currency"
           required="true"
