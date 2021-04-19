@@ -104,10 +104,10 @@
     action.setCallback(this, function (response) {
       this.hideSpinner(component);
       let state = response.getState(); //Checking response status
-      let result = response.getReturnValue();
+      let applicants = response.getReturnValue();
       if (state === "SUCCESS") {
-        component.set("v.applicants", result);
-        if (applicants.length > 1) {
+        component.set("v.applicants", applicants);
+        if (applicants && applicants.length > 1) {
           component.set("v.multipleApplicantsFlag", true);
         }
         //build generated documents here array

@@ -193,7 +193,7 @@
       let unsecureLoanFeatureComponentFields = ["includeInLoanAmountId"];
       showIncludeInLoanAmount = validateFields(
         component,
-        autoLoanFeatureComponentFields
+        unsecureLoanFeatureComponentFields
       );
     } else {
       let inputCmp = component.find("includeInLoanAmountId");

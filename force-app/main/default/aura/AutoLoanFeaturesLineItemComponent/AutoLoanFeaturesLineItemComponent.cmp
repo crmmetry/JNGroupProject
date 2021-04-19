@@ -1,3 +1,13 @@
+<!--
+  @description       : 
+  @author            : Travis Allen
+  @group             : 
+  @last modified on  : 04-19-2021
+  @last modified by  : Travis Allen
+  Modifications Log 
+  Ver   Date         Author         Modification
+  1.0   04-19-2021   Travis Allen   Initial Version
+-->
 <aura:component>
   <!-- Static Resource -->
   <aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
@@ -63,10 +73,10 @@
   <aura:attribute
     name="repaymentMethod"
     type="List"
-    default="['Salary deduction',
+    default="['Salary Deduction',
               'Automatic transfer',
               'Standing Order',
-              'Over the Counter']"
+              'Over The Counter']"
   />
   <aura:attribute
     name="monthlyRepaymentDate"
