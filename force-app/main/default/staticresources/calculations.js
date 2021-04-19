@@ -498,6 +498,17 @@ window.validNumber = function (value) {
   }
   return false;
 };
+
+/** checks whether the number is valid divisor
+ * @param {Number} value
+ * @return {Boolean}
+ */
+window.validDivisor = function (value) {
+  if (!isEmpty(value)) {
+    return !isNaN(value) && parseFloat(value) > 0;
+  }
+  return false;
+};
 /**
  * checks whether the set of numbers are valid from an object
  * @param {Map} data
@@ -505,7 +516,7 @@ window.validNumber = function (value) {
  * @return {Decimal}
  */
 window.LTVCalculatorAutoLoan = function (loanAmount, minimum) {
-  if (validNumber(loanAmount) === false || validNumber(minimum) === false) {
+  if (validNumber(loanAmount) === false || validDivisor(minimum) === false) {
     return 0;
   }
   return roundedValue((parseFloat(loanAmount) / parseFloat(minimum)) * 100);
@@ -522,7 +533,7 @@ window.LTVCalculatorCash = function (startingLimit, existingDebt, deposit) {
   if (
     validNumber(startingLimit) === false ||
     validNumber(existingDebt) === false ||
-    validNumber(deposit) === false
+    validDivisor(deposit) === false
   ) {
     return 0;
   }
@@ -540,7 +551,7 @@ window.LTVCalculatorCash = function (startingLimit, existingDebt, deposit) {
  * @return {Decimal}
  */
 window.TDSRBeforeCalculator = function (grossIncome, totalDebt) {
-  if (validNumber(grossIncome) === false || validNumber(totalDebt) === false) {
+  if (validDivisor(grossIncome) === false || validNumber(totalDebt) === false) {
     return 0;
   }
   return roundedValue((parseFloat(totalDebt) / parseFloat(grossIncome)) * 100);
@@ -554,7 +565,7 @@ window.TDSRBeforeCalculator = function (grossIncome, totalDebt) {
  */
 window.TDSRAfterCalculator = function (grossIncome, totalDebt, minimumPayment) {
   if (
-    validNumber(grossIncome) === false ||
+    validDivisor(grossIncome) === false ||
     validNumber(totalDebt) === false ||
     validNumber(minimumPayment) === false
   ) {
@@ -581,7 +592,7 @@ window.nonRevolvingTDSRAfterCalculator = function (
   monthlyPI
 ) {
   if (
-    validNumber(grossIncome) === false ||
+    validDivisor(grossIncome) === false ||
     validNumber(totalDebt) === false ||
     validNumber(monthlyPI) === false
   ) {
