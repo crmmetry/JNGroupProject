@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Method_of_Fee_Payment_List__c</fullName>
+    <externalId>false</externalId>
+    <label>Method of Fee Payment</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Added to Loan</fullName>
+                <default>false</default>
+                <label>Added to Loan</label>
+            </value>
+            <value>
+                <fullName>Deducted from Loan</fullName>
+                <default>false</default>
+                <label>Deducted from Loan</label>
+            </value>
+            <value>
+                <fullName>Deduct from JN Account</fullName>
+                <default>false</default>
+                <label>Deduct from JN Account</label>
+            </value>
+            <value>
+                <fullName>Paid out of Pocket</fullName>
+                <default>false</default>
+                <label>Paid out of Pocket</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
