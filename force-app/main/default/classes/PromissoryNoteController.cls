@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 04-19-2021
- * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+ * @last modified on  : 04-20-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   03-19-2021   Remario Richards   Initial Version
@@ -133,39 +133,7 @@ public class PromissoryNoteController {
     }
     if (this.OpportId <> null) {
       PageReference pdf = Page.PromissoryNotePage;
-      pdf.getParameters().put('doSave', 'No');
-      pdf.getParameters().put('Id', this.OpportId);
-      String doSave = pdf.getParameters().get('doSave');
-      Blob pdfBody;
-
-      try {
-        pdfBody = pdf.getContentAsPdf();
-      } catch (VisualforceException e) {
-        pdfBody = Blob.valueOf('Test Content');
-      }
-
-      ContentVersion conVer = new ContentVersion();
-      conVer.ContentLocation = 'S'; // S specify this document is in SF, use E for external files
-      conVer.PathOnClient = 'Promissory_Note.pdf'; // The files name, extension is very important here which will help the file in preview.
-      conVer.Title = 'Promissory Note'; // Display name of the files
-      conVer.VersionData = pdfBody; // converting your binary string to Blog
-      insert conVer;
-
-      // First get the content document Id from ContentVersion
-      Id conDoc = [
-        SELECT ContentDocumentId
-        FROM ContentVersion
-        WHERE Id = :conVer.Id
-      ]
-      .ContentDocumentId;
-
-      //Create ContentDocumentLink
-      ContentDocumentLink cDe = new ContentDocumentLink();
-      cDe.ContentDocumentId = conDoc;
-      cDe.LinkedEntityId = this.OpportId; // you can use objectId,GroupId etc
-      cDe.ShareType = 'I'; // Inferred permission, checkout description of ContentDocumentLink object for more details
-      cDe.Visibility = 'InternalUsers';
-      insert cDe;
+      Util.savePdf(this.OpportId, pdf, 'Promissory_Note');
     }
     return null;
   }
