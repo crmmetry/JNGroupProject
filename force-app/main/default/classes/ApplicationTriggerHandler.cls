@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : Remario Richards
+ * @group             :
+ * @last modified on  : 04-20-2021
+ * @last modified by  : Remario Richards
+ * Modifications Log
+ * Ver   Date         Author             Modification
+ * 1.0   04-20-2021   Remario Richards   Initial Version
+ **/
 public class ApplicationTriggerHandler {
   private static List<Application__c> newRecords;
   private static Map<Id, Application__c> oldMap;
@@ -13,8 +23,11 @@ public class ApplicationTriggerHandler {
     ApplicationTriggerHandler.newMap = newMap;
   }
 
-  public static void checkOpportunityHasOneAppliaction() {
-    String errMsg = 'You cant add more than one application for this opportunity';
+  /**
+   * @description This method checks validation, whether the Opportunity has one application associated or not otherwise display error message.
+   * @author Remario Richards | 04-20-2021
+   **/
+  public static void checkOpportunityHasOneApplication() {
     Set<Id> oppIdSet = new Set<Id>();
     for (Application__c appRecord : newRecords) {
       oppIdSet.add(appRecord.Opportunity_ID__c);
@@ -24,6 +37,7 @@ public class ApplicationTriggerHandler {
         SELECT id, (SELECT id FROM Applications__r)
         FROM Opportunity
         WHERE Id IN :oppIdSet AND RecordType.developerName = 'Rubicon'
+        WITH SECURITY_ENFORCED
       ]
     );
     for (Application__c newAppRecord : newRecords) {
@@ -32,7 +46,7 @@ public class ApplicationTriggerHandler {
           opportunityMap.get(newAppRecord.Opportunity_ID__c)
             .Applications__r.size() > 1
         ) {
-          newAppRecord.addError(errMsg);
+          newAppRecord.addError(Constants.ONLY_ONE_APPLICATION);
         }
       }
     }
