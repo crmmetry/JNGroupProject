@@ -187,9 +187,6 @@
       "otherReason",
       "indicateRepaymentMethod",
       "dedicatedMonthlyRepaymentDate",
-      "proposedSavings",
-      "saving",
-      "amount",
       "creditRiskScore",
       "monthlyPremium",
       "coverageType"
