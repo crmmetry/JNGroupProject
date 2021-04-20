@@ -1,3 +1,13 @@
+/**
+ * @description       : To Validate that one opportunity have one application
+ * @author            : Tushar Chopade(Thinqloud)
+ * @group             :
+ * @last modified on  : 04-20-2021
+ * @last modified by  : Tushar Chopade(Thinqloud)
+ * Modifications Log
+ * Ver   Date         Author                      Modification
+ * 1.0   04-20-2021   Tushar Chopade(Thinqloud)   Initial Version
+ **/
 public class ApplicationTriggerHandler {
   private static List<Application__c> newRecords;
   private static Map<Id, Application__c> oldMap;
@@ -13,6 +23,10 @@ public class ApplicationTriggerHandler {
     ApplicationTriggerHandler.newMap = newMap;
   }
 
+  /**
+   * @description : This method checks validation, whether the Opportunity has one application associated or not otherwise display error message.
+   * @author Tushar Chopade(Thinqloud) | 04-20-2021
+   **/
   public static void checkOpportunityHasOneAppliaction() {
     String errMsg = 'You cant add more than one application for this opportunity';
     Set<Id> oppIdSet = new Set<Id>();
