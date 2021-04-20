@@ -2,7 +2,7 @@
   @description       : 
   @author            : Travis Allen
   @group             : 
-  @last modified on  : 04-19-2021
+  @last modified on  : 04-20-2021
   @last modified by  : Travis Allen
   Modifications Log 
   Ver   Date         Author         Modification
@@ -583,7 +583,6 @@
               value="{!v.ChildContainer.proposedSavingsAmount}"
               formatter="currency"
               required="false"
-              min="1000"
               aura:id="amount"
             />
           </lightning:layoutItem>
