@@ -1,12 +1,12 @@
 /**
- * @description       :
- * @author            : Remario Richards
+ * @description       : To Validate that one opportunity have one application
+ * @author            : Tushar Chopade(Thinqloud)
  * @group             :
  * @last modified on  : 04-20-2021
  * @last modified by  : Remario Richards
  * Modifications Log
- * Ver   Date         Author             Modification
- * 1.0   04-20-2021   Remario Richards   Initial Version
+ * Ver   Date         Author                      Modification
+ * 1.0   04-20-2021   Tushar Chopade(Thinqloud)   Initial Version
  **/
 public class ApplicationTriggerHandler {
   private static List<Application__c> newRecords;
