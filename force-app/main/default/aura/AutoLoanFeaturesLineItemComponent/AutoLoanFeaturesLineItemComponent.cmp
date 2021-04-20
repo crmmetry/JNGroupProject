@@ -550,7 +550,7 @@
             options="{! v.options }"
             value="{! v.value }"
             type="radio"
-            required="true"
+            required="false"
             aura:id="proposedSavings"
           />
         </lightning:layoutItem>
@@ -566,7 +566,7 @@
               value="{!v.ChildContainer.proposedSavingsPercentage}"
               formatter="percent-fixed"
               step="0.01"
-              required="true"
+              required="false"
               aura:id="saving"
             />
           </lightning:layoutItem>
@@ -582,7 +582,7 @@
               label="Amount(JMD)"
               value="{!v.ChildContainer.proposedSavingsAmount}"
               formatter="currency"
-              required="true"
+              required="false"
               min="1000"
               aura:id="amount"
             />
