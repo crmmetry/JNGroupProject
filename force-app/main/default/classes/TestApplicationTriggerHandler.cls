@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : Remario Richards
+ * @group             :
+ * @last modified on  : 04-20-2021
+ * @last modified by  : Remario Richards
+ * Modifications Log
+ * Ver   Date         Author             Modification
+ * 1.0   04-20-2021   Remario Richards   Initial Version
+ **/
 @isTest
 public class TestApplicationTriggerHandler {
   @isTest
@@ -61,7 +71,7 @@ public class TestApplicationTriggerHandler {
         : false;
       System.assertEquals(expectedExceptionThrown, true);
     }
-    ApplicationTriggerHandler.checkOpportunityHasOneAppliaction();
+    ApplicationTriggerHandler.checkOpportunityHasOneApplication();
     Test.stopTest();
   }
 }
