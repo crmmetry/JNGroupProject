@@ -2,7 +2,7 @@
  * @description       : To Validate that one opportunity have one application
  * @author            : Tushar Chopade(Thinqloud)
  * @group             :
- * @last modified on  : 04-20-2021
+ * @last modified on  : 04-21-2021
  * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author                      Modification
@@ -36,7 +36,7 @@ public class ApplicationTriggerHandler {
       [
         SELECT id, (SELECT id FROM Applications__r)
         FROM Opportunity
-        WHERE Id IN :oppIdSet AND RecordType.developerName = 'Rubicon'
+        WHERE Id IN :oppIdSet
         WITH SECURITY_ENFORCED
       ]
     );
