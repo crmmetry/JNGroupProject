@@ -10,61 +10,61 @@
  **/
 global class SkillsBasedRouting {
   public static final String TAG = 'SkillsBasedRouting';
-  public static void routeUsingSkillsTier1(Set<Id> leads) {
-    //get Sales Development queue id
-    Group salesDevQueue = [
-      SELECT Id
-      FROM Group
-      WHERE Type = 'Queue' AND Name = 'Sales Development Team'
-    ];
-    for (Lead leadObj : [
-      SELECT Id, Preferred_Location__c, OwnerId
-      FROM Lead
-      WHERE Id IN :leads AND OwnerID = :salesDevQueue.Id
-    ]) {
-      if (leadObj.Preferred_Location__c != null) {
-        PendingServiceRouting pendingSrvRouting = new PendingServiceRouting(
-          CapacityWeight = 1,
-          IsReadyForRouting = false,
-          RoutingModel = 'LeastActive',
-          RoutingPriority = 1,
-          RoutingType = 'SkillsBased',
-          ServiceChannelId = getChannelId('New_lead'),
-          WorkItemId = leadObj.Id
-        );
-        System.debug('JNSkillsRouting' + pendingSrvRouting);
-        insert pendingSrvRouting;
-        pendingSrvRouting = [
-          SELECT Id, IsReadyForRouting
-          FROM PendingServiceRouting
-          WHERE Id = :pendingSrvRouting.id
-        ];
+  // public static void routeUsingSkillsTier1(Set<Id> leads) {
+  //   //get Sales Development queue id
+  //   Group salesDevQueue = [
+  //     SELECT Id
+  //     FROM Group
+  //     WHERE Type = 'Queue' AND Name = 'Sales Development Team'
+  //   ];
+  //   for (Lead leadObj : [
+  //     SELECT Id, Preferred_Location__c, OwnerId
+  //     FROM Lead
+  //     WHERE Id IN :leads AND OwnerID = :salesDevQueue.Id
+  //   ]) {
+  //     if (leadObj.Preferred_Location__c != null && leadObj.Service_of_Interest__c!=null) {
+  //       PendingServiceRouting pendingSrvRouting = new PendingServiceRouting(
+  //         CapacityWeight = 1,
+  //         IsReadyForRouting = false,
+  //         RoutingModel = 'LeastActive',
+  //         RoutingPriority = 1,
+  //         RoutingType = 'SkillsBased',
+  //         ServiceChannelId = getChannelId('New_lead'),
+  //         WorkItemId = leadObj.Id
+  //       );
+  //       System.debug('JNSkillsRouting' + pendingSrvRouting);
+  //       insert pendingSrvRouting;
+  //       pendingSrvRouting = [
+  //         SELECT Id, IsReadyForRouting
+  //         FROM PendingServiceRouting
+  //         WHERE Id = :pendingSrvRouting.id
+  //       ];
 
-        // Now add SkillRequirement(s)
-        SkillRequirement srObj = new SkillRequirement(
-          RelatedRecordId = pendingSrvRouting.id,
-          SkillId = getSkillIdForPreferredLocation(
-            leadObj.Preferred_Location__c
-          ),
-          SkillLevel = 1
-        );
-        //new skill requirement for Product
-        SkillRequirement srObj = new SkillRequirement(
-          RelatedRecordId = pendingSrvRouting.id,
-          SkillId = getSkillIdForProductOfInterest(
-            leadObj.Service_of_Interest__c
-          ),
-          SkillLevel = 1
-        );
-        insert srObj;
-        System.debug('Current Skill: ' + srObj);
-        // Update PendingServiceRouting as IsReadyForRouting
-        pendingSrvRouting.IsReadyForRouting = true;
-        update pendingSrvRouting;
-      }
-    }
-    return;
-  }
+  //       // Now add SkillRequirement(s)
+  //       SkillRequirement srObj = new SkillRequirement(
+  //         RelatedRecordId = pendingSrvRouting.id,
+  //         SkillId = getSkillIdForPreferredLocation(
+  //           leadObj.Preferred_Location__c
+  //         ),
+  //         SkillLevel = 1
+  //       );
+  //       //new skill requirement for Product
+  //       SkillRequirement srObj = new SkillRequirement(
+  //         RelatedRecordId = pendingSrvRouting.id,
+  //         SkillId = getSkillIdForProductOfInterest(
+  //           leadObj.Service_of_Interest__c
+  //         ),
+  //         SkillLevel = 1
+  //       );
+  //       insert srObj;
+  //       System.debug('Current Skill: ' + srObj);
+  //       // Update PendingServiceRouting as IsReadyForRouting
+  //       pendingSrvRouting.IsReadyForRouting = true;
+  //       update pendingSrvRouting;
+  //     }
+  //   }
+  //   return;
+  // }
 
   private static String getChannelId(String channelName) {
     ServiceChannel channel = [
@@ -78,7 +78,7 @@ global class SkillsBasedRouting {
   private static String getSkillIdForPreferredLocation(
     String preferredLocation
   ) {
-    Skill skill = [SELECT Id FROM Skill WHERE MasterLabel = :preferedLocation];
+    Skill skill = [SELECT Id FROM Skill WHERE MasterLabel = :preferredLocation];
     return skill.Id;
   }
   //Get Skill Id based on product
@@ -102,7 +102,7 @@ global class SkillsBasedRouting {
     return [SELECT Id, Name FROM Group WHERE Type = 'Queue' AND NAME = :name]
     .Id;
   }
-  private static PriorityQueue getLocations(
+  private static PriorityQueue getProductLocationQueue(
     String leadLocation,
     String leadProduct,
     List<Worker> workers
@@ -133,6 +133,7 @@ global class SkillsBasedRouting {
       FROM Group
       WHERE Type = 'Queue' AND Name = :salesTeam
     ];
+    //Get a list locations and products from the leads
     for (Lead record : leads) {
       if (record.OwnerId.equals(salesDevQueue.Id)) {
         if (record.Escalate_to_Tier2__c == true) {
@@ -162,8 +163,8 @@ global class SkillsBasedRouting {
     }
     Map<String, Map<String, String>> userLocationProductMap = new Map<String, Map<String, String>>();
     Map<String, String> locationProductMap = new Map<String, String>();
-    List<String> serviceResourceLoactionSkillNames = new List<String>();
-    List<String> serviceResourceProductSkillNames = new List<String>();
+    Set<String> serviceResourceLoactionSkillNames = new Set<String>();
+    Set<String> serviceResourceProductSkillNames = new Set<String>();
     //get all service resource with associated users hascode
     Map<String, Worker> mappedWorkerSkills = new Map<String, Worker>();
     //List<String> hashStrings;
@@ -220,8 +221,11 @@ global class SkillsBasedRouting {
         Service_of_Interest__c,
         OwnerId
       FROM Lead
-      WHERE Preferred_Location__c IN :locations AND OwnerId IN :skilledUsers
-      GROUP BY OwnerId, Preferred_Location__c
+      WHERE
+        Preferred_Location__c IN :locations
+        AND OwnerId IN :skilledUsers
+        AND Service_of_Interest__c IN :products
+      GROUP BY OwnerId, Preferred_Location__c, Service_of_Interest__c
       ORDER BY COUNT(Id)
     ]) {
       total = (Integer) record.get('total');
@@ -234,7 +238,6 @@ global class SkillsBasedRouting {
       if (mappedWorkerSkills.containsKey(generatedHash)) {
         mappedWorkerSkills.get(generatedHash).setWorkLoad(total);
       }
-      System.debug(TAG + ' Worker ' + new Worker(userId, total, location));
     }
 
     //add all the workers
@@ -250,7 +253,7 @@ global class SkillsBasedRouting {
         leadLocation = selectedLead.Preferred_Location__c;
         leadProduct = selectedLead.Service_of_Interest__c;
         //search aggregate results to match the best record based on lowest capacity and actual location
-        pq = getLocations(leadLocation, leadProduct, workers);
+        pq = getProductLocationQueue(leadLocation, leadProduct, workers);
         if (pq.size() > 0) {
           selectedWorker = (Worker) pq.poll();
           System.debug(TAG + ' Found work ' + selectedWorker);
