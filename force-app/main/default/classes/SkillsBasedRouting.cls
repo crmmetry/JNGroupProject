@@ -205,11 +205,15 @@ global class SkillsBasedRouting {
           if (serviceResourceMap.keySet().contains(record.RelatedRecordId)) {
             serviceResourceMap.get(record.RelatedRecordId)
               .addProduct(skillRecord.Skill.MasterLabel);
+            serviceResourceMap.get(record.RelatedRecordId)
+              .generateWorkerHashMap();
           } else {
             ServiceResourceWrapper SRWrapper = new ServiceResourceWrapper(
               record.RelatedRecordId
             );
+            System.debug(TAG + ' Worker hash map ' + SRWrapper);
             SRWrapper.addProduct(skillRecord.Skill.MasterLabel);
+            SRWrapper.generateWorkerHashMap();
             serviceResourceMap.put(record.RelatedRecordId, SRWrapper);
           }
         }
@@ -219,6 +223,7 @@ global class SkillsBasedRouting {
     for (String userId : serviceResourceMap.keySet()) {
       Map<String, Worker> workerhash = serviceResourceMap.get(userId)
         .getWorkerHashMap();
+      System.debug(TAG + ' Worker map ' + workerhash);
       mappedWorkerSkills.putAll(workerhash);
     }
 
