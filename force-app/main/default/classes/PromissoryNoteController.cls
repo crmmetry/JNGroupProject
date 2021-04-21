@@ -2,15 +2,13 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 03-19-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 04-20-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   03-19-2021   Remario Richards   Initial Version
+ * 2.0   04-19-2021   Ishwari Gaikwad    changes related RUB-276
  **/
-//Sample Opportunities Id 006f000000PhctcAAB  006f000000PhpadAAB
-//Sample Applicant Ids are a15f0000002F8z5AAC 	a15f0000002F9sIAAS
-//Sample Account Id 001f000001dJOzdAAG	001f000001dXjJ9AAK
 public class PromissoryNoteController {
   //Date of Application
   public date dateOfApplication { get; set; }
@@ -26,11 +24,12 @@ public class PromissoryNoteController {
 
   public String loan_Amount_In_Words { get; set; }
   public String intrest_Rate_In_Words { get; set; }
+  public string doSave { get; set; }
 
   public PromissoryNoteController() {
     //Get opportunity id from URL
     OpportId = ApexPages.currentPage().getParameters().get('Id');
-
+    doSave = ApexPages.currentPage().getParameters().get('doSave');
     if (OpportId != null) {
       //Form the date of application value to display in vf page
       dateOfApplication = date.today();
@@ -120,6 +119,21 @@ public class PromissoryNoteController {
         }
       }
       return null;
+    }
+    return null;
+  }
+  /**
+   * @description : To save the generated pdf in the files section of opportunity
+   * @author ChangeMeIn@UserSettingsUnder.SFDoc | 04-19-2021
+   * @return pagereference
+   **/
+  public pagereference savePdf() {
+    if (doSave == 'No') {
+      return null;
+    }
+    if (this.OpportId <> null) {
+      PageReference pdf = Page.PromissoryNotePage;
+      Util.savePdf(this.OpportId, pdf, 'Promissory_Note');
     }
     return null;
   }
