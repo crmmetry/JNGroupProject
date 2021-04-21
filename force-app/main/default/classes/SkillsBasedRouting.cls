@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : Travis Allen
+ * @group             :
+ * @last modified on  : 04-21-2021
+ * @last modified by  : Travis Allen
+ * Modifications Log
+ * Ver   Date         Author         Modification
+ * 1.0   04-20-2021   Travis Allen   Initial Version
+ **/
 global class SkillsBasedRouting {
   public static final String TAG = 'SkillsBasedRouting';
   public static void routeUsingSkillsTier1(Set<Id> leads) {
@@ -33,7 +43,17 @@ global class SkillsBasedRouting {
         // Now add SkillRequirement(s)
         SkillRequirement srObj = new SkillRequirement(
           RelatedRecordId = pendingSrvRouting.id,
-          SkillId = getSkillId(leadObj.Preferred_Location__c),
+          SkillId = getSkillIdForPreferredLocation(
+            leadObj.Preferred_Location__c
+          ),
+          SkillLevel = 1
+        );
+        //new skill requirement for Product
+        SkillRequirement srObj = new SkillRequirement(
+          RelatedRecordId = pendingSrvRouting.id,
+          SkillId = getSkillIdForProductOfInterest(
+            leadObj.Service_of_Interest__c
+          ),
           SkillLevel = 1
         );
         insert srObj;
@@ -54,14 +74,28 @@ global class SkillsBasedRouting {
     ];
     return channel.Id;
   }
-
-  private static String getSkillId(String preferedLocation) {
+  //Get Skill Id based on preferred location
+  private static String getSkillIdForPreferredLocation(
+    String preferredLocation
+  ) {
     Skill skill = [SELECT Id FROM Skill WHERE MasterLabel = :preferedLocation];
     return skill.Id;
   }
-  private static Map<Id, Skill> getSkills(List<String> locations) {
+  //Get Skill Id based on product
+  private static String getSkillIdForProductOfInterest(String product) {
+    Skill skill = [SELECT Id FROM Skill WHERE MasterLabel = :product];
+    return skill.Id;
+  }
+  //Get a map of all skills with preferred location
+  private static Map<Id, Skill> getLocationSkills(Set<String> locations) {
     return new Map<Id, Skill>(
       [SELECT Id FROM Skill WHERE MasterLabel IN :locations]
+    );
+  }
+  //Get a map of all skills with products of interest
+  private static Map<Id, Skill> getProductSkills(Set<String> products) {
+    return new Map<Id, Skill>(
+      [SELECT Id FROM Skill WHERE MasterLabel IN :products]
     );
   }
   private static String getQueueId(String name) {
@@ -70,6 +104,7 @@ global class SkillsBasedRouting {
   }
   private static PriorityQueue getLocations(
     String leadLocation,
+    String leadProduct,
     List<Worker> workers
   ) {
     PriorityQueue pq = new PriorityQueue(
@@ -78,7 +113,10 @@ global class SkillsBasedRouting {
     );
     System.debug('All Workers: ' + workers);
     for (Worker record : workers) {
-      if (leadLocation.equals(record.location)) {
+      if (
+        leadLocation.equals(record.location) &&
+        leadProduct.equals(record.product)
+      ) {
         pq.offer(record);
       }
     }
@@ -86,7 +124,8 @@ global class SkillsBasedRouting {
   }
   public static void routeUsingSkillsTier2(List<Lead> leads) {
     //PriorityQueue pq = new PriorityQueue(new SkillComparator(), Worker.class);
-    List<String> locations = new List<String>();
+    Set<String> locations = new Set<String>();
+    Set<String> products = new Set<String>();
     List<Lead> selectedLeads = new List<Lead>();
     String salesTeam = 'Sales Team';
     Group salesDevQueue = [
@@ -100,14 +139,16 @@ global class SkillsBasedRouting {
           System.debug(TAG + ' Lead Selected for tier 2 routing');
           selectedLeads.add(record);
           locations.add(record.Preferred_Location__c);
+          products.add(record.Service_of_Interest__c);
         }
       }
     }
 
     // if(locations.size() >= 1){
 
-    // get all skills that match preferred location
-    Map<Id, Skill> mappedSkills = getSkills(locations);
+    // get all skills that match preferred location and product of interest
+    Map<Id, Skill> mappedLocationSkills = getLocationSkills(locations);
+    Map<Id, Skill> mappedProductSkills = getProductSkills(products);
     List<Id> userIds = new List<Id>();
     Set<Id> skilledUsers = new Set<Id>(); //users found with the skill
     List<Worker> workers = new List<Worker>();
@@ -119,9 +160,13 @@ global class SkillsBasedRouting {
       System.debug(TAG + ' User is a tier 2 member');
       userIds.add(record.UserOrGroupId);
     }
-
+    Map<String, Map<String, String>> userLocationProductMap = new Map<String, Map<String, String>>();
+    Map<String, String> locationProductMap = new Map<String, String>();
+    List<String> serviceResourceLoactionSkillNames = new List<String>();
+    List<String> serviceResourceProductSkillNames = new List<String>();
     //get all service resource with associated users hascode
-    Map<String, Worker> mappedLocationSkills = new Map<String, Worker>();
+    Map<String, Worker> mappedWorkerSkills = new Map<String, Worker>();
+    //List<String> hashStrings;
     String generatedHash;
     for (serviceresource record : [
       SELECT
@@ -130,7 +175,9 @@ global class SkillsBasedRouting {
         (
           SELECT SkillId, Skill.MasterLabel
           FROM ServiceResourceSkills
-          WHERE SKill.Id IN :mappedSkills.keySet()
+          WHERE
+            SKill.Id IN :mappedLocationSkills.keySet()
+            OR Skill.Id IN :mappedProductSkills.keySet()
         )
       FROM serviceresource
       WHERE RelatedRecordId IN :userIds
@@ -142,26 +189,36 @@ global class SkillsBasedRouting {
 
       for (ServiceResourceSkill skillRecord : record.ServiceResourceSkills) {
         System.debug('------ServiceResourceSkill-----');
-        generatedHash = Util.GenerateHash(
-          new List<String>{
-            record.RelatedRecordId,
-            skillRecord.Skill.MasterLabel
-          }
-        );
-        mappedLocationSkills.put(
-          generatedHash,
-          new Worker(record.RelatedRecordId, 0, skillRecord.Skill.MasterLabel)
-        );
+        if (locations.contains(skillRecord.Skill.MasterLabel)) {
+          serviceResourceLoactionSkillNames.add(skillRecord.Skill.MasterLabel);
+        } else if (products.contains(skillRecord.Skill.MasterLabel)) {
+          serviceResourceProductSkillNames.add(skillRecord.Skill.MasterLabel);
+        }
+      }
+      for (String location : serviceResourceLoactionSkillNames) {
+        for (String product : serviceResourceProductSkillNames) {
+          generatedHash = Util.GenerateHash(
+            new List<String>{ record.RelatedRecordId, product, location }
+          );
+          mappedWorkerSkills.put(
+            generatedHash,
+            new Worker(record.RelatedRecordId, 0, location, product)
+          );
+        }
       }
     }
 
     //aggregate leads by service resource user id
     Integer total;
-    String userID, location;
+    String userID, location, product;
     System.debug('Skilled Workers: ' + skilledUsers);
     System.debug('Skilled Locations: ' + locations);
     for (AggregateResult record : [
-      SELECT COUNT(Id) total, Preferred_Location__c, OwnerId
+      SELECT
+        COUNT(Id) total,
+        Preferred_Location__c,
+        Service_of_Interest__c,
+        OwnerId
       FROM Lead
       WHERE Preferred_Location__c IN :locations AND OwnerId IN :skilledUsers
       GROUP BY OwnerId, Preferred_Location__c
@@ -170,26 +227,30 @@ global class SkillsBasedRouting {
       total = (Integer) record.get('total');
       userID = (String) record.get('OwnerId');
       location = (String) record.get('Preferred_Location__c');
-      generatedHash = Util.GenerateHash(new List<String>{ userID, location });
-      if (mappedLocationSkills.containsKey(generatedHash)) {
-        mappedLocationSkills.get(generatedHash).setWorkLoad(total);
+      product = (String) record.get('Service_of_Interest__c');
+      generatedHash = Util.GenerateHash(
+        new List<String>{ userID, location, product }
+      );
+      if (mappedWorkerSkills.containsKey(generatedHash)) {
+        mappedWorkerSkills.get(generatedHash).setWorkLoad(total);
       }
       System.debug(TAG + ' Worker ' + new Worker(userId, total, location));
     }
 
     //add all the workers
-    workers.addAll(mappedLocationSkills.values());
+    workers.addAll(mappedWorkerSkills.values());
 
     //assign the selected leads if aggregations were found
-    String leadLocation;
+    String leadLocation, leadProduct;
     PriorityQueue pq;
     Worker selectedWorker;
     if (workers.size() > 0) {
       for (Lead selectedLead : selectedLeads) {
         //can optimize by using a set
         leadLocation = selectedLead.Preferred_Location__c;
+        leadProduct = selectedLead.Service_of_Interest__c;
         //search aggregate results to match the best record based on lowest capacity and actual location
-        pq = getLocations(leadLocation, workers);
+        pq = getLocations(leadLocation, leadProduct, workers);
         if (pq.size() > 0) {
           selectedWorker = (Worker) pq.poll();
           System.debug(TAG + ' Found work ' + selectedWorker);
@@ -201,13 +262,20 @@ global class SkillsBasedRouting {
     }
     //}
   }
-
+  //Add Position to the worker class as a skill
   class Worker implements Comparable {
     public Id userId;
     public Integer workLoad;
     public String location;
-    public Worker(Id userId, Integer workLoad, String location) {
+    public String product;
+    public Worker(
+      Id userId,
+      Integer workLoad,
+      String location,
+      String product
+    ) {
       this.location = location;
+      this.product = product;
       this.workLoad = workLoad;
       this.userId = userId;
     }
