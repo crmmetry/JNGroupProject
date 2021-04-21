@@ -189,33 +189,37 @@ global class SkillsBasedRouting {
 
       skilledUsers.add(record.RelatedRecordId);
 
-      ServiceResourceWrapper SRWrapper = new ServiceResourceWrapper(
-        record.RelatedRecordId
-      );
-
       for (ServiceResourceSkill skillRecord : record.ServiceResourceSkills) {
         if (locations.contains(skillRecord.Skill.MasterLabel)) {
           if (serviceResourceMap.keySet().contains(record.RelatedRecordId)) {
             serviceResourceMap.get(record.RelatedRecordId)
               .addLocation(skillRecord.Skill.MasterLabel);
           } else {
+            ServiceResourceWrapper SRWrapper = new ServiceResourceWrapper(
+              record.RelatedRecordId
+            );
             SRWrapper.addLocation(skillRecord.Skill.MasterLabel);
-            serviceResourceMap.put(record.relatedRecordId, SRWrapper);
+            serviceResourceMap.put(record.RelatedRecordId, SRWrapper);
           }
         } else if (products.contains(skillRecord.Skill.MasterLabel)) {
           if (serviceResourceMap.keySet().contains(record.RelatedRecordId)) {
             serviceResourceMap.get(record.RelatedRecordId)
               .addProduct(skillRecord.Skill.MasterLabel);
           } else {
+            ServiceResourceWrapper SRWrapper = new ServiceResourceWrapper(
+              record.RelatedRecordId
+            );
             SRWrapper.addProduct(skillRecord.Skill.MasterLabel);
-            serviceResourceMap.put(record.relatedRecordId, SRWrapper);
+            serviceResourceMap.put(record.RelatedRecordId, SRWrapper);
           }
         }
       }
     }
 
     for (String userId : serviceResourceMap.keySet()) {
-      mappedWorkerSkills.putAll(serviceResourceMap.get(userId).workerHashMap);
+      Map<String, Worker> workerhash = serviceResourceMap.get(userId)
+        .getWorkerHashMap();
+      mappedWorkerSkills.putAll(workerhash);
     }
 
     //aggregate leads by service resource user id
@@ -260,6 +264,8 @@ global class SkillsBasedRouting {
     String leadLocation, leadProduct;
     PriorityQueue pq;
     Worker selectedWorker;
+
+    System.debug(TAG + ' Amount of workers ' + workers.size());
 
     if (workers.size() > 0) {
       for (Lead selectedLead : selectedLeads) {
@@ -320,14 +326,13 @@ global class SkillsBasedRouting {
   //Wrapper class to wrap a serviceResource record
   class ServiceResourceWrapper {
     public String relatedRecordId;
-    public Set<String> products;
-    public Set<String> locations;
-    public Map<String, Worker> workerHashMap;
+    public Set<String> products = new Set<String>();
+    public Set<String> locations = new Set<String>();
+    public Map<String, Worker> workerHashMap = new Map<String, Worker>();
     public String newProduct;
 
     public ServiceResourceWrapper(String relatedRecordId) {
       this.relatedRecordId = relatedRecordId;
-      this.workerHashMap = new Map<String, Worker>();
     }
 
     public void addProduct(String product) {
@@ -339,17 +344,24 @@ global class SkillsBasedRouting {
       this.locations.add(location);
     }
 
+    public Map<String, Worker> getWorkerHashMap() {
+      return this.workerHashMap;
+    }
+
     public void generateWorkerHashMap() {
       String generatedHash;
-      for (String location : locations) {
-        if (!products.contains(newProduct)) {
-          generatedHash = Util.GenerateHash(
-            new List<String>{ relatedRecordId, newProduct, location }
-          );
-          workerHashMap.put(
-            generatedHash,
-            new Worker(relatedRecordId, 0, location, newProduct)
-          );
+      if (locations.size() > 0) {
+        for (String location : locations) {
+          if (!products.contains(newProduct)) {
+            generatedHash = Util.GenerateHash(
+              new List<String>{ relatedRecordId, newProduct, location }
+            );
+
+            workerHashMap.put(
+              generatedHash,
+              new Worker(relatedRecordId, 0, location, newProduct)
+            );
+          }
         }
       }
     }
