@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>51.0</apiVersion>
+    <decisions>
+        <name>Condition</name>
+        <label>Condition</label>
+        <locationX>487</locationX>
+        <locationY>197</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Check_Deferred_Application_RT</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>RecordTypeName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Deferred_Application</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Application_Record</targetReference>
+            </connector>
+            <label>Check Deferred Application RT</label>
+        </rules>
+        <rules>
+            <name>Check_Referred_Application_RT</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>RecordTypeName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Referred_Application</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_to_referred</targetReference>
+            </connector>
+            <label>Check Referred Application RT</label>
+        </rules>
+    </decisions>
     <interviewLabel
   >Update Referred Application to Deferred Application {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Update Referred Application to Deferred Application</label>
@@ -31,14 +68,14 @@
         <assignNullValuesIfNoRecordsFound
     >false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Update_Application_Record</targetReference>
+            <targetReference>Condition</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>DeveloperName</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>Deferred_Application</stringValue>
+                <elementReference>RecordTypeName</elementReference>
             </value>
         </filters>
         <filters>
@@ -55,14 +92,36 @@
     <recordUpdates>
         <name>Update_Application_Record</name>
         <label>Update Application Record</label>
-        <locationX>173</locationX>
-        <locationY>362</locationY>
+        <locationX>834</locationX>
+        <locationY>48</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
                 <elementReference>ApplicaitonId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference
+        >Get_Application_Record_Type.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Application__c</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_to_referred</name>
+        <label>Update to referred</label>
+        <locationX>855</locationX>
+        <locationY>300</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Opportunity_ID__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>OpportunityId</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -84,6 +143,20 @@
     <status>Active</status>
     <variables>
         <name>ApplicaitonId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>OpportunityId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>RecordTypeName</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
