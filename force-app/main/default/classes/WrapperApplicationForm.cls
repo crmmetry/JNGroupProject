@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : Remario Richards
+ * @group             :
+ * @last modified on  : 04-21-2021
+ * @last modified by  : Remario Richards
+ * Modifications Log
+ * Ver   Date         Author             Modification
+ * 1.0   04-21-2021   Remario Richards   Initial Version
+ **/
 public class WrapperApplicationForm {
   public Integer Appcount { get; set; }
   public Account ApplicantPersonAccount { get; set; }
@@ -30,15 +40,11 @@ public class WrapperApplicationForm {
     this.PoliticalExposure = PoliticalExposure1;
     this.BankAffiliation = BankAffiliation1;
     if (ApplicantPersonAccount1.Years_at_Residence__pc != null) {
-      system.debug(
-        '===============' + ApplicantPersonAccount1.Years_at_Residence__pc
-      );
       this.howLongMonth = '';
       string aa = string.valueOf(
         ApplicantPersonAccount1.Years_at_Residence__pc
       );
       String afterDecimal = aa.substringAfter('.');
-      system.debug('arrayOfProducts===============' + afterDecimal);
       Integer b = Integer.valueOf(afterDecimal);
       if (b > 0)
         this.howLongMonth = afterDecimal;

@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 03-18-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 04-20-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   03-18-2021   Remario Richards   Initial Version
@@ -441,6 +441,29 @@ public class TestUtil {
       'Current time ' +
       currentTime +
       ' not withing '
+    );
+  }
+  /**
+   * @description : test method to cover the savePdf functionality
+   * @author Ishwari Gaikwad(Thinqloud) | 04-20-2021
+   **/
+  @isTest
+  public static void shouldSavePdf() {
+    List<Account> accList = TestDataFactory.CreateBasicAccounts(1, 'Test');
+    accList[0].Years_at_Residence__pc = 4;
+    accList[0]
+      .Highest_Level_of_Education_attained__pc = 'University: Post Graduate';
+    accList[0].PersonBirthdate = date.newInstance(
+      System.Today().year() - 36,
+      2,
+      11
+    );
+    insert accList;
+
+    Util.savePdf(
+      accList[0].Id,
+      new PageReference('http://www.salesforce.com'),
+      'SampleFile'
     );
   }
 }

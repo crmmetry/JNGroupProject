@@ -11,6 +11,7 @@
   controller="PromissoryNoteController"
   standardStylesheets="false"
   showHeader="false"
+  action="{!savePdf}"
 >
   <apex:stylesheet value="{!$Resource.PromissoryNoteCSS}" />
   <apex:form>
