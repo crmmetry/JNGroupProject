@@ -133,6 +133,8 @@ public class TestSkillsBasedRouting {
     );
     serviceResourceSkills.add(abigailLOCSkill);
 
+    insert serviceResourceSkills;
+
     //Add Users to Sales Team
 
     System.runAs(travis) {
@@ -193,19 +195,19 @@ public class TestSkillsBasedRouting {
 
     List<Lead> abigailLead1 = TestDataFactory.CreateLeads(1);
     abigailLead1[0].Escalate_to_Tier2__c = true;
-    abigailLead1[0].OwnerId = remario.Id;
+    abigailLead1[0].OwnerId = abigail.Id;
     abigailLead1[0].Preferred_Location__c = 'Annotto Bay';
     abigailLead1[0].Service_of_Interest__c = 'JN Bank Credit Card';
     abigailLead1[0].Last_Contact_Made__c = System.now();
     leadsToBeInserted.add(abigailLead1[0]);
 
     List<Lead> abigailLead2 = TestDataFactory.CreateLeads(1);
-    abigailLead1[0].Escalate_to_Tier2__c = true;
-    abigailLead1[0].OwnerId = remario.Id;
-    abigailLead1[0].Preferred_Location__c = 'Annotto Bay';
-    abigailLead1[0].Service_of_Interest__c = 'JN Bank Line Of Credit';
-    abigailLead1[0].Last_Contact_Made__c = System.now();
-    leadsToBeInserted.add(abigailLead1[0]);
+    abigailLead2[0].Escalate_to_Tier2__c = true;
+    abigailLead2[0].OwnerId = abigail.Id;
+    abigailLead2[0].Preferred_Location__c = 'Annotto Bay';
+    abigailLead2[0].Service_of_Interest__c = 'JN Bank Line Of Credit';
+    abigailLead2[0].Last_Contact_Made__c = System.now();
+    leadsToBeInserted.add(abigailLead2[0]);
 
     insert leadsToBeInserted;
   }
@@ -222,24 +224,23 @@ public class TestSkillsBasedRouting {
       ];
 
       List<Lead> newLead = TestDataFactory.CreateLeads(1);
-      newLead[0].Preferred_Location__c = 'Anotto Bay';
-      newLead[0].Service_of_Interest__c = 'JN Bank AutoLoan';
+      newlead[0].LastName = 'Travis';
+      newLead[0].Preferred_Location__c = 'Annotto Bay';
+      newLead[0].Service_of_Interest__c = 'JN Bank Auto Loan';
       newLead[0].Escalate_to_Tier2__c = false;
       newLead[0].Last_Contact_Made__c = System.now();
       newLead[0].OwnerId = salesTeam.Id;
       newLead[0].Company = 'Annotto Bay Company';
-      insert newLead[0];
+      insert newLead;
 
       newLead[0].Escalate_to_Tier2__c = true;
       update newLead;
 
+      System.debug('TEST ' + salesTeam.Id);
+
       System.assertEquals(
         travis.Id,
-        [
-          SELECT Id, OwnerId, Company
-          FROM Lead
-          WHERE Company = :newLead[0].Company
-        ]
+        [SELECT Id, OwnerId, Company FROM Lead WHERE LastName = 'Travis']
         .OwnerId
       );
     }

@@ -163,7 +163,7 @@ public class Constants {
     'JN Bank Insurance Premium Financing',
     'JN Bank Line Of Credit',
     'JN Bank Mortgage Loan',
-    '	JN Bank Unsecured Loan',
+    'JN Bank Unsecured Loan',
     'JN Bank Insurance Premium Financing',
     'JN Bank Term Share Loan'
   };

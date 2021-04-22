@@ -209,9 +209,7 @@ global class SkillsBasedRouting {
             serviceResourceMap.put(record.RelatedRecordId, SRWrapper);
             System.debug(TAG + ' Service Resource Wrapper ' + SRWrapper);
           }
-        } else if (
-          Constants.SKILL_PRODUCTS.contains(skillRecord.Skill.MasterLabel)
-        ) {
+        } else {
           System.debug(TAG + ' Skill is a Product ');
           if (serviceResourceMap.keySet().contains(record.RelatedRecordId)) {
             serviceResourceMap.get(record.RelatedRecordId)
