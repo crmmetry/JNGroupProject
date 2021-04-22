@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 03-31-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 04-22-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   03-31-2021   Remario Richards   Initial Version
@@ -102,6 +102,8 @@ public class OpportunityTriggerHandler {
     List<Id> ids = new List<Id>();
     Boolean match = false;
     String recordTypeName = '';
+    Boolean rubiconOpp = false;
+    String RubiconName = 'Unsecured Loan Credit Card';
     for (Opportunity opp : newRecords) {
       ids.add(opp.AccountId);
     }
@@ -121,13 +123,21 @@ public class OpportunityTriggerHandler {
         when 'Savings_Chequing' {
           match = true;
         }
+        when 'Rubicon' {
+          match = true;
+          rubiconOpp = true;
+        }
       }
-      if (match == true) {
+      if (match == true && rubiconOpp == false) {
         opp.Name =
           accountMap.get(opp.AccountId).Name +
           ' - ' +
           getRecordTypeName(opp);
         match = false;
+      } else if (match == true && rubiconOpp == true) {
+        opp.Name = accountMap.get(opp.AccountId).Name + ' - ' + RubiconName;
+        match = false;
+        rubiconOpp = false;
       }
     }
   }
