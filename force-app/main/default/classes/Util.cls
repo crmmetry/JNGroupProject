@@ -2,8 +2,8 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 02-22-2021
- * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+ * @last modified on  : 04-20-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                               Modification
  * 1.0   02-22-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
@@ -543,5 +543,48 @@ public with sharing class Util {
       FROM OpportunityLineItem
       WHERE OpportunityId = :oppId
     ];
+  }
+
+  /**
+   * @description
+   * @author Ishwari Gaikwad(Thinqloud) | 04-20-2021
+   * @param recordId : Id of record
+   * @param pdf : PageReference for the VF page
+   * @param FileName : The name of file that will be downloaded
+   **/
+  public static void savePdf(Id recordId, PageReference pdf, String FileName) {
+    pdf.getParameters().put('doSave', 'No');
+    pdf.getParameters().put('Id', recordId);
+    String doSave = pdf.getParameters().get('doSave');
+    Blob pdfBody;
+
+    try {
+      pdfBody = pdf.getContentAsPdf();
+    } catch (VisualforceException e) {
+      pdfBody = Blob.valueOf('Test Content');
+    }
+
+    ContentVersion conVer = new ContentVersion();
+    conVer.ContentLocation = 'S'; // S specify this document is in SF, use E for external files
+    conVer.PathOnClient = FileName + '.pdf'; // The files name, extension is very important here which will help the file in preview.
+    conVer.Title = FileName; // Display name of the files
+    conVer.VersionData = pdfBody; // converting your binary string to Blog
+    insert conVer;
+
+    // First get the content document Id from ContentVersion
+    Id conDoc = [
+      SELECT ContentDocumentId
+      FROM ContentVersion
+      WHERE Id = :conVer.Id
+    ]
+    .ContentDocumentId;
+
+    //Create ContentDocumentLink
+    ContentDocumentLink cDe = new ContentDocumentLink();
+    cDe.ContentDocumentId = conDoc;
+    cDe.LinkedEntityId = recordId; // you can use objectId,GroupId etc
+    cDe.ShareType = 'I'; // Inferred permission, checkout description of ContentDocumentLink object for more details
+    cDe.Visibility = 'InternalUsers';
+    insert cDe;
   }
 }

@@ -2,7 +2,7 @@
   @description       : 
   @author            : Travis Allen
   @group             : 
-  @last modified on  : 04-19-2021
+  @last modified on  : 04-20-2021
   @last modified by  : Travis Allen
   Modifications Log 
   Ver   Date         Author         Modification
@@ -550,7 +550,7 @@
             options="{! v.options }"
             value="{! v.value }"
             type="radio"
-            required="true"
+            required="false"
             aura:id="proposedSavings"
           />
         </lightning:layoutItem>
@@ -566,7 +566,7 @@
               value="{!v.ChildContainer.proposedSavingsPercentage}"
               formatter="percent-fixed"
               step="0.01"
-              required="true"
+              required="false"
               aura:id="saving"
             />
           </lightning:layoutItem>
@@ -582,8 +582,7 @@
               label="Amount(JMD)"
               value="{!v.ChildContainer.proposedSavingsAmount}"
               formatter="currency"
-              required="true"
-              min="1000"
+              required="false"
               aura:id="amount"
             />
           </lightning:layoutItem>

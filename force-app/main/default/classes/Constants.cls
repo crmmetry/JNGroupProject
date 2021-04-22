@@ -167,4 +167,5 @@ public class Constants {
     'JN Bank Insurance Premium Financing',
     'JN Bank Term Share Loan'
   };
+  public static final String ONLY_ONE_APPLICATION = 'Sorry, you cannot add any more than one application for this opportunity. Contact your administrator.';
 }

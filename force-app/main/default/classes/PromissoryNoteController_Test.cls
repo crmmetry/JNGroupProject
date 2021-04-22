@@ -150,6 +150,7 @@ public class PromissoryNoteController_Test {
     pageRef.getParameters().put('Id', String.valueOf(opList[0].Id));
     Test.setCurrentPage(pageRef);
     PromissoryNoteController pnc = new PromissoryNoteController();
+    pageReference page = pnc.savePdf();
     Test.StopTest();
   }
 }
