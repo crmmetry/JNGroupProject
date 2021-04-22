@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 04-21-2021
+ * @last modified on  : 04-22-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -189,8 +189,15 @@ global class SkillsBasedRouting {
 
       skilledUsers.add(record.RelatedRecordId);
 
+      System.debug(
+        TAG +
+        'Service Resource Skill List: ' +
+        record.ServiceResourceSkills
+      );
+
       for (ServiceResourceSkill skillRecord : record.ServiceResourceSkills) {
-        if (locations.contains(skillRecord.Skill.MasterLabel)) {
+        System.debug(TAG + ' Name Of Skill ' + skillRecord.Skill.MasterLabel);
+        if (Constants.SKILL_LOCATIONS.contains(skillRecord.Skill.MasterLabel)) {
           if (serviceResourceMap.keySet().contains(record.RelatedRecordId)) {
             serviceResourceMap.get(record.RelatedRecordId)
               .addLocation(skillRecord.Skill.MasterLabel);
@@ -200,25 +207,33 @@ global class SkillsBasedRouting {
             );
             SRWrapper.addLocation(skillRecord.Skill.MasterLabel);
             serviceResourceMap.put(record.RelatedRecordId, SRWrapper);
+            System.debug(TAG + ' Service Resource Wrapper ' + SRWrapper);
           }
-        } else if (products.contains(skillRecord.Skill.MasterLabel)) {
+        } else if (
+          Constants.SKILL_PRODUCTS.contains(skillRecord.Skill.MasterLabel)
+        ) {
+          System.debug(TAG + ' Skill is a Product ');
           if (serviceResourceMap.keySet().contains(record.RelatedRecordId)) {
             serviceResourceMap.get(record.RelatedRecordId)
               .addProduct(skillRecord.Skill.MasterLabel);
-            serviceResourceMap.get(record.RelatedRecordId)
-              .generateWorkerHashMap();
           } else {
+            System.debug(TAG + ' Skill is new product ');
             ServiceResourceWrapper SRWrapper = new ServiceResourceWrapper(
               record.RelatedRecordId
             );
-            System.debug(TAG + ' Worker hash map ' + SRWrapper);
             SRWrapper.addProduct(skillRecord.Skill.MasterLabel);
-            SRWrapper.generateWorkerHashMap();
             serviceResourceMap.put(record.RelatedRecordId, SRWrapper);
+            System.debug(TAG + ' Service Resource Wrapper ' + SRWrapper);
           }
         }
       }
     }
+
+    System.debug(
+      TAG +
+      'Ids for Service Resources Found: ' +
+      serviceResourceMap.keySet()
+    );
 
     for (String userId : serviceResourceMap.keySet()) {
       Map<String, Worker> workerhash = serviceResourceMap.get(userId)
@@ -341,8 +356,11 @@ global class SkillsBasedRouting {
     }
 
     public void addProduct(String product) {
+      System.debug(TAG + ' Start of add product nmethod ');
       this.newProduct = product;
+      this.generateWorkerHashMap();
       this.products.add(product);
+      System.debug(TAG + ' End of add product nmethod ');
     }
 
     public void addLocation(String location) {

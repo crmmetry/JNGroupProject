@@ -1,7 +1,7 @@
 /**
-* Ver  Ticket#      Date            Author                 Purpose
-* 1.0  JN1-4045     25/11/2020      Ishwari G.(thinqloud)  Added constants to refere values from custom metadata
-**/
+ * Ver  Ticket#      Date            Author                 Purpose
+ * 1.0  JN1-4045     25/11/2020      Ishwari G.(thinqloud)  Added constants to refere values from custom metadata
+ **/
 public class Constants {
   public static final String NONE = 'None';
   public static final String SUCCESS = 'Success';
@@ -75,37 +75,96 @@ public class Constants {
   public static final String NO_APPLICANTS_FOUND = 'Please ensure that an Applicant has been created for the current Opportunity before proceeding.';
   public static final String FINACIAL_VERIFICATION_CUSTOM_PERMISSION_ERROR = 'Sorry, you do not have the correct permissions to edit this page. Please contact your System Administrator for more information.';
 
-    public static final String AUTO_PRODUCT_FAMILY_FOR_DISPLAY = 'Auto Loan';
-    public static final String CREDITCARD_PRODUCT_FAMILY_FOR_DISPLAY = 'Credit Card';
-    public static final String UNSECURED_PRODUCT_FAMILY_FOR_DISPLAY = 'Unsecured Loan';
-    public static final String LINEOFCREDIT_PRODUCT_FAMILY_FOR_DISPLAY = 'Line Of Credit';
-    
-    public static final String STARTINGLIMITNUMBER_C = 'Starting_Limit_Number__c';  
-    public static final String MARKETVALUEOFVEHICLENUMBER_C = 'Market_Value_of_Vehicle_Number__c';  
-    public static final String MONTHLY_PAYMNT_PRIOR_CALC_APP_PORTION_C = 'Monthly_Payment_Prior_Calc_App_Portion__c';
-    public static final String MINIMUM_PAYMNT_CALC_C  = 'Minimum_Payment_Calc__c'; 
-    public static final String TOTAL_MONTHLY_LOAN_PAYMENT_NUMBER_C  = 'Total_Monthly_Loan_Payment_Number__c'; 
-    public static final String MINIMUM_PAYMENT_PER_CREDIT_LIMIT_NUMBER_C  = 'Minimum_Payment_per_Credit_Limit_Number__c';
-    public static final String MONTHLY_PAYMENT_AFTER_C  = 'Monthly_Payment_After__c'; 
-    public static final String MINIMUM_PAYMENT_AFTER_C  = 'Minimum_Payment_After__c'; 
-    public static final String OVERDRAFTLIMITNUMBER_C  = 'Overdraft_Limit_Number__c';
-    public static final String LOANBALANCEPRIOR_C  = 'Loan_Balance_Prior__c';
-    
-    public static final String WILL_REMAIN_STRING = 'Will Remain'; 
-    public static final String REPAY_FACILITY_STRING  = 'Repay Facility'; 
-    
-    public static final String YESSTRING = 'Yes';  
-    public static final String NOSTRING = 'No';  
-    
-    public static final String OPPORTUNITYSTRING = 'Opportunity';
-    public static final String OPPORTUNITY_PRE_ASSESSMENT_STAGE = 'Submitting for Pre-Assessment';
-    public static final String DOCUMENTTYPEPROMISSORYNOTE = 'Promissory_Note';
-    public static final String DOCUMENTTYSIGNEDSALARYDED = 'Signed_Salary_Deduction';
-    public static final String DOCUMENT_PROOF_OF_INCOME_AUDITEDFINSTATEMENT = 'Proof_of_income_Audited_Financial_Statements';
-    public static final String DOCUMENT_PROOF_OF_INCOME_BNKSTATEMENT = 'Proof_of_income_Bank_Statements';
-    public static final String DOCUMENT_PROOF_OF_INCOME_OTHER = 'Proof_of_income_Other';
-    public static final String DOCUMENT_PROOF_OF_INCOME_PAYSLIP = 'Proof_of_income_Payslips';
-    public static final String DOCUMENT_PROOF_OF_INCOME_UNAUDITED_FINSTATEMENT = 'Proof_of_income_Unaudited_Financial_Statements';
-    
-    public static final String DOCCHKLISTITEM_SOBJECT = 'DocumentChecklistItem';
+  public static final String AUTO_PRODUCT_FAMILY_FOR_DISPLAY = 'Auto Loan';
+  public static final String CREDITCARD_PRODUCT_FAMILY_FOR_DISPLAY = 'Credit Card';
+  public static final String UNSECURED_PRODUCT_FAMILY_FOR_DISPLAY = 'Unsecured Loan';
+  public static final String LINEOFCREDIT_PRODUCT_FAMILY_FOR_DISPLAY = 'Line Of Credit';
+
+  public static final String STARTINGLIMITNUMBER_C = 'Starting_Limit_Number__c';
+  public static final String MARKETVALUEOFVEHICLENUMBER_C = 'Market_Value_of_Vehicle_Number__c';
+  public static final String MONTHLY_PAYMNT_PRIOR_CALC_APP_PORTION_C = 'Monthly_Payment_Prior_Calc_App_Portion__c';
+  public static final String MINIMUM_PAYMNT_CALC_C = 'Minimum_Payment_Calc__c';
+  public static final String TOTAL_MONTHLY_LOAN_PAYMENT_NUMBER_C = 'Total_Monthly_Loan_Payment_Number__c';
+  public static final String MINIMUM_PAYMENT_PER_CREDIT_LIMIT_NUMBER_C = 'Minimum_Payment_per_Credit_Limit_Number__c';
+  public static final String MONTHLY_PAYMENT_AFTER_C = 'Monthly_Payment_After__c';
+  public static final String MINIMUM_PAYMENT_AFTER_C = 'Minimum_Payment_After__c';
+  public static final String OVERDRAFTLIMITNUMBER_C = 'Overdraft_Limit_Number__c';
+  public static final String LOANBALANCEPRIOR_C = 'Loan_Balance_Prior__c';
+
+  public static final String WILL_REMAIN_STRING = 'Will Remain';
+  public static final String REPAY_FACILITY_STRING = 'Repay Facility';
+
+  public static final String YESSTRING = 'Yes';
+  public static final String NOSTRING = 'No';
+
+  public static final String OPPORTUNITYSTRING = 'Opportunity';
+  public static final String OPPORTUNITY_PRE_ASSESSMENT_STAGE = 'Submitting for Pre-Assessment';
+  public static final String DOCUMENTTYPEPROMISSORYNOTE = 'Promissory_Note';
+  public static final String DOCUMENTTYSIGNEDSALARYDED = 'Signed_Salary_Deduction';
+  public static final String DOCUMENT_PROOF_OF_INCOME_AUDITEDFINSTATEMENT = 'Proof_of_income_Audited_Financial_Statements';
+  public static final String DOCUMENT_PROOF_OF_INCOME_BNKSTATEMENT = 'Proof_of_income_Bank_Statements';
+  public static final String DOCUMENT_PROOF_OF_INCOME_OTHER = 'Proof_of_income_Other';
+  public static final String DOCUMENT_PROOF_OF_INCOME_PAYSLIP = 'Proof_of_income_Payslips';
+  public static final String DOCUMENT_PROOF_OF_INCOME_UNAUDITED_FINSTATEMENT = 'Proof_of_income_Unaudited_Financial_Statements';
+
+  public static final String DOCCHKLISTITEM_SOBJECT = 'DocumentChecklistItem';
+
+  public static final List<String> SKILL_LOCATIONS = new List<String>{
+    'Annotto Bay',
+    'Barbican',
+    'Brown\'s Town',
+    'Catherine Hall',
+    'Christiana',
+    'Duke Street',
+    'Falmouth',
+    'Gayle',
+    'Half Way Tree',
+    'Highgate',
+    'JN Premier',
+    'Junction',
+    'Linstead',
+    'Lucea',
+    'Mandeville',
+    'May Pen',
+    'Michi Supercentre',
+    'Montego Bay',
+    'Morant Bay',
+    'New Kingston',
+    'Knutsford',
+    'Ocho Rios',
+    'Old Harbour',
+    'Papine',
+    'Port Antonio',
+    'Port Maria',
+    'Portmore',
+    'Santa Cruz',
+    'Savanna-La-Mar',
+    'Spanish Town',
+    'Tivoli',
+    'UWI',
+    'Whitehouse',
+    'Half-Way-Tree Transport Centre',
+    'JN Rep Office Florida',
+    'JN Rep Office Toronto',
+    'JN Rep Office UK',
+    'Mortgage Centre - Mandeville',
+    'Mortgage Sales Hub - Montego Bay',
+    'Mortgage Sales Hub - New Kingston',
+    'Mortgage Sales Hub - Ocho Rios',
+    'St Ann’s Bay'
+  };
+  public static final List<String> SKILL_PRODUCTS = new List<String>{
+    'JN Bank 12 to 1 Loan (Supersize Loan)',
+    'JN Bank Auto Loan',
+    'JN Bank Cash Secured Loan',
+    'JN Bank Commercial Auto Loan',
+    'JN Bank Credit Card',
+    'JN Bank Deposit Account',
+    'JN Bank Insurance Premium Financing',
+    'JN Bank Line Of Credit',
+    'JN Bank Mortgage Loan',
+    '	JN Bank Unsecured Loan',
+    'JN Bank Insurance Premium Financing',
+    'JN Bank Term Share Loan'
+  };
 }
