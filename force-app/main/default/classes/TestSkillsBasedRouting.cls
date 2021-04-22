@@ -121,6 +121,12 @@ public class TestSkillsBasedRouting {
     );
     serviceResourceSkills.add(abigailAnnottoBaySkill);
 
+    ServiceResourceSkill abigailBarbicanSkill = TestDataFactory.CreateServiceResourceSkill(
+      abigailSR.Id,
+      barbicanSkill.Id
+    );
+    serviceResourceSkills.add(abigailBarbicanSkill);
+
     ServiceResourceSkill abigailCreditCardSkill = TestDataFactory.CreateServiceResourceSkill(
       abigailSR.Id,
       creditCardSkill.Id
@@ -196,7 +202,7 @@ public class TestSkillsBasedRouting {
     List<Lead> abigailLead1 = TestDataFactory.CreateLeads(1);
     abigailLead1[0].Escalate_to_Tier2__c = true;
     abigailLead1[0].OwnerId = abigail.Id;
-    abigailLead1[0].Preferred_Location__c = 'Annotto Bay';
+    abigailLead1[0].Preferred_Location__c = 'Barbican';
     abigailLead1[0].Service_of_Interest__c = 'JN Bank Credit Card';
     abigailLead1[0].Last_Contact_Made__c = System.now();
     leadsToBeInserted.add(abigailLead1[0]);
@@ -204,10 +210,18 @@ public class TestSkillsBasedRouting {
     List<Lead> abigailLead2 = TestDataFactory.CreateLeads(1);
     abigailLead2[0].Escalate_to_Tier2__c = true;
     abigailLead2[0].OwnerId = abigail.Id;
-    abigailLead2[0].Preferred_Location__c = 'Annotto Bay';
+    abigailLead2[0].Preferred_Location__c = 'Barbican';
     abigailLead2[0].Service_of_Interest__c = 'JN Bank Line Of Credit';
     abigailLead2[0].Last_Contact_Made__c = System.now();
     leadsToBeInserted.add(abigailLead2[0]);
+
+    List<Lead> abigailLead3 = TestDataFactory.CreateLeads(1);
+    abigailLead3[0].Escalate_to_Tier2__c = true;
+    abigailLead3[0].OwnerId = abigail.Id;
+    abigailLead3[0].Preferred_Location__c = 'Annotto Bay';
+    abigailLead3[0].Service_of_Interest__c = 'JN Bank Line Of Credit';
+    abigailLead3[0].Last_Contact_Made__c = System.now();
+    leadsToBeInserted.add(abigailLead3[0]);
 
     insert leadsToBeInserted;
   }
@@ -241,6 +255,78 @@ public class TestSkillsBasedRouting {
       System.assertEquals(
         travis.Id,
         [SELECT Id, OwnerId, Company FROM Lead WHERE LastName = 'Travis']
+        .OwnerId
+      );
+    }
+    test.stopTest();
+  }
+
+  //Scenario2: Assign lead with Preffered Loaction - Barbican and Product - JN Bank Credit Card Result: Assigned owner should be Remario
+  @isTest
+  public static void shouldrouteUsingSkillsTier2Scenario2() {
+    test.startTest();
+    User remario = [SELECT Id FROM User WHERE UserName = 'Remario@test.com'];
+    System.runAs(remario) {
+      Group salesTeam = [
+        SELECT Id
+        FROM Group
+        WHERE Type = 'Queue' AND Name = 'Sales Team'
+      ];
+
+      List<Lead> newLead = TestDataFactory.CreateLeads(1);
+      newlead[0].LastName = 'Remario';
+      newLead[0].Preferred_Location__c = 'Barbican';
+      newLead[0].Service_of_Interest__c = 'JN Bank Credit Card';
+      newLead[0].Escalate_to_Tier2__c = false;
+      newLead[0].Last_Contact_Made__c = System.now();
+      newLead[0].OwnerId = salesTeam.Id;
+      newLead[0].Company = 'Brbican Company';
+      insert newLead;
+
+      newLead[0].Escalate_to_Tier2__c = true;
+      update newLead;
+
+      System.debug('TEST ' + salesTeam.Id);
+
+      System.assertEquals(
+        remario.Id,
+        [SELECT Id, OwnerId, Company FROM Lead WHERE LastName = 'Remario']
+        .OwnerId
+      );
+    }
+    test.stopTest();
+  }
+
+  //Scenario3: Assign lead with Preffered Loaction - Barbican and Product - JN Bank Credit Card Result: Assigned owner should be Remario
+  @isTest
+  public static void shouldrouteUsingSkillsTier2Scenario3() {
+    test.startTest();
+    User abigail = [SELECT Id FROM User WHERE UserName = 'Abigail@test.com'];
+    System.runAs(abigail) {
+      Group salesTeam = [
+        SELECT Id
+        FROM Group
+        WHERE Type = 'Queue' AND Name = 'Sales Team'
+      ];
+
+      List<Lead> newLead = TestDataFactory.CreateLeads(1);
+      newlead[0].LastName = 'Abigail';
+      newLead[0].Preferred_Location__c = 'Barbican';
+      newLead[0].Service_of_Interest__c = 'JN Bank Line Of Credit';
+      newLead[0].Escalate_to_Tier2__c = false;
+      newLead[0].Last_Contact_Made__c = System.now();
+      newLead[0].OwnerId = salesTeam.Id;
+      newLead[0].Company = 'Barbican Company';
+      insert newLead;
+
+      newLead[0].Escalate_to_Tier2__c = true;
+      update newLead;
+
+      System.debug('TEST ' + salesTeam.Id);
+
+      System.assertEquals(
+        abigail.Id,
+        [SELECT Id, OwnerId, Company FROM Lead WHERE LastName = 'Abigail']
         .OwnerId
       );
     }

@@ -92,6 +92,7 @@ global class SkillsBasedRouting {
       [SELECT Id FROM Skill WHERE MasterLabel IN :locations]
     );
   }
+
   //Get a map of all skills with products of interest
   private static Map<Id, Skill> getProductSkills(Set<String> products) {
     return new Map<Id, Skill>(
@@ -209,7 +210,9 @@ global class SkillsBasedRouting {
             serviceResourceMap.put(record.RelatedRecordId, SRWrapper);
             System.debug(TAG + ' Service Resource Wrapper ' + SRWrapper);
           }
-        } else {
+        } else if (
+          Constants.SKILL_PRODUCTS.contains(skillRecord.Skill.MasterLabel)
+        ) {
           System.debug(TAG + ' Skill is a Product ');
           if (serviceResourceMap.keySet().contains(record.RelatedRecordId)) {
             serviceResourceMap.get(record.RelatedRecordId)
