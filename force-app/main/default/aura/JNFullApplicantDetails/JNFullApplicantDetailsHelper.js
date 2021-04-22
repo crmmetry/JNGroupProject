@@ -1,7 +1,14 @@
 /**
- * Ver  Ticket#      Date            Author                 Purpose
- * 1.0  JN1-4045     2/12/2020      Ishwari G.(thinqloud)  bases on source of income showing fields
+ * @description       :
+ * @author            : Remario Richards
+ * @group             :
+ * @last modified on  : 04-22-2021
+ * @last modified by  : Remario Richards
+ * Modifications Log
+ * Ver   Date         Author             Modification
+ * 1.0   04-22-2021   Remario Richards   Initial Version
  **/
+
 ({
   getApplicant: function (component) {
     let action = component.get("c.getFullApplicantDetails");
@@ -12,17 +19,15 @@
       const state = response.getState();
       if (state === "SUCCESS") {
         component.set("v.applicant", response.getReturnValue());
-        /*JN1-4030: START*/
-        var applicant = response.getReturnValue();
-        var source = applicant.Applicable_sources_of_income__c;
-        var sourceOfIncome = [];
-        if (source.includes(";")) {
+        let applicant = response.getReturnValue();
+        let source = applicant.Applicable_sources_of_income__c;
+        let sourceOfIncome = [];
+        if (source && source.includes(";")) {
           sourceOfIncome = source.split(";");
-        } else {
-          sourceOfIncome.push(applicant.Applicable_sources_of_income__c);
+        } else if (source) {
+          sourceOfIncome.push(source);
         }
         component.set("v.sourceOfIncome", sourceOfIncome);
-        /*JN1-4030: END */
       } else {
         console.info(response.getError());
       }
@@ -33,7 +38,7 @@
     let action = component.get("c.updateApplicantDetailsBasic");
     console.info("current applicant", component.get("v.applicant"));
     /*JN1-4030: START*/
-    var applicant = component.get("v.applicant");
+    let applicant = component.get("v.applicant");
     applicant.Applicable_sources_of_income__c = component
       .find("sourceOfIncome")
       .get("v.value");
