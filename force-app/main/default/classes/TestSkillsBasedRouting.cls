@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 04-21-2021
+ * @last modified on  : 04-22-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -15,111 +15,234 @@ public class TestSkillsBasedRouting {
     //Create a 3 Users
     List<User> newUsers = new List<User>();
 
-    User newUser1 = TestDataFactory.CreateUser('Travis2@test.com');
-    newUser1.Sales_User__c = false;
-    newUsers.add(newUser1);
+    User travis = TestDataFactory.CreateUser('Travis@test.com');
+    travis.Sales_User__c = false;
+    newUsers.add(travis);
 
-    User newUser2 = TestDataFactory.CreateUser('Travis2@test.com');
-    newUser2.Sales_User__c = false;
-    newUsers.add(newUser2);
+    User remario = TestDataFactory.CreateUser('Remario@test.com');
+    remario.Sales_User__c = false;
+    newUsers.add(remario);
 
-    User newUser3 = TestDataFactory.CreateUser('Travis3@test.com');
-    newUser3.Sales_User__c = false;
-    newUsers.add(newUser3);
+    User abigail = TestDataFactory.CreateUser('Abigail@test.com');
+    abigail.Sales_User__c = false;
+    newUsers.add(abigail);
 
     insert newUsers;
 
-    //List of Skill names to query
-    List<String> skillNamesOfProducts = new List<String>{
-      'Annotto Bay',
-      'Barbican',
-      'Catherine Hall'
-    };
-    List<String> skillNamesOfLocations = new List<String>{
-      '	JN Bank Auto Loan',
-      'JN Bank Credit Card',
-      'JN Bank Line Of Credit'
-    };
-
-    Skill test_location_skills = [
+    Skill annottoBaySkill = [
       SELECT Id
       FROM Skill
-      WHERE MasterLabel IN :skillNamesOfLocations
+      WHERE MasterLabel = 'Annotto Bay'
     ];
 
-    Skill test_product_skills = [
+    Skill barbicanSkill = [SELECT Id FROM Skill WHERE MasterLabel = 'Barbican'];
+
+    Skill catherineHallSkill = [
       SELECT Id
       FROM Skill
-      WHERE MasterLabel IN :skillNamesOfProducts
+      WHERE MasterLabel = 'Catherine Hall'
+    ];
+
+    Skill autoLoanSkill = [
+      SELECT Id
+      FROM Skill
+      WHERE MasterLabel = 'JN Bank Auto Loan'
+    ];
+
+    Skill creditCardSkill = [
+      SELECT Id
+      FROM Skill
+      WHERE MasterLabel = 'JN Bank Credit Card'
+    ];
+
+    Skill lineOfCreditSkill = [
+      SELECT Id
+      FROM Skill
+      WHERE MasterLabel = 'JN Bank Line Of Credit'
     ];
 
     //Create service resource for each user
     List<ServiceResource> serviceResources = new List<ServiceResource>();
 
-    ServiceResource serv_res1 = TestDataFactory.CreateServiceResource(
-      newUser1.Id
+    ServiceResource travisSR = TestDataFactory.CreateServiceResource(travis.Id);
+    serviceResources.add(travisSR);
+
+    ServiceResource remarioSR = TestDataFactory.CreateServiceResource(
+      remario.Id
     );
-    serviceResources.add(serv_res1);
+    serviceResources.add(remarioSR);
 
-    ServiceResource serv_res2 = TestDataFactory.CreateServiceResource(
-      newUser1.Id
+    ServiceResource abigailSR = TestDataFactory.CreateServiceResource(
+      abigail.Id
     );
-    serviceResources.add(serv_res2);
+    serviceResources.add(abigailSR);
 
-    ServiceResource serv_res3 = TestDataFactory.CreateServiceResource(
-      newUser1.Id
+    insert serviceResources;
+
+    //List ofer service resource skills
+    List<ServiceResourceSkill> serviceResourceSkills = new List<ServiceResourceSkill>();
+
+    //Service Resource Skills for Travis [Location(1): Annotto bay, Product(1): JN Bank Auto Loan ]
+    ServiceResourceSkill travisAnnottoBaySkill = TestDataFactory.CreateServiceResourceSkill(
+      travisSR.Id,
+      annottoBaySkill.Id
     );
-    serviceResources.add(serv_res3);
+    serviceResourceSkills.add(travisAnnottoBaySkill);
 
-    ServiceResourceSkill serv_res_skill = TestDataFactory.CreateServiceResourceSkill(
-      serv_res.Id,
-      test_skill.Id
+    ServiceResourceSkill travisAutoLoanSkill = TestDataFactory.CreateServiceResourceSkill(
+      travisSR.Id,
+      autoLoanSkill.Id
     );
-    insert serv_res_skill;
-  }
+    serviceResourceSkills.add(travisAutoLoanSkill);
 
-  @isTest
-  public static void shouldrouteUsingSkillsTier2() {
-    Integer count = 3;
-    User newUser = [SELECT Id FROM User WHERE UserName = 'Travis@test.com'];
-    User newUser2 = TestDataFactory.CreateUser('Travis2@test.com');
-    insert newUser2;
-    //Group salesDevTeam = [SELECT Id FROM Group WHERE Type='Queue' AND Name='Sales Development Team'];
-    Group salesTeam = [
-      SELECT Id
-      FROM Group
-      WHERE Type = 'Queue' AND Name = 'Sales Team'
-    ];
+    //Service Resource Skills for Remario [Location(2): Barbican, Catherine Hall Product(1): JN Bank Credit Card ]
+    ServiceResourceSkill remarioBarbicanSkill = TestDataFactory.CreateServiceResourceSkill(
+      remarioSR.Id,
+      barbicanSkill.Id
+    );
+    serviceResourceSkills.add(remarioBarbicanSkill);
 
-    System.runAs(newUser) {
-      //Create Group members for group
-      GroupMember sales_team_member = new GroupMember();
-      sales_team_member.UserOrGroupId = newUser.Id;
-      sales_team_member.GroupId = salesTeam.Id;
-      insert sales_team_member;
+    ServiceResourceSkill remarioCreditCardSkill = TestDataFactory.CreateServiceResourceSkill(
+      remarioSR.Id,
+      creditCardSkill.Id
+    );
+    serviceResourceSkills.add(remarioCreditCardSkill);
 
-      List<Lead> leadRecord = TestDataFactory.CreateLeads(count);
-      insert leadRecord;
+    ServiceResourceSkill remarioCatherinehallSkill = TestDataFactory.CreateServiceResourceSkill(
+      remarioSR.Id,
+      catherineHallSkill.Id
+    );
+    serviceResourceSkills.add(remarioCatherinehallSkill);
 
-      for (Integer i = 0; i < count; i++) {
-        //leadRecord[0].Preferred_Location__c = 'Barbican';
-        leadRecord[i].Broker_Name__c = 'Travis';
-        leadRecord[i].Escalate_to_Tier2__c = true;
-        leadRecord[i].Last_Contact_Made__c = System.now();
-        leadRecord[i].OwnerId = salesTeam.Id;
-      }
-      Test.startTest();
-      leadRecord[0].Preferred_Location__c = 'Barbican';
-      leadRecord[1].Preferred_Location__c = 'Junction';
-      leadRecord[2].Preferred_Location__c = 'Gayle';
-      update leadRecord;
+    //Service Resource Skills for Abigail [Location(1): AnnottoBay Product(2): JN Bank Credit Card, JN Bank Line Of Credit ]
+    ServiceResourceSkill abigailAnnottoBaySkill = TestDataFactory.CreateServiceResourceSkill(
+      abigailSR.Id,
+      annottoBaySkill.Id
+    );
+    serviceResourceSkills.add(abigailAnnottoBaySkill);
 
-      leadRecord[0].OwnerId = newUser.Id;
-      leadRecord[1].OwnerId = newUser2.Id;
-      leadRecord[2].OwnerId = newUser.Id;
-      update leadRecord;
+    ServiceResourceSkill abigailCreditCardSkill = TestDataFactory.CreateServiceResourceSkill(
+      abigailSR.Id,
+      creditCardSkill.Id
+    );
+    serviceResourceSkills.add(abigailCreditCardSkill);
+
+    ServiceResourceSkill abigailLOCSkill = TestDataFactory.CreateServiceResourceSkill(
+      abigailSR.Id,
+      lineOfCreditSkill.Id
+    );
+    serviceResourceSkills.add(abigailLOCSkill);
+
+    //Add Users to Sales Team
+
+    System.runAs(travis) {
+      //Query Saels team queue
+      Group salesTeam = [
+        SELECT Id
+        FROM Group
+        WHERE Type = 'Queue' AND Name = 'Sales Team'
+      ];
+
+      List<GroupMember> salesTeamMembers = new List<GroupMember>();
+
+      //add users to salest team queue
+      GroupMember salesTeamTravis = new GroupMember();
+      salesTeamTravis.UserOrGroupId = travis.Id;
+      salesTeamTravis.GroupId = salesTeam.Id;
+      salesTeamMembers.add(salesTeamTravis);
+
+      GroupMember salesTeamRemario = new GroupMember();
+      salesTeamRemario.UserOrGroupId = remario.Id;
+      salesTeamRemario.GroupId = salesTeam.Id;
+      salesTeamMembers.add(salesTeamRemario);
+
+      GroupMember salesTeamAbigail = new GroupMember();
+      salesTeamAbigail.UserOrGroupId = abigail.Id;
+      salesTeamAbigail.GroupId = salesTeam.Id;
+      salesTeamMembers.add(salesTeamAbigail);
+
+      insert salesTeamMembers;
     }
 
-    Test.stopTest();
+    //Create Leads for each sales team member lead
+    List<Lead> leadsToBeInserted = new List<Lead>();
+
+    List<Lead> travisLead = TestDataFactory.CreateLeads(1);
+    travisLead[0].Escalate_to_Tier2__c = true;
+    travisLead[0].OwnerId = travis.Id;
+    travisLead[0].Preferred_Location__c = 'Annotto Bay';
+    travisLead[0].Service_of_Interest__c = 'JN Bank Auto Loan';
+    travisLead[0].Last_Contact_Made__c = System.now();
+    leadsToBeInserted.add(travisLead[0]);
+
+    List<Lead> remarioLead1 = TestDataFactory.CreateLeads(1);
+    remarioLead1[0].Escalate_to_Tier2__c = true;
+    remarioLead1[0].OwnerId = remario.Id;
+    remarioLead1[0].Preferred_Location__c = 'Catherine Hall';
+    remarioLead1[0].Service_of_Interest__c = 'JN Bank Credit Card';
+    remarioLead1[0].Last_Contact_Made__c = System.now();
+    leadsToBeInserted.add(remarioLead1[0]);
+
+    List<Lead> remarioLead2 = TestDataFactory.CreateLeads(1);
+    remarioLead2[0].Escalate_to_Tier2__c = true;
+    remarioLead2[0].OwnerId = remario.Id;
+    remarioLead2[0].Preferred_Location__c = 'Barbican';
+    remarioLead2[0].Service_of_Interest__c = 'JN Bank Credit Card';
+    remarioLead2[0].Last_Contact_Made__c = System.now();
+    leadsToBeInserted.add(remarioLead2[0]);
+
+    List<Lead> abigailLead1 = TestDataFactory.CreateLeads(1);
+    abigailLead1[0].Escalate_to_Tier2__c = true;
+    abigailLead1[0].OwnerId = remario.Id;
+    abigailLead1[0].Preferred_Location__c = 'Annotto Bay';
+    abigailLead1[0].Service_of_Interest__c = 'JN Bank Credit Card';
+    abigailLead1[0].Last_Contact_Made__c = System.now();
+    leadsToBeInserted.add(abigailLead1[0]);
+
+    List<Lead> abigailLead2 = TestDataFactory.CreateLeads(1);
+    abigailLead1[0].Escalate_to_Tier2__c = true;
+    abigailLead1[0].OwnerId = remario.Id;
+    abigailLead1[0].Preferred_Location__c = 'Annotto Bay';
+    abigailLead1[0].Service_of_Interest__c = 'JN Bank Line Of Credit';
+    abigailLead1[0].Last_Contact_Made__c = System.now();
+    leadsToBeInserted.add(abigailLead1[0]);
+
+    insert leadsToBeInserted;
+  }
+  //Scenario: Assign lead with Preffered Loaction - Annotto Bay and Product - JN Bank AutoLoan Result: Assigned owner should be Travis
+  @isTest
+  public static void shouldrouteUsingSkillsTier2Scenario1() {
+    test.startTest();
+    User travis = [SELECT Id FROM User WHERE UserName = 'Travis@test.com'];
+    System.runAs(travis) {
+      Group salesTeam = [
+        SELECT Id
+        FROM Group
+        WHERE Type = 'Queue' AND Name = 'Sales Team'
+      ];
+
+      List<Lead> newLead = TestDataFactory.CreateLeads(1);
+      newLead[0].Preferred_Location__c = 'Anotto Bay';
+      newLead[0].Service_of_Interest__c = 'JN Bank AutoLoan';
+      newLead[0].Escalate_to_Tier2__c = false;
+      newLead[0].Last_Contact_Made__c = System.now();
+      newLead[0].OwnerId = salesTeam.Id;
+      newLead[0].Company = 'Annotto Bay Company';
+      insert newLead[0];
+
+      newLead[0].Escalate_to_Tier2__c = true;
+      update newLead;
+
+      System.assertEquals(
+        travis.Id,
+        [
+          SELECT Id, OwnerId, Company
+          FROM Lead
+          WHERE Company = :newLead[0].Company
+        ]
+        .OwnerId
+      );
+    }
+    test.stopTest();
   }
 }
