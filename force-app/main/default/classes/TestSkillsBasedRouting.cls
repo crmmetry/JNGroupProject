@@ -228,7 +228,6 @@ public class TestSkillsBasedRouting {
   //Scenario: Assign lead with Preffered Loaction - Annotto Bay and Product - JN Bank AutoLoan Result: Assigned owner should be Travis
   @isTest
   public static void shouldrouteUsingSkillsTier2Scenario1() {
-    test.startTest();
     User travis = [SELECT Id FROM User WHERE UserName = 'Travis@test.com'];
     System.runAs(travis) {
       Group salesTeam = [
@@ -248,7 +247,10 @@ public class TestSkillsBasedRouting {
       insert newLead;
 
       newLead[0].Escalate_to_Tier2__c = true;
+
+      test.startTest();
       update newLead;
+      test.stopTest();
 
       System.assertEquals(
         travis.Id,
@@ -256,7 +258,7 @@ public class TestSkillsBasedRouting {
         .OwnerId
       );
     }
-    test.stopTest();
+
   }
 
   //Scenario2: Assign lead with Preffered Loaction - Barbican and Product - JN Bank Credit Card Result: Assigned owner should be Remario

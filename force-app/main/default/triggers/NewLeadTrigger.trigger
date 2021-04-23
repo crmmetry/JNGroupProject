@@ -1,9 +1,9 @@
 /**
  * @Description        : Handler for trigger
  * @Author             : Remario Richards
- * @Last Modified By   : Remario Richards
+ * @Last Modified By   : Travis Allen
  * @Created On          : 10/7/2019
- * @Last Modified On   : 10/7/2019
+ * @Last Modified On   : 04-23-2021
  */
 trigger NewLeadTrigger on Lead(
   before insert,
@@ -25,7 +25,8 @@ trigger NewLeadTrigger on Lead(
     } else {
       LeadTriggerHandler.crmm_TimeSpentInStage();
       LeadTriggerHandler.crmm_TierTwoTrigger();
-      SkillsBasedRouting.routeUsingSkillsTier2(Trigger.new);
+      // SkillsBasedRouting.routeUsingSkillsTier2(Trigger.new);
+      System.enqueueJob(new QueueableSkillsBasedRouting(Trigger.New));
       LeadTriggerHandler.IndustryTypeValidations();
     }
   } else if (Trigger.isInsert) {

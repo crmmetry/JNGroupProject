@@ -126,30 +126,27 @@ global class SkillsBasedRouting {
       FROM serviceresource
       WHERE RelatedRecordId IN :userIds
     ]) {
-      ServiceResourceWrapper SRWrapper = new ServiceResourceWrapper(
-        record.RelatedRecordId
-      );
-
-      List<String> productsToBeAddedToWrapper = new List<String>();
-      List<String> locationsToBeAddedToWrapper = new List<String>();
-
       for (ServiceResourceSkill skillRecord : record.ServiceResourceSkills) {
-        if (Constants.SKILL_LOCATIONS.contains(skillRecord.Skill.MasterLabel)) {
-          if (serviceResourceMap.keySet().contains(record.RelatedRecordId)) {
-            serviceResourceMap.get(record.RelatedRecordId)
-              .addLocation(skillRecord.Skill.MasterLabel);
-          } else {
-            SRWrapper.addLocation(skillRecord.Skill.MasterLabel);
-            serviceResourceMap.put(record.RelatedRecordId, SRWrapper);
-          }
-        } else if (
-          Constants.SKILL_PRODUCTS.contains(skillRecord.Skill.MasterLabel)
-        ) {
+        if (Constants.SKILL_PRODUCTS.contains(skillRecord.Skill.MasterLabel)) {
           if (serviceResourceMap.keySet().contains(record.RelatedRecordId)) {
             serviceResourceMap.get(record.RelatedRecordId)
               .addProduct(skillRecord.Skill.MasterLabel);
           } else {
+            ServiceResourceWrapper SRWrapper = new ServiceResourceWrapper(
+              record.RelatedRecordId
+            );
             SRWrapper.addProduct(skillRecord.Skill.MasterLabel);
+            serviceResourceMap.put(record.RelatedRecordId, SRWrapper);
+          }
+        } else {
+          if (serviceResourceMap.keySet().contains(record.RelatedRecordId)) {
+            serviceResourceMap.get(record.RelatedRecordId)
+              .addLocation(skillRecord.Skill.MasterLabel);
+          } else {
+            ServiceResourceWrapper SRWrapper = new ServiceResourceWrapper(
+              record.RelatedRecordId
+            );
+            SRWrapper.addLocation(skillRecord.Skill.MasterLabel);
             serviceResourceMap.put(record.RelatedRecordId, SRWrapper);
           }
         }
