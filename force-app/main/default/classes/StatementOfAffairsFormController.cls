@@ -227,6 +227,13 @@ public class StatementOfAffairsFormController {
             Treatment_of_Credit__c,
             Minimum_Payment__c,
             Monthly_Savings_Investments__c,
+            Monthly_Payment_After__c,
+            Minimum_Payment_After__c,
+            Loan_Balance_After__c,
+            Asset_Credit_Balance__c,
+            Overdraft_Limit_Number__c,
+            Financial_Institution_Text__c,
+            Percentage_Applicant_s_Portion_Number__c,
             Monthly_Savings_Investments_After_Loan__c,
             Assets_and_Liabilities__r.Overdraft_Limit__c,
             Assets_and_Liabilities__r.Percent_Applicant_Portion__c,
@@ -267,7 +274,8 @@ public class StatementOfAffairsFormController {
             Assets_and_Liabilities__r.Minimum_Payment_After__c,
             Assets_and_Liabilities__r.Asset_Credit_Balance_After__c,
             Assets_and_Liabilities__r.Type_of_Loan__c,
-            Assets_and_Liabilities__r.Loan_Balance_After__c
+            Assets_and_Liabilities__r.Loan_Balance_After__c,
+            Assets_and_Liabilities__r.Account_Balance__c
           FROM Application_Assets_Liabilities__r
         ),
         (
@@ -632,17 +640,15 @@ public class StatementOfAffairsFormController {
       this.lender = asset.Assets_and_Liabilities__r.Lender__c;
       if (asset.Assets_and_Liabilities__r.Lien_on_Asset__c) {
         this.monthlyPaymentBefore =
-          getPercentage(
-            asset.Assets_and_Liabilities__r.Percent_Applicant_Portion__c
-          ) * checkIfNull(asset.Monthly_Payment_Prior__c);
+          getPercentage(asset.Percentage_Applicant_s_Portion_Number__c) *
+          checkIfNull(asset.Monthly_Payment_Prior__c);
         this.loanBalanceBefore =
           getPercentage(asset.Assets_and_Liabilities__r.Percent_Ownership__c) *
           checkIfNull(asset.Loan_Balance_Prior__c);
         if (asset.Treatment_of_Credit__c == 'Will Remain') {
           this.monthlyPaymentAfter =
-            getPercentage(
-              asset.Assets_and_Liabilities__r.Percent_Applicant_Portion__c
-            ) * checkIfNull(asset.Assets_and_Liabilities__r.Monthly_Payment__c);
+            getPercentage(asset.Percentage_Applicant_s_Portion_Number__c) *
+            checkIfNull(asset.Assets_and_Liabilities__r.Monthly_Payment__c);
           this.loanBalanceAfter =
             getPercentage(
               asset.Assets_and_Liabilities__r.Percent_Ownership__c
@@ -690,7 +696,7 @@ public class StatementOfAffairsFormController {
       this.marketvalue =
         getPercentage(asset.Assets_and_Liabilities__r.Percent_Ownership__c) *
         checkIfNull(asset.Assets_and_Liabilities__r.Total_Market_Value__c);
-      this.lender = asset.Assets_and_Liabilities__r.Lender__c;
+      this.lender = asset.Financial_Institution_Text__c;
       if (asset.Assets_and_Liabilities__r.Lien_on_Asset__c) {
         this.monthlyPaymentBefore =
           getPercentage(
@@ -808,7 +814,7 @@ public class StatementOfAffairsFormController {
       StatementOfAffairsFormController soa
     ) {
       this.soa = soa;
-      this.details = asset.Assets_and_Liabilities__r.Financial_Institution__c;
+      this.details = asset.Assets_and_Liabilities__r.Lender__c;
       this.monthlyPaymentBefore =
         getPercentage(
           asset.Assets_and_Liabilities__r.Percent_Applicant_Portion__c
@@ -929,11 +935,11 @@ public class StatementOfAffairsFormController {
       StatementOfAffairsFormController soa
     ) {
       this.soa = soa;
-      this.finacialInstitution = asset.Assets_and_Liabilities__r.Financial_Institution__c;
+      this.finacialInstitution = asset.Assets_and_Liabilities__r.Lender__c;
       this.cardType = asset.Assets_and_Liabilities__r.Type_of_Card__c;
       this.creditLimit = asset.Assets_and_Liabilities__r.Asset_Credit_Limit__c;
       this.avgLimit = asset.Assets_and_Liabilities__r.Average_Monthly_Usage__c;
-      this.creditCardBalance_before = asset.Assets_and_Liabilities__r.Asset_Credit_Balance__c;
+      this.creditCardBalance_before = asset.Asset_Credit_Balance__c;
       this.minimumPayment_before = asset.Assets_and_Liabilities__r.Minimum_Payment__c;
       this.minimumPayment_After = asset.Assets_and_Liabilities__r.Minimum_Payment_After__c;
       if (
@@ -973,8 +979,8 @@ public class StatementOfAffairsFormController {
       this.soa = soa;
       this.finacialInstitution = asset.Assets_and_Liabilities__r.Financial_Institution__c;
       this.accountType = asset.Assets_and_Liabilities__r.Type_of_Account__c;
-      this.balance = asset.Assets_and_Liabilities__r.Average_Monthly_Usage__c;
-      this.overdraftLimit = asset.Assets_and_Liabilities__r.Overdraft_Limit__c;
+      this.balance = asset.Assets_and_Liabilities__r.Account_Balance__c;
+      this.overdraftLimit = asset.Overdraft_Limit_Number__c;
       this.investment_before = asset.Assets_and_Liabilities__r.Monthly_Savings_Investment__c;
       this.investment_after = asset.Assets_and_Liabilities__r.Monthly_Saving_Investment_after_Loan__c;
 
