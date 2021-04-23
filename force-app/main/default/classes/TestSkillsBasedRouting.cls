@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 04-22-2021
+ * @last modified on  : 04-23-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -250,8 +250,6 @@ public class TestSkillsBasedRouting {
       newLead[0].Escalate_to_Tier2__c = true;
       update newLead;
 
-      System.debug('TEST ' + salesTeam.Id);
-
       System.assertEquals(
         travis.Id,
         [SELECT Id, OwnerId, Company FROM Lead WHERE LastName = 'Travis']
@@ -286,8 +284,6 @@ public class TestSkillsBasedRouting {
       newLead[0].Escalate_to_Tier2__c = true;
       update newLead;
 
-      System.debug('TEST ' + salesTeam.Id);
-
       System.assertEquals(
         remario.Id,
         [SELECT Id, OwnerId, Company FROM Lead WHERE LastName = 'Remario']
@@ -297,7 +293,7 @@ public class TestSkillsBasedRouting {
     test.stopTest();
   }
 
-  //Scenario3: Assign lead with Preffered Loaction - Barbican and Product - JN Bank Credit Card Result: Assigned owner should be Remario
+  //Scenario3: Assign lead with Preffered Loaction - Barbican and Product - JN Bank Line Of Credit Result: Assigned owner should be Remario
   @isTest
   public static void shouldrouteUsingSkillsTier2Scenario3() {
     test.startTest();
@@ -322,15 +318,9 @@ public class TestSkillsBasedRouting {
       newLead[0].Escalate_to_Tier2__c = true;
       update newLead;
 
-      System.debug('TEST ' + salesTeam.Id);
-
       System.assertEquals(
         abigail.Id,
-        [
-          SELECT Id, OwnerId, Company
-          FROM Lead
-          WHERE LastName = 'Abigail' AND Company = 'Barbican Company'
-        ]
+        [SELECT Id, OwnerId, Company FROM Lead WHERE LastName = 'Abigail']
         .OwnerId
       );
     }

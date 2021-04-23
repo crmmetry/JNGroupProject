@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 04-22-2021
+ * @last modified on  : 04-23-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -10,61 +10,6 @@
  **/
 global class SkillsBasedRouting {
   public static final String TAG = 'SkillsBasedRouting';
-  // public static void routeUsingSkillsTier1(Set<Id> leads) {
-  //   //get Sales Development queue id
-  //   Group salesDevQueue = [
-  //     SELECT Id
-  //     FROM Group
-  //     WHERE Type = 'Queue' AND Name = 'Sales Development Team'
-  //   ];
-  //   for (Lead leadObj : [
-  //     SELECT Id, Preferred_Location__c, OwnerId
-  //     FROM Lead
-  //     WHERE Id IN :leads AND OwnerID = :salesDevQueue.Id
-  //   ]) {
-  //     if (leadObj.Preferred_Location__c != null && leadObj.Service_of_Interest__c!=null) {
-  //       PendingServiceRouting pendingSrvRouting = new PendingServiceRouting(
-  //         CapacityWeight = 1,
-  //         IsReadyForRouting = false,
-  //         RoutingModel = 'LeastActive',
-  //         RoutingPriority = 1,
-  //         RoutingType = 'SkillsBased',
-  //         ServiceChannelId = getChannelId('New_lead'),
-  //         WorkItemId = leadObj.Id
-  //       );
-  //       System.debug('JNSkillsRouting' + pendingSrvRouting);
-  //       insert pendingSrvRouting;
-  //       pendingSrvRouting = [
-  //         SELECT Id, IsReadyForRouting
-  //         FROM PendingServiceRouting
-  //         WHERE Id = :pendingSrvRouting.id
-  //       ];
-
-  //       // Now add SkillRequirement(s)
-  //       SkillRequirement srObj = new SkillRequirement(
-  //         RelatedRecordId = pendingSrvRouting.id,
-  //         SkillId = getSkillIdForPreferredLocation(
-  //           leadObj.Preferred_Location__c
-  //         ),
-  //         SkillLevel = 1
-  //       );
-  //       //new skill requirement for Product
-  //       SkillRequirement srObj = new SkillRequirement(
-  //         RelatedRecordId = pendingSrvRouting.id,
-  //         SkillId = getSkillIdForProductOfInterest(
-  //           leadObj.Service_of_Interest__c
-  //         ),
-  //         SkillLevel = 1
-  //       );
-  //       insert srObj;
-  //       System.debug('Current Skill: ' + srObj);
-  //       // Update PendingServiceRouting as IsReadyForRouting
-  //       pendingSrvRouting.IsReadyForRouting = true;
-  //       update pendingSrvRouting;
-  //     }
-  //   }
-  //   return;
-  // }
 
   private static String getChannelId(String channelName) {
     ServiceChannel channel = [
@@ -112,7 +57,6 @@ global class SkillsBasedRouting {
       new SkillComparator(),
       SkillsBasedRouting.Worker.class
     );
-    System.debug('All Workers: ' + workers);
     for (Worker record : workers) {
       if (
         leadLocation.equals(record.location) &&
@@ -140,7 +84,6 @@ global class SkillsBasedRouting {
     for (Lead record : leads) {
       if (record.OwnerId.equals(salesDevQueue.Id)) {
         if (record.Escalate_to_Tier2__c == true) {
-          System.debug(TAG + ' Lead Selected for tier 2 routing');
           selectedLeads.add(record);
           locations.add(record.Preferred_Location__c);
           products.add(record.Service_of_Interest__c);
@@ -160,7 +103,6 @@ global class SkillsBasedRouting {
       FROM GroupMember
       WHERE Group.Name = :salesTeam AND Group.Type = 'Queue'
     ]) {
-      System.debug(TAG + ' User is a tier 2 member');
       userIds.add(record.UserOrGroupId);
     }
 
@@ -184,67 +126,39 @@ global class SkillsBasedRouting {
       FROM serviceresource
       WHERE RelatedRecordId IN :userIds
     ]) {
-      System.debug(
-        record.RelatedRecordId + ' User is a matched skilled tier 2 member'
-      );
-
-      skilledUsers.add(record.RelatedRecordId);
-
-      System.debug(
-        TAG +
-        'Service Resource Skill List: ' +
-        record.ServiceResourceSkills
-      );
-
-      System.debug(TAG + 'Service Resource ' + record);
-
       ServiceResourceWrapper SRWrapper = new ServiceResourceWrapper(
         record.RelatedRecordId
       );
 
+      List<String> productsToBeAddedToWrapper = new List<String>();
+      List<String> locationsToBeAddedToWrapper = new List<String>();
+
       for (ServiceResourceSkill skillRecord : record.ServiceResourceSkills) {
-        System.debug(TAG + ' Name Of Skill ' + skillRecord.Skill.MasterLabel);
         if (Constants.SKILL_LOCATIONS.contains(skillRecord.Skill.MasterLabel)) {
           if (serviceResourceMap.keySet().contains(record.RelatedRecordId)) {
             serviceResourceMap.get(record.RelatedRecordId)
               .addLocation(skillRecord.Skill.MasterLabel);
           } else {
-            // ServiceResourceWrapper SRWrapper = new ServiceResourceWrapper(
-            //   record.RelatedRecordId
-            // );
             SRWrapper.addLocation(skillRecord.Skill.MasterLabel);
             serviceResourceMap.put(record.RelatedRecordId, SRWrapper);
           }
         } else if (
           Constants.SKILL_PRODUCTS.contains(skillRecord.Skill.MasterLabel)
         ) {
-          System.debug(TAG + ' Skill is a Product ');
           if (serviceResourceMap.keySet().contains(record.RelatedRecordId)) {
             serviceResourceMap.get(record.RelatedRecordId)
               .addProduct(skillRecord.Skill.MasterLabel);
           } else {
-            System.debug(TAG + ' Skill is new product ');
-            // ServiceResourceWrapper SRWrapper = new ServiceResourceWrapper(
-            //   record.RelatedRecordId
-            // );
             SRWrapper.addProduct(skillRecord.Skill.MasterLabel);
             serviceResourceMap.put(record.RelatedRecordId, SRWrapper);
           }
         }
       }
-      System.debug(TAG + ' Service Resource Wrapper ' + SRWrapper);
     }
-
-    System.debug(
-      TAG +
-      'Ids for Service Resources Found: ' +
-      serviceResourceMap.keySet()
-    );
 
     for (String userId : serviceResourceMap.keySet()) {
       Map<String, Worker> workerhash = serviceResourceMap.get(userId)
         .getWorkerHashMap();
-      System.debug(TAG + ' Worker map ' + workerhash);
       mappedWorkerSkills.putAll(workerhash);
     }
 
@@ -252,9 +166,7 @@ global class SkillsBasedRouting {
     Integer total;
     String userID, location, product;
 
-    System.debug('Skilled Workers: ' + skilledUsers);
-    System.debug('Skilled Locations: ' + locations);
-
+    //loops through an aggregate of leads based on the total amount leads in owned by sales team user.
     for (AggregateResult record : [
       SELECT
         COUNT(Id) total,
@@ -291,8 +203,6 @@ global class SkillsBasedRouting {
     PriorityQueue pq;
     Worker selectedWorker;
 
-    System.debug(TAG + ' Amount of workers ' + workers.size());
-
     if (workers.size() > 0) {
       for (Lead selectedLead : selectedLeads) {
         //can optimize by using a set
@@ -304,7 +214,6 @@ global class SkillsBasedRouting {
 
         if (pq.size() > 0) {
           selectedWorker = (Worker) pq.poll();
-          System.debug(TAG + ' Found work ' + selectedWorker);
           selectedWorker.updateWorkLoad();
           //update lead with owner id , who has the least amount of work
           selectedLead.OwnerId = selectedWorker.userId;
@@ -356,20 +265,23 @@ global class SkillsBasedRouting {
     public Set<String> locations = new Set<String>();
     public Map<String, Worker> workerHashMap = new Map<String, Worker>();
     public String newProduct;
+    public String newLocation;
 
     public ServiceResourceWrapper(String relatedRecordId) {
       this.relatedRecordId = relatedRecordId;
     }
 
+    //Adds new product and creates new workers from the existing locations and new products combination
     public void addProduct(String product) {
-      System.debug(TAG + ' Start of add product nmethod ');
       this.newProduct = product;
-      this.generateWorkerHashMap();
+      this.generateWorkerHashMapWithNewProduct();
       this.products.add(product);
-      System.debug(TAG + ' End of add product nmethod ');
     }
 
+    //Adds new location and creates new workers from the existing products and new location combination
     public void addLocation(String location) {
+      this.newLocation = location;
+      this.generateWorkerHashMapWithNewLocation();
       this.locations.add(location);
     }
 
@@ -377,21 +289,37 @@ global class SkillsBasedRouting {
       return this.workerHashMap;
     }
 
-    public void generateWorkerHashMap() {
+    //Maintains worker hash map to ensure that a worker object is created for all combination for worker and location skills for the service resource
+    public void generateWorkerHashMapWithNewProduct() {
       String generatedHash;
-      if (locations.size() > 0) {
-        for (String location : locations) {
-          if (!products.contains(newProduct)) {
-            generatedHash = Util.GenerateHash(
-              new List<String>{ relatedRecordId, newProduct, location }
-            );
+      if (
+        this.locations.size() > 0 && !this.products.contains(this.newProduct)
+      ) {
+        for (String location : this.locations) {
+          generatedHash = Util.GenerateHash(
+            new List<String>{ this.relatedRecordId, location, this.newProduct }
+          );
+          this.workerHashMap.put(
+            generatedHash,
+            new Worker(this.relatedRecordId, 0, location, this.newProduct)
+          );
+        }
+      }
+    }
 
-            workerHashMap.put(
-              generatedHash,
-              new Worker(relatedRecordId, 0, location, newProduct)
-            );
-            System.debug(TAG + ' Worker Hash in SRW ' + workerHashMap);
-          }
+    public void generateWorkerHashMapWithNewLocation() {
+      String generatedHash;
+      if (
+        this.products.size() > 0 && !this.locations.contains(this.newLocation)
+      ) {
+        for (String product : this.products) {
+          generatedHash = Util.GenerateHash(
+            new List<String>{ this.relatedRecordId, this.newLocation, product }
+          );
+          this.workerHashMap.put(
+            generatedHash,
+            new Worker(this.relatedRecordId, 0, this.newLocation, product)
+          );
         }
       }
     }
