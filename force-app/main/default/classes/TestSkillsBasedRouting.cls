@@ -249,7 +249,7 @@ public class TestSkillsBasedRouting {
       newLead[0].Escalate_to_Tier2__c = true;
 
       test.startTest();
-      update newLead;
+      SkillsBasedRouting.StartRoutingUsingTier2(newLead);
       test.stopTest();
 
       System.assertEquals(
@@ -264,7 +264,6 @@ public class TestSkillsBasedRouting {
   //Scenario2: Assign lead with Preffered Loaction - Barbican and Product - JN Bank Credit Card Result: Assigned owner should be Remario
   @isTest
   public static void shouldrouteUsingSkillsTier2Scenario2() {
-    test.startTest();
     User remario = [SELECT Id FROM User WHERE UserName = 'Remario@test.com'];
     System.runAs(remario) {
       Group salesTeam = [
@@ -284,7 +283,10 @@ public class TestSkillsBasedRouting {
       insert newLead;
 
       newLead[0].Escalate_to_Tier2__c = true;
-      update newLead;
+
+      test.startTest();
+      SkillsBasedRouting.StartRoutingUsingTier2(newLead);
+      test.stopTest();
 
       System.assertEquals(
         remario.Id,
@@ -292,13 +294,11 @@ public class TestSkillsBasedRouting {
         .OwnerId
       );
     }
-    test.stopTest();
   }
 
   //Scenario3: Assign lead with Preffered Loaction - Barbican and Product - JN Bank Line Of Credit Result: Assigned owner should be Remario
   @isTest
   public static void shouldrouteUsingSkillsTier2Scenario3() {
-    test.startTest();
     User abigail = [SELECT Id FROM User WHERE UserName = 'Abigail@test.com'];
     System.runAs(abigail) {
       Group salesTeam = [
@@ -318,7 +318,10 @@ public class TestSkillsBasedRouting {
       insert newLead;
 
       newLead[0].Escalate_to_Tier2__c = true;
-      update newLead;
+
+      test.startTest();
+      SkillsBasedRouting.StartRoutingUsingTier2(newLead);
+      test.stopTest();
 
       System.assertEquals(
         abigail.Id,
@@ -326,6 +329,5 @@ public class TestSkillsBasedRouting {
         .OwnerId
       );
     }
-    test.stopTest();
   }
 }

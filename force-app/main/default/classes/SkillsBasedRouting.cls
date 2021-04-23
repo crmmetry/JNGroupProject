@@ -18,26 +18,6 @@ global class SkillsBasedRouting {
     System.enqueueJob(new QueueableSkillsBasedRouting(leads));
   }
 
-  private static String getChannelId(String channelName) {
-    ServiceChannel channel = [
-      SELECT Id
-      FROM ServiceChannel
-      WHERE DeveloperName = :channelName
-    ];
-    return channel.Id;
-  }
-  //Get Skill Id based on preferred location
-  private static String getSkillIdForPreferredLocation(
-    String preferredLocation
-  ) {
-    Skill skill = [SELECT Id FROM Skill WHERE MasterLabel = :preferredLocation];
-    return skill.Id;
-  }
-  //Get Skill Id based on product
-  private static String getSkillIdForProductOfInterest(String product) {
-    Skill skill = [SELECT Id FROM Skill WHERE MasterLabel = :product];
-    return skill.Id;
-  }
   //Get a map of all skills with preferred location
   private static Map<Id, Skill> getLocationSkills(Set<String> locations) {
     return new Map<Id, Skill>(
@@ -74,6 +54,7 @@ global class SkillsBasedRouting {
     }
     return pq;
   }
+
   public static void routeUsingSkillsTier2(List<Lead> leads) {
     System.debug('Route Using Tier 2 Method');
     Set<String> locations = new Set<String>();
