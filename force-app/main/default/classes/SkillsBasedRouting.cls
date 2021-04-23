@@ -196,6 +196,12 @@ global class SkillsBasedRouting {
         record.ServiceResourceSkills
       );
 
+      System.debug(TAG + 'Service Resource ' + record);
+
+      ServiceResourceWrapper SRWrapper = new ServiceResourceWrapper(
+        record.RelatedRecordId
+      );
+
       for (ServiceResourceSkill skillRecord : record.ServiceResourceSkills) {
         System.debug(TAG + ' Name Of Skill ' + skillRecord.Skill.MasterLabel);
         if (Constants.SKILL_LOCATIONS.contains(skillRecord.Skill.MasterLabel)) {
@@ -203,12 +209,11 @@ global class SkillsBasedRouting {
             serviceResourceMap.get(record.RelatedRecordId)
               .addLocation(skillRecord.Skill.MasterLabel);
           } else {
-            ServiceResourceWrapper SRWrapper = new ServiceResourceWrapper(
-              record.RelatedRecordId
-            );
+            // ServiceResourceWrapper SRWrapper = new ServiceResourceWrapper(
+            //   record.RelatedRecordId
+            // );
             SRWrapper.addLocation(skillRecord.Skill.MasterLabel);
             serviceResourceMap.put(record.RelatedRecordId, SRWrapper);
-            System.debug(TAG + ' Service Resource Wrapper ' + SRWrapper);
           }
         } else if (
           Constants.SKILL_PRODUCTS.contains(skillRecord.Skill.MasterLabel)
@@ -219,15 +224,15 @@ global class SkillsBasedRouting {
               .addProduct(skillRecord.Skill.MasterLabel);
           } else {
             System.debug(TAG + ' Skill is new product ');
-            ServiceResourceWrapper SRWrapper = new ServiceResourceWrapper(
-              record.RelatedRecordId
-            );
+            // ServiceResourceWrapper SRWrapper = new ServiceResourceWrapper(
+            //   record.RelatedRecordId
+            // );
             SRWrapper.addProduct(skillRecord.Skill.MasterLabel);
             serviceResourceMap.put(record.RelatedRecordId, SRWrapper);
-            System.debug(TAG + ' Service Resource Wrapper ' + SRWrapper);
           }
         }
       }
+      System.debug(TAG + ' Service Resource Wrapper ' + SRWrapper);
     }
 
     System.debug(
@@ -385,6 +390,7 @@ global class SkillsBasedRouting {
               generatedHash,
               new Worker(relatedRecordId, 0, location, newProduct)
             );
+            System.debug(TAG + ' Worker Hash in SRW ' + workerHashMap);
           }
         }
       }

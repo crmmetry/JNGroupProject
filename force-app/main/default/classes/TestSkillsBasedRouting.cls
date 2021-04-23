@@ -115,11 +115,11 @@ public class TestSkillsBasedRouting {
     serviceResourceSkills.add(remarioCatherinehallSkill);
 
     //Service Resource Skills for Abigail [Location(1): AnnottoBay Product(2): JN Bank Credit Card, JN Bank Line Of Credit ]
-    ServiceResourceSkill abigailAnnottoBaySkill = TestDataFactory.CreateServiceResourceSkill(
-      abigailSR.Id,
-      annottoBaySkill.Id
-    );
-    serviceResourceSkills.add(abigailAnnottoBaySkill);
+    // ServiceResourceSkill abigailAnnottoBaySkill = TestDataFactory.CreateServiceResourceSkill(
+    //   abigailSR.Id,
+    //   annottoBaySkill.Id
+    // );
+    // serviceResourceSkills.add(abigailAnnottoBaySkill);
 
     ServiceResourceSkill abigailBarbicanSkill = TestDataFactory.CreateServiceResourceSkill(
       abigailSR.Id,
@@ -127,11 +127,11 @@ public class TestSkillsBasedRouting {
     );
     serviceResourceSkills.add(abigailBarbicanSkill);
 
-    ServiceResourceSkill abigailCreditCardSkill = TestDataFactory.CreateServiceResourceSkill(
-      abigailSR.Id,
-      creditCardSkill.Id
-    );
-    serviceResourceSkills.add(abigailCreditCardSkill);
+    // ServiceResourceSkill abigailCreditCardSkill = TestDataFactory.CreateServiceResourceSkill(
+    //   abigailSR.Id,
+    //   creditCardSkill.Id
+    // );
+    // serviceResourceSkills.add(abigailCreditCardSkill);
 
     ServiceResourceSkill abigailLOCSkill = TestDataFactory.CreateServiceResourceSkill(
       abigailSR.Id,
@@ -326,7 +326,11 @@ public class TestSkillsBasedRouting {
 
       System.assertEquals(
         abigail.Id,
-        [SELECT Id, OwnerId, Company FROM Lead WHERE LastName = 'Abigail']
+        [
+          SELECT Id, OwnerId, Company
+          FROM Lead
+          WHERE LastName = 'Abigail' AND Company = 'Barbican Company'
+        ]
         .OwnerId
       );
     }
