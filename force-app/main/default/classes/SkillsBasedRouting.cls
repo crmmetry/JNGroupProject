@@ -10,6 +10,13 @@
  **/
 global class SkillsBasedRouting {
   public static final String TAG = 'SkillsBasedRouting';
+  public static Boolean inRecursiveUpdate = false;
+
+  public static void StartRoutingUsingTier2(List<Lead> leads) {
+    if (inRecursiveUpdate)
+      return;
+    System.enqueueJob(new QueueableSkillsBasedRouting(leads));
+  }
 
   private static String getChannelId(String channelName) {
     ServiceChannel channel = [
@@ -68,7 +75,7 @@ global class SkillsBasedRouting {
     return pq;
   }
   public static void routeUsingSkillsTier2(List<Lead> leads) {
-    //PriorityQueue pq = new PriorityQueue(new SkillComparator(), Worker.class);
+    System.debug('Route Using Tier 2 Method');
     Set<String> locations = new Set<String>();
     Set<String> products = new Set<String>();
     List<Lead> selectedLeads = new List<Lead>();
@@ -194,7 +201,7 @@ global class SkillsBasedRouting {
 
     //add all the workers
     workers.addAll(mappedWorkerSkills.values());
-
+    List<Lead> leadsToUpdate = new List<Lead>();
     //assign the selected leads if aggregations were found
     String leadLocation, leadProduct;
     PriorityQueue pq;
@@ -213,9 +220,16 @@ global class SkillsBasedRouting {
           selectedWorker = (Worker) pq.poll();
           selectedWorker.updateWorkLoad();
           //update lead with owner id , who has the least amount of work
-          selectedLead.OwnerId = selectedWorker.userId;
+          //selectedLead.OwnerId = selectedWorker.userId;
+          Lead newLead = new Lead(
+            Id = selectedLead.Id,
+            OwnerId = selectedWorker.userId
+          );
+          leadsToUpdate.add(newLead);
         }
       }
+      inRecursiveUpdate = true;
+      update leadsToUpdate;
     }
     //}
   }
