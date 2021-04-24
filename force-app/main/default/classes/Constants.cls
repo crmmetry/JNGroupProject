@@ -108,5 +108,20 @@ public class Constants {
   public static final String DOCUMENT_PROOF_OF_INCOME_UNAUDITED_FINSTATEMENT = 'Proof_of_income_Unaudited_Financial_Statements';
 
   public static final String DOCCHKLISTITEM_SOBJECT = 'DocumentChecklistItem';
+
+  public static final List<String> SKILL_PRODUCTS = new List<String>{
+    'JN Bank 12 to 1 Loan (Supersize Loan)',
+    'JN Bank Auto Loan',
+    'JN Bank Cash Secured Loan',
+    'JN Bank Commercial Auto Loan',
+    'JN Bank Credit Card',
+    'JN Bank Deposit Account',
+    'JN Bank Insurance Premium Financing',
+    'JN Bank Line Of Credit',
+    'JN Bank Mortgage Loan',
+    'JN Bank Unsecured Loan',
+    'JN Bank Insurance Premium Financing',
+    'JN Bank Term Share Loan'
+  };
   public static final String ONLY_ONE_APPLICATION = 'Sorry, you cannot add any more than one application for this opportunity. Contact your administrator.';
 }
