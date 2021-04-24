@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 04-23-2021
+ * @last modified on  : 04-24-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -115,11 +115,11 @@ public class TestSkillsBasedRouting {
     serviceResourceSkills.add(remarioCatherinehallSkill);
 
     //Service Resource Skills for Abigail [Location(1): AnnottoBay Product(2): JN Bank Credit Card, JN Bank Line Of Credit ]
-    // ServiceResourceSkill abigailAnnottoBaySkill = TestDataFactory.CreateServiceResourceSkill(
-    //   abigailSR.Id,
-    //   annottoBaySkill.Id
-    // );
-    // serviceResourceSkills.add(abigailAnnottoBaySkill);
+    ServiceResourceSkill abigailAnnottoBaySkill = TestDataFactory.CreateServiceResourceSkill(
+      abigailSR.Id,
+      annottoBaySkill.Id
+    );
+    serviceResourceSkills.add(abigailAnnottoBaySkill);
 
     ServiceResourceSkill abigailBarbicanSkill = TestDataFactory.CreateServiceResourceSkill(
       abigailSR.Id,
@@ -127,11 +127,11 @@ public class TestSkillsBasedRouting {
     );
     serviceResourceSkills.add(abigailBarbicanSkill);
 
-    // ServiceResourceSkill abigailCreditCardSkill = TestDataFactory.CreateServiceResourceSkill(
-    //   abigailSR.Id,
-    //   creditCardSkill.Id
-    // );
-    // serviceResourceSkills.add(abigailCreditCardSkill);
+    ServiceResourceSkill abigailCreditCardSkill = TestDataFactory.CreateServiceResourceSkill(
+      abigailSR.Id,
+      creditCardSkill.Id
+    );
+    serviceResourceSkills.add(abigailCreditCardSkill);
 
     ServiceResourceSkill abigailLOCSkill = TestDataFactory.CreateServiceResourceSkill(
       abigailSR.Id,
@@ -326,6 +326,41 @@ public class TestSkillsBasedRouting {
       System.assertEquals(
         abigail.Id,
         [SELECT Id, OwnerId, Company FROM Lead WHERE LastName = 'Abigail']
+        .OwnerId
+      );
+    }
+  }
+
+  //Scenario4: Assign lead with Preffered Loaction - Falmouth and Product - JN Bank Credit Card Result: Assigned owner should be Sales Team (Negative Test Case)
+  @isTest
+  public static void shouldrouteUsingSkillsTier2Scenario4() {
+    User abigail = [SELECT Id FROM User WHERE UserName = 'Abigail@test.com'];
+    System.runAs(abigail) {
+      Group salesTeam = [
+        SELECT Id
+        FROM Group
+        WHERE Type = 'Queue' AND Name = 'Sales Team'
+      ];
+
+      List<Lead> newLead = TestDataFactory.CreateLeads(1);
+      newlead[0].LastName = 'Sales';
+      newLead[0].Preferred_Location__c = 'Falmouth';
+      newLead[0].Service_of_Interest__c = 'JN Bank Credit Card';
+      newLead[0].Escalate_to_Tier2__c = false;
+      newLead[0].Last_Contact_Made__c = System.now();
+      newLead[0].OwnerId = salesTeam.Id;
+      newLead[0].Company = 'Barbican Company';
+      insert newLead;
+
+      newLead[0].Escalate_to_Tier2__c = true;
+
+      test.startTest();
+      SkillsBasedRouting.StartRoutingUsingTier2(newLead);
+      test.stopTest();
+
+      System.assertEquals(
+        salesTeam.Id,
+        [SELECT Id, OwnerId, Company FROM Lead WHERE LastName = 'Sales']
         .OwnerId
       );
     }

@@ -2,13 +2,13 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 04-23-2021
+ * @last modified on  : 04-24-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
  * 1.0   04-20-2021   Travis Allen   Initial Version
  **/
-global class SkillsBasedRouting {
+global with sharing class SkillsBasedRouting {
   public static final String TAG = 'SkillsBasedRouting';
   public static Boolean inRecursiveUpdate = false;
 
@@ -56,7 +56,6 @@ global class SkillsBasedRouting {
   }
 
   public static void routeUsingSkillsTier2(List<Lead> leads) {
-    System.debug('Route Using Tier 2 Method');
     Set<String> locations = new Set<String>();
     Set<String> products = new Set<String>();
     List<Lead> selectedLeads = new List<Lead>();
@@ -66,6 +65,7 @@ global class SkillsBasedRouting {
       SELECT Id
       FROM Group
       WHERE Type = 'Queue' AND Name = :salesTeam
+      WITH SECURITY_ENFORCED
     ];
 
     //Get a list locations and products from the leads
@@ -90,6 +90,7 @@ global class SkillsBasedRouting {
       SELECT UserOrGroupId
       FROM GroupMember
       WHERE Group.Name = :salesTeam AND Group.Type = 'Queue'
+      WITH SECURITY_ENFORCED
     ]) {
       userIds.add(record.UserOrGroupId);
     }
@@ -113,6 +114,7 @@ global class SkillsBasedRouting {
         )
       FROM serviceresource
       WHERE RelatedRecordId IN :userIds
+      WITH SECURITY_ENFORCED
     ]) {
       for (ServiceResourceSkill skillRecord : record.ServiceResourceSkills) {
         if (Constants.SKILL_PRODUCTS.contains(skillRecord.Skill.MasterLabel)) {
@@ -163,6 +165,7 @@ global class SkillsBasedRouting {
         Preferred_Location__c IN :locations
         AND OwnerId IN :skilledUsers
         AND Service_of_Interest__c IN :products
+      WITH SECURITY_ENFORCED
       GROUP BY OwnerId, Preferred_Location__c, Service_of_Interest__c
       ORDER BY COUNT(Id)
     ]) {
