@@ -155,7 +155,7 @@ public class TestOpportunityHandler {
     );
     Test.stopTest();
   }
-
+  //Should by pass validate closed back date restrictions when current user has the appropriate custom permission
   @isTest
   public static void shouldBypassCloseDateRestriction() {
     User byPassClosedDateUser = TestDataFactory.CreateUser(
