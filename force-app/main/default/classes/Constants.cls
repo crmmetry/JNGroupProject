@@ -124,4 +124,6 @@ public class Constants {
     'JN Bank Term Share Loan'
   };
   public static final String ONLY_ONE_APPLICATION = 'Sorry, you cannot add any more than one application for this opportunity. Contact your administrator.';
+
+  public static final String BYPASS_CLOSED_DATE_PERMISSIONS = 'Bypass_Closed_Date';
 }
