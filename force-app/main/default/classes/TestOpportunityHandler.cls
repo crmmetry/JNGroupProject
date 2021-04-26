@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Ishwari Gaikwad(Thinqloud)
  * @group             :
- * @last modified on  : 04-23-2021
- * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * @last modified on  : 04-26-2021
+ * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                       Modification
  * 1.0   04-23-2021   Ishwari Gaikwad(Thinqloud)   Initial Version
@@ -154,6 +154,56 @@ public class TestOpportunityHandler {
       Constants.DEFAULT_BUSINESS_HOURS_NAME
     );
     Test.stopTest();
+  }
+
+  @isTest
+  public static void shouldBypassCloseDateRestriction() {
+    User byPassClosedDateUser = TestDataFactory.CreateUser(
+      'bypassClosedDate@email.com'
+    );
+    insert byPassClosedDateUser;
+
+    PermissionSet ps = [
+      SELECT Id
+      FROM PermissionSet
+      WHERE Name = 'Bypass_Closed_Date'
+    ];
+    insert new PermissionSetAssignment(
+      AssigneeId = byPassClosedDateUser.Id,
+      PermissionSetId = ps.Id
+    );
+
+    DateTime now = System.now();
+    // current date
+    Date currentDate = Date.newInstance(2020, 10, 2);
+    // valid backdated date
+    Date validBackDate = Date.newInstance(2020, 8, 6);
+    // valid previous month backdated date
+    Date validPrevBackDate = Date.newInstance(2020, 7, 30);
+
+    List<Opportunity> opps = TestDataFactory.CreateOpportunities(1);
+    opps[0].CloseDate = Date.newInstance(2020, 10, 3);
+    opps[0].StageName = 'Closed Lost';
+
+    Map<Id, Opportunity> mappedOpps = new Map<Id, Opportunity>();
+    System.runAs(byPassClosedDateUser) {
+      OpportunityTriggerHandler.init(
+        new List<Opportunity>{ opps[0] },
+        mappedOpps,
+        mappedOpps
+      );
+      try {
+        OpportunityTriggerHandler.validateCloseBackDate(
+          2,
+          7,
+          currentDate,
+          Constants.DEFAULT_BUSINESS_HOURS_NAME
+        );
+      } catch (Exception e) {
+        System.assert(e.getMessage().contains(Constants.CLOSE_DATE_ERR5));
+      }
+    }
+
   }
 
   @isTest

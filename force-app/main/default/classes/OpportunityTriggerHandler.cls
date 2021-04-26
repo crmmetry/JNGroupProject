@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 04-22-2021
- * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * @last modified on  : 04-26-2021
+ * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   03-31-2021   Remario Richards   Initial Version
@@ -226,6 +226,14 @@ public class OpportunityTriggerHandler {
     Date now,
     String bhName
   ) {
+    //Checks if current user has the Bypass Permission, If true then the following method will not be run
+    if (
+      FeatureManagement.checkPermission(
+        Constants.BYPASS_CLOSED_DATE_PERMISSIONS
+      )
+    ) {
+      return;
+    }
     Map<Date, Holiday> mappedHolidays = Util.getHolidays();
     BusinessHours bh = Util.GetActiveBusinessHours(bhName);
     Date minDate = Date.newinstance(now.year(), now.month(), now.day());
