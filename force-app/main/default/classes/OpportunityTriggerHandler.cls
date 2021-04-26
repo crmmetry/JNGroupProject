@@ -43,7 +43,6 @@ public class OpportunityTriggerHandler {
       Map<id, Double> oppMap = new Map<id, Double>();
       String oppsID;
       Double oppAMT;
-      system.debug('Trigger called=====================>');
       if (isAfter) {
         if (isInsert) {
           for (Opportunity opp : newRecords) {
@@ -56,7 +55,6 @@ public class OpportunityTriggerHandler {
           }
         }
         if (isUpdate) {
-          system.debug('oppid=====================>' + Trigger.new);
           for (Opportunity opp : newRecords) {
             Opportunity oppOld = oldMap.get(opp.id);
             if (
@@ -70,7 +68,6 @@ public class OpportunityTriggerHandler {
             }
           }
         }
-        system.debug('oppid=====>' + oppid);
 
         if (oppAMT > 0) {
           List<Lead> lstlead = [
@@ -92,7 +89,6 @@ public class OpportunityTriggerHandler {
               l.Actual_Amount_From_Opportunity__c = oppAMT;
             }
             update lstlead;
-            system.debug('lstlead=====>' + lstlead);
           }
         }
       }
