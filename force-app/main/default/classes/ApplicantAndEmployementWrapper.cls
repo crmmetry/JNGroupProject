@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 04-19-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 04-26-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   04-19-2021   Remario Richards   Initial Version
@@ -23,7 +23,6 @@ public with sharing class ApplicantAndEmployementWrapper {
   public String maritalStatusOfApplicant { get; set; }
   public String highestEducationOfApplicant { get; set; }
   public Double numberOfDependent { get; set; }
-
   public String statusOfAddress { get; set; }
   public Double timeLivingAtAddress { get; set; }
 
@@ -124,19 +123,16 @@ public with sharing class ApplicantAndEmployementWrapper {
     }
 
     grossMonthlyIncomePriorLoan = 0;
-
     if (record.Gross_Monthly_IncomeC__c != null) {
       grossMonthlyIncomePriorLoan = record.Gross_Monthly_IncomeC__c;
     }
 
     grossMonthlyIncomeAfterLoan = 0;
-
     if (record.Gross_Monthly_IncomeC__c != null) {
       grossMonthlyIncomeAfterLoan = record.Gross_Monthly_IncomeC__c;
     }
 
     monthlyInflowsPriorLoan = 0;
-
     if (record.Total_Inflows__c != null) {
       monthlyInflowsPriorLoan = record.Total_Inflows__c;
     }
@@ -164,7 +160,6 @@ public with sharing class ApplicantAndEmployementWrapper {
     getTotalLiabilitiesAfterLoan(record, loan_Calcul_Products_Fields);
 
     getExistingMonthlyInstallmentPriorLoan(record, mapOfMonthlyOutFlow_Fields);
-
     getExistingMonthlyInstallmentAfterLoan(
       record,
       mapOfMonthlyOutFlow_Fields,
@@ -195,7 +190,6 @@ public with sharing class ApplicantAndEmployementWrapper {
         type_of_Industry = empWrpList.get(0).industry;
         professional_Category = empWrpList.get(0).professionalCategory;
         nature_of_Engagement = empWrpList.get(0).natureOfEngagement;
-
         assment_of_Business_Working_Capital = empWrpList.get(0)
           .assessmentOfBusinessWorkingCapita;
         length_of_Trade = empWrpList.get(0).lengthOfTrade;
@@ -221,37 +215,31 @@ public with sharing class ApplicantAndEmployementWrapper {
     } else {
       real_Estate_MktValue = 0;
     }
-
     if (record.Motor_Vehicle_Market_Value_Number__c != null) {
       motor_Vehicle_MktValue = record.Motor_Vehicle_Market_Value_Number__c;
     } else {
       motor_Vehicle_MktValue = 0;
     }
-
     if (record.Other_Asset_Market_Value_Number__c != null) {
       other_Asset_MktValue = record.Other_Asset_Market_Value_Number__c;
     } else {
       other_Asset_MktValue = 0;
     }
-
     if (record.Life_Insurance_Cash_Value__c != null) {
       life_Insurance_Cash_Value = record.Life_Insurance_Cash_Value__c;
     } else {
       life_Insurance_Cash_Value = 0;
     }
-
     if (record.Savings_Deposit_Investments__c != null) {
       savings_Deposit_Investments = record.Savings_Deposit_Investments__c;
     } else {
       savings_Deposit_Investments = 0;
     }
-
     if (record.Pension_IRS_Total_Contribution__c != null) {
       pension = record.Pension_IRS_Total_Contribution__c;
     } else {
       pension = 0;
     }
-
     totalAssetsPriorLoan =
       sum_Total_Market_Value +
       sum_Account_Balance +
@@ -495,19 +483,16 @@ public with sharing class ApplicantAndEmployementWrapper {
         monthlyOutflowsPriorLoan +
         record.Property_Insurance_Monthly_Prior_Loan__c;
     }
-
     if (record.Property_Maintenance_Monthly_Prior_loan__c != null) {
       monthlyOutflowsPriorLoan =
         monthlyOutflowsPriorLoan +
         record.Property_Maintenance_Monthly_Prior_loan__c;
     }
-
     if (record.Personal_Expenses_Monthly_Prior_Loan__c != null) {
       monthlyOutflowsPriorLoan =
         monthlyOutflowsPriorLoan +
         record.Personal_Expenses_Monthly_Prior_Loan__c;
     }
-
     if (record.Food_Cost_Monthly_Prior_Loan__c != null) {
       monthlyOutflowsPriorLoan =
         monthlyOutflowsPriorLoan + record.Food_Cost_Monthly_Prior_Loan__c;
@@ -517,7 +502,6 @@ public with sharing class ApplicantAndEmployementWrapper {
         monthlyOutflowsPriorLoan +
         record.Child_Care_Costs_Monthly_Prior_Loan__c;
     }
-
     if (record.School_Costs_Monthly_Prior_Loan__c != null) {
       monthlyOutflowsPriorLoan =
         monthlyOutflowsPriorLoan + record.School_Costs_Monthly_Prior_Loan__c;
@@ -687,13 +671,11 @@ public with sharing class ApplicantAndEmployementWrapper {
         monthlyOutflowsAfterLoan +
         record.Cell_Phone_Landline_Monthly_After_Loan__c;
     }
-
     if (record.Child_Care_Costs_Monthly_After_Loan__c != null) {
       monthlyOutflowsAfterLoan =
         monthlyOutflowsAfterLoan +
         record.Child_Care_Costs_Monthly_After_Loan__c;
     }
-
     if (record.Cooking_Gas_Monthly_After_Loan__c != null) {
       monthlyOutflowsAfterLoan =
         monthlyOutflowsAfterLoan + record.Cooking_Gas_Monthly_After_Loan__c;
@@ -719,7 +701,6 @@ public with sharing class ApplicantAndEmployementWrapper {
         monthlyOutflowsAfterLoan +
         record.House_Keeping_Costs_Monthly_After_Loan__c;
     }
-
     if (record.Internet_Cable_Monthly_After_Loan__c != null) {
       monthlyOutflowsAfterLoan =
         monthlyOutflowsAfterLoan + record.Internet_Cable_Monthly_After_Loan__c;
@@ -729,19 +710,16 @@ public with sharing class ApplicantAndEmployementWrapper {
         monthlyOutflowsAfterLoan +
         record.Motor_V_Insurance_Monthly_After_Loan__c;
     }
-
     if (record.Motor_V_Maintenance_Monthly_After_Loan__c != null) {
       monthlyOutflowsAfterLoan =
         monthlyOutflowsAfterLoan +
         record.Motor_V_Maintenance_Monthly_After_Loan__c;
     }
-
     if (record.Motor_Vehicle_Fitness_Monthly_After_Loan__c != null) {
       monthlyOutflowsAfterLoan =
         monthlyOutflowsAfterLoan +
         record.Motor_Vehicle_Fitness_Monthly_After_Loan__c;
     }
-
     if (record.Motor_Vehicle_Monthly_After_Loan__c != null) {
       monthlyOutflowsAfterLoan =
         monthlyOutflowsAfterLoan + record.Motor_Vehicle_Monthly_After_Loan__c;
@@ -751,13 +729,11 @@ public with sharing class ApplicantAndEmployementWrapper {
         monthlyOutflowsAfterLoan +
         record.Motor_Vehicle_Reg_Monthly_After_Loan__c;
     }
-
     if (record.Other_Personal_Family_Costs_Prior_After__c != null) {
       monthlyOutflowsAfterLoan =
         monthlyOutflowsAfterLoan +
         record.Other_Personal_Family_Costs_Prior_After__c;
     }
-
     if (record.Other_Transport_Monthly_After_Loan__c != null) {
       monthlyOutflowsAfterLoan =
         monthlyOutflowsAfterLoan + record.Other_Transport_Monthly_After_Loan__c;
@@ -771,7 +747,6 @@ public with sharing class ApplicantAndEmployementWrapper {
         monthlyOutflowsAfterLoan +
         record.Personal_Expenses_Monthly_After_Loan__c;
     }
-
     if (record.Petrol_Fuel_Monthly_After_Loan__c != null) {
       monthlyOutflowsAfterLoan =
         monthlyOutflowsAfterLoan + record.Petrol_Fuel_Monthly_After_Loan__c;
@@ -781,13 +756,11 @@ public with sharing class ApplicantAndEmployementWrapper {
         monthlyOutflowsAfterLoan +
         record.Property_Insurance_Monthly_After_Loan__c;
     }
-
     if (record.Property_Maintenance_Monthly_After_Loan__c != null) {
       monthlyOutflowsAfterLoan =
         monthlyOutflowsAfterLoan +
         record.Property_Maintenance_Monthly_After_Loan__c;
     }
-
     if (record.Property_Tax_Monthly_After_Loan__c != null) {
       monthlyOutflowsAfterLoan =
         monthlyOutflowsAfterLoan + record.Property_Tax_Monthly_After_Loan__c;
@@ -809,7 +782,6 @@ public with sharing class ApplicantAndEmployementWrapper {
         monthlyOutflowsAfterLoan +
         record.Strata_Maintenance_Monthly_After_Loan__c;
     }
-
     if (record.Toll_Fees_Monthly_After_Loan__c != null) {
       monthlyOutflowsAfterLoan =
         monthlyOutflowsAfterLoan + record.Toll_Fees_Monthly_After_Loan__c;
@@ -827,7 +799,6 @@ public with sharing class ApplicantAndEmployementWrapper {
         monthlyOutflowsAfterLoan +
         record.Personal_Expenses_Monthly_After_Loan__c;
     }
-
     if (record.Statutory_Deductions_Numbers__c != null) {
       monthlyOutflowsAfterLoan =
         monthlyOutflowsAfterLoan + record.Statutory_Deductions_Numbers__c;
@@ -841,7 +812,6 @@ public with sharing class ApplicantAndEmployementWrapper {
         monthlyOutflowsPriorLoan +
         record.Motor_Vehicle_Monthly_Payment_Number__c;
     }
-
     if (record.Other_Asset_Monthly_Payment_Number__c != null) {
       monthlyOutflowsPriorLoan =
         monthlyOutflowsPriorLoan + record.Other_Asset_Monthly_Payment_Number__c;
