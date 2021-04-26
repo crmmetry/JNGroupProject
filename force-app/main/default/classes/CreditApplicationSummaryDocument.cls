@@ -438,7 +438,8 @@ public class CreditApplicationSummaryDocument {
         Ability_to_Service_After_Number__c,
         Total_Monthly_Loan_Payment_Number__c,
         Minimum_Payment_per_Credit_Limit_Number__c,
-        RecordTypeId
+        RecordTypeId,
+        Monthly_PI_Processing_Fee_Number__c
       FROM Loan_Calculation_Product__c
       WHERE Loan_Calculation_Id__c = :oppId.Product_Details__c
     ];

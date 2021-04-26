@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 04-19-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 04-26-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   04-19-2021   Remario Richards   Initial Version
@@ -123,13 +123,15 @@ public with sharing class ApplicantAndEmployementWrapper {
     }
 
     grossMonthlyIncomePriorLoan = 0;
-    if (record.Gross_Monthly_Income__c != null) {
-      grossMonthlyIncomePriorLoan = record.Gross_Monthly_Income__c;
+    
+    if (record.Gross_Monthly_IncomeC__c != null) {
+      grossMonthlyIncomePriorLoan = record.Gross_Monthly_IncomeC__c;
     }
 
     grossMonthlyIncomeAfterLoan = 0;
-    if (record.Gross_Monthly_Income__c != null) {
-      grossMonthlyIncomeAfterLoan = record.Gross_Monthly_Income__c;
+    if (record.Gross_Monthly_IncomeC__c != null) {
+      grossMonthlyIncomeAfterLoan = record.Gross_Monthly_IncomeC__c;
+
     }
 
     monthlyInflowsPriorLoan = 0;
