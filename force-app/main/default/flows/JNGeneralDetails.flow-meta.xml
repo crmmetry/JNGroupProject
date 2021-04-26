@@ -3,10 +3,11 @@
   xmlns="http://soap.sforce.com/2006/04/metadata"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 >
+    <apiVersion>49.0</apiVersion>
     <assignments>
         <name>Account_Record_Assignment</name>
         <label>Account Record Assignment</label>
-        <locationX>604</locationX>
+        <locationX>605</locationX>
         <locationY>38</locationY>
         <assignmentItems>
             <assignToReference
@@ -76,6 +77,15 @@
         >HighestLevelOfEducationAttained.crmmObjectSelected</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >AccountRecord.Primary_Employment_Type__pc</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference
+        >Primary_Employment_Type.crmmObjectSelected</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>Update_Account</targetReference>
         </connector>
@@ -83,8 +93,8 @@
     <assignments>
         <name>Set_Defaults</name>
         <label>Set Defaults</label>
-        <locationX>277</locationX>
-        <locationY>297</locationY>
+        <locationX>301</locationX>
+        <locationY>364</locationY>
         <assignmentItems>
             <assignToReference>GenderDefault</assignToReference>
             <operator>Assign</operator>
@@ -132,6 +142,14 @@
             <value>
                 <elementReference
         >AccountRecord.Mother_s_Maiden_Name__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>PrimaryEmploymentTypeDefault</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference
+        >AccountRecord.Primary_Employment_Type__pc</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -242,6 +260,12 @@
         </value>
     </processMetadataValues>
     <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
         <name>OriginBuilderType</name>
         <value>
             <stringValue>LightningFlowBuilder</stringValue>
@@ -253,13 +277,14 @@
     >Get general details from account with selected id</description>
         <name>GetAccount</name>
         <label>GetAccount</label>
-        <locationX>193</locationX>
-        <locationY>33</locationY>
+        <locationX>142</locationX>
+        <locationY>228</locationY>
         <assignNullValuesIfNoRecordsFound
     >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Set_Defaults</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -330,6 +355,8 @@
                     <elementReference>GeneralDetailsStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -380,6 +407,8 @@
           >AccountRecord.Salutation</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <outputParameters>
                 <assignToReference>AccountRecord.FirstName</assignToReference>
@@ -457,6 +486,8 @@
                     <elementReference>GenderDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -502,6 +533,8 @@
           >HighestLevelOfEducationDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -533,6 +566,8 @@
                     <elementReference>CountryBirthDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -565,6 +600,8 @@
           >CountryCitizenshipDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -596,6 +633,42 @@
                     <elementReference>CountryResidencyDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>Primary_Employment_Type</name>
+            <extensionName>c:JNPicklist</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>crmmObjectname</name>
+                <value>
+                    <stringValue>Account</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>crmmObjectField</name>
+                <value>
+                    <stringValue>Primary_Employment_Type__pc</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>crmmLabel</name>
+                <value>
+                    <stringValue>Primary Employment Type</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>crmmObjectSelected</name>
+                <value>
+                    <elementReference
+          >PrimaryEmploymentTypeDefault</elementReference>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -687,6 +760,13 @@
     </variables>
     <variables>
         <name>MothersMaidenNameDefault</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>PrimaryEmploymentTypeDefault</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>

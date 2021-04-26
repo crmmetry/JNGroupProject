@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : Remario Richards
+ * @group             :
+ * @last modified on  : 04-22-2021
+ * @last modified by  : Remario Richards
+ * Modifications Log
+ * Ver   Date         Author             Modification
+ * 1.0   04-22-2021   Remario Richards   Initial Version
+ **/
 global with sharing class JNApplicantFlowController {
   private static final String TAG = 'JNApplicantFlowController';
   @AuraEnabled
@@ -137,9 +147,12 @@ employment = employments.get(0);
           Motor_V_Maintenance_Monthly_Before_Loan__c,
           Motor_V_Maintenance_Monthly_After_Loan__c,
           Other_Transport_Costs_Monthly_Prior_Loan__c,
-          Other_Transport_Monthly_After_Loan__c
+          Other_Transport_Monthly_After_Loan__c,
+          Ownership_Real_Estate_Rental_II__c,
+          Ownership_Real_Estate_Rental__c
         FROM Applicant__c
         WHERE Id = :applicantId
+        WITH SECURITY_ENFORCED
       ];
       if (applicant != null) {
         System.debug('Full Applicant ' + applicant);
@@ -154,25 +167,13 @@ employment = employments.get(0);
   @AuraEnabled
   global static Object updateApplicantDetailsBasic(Applicant__C applicant) {
     try {
-      Map<String, Object> fieldsToValue = applicant.getPopulatedFieldsAsMap();
-      for (String fieldName : fieldsToValue.keySet()) {
-        System.debug(
-          'field name is ' +
-          fieldName +
-          ', value is ' +
-          fieldsToValue.get(fieldName)
-        );
-      }
-
       if (applicant != null) {
         update applicant;
-      } /*if(employment != null) {
-update employment;
-}*/
+      }
       return 200;
     } catch (Exception e) {
       System.debug(e.getMessage());
-      return e;
+      throw new AuraHandledException(e.getStackTraceString());
     }
   }
 

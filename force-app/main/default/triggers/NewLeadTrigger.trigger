@@ -1,9 +1,9 @@
 /**
  * @Description        : Handler for trigger
  * @Author             : Remario Richards
- * @Last Modified By   : Remario Richards
+ * @Last Modified By   : Travis Allen
  * @Created On          : 10/7/2019
- * @Last Modified On   : 10/7/2019
+ * @Last Modified On   : 04-23-2021
  */
 trigger NewLeadTrigger on Lead(
   before insert,
@@ -12,7 +12,6 @@ trigger NewLeadTrigger on Lead(
   after update
 ) {
   LeadTriggerHandler.init(Trigger.new, Trigger.oldMap, Trigger.newMap);
-
   if (Trigger.isUpdate) {
     if (Trigger.isAfter) {
       System.debug('LeadTriggerHandler Executed');
@@ -25,7 +24,10 @@ trigger NewLeadTrigger on Lead(
     } else {
       LeadTriggerHandler.crmm_TimeSpentInStage();
       LeadTriggerHandler.crmm_TierTwoTrigger();
-      SkillsBasedRouting.routeUsingSkillsTier2(Trigger.new);
+      //SkillsBasedRouting.routeUsingSkillsTier2(Trigger.new);
+      if (!Util.IsExecuted('StartRoutingUsingTier2')) {
+        SkillsBasedRouting.StartRoutingUsingTier2(Trigger.new);
+      }
       LeadTriggerHandler.IndustryTypeValidations();
     }
   } else if (Trigger.isInsert) {
@@ -33,7 +35,7 @@ trigger NewLeadTrigger on Lead(
       LeadTriggerHandler.leadActivityEvent();
       //SkillsBasedRouting.routeUsingSkillsTier1((new Map<Id,Lead>(Trigger.new)).keySet());
     } else {
-      LeadTriggerHandler.crmm_TierOne();
+      //LeadTriggerHandler.crmm_TierOne();
       LeadTriggerHandler.IndustryTypeValidations();
     }
   }

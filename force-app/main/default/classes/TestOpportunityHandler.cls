@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : Ishwari Gaikwad(Thinqloud)
+ * @group             :
+ * @last modified on  : 04-23-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * Modifications Log
+ * Ver   Date         Author                       Modification
+ * 1.0   04-23-2021   Ishwari Gaikwad(Thinqloud)   Initial Version
+ **/
 @isTest
 public class TestOpportunityHandler {
   @testSetup
@@ -338,6 +348,26 @@ insert testOpp;*/
         'Error message was thrown!'
       );
     }
+    Test.stopTest();
+  }
+
+  /**
+   * @description : Test method for covering the Rubicon opportunity Naming convention
+   * @author Ishwari Gaikwad(Thinqloud) | 04-23-2021
+   **/
+  @isTest
+  public static void shouldAssignNameToRubiconOpp() {
+    Test.startTest();
+    //Create new Account record
+    Account acc = TestDataFactory.CreateBasicAccounts(1, 'ln')[0];
+    insert acc;
+    Map<String, Id> recordTypeMap = Util.getRecordTypeids('Opportunity');
+
+    //Create new opportunity record
+    Opportunity opp = TestDataFactory.CreateOpportunities(1)[0];
+    opp.AccountId = acc.Id;
+    opp.RecordTypeId = recordTypeMap.get('Rubicon');
+    insert opp;
     Test.stopTest();
   }
 }

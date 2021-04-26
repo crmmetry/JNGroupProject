@@ -123,6 +123,7 @@ public with sharing class ApplicantAndEmployementWrapper {
     }
 
     grossMonthlyIncomePriorLoan = 0;
+    
     if (record.Gross_Monthly_IncomeC__c != null) {
       grossMonthlyIncomePriorLoan = record.Gross_Monthly_IncomeC__c;
     }
@@ -130,6 +131,7 @@ public with sharing class ApplicantAndEmployementWrapper {
     grossMonthlyIncomeAfterLoan = 0;
     if (record.Gross_Monthly_IncomeC__c != null) {
       grossMonthlyIncomeAfterLoan = record.Gross_Monthly_IncomeC__c;
+
     }
 
     monthlyInflowsPriorLoan = 0;

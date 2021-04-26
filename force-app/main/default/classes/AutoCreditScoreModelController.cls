@@ -1,4 +1,14 @@
-//Sample Applicant Ids are a15f0000002F8z5AAC 	a15f0000002F9sIAAS
+/**
+ * @description       : class to generate data for Auto loan credit score model pdf
+ * @author            : Ishwari Gaikwad(Thinqloud)
+ * @group             :
+ * @last modified on  : 04-22-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * Modifications Log
+ * Ver   Date         Author                       Modification
+ * 1.0   04-22-2021   Ishwari Gaikwad(Thinqloud)   Initial Version
+ **/
+
 public class AutoCreditScoreModelController {
   //----- SUMMARY OF MODEL PARAMETERS ----//
   //Date of Application
@@ -91,6 +101,31 @@ public class AutoCreditScoreModelController {
   public Decimal professionalCategoryScore { get; set; }
   public Decimal professionalCategoryWeightage { get; set; }
 
+  //Working Capital
+  public String workingCapital { get; set; }
+  public Decimal workingCapitalScore { get; set; }
+  public Decimal workingCapitalWeightage { get; set; }
+
+  //Nature Of engagement
+  public String natureOfEngagement { get; set; }
+  public Decimal natureOfEngagementScore { get; set; }
+  public Decimal natureOfEngagementWeightage { get; set; }
+
+  //Financial Performance
+  public String financialPerformance { get; set; }
+  public Decimal financialPerformanceScore { get; set; }
+  public Decimal financialPerformanceWeightage { get; set; }
+
+  //Financial Statement Support
+  public String financialSupport { get; set; }
+  public Decimal financialSupportScore { get; set; }
+  public Decimal financialSupportWeightage { get; set; }
+
+  //Length of Trade
+  public String lengthOfTrade { get; set; }
+  public Decimal lengthOfTradeScore { get; set; }
+  public Decimal lengthOfTradeWeightage { get; set; }
+
   //---COLLATERAL DETAILS  INPUT RESPONSES -----//
   //Collateral
   public String collateralName { get; set; }
@@ -137,6 +172,7 @@ public class AutoCreditScoreModelController {
 
     //Get applicant id from URL
     applicantId = ApexPages.currentPage().getParameters().get('Id');
+
     if (applicantId != null) {
       //Get applicant objects by using the applicant id from URL
       applicantObject = getApplicant(applicantId);
@@ -150,6 +186,7 @@ public class AutoCreditScoreModelController {
       formatProductCatg(productCategry);
 
       //Get Loan Amount/Limit Value
+
       getLoanCalculationApplicantProduct(
         applicantObject.Opportunity__c,
         applicantId,
@@ -160,6 +197,7 @@ public class AutoCreditScoreModelController {
       jamaicanTaxNumber = personAccount.Jamaican_Tax_Registration_Number__pc;
 
       //Get formatted Application ID Value
+
       applicationIdString = formApplicationId(
         productCategry,
         jamaicanTaxNumber,
@@ -170,6 +208,7 @@ public class AutoCreditScoreModelController {
       nameOfApplicant = personAccount.Name;
 
       //Get value - Is the Applicant a Politcally Exposed Person (PEP)?*
+
       if (personAccount.Political_Exposure__pc == true) {
         isApplicantPolicExpoxed = 'Yes';
       } else {
@@ -183,6 +222,7 @@ public class AutoCreditScoreModelController {
       grossMonthlyIncome = applicantObject.Gross_Monthly_IncomeC__c;
 
       //Get the Number of Applicant(s):
+
       totalNumberOfApplicants = getNumberOfApplicants(
         applicantObject.Opportunity__c
       );
@@ -205,6 +245,7 @@ public class AutoCreditScoreModelController {
         applicantObject.Opportunity__c,
         applicantWrp
       );
+
       subCritOptionWrpr.collateral = collateralName;
       subCritOptionWrpr.loanToValue = loanToValueValue;
       subCritOptionWrpr.ablitityToService = abilityToServiceValue;
@@ -247,6 +288,26 @@ public class AutoCreditScoreModelController {
         Constants.PROFESSIONAL_CATEGORY,
         subCritOptionWrpr.professionalCategory
       );
+      workingCapital = prdDetailSrv.getSubCriteriaOption(
+        Constants.WORKING_CAPITA,
+        subCritOptionWrpr.workingCapital
+      );
+      natureOfEngagement = prdDetailSrv.getSubCriteriaOption(
+        Constants.NATURE_OF_ENGAGEMENT,
+        subCritOptionWrpr.natureOfEngagement
+      );
+      financialPerformance = prdDetailSrv.getSubCriteriaOption(
+        Constants.FINANCIAL_PERFORMANCE,
+        subCritOptionWrpr.financialPerformance
+      );
+      financialSupport = prdDetailSrv.getSubCriteriaOption(
+        Constants.FINACIAL_STATEMENT,
+        subCritOptionWrpr.financialStatementSupport
+      );
+      lengthOfTrade = prdDetailSrv.getSubCriteriaOption(
+        Constants.LENGTH_OF_TRADE,
+        subCritOptionWrpr.lengthOfTrade
+      );
 
       //Assign the value of Score and Weightage to each row
       assignScoreaAndWeightage(creditWrapper.fieldScoreMap);
@@ -277,6 +338,7 @@ public class AutoCreditScoreModelController {
     }
 
     lstOfScoreAndWeight = mapOfScoreWeightage.get(Constants.EDUCATION);
+
     if (lstOfScoreAndWeight != null) {
       if (lstOfScoreAndWeight.size() > 0) {
         if (lstOfScoreAndWeight.get(0) != null) {
@@ -289,6 +351,7 @@ public class AutoCreditScoreModelController {
     }
 
     lstOfScoreAndWeight = mapOfScoreWeightage.get(Constants.STATUS_OF_ADDRESS);
+
     if (lstOfScoreAndWeight != null) {
       if (lstOfScoreAndWeight.size() > 0) {
         if (lstOfScoreAndWeight.get(0) != null) {
@@ -301,6 +364,7 @@ public class AutoCreditScoreModelController {
     }
 
     lstOfScoreAndWeight = mapOfScoreWeightage.get(Constants.YEARS_AT_RESIDENCE);
+
     if (lstOfScoreAndWeight != null) {
       if (lstOfScoreAndWeight.size() > 0) {
         if (lstOfScoreAndWeight.get(0) != null) {
@@ -313,6 +377,7 @@ public class AutoCreditScoreModelController {
     }
 
     lstOfScoreAndWeight = mapOfScoreWeightage.get(Constants.CREDIT_HISTORY);
+
     if (lstOfScoreAndWeight != null) {
       if (lstOfScoreAndWeight.size() > 0) {
         if (lstOfScoreAndWeight.get(0) != null) {
@@ -325,6 +390,7 @@ public class AutoCreditScoreModelController {
     }
 
     lstOfScoreAndWeight = mapOfScoreWeightage.get(Constants.NET_WORTH);
+
     if (lstOfScoreAndWeight != null) {
       if (lstOfScoreAndWeight.size() > 0) {
         if (lstOfScoreAndWeight.get(0) != null) {
@@ -337,6 +403,7 @@ public class AutoCreditScoreModelController {
     }
 
     lstOfScoreAndWeight = mapOfScoreWeightage.get(Constants.EMPLOYMENT_STATUS);
+
     if (lstOfScoreAndWeight != null) {
       if (lstOfScoreAndWeight.size() > 0) {
         if (lstOfScoreAndWeight.get(0) != null) {
@@ -349,6 +416,7 @@ public class AutoCreditScoreModelController {
     }
 
     lstOfScoreAndWeight = mapOfScoreWeightage.get(Constants.INDUSTRY);
+
     if (lstOfScoreAndWeight != null) {
       if (lstOfScoreAndWeight.size() > 0) {
         if (lstOfScoreAndWeight.get(0) != null) {
@@ -388,7 +456,74 @@ public class AutoCreditScoreModelController {
       }
     }
 
+    /****************************************/
+    lstOfScoreAndWeight = mapOfScoreWeightage.get(Constants.WORKING_CAPITA);
+    if (lstOfScoreAndWeight != null) {
+      if (lstOfScoreAndWeight.size() > 0) {
+        if (lstOfScoreAndWeight.get(0) != null) {
+          workingCapitalScore = lstOfScoreAndWeight.get(0);
+        }
+        if (lstOfScoreAndWeight.get(1) != null) {
+          workingCapitalWeightage = lstOfScoreAndWeight.get(1);
+        }
+      }
+    }
+
+    lstOfScoreAndWeight = mapOfScoreWeightage.get(
+      Constants.NATURE_OF_ENGAGEMENT
+    );
+    if (lstOfScoreAndWeight != null) {
+      if (lstOfScoreAndWeight.size() > 0) {
+        if (lstOfScoreAndWeight.get(0) != null) {
+          natureOfEngagementScore = lstOfScoreAndWeight.get(0);
+        }
+        if (lstOfScoreAndWeight.get(1) != null) {
+          natureOfEngagementWeightage = lstOfScoreAndWeight.get(1);
+        }
+      }
+    }
+
+    lstOfScoreAndWeight = mapOfScoreWeightage.get(
+      Constants.FINANCIAL_PERFORMANCE
+    );
+    if (lstOfScoreAndWeight != null) {
+      if (lstOfScoreAndWeight.size() > 0) {
+        if (lstOfScoreAndWeight.get(0) != null) {
+          financialPerformanceScore = lstOfScoreAndWeight.get(0);
+        }
+        if (lstOfScoreAndWeight.get(1) != null) {
+          financialPerformanceWeightage = lstOfScoreAndWeight.get(1);
+        }
+      }
+    }
+
+    lstOfScoreAndWeight = mapOfScoreWeightage.get(Constants.FINACIAL_STATEMENT);
+    if (lstOfScoreAndWeight != null) {
+      if (lstOfScoreAndWeight.size() > 0) {
+        if (lstOfScoreAndWeight.get(0) != null) {
+          financialSupportScore = lstOfScoreAndWeight.get(0);
+        }
+        if (lstOfScoreAndWeight.get(1) != null) {
+          financialSupportWeightage = lstOfScoreAndWeight.get(1);
+        }
+      }
+    }
+
+    lstOfScoreAndWeight = mapOfScoreWeightage.get(Constants.LENGTH_OF_TRADE);
+    if (lstOfScoreAndWeight != null) {
+      if (lstOfScoreAndWeight.size() > 0) {
+        if (lstOfScoreAndWeight.get(0) != null) {
+          lengthOfTradeScore = lstOfScoreAndWeight.get(0);
+        }
+        if (lstOfScoreAndWeight.get(1) != null) {
+          lengthOfTradeWeightage = lstOfScoreAndWeight.get(1);
+        }
+      }
+    }
+    /****************************************/
+
     lstOfScoreAndWeight = mapOfScoreWeightage.get(Constants.COLLATERAL);
+
     if (lstOfScoreAndWeight != null) {
       if (lstOfScoreAndWeight.size() > 0) {
         if (lstOfScoreAndWeight.get(0) != null) {
@@ -401,6 +536,7 @@ public class AutoCreditScoreModelController {
     }
 
     lstOfScoreAndWeight = mapOfScoreWeightage.get(Constants.LOAN_TO_VALUE);
+
     if (lstOfScoreAndWeight != null) {
       if (lstOfScoreAndWeight.size() > 0) {
         if (lstOfScoreAndWeight.get(0) != null) {
@@ -413,6 +549,7 @@ public class AutoCreditScoreModelController {
     }
 
     lstOfScoreAndWeight = mapOfScoreWeightage.get(Constants.ABILITY_TO_SERVICE);
+
     if (lstOfScoreAndWeight != null) {
       if (lstOfScoreAndWeight.size() > 0) {
         if (lstOfScoreAndWeight.get(0) != null) {
@@ -425,6 +562,7 @@ public class AutoCreditScoreModelController {
     }
 
     lstOfScoreAndWeight = mapOfScoreWeightage.get(Constants.REPAYMENT_METHOD);
+
     if (lstOfScoreAndWeight != null) {
       if (lstOfScoreAndWeight.size() > 0) {
         if (lstOfScoreAndWeight.get(0) != null) {
@@ -479,6 +617,7 @@ public class AutoCreditScoreModelController {
   private String getNumberOfApplicants(Id oppId) {
     string numberOfApp = '';
     Opportunity applicantOpp;
+
     applicantOpp = [
       SELECT Number_of_Applicants__c
       FROM Opportunity
