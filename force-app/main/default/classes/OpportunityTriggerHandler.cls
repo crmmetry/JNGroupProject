@@ -235,9 +235,7 @@ public class OpportunityTriggerHandler {
     Date minDate = Date.newinstance(now.year(), now.month(), now.day());
     Date todayDate = Date.newinstance(now.year(), now.month(), now.day());
     Integer currentMonth = minDate.month();
-    System.debug('M ' + minDate);
     minDate = Util.GetBackDatedDate(minDate, maxPrevDays, bh, mappedHolidays);
-    System.debug('Min ' + minDate);
     for (Opportunity record : newRecords) {
       if (
         record.StageName == Constants.CLOSED_LOST_STATUS ||
@@ -271,14 +269,12 @@ public class OpportunityTriggerHandler {
                 closeDateMonth,
                 1
               );
-              System.debug('Prev ' + Util.GetPrevMonthLastDay(lastMonthDate));
               Date acceptedDate = Util.GetBackDatedDate(
                 Util.GetPrevMonthLastDay(lastMonthDate),
                 backdatedDays,
                 bh,
                 mappedHolidays
               );
-              System.debug(' acceptedDate ' + acceptedDate);
               if (closeDate < acceptedDate) {
                 record.CloseDate.addError(Constants.CLOSE_DATE_ERR2);
               }
