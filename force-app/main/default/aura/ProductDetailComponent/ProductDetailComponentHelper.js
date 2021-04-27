@@ -934,7 +934,8 @@
       { localName: "jnBankAccountNumber" },
       { localName: "jnBankAccountNumberPrefix" },
       { localName: "existingBalance" },
-      { localName: "numberOfSupplementaryCardHolders" }
+      { localName: "numberOfSupplementaryCardHolders" },
+      { localName: "productFamily" }
     ];
     //product specific fields
     const updatedValues = this.contructProductSpecificDetailsFields(

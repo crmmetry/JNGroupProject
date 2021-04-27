@@ -2,8 +2,8 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 04-09-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 04-27-2021
+ * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
  * 1.0   02-26-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
@@ -29,10 +29,19 @@ public class LoanCalculationProductUnwrapper {
     record.Monthly_PI_Processing_Fee_Number__c = serializer.monthlyPrincipalInterestProcessingFee;
     record.Legal_Fees_including_GCT_Number__c = serializer.legalFee;
     record.Processing_Fees_Closing_Cost_GCT_Number__c = serializer.processingFeeClosingCost;
-    record.JN_Life_Creditor_Life_Premium_Number__c = serializer.jnLifeCreditorPremium;
+    if (
+      serializer.productFamily == Constants.AUTO_PRODUCT_FAMILY ||
+      serializer.productFamily == Constants.UNSECURED_PRODUCT_FAMILY
+    ) {
+      record.Monthly_Creditor_Life_Premium_Number__c = serializer.jnLifeCreditorPremium;
+    } else if (
+      serializer.productFamily == Constants.CREDITCARD_PRODUCT_FAMILY ||
+      serializer.productFamily == Constants.LINEOFCREDIT_PRODUCT_FAMILY
+    ) {
+      record.Monthly_Creditor_Life_Premium_Number__c = serializer.creditorLifePremiumForNonRevolvingLoan;
+    }
     record.Monthly_Compulsory_Savings_Number__c = serializer.monthlyCompulsorySavings;
     record.Total_Compulsory_Savings_Balance_Number__c = serializer.totalCompulsorySavingsBalance;
-    record.Monthly_Creditor_Life_Premium_Number__c = serializer.monthlyJnLifeCreditor_PI_Premium;
     record.Total_Monthly_Loan_Payment_Number__c = serializer.totalMonthlyLoanPayment;
     record.Total_Monthly_PI_Loan_Payment_Number__c = serializer.totalMonthly_PI_LoanPayment;
     record.Total_Interest_Payment_Repayment_Number__c = serializer.totalInterestPaymentBalance;
@@ -50,7 +59,6 @@ public class LoanCalculationProductUnwrapper {
     record.Supplementary_Card_Holder_Count_Number__c = serializer.numberOfSupplementaryCardHolders;
     record.Annual_Creditor_Life_Fee_Number__c = serializer.creditorLifeAnnualFee;
     record.Minimum_Payment_per_Credit_Limit_Number__c = serializer.minimumPayment;
-    record.Monthly_Creditor_Life_Premium_Number__c = serializer.creditorLifePremiumForNonRevolvingLoan;
     record.Starting_Limit_Number__c = serializer.approvedStartingLimit;
     record.Motor_Vehicle_Deposit_Number__c = serializer.autoCollateralDeposit;
     record.Motor_Vehicle_Deposit_Percentage_Number__c = serializer.autoCollateralDepositPercentage;
@@ -68,7 +76,14 @@ public class LoanCalculationProductUnwrapper {
     record.Interested_in_Creditor_Life_Flag__c = serializer.interestedInCreditorLife;
     record.Include_in_Loan_Amount_Flag__c = serializer.includeCreditorLifeInLoanAmount;
     record.Deduct_1st_month_Payment_from_Loan_Flag__c = serializer.deductRepayment;
-    record.JNGI_Motor_Premium_1st_Year_during_Numbe__c = serializer.jngiMotorPremiumFeesAndCharges;
+    if (
+      serializer.jngiMotorPremium != 0 ||
+      serializer.jngiMotorPremium != null
+    ) {
+      record.JNGI_Motor_Premium_1st_Year_during_Numbe__c = serializer.jngiMotorPremium;
+    } else {
+      record.JNGI_Motor_Premium_1st_Year_during_Numbe__c = serializer.jngiMotorPremiumFeesAndCharges;
+    }
     record.Monthly_P_I_JNGI_Motor_Premium_Number__c = serializer.monthlyPIJNGIMotorPremium;
     record.Estimated_Stamp_Duty_Admin_Charges_Numb__c = serializer.estimatedStampDutyAndAdminFee;
     record.NSIPP_Registration_Fees_Number__c = serializer.nsipp;

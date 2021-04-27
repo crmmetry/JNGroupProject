@@ -2,13 +2,15 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 03-02-2021
+ * @last modified on  : 04-27-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
  * 1.0   02-22-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
  **/
 public class ProductDetailsSerializer {
+  @AuraEnabled
+  public String productFamily;
   @AuraEnabled
   public Integer years;
   @AuraEnabled
