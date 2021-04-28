@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 04-27-2021
+ * @last modified on  : 04-28-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -139,20 +139,23 @@ public class ProductDetailsSerializer {
   public Decimal creditorLifeAnnualFee;
   @AuraEnabled
   public Decimal minimumPayment;
-  @AuraEnabled
-  public Decimal creditorLifePremiumForNonRevolvingLoan;
+  // @AuraEnabled
+  // public Decimal creditorLifePremiumForNonRevolvingLoan;
   @AuraEnabled
   public Decimal approvedStartingLimit;
+  // @AuraEnabled
+  // public String jnBankAccountNumber;
+  // @AuraEnabled
+  // public String depositAccountNumber;
+  //This property represent account number field for both JN Bank and JN Fund Managers account Types
   @AuraEnabled
-  public String jnBankAccountNumber;
+  public String accountNumber;
   @AuraEnabled
   public String jnBankAccountNumberPrefix;
   @AuraEnabled
   public String financialInstitution;
   @AuraEnabled
   public String accountType;
-  @AuraEnabled
-  public String depositAccountNumber;
   @AuraEnabled
   public String accountHolder;
   @AuraEnabled
@@ -183,8 +186,8 @@ public class ProductDetailsSerializer {
   public String loanPurpose;
   @AuraEnabled
   public String deductRepayment;
-  @AuraEnabled
-  public Decimal jngiMotorPremiumFeesAndCharges;
+  // @AuraEnabled
+  // public Decimal jngiMotorPremiumFeesAndCharges;
   @AuraEnabled
   public Decimal estimatedStampDutyAndAdminFee;
   @AuraEnabled

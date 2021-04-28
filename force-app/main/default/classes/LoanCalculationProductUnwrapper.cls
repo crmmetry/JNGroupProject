@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 04-27-2021
+ * @last modified on  : 04-28-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -29,17 +29,18 @@ public class LoanCalculationProductUnwrapper {
     record.Monthly_PI_Processing_Fee_Number__c = serializer.monthlyPrincipalInterestProcessingFee;
     record.Legal_Fees_including_GCT_Number__c = serializer.legalFee;
     record.Processing_Fees_Closing_Cost_GCT_Number__c = serializer.processingFeeClosingCost;
-    if (
-      serializer.productFamily == Constants.AUTO_PRODUCT_FAMILY ||
-      serializer.productFamily == Constants.UNSECURED_PRODUCT_FAMILY
-    ) {
-      record.Monthly_Creditor_Life_Premium_Number__c = serializer.jnLifeCreditorPremium;
-    } else if (
-      serializer.productFamily == Constants.CREDITCARD_PRODUCT_FAMILY ||
-      serializer.productFamily == Constants.LINEOFCREDIT_PRODUCT_FAMILY
-    ) {
-      record.Monthly_Creditor_Life_Premium_Number__c = serializer.creditorLifePremiumForNonRevolvingLoan;
-    }
+    // if (
+    //   serializer.productFamily == Constants.AUTO_PRODUCT_FAMILY ||
+    //   serializer.productFamily == Constants.UNSECURED_PRODUCT_FAMILY
+    // ) {
+    //   record.Monthly_Creditor_Life_Premium_Number__c = serializer.jnLifeCreditorPremium;
+    // } else if (
+    //   serializer.productFamily == Constants.CREDITCARD_PRODUCT_FAMILY ||
+    //   serializer.productFamily == Constants.LINEOFCREDIT_PRODUCT_FAMILY
+    // ) {
+    //   record.Monthly_Creditor_Life_Premium_Number__c = serializer.creditorLifePremiumForNonRevolvingLoan;
+    // }
+    record.Monthly_Creditor_Life_Premium_Number__c = serializer.jnLifeCreditorPremium;
     record.Monthly_Compulsory_Savings_Number__c = serializer.monthlyCompulsorySavings;
     record.Total_Compulsory_Savings_Balance_Number__c = serializer.totalCompulsorySavingsBalance;
     record.Total_Monthly_Loan_Payment_Number__c = serializer.totalMonthlyLoanPayment;
@@ -76,14 +77,15 @@ public class LoanCalculationProductUnwrapper {
     record.Interested_in_Creditor_Life_Flag__c = serializer.interestedInCreditorLife;
     record.Include_in_Loan_Amount_Flag__c = serializer.includeCreditorLifeInLoanAmount;
     record.Deduct_1st_month_Payment_from_Loan_Flag__c = serializer.deductRepayment;
-    if (
-      serializer.jngiMotorPremium != 0 ||
-      serializer.jngiMotorPremium != null
-    ) {
-      record.JNGI_Motor_Premium_1st_Year_during_Numbe__c = serializer.jngiMotorPremium;
-    } else {
-      record.JNGI_Motor_Premium_1st_Year_during_Numbe__c = serializer.jngiMotorPremiumFeesAndCharges;
-    }
+    // if (
+    //   serializer.jngiMotorPremium != 0 ||
+    //   serializer.jngiMotorPremium != null
+    // ) {
+    //   record.JNGI_Motor_Premium_1st_Year_during_Numbe__c = serializer.jngiMotorPremium;
+    // } else {
+    //   record.JNGI_Motor_Premium_1st_Year_during_Numbe__c = serializer.jngiMotorPremiumFeesAndCharges;
+    // }
+    record.JNGI_Motor_Premium_1st_Year_during_Numbe__c = serializer.jngiMotorPremium;
     record.Monthly_P_I_JNGI_Motor_Premium_Number__c = serializer.monthlyPIJNGIMotorPremium;
     record.Estimated_Stamp_Duty_Admin_Charges_Numb__c = serializer.estimatedStampDutyAndAdminFee;
     record.NSIPP_Registration_Fees_Number__c = serializer.nsipp;
@@ -101,12 +103,13 @@ public class LoanCalculationProductUnwrapper {
     record.Interested_in_JNGI_SureCover_flag__c = serializer.interested;
     record.Requested_Credit_Limit_Number__c = serializer.requestedCreditLimit;
     record.Financial_Institution_List__c = serializer.financialInstitution;
-    if (serializer.jnBankAccountNumber != null) {
-      record.Deposit_Account_Number_Number__c = serializer.jnBankAccountNumber;
-    }
-    if (serializer.depositAccountNumber != null) {
-      record.Deposit_Account_Number_Number__c = serializer.depositAccountNumber;
-    }
+    // if (serializer.jnBankAccountNumber != null) {
+    //   record.Deposit_Account_Number_Number__c = serializer.jnBankAccountNumber;
+    // }
+    // if (serializer.depositAccountNumber != null) {
+    //   record.Deposit_Account_Number_Number__c = serializer.depositAccountNumber;
+    // }
+    record.Deposit_Account_Number_Number__c = serializer.accountNumber;
     record.Deposit_Account_Number_Prefix_text__c = serializer.jnBankAccountNumberPrefix;
     record.Account_Holder_s_text__c = serializer.accountHolder;
     record.Account_Hypothecated_list__c = serializer.hypothecatedLoan;

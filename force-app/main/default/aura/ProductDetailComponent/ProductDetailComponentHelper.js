@@ -773,6 +773,12 @@
           localName: "stampDutyAuto",
           mappedName: "stampDuty",
           description: "stamp duty for auto loan"
+        },
+        {
+          localName: "jngiMotorPremiumFeesAndCharges",
+          mappedName: "jngiMotorPremium",
+          description:
+            "JNGI Motor Premium when financed by JN and Paid by applicant"
         }
       ]);
     } else if (isUnsecured) {
@@ -791,9 +797,26 @@
           description: "Will JN Life Creditor Life Insurance be taken?"
         },
         {
+          localName: "creditorLifePremiumForNonRevolvingLoan",
+          mappedName: "jnLifeCreditorPremium",
+          description: "Creditor Life Premium for CC and LOC"
+        },
+        {
           localName: "monthlyRepaymentDate",
           description: "Desired Statement Date",
           mappedName: "repaymentDate"
+        },
+        {
+          localname: "jnBankAccountNumber",
+          mappedName: "accountNumber",
+          description:
+            "Account Numbers for both JN Banks and JN Fund Managers Account Types"
+        },
+        {
+          localname: "depositAccountNumber",
+          mappedName: "accountNumber",
+          description:
+            "Account Numbers for both JN Banks and JN Fund Managers Account Types"
         }
       ]);
     }
@@ -870,7 +893,7 @@
       { localName: "yearOfVehicle" },
       { localName: "nsipp" },
       { localName: "estimatedStampDutyAndAdminFee" },
-      { localName: "jngiMotorPremiumFeesAndCharges" },
+      //{ localName: "jngiMotorPremiumFeesAndCharges" },
       { localName: "interestedInCreditorLife" },
       { localName: "repaymentMethod" },
       { localName: "totalClosingCost" },
@@ -902,7 +925,7 @@
       { localName: "supplementaryApplicantAnnualMembership" },
       { localName: "creditorLifeAnnualFee" },
       { localName: "minimumPayment" },
-      { localName: "creditorLifePremiumForNonRevolvingLoan" },
+      //{ localName: "creditorLifePremiumForNonRevolvingLoan" },
       { localName: "approvedStartingLimit" },
       { localName: "autoCollateralDeposit" },
       { localName: "autoCollateralDepositPercentage" },
@@ -934,8 +957,8 @@
       { localName: "jnBankAccountNumber" },
       { localName: "jnBankAccountNumberPrefix" },
       { localName: "existingBalance" },
-      { localName: "numberOfSupplementaryCardHolders" },
-      { localName: "productFamily" }
+      { localName: "numberOfSupplementaryCardHolders" }
+      //{ localName: "productFamily" }
     ];
     //product specific fields
     const updatedValues = this.contructProductSpecificDetailsFields(
