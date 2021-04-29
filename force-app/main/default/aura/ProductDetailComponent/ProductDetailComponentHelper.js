@@ -799,18 +799,6 @@
           localName: "monthlyRepaymentDate",
           description: "Desired Statement Date",
           mappedName: "repaymentDate"
-        },
-        {
-          localname: "jnBankAccountNumber",
-          mappedName: "accountNumber",
-          description:
-            "Account Numbers for both JN Banks and JN Fund Managers Account Types"
-        },
-        {
-          localname: "depositAccountNumber",
-          mappedName: "accountNumber",
-          description:
-            "Account Numbers for both JN Banks and JN Fund Managers Account Types"
         }
       ]);
     }
@@ -927,6 +915,8 @@
       { localName: "assignmentFee" },
       { localName: "includeCreditorLifeInLoanAmount" },
       { localName: "requestedCreditLimit" },
+      { localName: "jnBankAccountNumber" },
+      { localName: "depositAccountNumber" },
       //copied
       {
         localName: "jngiMonthlyPremium"
@@ -940,7 +930,6 @@
       { localName: "cardType" },
       { localName: "financialInstitution" },
       { localName: "accountType" },
-      { localName: "depositAccountNumber" },
       { localName: "accountHolder" },
       { localName: "annualInterestRate" },
       { localName: "hypothecatedLoan" },

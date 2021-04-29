@@ -85,7 +85,13 @@ public class LoanCalculationProductUnwrapper {
     record.Interested_in_JNGI_SureCover_flag__c = serializer.interested;
     record.Requested_Credit_Limit_Number__c = serializer.requestedCreditLimit;
     record.Financial_Institution_List__c = serializer.financialInstitution;
-    record.Deposit_Account_Number_Number__c = serializer.accountNumber;
+    record.Deposit_Account_Number_Number__c = serializer.jnBankAccountNumber;
+    if (
+      serializer.jnBankAccountNumber == '' ||
+      serializer.jnBankAccountNumber == null
+    ) {
+      record.Deposit_Account_Number_Number__c = serializer.depositAccountNumber;
+    }
     record.Deposit_Account_Number_Prefix_text__c = serializer.jnBankAccountNumberPrefix;
     record.Account_Holder_s_text__c = serializer.accountHolder;
     record.Account_Hypothecated_list__c = serializer.hypothecatedLoan;

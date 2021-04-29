@@ -141,7 +141,9 @@ public class ProductDetailsSerializer {
   @AuraEnabled
   public Decimal approvedStartingLimit;
   @AuraEnabled
-  public String accountNumber;
+  public String jnBankAccountNumber;
+  @AuraEnabled
+  public String depositAccountNumber;
   @AuraEnabled
   public String jnBankAccountNumberPrefix;
   @AuraEnabled
