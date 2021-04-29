@@ -2,8 +2,8 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 04-20-2021
- * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * @last modified on  : 04-29-2021
+ * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author                               Modification
  * 1.0   02-22-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
@@ -152,6 +152,7 @@ public with sharing class Util {
     for (Holiday record : [
       SELECT StartTimeInMinutes, Name, ActivityDate
       FROM Holiday
+      WHERE ActivityDate >= :Date.today()
     ]) {
       mappedHolidays.put(record.ActivityDate, record);
     }
