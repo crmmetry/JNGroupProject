@@ -526,8 +526,7 @@ window.updateAccountTypeOptionList = function (
   selected
 ) {
   if (selected === "JN Bank Ltd.") return jnBankAccountTypeOptions;
-  if (selected === "JN Fund Managers Ltd.")
-    return fundManagerAccountTypeOptions;
+  if (selected === "JN Fund Managers Ltd") return fundManagerAccountTypeOptions;
 };
 
 /**
@@ -538,7 +537,7 @@ window.toggleAccountNumberComponent = function (selected, component) {
     component.set("v.bankSelectedFlag", true);
     component.set("v.fundManagerSelectedFlag", false);
   }
-  if (selected === "JN Fund Managers Ltd.") {
+  if (selected === "JN Fund Managers Ltd") {
     component.set("v.fundManagerSelectedFlag", true);
     component.set("v.bankSelectedFlag", false);
   }

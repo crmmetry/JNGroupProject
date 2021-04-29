@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 04-28-2021
+ * @last modified on  : 04-29-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -101,7 +101,6 @@ public class ProductDetailsSerializer {
   public Decimal proposedSavingsAmount;
   @AuraEnabled
   public String collateralType;
-
   @AuraEnabled
   public Decimal jngiMotorPremium;
   @AuraEnabled
@@ -139,15 +138,8 @@ public class ProductDetailsSerializer {
   public Decimal creditorLifeAnnualFee;
   @AuraEnabled
   public Decimal minimumPayment;
-  // @AuraEnabled
-  // public Decimal creditorLifePremiumForNonRevolvingLoan;
   @AuraEnabled
   public Decimal approvedStartingLimit;
-  // @AuraEnabled
-  // public String jnBankAccountNumber;
-  // @AuraEnabled
-  // public String depositAccountNumber;
-  //This property represent account number field for both JN Bank and JN Fund Managers account Types
   @AuraEnabled
   public String accountNumber;
   @AuraEnabled
@@ -186,8 +178,8 @@ public class ProductDetailsSerializer {
   public String loanPurpose;
   @AuraEnabled
   public String deductRepayment;
-  // @AuraEnabled
-  // public Decimal jngiMotorPremiumFeesAndCharges;
+  @AuraEnabled
+  public Decimal jngiMotorPremiumFeesAndCharges;
   @AuraEnabled
   public Decimal estimatedStampDutyAndAdminFee;
   @AuraEnabled

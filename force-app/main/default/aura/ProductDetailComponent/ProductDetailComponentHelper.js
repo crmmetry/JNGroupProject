@@ -773,12 +773,6 @@
           localName: "stampDutyAuto",
           mappedName: "stampDuty",
           description: "stamp duty for auto loan"
-        },
-        {
-          localName: "jngiMotorPremiumFeesAndCharges",
-          mappedName: "jngiMotorPremium",
-          description:
-            "JNGI Motor Premium when financed by JN and Paid by applicant"
         }
       ]);
     } else if (isUnsecured) {
@@ -893,7 +887,7 @@
       { localName: "yearOfVehicle" },
       { localName: "nsipp" },
       { localName: "estimatedStampDutyAndAdminFee" },
-      //{ localName: "jngiMotorPremiumFeesAndCharges" },
+      { localName: "jngiMotorPremiumFeesAndCharges" },
       { localName: "interestedInCreditorLife" },
       { localName: "repaymentMethod" },
       { localName: "totalClosingCost" },
@@ -925,7 +919,6 @@
       { localName: "supplementaryApplicantAnnualMembership" },
       { localName: "creditorLifeAnnualFee" },
       { localName: "minimumPayment" },
-      //{ localName: "creditorLifePremiumForNonRevolvingLoan" },
       { localName: "approvedStartingLimit" },
       { localName: "autoCollateralDeposit" },
       { localName: "autoCollateralDepositPercentage" },
@@ -954,11 +947,10 @@
       { localName: "depositBalance" },
       { localName: "lifeInsuranceCoverage" },
       { localName: "makeAndModelOfVehicle" },
-      { localName: "jnBankAccountNumber" },
       { localName: "jnBankAccountNumberPrefix" },
       { localName: "existingBalance" },
-      { localName: "numberOfSupplementaryCardHolders" }
-      //{ localName: "productFamily" }
+      { localName: "numberOfSupplementaryCardHolders" },
+      { localName: "LTVValue" }
     ];
     //product specific fields
     const updatedValues = this.contructProductSpecificDetailsFields(
