@@ -176,10 +176,7 @@ public class ProductDetailService {
         flag = true;
       }
     } else if (range.contains('<=')) {
-      if (
-        fieldValue < Integer.ValueOf(range.remove('<=').trim()) ||
-        fieldValue == Integer.ValueOf(range.remove('<=').trim())
-      ) {
+      if (fieldValue <= Integer.ValueOf(range.remove('<=').trim())) {
         flag = true;
       }
     } else {
