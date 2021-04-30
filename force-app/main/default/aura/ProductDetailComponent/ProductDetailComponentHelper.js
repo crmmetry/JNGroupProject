@@ -814,6 +814,7 @@
    */
   contructProductDetailsFields: function (component) {
     const isCreditCard = checkProductFamily(component, "Credit Card");
+    //let container = component.get("v.ChildContainer");
     let loanCalculationFields = [];
     if (isCreditCard) {
       loanCalculationFields = [{ localName: "cardType" }];
@@ -941,6 +942,14 @@
       { localName: "numberOfSupplementaryCardHolders" },
       { localName: "LTVValue" }
     ];
+
+    // if(container.hasOwnProperty('policyProvider')){
+    //   loanCalculationProductFields.concat([
+    //     { localName: "assignmentFee" },
+    //     { localName: "estimatedStampDutyAndAdminFee"}
+    //   ]);
+    // }
+
     //product specific fields
     const updatedValues = this.contructProductSpecificDetailsFields(
       component,

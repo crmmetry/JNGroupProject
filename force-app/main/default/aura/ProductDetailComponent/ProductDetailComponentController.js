@@ -142,7 +142,7 @@
       helper.showSpinner(component);
       let container = copyInto(
         component.get("v.ChildContainer"),
-        component.get("v.jnDefaultConfigs")
+        component.get("v.jnDefaultConfigs") //TODO: Test save feature without merging jnDefault
       );
       let productRecordTypes = [
         component.get("v.productSelection.productFamily")
