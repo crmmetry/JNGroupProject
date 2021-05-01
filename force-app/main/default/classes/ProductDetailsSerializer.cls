@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 04-29-2021
+ * @last modified on  : 04-30-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -115,7 +115,8 @@ public class ProductDetailsSerializer {
   public Decimal totalMonthly_PI_LoanPayment;
   @AuraEnabled
   public Decimal totalInterestPaymentBalance;
-
+  @AuraEnabled
+  public Decimal creditorLifePremiumForNonRevolvingLoan;
   @AuraEnabled
   public Decimal totalMonthlyLoanPaymentAndSavings;
   @AuraEnabled

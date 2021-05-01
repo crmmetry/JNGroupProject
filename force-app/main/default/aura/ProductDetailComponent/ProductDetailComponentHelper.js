@@ -791,11 +791,6 @@
           description: "Will JN Life Creditor Life Insurance be taken?"
         },
         {
-          localName: "creditorLifePremiumForNonRevolvingLoan",
-          mappedName: "jnLifeCreditorPremium",
-          description: "Creditor Life Premium for CC and LOC"
-        },
-        {
           localName: "monthlyRepaymentDate",
           description: "Desired Statement Date",
           mappedName: "repaymentDate"
@@ -872,6 +867,8 @@
         localName: "includeInLoanAmountFlag",
         description: "Include in Loan Amount processing fee"
       },
+      { localName: "productFamily" },
+      { localName: "creditorLifePremiumForNonRevolvingLoan" },
       { localName: "vehicleClassification" },
       { localName: "yearOfVehicle" },
       { localName: "nsipp" },
@@ -942,13 +939,6 @@
       { localName: "numberOfSupplementaryCardHolders" },
       { localName: "LTVValue" }
     ];
-
-    // if(container.hasOwnProperty('policyProvider')){
-    //   loanCalculationProductFields.concat([
-    //     { localName: "assignmentFee" },
-    //     { localName: "estimatedStampDutyAndAdminFee"}
-    //   ]);
-    // }
 
     //product specific fields
     const updatedValues = this.contructProductSpecificDetailsFields(

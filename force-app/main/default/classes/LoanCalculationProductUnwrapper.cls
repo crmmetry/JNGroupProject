@@ -29,7 +29,6 @@ public class LoanCalculationProductUnwrapper {
     record.Monthly_PI_Processing_Fee_Number__c = serializer.monthlyPrincipalInterestProcessingFee;
     record.Legal_Fees_including_GCT_Number__c = serializer.legalFee;
     record.Processing_Fees_Closing_Cost_GCT_Number__c = serializer.processingFeeClosingCost;
-    record.Creditor_Life_Insurance_Premium_Number__c = serializer.jnLifeCreditorPremium;
     record.Monthly_Compulsory_Savings_Number__c = serializer.monthlyCompulsorySavings;
     record.Total_Compulsory_Savings_Balance_Number__c = serializer.totalCompulsorySavingsBalance;
     record.Total_Monthly_Loan_Payment_Number__c = serializer.totalMonthlyLoanPayment;
@@ -56,13 +55,6 @@ public class LoanCalculationProductUnwrapper {
     record.Loan_Purpose_List__c = serializer.loanPurpose;
     record.Account_Type_List__c = serializer.accountType;
     record.Stamp_Duty_Number__c = serializer.stampDuty;
-    if (!String.isBlank(serializer.policyProvider)) {
-      record.Assignment_Fee_Number__c = serializer.assignmentFee;
-      record.Estimated_Stamp_Duty_Admin_Charges_Numb__c = serializer.estimatedStampDutyAndAdminFee;
-    } else {
-      record.Assignment_Fee_Number__c = 0;
-      record.Estimated_Stamp_Duty_Admin_Charges_Numb__c = 0;
-    }
     record.Total_Closing_Costs_Financed_Number__c = serializer.totalFinancedByJN;
     record.Total_Closing_Costs_By_Client_Number__c = serializer.totalPayableByApplicant;
     record.Total_Closing_Costs_Number__c = serializer.totalClosingCost;
@@ -90,22 +82,35 @@ public class LoanCalculationProductUnwrapper {
     record.Requested_Credit_Limit_Number__c = serializer.requestedCreditLimit;
     record.Financial_Institution_List__c = serializer.financialInstitution;
     record.Deposit_Account_Number_Number__c = serializer.jnBankAccountNumber;
+    record.X1st_Month_s_Instalment_Payable_Number__c = serializer.firstPaymentInstallable;
+    record.Deposit_Account_Number_Prefix_text__c = serializer.jnBankAccountNumberPrefix;
+    record.Account_Holder_s_text__c = serializer.accountHolder;
+    record.Annual_Interest_Rate_Deposit_Acct_Number__c = serializer.annualInterestRate;
+    record.Deposit_Account_Balance_Number__c = serializer.depositBalance;
+    record.Life_Insurance_Coverage_List__c = serializer.lifeInsuranceCoverage;
+    record.Desired_Statement_Date__c = serializer.repaymentDate;
+    record.Loan_to_Value_Number__c = serializer.LTVValue;
+    record.Account_Hypothecated_list__c = serializer.hypothecatedLoan;
+    record.Monthly_Creditor_Life_Premium_Number__c = serializer.creditorLifePremiumForNonRevolvingLoan;
+    record.Creditor_Life_Insurance_Premium_Number__c = serializer.jnLifeCreditorPremium;
+    if (!String.isBlank(serializer.policyProvider)) {
+      record.Assignment_Fee_Number__c = serializer.assignmentFee;
+      record.Estimated_Stamp_Duty_Admin_Charges_Numb__c = serializer.estimatedStampDutyAndAdminFee;
+    } else {
+      record.Assignment_Fee_Number__c = 0;
+      record.Estimated_Stamp_Duty_Admin_Charges_Numb__c = 0;
+    }
     if (
       serializer.jnBankAccountNumber == '' ||
       serializer.jnBankAccountNumber == null
     ) {
       record.Deposit_Account_Number_Number__c = serializer.depositAccountNumber;
     }
-    record.X1st_Month_s_Instalment_Payable_Number__c = serializer.firstPaymentInstallable;
-    record.Deposit_Account_Number_Prefix_text__c = serializer.jnBankAccountNumberPrefix;
-    record.Account_Holder_s_text__c = serializer.accountHolder;
-    record.Account_Hypothecated_list__c = serializer.hypothecatedLoan;
-    record.Annual_Interest_Rate_Deposit_Acct_Number__c = serializer.annualInterestRate;
-    record.Deposit_Account_Balance_Number__c = serializer.depositBalance;
-    record.Life_Insurance_Coverage_List__c = serializer.lifeInsuranceCoverage;
-    record.Desired_Statement_Date__c = serializer.repaymentDate;
-    record.Existing_Loan_Balance_Number__c = serializer.existingBalance;
-    record.Loan_to_Value_Number__c = serializer.LTVValue;
+    if (serializer.hypothecatedLoan == 'Yes') {
+      record.Existing_Loan_Balance_Number__c = serializer.existingBalance;
+    } else {
+      record.Existing_Loan_Balance_Number__c = 0;
+    }
   }
   /**
    * save loan calculation product object
