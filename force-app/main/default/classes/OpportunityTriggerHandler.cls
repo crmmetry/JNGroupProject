@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 04-26-2021
- * @last modified by  : Travis Allen
+ * @last modified on  : 05-04-2021
+ * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   03-31-2021   Remario Richards   Initial Version
@@ -210,8 +210,8 @@ public class OpportunityTriggerHandler {
   }
   /**
    * validates if a opportunity can be closed given the close date
-   * @param {integer} backdatedDays - the maximum number of (business)days in the previous month the close date can be backdated
-   * @param {Integer} maxPrevDays - the maximum number of (business)days in the current month the close date can be backdated
+   * @param {integer} backdatedDays - the maximum number of (business)days in the current month the close date can be backdated
+   * @param {Integer} maxPrevDays - the maximum number of (business)days in the previous month the close date can be backdated
    * @param {Date} now - represents the current date and time
    * @param {String} bh - business hours name
    * @return Void
@@ -235,7 +235,7 @@ public class OpportunityTriggerHandler {
     Date minDate = Date.newinstance(now.year(), now.month(), now.day());
     Date todayDate = Date.newinstance(now.year(), now.month(), now.day());
     Integer currentMonth = minDate.month();
-    minDate = Util.GetBackDatedDate(minDate, maxPrevDays, bh, mappedHolidays);
+    minDate = Util.GetBackDatedDate(minDate, backdatedDays, bh, mappedHolidays);
     for (Opportunity record : newRecords) {
       if (
         record.StageName == Constants.CLOSED_LOST_STATUS ||
@@ -271,7 +271,7 @@ public class OpportunityTriggerHandler {
               );
               Date acceptedDate = Util.GetBackDatedDate(
                 Util.GetPrevMonthLastDay(lastMonthDate),
-                backdatedDays,
+                maxPrevDays,
                 bh,
                 mappedHolidays
               );
