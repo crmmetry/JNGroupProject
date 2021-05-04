@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 04-30-2021
+ * @last modified on  : 05-04-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -12,6 +12,7 @@ public class LoanCalculationProductUnwrapper {
   private static final String TAG = 'LoanCalculationUnwrapper';
   @AuraEnabled
   public Loan_Calculation_Product__c record;
+  public Boolean resetCollateralFlag;
   public LoanCalculationProductUnwrapper(
     ProductDetailsSerializer serializer,
     List<String> recordTypes
@@ -53,7 +54,6 @@ public class LoanCalculationProductUnwrapper {
     record.Motor_Vehicle_Deposit_Percentage_Number__c = serializer.autoCollateralDepositPercentage;
     record.Computed_Auto_Collateral_Deposit_Number__c = serializer.computedAutoCollateralDepositFromPercentage;
     record.Loan_Purpose_List__c = serializer.loanPurpose;
-    record.Account_Type_List__c = serializer.accountType;
     record.Stamp_Duty_Number__c = serializer.stampDuty;
     record.Total_Closing_Costs_Financed_Number__c = serializer.totalFinancedByJN;
     record.Total_Closing_Costs_By_Client_Number__c = serializer.totalPayableByApplicant;
@@ -80,37 +80,18 @@ public class LoanCalculationProductUnwrapper {
     record.Total_Loan_Amount_Number__c = serializer.totalLoanAmount;
     record.Interested_in_JNGI_SureCover_flag__c = serializer.interested;
     record.Requested_Credit_Limit_Number__c = serializer.requestedCreditLimit;
-    record.Financial_Institution_List__c = serializer.financialInstitution;
-    record.Deposit_Account_Number_Number__c = serializer.jnBankAccountNumber;
     record.X1st_Month_s_Instalment_Payable_Number__c = serializer.firstPaymentInstallable;
-    record.Deposit_Account_Number_Prefix_text__c = serializer.jnBankAccountNumberPrefix;
-    record.Account_Holder_s_text__c = serializer.accountHolder;
-    record.Annual_Interest_Rate_Deposit_Acct_Number__c = serializer.annualInterestRate;
-    record.Deposit_Account_Balance_Number__c = serializer.depositBalance;
     record.Life_Insurance_Coverage_List__c = serializer.lifeInsuranceCoverage;
     record.Desired_Statement_Date__c = serializer.repaymentDate;
     record.Loan_to_Value_Number__c = serializer.LTVValue;
-    record.Account_Hypothecated_list__c = serializer.hypothecatedLoan;
     record.Monthly_Creditor_Life_Premium_Number__c = serializer.creditorLifePremiumForNonRevolvingLoan;
     record.Creditor_Life_Insurance_Premium_Number__c = serializer.jnLifeCreditorPremium;
-    if (!String.isBlank(serializer.policyProvider)) {
-      record.Assignment_Fee_Number__c = serializer.assignmentFee;
-      record.Estimated_Stamp_Duty_Admin_Charges_Numb__c = serializer.estimatedStampDutyAndAdminFee;
-    } else {
-      record.Assignment_Fee_Number__c = 0;
-      record.Estimated_Stamp_Duty_Admin_Charges_Numb__c = 0;
-    }
-    if (
-      serializer.jnBankAccountNumber == '' ||
-      serializer.jnBankAccountNumber == null
-    ) {
-      record.Deposit_Account_Number_Number__c = serializer.depositAccountNumber;
-    }
-    if (serializer.hypothecatedLoan == 'Yes') {
-      record.Existing_Loan_Balance_Number__c = serializer.existingBalance;
-    } else {
-      record.Existing_Loan_Balance_Number__c = 0;
-    }
+    this.toggleAssignmentFee(serializer);
+    this.toggleEstimatedStampDuty(serializer);
+    this.resetCollateralFlag = shouldResetCollateralData(
+      serializer.collateralType
+    );
+    this.revolvingLoanCollateralHandler(serializer);
   }
   /**
    * save loan calculation product object
@@ -151,5 +132,102 @@ public class LoanCalculationProductUnwrapper {
       }
     }
     return recordTypeId;
+  }
+
+  /** *
+   * Reset a list of serialised fields to null or 0 depending on the datatype
+   *
+   * @return void
+   */
+
+  private void revolvingLoanCollateralHandler(
+    ProductDetailsSerializer serializer
+  ) {
+    if (this.resetCollateralFlag) {
+      this.record.Account_Type_List__c = null;
+      this.record.Deposit_Account_Number_Number__c = null;
+      this.record.Deposit_Account_Number_Prefix_text__c = null;
+      this.record.Account_Holder_s_text__c = null;
+      this.record.Annual_Interest_Rate_Deposit_Acct_Number__c = null;
+      this.record.Deposit_Account_Balance_Number__c = null;
+      this.record.Existing_Loan_Balance_Number__c = null;
+      this.record.Financial_Institution_List__c = null;
+      this.record.Account_Hypothecated_list__c = null;
+    } else {
+      this.record.Financial_Institution_List__c = serializer.financialInstitution;
+      this.record.Deposit_Account_Number_Prefix_text__c = serializer.jnBankAccountNumberPrefix;
+      this.record.Account_Type_List__c = serializer.accountType;
+      this.record.Account_Holder_s_text__c = serializer.accountHolder;
+      this.record.Annual_Interest_Rate_Deposit_Acct_Number__c = serializer.annualInterestRate;
+      this.record.Deposit_Account_Balance_Number__c = serializer.depositBalance;
+      this.record.Account_Hypothecated_list__c = serializer.hypothecatedLoan;
+      this.toggleExistingLoanBalance(serializer);
+      this.toggleDepositAccountNumber(serializer);
+    }
+  }
+  /** *
+   * Checks the collateral type for Unsecured or CashInvestment
+   * @param {String} collateralType
+   * @return void
+   */
+
+  private Boolean shouldResetCollateralData(String collateralType) {
+    if (collateralType == Constants.UNSECURED_COLLATERAL) {
+      return true;
+    }
+    return false;
+  }
+  /** *
+   * Toggles the existing loan balance value dependent on whether or not the applicant wants to hypothecate loan.
+   * @param {ProductDetailsSerializer} serializer
+   * @return void
+   */
+  private void toggleExistingLoanBalance(ProductDetailsSerializer serializer) {
+    if (serializer.hypothecatedLoan == 'Yes') {
+      this.record.Existing_Loan_Balance_Number__c = serializer.existingBalance;
+    } else {
+      this.record.Existing_Loan_Balance_Number__c = 0;
+    }
+  }
+
+  /** *
+   * Toggles the deposit account number dependent on which financial institution is used by applicant.
+   * @param {ProductDetailsSerializer} serializer
+   * @return void
+   */
+  private void toggleDepositAccountNumber(ProductDetailsSerializer serializer) {
+    if (
+      serializer.financialInstitution == Constants.JN_BANK_FINANCIAL_INSTITUTION
+    ) {
+      this.record.Deposit_Account_Number_Number__c = serializer.jnBankAccountNumber;
+    } else {
+      this.record.Deposit_Account_Number_Number__c = serializer.depositAccountNumber;
+    }
+  }
+
+  /** *
+   * Toggles the assignment fee charged by JN based on whether the applicant has an existing policy provider.
+   * @param {ProductDetailsSerializer} serializer
+   * @return void
+   */
+  private void toggleAssignmentFee(ProductDetailsSerializer serializer) {
+    if (!String.isBlank(serializer.policyProvider)) {
+      this.record.Assignment_Fee_Number__c = serializer.assignmentFee;
+    } else {
+      this.record.Assignment_Fee_Number__c = 0;
+    }
+  }
+
+  /** *
+   * Toggles the estimatedStampDuty&AdminFee charged by JN based on whether the applicant has an existing policy provider.
+   * @param {ProductDetailsSerializer} serializer
+   * @return void
+   */
+  private void toggleEstimatedStampDuty(ProductDetailsSerializer serializer) {
+    if (!String.isBlank(serializer.policyProvider)) {
+      this.record.Estimated_Stamp_Duty_Admin_Charges_Numb__c = serializer.estimatedStampDutyAndAdminFee;
+    } else {
+      this.record.Estimated_Stamp_Duty_Admin_Charges_Numb__c = 0;
+    }
   }
 }
