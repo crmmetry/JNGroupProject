@@ -21,7 +21,6 @@ public class LoanCalculationProductUnwrapper {
     this.record.recordTypeId = assignRecordType(recordTypes);
     record.Years_Number__c = serializer.years;
     record.Months_Number__c = serializer.months;
-    record.Applicable_Processing_Fee_Number__c = serializer.processingFeePercentagePerAnum;
     record.Repayment_Method_List__c = serializer.repaymentMethod;
     record.Desired_Monthly_Repayment_Date__c = serializer.repaymentDate;
     record.Proposed_Savings_Number__c = serializer.proposedSavingsAmount;
@@ -43,7 +42,6 @@ public class LoanCalculationProductUnwrapper {
     record.Monthly_PI_Loan_Amount_Number__c = serializer.monthly_PI_LoanAmount;
     record.JN_Life_Creditor_Life_Premium_Number__c = serializer.jnCLPremiumFeesAndCharges;
     record.Collateral_Type_List__c = serializer.collateralType;
-    record.Coverage_Type_List__c = serializer.coverageType;
     record.Annual_Membership_Primary_Number__c = serializer.primaryApplicantAnnualMembership;
     record.Annual_Membership_Supplementary_Number__c = serializer.supplementaryApplicantAnnualMembership;
     record.Supplementary_Card_Holder_Count_Number__c = serializer.numberOfSupplementaryCardHolders;
@@ -60,9 +58,7 @@ public class LoanCalculationProductUnwrapper {
     record.Total_Closing_Costs_Number__c = serializer.totalClosingCost;
     record.Loan_Amount_Number__c = serializer.loanAmount;
     record.Waive_Processing_Fee_Flag__c = serializer.waiveProcessingFeeFlag;
-    record.Include_in_Loan_Amount_Processing_Flag__c = serializer.includeInLoanAmountFlag;
     record.Interested_in_Creditor_Life_Flag__c = serializer.interestedInCreditorLife;
-    record.Include_in_Loan_Amount_Flag__c = serializer.includeCreditorLifeInLoanAmount;
     record.Deduct_1st_month_Payment_from_Loan_Flag__c = serializer.deductRepayment;
     record.JNGI_Motor_Premium_1st_Year_during_Numbe__c = serializer.jngiMotorPremium;
     record.JN_Motor_Premium_Closing_Cost_Number__c = serializer.jngiMotorPremiumFeesAndCharges;
@@ -88,6 +84,8 @@ public class LoanCalculationProductUnwrapper {
     record.Creditor_Life_Insurance_Premium_Number__c = serializer.jnLifeCreditorPremium;
     this.toggleAssignmentFee(serializer);
     this.toggleEstimatedStampDuty(serializer);
+    this.toggleCreditorLifeFields(serializer);
+    this.toggleWaiveProcessingFeeFields(serializer);
     this.resetCollateralFlag = shouldResetCollateralData(
       serializer.collateralType
     );
@@ -228,6 +226,38 @@ public class LoanCalculationProductUnwrapper {
       this.record.Estimated_Stamp_Duty_Admin_Charges_Numb__c = serializer.estimatedStampDutyAndAdminFee;
     } else {
       this.record.Estimated_Stamp_Duty_Admin_Charges_Numb__c = 0;
+    }
+  }
+
+  /**
+   * @description Toggles creditor life fields based on whether the applicant is interested or not.
+   * @author Travis Allen | 05-04-2021
+   * @param serializer
+   **/
+  private void toggleCreditorLifeFields(ProductDetailsSerializer serializer) {
+    if (serializer.interestedInCreditorLife == Constants.YESSTRING) {
+      this.record.Include_in_Loan_Amount_Flag__c = serializer.includeCreditorLifeInLoanAmount;
+      this.record.Coverage_Type_List__c = serializer.coverageType;
+    } else {
+      this.record.Include_in_Loan_Amount_Flag__c = null;
+      this.record.Coverage_Type_List__c = null;
+    }
+  }
+
+  /**
+   * @description Toggels the include amount feile for waive processing fee dependent on whether or not the applicant decided to waive processing fee.
+   * @author Travis Allen | 05-04-2021
+   * @param serializer
+   **/
+  private void toggleWaiveProcessingFeeFields(
+    ProductDetailsSerializer serializer
+  ) {
+    if (serializer.waiveProcessingFeeFlag == Constants.NOSTRING) {
+      this.record.Include_in_Loan_Amount_Processing_Flag__c = serializer.includeInLoanAmountFlag;
+      this.record.Applicable_Processing_Fee_Number__c = serializer.processingFeePercentagePerAnum;
+    } else {
+      this.record.Include_in_Loan_Amount_Processing_Flag__c = null;
+      this.record.Applicable_Processing_Fee_Number__c = null;
     }
   }
 }
