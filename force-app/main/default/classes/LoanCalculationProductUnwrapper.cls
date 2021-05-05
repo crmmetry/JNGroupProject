@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 05-04-2021
+ * @last modified on  : 05-05-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -153,7 +153,6 @@ public class LoanCalculationProductUnwrapper {
       this.record.Account_Hypothecated_list__c = null;
     } else {
       this.record.Financial_Institution_List__c = serializer.financialInstitution;
-      this.record.Deposit_Account_Number_Prefix_text__c = serializer.jnBankAccountNumberPrefix;
       this.record.Account_Type_List__c = serializer.accountType;
       this.record.Account_Holder_s_text__c = serializer.accountHolder;
       this.record.Annual_Interest_Rate_Deposit_Acct_Number__c = serializer.annualInterestRate;
@@ -198,8 +197,10 @@ public class LoanCalculationProductUnwrapper {
       serializer.financialInstitution == Constants.JN_BANK_FINANCIAL_INSTITUTION
     ) {
       this.record.Deposit_Account_Number_Number__c = serializer.jnBankAccountNumber;
+      this.record.Deposit_Account_Number_Prefix_text__c = serializer.jnBankAccountNumberPrefix;
     } else {
       this.record.Deposit_Account_Number_Number__c = serializer.depositAccountNumber;
+      this.record.Deposit_Account_Number_Prefix_text__c = null;
     }
   }
 
