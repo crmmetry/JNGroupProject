@@ -2,7 +2,7 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 04-15-2021
+  @last modified on  : 04-29-2021
   @last modified by  : Travis Allen
   Modifications Log 
   Ver   Date         Author                               Modification
@@ -30,7 +30,7 @@
   <aura:attribute
     name="financialInstitution"
     type="List"
-    default="['JN Bank Ltd.','JN Fund Managers Ltd.']"
+    default="['JN Bank Ltd.','JN Fund Managers Ltd']"
   />
   <aura:attribute name="accountType" type="List" default="[]" />
   <aura:attribute

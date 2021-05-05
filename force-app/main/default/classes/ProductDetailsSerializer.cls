@@ -2,13 +2,15 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 03-02-2021
+ * @last modified on  : 04-30-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
  * 1.0   02-22-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
  **/
 public class ProductDetailsSerializer {
+  @AuraEnabled
+  public String productFamily;
   @AuraEnabled
   public Integer years;
   @AuraEnabled
@@ -99,7 +101,6 @@ public class ProductDetailsSerializer {
   public Decimal proposedSavingsAmount;
   @AuraEnabled
   public String collateralType;
-
   @AuraEnabled
   public Decimal jngiMotorPremium;
   @AuraEnabled
@@ -114,7 +115,8 @@ public class ProductDetailsSerializer {
   public Decimal totalMonthly_PI_LoanPayment;
   @AuraEnabled
   public Decimal totalInterestPaymentBalance;
-
+  @AuraEnabled
+  public Decimal creditorLifePremiumForNonRevolvingLoan;
   @AuraEnabled
   public Decimal totalMonthlyLoanPaymentAndSavings;
   @AuraEnabled
@@ -138,19 +140,17 @@ public class ProductDetailsSerializer {
   @AuraEnabled
   public Decimal minimumPayment;
   @AuraEnabled
-  public Decimal creditorLifePremiumForNonRevolvingLoan;
-  @AuraEnabled
   public Decimal approvedStartingLimit;
   @AuraEnabled
   public String jnBankAccountNumber;
+  @AuraEnabled
+  public String depositAccountNumber;
   @AuraEnabled
   public String jnBankAccountNumberPrefix;
   @AuraEnabled
   public String financialInstitution;
   @AuraEnabled
   public String accountType;
-  @AuraEnabled
-  public String depositAccountNumber;
   @AuraEnabled
   public String accountHolder;
   @AuraEnabled

@@ -126,4 +126,9 @@ public class Constants {
   public static final String ONLY_ONE_APPLICATION = 'Sorry, you cannot add any more than one application for this opportunity. Contact your administrator.';
 
   public static final String BYPASS_CLOSED_DATE_PERMISSIONS = 'Bypass_Closed_Date';
+
+  public static final String CASH_COLLATERAL = 'Cash/Investments';
+  public static final String UNSECURED_COLLATERAL = 'Unsecured (None)';
+  public static final String JN_BANK_FINANCIAL_INSTITUTION = 'JN Bank Ltd.';
+  public static final String FUND_MANAGER_FINANCIAL_INSTITUTION = 'JN Fund Managers Ltd';
 }

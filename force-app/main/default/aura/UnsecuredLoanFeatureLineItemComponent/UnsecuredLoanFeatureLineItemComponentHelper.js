@@ -33,7 +33,7 @@
       childContainer.proposedSavingsAmount = null;
       childContainer.selection = selected;
     } else if (selected === "amount") {
-      childContainer.percentage = null;
+      childContainer.proposedSavingsPercentage = null;
       childContainer.selection = selected;
     }
   },

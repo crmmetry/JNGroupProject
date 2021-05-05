@@ -809,6 +809,7 @@
    */
   contructProductDetailsFields: function (component) {
     const isCreditCard = checkProductFamily(component, "Credit Card");
+    //let container = component.get("v.ChildContainer");
     let loanCalculationFields = [];
     if (isCreditCard) {
       loanCalculationFields = [{ localName: "cardType" }];
@@ -866,6 +867,8 @@
         localName: "includeInLoanAmountFlag",
         description: "Include in Loan Amount processing fee"
       },
+      { localName: "productFamily" },
+      { localName: "creditorLifePremiumForNonRevolvingLoan" },
       { localName: "vehicleClassification" },
       { localName: "yearOfVehicle" },
       { localName: "nsipp" },
@@ -902,7 +905,6 @@
       { localName: "supplementaryApplicantAnnualMembership" },
       { localName: "creditorLifeAnnualFee" },
       { localName: "minimumPayment" },
-      { localName: "creditorLifePremiumForNonRevolvingLoan" },
       { localName: "approvedStartingLimit" },
       { localName: "autoCollateralDeposit" },
       { localName: "autoCollateralDepositPercentage" },
@@ -911,6 +913,8 @@
       { localName: "assignmentFee" },
       { localName: "includeCreditorLifeInLoanAmount" },
       { localName: "requestedCreditLimit" },
+      { localName: "jnBankAccountNumber" },
+      { localName: "depositAccountNumber" },
       //copied
       {
         localName: "jngiMonthlyPremium"
@@ -924,18 +928,18 @@
       { localName: "cardType" },
       { localName: "financialInstitution" },
       { localName: "accountType" },
-      { localName: "depositAccountNumber" },
       { localName: "accountHolder" },
       { localName: "annualInterestRate" },
       { localName: "hypothecatedLoan" },
       { localName: "depositBalance" },
       { localName: "lifeInsuranceCoverage" },
       { localName: "makeAndModelOfVehicle" },
-      { localName: "jnBankAccountNumber" },
       { localName: "jnBankAccountNumberPrefix" },
       { localName: "existingBalance" },
-      { localName: "numberOfSupplementaryCardHolders" }
+      { localName: "numberOfSupplementaryCardHolders" },
+      { localName: "LTVValue" }
     ];
+
     //product specific fields
     const updatedValues = this.contructProductSpecificDetailsFields(
       component,
