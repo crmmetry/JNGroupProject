@@ -198,8 +198,6 @@ public class LeadTriggerHandler {
    * @author Travis Allen | 05-07-2021
    **/
   public static void crmm_TierOne() {
-    User userRecord = new User();
-
     String queueID = Util.getQueueId(Constants.TIER_ONE_QUEUE);
 
     Set<Id> leadOwnerIDs = new Set<Id>();
