@@ -98,7 +98,7 @@ public with sharing class Util {
     ];
   }
 
-  private static String getQueueId(String name) {
+  public static String getQueueId(String name) {
     return [SELECT Id, Name FROM Group WHERE Type = 'Queue' AND NAME = :name]
     .Id;
   }

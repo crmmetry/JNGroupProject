@@ -178,12 +178,8 @@ public class LeadTriggerHandler {
    * @author Travis Allen | 05-07-2021
    **/
   public static void crmm_TierTwoTrigger() {
-    Group queueRecord = [
-      SELECT Id, Name, Type
-      FROM Group
-      WHERE Type = 'Queue' AND Name = 'Sales Team'
-      LIMIT 1
-    ];
+    String queueID = Util.getQueueId(Constants.TIER_TWO_QUEUE);
+
     for (Lead leadObj : leads) {
       Lead leadObjOld = oldMap.get(leadObj.Id);
       if (
@@ -191,7 +187,7 @@ public class LeadTriggerHandler {
         leadObjOld.Escalate_to_Tier2__c == false
       ) {
         leadObj.Escalated_By__c = UserInfo.getUserId();
-        leadObj.OwnerId = queueRecord.Id;
+        leadObj.OwnerId = queueID;
         leadObj.Time_Escalated_to_Tier_2__c = System.now();
       }
     }
@@ -202,30 +198,31 @@ public class LeadTriggerHandler {
    * @author Travis Allen | 05-07-2021
    **/
   public static void crmm_TierOne() {
-    Map<Id, User> userMap = new Map<Id, User>();
     User userRecord = new User();
-    Group queueRecord = [
-      SELECT Id, Name, Type
-      FROM Group
-      WHERE Type = 'Queue' AND Name = 'Sales Development Team'
-      LIMIT 1
-    ];
 
-    List<User> users = [SELECT Id, Sales_User__c FROM User];
+    String queueID = Util.getQueueId(Constants.TIER_ONE_QUEUE);
 
-    for (User user : users) {
-      userMap.put(user.Id, user);
+    Set<Id> leadOwnerIDs = new Set<Id>();
+
+    for (Lead lead : leads) {
+      leadOwnerIDs.add(lead.OwnerId);
     }
 
+    Map<Id, User> userMap = new Map<Id, User>(
+      [
+        SELECT Id, Sales_User__c
+        FROM User
+        WHERE Id IN :leadOwnerIDs AND Sales_User__c = FALSE
+      ]
+    );
+
     for (Lead leadObj : leads) {
-      userRecord = userMap.get(leadObj.OwnerId);
-      if (userRecord != null) {
-        if (userRecord.Sales_User__c == false) {
-          leadObj.OwnerId = queueRecord.Id;
-        }
+      if (userMap.containsKey(leadObj.OwnerId)) {
+        leadObj.OwnerId = queueID;
       }
     }
   }
+
   public static void crmm_lead_trigger_conversion() {
     Boolean IsConverted = false;
     Account AccountList = new Account();
