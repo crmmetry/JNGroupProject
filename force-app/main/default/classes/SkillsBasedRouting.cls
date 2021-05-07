@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 04-24-2021
+ * @last modified on  : 05-07-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -31,10 +31,7 @@ global with sharing class SkillsBasedRouting {
       [SELECT Id FROM Skill WHERE MasterLabel IN :products]
     );
   }
-  private static String getQueueId(String name) {
-    return [SELECT Id, Name FROM Group WHERE Type = 'Queue' AND NAME = :name]
-    .Id;
-  }
+
   private static PriorityQueue getProductLocationQueue(
     String leadLocation,
     String leadProduct,

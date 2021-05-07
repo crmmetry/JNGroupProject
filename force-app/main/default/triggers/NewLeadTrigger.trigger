@@ -24,7 +24,6 @@ trigger NewLeadTrigger on Lead(
     } else {
       LeadTriggerHandler.crmm_TimeSpentInStage();
       LeadTriggerHandler.crmm_TierTwoTrigger();
-      //SkillsBasedRouting.routeUsingSkillsTier2(Trigger.new);
       if (!Util.IsExecuted('StartRoutingUsingTier2')) {
         SkillsBasedRouting.StartRoutingUsingTier2(Trigger.new);
       }
@@ -33,7 +32,6 @@ trigger NewLeadTrigger on Lead(
   } else if (Trigger.isInsert) {
     if (Trigger.isAfter) {
       LeadTriggerHandler.leadActivityEvent();
-      //SkillsBasedRouting.routeUsingSkillsTier1((new Map<Id,Lead>(Trigger.new)).keySet());
     } else {
       LeadTriggerHandler.crmm_TierOne();
       LeadTriggerHandler.IndustryTypeValidations();

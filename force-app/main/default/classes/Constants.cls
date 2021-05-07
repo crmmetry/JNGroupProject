@@ -131,4 +131,7 @@ public class Constants {
   public static final String UNSECURED_COLLATERAL = 'Unsecured (None)';
   public static final String JN_BANK_FINANCIAL_INSTITUTION = 'JN Bank Ltd.';
   public static final String FUND_MANAGER_FINANCIAL_INSTITUTION = 'JN Fund Managers Ltd';
+
+  public static final String TIER_ONE_QUEUE = 'Sales Development Team';
+  public static final String TIER_TWO_QUEUE = 'Sales Team';
 }
