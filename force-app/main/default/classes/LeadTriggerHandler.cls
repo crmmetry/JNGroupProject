@@ -1,9 +1,9 @@
 /**
  * @Description        : Handler for trigger
  * @Author             : Remario Richards
- * @Last Modified By   : Remario Richards
+ * @Last Modified By   : Travis Allen
  * @Created On		  : 10/7/2019
- * @Last Modified On   : 01/20/2020
+ * @Last Modified On   : 05-07-2021
  */
 public class LeadTriggerHandler {
   private static final String TAG = 'LeadTriggerHandler';
@@ -172,40 +172,57 @@ public class LeadTriggerHandler {
       }
     }
   }
+
+  /**
+   * @description When a lead is flagged as escalated to tier2, the lead escalated by field is updated as current user, the escalated time is updated to current time and the record owner is transferred to the Sales Team queue.
+   * @author Travis Allen | 05-07-2021
+   **/
   public static void crmm_TierTwoTrigger() {
+    Group queueRecord = [
+      SELECT Id, Name, Type
+      FROM Group
+      WHERE Type = 'Queue' AND Name = 'Sales Team'
+      LIMIT 1
+    ];
     for (Lead leadObj : leads) {
       Lead leadObjOld = oldMap.get(leadObj.Id);
-      QueueSObject QueueID = [
-        SELECT Queue.Id, Queue.Name, Queue.Type
-        FROM QueueSObject
-        WHERE Queue.Type = 'Queue' AND Queue.Name = 'Sales Team'
-        LIMIT 1
-      ];
       if (
         leadObj.Escalate_to_Tier2__c == true &&
         leadObjOld.Escalate_to_Tier2__c == false
       ) {
         leadObj.Escalated_By__c = UserInfo.getUserId();
-        leadObj.OwnerId = QueueID.Queue.Id;
+        leadObj.OwnerId = queueRecord.Id;
         leadObj.Time_Escalated_to_Tier_2__c = System.now();
       }
     }
   }
+
+  /**
+   * @description Assigns lead to Sales Development Queue if current user is not a sales user.
+   * @author Travis Allen | 05-07-2021
+   **/
   public static void crmm_TierOne() {
+    Map<Id, User> userMap = new Map<Id, User>();
+    User userRecord = new User();
+    Group queueRecord = [
+      SELECT Id, Name, Type
+      FROM Group
+      WHERE Type = 'Queue' AND Name = 'Sales Development Team'
+      LIMIT 1
+    ];
+
+    List<User> users = [SELECT Id, Sales_User__c FROM User];
+
+    for (User user : users) {
+      userMap.put(user.Id, user);
+    }
+
     for (Lead leadObj : leads) {
-      QueueSObject QueueID = [
-        SELECT Queue.Id, Queue.Name, Queue.Type
-        FROM QueueSObject
-        WHERE Queue.Type = 'Queue' AND Queue.Name = 'Sales Development Team'
-        LIMIT 1
-      ];
-      User usrID = [
-        SELECT Id, Sales_User__c
-        FROM User
-        WHERE Id = :leadObj.OwnerId
-      ];
-      if (usrID.Sales_User__c == false) {
-        leadObj.OwnerId = QueueID.Queue.Id;
+      userRecord = userMap.get(leadObj.OwnerId);
+      if (userRecord != null) {
+        if (userRecord.Sales_User__c == false) {
+          leadObj.OwnerId = queueRecord.Id;
+        }
       }
     }
   }

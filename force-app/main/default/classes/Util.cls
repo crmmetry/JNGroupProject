@@ -2,8 +2,8 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 04-20-2021
- * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * @last modified on  : 05-07-2021
+ * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
  * 1.0   02-22-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
@@ -97,6 +97,12 @@ public with sharing class Util {
       GROUP BY FinServ__Contact__c, Id, FinServ__Role__r.Name
     ];
   }
+
+  private static String getQueueId(String name) {
+    return [SELECT Id, Name FROM Group WHERE Type = 'Queue' AND NAME = :name]
+    .Id;
+  }
+
   public static FinServ__ContactContactRelation__c createContactToContactRelationship(
     Id mainContact,
     Id relatedContact,
