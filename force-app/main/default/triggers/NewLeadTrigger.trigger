@@ -3,7 +3,7 @@
  * @Author             : Remario Richards
  * @Last Modified By   : Travis Allen
  * @Created On          : 10/7/2019
- * @Last Modified On   : 04-23-2021
+ * @Last Modified On   : 05-07-2021
  */
 trigger NewLeadTrigger on Lead(
   before insert,
@@ -35,7 +35,7 @@ trigger NewLeadTrigger on Lead(
       LeadTriggerHandler.leadActivityEvent();
       //SkillsBasedRouting.routeUsingSkillsTier1((new Map<Id,Lead>(Trigger.new)).keySet());
     } else {
-      //LeadTriggerHandler.crmm_TierOne();
+      LeadTriggerHandler.crmm_TierOne();
       LeadTriggerHandler.IndustryTypeValidations();
     }
   }
