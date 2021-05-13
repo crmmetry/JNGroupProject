@@ -1,3 +1,13 @@
+<!--
+  @description       : 
+  @author            : Travis Allen
+  @group             : 
+  @last modified on  : 05-12-2021
+  @last modified by  : Travis Allen
+  Modifications Log 
+  Ver   Date         Author         Modification
+  1.0   05-12-2021   Travis Allen   Initial Version
+-->
 <aura:component>
   <aura:attribute name="toggleCheckAll" type="Boolean" />
   <aura:attribute name="auraIdList" type="List" />
@@ -64,6 +74,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
+        disabled="true"
         value="{!v.verifiedDataMap.totalAssetsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
@@ -98,6 +109,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
+        disabled="true"
         value="{!v.verifiedDataMap.totalLiabilitiesVerified}"
       ></lightning:input>
     </lightning:layoutItem>
@@ -132,6 +144,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
+        disabled="true"
         value="{!v.verifiedDataMap.netWorthVerified}"
       ></lightning:input>
     </lightning:layoutItem>

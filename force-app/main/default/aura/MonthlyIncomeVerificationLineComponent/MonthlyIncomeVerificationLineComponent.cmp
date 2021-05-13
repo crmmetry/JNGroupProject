@@ -2,7 +2,7 @@
   @description       : 
   @author            : Travis Allen
   @group             : 
-  @last modified on  : 03-12-2021
+  @last modified on  : 05-12-2021
   @last modified by  : Travis Allen
   Modifications Log 
   Ver   Date         Author         Modification
@@ -15,6 +15,12 @@
   <aura:attribute name="verifiedDataMap" type="Map" default="{}" />
   <aura:attribute name="unverifiedDataMap" type="Map" default="{}" />
   <aura:attribute name="primarySourceOfIncome" type="List" default="[]" />
+
+  <aura:attribute
+    name="calculatedFieldIds"
+    type="List"
+    default="['totalMonthlyIncome','totalOtherIncome']"
+  />
   <aura:handler
     name="change"
     action="{!c.onVerifiedMonthlyIncomeMapChange}"
@@ -392,6 +398,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
+        disabled="true"
         value="{!v.verifiedDataMap.totalOtherIncomeVerified}"
       ></lightning:input>
     </lightning:layoutItem>
@@ -425,6 +432,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
+        disabled="true"
         value="{!v.verifiedDataMap.totalMonthlyIncomeVerified}"
       ></lightning:input>
     </lightning:layoutItem>

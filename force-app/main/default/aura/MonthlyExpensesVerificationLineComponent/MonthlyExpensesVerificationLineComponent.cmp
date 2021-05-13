@@ -1,9 +1,25 @@
+<!--
+  @description       : 
+  @author            : Travis Allen
+  @group             : 
+  @last modified on  : 05-12-2021
+  @last modified by  : Travis Allen
+  Modifications Log 
+  Ver   Date         Author         Modification
+  1.0   05-12-2021   Travis Allen   Initial Version
+-->
 <aura:component>
   <aura:attribute name="toggleCheckAll" type="Boolean" default="false" />
   <aura:attribute name="auraIdList" type="List" />
   <aura:attribute name="verifiedMonthlyExpensesMap" type="Map" />
   <aura:attribute name="verifiedDataMap" type="Map" default="{}" />
   <aura:attribute name="unverifiedDataMap" type="Map" default="{}" />
+
+  <aura:attribute
+    name="calculatedFieldIds"
+    type="List"
+    default="['totalMonthlyExpenses','totalStatuaryDeductions']"
+  />
 
   <aura:handler
     name="change"
@@ -290,6 +306,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
+        disabled="true"
         value="{!v.verifiedDataMap.totalStatutoryDeductionsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
@@ -324,6 +341,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
+        disabled="true"
         value="{!v.verifiedDataMap.totalMonthlyExpensesVerified}"
       ></lightning:input>
     </lightning:layoutItem>

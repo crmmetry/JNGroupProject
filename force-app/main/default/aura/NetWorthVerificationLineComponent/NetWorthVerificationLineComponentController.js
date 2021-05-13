@@ -18,7 +18,7 @@
         let inputCmpIdList = component.get("v.auraIdList");
         inputCmpIdList.forEach((element) => {
           let inputCmp = component.find(element);
-          inputCmp.set("v.disabled", true);
+          //inputCmp.set("v.disabled", true);
           let unverifiedCmp = component.find(element.concat("Unverified"));
           inputCmp.set("v.value", unverifiedCmp.get("v.value"));
         });
@@ -27,7 +27,7 @@
         let inputCmpIdList = component.get("v.auraIdList");
         inputCmpIdList.forEach((element) => {
           let inputCmp = component.find(element);
-          inputCmp.set("v.disabled", false);
+          // inputCmp.set("v.disabled", false);
           inputCmp.set("v.value", null);
         });
       }
@@ -49,7 +49,7 @@
     let checkedValue = event.getParam("checkedVar");
     let inputCmp = component.find(componentName);
     let unverifiedInputCmp = component.find(componentName.concat("Unverified"));
-    if (checkedValue) {
+    if (checkedValue && unverifiedInputCmp) {
       inputCmp.set("v.disabled", true);
       //set value to the value of related unverified amount
       //add verified to component string as aura id
@@ -57,7 +57,6 @@
       //set the value of inputCmp  as that of the unverified amount
       inputCmp.set("v.value", unverifiedInputCmp.get("v.value"));
     } else {
-      inputCmp.set("v.disabled", false);
       inputCmp.set("v.value", null);
     }
   },
