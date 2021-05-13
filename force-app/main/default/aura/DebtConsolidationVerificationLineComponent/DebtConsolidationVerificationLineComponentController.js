@@ -1,5 +1,6 @@
 ({
   doinit: function (component, event, helper) {
+    helper.setPickListValues(component);
     let auraList = ["debtType", "debtInstitution", "debtAmount"];
     component.set("v.auraIdList", auraList);
   },

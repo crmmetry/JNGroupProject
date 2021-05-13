@@ -2,7 +2,7 @@
   @description       : 
   @author            : Travis Allen
   @group             : 
-  @last modified on  : 05-12-2021
+  @last modified on  : 05-13-2021
   @last modified by  : Travis Allen
   Modifications Log 
   Ver   Date         Author         Modification
@@ -80,7 +80,6 @@
       <lightning:select
         aura:id="primaryIncomeSource"
         name="primarySourceOFIncome"
-        required="true"
         label=""
       >
         <option value="{!v.verifiedDataMap.primarySourceOfIncomeVerified}"
