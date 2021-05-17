@@ -45,7 +45,6 @@
           values["Institution_Debt_is_with_VERIFIED_list__c"]
         );
       } else {
-        console.log("error returned");
         console.error(JSON.parse(JSON.stringify(reponse.getError())));
       }
     });
