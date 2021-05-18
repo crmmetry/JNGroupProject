@@ -41,7 +41,14 @@
   },
 
   saveFinancialDetailsAndDebtsHelper: function (component) {
-    let verifiedFinancialData = component.get("v.VerifiedDataMap");
+    let verifiedFinancialData;
+    if (component.get("v.VerifiedDataMapWithUpdatedTotals")) {
+      verifiedFinancialData = component.get(
+        "v.VerifiedDataMapWithUpdatedTotals"
+      );
+    } else {
+      verifiedFinancialData = component.get("v.VerifiedDataMap");
+    }
     let debtConsolidated = component.get("v.ConsolidatedDebts");
     let oppId = component.get("v.recordId");
     let action = component.get("c.saveFinancialDetailsAndConsolidatedDebts");
@@ -85,7 +92,9 @@
       }
     }
     component.set("v.VerifiedDataMap", verifiedMap);
+    component.set("v.oldVerifiedDataMap", verifiedMap);
     component.set("v.UnverifiedDataMap", unverifiedMap);
+    component.set("v.componentIsBeingInitialised", false);
   },
 
   parseDebtConsolidatedData: function (component) {

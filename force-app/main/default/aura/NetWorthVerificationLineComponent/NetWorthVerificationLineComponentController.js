@@ -60,10 +60,8 @@
       inputCmp.set("v.value", null);
     }
   },
-  onVerifiedNetWorthMapChange: function (component, event) {
-    let verifiedNetWorthData = component.get("v.verifiedNetWorthMap");
-    let verifiedData = component.get("v.verifiedDataMap");
-    let data = Object.assign(verifiedData, verifiedNetWorthData);
-    component.set("v.verifiedDataMap", data);
+  onChildVerifiedDataMapChange: function (component, event) {
+    // console.log("Verified Child container map changed")
+    // component.set("v.parentVerifiedDataMap", component.get("v.childVerifiedDataMap"));
   }
 });

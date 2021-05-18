@@ -1,3 +1,13 @@
+<!--
+  @description       : 
+  @author            : Travis Allen
+  @group             : 
+  @last modified on  : 05-17-2021
+  @last modified by  : Travis Allen
+  Modifications Log 
+  Ver   Date         Author         Modification
+  1.0   05-17-2021   Travis Allen   Initial Version
+-->
 <aura:component>
   <aura:attribute name="toggleCheckAll" type="Boolean" />
   <aura:attribute name="auraIdList" type="List" />

@@ -2,8 +2,8 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 02-24-2021
-  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+  @last modified on  : 05-18-2021
+  @last modified by  : Travis Allen
   Modifications Log 
   Ver   Date         Author                               Modification
   1.0   02-24-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
@@ -13,9 +13,19 @@
   controller="FinancialDetailsController"
 >
   <aura:attribute name="recordId" type="Id" />
+  <aura:attribute
+    name="componentIsBeingInitialised"
+    type="Boolean"
+    default="true"
+  />
+  <aura:attribute name="shouldNotifyParent" type="Boolean" />
   <aura:attribute name="FinancialDataMap" type="Map" default="{}" />
   <aura:attribute name="listOfDebtIndices" type="List" default="0" />
   <aura:attribute name="toggleCheckAll" type="Boolean" default="false" />
+  <aura:attribute name="OldVerifiedDataMap" type="Map" />
+  <aura:attribute name="ParentVerifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="VerifiedDataMapWithUpdatedTotals" type="Map" />
+  <aura:attribute name="calculationsMap" type="Map" default="{}" />
   <aura:attribute name="VerifiedDataMap" type="Map" default="{}" />
   <aura:attribute name="UnverifiedDataMap" type="Map" default="{}" />
   <aura:attribute name="UnverifiedDebts" type="List" />
@@ -28,8 +38,8 @@
   <aura:handler event="c:DebtInfoEvent" action="{!c.handleDebtInfoEvent}" />
   <aura:handler
     name="change"
-    action="{!c.onVerifiedDataMapChange}"
-    value="{!v.VerifiedDataMap}"
+    action="{!c.onParentVerifiedDataMapChange}"
+    value="{!v.ParentVerifiedDataMap}"
   />
   <!-- <aura:handler
     name="change"
@@ -37,24 +47,30 @@
     value="{!v.ConsolidatedDebts}"
   /> -->
   <ltng:require
-    scripts="{
-    $Resource.constants,
-    $Resource.calculations, 
-    $Resource.productDetailsGeneralFunctions)}"
+    scripts="{!join(',', 
+$Resource.constants,
+$Resource.calculations, 
+$Resource.productDetailsGeneralFunctions)}"
     afterScriptsLoaded="{!c.scriptsLoaded}"
   />
   <lightning:card>
     <c:AssetsVerificationLineComponent
       toggleCheckAll="{!v.toggleCheckAll}"
-      verifiedDataMap="{!v.VerifiedDataMap}"
+      childVerifiedDataMap="{!v.VerifiedDataMap}"
+      parentVerifiedDataMap="{!v.ParentVerifiedDataMap}"
       unverifiedDataMap="{!v.UnverifiedDataMap}"
+      componentIsBeingInitialised="{!v.componentIsBeingInitialised}"
+      calculationsMap="{!v.calculationsMap}"
     ></c:AssetsVerificationLineComponent>
     <c:LiabilitiesVerificationLineComponent
       toggleCheckAll="{!v.toggleCheckAll}"
-      verifiedDataMap="{!v.VerifiedDataMap}"
+      childVerifiedDataMap="{!v.VerifiedDataMap}"
+      parentVerifiedDataMap="{!v.ParentVerifiedDataMap}"
       unverifiedDataMap="{!v.UnverifiedDataMap}"
+      componentIsBeingInitialised="{!v.componentIsBeingInitialised}"
+      calculationsMap="{!v.calculationsMap}"
     ></c:LiabilitiesVerificationLineComponent>
-    <c:MonthlyIncomeVerificationLineComponent
+    <!--<c:MonthlyIncomeVerificationLineComponent
       toggleCheckAll="{!v.toggleCheckAll}"
       verifiedDataMap="{!v.VerifiedDataMap}"
       unverifiedDataMap="{!v.UnverifiedDataMap}"
@@ -63,15 +79,16 @@
       toggleCheckAll="{!v.toggleCheckAll}"
       verifiedDataMap="{!v.VerifiedDataMap}"
       unverifiedDataMap="{!v.UnverifiedDataMap}"
-    ></c:MonthlyExpensesVerificationLineComponent>
+    ></c:MonthlyExpensesVerificationLineComponent>-->
     <c:NetWorthVerificationLineComponent
       toggleCheckAll="{!v.toggleCheckAll}"
-      verifiedDataMap="{!v.VerifiedDataMap}"
+      childVerifiedDataMap="{!v.VerifiedDataMap}"
+      parentVerifiedDataMap="{!v.ParentVerifiedDataMap}"
       unverifiedDataMap="{!v.UnverifiedDataMap}"
     ></c:NetWorthVerificationLineComponent>
-    <lightning:layout multipleRows="true">
+    <!--<lightning:layout multipleRows="true">
       <lightning:layoutItem size="12" mediumDeviceSize="12"
-        ><div class="slds-section-title--divider">
+        ><div class="slds-section-title-i-divider"> !!!!!!!!!!!!!!!!!!!!!!CHECK
           <h1>Debt Consolidation</h1>
         </div></lightning:layoutItem
       >
@@ -89,7 +106,7 @@
       toggleCheckAll="{!v.toggleCheckAll}"
       verifiedDataMap="{!v.VerifiedDataMap}"
       unverifiedDataMap="{!v.UnverifiedDataMap}"
-    ></c:TotalDebtConsolidatedVerificationLineItem>
+    ></c:TotalDebtConsolidatedVerificationLineItem> -->
     <lightning:layout horizontalAlign="space">
       <lightning:layoutItem size="12" mediumDeviceSize="3">
         <div class="slds-align_absolute-center slds-var-m-top_large">

@@ -803,6 +803,7 @@ window.isEmptyString = function (value) {
  * @return {Boolean} change detected
  */
 window.changeDetectedInObjects = function (oldObject, newObject, fields) {
+  console.log("change detected reached");
   if (!oldObject || !newObject || !fields) return false;
   let first, second, third;
   return fields.some((field) => {
@@ -1047,4 +1048,82 @@ window.checkProductFamily = function (component, family) {
     return selectedFlag.includes(family);
   }
   return false;
+};
+
+/**
+ * Calculate total debt amount givent a list of debts to be consolidated
+ * @param {List} debtsToBeConsolidated
+ * @return {Decimal}
+ */
+
+window.totalDebtCalculator = function (debtsToBeConsolidated) {
+  let totalDebt = 0;
+  if (debtsToBeConsolidated != null) {
+    debtsToBeConsolidated.forEach((element) => {
+      totalDebt += element.debtAmountVerified;
+    });
+  }
+  return totalDebt;
+};
+
+/**
+ * Accepts a string and chooses which total to calculate and return.
+ * @param {String} calculationKey
+ * @param {Map} dataMap
+ * @param {Map} calculationMap
+ * @param {List} debts
+ * @return
+ */
+window.financialVerificationComponentTotalsController = function (
+  calculationKey,
+  dataMap,
+  calculationMap,
+  debts
+) {
+  let result = 0;
+  console.log("data map", JSON.parse(JSON.stringify(dataMap)));
+  console.log("calculation fields", calculationMap[calculationKey]);
+  console.log("financial total controller");
+  if (calculationKey.includes("totalAsset")) {
+    result = calculateTotalAssets(calculationMap[calculationKey], dataMap);
+    console.log("total assets", result);
+    console.log("calculation key:", calculationKey);
+    dataMap.totalAssetsVerified = result;
+    return dataMap;
+  }
+  if (calculationKey.includes("totalLiabilities")) {
+    result = calculateTotalLiabilities(calculationMap[calculationKey], dataMap);
+    console.log("total liabilities", result);
+    console.log("calculation key:", calculationKey);
+    dataMap.totalLiabilitiesVerified = result;
+    return dataMap;
+  }
+  if (calculationKey.includes("netWorth")) {
+    result = calculateNetWorth(
+      dataMap.totalAssetsVerified,
+      dataMap.totalLiabilitiesVerified
+    );
+    console.log("networth", result);
+    console.log("calculation key:", calculationKey);
+    dataMap.netWorthVerified = result;
+    return dataMap;
+  }
+  if (calculationKey.includes("totalMonthlyExpensesVerified")) {
+    result = calculateTotalMonthlyExpenses(
+      calculationMap[calculationKey],
+      dataMap
+    );
+    console.log("total monthly expenses", result);
+    console.log("calculation key:", calculationKey);
+    dataMap.totalMonthlyExpensesVerified = result;
+    return dataMap;
+  }
+  if (calculationKey.includes("totalDebtConsolidatedVerified")) {
+    result = totalDebtCalculator(debts);
+    console.log("debts caonsolidated", result);
+    console.log("calculation key:", calculationKey);
+    dataMap.totalDebtConsolidatedVerified = result;
+    return dataMap;
+  }
+  return dataMap;
 };
