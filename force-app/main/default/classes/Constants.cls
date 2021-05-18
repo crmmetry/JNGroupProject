@@ -123,6 +123,7 @@ public class Constants {
     'JN Bank Insurance Premium Financing',
     'JN Bank Term Share Loan'
   };
+
   public static final String ONLY_ONE_APPLICATION = 'Sorry, you cannot add any more than one application for this opportunity. Contact your administrator.';
 
   public static final String BYPASS_CLOSED_DATE_PERMISSIONS = 'Bypass_Closed_Date';
@@ -134,4 +135,14 @@ public class Constants {
 
   public static final String TIER_ONE_QUEUE = 'Sales Development Team';
   public static final String TIER_TWO_QUEUE = 'Sales Team';
+
+  public static final String ENTITLEMENT_RECORD = 'Application Entitlement Process';
+  public static final String ACTIVE_STATUS = 'Active';
+  public static final String OPEN_STATUS = 'ADJ_Open';
+  public static final String ASSIGNED_STATUS = 'ADJ_Assigned';
+  public static final String IN_PROGRESS_STATUS = 'ADJ_In progress';
+  public static final String DEFERRED_STATUS = 'Deferred';
+  public static final String CLOSED_STATUS = 'Closed';
+  public static final String ADJUDICATOR_MILESTONE = 'Adjudicator Milestone';
+  public static final String DEFERRAL_MILESTONE = 'Deferral Manager Milestone';
 }
