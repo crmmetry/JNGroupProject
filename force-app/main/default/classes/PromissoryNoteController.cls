@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 04-20-2021
+ * @last modified on  : 05-17-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -61,7 +61,7 @@ public class PromissoryNoteController {
     }
     Apexpages.currentPage()
       .getHeaders()
-      .put('content-disposition', 'attachment; filename= PromissoryNote.pdf');
+      .put('content-disposition', 'inline; filename= PromissoryNote.pdf');
   }
 
   private Opportunity getOpportunityObj(Id OppId) {
