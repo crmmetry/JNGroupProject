@@ -587,6 +587,40 @@ The loan amount requested by {!myVariable_current.Account.FirstName}{!myVariable
             </value>
         </inputParameters>
     </actionCalls>
+    <actionCalls>
+        <processMetadataValues>
+            <name>textJson</name>
+            <value>
+                <stringValue
+        >{&quot;mentions&quot;:[],&quot;message&quot;:&quot;Hello @[{![Opportunity].OwnerId}] ,\nThe loan application \&quot; {![Opportunity].Name} \&quot;  is  {![Opportunity].Final_Assessment_Decision_list__c} .\n\nThank You&quot;}</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_20_A1</name>
+        <label>Send Chatter Post Notification to Opportunity Owner</label>
+        <locationX>2000</locationX>
+        <locationY>200</locationY>
+        <actionName>chatterPost</actionName>
+        <actionType>chatterPost</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>text</name>
+            <value>
+                <stringValue>Hello @[{!myVariable_current.OwnerId}] ,
+The loan application &quot; {!myVariable_current.Name} &quot;  is  {!myVariable_current.Final_Assessment_Decision_list__c} .
+
+Thank You</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>type</name>
+        </inputParameters>
+        <inputParameters>
+            <name>subjectNameOrId</name>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
     <apiVersion>51.0</apiVersion>
     <assignments>
         <name>myAssignment_myRule_11_A2</name>
@@ -664,7 +698,8 @@ The loan amount requested by {!myVariable_current.Account.FirstName}{!myVariable
         <locationX>0</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>myDecision</targetReference>
+            <targetReference
+      >isChangedDecision21_myRule_20_Final_Assessment_Decision_list_c</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
@@ -688,10 +723,49 @@ The loan amount requested by {!myVariable_current.Account.FirstName}{!myVariable
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myDecision</targetReference>
+                <targetReference
+        >isChangedDecision21_myRule_20_Final_Assessment_Decision_list_c</targetReference>
             </connector>
             <label
       >isChangedRule_16_myRule_15_Final_Assessment_Decision_list_c</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name
+    >isChangedDecision21_myRule_20_Final_Assessment_Decision_list_c</name>
+        <label
+    >isChangedDecision21_myRule_20_Final_Assessment_Decision_list_c</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name
+      >isChangedRule_21_myRule_20_Final_Assessment_Decision_list_c</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>myVariable_old</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference
+        >myVariable_old.Final_Assessment_Decision_list__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference
+          >myVariable_current.Final_Assessment_Decision_list__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myDecision</targetReference>
+            </connector>
+            <label
+      >isChangedRule_21_myRule_20_Final_Assessment_Decision_list_c</label>
         </rules>
     </decisions>
     <decisions>
@@ -1188,6 +1262,9 @@ The loan amount requested by {!myVariable_current.Account.FirstName}{!myVariable
         <label>myDecision17</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision19</targetReference>
+        </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
             <name>myRule_18</name>
@@ -1453,6 +1530,187 @@ The loan amount requested by {!myVariable_current.Account.FirstName}{!myVariable
                 <targetReference>myRule_18_A1</targetReference>
             </connector>
             <label>Closed Won</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>9.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision19</name>
+        <label>myDecision19</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_20</name>
+            <conditionLogic>1 AND 2 AND (3 OR 4 OR 5)</conditionLogic>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference
+        >myVariable_current.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Rubicon</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference
+        >isChangedRule_21_myRule_20_Final_Assessment_Decision_list_c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference
+        >myVariable_current.Final_Assessment_Decision_list__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Approved</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference
+        >myVariable_current.Final_Assessment_Decision_list__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Referred</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference
+        >myVariable_current.Final_Assessment_Decision_list__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Denied</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_20_A1</targetReference>
+            </connector>
+            <label>Final Assessment-Referred/Approved/Denied</label>
         </rules>
     </decisions>
     <decisions>
@@ -2351,7 +2609,7 @@ The loan amount requested by {!myVariable_current.Account.FirstName}{!myVariable
             <label>Financial Assessment Submission- Approved</label>
         </rules>
     </decisions>
-    <interviewLabel>Rubicon_Path_Automation-18_InterviewLabel</interviewLabel>
+    <interviewLabel>Rubicon_Path_Automation-25_InterviewLabel</interviewLabel>
     <label>Rubicon Path Automation</label>
     <processMetadataValues>
         <name>ObjectType</name>
