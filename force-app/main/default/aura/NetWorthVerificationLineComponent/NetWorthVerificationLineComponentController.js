@@ -18,7 +18,6 @@
         let inputCmpIdList = component.get("v.auraIdList");
         inputCmpIdList.forEach((element) => {
           let inputCmp = component.find(element);
-          //inputCmp.set("v.disabled", true);
           let unverifiedCmp = component.find(element.concat("Unverified"));
           inputCmp.set("v.value", unverifiedCmp.get("v.value"));
         });
@@ -27,7 +26,6 @@
         let inputCmpIdList = component.get("v.auraIdList");
         inputCmpIdList.forEach((element) => {
           let inputCmp = component.find(element);
-          // inputCmp.set("v.disabled", false);
           inputCmp.set("v.value", null);
         });
       }

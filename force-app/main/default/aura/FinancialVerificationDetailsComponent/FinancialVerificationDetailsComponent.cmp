@@ -86,9 +86,9 @@ $Resource.productDetailsGeneralFunctions)}"
       parentVerifiedDataMap="{!v.ParentVerifiedDataMap}"
       unverifiedDataMap="{!v.UnverifiedDataMap}"
     ></c:NetWorthVerificationLineComponent>
-    <!--<lightning:layout multipleRows="true">
+    <lightning:layout multipleRows="true">
       <lightning:layoutItem size="12" mediumDeviceSize="12"
-        ><div class="slds-section-title-i-divider"> !!!!!!!!!!!!!!!!!!!!!!CHECK
+        ><div class="slds-section-title--divider">
           <h1>Debt Consolidation</h1>
         </div></lightning:layoutItem
       >
@@ -106,7 +106,7 @@ $Resource.productDetailsGeneralFunctions)}"
       toggleCheckAll="{!v.toggleCheckAll}"
       verifiedDataMap="{!v.VerifiedDataMap}"
       unverifiedDataMap="{!v.UnverifiedDataMap}"
-    ></c:TotalDebtConsolidatedVerificationLineItem> -->
+    ></c:TotalDebtConsolidatedVerificationLineItem>
     <lightning:layout horizontalAlign="space">
       <lightning:layoutItem size="12" mediumDeviceSize="3">
         <div class="slds-align_absolute-center slds-var-m-top_large">
