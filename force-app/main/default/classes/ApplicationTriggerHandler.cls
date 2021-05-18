@@ -2,8 +2,8 @@
  * @description       : To Validate that one opportunity have one application
  * @author            : Tushar Chopade(Thinqloud)
  * @group             :
- * @last modified on  : 04-21-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 05-18-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                      Modification
  * 1.0   04-20-2021   Tushar Chopade(Thinqloud)   Initial Version
@@ -50,5 +50,72 @@ public class ApplicationTriggerHandler {
         }
       }
     }
+  }
+
+  /**
+   * @description : This method is used when the application is accepted from the ADJ
+   * @author Ishwari Gaikwad(Thinqloud) | 05-18-2021
+   **/
+  public static void changeApplicationStatus() {
+    Map<String, Group> groupMap = getQueueMap();
+    Map<String, List<Id>> groupMemMap = getGroupsMembersMap();
+    for (Application__c newAppRecord : newRecords) {
+      if (
+        newAppRecord.OwnerId <> oldMap.get(newAppRecord.Id).OwnerId &&
+        newAppRecord.Adjudication_Path_picklist__c == Constants.OPEN_STATUS
+      ) {
+        if (
+          oldMap.get(newAppRecord.Id).OwnerId ==
+          groupMap.get(Constants.REFERRED_QUEUE_NAME).Id &&
+          groupMemMap.get(Constants.REFERRED_QUEUE_NAME)
+            .contains(newAppRecord.OwnerId)
+        ) {
+          newAppRecord.Adjudication_Path_picklist__c = Constants.ASSIGNED_STATUS;
+        }
+      }
+    }
+  }
+
+  /**
+   * @description : This method is used to get map of group from salesforce
+   * @author Ishwari Gaikwad(Thinqloud) | 05-18-2021
+   * @return Map<String, Group>
+   **/
+  private static Map<String, Group> getQueueMap() {
+    Map<String, Group> groupMap = new Map<String, Group>();
+    for (Group grp : [
+      SELECT Id, Name, DeveloperName
+      FROM Group
+      WHERE Type = 'Queue'
+    ]) {
+      groupMap.put(grp.DeveloperName, grp);
+    }
+    return groupMap;
+  }
+
+  /**
+   * @description : This method is used to get map of group members from salesforce
+   * @author Ishwari Gaikwad(Thinqloud) | 05-18-2021
+   * @return Map<String, List<Id>>
+   **/
+  private static Map<String, List<Id>> getGroupsMembersMap() {
+    List<GroupMember> groupList = [
+      SELECT UserOrGroupId, Group.DeveloperName
+      FROM GroupMember
+    ];
+    Map<String, List<Id>> groupMap = new Map<String, List<Id>>();
+    for (GroupMember groups : groupList) {
+      if (groupMap.containsKey(groups.Group.DeveloperName)) {
+        List<Id> grpMemberList = groupMap.get(groups.Group.DeveloperName);
+        grpMemberList.add(groups.UserOrGroupId);
+        groupMap.put(groups.Group.DeveloperName, grpMemberList);
+      } else {
+        groupMap.put(
+          groups.Group.DeveloperName,
+          new List<Id>{ groups.UserOrGroupId }
+        );
+      }
+    }
+    return groupMap;
   }
 }
