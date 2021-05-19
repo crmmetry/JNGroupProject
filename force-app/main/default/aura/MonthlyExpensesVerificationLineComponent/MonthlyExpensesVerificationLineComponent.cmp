@@ -2,7 +2,7 @@
   @description       : 
   @author            : Travis Allen
   @group             : 
-  @last modified on  : 05-12-2021
+  @last modified on  : 05-19-2021
   @last modified by  : Travis Allen
   Modifications Log 
   Ver   Date         Author         Modification
@@ -11,20 +11,21 @@
 <aura:component>
   <aura:attribute name="toggleCheckAll" type="Boolean" default="false" />
   <aura:attribute name="auraIdList" type="List" />
-  <aura:attribute name="verifiedMonthlyExpensesMap" type="Map" />
-  <aura:attribute name="verifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="VerifiedTotalsMap" type="Map" />
+  <aura:attribute name="childVerifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="parentVerifiedDataMap" type="Map" default="{}" />
   <aura:attribute name="unverifiedDataMap" type="Map" default="{}" />
 
   <aura:attribute
     name="calculatedFieldIds"
     type="List"
-    default="['totalMonthlyExpenses','totalStatuaryDeductions']"
+    default="['totalMonthlyExpenses']"
   />
 
   <aura:handler
     name="change"
-    action="{!c.onVerifiedMonthlyExpensesMapChange}"
-    value="{!v.verifiedMonthlyExpensesMap}"
+    action="{!c.onChildVerifiedDataMapChange}"
+    value="{!v.childVerifiedDataMap}"
   />
   <aura:registerEvent
     name="MonthlyExpensesEvent"
@@ -88,7 +89,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.totalMonthlyLoanPaymentsVerified}"
+        value="{!v.childVerifiedDataMap.totalMonthlyLoanPaymentsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 2 -->
@@ -122,7 +123,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.mortgagePaymentVerified}"
+        value="{!v.childVerifiedDataMap.mortgagePaymentVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 3 -->
@@ -160,7 +161,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.utilitiesAndHouseholdExpensesVerified}"
+        value="{!v.childVerifiedDataMap.utilitiesAndHouseholdExpensesVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 4 -->
@@ -196,7 +197,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.personalAndFamilyExpensesVerified}"
+        value="{!v.childVerifiedDataMap.personalAndFamilyExpensesVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 5 -->
@@ -234,7 +235,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.transportationExpensesVerified}"
+        value="{!v.childVerifiedDataMap.transportationExpensesVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 6 -->
@@ -272,7 +273,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.otherExpensesVerified}"
+        value="{!v.childVerifiedDataMap.otherExpensesVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 7 -->
@@ -306,8 +307,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        disabled="true"
-        value="{!v.verifiedDataMap.totalStatutoryDeductionsVerified}"
+        value="{!v.childVerifiedDataMap.totalStatutoryDeductionsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 8 -->
@@ -342,7 +342,7 @@
         step="0.01"
         placeholder="NULL"
         disabled="true"
-        value="{!v.verifiedDataMap.totalMonthlyExpensesVerified}"
+        value="{!v.VerifiedTotalsMap.totalMonthlyExpensesVerified}"
       ></lightning:input>
     </lightning:layoutItem>
   </lightning:layout>

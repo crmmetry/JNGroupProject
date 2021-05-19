@@ -15,20 +15,6 @@
       "totalMonthlyIncome"
     ];
     component.set("v.auraIdList", auraList);
-    let verifiedMonthlyIncome = {
-      primarySourceOfIncome: null,
-      grossSalaryAllowances: null,
-      otherIncome: null,
-      netBusinessIncomeSoleTrader: null,
-      netBusinessIncomePartnership: null,
-      netBusinessIncomeCompanyShareholding: null,
-      directorEmoluments: null,
-      pensionIncome: null,
-      propertyRental: null,
-      totalOtherIncome: null,
-      totalMonthlyIncome: null
-    };
-    component.set("v.verifiedMonthlyIncomeMap", verifiedMonthlyIncome);
   },
   onToggleCheckAlChange: function (component, event, helper) {
     let checkBoxCmp = component.find("verificationToggle");
@@ -68,6 +54,13 @@
         });
       }
     });
+  },
+
+  onPrimarySourceOfIncomeChange: function (component, event, helper) {
+    let selected = component.find("primaryIncomeSource").get("v.value");
+    let verifiedDataMap = component.get("verifiedDataMap");
+    verifiedDataMap["primarySourceOfIncomeVerified"] = selected;
+    component.set("v.verifiedDataMap", verifiedDataMap);
   },
 
   fireComponentEvent: function (cmp, event) {

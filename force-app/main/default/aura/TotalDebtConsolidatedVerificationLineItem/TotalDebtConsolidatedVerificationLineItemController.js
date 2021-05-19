@@ -65,10 +65,13 @@
     }
   },
 
-  onVerifiedAssetsMapChange: function (component, event) {
-    let totalDebt = component.get("v.totalDebtMap");
-    let verifiedData = component.get("v.verifiedDataMap");
-    let data = Object.assign(verifiedData, totalDebt);
-    component.set("v.verifiedDataMap", data);
+  onChildVerifiedDataMapChange: function (component, event, helper) {
+    if (!component.get("v.componentIsBeingInitialised")) {
+      console.log("Verified Child container map changed");
+      component.set(
+        "v.parentVerifiedDataMap",
+        component.get("v.childVerifiedDataMap")
+      );
+    }
   }
 });

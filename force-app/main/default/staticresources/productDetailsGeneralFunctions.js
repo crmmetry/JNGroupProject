@@ -1060,7 +1060,7 @@ window.totalDebtCalculator = function (debtsToBeConsolidated) {
   let totalDebt = 0;
   if (debtsToBeConsolidated != null) {
     debtsToBeConsolidated.forEach((element) => {
-      totalDebt += element.debtAmountVerified;
+      totalDebt += parseFloat(element.debtAmountVerified);
     });
   }
   return totalDebt;
@@ -1078,52 +1078,41 @@ window.financialVerificationComponentTotalsController = function (
   calculationKey,
   dataMap,
   calculationMap,
-  debts
+  debts,
+  totalsMap
 ) {
   let result = 0;
-  console.log("data map", JSON.parse(JSON.stringify(dataMap)));
-  console.log("calculation fields", calculationMap[calculationKey]);
   console.log("financial total controller");
   if (calculationKey.includes("totalAsset")) {
     result = calculateTotalAssets(calculationMap[calculationKey], dataMap);
-    console.log("total assets", result);
-    console.log("calculation key:", calculationKey);
-    dataMap.totalAssetsVerified = result;
-    return dataMap;
+    totalsMap.totalAssetsVerified = result;
+    return totalsMap;
   }
   if (calculationKey.includes("totalLiabilities")) {
     result = calculateTotalLiabilities(calculationMap[calculationKey], dataMap);
-    console.log("total liabilities", result);
-    console.log("calculation key:", calculationKey);
-    dataMap.totalLiabilitiesVerified = result;
-    return dataMap;
+    totalsMap.totalLiabilitiesVerified = result;
+    return totalsMap;
   }
   if (calculationKey.includes("netWorth")) {
     result = calculateNetWorth(
-      dataMap.totalAssetsVerified,
-      dataMap.totalLiabilitiesVerified
+      totalsMap.totalAssetsVerified,
+      totalsMap.totalLiabilitiesVerified
     );
-    console.log("networth", result);
-    console.log("calculation key:", calculationKey);
-    dataMap.netWorthVerified = result;
-    return dataMap;
+    totalsMap.netWorthVerified = result;
+    return totalsMap;
   }
   if (calculationKey.includes("totalMonthlyExpensesVerified")) {
     result = calculateTotalMonthlyExpenses(
       calculationMap[calculationKey],
       dataMap
     );
-    console.log("total monthly expenses", result);
-    console.log("calculation key:", calculationKey);
-    dataMap.totalMonthlyExpensesVerified = result;
-    return dataMap;
+    totalsMap.totalMonthlyExpensesVerified = result;
+    return totalsMap;
   }
   if (calculationKey.includes("totalDebtConsolidatedVerified")) {
     result = totalDebtCalculator(debts);
-    console.log("debts caonsolidated", result);
-    console.log("calculation key:", calculationKey);
-    dataMap.totalDebtConsolidatedVerified = result;
-    return dataMap;
+    totalsMap.totalDebtConsolidatedVerified = result;
+    return totalsMap;
   }
-  return dataMap;
+  return totalsMap;
 };

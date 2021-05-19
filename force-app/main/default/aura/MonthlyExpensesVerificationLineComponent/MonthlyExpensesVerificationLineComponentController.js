@@ -32,10 +32,7 @@
         let inputCmpIdList = component.get("v.auraIdList");
         inputCmpIdList.forEach((element) => {
           let inputCmp = component.find(element);
-          if (
-            element == "totalMonthlyExpenses" ||
-            element == "totalStatuaryDeductions"
-          ) {
+          if (element == "totalMonthlyExpenses") {
             let unverifiedCmp = component.find(element.concat("Unverified"));
             inputCmp.set("v.value", unverifiedCmp.get("v.value"));
           } else {
@@ -49,10 +46,7 @@
         let inputCmpIdList = component.get("v.auraIdList");
         inputCmpIdList.forEach((element) => {
           let inputCmp = component.find(element);
-          if (
-            element == "totalMonthlyExpenses" ||
-            element == "totalStatuaryDeductions"
-          ) {
+          if (element == "totalMonthlyExpenses") {
             inputCmp.set("v.value", null);
           } else {
             inputCmp.set("v.disabled", false);
@@ -96,12 +90,11 @@
     }
   },
 
-  onVerifiedMonthlyExpensesMapChange: function (component, event) {
-    let verifiedMonthlyExpensesData = component.get(
-      "v.verifiedMonthlyExpensesMap"
+  onChildVerifiedDataMapChange: function (component, event, helper) {
+    console.log("Verified Child container map changed");
+    component.set(
+      "v.parentVerifiedDataMap",
+      component.get("v.childVerifiedDataMap")
     );
-    let verifiedData = component.get("v.verifiedDataMap");
-    let data = Object.assign(verifiedData, verifiedMonthlyExpensesData);
-    component.set("v.verifiedDataMap", data);
   }
 });

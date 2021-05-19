@@ -2,7 +2,7 @@
   @description       : 
   @author            : Travis Allen
   @group             : 
-  @last modified on  : 05-18-2021
+  @last modified on  : 05-19-2021
   @last modified by  : Travis Allen
   Modifications Log 
   Ver   Date         Author         Modification
@@ -12,14 +12,10 @@
   <aura:attribute name="toggleCheckAll" type="Boolean" />
   <aura:attribute name="auraIdList" type="List" />
   <aura:attribute name="verifiedNetWorthMap" type="Map" />
-  <aura:attribute name="childVerifiedDataMap" type="Map" />
+  <aura:attribute name="VerifiedTotalsMap" type="Map" />
   <aura:attribute name="parentVerifiedDataMap" type="Map" />
   <aura:attribute name="unverifiedDataMap" type="Map" default="{}" />
-  <aura:handler
-    name="change"
-    action="{!c.onChildVerifiedDataMapChange}"
-    value="{!v.childVerifiedDataMap}"
-  />
+
   <aura:registerEvent name="NetWorthEvent" type="c:NetWorthVerificationEvent" />
   <aura:handler
     name="NetWorthEvent"
@@ -76,7 +72,7 @@
         step="0.01"
         placeholder="NULL"
         disabled="true"
-        value="{!v.childVerifiedDataMap.totalAssetsVerified}"
+        value="{!v.VerifiedTotalsMap.totalAssetsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 2 -->
@@ -111,7 +107,7 @@
         step="0.01"
         placeholder="NULL"
         disabled="true"
-        value="{!v.childVerifiedDataMap.totalLiabilitiesVerified}"
+        value="{!v.VerifiedTotalsMap.totalLiabilitiesVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 3 -->
@@ -146,7 +142,7 @@
         step="0.01"
         placeholder="NULL"
         disabled="true"
-        value="{!v.childVerifiedDataMap.netWorthVerified}"
+        value="{!v.VerifiedTotalsMap.netWorthVerified}"
       ></lightning:input>
     </lightning:layoutItem>
   </lightning:layout>

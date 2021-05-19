@@ -35,20 +35,16 @@
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
         component.set("v.ConsolidatedDebts", result);
+        console.log(JSON.stringify(result));
       }
     });
     $A.enqueueAction(action);
   },
 
   saveFinancialDetailsAndDebtsHelper: function (component) {
-    let verifiedFinancialData;
-    if (component.get("v.VerifiedDataMapWithUpdatedTotals")) {
-      verifiedFinancialData = component.get(
-        "v.VerifiedDataMapWithUpdatedTotals"
-      );
-    } else {
-      verifiedFinancialData = component.get("v.VerifiedDataMap");
-    }
+    let verifiedFinancialData = component.get(
+      "v.VerifiedDataMapWithUpdatedTotals"
+    );
     let debtConsolidated = component.get("v.ConsolidatedDebts");
     let oppId = component.get("v.recordId");
     let action = component.get("c.saveFinancialDetailsAndConsolidatedDebts");
@@ -92,8 +88,22 @@
       }
     }
     component.set("v.VerifiedDataMap", verifiedMap);
-    component.set("v.oldVerifiedDataMap", verifiedMap);
     component.set("v.UnverifiedDataMap", unverifiedMap);
+    this.parseTotalFields(component);
+    component.set("v.componentIsBeingInitialised", false);
+  },
+
+  parseTotalFields: function (component) {
+    let verifiedMap = component.get("v.VerifiedDataMap");
+    let totalFields = Object.keys(component.get("v.calculationsMap"));
+    let totalsMap = new Map();
+    for (let key in verifiedMap) {
+      if (totalFields.includes(key)) {
+        totalsMap[key] = verifiedMap[key];
+      }
+    }
+    console.log("totals Map: ", JSON.parse(JSON.stringify(totalsMap)));
+    component.set("v.VerifiedTotalsMap", totalsMap);
     component.set("v.componentIsBeingInitialised", false);
   },
 
@@ -119,6 +129,7 @@
     });
     component.set("v.VerifiedDebts", verifiedDebts);
     component.set("v.UnverifiedDebts", unverifiedDebts);
+    component.set("v.componentIsBeingInitialised", false);
   },
 
   updateOpportunity: function (component, fieldName, value, btnLabel) {

@@ -57,9 +57,5 @@
     } else {
       inputCmp.set("v.value", null);
     }
-  },
-  onChildVerifiedDataMapChange: function (component, event) {
-    // console.log("Verified Child container map changed")
-    // component.set("v.parentVerifiedDataMap", component.get("v.childVerifiedDataMap"));
   }
 });

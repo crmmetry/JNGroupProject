@@ -2,7 +2,7 @@
   @description       : 
   @author            : Travis Allen
   @group             : 
-  @last modified on  : 05-12-2021
+  @last modified on  : 05-19-2021
   @last modified by  : Travis Allen
   Modifications Log 
   Ver   Date         Author         Modification
@@ -13,12 +13,14 @@
   <aura:attribute name="auraIdList" type="List" />
   <aura:attribute name="debtInfo" type="Map" />
   <aura:attribute name="unverifiedDataMap" type="Map" default="{}" />
-  <aura:attribute name="verifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="childVerifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="VerifiedTotalsMap" type="Map" default="{}" />
+  <aura:attribute name="parentVerifiedDataMap" type="Map" default="{}" />
   <aura:attribute name="totalDebtMap" type="Map" default="{}" />
   <aura:attribute
     name="calculatedFieldIds"
     type="List"
-    default="['totalMonthlyPayment','totalDebt']"
+    default="['totalDebt']"
   />
   <aura:registerEvent
     name="TotalDebtConsolidatedEvent"
@@ -28,6 +30,11 @@
     name="TotalDebtConsolidatedEvent"
     event="c:TotalDebtConsolidatedVerificationEvent"
     action="{!c.handleComponentEvent}"
+  />
+  <aura:handler
+    name="change"
+    action="{!c.onChildVerifiedDataMapChange}"
+    value="{!v.childVerifiedDataMap}"
   />
   <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
   <aura:handler
@@ -71,7 +78,7 @@
         step="0.01"
         placeholder="NULL"
         disabled="true"
-        value="{!v.verifiedDataMap.totalDebtConsolidatedVerified}"
+        value="{!v.VerifiedTotalsMap.totalDebtConsolidatedVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -106,8 +113,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        disabled="true"
-        value="{!v.verifiedDataMap.totalMonthlyPaymentVerified}"
+        value="{!v.childVerifiedDataMap.totalMonthlyPaymentVerified}"
       ></lightning:input>
     </lightning:layoutItem>
   </lightning:layout>

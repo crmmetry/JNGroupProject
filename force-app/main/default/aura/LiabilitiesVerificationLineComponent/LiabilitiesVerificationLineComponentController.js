@@ -77,25 +77,12 @@
   },
 
   onChildVerifiedDataMapChange: function (component, event, helper) {
-    let oldChildVerifiedDataMap = event.getParam("oldValue");
-    let newChildVerifiedDataMap = event.getParam("value");
-    let calculationMap = component.get("v.calculationsMap");
-    //checks if the component is being initialised and if the parent needs to be notified
     if (!component.get("v.componentIsBeingInitialised")) {
-      //check if change was caused by user input
-      if (
-        !changeDetectedInObjects(
-          oldChildVerifiedDataMap,
-          newChildVerifiedDataMap,
-          Object.keys(calculationMap)
-        )
-      ) {
-        console.log("Verified Child container map changed");
-        component.set(
-          "v.parentVerifiedDataMap",
-          component.get("v.childVerifiedDataMap")
-        );
-      }
+      console.log("Verified Child container map changed");
+      component.set(
+        "v.parentVerifiedDataMap",
+        component.get("v.childVerifiedDataMap")
+      );
     }
   }
 });

@@ -29,6 +29,22 @@
     });
   },
 
+  onDebtTypeChange: function (component, event) {
+    let selected = component.find("debtType").get("v.value");
+    let debtInfo = component.get("v.debtInfo");
+    debtInfo["debtTypeVerified"] = selected;
+    component.set("v.debtInfo", debtInfo);
+    console.log("debt info: ", JSON.parse(JSON.stringify(debtInfo)));
+  },
+
+  onInstitutionDebtChange: function (component, event) {
+    let selected = component.find("debtInstitution").get("v.value");
+    let debtInfo = component.get("v.debtInfo");
+    debtInfo["institutionDebtVerified"] = selected;
+    component.set("v.debtInfo", debtInfo);
+    console.log("debt info: ", JSON.parse(JSON.stringify(debtInfo)));
+  },
+
   fireComponentEvent: function (cmp, event) {
     let cmpEvent = cmp.getEvent("DebtConsolidationEvent");
     let checkBoxCmpName = event.getSource().get("v.name");

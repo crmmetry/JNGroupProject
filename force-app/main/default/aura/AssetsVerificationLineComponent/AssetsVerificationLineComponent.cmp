@@ -2,7 +2,7 @@
   @description       : 
   @author            : Travis Allen
   @group             : 
-  @last modified on  : 05-18-2021
+  @last modified on  : 05-19-2021
   @last modified by  : Travis Allen
   Modifications Log 
   Ver   Date         Author         Modification
@@ -14,8 +14,8 @@
   <aura:attribute name="toggleCheckAll" type="Boolean" />
   <aura:attribute name="auraIdList" type="List" />
   <aura:attribute name="verifiedAssetsMap" type="Map" />
-  <aura:attribute name="childVerifiedDataMap" type="Map" default="{}" />
-  <aura:attribute name="parentVerifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="childVerifiedDataMap" type="Map" />
+  <aura:attribute name="parentVerifiedDataMap" type="Map" />
   <aura:attribute name="unverifiedDataMap" type="Map" default="{}" />
   <aura:attribute name="calculationsMap" type="Map" />
   <aura:attribute name="componentIsBeingInitialised" type="Boolean" />

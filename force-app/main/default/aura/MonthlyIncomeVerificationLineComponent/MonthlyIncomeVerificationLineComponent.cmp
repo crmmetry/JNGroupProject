@@ -2,7 +2,7 @@
   @description       : 
   @author            : Travis Allen
   @group             : 
-  @last modified on  : 05-13-2021
+  @last modified on  : 05-19-2021
   @last modified by  : Travis Allen
   Modifications Log 
   Ver   Date         Author         Modification
@@ -81,12 +81,14 @@
         aura:id="primaryIncomeSource"
         name="primarySourceOFIncome"
         label=""
+        onchange="{!c.onPrimarySourceOfIncomeChange}"
       >
-        <option value="{!v.verifiedDataMap.primarySourceOfIncomeVerified}"
-          >{!v.verifiedDataMap.primarySourceOfIncomeVerified}</option
-        >
         <aura:iteration items="{!v.primarySourceOfIncome}" var="item">
-          <option value="{!item}">{!item}</option>
+          <option
+            selected="{!v.verifiedDataMap.primarySourceOfIncomeVerified == item}"
+            value="{!item}"
+            >{!item}</option
+          >
         </aura:iteration>
       </lightning:select>
     </lightning:layoutItem>

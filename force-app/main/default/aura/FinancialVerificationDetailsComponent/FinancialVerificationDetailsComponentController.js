@@ -1,7 +1,7 @@
 ({
   doinit: function (component, event, helper) {
     let calculationsMap = {
-      totalAssets: [
+      totalAssetsVerified: [
         "realEstateHoldingsAssetsVerified",
         "motorVehicleAssetsVerified",
         "savingsAccountInvestmentAssetsVerified",
@@ -9,7 +9,7 @@
         "pensionAssetsVerified",
         "otherAssetsVerified"
       ],
-      totalLiabilities: [
+      totalLiabilitiesVerified: [
         "mortgageBalanceVerified",
         "outstandingBalanceOnLoansVerified",
         "outstandingBalanceOnLoansVerified",
@@ -17,15 +17,14 @@
         "otherDebtsVerified"
       ],
       netWorthVerified: ["totalAssetsVerified", "totalLiabilitiesVerified"],
+
       totalMonthlyExpensesVerified: [
         "totalMonthlyLoanPaymentsVerified",
         "mortgagePaymentVerified",
         "utilitiesAndHouseholdExpensesVerified",
         "personalAndFamilyExpensesVerified",
         "transportationExpensesVerified",
-        "otherExpensesVerified",
-        "totalStatutoryDeductionsVerified",
-        "totalMonthlyExpensesVerified"
+        "otherExpensesVerified"
       ],
       totalDebtConsolidatedVerified: ["debtAmountVerified"]
     };
@@ -94,24 +93,41 @@
     const index = event.getParam("index");
     const consolidatedDebts = component.get("v.ConsolidatedDebts");
     consolidatedDebts[index] = debtData;
+    console.log(
+      JSON.parse(JSON.stringify(component.get("v.ConsolidatedDebts")))
+    );
   },
 
   onParentVerifiedDataMapChange: function (component, event, helper) {
     if (component.get("v.scriptsLoaded")) {
+      const debtData = event.getParam("data");
+      const index = event.getParam("index");
+      const consolidatedDebts = component.get("v.ConsolidatedDebts");
+      consolidatedDebts[index] = debtData;
+      console.log(
+        JSON.parse(JSON.stringify(component.get("v.ConsolidatedDebts")))
+      );
       let newVerifiedDataMap = component.get("v.ParentVerifiedDataMap");
-      let debtsToBeCalculated = component.get("v.ConsolidatedDebts");
+      let totalsMap = component.get("v.VerifiedTotalsMap");
       let calculationMap = component.get("v.calculationsMap");
       Object.keys(calculationMap).forEach((key) => {
-        newVerifiedDataMap = financialVerificationComponentTotalsController(
+        totalsMap = financialVerificationComponentTotalsController(
           key,
           newVerifiedDataMap,
           calculationMap,
-          debtsToBeCalculated
+          consolidatedDebts,
+          totalsMap
         );
-        console.log(JSON.parse(JSON.stringify(newVerifiedDataMap)));
       });
-      component.set("v.VerifiedDataMapWithUpdatedTotals", newVerifiedDataMap);
-      component.set("v.VerifiedDataMap", newVerifiedDataMap);
+      let newMapWithUpdatedTotals = Object.assign(
+        newVerifiedDataMap,
+        totalsMap
+      );
+      component.set(
+        "v.VerifiedDataMapWithUpdatedTotals",
+        newMapWithUpdatedTotals
+      );
+      component.set("v.VerifiedTotalsMap", totalsMap);
     }
   },
 

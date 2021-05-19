@@ -2,7 +2,7 @@
   @description       : 
   @author            : Travis Allen
   @group             : 
-  @last modified on  : 05-13-2021
+  @last modified on  : 05-19-2021
   @last modified by  : Travis Allen
   Modifications Log 
   Ver   Date         Author         Modification
@@ -84,12 +84,17 @@
       </div>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <lightning:select aura:id="debtType" name="debtType">
-        <option value="{!v.debtInfo.debtTypeVerified}"
-          >{!v.debtInfo.debtTypeVerified}</option
-        >
+      <lightning:select
+        aura:id="debtType"
+        name="debtType"
+        onchange="{!c.onDebtTypeChange}"
+      >
         <aura:iteration items="{!v.debtTypeList}" var="item">
-          <option value="{!item}">{!item}</option>
+          <option
+            selected="{!v.debtInfo.debtTypeVerified == item}"
+            value="{!item}"
+            >{!item}</option
+          >
         </aura:iteration>
       </lightning:select>
     </lightning:layoutItem>
@@ -116,12 +121,17 @@
       </div>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <lightning:select aura:id="debtInstitution" name="debtInstitution">
-        <option value="{!v.debtInfo.institutionDebtVerified}"
-          >{!v.debtInfo.institutionDebtVerified}</option
-        >
+      <lightning:select
+        aura:id="debtInstitution"
+        name="debtInstitution"
+        onchange="{!c.onInstitutionDebtChange}"
+      >
         <aura:iteration items="{!v.institutionDebtList}" var="item">
-          <option value="{!item}">{!item}</option>
+          <option
+            selected="{!v.debtInfo.institutionDebtVerified == item}"
+            value="{!item}"
+            >{!item}</option
+          >
         </aura:iteration>
       </lightning:select>
     </lightning:layoutItem>
