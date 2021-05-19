@@ -18,7 +18,6 @@
   <aura:attribute name="parentVerifiedDataMap" type="Map" />
   <aura:attribute name="unverifiedDataMap" type="Map" default="{}" />
   <aura:attribute name="calculationsMap" type="Map" />
-  <aura:attribute name="componentIsBeingInitialised" type="Boolean" />
 
   <aura:handler
     name="change"

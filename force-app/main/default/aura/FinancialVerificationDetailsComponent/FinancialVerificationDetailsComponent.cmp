@@ -13,11 +13,6 @@
   controller="FinancialDetailsController"
 >
   <aura:attribute name="recordId" type="Id" />
-  <aura:attribute
-    name="componentIsBeingInitialised"
-    type="Boolean"
-    default="true"
-  />
   <aura:attribute name="shouldNotifyParent" type="Boolean" />
   <aura:attribute name="FinancialDataMap" type="Map" default="{}" />
   <aura:attribute name="listOfDebtIndices" type="List" default="0" />

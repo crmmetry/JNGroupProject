@@ -34,7 +34,6 @@
     let debtInfo = component.get("v.debtInfo");
     debtInfo["debtTypeVerified"] = selected;
     component.set("v.debtInfo", debtInfo);
-    console.log("debt info: ", JSON.parse(JSON.stringify(debtInfo)));
   },
 
   onInstitutionDebtChange: function (component, event) {
@@ -42,7 +41,6 @@
     let debtInfo = component.get("v.debtInfo");
     debtInfo["institutionDebtVerified"] = selected;
     component.set("v.debtInfo", debtInfo);
-    console.log("debt info: ", JSON.parse(JSON.stringify(debtInfo)));
   },
 
   fireComponentEvent: function (cmp, event) {

@@ -49,7 +49,6 @@
 
   scriptsLoaded: function (component, event, helper) {
     component.set("v.scriptsLoaded", true);
-    console.log(component.get("v.scriptsLoaded"));
     helper.getFinancialInfo(component);
     helper.getDebtsTobeConsolidated(component);
   },
@@ -88,25 +87,12 @@
     }
   },
 
-  handleDebtInfoEvent: function (component, event) {
-    const debtData = event.getParam("data");
-    const index = event.getParam("index");
-    const consolidatedDebts = component.get("v.ConsolidatedDebts");
-    consolidatedDebts[index] = debtData;
-    console.log(
-      JSON.parse(JSON.stringify(component.get("v.ConsolidatedDebts")))
-    );
-  },
-
   onParentVerifiedDataMapChange: function (component, event, helper) {
     if (component.get("v.scriptsLoaded")) {
       const debtData = event.getParam("data");
       const index = event.getParam("index");
       const consolidatedDebts = component.get("v.ConsolidatedDebts");
       consolidatedDebts[index] = debtData;
-      console.log(
-        JSON.parse(JSON.stringify(component.get("v.ConsolidatedDebts")))
-      );
       let newVerifiedDataMap = component.get("v.ParentVerifiedDataMap");
       let totalsMap = component.get("v.VerifiedTotalsMap");
       let calculationMap = component.get("v.calculationsMap");

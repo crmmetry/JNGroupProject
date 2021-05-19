@@ -803,7 +803,6 @@ window.isEmptyString = function (value) {
  * @return {Boolean} change detected
  */
 window.changeDetectedInObjects = function (oldObject, newObject, fields) {
-  console.log("change detected reached");
   if (!oldObject || !newObject || !fields) return false;
   let first, second, third;
   return fields.some((field) => {
@@ -1082,7 +1081,6 @@ window.financialVerificationComponentTotalsController = function (
   totalsMap
 ) {
   let result = 0;
-  console.log("financial total controller");
   if (calculationKey.includes("totalAsset")) {
     result = calculateTotalAssets(calculationMap[calculationKey], dataMap);
     totalsMap.totalAssetsVerified = result;

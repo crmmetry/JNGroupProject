@@ -16,10 +16,8 @@
       otherDebts: null
     };
     component.set("v.verifiedLiabilitiesMap", verifiedLiabilities);
-    console.log("component was initialised");
   },
   onToggleCheckAlChange: function (component, event, helper) {
-    console.log("check all change handler");
     let checkBoxCmp = component.find("verificationToggle");
     checkBoxCmp.forEach((element) => {
       element.set("v.checked", component.get("v.toggleCheckAll"));
@@ -41,7 +39,6 @@
           inputCmp.set("v.value", null);
         });
       }
-      console.log("component checkbox set to true");
     });
   },
 
@@ -49,8 +46,6 @@
     let cmpEvent = cmp.getEvent("LiabilitiesEvent");
     let checkBoxCmpName = event.getSource().get("v.name");
     let checkBoxValue = event.getSource().get("v.checked");
-    console.log(checkBoxCmpName);
-    console.log(checkBoxValue);
     cmpEvent.setParams({
       componentName: checkBoxCmpName,
       checkedVar: checkBoxValue
@@ -77,12 +72,9 @@
   },
 
   onChildVerifiedDataMapChange: function (component, event, helper) {
-    if (!component.get("v.componentIsBeingInitialised")) {
-      console.log("Verified Child container map changed");
-      component.set(
-        "v.parentVerifiedDataMap",
-        component.get("v.childVerifiedDataMap")
-      );
-    }
+    component.set(
+      "v.parentVerifiedDataMap",
+      component.get("v.childVerifiedDataMap")
+    );
   }
 });

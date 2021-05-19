@@ -8,16 +8,7 @@
       "pension",
       "otherAssets"
     ];
-    // let verifiedAssetFields = [
-    //   "realEstateHoldingsAssetsVerified",
-    //   "motorVehicleAssetsVerified",
-    //   "savingsAccountInvestmentAssetsVerified",
-    //   "lifeInsuranceAssetsVerified",
-    //   "pensionAssetsVerified",
-    //   "otherAssetsVerified"
-    // ]
     component.set("v.auraIdList", auraList);
-    // component.set("v.verifiedAssetFields", verifiedAssetFields);
   },
   onToggleCheckAlChange: function (component, event, helper) {
     let checkBoxCmp = component.find("verificationToggle");
@@ -74,12 +65,9 @@
   },
 
   onChildVerifiedDataMapChange: function (component, event, helper) {
-    if (!component.get("v.componentIsBeingInitialised")) {
-      console.log("Verified Child container map changed");
-      component.set(
-        "v.parentVerifiedDataMap",
-        component.get("v.childVerifiedDataMap")
-      );
-    }
+    component.set(
+      "v.parentVerifiedDataMap",
+      component.get("v.childVerifiedDataMap")
+    );
   }
 });

@@ -91,7 +91,6 @@
   },
 
   onChildVerifiedDataMapChange: function (component, event, helper) {
-    console.log("Verified Child container map changed");
     component.set(
       "v.parentVerifiedDataMap",
       component.get("v.childVerifiedDataMap")
