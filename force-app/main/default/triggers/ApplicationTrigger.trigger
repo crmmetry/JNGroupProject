@@ -8,10 +8,10 @@
  * Ver   Date         Author             Modification
  * 1.0   04-20-2021   Remario Richards   Initial Version
  **/
-trigger ApplicationTrigger on Application__c(after insert, before update) {
+trigger ApplicationTrigger on Application__c(before insert, before update) {
   ApplicationTriggerHandler.init(Trigger.new, Trigger.oldMap, Trigger.newMap);
   if (Trigger.isInsert) {
-    if (Trigger.isAfter) {
+    if (Trigger.isBefore) {
       ApplicationTriggerHandler.checkOpportunityHasOneApplication();
     }
   }
