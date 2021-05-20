@@ -1,15 +1,28 @@
+<!--
+  @description       : 
+  @author            : Travis Allen
+  @group             : 
+  @last modified on  : 05-19-2021
+  @last modified by  : Travis Allen
+  Modifications Log 
+  Ver   Date         Author         Modification
+  1.0   05-17-2021   Travis Allen   Initial Version
+-->
 <aura:component
   implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
 >
   <aura:attribute name="toggleCheckAll" type="Boolean" />
   <aura:attribute name="auraIdList" type="List" />
   <aura:attribute name="verifiedAssetsMap" type="Map" />
-  <aura:attribute name="verifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="childVerifiedDataMap" type="Map" />
+  <aura:attribute name="parentVerifiedDataMap" type="Map" />
   <aura:attribute name="unverifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="calculationsMap" type="Map" />
+
   <aura:handler
     name="change"
-    action="{!c.onVerifiedAssetsMapChange}"
-    value="{!v.verifiedAssetsMap}"
+    action="{!c.onChildVerifiedDataMapChange}"
+    value="{!v.childVerifiedDataMap}"
   />
   <aura:registerEvent name="AssetsEvent" type="c:AssetsVerificationEvent" />
   <aura:handler
@@ -95,7 +108,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.realEstateHoldingsAssetsVerified}"
+        value="{!v.childVerifiedDataMap.realEstateHoldingsAssetsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 2 -->
@@ -134,7 +147,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.motorVehicleAssetsVerified}"
+        value="{!v.childVerifiedDataMap.motorVehicleAssetsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 3 -->
@@ -170,7 +183,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.savingsAccountInvestmentAssetsVerified}"
+        value="{!v.childVerifiedDataMap.savingsAccountInvestmentAssetsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 4 -->
@@ -204,7 +217,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.lifeInsuranceAssetsVerified}"
+        value="{!v.childVerifiedDataMap.lifeInsuranceAssetsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 5 -->
@@ -238,7 +251,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.pensionAssetsVerified}"
+        value="{!v.childVerifiedDataMap.pensionAssetsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 6 -->
@@ -274,7 +287,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.otherAssetsVerified}"
+        value="{!v.childVerifiedDataMap.otherAssetsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
   </lightning:layout>

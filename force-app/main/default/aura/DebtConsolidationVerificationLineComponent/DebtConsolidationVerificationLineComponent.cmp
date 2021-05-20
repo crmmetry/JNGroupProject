@@ -2,13 +2,13 @@
   @description       : 
   @author            : Travis Allen
   @group             : 
-  @last modified on  : 03-02-2021
+  @last modified on  : 05-19-2021
   @last modified by  : Travis Allen
   Modifications Log 
   Ver   Date         Author         Modification
   1.0   03-02-2021   Travis Allen   Initial Version
 -->
-<aura:component>
+<aura:component controller="FinancialDetailsController">
   <aura:attribute name="toggleCheckAll" type="Boolean" default="false" />
   <aura:attribute name="auraIdList" type="List" />
   <aura:attribute name="debtInfo" type="Map" />
@@ -16,6 +16,9 @@
   <aura:attribute name="listOfVerifiedDebts" type="List" />
   <aura:attribute name="debtIndex" type="Integer" />
   <aura:attribute name="consolidatedDebts" type="List" />
+  <aura:attribute name="debtTypeList" type="List" />
+  <aura:attribute name="institutionDebtList" type="List" />
+
   <aura:registerEvent
     name="DebtConsolidationEvent"
     type="c:DebtConsolidationVerificationEvent"
@@ -81,12 +84,19 @@
       </div>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <lightning:input
-        type="text"
+      <lightning:select
         aura:id="debtType"
-        placeholder="NULL"
-        value="{!v.debtInfo.debtTypeVerified}"
-      ></lightning:input>
+        name="debtType"
+        onchange="{!c.onDebtTypeChange}"
+      >
+        <aura:iteration items="{!v.debtTypeList}" var="item">
+          <option
+            selected="{!v.debtInfo.debtTypeVerified == item}"
+            value="{!item}"
+            >{!item}</option
+          >
+        </aura:iteration>
+      </lightning:select>
     </lightning:layoutItem>
     <!-- ROW 3 -->
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
@@ -111,12 +121,19 @@
       </div>
     </lightning:layoutItem>
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <lightning:input
-        type="text"
+      <lightning:select
         aura:id="debtInstitution"
-        placeholder="NULL"
-        value="{!v.debtInfo.institutionDebtVerified}"
-      ></lightning:input>
+        name="debtInstitution"
+        onchange="{!c.onInstitutionDebtChange}"
+      >
+        <aura:iteration items="{!v.institutionDebtList}" var="item">
+          <option
+            selected="{!v.debtInfo.institutionDebtVerified == item}"
+            value="{!item}"
+            >{!item}</option
+          >
+        </aura:iteration>
+      </lightning:select>
     </lightning:layoutItem>
     <!-- ROW 4 -->
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">

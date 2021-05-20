@@ -1,5 +1,6 @@
 ({
   doinit: function (component, event, helper) {
+    helper.setPickListValues(component);
     let auraList = ["debtType", "debtInstitution", "debtAmount"];
     component.set("v.auraIdList", auraList);
   },
@@ -26,6 +27,20 @@
         });
       }
     });
+  },
+
+  onDebtTypeChange: function (component, event) {
+    let selected = component.find("debtType").get("v.value");
+    let debtInfo = component.get("v.debtInfo");
+    debtInfo["debtTypeVerified"] = selected;
+    component.set("v.debtInfo", debtInfo);
+  },
+
+  onInstitutionDebtChange: function (component, event) {
+    let selected = component.find("debtInstitution").get("v.value");
+    let debtInfo = component.get("v.debtInfo");
+    debtInfo["institutionDebtVerified"] = selected;
+    component.set("v.debtInfo", debtInfo);
   },
 
   fireComponentEvent: function (cmp, event) {

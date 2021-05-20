@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 04-01-2021
+ * @last modified on  : 05-19-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -124,7 +124,8 @@ public with sharing class FinancialDetailsUnwrapper {
         Transportation_VERIFIED_Number__c,
         Other_Expenses_VERIFIED_Number__c,
         Statutory_Deductions_VERIFIED_Number__c,
-        Total_Monthly_Expenses_Verified_Number__c
+        Total_Monthly_Expenses_Verified_Number__c,
+        Total_Monthly_Payment_VERIFIED_Number__c
       FROM Applicant__c
       WHERE Opportunity__c = :oppId AND RecordTypeId = :IDMRecordTypeId
     ];
@@ -139,6 +140,7 @@ public with sharing class FinancialDetailsUnwrapper {
     record.Average_Credit_Card_Balances_VERIFIED__c = wrapper.averageCreditBalanceVerified;
     record.Average_Line_of_Credit_Balance_VERIFIED__c = wrapper.averageLineOfCreditBalanceVerified;
     record.Other_Debt_VERIFIED_Number__c = wrapper.otherDebtsVerified;
+    record.Total_Monthly_Payment_VERIFIED_Number__c = wrapper.totalMonthlyPaymentVerified;
     record.Total_Monthly_Loan_Payments_VERIFIED__c = wrapper.totalMonthlyLoanPaymentsVerified;
     record.Mortgage_Rent_VERIFIED_Number__c = wrapper.mortgagePaymentVerified;
     record.Utilities_Household_Expenses_VERIFIED__c = wrapper.utilitiesAndHouseholdExpensesVerified;

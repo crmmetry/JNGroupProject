@@ -41,7 +41,9 @@
   },
 
   saveFinancialDetailsAndDebtsHelper: function (component) {
-    let verifiedFinancialData = component.get("v.VerifiedDataMap");
+    let verifiedFinancialData = component.get(
+      "v.VerifiedDataMapWithUpdatedTotals"
+    );
     let debtConsolidated = component.get("v.ConsolidatedDebts");
     let oppId = component.get("v.recordId");
     let action = component.get("c.saveFinancialDetailsAndConsolidatedDebts");
@@ -86,6 +88,19 @@
     }
     component.set("v.VerifiedDataMap", verifiedMap);
     component.set("v.UnverifiedDataMap", unverifiedMap);
+    this.parseTotalFields(component);
+  },
+
+  parseTotalFields: function (component) {
+    let verifiedMap = component.get("v.VerifiedDataMap");
+    let totalFields = Object.keys(component.get("v.calculationsMap"));
+    let totalsMap = new Map();
+    for (let key in verifiedMap) {
+      if (totalFields.includes(key)) {
+        totalsMap[key] = verifiedMap[key];
+      }
+    }
+    component.set("v.VerifiedTotalsMap", totalsMap);
   },
 
   parseDebtConsolidatedData: function (component) {

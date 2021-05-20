@@ -1,7 +1,35 @@
 ({
   doinit: function (component, event, helper) {
-    helper.getFinancialInfo(component);
-    helper.getDebtsTobeConsolidated(component);
+    let calculationsMap = {
+      totalAssetsVerified: [
+        "realEstateHoldingsAssetsVerified",
+        "motorVehicleAssetsVerified",
+        "savingsAccountInvestmentAssetsVerified",
+        "lifeInsuranceAssetsVerified",
+        "pensionAssetsVerified",
+        "otherAssetsVerified"
+      ],
+      totalLiabilitiesVerified: [
+        "mortgageBalanceVerified",
+        "outstandingBalanceOnLoansVerified",
+        "outstandingBalanceOnLoansVerified",
+        "averageLineOfCreditBalanceVerified",
+        "otherDebtsVerified"
+      ],
+      netWorthVerified: ["totalAssetsVerified", "totalLiabilitiesVerified"],
+
+      totalMonthlyExpensesVerified: [
+        "totalMonthlyLoanPaymentsVerified",
+        "mortgagePaymentVerified",
+        "utilitiesAndHouseholdExpensesVerified",
+        "personalAndFamilyExpensesVerified",
+        "transportationExpensesVerified",
+        "otherExpensesVerified"
+      ],
+      totalDebtConsolidatedVerified: ["debtAmountVerified"]
+    };
+    component.set("v.calculationsMap", calculationsMap);
+    component.set("v.OldVerifiedDataMap", component.get("v.VerifiedDataMap"));
   },
 
   toggleCheckBoxes: function (component, event, helper) {
@@ -21,9 +49,9 @@
 
   scriptsLoaded: function (component, event, helper) {
     component.set("v.scriptsLoaded", true);
+    helper.getFinancialInfo(component);
+    helper.getDebtsTobeConsolidated(component);
   },
-
-  onVerifiedDataMapChange: function (component, event) {},
 
   onVerifiedDebtsChange: function (component) {},
 
@@ -59,11 +87,34 @@
     }
   },
 
-  handleDebtInfoEvent: function (component, event) {
-    const debtData = event.getParam("data");
-    const index = event.getParam("index");
-    const consolidatedDebts = component.get("v.ConsolidatedDebts");
-    consolidatedDebts[index] = debtData;
+  onParentVerifiedDataMapChange: function (component, event, helper) {
+    if (component.get("v.scriptsLoaded")) {
+      const debtData = event.getParam("data");
+      const index = event.getParam("index");
+      const consolidatedDebts = component.get("v.ConsolidatedDebts");
+      consolidatedDebts[index] = debtData;
+      let newVerifiedDataMap = component.get("v.ParentVerifiedDataMap");
+      let totalsMap = component.get("v.VerifiedTotalsMap");
+      let calculationMap = component.get("v.calculationsMap");
+      Object.keys(calculationMap).forEach((key) => {
+        totalsMap = financialVerificationComponentTotalsController(
+          key,
+          newVerifiedDataMap,
+          calculationMap,
+          consolidatedDebts,
+          totalsMap
+        );
+      });
+      let newMapWithUpdatedTotals = Object.assign(
+        newVerifiedDataMap,
+        totalsMap
+      );
+      component.set(
+        "v.VerifiedDataMapWithUpdatedTotals",
+        newMapWithUpdatedTotals
+      );
+      component.set("v.VerifiedTotalsMap", totalsMap);
+    }
   },
 
   saveFinancialDetails: function (component, event, helper) {
