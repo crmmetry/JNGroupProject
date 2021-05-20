@@ -230,7 +230,7 @@ public class CaseTriggerHandler_Test {
       applicationList[0].IDM_Interest_Rate_Number__c = 12.00;
       update applicationList;
       applicationList[0]
-        .Adjudication_Decision_picklist__c = Constants.MANUAL_DEFERE;
+        .Adjudication_Decision_picklist__c = Constants.MANUAL_DEFER;
       update applicationList;
     }
   }
@@ -255,7 +255,7 @@ public class CaseTriggerHandler_Test {
       applicationList[0].IDM_Interest_Rate_Number__c = 12.00;
       update applicationList;
       applicationList[0]
-        .Adjudication_Decision_picklist__c = Constants.MANUAL_DEFERE;
+        .Adjudication_Decision_picklist__c = Constants.MANUAL_DEFER;
       update applicationList;
       applicationList[0]
         .Adjudication_Decision_picklist__c = Constants.MANUAL_APPROVE;
