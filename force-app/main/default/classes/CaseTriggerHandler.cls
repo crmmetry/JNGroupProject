@@ -31,7 +31,7 @@ public class CaseTriggerHandler {
     List<Entitlement> entitlementList = [
       SELECT Id, Name, AccountId
       FROM Entitlement
-      WHERE Status = 'Active' AND Name = :''
+      WHERE Status = 'Active' AND Name = :Constants.ENTITLEMENT_RECORD_NAME
       WITH SECURITY_ENFORCED
     ];
     if (entitlementList.size() > 0) {
@@ -64,6 +64,14 @@ public class CaseTriggerHandler {
         oldMap.get(cases.Id).Status != cases.Status
       ) {
         milestoneName.add(Constants.ADJUDICATOR_MILESTONE);
+        caseIdList.add(cases.Id);
+      }
+      if (
+        cases.Status == Constants.ASSIGNED_STATUS &&
+        oldMap.get(cases.Id).Status != cases.Status &&
+        oldMap.get(cases.Id).Status != Constants.DEFERRED_STATUS
+      ) {
+        milestoneName.add(Constants.DEFERRAL_MILESTONE);
         caseIdList.add(cases.Id);
       }
       if (

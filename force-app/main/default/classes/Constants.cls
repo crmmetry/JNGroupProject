@@ -145,4 +145,7 @@ public class Constants {
   public static final String CLOSED_STATUS = 'Closed';
   public static final String ADJUDICATOR_MILESTONE = 'Adjudicator Milestone';
   public static final String DEFERRAL_MILESTONE = 'Deferral Manager Milestone';
+  public static final String REFERRED_QUEUE_NAME = 'Referred_Application';
+  public static final String REFERRED_QUEUE = 'Referred Application';
+  public static final String ENTITLEMENT_RECORD_NAME = 'Application Entitlement Process';
 }
