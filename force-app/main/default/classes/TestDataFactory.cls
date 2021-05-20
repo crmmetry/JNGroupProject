@@ -352,4 +352,27 @@ public class TestDataFactory {
     contentVersion.IsMajorVersion = IsMajorVersion;
     return contentVersion;
   }
+  public static SlaProcess getEntitlementProcessNames(String processName) {
+    SlaProcess process = [
+      SELECT Id, name
+      FROM Slaprocess
+      WHERE IsActive = TRUE AND name = :processName AND IsVersionDefault = TRUE
+    ];
+    return process;
+  }
+
+  public static Entitlement createEntitlementRecords(
+    String entName,
+    String accId,
+    Date dt,
+    String SlaId
+  ) {
+    Entitlement entitlement = new Entitlement(
+      Name = entName,
+      AccountId = accId,
+      StartDate = dt,
+      SlaProcessId = SlaId
+    );
+    return entitlement;
+  }
 }
