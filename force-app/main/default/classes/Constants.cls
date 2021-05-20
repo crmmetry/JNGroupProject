@@ -148,4 +148,7 @@ public class Constants {
   public static final String REFERRED_QUEUE_NAME = 'Referred_Application';
   public static final String REFERRED_QUEUE = 'Referred Application';
   public static final String ENTITLEMENT_RECORD_NAME = 'Application Entitlement Process';
+  public static final String MANUAL_APPROVE = 'Manual Approve';
+  public static final String MANUAL_DECLINED = 'Manual Decline';
+  public static final String MANUAL_DEFERE = 'Defere';
 }

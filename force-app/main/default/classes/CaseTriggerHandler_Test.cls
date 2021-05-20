@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Ishwari Gaikwad(Thinqloud)
  * @group             :
- * @last modified on  : 05-18-2021
+ * @last modified on  : 05-20-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                       Modification
@@ -149,14 +149,14 @@ public class CaseTriggerHandler_Test {
       products[0].Id
     );
     applicationRecord.RecordTypeId = refeRecordTypeId_cc;
-    applicationRecord.Adjudication_Path_picklist__c = 'ADJ_Open';
+    applicationRecord.Adjudication_Path_picklist__c = Constants.OPEN_STATUS;
     insert applicationRecord;
 
     SlaProcess process = TestDataFactory.getEntitlementProcessNames(
-      'Application Entitlement Process'
+      Constants.ENTITLEMENT_RECORD_NAME
     );
     Entitlement entitlement = TestDataFactory.createEntitlementRecords(
-      'Application Entitlement Process',
+      Constants.ENTITLEMENT_RECORD_NAME,
       accList[0].Id,
       System.today(),
       process.Id
@@ -176,7 +176,8 @@ public class CaseTriggerHandler_Test {
       FROM Application__c
     ];
     if (applicationList.size() > 0) {
-      applicationList[0].Adjudication_Path_picklist__c = 'ADJ_Assigned';
+      applicationList[0]
+        .Adjudication_Path_picklist__c = Constants.ASSIGNED_STATUS;
       update applicationList;
     }
 
@@ -196,11 +197,14 @@ public class CaseTriggerHandler_Test {
       FROM Application__c
     ];
     if (applicationList.size() > 0) {
-      applicationList[0].Adjudication_Path_picklist__c = 'ADJ_Assigned';
+      applicationList[0]
+        .Adjudication_Path_picklist__c = Constants.ASSIGNED_STATUS;
       update applicationList;
-      applicationList[0].Adjudication_Path_picklist__c = 'ADJ_In progress';
+      applicationList[0]
+        .Adjudication_Path_picklist__c = Constants.IN_PROGRESS_STATUS;
       update applicationList;
-      applicationList[0].Adjudication_Path_picklist__c = 'ADJ_Assigned';
+      applicationList[0]
+        .Adjudication_Path_picklist__c = Constants.ASSIGNED_STATUS;
       update applicationList;
     }
   }
@@ -217,15 +221,16 @@ public class CaseTriggerHandler_Test {
       FROM Application__c
     ];
     if (applicationList.size() > 0) {
-      applicationList[0].Adjudication_Path_picklist__c = 'ADJ_Assigned';
+      applicationList[0]
+        .Adjudication_Path_picklist__c = Constants.ASSIGNED_STATUS;
       update applicationList;
-      applicationList[0].Adjudication_Path_picklist__c = 'ADJ_In progress';
+
       applicationList[0].IDM_Loan_Amount_Number__c = 1000.00;
       applicationList[0].IDM_Tenure_Date__c = 10.00;
       applicationList[0].IDM_Interest_Rate_Number__c = 12.00;
       update applicationList;
-      //applicationList[0].Adjudication_Decision_picklist__c = 'Defer';
-      applicationList[0].Adjudication_Path_picklist__c = 'Deferred';
+      applicationList[0]
+        .Adjudication_Decision_picklist__c = Constants.MANUAL_DEFERE;
       update applicationList;
     }
   }
@@ -242,17 +247,18 @@ public class CaseTriggerHandler_Test {
       FROM Application__c
     ];
     if (applicationList.size() > 0) {
-      applicationList[0].Adjudication_Path_picklist__c = 'ADJ_Assigned';
+      applicationList[0]
+        .Adjudication_Path_picklist__c = Constants.ASSIGNED_STATUS;
       update applicationList;
-      applicationList[0].Adjudication_Path_picklist__c = 'ADJ_In progress';
       applicationList[0].IDM_Loan_Amount_Number__c = 1000.00;
       applicationList[0].IDM_Tenure_Date__c = 10.00;
       applicationList[0].IDM_Interest_Rate_Number__c = 12.00;
       update applicationList;
-      //applicationList[0].Adjudication_Decision_picklist__c = 'Defer';
-      applicationList[0].Adjudication_Path_picklist__c = 'Deferred';
+      applicationList[0]
+        .Adjudication_Decision_picklist__c = Constants.MANUAL_DEFERE;
       update applicationList;
-      applicationList[0].Adjudication_Path_picklist__c = 'Closed';
+      applicationList[0]
+        .Adjudication_Decision_picklist__c = Constants.MANUAL_APPROVE;
       update applicationList;
     }
   }
@@ -269,14 +275,15 @@ public class CaseTriggerHandler_Test {
       FROM Application__c
     ];
     if (applicationList.size() > 0) {
-      applicationList[0].Adjudication_Path_picklist__c = 'ADJ_Assigned';
+      applicationList[0]
+        .Adjudication_Path_picklist__c = Constants.ASSIGNED_STATUS;
       update applicationList;
-      applicationList[0].Adjudication_Path_picklist__c = 'ADJ_In progress';
       applicationList[0].IDM_Loan_Amount_Number__c = 1000.00;
       applicationList[0].IDM_Tenure_Date__c = 10.00;
       applicationList[0].IDM_Interest_Rate_Number__c = 12.00;
       update applicationList;
-      applicationList[0].Adjudication_Path_picklist__c = 'Closed';
+      applicationList[0]
+        .Adjudication_Decision_picklist__c = Constants.MANUAL_APPROVE;
       update applicationList;
     }
   }
