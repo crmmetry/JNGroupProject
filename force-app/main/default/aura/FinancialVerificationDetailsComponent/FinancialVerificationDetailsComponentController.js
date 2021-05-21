@@ -12,7 +12,7 @@
       totalLiabilitiesVerified: [
         "mortgageBalanceVerified",
         "outstandingBalanceOnLoansVerified",
-        "outstandingBalanceOnLoansVerified",
+        "averageCreditBalanceVerified",
         "averageLineOfCreditBalanceVerified",
         "otherDebtsVerified"
       ],
