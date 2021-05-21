@@ -336,7 +336,7 @@
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
             <name>myRule_12</name>
-            <conditionLogic>1 AND (2 OR 3)</conditionLogic>
+            <conditionLogic>and</conditionLogic>
             <conditions>
                 <processMetadataValues>
                     <name>inputDataType</name>
@@ -405,38 +405,6 @@
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>ADJ_In progress</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>Picklist</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>Picklist</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>Picklist</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference
-        >myVariable_current.Adjudication_Path_picklist__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Deferred</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -676,7 +644,7 @@ AND(OR( PRIORVALUE({!myVariable_current.Adjudication_Path_picklist__c} ) = &apos
 )</expression>
     </formulas>
     <interviewLabel
-  >Application_Routing_to_Deferral_Manager-17_InterviewLabel</interviewLabel>
+  >Application_Routing_to_Deferral_Manager-19_InterviewLabel</interviewLabel>
     <label>Application Routing to Deferral Manager</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -1036,14 +1004,20 @@ AND(OR( PRIORVALUE({!myVariable_current.Adjudication_Path_picklist__c} ) = &apos
                 </value>
             </processMetadataValues>
             <processMetadataValues>
+                <name>rightHandSideLabel</name>
+                <value>
+                    <stringValue>Referred_Application</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
                 <name>rightHandSideType</name>
                 <value>
-                    <stringValue>Reference</stringValue>
+                    <stringValue>Queue</stringValue>
                 </value>
             </processMetadataValues>
             <field>OwnerId</field>
             <value>
-                <elementReference>myVariable_current.OwnerId</elementReference>
+                <stringValue>00Gf0000002D4aXEAS</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>

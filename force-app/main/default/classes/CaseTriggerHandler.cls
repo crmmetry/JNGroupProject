@@ -69,7 +69,7 @@ public class CaseTriggerHandler {
       if (
         cases.Status == Constants.ASSIGNED_STATUS &&
         oldMap.get(cases.Id).Status != cases.Status &&
-        oldMap.get(cases.Id).Status != Constants.DEFERRED_STATUS
+        oldMap.get(cases.Id).Status == Constants.DEFERRED_STATUS
       ) {
         milestoneName.add(Constants.DEFERRAL_MILESTONE);
         caseIdList.add(cases.Id);
