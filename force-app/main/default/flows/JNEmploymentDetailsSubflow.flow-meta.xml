@@ -3,10 +3,11 @@
   xmlns="http://soap.sforce.com/2006/04/metadata"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 >
+    <apiVersion>49.0</apiVersion>
     <assignments>
         <name>Assign_Record_Types</name>
         <label>Assign Record Types</label>
-        <locationX>432</locationX>
+        <locationX>494</locationX>
         <locationY>1700</locationY>
         <assignmentItems>
             <assignToReference>RecordTypesIdList</assignToReference>
@@ -29,7 +30,7 @@
     <assignments>
         <name>Assigning_Defaults_for_Previous_Emloyment_Self</name>
         <label>Assigning Defaults for Previous Emloyment Self</label>
-        <locationX>2358</locationX>
+        <locationX>2420</locationX>
         <locationY>200</locationY>
         <assignmentItems>
             <assignToReference>CountryDefault</assignToReference>
@@ -151,7 +152,7 @@
     <assignments>
         <name>Assigning_Defaults_for_Previous_Employment</name>
         <label>Assigning Defaults for Previous Employment</label>
-        <locationX>2024</locationX>
+        <locationX>2086</locationX>
         <locationY>848</locationY>
         <assignmentItems>
             <assignToReference>ProfessionalCategoryDefault</assignToReference>
@@ -273,7 +274,7 @@
     <assignments>
         <name>Assignment_of_Variables_for_Previous_Employment</name>
         <label>Assignment of Variables for Previous Employment</label>
-        <locationX>2303</locationX>
+        <locationX>2365</locationX>
         <locationY>851</locationY>
         <assignmentItems>
             <assignToReference
@@ -398,7 +399,7 @@
     <assignments>
         <name>Assignment_of_Variables_for_Previous_Employment_0</name>
         <label>Assignment of Variables for Previous Employment</label>
-        <locationX>2651</locationX>
+        <locationX>2713</locationX>
         <locationY>201</locationY>
         <assignmentItems>
             <assignToReference
@@ -528,7 +529,7 @@
     <assignments>
         <name>Employed_RecordTypeid_assign</name>
         <label>Employed RecordTypeid assign</label>
-        <locationX>179</locationX>
+        <locationX>241</locationX>
         <locationY>1370</locationY>
         <assignmentItems>
             <assignToReference>EmployedRecordTypeId</assignToReference>
@@ -545,7 +546,7 @@
         <description>Assigns variables for picklists</description>
         <name>Employed_Variable_Assignment</name>
         <label>Employed Variable Assignment</label>
-        <locationX>1712</locationX>
+        <locationX>1774</locationX>
         <locationY>568</locationY>
         <assignmentItems>
             <assignToReference>EmploymentStatusDefault</assignToReference>
@@ -594,7 +595,7 @@
     <assignments>
         <name>Employment_Details_Assignment</name>
         <label>Employment Details Assignment</label>
-        <locationX>1910</locationX>
+        <locationX>1972</locationX>
         <locationY>597</locationY>
         <assignmentItems>
             <assignToReference
@@ -680,7 +681,7 @@
       >SelectedEmploymentRecord.Post_Office_Zip_Code__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Position_Title</elementReference>
+                <elementReference>Post_Office_Zip_Code</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -793,7 +794,7 @@
     <assignments>
         <name>Name_Id_Selection</name>
         <label>Name  Id Selection</label>
-        <locationX>772</locationX>
+        <locationX>834</locationX>
         <locationY>50</locationY>
         <assignmentItems>
             <assignToReference>NamesList</assignToReference>
@@ -816,7 +817,7 @@
     <assignments>
         <name>Reset_Variables</name>
         <label>Reset Variables</label>
-        <locationX>1156</locationX>
+        <locationX>1218</locationX>
         <locationY>1081</locationY>
         <assignmentItems>
             <assignToReference>EmploymentDetailsList</assignToReference>
@@ -834,7 +835,7 @@
     <assignments>
         <name>Self_Employed_Assign</name>
         <label>Self Employed Assign</label>
-        <locationX>696</locationX>
+        <locationX>758</locationX>
         <locationY>1371</locationY>
         <assignmentItems>
             <assignToReference>SelfEmployedRecordTypeId</assignToReference>
@@ -850,7 +851,7 @@
     <assignments>
         <name>Self_Employed_Assignment</name>
         <label>Self Employed Assignment</label>
-        <locationX>1956</locationX>
+        <locationX>2018</locationX>
         <locationY>321</locationY>
         <assignmentItems>
             <assignToReference
@@ -1063,7 +1064,7 @@
     >This Assignment assigns the Variables for the picklists</description>
         <name>Self_Employed_Variable_Assignment</name>
         <label>Self Employed Variable Assignment</label>
-        <locationX>1602</locationX>
+        <locationX>1664</locationX>
         <locationY>322</locationY>
         <assignmentItems>
             <assignToReference>CountryDefault</assignToReference>
@@ -1138,7 +1139,7 @@
     <assignments>
         <name>Set_Defaults</name>
         <label>Set Defaults</label>
-        <locationX>1438</locationX>
+        <locationX>1500</locationX>
         <locationY>357</locationY>
         <assignmentItems>
             <assignToReference>LengthTradeDefault</assignToReference>
@@ -1179,7 +1180,7 @@
     <assignments>
         <name>Set_Selected_Employment</name>
         <label>Set Selected Employment and Income,industry</label>
-        <locationX>1589</locationX>
+        <locationX>1651</locationX>
         <locationY>1261</locationY>
         <assignmentItems>
             <assignToReference>SelectedEmploymentRecord</assignToReference>
@@ -1211,7 +1212,7 @@
     <assignments>
         <name>Unemployed_Assignment</name>
         <label>Unemployed Assignment</label>
-        <locationX>2442</locationX>
+        <locationX>2504</locationX>
         <locationY>1012</locationY>
         <assignmentItems>
             <assignToReference
@@ -1360,7 +1361,7 @@
         <description>Assignment unemployed variables</description>
         <name>Unemployed_Assignment_Variables</name>
         <label>Unemployed Assignment Variables</label>
-        <locationX>1561</locationX>
+        <locationX>1623</locationX>
         <locationY>790</locationY>
         <assignmentItems>
             <assignToReference>Country_Unemployed_Variable</assignToReference>
@@ -1393,7 +1394,7 @@
     <assignments>
         <name>Unemployed_RecordType_Id_assign</name>
         <label>Unemployed RecordType Id assign</label>
-        <locationX>433</locationX>
+        <locationX>495</locationX>
         <locationY>1397</locationY>
         <assignmentItems>
             <assignToReference>UnEmployedRecordTypeId</assignToReference>
@@ -1450,7 +1451,7 @@
     <decisions>
         <name>Employed_Less_Than_1_Year</name>
         <label>Employed Less Than 1 Year?</label>
-        <locationX>2103</locationX>
+        <locationX>2165</locationX>
         <locationY>569</locationY>
         <defaultConnector>
             <targetReference>Method</targetReference>
@@ -1483,7 +1484,7 @@
     <decisions>
         <name>Employment_Screen_Selection</name>
         <label>Employment Screen Selection</label>
-        <locationX>1377</locationX>
+        <locationX>1439</locationX>
         <locationY>570</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -1541,7 +1542,7 @@
     <decisions>
         <name>Get_selected_employment</name>
         <label>Get selected employment</label>
-        <locationX>1362</locationX>
+        <locationX>1424</locationX>
         <locationY>1264</locationY>
         <defaultConnector>
             <targetReference>Select_Employment_Detail_Loop</targetReference>
@@ -1567,7 +1568,7 @@
     <decisions>
         <name>Has_Employment_Records</name>
         <label>Has Employment Records</label>
-        <locationX>1043</locationX>
+        <locationX>1105</locationX>
         <locationY>571</locationY>
         <defaultConnector>
             <targetReference>Empty_Employment_Details</targetReference>
@@ -1592,7 +1593,7 @@
     <decisions>
         <name>Method</name>
         <label>Method</label>
-        <locationX>2446</locationX>
+        <locationX>2508</locationX>
         <locationY>563</locationY>
         <defaultConnector>
             <targetReference>Create_Employment</targetReference>
@@ -1618,7 +1619,7 @@
     <decisions>
         <name>RecordType_Variable</name>
         <label>RecordType Variable</label>
-        <locationX>423</locationX>
+        <locationX>485</locationX>
         <locationY>1101</locationY>
         <defaultConnector>
             <targetReference>Record_Type_Loop</targetReference>
@@ -1677,7 +1678,7 @@
     <decisions>
         <name>Self_Employed_Less_Than_1_Year</name>
         <label>Self Employed Less Than 1 Year?</label>
-        <locationX>2108</locationX>
+        <locationX>2170</locationX>
         <locationY>325</locationY>
         <defaultConnector>
             <targetReference>Method</targetReference>
@@ -1711,7 +1712,7 @@
     <decisions>
         <name>Should_add_information</name>
         <label>Should add information?</label>
-        <locationX>1297</locationX>
+        <locationX>1359</locationX>
         <locationY>256</locationY>
         <defaultConnectorLabel>Dont Add</defaultConnectorLabel>
         <rules>
@@ -1733,7 +1734,7 @@
     <decisions>
         <name>Should_continue</name>
         <label>Should continue?</label>
-        <locationX>2063</locationX>
+        <locationX>2125</locationX>
         <locationY>1182</locationY>
         <defaultConnectorLabel>Exit</defaultConnectorLabel>
         <rules>
@@ -1810,7 +1811,7 @@
     <loops>
         <name>Queried_Employment_Loop</name>
         <label>Queried Employment Loop</label>
-        <locationX>779</locationX>
+        <locationX>841</locationX>
         <locationY>391</locationY>
         <assignNextValueToReference
     >EmploymentDetails</assignNextValueToReference>
@@ -1826,7 +1827,7 @@
     <loops>
         <name>Record_Type_Loop</name>
         <label>Record Type Loop</label>
-        <locationX>526</locationX>
+        <locationX>588</locationX>
         <locationY>880</locationY>
         <assignNextValueToReference>RecordTYpeLoop</assignNextValueToReference>
         <collectionReference>RecordTypes</collectionReference>
@@ -1841,7 +1842,7 @@
     <loops>
         <name>Select_Employment_Detail_Loop</name>
         <label>Select Employment Detail Loop</label>
-        <locationX>1371</locationX>
+        <locationX>1433</locationX>
         <locationY>974</locationY>
         <assignNextValueToReference
     >EmploymentDetails</assignNextValueToReference>
@@ -1861,6 +1862,12 @@
         </value>
     </processMetadataValues>
     <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
         <name>OriginBuilderType</name>
         <value>
             <stringValue>LightningFlowBuilder</stringValue>
@@ -1870,7 +1877,7 @@
     <recordCreates>
         <name>Create_Employment</name>
         <label>Create Employment</label>
-        <locationX>2950</locationX>
+        <locationX>3012</locationX>
         <locationY>624</locationY>
         <faultConnector>
             <targetReference>Fault_messageEmployment</targetReference>
@@ -1880,13 +1887,14 @@
     <recordLookups>
         <name>GetEmploymentDetials</name>
         <label>Get Employment Details</label>
-        <locationX>778</locationX>
+        <locationX>840</locationX>
         <locationY>640</locationY>
         <assignNullValuesIfNoRecordsFound
     >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Queried_Employment_Loop</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Account__c</field>
             <operator>EqualTo</operator>
@@ -1960,13 +1968,14 @@
     <recordLookups>
         <name>GetEmploymentRecordType</name>
         <label>Get Employment RecordTypes</label>
-        <locationX>518</locationX>
+        <locationX>580</locationX>
         <locationY>694</locationY>
         <assignNullValuesIfNoRecordsFound
     >true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Record_Type_Loop</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>SobjectType</field>
             <operator>EqualTo</operator>
@@ -1983,7 +1992,7 @@
     <recordUpdates>
         <name>Update_employment</name>
         <label>Update Employment</label>
-        <locationX>2726</locationX>
+        <locationX>2788</locationX>
         <locationY>738</locationY>
         <faultConnector>
             <targetReference>Fault_messageEmployment</targetReference>
@@ -1993,7 +2002,7 @@
     <screens>
         <name>Available_Employment_Details</name>
         <label>Available Employment Details</label>
-        <locationX>1196</locationX>
+        <locationX>1258</locationX>
         <locationY>765</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -2011,6 +2020,8 @@
                     <elementReference>EmploymentDetailsStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -2050,6 +2061,8 @@
                     <booleanValue>true</booleanValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -2059,7 +2072,7 @@
     <screens>
         <name>Employment_Details</name>
         <label>Employment Details</label>
-        <locationX>1802</locationX>
+        <locationX>1864</locationX>
         <locationY>773</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -2077,6 +2090,8 @@
                     <elementReference>EmploymentDetailsStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -2159,6 +2174,8 @@
                     <elementReference>EmploymentStatusDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -2191,6 +2208,8 @@
           >ProfessionalCategoryDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -2261,6 +2280,8 @@
                     <elementReference>IndustryDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -2316,6 +2337,8 @@
                     <elementReference>OccupationDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -2342,6 +2365,8 @@
                     <stringValue>^\d{10,25}$</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -2368,6 +2393,8 @@
                     <stringValue>^\d{10,25}$</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -2512,6 +2539,8 @@
                     <elementReference>CountryDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -2521,7 +2550,7 @@
     <screens>
         <name>Empty_Employment_Details</name>
         <label>Empty Employment Details</label>
-        <locationX>1058</locationX>
+        <locationX>1120</locationX>
         <locationY>300</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -2539,6 +2568,8 @@
                     <elementReference>EmploymentDetailsStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -2571,7 +2602,7 @@
     <screens>
         <name>Fault_messageEmployment</name>
         <label>Fault Message</label>
-        <locationX>3073</locationX>
+        <locationX>3135</locationX>
         <locationY>856</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -2587,7 +2618,7 @@
     <screens>
         <name>FInal_Screen</name>
         <label>FInal Screen</label>
-        <locationX>2329</locationX>
+        <locationX>2391</locationX>
         <locationY>1180</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -2599,6 +2630,8 @@
             <name>indicator5</name>
             <extensionName>c:JNStageProgressIndicator</extensionName>
             <fieldType>ComponentInstance</fieldType>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -2631,7 +2664,7 @@
     <screens>
         <name>Previous_Employment_Screen</name>
         <label>Previous Employment Screen</label>
-        <locationX>2158</locationX>
+        <locationX>2220</locationX>
         <locationY>851</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -2701,6 +2734,8 @@
           >ProfessionalCategoryDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -2738,6 +2773,8 @@
                     <elementReference>IndustryDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -2846,6 +2883,8 @@
                     <elementReference>CountryDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -2877,6 +2916,8 @@
                     <stringValue>^\d{10,25}$</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -2908,6 +2949,8 @@
                     <stringValue>^\d{10,25}$</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -2917,7 +2960,7 @@
     <screens>
         <name>Previous_Employment_Screen_self</name>
         <label>Previous Employment Screen Self</label>
-        <locationX>2501</locationX>
+        <locationX>2563</locationX>
         <locationY>200</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -2987,6 +3030,8 @@
           >ProfessionalCategoryDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -3024,6 +3069,8 @@
                     <elementReference>IndustryDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -3132,6 +3179,8 @@
                     <elementReference>CountryDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -3163,6 +3212,8 @@
                     <stringValue>^\d{10,25}$</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -3194,6 +3245,8 @@
                     <stringValue>^\d{10,25}$</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -3203,7 +3256,7 @@
     <screens>
         <name>RecordTYPE</name>
         <label>RecordTYPE</label>
-        <locationX>776</locationX>
+        <locationX>838</locationX>
         <locationY>924</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -3221,6 +3274,8 @@
                     <elementReference>EmploymentDetailsStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -3254,6 +3309,8 @@
                     <stringValue>Select Type of Employment</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -3264,7 +3321,7 @@
         <description>Self Employed Screen Screen</description>
         <name>Self_Employed_Screen</name>
         <label>Self Employed Screen</label>
-        <locationX>1812</locationX>
+        <locationX>1874</locationX>
         <locationY>322</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -3341,6 +3398,8 @@
           >SelfEmployedRecordTypeId</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -3389,6 +3448,8 @@
                     <elementReference>IndustryDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -3451,6 +3512,8 @@
           >SelfEmployedRecordTypeId</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -3489,6 +3552,8 @@
           >SelfEmployedRecordTypeId</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -3639,6 +3704,8 @@
                     <elementReference>CountryDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -3665,6 +3732,8 @@
                     <stringValue>^\d{10,25}$</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -3691,6 +3760,8 @@
                     <stringValue>^\d{10,25}$</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -3731,6 +3802,8 @@
           >Assessment of Business Financial Performance</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -3771,6 +3844,8 @@
           >AssessmentOfBusinessStatementDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -3812,6 +3887,8 @@
           >AssessmentOfBusinessWorkingCapitalDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -3822,7 +3899,7 @@
         <description>Unemployment Screen</description>
         <name>Unemployed_screen</name>
         <label>Unemployed Screen</label>
-        <locationX>1726</locationX>
+        <locationX>1788</locationX>
         <locationY>1005</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -3915,6 +3992,8 @@
                     <elementReference>UnEmployedRecordTypeId</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -3947,6 +4026,8 @@
           >ProfessionalCategoryDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -4098,6 +4179,8 @@
                     <stringValue>FinServ__Employment__c</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -4124,6 +4207,8 @@
                     <stringValue>^\d{10,25}$</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -4150,6 +4235,8 @@
                     <stringValue>^\d{10,25}$</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
