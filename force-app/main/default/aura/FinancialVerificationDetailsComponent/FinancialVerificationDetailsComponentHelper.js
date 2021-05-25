@@ -127,6 +127,12 @@
     component.set("v.UnverifiedDebts", unverifiedDebts);
   },
 
+  /**
+   * Gets the correlated income value for the selected primary source of Income.
+   * @param {*} component
+   * @return {Integer}
+   */
+
   getSelectedPrimarySourceOfIncomeValue: function (component) {
     let primarySourceofIncomeMap = component.get("v.PrimarySourceOfIncomeMap");
     let primarySourceOfincomeField;
