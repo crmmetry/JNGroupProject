@@ -55,14 +55,6 @@
       }
     });
   },
-
-  onPrimarySourceOfIncomeChange: function (component, event, helper) {
-    let selected = component.find("primaryIncomeSource").get("v.value");
-    let verifiedDataMap = component.get("verifiedDataMap");
-    verifiedDataMap["primarySourceOfIncomeVerified"] = selected;
-    component.set("v.verifiedDataMap", verifiedDataMap);
-  },
-
   fireComponentEvent: function (cmp, event) {
     let cmpEvent = cmp.getEvent("MonthlyIncomeEvent");
     let checkBoxCmpName = event.getSource().get("v.name");
@@ -97,10 +89,11 @@
     }
   },
 
-  onVerifiedMonthlyIncomeMapChange: function (component, event) {
-    let verifiedMonthlyIncomeData = component.get("v.verifiedMonthlyIncomeMap");
-    let verifiedData = component.get("v.verifiedDataMap");
-    let data = Object.assign(verifiedData, verifiedMonthlyIncomeData);
-    component.set("v.verifiedDataMap", data);
+  onChildVerifiedDataMapChange: function (component, event, helper) {
+    console.log("verified map data changed");
+    component.set(
+      "v.parentVerifiedDataMap",
+      component.get("v.childVerifiedDataMap")
+    );
   }
 });

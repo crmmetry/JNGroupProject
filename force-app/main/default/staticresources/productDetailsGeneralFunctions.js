@@ -1078,7 +1078,8 @@ window.financialVerificationComponentTotalsController = function (
   dataMap,
   calculationMap,
   debts,
-  totalsMap
+  totalsMap,
+  primarySourceOfIncomeAmount
 ) {
   let result = 0;
   if (calculationKey.includes("totalAsset")) {
@@ -1110,6 +1111,26 @@ window.financialVerificationComponentTotalsController = function (
   if (calculationKey.includes("totalDebtConsolidatedVerified")) {
     result = totalDebtCalculator(debts);
     totalsMap.totalDebtConsolidatedVerified = result;
+    return totalsMap;
+  }
+
+  if (calculationKey.includes("totalMonthlyIncomeVerified")) {
+    result = calculateTotalMonthlyIncome(
+      calculationMap[calculationKey],
+      dataMap
+    );
+    console.log("totalMonthlyIncomeVerified: ", result);
+    totalsMap.totalMonthlyIncomeVerified = result;
+    return totalsMap;
+  }
+
+  if (calculationKey.includes("totalOtherIncomeVerified")) {
+    result = calculateTotalOtherIncome(
+      calculationMap[calculationKey],
+      dataMap,
+      primarySourceOfIncomeAmount
+    );
+    totalsMap.totalOtherIncomeVerified = result;
     return totalsMap;
   }
   return totalsMap;

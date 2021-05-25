@@ -127,6 +127,29 @@
     component.set("v.UnverifiedDebts", unverifiedDebts);
   },
 
+  getSelectedPrimarySourceOfIncomeValue: function (component) {
+    let primarySourceofIncomeMap = component.get("v.PrimarySourceOfIncomeMap");
+    let primarySourceOfincomeField;
+    let dataMap = component.get("v.ParentVerifiedDataMap");
+    let primarySourceOfIncome = dataMap.primarySourceOfIncomeVerified;
+    for (let key in primarySourceofIncomeMap) {
+      if (primarySourceOfIncome.includes(key)) {
+        primarySourceOfincomeField = primarySourceofIncomeMap[key];
+        break;
+      }
+    }
+    console.log("Primary Source of income: ", primarySourceOfIncome);
+    console.log(
+      "Primary Source Of Income Amount: ",
+      dataMap[primarySourceOfincomeField]
+    );
+    console.log(
+      "Primary Source Of Incmome Field: ",
+      primarySourceOfincomeField
+    );
+    return dataMap[primarySourceOfincomeField];
+  },
+
   updateOpportunity: function (component, fieldName, value, btnLabel) {
     let action = component.get("c.updateFieldOnOpportunity");
     let oppId = component.get("v.recordId");

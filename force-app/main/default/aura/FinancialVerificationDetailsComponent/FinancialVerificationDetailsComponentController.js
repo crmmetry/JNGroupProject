@@ -24,12 +24,47 @@
         "utilitiesAndHouseholdExpensesVerified",
         "personalAndFamilyExpensesVerified",
         "transportationExpensesVerified",
-        "otherExpensesVerified"
+        "otherExpensesVerified",
+        "totalStatutoryDeductionsVerified"
       ],
-      totalDebtConsolidatedVerified: ["debtAmountVerified"]
+      totalDebtConsolidatedVerified: ["debtAmountVerified"],
+      totalMonthlyIncomeVerified: [
+        "grossSalaryAllowancesVerified",
+        "otherIncomeVerified",
+        "netBusinessIncomeSoleTraderVerified",
+        "directorEmolumentsVerified",
+        "netBusinessIncomePartnershipVerified",
+        "netBusinessIncomeCompanyShareholdingVerified",
+        "pensionIncomeVerified",
+        "propertyRentalVerified"
+      ],
+      totalOtherIncomeVerified: [
+        "grossSalaryAllowancesVerified",
+        "otherIncomeVerified",
+        "netBusinessIncomeSoleTraderVerified",
+        "directorEmolumentsVerified",
+        "netBusinessIncomePartnershipVerified",
+        "netBusinessIncomeCompanyShareholdingVerified",
+        "pensionIncomeVerified",
+        "propertyRentalVerified"
+      ]
+    };
+    //TODO: Refactor hard coded map to dynamically create map from API Picklist.
+    let primarySourceOfIncomeMap = {
+      "Gross Salary and Allowances": "grossSalaryAllowancesVerified",
+      "Other Income": "otherIncomeVerified",
+      "Net  Business Income - Sole Trader":
+        "netBusinessIncomeSoleTraderVerified",
+      "Director's Emoluments - Director": "directorEmolumentsVerified",
+      "Net  Business Income - Partnership":
+        "netBusinessIncomePartnershipVerified",
+      "Net  Business Income - Company Shareholding":
+        "netBusinessIncomeCompanyShareholdingVerified",
+      Pension: "pensionIncomeVerified",
+      "Property Rental": "propertyRentalVerified"
     };
     component.set("v.calculationsMap", calculationsMap);
-    component.set("v.OldVerifiedDataMap", component.get("v.VerifiedDataMap"));
+    component.set("v.PrimarySourceOfIncomeMap", primarySourceOfIncomeMap);
   },
 
   toggleCheckBoxes: function (component, event, helper) {
@@ -65,7 +100,7 @@
     if (component.get("v.isSubmitted")) {
       this.showToast(
         "Submission Successful",
-        "Fianancial Details was submitted successfully",
+        "Financial Details was submitted successfully",
         "success"
       );
     }
@@ -96,13 +131,17 @@
       let newVerifiedDataMap = component.get("v.ParentVerifiedDataMap");
       let totalsMap = component.get("v.VerifiedTotalsMap");
       let calculationMap = component.get("v.calculationsMap");
+      let primarySourceOfIncomeAmount = helper.getSelectedPrimarySourceOfIncomeValue(
+        component
+      );
       Object.keys(calculationMap).forEach((key) => {
         totalsMap = financialVerificationComponentTotalsController(
           key,
           newVerifiedDataMap,
           calculationMap,
           consolidatedDebts,
-          totalsMap
+          totalsMap,
+          primarySourceOfIncomeAmount
         );
       });
       let newMapWithUpdatedTotals = Object.assign(
