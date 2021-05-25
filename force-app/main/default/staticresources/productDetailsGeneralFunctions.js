@@ -1119,7 +1119,6 @@ window.financialVerificationComponentTotalsController = function (
       calculationMap[calculationKey],
       dataMap
     );
-    console.log("totalMonthlyIncomeVerified: ", result);
     totalsMap.totalMonthlyIncomeVerified = result;
     return totalsMap;
   }

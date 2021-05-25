@@ -14,7 +14,6 @@
           values["Primary_Source_of_Income_VERIFIED_list__c"]
         );
       } else {
-        console.log("error returned");
         console.error(JSON.parse(JSON.stringify(reponse.getError())));
       }
     });

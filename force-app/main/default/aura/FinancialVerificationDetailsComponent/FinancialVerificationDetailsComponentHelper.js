@@ -138,15 +138,6 @@
         break;
       }
     }
-    console.log("Primary Source of income: ", primarySourceOfIncome);
-    console.log(
-      "Primary Source Of Income Amount: ",
-      dataMap[primarySourceOfincomeField]
-    );
-    console.log(
-      "Primary Source Of Incmome Field: ",
-      primarySourceOfincomeField
-    );
     return dataMap[primarySourceOfincomeField];
   },
 
