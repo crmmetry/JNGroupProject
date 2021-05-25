@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 05-24-2021
+ * @last modified on  : 05-25-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -67,10 +67,6 @@ public with sharing class FinancialDetailsWrapper {
   public Decimal pensionIncome;
   @AuraEnabled
   public Decimal propertyRental;
-  // @AuraEnabled
-  // public Decimal totalOtherIncome;
-  // @AuraEnabled
-  // public Decimal totalMonthlyIncome;
   @AuraEnabled
   public Decimal totalAssets;
   @AuraEnabled

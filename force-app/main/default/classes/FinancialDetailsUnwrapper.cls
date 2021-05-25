@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 05-24-2021
+ * @last modified on  : 05-25-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -136,6 +136,7 @@ public with sharing class FinancialDetailsUnwrapper {
         Total_Monthly_Income_Verified__c
       FROM Applicant__c
       WHERE Opportunity__c = :oppId AND RecordTypeId = :IDMRecordTypeId
+      WITH SECURITY_ENFORCED
     ];
     record.Real_Estate_Holding_s_VERIFIED_Number__c = wrapper.realEstateHoldingsAssetsVerified;
     record.Motor_Vehicle_s_VERIFIED__c = wrapper.motorVehicleAssetsVerified;

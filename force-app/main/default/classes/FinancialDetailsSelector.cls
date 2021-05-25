@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 05-24-2021
+ * @last modified on  : 05-25-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -99,6 +99,7 @@ public with sharing class FinancialDetailsSelector {
         Total_Monthly_Income_Verified__c
       FROM Applicant__c
       WHERE Opportunity__c = :oppId AND RecordTypeId = :IDMRecordTypeId
+      WITH SECURITY_ENFORCED
     ];
     if (applicantObj != null) {
       financialDetailWrapper = new FinancialDetailsWrapper(applicantObj);
