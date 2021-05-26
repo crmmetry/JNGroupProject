@@ -80,6 +80,10 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Coverage_Type_List__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Include_in_Loan_Amount_Flag__c</field>
             </layoutItems>
         </layoutColumns>
@@ -162,6 +166,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Creditor_Life_Insurance_Premium_Number__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Processing_Fees_including_GCT_Number__c</field>
             </layoutItems>
             <layoutItems>
@@ -232,7 +240,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Creditor_Life_Insurance_Premium_Number__c</field>
+                <field>X1st_Month_s_Instalment_Payable_Number__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -255,6 +263,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Assignment_Fee_Number__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Estimated_Stamp_Duty_Admin_Charges_Numb__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -330,7 +342,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00he0000000fAoU</masterLabel>
+        <masterLabel>00h2F00000237DB</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
