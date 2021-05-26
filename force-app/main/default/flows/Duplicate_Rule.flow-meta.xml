@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
     <decisions>
         <name>isChangedDecision2_myRule_1_Status</name>
         <label>isChangedDecision2_myRule_1_Status</label>
@@ -427,6 +428,7 @@
         <label>Checkbox TRUE</label>
         <locationX>100</locationX>
         <locationY>200</locationY>
+        <filterLogic>and</filterLogic>
         <filters>
             <processMetadataValues>
                 <name>implicit</name>
@@ -507,6 +509,7 @@
         <label>Checkbox FALSE</label>
         <locationX>400</locationX>
         <locationY>200</locationY>
+        <filterLogic>and</filterLogic>
         <filters>
             <processMetadataValues>
                 <name>implicit</name>
@@ -560,7 +563,7 @@
     </recordUpdates>
     <startElementReference
   >isChangedDecision2_myRule_1_Status</startElementReference>
-    <status>Active</status>
+    <status>Draft</status>
     <variables>
         <name>myVariable_current</name>
         <dataType>SObject</dataType>

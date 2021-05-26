@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
     <assignments>
         <name>Record_Assignment</name>
         <label>Record Assignment</label>
@@ -64,7 +65,7 @@
             </conditions>
             <conditions>
                 <leftValueReference
-        >Lead_Records.00Nq0000002KAmy</leftValueReference>
+        >Lead_Records.00N4T000006QUoq</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Contact Made</stringValue>
@@ -72,7 +73,7 @@
             </conditions>
             <conditions>
                 <leftValueReference
-        >Lead_Records.00Nq0000002KAnI</leftValueReference>
+        >Lead_Records.00N4T000006QUpp</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Pre-Qualify Customer(s)</stringValue>
@@ -111,6 +112,7 @@
         <connector>
             <targetReference>Record_Assignment</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -119,17 +121,17 @@
             </value>
         </filters>
         <filters>
-            <field>Status</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>LeadStatus</elementReference>
-            </value>
-        </filters>
-        <filters>
             <field>RecordTypeId</field>
             <operator>EqualTo</operator>
             <value>
                 <elementReference>recordtypeid</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>LeadStatus</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
@@ -146,20 +148,7 @@
         <label>Update Lead Status to Qualified</label>
         <locationX>669</locationX>
         <locationY>239</locationY>
-        <filters>
-            <field>RecordTypeId</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Savings_Chequing</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>Lead_Path__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Pre-Qualify Customer(s)</stringValue>
-            </value>
-        </filters>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Contact_Made__c</field>
             <operator>EqualTo</operator>
@@ -172,6 +161,20 @@
             <operator>EqualTo</operator>
             <value>
                 <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Lead_Path__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Pre-Qualify Customer(s)</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>RecordTypeId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Savings_Chequing</stringValue>
             </value>
         </filters>
         <inputAssignments>
@@ -187,11 +190,12 @@
         <label>Update Lead Status to Working</label>
         <locationX>669</locationX>
         <locationY>44</locationY>
+        <filterLogic>and</filterLogic>
         <filters>
-            <field>RecordTypeId</field>
+            <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>Savings_Chequing</stringValue>
+                <elementReference>recordId</elementReference>
             </value>
         </filters>
         <filters>
@@ -202,10 +206,10 @@
             </value>
         </filters>
         <filters>
-            <field>Id</field>
+            <field>RecordTypeId</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>recordId</elementReference>
+                <stringValue>Savings_Chequing</stringValue>
             </value>
         </filters>
         <inputAssignments>
@@ -216,7 +220,6 @@
         </inputAssignments>
         <object>Lead</object>
     </recordUpdates>
-    <runInMode>DefaultMode</runInMode>
     <start>
         <locationX>50</locationX>
         <locationY>3</locationY>

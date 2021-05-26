@@ -81,7 +81,7 @@
             <targetReference>Get_Application_Record_Type</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Obsolete</status>
     <variables>
         <name>OpportunityId</name>
         <dataType>String</dataType>

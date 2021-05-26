@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
     <assignments>
         <description>Assigns the choices for account selection</description>
         <name>AccountSelectionChoicesAssignment</name>
@@ -303,6 +304,7 @@
         <connector>
             <targetReference>Application_Exist</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Account__c</field>
             <operator>EqualTo</operator>
@@ -332,6 +334,7 @@
         <connector>
             <targetReference>Create_Account_Application</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>DeveloperName</field>
             <operator>EqualTo</operator>
@@ -360,6 +363,7 @@
         <connector>
             <targetReference>Applications_Exists</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Opportunity__c</field>
             <operator>EqualTo</operator>
@@ -381,6 +385,7 @@
         <connector>
             <targetReference>AccountSelectionChoicesAssignment</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -405,6 +410,7 @@
         <connector>
             <targetReference>GetAccountRecord</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>

@@ -151,4 +151,10 @@ public class Constants {
   public static final String MANUAL_APPROVE = 'Manual Approve';
   public static final String MANUAL_DECLINED = 'Manual Decline';
   public static final String MANUAL_DEFER = 'Defer';
+  //ONE JN
+  public static final String GET_LOAN_APPLICATION_ID = 'JNGroup.OneJN.CreditInfo.Domain.Events.GetApplicationIdEvent';
+  public static final String RETURN_LOAN_APPLICATION_ID = 'JNGroup.OneJN.CreditInfo.Domain.Events.GetApplicationIdResponseEvent';
+  public static final String GET_CREDITCARD_PRE_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreditCardPreAssessmentEvent';
+  public static final String RETURN_CREDITCARD_PRE_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreditCardPreAssessmentResponseEvent';
+  public static final String GET_UNSECURED_LOAN_PRE_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.UnsecuredLoanPreAssessmentEvent';
 }

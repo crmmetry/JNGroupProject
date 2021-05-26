@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
     <decisions>
         <name>Application_Exists</name>
         <label>Application Exists</label>
@@ -25,6 +26,8 @@
             <label>Yes</label>
         </rules>
     </decisions>
+    <description
+  >Reverted the changes for Rub 191 - Financial Flow Flag is updated by passing Opp id</description>
     <interviewLabel
   >JN Applicant Assets/Liabilities {!$Flow.CurrentDateTime}</interviewLabel>
     <label>JN Applicant Assets/Liabilities</label>
@@ -32,6 +35,12 @@
         <name>BuilderType</name>
         <value>
             <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>

@@ -1421,6 +1421,15 @@
         >Industry_UN.crmmObjectSelected</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >SelectedEmploymentRecord.Position_List__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference
+        >unemplyed_current_position.crmmObjectSelected</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>Method</targetReference>
         </connector>
@@ -1463,7 +1472,7 @@
         <name>Unemployed_RecordType_Id_assign</name>
         <label>Unemployed RecordType Id assign</label>
         <locationX>210</locationX>
-        <locationY>1427</locationY>
+        <locationY>1428</locationY>
         <assignmentItems>
             <assignToReference>UnEmployedRecordTypeId</assignToReference>
             <operator>Assign</operator>
@@ -1942,8 +1951,8 @@
     <recordLookups>
         <name>GetEmploymentDetials</name>
         <label>Get Employment Details</label>
-        <locationX>839</locationX>
-        <locationY>639</locationY>
+        <locationX>841</locationX>
+        <locationY>595</locationY>
         <assignNullValuesIfNoRecordsFound
     >true</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2836,8 +2845,8 @@
     <screens>
         <name>Previous_Employment_Screen</name>
         <label>Previous Employment Screen</label>
-        <locationX>2221</locationX>
-        <locationY>852</locationY>
+        <locationX>2222</locationX>
+        <locationY>854</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -3270,7 +3279,8 @@
             <inputParameters>
                 <name>recordTypeId</name>
                 <value>
-                    <elementReference>EmployedRecordTypeId</elementReference>
+                    <elementReference
+          >SelfEmployedRecordTypeId</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -3308,7 +3318,8 @@
             <inputParameters>
                 <name>recordTypeId</name>
                 <value>
-                    <elementReference>EmployedRecordTypeId</elementReference>
+                    <elementReference
+          >SelfEmployedRecordTypeId</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -3416,7 +3427,8 @@
             <inputParameters>
                 <name>recordTypeId</name>
                 <value>
-                    <elementReference>EmployedRecordTypeId</elementReference>
+                    <elementReference
+          >SelfEmployedRecordTypeId</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -4024,6 +4036,13 @@
                             <elementReference>CountryDefault</elementReference>
                         </value>
                     </inputParameters>
+                    <inputParameters>
+                        <name>recordTypeId</name>
+                        <value>
+                            <elementReference
+              >SelfEmployedRecordTypeId</elementReference>
+                        </value>
+                    </inputParameters>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
@@ -4093,6 +4112,45 @@
                         <formulaExpression
             >LEN ({!Name_of_Previous_Employer_UN}) &lt;= 40</formulaExpression>
                     </validationRule>
+                </fields>
+                <fields>
+                    <name>unemplyed_current_position</name>
+                    <extensionName>c:JNPicklist</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>crmmLabel</name>
+                        <value>
+                            <stringValue>Current Position</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>crmmObjectname</name>
+                        <value>
+                            <stringValue>FinServ__Employment__c</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>crmmObjectField</name>
+                        <value>
+                            <stringValue>Position_List__c</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>recordTypeId</name>
+                        <value>
+                            <elementReference
+              >UnEmployedRecordTypeId</elementReference>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>crmmObjectSelected</name>
+                        <value>
+                            <elementReference
+              >SelectedEmploymentRecord.Position_List__c</elementReference>
+                        </value>
+                    </inputParameters>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
                 <fields>
                     <name>Last_Position_Held_UN</name>
@@ -4294,6 +4352,13 @@
               >ProfessionalCategoryDefault</elementReference>
                         </value>
                     </inputParameters>
+                    <inputParameters>
+                        <name>recordTypeId</name>
+                        <value>
+                            <elementReference
+              >UnEmployedRecordTypeId</elementReference>
+                        </value>
+                    </inputParameters>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
@@ -4375,6 +4440,13 @@
                         <name>crmmObjectname</name>
                         <value>
                             <stringValue>FinServ__Employment__c</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>recordTypeId</name>
+                        <value>
+                            <elementReference
+              >UnEmployedRecordTypeId</elementReference>
                         </value>
                     </inputParameters>
                     <isRequired>true</isRequired>

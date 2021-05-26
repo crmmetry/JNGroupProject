@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
     <interviewLabel
   >Unsecured Loan Online {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Unsecured Loan Online</label>
@@ -26,6 +27,7 @@
         <connector>
             <targetReference>Update_Unsecured_Loan</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>DeveloperName</field>
             <operator>EqualTo</operator>
@@ -51,6 +53,14 @@
         <label>Update Unsecured Loan</label>
         <locationX>132</locationX>
         <locationY>453</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varRecId</elementReference>
+            </value>
+        </filters>
         <filters>
             <field>IsConverted</field>
             <operator>EqualTo</operator>
@@ -72,13 +82,6 @@
                 <stringValue>JN Bank Unsecured Loan</stringValue>
             </value>
         </filters>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>varRecId</elementReference>
-            </value>
-        </filters>
         <inputAssignments>
             <field>RecordTypeId</field>
             <value>
@@ -94,7 +97,7 @@
             <targetReference>Get_Unsecured_Loan</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <variables>
         <name>DeveloperNamevar</name>
         <dataType>String</dataType>

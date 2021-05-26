@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
     <assignments>
         <name>Account_Id_Assignment</name>
         <label>Account Id Assignment</label>
@@ -176,6 +177,7 @@
         <connector>
             <targetReference>CreatePersonAccount</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>IsPersonType</field>
             <operator>EqualTo</operator>
@@ -206,6 +208,7 @@
         <connector>
             <targetReference>CheckAccountLookup</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>FirstName</field>
             <operator>EqualTo</operator>
@@ -392,6 +395,7 @@
     <status>Active</status>
     <textTemplates>
         <name>JoinedAccountName</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
         <text
     >&lt;p&gt;{!AccountRecord.FirstName} &lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;{!AccountRecord.LastName}&lt;/span&gt;&lt;/p&gt;</text>
     </textTemplates>

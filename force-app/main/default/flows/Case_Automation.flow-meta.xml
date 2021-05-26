@@ -20,6 +20,9 @@
         <locationY>200</locationY>
         <actionName>chatterPost</actionName>
         <actionType>chatterPost</actionType>
+        <connector>
+            <targetReference>myRule_1_A2</targetReference>
+        </connector>
         <inputParameters>
             <name>text</name>
             <value>
@@ -40,6 +43,41 @@ Thanks.</stringValue>
             <name>subjectNameOrId</name>
             <value>
                 <stringValue>0F9f00000004vAdCAI</stringValue>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <processMetadataValues>
+            <name>textJson</name>
+            <value>
+                <stringValue
+        >{&quot;mentions&quot;:[],&quot;message&quot;:&quot;Hello @{![Case].Application__r.OwnerId} ,  \n\nThe application {![Case].Application__r.Application_ID__c} is awaiting your review.\n\nThanks.&quot;}</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_1_A2</name>
+        <label>post to chatter2</label>
+        <locationX>100</locationX>
+        <locationY>300</locationY>
+        <actionName>chatterPost</actionName>
+        <actionType>chatterPost</actionType>
+        <inputParameters>
+            <name>text</name>
+            <value>
+                <stringValue
+        >Hello @{!myVariable_current.Application__r.OwnerId} ,  
+
+The application {!myVariable_current.Application__r.Application_ID__c} is awaiting your review.
+
+Thanks.</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>type</name>
+        </inputParameters>
+        <inputParameters>
+            <name>subjectNameOrId</name>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
             </value>
         </inputParameters>
     </actionCalls>
@@ -163,7 +201,7 @@ Thanks.</stringValue>
             <label>Check If SLA Escalation flag is True</label>
         </rules>
     </decisions>
-    <interviewLabel>Case_Automation-2_InterviewLabel</interviewLabel>
+    <interviewLabel>Case_Automation-4_InterviewLabel</interviewLabel>
     <label>Case Automation</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -181,6 +219,12 @@ Thanks.</stringValue>
         <name>OldObjectVariable</name>
         <value>
             <elementReference>myVariable_old</elementReference>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>RecursiveCountVariable</name>
+        <value>
+            <elementReference>RecursiveCountVariable</elementReference>
         </value>
     </processMetadataValues>
     <processMetadataValues>
@@ -208,5 +252,13 @@ Thanks.</stringValue>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
         <objectType>Case</objectType>
+    </variables>
+    <variables>
+        <name>RecursiveCountVariable</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
     </variables>
 </Flow>

@@ -242,8 +242,8 @@
     <decisions>
         <name>Same_Account_Name_and_Mobile</name>
         <label>Same Account Name and Mobile</label>
-        <locationX>414</locationX>
-        <locationY>1046</locationY>
+        <locationX>405</locationX>
+        <locationY>1049</locationY>
         <defaultConnector>
             <targetReference>Get_Accounts_For_JN_Affiliations</targetReference>
         </defaultConnector>
@@ -267,10 +267,10 @@
             </conditions>
             <conditions>
                 <leftValueReference
-        >AccountRecord.PersonMobilePhone</leftValueReference>
+        >AccountRecord.Mobile_Number__pc</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>PersonMobileNumber</elementReference>
+                    <elementReference>Mobile_Number.value</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -334,7 +334,7 @@
         <name>Create_Account_Record_For_Affilliations</name>
         <label>Create Account Record For Affilliations</label>
         <locationX>1151</locationX>
-        <locationY>1382</locationY>
+        <locationY>1384</locationY>
         <connector>
             <targetReference>Get_Created_Person_Id</targetReference>
         </connector>
@@ -351,6 +351,12 @@
             <field>LastName</field>
             <value>
                 <elementReference>Person_Last_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mobile_Number__pc</field>
+            <value>
+                <elementReference>Mobile_Number.value</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -429,8 +435,8 @@
     <recordLookups>
         <name>Get_Accounts_For_JN_Affiliations</name>
         <label>Get Accounts For JN Affiliations</label>
-        <locationX>698</locationX>
-        <locationY>1057</locationY>
+        <locationX>697</locationX>
+        <locationY>1052</locationY>
         <assignNullValuesIfNoRecordsFound
     >true</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -451,6 +457,13 @@
                 <elementReference>Person_Last_Name</elementReference>
             </value>
         </filters>
+        <filters>
+            <field>Mobile_Number__pc</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Mobile_Number.value</elementReference>
+            </value>
+        </filters>
         <object>Account</object>
         <outputReference>PoliticalAffiliationsCollection</outputReference>
         <queriedFields>Id</queriedFields>
@@ -463,7 +476,7 @@
     <recordLookups>
         <name>Get_Created_Person_Id</name>
         <label>Get Created Person Id</label>
-        <locationX>1151</locationX>
+        <locationX>1148</locationX>
         <locationY>1562</locationY>
         <assignNullValuesIfNoRecordsFound
     >false</assignNullValuesIfNoRecordsFound>
@@ -483,6 +496,9 @@
         <outputReference>Created_Account_For_Affiliations</outputReference>
         <queriedFields>Id</queriedFields>
         <queriedFields>PersonContactId</queriedFields>
+        <queriedFields>FirstName</queriedFields>
+        <queriedFields>LastName</queriedFields>
+        <queriedFields>Mobile_Number__pc</queriedFields>
     </recordLookups>
     <recordLookups>
         <name>Get_PersonAccount_RecordTypeInfo</name>
@@ -518,7 +534,7 @@
         <name>Get_Reciprocal_Role</name>
         <label>Get Reciprocal Role</label>
         <locationX>980</locationX>
-        <locationY>326</locationY>
+        <locationY>328</locationY>
         <assignNullValuesIfNoRecordsFound
     >true</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -655,8 +671,8 @@
     <screens>
         <name>For_new_accounts</name>
         <label>For new accounts</label>
-        <locationX>1152</locationX>
-        <locationY>1886</locationY>
+        <locationX>1150</locationX>
+        <locationY>1890</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -680,8 +696,6 @@
                     <stringValue>rubicon</stringValue>
                 </value>
             </inputParameters>
-            <inputsOnNextNavToAssocScrn
-      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -698,10 +712,17 @@
                 <name>For_new_accounts_Section1_Column1</name>
                 <fieldType>Region</fieldType>
                 <fields>
+                    <name>output1</name>
+                    <fieldText
+          >&lt;p&gt;&lt;span style=&quot;color: rgb(244, 4, 4); font-size: 12px;&quot;&gt;*&lt;/span&gt;&lt;span style=&quot;color: rgb(92, 90, 90); font-size: 12px;&quot;&gt;First Name&lt;/span&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt; :&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;            {!Created_Account_For_Affiliations.FirstName}&lt;/span&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
                     <name>First_Name</name>
                     <dataType>String</dataType>
                     <defaultValue>
-                        <elementReference>Person_First_Name</elementReference>
+                        <elementReference
+            >Created_Account_For_Affiliations.FirstName</elementReference>
                     </defaultValue>
                     <fieldText>First Name</fieldText>
                     <fieldType>InputField</fieldType>
@@ -750,7 +771,8 @@
                     <name>Last_Name</name>
                     <dataType>String</dataType>
                     <defaultValue>
-                        <elementReference>Person_Last_Name</elementReference>
+                        <elementReference
+            >Created_Account_For_Affiliations.LastName</elementReference>
                     </defaultValue>
                     <fieldText>Last Name</fieldText>
                     <fieldType>InputField</fieldType>
@@ -822,8 +844,12 @@
                             <stringValue>Country__c</stringValue>
                         </value>
                     </inputParameters>
-                    <inputsOnNextNavToAssocScrn
-          >UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <inputParameters>
+                        <name>recordTypeName</name>
+                        <value>
+                            <stringValue>PersonAccount</stringValue>
+                        </value>
+                    </inputParameters>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
@@ -831,8 +857,6 @@
                     <name>Email_ec</name>
                     <extensionName>flowruntime:email</extensionName>
                     <fieldType>ComponentInstance</fieldType>
-                    <inputsOnNextNavToAssocScrn
-          >UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
@@ -871,8 +895,6 @@
               >JN_Affiliation_Relationship_List__c</stringValue>
                         </value>
                     </inputParameters>
-                    <inputsOnNextNavToAssocScrn
-          >UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
@@ -902,11 +924,9 @@
                         <name>value</name>
                         <value>
                             <elementReference
-              >PersonMobileNumber</elementReference>
+              >Created_Account_For_Affiliations.Mobile_Number__pc</elementReference>
                         </value>
                     </inputParameters>
-                    <inputsOnNextNavToAssocScrn
-          >UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
@@ -951,8 +971,6 @@
                     <stringValue>rubicon</stringValue>
                 </value>
             </inputParameters>
-            <inputsOnNextNavToAssocScrn
-      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -986,8 +1004,6 @@
               >FinServ__ContactContactRelation__c</stringValue>
                         </value>
                     </inputParameters>
-                    <inputsOnNextNavToAssocScrn
-          >UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
@@ -1040,8 +1056,6 @@
                     <stringValue>rubicon</stringValue>
                 </value>
             </inputParameters>
-            <inputsOnNextNavToAssocScrn
-      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1082,8 +1096,6 @@
                     <stringValue>rubicon</stringValue>
                 </value>
             </inputParameters>
-            <inputsOnNextNavToAssocScrn
-      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1110,8 +1122,6 @@
                     <elementReference>AccountIds</elementReference>
                 </value>
             </inputParameters>
-            <inputsOnNextNavToAssocScrn
-      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1143,8 +1153,6 @@
                     <stringValue>rubicon</stringValue>
                 </value>
             </inputParameters>
-            <inputsOnNextNavToAssocScrn
-      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1160,8 +1168,8 @@
     <screens>
         <name>Political_Affiliation</name>
         <label>JN Affiliation</label>
-        <locationX>980</locationX>
-        <locationY>686</locationY>
+        <locationX>979</locationX>
+        <locationY>685</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -1185,8 +1193,6 @@
                     <stringValue>rubicon</stringValue>
                 </value>
             </inputParameters>
-            <inputsOnNextNavToAssocScrn
-      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1220,8 +1226,6 @@
           >Do you have any immediate relative(s) employed to JN Bank?</stringValue>
                 </value>
             </inputParameters>
-            <inputsOnNextNavToAssocScrn
-      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <outputParameters>
                 <assignToReference>BasicChoice</assignToReference>
@@ -1256,8 +1260,6 @@
                     <stringValue>rubicon</stringValue>
                 </value>
             </inputParameters>
-            <inputsOnNextNavToAssocScrn
-      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1274,7 +1276,7 @@
         <name>Yes_JN_Affiliated</name>
         <label>Yes JN Affiliated</label>
         <locationX>412</locationX>
-        <locationY>926</locationY>
+        <locationY>925</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -1298,8 +1300,6 @@
                     <stringValue>rubicon</stringValue>
                 </value>
             </inputParameters>
-            <inputsOnNextNavToAssocScrn
-      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1314,7 +1314,7 @@
             <dataType>String</dataType>
             <fieldText>First Name</fieldText>
             <fieldType>InputField</fieldType>
-            <isRequired>false</isRequired>
+            <isRequired>true</isRequired>
             <validationRule>
                 <errorMessage
         >&lt;p&gt;Cannot exceed a length of 40 characters.&lt;/p&gt;</errorMessage>
@@ -1335,6 +1335,31 @@
         >LEN ({!Person_Last_Name}) &lt;= 40</formulaExpression>
             </validationRule>
         </fields>
+        <fields>
+            <name>Mobile_Number</name>
+            <extensionName>flowruntime:phone</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Mobile Number</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>pattern</name>
+                <value>
+                    <stringValue>^\d{10,25}$</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>required</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
@@ -1345,7 +1370,7 @@
             <targetReference>Get_Account_Record</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <variables>
         <name>AccountId</name>
         <dataType>String</dataType>

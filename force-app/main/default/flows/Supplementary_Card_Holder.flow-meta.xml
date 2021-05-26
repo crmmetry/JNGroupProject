@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
     <assignments>
         <name>Assign_Holder_Name_and_id</name>
         <label>Assign Holder Name and id</label>
@@ -366,6 +367,7 @@
         <connector>
             <targetReference>Credit_Cards_Exist</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>OpportunityId</field>
             <operator>EqualTo</operator>
@@ -394,6 +396,7 @@
         <connector>
             <targetReference>Get_Opportunity_Products</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>IsPersonType</field>
             <operator>EqualTo</operator>
@@ -424,6 +427,7 @@
         <connector>
             <targetReference>Existing_Card_Holders</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Opportunity__c</field>
             <operator>EqualTo</operator>
