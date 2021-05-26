@@ -98,7 +98,7 @@
     let totalFields = Object.keys(component.get("v.calculationsMap"));
     let totalsMap = new Map();
     for (let key in verifiedMap) {
-      if (totalFields.includes(key) && totalFields) {
+      if (totalFields && totalFields.includes(key)) {
         totalsMap[key] = verifiedMap[key];
       }
     }
