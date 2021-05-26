@@ -1082,55 +1082,69 @@ window.financialVerificationComponentTotalsController = function (
   primarySourceOfIncomeAmount
 ) {
   let result = 0;
-  if (calculationKey.includes("totalAsset")) {
-    result = calculateTotalAssets(calculationMap[calculationKey], dataMap);
-    totalsMap.totalAssetsVerified = result;
-    return totalsMap;
-  }
-  if (calculationKey.includes("totalLiabilities")) {
-    result = calculateTotalLiabilities(calculationMap[calculationKey], dataMap);
-    totalsMap.totalLiabilitiesVerified = result;
-    return totalsMap;
-  }
-  if (calculationKey.includes("netWorth")) {
-    result = calculateNetWorth(
-      totalsMap.totalAssetsVerified,
-      totalsMap.totalLiabilitiesVerified
-    );
-    totalsMap.netWorthVerified = result;
-    return totalsMap;
-  }
-  if (calculationKey.includes("totalMonthlyExpensesVerified")) {
-    result = calculateTotalMonthlyExpenses(
-      calculationMap[calculationKey],
-      dataMap
-    );
-    totalsMap.totalMonthlyExpensesVerified = result;
-    return totalsMap;
-  }
-  if (calculationKey.includes("totalDebtConsolidatedVerified")) {
-    result = totalDebtCalculator(debts);
-    totalsMap.totalDebtConsolidatedVerified = result;
-    return totalsMap;
+  if (
+    validNumber(primarySourceOfIncomeAmount) &&
+    calculationKey &&
+    dataMap &&
+    calculationMap &&
+    debts &&
+    totalsMap &&
+    primarySourceOfIncomeAmount
+  ) {
+    if (calculationKey.includes("totalAsset")) {
+      result = calculateTotalAssets(calculationMap[calculationKey], dataMap);
+      totalsMap.totalAssetsVerified = result;
+      return totalsMap;
+    }
+    if (calculationKey.includes("totalLiabilities")) {
+      result = calculateTotalLiabilities(
+        calculationMap[calculationKey],
+        dataMap
+      );
+      totalsMap.totalLiabilitiesVerified = result;
+      return totalsMap;
+    }
+    if (calculationKey.includes("netWorth")) {
+      result = calculateNetWorth(
+        totalsMap.totalAssetsVerified,
+        totalsMap.totalLiabilitiesVerified
+      );
+      totalsMap.netWorthVerified = result;
+      return totalsMap;
+    }
+    if (calculationKey.includes("totalMonthlyExpensesVerified")) {
+      result = calculateTotalMonthlyExpenses(
+        calculationMap[calculationKey],
+        dataMap
+      );
+      totalsMap.totalMonthlyExpensesVerified = result;
+      return totalsMap;
+    }
+    if (calculationKey.includes("totalDebtConsolidatedVerified")) {
+      result = totalDebtCalculator(debts);
+      totalsMap.totalDebtConsolidatedVerified = result;
+      return totalsMap;
+    }
+
+    if (calculationKey.includes("totalMonthlyIncomeVerified")) {
+      result = calculateTotalMonthlyIncome(
+        calculationMap[calculationKey],
+        dataMap
+      );
+      totalsMap.totalMonthlyIncomeVerified = result;
+      return totalsMap;
+    }
+
+    if (calculationKey.includes("totalOtherIncomeVerified")) {
+      result = calculateTotalOtherIncome(
+        calculationMap[calculationKey],
+        dataMap,
+        primarySourceOfIncomeAmount
+      );
+      totalsMap.totalOtherIncomeVerified = result;
+      return totalsMap;
+    }
   }
 
-  if (calculationKey.includes("totalMonthlyIncomeVerified")) {
-    result = calculateTotalMonthlyIncome(
-      calculationMap[calculationKey],
-      dataMap
-    );
-    totalsMap.totalMonthlyIncomeVerified = result;
-    return totalsMap;
-  }
-
-  if (calculationKey.includes("totalOtherIncomeVerified")) {
-    result = calculateTotalOtherIncome(
-      calculationMap[calculationKey],
-      dataMap,
-      primarySourceOfIncomeAmount
-    );
-    totalsMap.totalOtherIncomeVerified = result;
-    return totalsMap;
-  }
   return totalsMap;
 };

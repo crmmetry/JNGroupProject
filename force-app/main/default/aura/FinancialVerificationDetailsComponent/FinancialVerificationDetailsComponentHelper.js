@@ -80,10 +80,12 @@
     let verifiedMap = new Map();
     let unverifiedMap = new Map();
     for (let key in financialMap) {
-      if (key.includes("Verified")) {
-        verifiedMap[key] = financialMap[key];
-      } else {
-        unverifiedMap[key] = financialMap[key];
+      if (key) {
+        if (key.includes("Verified")) {
+          verifiedMap[key] = financialMap[key];
+        } else {
+          unverifiedMap[key] = financialMap[key];
+        }
       }
     }
     component.set("v.VerifiedDataMap", verifiedMap);
@@ -96,7 +98,7 @@
     let totalFields = Object.keys(component.get("v.calculationsMap"));
     let totalsMap = new Map();
     for (let key in verifiedMap) {
-      if (totalFields.includes(key)) {
+      if (totalFields.includes(key) && totalFields) {
         totalsMap[key] = verifiedMap[key];
       }
     }
@@ -112,12 +114,17 @@
       let unverifiedDebt = new Map();
       let consolidatedDebtKeys = Object.keys(consolidatedDebt);
       consolidatedDebtKeys.forEach((consolidatedDebtKey) => {
-        if (consolidatedDebtKey.includes("Verified")) {
-          verifiedDebt[consolidatedDebtKey] =
-            consolidatedDebt[consolidatedDebtKey];
-        } else {
-          unverifiedDebt[consolidatedDebtKey] =
-            consolidatedDebt[consolidatedDebtKey];
+        if (consolidatedDebtKey) {
+          if (
+            consolidatedDebtKey.includes("Verified") &&
+            consolidatedDebtKeys
+          ) {
+            verifiedDebt[consolidatedDebtKey] =
+              consolidatedDebt[consolidatedDebtKey];
+          } else {
+            unverifiedDebt[consolidatedDebtKey] =
+              consolidatedDebt[consolidatedDebtKey];
+          }
         }
       });
       verifiedDebts.push(verifiedDebt);
@@ -139,9 +146,11 @@
     let dataMap = component.get("v.ParentVerifiedDataMap");
     let primarySourceOfIncome = dataMap.primarySourceOfIncomeVerified;
     for (let key in primarySourceofIncomeMap) {
-      if (primarySourceOfIncome.includes(key)) {
-        primarySourceOfincomeField = primarySourceofIncomeMap[key];
-        break;
+      if (primarySourceOfIncome) {
+        if (primarySourceOfIncome.includes(key)) {
+          primarySourceOfincomeField = primarySourceofIncomeMap[key];
+          break;
+        }
       }
     }
     return dataMap[primarySourceOfincomeField];
