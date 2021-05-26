@@ -81,7 +81,7 @@
     let unverifiedMap = new Map();
     for (let key in financialMap) {
       if (key) {
-        if (key.includes("Verified")) {
+        if (key.includes(VERIFIED)) {
           verifiedMap[key] = financialMap[key];
         } else {
           unverifiedMap[key] = financialMap[key];
@@ -115,10 +115,7 @@
       let consolidatedDebtKeys = Object.keys(consolidatedDebt);
       consolidatedDebtKeys.forEach((consolidatedDebtKey) => {
         if (consolidatedDebtKey) {
-          if (
-            consolidatedDebtKey.includes("Verified") &&
-            consolidatedDebtKeys
-          ) {
+          if (consolidatedDebtKey.includes(VERIFIED) && consolidatedDebtKeys) {
             verifiedDebt[consolidatedDebtKey] =
               consolidatedDebt[consolidatedDebtKey];
           } else {
