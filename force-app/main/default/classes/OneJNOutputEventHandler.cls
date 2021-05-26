@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 05-25-2021
+ * @last modified on  : 05-26-2021
  * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -21,13 +21,23 @@ public with sharing class OneJNOutputEventHandler {
    **/
   public static void HandleEvent(List<FlowInputs> request) {
     FlowInputs record = request[0];
-    System.enqueueJob(new OneJNOutputEventQueueable(record.body));
+    System.enqueueJob(
+      new OneJNOutputEventQueueable(
+        record.body,
+        record.eventType,
+        record.externalId,
+        record.sfRecordId
+      )
+    );
   }
 
   public class FlowInputs {
     @InvocableVariable
-    public String sender;
-
+    public String eventType;
+    @InvocableVariable
+    public String externalId;
+    @InvocableVariable
+    public String sfRecordId;
     @InvocableVariable
     public String body;
   }

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Flow
+  xmlns="http://soap.sforce.com/2006/04/metadata"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+>
+    <apiVersion>49.0</apiVersion>
+    <assignments>
+        <name>Account_Record_Assignment</name>
+        <label>Account Record Assignment</label>
+        <locationX>176</locationX>
+        <locationY>398</locationY>
+        <assignmentItems>
+            <assignToReference
+      >AccountRecord.Jamaican_Tax_Registration_Number__pc</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Tax_Registration_Number</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Account_Record</targetReference>
+        </connector>
+    </assignments>
+    <choices>
+        <name>DefaultCountryIssueChoice</name>
+        <choiceText>{!countryofissueformula}</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <elementReference>countryofissueformula</elementReference>
+        </value>
+    </choices>
+    <choices>
+        <name>IdentificationTypeChoice</name>
+        <choiceText>{!IdentificationChoiceFormula}</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <elementReference>IdentificationChoiceFormula</elementReference>
+        </value>
+    </choices>
+    <dynamicChoiceSets>
+        <name>CountryofIssuechoices</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
+        <picklistField>Identification_Type_Country_of_issue__pc</picklistField>
+        <picklistObject>Account</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <description>choices for identification type</description>
+        <name>IdentificationTypeChoices</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true" />
+        <object xsi:nil="true" />
+        <picklistField>Identification_Type__c</picklistField>
+        <picklistObject>Account</picklistObject>
+    </dynamicChoiceSets>
+    <formulas>
+        <name>countryofissueformula</name>
+        <dataType>String</dataType>
+        <expression
+    >IF(ISBLANK(TEXT({!AccountRecord.Identification_Country_of_Issue__c})),&apos;Jamaica&apos;, TEXT({!AccountRecord.Identification_Country_of_Issue__c}))</expression>
+    </formulas>
+    <formulas>
+        <name>IdentificationChoiceFormula</name>
+        <dataType>String</dataType>
+        <expression
+    >IF(ISBLANK(TEXT({!AccountRecord.Identification_Type__c})), &apos;None&apos;, TEXT({!AccountRecord.Identification_Type__c}))</expression>
+    </formulas>
+    <interviewLabel
+  >Rubicon Id Documents {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Rubicon Id Documents</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordLookups>
+        <name>Get_Account</name>
+        <label>Get Account</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
+        <assignNullValuesIfNoRecordsFound
+    >true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Id_Documents</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>AccountId</elementReference>
+            </value>
+        </filters>
+        <object>Account</object>
+        <outputReference>AccountRecord</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Jamaican_Tax_Registration_Number__pc</queriedFields>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Account_Record</name>
+        <label>Update Account Record</label>
+        <locationX>176</locationX>
+        <locationY>518</locationY>
+        <faultConnector>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
+        <inputReference>AccountRecord</inputReference>
+    </recordUpdates>
+    <screens>
+        <name>Fault_Message</name>
+        <label>Fault Message</label>
+        <locationX>440</locationX>
+        <locationY>638</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>faultmessage</name>
+            <fieldText>&lt;p&gt;{!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Id_Documents</name>
+        <label>Id Documents</label>
+        <locationX>176</locationX>
+        <locationY>278</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Account_Record_Assignment</targetReference>
+        </connector>
+        <fields>
+            <name>indicator1</name>
+            <extensionName>c:JNStageProgressIndicator</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>currentStage</name>
+                <value>
+                    <elementReference>IdDocumentsStage</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>stageType</name>
+                <value>
+                    <stringValue>rubicon</stringValue>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>iddocumenttext</name>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;font-size: 14px; color: rgb(52, 152, 219);&quot;&gt;Person Id Document&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Tax_Registration_Number</name>
+            <dataType>String</dataType>
+            <defaultValue>
+                <elementReference
+        >AccountRecord.Jamaican_Tax_Registration_Number__pc</elementReference>
+            </defaultValue>
+            <fieldText>Jamaican Tax Registration Number</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage
+        >&lt;p&gt;Enter a valid TRN.&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >REGEX({!Tax_Registration_Number}, &quot;((?:[0-9]{3}-[0-9]{3}-[0-9]{3})|(?:[0-9]{3}[0-9]{3}[0-9]{3}))&quot;)</formulaExpression>
+            </validationRule>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Account</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Id for the account</description>
+        <name>AccountId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>AccountRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Account</objectType>
+    </variables>
+    <variables>
+        <name>CountryIssueDefault</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>IdDocumentsStage</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>Id Documents</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>IdentificationTypeDefault</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>
