@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 05-19-2021
+ * @last modified on  : 05-25-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -67,10 +67,6 @@ public with sharing class FinancialDetailsWrapper {
   public Decimal pensionIncome;
   @AuraEnabled
   public Decimal propertyRental;
-  // @AuraEnabled
-  // public Decimal totalOtherIncome;
-  // @AuraEnabled
-  // public Decimal totalMonthlyIncome;
   @AuraEnabled
   public Decimal totalAssets;
   @AuraEnabled
@@ -133,10 +129,14 @@ public with sharing class FinancialDetailsWrapper {
   public Decimal pensionIncomeVerified;
   @AuraEnabled
   public Decimal propertyRentalVerified;
-  // @AuraEnabled
-  // public Decimal totalOtherIncome;
-  // @AuraEnabled
-  // public Decimal totalMonthlyIncome;
+  @AuraEnabled
+  public Decimal totalOtherIncome;
+  @AuraEnabled
+  public Decimal totalMonthlyIncome;
+  @AuraEnabled
+  public Decimal totalOtherIncomeVerified;
+  @AuraEnabled
+  public Decimal totalMonthlyIncomeVerified;
   @AuraEnabled
   public Decimal totalAssetsVerified;
   @AuraEnabled
@@ -220,5 +220,9 @@ public with sharing class FinancialDetailsWrapper {
     this.totalMonthlyPayment = record.Total_Monthly_Payment__c;
     this.totalMonthlyPaymentVerified = record.Total_Monthly_Payment_VERIFIED_Number__c;
     this.totalMonthlyLoanPaymentsVerified = record.Total_Monthly_Loan_Payments_VERIFIED__c;
+    this.totalOtherIncome = record.Total_Other_Income_Calc__c;
+    this.totalMonthlyIncome = record.Total_Monthly_Income_Calc__c;
+    this.totalOtherIncomeVerified = record.Total_Other_Income_Verified__c;
+    this.totalMonthlyIncomeVerified = record.Total_Monthly_Income_Verified__c;
   }
 }

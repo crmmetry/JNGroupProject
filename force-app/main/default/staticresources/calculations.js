@@ -987,6 +987,33 @@ window.calculateNetWorth = function (totalAssets, totalLiabilities) {
 };
 
 /**
+ * summates given totals to calculate total monthly income.
+ * @param {Object} parentObj -
+ * @param {Array<String>} properties - fields on the parent object
+ * @return {Decimal}
+ */
+window.calculateTotalMonthlyIncome = function (properties, parentObj) {
+  return roundedValue(basicTotalsCalculator(properties, parentObj));
+};
+
+/**
+ * summates given totals to calculate total other income.
+ * @param {Object} parentObj -
+ * @param {Array<String>} properties - fields on the parent object
+ * @return {Decimal}
+ */
+window.calculateTotalOtherIncome = function (
+  properties,
+  parentObj,
+  primarySourceOfIncomeAmount
+) {
+  return (
+    roundedValue(basicTotalsCalculator(properties, parentObj)) -
+    parseFloat(primarySourceOfIncomeAmount)
+  );
+};
+
+/**
  * summates given totals to calculate total monthly expenses.
  * @param {Object} parentObj -
  * @param {Array<String>} properties - fields on the parent object

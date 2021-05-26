@@ -80,10 +80,12 @@
     let verifiedMap = new Map();
     let unverifiedMap = new Map();
     for (let key in financialMap) {
-      if (key.includes("Verified")) {
-        verifiedMap[key] = financialMap[key];
-      } else {
-        unverifiedMap[key] = financialMap[key];
+      if (key) {
+        if (key.includes(VERIFIED)) {
+          verifiedMap[key] = financialMap[key];
+        } else {
+          unverifiedMap[key] = financialMap[key];
+        }
       }
     }
     component.set("v.VerifiedDataMap", verifiedMap);
@@ -96,7 +98,7 @@
     let totalFields = Object.keys(component.get("v.calculationsMap"));
     let totalsMap = new Map();
     for (let key in verifiedMap) {
-      if (totalFields.includes(key)) {
+      if (totalFields && totalFields.includes(key)) {
         totalsMap[key] = verifiedMap[key];
       }
     }
@@ -112,12 +114,14 @@
       let unverifiedDebt = new Map();
       let consolidatedDebtKeys = Object.keys(consolidatedDebt);
       consolidatedDebtKeys.forEach((consolidatedDebtKey) => {
-        if (consolidatedDebtKey.includes("Verified")) {
-          verifiedDebt[consolidatedDebtKey] =
-            consolidatedDebt[consolidatedDebtKey];
-        } else {
-          unverifiedDebt[consolidatedDebtKey] =
-            consolidatedDebt[consolidatedDebtKey];
+        if (consolidatedDebtKey) {
+          if (consolidatedDebtKey.includes(VERIFIED) && consolidatedDebtKeys) {
+            verifiedDebt[consolidatedDebtKey] =
+              consolidatedDebt[consolidatedDebtKey];
+          } else {
+            unverifiedDebt[consolidatedDebtKey] =
+              consolidatedDebt[consolidatedDebtKey];
+          }
         }
       });
       verifiedDebts.push(verifiedDebt);
@@ -125,6 +129,28 @@
     });
     component.set("v.VerifiedDebts", verifiedDebts);
     component.set("v.UnverifiedDebts", unverifiedDebts);
+  },
+
+  /**
+   * Gets the correlated income value for the selected primary source of Income.
+   * @param {*} component
+   * @return {Integer}
+   */
+
+  getSelectedPrimarySourceOfIncomeValue: function (component) {
+    let primarySourceofIncomeMap = component.get("v.PrimarySourceOfIncomeMap");
+    let primarySourceOfincomeField;
+    let dataMap = component.get("v.ParentVerifiedDataMap");
+    let primarySourceOfIncome = dataMap.primarySourceOfIncomeVerified;
+    for (let key in primarySourceofIncomeMap) {
+      if (primarySourceOfIncome) {
+        if (primarySourceOfIncome.includes(key)) {
+          primarySourceOfincomeField = primarySourceofIncomeMap[key];
+          break;
+        }
+      }
+    }
+    return dataMap[primarySourceOfincomeField];
   },
 
   updateOpportunity: function (component, fieldName, value, btnLabel) {
