@@ -45,7 +45,7 @@
         <object>RecordType</object>
         <outputAssignments>
             <assignToReference>IdRecordTypeVar</assignToReference>
-            <field>DeveloperName</field>
+            <field>Id</field>
         </outputAssignments>
         <sortField>DeveloperName</sortField>
         <sortOrder>Asc</sortOrder>
@@ -92,7 +92,7 @@
             <targetReference>Get_Record_Type_For_Lead</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>DeveloperNameCollection</name>
         <dataType>String</dataType>

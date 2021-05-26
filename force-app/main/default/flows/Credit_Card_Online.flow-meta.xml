@@ -47,13 +47,6 @@
         <locationY>456</locationY>
         <filterLogic>and</filterLogic>
         <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>varRecId</elementReference>
-            </value>
-        </filters>
-        <filters>
             <field>IsConverted</field>
             <operator>EqualTo</operator>
             <value>
@@ -74,6 +67,13 @@
                 <stringValue>JN Bank Credit Card</stringValue>
             </value>
         </filters>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varRecId</elementReference>
+            </value>
+        </filters>
         <inputAssignments>
             <field>RecordTypeId</field>
             <value>
@@ -89,7 +89,7 @@
             <targetReference>Get_Credit_Card</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>DevNameVar</name>
         <dataType>String</dataType>

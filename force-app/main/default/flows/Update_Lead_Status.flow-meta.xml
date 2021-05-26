@@ -45,5 +45,5 @@
             <targetReference>Open_Working</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
 </Flow>

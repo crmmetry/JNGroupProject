@@ -194,8 +194,8 @@
     <decisions>
         <name>JN_Affiliated</name>
         <label>JN Affiliated ?</label>
-        <locationX>980</locationX>
-        <locationY>806</locationY>
+        <locationX>856</locationX>
+        <locationY>827</locationY>
         <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
             <name>Yes</name>
@@ -208,7 +208,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Yes_JN_Affiliated</targetReference>
+                <targetReference>Search_Flow</targetReference>
             </connector>
             <label>Yes</label>
         </rules>
@@ -243,7 +243,7 @@
         <name>Same_Account_Name_and_Mobile</name>
         <label>Same Account Name and Mobile</label>
         <locationX>405</locationX>
-        <locationY>1049</locationY>
+        <locationY>1050</locationY>
         <defaultConnector>
             <targetReference>Get_Accounts_For_JN_Affiliations</targetReference>
         </defaultConnector>
@@ -255,14 +255,14 @@
                 <leftValueReference>AccountRecord.FirstName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>Person_First_Name</elementReference>
+                    <elementReference>Persone_First_Name</elementReference>
                 </rightValue>
             </conditions>
             <conditions>
                 <leftValueReference>AccountRecord.LastName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>Person_Last_Name</elementReference>
+                    <elementReference>Person_Last_Name1</elementReference>
                 </rightValue>
             </conditions>
             <conditions>
@@ -270,7 +270,7 @@
         >AccountRecord.Mobile_Number__pc</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>Mobile_Number.value</elementReference>
+                    <elementReference>Person_Mobile_Number</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -334,7 +334,7 @@
         <name>Create_Account_Record_For_Affilliations</name>
         <label>Create Account Record For Affilliations</label>
         <locationX>1151</locationX>
-        <locationY>1384</locationY>
+        <locationY>1382</locationY>
         <connector>
             <targetReference>Get_Created_Person_Id</targetReference>
         </connector>
@@ -344,19 +344,19 @@
         <inputAssignments>
             <field>FirstName</field>
             <value>
-                <elementReference>Person_First_Name</elementReference>
+                <elementReference>Persone_First_Name</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>LastName</field>
             <value>
-                <elementReference>Person_Last_Name</elementReference>
+                <elementReference>Person_Last_Name1</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>Mobile_Number__pc</field>
             <value>
-                <elementReference>Mobile_Number.value</elementReference>
+                <elementReference>Person_Mobile_Number</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -447,21 +447,21 @@
             <field>FirstName</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Person_First_Name</elementReference>
+                <elementReference>Persone_First_Name</elementReference>
             </value>
         </filters>
         <filters>
             <field>LastName</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Person_Last_Name</elementReference>
+                <elementReference>Person_Last_Name1</elementReference>
             </value>
         </filters>
         <filters>
             <field>Mobile_Number__pc</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Mobile_Number.value</elementReference>
+                <elementReference>Person_Mobile_Number</elementReference>
             </value>
         </filters>
         <object>Account</object>
@@ -476,7 +476,7 @@
     <recordLookups>
         <name>Get_Created_Person_Id</name>
         <label>Get Created Person Id</label>
-        <locationX>1148</locationX>
+        <locationX>1151</locationX>
         <locationY>1562</locationY>
         <assignNullValuesIfNoRecordsFound
     >false</assignNullValuesIfNoRecordsFound>
@@ -496,9 +496,6 @@
         <outputReference>Created_Account_For_Affiliations</outputReference>
         <queriedFields>Id</queriedFields>
         <queriedFields>PersonContactId</queriedFields>
-        <queriedFields>FirstName</queriedFields>
-        <queriedFields>LastName</queriedFields>
-        <queriedFields>Mobile_Number__pc</queriedFields>
     </recordLookups>
     <recordLookups>
         <name>Get_PersonAccount_RecordTypeInfo</name>
@@ -671,8 +668,8 @@
     <screens>
         <name>For_new_accounts</name>
         <label>For new accounts</label>
-        <locationX>1150</locationX>
-        <locationY>1890</locationY>
+        <locationX>1152</locationX>
+        <locationY>1888</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -712,17 +709,10 @@
                 <name>For_new_accounts_Section1_Column1</name>
                 <fieldType>Region</fieldType>
                 <fields>
-                    <name>output1</name>
-                    <fieldText
-          >&lt;p&gt;&lt;span style=&quot;color: rgb(244, 4, 4); font-size: 12px;&quot;&gt;*&lt;/span&gt;&lt;span style=&quot;color: rgb(92, 90, 90); font-size: 12px;&quot;&gt;First Name&lt;/span&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt; :&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;            {!Created_Account_For_Affiliations.FirstName}&lt;/span&gt;&lt;/p&gt;</fieldText>
-                    <fieldType>DisplayText</fieldType>
-                </fields>
-                <fields>
                     <name>First_Name</name>
                     <dataType>String</dataType>
                     <defaultValue>
-                        <elementReference
-            >Created_Account_For_Affiliations.FirstName</elementReference>
+                        <elementReference>Persone_First_Name</elementReference>
                     </defaultValue>
                     <fieldText>First Name</fieldText>
                     <fieldType>InputField</fieldType>
@@ -771,8 +761,7 @@
                     <name>Last_Name</name>
                     <dataType>String</dataType>
                     <defaultValue>
-                        <elementReference
-            >Created_Account_For_Affiliations.LastName</elementReference>
+                        <elementReference>Person_Last_Name1</elementReference>
                     </defaultValue>
                     <fieldText>Last Name</fieldText>
                     <fieldType>InputField</fieldType>
@@ -924,7 +913,7 @@
                         <name>value</name>
                         <value>
                             <elementReference
-              >Created_Account_For_Affiliations.Mobile_Number__pc</elementReference>
+              >Person_Mobile_Number</elementReference>
                         </value>
                     </inputParameters>
                     <isRequired>true</isRequired>
@@ -1272,97 +1261,6 @@
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
-    <screens>
-        <name>Yes_JN_Affiliated</name>
-        <label>Yes JN Affiliated</label>
-        <locationX>412</locationX>
-        <locationY>925</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <connector>
-            <targetReference>Same_Account_Name_and_Mobile</targetReference>
-        </connector>
-        <fields>
-            <name>indicator2</name>
-            <extensionName>c:JNStageProgressIndicator</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>currentStage</name>
-                <value>
-                    <elementReference
-          >PoliticalAffiliationsStage</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>stageType</name>
-                <value>
-                    <stringValue>rubicon</stringValue>
-                </value>
-            </inputParameters>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <fields>
-            <name>text2</name>
-            <fieldText
-      >&lt;p&gt;&lt;b style=&quot;font-size: 14px; color: rgb(52, 152, 219); background-color: rgb(255, 255, 255);&quot;&gt;Person JN Affiliations&lt;/b&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <fields>
-            <name>Person_First_Name</name>
-            <dataType>String</dataType>
-            <fieldText>First Name</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-            <validationRule>
-                <errorMessage
-        >&lt;p&gt;Cannot exceed a length of 40 characters.&lt;/p&gt;</errorMessage>
-                <formulaExpression
-        >LEN ({!Person_First_Name}) &lt;= 40</formulaExpression>
-            </validationRule>
-        </fields>
-        <fields>
-            <name>Person_Last_Name</name>
-            <dataType>String</dataType>
-            <fieldText>Last Name</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-            <validationRule>
-                <errorMessage
-        >&lt;p&gt;Cannot exceed a length of 40 characters.&lt;/p&gt;</errorMessage>
-                <formulaExpression
-        >LEN ({!Person_Last_Name}) &lt;= 40</formulaExpression>
-            </validationRule>
-        </fields>
-        <fields>
-            <name>Mobile_Number</name>
-            <extensionName>flowruntime:phone</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>label</name>
-                <value>
-                    <stringValue>Mobile Number</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>pattern</name>
-                <value>
-                    <stringValue>^\d{10,25}$</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>required</name>
-                <value>
-                    <booleanValue>true</booleanValue>
-                </value>
-            </inputParameters>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
     <start>
         <locationX>854</locationX>
         <locationY>48</locationY>
@@ -1371,6 +1269,28 @@
         </connector>
     </start>
     <status>Draft</status>
+    <subflows>
+        <name>Search_Flow</name>
+        <label>Search Flow</label>
+        <locationX>413</locationX>
+        <locationY>918</locationY>
+        <connector>
+            <targetReference>Same_Account_Name_and_Mobile</targetReference>
+        </connector>
+        <flowName>RubicanSerachSubflow</flowName>
+        <outputAssignments>
+            <assignToReference>Persone_First_Name</assignToReference>
+            <name>personefirstname</name>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>Person_Last_Name1</assignToReference>
+            <name>personlastname</name>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>Person_Mobile_Number</assignToReference>
+            <name>personMobileNo</name>
+        </outputAssignments>
+    </subflows>
     <variables>
         <name>AccountId</name>
         <dataType>String</dataType>
@@ -1482,12 +1402,33 @@
         <isOutput>false</isOutput>
     </variables>
     <variables>
+        <name>Person_Last_Name1</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Person_Mobile_Number</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
         <name>PersonAccountRecordType</name>
         <dataType>SObject</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
         <objectType>RecordType</objectType>
+    </variables>
+    <variables>
+        <name>Persone_First_Name</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
     </variables>
     <variables>
         <name>PersonMobileNumber</name>

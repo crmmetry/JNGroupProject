@@ -65,7 +65,7 @@
             </conditions>
             <conditions>
                 <leftValueReference
-        >Lead_Records.00N4T000006QUoq</leftValueReference>
+        >Lead_Records.00Nq0000002KAmy</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Contact Made</stringValue>
@@ -73,7 +73,7 @@
             </conditions>
             <conditions>
                 <leftValueReference
-        >Lead_Records.00N4T000006QUpp</leftValueReference>
+        >Lead_Records.00Nq0000002KAnI</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Pre-Qualify Customer(s)</stringValue>
@@ -121,17 +121,17 @@
             </value>
         </filters>
         <filters>
-            <field>RecordTypeId</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>recordtypeid</elementReference>
-            </value>
-        </filters>
-        <filters>
             <field>Status</field>
             <operator>EqualTo</operator>
             <value>
                 <elementReference>LeadStatus</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>RecordTypeId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordtypeid</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
@@ -150,6 +150,20 @@
         <locationY>239</locationY>
         <filterLogic>and</filterLogic>
         <filters>
+            <field>RecordTypeId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Savings_Chequing</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Lead_Path__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Pre-Qualify Customer(s)</stringValue>
+            </value>
+        </filters>
+        <filters>
             <field>Contact_Made__c</field>
             <operator>EqualTo</operator>
             <value>
@@ -161,20 +175,6 @@
             <operator>EqualTo</operator>
             <value>
                 <elementReference>recordId</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>Lead_Path__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Pre-Qualify Customer(s)</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>RecordTypeId</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Savings_Chequing</stringValue>
             </value>
         </filters>
         <inputAssignments>
@@ -192,10 +192,10 @@
         <locationY>44</locationY>
         <filterLogic>and</filterLogic>
         <filters>
-            <field>Id</field>
+            <field>RecordTypeId</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>recordId</elementReference>
+                <stringValue>Savings_Chequing</stringValue>
             </value>
         </filters>
         <filters>
@@ -206,10 +206,10 @@
             </value>
         </filters>
         <filters>
-            <field>RecordTypeId</field>
+            <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>Savings_Chequing</stringValue>
+                <elementReference>recordId</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -220,6 +220,7 @@
         </inputAssignments>
         <object>Lead</object>
     </recordUpdates>
+    <runInMode>DefaultMode</runInMode>
     <start>
         <locationX>50</locationX>
         <locationY>3</locationY>

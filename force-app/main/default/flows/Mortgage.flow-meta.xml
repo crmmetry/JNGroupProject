@@ -52,14 +52,7 @@
         <label>Update Mortgage</label>
         <locationX>141</locationX>
         <locationY>499</locationY>
-        <filterLogic>1 AND 2 AND (3 OR 4 OR 5 OR 6)</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>varRecId</elementReference>
-            </value>
-        </filters>
+        <filterLogic>1 AND (2 OR 3 OR 4 OR 5) AND 6</filterLogic>
         <filters>
             <field>IsConverted</field>
             <operator>EqualTo</operator>
@@ -95,6 +88,13 @@
                 <stringValue>JN Bank Cash Secured Loan</stringValue>
             </value>
         </filters>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varRecId</elementReference>
+            </value>
+        </filters>
         <inputAssignments>
             <field>RecordTypeId</field>
             <value>
@@ -110,7 +110,7 @@
             <targetReference>Get_Mortgage</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>DeveloperName</name>
         <dataType>String</dataType>

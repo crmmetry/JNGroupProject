@@ -53,7 +53,7 @@
             <targetReference>Record_Assignment</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>OpportunityRecord</name>
         <dataType>SObject</dataType>

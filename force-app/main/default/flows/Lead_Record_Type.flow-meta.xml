@@ -50,9 +50,9 @@
     <recordUpdates>
         <name>Update_the_Record</name>
         <label>Update the Record</label>
-        <locationX>186</locationX>
-        <locationY>425</locationY>
-        <filterLogic>1 AND 2 AND (3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9)</filterLogic>
+        <locationX>185</locationX>
+        <locationY>426</locationY>
+        <filterLogic>1 AND 2 AND (3 OR 4 OR 5 OR 6 OR 7 OR 8)</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -79,13 +79,6 @@
             <operator>EqualTo</operator>
             <value>
                 <stringValue>JN Bank Auto Loan</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>Service_of_Interest__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>JN Bank Cash Secured Loan</stringValue>
             </value>
         </filters>
         <filters>
@@ -131,7 +124,7 @@
             <targetReference>Get_Lead_Record_Id_from_PB</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>DeveloperName</name>
         <dataType>String</dataType>
