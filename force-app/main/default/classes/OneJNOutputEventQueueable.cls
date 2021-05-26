@@ -30,6 +30,6 @@ public with sharing class OneJNOutputEventQueueable implements Queueable {
   }
   public void execute(QueueableContext context) {
     //process one jn output event types
-    OneJNEventFactory.Process(eventType, oneJNDeserializer);
+    OneJNEventFactory.ProcessIncomingEvent(eventType, oneJNDeserializer);
   }
 }

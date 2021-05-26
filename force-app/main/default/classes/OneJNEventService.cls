@@ -1,5 +1,5 @@
 /**
- * @description       :
+ * @description       : service to coordinate the  selector layer and serialization
  * @author            : Remario Richards
  * @group             :
  * @last modified on  : 05-26-2021
@@ -8,5 +8,7 @@
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
  **/
-public class OneJNDeserializer {
+public with sharing class OneJNEventService {
+  public static void build() {
+  }
 }
