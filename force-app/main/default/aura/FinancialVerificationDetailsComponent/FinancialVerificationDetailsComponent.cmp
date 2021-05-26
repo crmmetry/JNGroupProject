@@ -2,7 +2,7 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 05-19-2021
+  @last modified on  : 05-22-2021
   @last modified by  : Travis Allen
   Modifications Log 
   Ver   Date         Author                               Modification
@@ -24,6 +24,7 @@
   <aura:attribute name="VerifiedTotalsMap" type="Map" default="{}" />
   <aura:attribute name="VerifiedDataMap" type="Map" default="{}" />
   <aura:attribute name="UnverifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="PrimarySourceOfIncomeMap" type="Map" />
   <aura:attribute name="UnverifiedDebts" type="List" />
   <aura:attribute name="ConsolidatedDebts" type="List" />
   <aura:attribute name="VerifiedDebts" type="List" />
@@ -69,8 +70,10 @@ $Resource.productDetailsGeneralFunctions)}"
     ></c:LiabilitiesVerificationLineComponent>
     <c:MonthlyIncomeVerificationLineComponent
       toggleCheckAll="{!v.toggleCheckAll}"
-      verifiedDataMap="{!v.VerifiedDataMap}"
+      childVerifiedDataMap="{!v.VerifiedDataMap}"
+      parentVerifiedDataMap="{!v.ParentVerifiedDataMap}"
       unverifiedDataMap="{!v.UnverifiedDataMap}"
+      VerifiedTotalsMap="{!v.VerifiedTotalsMap}"
     ></c:MonthlyIncomeVerificationLineComponent>
     <c:MonthlyExpensesVerificationLineComponent
       toggleCheckAll="{!v.toggleCheckAll}"

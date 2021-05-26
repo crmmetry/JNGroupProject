@@ -1078,39 +1078,73 @@ window.financialVerificationComponentTotalsController = function (
   dataMap,
   calculationMap,
   debts,
-  totalsMap
+  totalsMap,
+  primarySourceOfIncomeAmount
 ) {
   let result = 0;
-  if (calculationKey.includes("totalAsset")) {
-    result = calculateTotalAssets(calculationMap[calculationKey], dataMap);
-    totalsMap.totalAssetsVerified = result;
-    return totalsMap;
+  if (
+    validNumber(primarySourceOfIncomeAmount) &&
+    calculationKey &&
+    dataMap &&
+    calculationMap &&
+    debts &&
+    totalsMap &&
+    primarySourceOfIncomeAmount
+  ) {
+    if (calculationKey.includes(TOTAL_ASSETS)) {
+      result = calculateTotalAssets(calculationMap[calculationKey], dataMap);
+      totalsMap.totalAssetsVerified = result;
+      return totalsMap;
+    }
+    if (calculationKey.includes(TOTAL_LIABILITIES)) {
+      result = calculateTotalLiabilities(
+        calculationMap[calculationKey],
+        dataMap
+      );
+      totalsMap.totalLiabilitiesVerified = result;
+      return totalsMap;
+    }
+    if (calculationKey.includes(NETWORTH)) {
+      result = calculateNetWorth(
+        totalsMap.totalAssetsVerified,
+        totalsMap.totalLiabilitiesVerified
+      );
+      totalsMap.netWorthVerified = result;
+      return totalsMap;
+    }
+    if (calculationKey.includes(TOTAL_MONTHLY_EXPENSES)) {
+      result = calculateTotalMonthlyExpenses(
+        calculationMap[calculationKey],
+        dataMap
+      );
+      totalsMap.totalMonthlyExpensesVerified = result;
+      return totalsMap;
+    }
+    if (calculationKey.includes(TOTAL_DEBT_CONSOLIDATED)) {
+      result = totalDebtCalculator(debts);
+      totalsMap.totalDebtConsolidatedVerified = result;
+      return totalsMap;
+    }
+
+    if (calculationKey.includes(TOTAL_MONTHLY_INCOME)) {
+      result = calculateTotalMonthlyIncome(
+        calculationMap[calculationKey],
+        dataMap
+      );
+      totalsMap.totalMonthlyIncomeVerified = result;
+      return totalsMap;
+    }
+
+    if (calculationKey.includes(TOTAL_OTHER_INCOME)) {
+      result = calculateTotalOtherIncome(
+        calculationMap[calculationKey],
+        dataMap,
+        primarySourceOfIncomeAmount
+      );
+      totalsMap.totalOtherIncomeVerified = result;
+      return totalsMap;
+    }
   }
-  if (calculationKey.includes("totalLiabilities")) {
-    result = calculateTotalLiabilities(calculationMap[calculationKey], dataMap);
-    totalsMap.totalLiabilitiesVerified = result;
-    return totalsMap;
-  }
-  if (calculationKey.includes("netWorth")) {
-    result = calculateNetWorth(
-      totalsMap.totalAssetsVerified,
-      totalsMap.totalLiabilitiesVerified
-    );
-    totalsMap.netWorthVerified = result;
-    return totalsMap;
-  }
-  if (calculationKey.includes("totalMonthlyExpensesVerified")) {
-    result = calculateTotalMonthlyExpenses(
-      calculationMap[calculationKey],
-      dataMap
-    );
-    totalsMap.totalMonthlyExpensesVerified = result;
-    return totalsMap;
-  }
-  if (calculationKey.includes("totalDebtConsolidatedVerified")) {
-    result = totalDebtCalculator(debts);
-    totalsMap.totalDebtConsolidatedVerified = result;
-    return totalsMap;
-  }
+
   return totalsMap;
 };
