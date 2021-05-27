@@ -74,37 +74,11 @@ public class ApplicationTriggerHandler {
       ]
     );
     for (Application__c newAppRecord : newRecords) {
-      /*if (
-        newAppRecord.OwnerId <> oldMap.get(newAppRecord.Id).OwnerId &&
-        newAppRecord.Adjudication_Path_picklist__c == Constants.OPEN_STATUS
-      ) {
-        if (
-          oldMap.get(newAppRecord.Id).OwnerId == referredQueueId &&
-          groupMemMap.get(Constants.REFERRED_QUEUE_NAME)
-            .contains(newAppRecord.OwnerId)
-        ) {
-          newAppRecord.Adjudication_Path_picklist__c = Constants.ASSIGNED_STATUS;
-        }
-      }*/
-
       if (
         newAppRecord.OwnerId <> oldMap.get(newAppRecord.Id).OwnerId &&
         oldMap.get(newAppRecord.Id).Adjudication_Path_picklist__c ==
         Constants.DEFERRED_STATUS
       ) {
-        /*if (
-          oldMap.get(newAppRecord.Id).OwnerId == referredQueueId &&
-          groupMemMap.get(Constants.REFERRED_QUEUE_NAME)
-            .contains(newAppRecord.OwnerId)
-        ) {
-          newAppRecord.Adjudication_Path_picklist__c = Constants.DEFERRED_STATUS;
-          if (applicationMap.get(newAppRecord.Id).cases__r.size() > 0) {
-            for (Case cases : applicationMap.get(newAppRecord.Id).cases__r) {
-              cases.OwnerId = newAppRecord.OwnerId;
-              caseList.add(cases);
-            }
-          }
-        }*/
         if (
           groupMemMap.get(Constants.REFERRED_QUEUE_NAME)
             .contains(oldMap.get(newAppRecord.Id).OwnerId) &&
@@ -136,6 +110,7 @@ public class ApplicationTriggerHandler {
     List<GroupMember> groupList = [
       SELECT UserOrGroupId, Group.DeveloperName
       FROM GroupMember
+      WITH SECURITY_ENFORCED
     ];
     Map<String, List<Id>> groupMap = new Map<String, List<Id>>();
     for (GroupMember groups : groupList) {
