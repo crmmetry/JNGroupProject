@@ -2,7 +2,7 @@
   @description       : 
   @author            : Travis Allen
   @group             : 
-  @last modified on  : 03-12-2021
+  @last modified on  : 05-25-2021
   @last modified by  : Travis Allen
   Modifications Log 
   Ver   Date         Author         Modification
@@ -11,14 +11,22 @@
 <aura:component controller="FinancialDetailsController">
   <aura:attribute name="toggleCheckAll" type="Boolean" default="false" />
   <aura:attribute name="auraIdList" type="List" />
-  <aura:attribute name="verifiedMonthlyIncomeMap" type="Map" />
-  <aura:attribute name="verifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="VerifiedTotalsMap" type="Map" />
+  <aura:attribute name="childVerifiedDataMap" type="Map" default="{}" />
+  <aura:attribute name="parentVerifiedDataMap" type="Map" default="{}" />
   <aura:attribute name="unverifiedDataMap" type="Map" default="{}" />
   <aura:attribute name="primarySourceOfIncome" type="List" default="[]" />
+  <aura:attribute name="selectedPrimarySourceOfIncome" type="String" />
+
+  <aura:attribute
+    name="calculatedFieldIds"
+    type="List"
+    default="['totalMonthlyIncome','totalOtherIncome']"
+  />
   <aura:handler
     name="change"
-    action="{!c.onVerifiedMonthlyIncomeMapChange}"
-    value="{!v.verifiedMonthlyIncomeMap}"
+    action="{!c.onChildVerifiedDataMapChange}"
+    value="{!v.childVerifiedDataMap}"
   />
   <aura:registerEvent
     name="MonthlyIncomeEvent"
@@ -74,14 +82,15 @@
       <lightning:select
         aura:id="primaryIncomeSource"
         name="primarySourceOFIncome"
-        required="true"
+        value="{!v.childVerifiedDataMap.primarySourceOfIncomeVerified}"
         label=""
       >
-        <option value="{!v.verifiedDataMap.primarySourceOfIncomeVerified}"
-          >{!v.verifiedDataMap.primarySourceOfIncomeVerified}</option
-        >
         <aura:iteration items="{!v.primarySourceOfIncome}" var="item">
-          <option value="{!item}">{!item}</option>
+          <option
+            selected="{!v.childVerifiedDataMap.primarySourceOfIncomeVerified == item}"
+            value="{!item}"
+            >{!item}</option
+          >
         </aura:iteration>
       </lightning:select>
     </lightning:layoutItem>
@@ -116,7 +125,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.grossSalaryAllowancesVerified}"
+        value="{!v.childVerifiedDataMap.grossSalaryAllowancesVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 3 -->
@@ -155,7 +164,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.otherIncomeVerified}"
+        value="{!v.childVerifiedDataMap.otherIncomeVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 4 -->
@@ -189,7 +198,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.netBusinessIncomeSoleTraderVerified}"
+        value="{!v.childVerifiedDataMap.netBusinessIncomeSoleTraderVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 5 -->
@@ -223,7 +232,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.directorEmolumentsVerified}"
+        value="{!v.childVerifiedDataMap.directorEmolumentsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 6 -->
@@ -257,7 +266,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.netBusinessIncomePartnershipVerified}"
+        value="{!v.childVerifiedDataMap.netBusinessIncomePartnershipVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 7 -->
@@ -291,7 +300,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.netBusinessIncomeCompanyShareholdingVerified}"
+        value="{!v.childVerifiedDataMap.netBusinessIncomeCompanyShareholdingVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 8 -->
@@ -325,7 +334,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.pensionIncomeVerified}"
+        value="{!v.childVerifiedDataMap.pensionIncomeVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 9 -->
@@ -359,42 +368,10 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.propertyRentalVerified}"
+        value="{!v.childVerifiedDataMap.propertyRentalVerified}"
       ></lightning:input>
     </lightning:layoutItem>
-    <!-- ROW 10 -->
-    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class=""><h3>Total Other Income</h3></div>
-    </lightning:layoutItem>
-    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <lightning:input
-        aura:id="totalOtherIncomeUnverified"
-        type="number"
-        formatter="currency"
-        step="0.01"
-        disabled="true"
-      ></lightning:input>
-    </lightning:layoutItem>
-    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <div class="slds-m-top_large center-align">
-        <lightning:input
-          type="checkbox-button"
-          aura:id="verificationToggle"
-          name="totalOtherIncome"
-          oncommit="{!c.fireComponentEvent}"
-        />
-      </div>
-    </lightning:layoutItem>
-    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
-      <lightning:input
-        aura:id="totalOtherIncome"
-        type="number"
-        formatter="currency"
-        step="0.01"
-        placeholder="NULL"
-        value="{!v.verifiedDataMap.totalOtherIncomeVerified}"
-      ></lightning:input>
-    </lightning:layoutItem>
+
     <!-- ROW 11 -->
     <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
       <div class=""><h3>Total Monthly Income</h3></div>
@@ -405,6 +382,7 @@
         type="number"
         formatter="currency"
         step="0.01"
+        value="{!v.unverifiedDataMap.totalMonthlyIncome}"
         disabled="true"
       ></lightning:input>
     </lightning:layoutItem>
@@ -425,7 +403,44 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.totalMonthlyIncomeVerified}"
+        disabled="true"
+        value="{!v.VerifiedTotalsMap.totalMonthlyIncomeVerified}"
+      ></lightning:input>
+    </lightning:layoutItem>
+
+    <!-- ROW 10 -->
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class=""><h3>Total Other Income</h3></div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="totalOtherIncomeUnverified"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        value="{!v.unverifiedDataMap.totalOtherIncome}"
+        disabled="true"
+      ></lightning:input>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <div class="slds-m-top_large center-align">
+        <lightning:input
+          type="checkbox-button"
+          aura:id="verificationToggle"
+          name="totalOtherIncome"
+          oncommit="{!c.fireComponentEvent}"
+        />
+      </div>
+    </lightning:layoutItem>
+    <lightning:layoutItem size="3" mediumDeviceSize="3" padding="around-small">
+      <lightning:input
+        aura:id="totalOtherIncome"
+        type="number"
+        formatter="currency"
+        step="0.01"
+        placeholder="NULL"
+        disabled="true"
+        value="{!v.VerifiedTotalsMap.totalOtherIncomeVerified}"
       ></lightning:input>
     </lightning:layoutItem>
   </lightning:layout>

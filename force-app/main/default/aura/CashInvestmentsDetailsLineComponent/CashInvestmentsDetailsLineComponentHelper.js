@@ -11,7 +11,6 @@
     );
     component.set("v.ChildContainer", data);
   },
-
   updateAccountTypeOptions: function (component, selected) {
     let fundManagerAccountTypeOptions = component.get(
       "v.accountTypeWhenJNFundManagerIsSelected"

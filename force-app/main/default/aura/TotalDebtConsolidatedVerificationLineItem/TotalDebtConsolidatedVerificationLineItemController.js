@@ -44,26 +44,31 @@
 
   handleComponentEvent: function (component, event) {
     let componentName = event.getParam("componentName");
+    let calculatedFields = component.get("v.calculatedFieldIds");
     let checkedValue = event.getParam("checkedVar");
     let inputCmp = component.find(componentName);
     let unverifiedInputCmp = component.find(componentName.concat("Unverified"));
     if (checkedValue) {
-      inputCmp.set("v.disabled", true);
-      //set value to the value of related unverified amount
-      //add verified to component string as aura id
-      //reference the aura id and reverence the attribute value
-      //set the value of inputCmp  as that of the unverified amount
-      inputCmp.set("v.value", unverifiedInputCmp.get("v.value"));
+      if (calculatedFields.includes(componentName)) {
+        inputCmp.set("v.value", unverifiedInputCmp.get("v.value"));
+      } else {
+        inputCmp.set("v.value", unverifiedInputCmp.get("v.value"));
+        inputCmp.set("v.disabled", true);
+      }
     } else {
-      inputCmp.set("v.disabled", false);
-      inputCmp.set("v.value", null);
+      if (calculatedFields.includes(componentName)) {
+        inputCmp.set("v.value", null);
+      } else {
+        inputCmp.set("v.value", null);
+        inputCmp.set("v.disabled", false);
+      }
     }
   },
 
-  onVerifiedAssetsMapChange: function (component, event) {
-    let totalDebt = component.get("v.totalDebtMap");
-    let verifiedData = component.get("v.verifiedDataMap");
-    let data = Object.assign(verifiedData, totalDebt);
-    component.set("v.verifiedDataMap", data);
+  onChildVerifiedDataMapChange: function (component, event, helper) {
+    component.set(
+      "v.parentVerifiedDataMap",
+      component.get("v.childVerifiedDataMap")
+    );
   }
 });

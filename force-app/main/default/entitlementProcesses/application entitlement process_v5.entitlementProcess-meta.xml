@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<EntitlementProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <SObjectType>Case</SObjectType>
+    <active>false</active>
+    <entryStartDateField>Case.CreatedDate</entryStartDateField>
+    <exitCriteriaFilterItems>
+        <field>Case.IsClosed</field>
+        <operation>equals</operation>
+        <value>true</value>
+    </exitCriteriaFilterItems>
+    <isVersionDefault>false</isVersionDefault>
+    <milestones>
+        <criteriaBooleanFilter>1 OR 2</criteriaBooleanFilter>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>ADJ_Assigned</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>ADJ_In progress</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Adjudicator Milestone</milestoneName>
+        <minutesToComplete>20</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>Update_SLA_Escalation_Flag</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>Deferred</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Deferral Manager Milestone</milestoneName>
+        <minutesToComplete>10</minutesToComplete>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+    <name>Application Entitlement Process</name>
+    <versionMaster>552f000000001ID</versionMaster>
+    <versionNumber>5</versionNumber>
+</EntitlementProcess>

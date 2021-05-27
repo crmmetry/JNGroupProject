@@ -1,13 +1,24 @@
+<!--
+  @description       : 
+  @author            : Travis Allen
+  @group             : 
+  @last modified on  : 05-19-2021
+  @last modified by  : Travis Allen
+  Modifications Log 
+  Ver   Date         Author         Modification
+  1.0   05-17-2021   Travis Allen   Initial Version
+-->
 <aura:component>
   <aura:attribute name="toggleCheckAll" type="Boolean" />
   <aura:attribute name="auraIdList" type="List" />
-  <aura:attribute name="verifiedLiabilitiesMap" type="Map" />
-  <aura:attribute name="verifiedDataMap" type="Map" />
+  <aura:attribute name="parentVerifiedDataMap" type="Map" />
   <aura:attribute name="unverifiedDataMap" type="Map" />
+  <aura:attribute name="childVerifiedDataMap" type="Map" />
+  <aura:attribute name="calculationsMap" type="Map" />
   <aura:handler
     name="change"
-    action="{!c.onVerifiedLiabilitiesMapChange}"
-    value="{!v.verifiedLiabilitiesMap}"
+    action="{!c.onChildVerifiedDataMapChange}"
+    value="{!v.childVerifiedDataMap}"
   />
 
   <aura:handler name="init" action="{!c.doinit}" value="{!this}" />
@@ -68,7 +79,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.mortgageBalanceVerified}"
+        value="{!v.childVerifiedDataMap.mortgageBalanceVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 2 -->
@@ -106,7 +117,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.outstandingBalanceOnLoansVerified}"
+        value="{!v.childVerifiedDataMap.outstandingBalanceOnLoansVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 3 -->
@@ -142,7 +153,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.averageCreditBalanceVerified}"
+        value="{!v.childVerifiedDataMap.averageCreditBalanceVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 4 -->
@@ -176,7 +187,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.averageLineOfCreditBalanceVerified}"
+        value="{!v.childVerifiedDataMap.averageLineOfCreditBalanceVerified}"
       ></lightning:input>
     </lightning:layoutItem>
     <!-- ROW 5 -->
@@ -210,7 +221,7 @@
         formatter="currency"
         step="0.01"
         placeholder="NULL"
-        value="{!v.verifiedDataMap.otherDebtsVerified}"
+        value="{!v.childVerifiedDataMap.otherDebtsVerified}"
       ></lightning:input>
     </lightning:layoutItem>
   </lightning:layout>

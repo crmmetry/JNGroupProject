@@ -945,3 +945,79 @@ window.autoCollateralDepositPercentageCalculator = function (
   }
   return 0;
 };
+
+/**
+ * summates given totals to calculate total monthly expenses.
+ * @param {Object} parentObj -
+ * @param {Array<String>} properties - fields on the parent object
+ * @return {Decimal}
+ */
+window.calculateTotalMonthlyExpenses = function (properties, parentObj) {
+  return roundedValue(basicTotalsCalculator(properties, parentObj));
+};
+
+/**
+ * summates given totals to calculate total assets.
+ * @param {Object} parentObj -
+ * @param {Array<String>} properties - fields on the parent object
+ * @return {Decimal}
+ */
+window.calculateTotalAssets = function (properties, parentObj) {
+  return roundedValue(basicTotalsCalculator(properties, parentObj));
+};
+
+/**
+ * summates given totals to calculate total liabilities.
+ * @param {Object} parentObj -
+ * @param {Array<String>} properties - fields on the parent object
+ * @return {Decimal}
+ */
+window.calculateTotalLiabilities = function (properties, parentObj) {
+  return roundedValue(basicTotalsCalculator(properties, parentObj));
+};
+
+/**
+ * summates given totals to calculate networth.
+ * @param {Object} parentObj -
+ * @param {Array<String>} properties - fields on the parent object
+ * @return {Decimal}
+ */
+window.calculateNetWorth = function (totalAssets, totalLiabilities) {
+  return totalAssets - totalLiabilities;
+};
+
+/**
+ * summates given totals to calculate total monthly income.
+ * @param {Object} parentObj -
+ * @param {Array<String>} properties - fields on the parent object
+ * @return {Decimal}
+ */
+window.calculateTotalMonthlyIncome = function (properties, parentObj) {
+  return roundedValue(basicTotalsCalculator(properties, parentObj));
+};
+
+/**
+ * summates given totals to calculate total other income.
+ * @param {Object} parentObj -
+ * @param {Array<String>} properties - fields on the parent object
+ * @return {Decimal}
+ */
+window.calculateTotalOtherIncome = function (
+  properties,
+  parentObj,
+  primarySourceOfIncomeAmount
+) {
+  return (
+    roundedValue(basicTotalsCalculator(properties, parentObj)) -
+    parseFloat(primarySourceOfIncomeAmount)
+  );
+};
+
+/**
+ * summates given totals to calculate total monthly expenses.
+ * @param {Object} parentObj -
+ * @param {Array<String>} properties - fields on the parent object
+ * @return {Decimal}
+ */
+// window.calculateTotalDebtAmount = function (consolidatedDebts) {
+// };

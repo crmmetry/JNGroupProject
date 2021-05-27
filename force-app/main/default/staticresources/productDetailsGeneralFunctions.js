@@ -1048,3 +1048,103 @@ window.checkProductFamily = function (component, family) {
   }
   return false;
 };
+
+/**
+ * Calculate total debt amount givent a list of debts to be consolidated
+ * @param {List} debtsToBeConsolidated
+ * @return {Decimal}
+ */
+
+window.totalDebtCalculator = function (debtsToBeConsolidated) {
+  let totalDebt = 0;
+  if (debtsToBeConsolidated != null) {
+    debtsToBeConsolidated.forEach((element) => {
+      totalDebt += parseFloat(element.debtAmountVerified);
+    });
+  }
+  return totalDebt;
+};
+
+/**
+ * Accepts a string and chooses which total to calculate and return.
+ * @param {String} calculationKey
+ * @param {Map} dataMap
+ * @param {Map} calculationMap
+ * @param {List} debts
+ * @return
+ */
+window.financialVerificationComponentTotalsController = function (
+  calculationKey,
+  dataMap,
+  calculationMap,
+  debts,
+  totalsMap,
+  primarySourceOfIncomeAmount
+) {
+  let result = 0;
+  if (
+    validNumber(primarySourceOfIncomeAmount) &&
+    calculationKey &&
+    dataMap &&
+    calculationMap &&
+    debts &&
+    totalsMap &&
+    primarySourceOfIncomeAmount
+  ) {
+    if (calculationKey.includes(TOTAL_ASSETS)) {
+      result = calculateTotalAssets(calculationMap[calculationKey], dataMap);
+      totalsMap.totalAssetsVerified = result;
+      return totalsMap;
+    }
+    if (calculationKey.includes(TOTAL_LIABILITIES)) {
+      result = calculateTotalLiabilities(
+        calculationMap[calculationKey],
+        dataMap
+      );
+      totalsMap.totalLiabilitiesVerified = result;
+      return totalsMap;
+    }
+    if (calculationKey.includes(NETWORTH)) {
+      result = calculateNetWorth(
+        totalsMap.totalAssetsVerified,
+        totalsMap.totalLiabilitiesVerified
+      );
+      totalsMap.netWorthVerified = result;
+      return totalsMap;
+    }
+    if (calculationKey.includes(TOTAL_MONTHLY_EXPENSES)) {
+      result = calculateTotalMonthlyExpenses(
+        calculationMap[calculationKey],
+        dataMap
+      );
+      totalsMap.totalMonthlyExpensesVerified = result;
+      return totalsMap;
+    }
+    if (calculationKey.includes(TOTAL_DEBT_CONSOLIDATED)) {
+      result = totalDebtCalculator(debts);
+      totalsMap.totalDebtConsolidatedVerified = result;
+      return totalsMap;
+    }
+
+    if (calculationKey.includes(TOTAL_MONTHLY_INCOME)) {
+      result = calculateTotalMonthlyIncome(
+        calculationMap[calculationKey],
+        dataMap
+      );
+      totalsMap.totalMonthlyIncomeVerified = result;
+      return totalsMap;
+    }
+
+    if (calculationKey.includes(TOTAL_OTHER_INCOME)) {
+      result = calculateTotalOtherIncome(
+        calculationMap[calculationKey],
+        dataMap,
+        primarySourceOfIncomeAmount
+      );
+      totalsMap.totalOtherIncomeVerified = result;
+      return totalsMap;
+    }
+  }
+
+  return totalsMap;
+};

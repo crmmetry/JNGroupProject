@@ -17,53 +17,8 @@
         <label>Sales Prospect</label>
     </standardValue>
     <standardValue>
-        <fullName>Advertisement</fullName>
-        <default>false</default>
-        <label>Advertisement</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Customer Event</fullName>
-        <default>false</default>
-        <label>Customer Event</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Employee Referral</fullName>
-        <default>false</default>
-        <label>Employee Referral</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Google AdWords</fullName>
-        <default>false</default>
-        <label>Google AdWords</label>
-    </standardValue>
-    <standardValue>
         <fullName>Other</fullName>
         <default>false</default>
         <label>Other</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Partner</fullName>
-        <default>false</default>
-        <label>Partner</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Purchased List</fullName>
-        <default>false</default>
-        <label>Purchased List</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Trade Show</fullName>
-        <default>false</default>
-        <label>Trade Show</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Webinar</fullName>
-        <default>false</default>
-        <label>Webinar</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Online Application Form</fullName>
-        <default>false</default>
-        <label>Online Application Form</label>
     </standardValue>
 </StandardValueSet>
