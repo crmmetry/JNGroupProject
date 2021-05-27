@@ -284,6 +284,8 @@ public class CaseTriggerHandler_Test {
       update applicationList;
       applicationList[0]
         .Adjudication_Decision_picklist__c = Constants.MANUAL_APPROVE;
+      //applicationList[0].Adjudication_Path_picklist__c = 'Closed';
+
       update applicationList;
     }
   }
