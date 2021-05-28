@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Ishwari Gaikwad(Thinqloud)
  * @group             :
- * @last modified on  : 05-20-2021
+ * @last modified on  : 05-28-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                       Modification
@@ -284,8 +284,6 @@ public class CaseTriggerHandler_Test {
       update applicationList;
       applicationList[0]
         .Adjudication_Decision_picklist__c = Constants.MANUAL_APPROVE;
-      //applicationList[0].Adjudication_Path_picklist__c = 'Closed';
-
       update applicationList;
     }
   }
