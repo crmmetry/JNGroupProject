@@ -1,7 +1,70 @@
 ({
   doinit: function (component, event, helper) {
-    helper.getFinancialInfo(component);
-    helper.getDebtsTobeConsolidated(component);
+    let calculationsMap = {
+      totalAssetsVerified: [
+        "realEstateHoldingsAssetsVerified",
+        "motorVehicleAssetsVerified",
+        "savingsAccountInvestmentAssetsVerified",
+        "lifeInsuranceAssetsVerified",
+        "pensionAssetsVerified",
+        "otherAssetsVerified"
+      ],
+      totalLiabilitiesVerified: [
+        "mortgageBalanceVerified",
+        "outstandingBalanceOnLoansVerified",
+        "averageCreditBalanceVerified",
+        "averageLineOfCreditBalanceVerified",
+        "otherDebtsVerified"
+      ],
+      netWorthVerified: ["totalAssetsVerified", "totalLiabilitiesVerified"],
+
+      totalMonthlyExpensesVerified: [
+        "totalMonthlyLoanPaymentsVerified",
+        "mortgagePaymentVerified",
+        "utilitiesAndHouseholdExpensesVerified",
+        "personalAndFamilyExpensesVerified",
+        "transportationExpensesVerified",
+        "otherExpensesVerified",
+        "totalStatutoryDeductionsVerified"
+      ],
+      totalDebtConsolidatedVerified: ["debtAmountVerified"],
+      totalMonthlyIncomeVerified: [
+        "grossSalaryAllowancesVerified",
+        "otherIncomeVerified",
+        "netBusinessIncomeSoleTraderVerified",
+        "directorEmolumentsVerified",
+        "netBusinessIncomePartnershipVerified",
+        "netBusinessIncomeCompanyShareholdingVerified",
+        "pensionIncomeVerified",
+        "propertyRentalVerified"
+      ],
+      totalOtherIncomeVerified: [
+        "grossSalaryAllowancesVerified",
+        "otherIncomeVerified",
+        "netBusinessIncomeSoleTraderVerified",
+        "directorEmolumentsVerified",
+        "netBusinessIncomePartnershipVerified",
+        "netBusinessIncomeCompanyShareholdingVerified",
+        "pensionIncomeVerified",
+        "propertyRentalVerified"
+      ]
+    };
+    //TODO: Refactor hard coded map to dynamically create map from API Picklist.
+    let primarySourceOfIncomeMap = {
+      "Gross Salary and Allowances": "grossSalaryAllowancesVerified",
+      "Other Income": "otherIncomeVerified",
+      "Net  Business Income - Sole Trader":
+        "netBusinessIncomeSoleTraderVerified",
+      "Director's Emoluments - Director": "directorEmolumentsVerified",
+      "Net  Business Income - Partnership":
+        "netBusinessIncomePartnershipVerified",
+      "Net  Business Income - Company Shareholding":
+        "netBusinessIncomeCompanyShareholdingVerified",
+      Pension: "pensionIncomeVerified",
+      "Property Rental": "propertyRentalVerified"
+    };
+    component.set("v.calculationsMap", calculationsMap);
+    component.set("v.PrimarySourceOfIncomeMap", primarySourceOfIncomeMap);
   },
 
   toggleCheckBoxes: function (component, event, helper) {
@@ -21,9 +84,9 @@
 
   scriptsLoaded: function (component, event, helper) {
     component.set("v.scriptsLoaded", true);
+    helper.getFinancialInfo(component);
+    helper.getDebtsTobeConsolidated(component);
   },
-
-  onVerifiedDataMapChange: function (component, event) {},
 
   onVerifiedDebtsChange: function (component) {},
 
@@ -37,7 +100,7 @@
     if (component.get("v.isSubmitted")) {
       this.showToast(
         "Submission Successful",
-        "Fianancial Details was submitted successfully",
+        "Financial Details was submitted successfully",
         "success"
       );
     }
@@ -59,11 +122,38 @@
     }
   },
 
-  handleDebtInfoEvent: function (component, event) {
-    const debtData = event.getParam("data");
-    const index = event.getParam("index");
-    const consolidatedDebts = component.get("v.ConsolidatedDebts");
-    consolidatedDebts[index] = debtData;
+  onParentVerifiedDataMapChange: function (component, event, helper) {
+    if (component.get("v.scriptsLoaded")) {
+      const debtData = event.getParam("data");
+      const index = event.getParam("index");
+      const consolidatedDebts = component.get("v.ConsolidatedDebts");
+      consolidatedDebts[index] = debtData;
+      let newVerifiedDataMap = component.get("v.ParentVerifiedDataMap");
+      let totalsMap = component.get("v.VerifiedTotalsMap");
+      let calculationMap = component.get("v.calculationsMap");
+      let primarySourceOfIncomeAmount = helper.getSelectedPrimarySourceOfIncomeValue(
+        component
+      );
+      Object.keys(calculationMap).forEach((key) => {
+        totalsMap = financialVerificationComponentTotalsController(
+          key,
+          newVerifiedDataMap,
+          calculationMap,
+          consolidatedDebts,
+          totalsMap,
+          primarySourceOfIncomeAmount
+        );
+      });
+      let newMapWithUpdatedTotals = Object.assign(
+        newVerifiedDataMap,
+        totalsMap
+      );
+      component.set(
+        "v.VerifiedDataMapWithUpdatedTotals",
+        newMapWithUpdatedTotals
+      );
+      component.set("v.VerifiedTotalsMap", totalsMap);
+    }
   },
 
   saveFinancialDetails: function (component, event, helper) {

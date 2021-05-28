@@ -2,8 +2,8 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 05-07-2021
- * @last modified by  : Travis Allen
+ * @last modified on  : 05-18-2021
+ * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author                               Modification
  * 1.0   02-22-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
@@ -98,6 +98,12 @@ public with sharing class Util {
     ];
   }
 
+  /**
+   * @description gets a queue from name
+   * @author Remario Richards | 05-18-2021
+   * @param name
+   * @return String
+   **/
   public static String getQueueId(String name) {
     return [SELECT Id, Name FROM Group WHERE Type = 'Queue' AND NAME = :name]
     .Id;

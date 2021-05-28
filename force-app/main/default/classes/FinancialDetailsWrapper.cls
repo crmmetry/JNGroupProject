@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 04-01-2021
+ * @last modified on  : 05-25-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -67,10 +67,6 @@ public with sharing class FinancialDetailsWrapper {
   public Decimal pensionIncome;
   @AuraEnabled
   public Decimal propertyRental;
-  // @AuraEnabled
-  // public Decimal totalOtherIncome;
-  // @AuraEnabled
-  // public Decimal totalMonthlyIncome;
   @AuraEnabled
   public Decimal totalAssets;
   @AuraEnabled
@@ -133,10 +129,14 @@ public with sharing class FinancialDetailsWrapper {
   public Decimal pensionIncomeVerified;
   @AuraEnabled
   public Decimal propertyRentalVerified;
-  // @AuraEnabled
-  // public Decimal totalOtherIncome;
-  // @AuraEnabled
-  // public Decimal totalMonthlyIncome;
+  @AuraEnabled
+  public Decimal totalOtherIncome;
+  @AuraEnabled
+  public Decimal totalMonthlyIncome;
+  @AuraEnabled
+  public Decimal totalOtherIncomeVerified;
+  @AuraEnabled
+  public Decimal totalMonthlyIncomeVerified;
   @AuraEnabled
   public Decimal totalAssetsVerified;
   @AuraEnabled
@@ -196,7 +196,6 @@ public with sharing class FinancialDetailsWrapper {
     this.averageCreditBalanceVerified = record.Average_Credit_Card_Balances_VERIFIED__c;
     this.averageLineOfCreditBalanceVerified = record.Average_Line_of_Credit_Balance_VERIFIED__c;
     this.otherDebtsVerified = record.Other_Debt_VERIFIED_Number__c;
-    this.totalMonthlyLoanPaymentsVerified = record.Total_Monthly_Loan_Payments_VERIFIED__c;
     this.mortgagePaymentVerified = record.Mortgage_Rent_VERIFIED_Number__c;
     this.utilitiesAndHouseholdExpensesVerified = record.Utilities_Household_Expenses_VERIFIED__c;
     this.personalAndFamilyExpensesVerified = record.Personal_and_Family_Expenses_VERIFIED__c;
@@ -218,7 +217,12 @@ public with sharing class FinancialDetailsWrapper {
     this.netWorthVerified = record.Net_Worth_Verified_Number__c;
     this.totalDebtConsolidated = record.Total_Amount_Consolidated__c;
     this.totalDebtConsolidatedVerified = record.Total_Amount_Consolidation_VERIFIED__c;
-    this.totalMonthlyPayment = record.Total_Monthly_Loan_Payments_Number__c;
-    this.totalMonthlyPaymentVerified = record.Total_Monthly_Loan_Payments_VERIFIED__c;
+    this.totalMonthlyPayment = record.Total_Monthly_Payment__c;
+    this.totalMonthlyPaymentVerified = record.Total_Monthly_Payment_VERIFIED_Number__c;
+    this.totalMonthlyLoanPaymentsVerified = record.Total_Monthly_Loan_Payments_VERIFIED__c;
+    this.totalOtherIncome = record.Total_Other_Income_Calc__c;
+    this.totalMonthlyIncome = record.Total_Monthly_Income_Calc__c;
+    this.totalOtherIncomeVerified = record.Total_Other_Income_Verified__c;
+    this.totalMonthlyIncomeVerified = record.Total_Monthly_Income_Verified__c;
   }
 }

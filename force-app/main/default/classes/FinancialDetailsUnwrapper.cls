@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 04-01-2021
+ * @last modified on  : 05-25-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -69,10 +69,14 @@ public with sharing class FinancialDetailsUnwrapper {
   public Decimal pensionIncome;
   @AuraEnabled
   public Decimal propertyRental;
-  // @AuraEnabled
-  // public Decimal totalOtherIncome;
-  // @AuraEnabled
-  // public Decimal totalMonthlyIncome;
+  @AuraEnabled
+  public Decimal totalOtherIncome;
+  @AuraEnabled
+  public Decimal totalMonthlyIncome;
+  @AuraEnabled
+  public Decimal totalOtherIncomeVerified;
+  @AuraEnabled
+  public Decimal totalMonthlyIncomeVerified;
   @AuraEnabled
   public Decimal totalAssets;
   @AuraEnabled
@@ -124,9 +128,15 @@ public with sharing class FinancialDetailsUnwrapper {
         Transportation_VERIFIED_Number__c,
         Other_Expenses_VERIFIED_Number__c,
         Statutory_Deductions_VERIFIED_Number__c,
-        Total_Monthly_Expenses_Verified_Number__c
+        Total_Monthly_Expenses_Verified_Number__c,
+        Total_Monthly_Payment_VERIFIED_Number__c,
+        Total_Other_Income_Calc__c,
+        Total_Monthly_Income_Calc__c,
+        Total_Other_Income_Verified__c,
+        Total_Monthly_Income_Verified__c
       FROM Applicant__c
       WHERE Opportunity__c = :oppId AND RecordTypeId = :IDMRecordTypeId
+      WITH SECURITY_ENFORCED
     ];
     record.Real_Estate_Holding_s_VERIFIED_Number__c = wrapper.realEstateHoldingsAssetsVerified;
     record.Motor_Vehicle_s_VERIFIED__c = wrapper.motorVehicleAssetsVerified;
@@ -139,6 +149,7 @@ public with sharing class FinancialDetailsUnwrapper {
     record.Average_Credit_Card_Balances_VERIFIED__c = wrapper.averageCreditBalanceVerified;
     record.Average_Line_of_Credit_Balance_VERIFIED__c = wrapper.averageLineOfCreditBalanceVerified;
     record.Other_Debt_VERIFIED_Number__c = wrapper.otherDebtsVerified;
+    record.Total_Monthly_Payment_VERIFIED_Number__c = wrapper.totalMonthlyPaymentVerified;
     record.Total_Monthly_Loan_Payments_VERIFIED__c = wrapper.totalMonthlyLoanPaymentsVerified;
     record.Mortgage_Rent_VERIFIED_Number__c = wrapper.mortgagePaymentVerified;
     record.Utilities_Household_Expenses_VERIFIED__c = wrapper.utilitiesAndHouseholdExpensesVerified;
@@ -160,5 +171,7 @@ public with sharing class FinancialDetailsUnwrapper {
     record.Total_Liabilities_Verified_Number__c = wrapper.totalLiabilitiesVerified;
     record.Net_Worth_Verified_Number__c = wrapper.netWorthVerified;
     record.Total_Amount_Consolidation_VERIFIED__c = wrapper.totalDebtConsolidatedVerified;
+    record.Total_Other_Income_Verified__c = wrapper.totalOtherIncomeVerified;
+    record.Total_Monthly_Income_Verified__c = wrapper.totalMonthlyIncomeVerified;
   }
 }

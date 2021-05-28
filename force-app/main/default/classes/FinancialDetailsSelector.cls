@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 03-11-2021
+ * @last modified on  : 05-25-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -58,6 +58,7 @@ public with sharing class FinancialDetailsSelector {
         Total_Assets_Calc__c,
         Total_Liabilities_Calc__c,
         Net_Worth_Calc__c,
+        Total_Monthly_Payment__c,
         Real_Estate_Holding_s_VERIFIED_Number__c,
         Motor_Vehicle_s_VERIFIED__c,
         Savings_Current_Account_s_Investment_VER__c,
@@ -90,9 +91,15 @@ public with sharing class FinancialDetailsSelector {
         Primary_Source_of_Income_List__c,
         Primary_Source_of_Income_VERIFIED_list__c,
         Total_Monthly_Loan_Payments_Number__c,
-        Total_Monthly_Loan_Payments_VERIFIED__c
+        Total_Monthly_Loan_Payments_VERIFIED__c,
+        Total_Monthly_Payment_VERIFIED_Number__c,
+        Total_Other_Income_Calc__c,
+        Total_Monthly_Income_Calc__c,
+        Total_Other_Income_Verified__c,
+        Total_Monthly_Income_Verified__c
       FROM Applicant__c
       WHERE Opportunity__c = :oppId AND RecordTypeId = :IDMRecordTypeId
+      WITH SECURITY_ENFORCED
     ];
     if (applicantObj != null) {
       financialDetailWrapper = new FinancialDetailsWrapper(applicantObj);

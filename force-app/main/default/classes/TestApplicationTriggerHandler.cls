@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 04-20-2021
+ * @last modified on  : 05-17-2021
  * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -64,9 +64,7 @@ public class TestApplicationTriggerHandler {
       insert applicationRecord1;
     } catch (Exception e) {
       Boolean expectedExceptionThrown = e.getMessage()
-          .contains(
-            'You cant add more than one application for this opportunity'
-          )
+          .contains(Constants.ONLY_ONE_APPLICATION)
         ? true
         : false;
       System.assertEquals(expectedExceptionThrown, true);
