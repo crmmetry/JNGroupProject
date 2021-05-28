@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : Trupti Zende (Thinqloud)
+ * @group             :
+ * @last modified on  : 05-28-2021
+ * @last modified by  : Trupti Zende (Thinqloud)
+ * Modifications Log
+ * Ver   Date         Author                     Modification
+ * 1.0   05-28-2021   Trupti Zende (Thinqloud)   Initial Version
+ **/
 trigger NewAccountTrigger on Account(
   after update,
   before delete,
@@ -5,27 +15,28 @@ trigger NewAccountTrigger on Account(
   after insert,
   before insert
 ) {
-  NewAccountTriggerHandler.init(
-    Trigger.new,
-    Trigger.oldMap,
-    Trigger.newMap,
-    Trigger.old
-  );
-  // NewAccountTriggerHandler.creditscoreonAccount(
-  //   Trigger.isUpdate,
-  //   Trigger.isDelete
-  // );
-  if (Trigger.isUpdate) {
-    if (Trigger.isAfter) {
-    } else {
-      NewAccountTriggerHandler.assignMobileNumber();
-      NewAccountTriggerHandler.SetAccountAffiliations();
-    }
-  } else if (Trigger.isInsert) {
-    if (Trigger.isAfter) {
-    } else {
-      NewAccountTriggerHandler.assignMobileNumber();
+  if (Util.getContextTriggerSwitches()) {
+    NewAccountTriggerHandler.init(
+      Trigger.new,
+      Trigger.oldMap,
+      Trigger.newMap,
+      Trigger.old
+    );
+    // NewAccountTriggerHandler.creditscoreonAccount(
+    //   Trigger.isUpdate,
+    //   Trigger.isDelete
+    // );
+    if (Trigger.isUpdate) {
+      if (Trigger.isAfter) {
+      } else {
+        NewAccountTriggerHandler.assignMobileNumber();
+        NewAccountTriggerHandler.SetAccountAffiliations();
+      }
+    } else if (Trigger.isInsert) {
+      if (Trigger.isAfter) {
+      } else {
+        NewAccountTriggerHandler.assignMobileNumber();
+      }
     }
   }
-
 }
