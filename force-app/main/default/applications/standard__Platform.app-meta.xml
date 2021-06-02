@@ -14,4 +14,5 @@
     <tabs>Application_Asset_Liability__c</tabs>
     <tabs>Lead_Related_Person__c</tabs>
     <tabs>Supplementary_Card_Holders__c</tabs>
+    <tabs>Application__c</tabs>
 </CustomApplication>

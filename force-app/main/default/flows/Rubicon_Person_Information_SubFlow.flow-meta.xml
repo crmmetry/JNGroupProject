@@ -54,7 +54,7 @@
             <assignToReference>AccountTableColumns</assignToReference>
             <operator>Add</operator>
             <value>
-                <stringValue>PersonBirthdate</stringValue>
+                <stringValue>Birth_Date_Calc__c</stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -268,6 +268,7 @@
         <queriedFields>Jamaican_Tax_Registration_Number__pc</queriedFields>
         <queriedFields>PersonBirthdate</queriedFields>
         <queriedFields>MiddleName</queriedFields>
+        <queriedFields>Birth_Date_Calc__c</queriedFields>
         <sortField>FirstName</sortField>
         <sortOrder>Asc</sortOrder>
         <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -306,6 +307,8 @@
                     <stringValue>rubicon</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -394,6 +397,8 @@
                             <stringValue>Mobile</stringValue>
                         </value>
                     </inputParameters>
+                    <inputsOnNextNavToAssocScrn
+          >UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
@@ -441,6 +446,8 @@
                     <stringValue>rubicon</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -474,6 +481,8 @@
                     <elementReference>PersonInformationStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -494,6 +503,7 @@
                     <elementReference>AccountTableColumns</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
