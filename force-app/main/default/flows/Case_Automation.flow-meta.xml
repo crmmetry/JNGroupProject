@@ -152,7 +152,6 @@ Thanks.</stringValue>
                     </value>
                 </processMetadataValues>
                 <leftValueReference
-
         >myVariable_old.SLA_Escalation_Flag__c</leftValueReference>
 
                 <operator>EqualTo</operator>
