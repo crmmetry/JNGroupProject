@@ -2,8 +2,8 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 05-28-2021
- * @last modified by  : Trupti Zende (Thinqloud)
+ * @last modified on  : 06-02-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                               Modification
  * 1.0   02-22-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
@@ -606,14 +606,22 @@ public with sharing class Util {
    **/
   public static Boolean getContextTriggerSwitches() {
     Boolean isActive;
-    Context_Trigger_Switch__mdt triggerSwitch = Context_Trigger_Switch__mdt.getInstance(
-      Constants.DEFAULT_TRIGGER_SWITCH
-    );
+    Context_Trigger_Switch__mdt triggerSwitch = getContextTriggerMetadata();
     if (triggerSwitch.Disable_Trigger__c) {
       isActive = false;
     } else {
       isActive = true;
     }
     return isActive;
+  }
+  /**
+   * @description : method to return the instance of custom metadata
+   * @author Ishwari Gaikwad(Thinqloud) | 06-02-2021
+   * @return Context_Trigger_Switch__mdt
+   **/
+  public static Context_Trigger_Switch__mdt getContextTriggerMetadata() {
+    return Context_Trigger_Switch__mdt.getInstance(
+      Constants.DEFAULT_TRIGGER_SWITCH
+    );
   }
 }
