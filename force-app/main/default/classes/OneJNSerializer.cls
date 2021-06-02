@@ -26,8 +26,8 @@ public class OneJNSerializer {
         Public string productType;
         @AuraEnabled
         Public string subProductType;
-        //@AuraEnabled
-        //Public decimal currency; //reserved word 
+        @AuraEnabled
+        Public decimal currencyType;
         @AuraEnabled
         Public string applicationDate;
         @AuraEnabled
@@ -39,7 +39,7 @@ public class OneJNSerializer {
         @AuraEnabled
         Public string loanPurpose;
         @AuraEnabled
-        Public integer branchRegion;
+        Public string branchRegion;
         @AuraEnabled
         Public string feeFinancing;
         @AuraEnabled
@@ -47,16 +47,16 @@ public class OneJNSerializer {
         
         AppDataWrapper(Application__c applicationRecord, Opportunity opportunityRecord, Applicant__c applicantRecord, OpportunityLineItem opportunityProductRecord, Loan_Calculation_Product__c loanCalculationProductRecord){
             this.applicationId = applicationRecord.Application_ID__c;
-            //this.isJointApplication = applicantRecord.Joint_Application_flag__c; mismatch of data type
+            this.isJointApplication = OneJNSerializer.getBooleanValuesFromString(applicantRecord.Joint_Application_flag__c);
             this.productType = opportunityProductRecord.Product_Family__c;
             this.subProductType = opportunityProductRecord.Name;
-            //this.currency = opportunityRecord.CurrencyIsoCode;	// reserved word
+            //this.currencyType = opportunityRecord.CurrencyIsoCode;	// reserved word & mismatch data type
             this.applicationDate = '';
             this.amount = loanCalculationProductRecord.Loan_Amount_Number__c	;
             this.interestRate = loanCalculationProductRecord.Interest_Rate_Number__c;
             this.requestedTenure = loanCalculationProductRecord.Months_Number__c;
             this.loanPurpose = loanCalculationProductRecord.Loan_Purpose_List__c;
-            //this.branchRegion = opportunityRecord.Preferred_Location__c ; mismatch of data type
+            this.branchRegion = opportunityRecord.Preferred_Location__c ;
             this.feeFinancing = loanCalculationProductRecord.Method_of_Fee_Payment_List__c;
             this.minMonthlyRepayment = loanCalculationProductRecord.Minimum_Payment_per_Credit_Limit_Number__c	;
         }
@@ -105,7 +105,7 @@ public class OneJNSerializer {
         @AuraEnabled
         Public decimal nPreviousRejectApplication12m;
         @AuraEnabled
-        Public boolean isPublicSectorEmployee;
+        Public string isPublicSectorEmployee;// initially mentioned  as Boolean 
         @AuraEnabled
         Public integer bankruptCurrent;
         @AuraEnabled
@@ -149,14 +149,13 @@ public class OneJNSerializer {
         @AuraEnabled
         Public decimal monthlyExpensesNonCreditVerified;
         ApplicantDataWrapper(Applicant__c applicantRecord, FinServ__Employment__c employmentRecord, Account accountRecord){
-            //this.rim = '';
+            //this.rim = ''; // need to create a new field
             //this.isJointHolder = ''; // need to create a new field on Applicant 
-            //this.applicantType = applicantRecord.Primary_Applicant_Flag__c; mismatch data type
+            this.applicantType = applicantRecord.Primary_Applicant_Flag__c ?  'Primary': 'Co-Applicant';
             //this.isGuarantor = '';  // need to create a new field on Applicant 
-            //this.isVIP = accountRecord.Premier_Customer_List__c;mismatch data type
+            this.isVIP = OneJNSerializer.getBooleanValuesFromString(accountRecord.Premier_Customer_List__c);
             this.isPEP = accountRecord.Political_Exposure__pc;
-            //this.isSupplimental = '';
-            //this.entityType = '';
+            //this.entityType = ''; // Person Accout Record Type
             //this.CreditorLife = '' // need to create new Field on Person Account
             this.timeinMonthsInCurrentResidency = accountRecord.MonthsResidence_Number__c;
             this.occupationProffessionalCategory = employmentRecord.Professional_Category__c;
@@ -170,9 +169,9 @@ public class OneJNSerializer {
             this.highestLevelOfEducation = '';
             this.nDependents = accountRecord.FinServ__NumberOfDependents__pc;
             this.nPreviousRejectApplication12m = applicantRecord.Number_of_Rejected_Applications_Number__c;
-            //this.isPublicSectorEmployee = '';
-            //this.bankruptCurrent = applicantRecord.Are_you_currently_in_bankruptcy_list__c;  mismatch data type
-            //this.bankruptEver = applicantRecord.Declared_bankrupt_list__c; mismatch data type
+            this.isPublicSectorEmployee = applicantRecord.Public_Sector_or_Civil_Servant_List__c;
+            this.bankruptCurrent = OneJNSerializer.getIntegerValuesFromString(applicantRecord.Are_you_currently_in_bankruptcy_list__c); 
+            this.bankruptEver = OneJNSerializer.getBooleanValuesFromString(applicantRecord.Declared_bankrupt_list__c);
             //this.dateLastRejection = applicantRecord.Date_of_Last_Rejection_date__c; mismatch data type
             this.monthlyIncomeUnverified = applicantRecord.Gross_Monthly_Income__c;
             this.otherIncomeUnverified = applicantRecord.Other_Income__c;
@@ -193,5 +192,15 @@ public class OneJNSerializer {
             this.totalNetworthVerified = applicantRecord.Net_Worth_VERIFIED_Calc__c;
             this.monthlyExpensesNonCreditVerified = applicantRecord.Total_Expenses_VERIFIED_Calc__c;
         }
+    }
+    Public Static Boolean getBooleanValuesFromString(String strValue){
+        Boolean isChecked;
+        isChecked = strValue == 'Yes' ? true :  false;
+        return isChecked;
+    }
+    Public Static Integer getIntegerValuesFromString(String strValue){
+        Integer isChecked;
+        isChecked = strValue == 'Yes' ? 1 :  0;
+        return isChecked;
     }
 }
