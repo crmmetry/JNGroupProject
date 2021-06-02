@@ -3560,7 +3560,7 @@
         <name>AssetNameFormulaSavings</name>
         <dataType>String</dataType>
         <expression
-    >&quot;Savings/Current Accounts &amp; Investments &quot; &amp; &quot; &quot; &amp; &quot;:&quot; &amp; &quot; &quot; &amp; {!AccountInformation.Name} &amp; &quot; &quot; &amp; &quot;-&quot; &amp; &quot; &quot; &amp; TEXT({!$Flow.CurrentDate})</expression>
+    >&quot;Savings Investments  &amp; Accounts &quot; &amp; &quot; &quot; &amp; &quot;:&quot; &amp; &quot; &quot; &amp; {!AccountInformation.Name} &amp; &quot; &quot; &amp; &quot;-&quot; &amp; &quot; &quot; &amp; TEXT({!$Flow.CurrentDate})</expression>
     </formulas>
     <formulas>
         <name>PropertyTypeFormula</name>
@@ -4226,6 +4226,8 @@
           >AssetsLiabilitiesSelectionStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -4279,6 +4281,8 @@
           >AssetsLiabilitiesSelectionStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -4326,6 +4330,8 @@
                     <stringValue>financial</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -4359,6 +4365,8 @@
           >Please select an asset/liabilities to update from the list below</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -4425,6 +4433,8 @@
           >AssetsLiabilitiesDetailsStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -4540,6 +4550,8 @@
           >AssetsTreatmentOfCreditDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -4574,6 +4586,8 @@
           >AssetsLiabilitiesDetailsStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -4635,6 +4649,8 @@
                     <elementReference>TypeCardDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -4703,6 +4719,8 @@
           >AssetsTreatmentOfCreditDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -4737,6 +4755,8 @@
           >AssetsLiabilitiesDetailsStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -4797,6 +4817,8 @@
                     <elementReference>TypeOfCard</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -4877,6 +4899,8 @@
           >AssetsTreatmentOfCreditDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -4911,6 +4935,8 @@
           >AssetsLiabilitiesDetailsStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -5046,6 +5072,8 @@
                     <elementReference>FinancialText</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -5138,6 +5166,8 @@
                     <elementReference>LienOnAssetDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -5286,6 +5316,8 @@
           >MotorVehicleRecordTypeId</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
             <visibilityRule>
@@ -5394,6 +5426,8 @@
                     <elementReference>LienOnAssetDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -5529,6 +5563,8 @@
           >AssetsTreatmentOfCreditDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
             <visibilityRule>
@@ -5574,6 +5610,8 @@
                     <elementReference>FinancialText</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -5665,6 +5703,8 @@
           >AssetsTreatmentOfCreditDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -5699,6 +5739,8 @@
                     <elementReference>FinancialText</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -5802,6 +5844,8 @@
           >AssetsTreatmentOfCreditDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -5836,6 +5880,8 @@
           >AssetsLiabilitiesDetailsStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -6015,6 +6061,8 @@
                     <elementReference>RealEstateRecordTypeId</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -6047,6 +6095,8 @@
                     <elementReference>LienOnAssetDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -6188,6 +6238,8 @@
           >AssetsTreatmentOfCreditDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
             <visibilityRule>
@@ -6267,6 +6319,8 @@
                     <elementReference>TypeAccountDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -6382,6 +6436,8 @@
           >AssetsLiabilitiesSelectionStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -6428,6 +6484,8 @@
           >AssetsLiabilitiesDetailsStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -6480,6 +6538,8 @@
           >AssetsLiabilitiesDetailsStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -6532,6 +6592,8 @@
           >AssetsLiabilitiesSelectionStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -6565,6 +6627,8 @@
           >Please select of the following financial types:</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -6599,6 +6663,8 @@
           >AssetsLiabilitiesDetailsStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -6714,6 +6780,8 @@
           >AssetsTreatmentOfCreditDefault</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -6748,6 +6816,8 @@
           >AssetsLiabilitiesSelectionStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -6781,6 +6851,8 @@
           >Please select of the following options to start creating a asset/liability</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -6847,6 +6919,8 @@
                     <elementReference>FinancialText</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -6941,6 +7015,8 @@
           >AssetsLiabilitiesDetailsStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -7035,6 +7111,8 @@
                     <elementReference>FinancialText</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -7111,6 +7189,8 @@
           >AssetsLiabilitiesDetailsStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -7234,6 +7314,8 @@
           >AssetsLiabilitiesSelectionStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -7277,6 +7359,8 @@
           >AssetsLiabilitiesSelectionStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
