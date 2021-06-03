@@ -10,5 +10,7 @@ trigger dlrs_FinServ_EmploymentTrigger on FinServ__Employment__c(
   after undelete,
   after update
 ) {
-  dlrs.RollupService.triggerHandler(FinServ__Employment__c.SObjectType);
+  if (Util.canTriggerExecute()) {
+    dlrs.RollupService.triggerHandler(FinServ__Employment__c.SObjectType);
+  }
 }
