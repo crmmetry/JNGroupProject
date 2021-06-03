@@ -1087,9 +1087,7 @@ window.financialVerificationComponentTotalsController = function (
     calculationKey &&
     dataMap &&
     calculationMap &&
-    debts &&
-    totalsMap &&
-    primarySourceOfIncomeAmount
+    totalsMap
   ) {
     if (calculationKey === TOTAL_ASSETS) {
       result = calculateTotalAssets(calculationMap[calculationKey], dataMap);
@@ -1120,7 +1118,7 @@ window.financialVerificationComponentTotalsController = function (
       totalsMap.totalMonthlyExpensesVerified = result;
       return totalsMap;
     }
-    if (calculationKey === TOTAL_DEBT_CONSOLIDATED) {
+    if (calculationKey === TOTAL_DEBT_CONSOLIDATED && debts) {
       result = totalDebtCalculator(debts);
       totalsMap.totalDebtConsolidatedVerified = result;
       return totalsMap;
