@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 05-26-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 06-03-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -27,8 +27,45 @@ public with sharing class OneJNEventFactory {
    * @description process outbound events
    * @author Remario Richards | 05-26-2021
    **/
-  public static void ProcessOutgoingEvent() {
+  public static void ProcessOutgoingEvent(
+    String eventType,
+    List<Application__c> applicationList
+  ) {
+    if (eventType == Constants.GET_LOAN_APPLICATION_ID) {
+      processGetApplicationIdEvent(applicationList);
+    }
   }
+
+  /**
+   * @description
+   * @author Ishwari Gaikwad(Thinqloud) | 06-03-2021
+   * @param application
+   **/
+  private static void processGetApplicationIdEvent(
+    List<Application__c> applicationList
+  ) {
+    // to get the request JSON
+    String JSONString = OneJNEventService.build(
+      applicationList,
+      new List<Opportunity>{}
+    );
+    // to get the initialised platform event record
+    One_JN_Output__e requestPlatformEvent = Util.getPlateformEventInstance(
+      Constants.GET_LOAN_APPLICATION_ID,
+      '',
+      JSONString
+    );
+    // publish the event
+    Database.SaveResult result = EventBus.publish(requestPlatformEvent);
+    if (result.isSuccess()) {
+      System.debug('Platform event published successfully.');
+    } else {
+      for (Database.Error err : result.getErrors()) {
+        System.debug('Error returned: ' + err.getStatusCode());
+      }
+    }
+  }
+
   /**
    * @description process application events
    * @author Remario Richards | 05-26-2021
