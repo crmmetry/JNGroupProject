@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 05-26-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 06-03-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -33,7 +33,7 @@ public with sharing class OneJNQuerySelector {
    * @description get applicants
    * @author Remario Richards | 05-26-2021
    **/
-  public static void getApplicants(Id opportunityId) {
+  public static List<Applicant__c> getApplicants(Set<Id> opportunityIdSet) {
     List<Applicant__c> applicantList = [
       SELECT
         Are_you_currently_in_bankruptcy_list__c,
@@ -61,48 +61,51 @@ public with sharing class OneJNQuerySelector {
         Primary_Applicant_Flag__c,
         Id
       FROM Applicant__c
-      WHERE Opportunity__c = :opportunityId
+      WHERE Opportunity__c IN :opportunityIdSet
       WITH SECURITY_ENFORCED
     ];
+    return applicantList;
   }
   /**
    * @description get  applications
    * @author Remario Richards | 05-26-2021
    **/
-  public static Application__c getApplications(Id opportunityId) {
-    Application__c application = [
+  public static List<Application__c> getApplications(Set<Id> opportunityIdSet) {
+    List<Application__c> applicationList = [
       SELECT Application_ID__c
       FROM Application__c
-      WHERE Opportunity_Id__c = :opportunityId
+      WHERE Opportunity_Id__c IN :opportunityIdSet
       WITH SECURITY_ENFORCED
       LIMIT 1
     ];
-    return application;
+    return applicationList;
   }
 
   /**
    * @description get  loan calculations
    * @author Remario Richards | 05-26-2021
    **/
-  public static Loan_Calculator__c getLoanCalculations(Id opportunityId) {
-    Loan_Calculator__c loanCalculation = [
+  public static List<Loan_Calculator__c> getLoanCalculations(
+    Set<Id> opportunityIdSet
+  ) {
+    List<Loan_Calculator__c> loanCalculationList = [
       SELECT Id
       FROM Loan_Calculator__c
-      WHERE Opportunity__c = :opportunityId
+      WHERE Opportunity__c IN :opportunityIdSet
       WITH SECURITY_ENFORCED
       ORDER BY CreatedDate DESC
       LIMIT 1
     ];
-    return loanCalculation;
+    return loanCalculationList;
   }
   /**
    * @description get  loan calculation products
    * @author Remario Richards | 05-26-2021
    **/
-  public static Loan_Calculation_Product__c getLoanCalculationProducts(
-    Id loanCalculationId
+  public static List<Loan_Calculation_Product__c> getLoanCalculationProducts(
+    Set<Id> loanCalculationIdSet
   ) {
-    Loan_Calculation_Product__c loanCalculationProduct = [
+    List<Loan_Calculation_Product__c> loanCalculationProductList = [
       SELECT
         Loan_Amount_Number__c,
         Interest_Rate_Number__c,
@@ -111,11 +114,71 @@ public with sharing class OneJNQuerySelector {
         Method_of_Fee_Payment_List__c,
         Minimum_Payment_per_Credit_Limit_Number__c
       FROM Loan_Calculation_Product__c
-      WHERE Loan_Calculation_Id__c = :loanCalculationId
+      WHERE Loan_Calculation_Id__c IN :loanCalculationIdSet
       WITH SECURITY_ENFORCED
       ORDER BY CreatedDate DESC
       LIMIT 1
     ];
-    return loanCalculationProduct;
+    return loanCalculationProductList;
+  }
+
+  /**
+   * @description
+   * @author Ishwari Gaikwad(Thinqloud) | 06-03-2021
+   * @param opportunityIdSet
+   * @return List<Opportunity>
+   **/
+  public static List<Opportunity> getOpportunity(Set<Id> opportunityIdSet) {
+    List<Opportunity> oppList = [
+      SELECT Preferred_Location__c, CurrencyIsoCode, Id, AccountId, Name
+      FROM Opportunity
+      WHERE Id IN :opportunityIdSet
+      WITH SECURITY_ENFORCED
+    ];
+    return oppList;
+  }
+
+  /**
+   * @description
+   * @author Ishwari Gaikwad(Thinqloud) | 06-03-2021
+   * @param opportunityIdSet
+   * @return List<OpportunityLineItem>
+   **/
+  public static List<OpportunityLineItem> getOpportunityLineItem(
+    Set<Id> opportunityIdSet
+  ) {
+    List<OpportunityLineItem> oppLineItemList = [
+      SELECT Product_Family__c, Name, Id
+      FROM OpportunityLineItem
+      WHERE OpportunityId IN :opportunityIdSet
+      WITH SECURITY_ENFORCED
+    ];
+    return oppLineItemList;
+  }
+
+  /**
+   * @description
+   * @author Ishwari Gaikwad(Thinqloud) | 06-03-2021
+   * @param accountIdSet
+   * @return List<FinServ__Employment__c>
+   **/
+  public static List<FinServ__Employment__c> getEmployment(
+    Set<Id> accountIdSet
+  ) {
+    List<FinServ__Employment__c> employmentList = [
+      SELECT
+        Professional_Category__c,
+        Position_List__c,
+        Industry__c,
+        Name,
+        FinServ__EmploymentStatus__c,
+        Time_Employed_in_Present_Employer_M__c,
+        Time_Employed_with_Previous_Employer_M__c,
+        Id
+      FROM FinServ__Employment__c
+      WHERE Account__c IN :accountIdSet
+      WITH SECURITY_ENFORCED
+    ];
+    return employmentList;
   }
 }
