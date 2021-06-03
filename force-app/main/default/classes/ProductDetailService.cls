@@ -175,6 +175,10 @@ public class ProductDetailService {
       if (isWithinBound(range, fieldValue)) {
         flag = true;
       }
+    } else if (range.contains('<=')) {
+      if (fieldValue <= Integer.ValueOf(range.remove('<=').trim())) {
+        flag = true;
+      }
     } else {
       if (fieldValue < Integer.ValueOf(range.remove('<').trim())) {
         flag = true;
@@ -253,8 +257,8 @@ public class ProductDetailService {
       subCriteriaOption = Constants.INCONSISTANT_AND_OR;
     } else if (fieldValue.equalsIgnoreCase(Constants.INADEQUATE)) {
       subCriteriaOption = Constants.INADEQUATE_AND_OR;
-    }else{
-        subCriteriaOption = fieldValue;
+    } else {
+      subCriteriaOption = fieldValue;
     }
     return subCriteriaOption;
   }
@@ -335,22 +339,24 @@ public class ProductDetailService {
           subCriteriaOption = parseEducation(fieldValue);
         }
       } else if (fieldName.equalsIgnoreCase(Constants.FINANCIAL_PERFORMANCE)) {
-        if (personalCreditModelMap.containsKey(Constants.FINANCIAL_PERFORMANCE)) {
-            subCriteriaOption = getFinacialPerformance(fieldValue);
-        }
-      } else if(fieldName.equalsIgnoreCase(Constants.COLLATERAL)){
-          if (personalCreditModelMap.containsKey(Constants.COLLATERAL)) {
+        if (
+          personalCreditModelMap.containsKey(Constants.FINANCIAL_PERFORMANCE)
+        ) {
           subCriteriaOption = getFinacialPerformance(fieldValue);
         }
-      }else if(fieldName.equalsIgnoreCase(Constants.ABILITY_TO_SERVICE)){
-          if (personalCreditModelMap.containsKey(Constants.ABILITY_TO_SERVICE)) {
+      } else if (fieldName.equalsIgnoreCase(Constants.COLLATERAL)) {
+        if (personalCreditModelMap.containsKey(Constants.COLLATERAL)) {
           subCriteriaOption = getFinacialPerformance(fieldValue);
         }
-      }else if(fieldName.equalsIgnoreCase(Constants.REPAYMENT_METHOD)){
-          if (personalCreditModelMap.containsKey(Constants.REPAYMENT_METHOD)) {
+      } else if (fieldName.equalsIgnoreCase(Constants.ABILITY_TO_SERVICE)) {
+        if (personalCreditModelMap.containsKey(Constants.ABILITY_TO_SERVICE)) {
           subCriteriaOption = getFinacialPerformance(fieldValue);
         }
-      }else{
+      } else if (fieldName.equalsIgnoreCase(Constants.REPAYMENT_METHOD)) {
+        if (personalCreditModelMap.containsKey(Constants.REPAYMENT_METHOD)) {
+          subCriteriaOption = getFinacialPerformance(fieldValue);
+        }
+      } else {
         subCriteriaOption = fieldValue;
       }
     }
@@ -401,22 +407,31 @@ public class ProductDetailService {
       empWrapper,
       applicant
     );
-   
+
     return subCriteriaOptions;
   }
-    
-   public static SubCriteriaOptionWrapper getSubcriteriaOptionsForApplicant(Id oppId, ApplicantWrapper applicantWrp) {
-    OpportunityWrapper oppWrapper = ProductDetailSelector.getOpportunityDetails(oppId);
-    AccountWrapper accWrapper = ProductDetailSelector.getAccount(oppWrapper.accountId);
-    List<LoanCalculationsWrapper> loanCalculationsList = ProductDetailSelector.getLoanCalculations(oppId);
-      
+
+  public static SubCriteriaOptionWrapper getSubcriteriaOptionsForApplicant(
+    Id oppId,
+    ApplicantWrapper applicantWrp
+  ) {
+    OpportunityWrapper oppWrapper = ProductDetailSelector.getOpportunityDetails(
+      oppId
+    );
+    AccountWrapper accWrapper = ProductDetailSelector.getAccount(
+      oppWrapper.accountId
+    );
+    List<LoanCalculationsWrapper> loanCalculationsList = ProductDetailSelector.getLoanCalculations(
+      oppId
+    );
+
     LoanCalculationsWrapper loanCalculatins = loanCalculationsList.size() > 0
       ? loanCalculationsList[0]
       : null;
     EmploymentWrapper empWrapper = ProductDetailSelector.getEmployemntDetails(
       oppWrapper.accountId
     );
-   
+
     SubCriteriaOptionWrapper subCriteriaOptions = new SubCriteriaOptionWrapper(
       accWrapper,
       oppWrapper,
@@ -426,24 +441,32 @@ public class ProductDetailService {
     );
     return subCriteriaOptions;
   }
-    
+
   /** *
    * Get the SubCriteriaOptionsWrapper.
    * @param {Id} oppId - opportunityId
    * @return {SubCriteriaOptionWrapper} - subcriteriaoptions wrapper with values
    */
   public static SubCriteriaOptionWrapper getSubcriteriaOptions(Id oppId) {
-    OpportunityWrapper oppWrapper = ProductDetailSelector.getOpportunityDetails(oppId);
-    AccountWrapper accWrapper = ProductDetailSelector.getAccount(oppWrapper.accountId);
-    List<LoanCalculationsWrapper> loanCalculationsList = ProductDetailSelector.getLoanCalculations(oppId);
-      
+    OpportunityWrapper oppWrapper = ProductDetailSelector.getOpportunityDetails(
+      oppId
+    );
+    AccountWrapper accWrapper = ProductDetailSelector.getAccount(
+      oppWrapper.accountId
+    );
+    List<LoanCalculationsWrapper> loanCalculationsList = ProductDetailSelector.getLoanCalculations(
+      oppId
+    );
+
     LoanCalculationsWrapper loanCalculatins = loanCalculationsList.size() > 0
       ? loanCalculationsList[0]
       : null;
     EmploymentWrapper empWrapper = ProductDetailSelector.getEmployemntDetails(
       oppWrapper.accountId
     );
-    List<ApplicantWrapper> applicantWrapper = ProductDetailSelector.getApplicantDetails(oppId);
+    List<ApplicantWrapper> applicantWrapper = ProductDetailSelector.getApplicantDetails(
+      oppId
+    );
     ApplicantWrapper applicant = applicantWrapper.size() > 0
       ? applicantWrapper[0]
       : null;
