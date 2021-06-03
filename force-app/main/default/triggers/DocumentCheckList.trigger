@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Trupti Zende (Thinqloud)
  * @group             :
- * @last modified on  : 05-28-2021
+ * @last modified on  : 06-03-2021
  * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author                     Modification
@@ -14,7 +14,7 @@ trigger DocumentCheckList on DocumentChecklistItem(
   before update,
   after update
 ) {
-  if (Util.getContextTriggerSwitches()) {
+  if (Util.canTriggerExecute()) {
     if (Trigger.isInsert) {
       if (Trigger.isAfter) {
         DocumentChecklistItemTriggerHandler.CheckDocumentType(Trigger.New);

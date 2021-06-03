@@ -2,8 +2,8 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 06-02-2021
- * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * @last modified on  : 06-03-2021
+ * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author                               Modification
  * 1.0   02-22-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
@@ -604,7 +604,7 @@ public with sharing class Util {
    * @author Trupti Zende (Thinqloud) | 05-28-2021
    * @return Boolean
    **/
-  public static Boolean getContextTriggerSwitches() {
+  public static Boolean canTriggerExecute() {
     Boolean isActive;
     Context_Trigger_Switch__mdt triggerSwitch = getContextTriggerMetadata();
     if (triggerSwitch.Disable_Trigger__c) {

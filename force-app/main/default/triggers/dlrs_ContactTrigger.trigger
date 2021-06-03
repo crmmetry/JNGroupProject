@@ -10,7 +10,7 @@ trigger dlrs_ContactTrigger on Contact(
   after undelete,
   after update
 ) {
-  if (Util.getContextTriggerSwitches()) {
+  if (Util.canTriggerExecute()) {
     dlrs.RollupService.triggerHandler();
   }
 }

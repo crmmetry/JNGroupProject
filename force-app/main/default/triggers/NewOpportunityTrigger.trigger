@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Trupti Zende (Thinqloud)
  * @group             :
- * @last modified on  : 05-28-2021
+ * @last modified on  : 06-03-2021
  * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author                     Modification
@@ -14,7 +14,7 @@ trigger NewOpportunityTrigger on Opportunity(
   after update,
   before update
 ) {
-  if (Util.getContextTriggerSwitches()) {
+  if (Util.canTriggerExecute()) {
     OpportunityTriggerHandler.init(Trigger.new, Trigger.oldMap, Trigger.newMap);
     Set<id> oppid = new Set<id>();
     if (Trigger.isUpdate) {

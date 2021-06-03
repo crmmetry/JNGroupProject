@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Trupti Zende (Thinqloud)
  * @group             :
- * @last modified on  : 05-28-2021
+ * @last modified on  : 06-03-2021
  * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author                     Modification
@@ -15,7 +15,7 @@ trigger NewApplicantTrigger on Applicant__c(
   after update,
   before delete
 ) {
-  if (Util.getContextTriggerSwitches()) {
+  if (Util.canTriggerExecute()) {
     ApplicantTriggerHandler.init(
       Trigger.new,
       Trigger.oldMap,

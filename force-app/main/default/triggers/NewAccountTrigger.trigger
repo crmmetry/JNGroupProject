@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Trupti Zende (Thinqloud)
  * @group             :
- * @last modified on  : 05-28-2021
+ * @last modified on  : 06-03-2021
  * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author                     Modification
@@ -15,7 +15,7 @@ trigger NewAccountTrigger on Account(
   after insert,
   before insert
 ) {
-  if (Util.getContextTriggerSwitches()) {
+  if (Util.canTriggerExecute()) {
     NewAccountTriggerHandler.init(
       Trigger.new,
       Trigger.oldMap,

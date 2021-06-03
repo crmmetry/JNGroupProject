@@ -3,7 +3,7 @@
  * @Author             : Remario Richards
  * @Last Modified By   : Trupti Zende (Thinqloud)
  * @Created On          : 10/7/2019
- * @Last Modified On   : 05-28-2021
+ * @Last Modified On   : 06-03-2021
  */
 trigger NewLeadTrigger on Lead(
   before insert,
@@ -11,7 +11,7 @@ trigger NewLeadTrigger on Lead(
   before update,
   after update
 ) {
-  if (Util.getContextTriggerSwitches()) {
+  if (Util.canTriggerExecute()) {
     LeadTriggerHandler.init(Trigger.new, Trigger.oldMap, Trigger.newMap);
     if (Trigger.isUpdate) {
       if (Trigger.isAfter) {

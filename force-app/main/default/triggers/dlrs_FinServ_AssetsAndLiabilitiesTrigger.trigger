@@ -10,7 +10,7 @@ trigger dlrs_FinServ_AssetsAndLiabilitiesTrigger on FinServ__AssetsAndLiabilitie
   after undelete,
   after update
 ) {
-  if (Util.getContextTriggerSwitches()) {
+  if (Util.canTriggerExecute()) {
     dlrs.RollupService.triggerHandler(
       FinServ__AssetsAndLiabilities__c.SObjectType
     );

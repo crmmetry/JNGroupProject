@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Trupti Zende (Thinqloud)
  * @group             :
- * @last modified on  : 05-28-2021
+ * @last modified on  : 06-03-2021
  * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author                     Modification
@@ -15,7 +15,7 @@ trigger NewEmploymentTrigger on FinServ__Employment__c(
   before update,
   after update
 ) {
-  if (Util.getContextTriggerSwitches()) {
+  if (Util.canTriggerExecute()) {
     EmploymentTriggerHandler.init(
       Trigger.new,
       Trigger.oldMap,
