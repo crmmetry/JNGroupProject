@@ -16,7 +16,7 @@
         <inputParameters>
             <name>eventType</name>
             <value>
-                <elementReference>$Record.Name__c</elementReference>
+                <elementReference>eventtype</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -32,7 +32,7 @@
             </value>
         </inputParameters>
     </actionCalls>
-    <apiVersion>52.0</apiVersion>
+    <apiVersion>50.0</apiVersion>
     <description>Listens for onejn outputs</description>
     <interviewLabel
   >OneJN Output Listener {!$Flow.CurrentDateTime}</interviewLabel>
@@ -62,8 +62,19 @@
         <connector>
             <targetReference>Handle_One_JN_Output_Event</targetReference>
         </connector>
-        <object>One_JN_Output__e</object>
+        <object>One_JN_Input__e</object>
         <triggerType>PlatformEvent</triggerType>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
+    <variables>
+        <name>eventtype</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue
+      >JNGroup.OneJN.CreditInfo.Domain.Events.GetApplicationIdEvent</stringValue>
+        </value>
+    </variables>
 </Flow>
