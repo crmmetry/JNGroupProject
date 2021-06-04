@@ -604,7 +604,8 @@ public with sharing class Util {
    * @author Trupti Zende (Thinqloud) | 05-28-2021
    * @return Boolean
    **/
-  public static Boolean getContextTriggerSwitches() {
+
+  public static Boolean canTriggerExecute() {
     Boolean isActive;
     Context_Trigger_Switch__mdt triggerSwitch = getContextTriggerMetadata();
     if (triggerSwitch.Disable_Trigger__c) {
@@ -624,7 +625,6 @@ public with sharing class Util {
       Constants.DEFAULT_TRIGGER_SWITCH
     );
   }
-
   /**
    * @description
    * @author Ishwari Gaikwad(Thinqloud) | 06-03-2021
