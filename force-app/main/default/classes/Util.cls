@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 06-03-2021
+ * @last modified on  : 06-04-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -633,7 +633,7 @@ public with sharing class Util {
    * @param JSONBody
    * @return One_JN_Output__e
    **/
-  public static One_JN_Output__e getPlateformEventInstance(
+  public static One_JN_Output__e getOutputPlateformEventInstance(
     String name,
     String recordId,
     String JSONBody

@@ -17,10 +17,11 @@ public with sharing class OneJNEventFactory {
    **/
   public static void ProcessIncomingEvent(
     String eventType,
-    OneJNDeserializer oneJNDeserializer
+    OneJNDeserializer oneJNDeserializer,
+    String sfRecordId
   ) {
     if (eventType == Constants.GET_LOAN_APPLICATION_ID) {
-      processGetApplicationEvent(oneJNDeserializer);
+      processGetApplicationEvent(oneJNDeserializer, sfRecordId, eventType);
     }
   }
   /**
@@ -31,6 +32,7 @@ public with sharing class OneJNEventFactory {
     String eventType,
     List<Application__c> applicationList
   ) {
+    system.debug('ProcessOutgoingEvent');
     if (eventType == Constants.GET_LOAN_APPLICATION_ID) {
       processGetApplicationIdEvent(applicationList);
     }
@@ -45,14 +47,16 @@ public with sharing class OneJNEventFactory {
     List<Application__c> applicationList
   ) {
     // to get the request JSON
+    system.debug('processGetApplicationIdEvent');
     String JSONString = OneJNEventService.build(
       applicationList,
       new List<Opportunity>{}
     );
+    system.debug('JSONString :: ' + JSONString);
     // to get the initialised platform event record
-    One_JN_Output__e requestPlatformEvent = Util.getPlateformEventInstance(
+    One_JN_Output__e requestPlatformEvent = Util.getOutputPlateformEventInstance(
       Constants.GET_LOAN_APPLICATION_ID,
-      '',
+      applicationList[0].Id,
       JSONString
     );
     // publish the event
@@ -71,8 +75,18 @@ public with sharing class OneJNEventFactory {
    * @author Remario Richards | 05-26-2021
    **/
   private static void processGetApplicationEvent(
-    OneJNDeserializer oneJNDeserializer
+    OneJNDeserializer oneJNDeserializer,
+    String sfRecordId,
+    String EventType
   ) {
+    oneJNDeserializer deserialiser = OneJNDeserializer.parse(
+      oneJNDeserializer,
+      EventType,
+      sfRecordId
+    );
+    if (deserialiser.applicationRecord <> null) {
+      update deserialiser.applicationRecord;
+    }
   }
   /**
    * @description process pre assessment events

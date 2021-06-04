@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-03-2021
+ * @last modified on  : 06-04-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -18,7 +18,8 @@ public with sharing class OneJNQuerySelector {
       SELECT
         RecordType.Name,
         MonthsResidence_Number__c,
-        Political_Exposure__pc,
+        Politically_Affiliated__c,
+        JN_Bank_Affiliation__pc,
         Premier_Customer_List__c,
         FinServ__NumberOfDependents__pc,
         Name,
@@ -76,7 +77,6 @@ public with sharing class OneJNQuerySelector {
       FROM Application__c
       WHERE Opportunity_Id__c IN :opportunityIdSet
       WITH SECURITY_ENFORCED
-      LIMIT 1
     ];
     return applicationList;
   }
@@ -94,7 +94,6 @@ public with sharing class OneJNQuerySelector {
       WHERE Opportunity__c IN :opportunityIdSet
       WITH SECURITY_ENFORCED
       ORDER BY CreatedDate DESC
-      LIMIT 1
     ];
     return loanCalculationList;
   }
@@ -117,13 +116,12 @@ public with sharing class OneJNQuerySelector {
       WHERE Loan_Calculation_Id__c IN :loanCalculationIdSet
       WITH SECURITY_ENFORCED
       ORDER BY CreatedDate DESC
-      LIMIT 1
     ];
     return loanCalculationProductList;
   }
 
   /**
-   * @description
+   * @description get opportunity details
    * @author Ishwari Gaikwad(Thinqloud) | 06-03-2021
    * @param opportunityIdSet
    * @return List<Opportunity>
@@ -139,7 +137,7 @@ public with sharing class OneJNQuerySelector {
   }
 
   /**
-   * @description
+   * @description get opportunity line items details
    * @author Ishwari Gaikwad(Thinqloud) | 06-03-2021
    * @param opportunityIdSet
    * @return List<OpportunityLineItem>
@@ -157,7 +155,7 @@ public with sharing class OneJNQuerySelector {
   }
 
   /**
-   * @description
+   * @description get the employment details for account
    * @author Ishwari Gaikwad(Thinqloud) | 06-03-2021
    * @param accountIdSet
    * @return List<FinServ__Employment__c>

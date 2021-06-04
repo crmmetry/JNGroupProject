@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-03-2021
- * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * @last modified on  : 06-04-2021
+ * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -46,7 +46,7 @@ public class OneJNSerializer {
     @AuraEnabled
     public string subProductType;
     @AuraEnabled
-    public decimal currencyType;
+    public string currencyType;
     @AuraEnabled
     public string applicationDate;
     @AuraEnabled
@@ -73,9 +73,10 @@ public class OneJNSerializer {
     ) {
       if (applicationRecord != null) {
         this.applicationId = applicationRecord.Application_ID__c;
+        //this.applicationDate = '';
       }
       if (applicantRecord != null) {
-        this.isJointApplication = OneJNSerializer.getBooleanValuesFromString(
+        this.isJointApplication = OneJNSerializer.getBooleanValueFromString(
           applicantRecord.Joint_Application_flag__c
         );
       }
@@ -84,7 +85,7 @@ public class OneJNSerializer {
         this.subProductType = opportunityProductRecord.Name;
       }
       if (opportunityRecord != null) {
-        //this.currencyType = opportunityRecord.CurrencyIsoCode;	// reserved word & mismatch data type
+        this.currencyType = opportunityRecord.CurrencyIsoCode;
         this.branchRegion = opportunityRecord.Preferred_Location__c;
       }
       if (loanCalculationProductRecord != null) {
@@ -95,7 +96,6 @@ public class OneJNSerializer {
         this.feeFinancing = loanCalculationProductRecord.Method_of_Fee_Payment_List__c;
         this.minMonthlyRepayment = loanCalculationProductRecord.Minimum_Payment_per_Credit_Limit_Number__c;
       }
-      //this.applicationDate = '';
     }
   }
   class ApplicantDataWrapper {
@@ -142,7 +142,7 @@ public class OneJNSerializer {
     @AuraEnabled
     public decimal nPreviousRejectApplication12m;
     @AuraEnabled
-    public string isPublicSectorEmployee; // initially mentioned  as Boolean
+    public string isPublicSectorEmployee;
     @AuraEnabled
     public integer bankruptCurrent;
     @AuraEnabled
@@ -192,13 +192,14 @@ public class OneJNSerializer {
     ) {
       if (accountRecord != null) {
         //this.rim = ''; // need to create a new field
-        this.isVIP = OneJNSerializer.getBooleanValuesFromString(
+        this.isVIP = OneJNSerializer.getBooleanValueFromString(
           accountRecord.Premier_Customer_List__c
         );
-        this.isPEP = accountRecord.Political_Exposure__pc;
+        this.isPEP = accountRecord.Politically_Affiliated__c;
         //this.CreditorLife = '' // need to create new Field on Person Account
         this.timeinMonthsInCurrentResidency = accountRecord.MonthsResidence_Number__c;
         this.nDependents = accountRecord.FinServ__NumberOfDependents__pc;
+        this.highestLevelOfEducation = accountRecord.Highest_Level_of_Education_attained__pc;
       }
       //this.entityType = ''; // Person Accout Record Type
       if (applicantRecord != null) {
@@ -209,13 +210,12 @@ public class OneJNSerializer {
         //this.isGuarantor = '';  // need to create a new field on Applicant
         this.nPreviousRejectApplication12m = applicantRecord.Number_of_Rejected_Applications_Number__c;
         this.isPublicSectorEmployee = applicantRecord.Public_Sector_or_Civil_Servant_List__c;
-        this.bankruptCurrent = OneJNSerializer.getIntegerValuesFromString(
+        this.bankruptCurrent = OneJNSerializer.getIntegerValueFromString(
           applicantRecord.Are_you_currently_in_bankruptcy_list__c
         );
-        this.bankruptEver = OneJNSerializer.getBooleanValuesFromString(
+        this.bankruptEver = OneJNSerializer.getBooleanValueFromString(
           applicantRecord.Declared_bankrupt_list__c
         );
-        //this.dateLastRejection = applicantRecord.Date_of_Last_Rejection_date__c; mismatch data type
         this.monthlyIncomeUnverified = applicantRecord.Gross_Monthly_Income__c;
         this.otherIncomeUnverified = applicantRecord.Other_Income__c;
         this.totalAssetsUnverified = applicantRecord.Total_Assets_Calc__c;
@@ -244,7 +244,6 @@ public class OneJNSerializer {
         this.timeAtCurrentEmployment = employmentRecord.Time_Employed_in_Present_Employer_M__c;
         this.timeEmployedWithPreviousEmployer = employmentRecord.Time_Employed_with_Previous_Employer_M__c;
         this.monthsEmployedPrevious12months = employmentRecord.Time_Employed_with_Previous_Employer_M__c;
-        //this.highestLevelOfEducation = '';
       }
     }
   }
@@ -254,7 +253,7 @@ public class OneJNSerializer {
    * @param strValue
    * @return Boolean
    **/
-  public static Boolean getBooleanValuesFromString(String strValue) {
+  public static Boolean getBooleanValueFromString(String strValue) {
     Boolean isChecked;
     isChecked = strValue == 'Yes' ? true : false;
     return isChecked;
@@ -265,9 +264,15 @@ public class OneJNSerializer {
    * @param strValue
    * @return Integer
    **/
-  public static Integer getIntegerValuesFromString(String strValue) {
+  public static Integer getIntegerValueFromString(String strValue) {
     Integer isChecked;
     isChecked = strValue == 'Yes' ? 1 : 0;
     return isChecked;
+  }
+
+  public static Long getUnixTime(DateTime dateTimeVar) {
+    Long l = dateTimeVar.getTime() / 1000;
+    System.debug('l' + l);
+    return l;
   }
 }
