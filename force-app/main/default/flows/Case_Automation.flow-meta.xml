@@ -45,7 +45,6 @@ Thanks.</stringValue>
     </actionCalls>
     <apiVersion>51.0</apiVersion>
     <decisions>
-
         <processMetadataValues>
             <name>index</name>
             <value>
@@ -92,80 +91,13 @@ Thanks.</stringValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
-
             <connector>
-                <targetReference>myRule_1_pmetdec</targetReference>
+                <targetReference>myRule_1_A1</targetReference>
             </connector>
             <label>Check If SLA Escalation flag is True</label>
         </rules>
     </decisions>
-    <decisions>
-        <name>myRule_1_pmetdec</name>
-        <label>Previously Met Decision</label>
-        <locationX>100</locationX>
-        <locationY>100</locationY>
-        <defaultConnector>
-            <targetReference>myRule_1_A1</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Not Previously Met</defaultConnectorLabel>
-        <rules>
-            <name>myRule_1_pmetnullrule</name>
-            <conditionLogic>or</conditionLogic>
-            <conditions>
-                <leftValueReference>myVariable_old</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>myRule_1_A1</targetReference>
-            </connector>
-            <label>Previously Met - Null</label>
-        </rules>
-        <rules>
-            <name>myRule_1_pmetrule</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>Boolean</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>Boolean</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>Boolean</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>Boolean</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference
-
-        >myVariable_old.SLA_Escalation_Flag__c</leftValueReference>
-
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-
-            <label>Previously Met - Prev</label>
-        </rules>
-    </decisions>
-    <interviewLabel>Case_Automation-6_InterviewLabel</interviewLabel>
-
+    <interviewLabel>Case_Automation-8_InterviewLabel</interviewLabel>
     <label>Case Automation</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -186,23 +118,19 @@ Thanks.</stringValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>
-
         <name>RecursiveCountVariable</name>
         <value>
             <elementReference>RecursiveCountVariable</elementReference>
         </value>
     </processMetadataValues>
     <processMetadataValues>
-
         <name>TriggerType</name>
         <value>
             <stringValue>onAllChanges</stringValue>
         </value>
     </processMetadataValues>
     <processType>Workflow</processType>
-
     <startElementReference>myDecision</startElementReference>
-
     <status>Active</status>
     <variables>
         <name>myVariable_current</name>
@@ -220,7 +148,6 @@ Thanks.</stringValue>
         <isOutput>false</isOutput>
         <objectType>Case</objectType>
     </variables>
-
     <variables>
         <name>RecursiveCountVariable</name>
         <dataType>Number</dataType>
@@ -229,5 +156,4 @@ Thanks.</stringValue>
         <isOutput>false</isOutput>
         <scale>2</scale>
     </variables>
-
 </Flow>

@@ -50,7 +50,16 @@ public class CaseTriggerHandler {
   public static void restartMilestone() {
     List<String> milestoneName = new List<string>();
     List<Id> caseIdList = new List<Id>();
+    Set<Id> caseIdSet = new Set<Id>();
     for (Case cases : newRecords) {
+      if (
+        cases.Violated_SLA_Time_Timestamp__c <> null &&
+        cases.Violated_SLA_Time_Timestamp__c <>
+        oldMap.get(cases.Id).Violated_SLA_Time_Timestamp__c &&
+        cases.Status <> Constants.DEFERRED_STATUS
+      ) {
+        caseIdSet.add(cases.Id);
+      }
       if (
         cases.Status == Constants.ASSIGNED_STATUS &&
         oldMap.get(cases.Id).Status != cases.Status &&
@@ -86,6 +95,9 @@ public class CaseTriggerHandler {
         caseIdList.add(cases.Id);
       }
     }
+    if (caseIdSet.size() > 0) {
+      updateFlag(caseIdSet);
+    }
     completeMilestone(caseIdList, milestoneName, DateTime.now());
   }
 
@@ -118,5 +130,19 @@ public class CaseTriggerHandler {
         update cmsToUpdate;
       }
     }
+  }
+
+  @future
+  public static void updateFlag(Set<Id> IdSet) {
+    List<Case> caseList = [
+      SELECT Id, SLA_Escalation_Flag__c
+      FROM Case
+      WHERE Id IN :IdSet
+      WITH SECURITY_ENFORCED
+    ];
+    for (Case cases : caseList) {
+      cases.SLA_Escalation_Flag__c = true;
+    }
+    update caseList;
   }
 }
