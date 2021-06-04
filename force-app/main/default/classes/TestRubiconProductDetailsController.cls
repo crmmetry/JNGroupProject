@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 03-08-2021
+ * @last modified on  : 06-04-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -10,6 +10,29 @@
  **/
 @isTest
 public inherited sharing class TestRubiconProductDetailsController {
+  private class RestCallOutMock implements HttpCalloutMock {
+    public HTTPResponse respond(HTTPRequest req) {
+      List<String> valueList = new List<String>{
+        'Debt Consolidation',
+        'Education',
+        'Home Improvement',
+        'Medical Expenses',
+        'Other',
+        'Vacation',
+        'Emergency Expenses',
+        'Purchases of Appliances',
+        'Vehicle Financing',
+        'Wedding Expenses'
+      };
+      String fullJson = JSON.serialize(valueList);
+      String json = '{"values" : [ {"attributes" : null,"label" : "Advertisement","validFor" : [ ], "value" : "Debt Consolidation, Education, Home Improvement, Medical Expenses, Other, Vacation, Emergency Expenses, Purchases of Appliances, Vehicle Financing, Wedding Expenses"}]}';
+      HTTPResponse res = new HTTPResponse();
+      res.setHeader('Content-Type', 'text/json');
+      res.setBody(json);
+      res.setStatusCode(200);
+      return res;
+    }
+  }
   @testSetup
   public static void createData() {
     List<Opportunity> opList = TestDataFactory.CreateOpportunities(1);
@@ -196,7 +219,7 @@ public inherited sharing class TestRubiconProductDetailsController {
   }
 
   @isTest
-  public static void testGetPickListValues() {
+  public static void testGetPickListValuesList() {
     Test.startTest();
 
     List<String> names = new List<String>();
@@ -209,6 +232,52 @@ public inherited sharing class TestRubiconProductDetailsController {
       names
     );
     System.assert(pickListValues != null, 'Picklists fields not being added.');
+    Test.stopTest();
+  }
+
+  @isTest
+  public static void testGetPickListValues() {
+    Test.setMock(HttpCalloutMock.class, new RestCallOutMock());
+    Test.startTest();
+
+    Map<String, Id> recordTypeMap = Util.getRecordTypeids('Opportunity');
+    String recordTypId = recordTypeMap.get('Rubicon');
+
+    List<String> loanPurposeList = new List<String>{
+      'Debt Consolidation',
+      'Education',
+      'Home Improvement',
+      'Medical Expenses',
+      'Other',
+      'Vacation',
+      'Emergency Expenses',
+      'Purchases of Appliances',
+      'Vehicle Financing',
+      'Wedding Expenses'
+    };
+
+    List<String> pickListValuesWhenRecordTypeIdIsNull = RubiconProductDetailsController.getPickListValues(
+      'Opportunity',
+      'Loan_Purpose_ULR__c',
+      'Rubicon',
+      null
+    );
+
+    List<String> pickListValues = RubiconProductDetailsController.getPickListValues(
+      'Opportunity',
+      'Loan_Purpose_ULR__c',
+      'Rubicon',
+      recordTypId
+    );
+
+    List<String> pickListValuesWhenRecordTypeIdAndNameIsNull = RubiconProductDetailsController.getPickListValues(
+      'Opportunity',
+      'Loan_Purpose_ULR__c',
+      null,
+      null
+    );
+    System.assertEquals(pickListValuesWhenRecordTypeIdIsNull, pickListValues);
+    System.assertNotEquals(pickListValuesWhenRecordTypeIdAndNameIsNull, null);
     Test.stopTest();
   }
 
