@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-04-2021
+ * @last modified on  : 06-07-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -23,7 +23,8 @@ public with sharing class OneJNQuerySelector {
         Premier_Customer_List__c,
         FinServ__NumberOfDependents__pc,
         Name,
-        Id
+        Id,
+        Highest_level_of_Education_attained__pc
       FROM Account
       WHERE Id IN :accountIdSet
       WITH SECURITY_ENFORCED
@@ -31,7 +32,7 @@ public with sharing class OneJNQuerySelector {
     return accountList;
   }
   /**
-   * @description get applicants
+   * @description get primary applicants Details
    * @author Remario Richards | 05-26-2021
    **/
   public static List<Applicant__c> getApplicants(Set<Id> opportunityIdSet) {
@@ -60,9 +61,14 @@ public with sharing class OneJNQuerySelector {
         Total_Monthly_Payment__c,
         Total_Monthly_Payment_VERIFIED_Number__c,
         Primary_Applicant_Flag__c,
+        Account__c,
+        Number_of_Rejected_Applications_Number__c,
+        Public_Sector_or_Civil_Servant_List__c,
         Id
       FROM Applicant__c
-      WHERE Opportunity__c IN :opportunityIdSet
+      WHERE
+        Opportunity__c IN :opportunityIdSet
+        AND Primary_Applicant_Flag__c = TRUE
       WITH SECURITY_ENFORCED
     ];
     return applicantList;
@@ -73,7 +79,7 @@ public with sharing class OneJNQuerySelector {
    **/
   public static List<Application__c> getApplications(Set<Id> opportunityIdSet) {
     List<Application__c> applicationList = [
-      SELECT Application_ID__c
+      SELECT Application_ID__c, id
       FROM Application__c
       WHERE Opportunity_Id__c IN :opportunityIdSet
       WITH SECURITY_ENFORCED
@@ -174,9 +180,52 @@ public with sharing class OneJNQuerySelector {
         Time_Employed_with_Previous_Employer_M__c,
         Id
       FROM FinServ__Employment__c
-      WHERE Account__c IN :accountIdSet
+      WHERE Account__c IN :accountIdSet AND Current_Employment__c = TRUE
       WITH SECURITY_ENFORCED
     ];
     return employmentList;
+  }
+
+  /**
+   * @description get Co applicants Details
+   * @author Remario Richards | 05-26-2021
+   **/
+  public static List<Applicant__c> getCoApplicants(Set<Id> opportunityIdSet) {
+    List<Applicant__c> applicantList = [
+      SELECT
+        Are_you_currently_in_bankruptcy_list__c,
+        Declared_bankrupt_list__c,
+        Date_of_Last_Rejection_date__c,
+        Joint_Application_flag__c,
+        Total_Expenses_Calc__c,
+        Total_Expenses_VERIFIED_Calc__c,
+        Gross_Monthly_Income__c,
+        Gross_Monthly_Income_VERIFIED_Number__c,
+        Other_Income__c,
+        Other_Income_VERIFIED_Number__c,
+        Total_Assets_Calc__c,
+        Total_Assets_VERIFIED_Calc__c,
+        Total_Amount_Consolidated__c,
+        Total_Amount_Consolidation_VERIFIED__c,
+        Total_Liabilities_Calc__c,
+        Total_Liabilities_VERIFIED_Calc__c,
+        Total_Monthly_Loan_Payments_Number__c,
+        Total_Monthly_Loan_Payments_VERIFIED__c,
+        Net_Worth_Calc__c,
+        Net_Worth_VERIFIED_Calc__c,
+        Total_Monthly_Payment__c,
+        Total_Monthly_Payment_VERIFIED_Number__c,
+        Primary_Applicant_Flag__c,
+        Account__c,
+        Number_of_Rejected_Applications_Number__c,
+        Public_Sector_or_Civil_Servant_List__c,
+        Id
+      FROM Applicant__c
+      WHERE
+        Opportunity__c IN :opportunityIdSet
+        AND Primary_Applicant_Flag__c = FALSE
+      WITH SECURITY_ENFORCED
+    ];
+    return applicantList;
   }
 }

@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-04-2021
- * @last modified by  : Trupti Zende (Thinqloud)
+ * @last modified on  : 06-07-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -272,7 +272,6 @@ public class OneJNSerializer {
 
   public static Long getUnixTime(DateTime dateTimeVar) {
     Long l = dateTimeVar.getTime() / 1000;
-    System.debug('l' + l);
     return l;
   }
 }

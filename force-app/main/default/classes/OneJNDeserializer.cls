@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-04-2021
- * @last modified by  : Trupti Zende (Thinqloud)
+ * @last modified on  : 06-07-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -120,8 +120,11 @@ public class OneJNDeserializer {
     //Type resultType = Type.forName('ConsolidatedReportWrapper');
     //ConsolidatedReportWrapper deserializeResults =       (ConsolidatedReportWrapper)JSON.deserialize(response, resultType);
     //return (ConsolidatedReportWrapper) System.JSON.deserialize(response, resultType);
-    if (eventype == Constants.GET_LOAN_APPLICATION_ID) {
+    if (eventype == Constants.RETURN_LOAN_APPLICATION_ID) {
+      // Application Object Id
       oneJNDeserializerVar.applicationRecord.Id = sfRecordId;
+    } else {
+      // SFrecord opportunity id
     }
 
     oneJNDeserializerVar.applicationRecord.Application_ID__c = oneJNDeserializerVar.consolidatedReport.generalInformation.applicationID;

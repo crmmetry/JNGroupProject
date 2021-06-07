@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-03-2021
+ * @last modified on  : 06-07-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -20,7 +20,7 @@ public with sharing class OneJNEventFactory {
     OneJNDeserializer oneJNDeserializer,
     String sfRecordId
   ) {
-    if (eventType == Constants.GET_LOAN_APPLICATION_ID) {
+    if (eventType == Constants.RETURN_LOAN_APPLICATION_ID) {
       processGetApplicationEvent(oneJNDeserializer, sfRecordId, eventType);
     }
   }
@@ -30,9 +30,9 @@ public with sharing class OneJNEventFactory {
    **/
   public static void ProcessOutgoingEvent(
     String eventType,
-    List<Application__c> applicationList
+    List<Application__c> applicationList,
+    List<Opportunity> opportunityList
   ) {
-    system.debug('ProcessOutgoingEvent');
     if (eventType == Constants.GET_LOAN_APPLICATION_ID) {
       processGetApplicationIdEvent(applicationList);
     }
@@ -47,12 +47,10 @@ public with sharing class OneJNEventFactory {
     List<Application__c> applicationList
   ) {
     // to get the request JSON
-    system.debug('processGetApplicationIdEvent');
     String JSONString = OneJNEventService.build(
       applicationList,
       new List<Opportunity>{}
     );
-    system.debug('JSONString :: ' + JSONString);
     // to get the initialised platform event record
     One_JN_Output__e requestPlatformEvent = Util.getOutputPlateformEventInstance(
       Constants.GET_LOAN_APPLICATION_ID,

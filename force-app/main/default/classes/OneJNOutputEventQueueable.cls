@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 05-26-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 06-07-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-25-2021   Remario Richards   Initial Version
@@ -24,7 +24,6 @@ public with sharing class OneJNOutputEventQueueable implements Queueable {
     this.externalId = externalId;
     this.sfRecordId = sfRecordId;
     this.body = body;
-    system.debug('body ::: ' + body);
     //deserialize body
     this.oneJNDeserializer = (OneJNDeserializer) JSON.deserialize(
       body,
@@ -32,7 +31,6 @@ public with sharing class OneJNOutputEventQueueable implements Queueable {
     );
   }
   public void execute(QueueableContext context) {
-    system.debug('body ::: ' + body);
     //process one jn output event types
     OneJNEventFactory.ProcessIncomingEvent(
       eventType,

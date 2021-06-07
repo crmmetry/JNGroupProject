@@ -20,8 +20,6 @@ public with sharing class OneJNEventService {
     List<Application__c> applicationList,
     List<Opportunity> opportunityList
   ) {
-    system.debug('build :: ' + applicationList);
-
     set<Id> opportunityIdSet = new Set<Id>();
 
     List<Account> accountList = new List<Account>();
