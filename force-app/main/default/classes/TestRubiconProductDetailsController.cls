@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 06-04-2021
+ * @last modified on  : 06-07-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -10,6 +10,7 @@
  **/
 @isTest
 public inherited sharing class TestRubiconProductDetailsController {
+  //Apex Mock Call out for Picklist Web Service
   private class RestCallOutMock implements HttpCalloutMock {
     public HTTPResponse respond(HTTPRequest req) {
       List<String> valueList = new List<String>{
@@ -33,6 +34,10 @@ public inherited sharing class TestRubiconProductDetailsController {
       return res;
     }
   }
+  /**
+   * Set up data to be used by test methods.
+   * @author Travis Allen | 06-07-2021
+   **/
   @testSetup
   public static void createData() {
     List<Opportunity> opList = TestDataFactory.CreateOpportunities(1);
@@ -158,6 +163,10 @@ public inherited sharing class TestRubiconProductDetailsController {
     insert loanCalculationProductRecord;
   }
 
+  /**
+   * Test method to retrieve supplementary cardholders for an Opportunity.
+   * @author Travis Allen | 06-07-2021
+   **/
   @isTest
   public static void testSupplementaryCardHoldersMethod() {
     List<Opportunity> opList = [SELECT Id FROM Opportunity];
@@ -169,6 +178,10 @@ public inherited sharing class TestRubiconProductDetailsController {
     Test.stopTest();
   }
 
+  /**
+   * Test mnethod that retrieves information on selected product on current opportunity
+   * @author Travis Allen | 06-07-2021
+   **/
   @isTest
   public static void testProductFamilySelection() {
     List<Opportunity> opList = [SELECT Id FROM Opportunity];
@@ -179,6 +192,10 @@ public inherited sharing class TestRubiconProductDetailsController {
     Test.stopTest();
   }
 
+  /**
+   * Test method to retrieve IDM Data from Loan Calculation record on Opportunity.
+   * @author Travis Allen | 06-07-2021
+   **/
   @isTest
   public static void testGetIDMDataMap() {
     List<Opportunity> opList = [SELECT Id FROM Opportunity];
@@ -193,6 +210,10 @@ public inherited sharing class TestRubiconProductDetailsController {
     Test.stopTest();
   }
 
+  /**
+   * Test method to retrieve applicant Data from Applicant record on Opportunity.
+   * @author Travis Allen | 06-07-2021
+   **/
   @isTest
   public static void testGetApplicantDetails() {
     List<Opportunity> opList = [SELECT Id FROM Opportunity];
@@ -207,6 +228,10 @@ public inherited sharing class TestRubiconProductDetailsController {
     Test.stopTest();
   }
 
+  /**
+   * Test method to retrieve Opportunity Data from Opportunity record.
+   * @author Travis Allen | 06-07-2021
+   **/
   @isTest
   public static void testGetOpportunityDetails() {
     List<Opportunity> opList = [SELECT Id FROM Opportunity];
@@ -218,6 +243,10 @@ public inherited sharing class TestRubiconProductDetailsController {
     Test.stopTest();
   }
 
+  /**
+   * Test method to retrive picklist values from general picklist metadata.
+   * @author Travis Allen | 06-07-2021
+   **/
   @isTest
   public static void testGetPickListValuesList() {
     Test.startTest();
@@ -235,6 +264,10 @@ public inherited sharing class TestRubiconProductDetailsController {
     Test.stopTest();
   }
 
+  /**
+   * Test methods to restricted picklist values by way or record type using UiAPI
+   * @author Travis Allen | 06-07-2021
+   **/
   @isTest
   public static void testGetPickListValues() {
     Test.setMock(HttpCalloutMock.class, new RestCallOutMock());
@@ -276,11 +309,23 @@ public inherited sharing class TestRubiconProductDetailsController {
       null,
       null
     );
-    System.assertEquals(pickListValuesWhenRecordTypeIdIsNull, pickListValues);
-    System.assertNotEquals(pickListValuesWhenRecordTypeIdAndNameIsNull, null);
+    System.assertEquals(
+      pickListValuesWhenRecordTypeIdIsNull,
+      pickListValues,
+      'Invalid Picklist values being read.'
+    );
+    System.assertNotEquals(
+      pickListValuesWhenRecordTypeIdAndNameIsNull,
+      null,
+      'No picklist values are being read.'
+    );
     Test.stopTest();
   }
 
+  /**
+   * Test method to update opportunity record with new data.
+   * @author Travis Allen | 06-07-2021
+   **/
   @isTest
   public static void testUpdateFieldsOnOpportunity() {
     List<Opportunity> opList = [SELECT Id, Amount FROM Opportunity];
