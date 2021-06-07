@@ -20,6 +20,7 @@
         <locationY>200</locationY>
         <actionName>chatterPost</actionName>
         <actionType>chatterPost</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>text</name>
             <value>
@@ -44,6 +45,40 @@ Thanks.</stringValue>
         </inputParameters>
     </actionCalls>
     <apiVersion>51.0</apiVersion>
+    <decisions>
+        <name>isChangedDecision2_myRule_1_SLA_Escalation_Flag_c</name>
+        <label>isChangedDecision2_myRule_1_SLA_Escalation_Flag_c</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>isChangedRule_2_myRule_1_SLA_Escalation_Flag_c</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>myVariable_old</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference
+        >myVariable_old.SLA_Escalation_Flag__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference
+          >myVariable_current.SLA_Escalation_Flag__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myDecision</targetReference>
+            </connector>
+            <label>isChangedRule_2_myRule_1_SLA_Escalation_Flag_c</label>
+        </rules>
+    </decisions>
     <decisions>
         <processMetadataValues>
             <name>index</name>
@@ -91,13 +126,45 @@ Thanks.</stringValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference
+        >isChangedRule_2_myRule_1_SLA_Escalation_Flag_c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>myRule_1_A1</targetReference>
             </connector>
             <label>Check If SLA Escalation flag is True</label>
         </rules>
     </decisions>
-    <interviewLabel>Case_Automation-8_InterviewLabel</interviewLabel>
+    <interviewLabel>Case_Automation-9_InterviewLabel</interviewLabel>
     <label>Case Automation</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -130,7 +197,8 @@ Thanks.</stringValue>
         </value>
     </processMetadataValues>
     <processType>Workflow</processType>
-    <startElementReference>myDecision</startElementReference>
+    <startElementReference
+  >isChangedDecision2_myRule_1_SLA_Escalation_Flag_c</startElementReference>
     <status>Active</status>
     <variables>
         <name>myVariable_current</name>
