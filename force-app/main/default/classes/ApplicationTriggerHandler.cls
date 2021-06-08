@@ -2,7 +2,7 @@
  * @description       : To Validate that one opportunity have one application
  * @author            : Tushar Chopade(Thinqloud)
  * @group             :
- * @last modified on  : 06-07-2021
+ * @last modified on  : 06-08-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                      Modification
@@ -129,11 +129,10 @@ public class ApplicationTriggerHandler {
   }
 
   /**
-   * @description
+   * @description : this method is used to get the Application Id from the IDM
    * @author Ishwari Gaikwad(Thinqloud) | 06-03-2021
    **/
   public static void getApplicationIdEvent() {
-    system.debug('after insert');
     List<Application__c> applicationList = new List<Application__c>();
     for (Application__c application : newRecords) {
       if (application.Application_ID__c == null) {

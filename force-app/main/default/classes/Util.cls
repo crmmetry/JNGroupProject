@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 06-04-2021
+ * @last modified on  : 06-08-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -636,13 +636,14 @@ public with sharing class Util {
   public static One_JN_Output__e getOutputPlateformEventInstance(
     String name,
     String recordId,
-    String JSONBody
+    String JSONBody,
+    String externalId
   ) {
     One_JN_Output__e requestPlatformEvent = new One_JN_Output__e();
     requestPlatformEvent.Name__c = name;
     requestPlatformEvent.SfRecordId__c = recordId;
     requestPlatformEvent.Body__c = JSONBody;
-    requestPlatformEvent.ExternalId__c = '';
+    requestPlatformEvent.ExternalId__c = externalId;
     return requestPlatformEvent;
   }
 }

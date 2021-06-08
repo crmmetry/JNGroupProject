@@ -50,7 +50,9 @@ public with sharing class OneJNEventService {
       if (applicantList.size() > 0) {
         Set<Id> accountIdSet = new Set<Id>();
         for (Applicant__c applicant : applicantList) {
-          accountIdSet.add(applicant.Account__c);
+          if (applicant.Primary_Applicant_Flag__c) {
+            accountIdSet.add(applicant.Account__c);
+          }
         }
         if (accountIdSet.size() > 0) {
           accountList = OneJNQuerySelector.getAccounts(accountIdSet);

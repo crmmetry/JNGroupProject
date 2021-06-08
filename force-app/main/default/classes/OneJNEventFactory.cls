@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-07-2021
+ * @last modified on  : 06-08-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -55,7 +55,8 @@ public with sharing class OneJNEventFactory {
     One_JN_Output__e requestPlatformEvent = Util.getOutputPlateformEventInstance(
       Constants.GET_LOAN_APPLICATION_ID,
       applicationList[0].Id,
-      JSONString
+      JSONString,
+      ''
     );
     // publish the event
     Database.SaveResult result = EventBus.publish(requestPlatformEvent);

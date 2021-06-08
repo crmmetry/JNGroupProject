@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-07-2021
+ * @last modified on  : 06-08-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -270,6 +270,12 @@ public class OneJNSerializer {
     return isChecked;
   }
 
+  /**
+   * @description : to get the Unix timestamp from the Datetime passed
+   * @author Ishwari Gaikwad(Thinqloud) | 06-08-2021
+   * @param dateTimeVar
+   * @return Long
+   **/
   public static Long getUnixTime(DateTime dateTimeVar) {
     Long l = dateTimeVar.getTime() / 1000;
     return l;
