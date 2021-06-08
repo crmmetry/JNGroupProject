@@ -17,12 +17,29 @@
       const state = response.getState();
       if (state === "SUCCESS") {
         const values = response.getReturnValue();
+        let newValues = this.transformSpecialCharactersinPicklist(values);
         component
           .find("picklistChoices")
           .set("v.value", component.get("v.crmmObjectSelected"));
-        component.set("v.values", values);
+        component.set("v.values", newValues);
       }
     });
     $A.enqueueAction(action);
+  },
+
+  transformSpecialCharactersinPicklist: function (values) {
+    let transformedValues = new Array();
+    values.forEach((element) => {
+      if (element.includes("&amp;")) {
+        let newString = element.replace(/&amp;/g, "&");
+        transformedValues.push(newString);
+      } else if (element.includes("&#39;")) {
+        let newString = element.replace(/&#39;/g, "'");
+        transformedValues.push(newString);
+      } else {
+        transformedValues.push(element);
+      }
+    });
+    return transformedValues;
   }
 });
