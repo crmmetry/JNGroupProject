@@ -157,4 +157,14 @@ public class Constants {
   public static final String GET_CREDITCARD_PRE_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreditCardPreAssessmentEvent';
   public static final String RETURN_CREDITCARD_PRE_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreditCardPreAssessmentResponseEvent';
   public static final String GET_UNSECURED_LOAN_PRE_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.UnsecuredLoanPreAssessmentEvent';
+  public static final String RETURN_UNSECURED_LOAN_PRE_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.UnsecuredLoanPreAssessmentResponseEvent';
+  public static final String GET_MANUAL_DESICION = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreateManualDecisionEvent';
+  public static final String RETURN_MANUAL_DESICION = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreateManualDecisionResponseEvent';
+
+  public static final String GET_CREDITCARD_FINAL_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreditCardFinalAssessmentEvent';
+  public static final String RETURN_CREDITCARD_FINAL_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreditCardFinalAssessmentResponseEvent';
+  public static final String GET_UNSECURED_LOAN_FINAL_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.UnsecuredLoanFinalAssessmentEvent';
+  public static final String RETURN_UNSECURED_LOAN_FINAL_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.UnsecuredLoanFinalAssessmentResponseEvent';
+
+  public static final String DEFAULT_TRIGGER_SWITCH = 'Disable_All_Triggers';
 }
