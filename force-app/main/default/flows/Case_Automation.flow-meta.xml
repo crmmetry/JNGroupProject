@@ -20,6 +20,7 @@
         <locationY>200</locationY>
         <actionName>chatterPost</actionName>
         <actionType>chatterPost</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>text</name>
             <value>
@@ -44,6 +45,40 @@ Thanks.</stringValue>
         </inputParameters>
     </actionCalls>
     <apiVersion>51.0</apiVersion>
+    <decisions>
+        <name>isChangedDecision2_myRule_1_SLA_Escalation_Flag_c</name>
+        <label>isChangedDecision2_myRule_1_SLA_Escalation_Flag_c</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>isChangedRule_2_myRule_1_SLA_Escalation_Flag_c</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>myVariable_old</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference
+        >myVariable_old.SLA_Escalation_Flag__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference
+          >myVariable_current.SLA_Escalation_Flag__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myDecision</targetReference>
+            </connector>
+            <label>isChangedRule_2_myRule_1_SLA_Escalation_Flag_c</label>
+        </rules>
+    </decisions>
     <decisions>
         <processMetadataValues>
             <name>index</name>

@@ -1,13 +1,25 @@
-trigger CaseTrigger on Case(before insert, before update) {
-  CaseTriggerHandler.init(Trigger.new, Trigger.oldMap, Trigger.newMap);
-  if (Trigger.isInsert) {
-    if (Trigger.isBefore) {
-      CaseTriggerHandler.addEntitlementToCase();
+/**
+ * @description       :
+ * @author            : Trupti Zende (Thinqloud)
+ * @group             :
+ * @last modified on  : 06-08-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * Modifications Log
+ * Ver   Date         Author                     Modification
+ * 1.0   05-28-2021   Trupti Zende (Thinqloud)   Initial Version
+ **/
+trigger CaseTrigger on Case(before insert, after update) {
+  if (Util.canTriggerExecute()) {
+    CaseTriggerHandler.init(Trigger.new, Trigger.oldMap, Trigger.newMap);
+    if (Trigger.isInsert) {
+      if (Trigger.isBefore) {
+        CaseTriggerHandler.addEntitlementToCase();
+      }
     }
-  }
-  if (Trigger.isUpdate) {
-    if (Trigger.isBefore) {
-      CaseTriggerHandler.restartMilestone();
+    if (Trigger.isUpdate) {
+      if (Trigger.isAfter) {
+        CaseTriggerHandler.restartMilestone();
+      }
     }
   }
 }

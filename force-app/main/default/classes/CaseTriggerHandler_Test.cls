@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Ishwari Gaikwad(Thinqloud)
  * @group             :
- * @last modified on  : 05-20-2021
+ * @last modified on  : 06-08-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                       Modification
@@ -285,8 +285,36 @@ public class CaseTriggerHandler_Test {
       applicationList[0]
         .Adjudication_Decision_picklist__c = Constants.MANUAL_APPROVE;
       //applicationList[0].Adjudication_Path_picklist__c = 'Closed';
-
       update applicationList;
+    }
+  }
+
+  /**
+   * @description : this method tests scenario when milestone is violated and updates the Flag
+   * and manual decision is made then case milestone should be closed.
+   * @author Ishwari Gaikwad(Thinqloud) | 05-18-2021
+   **/
+  @isTest
+  public static void checkSLAFlagUpdateMethod() {
+    List<Application__c> applicationList = [
+      SELECT Id, Adjudication_Path_picklist__c
+      FROM Application__c
+    ];
+    if (applicationList.size() > 0) {
+      applicationList[0]
+        .Adjudication_Path_picklist__c = Constants.ASSIGNED_STATUS;
+      update applicationList;
+      List<Case> caseList = [
+        SELECT Id, Violated_SLA_Time_Timestamp__c
+        FROM Case
+        WHERE Application__c = :applicationList[0].Id
+      ];
+      applicationList[0].IDM_Loan_Amount_Number__c = 1000.00;
+      applicationList[0].IDM_Tenure_Date__c = 10.00;
+      applicationList[0].IDM_Interest_Rate_Number__c = 12.00;
+      update applicationList;
+      caseList[0].Violated_SLA_Time_Timestamp__c = System.now();
+      update caseList;
     }
   }
 }
