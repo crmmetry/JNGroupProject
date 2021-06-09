@@ -3,6 +3,7 @@
   xmlns="http://soap.sforce.com/2006/04/metadata"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 >
+    <apiVersion>49.0</apiVersion>
     <assignments>
         <name>AddMoreAssignment</name>
         <label>AddMoreAssignment</label>
@@ -1745,6 +1746,7 @@
         <connector>
             <targetReference>Asset</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>FinServ__JointOwner__c</field>
             <operator>EqualTo</operator>
@@ -1785,6 +1787,7 @@
         <faultConnector>
             <targetReference>fault_Screen</targetReference>
         </faultConnector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -1811,6 +1814,7 @@
         <connector>
             <targetReference>AssetLiablity_Assignment_add_0</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -1879,6 +1883,7 @@
         <connector>
             <targetReference>AssetsFound</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>FinServ__PrimaryOwner__c</field>
             <operator>EqualTo</operator>
@@ -1901,6 +1906,7 @@
         <connector>
             <targetReference>GetAllApplicant</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Opportunity__c</field>
             <operator>EqualTo</operator>

@@ -45,7 +45,6 @@ Thanks.</stringValue>
     </actionCalls>
     <apiVersion>51.0</apiVersion>
     <decisions>
-
         <processMetadataValues>
             <name>index</name>
             <value>
@@ -92,7 +91,6 @@ Thanks.</stringValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
-
             <connector>
                 <targetReference>myRule_1_pmetdec</targetReference>
             </connector>
@@ -153,18 +151,15 @@ Thanks.</stringValue>
                 </processMetadataValues>
                 <leftValueReference
         >myVariable_old.SLA_Escalation_Flag__c</leftValueReference>
-
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
-
             <label>Previously Met - Prev</label>
         </rules>
     </decisions>
     <interviewLabel>Case_Automation-6_InterviewLabel</interviewLabel>
-
     <label>Case Automation</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -185,23 +180,19 @@ Thanks.</stringValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>
-
         <name>RecursiveCountVariable</name>
         <value>
             <elementReference>RecursiveCountVariable</elementReference>
         </value>
     </processMetadataValues>
     <processMetadataValues>
-
         <name>TriggerType</name>
         <value>
             <stringValue>onAllChanges</stringValue>
         </value>
     </processMetadataValues>
     <processType>Workflow</processType>
-
     <startElementReference>myDecision</startElementReference>
-
     <status>Active</status>
     <variables>
         <name>myVariable_current</name>
@@ -219,7 +210,6 @@ Thanks.</stringValue>
         <isOutput>false</isOutput>
         <objectType>Case</objectType>
     </variables>
-
     <variables>
         <name>RecursiveCountVariable</name>
         <dataType>Number</dataType>
@@ -228,5 +218,4 @@ Thanks.</stringValue>
         <isOutput>false</isOutput>
         <scale>2</scale>
     </variables>
-
 </Flow>

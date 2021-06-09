@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
         <processMetadataValues>
@@ -20,6 +20,7 @@
             </value>
         </inputParameters>
     </actionCalls>
+    <apiVersion>49.0</apiVersion>
     <decisions>
         <name>isChangedDecision2_myRule_1_OwnerId</name>
         <label>isChangedDecision2_myRule_1_OwnerId</label>
@@ -43,7 +44,8 @@
                 <leftValueReference>myVariable_old.OwnerId</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <elementReference>myVariable_current.OwnerId</elementReference>
+                    <elementReference
+          >myVariable_current.OwnerId</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -98,7 +100,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>isChangedRule_2_myRule_1_OwnerId</leftValueReference>
+                <leftValueReference
+        >isChangedRule_2_myRule_1_OwnerId</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -129,7 +132,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Status</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Status</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
                     <stringValue>Unqualified</stringValue>
@@ -172,7 +176,8 @@
                         <stringValue>Queue</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.OwnerId</leftValueReference>
+                <leftValueReference
+        >myVariable_current.OwnerId</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
                     <stringValue>00Gq0000003LkMfEAK</stringValue>
@@ -215,7 +220,8 @@
                         <stringValue>Queue</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.OwnerId</leftValueReference>
+                <leftValueReference
+        >myVariable_current.OwnerId</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
                     <stringValue>00Gq0000003LkMkEAK</stringValue>
@@ -255,7 +261,8 @@
         </value>
     </processMetadataValues>
     <processType>Workflow</processType>
-    <startElementReference>isChangedDecision2_myRule_1_OwnerId</startElementReference>
+    <startElementReference
+  >isChangedDecision2_myRule_1_OwnerId</startElementReference>
     <status>Obsolete</status>
     <variables>
         <name>myVariable_current</name>

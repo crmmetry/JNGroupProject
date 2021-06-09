@@ -691,7 +691,7 @@
         <name>Capture_Assets</name>
         <label>Capture Assets</label>
         <locationX>2677</locationX>
-        <locationY>325</locationY>
+        <locationY>326</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -714,8 +714,6 @@
                     <elementReference>FinancialStage</elementReference>
                 </value>
             </inputParameters>
-            <inputsOnNextNavToAssocScrn
-      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -834,7 +832,7 @@
         <name>Capture_Liabilities</name>
         <label>Capture Liabilities</label>
         <locationX>2907</locationX>
-        <locationY>190</locationY>
+        <locationY>191</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -857,8 +855,6 @@
                     <elementReference>FinancialStage</elementReference>
                 </value>
             </inputParameters>
-            <inputsOnNextNavToAssocScrn
-      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1004,8 +1000,6 @@
                     <stringValue>rubicon-fin</stringValue>
                 </value>
             </inputParameters>
-            <inputsOnNextNavToAssocScrn
-      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1032,8 +1026,6 @@
                     <elementReference>AccountIds</elementReference>
                 </value>
             </inputParameters>
-            <inputsOnNextNavToAssocScrn
-      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1067,8 +1059,6 @@
                     <elementReference>FinancialStage</elementReference>
                 </value>
             </inputParameters>
-            <inputsOnNextNavToAssocScrn
-      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1228,8 +1218,6 @@
                     <elementReference>FinancialStage</elementReference>
                 </value>
             </inputParameters>
-            <inputsOnNextNavToAssocScrn
-      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1275,8 +1263,13 @@
               >SelectedApplication.Primary_Source_of_Income_List__c</elementReference>
                         </value>
                     </inputParameters>
-                    <inputsOnNextNavToAssocScrn
-          >UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <inputParameters>
+                        <name>recordTypeName</name>
+                        <value>
+                            <stringValue
+              >Instant_Decisioning_Module_IDM</stringValue>
+                        </value>
+                    </inputParameters>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
@@ -1732,8 +1725,6 @@
                     <stringValue>rubicon-fin</stringValue>
                 </value>
             </inputParameters>
-            <inputsOnNextNavToAssocScrn
-      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>

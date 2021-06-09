@@ -3,7 +3,7 @@
   xmlns="http://soap.sforce.com/2006/04/metadata"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 >
-    <apiVersion>50.0</apiVersion>
+    <apiVersion>49.0</apiVersion>
     <assignments>
         <name>Account_Id</name>
         <label>Account Id</label>
@@ -192,6 +192,14 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>Savings_Pension_Insurance0</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >SelectedApplication.RecordTypeId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ShortSummaryRecordTypeId</elementReference>
             </value>
         </assignmentItems>
         <connector>

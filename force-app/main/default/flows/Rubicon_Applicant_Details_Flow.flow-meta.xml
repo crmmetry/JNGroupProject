@@ -182,7 +182,7 @@
             <label>No we cant</label>
         </rules>
     </decisions>
-    <description>pass record id to Rubicon Other Details sub flow</description>
+    <description>Rubicon applicants details</description>
     <interviewLabel
   >Rubicon Applicant Details Flow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Rubicon Applicant Details Flow</label>
@@ -229,7 +229,7 @@
         <assignRecordIdToReference
     >CreatedApplicationId</assignRecordIdToReference>
         <connector>
-            <targetReference>Rubicon_Other_Details</targetReference>
+            <targetReference>Rubicon_Applicant_Application</targetReference>
         </connector>
         <faultConnector>
             <targetReference>Fault_Message</targetReference>
@@ -305,7 +305,7 @@
             <field>DeveloperName</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>Instant_Designing_Module_IDM</stringValue>
+                <stringValue>Instant_Decisioning_Module_IDM</stringValue>
             </value>
         </filters>
         <filters>
@@ -388,6 +388,10 @@
         <outputAssignments>
             <assignToReference>AccountId</assignToReference>
             <field>AccountId</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>OppOwnerId</assignToReference>
+            <field>OwnerId</field>
         </outputAssignments>
     </recordLookups>
     <screens>
@@ -571,6 +575,40 @@
         </inputAssignments>
     </subflows>
     <subflows>
+        <name>Rubicon_Applicant_Application</name>
+        <label>Rubicon Applicant Application</label>
+        <locationX>314</locationX>
+        <locationY>3542</locationY>
+        <connector>
+            <targetReference>Rubicon_Other_Details</targetReference>
+        </connector>
+        <flowName>Rubicon_Applicant_Application</flowName>
+        <inputAssignments>
+            <name>AccountId</name>
+            <value>
+                <elementReference>AccountId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>ApplicantId</name>
+            <value>
+                <elementReference>CreatedApplicationId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>OpportunityId</name>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>OpportunityOwnerId</name>
+            <value>
+                <elementReference>OppOwnerId</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
         <name>Rubicon_Contact_Details</name>
         <label>Rubicon Contact Details</label>
         <locationX>182</locationX>
@@ -667,12 +705,6 @@
             <name>ApplicantId</name>
             <value>
                 <elementReference>CreatedApplicationId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>OpportunityId</name>
-            <value>
-                <elementReference>recordId</elementReference>
             </value>
         </inputAssignments>
     </subflows>
@@ -819,6 +851,13 @@
     <variables>
         <name>IsPrimaryApplicant</name>
         <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>OppOwnerId</name>
+        <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>

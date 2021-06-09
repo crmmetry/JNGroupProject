@@ -607,8 +607,8 @@
         <description>Assigns variables for picklists</description>
         <name>Employed_Variable_Assignment</name>
         <label>Employed Variable Assignment</label>
-        <locationX>1792</locationX>
-        <locationY>611</locationY>
+        <locationX>1837</locationX>
+        <locationY>586</locationY>
         <assignmentItems>
             <assignToReference>EmploymentStatusDefault</assignToReference>
             <operator>Assign</operator>
@@ -1381,14 +1381,6 @@
         </assignmentItems>
         <assignmentItems>
             <assignToReference
-      >SelectedEmploymentRecord.FinServ__Position__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Last_Position_Held_UN</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference
       >SelectedEmploymentRecord.Current_Employment__c</assignToReference>
             <operator>Assign</operator>
             <value>
@@ -1419,6 +1411,24 @@
             <value>
                 <elementReference
         >Industry_UN.crmmObjectSelected</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >SelectedEmploymentRecord.Position_Previously_Held__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference
+        >unemplyed_current_position.crmmObjectSelected</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >SelectedEmploymentRecord.Position_List__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference
+        >unemplyed_current_position.crmmObjectSelected</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -1463,7 +1473,7 @@
         <name>Unemployed_RecordType_Id_assign</name>
         <label>Unemployed RecordType Id assign</label>
         <locationX>210</locationX>
-        <locationY>1427</locationY>
+        <locationY>1428</locationY>
         <assignmentItems>
             <assignToReference>UnEmployedRecordTypeId</assignToReference>
             <operator>Assign</operator>
@@ -1942,8 +1952,8 @@
     <recordLookups>
         <name>GetEmploymentDetials</name>
         <label>Get Employment Details</label>
-        <locationX>839</locationX>
-        <locationY>639</locationY>
+        <locationX>841</locationX>
+        <locationY>595</locationY>
         <assignNullValuesIfNoRecordsFound
     >true</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2836,8 +2846,8 @@
     <screens>
         <name>Previous_Employment_Screen</name>
         <label>Previous Employment Screen</label>
-        <locationX>2221</locationX>
-        <locationY>852</locationY>
+        <locationX>2222</locationX>
+        <locationY>854</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -3270,7 +3280,8 @@
             <inputParameters>
                 <name>recordTypeId</name>
                 <value>
-                    <elementReference>EmployedRecordTypeId</elementReference>
+                    <elementReference
+          >SelfEmployedRecordTypeId</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -3308,7 +3319,8 @@
             <inputParameters>
                 <name>recordTypeId</name>
                 <value>
-                    <elementReference>EmployedRecordTypeId</elementReference>
+                    <elementReference
+          >SelfEmployedRecordTypeId</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -3416,7 +3428,8 @@
             <inputParameters>
                 <name>recordTypeId</name>
                 <value>
-                    <elementReference>EmployedRecordTypeId</elementReference>
+                    <elementReference
+          >SelfEmployedRecordTypeId</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -3547,8 +3560,8 @@
     <screens>
         <name>RecordTYPE</name>
         <label>RecordTYPE</label>
-        <locationX>1013</locationX>
-        <locationY>869</locationY>
+        <locationX>1034</locationX>
+        <locationY>817</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -4024,6 +4037,13 @@
                             <elementReference>CountryDefault</elementReference>
                         </value>
                     </inputParameters>
+                    <inputParameters>
+                        <name>recordTypeId</name>
+                        <value>
+                            <elementReference
+              >SelfEmployedRecordTypeId</elementReference>
+                        </value>
+                    </inputParameters>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
@@ -4095,21 +4115,43 @@
                     </validationRule>
                 </fields>
                 <fields>
-                    <name>Last_Position_Held_UN</name>
-                    <dataType>String</dataType>
-                    <defaultValue>
-                        <elementReference
-            >SelectedEmploymentRecord.FinServ__Position__c</elementReference>
-                    </defaultValue>
-                    <fieldText>Last Position Held</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>false</isRequired>
-                    <validationRule>
-                        <errorMessage
-            >&lt;p&gt;&lt;span style=&quot;color: rgb(62, 62, 60); background-color: rgb(255, 255, 255);&quot;&gt;Cannot exceed a length of 50 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
-                        <formulaExpression
-            >LEN ({!Last_Position_Held_UN}) &lt;= 50</formulaExpression>
-                    </validationRule>
+                    <name>unemplyed_current_position</name>
+                    <extensionName>c:JNPicklist</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>crmmLabel</name>
+                        <value>
+                            <stringValue>Last Position Held</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>crmmObjectname</name>
+                        <value>
+                            <stringValue>FinServ__Employment__c</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>crmmObjectField</name>
+                        <value>
+                            <stringValue>Position_List__c</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>recordTypeId</name>
+                        <value>
+                            <elementReference
+              >UnEmployedRecordTypeId</elementReference>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>crmmObjectSelected</name>
+                        <value>
+                            <elementReference
+              >SelectedEmploymentRecord.Position_Previously_Held__c</elementReference>
+                        </value>
+                    </inputParameters>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
                 <fields>
                     <name>Street_1_UN</name>
@@ -4294,6 +4336,13 @@
               >ProfessionalCategoryDefault</elementReference>
                         </value>
                     </inputParameters>
+                    <inputParameters>
+                        <name>recordTypeId</name>
+                        <value>
+                            <elementReference
+              >UnEmployedRecordTypeId</elementReference>
+                        </value>
+                    </inputParameters>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
@@ -4377,6 +4426,13 @@
                             <stringValue>FinServ__Employment__c</stringValue>
                         </value>
                     </inputParameters>
+                    <inputParameters>
+                        <name>recordTypeId</name>
+                        <value>
+                            <elementReference
+              >UnEmployedRecordTypeId</elementReference>
+                        </value>
+                    </inputParameters>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
@@ -4426,7 +4482,7 @@
             <targetReference>GetEmploymentRecordType</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <variables>
         <name>AccountId</name>
         <dataType>String</dataType>

@@ -5,7 +5,7 @@
         <name>Fields_Assignment</name>
         <label>Fields Assignment</label>
         <locationX>776</locationX>
-        <locationY>688</locationY>
+        <locationY>566</locationY>
         <assignmentItems>
             <assignToReference
       >AccountRecord.Existing_JN_Customer_List__c</assignToReference>
@@ -86,15 +86,6 @@
         >Declared_Bankrupt.crmmObjectSelected</elementReference>
             </value>
         </assignmentItems>
-        <assignmentItems>
-            <assignToReference
-      >ApplicantRecord.Public_Sector_or_Civil_Servant_List__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference
-        >public_sector_employee.crmmObjectSelected</elementReference>
-            </value>
-        </assignmentItems>
         <connector>
             <targetReference>Update_Account_Record</targetReference>
         </connector>
@@ -106,31 +97,6 @@
             <stringValue>Other Details</stringValue>
         </value>
     </constants>
-    <decisions>
-        <name>Check_If_Primary_Applicant</name>
-        <label>Check If Primary Applicant</label>
-        <locationX>608</locationX>
-        <locationY>1062</locationY>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <rules>
-            <name>Applicant_is_Primary_Applicant</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference
-        >ApplicantRecord.Account__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference
-          >OpportunityRecord.AccountId</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Update</targetReference>
-            </connector>
-            <label>Applicant is Primary Applicant</label>
-        </rules>
-    </decisions>
-    <description>The logic to check Primary Applicant is updated</description>
     <interviewLabel
   >Rubicon Other Details {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Rubicon Other Details</label>
@@ -156,8 +122,8 @@
     <recordLookups>
         <name>Get_Account</name>
         <label>Get Account</label>
-        <locationX>777</locationX>
-        <locationY>196</locationY>
+        <locationX>776</locationX>
+        <locationY>206</locationY>
         <assignNullValuesIfNoRecordsFound
     >true</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -183,12 +149,12 @@
     <recordLookups>
         <name>Get_Applicant</name>
         <label>Get Applicant</label>
-        <locationX>779</locationX>
-        <locationY>313</locationY>
+        <locationX>776</locationX>
+        <locationY>326</locationY>
         <assignNullValuesIfNoRecordsFound
     >true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_Opportunity</targetReference>
+            <targetReference>Other_Details</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -205,58 +171,12 @@
         <queriedFields>Are_you_currently_in_bankruptcy_list__c</queriedFields>
         <queriedFields>Declared_bankrupt_list__c</queriedFields>
         <queriedFields>Date_of_Last_Rejection_date__c</queriedFields>
-        <queriedFields>Public_Sector_or_Civil_Servant_List__c</queriedFields>
     </recordLookups>
-    <recordLookups>
-        <name>Get_Opportunity</name>
-        <label>Get Opportunity</label>
-        <locationX>780</locationX>
-        <locationY>436</locationY>
-        <assignNullValuesIfNoRecordsFound
-    >false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Other_Details</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>OpportunityId</elementReference>
-            </value>
-        </filters>
-        <object>Opportunity</object>
-        <outputReference>OpportunityRecord</outputReference>
-        <queriedFields>Id</queriedFields>
-        <queriedFields>AccountId</queriedFields>
-    </recordLookups>
-    <recordUpdates>
-        <description>Update Application_Flow_flag__c</description>
-        <name>Update</name>
-        <label>Update Application Flow Flag</label>
-        <locationX>804</locationX>
-        <locationY>1014</locationY>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>OpportunityId</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Application_Flow_flag__c</field>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </inputAssignments>
-        <object>Opportunity</object>
-    </recordUpdates>
     <recordUpdates>
         <name>Update_Account_Record</name>
         <label>Update Account Record</label>
-        <locationX>560</locationX>
-        <locationY>734</locationY>
+        <locationX>551</locationX>
+        <locationY>671</locationY>
         <connector>
             <targetReference>Update_Applicant</targetReference>
         </connector>
@@ -270,9 +190,6 @@
         <label>Update Applicant</label>
         <locationX>589</locationX>
         <locationY>907</locationY>
-        <connector>
-            <targetReference>Check_If_Primary_Applicant</targetReference>
-        </connector>
         <faultConnector>
             <targetReference>Faults</targetReference>
         </faultConnector>
@@ -316,8 +233,8 @@
     <screens>
         <name>Other_Details</name>
         <label>Other Details</label>
-        <locationX>777</locationX>
-        <locationY>562</locationY>
+        <locationX>776</locationX>
+        <locationY>446</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -385,6 +302,12 @@
               >AccountRecord.Existing_JN_Customer_List__c</elementReference>
                         </value>
                     </inputParameters>
+                    <inputParameters>
+                        <name>recordTypeName</name>
+                        <value>
+                            <stringValue>PersonAccount</stringValue>
+                        </value>
+                    </inputParameters>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
@@ -417,6 +340,12 @@
                             <stringValue>JN_Bank_Staff_List__c</stringValue>
                         </value>
                     </inputParameters>
+                    <inputParameters>
+                        <name>recordTypeName</name>
+                        <value>
+                            <stringValue>PersonAccount</stringValue>
+                        </value>
+                    </inputParameters>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
@@ -447,6 +376,12 @@
                         <value>
                             <elementReference
               >AccountRecord.Premier_Customer_List__c</elementReference>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>recordTypeName</name>
+                        <value>
+                            <stringValue>PersonAccount</stringValue>
                         </value>
                     </inputParameters>
                     <isRequired>true</isRequired>
@@ -523,6 +458,12 @@
                             <stringValue>Account</stringValue>
                         </value>
                     </inputParameters>
+                    <inputParameters>
+                        <name>recordTypeName</name>
+                        <value>
+                            <stringValue>PersonAccount</stringValue>
+                        </value>
+                    </inputParameters>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
@@ -553,6 +494,12 @@
                         <value>
                             <elementReference
               >AccountRecord.JN_Bank_Director_List__c</elementReference>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>recordTypeName</name>
+                        <value>
+                            <stringValue>PersonAccount</stringValue>
                         </value>
                     </inputParameters>
                     <isRequired>true</isRequired>
@@ -600,6 +547,13 @@
               >Are_you_currently_in_bankruptcy_list__c</stringValue>
                         </value>
                     </inputParameters>
+                    <inputParameters>
+                        <name>recordTypeName</name>
+                        <value>
+                            <stringValue
+              >Instant_Decisioning_Module_IDM</stringValue>
+                        </value>
+                    </inputParameters>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
@@ -633,6 +587,13 @@
                             <stringValue>Declared_bankrupt_list__c</stringValue>
                         </value>
                     </inputParameters>
+                    <inputParameters>
+                        <name>recordTypeName</name>
+                        <value>
+                            <stringValue
+              >Instant_Decisioning_Module_IDM</stringValue>
+                        </value>
+                    </inputParameters>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                     <visibilityRule>
@@ -646,40 +607,6 @@
                             </rightValue>
                         </conditions>
                     </visibilityRule>
-                </fields>
-                <fields>
-                    <name>public_sector_employee</name>
-                    <extensionName>c:JNPicklist</extensionName>
-                    <fieldType>ComponentInstance</fieldType>
-                    <inputParameters>
-                        <name>crmmObjectname</name>
-                        <value>
-                            <stringValue>Applicant__c</stringValue>
-                        </value>
-                    </inputParameters>
-                    <inputParameters>
-                        <name>crmmObjectSelected</name>
-                        <value>
-                            <elementReference
-              >ApplicantRecord.Public_Sector_or_Civil_Servant_List__c</elementReference>
-                        </value>
-                    </inputParameters>
-                    <inputParameters>
-                        <name>crmmLabel</name>
-                        <value>
-                            <stringValue
-              >Are you a public sector employee or civil servant?</stringValue>
-                        </value>
-                    </inputParameters>
-                    <inputParameters>
-                        <name>crmmObjectField</name>
-                        <value>
-                            <stringValue
-              >Public_Sector_or_Civil_Servant_List__c</stringValue>
-                        </value>
-                    </inputParameters>
-                    <isRequired>true</isRequired>
-                    <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
                 <inputParameters>
                     <name>width</name>
@@ -731,20 +658,5 @@
         <isInput>false</isInput>
         <isOutput>false</isOutput>
         <objectType>Applicant__c</objectType>
-    </variables>
-    <variables>
-        <name>OpportunityId</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>true</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>OpportunityRecord</name>
-        <dataType>SObject</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <objectType>Opportunity</objectType>
     </variables>
 </Flow>

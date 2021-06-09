@@ -112,9 +112,11 @@
             <label>Is deferred</label>
         </rules>
     </decisions>
+    <description
+  >Updates the application related to the opportunity.</description>
     <interviewLabel
-  >Update Referred Application to Deferred Application {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>Update Opportunity Application Record Types</label>
+  >Update Opportunity Application {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Update Opportunity Application</label>
     <loops>
         <name>Queue_Looper</name>
         <label>Queue Looper</label>

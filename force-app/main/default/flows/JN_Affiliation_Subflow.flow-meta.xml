@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
     <assignments>
         <name>Assign_Affiliation_Record</name>
         <label>Assign Affiliation Name</label>
@@ -292,6 +293,7 @@
         <connector>
             <targetReference>Get_Reciprocal_Role</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -317,6 +319,7 @@
         <connector>
             <targetReference>Affiliations_Exists</targetReference>
         </connector>
+        <filterLogic>1 AND 2 AND (3 OR 4)</filterLogic>
         <filters>
             <field>FirstName</field>
             <operator>EqualTo</operator>
@@ -363,6 +366,7 @@
         <connector>
             <targetReference>Assign_Contact_Id</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -385,6 +389,7 @@
         <connector>
             <targetReference>Existing_Affiliation_Relationship</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>FinServ__Contact__c</field>
             <operator>EqualTo</operator>
@@ -421,6 +426,7 @@
         <connector>
             <targetReference>Assign_Basic_Choices</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>IsPersonType</field>
             <operator>EqualTo</operator>
@@ -450,6 +456,7 @@
         <connector>
             <targetReference>Get_PersonAccount_RecordTypeInfo</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>FinServ__InverseRole__c</field>
             <operator>EqualTo</operator>

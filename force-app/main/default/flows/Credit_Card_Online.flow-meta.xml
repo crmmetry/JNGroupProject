@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
     <interviewLabel>Credit Card Online {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Credit Card Online</label>
     <processMetadataValues>
@@ -25,6 +26,7 @@
         <connector>
             <targetReference>Update_Credit_Card</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>DeveloperName</field>
             <operator>EqualTo</operator>
@@ -43,6 +45,7 @@
         <label>Update Credit Card</label>
         <locationX>245</locationX>
         <locationY>456</locationY>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>IsConverted</field>
             <operator>EqualTo</operator>

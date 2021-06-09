@@ -131,6 +131,7 @@ You have a new lead &quot;{!myVariable_current.Salutation} {!myVariable_current.
             </value>
         </inputParameters>
     </actionCalls>
+    <apiVersion>49.0</apiVersion>
     <assignments>
         <name>myAssignment_myRule_1_A1</name>
         <label>myAssignment_myRule_1_A1</label>
@@ -554,6 +555,7 @@ You have a new lead &quot;{!myVariable_current.Salutation} {!myVariable_current.
         <connector>
             <targetReference>myRule_1_A3</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <processMetadataValues>
                 <name>implicit</name>
@@ -634,6 +636,7 @@ You have a new lead &quot;{!myVariable_current.Salutation} {!myVariable_current.
         <label>Update Assignment Time</label>
         <locationX>400</locationX>
         <locationY>200</locationY>
+        <filterLogic>and</filterLogic>
         <filters>
             <processMetadataValues>
                 <name>implicit</name>

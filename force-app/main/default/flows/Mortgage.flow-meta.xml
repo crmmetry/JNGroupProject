@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
     <interviewLabel>Mortgage {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Mortgage</label>
     <processMetadataValues>
@@ -25,6 +26,7 @@
         <connector>
             <targetReference>Update_Mortgage</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>DeveloperName</field>
             <operator>EqualTo</operator>
@@ -50,6 +52,7 @@
         <label>Update Mortgage</label>
         <locationX>141</locationX>
         <locationY>499</locationY>
+        <filterLogic>1 AND (2 OR 3 OR 4 OR 5) AND 6</filterLogic>
         <filters>
             <field>IsConverted</field>
             <operator>EqualTo</operator>

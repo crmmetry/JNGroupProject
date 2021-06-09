@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
     <decisions>
         <name>isChangedDecision2_myRule_1_Closed_Status_c</name>
         <label>isChangedDecision2_myRule_1_Closed_Status_c</label>
@@ -20,10 +21,12 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>myVariable_old.Closed_Status__c</leftValueReference>
+                <leftValueReference
+        >myVariable_old.Closed_Status__c</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <elementReference>myVariable_current.Closed_Status__c</elementReference>
+                    <elementReference
+          >myVariable_current.Closed_Status__c</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -75,7 +78,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.RecordType.Name</leftValueReference>
+                <leftValueReference
+        >myVariable_current.RecordType.Name</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Mortgage</stringValue>
@@ -106,7 +110,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Closed_Status__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Closed_Status__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Closed Won</stringValue>
@@ -137,7 +142,8 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>isChangedRule_2_myRule_1_Closed_Status_c</leftValueReference>
+                <leftValueReference
+        >isChangedRule_2_myRule_1_Closed_Status_c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -189,7 +195,8 @@
                         <stringValue>String</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.RecordType.Name</leftValueReference>
+                <leftValueReference
+        >myVariable_current.RecordType.Name</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Mortgage</stringValue>
@@ -220,7 +227,8 @@
                         <stringValue>Picklist</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Closed_Status__c</leftValueReference>
+                <leftValueReference
+        >myVariable_current.Closed_Status__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Closed Lost</stringValue>
@@ -232,7 +240,8 @@
             <label>Mortgage Closed Lost Status</label>
         </rules>
     </decisions>
-    <description>This is if the mortgage is closed Status is changed</description>
+    <description
+  >This is if the mortgage is closed Status is changed</description>
     <interviewLabel>Mortgage_Closed_Won-2_InterviewLabel</interviewLabel>
     <label>Mortgage Closing status</label>
     <processMetadataValues>
@@ -292,6 +301,7 @@
         <connector>
             <targetReference>myDecision3</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <processMetadataValues>
                 <name>implicit</name>
@@ -327,7 +337,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -372,6 +382,7 @@
         <label>Closed Lost Stage</label>
         <locationX>400</locationX>
         <locationY>200</locationY>
+        <filterLogic>and</filterLogic>
         <filters>
             <processMetadataValues>
                 <name>implicit</name>
@@ -407,7 +418,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue />
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -423,7 +434,8 @@
         </inputAssignments>
         <object>Opportunity</object>
     </recordUpdates>
-    <startElementReference>isChangedDecision2_myRule_1_Closed_Status_c</startElementReference>
+    <startElementReference
+  >isChangedDecision2_myRule_1_Closed_Status_c</startElementReference>
     <status>Active</status>
     <variables>
         <name>myVariable_current</name>

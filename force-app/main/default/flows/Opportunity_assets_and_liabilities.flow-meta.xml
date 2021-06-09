@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
     <assignments>
         <name>myUniquelyDummyAssignment</name>
         <label>myUniquelyDummyAssignment</label>
@@ -13,8 +14,10 @@
             </value>
         </assignmentItems>
     </assignments>
-    <description>When opportunities are closed won from a particular record type updates assets and liabilities records</description>
-    <interviewLabel>Opportunity_assets_and_liabilities-1_InterviewLabel</interviewLabel>
+    <description
+  >When opportunities are closed won from a particular record type updates assets and liabilities records</description>
+    <interviewLabel
+  >Opportunity_assets_and_liabilities-1_InterviewLabel</interviewLabel>
     <label>Assets and Liabilities update on closed won</label>
     <processMetadataValues>
         <name>ObjectType</name>
