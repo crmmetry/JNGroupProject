@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-04-2021
- * @last modified by  : Trupti Zende (Thinqloud)
+ * @last modified on  : 06-09-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -63,6 +63,12 @@ public class OneJNSerializer {
     public string feeFinancing;
     @AuraEnabled
     public decimal minMonthlyRepayment;
+    @AuraEnabled
+    public decimal tenure;
+    @AuraEnabled
+    public decimal loanAmount;
+    @AuraEnabled
+    public string adjudicationDecision;
 
     AppDataWrapper(
       Application__c applicationRecord,
@@ -73,6 +79,11 @@ public class OneJNSerializer {
     ) {
       if (applicationRecord != null) {
         this.applicationId = applicationRecord.Application_ID__c;
+        this.tenure = applicationRecord.IDM_Tenure_Date__c;
+        this.loanAmount = applicationRecord.IDM_Loan_Amount_Number__c;
+        this.adjudicationDecision = applicationRecord.Adjudication_Decision_picklist__c; // Datatype not provided
+        this.interestRate = applicationRecord.IDM_Interest_Rate_Number__c;
+
         //this.applicationDate = '';
       }
       if (applicantRecord != null) {
@@ -270,9 +281,14 @@ public class OneJNSerializer {
     return isChecked;
   }
 
+  /**
+   * @description : to get the Unix timestamp from the Datetime passed
+   * @author Ishwari Gaikwad(Thinqloud) | 06-08-2021
+   * @param dateTimeVar
+   * @return Long
+   **/
   public static Long getUnixTime(DateTime dateTimeVar) {
     Long l = dateTimeVar.getTime() / 1000;
-    System.debug('l' + l);
     return l;
   }
 }

@@ -66,9 +66,7 @@ public with sharing class OneJNQuerySelector {
         Public_Sector_or_Civil_Servant_List__c,
         Id
       FROM Applicant__c
-      WHERE
-        Opportunity__c IN :opportunityIdSet
-        AND Primary_Applicant_Flag__c = TRUE
+      WHERE Opportunity__c IN :opportunityIdSet
       WITH SECURITY_ENFORCED
     ];
     return applicantList;
@@ -79,7 +77,12 @@ public with sharing class OneJNQuerySelector {
    **/
   public static List<Application__c> getApplications(Set<Id> opportunityIdSet) {
     List<Application__c> applicationList = [
-      SELECT Application_ID__c, id
+      SELECT
+        Application_ID__c,
+        IDM_Loan_Amount_Number__c,
+        IDM_Tenure_Date__c,
+        Adjudication_Decision_picklist__c,
+        IDM_Interest_Rate_Number__c
       FROM Application__c
       WHERE Opportunity_Id__c IN :opportunityIdSet
       WITH SECURITY_ENFORCED
@@ -184,48 +187,5 @@ public with sharing class OneJNQuerySelector {
       WITH SECURITY_ENFORCED
     ];
     return employmentList;
-  }
-
-  /**
-   * @description get applicants
-   * @author Remario Richards | 05-26-2021
-   **/
-  public static List<Applicant__c> getCoApplicants(Set<Id> opportunityIdSet) {
-    List<Applicant__c> applicantList = [
-      SELECT
-        Are_you_currently_in_bankruptcy_list__c,
-        Declared_bankrupt_list__c,
-        Date_of_Last_Rejection_date__c,
-        Joint_Application_flag__c,
-        Total_Expenses_Calc__c,
-        Total_Expenses_VERIFIED_Calc__c,
-        Gross_Monthly_Income__c,
-        Gross_Monthly_Income_VERIFIED_Number__c,
-        Other_Income__c,
-        Other_Income_VERIFIED_Number__c,
-        Total_Assets_Calc__c,
-        Total_Assets_VERIFIED_Calc__c,
-        Total_Amount_Consolidated__c,
-        Total_Amount_Consolidation_VERIFIED__c,
-        Total_Liabilities_Calc__c,
-        Total_Liabilities_VERIFIED_Calc__c,
-        Total_Monthly_Loan_Payments_Number__c,
-        Total_Monthly_Loan_Payments_VERIFIED__c,
-        Net_Worth_Calc__c,
-        Net_Worth_VERIFIED_Calc__c,
-        Total_Monthly_Payment__c,
-        Total_Monthly_Payment_VERIFIED_Number__c,
-        Primary_Applicant_Flag__c,
-        Account__c,
-        Number_of_Rejected_Applications_Number__c,
-        Public_Sector_or_Civil_Servant_List__c,
-        Id
-      FROM Applicant__c
-      WHERE
-        Opportunity__c IN :opportunityIdSet
-        AND Primary_Applicant_Flag__c = FALSE
-      WITH SECURITY_ENFORCED
-    ];
-    return applicantList;
   }
 }
