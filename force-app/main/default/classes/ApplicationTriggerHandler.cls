@@ -135,4 +135,24 @@ public class ApplicationTriggerHandler {
     }
     return groupMap;
   }
+
+  /**
+   * @description : this method is used to get the Application Id from the IDM
+   * @author Ishwari Gaikwad(Thinqloud) | 06-03-2021
+   **/
+  public static void getApplicationIdEvent() {
+    List<Application__c> applicationList = new List<Application__c>();
+    for (Application__c application : newRecords) {
+      if (application.Application_ID__c == null) {
+        applicationList.add(application);
+      }
+    }
+    if (applicationList.size() > 0) {
+      OneJNEventFactory.ProcessOutgoingEvent(
+        Constants.GET_LOAN_APPLICATION_ID,
+        applicationList,
+        new List<opportunity>{}
+      );
+    }
+  }
 }

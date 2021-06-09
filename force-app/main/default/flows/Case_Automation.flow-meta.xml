@@ -44,6 +44,41 @@ Thanks.</stringValue>
             </value>
         </inputParameters>
     </actionCalls>
+    <actionCalls>
+        <processMetadataValues>
+            <name>textJson</name>
+            <value>
+                <stringValue
+        >{&quot;mentions&quot;:[],&quot;message&quot;:&quot;Hello @{![Case].Application__r.OwnerId} ,  \n\nThe application {![Case].Application__r.Application_ID__c} is awaiting your review.\n\nThanks.&quot;}</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_1_A2</name>
+        <label>post to chatter2</label>
+        <locationX>100</locationX>
+        <locationY>300</locationY>
+        <actionName>chatterPost</actionName>
+        <actionType>chatterPost</actionType>
+        <inputParameters>
+            <name>text</name>
+            <value>
+                <stringValue
+        >Hello @{!myVariable_current.Application__r.OwnerId} ,  
+
+The application {!myVariable_current.Application__r.Application_ID__c} is awaiting your review.
+
+Thanks.</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>type</name>
+        </inputParameters>
+        <inputParameters>
+            <name>subjectNameOrId</name>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
     <apiVersion>51.0</apiVersion>
     <decisions>
         <name>isChangedDecision2_myRule_1_SLA_Escalation_Flag_c</name>

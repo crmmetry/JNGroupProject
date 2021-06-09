@@ -10,5 +10,7 @@ trigger dlrs_AccountTrigger on Account(
   after undelete,
   after update
 ) {
-  dlrs.RollupService.triggerHandler();
+  if (Util.canTriggerExecute()) {
+    dlrs.RollupService.triggerHandler();
+  }
 }

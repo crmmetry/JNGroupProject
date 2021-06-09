@@ -1262,6 +1262,11 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
+            <actionName>FeedItem.ContentPost</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>11</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
             <actionName>Opportunity.Re_activate_Opportunity</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>0</sortOrder>
@@ -1316,11 +1321,6 @@
             <actionType>QuickAction</actionType>
             <sortOrder>10</sortOrder>
         </platformActionListItems>
-        <platformActionListItems>
-            <actionName>FeedItem.ContentPost</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>11</sortOrder>
-        </platformActionListItems>
     </platformActionList>
     <quickActionList>
         <quickActionListItems>
@@ -1362,6 +1362,10 @@
         <fields>InterestRate</fields>
         <fields>AmortizationTerm</fields>
         <relatedList>ResidentialLoanApplications</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Name</fields>
+        <relatedList>DocumentChecklistItems</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>ContactName</fields>
@@ -1428,12 +1432,8 @@
         <relatedList>Loan_Calculator__c.Opportunity__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>OBJECT_ID</fields>
+        <fields>NAME</fields>
         <fields>Account.NAME</fields>
-        <fields>Account.Are_Application_Details_Complete__c</fields>
-        <fields>Account.Are_Assets_And_Liabilities_CompleteC__c</fields>
-        <fields>Account.Are_Employment_Details_Complete__c</fields>
-        <fields>Account.Are_General_Details_Complete__c</fields>
         <relatedList>Applicant__c.Opportunity__c</relatedList>
     </relatedLists>
     <relatedLists>

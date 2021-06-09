@@ -306,6 +306,11 @@
             <label>Same</label>
         </rules>
     </decisions>
+    <formulas>
+        <name>store_person_first_name</name>
+        <dataType>String</dataType>
+        <expression>{!Person_First_Name}</expression>
+    </formulas>
     <interviewLabel
   >Rubicon Political Affiliation {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Rubicon Political Affiliation</label>
@@ -1426,7 +1431,7 @@
             <targetReference>Get_Account_Record</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <subflows>
         <name>JN_Shared_Affiliation_Flow2</name>
         <label>JN Shared Affiliation Flow2</label>

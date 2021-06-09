@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 04-20-2021
+ * @last modified on  : 06-02-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -465,5 +465,16 @@ public class TestUtil {
       new PageReference('http://www.salesforce.com'),
       'SampleFile'
     );
+  }
+
+  /**
+   * @description : Test method to cover the context trigger switch
+   * @author Ishwari Gaikwad(Thinqloud) | 06-02-2021
+   **/
+  @isTest
+  public static void shouldGetContextTriggerSwitches() {
+    Boolean isActive = Util.getContextTriggerSwitches();
+    Context_Trigger_Switch__mdt triggerSwitchMetadata = Util.getContextTriggerMetadata();
+    system.assertEquals(!triggerSwitchMetadata.Disable_Trigger__c, isActive);
   }
 }

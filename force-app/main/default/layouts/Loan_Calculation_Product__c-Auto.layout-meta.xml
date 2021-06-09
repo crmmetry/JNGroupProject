@@ -15,6 +15,10 @@
                 <behavior>Edit</behavior>
                 <field>Loan_Calculation_Id__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Requested_Credit_Limit_Number__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -38,6 +42,10 @@
         <editHeading>true</editHeading>
         <label>COLLATERAL DETAILS</label>
         <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Collateral_Type_List__c</field>
+            </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Market_Value_of_Vehicle_Number__c</field>
@@ -251,7 +259,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Monthly_Creditor_Life_Premium_Number__c</field>
+                <field>Creditor_Life_Insurance_Premium_Number__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -329,11 +337,15 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Creditor_Life_Insurance_Premium_Number__c</field>
+                <field>JN_Motor_Premium_Closing_Cost_Number__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Processing_Fees_Closing_Cost_GCT_Number__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>JN_Life_Creditor_Life_Premium_Number__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -435,7 +447,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00he0000000fAoR</masterLabel>
+        <masterLabel>00h2F00000237D8</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

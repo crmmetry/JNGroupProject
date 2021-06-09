@@ -1,5 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Handle_One_JN_Output_Event</name>
+        <label>Handle One JN Output Event</label>
+        <locationX>176</locationX>
+        <locationY>194</locationY>
+        <actionName>OneJNOutputEventHandler</actionName>
+        <actionType>apex</actionType>
+        <inputParameters>
+            <name>body</name>
+            <value>
+                <elementReference>$Record.Body__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>eventType</name>
+            <value>
+                <elementReference>eventtype</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>externalId</name>
+            <value>
+                <elementReference>$Record.ExternalId__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sfRecordId</name>
+            <value>
+                <elementReference>$Record.SfRecordId__c</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
     <apiVersion>50.0</apiVersion>
     <description>Listens for onejn outputs</description>
     <interviewLabel

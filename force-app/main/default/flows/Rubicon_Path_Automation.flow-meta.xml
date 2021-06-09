@@ -3885,7 +3885,7 @@ The loan amount requested by {!myVariable_current.Account.FirstName}{!myVariable
     </recordUpdates>
     <startElementReference
   >isChangedDecision16_myRule_15_Final_Assessment_Decision_list_c</startElementReference>
-    <status>Active</status>
+    <status>Draft</status>
     <variables>
         <name>myCollection_myRule_11_A2recipientIds</name>
         <dataType>String</dataType>
