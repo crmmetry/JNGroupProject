@@ -18,8 +18,10 @@ public with sharing class OneJNEventService {
    **/
   public static String build(
     List<Application__c> applicationList,
-    List<Opportunity> opportunityList
+    List<Opportunity> opportunityList,
+    String eventType
   ) {
+
     set<Id> opportunityIdSet = new Set<Id>();
 
     List<Account> accountList = new List<Account>();
@@ -31,7 +33,7 @@ public with sharing class OneJNEventService {
     List<Loan_Calculation_Product__c> loanCalcProductList = new List<Loan_Calculation_Product__c>();
     List<Loan_Calculator__c> loanCalculatorList = new List<Loan_Calculator__c>();
 
-    if (!opportunityList.isEmpty()) {
+    if (!opportunityList.isEmpty() ) {
       for (Opportunity app : opportunityList) {
         opportunityIdSet.add(app.Id);
       }
@@ -50,9 +52,9 @@ public with sharing class OneJNEventService {
       if (applicantList.size() > 0) {
         Set<Id> accountIdSet = new Set<Id>();
         for (Applicant__c applicant : applicantList) {
-          if (applicant.Primary_Applicant_Flag__c) {
-            accountIdSet.add(applicant.Account__c);
-          }
+            if(applicant.Primary_Applicant_Flag__c){
+                accountIdSet.add(applicant.Account__c);
+            }
         }
         if (accountIdSet.size() > 0) {
           accountList = OneJNQuerySelector.getAccounts(accountIdSet);
@@ -76,22 +78,26 @@ public with sharing class OneJNEventService {
         }
       }
     }
-
-    OneJNSerializer serialiser = new OneJNSerializer(
-      applicantList.size() > 0 ? applicantList[0] : new Applicant__c(),
-      employmentList.size() > 0
-        ? employmentList[0]
-        : new FinServ__Employment__c(),
-      accountList.size() > 0 ? accountList[0] : new Account(),
-      applicationsList.size() > 0 ? applicationsList[0] : new Application__c(),
-      opportunitysList.size() > 0 ? opportunitysList[0] : new Opportunity(),
-      oppLineItemList.size() > 0
-        ? oppLineItemList[0]
-        : new OpportunityLineItem(),
-      loanCalcProductList.size() > 0
-        ? loanCalcProductList[0]
-        : new Loan_Calculation_Product__c()
+      OneJNSerializer serialiser;
+      if(eventType == Constants.GET_LOAN_APPLICATION_ID){
+         serialiser = new OneJNSerializer( 
+             accountList.size() > 0 ? accountList[0] : new Account() ,
+             opportunitysList.size() > 0 ? opportunitysList[0] : new Opportunity(),
+             applicationsList.size() > 0 ? applicationsList[0] : new Application__c(),
+             oppLineItemList.size() > 0 ? oppLineItemList[0] : new OpportunityLineItem()
+         );
+      }else{
+       serialiser = new OneJNSerializer(
+       applicantList.size() > 0 ? applicantList[0] : new Applicant__c() ,
+       employmentList.size() > 0 ? employmentList[0] : new FinServ__Employment__c(),
+       accountList.size() > 0 ? accountList[0] : new Account() ,
+       applicationsList.size() > 0 ? applicationsList[0] : new Application__c(),
+       opportunitysList.size() > 0 ? opportunitysList[0] : new Opportunity(),
+       oppLineItemList.size() > 0 ? oppLineItemList[0] : new OpportunityLineItem(),
+       loanCalcProductList.size() > 0 ? loanCalcProductList[0] : new Loan_Calculation_Product__c()
     );
+      }
+    
     String JSONString = JSON.serialize(serialiser);
     return JSONString;
   }

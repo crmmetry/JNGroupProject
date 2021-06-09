@@ -62,8 +62,8 @@ public with sharing class OneJNQuerySelector {
         Total_Monthly_Payment_VERIFIED_Number__c,
         Primary_Applicant_Flag__c,
         Account__c,
-        Number_of_Rejected_Applications_Number__c,
-        Public_Sector_or_Civil_Servant_List__c,
+        Number_of_Rejected_Applications_Number__c ,
+        Public_Sector_or_Civil_Servant_List__c ,
         Id
       FROM Applicant__c
       WHERE Opportunity__c IN :opportunityIdSet
@@ -75,10 +75,9 @@ public with sharing class OneJNQuerySelector {
    * @description get  applications
    * @author Remario Richards | 05-26-2021
    **/
-  public static List<Application__c> getApplications(Set<Id> opportunityIdSet) {
+public static List<Application__c> getApplications(Set<Id> opportunityIdSet) {
     List<Application__c> applicationList = [
-      SELECT
-        Application_ID__c,
+      SELECT Application_ID__c,
         IDM_Loan_Amount_Number__c,
         IDM_Tenure_Date__c,
         Adjudication_Decision_picklist__c,
@@ -137,7 +136,7 @@ public with sharing class OneJNQuerySelector {
    **/
   public static List<Opportunity> getOpportunity(Set<Id> opportunityIdSet) {
     List<Opportunity> oppList = [
-      SELECT Preferred_Location__c, CurrencyIsoCode, Id, AccountId, Name
+      SELECT Preferred_Location__c, CurrencyIsoCode, Id, AccountId, Name,Rubicon_Path_list__c,Product_Category__c
       FROM Opportunity
       WHERE Id IN :opportunityIdSet
       WITH SECURITY_ENFORCED
@@ -183,9 +182,20 @@ public with sharing class OneJNQuerySelector {
         Time_Employed_with_Previous_Employer_M__c,
         Id
       FROM FinServ__Employment__c
-      WHERE Account__c IN :accountIdSet AND Current_Employment__c = TRUE
+      WHERE (Account__c IN :accountIdSet AND Current_Employment__c = TRUE)
       WITH SECURITY_ENFORCED
     ];
     return employmentList;
-  }
+  } 
+    
+    Public static List<Application__c> getApplicationRecord(Id applicationId){
+       List<Application__c> applicationlist= [
+           SELECT 
+             ID, 
+             Opportunity_id__c 
+           FROM Application__c 
+           WHERE  Id =:applicationId 
+       	   WITH SECURITY_ENFORCED];
+        return applicationlist;
+    }
 }

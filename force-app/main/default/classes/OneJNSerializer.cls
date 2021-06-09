@@ -3,7 +3,7 @@
  * @author            : Remario Richards
  * @group             :
  * @last modified on  : 06-09-2021
- * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -13,7 +13,33 @@ public class OneJNSerializer {
   public AppDataWrapper appData;
   @AuraEnabled
   public ApplicantDataWrapper applicant;
-
+  @AuraEnabled
+  public String rim;
+  @AuraEnabled
+  public string productType;
+  @AuraEnabled
+  public string applicationId;
+    
+  public OneJNSerializer(
+  	Account accountRecord,
+    Opportunity opportunityRecord,
+    Application__c applicationRecord,
+    OpportunityLineItem opportunityProductRecord
+  ){
+       if (accountRecord != null) {
+          this.rim = accountRecord.RIM_no__c;
+       }
+      if (opportunityProductRecord != null) {
+          if((opportunityRecord.Rubicon_Path_list__c != 'Pre-Assessment Submission'
+          || opportunityRecord.Rubicon_Path_list__c != 'Final Assessment Submission')
+          && opportunityProductRecord.Product_Family__c != 'JN Bank Unsecured Loan' ){
+            this.productType = opportunityProductRecord.Product_Family__c;
+          }
+      }
+      if (applicationRecord != null) {
+          this.applicationId = applicationRecord.Application_ID__c;
+      }
+  }
   public OneJNSerializer(
     Applicant__c applicantRecord,
     FinServ__Employment__c employmentRecord,
@@ -33,7 +59,9 @@ public class OneJNSerializer {
     this.applicant = new ApplicantDataWrapper(
       applicantRecord,
       employmentRecord,
-      accountRecord
+      accountRecord, 
+      opportunityRecord,
+      opportunityProductRecord
     );
   }
   class AppDataWrapper {
@@ -77,36 +105,51 @@ public class OneJNSerializer {
       OpportunityLineItem opportunityProductRecord,
       Loan_Calculation_Product__c loanCalculationProductRecord
     ) {
-      if (applicationRecord != null) {
-        this.applicationId = applicationRecord.Application_ID__c;
-        this.tenure = applicationRecord.IDM_Tenure_Date__c;
-        this.loanAmount = applicationRecord.IDM_Loan_Amount_Number__c;
-        this.adjudicationDecision = applicationRecord.Adjudication_Decision_picklist__c; // Datatype not provided
-        this.interestRate = applicationRecord.IDM_Interest_Rate_Number__c;
-
-        //this.applicationDate = '';
-      }
-      if (applicantRecord != null) {
-        this.isJointApplication = OneJNSerializer.getBooleanValueFromString(
-          applicantRecord.Joint_Application_flag__c
-        );
-      }
-      if (opportunityProductRecord != null) {
-        this.productType = opportunityProductRecord.Product_Family__c;
-        this.subProductType = opportunityProductRecord.Name;
-      }
-      if (opportunityRecord != null) {
-        this.currencyType = opportunityRecord.CurrencyIsoCode;
-        this.branchRegion = opportunityRecord.Preferred_Location__c;
-      }
-      if (loanCalculationProductRecord != null) {
-        this.amount = loanCalculationProductRecord.Loan_Amount_Number__c;
-        this.interestRate = loanCalculationProductRecord.Interest_Rate_Number__c;
-        this.requestedTenure = loanCalculationProductRecord.Months_Number__c;
-        this.loanPurpose = loanCalculationProductRecord.Loan_Purpose_List__c;
-        this.feeFinancing = loanCalculationProductRecord.Method_of_Fee_Payment_List__c;
-        this.minMonthlyRepayment = loanCalculationProductRecord.Minimum_Payment_per_Credit_Limit_Number__c;
-      }
+        if (applicationRecord != null) {
+          this.applicationId = applicationRecord.Application_ID__c;
+          this.tenure = applicationRecord.IDM_Tenure_Date__c;
+          this.loanAmount = applicationRecord.IDM_Loan_Amount_Number__c;
+          this.adjudicationDecision = applicationRecord.Adjudication_Decision_picklist__c; // Datatype not provided
+          this.interestRate = applicationRecord.IDM_Interest_Rate_Number__c;
+  
+          //this.applicationDate = '';//Unix Time Stamp
+        }
+        if (applicantRecord != null) {
+          if(opportunityRecord.Product_Category__c != 'JN Bank Credit Card'){
+            this.isJointApplication = OneJNSerializer.getBooleanValueFromString(
+              applicantRecord.Joint_Application_flag__c
+            );
+          }
+        }
+        if (opportunityProductRecord != null) {
+          if((opportunityRecord.Rubicon_Path_list__c != 'Pre-Assessment Submission'
+          || opportunityRecord.Rubicon_Path_list__c != 'Final Assessment Submission')
+          && opportunityProductRecord.Product_Family__c != 'JN Bank Unsecured Loan' ){
+            this.productType = opportunityProductRecord.Product_Family__c;
+          }
+          if(opportunityProductRecord.Product_Family__c != 'JN Bank Unsecured Loan'){
+            this.subProductType = opportunityProductRecord.Name;
+          }
+        }
+        if (opportunityRecord != null) {
+          this.currencyType = opportunityRecord.CurrencyIsoCode;
+          this.branchRegion = opportunityRecord.Preferred_Location__c;
+        }
+        if (loanCalculationProductRecord != null) {
+          this.amount = loanCalculationProductRecord.Loan_Amount_Number__c;
+          this.interestRate = loanCalculationProductRecord.Interest_Rate_Number__c;
+          
+          if(opportunityProductRecord.Product_Family__c != 'JN Bank Credit Card'){
+            this.feeFinancing = loanCalculationProductRecord.Method_of_Fee_Payment_List__c;
+            this.loanPurpose = loanCalculationProductRecord.Loan_Purpose_List__c;
+            this.requestedTenure = loanCalculationProductRecord.Months_Number__c;
+          }
+          if(opportunityProductRecord.Product_Family__c != 'JN Bank Unsecured Loan'){
+            this.minMonthlyRepayment = loanCalculationProductRecord.Minimum_Payment_per_Credit_Limit_Number__c;
+          }
+        }
+      
+      
     }
   }
   class ApplicantDataWrapper {
@@ -199,63 +242,79 @@ public class OneJNSerializer {
     ApplicantDataWrapper(
       Applicant__c applicantRecord,
       FinServ__Employment__c employmentRecord,
-      Account accountRecord
+      Account accountRecord,
+      Opportunity opportunityRecord,
+      OpportunityLineItem opportunityProductRecord
     ) {
-      if (accountRecord != null) {
-        //this.rim = ''; // need to create a new field
-        this.isVIP = OneJNSerializer.getBooleanValueFromString(
-          accountRecord.Premier_Customer_List__c
-        );
-        this.isPEP = accountRecord.Politically_Affiliated__c;
-        //this.CreditorLife = '' // need to create new Field on Person Account
-        this.timeinMonthsInCurrentResidency = accountRecord.MonthsResidence_Number__c;
-        this.nDependents = accountRecord.FinServ__NumberOfDependents__pc;
-        this.highestLevelOfEducation = accountRecord.Highest_Level_of_Education_attained__pc;
-      }
-      //this.entityType = ''; // Person Accout Record Type
-      if (applicantRecord != null) {
-        //this.isJointHolder = ''; // need to create a new field on Applicant
-        this.applicantType = applicantRecord.Primary_Applicant_Flag__c
-          ? 'Primary'
-          : 'Co-Applicant';
-        //this.isGuarantor = '';  // need to create a new field on Applicant
-        this.nPreviousRejectApplication12m = applicantRecord.Number_of_Rejected_Applications_Number__c;
-        this.isPublicSectorEmployee = applicantRecord.Public_Sector_or_Civil_Servant_List__c;
-        this.bankruptCurrent = OneJNSerializer.getIntegerValueFromString(
-          applicantRecord.Are_you_currently_in_bankruptcy_list__c
-        );
-        this.bankruptEver = OneJNSerializer.getBooleanValueFromString(
-          applicantRecord.Declared_bankrupt_list__c
-        );
-        this.monthlyIncomeUnverified = applicantRecord.Gross_Monthly_Income__c;
-        this.otherIncomeUnverified = applicantRecord.Other_Income__c;
-        this.totalAssetsUnverified = applicantRecord.Total_Assets_Calc__c;
-        this.totalLiabilitiesUnverified = applicantRecord.Total_Liabilities_Calc__c;
-        this.totalLiabilitiesConsolidatedUnverified = applicantRecord.Total_Amount_Consolidated__c;
-        this.totalMonthlyPaymentsUnverified = applicantRecord.Total_Monthly_Loan_Payments_Number__c;
-        this.totalPaymentsConsolidatedUnverified = applicantRecord.Total_Monthly_Payment__c;
-        this.totalNetworthUnverified = applicantRecord.Net_Worth_Calc__c;
-        this.monthlyExpensesNonCreditUnverified = applicantRecord.Total_Expenses_Calc__c;
-        this.monthlyIncomeVerified = applicantRecord.Gross_Monthly_Income_VERIFIED_Number__c;
-        this.otherIncomeVerified = applicantRecord.Other_Income_VERIFIED_Number__c;
-        this.totalAssetsVerified = applicantRecord.Total_Assets_VERIFIED_Calc__c;
-        this.totalLiabilitiesVerified = applicantRecord.Total_Liabilities_VERIFIED_Calc__c;
-        this.totalLiabilitiesConsolidatedVerified = applicantRecord.Total_Amount_Consolidation_VERIFIED__c;
-        this.totalMonthlyPaymentsVerified = applicantRecord.Total_Monthly_Loan_Payments_VERIFIED__c;
-        this.totalPaymentsConsolidatedVerified = applicantRecord.Total_Monthly_Payment_VERIFIED_Number__c;
-        this.totalNetworthVerified = applicantRecord.Net_Worth_VERIFIED_Calc__c;
-        this.monthlyExpensesNonCreditVerified = applicantRecord.Total_Expenses_VERIFIED_Calc__c;
-      }
-      if (employmentRecord != null) {
-        this.occupationProffessionalCategory = employmentRecord.Professional_Category__c;
-        this.position = employmentRecord.Position_List__c;
-        this.employmentIndustryType = employmentRecord.Industry__c;
-        this.placeOfEmployment = employmentRecord.Name;
-        this.employmentStatus = employmentRecord.FinServ__EmploymentStatus__c;
-        this.timeAtCurrentEmployment = employmentRecord.Time_Employed_in_Present_Employer_M__c;
-        this.timeEmployedWithPreviousEmployer = employmentRecord.Time_Employed_with_Previous_Employer_M__c;
-        this.monthsEmployedPrevious12months = employmentRecord.Time_Employed_with_Previous_Employer_M__c;
-      }
+        if (accountRecord != null) {
+          this.rim = accountRecord.RIM_no__c;
+          this.isVIP = OneJNSerializer.getBooleanValueFromString(
+            accountRecord.Premier_Customer_List__c
+          );
+          if((opportunityRecord.Rubicon_Path_list__c != 'Pre-Assessment Submission'|| opportunityRecord.Rubicon_Path_list__c != 'Final Assessment Submission')
+            && opportunityProductRecord.Product_Family__c != 'JN Bank Credit Card'|| opportunityProductRecord.Product_Family__c != 'JN Bank Unsecured Loan'){
+            this.isPEP = accountRecord.Politically_Affiliated__c;
+          }
+            
+          //this.CreditorLife = '' // need to create new Field on Person Account
+          this.timeinMonthsInCurrentResidency = accountRecord.MonthsResidence_Number__c;
+          this.nDependents = accountRecord.FinServ__NumberOfDependents__pc;
+          this.highestLevelOfEducation = accountRecord.Highest_Level_of_Education_attained__pc;
+        }
+        //this.entityType = ''; // Person Accout Record Type
+        if (applicantRecord != null) {
+          //this.isJointHolder = ''; // need to create a new field on Applicant
+          if((opportunityRecord.Rubicon_Path_list__c != 'Pre-Assessment Submission'
+          || opportunityRecord.Rubicon_Path_list__c != 'Final Assessment Submission')
+          && (opportunityProductRecord.Product_Family__c != 'JN Bank Credit Card'
+          || opportunityProductRecord.Product_Family__c != 'JN Bank Unsecured Loan')){
+            this.applicantType = applicantRecord.Primary_Applicant_Flag__c
+            ? 'Primary'
+            : 'Co-Applicant';
+          }
+          
+          //this.isGuarantor = '';  // need to create a new field on Applicant
+          this.nPreviousRejectApplication12m = applicantRecord.Number_of_Rejected_Applications_Number__c;
+          this.isPublicSectorEmployee = applicantRecord.Public_Sector_or_Civil_Servant_List__c;
+          this.bankruptCurrent = OneJNSerializer.getIntegerValueFromString(
+            applicantRecord.Are_you_currently_in_bankruptcy_list__c
+          );
+          this.bankruptEver = OneJNSerializer.getBooleanValueFromString(
+            applicantRecord.Declared_bankrupt_list__c
+          );
+          this.monthlyIncomeUnverified = applicantRecord.Gross_Monthly_Income__c;
+          this.otherIncomeUnverified = applicantRecord.Other_Income__c;
+          this.totalAssetsUnverified = applicantRecord.Total_Assets_Calc__c;
+          this.totalLiabilitiesUnverified = applicantRecord.Total_Liabilities_Calc__c;
+          this.totalLiabilitiesConsolidatedUnverified = applicantRecord.Total_Amount_Consolidated__c;
+          this.totalMonthlyPaymentsUnverified = applicantRecord.Total_Monthly_Loan_Payments_Number__c;
+          this.totalPaymentsConsolidatedUnverified = applicantRecord.Total_Monthly_Payment__c;
+          this.totalNetworthUnverified = applicantRecord.Net_Worth_Calc__c;
+          this.monthlyExpensesNonCreditUnverified = applicantRecord.Total_Expenses_Calc__c;
+          this.otherIncomeVerified = applicantRecord.Other_Income_VERIFIED_Number__c;
+          
+          if(opportunityRecord.Rubicon_Path_list__c != 'Pre-Assessment Submission'){
+            this.monthlyExpensesNonCreditVerified = applicantRecord.Total_Expenses_VERIFIED_Calc__c;
+            this.monthlyIncomeVerified = applicantRecord.Gross_Monthly_Income_VERIFIED_Number__c;
+            this.totalAssetsVerified = applicantRecord.Total_Assets_VERIFIED_Calc__c;
+            this.totalLiabilitiesConsolidatedVerified = applicantRecord.Total_Amount_Consolidation_VERIFIED__c;
+            this.totalLiabilitiesVerified = applicantRecord.Total_Liabilities_VERIFIED_Calc__c;
+            this.totalMonthlyPaymentsVerified = applicantRecord.Total_Monthly_Loan_Payments_VERIFIED__c;
+            this.totalNetworthVerified = applicantRecord.Net_Worth_VERIFIED_Calc__c;
+            this.totalPaymentsConsolidatedVerified = applicantRecord.Total_Monthly_Payment_VERIFIED_Number__c;
+          }
+        }
+        if (employmentRecord != null) {
+          this.occupationProffessionalCategory = employmentRecord.Professional_Category__c;
+          this.position = employmentRecord.Position_List__c;
+          this.employmentIndustryType = employmentRecord.Industry__c;
+          this.placeOfEmployment = employmentRecord.Name;
+          this.employmentStatus = employmentRecord.FinServ__EmploymentStatus__c;
+          this.timeAtCurrentEmployment = employmentRecord.Time_Employed_in_Present_Employer_M__c;
+          this.timeEmployedWithPreviousEmployer = employmentRecord.Time_Employed_with_Previous_Employer_M__c;
+          this.monthsEmployedPrevious12months = employmentRecord.Time_Employed_with_Previous_Employer_M__c;
+        }
+      
     }
   }
   /**
@@ -282,7 +341,7 @@ public class OneJNSerializer {
   }
 
   /**
-   * @description : to get the Unix timestamp from the Datetime passed
+   * @description : to get the Unix timestamp from the Datetime or Date  passed
    * @author Ishwari Gaikwad(Thinqloud) | 06-08-2021
    * @param dateTimeVar
    * @return Long
