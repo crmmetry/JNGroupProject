@@ -2,8 +2,8 @@
  * @description       : To Validate that one opportunity have one application
  * @author            : Tushar Chopade(Thinqloud)
  * @group             :
- * @last modified on  : 05-19-2021
- * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * @last modified on  : 06-08-2021
+ * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author                      Modification
  * 1.0   04-20-2021   Tushar Chopade(Thinqloud)   Initial Version
@@ -34,10 +34,11 @@ public class ApplicationTriggerHandler {
     }
     Map<Id, Opportunity> opportunityMap = new Map<Id, Opportunity>(
       [
-        SELECT id, (SELECT id FROM Applications__r)
+        SELECT id, (SELECT Id FROM Applications__r)
         FROM Opportunity
         WHERE Id IN :oppIdSet
         WITH SECURITY_ENFORCED
+        FOR UPDATE
       ]
     );
     for (Application__c newAppRecord : newRecords) {
