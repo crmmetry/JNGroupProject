@@ -12,6 +12,7 @@ public with sharing class OneJNOutputEventQueueable implements Queueable {
   String eventType;
   String sfRecordId;
   String externalId;
+  String body;
   OneJNDeserializer oneJNDeserializer;
   public OneJNOutputEventQueueable(
     String body,
@@ -22,6 +23,8 @@ public with sharing class OneJNOutputEventQueueable implements Queueable {
     this.eventType = eventType;
     this.externalId = externalId;
     this.sfRecordId = sfRecordId;
+    this.body = body;
+    system.debug('body ::: ' + body);
     //deserialize body
     this.oneJNDeserializer = (OneJNDeserializer) JSON.deserialize(
       body,
@@ -29,7 +32,12 @@ public with sharing class OneJNOutputEventQueueable implements Queueable {
     );
   }
   public void execute(QueueableContext context) {
+    system.debug('body ::: ' + body);
     //process one jn output event types
-    OneJNEventFactory.ProcessIncomingEvent(eventType, oneJNDeserializer);
+    OneJNEventFactory.ProcessIncomingEvent(
+      eventType,
+      oneJNDeserializer,
+      sfRecordId
+    );
   }
 }
