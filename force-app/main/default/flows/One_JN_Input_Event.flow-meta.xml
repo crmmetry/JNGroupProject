@@ -4,7 +4,7 @@
         <name>Handle_One_JN_Output_Event</name>
         <label>Handle One JN Output Event</label>
         <locationX>176</locationX>
-        <locationY>194</locationY>
+        <locationY>314</locationY>
         <actionName>OneJNOutputEventHandler</actionName>
         <actionType>apex</actionType>
         <inputParameters>
@@ -16,7 +16,7 @@
         <inputParameters>
             <name>eventType</name>
             <value>
-                <elementReference>eventtype</elementReference>
+                <elementReference>$Record.Name__c</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -33,10 +33,9 @@
         </inputParameters>
     </actionCalls>
     <apiVersion>50.0</apiVersion>
-    <description>Listens for onejn outputs</description>
-    <interviewLabel
-  >OneJN Output Listener {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>OneJN Output Listener</label>
+    <description>One JN Input Event listener</description>
+    <interviewLabel>One JN Input Event {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>One JN Input Event</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -56,11 +55,46 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>One_Jn_Event</name>
+        <label>One Jn Event</label>
+        <locationX>176</locationX>
+        <locationY>194</locationY>
+        <connector>
+            <targetReference>Handle_One_JN_Output_Event</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Body__c</field>
+            <value>
+                <elementReference>$Record.Body__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Event_Source__c</field>
+            <value>
+                <stringValue>External</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>External_Record_Id__c</field>
+            <value>
+                <elementReference>$Record.ExternalId__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Salesforce_Record_Id__c</field>
+            <value>
+                <elementReference>$Record.SfRecordId__c</elementReference>
+            </value>
+        </inputAssignments>
+        <object>OneJN_Event_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
     <start>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Handle_One_JN_Output_Event</targetReference>
+            <targetReference>One_Jn_Event</targetReference>
         </connector>
         <object>One_JN_Input__e</object>
         <triggerType>PlatformEvent</triggerType>
@@ -74,7 +108,7 @@
         <isOutput>true</isOutput>
         <value>
             <stringValue
-      >JNGroup.OneJN.CreditInfo.Domain.Events.GetApplicationIdEvent</stringValue>
+      >JNGroup.OneJN.CreditInfo.Domain.Events.GetApplicationIdResponseEvent</stringValue>
         </value>
     </variables>
 </Flow>

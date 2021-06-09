@@ -2,8 +2,8 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 06-03-2021
- * @last modified by  : Trupti Zende (Thinqloud)
+ * @last modified on  : 06-08-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                               Modification
  * 1.0   02-22-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
@@ -604,6 +604,7 @@ public with sharing class Util {
    * @author Trupti Zende (Thinqloud) | 05-28-2021
    * @return Boolean
    **/
+
   public static Boolean canTriggerExecute() {
     Boolean isActive;
     Context_Trigger_Switch__mdt triggerSwitch = getContextTriggerMetadata();
@@ -623,5 +624,26 @@ public with sharing class Util {
     return Context_Trigger_Switch__mdt.getInstance(
       Constants.DEFAULT_TRIGGER_SWITCH
     );
+  }
+  /**
+   * @description
+   * @author Ishwari Gaikwad(Thinqloud) | 06-03-2021
+   * @param name
+   * @param recordId
+   * @param JSONBody
+   * @return One_JN_Output__e
+   **/
+  public static One_JN_Output__e getOutputPlateformEventInstance(
+    String name,
+    String recordId,
+    String JSONBody,
+    String externalId
+  ) {
+    One_JN_Output__e requestPlatformEvent = new One_JN_Output__e();
+    requestPlatformEvent.Name__c = name;
+    requestPlatformEvent.SfRecordId__c = recordId;
+    requestPlatformEvent.Body__c = JSONBody;
+    requestPlatformEvent.ExternalId__c = externalId;
+    return requestPlatformEvent;
   }
 }
