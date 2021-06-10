@@ -12,6 +12,17 @@ trigger OneJNOutputEventTrigger on One_JN_Output__e(after insert) {
       'applicationID',
       'TEST ' + Integer.valueof((Math.random() * 1000))
     );
+    jsonGen.writeStringField('preAssessmentDecision', 'Pass');
+    if (evt.Name__c == Constants.GET_MANUAL_DESICION_APPROVED) {
+      jsonGen.writeStringField('finalAssessmentDecision', 'Approved');
+    } else if (evt.Name__c == Constants.GET_MANUAL_DESICION_REJECT) {
+      jsonGen.writeStringField('finalAssessmentDecision', 'Denied');
+    } else if (
+      evt.Name__c == Constants.GET_CREDITCARD_FINAL_ASSESSMENT ||
+      evt.Name__c == Constants.GET_UNSECURED_LOAN_FINAL_ASSESSMENT
+    ) {
+      jsonGen.writeStringField('finalAssessmentDecision', 'Referred');
+    }
     jsonGen.writeEndObject();
     jsonGen.writeEndObject();
     jsonGen.writeEndObject();
@@ -28,6 +39,14 @@ trigger OneJNOutputEventTrigger on One_JN_Output__e(after insert) {
       requestPlatformEvent.Name__c = Constants.RETURN_CREDITCARD_PRE_ASSESSMENT;
     } else if (evt.Name__c == Constants.GET_UNSECURED_LOAN_PRE_ASSESSMENT) {
       requestPlatformEvent.Name__c = Constants.RETURN_UNSECURED_LOAN_PRE_ASSESSMENT;
+    } else if (evt.Name__c == Constants.GET_MANUAL_DESICION_APPROVED) {
+      requestPlatformEvent.Name__c = Constants.RETURN_MANUAL_DESICION_APPROVED;
+    } else if (evt.Name__c == Constants.GET_MANUAL_DESICION_REJECT) {
+      requestPlatformEvent.Name__c = Constants.RETURN_MANUAL_DESICION_REJECT;
+    } else if (evt.Name__c == Constants.GET_CREDITCARD_FINAL_ASSESSMENT) {
+      requestPlatformEvent.Name__c = Constants.RETURN_CREDITCARD_FINAL_ASSESSMENT;
+    } else if (evt.Name__c == Constants.GET_UNSECURED_LOAN_FINAL_ASSESSMENT) {
+      requestPlatformEvent.Name__c = Constants.RETURN_UNSECURED_LOAN_FINAL_ASSESSMENT;
     }
     Database.SaveResult result = EventBus.publish(requestPlatformEvent);
     if (result.isSuccess()) {

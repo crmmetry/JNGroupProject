@@ -18,7 +18,8 @@ public with sharing class OneJNEventService {
    **/
   public static String build(
     List<Application__c> applicationList,
-    List<Opportunity> opportunityList
+    List<Opportunity> opportunityList,
+    String eventType
   ) {
     set<Id> opportunityIdSet = new Set<Id>();
 
@@ -50,7 +51,9 @@ public with sharing class OneJNEventService {
       if (applicantList.size() > 0) {
         Set<Id> accountIdSet = new Set<Id>();
         for (Applicant__c applicant : applicantList) {
-          accountIdSet.add(applicant.Account__c);
+          if (applicant.Primary_Applicant_Flag__c) {
+            accountIdSet.add(applicant.Account__c);
+          }
         }
         if (accountIdSet.size() > 0) {
           accountList = OneJNQuerySelector.getAccounts(accountIdSet);
@@ -74,7 +77,6 @@ public with sharing class OneJNEventService {
         }
       }
     }
-
     OneJNSerializer serialiser = new OneJNSerializer(
       applicantList.size() > 0 ? applicantList[0] : new Applicant__c(),
       employmentList.size() > 0
@@ -90,7 +92,13 @@ public with sharing class OneJNEventService {
         ? loanCalcProductList[0]
         : new Loan_Calculation_Product__c()
     );
-    String JSONString = JSON.serialize(serialiser);
+
+    Map<String, Object> serializerMap = SerializerDecision.setSerializer(
+      serialiser,
+      eventType
+    );
+
+    String JSONString = JSON.serialize(serializerMap);
     return JSONString;
   }
 }
