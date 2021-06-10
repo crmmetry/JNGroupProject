@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : Ishwari Gaikwad(Thinqloud)
+ * @group             :
+ * @last modified on  : 06-07-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * Modifications Log
+ * Ver   Date         Author                       Modification
+ * 1.0   06-07-2021   Ishwari Gaikwad(Thinqloud)   Initial Version
+ **/
 trigger OneJNOutputEventTrigger on One_JN_Output__e(after insert) {
   for (One_JN_Output__e evt : Trigger.New) {
     JSONGenerator jsonGen = JSON.createGenerator(true);
@@ -27,7 +37,6 @@ trigger OneJNOutputEventTrigger on One_JN_Output__e(after insert) {
     jsonGen.writeEndObject();
     jsonGen.writeEndObject();
     String jsonData = jsonGen.getAsString();
-    System.debug('jsonData ===>' + jsonData);
     One_JN_Input__e requestPlatformEvent = new One_JN_Input__e();
     requestPlatformEvent.SfRecordId__c = evt.SfRecordId__c;
     requestPlatformEvent.Body__c = jsonData;

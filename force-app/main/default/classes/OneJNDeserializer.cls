@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-04-2021
- * @last modified by  : Trupti Zende (Thinqloud)
+ * @last modified on  : 06-08-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -138,12 +138,14 @@ public class OneJNDeserializer {
       if (applist.size() > 0) {
         oneJNDeserializerVar.applicationRecord = new Application__c();
         oneJNDeserializerVar.applicationRecord.Id = applist[0]?.Id;
+
         oneJNDeserializerVar.applicationRecord.Application_ID__c = oneJNDeserializerVar.consolidatedReport.generalInformation.applicationID;
         oneJNDeserializerVar.applicationRecord.IDM_Amount_number__c = oneJNDeserializerVar.consolidatedReport.loanParameters
           ?.requestedLoanAmount;
         oneJNDeserializerVar.applicationRecord.IDM_Number_of_Rules_Breached_Number__c = oneJNDeserializerVar.consolidatedReport.nBrokenRules;
         oneJNDeserializerVar.applicationRecord.IDMOutput__c = oneJNDeserializerVar.consolidatedReport.finalAssessmentReport;
       }
+
       List<Applicant__c> applicantList = OneJNQuerySelector.getApplicants(
         new Set<ID>{ sfRecordId }
       );
@@ -152,6 +154,7 @@ public class OneJNDeserializer {
           if (applicant.Primary_Applicant_Flag__c) {
             oneJNDeserializerVar.primaryApplicantRecord = new Applicant__c();
             oneJNDeserializerVar.primaryApplicantRecord.Id = applicant.Id;
+
             if (productType == 'JN Bank Unsecured Loan') {
               oneJNDeserializerVar.primaryApplicantRecord.Account__c = applicant.Account__c;
               oneJNDeserializerVar.primaryApplicantRecord.JNRiskGrade__c = oneJNDeserializerVar.consolidatedReport.applicantDetailsPrimary.jNRiskGrade;
@@ -166,11 +169,13 @@ public class OneJNDeserializer {
               oneJNDeserializerVar.primaryApplicantRecord.CRBScoreCRIF__c = String.valueOf(
                 oneJNDeserializerVar.consolidatedReport.applicantDetailsPrimary.cRBScore_CRIF
               );
+
             }
             // documents
           } else {
             oneJNDeserializerVar.coApplicantRecord = new Applicant__c();
             oneJNDeserializerVar.coApplicantRecord.Id = applicant.Id;
+
             if (productType == 'JN Bank Unsecured Loan') {
               oneJNDeserializerVar.coApplicantRecord.JNRiskGrade__c = oneJNDeserializerVar.consolidatedReport.applicantDetailsCoApplicants.jNRiskGrade;
               oneJNDeserializerVar.coApplicantRecord.JNRiskScore__c = String.valueOf(
@@ -184,6 +189,7 @@ public class OneJNDeserializer {
               oneJNDeserializerVar.coApplicantRecord.CRBScoreCRIF__c = String.valueOf(
                 oneJNDeserializerVar.consolidatedReport.applicantDetailsCoApplicants.cRBScore_CRIF
               );
+
             }
             // documents
           }

@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-03-2021
+ * @last modified on  : 06-08-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -94,7 +94,6 @@ public with sharing class OneJNEventFactory {
       new List<Opportunity>{},
       eventType
     );
-    system.debug('JSONString :: ' + JSONString);
     // to get the initialised platform event record
     One_JN_Output__e requestPlatformEvent = Util.getOutputPlateformEventInstance(
       Constants.GET_LOAN_APPLICATION_ID,
@@ -128,7 +127,6 @@ public with sharing class OneJNEventFactory {
       new List<Opportunity>{},
       eventType
     );
-    system.debug('JSONString :: ' + JSONString);
     // to get the initialised platform event record
     One_JN_Output__e requestPlatformEvent = Util.getOutputPlateformEventInstance(
       eventType,
@@ -274,10 +272,10 @@ public with sharing class OneJNEventFactory {
       sfRecordId
     );
     if (deserialiser.primaryApplicantRecord <> null) {
-      // update deserialiser.primaryApplicantRecord;
+       update deserialiser.primaryApplicantRecord;
     }
     if (deserialiser.coApplicantRecord <> null) {
-      //   update deserialiser.coApplicantRecord;
+       update deserialiser.coApplicantRecord;
     }
     if (deserialiser.opportunityRecord <> null) {
       update deserialiser.opportunityRecord;

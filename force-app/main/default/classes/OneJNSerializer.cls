@@ -118,7 +118,6 @@ public class OneJNSerializer {
       if (loanCalculationProductRecord != null) {
         this.amount = loanCalculationProductRecord.Loan_Amount_Number__c;
         this.interestRate = loanCalculationProductRecord.Interest_Rate_Number__c;
-
         if (
           opportunityProductRecord.Product_Family__c != 'JN Bank Credit Card'
         ) {

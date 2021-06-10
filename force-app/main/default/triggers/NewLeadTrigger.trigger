@@ -1,9 +1,9 @@
 /**
  * @Description        : Handler for trigger
  * @Author             : Remario Richards
- * @Last Modified By   : Travis Allen
+ * @Last Modified By   : Trupti Zende (Thinqloud)
  * @Created On          : 10/7/2019
- * @Last Modified On   : 05-07-2021
+ * @Last Modified On   : 06-03-2021
  */
 trigger NewLeadTrigger on Lead(
   before insert,
@@ -11,30 +11,32 @@ trigger NewLeadTrigger on Lead(
   before update,
   after update
 ) {
-  LeadTriggerHandler.init(Trigger.new, Trigger.oldMap, Trigger.newMap);
-  if (Trigger.isUpdate) {
-    if (Trigger.isAfter) {
-      System.debug('LeadTriggerHandler Executed');
-      LeadTriggerHandler.crmm_CreateEmploymentOnConversion();
-      LeadTriggerHandler.crmm_lead_trigger_conversion();
-      LeadTriggerHandler.leadConversionBasic();
-      LeadTriggerHandler.convertInfoToEmployment();
-      LeadTriggerHandler.convertLeadRelatedPersons();
-      LeadTriggerHandler.EnforceLeadOpportunityRecordType();
-    } else {
-      LeadTriggerHandler.crmm_TimeSpentInStage();
-      LeadTriggerHandler.crmm_TierTwoTrigger();
-      if (!Util.IsExecuted('StartRoutingUsingTier2')) {
-        SkillsBasedRouting.StartRoutingUsingTier2(Trigger.new);
+  if (Util.canTriggerExecute()) {
+    LeadTriggerHandler.init(Trigger.new, Trigger.oldMap, Trigger.newMap);
+    if (Trigger.isUpdate) {
+      if (Trigger.isAfter) {
+        System.debug('LeadTriggerHandler Executed');
+        LeadTriggerHandler.crmm_CreateEmploymentOnConversion();
+        LeadTriggerHandler.crmm_lead_trigger_conversion();
+        LeadTriggerHandler.leadConversionBasic();
+        LeadTriggerHandler.convertInfoToEmployment();
+        LeadTriggerHandler.convertLeadRelatedPersons();
+        LeadTriggerHandler.EnforceLeadOpportunityRecordType();
+      } else {
+        LeadTriggerHandler.crmm_TimeSpentInStage();
+        LeadTriggerHandler.crmm_TierTwoTrigger();
+        if (!Util.IsExecuted('StartRoutingUsingTier2')) {
+          SkillsBasedRouting.StartRoutingUsingTier2(Trigger.new);
+        }
+        LeadTriggerHandler.IndustryTypeValidations();
       }
-      LeadTriggerHandler.IndustryTypeValidations();
-    }
-  } else if (Trigger.isInsert) {
-    if (Trigger.isAfter) {
-      LeadTriggerHandler.leadActivityEvent();
-    } else {
-      LeadTriggerHandler.crmm_TierOne();
-      LeadTriggerHandler.IndustryTypeValidations();
+    } else if (Trigger.isInsert) {
+      if (Trigger.isAfter) {
+        LeadTriggerHandler.leadActivityEvent();
+      } else {
+        LeadTriggerHandler.crmm_TierOne();
+        LeadTriggerHandler.IndustryTypeValidations();
+      }
     }
   }
 }

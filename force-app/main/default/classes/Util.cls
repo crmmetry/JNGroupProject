@@ -2,8 +2,8 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 05-18-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 06-08-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                               Modification
  * 1.0   02-22-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
@@ -598,5 +598,52 @@ public with sharing class Util {
     cDe.ShareType = 'I'; // Inferred permission, checkout description of ContentDocumentLink object for more details
     cDe.Visibility = 'InternalUsers';
     insert cDe;
+  }
+  /**
+   * @description : To get the Context Trigger Switch disability check value.
+   * @author Trupti Zende (Thinqloud) | 05-28-2021
+   * @return Boolean
+   **/
+
+  public static Boolean canTriggerExecute() {
+    Boolean isActive;
+    Context_Trigger_Switch__mdt triggerSwitch = getContextTriggerMetadata();
+    if (triggerSwitch.Disable_Trigger__c) {
+      isActive = false;
+    } else {
+      isActive = true;
+    }
+    return isActive;
+  }
+  /**
+   * @description : method to return the instance of custom metadata
+   * @author Ishwari Gaikwad(Thinqloud) | 06-02-2021
+   * @return Context_Trigger_Switch__mdt
+   **/
+  public static Context_Trigger_Switch__mdt getContextTriggerMetadata() {
+    return Context_Trigger_Switch__mdt.getInstance(
+      Constants.DEFAULT_TRIGGER_SWITCH
+    );
+  }
+  /**
+   * @description
+   * @author Ishwari Gaikwad(Thinqloud) | 06-03-2021
+   * @param name
+   * @param recordId
+   * @param JSONBody
+   * @return One_JN_Output__e
+   **/
+  public static One_JN_Output__e getOutputPlateformEventInstance(
+    String name,
+    String recordId,
+    String JSONBody,
+    String externalId
+  ) {
+    One_JN_Output__e requestPlatformEvent = new One_JN_Output__e();
+    requestPlatformEvent.Name__c = name;
+    requestPlatformEvent.SfRecordId__c = recordId;
+    requestPlatformEvent.Body__c = JSONBody;
+    requestPlatformEvent.ExternalId__c = externalId;
+    return requestPlatformEvent;
   }
 }

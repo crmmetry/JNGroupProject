@@ -10,7 +10,9 @@ trigger dlrs_FinServ_ContactContactRela04Trigger on FinServ__ContactContactRelat
   after undelete,
   after update
 ) {
-  dlrs.RollupService.triggerHandler(
-    FinServ__ContactContactRelation__c.SObjectType
-  );
+  if (Util.canTriggerExecute()) {
+    dlrs.RollupService.triggerHandler(
+      FinServ__ContactContactRelation__c.SObjectType
+    );
+  }
 }

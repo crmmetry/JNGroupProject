@@ -77,6 +77,7 @@ public with sharing class OneJNEventService {
         }
       }
     }
+
     OneJNSerializer serialiser = new OneJNSerializer(
       applicantList.size() > 0 ? applicantList[0] : new Applicant__c(),
       employmentList.size() > 0

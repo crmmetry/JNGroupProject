@@ -157,6 +157,7 @@ public class Constants {
   public static final String GET_CREDITCARD_PRE_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreditCardPreAssessmentEvent';
   public static final String RETURN_CREDITCARD_PRE_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreditCardPreAssessmentResponseEvent';
   public static final String GET_UNSECURED_LOAN_PRE_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.UnsecuredLoanPreAssessmentEvent';
+
   public static final String RETURN_UNSECURED_LOAN_PRE_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.UnsecuredLoanPreAssessmentResponseEvent';
 
   public static final String GET_MANUAL_DESICION_APPROVED = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreateManualDecisionApprovedEvent';
