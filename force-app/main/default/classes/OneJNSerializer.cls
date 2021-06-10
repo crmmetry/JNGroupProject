@@ -13,33 +13,7 @@ public class OneJNSerializer {
   public AppDataWrapper appData;
   @AuraEnabled
   public ApplicantDataWrapper applicant;
-  @AuraEnabled
-  public String rim;
-  @AuraEnabled
-  public string productType;
-  @AuraEnabled
-  public string applicationId;
     
-  public OneJNSerializer(
-  	Account accountRecord,
-    Opportunity opportunityRecord,
-    Application__c applicationRecord,
-    OpportunityLineItem opportunityProductRecord
-  ){
-       if (accountRecord != null) {
-          this.rim = accountRecord.RIM_no__c;
-       }
-      if (opportunityProductRecord != null) {
-          if((opportunityRecord.Rubicon_Path_list__c != 'Pre-Assessment Submission'
-          || opportunityRecord.Rubicon_Path_list__c != 'Final Assessment Submission')
-          && opportunityProductRecord.Product_Family__c != 'JN Bank Unsecured Loan' ){
-            this.productType = opportunityProductRecord.Product_Family__c;
-          }
-      }
-      if (applicationRecord != null) {
-          this.applicationId = applicationRecord.Application_ID__c;
-      }
-  }
   public OneJNSerializer(
     Applicant__c applicantRecord,
     FinServ__Employment__c employmentRecord,
@@ -64,7 +38,7 @@ public class OneJNSerializer {
       opportunityProductRecord
     );
   }
-  class AppDataWrapper {
+  public class AppDataWrapper {
     @AuraEnabled
     public string applicationId;
     @AuraEnabled
@@ -152,7 +126,7 @@ public class OneJNSerializer {
       
     }
   }
-  class ApplicantDataWrapper {
+  public class ApplicantDataWrapper {
     @AuraEnabled
     public String rim;
     @AuraEnabled

@@ -23,6 +23,7 @@ public with sharing class OneJNQuerySelector {
         Premier_Customer_List__c,
         FinServ__NumberOfDependents__pc,
         Name,
+        RIM_no__c,
         Id,
         Highest_level_of_Education_attained__pc
       FROM Account
