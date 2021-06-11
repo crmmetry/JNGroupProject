@@ -1,3 +1,13 @@
+<!--
+  @description       : 
+  @author            : Travis Allen
+  @group             : 
+  @last modified on  : 06-11-2021
+  @last modified by  : Travis Allen
+  Modifications Log 
+  Ver   Date         Author         Modification
+  1.0   06-11-2021   Travis Allen   Initial Version
+-->
 <aura:component
   implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
   controller="ProductDetailController"
@@ -93,6 +103,7 @@
   <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
   <aura:attribute name="jnDefaultConfigs" type="Map" default="{}" />
   <aura:attribute name="RiskRatings" type="Map" default="{}" />
+  <aura:attribute name="multipleApplicantsFlag" type="Boolean" />
 
   <lightning:layout multipleRows="true">
     <!-- spinner markup-->
@@ -145,6 +156,7 @@
               oppId="{!v.recordId}"
               jnDefaultConfigs="{!v.jnDefaultConfigs}"
               ParentContainer="{!v.ChildContainer}"
+              multipleApplicantsFlag="{!v.multipleApplicantsFlag}"
               aura:id="autoLoanContainerComponent"
             >
             </c:AutoLoanContainerComponent>

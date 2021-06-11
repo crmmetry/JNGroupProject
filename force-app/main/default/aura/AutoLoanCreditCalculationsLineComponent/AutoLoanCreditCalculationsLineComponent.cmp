@@ -1,3 +1,13 @@
+<!--
+  @description       : 
+  @author            : Travis Allen
+  @group             : 
+  @last modified on  : 06-11-2021
+  @last modified by  : Travis Allen
+  Modifications Log 
+  Ver   Date         Author         Modification
+  1.0   06-11-2021   Travis Allen   Initial Version
+-->
 <aura:component>
   <aura:registerEvent name="productDetailsEvent" type="c:ProductDetailsEvent" />
   <aura:attribute name="ChildContainer" type="Map" default="{}" />
@@ -330,7 +340,7 @@
           readonly="true"
         />
       </lightning:layoutItem>
-      <lightning:layoutItem size="12"
+      <!-- <lightning:layoutItem size="12"
         ><h2 class="slds-section-title--divider">
           Credit Repayment Allocation
         </h2></lightning:layoutItem
@@ -347,7 +357,7 @@
         ></lightning:layoutItem
       >
       <lightning:layoutItem size="6" padding="around-small">
-        <!--JN1-4201-->
+        <!JN1-4201>
         <lightning:input
           type="number"
           label="Loan Amount(%)"
@@ -370,7 +380,7 @@
         />
       </lightning:layoutItem>
       <lightning:layoutItem size="6" padding="around-small">
-        <!--JN1-4201-->
+        <!JN1-4201>
         <lightning:input
           type="number"
           label="Monthly Payment(%)"
@@ -391,7 +401,7 @@
           required="true"
           readonly="true"
         />
-      </lightning:layoutItem>
+      </lightning:layoutItem> -->
       <c:AutoLoanFeesAndChargesLineComponent
         deductRepayment="{!v.deductRepaymentFlag}"
         includePremiumFlag="{!v.showPremiumInFeesAndCharges}"

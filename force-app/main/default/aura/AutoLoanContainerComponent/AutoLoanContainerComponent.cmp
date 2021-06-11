@@ -1,9 +1,20 @@
+<!--
+  @description       : 
+  @author            : Travis Allen
+  @group             : 
+  @last modified on  : 06-11-2021
+  @last modified by  : Travis Allen
+  Modifications Log 
+  Ver   Date         Author         Modification
+  1.0   06-11-2021   Travis Allen   Initial Version
+-->
 <aura:component>
   <ltng:require scripts="{!$Resource.calculations}" />
   <aura:attribute name="productPrice" type="Decimal" />
   <aura:attribute name="oppId" type="Id" />
   <aura:attribute name="oppApplicants" type="List" />
   <aura:attribute name="jnDefaultConfigs" type="Map" />
+  <aura:attribute name="multipleApplicantsFlag" type="Boolean" />
   <!--JN1-4021-->
   <aura:method
     name="validateFields"
@@ -29,6 +40,7 @@
 
   <c:AutoLoanFeaturesLineItemComponent
     ParentContainer="{!v.ParentContainer}"
+    multipleApplicantsFlag="{!v.multipleApplicantsFlag}"
     aura:id="autoLoanFeaturesLineItemCmp"
   >
   </c:AutoLoanFeaturesLineItemComponent>

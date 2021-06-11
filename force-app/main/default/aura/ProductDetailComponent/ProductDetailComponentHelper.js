@@ -105,10 +105,13 @@
       this.hideSpinner(component);
       let state = response.getState(); //Checking response status
       let applicants = response.getReturnValue();
-      if (state === "SUCCESS") {
-        component.set("v.applicants", applicants);
-        if (applicants && applicants.length > 1) {
+      if (state === "SUCCESS" && applicants) {
+        if (applicants.length > 1) {
           component.set("v.multipleApplicantsFlag", true);
+          component.set("v.applicants", applicants);
+        } else {
+          component.set("v.multipleApplicantsFlag", false);
+          component.set("v.applicants", applicants);
         }
         //build generated documents here array
       }
