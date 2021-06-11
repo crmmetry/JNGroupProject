@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 04-24-2021
+ * @last modified on  : 06-11-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -33,6 +33,12 @@ public class TestSkillsBasedRouting {
       SELECT Id
       FROM Skill
       WHERE MasterLabel = 'Annotto Bay'
+    ];
+
+    Skill newKingstonSkill = [
+      SELECT Id
+      FROM Skill
+      WHERE MasterLabel = 'New Kingston'
     ];
 
     Skill barbicanSkill = [SELECT Id FROM Skill WHERE MasterLabel = 'Barbican'];
@@ -87,25 +93,51 @@ public class TestSkillsBasedRouting {
       travisSR.Id,
       annottoBaySkill.Id
     );
+    travisAnnottoBaySkill.EffectiveStartDate = System.now().addDays(-1);
+    travisAnnottoBaySkill.EffectiveEndDate = System.now().addDays(5);
     serviceResourceSkills.add(travisAnnottoBaySkill);
 
     ServiceResourceSkill travisAutoLoanSkill = TestDataFactory.CreateServiceResourceSkill(
       travisSR.Id,
       autoLoanSkill.Id
     );
+    travisAutoLoanSkill.EffectiveStartDate = System.now().addDays(-1);
+    travisAutoLoanSkill.EffectiveEndDate = System.now().addDays(5);
     serviceResourceSkills.add(travisAutoLoanSkill);
+
+    //Skill which effective start date has not come as yet
+    ServiceResourceSkill travisCreditCardSkill = TestDataFactory.CreateServiceResourceSkill(
+      travisSR.Id,
+      creditCardSkill.Id
+    );
+    travisCreditCardSkill.EffectiveStartDate = System.now().addDays(1);
+    travisCreditCardSkill.EffectiveEndDate = System.now().addDays(5);
+    serviceResourceSkills.add(travisCreditCardSkill);
+
+    //Skill which effective start date has not come as yet
+    ServiceResourceSkill travisNewKingstonSkill = TestDataFactory.CreateServiceResourceSkill(
+      travisSR.ID,
+      newKingstonSkill.Id
+    );
+    travisNewKingstonSkill.EffectiveStartDate = System.now().addDays(1);
+    travisNewKingstonSkill.EffectiveEndDate = System.now().addDays(5);
+    serviceResourceSkills.add(travisNewKingstonSkill);
 
     //Service Resource Skills for Remario [Location(2): Barbican, Catherine Hall Product(1): JN Bank Credit Card ]
     ServiceResourceSkill remarioBarbicanSkill = TestDataFactory.CreateServiceResourceSkill(
       remarioSR.Id,
       barbicanSkill.Id
     );
+    remarioBarbicanSkill.EffectiveStartDate = System.now().addDays(-1);
+    remarioBarbicanSkill.EffectiveEndDate = System.now().addDays(5);
     serviceResourceSkills.add(remarioBarbicanSkill);
 
     ServiceResourceSkill remarioCreditCardSkill = TestDataFactory.CreateServiceResourceSkill(
       remarioSR.Id,
       creditCardSkill.Id
     );
+    remarioCreditCardSkill.EffectiveStartDate = System.now().addDays(-1);
+    remarioCreditCardSkill.EffectiveEndDate = System.now().addDays(5);
     serviceResourceSkills.add(remarioCreditCardSkill);
 
     ServiceResourceSkill remarioCatherinehallSkill = TestDataFactory.CreateServiceResourceSkill(
@@ -119,24 +151,32 @@ public class TestSkillsBasedRouting {
       abigailSR.Id,
       annottoBaySkill.Id
     );
+    abigailAnnottoBaySkill.EffectiveStartDate = System.now().addDays(-1);
+    abigailAnnottoBaySkill.EffectiveEndDate = System.now().addDays(5);
     serviceResourceSkills.add(abigailAnnottoBaySkill);
 
     ServiceResourceSkill abigailBarbicanSkill = TestDataFactory.CreateServiceResourceSkill(
       abigailSR.Id,
       barbicanSkill.Id
     );
+    abigailBarbicanSkill.EffectiveStartDate = System.now().addDays(-1);
+    abigailBarbicanSkill.EffectiveEndDate = System.now().addDays(5);
     serviceResourceSkills.add(abigailBarbicanSkill);
 
     ServiceResourceSkill abigailCreditCardSkill = TestDataFactory.CreateServiceResourceSkill(
       abigailSR.Id,
       creditCardSkill.Id
     );
+    abigailCreditCardSkill.EffectiveStartDate = System.now().addDays(-1);
+    abigailCreditCardSkill.EffectiveEndDate = System.now().addDays(5);
     serviceResourceSkills.add(abigailCreditCardSkill);
 
     ServiceResourceSkill abigailLOCSkill = TestDataFactory.CreateServiceResourceSkill(
       abigailSR.Id,
       lineOfCreditSkill.Id
     );
+    abigailLOCSkill.EffectiveStartDate = System.now().addDays(-1);
+    abigailLOCSkill.EffectiveEndDate = System.now().addDays(5);
     serviceResourceSkills.add(abigailLOCSkill);
 
     insert serviceResourceSkills;
@@ -361,6 +401,40 @@ public class TestSkillsBasedRouting {
       System.assertEquals(
         salesTeam.Id,
         [SELECT Id, OwnerId, Company FROM Lead WHERE LastName = 'Sales']
+        .OwnerId
+      );
+    }
+  }
+
+  @isTest
+  public static void shouldNotRouteSkillWhenSkillHasEnded() {
+    User travis = [SELECT Id FROM User WHERE UserName = 'Travis@test.com'];
+    System.runAs(travis) {
+      Group salesTeam = [
+        SELECT Id
+        FROM Group
+        WHERE Type = 'Queue' AND Name = 'Sales Team'
+      ];
+
+      List<Lead> newLead = TestDataFactory.CreateLeads(1);
+      newlead[0].LastName = 'Travis';
+      newLead[0].Preferred_Location__c = 'New Kingston';
+      newLead[0].Service_of_Interest__c = 'JN Bank Credit Card';
+      newLead[0].Escalate_to_Tier2__c = false;
+      newLead[0].Last_Contact_Made__c = System.now();
+      newLead[0].OwnerId = salesTeam.Id;
+      newLead[0].Company = 'New Kingston Company';
+      insert newLead;
+
+      newLead[0].Escalate_to_Tier2__c = true;
+
+      test.startTest();
+      SkillsBasedRouting.StartRoutingUsingTier2(newLead);
+      test.stopTest();
+
+      System.assertEquals(
+        salesTeam.Id,
+        [SELECT Id, OwnerId, Company FROM Lead WHERE LastName = 'Travis']
         .OwnerId
       );
     }
