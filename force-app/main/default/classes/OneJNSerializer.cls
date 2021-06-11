@@ -89,7 +89,10 @@ public class OneJNSerializer {
         //this.applicationDate = '';//Unix Time Stamp
       }
       if (applicantRecord != null) {
-        if (opportunityRecord.Product_Category__c != 'JN Bank Credit Card') {
+        if (
+          opportunityRecord.Product_Category__c !=
+          Constants.CREDITCARD_PRODUCT_FAMILY
+        ) {
           this.isJointApplication = OneJNSerializer.getBooleanValueFromString(
             applicantRecord.Joint_Application_flag__c
           );
@@ -98,15 +101,17 @@ public class OneJNSerializer {
       if (opportunityProductRecord != null) {
         if (
           (opportunityRecord.Rubicon_Path_list__c !=
-          'Pre-Assessment Submission' ||
+          Constants.PRE_ASSESSMENT_SUBMISSION ||
           opportunityRecord.Rubicon_Path_list__c !=
-          'Final Assessment Submission') &&
-          opportunityProductRecord.Product_Family__c != 'JN Bank Unsecured Loan'
+          Constants.FINAL_ASSESMENT_SUBMISSION) &&
+          opportunityProductRecord.Product_Family__c !=
+          Constants.UNSECURED_PRODUCT_FAMILY
         ) {
           this.productType = opportunityProductRecord.Product_Family__c;
         }
         if (
-          opportunityProductRecord.Product_Family__c != 'JN Bank Unsecured Loan'
+          opportunityProductRecord.Product_Family__c !=
+          Constants.UNSECURED_PRODUCT_FAMILY
         ) {
           this.subProductType = opportunityProductRecord.Name;
         }
@@ -119,14 +124,16 @@ public class OneJNSerializer {
         this.amount = loanCalculationProductRecord.Loan_Amount_Number__c;
         this.interestRate = loanCalculationProductRecord.Interest_Rate_Number__c;
         if (
-          opportunityProductRecord.Product_Family__c != 'JN Bank Credit Card'
+          opportunityProductRecord.Product_Family__c !=
+          Constants.CREDITCARD_PRODUCT_FAMILY
         ) {
           this.feeFinancing = loanCalculationProductRecord.Method_of_Fee_Payment_List__c;
           this.loanPurpose = loanCalculationProductRecord.Loan_Purpose_List__c;
           this.requestedTenure = loanCalculationProductRecord.Months_Number__c;
         }
         if (
-          opportunityProductRecord.Product_Family__c != 'JN Bank Unsecured Loan'
+          opportunityProductRecord.Product_Family__c !=
+          Constants.UNSECURED_PRODUCT_FAMILY
         ) {
           this.minMonthlyRepayment = loanCalculationProductRecord.Minimum_Payment_per_Credit_Limit_Number__c;
         }
@@ -234,11 +241,13 @@ public class OneJNSerializer {
         );
         if (
           (opportunityRecord.Rubicon_Path_list__c !=
-          'Pre-Assessment Submission' ||
+          Constants.PRE_ASSESSMENT_SUBMISSION ||
           opportunityRecord.Rubicon_Path_list__c !=
-          'Final Assessment Submission') &&
-          opportunityProductRecord.Product_Family__c != 'JN Bank Credit Card' ||
-          opportunityProductRecord.Product_Family__c != 'JN Bank Unsecured Loan'
+          Constants.FINAL_ASSESMENT_SUBMISSION) &&
+          opportunityProductRecord.Product_Family__c !=
+          Constants.CREDITCARD_PRODUCT_FAMILY ||
+          opportunityProductRecord.Product_Family__c !=
+          Constants.UNSECURED_PRODUCT_FAMILY
         ) {
           this.isPEP = accountRecord.Politically_Affiliated__c;
         }
@@ -253,13 +262,13 @@ public class OneJNSerializer {
         //this.isJointHolder = ''; // need to create a new field on Applicant
         if (
           (opportunityRecord.Rubicon_Path_list__c !=
-          'Pre-Assessment Submission' ||
+          Constants.PRE_ASSESSMENT_SUBMISSION ||
           opportunityRecord.Rubicon_Path_list__c !=
-          'Final Assessment Submission') &&
+          Constants.FINAL_ASSESMENT_SUBMISSION) &&
           (opportunityProductRecord.Product_Family__c !=
-          'JN Bank Credit Card' ||
+          Constants.CREDITCARD_PRODUCT_FAMILY ||
           opportunityProductRecord.Product_Family__c !=
-          'JN Bank Unsecured Loan')
+          Constants.UNSECURED_PRODUCT_FAMILY)
         ) {
           this.applicantType = applicantRecord.Primary_Applicant_Flag__c
             ? 'Primary'
@@ -287,7 +296,8 @@ public class OneJNSerializer {
         this.otherIncomeVerified = applicantRecord.Other_Income_VERIFIED_Number__c;
 
         if (
-          opportunityRecord.Rubicon_Path_list__c != 'Pre-Assessment Submission'
+          opportunityRecord.Rubicon_Path_list__c !=
+          Constants.PRE_ASSESSMENT_SUBMISSION
         ) {
           this.monthlyExpensesNonCreditVerified = applicantRecord.Total_Expenses_VERIFIED_Calc__c;
           this.monthlyIncomeVerified = applicantRecord.Gross_Monthly_Income_VERIFIED_Number__c;

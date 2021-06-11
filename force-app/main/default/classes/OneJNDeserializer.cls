@@ -155,7 +155,7 @@ public class OneJNDeserializer {
             oneJNDeserializerVar.primaryApplicantRecord = new Applicant__c();
             oneJNDeserializerVar.primaryApplicantRecord.Id = applicant.Id;
 
-            if (productType == 'JN Bank Unsecured Loan') {
+            if (productType == Constants.UNSECURED_PRODUCT_FAMILY) {
               oneJNDeserializerVar.primaryApplicantRecord.Account__c = applicant.Account__c;
               oneJNDeserializerVar.primaryApplicantRecord.JNRiskGrade__c = oneJNDeserializerVar.consolidatedReport.applicantDetailsPrimary.jNRiskGrade;
               oneJNDeserializerVar.primaryApplicantRecord.JNRiskScore__c = String.valueOf(
@@ -169,14 +169,13 @@ public class OneJNDeserializer {
               oneJNDeserializerVar.primaryApplicantRecord.CRBScoreCRIF__c = String.valueOf(
                 oneJNDeserializerVar.consolidatedReport.applicantDetailsPrimary.cRBScore_CRIF
               );
-
             }
             // documents
           } else {
             oneJNDeserializerVar.coApplicantRecord = new Applicant__c();
             oneJNDeserializerVar.coApplicantRecord.Id = applicant.Id;
 
-            if (productType == 'JN Bank Unsecured Loan') {
+            if (productType == Constants.UNSECURED_PRODUCT_FAMILY) {
               oneJNDeserializerVar.coApplicantRecord.JNRiskGrade__c = oneJNDeserializerVar.consolidatedReport.applicantDetailsCoApplicants.jNRiskGrade;
               oneJNDeserializerVar.coApplicantRecord.JNRiskScore__c = String.valueOf(
                 oneJNDeserializerVar.consolidatedReport.applicantDetailsCoApplicants.jNRiskScore
@@ -189,7 +188,6 @@ public class OneJNDeserializer {
               oneJNDeserializerVar.coApplicantRecord.CRBScoreCRIF__c = String.valueOf(
                 oneJNDeserializerVar.consolidatedReport.applicantDetailsCoApplicants.cRBScore_CRIF
               );
-
             }
             // documents
           }
@@ -205,7 +203,7 @@ public class OneJNDeserializer {
         oneJNDeserializerVar.opportunityLineItemRecord.Id = opplineitemList[0]
           ?.Id;
         //oneJNDeserializerVar.opportunityLineItemRecord.Product_Family__c = oneJNDeserializerVar.consolidatedReport.generalInformation.productType; field is not writable
-        if (productType == 'JN Bank Credit Card') {
+        if (productType == Constants.CREDITCARD_PRODUCT_FAMILY) {
           //oneJNDeserializerVar.opportunityLineItemRecord.Name = oneJNDeserializerVar.consolidatedReport.generalInformation.cardType;
         }
       }
@@ -231,11 +229,11 @@ public class OneJNDeserializer {
             oneJNDeserializerVar.loanCalculationProductRecord.Id = loanappproductList[0]
               ?.Id;
 
-            if (productType == 'JN Bank Credit Card') {
+            if (productType == Constants.CREDITCARD_PRODUCT_FAMILY) {
               oneJNDeserializerVar.loanCalculationProductRecord.Requested_Credit_Limit_Number__c = oneJNDeserializerVar.consolidatedReport.loanParameters.aprrovedCreditCardLimit;
               oneJNDeserializerVar.loanCalculationProductRecord.Minimum_Payment_per_Credit_Limit_Number__c = oneJNDeserializerVar.consolidatedReport.loanParameters.estimateOfMinimumPayment;
             }
-            if (productType == 'JN Bank Unsecured Loan') {
+            if (productType == Constants.UNSECURED_PRODUCT_FAMILY) {
               oneJNDeserializerVar.loanCalculationProductRecord.Loan_Amount_Number__c = oneJNDeserializerVar.consolidatedReport.loanParameters.approvedLoanAmount;
               oneJNDeserializerVar.loanCalculationProductRecord.Months_Number__c = oneJNDeserializerVar.consolidatedReport.loanParameters.approvedTenure;
               oneJNDeserializerVar.loanCalculationProductRecord.Interest_Rate_Number__c = oneJNDeserializerVar.consolidatedReport.loanParameters.approvedInterestRate;

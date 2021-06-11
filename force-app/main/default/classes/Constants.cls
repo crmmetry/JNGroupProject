@@ -170,5 +170,7 @@ public class Constants {
   public static final String GET_UNSECURED_LOAN_FINAL_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.UnsecuredLoanFinalAssessmentEvent';
   public static final String RETURN_UNSECURED_LOAN_FINAL_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.UnsecuredLoanFinalAssessmentResponseEvent';
 
+  public static final String PRE_ASSESSMENT_SUBMISSION = 'Pre-Assessment Submission';
+  public static final String FINAL_ASSESMENT_SUBMISSION = 'Final Assessment Submission';
   public static final String DEFAULT_TRIGGER_SWITCH = 'Disable_All_Triggers';
 }
