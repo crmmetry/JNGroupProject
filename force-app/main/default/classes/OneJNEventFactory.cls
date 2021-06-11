@@ -88,7 +88,6 @@ public with sharing class OneJNEventFactory {
     String eventType
   ) {
     // to get the request JSON
-    system.debug('processGetApplicationIdEvent');
     String JSONString = OneJNEventService.build(
       applicationList,
       new List<Opportunity>{},
@@ -121,7 +120,6 @@ public with sharing class OneJNEventFactory {
     List<Application__c> applicationList
   ) {
     // to get the request JSON
-    system.debug('processGetManualEvent');
     String JSONString = OneJNEventService.build(
       applicationList,
       new List<Opportunity>{},
@@ -152,11 +150,11 @@ public with sharing class OneJNEventFactory {
   private static void processGetApplicationEvent(
     OneJNDeserializer oneJNDeserializer,
     String sfRecordId,
-    String EventType
+    String eventType
   ) {
     oneJNDeserializer deserialiser = OneJNDeserializer.parse(
       oneJNDeserializer,
-      EventType,
+      eventType,
       sfRecordId
     );
     if (deserialiser.applicationRecord <> null) {
@@ -178,24 +176,31 @@ public with sharing class OneJNEventFactory {
   private static void processFinalAssessmentEvent(
     OneJNDeserializer oneJNDeserializer,
     String sfRecordId,
-    String EventType
+    String eventType
   ) {
     oneJNDeserializer deserialiser = OneJNDeserializer.parse(
       oneJNDeserializer,
-      EventType,
+      eventType,
       sfRecordId
     );
+    List<sObject> sObjectsToUpdate = new List<sObject>();
     if (deserialiser.primaryApplicantRecord <> null) {
-      update deserialiser.primaryApplicantRecord;
+      sObjectsToUpdate.add(deserialiser.primaryApplicantRecord);
     }
     if (deserialiser.coApplicantRecord <> null) {
-      update deserialiser.coApplicantRecord;
+      sObjectsToUpdate.add(deserialiser.coApplicantRecord);
     }
     if (deserialiser.opportunityRecord <> null) {
-      update deserialiser.opportunityRecord;
+      sObjectsToUpdate.add(deserialiser.opportunityRecord);
     }
     if (deserialiser.applicationRecord <> null) {
-      update deserialiser.applicationRecord;
+      sObjectsToUpdate.add(deserialiser.applicationRecord);
+    }
+    if (deserialiser.loanCalculationProductRecord <> null) {
+      sObjectsToUpdate.add(deserialiser.loanCalculationProductRecord);
+    }
+    if (sObjectsToUpdate.size() > 0) {
+      update sObjectsToUpdate;
     }
   }
 
@@ -235,24 +240,28 @@ public with sharing class OneJNEventFactory {
   private static void processGetPreAssessmentEventResponse(
     OneJNDeserializer oneJNDeserializer,
     String sfRecordId,
-    String EventType
+    String eventType
   ) {
     oneJNDeserializer deserialiser = OneJNDeserializer.parse(
       oneJNDeserializer,
-      EventType,
+      eventType,
       sfRecordId
     );
+    List<sObject> sObjectsToUpdate = new List<sObject>();
     if (deserialiser.primaryApplicantRecord <> null) {
-      update deserialiser.primaryApplicantRecord;
+      sObjectsToUpdate.add(deserialiser.primaryApplicantRecord);
     }
     if (deserialiser.coApplicantRecord <> null) {
-      update deserialiser.coApplicantRecord;
+      sObjectsToUpdate.add(deserialiser.coApplicantRecord);
     }
     if (deserialiser.opportunityRecord <> null) {
-      update deserialiser.opportunityRecord;
+      sObjectsToUpdate.add(deserialiser.opportunityRecord);
     }
     if (deserialiser.applicationRecord <> null) {
-      update deserialiser.applicationRecord;
+      sObjectsToUpdate.add(deserialiser.applicationRecord);
+    }
+    if (sObjectsToUpdate.size() > 0) {
+      update sObjectsToUpdate;
     }
   }
   /**
@@ -264,27 +273,31 @@ public with sharing class OneJNEventFactory {
   private static void processGetManualIdEvent(
     OneJNDeserializer oneJNDeserializer,
     String sfRecordId,
-    String EventType
+    String eventType
   ) {
     oneJNDeserializer deserialiser = OneJNDeserializer.parse(
       oneJNDeserializer,
-      EventType,
+      eventType,
       sfRecordId
     );
+    List<sObject> sObjectsToUpdate = new List<sObject>();
     if (deserialiser.primaryApplicantRecord <> null) {
-       update deserialiser.primaryApplicantRecord;
+      sObjectsToUpdate.add(deserialiser.primaryApplicantRecord);
     }
     if (deserialiser.coApplicantRecord <> null) {
-       update deserialiser.coApplicantRecord;
+      sObjectsToUpdate.add(deserialiser.coApplicantRecord);
     }
     if (deserialiser.opportunityRecord <> null) {
-      update deserialiser.opportunityRecord;
+      sObjectsToUpdate.add(deserialiser.opportunityRecord);
     }
     if (deserialiser.applicationRecord <> null) {
-      update deserialiser.applicationRecord;
+      sObjectsToUpdate.add(deserialiser.applicationRecord);
     }
     if (deserialiser.loanCalculationProductRecord <> null) {
-      update deserialiser.loanCalculationProductRecord;
+      sObjectsToUpdate.add(deserialiser.loanCalculationProductRecord);
+    }
+    if (sObjectsToUpdate.size() > 0) {
+      update sObjectsToUpdate;
     }
   }
 }
