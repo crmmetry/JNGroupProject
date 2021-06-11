@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 05-07-2021
+ * @last modified on  : 06-11-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -98,16 +98,25 @@ global with sharing class SkillsBasedRouting {
     //List<String> hashStrings;
     String generatedHash;
 
+    //Todays Date
+    DateTime currentDateTime = System.now();
+
     for (serviceresource record : [
       SELECT
         Id,
         RelatedRecordId,
         (
-          SELECT SkillId, Skill.MasterLabel
+          SELECT
+            SkillId,
+            Skill.MasterLabel,
+            EffectiveStartDate,
+            EffectiveEndDate
           FROM ServiceResourceSkills
           WHERE
-            SKill.Id IN :mappedLocationSkills.keySet()
-            OR Skill.Id IN :mappedProductSkills.keySet()
+            (SKill.Id IN :mappedLocationSkills.keySet()
+            OR Skill.Id IN :mappedProductSkills.keySet())
+            AND EffectiveStartDate < :currentDateTime
+            AND EffectiveEndDate > :currentDateTime
         )
       FROM serviceresource
       WHERE RelatedRecordId IN :userIds
