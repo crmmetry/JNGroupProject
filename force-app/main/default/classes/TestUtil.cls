@@ -472,8 +472,8 @@ public class TestUtil {
    * @author Ishwari Gaikwad(Thinqloud) | 06-02-2021
    **/
   @isTest
-  public static void shouldGetContextTriggerSwitches() {
-    Boolean isActive = Util.getContextTriggerSwitches();
+  public static void testcanTriggerExecute() {
+    Boolean isActive = Util.canTriggerExecute();
     Context_Trigger_Switch__mdt triggerSwitchMetadata = Util.getContextTriggerMetadata();
     system.assertEquals(!triggerSwitchMetadata.Disable_Trigger__c, isActive);
   }
