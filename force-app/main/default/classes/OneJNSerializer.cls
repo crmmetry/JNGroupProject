@@ -3,7 +3,7 @@
  * @author            : Remario Richards
  * @group             :
  * @last modified on  : 06-14-2021
- * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -112,7 +112,7 @@ public class OneJNSerializer {
   }
   public class ApplicantDataWrapper {
     @AuraEnabled
-    public String Rim;
+    public String PhoenixId;
     @AuraEnabled
     public boolean IsJointHolder;
     @AuraEnabled
@@ -205,7 +205,7 @@ public class OneJNSerializer {
       OpportunityLineItem OpportunityProductRecord
     ) {
       if (accountRecord != null) {
-        this.Rim = accountRecord.RIM_no__c;
+        this.PhoenixId = accountRecord.RIM_no__c;
         this.IsVIP = OneJNSerializer.getBooleanValueFromString(
           accountRecord.Premier_Customer_List__c
         );

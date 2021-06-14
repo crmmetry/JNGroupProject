@@ -3,7 +3,7 @@
  * @author            : Ishwari Gaikwad(Thinqloud)
  * @group             :
  * @last modified on  : 06-14-2021
- * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author                       Modification
  * 1.0   06-14-2021   Ishwari Gaikwad(Thinqloud)   Initial Version
@@ -24,7 +24,7 @@ public class OneJNSerializerDecision {
 
     if (eventType == Constants.GET_LOAN_APPLICATION_ID) {
       JSONToSerialize.put('ProductType', serialiser.AppData.ProductType);
-      JSONToSerialize.put('Rim', serialiser.Applicant.Rim);
+      JSONToSerialize.put('PhoenixId', serialiser.Applicant.PhoenixId);
     } else if (
       eventType == Constants.GET_MANUAL_DESICION_APPROVED ||
       eventType == Constants.GET_MANUAL_DESICION_REJECT
@@ -33,7 +33,7 @@ public class OneJNSerializerDecision {
       JSONToSerialize.put('InterestRate', serialiser.AppData.InterestRate);
       JSONToSerialize.put('Tenure', serialiser.AppData.Tenure);
       JSONToSerialize.put('LoanAmount', serialiser.AppData.LoanAmount);
-      JSONToSerialize.put('Rim', serialiser.Applicant.Rim);
+      JSONToSerialize.put('PhoenixId', serialiser.Applicant.PhoenixId);
       JSONToSerialize.put(
         'AdjudicationDecision',
         serialiser.AppData.AdjudicationDecision
