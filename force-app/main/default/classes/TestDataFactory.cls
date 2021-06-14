@@ -1,3 +1,13 @@
+/**
+ * @description       :
+ * @author            : Travis Allen
+ * @group             :
+ * @last modified on  : 06-14-2021
+ * @last modified by  : Travis Allen
+ * Modifications Log
+ * Ver   Date         Author         Modification
+ * 1.0   06-14-2021   Travis Allen   Initial Version
+ **/
 @isTest
 public class TestDataFactory {
   // test variables
@@ -134,9 +144,9 @@ public class TestDataFactory {
     return records;
   }
 
-  public static ServiceResource CreateServiceResource(Id newUser) {
+  public static ServiceResource CreateServiceResource(Id newUser, String name) {
     ServiceResource serv_res = new ServiceResource();
-    serv_res.Name = 'Travis';
+    serv_res.Name = name;
     serv_res.ResourceType = 'T';
     serv_res.IsActive = true;
     serv_res.RelatedRecordId = newUser;
@@ -149,8 +159,6 @@ public class TestDataFactory {
   ) {
     ServiceResourceSkill serv_res_skill = new ServiceResourceSkill();
     serv_res_skill.ServiceResourceId = serv_res_id;
-    serv_res_skill.EffectiveStartDate = Date.today();
-    serv_res_skill.EffectiveEndDate = Date.today().addDays(5);
     serv_res_skill.SkillId = test_skill_id;
     return serv_res_skill;
   }

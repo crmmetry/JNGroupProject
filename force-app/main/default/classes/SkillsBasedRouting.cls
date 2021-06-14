@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 06-11-2021
+ * @last modified on  : 06-14-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -52,7 +52,10 @@ global with sharing class SkillsBasedRouting {
     return pq;
   }
 
-  public static void routeUsingSkillsTier2(List<Lead> leads) {
+  public static void routeUsingSkillsTier2(
+    List<Lead> leads,
+    Datetime currentDateTime
+  ) {
     Set<String> locations = new Set<String>();
     Set<String> products = new Set<String>();
     List<Lead> selectedLeads = new List<Lead>();
@@ -97,9 +100,6 @@ global with sharing class SkillsBasedRouting {
     Map<String, Worker> mappedWorkerSkills = new Map<String, Worker>();
     //List<String> hashStrings;
     String generatedHash;
-
-    //Todays Date
-    DateTime currentDateTime = System.now();
 
     for (serviceresource record : [
       SELECT
