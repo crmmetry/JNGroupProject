@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-08-2021
+ * @last modified on  : 06-14-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -21,7 +21,11 @@ public with sharing class OneJNEventFactory {
     String sfRecordId
   ) {
     if (eventType == Constants.RETURN_LOAN_APPLICATION_ID) {
-      processGetApplicationEventResponse(oneJNDeserializer, sfRecordId, eventType);
+      processGetApplicationEventResponse(
+        oneJNDeserializer,
+        sfRecordId,
+        eventType
+      );
     }
     if (
       eventType == Constants.RETURN_CREDITCARD_PRE_ASSESSMENT ||
@@ -43,7 +47,11 @@ public with sharing class OneJNEventFactory {
       eventType == Constants.RETURN_CREDITCARD_FINAL_ASSESSMENT ||
       eventType == Constants.RETURN_UNSECURED_LOAN_FINAL_ASSESSMENT
     ) {
-      processFinalAssessmentEventResponse(oneJNDeserializer, sfRecordId, eventType);
+      processFinalAssessmentEventResponse(
+        oneJNDeserializer,
+        sfRecordId,
+        eventType
+      );
     }
   }
   /**
@@ -158,10 +166,11 @@ public with sharing class OneJNEventFactory {
       sfRecordId
     );
     if (deserialiser.applicationRecord <> null) {
-        SObjectAccessDecision decision = Security.stripInaccessible(
-    AccessType.UPDATABLE,
-            New List<Application__c> {deserialiser.applicationRecord});
-          update decision.getRecords();
+      SObjectAccessDecision decision = Security.stripInaccessible(
+        AccessType.UPDATABLE,
+        new List<Application__c>{ deserialiser.applicationRecord }
+      );
+      update decision.getRecords();
     }
   }
   /**
@@ -187,26 +196,28 @@ public with sharing class OneJNEventFactory {
       sfRecordId
     );
     List<sObject> sObjectsToUpdate = new List<sObject>();
-      if(deserialiser.primaryApplicantRecord <> NULL){
-          sObjectsToUpdate.add(deserialiser.primaryApplicantRecord);
-      }
-      if(deserialiser.coApplicantRecord <> NULL){
-          sObjectsToUpdate.add(deserialiser.coApplicantRecord);
-      }
-      if(deserialiser.opportunityRecord <> NULL){
-          sObjectsToUpdate.add(deserialiser.opportunityRecord);
-      }
-      if(deserialiser.applicationRecord <> NULL){
-          sObjectsToUpdate.add(deserialiser.applicationRecord);
-      }
-      if(deserialiser.loanCalculationProductRecord <> NULL){
-          sObjectsToUpdate.add(deserialiser.loanCalculationProductRecord);      }
-      if(sObjectsToUpdate.size() > 0){
-          SObjectAccessDecision decision = Security.stripInaccessible(
-    AccessType.UPDATABLE,
-    sObjectsToUpdate);
-          update decision.getRecords();
-      }
+    if (deserialiser.primaryApplicantRecord <> null) {
+      sObjectsToUpdate.add(deserialiser.primaryApplicantRecord);
+    }
+    if (deserialiser.coApplicantRecord <> null) {
+      sObjectsToUpdate.add(deserialiser.coApplicantRecord);
+    }
+    if (deserialiser.opportunityRecord <> null) {
+      sObjectsToUpdate.add(deserialiser.opportunityRecord);
+    }
+    if (deserialiser.applicationRecord <> null) {
+      sObjectsToUpdate.add(deserialiser.applicationRecord);
+    }
+    if (deserialiser.loanCalculationProductRecord <> null) {
+      sObjectsToUpdate.add(deserialiser.loanCalculationProductRecord);
+    }
+    if (sObjectsToUpdate.size() > 0) {
+      SObjectAccessDecision decision = Security.stripInaccessible(
+        AccessType.UPDATABLE,
+        sObjectsToUpdate
+      );
+      update decision.getRecords();
+    }
   }
 
   /**
@@ -252,7 +263,7 @@ public with sharing class OneJNEventFactory {
       eventType,
       sfRecordId
     );
-      List<sObject> sObjectsToUpdate = new List<sObject>();
+    List<sObject> sObjectsToUpdate = new List<sObject>();
     if (deserialiser.primaryApplicantRecord <> null) {
       sObjectsToUpdate.add(deserialiser.primaryApplicantRecord);
     }
@@ -265,12 +276,13 @@ public with sharing class OneJNEventFactory {
     if (deserialiser.applicationRecord <> null) {
       sObjectsToUpdate.add(deserialiser.applicationRecord);
     }
-      if(sObjectsToUpdate.size() > 0){
-          SObjectAccessDecision decision = Security.stripInaccessible(
-    AccessType.UPDATABLE,
-    sObjectsToUpdate);
-          update decision.getRecords();
-      }
+    if (sObjectsToUpdate.size() > 0) {
+      SObjectAccessDecision decision = Security.stripInaccessible(
+        AccessType.UPDATABLE,
+        sObjectsToUpdate
+      );
+      update decision.getRecords();
+    }
   }
   /**
    * @description
@@ -288,9 +300,9 @@ public with sharing class OneJNEventFactory {
       eventType,
       sfRecordId
     );
-       List<sObject> sObjectsToUpdate = new List<sObject>();
+    List<sObject> sObjectsToUpdate = new List<sObject>();
     if (deserialiser.primaryApplicantRecord <> null) {
-       sObjectsToUpdate.add(deserialiser.primaryApplicantRecord);
+      sObjectsToUpdate.add(deserialiser.primaryApplicantRecord);
     }
     if (deserialiser.coApplicantRecord <> null) {
       sObjectsToUpdate.add(deserialiser.coApplicantRecord);
@@ -304,11 +316,12 @@ public with sharing class OneJNEventFactory {
     if (deserialiser.loanCalculationProductRecord <> null) {
       sObjectsToUpdate.add(deserialiser.loanCalculationProductRecord);
     }
-      if(sObjectsToUpdate.size() > 0){
-          SObjectAccessDecision decision = Security.stripInaccessible(
-    AccessType.UPDATABLE,
-    sObjectsToUpdate);
-          update decision.getRecords();
-      }
+    if (sObjectsToUpdate.size() > 0) {
+      SObjectAccessDecision decision = Security.stripInaccessible(
+        AccessType.UPDATABLE,
+        sObjectsToUpdate
+      );
+      update decision.getRecords();
+    }
   }
 }

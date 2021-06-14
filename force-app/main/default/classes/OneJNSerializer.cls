@@ -3,7 +3,7 @@
  * @author            : Remario Richards
  * @group             :
  * @last modified on  : 06-14-2021
- * @last modified by  : Trupti Zende (Thinqloud)
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -88,14 +88,13 @@ public class OneJNSerializer {
         //this.applicationDate = '';//Unix Time Stamp
       }
       if (ApplicantRecord != null) {
-        
-          this.IsJointApplication = OneJNSerializer.getBooleanValueFromString(
-            applicantRecord.Joint_Application_flag__c
-          );
+        this.IsJointApplication = OneJNSerializer.getBooleanValueFromString(
+          applicantRecord.Joint_Application_flag__c
+        );
       }
       if (OpportunityProductRecord != null) {
-          this.ProductType = opportunityProductRecord.Product_Family__c;
-          this.SubProductType = opportunityProductRecord.Name; 
+        this.ProductType = opportunityProductRecord.Product_Family__c;
+        this.SubProductType = opportunityProductRecord.Name;
       }
       if (OpportunityRecord != null) {
         this.CurrencyType = opportunityRecord.CurrencyIsoCode;
@@ -104,10 +103,10 @@ public class OneJNSerializer {
       if (LoanCalculationProductRecord != null) {
         this.Amount = loanCalculationProductRecord.Loan_Amount_Number__c;
         this.InterestRate = loanCalculationProductRecord.Interest_Rate_Number__c;
-          this.FeeFinancing = loanCalculationProductRecord.Method_of_Fee_Payment_List__c;
-          this.LoanPurpose = loanCalculationProductRecord.Loan_Purpose_List__c;
-          this.RequestedTenure = loanCalculationProductRecord.Months_Number__c;
-          this.MinMonthlyRepayment = loanCalculationProductRecord.Minimum_Payment_per_Credit_Limit_Number__c;
+        this.FeeFinancing = loanCalculationProductRecord.Method_of_Fee_Payment_List__c;
+        this.LoanPurpose = loanCalculationProductRecord.Loan_Purpose_List__c;
+        this.RequestedTenure = loanCalculationProductRecord.Months_Number__c;
+        this.MinMonthlyRepayment = loanCalculationProductRecord.Minimum_Payment_per_Credit_Limit_Number__c;
       }
     }
   }
@@ -210,7 +209,7 @@ public class OneJNSerializer {
         this.IsVIP = OneJNSerializer.getBooleanValueFromString(
           accountRecord.Premier_Customer_List__c
         );
-          this.IsPEP = accountRecord.Politically_Affiliated__c;
+        this.IsPEP = accountRecord.Politically_Affiliated__c;
         //this.CreditorLife = '' // need to create new Field on Person Account
         this.TimeinMonthsInCurrentResidency = accountRecord.MonthsResidence_Number__c;
         this.NDependents = accountRecord.FinServ__NumberOfDependents__pc;
@@ -220,8 +219,8 @@ public class OneJNSerializer {
       if (applicantRecord != null) {
         //this.isJointHolder = ''; // need to create a new field on Applicant
         this.applicantType = applicantRecord.Primary_Applicant_Flag__c
-            ? 'Primary'
-            : 'Co-Applicant';
+          ? 'Primary'
+          : 'Co-Applicant';
 
         //this.isGuarantor = '';  // need to create a new field on Applicant
         this.NPreviousRejectApplication12m = applicantRecord.Number_of_Rejected_Applications_Number__c;
@@ -243,15 +242,14 @@ public class OneJNSerializer {
         this.MonthlyExpensesNonCreditUnverified = applicantRecord.Total_Expenses_Calc__c;
         this.OtherIncomeVerified = applicantRecord.Other_Income_VERIFIED_Number__c;
 
-          this.MonthlyExpensesNonCreditVerified = applicantRecord.Total_Expenses_VERIFIED_Calc__c;
-          this.MonthlyIncomeVerified = applicantRecord.Gross_Monthly_Income_VERIFIED_Number__c;
-          this.TotalAssetsVerified = applicantRecord.Total_Assets_VERIFIED_Calc__c;
-          this.TotalLiabilitiesConsolidatedVerified = applicantRecord.Total_Amount_Consolidation_VERIFIED__c;
-          this.TotalLiabilitiesVerified = applicantRecord.Total_Liabilities_VERIFIED_Calc__c;
-          this.TotalMonthlyPaymentsVerified = applicantRecord.Total_Monthly_Loan_Payments_VERIFIED__c;
-          this.TotalNetworthVerified = applicantRecord.Net_Worth_VERIFIED_Calc__c;
-          this.TotalPaymentsConsolidatedVerified = applicantRecord.Total_Monthly_Payment_VERIFIED_Number__c;
-       
+        this.MonthlyExpensesNonCreditVerified = applicantRecord.Total_Expenses_VERIFIED_Calc__c;
+        this.MonthlyIncomeVerified = applicantRecord.Gross_Monthly_Income_VERIFIED_Number__c;
+        this.TotalAssetsVerified = applicantRecord.Total_Assets_VERIFIED_Calc__c;
+        this.TotalLiabilitiesConsolidatedVerified = applicantRecord.Total_Amount_Consolidation_VERIFIED__c;
+        this.TotalLiabilitiesVerified = applicantRecord.Total_Liabilities_VERIFIED_Calc__c;
+        this.TotalMonthlyPaymentsVerified = applicantRecord.Total_Monthly_Loan_Payments_VERIFIED__c;
+        this.TotalNetworthVerified = applicantRecord.Net_Worth_VERIFIED_Calc__c;
+        this.TotalPaymentsConsolidatedVerified = applicantRecord.Total_Monthly_Payment_VERIFIED_Number__c;
       }
       if (employmentRecord != null) {
         this.OccupationProffessionalCategory = employmentRecord.Professional_Category__c;

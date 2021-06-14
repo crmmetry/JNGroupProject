@@ -3,7 +3,7 @@
  * @author            : Remario Richards
  * @group             :
  * @last modified on  : 06-14-2021
- * @last modified by  : Trupti Zende (Thinqloud)
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -119,23 +119,37 @@ public class OneJNDeserializer {
     String productType = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation.ProductType;
     if (eventype == Constants.RETURN_LOAN_APPLICATION_ID) {
       OneJNEventService.OneJNApplicationIdEvent reference = new OneJNEventService.OneJNApplicationIdEvent();
-      oneJNDeserializerVar = reference.deserialize(oneJNDeserializerVar, sfRecordId);
+      oneJNDeserializerVar = reference.deserialize(
+        oneJNDeserializerVar,
+        sfRecordId
+      );
     } else if (
       eventype == Constants.RETURN_CREDITCARD_PRE_ASSESSMENT ||
-      eventype == Constants.RETURN_UNSECURED_LOAN_PRE_ASSESSMENT 
+      eventype == Constants.RETURN_UNSECURED_LOAN_PRE_ASSESSMENT
     ) {
       OneJNEventService.OneJNPreAssessementEvent reference = new OneJNEventService.OneJNPreAssessementEvent();
-      oneJNDeserializerVar = reference.deserialize(oneJNDeserializerVar, sfRecordId);
-    }else if(eventype == Constants.RETURN_CREDITCARD_FINAL_ASSESSMENT ||
-    eventype == Constants.RETURN_UNSECURED_LOAN_FINAL_ASSESSMENT){
+      oneJNDeserializerVar = reference.deserialize(
+        oneJNDeserializerVar,
+        sfRecordId
+      );
+    } else if (
+      eventype == Constants.RETURN_CREDITCARD_FINAL_ASSESSMENT ||
+      eventype == Constants.RETURN_UNSECURED_LOAN_FINAL_ASSESSMENT
+    ) {
       OneJNEventService.OneJNFinalAssessmentEvent reference = new OneJNEventService.OneJNFinalAssessmentEvent();
-      oneJNDeserializerVar = reference.deserialize(oneJNDeserializerVar, sfRecordId);
+      oneJNDeserializerVar = reference.deserialize(
+        oneJNDeserializerVar,
+        sfRecordId
+      );
     } else if (
       eventype == Constants.RETURN_MANUAL_DESICION_APPROVED ||
       eventype == Constants.RETURN_MANUAL_DESICION_REJECT
     ) {
       OneJNEventService.OneJNManualDecisionEvent reference = new OneJNEventService.OneJNManualDecisionEvent();
-      oneJNDeserializerVar = reference.deserialize(oneJNDeserializerVar, sfRecordId);
+      oneJNDeserializerVar = reference.deserialize(
+        oneJNDeserializerVar,
+        sfRecordId
+      );
     }
     return oneJNDeserializerVar;
   }
