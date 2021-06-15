@@ -3,7 +3,7 @@
  * @author            : Ishwari Gaikwad(Thinqloud)
  * @group             :
  * @last modified on  : 06-15-2021
- * @last modified by  : Trupti Zende (Thinqloud)
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                       Modification
  * 1.0   06-14-2021   Ishwari Gaikwad(Thinqloud)   Initial Version
@@ -44,7 +44,7 @@ public class OneJNSerializerDecision {
       Map<String, Object> appDataJson = (Map<String, Object>) JSON.deserializeUntyped(
         appDataObj
       );
-      List < String > appDataFieldsToRemove = new List < String > { 
+      List<String> appDataFieldsToRemove = new List<String>{
         'FeeFinancing',
         'LoanPurpose',
         'IsJointApplication',
@@ -58,7 +58,7 @@ public class OneJNSerializerDecision {
         applicantObj
       );
 
-      List < String > applicantFieldsToRemove = new List < String > { 
+      List<String> applicantFieldsToRemove = new List<String>{
         'MonthlyExpensesNonCreditVerified',
         'MonthlyIncomeVerified',
         'MtherIncomeVerified',
@@ -69,7 +69,7 @@ public class OneJNSerializerDecision {
         'TotalNetworthVerified',
         'TotalPaymentsConsolidatedVerified'
       };
-      
+
       applicantJson = removeFields(applicantJson, applicantFieldsToRemove);
 
       String appDataObj1 = JSON.serialize(appDataJson);
@@ -94,20 +94,20 @@ public class OneJNSerializerDecision {
       Map<String, Object> appDataJson = (Map<String, Object>) JSON.deserializeUntyped(
         appDataObj
       );
-      List < String > appDataFieldsToRemove = new List < String > {  
-        'IsPEP',  
-        'MinMonthlyRepayment',  
+      List<String> appDataFieldsToRemove = new List<String>{
+        'IsPEP',
+        'MinMonthlyRepayment',
         'SubProductType',
-        'RequestedTenure'  
-    };
+        'RequestedTenure'
+      };
 
       appDataJson = removeFields(appDataJson, appDataFieldsToRemove);
       Map<String, Object> applicantJson = (Map<String, Object>) JSON.deserializeUntyped(
         applicantObj
       );
-      List < String > applicantFieldsToRemove = new List < String > {  
-        'MonthlyExpensesNonCreditVerified',  
-        'MonthlyIncomeVerified',  
+      List<String> applicantFieldsToRemove = new List<String>{
+        'MonthlyExpensesNonCreditVerified',
+        'MonthlyIncomeVerified',
         'OtherIncomeVerified',
         'TotalAssetsVerified',
         'TotalLiabilitiesConsolidatedVerified',
@@ -115,9 +115,9 @@ public class OneJNSerializerDecision {
         'TotalMonthlyPaymentsVerified',
         'TotalNetworthVerified',
         'TotalPaymentsConsolidatedVerified'
-    };
+      };
 
-    applicantJson = removeFields(applicantJson, applicantFieldsToRemove);
+      applicantJson = removeFields(applicantJson, applicantFieldsToRemove);
 
       String appDataObj1 = JSON.serialize(appDataJson);
       String applicantObj1 = JSON.serialize(applicantJson);
@@ -141,7 +141,7 @@ public class OneJNSerializerDecision {
       Map<String, Object> appDataJson = (Map<String, Object>) JSON.deserializeUntyped(
         AppDataObj
       );
-      List < String > appDataFieldsToRemove = new List < String > { 
+      List<String> appDataFieldsToRemove = new List<String>{
         'FeeFinancing',
         'LoanPurpose',
         'IsJointApplication',
@@ -168,13 +168,13 @@ public class OneJNSerializerDecision {
       Map<String, Object> appDataJson = (Map<String, Object>) JSON.deserializeUntyped(
         appDataObj
       );
-      List < String > appDataFieldsToRemove = new List < String > { 
+      List<String> appDataFieldsToRemove = new List<String>{
         'IsPEP',
         'MinMonthlyRepayment',
         'SubProductType'
       };
 
-appDataJson = removeFields(appDataJson, appDataFieldsToRemove);
+      appDataJson = removeFields(appDataJson, appDataFieldsToRemove);
 
       String appDataObj1 = JSON.serialize(appDataJson);
       String SerializeObj = JSON.serialize(serialiser);
@@ -191,19 +191,19 @@ appDataJson = removeFields(appDataJson, appDataFieldsToRemove);
     return JSONToSerialize;
   }
   /**
-  * @description to remove the fields from json
-  * @author Trupti Zende (Thinqloud) | 06-15-2021 
-  * @return Map<String, Object> 
-  **/
+   * @description to remove the fields from json
+   * @author Trupti Zende (Thinqloud) | 06-15-2021
+   * @return Map<String, Object>
+   **/
   public static Map<String, Object> removeFields(
-    Map<String, Object> jsonData, 
+    Map<String, Object> jsonData,
     List<String> fieldsList
-  ){
-      if(fieldsList.size() > 0){
-        for(String field :fieldsList){
-          jsonData.remove(field);
-        }
+  ) {
+    if (fieldsList.size() > 0) {
+      for (String field : fieldsList) {
+        jsonData.remove(field);
       }
-      return jsonData;
+    }
+    return jsonData;
   }
 }
