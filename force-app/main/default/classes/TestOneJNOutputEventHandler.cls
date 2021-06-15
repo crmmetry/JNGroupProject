@@ -2,25 +2,29 @@
  * @description       :
  * @author            : Ishwari Gaikwad(Thinqloud)
  * @group             :
- * @last modified on  : 06-11-2021
+ * @last modified on  : 06-15-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                       Modification
- * 1.0   06-11-2021   Ishwari Gaikwad(Thinqloud)   Initial Version
+ * 1.0   06-15-2021   Ishwari Gaikwad(Thinqloud)   Initial Version
  **/
 @isTest
 public class TestOneJNOutputEventHandler {
+  /**
+   * @description Method to test get application Id event
+   * @author Ishwari Gaikwad(Thinqloud) | 06-15-2021
+   **/
   @isTest
   public static void handleGetApplicationIdEvent() {
     OneJNDeserializer oneJNDeserializer;
     JSONGenerator jsonGen = JSON.createGenerator(true);
     jsonGen.writeStartObject();
-    jsonGen.writeFieldName('consolidatedReport');
+    jsonGen.writeFieldName('ConsolidatedReport');
     jsonGen.writeStartObject();
-    jsonGen.writeFieldName('generalInformation');
+    jsonGen.writeFieldName('GeneralInformation');
     jsonGen.writeStartObject();
     jsonGen.writeStringField(
-      'applicationID',
+      'ApplicationID',
       'TEST ' + Integer.valueof((Math.random() * 1000))
     );
     jsonGen.writeEndObject();
@@ -78,6 +82,10 @@ public class TestOneJNOutputEventHandler {
     Test.stopTest();
   }
 
+  /**
+   * @description Method to test pre assessment event for Credit card
+   * @author Ishwari Gaikwad(Thinqloud) | 06-15-2021
+   **/
   @isTest
   public static void handleCreditCardPreAssessmentEvent() {
     OneJNDeserializer oneJNDeserializer;
@@ -150,6 +158,10 @@ public class TestOneJNOutputEventHandler {
     OneJNOutputEventHandler.HandleEvent(Flilist);
     Test.stopTest();
   }
+  /**
+   * @description Method to test Pre assessment event for Unsecured loan
+   * @author Ishwari Gaikwad(Thinqloud) | 06-15-2021
+   **/
   @isTest
   public static void handleUnsecuredPreAssessmentEvent() {
     OneJNDeserializer oneJNDeserializer;
@@ -224,6 +236,10 @@ public class TestOneJNOutputEventHandler {
     OneJNOutputEventHandler.HandleEvent(Flilist);
     Test.stopTest();
   }
+  /**
+   * @description Method to test final assessment event for Unsecured loan
+   * @author Ishwari Gaikwad(Thinqloud) | 06-15-2021
+   **/
   @isTest
   public static void handleUnsecuredfinalEvent() {
     OneJNDeserializer oneJNDeserializer;
@@ -299,6 +315,10 @@ public class TestOneJNOutputEventHandler {
     OneJNOutputEventHandler.HandleEvent(Flilist);
     Test.stopTest();
   }
+  /**
+   * @description : Method to test final assessment event for Credit card
+   * @author Ishwari Gaikwad(Thinqloud) | 06-15-2021
+   **/
   @isTest
   public static void handleCreditCardfinalEvent() {
     OneJNDeserializer oneJNDeserializer;
