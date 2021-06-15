@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 06-14-2021
+ * @last modified on  : 06-15-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -10,8 +10,14 @@
  **/
 @isTest
 public class TestSkillsBasedRouting {
-  public static final Date todaysDate = Date.newInstance(2021, 6, 14);
-
+  public static DateTime todaysDate = DateTime.newInstance(
+    2021,
+    6,
+    1,
+    12,
+    0,
+    0
+  );
   @testSetup
   static void setup() {
     //Create a 3 Users
@@ -30,44 +36,6 @@ public class TestSkillsBasedRouting {
     newUsers.add(abigail);
 
     insert newUsers;
-
-    Skill annottoBaySkill = [
-      SELECT Id
-      FROM Skill
-      WHERE MasterLabel = 'Annotto Bay'
-    ];
-
-    Skill newKingstonSkill = [
-      SELECT Id
-      FROM Skill
-      WHERE MasterLabel = 'New Kingston'
-    ];
-
-    Skill barbicanSkill = [SELECT Id FROM Skill WHERE MasterLabel = 'Barbican'];
-
-    Skill catherineHallSkill = [
-      SELECT Id
-      FROM Skill
-      WHERE MasterLabel = 'Catherine Hall'
-    ];
-
-    Skill autoLoanSkill = [
-      SELECT Id
-      FROM Skill
-      WHERE MasterLabel = 'JN Bank Auto Loan'
-    ];
-
-    Skill creditCardSkill = [
-      SELECT Id
-      FROM Skill
-      WHERE MasterLabel = 'JN Bank Credit Card'
-    ];
-
-    Skill lineOfCreditSkill = [
-      SELECT Id
-      FROM Skill
-      WHERE MasterLabel = 'JN Bank Line Of Credit'
-    ];
 
     //Create service resource for each user
     List<ServiceResource> serviceResources = new List<ServiceResource>();
@@ -91,6 +59,30 @@ public class TestSkillsBasedRouting {
     serviceResources.add(abigailSR);
 
     insert serviceResources;
+
+    System.runAs(travis) {
+      //Query Saels team queue
+      Group salesTeam = [
+        SELECT Id
+        FROM Group
+        WHERE Type = 'Queue' AND Name = 'Sales Team'
+      ];
+      List<GroupMember> salesTeamMembers = new List<GroupMember>();
+      //add users to salest team queue
+      GroupMember salesTeamTravis = new GroupMember();
+      salesTeamTravis.UserOrGroupId = travis.Id;
+      salesTeamTravis.GroupId = salesTeam.Id;
+      salesTeamMembers.add(salesTeamTravis);
+      GroupMember salesTeamRemario = new GroupMember();
+      salesTeamRemario.UserOrGroupId = remario.Id;
+      salesTeamRemario.GroupId = salesTeam.Id;
+      salesTeamMembers.add(salesTeamRemario);
+      GroupMember salesTeamAbigail = new GroupMember();
+      salesTeamAbigail.UserOrGroupId = abigail.Id;
+      salesTeamAbigail.GroupId = salesTeam.Id;
+      salesTeamMembers.add(salesTeamAbigail);
+      insert salesTeamMembers;
+    }
   }
 
   //Scenario 1: Assign lead when only one service resource exists with appropriate active skills and a workload of 0 leads.
@@ -158,7 +150,7 @@ public class TestSkillsBasedRouting {
       newLead[0].Escalate_to_Tier2__c = true;
 
       test.startTest();
-      SkillsBasedRouting.StartRoutingUsingTier2(newLead);
+      SkillsBasedRouting.StartRoutingUsingTier2(newLead, todaysDate);
       test.stopTest();
 
       System.assertEquals(
@@ -236,7 +228,7 @@ public class TestSkillsBasedRouting {
       newLead[0].Escalate_to_Tier2__c = true;
 
       test.startTest();
-      SkillsBasedRouting.StartRoutingUsingTier2(newLead);
+      SkillsBasedRouting.StartRoutingUsingTier2(newLead, todaysDate);
       test.stopTest();
 
       System.assertEquals(
@@ -346,7 +338,7 @@ public class TestSkillsBasedRouting {
       newLead[0].Escalate_to_Tier2__c = true;
 
       test.startTest();
-      SkillsBasedRouting.StartRoutingUsingTier2(newLead);
+      SkillsBasedRouting.StartRoutingUsingTier2(newLead, todaysDate);
       test.stopTest();
 
       System.assertEquals(
@@ -472,7 +464,7 @@ public class TestSkillsBasedRouting {
       newLead[0].Escalate_to_Tier2__c = true;
 
       test.startTest();
-      SkillsBasedRouting.StartRoutingUsingTier2(newLead);
+      SkillsBasedRouting.StartRoutingUsingTier2(newLead, todaysDate);
       test.stopTest();
 
       System.assertNotEquals(
@@ -607,10 +599,10 @@ public class TestSkillsBasedRouting {
       newLead[0].Escalate_to_Tier2__c = true;
 
       test.startTest();
-      SkillsBasedRouting.StartRoutingUsingTier2(newLead);
+      SkillsBasedRouting.StartRoutingUsingTier2(newLead, todaysDate);
       test.stopTest();
 
-      System.assertNotEquals(
+      System.assertEquals(
         remarioSR.RelatedRecordId,
         [SELECT Id, OwnerId, Company FROM Lead WHERE LastName = 'Travis']
         .OwnerId,

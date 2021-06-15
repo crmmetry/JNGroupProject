@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 06-14-2021
+ * @last modified on  : 06-15-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -12,10 +12,13 @@ global with sharing class SkillsBasedRouting {
   public static final String TAG = 'SkillsBasedRouting';
   public static Boolean inRecursiveUpdate = false;
 
-  public static void StartRoutingUsingTier2(List<Lead> leads) {
+  public static void StartRoutingUsingTier2(
+    List<Lead> leads,
+    DateTime currentDateTime
+  ) {
     if (inRecursiveUpdate)
       return;
-    System.enqueueJob(new QueueableSkillsBasedRouting(leads));
+    System.enqueueJob(new QueueableSkillsBasedRouting(leads, currentDateTime));
   }
 
   //Get a map of all skills with preferred location
@@ -54,7 +57,7 @@ global with sharing class SkillsBasedRouting {
 
   public static void routeUsingSkillsTier2(
     List<Lead> leads,
-    Datetime currentDateTime
+    DateTime currentDateTime
   ) {
     Set<String> locations = new Set<String>();
     Set<String> products = new Set<String>();
