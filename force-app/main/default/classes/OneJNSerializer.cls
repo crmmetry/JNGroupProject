@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-14-2021
+ * @last modified on  : 06-16-2021
  * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -50,7 +50,7 @@ public class OneJNSerializer {
     @AuraEnabled
     public string CurrencyType;
     @AuraEnabled
-    public string ApplicationDate;
+    public Long ApplicationDate;
     @AuraEnabled
     public decimal Amount;
     @AuraEnabled
@@ -85,6 +85,7 @@ public class OneJNSerializer {
         this.LoanAmount = applicationRecord.IDM_Loan_Amount_Number__c;
         this.AdjudicationDecision = applicationRecord.Adjudication_Decision_picklist__c; // Datatype not provided
         this.InterestRate = applicationRecord.IDM_Interest_Rate_Number__c;
+        this.ApplicationDate = getUnixTime(applicationRecord.CreatedDate);
         //this.applicationDate = '';//Unix Time Stamp
       }
       if (ApplicantRecord != null) {
@@ -94,7 +95,7 @@ public class OneJNSerializer {
       }
       if (OpportunityProductRecord != null) {
         this.ProductType = opportunityProductRecord.Product_Family__c;
-        this.SubProductType = opportunityProductRecord.Name;
+        this.SubProductType = opportunityProductRecord.Product2.Name;
       }
       if (OpportunityRecord != null) {
         this.CurrencyType = opportunityRecord.CurrencyIsoCode;
@@ -210,19 +211,19 @@ public class OneJNSerializer {
           accountRecord.Premier_Customer_List__c
         );
         this.IsPEP = accountRecord.Politically_Affiliated__c;
-        //this.CreditorLife = '' // need to create new Field on Person Account
+        //this.CreditorLife = '' // delete field
         this.TimeinMonthsInCurrentResidency = accountRecord.MonthsResidence_Number__c;
         this.NDependents = accountRecord.FinServ__NumberOfDependents__pc;
         this.HighestLevelOfEducation = accountRecord.Highest_Level_of_Education_attained__pc;
       }
-      //this.entityType = ''; // Person Accout Record Type
+      this.entityType = accountRecord.RecordType.Name;
       if (applicantRecord != null) {
-        //this.isJointHolder = ''; // need to create a new field on Applicant
+        //this.isJointHolder = ''; // delete field
         this.applicantType = applicantRecord.Primary_Applicant_Flag__c
           ? 'Primary'
           : 'Co-Applicant';
 
-        //this.isGuarantor = '';  // need to create a new field on Applicant
+        //this.isGuarantor = '';  // delete field
         this.NPreviousRejectApplication12m = applicantRecord.Number_of_Rejected_Applications_Number__c;
         this.IsPublicSectorEmployee = applicantRecord.Public_Sector_or_Civil_Servant_List__c;
         this.BankruptCurrent = OneJNSerializer.getIntegerValueFromString(
@@ -293,7 +294,8 @@ public class OneJNSerializer {
    * @return Long
    **/
   public static Long getUnixTime(DateTime dateTimeVar) {
-    Long l = dateTimeVar.getTime() / 1000;
-    return l;
+    if (dateTimeVar == null)
+      return null;
+    return dateTimeVar.getTime();
   }
 }

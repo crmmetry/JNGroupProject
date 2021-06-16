@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-04-2021
- * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * @last modified on  : 06-15-2021
+ * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -83,7 +83,8 @@ public with sharing class OneJNQuerySelector {
         IDM_Loan_Amount_Number__c,
         IDM_Tenure_Date__c,
         Adjudication_Decision_picklist__c,
-        IDM_Interest_Rate_Number__c
+        IDM_Interest_Rate_Number__c,
+        CreatedDate
       FROM Application__c
       WHERE Opportunity_Id__c IN :opportunityIdSet
       WITH SECURITY_ENFORCED
@@ -163,7 +164,7 @@ public with sharing class OneJNQuerySelector {
     Set<Id> opportunityIdSet
   ) {
     List<OpportunityLineItem> oppLineItemList = [
-      SELECT Product_Family__c, Name, Id
+      SELECT Product_Family__c, Name, Id, Product2.Name
       FROM OpportunityLineItem
       WHERE OpportunityId IN :opportunityIdSet
       WITH SECURITY_ENFORCED
@@ -199,7 +200,7 @@ public with sharing class OneJNQuerySelector {
 
   public static List<Application__c> getApplicationRecord(Id applicationId) {
     List<Application__c> applicationlist = [
-      SELECT ID, Opportunity_id__c
+      SELECT ID, Opportunity_id__c, CreatedDate
       FROM Application__c
       WHERE Id = :applicationId
       WITH SECURITY_ENFORCED

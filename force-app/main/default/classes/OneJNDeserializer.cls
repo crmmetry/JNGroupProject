@@ -2,13 +2,15 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-14-2021
+ * @last modified on  : 06-15-2021
  * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
  **/
 public class OneJNDeserializer {
+  @AuraEnabled
+  public String ApplicationId;
   public Loan_Calculation_Product__c LoanCalculationProductRecord { get; set; }
   public Applicant__c PrimaryApplicantRecord { get; set; }
   public Applicant__c CoApplicantRecord { get; set; }
@@ -116,7 +118,6 @@ public class OneJNDeserializer {
     String eventype,
     String sfRecordId
   ) {
-    String productType = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation.ProductType;
     if (eventype == Constants.RETURN_LOAN_APPLICATION_ID) {
       OneJNEventService.OneJNApplicationIdEvent reference = new OneJNEventService.OneJNApplicationIdEvent();
       oneJNDeserializerVar = reference.deserialize(
