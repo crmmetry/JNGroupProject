@@ -23,15 +23,15 @@ public class TestSkillsBasedRouting {
     //Create a 3 Users
     List<User> newUsers = new List<User>();
 
-    User travis = TestDataFactory.CreateUser('Travis@test.com');
+    User travis = TestDataFactory.CreateUser('TestTravis@test.com');
     travis.Sales_User__c = false;
     newUsers.add(travis);
 
-    User remario = TestDataFactory.CreateUser('Remario@test.com');
+    User remario = TestDataFactory.CreateUser('TestRemario@test.com');
     remario.Sales_User__c = false;
     newUsers.add(remario);
 
-    User abigail = TestDataFactory.CreateUser('Abigail@test.com');
+    User abigail = TestDataFactory.CreateUser('TestAbigail@test.com');
     abigail.Sales_User__c = false;
     newUsers.add(abigail);
 
@@ -90,7 +90,7 @@ public class TestSkillsBasedRouting {
   public static void shouldRouteLeadScenario1() {
     List<ServiceResourceSkill> serviceResourceSkills = new List<ServiceResourceSkill>();
     //User to run system
-    User travis = [SELECT Id FROM User WHERE UserName = 'Travis@test.com'];
+    User travis = [SELECT Id FROM User WHERE UserName = 'TestTravis@test.com'];
     System.runAs(travis) {
       Group salesTeam = [
         SELECT Id
@@ -168,7 +168,7 @@ public class TestSkillsBasedRouting {
   public static void shouldRouteLeadScenario2() {
     List<ServiceResourceSkill> serviceResourceSkills = new List<ServiceResourceSkill>();
     //User to run system
-    User travis = [SELECT Id FROM User WHERE UserName = 'Travis@test.com'];
+    User travis = [SELECT Id FROM User WHERE UserName = 'TestTravis@test.com'];
     System.runAs(travis) {
       Group salesTeam = [
         SELECT Id
@@ -246,7 +246,7 @@ public class TestSkillsBasedRouting {
   public static void shouldRouteLeadScenario3() {
     List<ServiceResourceSkill> serviceResourceSkills = new List<ServiceResourceSkill>();
     //User to run system
-    User travis = [SELECT Id FROM User WHERE UserName = 'Travis@test.com'];
+    User travis = [SELECT Id FROM User WHERE UserName = 'TestTravis@test.com'];
     System.runAs(travis) {
       Group salesTeam = [
         SELECT Id
@@ -356,7 +356,7 @@ public class TestSkillsBasedRouting {
   public static void shouldRouteLeadScenario4() {
     List<ServiceResourceSkill> serviceResourceSkills = new List<ServiceResourceSkill>();
     //User to run system
-    User travis = [SELECT Id FROM User WHERE UserName = 'Travis@test.com'];
+    User travis = [SELECT Id FROM User WHERE UserName = 'TestTravis@test.com'];
     System.runAs(travis) {
       Group salesTeam = [
         SELECT Id
@@ -482,7 +482,7 @@ public class TestSkillsBasedRouting {
   public static void shouldRouteLeadScenario5() {
     List<ServiceResourceSkill> serviceResourceSkills = new List<ServiceResourceSkill>();
     //User to run system
-    User travis = [SELECT Id FROM User WHERE UserName = 'Travis@test.com'];
+    User travis = [SELECT Id FROM User WHERE UserName = 'TestTravis@test.com'];
     System.runAs(travis) {
       Group salesTeam = [
         SELECT Id
@@ -579,13 +579,24 @@ public class TestSkillsBasedRouting {
 
       //Currently owned leads for Travis workload = 1
       List<Lead> travisLead = TestDataFactory.CreateLeads(1);
-      travisLead[0].Escalate_to_Tier2__c = true;
-      travisLead[0].OwnerId = travis.Id;
+      travisLead[0].LastName = 'Remario';
       travisLead[0].Preferred_Location__c = 'Catherine Hall';
       travisLead[0].Service_of_Interest__c = 'JN Bank Credit Card';
       travisLead[0].Last_Contact_Made__c = todaysDate.addDays(-3);
-      travisLead[0].Status = 'Open';
+      travisLead[0].Escalate_to_Tier2__c = false;
+      travisLead[0].OwnerId = salesTeam.Id;
+      travisLead[0].Company = 'Catherine hall Company';
       insert travisLead;
+
+      travisLead[0].Escalate_to_Tier2__c = true;
+
+      test.startTest();
+      SkillsBasedRouting.StartRoutingUsingTier2(travisLead, todaysDate);
+
+      System.debug(
+        'Travis Lead ' +
+        [SELECT Id, Name, Escalate_to_Tier2__c, OwnerId FROM Lead]
+      );
 
       List<Lead> newLead = TestDataFactory.CreateLeads(1);
       newlead[0].LastName = 'Travis';
@@ -599,14 +610,25 @@ public class TestSkillsBasedRouting {
 
       newLead[0].Escalate_to_Tier2__c = true;
 
-      test.startTest();
       SkillsBasedRouting.StartRoutingUsingTier2(newLead, todaysDate);
       test.stopTest();
 
-      System.debug('travis Id ' + travis.Id);
+      System.debug(
+        'Lead Owner ' +
+        [SELECT Id, OwnerId FROM Lead WHERE LastName = 'Remario']
+        .OwnerId
+      );
 
-      System.assertEquals(
-        remarioSR.RelatedRecordId,
+      System.assertNotEquals(
+        [SELECT Id, OwnerId FROM Lead WHERE LastName = 'Remario']
+        .OwnerId,
+        salesTeam.Id,
+        'Lead was not assigned.'
+      );
+
+      System.assertNotEquals(
+        [SELECT Id, OwnerId FROM Lead WHERE LastName = 'Remario']
+        .OwnerId,
         [SELECT Id, OwnerId, Company FROM Lead WHERE LastName = 'Travis']
         .OwnerId,
         'New lead should be assigned to Remario since he has lower workload'

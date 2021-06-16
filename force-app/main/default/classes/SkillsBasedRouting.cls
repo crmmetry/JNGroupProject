@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 06-15-2021
+ * @last modified on  : 06-16-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -125,6 +125,7 @@ global with sharing class SkillsBasedRouting {
       WHERE RelatedRecordId IN :userIds
       WITH SECURITY_ENFORCED
     ]) {
+      skilledUsers.add(record.RelatedRecordId);
       for (ServiceResourceSkill skillRecord : record.ServiceResourceSkills) {
         if (Constants.SKILL_PRODUCTS.contains(skillRecord.Skill.MasterLabel)) {
           if (serviceResourceMap.keySet().contains(record.RelatedRecordId)) {
@@ -156,7 +157,6 @@ global with sharing class SkillsBasedRouting {
       Map<String, Worker> workerhash = serviceResourceMap.get(userId)
         .getWorkerHashMap();
       mappedWorkerSkills.putAll(workerhash);
-      skilledUsers.add(userId);
     }
 
     //aggregate leads by service resource user id
