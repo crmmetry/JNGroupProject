@@ -159,4 +159,5 @@ public class Constants {
   public static final String GET_UNSECURED_LOAN_PRE_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.UnsecuredLoanPreAssessmentEvent';
 
   public static final String DEFAULT_TRIGGER_SWITCH = 'Disable_All_Triggers';
+  public static final String SALES_TEAM = 'Sales Team';
 }
