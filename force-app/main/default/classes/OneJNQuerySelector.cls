@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-15-2021
+ * @last modified on  : 06-16-2021
  * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -198,6 +198,12 @@ public with sharing class OneJNQuerySelector {
     return employmentList;
   }
 
+  /**
+   * @description : Get the Application record by passing
+   * @author Ishwari Gaikwad(Thinqloud) | 06-16-2021
+   * @param applicationId
+   * @return List<Application__c>
+   **/
   public static List<Application__c> getApplicationRecord(Id applicationId) {
     List<Application__c> applicationlist = [
       SELECT ID, Opportunity_id__c, CreatedDate

@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-14-2021
+ * @last modified on  : 06-16-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -87,7 +87,7 @@ public with sharing class OneJNEventFactory {
   }
 
   /**
-   * @description
+   * @description : prepare the platform event for the GetApplicationId event
    * @author Ishwari Gaikwad(Thinqloud) | 06-03-2021
    * @param application
    **/
@@ -119,7 +119,7 @@ public with sharing class OneJNEventFactory {
     }
   }
   /**
-   * @description
+   * @description : Prepare platform event for GetManualDesicion Event
    * @author Rahul Rahangdale (Thinqloud) | 06-07-2021
    * @param application
    **/
@@ -152,7 +152,7 @@ public with sharing class OneJNEventFactory {
   }
 
   /**
-   * @description process application events
+   * @description process the responce got from the IdM for GetApplicationIdEvent
    * @author Remario Richards | 05-26-2021
    **/
   private static void processGetApplicationEventResponse(
@@ -173,16 +173,9 @@ public with sharing class OneJNEventFactory {
       update decision.getRecords();
     }
   }
+
   /**
-   * @description process pre assessment events
-   * @author Remario Richards | 05-26-2021
-   **/
-  private static void processPreassessmentEvent(
-    OneJNDeserializer oneJNDeserializer
-  ) {
-  }
-  /**
-   * @description process final assessment events
+   * @description process the responce got from the IdM for FinalAssessmentEvent
    * @author Remario Richards | 05-26-2021
    **/
   private static void processFinalAssessmentEventResponse(
@@ -221,7 +214,7 @@ public with sharing class OneJNEventFactory {
   }
 
   /**
-   * @description
+   * @description Prepare the platformevent for the GetPreassessmentEvent
    * @author Trupti Zende (Thinqloud) | 06-04-2021
    * @param applicationList
    **/
@@ -253,6 +246,13 @@ public with sharing class OneJNEventFactory {
     }
   }
 
+  /**
+   * @description : process the responce got from the IdM for GetPreassessmentEvent
+   * @author Ishwari Gaikwad(Thinqloud) | 06-16-2021
+   * @param oneJNDeserializer
+   * @param sfRecordId
+   * @param eventType
+   **/
   private static void processGetPreAssessmentEventResponse(
     OneJNDeserializer oneJNDeserializer,
     String sfRecordId,
@@ -285,7 +285,7 @@ public with sharing class OneJNEventFactory {
     }
   }
   /**
-   * @description
+   * @description process the responce got from the IdM for GetManualDesicionEvent
    * @author Rahul Rahangdale (Thinqloud) | 06-09-2021
    * @param application
    **/
