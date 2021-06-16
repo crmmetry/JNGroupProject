@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 06-15-2021
+ * @last modified on  : 06-16-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -584,7 +584,8 @@ public class TestSkillsBasedRouting {
       travisLead[0].Preferred_Location__c = 'Catherine Hall';
       travisLead[0].Service_of_Interest__c = 'JN Bank Credit Card';
       travisLead[0].Last_Contact_Made__c = todaysDate.addDays(-3);
-      insert travisLead[0];
+      travisLead[0].Status = 'Open';
+      insert travisLead;
 
       List<Lead> newLead = TestDataFactory.CreateLeads(1);
       newlead[0].LastName = 'Travis';
@@ -601,6 +602,8 @@ public class TestSkillsBasedRouting {
       test.startTest();
       SkillsBasedRouting.StartRoutingUsingTier2(newLead, todaysDate);
       test.stopTest();
+
+      System.debug('travis Id ' + travis.Id);
 
       System.assertEquals(
         remarioSR.RelatedRecordId,

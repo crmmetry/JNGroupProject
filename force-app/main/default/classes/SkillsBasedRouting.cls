@@ -156,6 +156,7 @@ global with sharing class SkillsBasedRouting {
       Map<String, Worker> workerhash = serviceResourceMap.get(userId)
         .getWorkerHashMap();
       mappedWorkerSkills.putAll(workerhash);
+      skilledUsers.add(userId);
     }
 
     //aggregate leads by service resource user id
@@ -178,11 +179,12 @@ global with sharing class SkillsBasedRouting {
       GROUP BY OwnerId, Preferred_Location__c, Service_of_Interest__c
       ORDER BY COUNT(Id)
     ]) {
+      System.debug('Aggregate: ' + record);
+
       total = (Integer) record.get('total');
       userID = (String) record.get('OwnerId');
       location = (String) record.get('Preferred_Location__c');
       product = (String) record.get('Service_of_Interest__c');
-
       generatedHash = Util.GenerateHash(
         new List<String>{ userID, location, product }
       );
@@ -191,6 +193,8 @@ global with sharing class SkillsBasedRouting {
         mappedWorkerSkills.get(generatedHash).setWorkLoad(total);
       }
     }
+
+    System.debug('Workload Workers: ' + mappedWorkerSkills);
 
     //add all the workers
     workers.addAll(mappedWorkerSkills.values());
