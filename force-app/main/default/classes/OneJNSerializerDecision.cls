@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Ishwari Gaikwad(Thinqloud)
  * @group             :
- * @last modified on  : 06-15-2021
- * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * @last modified on  : 06-16-2021
+ * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author                       Modification
  * 1.0   06-14-2021   Ishwari Gaikwad(Thinqloud)   Initial Version
@@ -31,8 +31,8 @@ public class OneJNSerializerDecision {
     ) {
       JSONToSerialize.put('ApplicationId', serialiser.AppData.ApplicationId);
       JSONToSerialize.put('InterestRate', serialiser.AppData.InterestRate);
-      JSONToSerialize.put('Tenure', serialiser.AppData.Tenure);
-      JSONToSerialize.put('LoanAmount', serialiser.AppData.LoanAmount);
+      JSONToSerialize.put('ApprovedTenure', serialiser.AppData.Tenure);
+      JSONToSerialize.put('ApprovedLoanAmount', serialiser.AppData.LoanAmount);
       JSONToSerialize.put('PhoenixId', serialiser.Applicant.PhoenixId);
       JSONToSerialize.put(
         'AdjudicationDecision',
@@ -97,8 +97,7 @@ public class OneJNSerializerDecision {
       List<String> appDataFieldsToRemove = new List<String>{
         'IsPEP',
         'MinMonthlyRepayment',
-        'SubProductType',
-        'RequestedTenure'
+        'SubProductType'
       };
 
       appDataJson = removeFields(appDataJson, appDataFieldsToRemove);

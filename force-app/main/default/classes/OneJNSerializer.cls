@@ -3,7 +3,7 @@
  * @author            : Remario Richards
  * @group             :
  * @last modified on  : 06-16-2021
- * @last modified by  : Remario Richards
+ * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -160,8 +160,6 @@ public class OneJNSerializer {
     public integer BankruptCurrent;
     @AuraEnabled
     public boolean BankruptEver;
-    @AuraEnabled
-    public boolean DateLastRejection;
     @AuraEnabled
     public decimal MonthlyIncomeUnverified;
     @AuraEnabled
