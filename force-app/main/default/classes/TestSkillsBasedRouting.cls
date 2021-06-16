@@ -62,25 +62,27 @@ public class TestSkillsBasedRouting {
 
     System.runAs(travis) {
       //Query Saels team queue
-      Group salesTeam = [
-        SELECT Id
-        FROM Group
-        WHERE Type = 'Queue' AND Name = 'Sales Team'
-      ];
+      Id salesTeam = Util.getQueueId(Constants.SALES_TEAM);
       List<GroupMember> salesTeamMembers = new List<GroupMember>();
       //add users to salest team queue
-      GroupMember salesTeamTravis = new GroupMember();
-      salesTeamTravis.UserOrGroupId = travis.Id;
-      salesTeamTravis.GroupId = salesTeam.Id;
+      GroupMember salesTeamTravis = TestDataFactory.CreateGroupMember(
+        travis.Id,
+        salesTeam
+      );
       salesTeamMembers.add(salesTeamTravis);
-      GroupMember salesTeamRemario = new GroupMember();
-      salesTeamRemario.UserOrGroupId = remario.Id;
-      salesTeamRemario.GroupId = salesTeam.Id;
+
+      GroupMember salesTeamRemario = TestDataFactory.CreateGroupMember(
+        remario.Id,
+        salesTeam
+      );
       salesTeamMembers.add(salesTeamRemario);
-      GroupMember salesTeamAbigail = new GroupMember();
-      salesTeamAbigail.UserOrGroupId = abigail.Id;
-      salesTeamAbigail.GroupId = salesTeam.Id;
+
+      GroupMember salesTeamAbigail = TestDataFactory.CreateGroupMember(
+        abigail.Id,
+        salesTeam
+      );
       salesTeamMembers.add(salesTeamAbigail);
+
       insert salesTeamMembers;
     }
   }
@@ -92,11 +94,7 @@ public class TestSkillsBasedRouting {
     //User to run system
     User travis = [SELECT Id FROM User WHERE UserName = 'TestTravis@test.com'];
     System.runAs(travis) {
-      Group salesTeam = [
-        SELECT Id
-        FROM Group
-        WHERE Type = 'Queue' AND Name = 'Sales Team'
-      ];
+      Id salesTeam = Util.getQueueId(Constants.SALES_TEAM);
 
       //Query Service Resource to be tested
       ServiceResource travisSR = [
@@ -143,7 +141,7 @@ public class TestSkillsBasedRouting {
       newLead[0].Service_of_Interest__c = 'JN Bank Auto Loan';
       newLead[0].Escalate_to_Tier2__c = false;
       newLead[0].Last_Contact_Made__c = todaysDate;
-      newLead[0].OwnerId = salesTeam.Id;
+      newLead[0].OwnerId = salesTeam;
       newLead[0].Company = 'Annotto Bay Company';
       insert newLead;
 
@@ -170,11 +168,7 @@ public class TestSkillsBasedRouting {
     //User to run system
     User travis = [SELECT Id FROM User WHERE UserName = 'TestTravis@test.com'];
     System.runAs(travis) {
-      Group salesTeam = [
-        SELECT Id
-        FROM Group
-        WHERE Type = 'Queue' AND Name = 'Sales Team'
-      ];
+      Id salesTeam = Util.getQueueId(Constants.SALES_TEAM);
 
       //Query Service Resource to be tested
       ServiceResource travisSR = [
@@ -221,7 +215,7 @@ public class TestSkillsBasedRouting {
       newLead[0].Service_of_Interest__c = 'JN Bank Auto Loan';
       newLead[0].Escalate_to_Tier2__c = false;
       newLead[0].Last_Contact_Made__c = todaysDate;
-      newLead[0].OwnerId = salesTeam.Id;
+      newLead[0].OwnerId = salesTeam;
       newLead[0].Company = 'Annotto Bay Company';
       insert newLead;
 
@@ -232,7 +226,7 @@ public class TestSkillsBasedRouting {
       test.stopTest();
 
       System.assertEquals(
-        salesTeam.Id,
+        salesTeam,
         [SELECT Id, OwnerId, Company FROM Lead WHERE LastName = 'Travis']
         .OwnerId,
         'New lead should remain with Sales Team'
@@ -248,11 +242,7 @@ public class TestSkillsBasedRouting {
     //User to run system
     User travis = [SELECT Id FROM User WHERE UserName = 'TestTravis@test.com'];
     System.runAs(travis) {
-      Group salesTeam = [
-        SELECT Id
-        FROM Group
-        WHERE Type = 'Queue' AND Name = 'Sales Team'
-      ];
+      Id salesTeam = Util.getQueueId(Constants.SALES_TEAM);
 
       //Query Service Resource to be tested
       ServiceResource travisSR = [
@@ -331,7 +321,7 @@ public class TestSkillsBasedRouting {
       newLead[0].Service_of_Interest__c = 'JN Bank Credit Card';
       newLead[0].Escalate_to_Tier2__c = false;
       newLead[0].Last_Contact_Made__c = todaysDate;
-      newLead[0].OwnerId = salesTeam.Id;
+      newLead[0].OwnerId = salesTeam;
       newLead[0].Company = 'Annotto Bay Company';
       insert newLead;
 
@@ -358,11 +348,7 @@ public class TestSkillsBasedRouting {
     //User to run system
     User travis = [SELECT Id FROM User WHERE UserName = 'TestTravis@test.com'];
     System.runAs(travis) {
-      Group salesTeam = [
-        SELECT Id
-        FROM Group
-        WHERE Type = 'Queue' AND Name = 'Sales Team'
-      ];
+      Id salesTeam = Util.getQueueId(Constants.SALES_TEAM);
 
       //Query Service Resource to be tested
       ServiceResource travisSR = [
@@ -457,7 +443,7 @@ public class TestSkillsBasedRouting {
       newLead[0].Service_of_Interest__c = 'JN Bank Credit Card';
       newLead[0].Escalate_to_Tier2__c = false;
       newLead[0].Last_Contact_Made__c = todaysDate;
-      newLead[0].OwnerId = salesTeam.Id;
+      newLead[0].OwnerId = salesTeam;
       newLead[0].Company = 'Annotto Bay Company';
       insert newLead;
 
@@ -468,7 +454,7 @@ public class TestSkillsBasedRouting {
       test.stopTest();
 
       System.assertNotEquals(
-        salesTeam.Id,
+        salesTeam,
         [SELECT Id, OwnerId, Company FROM Lead WHERE LastName = 'Travis']
         .OwnerId,
         'New Lead should be assigned to one of the users with the appropriate skills'
@@ -484,11 +470,7 @@ public class TestSkillsBasedRouting {
     //User to run system
     User travis = [SELECT Id FROM User WHERE UserName = 'TestTravis@test.com'];
     System.runAs(travis) {
-      Group salesTeam = [
-        SELECT Id
-        FROM Group
-        WHERE Type = 'Queue' AND Name = 'Sales Team'
-      ];
+      Id salesTeam = Util.getQueueId(Constants.SALES_TEAM);
 
       //Query Service Resource to be tested
       ServiceResource travisSR = [
@@ -584,7 +566,7 @@ public class TestSkillsBasedRouting {
       travisLead[0].Service_of_Interest__c = 'JN Bank Credit Card';
       travisLead[0].Last_Contact_Made__c = todaysDate.addDays(-3);
       travisLead[0].Escalate_to_Tier2__c = false;
-      travisLead[0].OwnerId = salesTeam.Id;
+      travisLead[0].OwnerId = salesTeam;
       travisLead[0].Company = 'Catherine hall Company';
       insert travisLead;
 
@@ -593,18 +575,13 @@ public class TestSkillsBasedRouting {
       test.startTest();
       SkillsBasedRouting.StartRoutingUsingTier2(travisLead, todaysDate);
 
-      System.debug(
-        'Travis Lead ' +
-        [SELECT Id, Name, Escalate_to_Tier2__c, OwnerId FROM Lead]
-      );
-
       List<Lead> newLead = TestDataFactory.CreateLeads(1);
       newlead[0].LastName = 'Travis';
       newLead[0].Preferred_Location__c = 'Catherine Hall';
       newLead[0].Service_of_Interest__c = 'JN Bank Credit Card';
       newLead[0].Escalate_to_Tier2__c = false;
       newLead[0].Last_Contact_Made__c = todaysDate;
-      newLead[0].OwnerId = salesTeam.Id;
+      newLead[0].OwnerId = salesTeam;
       newLead[0].Company = 'Annotto Bay Company';
       insert newLead;
 
@@ -613,16 +590,10 @@ public class TestSkillsBasedRouting {
       SkillsBasedRouting.StartRoutingUsingTier2(newLead, todaysDate);
       test.stopTest();
 
-      System.debug(
-        'Lead Owner ' +
-        [SELECT Id, OwnerId FROM Lead WHERE LastName = 'Remario']
-        .OwnerId
-      );
-
       System.assertNotEquals(
         [SELECT Id, OwnerId FROM Lead WHERE LastName = 'Remario']
         .OwnerId,
-        salesTeam.Id,
+        salesTeam,
         'Lead was not assigned.'
       );
 
