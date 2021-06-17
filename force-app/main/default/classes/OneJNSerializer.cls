@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-16-2021
+ * @last modified on  : 06-17-2021
  * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -12,30 +12,50 @@ public class OneJNSerializer {
   @AuraEnabled
   public AppDataWrapper AppData;
   @AuraEnabled
-  public ApplicantDataWrapper Applicant;
+  public List<ApplicantDataWrapper> Applicant;
 
   public OneJNSerializer(
-    Applicant__c ApplicantRecord,
-    FinServ__Employment__c EmploymentRecord,
-    Account AccountRecord,
+    List<Applicant__c> ApplicantList,
+    Map<Id, FinServ__Employment__c> EmploymentMap,
+    Map<Id, Account> AccountMap,
     Application__c ApplicationRecord,
     Opportunity OpportunityRecord,
     OpportunityLineItem OpportunityProductRecord,
     Loan_Calculation_Product__c LoanCalculationProductRecord
   ) {
+    Applicant__c primaryApplicant = new Applicant__c();
+    this.Applicant = new List<ApplicantDataWrapper>();
+
+    for (Applicant__c applicantRecord : ApplicantList) {
+      if (applicantRecord.Primary_Applicant_Flag__c) {
+        primaryApplicant = applicantRecord;
+      }
+      Account accountRecord = new Account();
+      FinServ__Employment__c employmentRecord = new FinServ__Employment__c();
+      if (String.isNotBlank(applicantRecord.Account__c)) {
+        if (AccountMap.containsKey(applicantRecord.Account__c)) {
+          accountRecord = AccountMap.get(applicantRecord.Account__c);
+        }
+        if (EmploymentMap.containsKey(applicantRecord.Account__c)) {
+          employmentRecord = EmploymentMap.get(applicantRecord.Account__c);
+        }
+      }
+      this.Applicant.add(
+        new ApplicantDataWrapper(
+          applicantRecord,
+          employmentRecord,
+          accountRecord,
+          OpportunityRecord,
+          OpportunityProductRecord
+        )
+      );
+    }
     this.AppData = new AppDataWrapper(
       ApplicationRecord,
       OpportunityRecord,
-      ApplicantRecord,
+      primaryApplicant,
       OpportunityProductRecord,
       LoanCalculationProductRecord
-    );
-    this.Applicant = new ApplicantDataWrapper(
-      ApplicantRecord,
-      EmploymentRecord,
-      AccountRecord,
-      OpportunityRecord,
-      OpportunityProductRecord
     );
   }
   public class AppDataWrapper {
@@ -66,12 +86,15 @@ public class OneJNSerializer {
     @AuraEnabled
     public decimal MinMonthlyRepayment;
     @AuraEnabled
-    public decimal Tenure;
+    public decimal ApprovedTenure;
     @AuraEnabled
-    public decimal LoanAmount;
+    public decimal ApprovedLoanAmount;
     @AuraEnabled
     public string AdjudicationDecision;
-
+    @AuraEnabled
+    public String PhoenixId;
+    @AuraEnabled
+    public Decimal InterestRateForApplication;
     AppDataWrapper(
       Application__c ApplicationRecord,
       Opportunity OpportunityRecord,
@@ -80,13 +103,13 @@ public class OneJNSerializer {
       Loan_Calculation_Product__c LoanCalculationProductRecord
     ) {
       if (ApplicationRecord != null) {
+        this.PhoenixId = applicationRecord.ApplicantNameID__r.RIM_no__c;
         this.ApplicationId = applicationRecord.Application_ID__c;
-        this.Tenure = applicationRecord.IDM_Tenure_Date__c;
-        this.LoanAmount = applicationRecord.IDM_Loan_Amount_Number__c;
+        this.ApprovedTenure = applicationRecord.IDM_Tenure_Date__c;
+        this.ApprovedLoanAmount = applicationRecord.IDM_Loan_Amount_Number__c;
         this.AdjudicationDecision = applicationRecord.Adjudication_Decision_picklist__c; // Datatype not provided
-        this.InterestRate = applicationRecord.IDM_Interest_Rate_Number__c;
+        this.InterestRateForApplication = applicationRecord.IDM_Interest_Rate_Number__c;
         this.ApplicationDate = getUnixTime(applicationRecord.CreatedDate);
-        //this.applicationDate = '';//Unix Time Stamp
       }
       if (ApplicantRecord != null) {
         this.IsJointApplication = OneJNSerializer.getBooleanValueFromString(
@@ -115,21 +138,13 @@ public class OneJNSerializer {
     @AuraEnabled
     public String PhoenixId;
     @AuraEnabled
-    public boolean IsJointHolder;
-    @AuraEnabled
     public String ApplicantType;
-    @AuraEnabled
-    public boolean IsGuarantor;
-    @AuraEnabled
-    public boolean IsVIP;
     @AuraEnabled
     public boolean IsPEP;
     @AuraEnabled
     public boolean IsSupplimental;
     @AuraEnabled
     public String EntityType;
-    @AuraEnabled
-    public boolean CreditorLife;
     @AuraEnabled
     public decimal TimeinMonthsInCurrentResidency;
     @AuraEnabled
@@ -197,58 +212,19 @@ public class OneJNSerializer {
     @AuraEnabled
     public decimal MonthlyExpensesNonCreditVerified;
     ApplicantDataWrapper(
-      Applicant__c ApplicantRecord,
-      FinServ__Employment__c EmploymentRecord,
-      Account AccountRecord,
+      Applicant__c applicantRecord,
+      FinServ__Employment__c employmentRecord,
+      Account accountRecord,
       Opportunity OpportunityRecord,
       OpportunityLineItem OpportunityProductRecord
     ) {
       if (accountRecord != null) {
         this.PhoenixId = accountRecord.RIM_no__c;
-        this.IsVIP = OneJNSerializer.getBooleanValueFromString(
-          accountRecord.Premier_Customer_List__c
-        );
         this.IsPEP = accountRecord.Politically_Affiliated__c;
-        //this.CreditorLife = '' // delete field
         this.TimeinMonthsInCurrentResidency = accountRecord.MonthsResidence_Number__c;
         this.NDependents = accountRecord.FinServ__NumberOfDependents__pc;
         this.HighestLevelOfEducation = accountRecord.Highest_Level_of_Education_attained__pc;
-      }
-      this.entityType = accountRecord.RecordType.Name;
-      if (applicantRecord != null) {
-        //this.isJointHolder = ''; // delete field
-        this.applicantType = applicantRecord.Primary_Applicant_Flag__c
-          ? 'Primary'
-          : 'Co-Applicant';
-
-        //this.isGuarantor = '';  // delete field
-        this.NPreviousRejectApplication12m = applicantRecord.Number_of_Rejected_Applications_Number__c;
-        this.IsPublicSectorEmployee = applicantRecord.Public_Sector_or_Civil_Servant_List__c;
-        this.BankruptCurrent = OneJNSerializer.getIntegerValueFromString(
-          applicantRecord.Are_you_currently_in_bankruptcy_list__c
-        );
-        this.BankruptEver = OneJNSerializer.getBooleanValueFromString(
-          applicantRecord.Declared_bankrupt_list__c
-        );
-        this.MonthlyIncomeUnverified = applicantRecord.Gross_Monthly_Income__c;
-        this.OtherIncomeUnverified = applicantRecord.Other_Income__c;
-        this.TotalAssetsUnverified = applicantRecord.Total_Assets_Calc__c;
-        this.TotalLiabilitiesUnverified = applicantRecord.Total_Liabilities_Calc__c;
-        this.TotalLiabilitiesConsolidatedUnverified = applicantRecord.Total_Amount_Consolidated__c;
-        this.TotalMonthlyPaymentsUnverified = applicantRecord.Total_Monthly_Loan_Payments_Number__c;
-        this.TotalPaymentsConsolidatedUnverified = applicantRecord.Total_Monthly_Payment__c;
-        this.TotalNetworthUnverified = applicantRecord.Net_Worth_Calc__c;
-        this.MonthlyExpensesNonCreditUnverified = applicantRecord.Total_Expenses_Calc__c;
-        this.OtherIncomeVerified = applicantRecord.Other_Income_VERIFIED_Number__c;
-
-        this.MonthlyExpensesNonCreditVerified = applicantRecord.Total_Expenses_VERIFIED_Calc__c;
-        this.MonthlyIncomeVerified = applicantRecord.Gross_Monthly_Income_VERIFIED_Number__c;
-        this.TotalAssetsVerified = applicantRecord.Total_Assets_VERIFIED_Calc__c;
-        this.TotalLiabilitiesConsolidatedVerified = applicantRecord.Total_Amount_Consolidation_VERIFIED__c;
-        this.TotalLiabilitiesVerified = applicantRecord.Total_Liabilities_VERIFIED_Calc__c;
-        this.TotalMonthlyPaymentsVerified = applicantRecord.Total_Monthly_Loan_Payments_VERIFIED__c;
-        this.TotalNetworthVerified = applicantRecord.Net_Worth_VERIFIED_Calc__c;
-        this.TotalPaymentsConsolidatedVerified = applicantRecord.Total_Monthly_Payment_VERIFIED_Number__c;
+        this.EntityType = accountRecord.RecordType.Name;
       }
       if (employmentRecord != null) {
         this.OccupationProffessionalCategory = employmentRecord.Professional_Category__c;
@@ -260,8 +236,39 @@ public class OneJNSerializer {
         this.TimeEmployedWithPreviousEmployer = employmentRecord.Time_Employed_with_Previous_Employer_M__c;
         this.MonthsEmployedPrevious12months = employmentRecord.Time_Employed_with_Previous_Employer_M__c;
       }
+      this.applicantType = applicantRecord.Primary_Applicant_Flag__c
+        ? 'Primary'
+        : 'Co-Applicant';
+      this.NPreviousRejectApplication12m = applicantRecord.Number_of_Rejected_Applications_Number__c;
+      this.IsPublicSectorEmployee = applicantRecord.Public_Sector_or_Civil_Servant_List__c;
+      this.BankruptCurrent = OneJNSerializer.getIntegerValueFromString(
+        applicantRecord.Are_you_currently_in_bankruptcy_list__c
+      );
+      this.BankruptEver = OneJNSerializer.getBooleanValueFromString(
+        applicantRecord.Declared_bankrupt_list__c
+      );
+      this.MonthlyIncomeUnverified = applicantRecord.Gross_Monthly_Income__c;
+      this.OtherIncomeUnverified = applicantRecord.Other_Income__c;
+      this.TotalAssetsUnverified = applicantRecord.Total_Assets_Calc__c;
+      this.TotalLiabilitiesUnverified = applicantRecord.Total_Liabilities_Calc__c;
+      this.TotalLiabilitiesConsolidatedUnverified = applicantRecord.Total_Amount_Consolidated__c;
+      this.TotalMonthlyPaymentsUnverified = applicantRecord.Total_Monthly_Loan_Payments_Number__c;
+      this.TotalPaymentsConsolidatedUnverified = applicantRecord.Total_Monthly_Payment__c;
+      this.TotalNetworthUnverified = applicantRecord.Net_Worth_Calc__c;
+      this.MonthlyExpensesNonCreditUnverified = applicantRecord.Total_Expenses_Calc__c;
+      this.OtherIncomeVerified = applicantRecord.Other_Income_VERIFIED_Number__c;
+
+      this.MonthlyExpensesNonCreditVerified = applicantRecord.Total_Expenses_VERIFIED_Calc__c;
+      this.MonthlyIncomeVerified = applicantRecord.Gross_Monthly_Income_VERIFIED_Number__c;
+      this.TotalAssetsVerified = applicantRecord.Total_Assets_VERIFIED_Calc__c;
+      this.TotalLiabilitiesConsolidatedVerified = applicantRecord.Total_Amount_Consolidation_VERIFIED__c;
+      this.TotalLiabilitiesVerified = applicantRecord.Total_Liabilities_VERIFIED_Calc__c;
+      this.TotalMonthlyPaymentsVerified = applicantRecord.Total_Monthly_Loan_Payments_VERIFIED__c;
+      this.TotalNetworthVerified = applicantRecord.Net_Worth_VERIFIED_Calc__c;
+      this.TotalPaymentsConsolidatedVerified = applicantRecord.Total_Monthly_Payment_VERIFIED_Number__c;
     }
   }
+
   /**
    * @description to return boolean value for string values Yes/No
    * @author Trupti Zende (Thinqloud) | 06-03-2021
