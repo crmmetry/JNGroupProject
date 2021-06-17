@@ -3,7 +3,7 @@
  * @author            : Remario Richards
  * @group             :
  * @last modified on  : 06-16-2021
- * @last modified by  : Trupti Zende (Thinqloud)
+ * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -50,7 +50,7 @@ public class OneJNSerializer {
     @AuraEnabled
     public string CurrencyType;
     @AuraEnabled
-    public Long ApplicationDate;
+    public String ApplicationDate;
     @AuraEnabled
     public decimal Amount;
     @AuraEnabled
@@ -85,7 +85,7 @@ public class OneJNSerializer {
         this.LoanAmount = applicationRecord.IDM_Loan_Amount_Number__c;
         this.AdjudicationDecision = applicationRecord.Adjudication_Decision_picklist__c; // Datatype not provided
         this.InterestRate = applicationRecord.IDM_Interest_Rate_Number__c;
-        this.ApplicationDate = getUnixTime(applicationRecord.CreatedDate);
+        this.ApplicationDate = buildDate(applicationRecord.CreatedDate);
         //this.applicationDate = '';//Unix Time Stamp
       }
       if (ApplicantRecord != null) {
@@ -295,5 +295,13 @@ public class OneJNSerializer {
     if (dateTimeVar == null)
       return null;
     return dateTimeVar.getTime();
+  }
+  public static String buildDate(DateTime dateVar) {
+    DateTime dt = DateTime.newInstance(
+      dateVar.year(),
+      dateVar.month(),
+      dateVar.day()
+    );
+    return dt.format('yyyy-MM-ddHH:mm:ss');
   }
 }
