@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 06-16-2021
+ * @last modified on  : 06-17-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -18,6 +18,11 @@ public class TestSkillsBasedRouting {
     0,
     0
   );
+
+  /**
+   * Data setup for tests.
+   * @author Travis Allen | 06-17-2021
+   **/
   @testSetup
   static void setup() {
     //Create a 3 Users
@@ -87,7 +92,10 @@ public class TestSkillsBasedRouting {
     }
   }
 
-  //Scenario 1: Assign lead when only one service resource exists with appropriate active skills and a workload of 0 leads.
+  /**
+   * Scenario 1: Assign lead when only one service resource exists with appropriate active skills and a workload of 0 leads.
+   * @author Travis Allen | 06-17-2021
+   **/
   @isTest
   public static void shouldRouteLeadScenario1() {
     List<ServiceResourceSkill> serviceResourceSkills = new List<ServiceResourceSkill>();
@@ -161,7 +169,10 @@ public class TestSkillsBasedRouting {
 
   }
 
-  //Scenario 2: Assign lead when a service resource has the qulified skills but not effective.
+  /**
+   * Scenario 2: Assign lead when a service resource has the qulified skills but not effective.
+   * @author Travis Allen | 06-17-2021
+   **/
   @isTest
   public static void shouldRouteLeadScenario2() {
     List<ServiceResourceSkill> serviceResourceSkills = new List<ServiceResourceSkill>();
@@ -235,7 +246,10 @@ public class TestSkillsBasedRouting {
 
   }
 
-  //Scenario 3: Assign lead with multiple service resource in System where only one has the appropriate skill
+  /**
+   * Scenario 3: Assign lead with multiple service resource in System where only one has the appropriate skill
+   * @author Travis Allen | 06-17-2021
+   **/
   @isTest
   public static void shouldRouteLeadScenario3() {
     List<ServiceResourceSkill> serviceResourceSkills = new List<ServiceResourceSkill>();
@@ -341,7 +355,10 @@ public class TestSkillsBasedRouting {
 
   }
 
-  //Scenario 4: Should assign lead where more than 1 service resources have the required skills and the same workload.
+  /**
+   * Scenario 4: Should assign lead where more than 1 service resources have the required skills and the same workload.
+   * @author Travis Allen | 06-17-2021
+   **/
   @isTest
   public static void shouldRouteLeadScenario4() {
     List<ServiceResourceSkill> serviceResourceSkills = new List<ServiceResourceSkill>();
@@ -463,7 +480,10 @@ public class TestSkillsBasedRouting {
 
   }
 
-  //Scenario 5: Should assign lead where more than 1 service resources have the required skills and varying workload. Lead should be assigned to the service resource with the lower workload.
+  /**
+   * Scenario 5: Should assign lead where more than 1 service resources have the required skills and varying workload. Lead should be assigned to the service resource with the lower workload.
+   * @author Travis Allen | 06-17-2021
+   **/
   @isTest
   public static void shouldRouteLeadScenario5() {
     List<ServiceResourceSkill> serviceResourceSkills = new List<ServiceResourceSkill>();
