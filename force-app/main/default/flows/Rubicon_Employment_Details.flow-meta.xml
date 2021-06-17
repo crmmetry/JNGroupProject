@@ -607,8 +607,8 @@
         <description>Assigns variables for picklists</description>
         <name>Employed_Variable_Assignment</name>
         <label>Employed Variable Assignment</label>
-        <locationX>1792</locationX>
-        <locationY>611</locationY>
+        <locationX>1837</locationX>
+        <locationY>586</locationY>
         <assignmentItems>
             <assignToReference>EmploymentStatusDefault</assignToReference>
             <operator>Assign</operator>
@@ -1381,14 +1381,6 @@
         </assignmentItems>
         <assignmentItems>
             <assignToReference
-      >SelectedEmploymentRecord.FinServ__Position__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Last_Position_Held_UN</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference
       >SelectedEmploymentRecord.Current_Employment__c</assignToReference>
             <operator>Assign</operator>
             <value>
@@ -1419,6 +1411,15 @@
             <value>
                 <elementReference
         >Industry_UN.crmmObjectSelected</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference
+      >SelectedEmploymentRecord.Position_Previously_Held__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference
+        >unemplyed_current_position.crmmObjectSelected</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -3559,8 +3560,8 @@
     <screens>
         <name>RecordTYPE</name>
         <label>RecordTYPE</label>
-        <locationX>1013</locationX>
-        <locationY>869</locationY>
+        <locationX>1034</locationX>
+        <locationY>817</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -4120,7 +4121,7 @@
                     <inputParameters>
                         <name>crmmLabel</name>
                         <value>
-                            <stringValue>Current Position</stringValue>
+                            <stringValue>Last Position Held</stringValue>
                         </value>
                     </inputParameters>
                     <inputParameters>
@@ -4146,28 +4147,11 @@
                         <name>crmmObjectSelected</name>
                         <value>
                             <elementReference
-              >SelectedEmploymentRecord.Position_List__c</elementReference>
+              >SelectedEmploymentRecord.Position_Previously_Held__c</elementReference>
                         </value>
                     </inputParameters>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
-                </fields>
-                <fields>
-                    <name>Last_Position_Held_UN</name>
-                    <dataType>String</dataType>
-                    <defaultValue>
-                        <elementReference
-            >SelectedEmploymentRecord.FinServ__Position__c</elementReference>
-                    </defaultValue>
-                    <fieldText>Last Position Held</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>false</isRequired>
-                    <validationRule>
-                        <errorMessage
-            >&lt;p&gt;&lt;span style=&quot;color: rgb(62, 62, 60); background-color: rgb(255, 255, 255);&quot;&gt;Cannot exceed a length of 50 characters.&lt;/span&gt;&lt;/p&gt;</errorMessage>
-                        <formulaExpression
-            >LEN ({!Last_Position_Held_UN}) &lt;= 50</formulaExpression>
-                    </validationRule>
                 </fields>
                 <fields>
                     <name>Street_1_UN</name>
@@ -4498,7 +4482,7 @@
             <targetReference>GetEmploymentRecordType</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <variables>
         <name>AccountId</name>
         <dataType>String</dataType>

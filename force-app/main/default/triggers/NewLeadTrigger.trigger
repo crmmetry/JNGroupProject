@@ -1,9 +1,9 @@
 /**
  * @Description        : Handler for trigger
  * @Author             : Remario Richards
- * @Last Modified By   : Trupti Zende (Thinqloud)
+ * @Last Modified By   : Travis Allen
  * @Created On          : 10/7/2019
- * @Last Modified On   : 06-03-2021
+ * @Last Modified On   : 06-15-2021
  */
 trigger NewLeadTrigger on Lead(
   before insert,
@@ -26,7 +26,7 @@ trigger NewLeadTrigger on Lead(
         LeadTriggerHandler.crmm_TimeSpentInStage();
         LeadTriggerHandler.crmm_TierTwoTrigger();
         if (!Util.IsExecuted('StartRoutingUsingTier2')) {
-          SkillsBasedRouting.StartRoutingUsingTier2(Trigger.new);
+          SkillsBasedRouting.StartRoutingUsingTier2(Trigger.new, System.now());
         }
         LeadTriggerHandler.IndustryTypeValidations();
       }

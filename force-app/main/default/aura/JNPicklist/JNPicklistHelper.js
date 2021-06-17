@@ -1,4 +1,9 @@
 ({
+  /**
+   * Retrieves picklist values from Web Service call out.
+   * @param {*} component
+   * @return
+   */
   getPickListValues: function (component) {
     const action = component.get("c.getPickListValues");
     const objName = component.get("v.crmmObjectname");
@@ -17,12 +22,31 @@
       const state = response.getState();
       if (state === "SUCCESS") {
         const values = response.getReturnValue();
+        let newValues = this.transformSpecialCharactersinPicklist(values);
         component
           .find("picklistChoices")
           .set("v.value", component.get("v.crmmObjectSelected"));
-        component.set("v.values", values);
+        component.set("v.values", newValues);
       }
     });
     $A.enqueueAction(action);
+  },
+
+  /**
+   * Loops through picklist values and formats character references to special characters.
+   * @param {*} values
+   * @return {*} transformedValues
+   */
+  transformSpecialCharactersinPicklist: function (values) {
+    let transformedValues = new Array();
+    values.forEach((element) => {
+      let newString = element
+        .replace(/&amp;/g, "&")
+        .replace(/&#39;/g, "'")
+        .replace(/&lt;/g, "<")
+        .replace(/&quot;/g, '"');
+      transformedValues.push(newString);
+    });
+    return transformedValues;
   }
 });

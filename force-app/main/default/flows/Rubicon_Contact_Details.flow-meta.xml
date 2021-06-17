@@ -653,7 +653,7 @@
             >AccountRecord.MonthsResidence_Number__c</elementReference>
                     </defaultValue>
                     <fieldText
-          >How long have you resided at this address ?</fieldText>
+          >Time Living at Current Address In Months</fieldText>
                     <fieldType>InputField</fieldType>
                     <isRequired>true</isRequired>
                     <scale>0</scale>

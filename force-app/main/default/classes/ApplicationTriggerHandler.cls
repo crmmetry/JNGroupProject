@@ -2,8 +2,8 @@
  * @description       : To Validate that one opportunity have one application
  * @author            : Tushar Chopade(Thinqloud)
  * @group             :
- * @last modified on  : 06-08-2021
- * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * @last modified on  : 06-09-2021
+ * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author                      Modification
  * 1.0   04-20-2021   Tushar Chopade(Thinqloud)   Initial Version
@@ -34,10 +34,11 @@ public class ApplicationTriggerHandler {
     }
     Map<Id, Opportunity> opportunityMap = new Map<Id, Opportunity>(
       [
-        SELECT id, (SELECT id FROM Applications__r)
+        SELECT id, (SELECT Id FROM Applications__r)
         FROM Opportunity
         WHERE Id IN :oppIdSet
         WITH SECURITY_ENFORCED
+        FOR UPDATE
       ]
     );
     for (Application__c newAppRecord : newRecords) {
@@ -79,14 +80,21 @@ public class ApplicationTriggerHandler {
         oldMap.get(newAppRecord.Id).Adjudication_Path_picklist__c ==
         Constants.DEFERRED_STATUS
       ) {
+        // when the DM will change the owner of application then application status will be assigned.
         if (
           groupMemMap.get(Constants.REFERRED_QUEUE_NAME)
             .contains(oldMap.get(newAppRecord.Id).OwnerId) &&
           groupMemMap.get(Constants.REFERRED_QUEUE_NAME)
             .contains(newAppRecord.OwnerId)
         ) {
+          // check whether exisitng owner was member of referred application queue as well as
+          //the new owner is from referred application queue
           newAppRecord.Adjudication_Path_picklist__c = Constants.ASSIGNED_STATUS;
-          if (applicationMap.get(newAppRecord.Id).cases__r.size() > 0) {
+          if (
+            applicationMap.get(newAppRecord.Id).cases__r <> null &&
+            applicationMap.get(newAppRecord.Id).cases__r.size() > 0
+          ) {
+            // check whether the application record has case related to it
             for (Case cases : applicationMap.get(newAppRecord.Id).cases__r) {
               cases.Status = Constants.ASSIGNED_STATUS;
               cases.OwnerId = newAppRecord.OwnerId;

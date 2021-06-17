@@ -96,16 +96,18 @@
   },
 
   setPickListValues: function (component) {
-    const action = component.get("c.getPickListValuesList");
+    const action = component.get("c.getPickListValues");
     action.setParams({
-      objectApiName: "Loan_Calculation_Product__c",
-      fieldApiNames: ["Loan_Purpose_List__c"]
+      objectApiName: "Opportunity",
+      fieldApiName: "Loan_Purpose_ULR__c",
+      recordTypeName: "Rubicon",
+      recordTypeId: null
     });
     action.setCallback(this, function (response) {
       const state = response.getState();
       if (state === "SUCCESS") {
         const values = response.getReturnValue();
-        component.set("v.loanPurpose", values["Loan_Purpose_List__c"]);
+        component.set("v.loanPurpose", values);
       }
     });
     $A.enqueueAction(action);
