@@ -243,7 +243,7 @@
         <name>Same_Account_Name_and_Mobile</name>
         <label>Same Account Name and Mobile</label>
         <locationX>405</locationX>
-        <locationY>1050</locationY>
+        <locationY>1049</locationY>
         <defaultConnector>
             <targetReference>Get_Accounts_For_JN_Affiliations</targetReference>
         </defaultConnector>
@@ -270,7 +270,7 @@
         >AccountRecord.Mobile_Number__pc</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>Person_Mobile_Number</elementReference>
+                    <elementReference>Mobile_Number.value</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -357,6 +357,12 @@
             <field>Mobile_Number__pc</field>
             <value>
                 <elementReference>Person_Mobile_Number</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mobile_Number__pc</field>
+            <value>
+                <elementReference>Mobile_Number.value</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -462,6 +468,13 @@
             <operator>EqualTo</operator>
             <value>
                 <elementReference>Person_Mobile_Number</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Mobile_Number__pc</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Mobile_Number.value</elementReference>
             </value>
         </filters>
         <object>Account</object>
@@ -602,7 +615,7 @@
         <inputAssignments>
             <field>Mobile_Number__pc</field>
             <value>
-                <elementReference>MobileNumber_ec.value</elementReference>
+                <elementReference>Mobile_Number.value</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -669,7 +682,7 @@
         <name>For_new_accounts</name>
         <label>For new accounts</label>
         <locationX>1152</locationX>
-        <locationY>1888</locationY>
+        <locationY>1889</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -709,14 +722,10 @@
                 <name>For_new_accounts_Section1_Column1</name>
                 <fieldType>Region</fieldType>
                 <fields>
-                    <name>First_Name</name>
-                    <dataType>String</dataType>
-                    <defaultValue>
-                        <elementReference>Persone_First_Name</elementReference>
-                    </defaultValue>
-                    <fieldText>First Name</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>true</isRequired>
+                    <name>firstName_Text</name>
+                    <fieldText
+          >&lt;p&gt;&lt;span style=&quot;font-size: 12px; color: rgb(244, 6, 6);&quot;&gt;*&lt;/span&gt;&lt;span style=&quot;font-size: 12px; color: rgb(95, 93, 93);&quot;&gt; First Name&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;{!Person_First_Name}&lt;/span&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
                 </fields>
                 <fields>
                     <name>Middle_Name</name>
@@ -758,14 +767,10 @@
                 <name>For_new_accounts_Section1_Column2</name>
                 <fieldType>Region</fieldType>
                 <fields>
-                    <name>Last_Name</name>
-                    <dataType>String</dataType>
-                    <defaultValue>
-                        <elementReference>Person_Last_Name1</elementReference>
-                    </defaultValue>
-                    <fieldText>Last Name</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>true</isRequired>
+                    <name>lastName_Text</name>
+                    <fieldText
+          >&lt;p&gt;&lt;span style=&quot;color: rgb(244, 6, 6); font-size: 12px;&quot;&gt;*&lt;/span&gt;&lt;span style=&quot;color: rgb(95, 93, 93); font-size: 12px;&quot;&gt; Last Name&lt;/span&gt;&lt;/p&gt;&lt;p&gt;{!Person_Last_Name}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
                 </fields>
                 <fields>
                     <name>ResidentialArea_ec</name>
@@ -888,36 +893,10 @@
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
                 <fields>
-                    <name>MobileNumber_ec</name>
-                    <extensionName>flowruntime:phone</extensionName>
-                    <fieldType>ComponentInstance</fieldType>
-                    <inputParameters>
-                        <name>label</name>
-                        <value>
-                            <stringValue>Mobile Number</stringValue>
-                        </value>
-                    </inputParameters>
-                    <inputParameters>
-                        <name>pattern</name>
-                        <value>
-                            <stringValue>^\d{10,25}$</stringValue>
-                        </value>
-                    </inputParameters>
-                    <inputParameters>
-                        <name>required</name>
-                        <value>
-                            <booleanValue>true</booleanValue>
-                        </value>
-                    </inputParameters>
-                    <inputParameters>
-                        <name>value</name>
-                        <value>
-                            <elementReference
-              >Person_Mobile_Number</elementReference>
-                        </value>
-                    </inputParameters>
-                    <isRequired>true</isRequired>
-                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                    <name>MobileNumber_Text</name>
+                    <fieldText
+          >&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 12px; color: rgb(244, 6, 6);&quot;&gt;*&lt;/span&gt;&lt;span style=&quot;font-size: 12px; color: rgb(95, 93, 93);&quot;&gt; Mobile Number&lt;/span&gt;&lt;/p&gt;&lt;p&gt;{!Mobile_Number.value}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
                 </fields>
                 <inputParameters>
                     <name>width</name>
@@ -1257,6 +1236,97 @@
             <fieldText
       >&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;color: rgb(240, 52, 52); font-size: 14px;&quot;&gt;The information you entered maps to your account, please try searching again. Thanks.&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Yes_JN_Affiliated</name>
+        <label>Yes JN Affiliated</label>
+        <locationX>412</locationX>
+        <locationY>925</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Same_Account_Name_and_Mobile</targetReference>
+        </connector>
+        <fields>
+            <name>indicator2</name>
+            <extensionName>c:JNStageProgressIndicator</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>currentStage</name>
+                <value>
+                    <elementReference
+          >PoliticalAffiliationsStage</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>stageType</name>
+                <value>
+                    <stringValue>rubicon</stringValue>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>text2</name>
+            <fieldText
+      >&lt;p&gt;&lt;b style=&quot;font-size: 14px; color: rgb(52, 152, 219); background-color: rgb(255, 255, 255);&quot;&gt;Person JN Affiliations&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Person_First_Name</name>
+            <dataType>String</dataType>
+            <fieldText>First Name</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage
+        >&lt;p&gt;Cannot exceed a length of 40 characters.&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!Person_First_Name}) &lt;= 40</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>Person_Last_Name</name>
+            <dataType>String</dataType>
+            <fieldText>Last Name</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage
+        >&lt;p&gt;Cannot exceed a length of 40 characters.&lt;/p&gt;</errorMessage>
+                <formulaExpression
+        >LEN ({!Person_Last_Name}) &lt;= 40</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>Mobile_Number</name>
+            <extensionName>flowruntime:phone</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Mobile Number</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>pattern</name>
+                <value>
+                    <stringValue>^\d{10,25}$</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>required</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>

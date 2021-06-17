@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Ishwari Gaikwad(Thinqloud)
  * @group             :
- * @last modified on  : 06-16-2021
+ * @last modified on  : 06-17-2021
  * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author                       Modification
@@ -24,40 +24,57 @@ public class OneJNSerializerDecision {
 
     if (eventType == Constants.GET_LOAN_APPLICATION_ID) {
       JSONToSerialize.put('ProductType', serialiser.AppData.ProductType);
-      JSONToSerialize.put('PhoenixId', serialiser.Applicant.PhoenixId);
+      JSONToSerialize.put('PhoenixId', serialiser.AppData.PhoenixId);
     } else if (
       eventType == Constants.GET_MANUAL_DESICION_APPROVED ||
       eventType == Constants.GET_MANUAL_DESICION_REJECT
     ) {
       JSONToSerialize.put('ApplicationId', serialiser.AppData.ApplicationId);
-      JSONToSerialize.put('InterestRate', serialiser.AppData.InterestRate);
-      JSONToSerialize.put('ApprovedTenure', serialiser.AppData.Tenure);
-      JSONToSerialize.put('ApprovedLoanAmount', serialiser.AppData.LoanAmount);
-      JSONToSerialize.put('PhoenixId', serialiser.Applicant.PhoenixId);
+      JSONToSerialize.put(
+        'InterestRate',
+        serialiser.AppData.InterestRateForApplication
+      );
+      JSONToSerialize.put('ApprovedTenure', serialiser.AppData.ApprovedTenure);
+      JSONToSerialize.put(
+        'ApprovedLoanAmount',
+        serialiser.AppData.ApprovedLoanAmount
+      );
+      JSONToSerialize.put('PhoenixId', serialiser.AppData.PhoenixId);
       JSONToSerialize.put(
         'AdjudicationDecision',
         serialiser.AppData.AdjudicationDecision
       );
     } else if (eventType == Constants.GET_CREDITCARD_PRE_ASSESSMENT) {
       String appDataObj = JSON.serialize(serialiser.AppData);
-      String applicantObj = JSON.serialize(serialiser.Applicant);
+      //String applicantObj = JSON.serialize(serialiser.Applicant);
+      String serializerdata = JSON.serialize(serialiser);
       Map<String, Object> appDataJson = (Map<String, Object>) JSON.deserializeUntyped(
         appDataObj
       );
+      Object currencyType = appDataJson.get('CurrencyType');
+      appDataJson.put('Currency', currencyType);
       List<String> appDataFieldsToRemove = new List<String>{
         'FeeFinancing',
         'LoanPurpose',
         'IsJointApplication',
         'IsPEP',
-        'RequestedTenure'
+        'RequestedTenure',
+        'ApprovedTenure',
+        'AdjudicationDecision',
+        'CurrencyType',
+        'PhoenixId',
+        'ApprovedLoanAmount',
+        'InterestRateForApplication'
       };
 
       appDataJson = removeFields(appDataJson, appDataFieldsToRemove);
 
       Map<String, Object> applicantJson = (Map<String, Object>) JSON.deserializeUntyped(
-        applicantObj
+        serializerdata
       );
-
+      List<Object> applicantData = (List<Object>) applicantJson.get(
+        'Applicant'
+      );
       List<String> applicantFieldsToRemove = new List<String>{
         'MonthlyExpensesNonCreditVerified',
         'MonthlyIncomeVerified',
@@ -67,13 +84,18 @@ public class OneJNSerializerDecision {
         'TotalLiabilitiesVerified',
         'TotalMonthlyPaymentsVerified',
         'TotalNetworthVerified',
-        'TotalPaymentsConsolidatedVerified'
+        'TotalPaymentsConsolidatedVerified',
+        'OtherIncomeVerified'
       };
-
-      applicantJson = removeFields(applicantJson, applicantFieldsToRemove);
+      for (Object applicant : applicantData) {
+        Map<String, Object> applicantMap = (Map<String, Object>) applicant;
+        applicantMap = removeFields(applicantMap, applicantFieldsToRemove);
+        applicant = (Object) applicantMap;
+      }
+      //applicantJson = removeFields(applicantJson, applicantFieldsToRemove);
 
       String appDataObj1 = JSON.serialize(appDataJson);
-      String applicantObj1 = JSON.serialize(applicantJson);
+      String applicantObj1 = JSON.serialize(applicantData);
 
       String SerializeObj = JSON.serialize(serialiser);
       JSONToSerialize = (Map<String, Object>) JSON.deserializeUntyped(
@@ -90,19 +112,30 @@ public class OneJNSerializerDecision {
       );
     } else if (eventType == Constants.GET_UNSECURED_LOAN_PRE_ASSESSMENT) {
       String appDataObj = JSON.serialize(serialiser.AppData);
-      String applicantObj = JSON.serialize(serialiser.Applicant);
+      String serializerdata = JSON.serialize(serialiser);
       Map<String, Object> appDataJson = (Map<String, Object>) JSON.deserializeUntyped(
         appDataObj
       );
+      Object currencyType = appDataJson.get('CurrencyType');
+      appDataJson.put('Currency', currencyType);
       List<String> appDataFieldsToRemove = new List<String>{
         'IsPEP',
         'MinMonthlyRepayment',
-        'SubProductType'
+        'SubProductType',
+        'ApprovedTenure',
+        'AdjudicationDecision',
+        'CurrencyType',
+        'PhoenixId',
+        'ApprovedLoanAmount',
+        'InterestRateForApplication'
       };
 
       appDataJson = removeFields(appDataJson, appDataFieldsToRemove);
       Map<String, Object> applicantJson = (Map<String, Object>) JSON.deserializeUntyped(
-        applicantObj
+        serializerdata
+      );
+      List<Object> applicantData = (List<Object>) applicantJson.get(
+        'Applicant'
       );
       List<String> applicantFieldsToRemove = new List<String>{
         'MonthlyExpensesNonCreditVerified',
@@ -115,11 +148,15 @@ public class OneJNSerializerDecision {
         'TotalNetworthVerified',
         'TotalPaymentsConsolidatedVerified'
       };
-
-      applicantJson = removeFields(applicantJson, applicantFieldsToRemove);
+      for (Object applicant : applicantData) {
+        Map<String, Object> applicantMap = (Map<String, Object>) applicant;
+        applicantMap = removeFields(applicantMap, applicantFieldsToRemove);
+        applicant = (Object) applicantMap;
+      }
+      //applicantJson = removeFields(applicantJson, applicantFieldsToRemove);
 
       String appDataObj1 = JSON.serialize(appDataJson);
-      String applicantObj1 = JSON.serialize(applicantJson);
+      String applicantObj1 = JSON.serialize(applicantData);
 
       String SerializeObj = JSON.serialize(serialiser);
       JSONToSerialize = (Map<String, Object>) JSON.deserializeUntyped(
@@ -136,16 +173,24 @@ public class OneJNSerializerDecision {
       );
     } else if (eventType == Constants.GET_CREDITCARD_FINAL_ASSESSMENT) {
       String appDataObj = JSON.serialize(serialiser.AppData);
-      String applicantObj = JSON.serialize(serialiser.Applicant);
+      //String applicantObj = JSON.serialize(serialiser.Applicant);
       Map<String, Object> appDataJson = (Map<String, Object>) JSON.deserializeUntyped(
-        AppDataObj
+        appDataObj
       );
+      Object currencyType = appDataJson.get('CurrencyType');
+      appDataJson.put('Currency', currencyType);
       List<String> appDataFieldsToRemove = new List<String>{
         'FeeFinancing',
         'LoanPurpose',
         'IsJointApplication',
         'IsPEP',
-        'RequestedTenure'
+        'RequestedTenure',
+        'ApprovedTenure',
+        'AdjudicationDecision',
+        'CurrencyType',
+        'PhoenixId',
+        'ApprovedLoanAmount',
+        'InterestRateForApplication'
       };
 
       appDataJson = removeFields(appDataJson, appDataFieldsToRemove);
@@ -163,14 +208,23 @@ public class OneJNSerializerDecision {
       );
     } else if (eventType == Constants.GET_UNSECURED_LOAN_FINAL_ASSESSMENT) {
       String appDataObj = JSON.serialize(serialiser.AppData);
-      String applicantObj = JSON.serialize(serialiser.Applicant);
+      //String applicantObj = JSON.serialize(serialiser.Applicant);
       Map<String, Object> appDataJson = (Map<String, Object>) JSON.deserializeUntyped(
         appDataObj
       );
+      Object currencyType = appDataJson.get('CurrencyType');
+      appDataJson.put('Currency', currencyType);
+
       List<String> appDataFieldsToRemove = new List<String>{
         'IsPEP',
         'MinMonthlyRepayment',
-        'SubProductType'
+        'SubProductType',
+        'ApprovedTenure',
+        'AdjudicationDecision',
+        'CurrencyType',
+        'PhoenixId',
+        'ApprovedLoanAmount',
+        'InterestRateForApplication'
       };
 
       appDataJson = removeFields(appDataJson, appDataFieldsToRemove);

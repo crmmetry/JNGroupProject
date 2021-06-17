@@ -173,4 +173,5 @@ public class Constants {
   public static final String PRE_ASSESSMENT_SUBMISSION = 'Pre-Assessment Submission';
   public static final String FINAL_ASSESMENT_SUBMISSION = 'Final Assessment Submission';
   public static final String DEFAULT_TRIGGER_SWITCH = 'Disable_All_Triggers';
+  public static final String SALES_TEAM = 'Sales Team';
 }

@@ -53,7 +53,7 @@ window.NO_APPLICANTS_FOUND =
   "Sorry there was no applicant found on this opportunity. Please ensure that an applicant is created before proceeding.";
 
 window.VERIFIED = "Verified";
-window.TOTAL_ASSETS = "totalAssetVerified";
+window.TOTAL_ASSETS = "totalAssetsVerified";
 window.TOTAL_LIABILITIES = "totalLiabilitiesVerified";
 window.NETWORTH = "netWorthVerified";
 window.TOTAL_MONTHLY_EXPENSES = "totalMonthlyExpensesVerified";

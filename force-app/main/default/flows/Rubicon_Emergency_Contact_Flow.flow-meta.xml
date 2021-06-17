@@ -307,6 +307,11 @@
         </rules>
     </decisions>
     <formulas>
+        <name>blankSpace</name>
+        <dataType>String</dataType>
+        <expression>&quot;   &quot;</expression>
+    </formulas>
+    <formulas>
         <name>ContactsNeeded</name>
         <dataType>Number</dataType>
         <expression>FLOOR (2 - {!EmergencyContactCount})</expression>
@@ -403,6 +408,12 @@
             <field>LastName</field>
             <value>
                 <elementReference>Person_Last_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Mobile_Number__pc</field>
+            <value>
+                <elementReference>Mobile_Number_New.value</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -576,7 +587,7 @@
             <field>Mobile_Number__pc</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>MobileNumber_ec.value</elementReference>
+                <elementReference>Mobile_Number_New.value</elementReference>
             </value>
         </filters>
         <filters>
@@ -705,7 +716,7 @@
         <inputAssignments>
             <field>Mobile_Number__pc</field>
             <value>
-                <elementReference>MobileNumber_ec.value</elementReference>
+                <elementReference>Mobile_Number_New.value</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -816,7 +827,7 @@
         <name>Emergency_Contact_Search</name>
         <label>Emergency Contact Search</label>
         <locationX>1205</locationX>
-        <locationY>1267</locationY>
+        <locationY>1268</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -881,7 +892,7 @@
             </validationRule>
         </fields>
         <fields>
-            <name>Mobile_Number</name>
+            <name>Mobile_Number_New</name>
             <extensionName>flowruntime:phone</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
@@ -891,22 +902,19 @@
                 </value>
             </inputParameters>
             <inputParameters>
-                <name>required</name>
-                <value>
-                    <booleanValue>false</booleanValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
                 <name>pattern</name>
                 <value>
                     <stringValue>^\d{10,25}$</stringValue>
                 </value>
             </inputParameters>
+            <inputParameters>
+                <name>required</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
             <isRequired>true</isRequired>
-            <outputParameters>
-                <assignToReference>PersonMobileNumber</assignToReference>
-                <name>value</name>
-            </outputParameters>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
@@ -995,8 +1003,8 @@
     <screens>
         <name>For_new_accounts</name>
         <label>For new accounts</label>
-        <locationX>2429</locationX>
-        <locationY>281</locationY>
+        <locationX>2431</locationX>
+        <locationY>285</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -1035,14 +1043,10 @@
                 <name>For_new_accounts_Section1_Column1</name>
                 <fieldType>Region</fieldType>
                 <fields>
-                    <name>First_Name</name>
-                    <dataType>String</dataType>
-                    <defaultValue>
-                        <elementReference>Person_First_Name</elementReference>
-                    </defaultValue>
-                    <fieldText>First Name</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>true</isRequired>
+                    <name>firstName_Text</name>
+                    <fieldText
+          >&lt;p&gt;&lt;span style=&quot;font-size: 12px; color: rgb(244, 6, 6);&quot;&gt;*&lt;/span&gt;&lt;span style=&quot;font-size: 12px; color: rgb(95, 93, 93);&quot;&gt; First Name&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;{!Person_First_Name}&lt;/span&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
                 </fields>
                 <fields>
                     <name>Middle_Name</name>
@@ -1084,14 +1088,10 @@
                 <name>For_new_accounts_Section1_Column2</name>
                 <fieldType>Region</fieldType>
                 <fields>
-                    <name>Last_Name</name>
-                    <dataType>String</dataType>
-                    <defaultValue>
-                        <elementReference>Person_Last_Name</elementReference>
-                    </defaultValue>
-                    <fieldText>Last Name</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>true</isRequired>
+                    <name>lastName_Text</name>
+                    <fieldText
+          >&lt;p&gt;&lt;span style=&quot;font-size: 12px; color: rgb(244, 6, 6);&quot;&gt;*&lt;/span&gt;&lt;span style=&quot;font-size: 12px; color: rgb(95, 93, 93);&quot;&gt; Last Name&lt;/span&gt;&lt;/p&gt;&lt;p&gt;  {!Person_Last_Name}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
                 </fields>
                 <fields>
                     <name>ResidentialArea_ec</name>
@@ -1214,36 +1214,10 @@
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
                 <fields>
-                    <name>MobileNumber_ec</name>
-                    <extensionName>flowruntime:phone</extensionName>
-                    <fieldType>ComponentInstance</fieldType>
-                    <inputParameters>
-                        <name>label</name>
-                        <value>
-                            <stringValue>Mobile Number</stringValue>
-                        </value>
-                    </inputParameters>
-                    <inputParameters>
-                        <name>required</name>
-                        <value>
-                            <booleanValue>true</booleanValue>
-                        </value>
-                    </inputParameters>
-                    <inputParameters>
-                        <name>pattern</name>
-                        <value>
-                            <stringValue>^\d{10,25}$</stringValue>
-                        </value>
-                    </inputParameters>
-                    <inputParameters>
-                        <name>value</name>
-                        <value>
-                            <elementReference
-              >PersonMobileNumber</elementReference>
-                        </value>
-                    </inputParameters>
-                    <isRequired>true</isRequired>
-                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                    <name>mobile_Text</name>
+                    <fieldText
+          >&lt;p&gt;&lt;span style=&quot;color: rgb(244, 6, 6); font-size: 12px;&quot;&gt;*&lt;/span&gt;&lt;span style=&quot;color: rgb(95, 93, 93); font-size: 12px;&quot;&gt; Mobile Number&lt;/span&gt;&lt;/p&gt;&lt;p&gt;{!Mobile_Number_New.value}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
                 </fields>
                 <inputParameters>
                     <name>width</name>

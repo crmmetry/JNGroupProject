@@ -499,7 +499,7 @@
                         <name>crmmObjectSelected</name>
                         <value>
                             <elementReference
-              >AccountRecord.FinServ__MaritalStatus__pc</elementReference>
+              >AccountRecord.Marital_Status__c</elementReference>
                         </value>
                     </inputParameters>
                     <inputParameters>

@@ -20,9 +20,7 @@
         <locationY>200</locationY>
         <actionName>chatterPost</actionName>
         <actionType>chatterPost</actionType>
-        <connector>
-            <targetReference>myRule_1_A2</targetReference>
-        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>text</name>
             <value>
@@ -163,6 +161,39 @@ Thanks.</stringValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
+            <connector>
+                <targetReference>myRule_1_pmetdec</targetReference>
+            </connector>
+            <label>Check If SLA Escalation flag is True</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>myRule_1_pmetdec</name>
+        <label>Previously Met Decision</label>
+        <locationX>100</locationX>
+        <locationY>100</locationY>
+        <defaultConnector>
+            <targetReference>myRule_1_A1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Previously Met</defaultConnectorLabel>
+        <rules>
+            <name>myRule_1_pmetnullrule</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>myVariable_old</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_1_A1</targetReference>
+            </connector>
+            <label>Previously Met - Null</label>
+        </rules>
+        <rules>
+            <name>myRule_1_pmetrule</name>
+            <conditionLogic>and</conditionLogic>
             <conditions>
                 <processMetadataValues>
                     <name>inputDataType</name>
@@ -189,19 +220,16 @@ Thanks.</stringValue>
                     </value>
                 </processMetadataValues>
                 <leftValueReference
-        >isChangedRule_2_myRule_1_SLA_Escalation_Flag_c</leftValueReference>
+        >myVariable_old.SLA_Escalation_Flag__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
-            <connector>
-                <targetReference>myRule_1_A1</targetReference>
-            </connector>
-            <label>Check If SLA Escalation flag is True</label>
+            <label>Previously Met - Prev</label>
         </rules>
     </decisions>
-    <interviewLabel>Case_Automation-4_InterviewLabel</interviewLabel>
+    <interviewLabel>Case_Automation-6_InterviewLabel</interviewLabel>
     <label>Case Automation</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -234,8 +262,7 @@ Thanks.</stringValue>
         </value>
     </processMetadataValues>
     <processType>Workflow</processType>
-    <startElementReference
-  >isChangedDecision2_myRule_1_SLA_Escalation_Flag_c</startElementReference>
+    <startElementReference>myDecision</startElementReference>
     <status>Active</status>
     <variables>
         <name>myVariable_current</name>

@@ -56,13 +56,51 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>One_Jn_Event</name>
+        <label>One Jn Event</label>
+        <locationX>176</locationX>
+        <locationY>194</locationY>
+        <inputAssignments>
+            <field>Body__c</field>
+            <value>
+                <elementReference>$Record.Body__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Event_Source__c</field>
+            <value>
+                <stringValue>Internal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>External_Record_Id__c</field>
+            <value>
+                <elementReference>$Record.ExternalId__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Name__c</field>
+            <value>
+                <elementReference>$Record.Name__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Salesforce_Record_Id__c</field>
+            <value>
+                <elementReference>$Record.SfRecordId__c</elementReference>
+            </value>
+        </inputAssignments>
+        <object>OneJN_Event_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
     <start>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Handle_One_JN_Output_Event</targetReference>
+            <targetReference>One_Jn_Event</targetReference>
         </connector>
-        <object>One_JN_Input__e</object>
+        <object>One_JN_Output__e</object>
         <triggerType>PlatformEvent</triggerType>
     </start>
     <status>Active</status>

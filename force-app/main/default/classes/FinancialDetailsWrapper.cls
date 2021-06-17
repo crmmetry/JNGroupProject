@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 05-25-2021
+ * @last modified on  : 06-02-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -165,7 +165,7 @@ public with sharing class FinancialDetailsWrapper {
     this.averageCreditBalance = record.Average_Credit_Card_Balances_Number__c;
     this.averageLineOfCreditBalance = record.Average_Line_of_Credit_Balance_Number__c;
     this.otherDebts = record.Other_Debt_Number__c;
-    this.totalMonthlyLoanPayments = record.Total_Liabilities_Calc__c;
+    this.totalMonthlyLoanPayments = record.Total_Monthly_Loan_Payments_Number__c;
     this.mortgagePayment = record.Mortgage_Rent_Number__c;
     this.utilitiesAndHouseholdExpenses = record.Utilties_and_Household_Expenses_Number__c;
     this.personalAndFamilyExpenses = record.Personal_and_Family_Expenses_Number__c;

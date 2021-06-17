@@ -25,7 +25,7 @@ public class OneJNDeserializer {
     @AuraEnabled
     public ApplicantDetailsWrapper ApplicantDetailsPrimary;
     @AuraEnabled
-    public ApplicantDetailsWrapper ApplicantDetailsCoApplicants;
+    public List<ApplicantDetailsWrapper> ApplicantDetailsCoApplicants;
     @AuraEnabled
     public LoanRequirementWrapper LoanParameters;
     @AuraEnabled

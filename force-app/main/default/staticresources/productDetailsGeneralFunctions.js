@@ -1087,16 +1087,14 @@ window.financialVerificationComponentTotalsController = function (
     calculationKey &&
     dataMap &&
     calculationMap &&
-    debts &&
-    totalsMap &&
-    primarySourceOfIncomeAmount
+    totalsMap
   ) {
-    if (calculationKey.includes(TOTAL_ASSETS)) {
+    if (calculationKey === TOTAL_ASSETS) {
       result = calculateTotalAssets(calculationMap[calculationKey], dataMap);
       totalsMap.totalAssetsVerified = result;
       return totalsMap;
     }
-    if (calculationKey.includes(TOTAL_LIABILITIES)) {
+    if (calculationKey === TOTAL_LIABILITIES) {
       result = calculateTotalLiabilities(
         calculationMap[calculationKey],
         dataMap
@@ -1104,7 +1102,7 @@ window.financialVerificationComponentTotalsController = function (
       totalsMap.totalLiabilitiesVerified = result;
       return totalsMap;
     }
-    if (calculationKey.includes(NETWORTH)) {
+    if (calculationKey === NETWORTH) {
       result = calculateNetWorth(
         totalsMap.totalAssetsVerified,
         totalsMap.totalLiabilitiesVerified
@@ -1112,7 +1110,7 @@ window.financialVerificationComponentTotalsController = function (
       totalsMap.netWorthVerified = result;
       return totalsMap;
     }
-    if (calculationKey.includes(TOTAL_MONTHLY_EXPENSES)) {
+    if (calculationKey === TOTAL_MONTHLY_EXPENSES) {
       result = calculateTotalMonthlyExpenses(
         calculationMap[calculationKey],
         dataMap
@@ -1120,13 +1118,13 @@ window.financialVerificationComponentTotalsController = function (
       totalsMap.totalMonthlyExpensesVerified = result;
       return totalsMap;
     }
-    if (calculationKey.includes(TOTAL_DEBT_CONSOLIDATED)) {
+    if (calculationKey === TOTAL_DEBT_CONSOLIDATED && debts) {
       result = totalDebtCalculator(debts);
       totalsMap.totalDebtConsolidatedVerified = result;
       return totalsMap;
     }
 
-    if (calculationKey.includes(TOTAL_MONTHLY_INCOME)) {
+    if (calculationKey === TOTAL_MONTHLY_INCOME) {
       result = calculateTotalMonthlyIncome(
         calculationMap[calculationKey],
         dataMap
@@ -1135,7 +1133,7 @@ window.financialVerificationComponentTotalsController = function (
       return totalsMap;
     }
 
-    if (calculationKey.includes(TOTAL_OTHER_INCOME)) {
+    if (calculationKey === TOTAL_OTHER_INCOME) {
       result = calculateTotalOtherIncome(
         calculationMap[calculationKey],
         dataMap,

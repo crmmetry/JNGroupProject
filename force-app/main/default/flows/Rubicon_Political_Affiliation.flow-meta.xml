@@ -664,7 +664,7 @@
         <inputAssignments>
             <field>Mobile_Number__pc</field>
             <value>
-                <elementReference>MobileNumber_ec.value</elementReference>
+                <elementReference>Mobile_Number.value</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -815,15 +815,10 @@
                 <name>For_new_accounts_Section1_Column1</name>
                 <fieldType>Region</fieldType>
                 <fields>
-                    <name>First_Name</name>
-                    <dataType>String</dataType>
-                    <defaultValue>
-                        <elementReference
-            >store_person_first_name</elementReference>
-                    </defaultValue>
-                    <fieldText>First Name</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>true</isRequired>
+                    <name>firstName_Text</name>
+                    <fieldText
+          >&lt;p&gt;&lt;span style=&quot;font-size: 12px; color: rgb(244, 6, 6);&quot;&gt;*&lt;/span&gt;&lt;span style=&quot;font-size: 12px; color: rgb(95, 93, 93);&quot;&gt; First Name&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;{!Person_First_Name}&lt;/span&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
                 </fields>
                 <fields>
                     <name>Middle_Name</name>
@@ -865,14 +860,10 @@
                 <name>For_new_accounts_Section1_Column2</name>
                 <fieldType>Region</fieldType>
                 <fields>
-                    <name>Last_Name</name>
-                    <dataType>String</dataType>
-                    <defaultValue>
-                        <elementReference>Person_Last_Name</elementReference>
-                    </defaultValue>
-                    <fieldText>Last Name</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>true</isRequired>
+                    <name>lastName_Text</name>
+                    <fieldText
+          >&lt;p&gt;&lt;span style=&quot;color: rgb(244, 6, 6); font-size: 12px;&quot;&gt;*&lt;/span&gt;&lt;span style=&quot;color: rgb(95, 93, 93); font-size: 12px;&quot;&gt; Last Name&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;{!Person_Last_Name}&lt;/span&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
                 </fields>
                 <fields>
                     <name>ResidentialArea_ec</name>
@@ -995,36 +986,10 @@
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
                 <fields>
-                    <name>MobileNumber_ec</name>
-                    <extensionName>flowruntime:phone</extensionName>
-                    <fieldType>ComponentInstance</fieldType>
-                    <inputParameters>
-                        <name>label</name>
-                        <value>
-                            <stringValue>Mobile Number</stringValue>
-                        </value>
-                    </inputParameters>
-                    <inputParameters>
-                        <name>pattern</name>
-                        <value>
-                            <stringValue>^\d{10,25}$</stringValue>
-                        </value>
-                    </inputParameters>
-                    <inputParameters>
-                        <name>required</name>
-                        <value>
-                            <booleanValue>true</booleanValue>
-                        </value>
-                    </inputParameters>
-                    <inputParameters>
-                        <name>value</name>
-                        <value>
-                            <elementReference
-              >Mobile_Number.value</elementReference>
-                        </value>
-                    </inputParameters>
-                    <isRequired>true</isRequired>
-                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                    <name>mobileNumber_Text</name>
+                    <fieldText
+          >&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(244, 6, 6); font-size: 12px;&quot;&gt;*&lt;/span&gt;&lt;span style=&quot;color: rgb(95, 93, 93); font-size: 12px;&quot;&gt; Mobile Number&lt;/span&gt;&lt;/p&gt;&lt;p&gt;{!Mobile_Number.value}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
                 </fields>
                 <inputParameters>
                     <name>width</name>

@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-16-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 06-17-2021
+ * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -31,6 +31,27 @@ public with sharing class OneJNQuerySelector {
       WITH SECURITY_ENFORCED
     ];
     return accountList;
+  }
+  public static Map<ID, Account> getAccountsMap(Set<Id> accountIdSet) {
+    Map<ID, Account> accountsMap = new Map<ID, Account>(
+      [
+        SELECT
+          RecordType.Name,
+          MonthsResidence_Number__c,
+          Politically_Affiliated__c,
+          JN_Bank_Affiliation__pc,
+          Premier_Customer_List__c,
+          FinServ__NumberOfDependents__pc,
+          Name,
+          RIM_no__c,
+          Id,
+          Highest_level_of_Education_attained__pc
+        FROM Account
+        WHERE Id IN :accountIdSet
+        WITH SECURITY_ENFORCED
+      ]
+    );
+    return accountsMap;
   }
   /**
    * @description get applicants
@@ -84,7 +105,8 @@ public with sharing class OneJNQuerySelector {
         IDM_Tenure_Date__c,
         Adjudication_Decision_picklist__c,
         IDM_Interest_Rate_Number__c,
-        CreatedDate
+        CreatedDate,
+        ApplicantNameID__r.RIM_no__c
       FROM Application__c
       WHERE Opportunity_Id__c IN :opportunityIdSet
       WITH SECURITY_ENFORCED
@@ -196,6 +218,29 @@ public with sharing class OneJNQuerySelector {
       WITH SECURITY_ENFORCED
     ];
     return employmentList;
+  }
+  public static Map<ID, FinServ__Employment__c> getEmploymentMap(
+    Set<Id> accountIdSet
+  ) {
+    Map<ID, FinServ__Employment__c> employmentMap = new Map<ID, FinServ__Employment__c>();
+    for (FinServ__Employment__c employmentRecord : [
+      SELECT
+        Professional_Category__c,
+        Position_List__c,
+        Industry__c,
+        Name,
+        FinServ__EmploymentStatus__c,
+        Time_Employed_in_Present_Employer_M__c,
+        Time_Employed_with_Previous_Employer_M__c,
+        Id,
+        Account__c
+      FROM FinServ__Employment__c
+      WHERE Account__c IN :accountIdSet AND Current_Employment__c = TRUE
+      WITH SECURITY_ENFORCED
+    ]) {
+      employmentMap.put(employmentRecord.Account__c, employmentRecord);
+    }
+    return employmentMap;
   }
 
   /**
