@@ -170,6 +170,30 @@ public class Constants {
   public static final String GET_UNSECURED_LOAN_FINAL_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.UnsecuredLoanFinalAssessmentEvent';
   public static final String RETURN_UNSECURED_LOAN_FINAL_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.UnsecuredLoanFinalAssessmentResponseEvent';
 
+  public static final String SUBMIT_CREDIT_CARD_MANUAL_DECISION = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreditCardManualDecisionEvent';
+  public static final String RETURN_CREDIT_CARD_MANUAL_DECISION_RESPONSE = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreditCardManualDecisionResponseEvent';
+
+  public static final String SUBMIT_CREATE_LOAN_ACCOUNT_REQUEST = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreateLoanAccountEvent';
+  public static final String RETURN_CREATE_LOAN_ACCOUNT_RESPONSE = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreateLoanAccountResponseEvent';
+
+  public static final String SUBMIT_CREATE_SUPPLEMENTARY_CARD_REQUEST = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreateSuppCardEvent';
+  public static final String RETURN_CREATE_SUPPLEMENTARY_CARD_RESPONSE = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreateSuppCardResponseEvent';
+
+  public static final String SUBMIT_PROFILE_CREATION_EVENT = 'JNGroup.OneJN.Account.Domain.Events.';
+  public static final String CONFIRM_PROFILE_CREATION = 'JNGroup.OneJN.Account.Domain.Events.';
+
+  public static final String SUMBIT_PROFILE_UPDATE_EVENT = 'JNGroup.OneJN.Account.Domain.Events.';
+  public static final String CONFIRM_PROFILE_UPDATE = 'JNGroup.OneJN.Account.Domain.Events.';
+
+  public static final String SUBMIT_CLIENT_PREFERENCES_UPDATE = 'JNGroup.OneJN.Account.Domain.Events.';
+  public static final String SUBMIT_DOCUMENT_UPLOAD_EVENT = 'JNGroup.OneJN.Document.Domain.Events.';
+
+  public static final String SUBMIT_DOCUMENT_UPDATE_EVENT = 'JNGroup.OneJN.Document.Domain.Events.';
+  public static final String SUBMIT_DOCUMENT_STATUS_UPDATE_EVENT = 'JNGroup.OneJN.Document.Domain.Events.';
+
+  public static final String SUBMIT_SANCTION_REVIEW_REQUEST = 'JNGroup.OneJN.Compliance.Domain.Events.';
+  public static final String SUBMIT_SANCTION_REVIEW_DECISION = 'JNGroup.OneJN.Compliance.Domain.Events.';
+
   public static final String PRE_ASSESSMENT_SUBMISSION = 'Pre-Assessment Submission';
   public static final String FINAL_ASSESMENT_SUBMISSION = 'Final Assessment Submission';
   public static final String DEFAULT_TRIGGER_SWITCH = 'Disable_All_Triggers';
