@@ -3,7 +3,7 @@
  * @author            : Remario Richards
  * @group             :
  * @last modified on  : 06-18-2021
- * @last modified by  : Trupti Zende (Thinqloud)
+ * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -317,7 +317,7 @@ public class OneJNSerializer {
       dateVar.month(),
       dateVar.day()
     );
-    return dt.format('yyyy-MM-ddHH:mm:ss');
+    return dt.format('yyyy-MM-dd');
   }
 
   public static Boolean setDefaultBooleanValue(Boolean field) {
