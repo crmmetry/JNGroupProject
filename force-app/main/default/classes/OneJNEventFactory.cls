@@ -38,8 +38,8 @@ public with sharing class OneJNEventFactory {
       );
     }
     if (
-      eventType == Constants.RETURN_MANUAL_DESICION_APPROVED ||
-      eventType == Constants.RETURN_MANUAL_DESICION_REJECT
+      eventType == Constants.RETURN_CREDIT_CARD_MANUAL_DECISION_RESPONSE ||
+      eventType == Constants.RETURN_UNSECURED_LOAN_MANUAL_DECISION_RESPONSE
     ) {
       processGetManualIdEventResponse(oneJNDeserializer, sfRecordId, eventType);
     }
@@ -73,8 +73,8 @@ public with sharing class OneJNEventFactory {
       processGetPreAssessmentEventRequest(eventType, opportunityList);
     }
     if (
-      eventType == Constants.GET_MANUAL_DESICION_APPROVED ||
-      eventType == Constants.GET_MANUAL_DESICION_REJECT
+      eventType == Constants.SUBMIT_CREDIT_CARD_MANUAL_DECISION ||
+      eventType == Constants.SUBMIT_UNSECURED_LOAN_MANUAL_DECISION
     ) {
       processGetManualEventRequest(eventType, applicationList);
     }

@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-17-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 06-18-2021
+ * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -74,7 +74,7 @@ public class OneJNSerializer {
     @AuraEnabled
     public decimal Amount;
     @AuraEnabled
-    public decimal InterestRate;
+    public decimal ApprovedInterestRate;
     @AuraEnabled
     public decimal RequestedTenure;
     @AuraEnabled
@@ -88,7 +88,7 @@ public class OneJNSerializer {
     @AuraEnabled
     public decimal ApprovedTenure;
     @AuraEnabled
-    public decimal ApprovedLoanAmount;
+    public decimal ApprovedCreditAmount;
     @AuraEnabled
     public string AdjudicationDecision;
     @AuraEnabled
@@ -106,9 +106,9 @@ public class OneJNSerializer {
         this.PhoenixId = applicationRecord.ApplicantNameID__r.RIM_no__c;
         this.ApplicationId = applicationRecord.Application_ID__c;
         this.ApprovedTenure = applicationRecord.IDM_Tenure_Date__c;
-        this.ApprovedLoanAmount = applicationRecord.IDM_Loan_Amount_Number__c;
+        this.ApprovedCreditAmount = applicationRecord.IDM_Loan_Amount_Number__c;
         this.AdjudicationDecision = applicationRecord.Adjudication_Decision_picklist__c;
-        this.InterestRate = applicationRecord.IDM_Interest_Rate_Number__c;
+        this.InterestRateForApplication = applicationRecord.IDM_Interest_Rate_Number__c;
         this.ApplicationDate = buildDate(applicationRecord.CreatedDate);
       }
       if (ApplicantRecord != null) {
@@ -126,7 +126,7 @@ public class OneJNSerializer {
       }
       if (LoanCalculationProductRecord != null) {
         this.Amount = loanCalculationProductRecord.Loan_Amount_Number__c;
-        this.InterestRate = loanCalculationProductRecord.Interest_Rate_Number__c;
+        this.ApprovedInterestRate = loanCalculationProductRecord.Interest_Rate_Number__c;
         this.FeeFinancing = loanCalculationProductRecord.Method_of_Fee_Payment_List__c;
         this.LoanPurpose = loanCalculationProductRecord.Loan_Purpose_List__c;
         this.RequestedTenure = loanCalculationProductRecord.Months_Number__c;
@@ -141,8 +141,6 @@ public class OneJNSerializer {
     public String ApplicantType;
     @AuraEnabled
     public boolean IsPEP;
-    @AuraEnabled
-    public boolean IsSupplimental;
     @AuraEnabled
     public String EntityType;
     @AuraEnabled
@@ -167,8 +165,8 @@ public class OneJNSerializer {
     public String HighestLevelOfEducation;
     @AuraEnabled
     public decimal NDependents;
-    @AuraEnabled
-    public decimal NPreviousRejectApplication12m;
+    //@AuraEnabled
+    //public decimal NPreviousRejectApplication12m;
     @AuraEnabled
     public string IsPublicSectorEmployee;
     @AuraEnabled
@@ -220,7 +218,9 @@ public class OneJNSerializer {
     ) {
       if (accountRecord != null) {
         this.PhoenixId = accountRecord.RIM_no__c;
-        this.IsPEP = accountRecord.Politically_Affiliated__c;
+        this.IsPEP = setDefaultBooleanValue(
+          accountRecord.Politically_Affiliated__c
+        );
         this.TimeinMonthsInCurrentResidency = accountRecord.MonthsResidence_Number__c;
         this.NDependents = accountRecord.FinServ__NumberOfDependents__pc;
         this.HighestLevelOfEducation = accountRecord.Highest_Level_of_Education_attained__pc;
@@ -239,7 +239,7 @@ public class OneJNSerializer {
       this.applicantType = applicantRecord.Primary_Applicant_Flag__c
         ? 'Primary'
         : 'Co-Applicant';
-      this.NPreviousRejectApplication12m = applicantRecord.Number_of_Rejected_Applications_Number__c;
+      //this.NPreviousRejectApplication12m = applicantRecord.Number_of_Rejected_Applications_Number__c;
       this.IsPublicSectorEmployee = applicantRecord.Public_Sector_or_Civil_Servant_List__c;
       this.BankruptCurrent = OneJNSerializer.getIntegerValueFromString(
         applicantRecord.Are_you_currently_in_bankruptcy_list__c
@@ -318,5 +318,9 @@ public class OneJNSerializer {
       dateVar.day()
     );
     return dt.format('yyyy-MM-ddHH:mm:ss');
+  }
+
+  public static Boolean setDefaultBooleanValue(Boolean field) {
+    return (field == null ? false : field);
   }
 }

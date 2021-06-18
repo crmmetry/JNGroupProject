@@ -179,6 +179,9 @@ public class Constants {
   public static final String SUBMIT_CREDIT_CARD_MANUAL_DECISION = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreditCardManualDecisionEvent';
   public static final String RETURN_CREDIT_CARD_MANUAL_DECISION_RESPONSE = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreditCardManualDecisionResponseEvent';
 
+  public static final String SUBMIT_UNSECURED_LOAN_MANUAL_DECISION = 'JNGroup.OneJN.CreditInfo.Domain.Events.UnsecuredLoanManualDecisionEvent';
+  public static final String RETURN_UNSECURED_LOAN_MANUAL_DECISION_RESPONSE = 'JNGroup.OneJN.CreditInfo.Domain.Events.UnsecuredLoanManualDecisionResponseEvent';
+
   public static final String SUBMIT_CREATE_LOAN_ACCOUNT_REQUEST = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreateLoanAccountEvent';
   public static final String RETURN_CREATE_LOAN_ACCOUNT_RESPONSE = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreateLoanAccountResponseEvent';
 

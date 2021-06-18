@@ -24,6 +24,7 @@ public with sharing class OneJNOutputEventQueueable implements Queueable {
     this.externalId = externalId;
     this.sfRecordId = sfRecordId;
     this.body = body;
+
     //deserialize body
     this.oneJNDeserializer = (OneJNDeserializer) JSON.deserialize(
       body,

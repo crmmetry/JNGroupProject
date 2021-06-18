@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Ishwari Gaikwad(Thinqloud)
  * @group             :
- * @last modified on  : 06-17-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 06-18-2021
+ * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author                       Modification
  * 1.0   06-14-2021   Ishwari Gaikwad(Thinqloud)   Initial Version
@@ -16,37 +16,52 @@ public class OneJNSerializerDecision {
    * @param eventType
    * @return Map<String, Object>
    **/
-  public static Map<String, Object> setSerializer(
-    OneJNSerializer serialiser,
-    String eventType
-  ) {
-    Map<String, Object> JSONToSerialize = new Map<String, Object>();
-
-    if (eventType == Constants.GET_LOAN_APPLICATION_ID) {
+  public class Application {
+    public Map<String, Object> serialize(
+      OneJNSerializer serialiser,
+      String eventType
+    ) {
+      Map<String, Object> JSONToSerialize = new Map<String, Object>();
       JSONToSerialize.put('ProductType', serialiser.AppData.ProductType);
       JSONToSerialize.put('PhoenixId', serialiser.AppData.PhoenixId);
-    } else if (
-      eventType == Constants.GET_MANUAL_DESICION_APPROVED ||
-      eventType == Constants.GET_MANUAL_DESICION_REJECT
+
+      return JSONToSerialize;
+    }
+  }
+  public class ManualDecision {
+    public Map<String, Object> serialize(
+      OneJNSerializer serialiser,
+      String eventType
     ) {
+      Map<String, Object> JSONToSerialize = new Map<String, Object>();
       JSONToSerialize.put('ApplicationId', serialiser.AppData.ApplicationId);
       JSONToSerialize.put(
-        'InterestRate',
+        'ApprovedInterestRate',
         serialiser.AppData.InterestRateForApplication
       );
       JSONToSerialize.put('ApprovedTenure', serialiser.AppData.ApprovedTenure);
       JSONToSerialize.put(
-        'ApprovedLoanAmount',
-        serialiser.AppData.ApprovedLoanAmount
+        'ApprovedCreditAmount',
+        serialiser.AppData.ApprovedCreditAmount
       );
       JSONToSerialize.put('PhoenixId', serialiser.AppData.PhoenixId);
       JSONToSerialize.put(
         'AdjudicationDecision',
         serialiser.AppData.AdjudicationDecision
       );
-    } else if (eventType == Constants.GET_CREDITCARD_PRE_ASSESSMENT) {
+
+      return JSONToSerialize;
+    }
+  }
+
+  public class PreAssesssment {
+    public Map<String, Object> creditCardSerialize(
+      OneJNSerializer serialiser,
+      String eventType
+    ) {
+      Map<String, Object> JSONToSerialize = new Map<String, Object>();
+
       String appDataObj = JSON.serialize(serialiser.AppData);
-      //String applicantObj = JSON.serialize(serialiser.Applicant);
       String serializerdata = JSON.serialize(serialiser);
       Map<String, Object> appDataJson = (Map<String, Object>) JSON.deserializeUntyped(
         appDataObj
@@ -62,7 +77,7 @@ public class OneJNSerializerDecision {
         'AdjudicationDecision',
         'CurrencyType',
         'PhoenixId',
-        'ApprovedLoanAmount',
+        'ApprovedCreditAmount',
         'InterestRateForApplication'
       };
 
@@ -91,8 +106,6 @@ public class OneJNSerializerDecision {
         applicantMap = removeFields(applicantMap, applicantFieldsToRemove);
         applicant = (Object) applicantMap;
       }
-      //applicantJson = removeFields(applicantJson, applicantFieldsToRemove);
-
       String appDataObj1 = JSON.serialize(appDataJson);
       String applicantObj1 = JSON.serialize(applicantData);
 
@@ -109,7 +122,13 @@ public class OneJNSerializerDecision {
         'Applicant',
         (Object) JSON.deserializeUntyped(applicantObj1)
       );
-    } else if (eventType == Constants.GET_UNSECURED_LOAN_PRE_ASSESSMENT) {
+      return JSONToSerialize;
+    }
+    public Map<STring, Object> unsecuredLoanSerialize(
+      OneJNSerializer serialiser,
+      String eventType
+    ) {
+      Map<String, Object> JSONToSerialize = new Map<String, Object>();
       String appDataObj = JSON.serialize(serialiser.AppData);
       String serializerdata = JSON.serialize(serialiser);
       Map<String, Object> appDataJson = (Map<String, Object>) JSON.deserializeUntyped(
@@ -124,8 +143,9 @@ public class OneJNSerializerDecision {
         'AdjudicationDecision',
         'CurrencyType',
         'PhoenixId',
-        'ApprovedLoanAmount',
-        'InterestRateForApplication'
+        'ApprovedCreditAmount',
+        'InterestRateForApplication',
+        'MinMonthlyRepayment'
       };
 
       appDataJson = removeFields(appDataJson, appDataFieldsToRemove);
@@ -167,9 +187,16 @@ public class OneJNSerializerDecision {
         'Applicant',
         (Object) JSON.deserializeUntyped(applicantObj1)
       );
-    } else if (eventType == Constants.GET_CREDITCARD_FINAL_ASSESSMENT) {
+      return JSONToSerialize;
+    }
+  }
+  public class FinalAssessment {
+    public Map<String, Object> creditCardserialize(
+      OneJNSerializer serialiser,
+      String eventType
+    ) {
+      Map<String, Object> JSONToSerialize = new Map<String, Object>();
       String appDataObj = JSON.serialize(serialiser.AppData);
-      //String applicantObj = JSON.serialize(serialiser.Applicant);
       Map<String, Object> appDataJson = (Map<String, Object>) JSON.deserializeUntyped(
         appDataObj
       );
@@ -185,7 +212,7 @@ public class OneJNSerializerDecision {
         'AdjudicationDecision',
         'CurrencyType',
         'PhoenixId',
-        'ApprovedLoanAmount',
+        'ApprovedCreditAmount',
         'InterestRateForApplication'
       };
 
@@ -202,9 +229,15 @@ public class OneJNSerializerDecision {
         'AppData',
         (Object) JSON.deserializeUntyped(appDataObj1)
       );
-    } else if (eventType == Constants.GET_UNSECURED_LOAN_FINAL_ASSESSMENT) {
+      return JSONToSerialize;
+    }
+    public Map<String, Object> unsecuredLoanserialize(
+      OneJNSerializer serialiser,
+      String eventType
+    ) {
+      Map<String, Object> JSONToSerialize = new Map<String, Object>();
+
       String appDataObj = JSON.serialize(serialiser.AppData);
-      //String applicantObj = JSON.serialize(serialiser.Applicant);
       Map<String, Object> appDataJson = (Map<String, Object>) JSON.deserializeUntyped(
         appDataObj
       );
@@ -219,7 +252,7 @@ public class OneJNSerializerDecision {
         'AdjudicationDecision',
         'CurrencyType',
         'PhoenixId',
-        'ApprovedLoanAmount',
+        'ApprovedCreditAmount',
         'InterestRateForApplication'
       };
 
@@ -234,6 +267,48 @@ public class OneJNSerializerDecision {
       JSONToSerialize.put(
         'AppData',
         (Object) JSON.deserializeUntyped(appDataObj1)
+      );
+      return JSONToSerialize;
+    }
+  }
+  public static Map<String, Object> setSerializer(
+    OneJNSerializer serialiser,
+    String eventType
+  ) {
+    Map<String, Object> JSONToSerialize = new Map<String, Object>();
+
+    if (eventType == Constants.GET_LOAN_APPLICATION_ID) {
+      Application application = new Application();
+      JSONToSerialize = application.serialize(serialiser, eventType);
+    } else if (
+      eventType == Constants.SUBMIT_CREDIT_CARD_MANUAL_DECISION ||
+      eventType == Constants.SUBMIT_UNSECURED_LOAN_MANUAL_DECISION
+    ) {
+      ManualDecision manualDecision = new ManualDecision();
+      JSONToSerialize = manualDecision.serialize(serialiser, eventType);
+    } else if (eventType == Constants.GET_CREDITCARD_PRE_ASSESSMENT) {
+      PreAssesssment preAssessment = new PreAssesssment();
+      JSONToSerialize = preAssessment.creditCardSerialize(
+        serialiser,
+        eventType
+      );
+    } else if (eventType == Constants.GET_UNSECURED_LOAN_PRE_ASSESSMENT) {
+      PreAssesssment preAssessment = new PreAssesssment();
+      JSONToSerialize = preAssessment.unsecuredLoanSerialize(
+        serialiser,
+        eventType
+      );
+    } else if (eventType == Constants.GET_CREDITCARD_FINAL_ASSESSMENT) {
+      FinalAssessment finalAssessment = new FinalAssessment();
+      JSONToSerialize = finalAssessment.creditCardserialize(
+        serialiser,
+        eventType
+      );
+    } else if (eventType == Constants.GET_UNSECURED_LOAN_FINAL_ASSESSMENT) {
+      FinalAssessment finalAssessment = new FinalAssessment();
+      JSONToSerialize = finalAssessment.unsecuredLoanserialize(
+        serialiser,
+        eventType
       );
     }
 

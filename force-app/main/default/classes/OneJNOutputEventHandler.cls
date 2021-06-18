@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-07-2021
- * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * @last modified on  : 05-26-2021
+ * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-25-2021   Remario Richards   Initial Version
@@ -20,7 +20,6 @@ public with sharing class OneJNOutputEventHandler {
    * @param request
    **/
   public static void HandleEvent(List<FlowInputs> request) {
-    system.debug('Subscribe');
     FlowInputs record = request[0];
     System.enqueueJob(
       new OneJNOutputEventQueueable(
