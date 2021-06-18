@@ -1,6 +1,12 @@
 /**
- * Ver  Ticket#      Date            Author                 Purpose
- * 1.0  JN1-4045     25/11/2020      Ishwari G.(thinqloud)  Added constants to refere values from custom metadata
+ * @description       : Global constants
+ * @author            : Remario Richards
+ * @group             :
+ * @last modified on  : 06-17-2021
+ * @last modified by  : Remario Richards
+ * Modifications Log
+ * Ver   Date         Author             Modification
+ * 1.0   06-17-2021   Remario Richards   Initial Version
  **/
 public class Constants {
   public static final String NONE = 'None';
@@ -163,7 +169,7 @@ public class Constants {
   public static final String GET_MANUAL_DESICION_APPROVED = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreateManualDecisionApprovedEvent';
   public static final String GET_MANUAL_DESICION_REJECT = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreateManualDecisionRejectEvent';
   public static final String RETURN_MANUAL_DESICION_APPROVED = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreateManualDecisionApprovedResponseEvent';
-  public static final String RETURN_MANUAL_DESICION_REJECT = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreateManualDecisionRejectResponseEvent';
+  public static final String RETURN_MANUAL_DESICION_REJECT = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreditCardManualDecisionEvent';
 
   public static final String GET_CREDITCARD_FINAL_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreditCardFinalAssessmentEvent';
   public static final String RETURN_CREDITCARD_FINAL_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreditCardFinalAssessmentResponseEvent';

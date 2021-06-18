@@ -3,7 +3,7 @@
  * @author            : Remario Richards
  * @group             :
  * @last modified on  : 06-17-2021
- * @last modified by  : Trupti Zende (Thinqloud)
+ * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -129,9 +129,7 @@ public with sharing class OneJNEventService {
     ) {
       oneJNDeserializerVar.ApplicationRecord = new Application__c();
       oneJNDeserializerVar.ApplicationRecord.Id = sfRecordId;
-      //oneJNDeserializerVar.ApplicationRecord.Application_ID__c = oneJNDeserializerVar.ApplicationId;
-      /*oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
-       ?.ApplicationID;*/
+      oneJNDeserializerVar.ApplicationRecord.Application_ID__c = oneJNDeserializerVar.ApplicationId;
       return oneJNDeserializerVar;
     }
   }

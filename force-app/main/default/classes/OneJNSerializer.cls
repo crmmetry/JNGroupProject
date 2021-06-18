@@ -310,6 +310,8 @@ public class OneJNSerializer {
    * @return String
    **/
   public static String buildDate(DateTime dateVar) {
+    if (dateVar == null)
+      return null;
     DateTime dt = DateTime.newInstance(
       dateVar.year(),
       dateVar.month(),

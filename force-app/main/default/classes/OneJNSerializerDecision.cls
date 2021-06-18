@@ -3,7 +3,7 @@
  * @author            : Ishwari Gaikwad(Thinqloud)
  * @group             :
  * @last modified on  : 06-17-2021
- * @last modified by  : Trupti Zende (Thinqloud)
+ * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author                       Modification
  * 1.0   06-14-2021   Ishwari Gaikwad(Thinqloud)   Initial Version
@@ -58,7 +58,6 @@ public class OneJNSerializerDecision {
         'LoanPurpose',
         'IsJointApplication',
         'IsPEP',
-        'RequestedTenure',
         'ApprovedTenure',
         'AdjudicationDecision',
         'CurrencyType',
@@ -120,7 +119,6 @@ public class OneJNSerializerDecision {
       appDataJson.put('Currency', currencyType);
       List<String> appDataFieldsToRemove = new List<String>{
         'IsPEP',
-        'MinMonthlyRepayment',
         'SubProductType',
         'ApprovedTenure',
         'AdjudicationDecision',
@@ -153,8 +151,6 @@ public class OneJNSerializerDecision {
         applicantMap = removeFields(applicantMap, applicantFieldsToRemove);
         applicant = (Object) applicantMap;
       }
-      //applicantJson = removeFields(applicantJson, applicantFieldsToRemove);
-
       String appDataObj1 = JSON.serialize(appDataJson);
       String applicantObj1 = JSON.serialize(applicantData);
 
