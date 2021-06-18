@@ -134,7 +134,7 @@
           Existing_Monthly_Credit_Payment__c: component
             .find("existingmonthlycreditpayment")
             .get("v.value"),
-          Total_Monthly__c: component
+          Proposed_Starting_Limit__c: component
             .find("totalmonthlyPaymentUnsecure")
             .get("v.value")
         };
