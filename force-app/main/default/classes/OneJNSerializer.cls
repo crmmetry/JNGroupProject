@@ -14,6 +14,17 @@ public class OneJNSerializer {
   @AuraEnabled
   public List<ApplicantDataWrapper> Applicant;
 
+  /**
+   * @description constructor
+   * @author Remario Richards | 06-18-2021
+   * @param ApplicantList
+   * @param EmploymentMap
+   * @param AccountMap
+   * @param ApplicationRecord
+   * @param OpportunityRecord
+   * @param OpportunityProductRecord
+   * @param LoanCalculationProductRecord
+   **/
   public OneJNSerializer(
     List<Applicant__c> ApplicantList,
     Map<Id, FinServ__Employment__c> EmploymentMap,
@@ -23,9 +34,40 @@ public class OneJNSerializer {
     OpportunityLineItem OpportunityProductRecord,
     Loan_Calculation_Product__c LoanCalculationProductRecord
   ) {
-    Applicant__c primaryApplicant = new Applicant__c();
     this.Applicant = new List<ApplicantDataWrapper>();
-
+    Applicant__c primaryApplicant = this.setupApplicants(
+      ApplicantList,
+      EmploymentMap,
+      OpportunityRecord,
+      OpportunityProductRecord,
+      AccountMap
+    );
+    this.AppData = new AppDataWrapper(
+      ApplicationRecord,
+      OpportunityRecord,
+      primaryApplicant,
+      OpportunityProductRecord,
+      LoanCalculationProductRecord
+    );
+  }
+  /**
+   * @description init all applications for serialization
+   * @author Remario Richards | 06-18-2021
+   * @param ApplicantList
+   * @param EmploymentMap
+   * @param OpportunityRecord
+   * @param OpportunityProductRecord
+   * @param AccountMap
+   * @return Applicant__c
+   **/
+  private Applicant__c setupApplicants(
+    List<Applicant__c> ApplicantList,
+    Map<Id, FinServ__Employment__c> EmploymentMap,
+    Opportunity OpportunityRecord,
+    OpportunityLineItem OpportunityProductRecord,
+    Map<Id, Account> AccountMap
+  ) {
+    Applicant__c primaryApplicant = new Applicant__c();
     for (Applicant__c applicantRecord : ApplicantList) {
       if (applicantRecord.Primary_Applicant_Flag__c) {
         primaryApplicant = applicantRecord;
@@ -40,6 +82,7 @@ public class OneJNSerializer {
           employmentRecord = EmploymentMap.get(applicantRecord.Account__c);
         }
       }
+      //add all applicant records
       this.Applicant.add(
         new ApplicantDataWrapper(
           applicantRecord,
@@ -50,13 +93,7 @@ public class OneJNSerializer {
         )
       );
     }
-    this.AppData = new AppDataWrapper(
-      ApplicationRecord,
-      OpportunityRecord,
-      primaryApplicant,
-      OpportunityProductRecord,
-      LoanCalculationProductRecord
-    );
+    return primaryApplicant;
   }
   public class AppDataWrapper {
     @AuraEnabled
@@ -95,6 +132,15 @@ public class OneJNSerializer {
     public String PhoenixId;
     @AuraEnabled
     public Decimal InterestRateForApplication;
+    /**
+     * @description constructor
+     * @author Remario Richards | 06-18-2021
+     * @param ApplicationRecord
+     * @param OpportunityRecord
+     * @param ApplicantRecord
+     * @param OpportunityProductRecord
+     * @param LoanCalculationProductRecord
+     **/
     AppDataWrapper(
       Application__c ApplicationRecord,
       Opportunity OpportunityRecord,
@@ -209,6 +255,15 @@ public class OneJNSerializer {
     public decimal TotalNetworthVerified;
     @AuraEnabled
     public decimal MonthlyExpensesNonCreditVerified;
+    /**
+     * @description constructor
+     * @author Remario Richards | 06-18-2021
+     * @param applicantRecord
+     * @param employmentRecord
+     * @param accountRecord
+     * @param OpportunityRecord
+     * @param OpportunityProductRecord
+     **/
     ApplicantDataWrapper(
       Applicant__c applicantRecord,
       FinServ__Employment__c employmentRecord,
@@ -320,6 +375,12 @@ public class OneJNSerializer {
     return dt.format('yyyy-MM-dd');
   }
 
+  /**
+   * @description default value for the boolean
+   * @author Remario Richards | 06-18-2021
+   * @param field
+   * @return Boolean
+   **/
   public static Boolean setDefaultBooleanValue(Boolean field) {
     return (field == null ? false : field);
   }
