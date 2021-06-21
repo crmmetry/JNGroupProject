@@ -61,7 +61,54 @@ public class TestSimpleLoanCalculationController {
       newLead.Id
     );
     Test.stopTest();
-    System.assertEquals(1, [SELECT Id FROM Loan_Calculator__c].size());
+    Loan_Calculator__c savedCalculation = [
+      SELECT
+        Id,
+        Lead_and_Referral__c,
+        Opportunity__c,
+        Reqeusted_Limit__c,
+        Interest_Rate__c,
+        Monthly_Gross_Income__c,
+        Existing_Monthly_Credit_Payment__c,
+        Proposed_Starting_Limit__c
+      FROM Loan_Calculator__c
+      LIMIT 1
+    ];
+    System.assertEquals(
+      newLead.Id,
+      savedCalculation.Lead_and_Referral__c,
+      'Loan Calculation record did not save.'
+    );
+    System.assertEquals(
+      opp.Id,
+      savedCalculation.Opportunity__c,
+      'Loan Calculation record did not save.'
+    );
+    System.assertEquals(
+      loanCal.Reqeusted_Limit__c,
+      savedCalculation.Reqeusted_Limit__c,
+      'Loan Calculation record did not save.'
+    );
+    System.assertEquals(
+      loanCal.Interest_Rate__c,
+      savedCalculation.Interest_Rate__c,
+      'Loan Calculation record did not save.'
+    );
+    System.assertEquals(
+      loanCal.Monthly_Gross_Income__c,
+      savedCalculation.Monthly_Gross_Income__c,
+      'Loan Calculation record did not save.'
+    );
+    System.assertEquals(
+      loanCal.Existing_Monthly_Credit_Payment__c,
+      savedCalculation.Existing_Monthly_Credit_Payment__c,
+      'Loan Calculation record did not save.'
+    );
+    System.assertEquals(
+      loanCal.Proposed_Starting_Limit__c,
+      savedCalculation.Proposed_Starting_Limit__c,
+      'Loan Calculation record did not save.'
+    );
   }
 
   /**
