@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : Trupti Zende (Thinqloud)
  * @group             : 
- * @last modified on  : 06-16-2021
+ * @last modified on  : 06-21-2021
  * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log 
  * Ver   Date         Author                     Modification
@@ -19,7 +19,6 @@ public with sharing class ONeJNEventSubmissionHandler {
     * @param inputs 
     **/
     public static void HandleEventSubmission(List<FlowInputs> inputs) {
-        
         FlowInputs input = inputs[0];
         OneJNEventFactory.ProcessOutgoingEvent(input.eventType,input.applicationList , input.opportunityList);
     }
