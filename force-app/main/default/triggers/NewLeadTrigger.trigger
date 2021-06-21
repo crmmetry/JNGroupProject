@@ -3,7 +3,7 @@
  * @Author             : Remario Richards
  * @Last Modified By   : Travis Allen
  * @Created On          : 10/7/2019
- * @Last Modified On   : 06-15-2021
+ * @Last Modified On   : 06-18-2021
  */
 trigger NewLeadTrigger on Lead(
   before insert,

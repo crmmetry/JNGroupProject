@@ -3,7 +3,7 @@
  * @Author             : Remario Richards
  * @Last Modified By   : Travis Allen
  * @Created On		  : 10/7/2019
- * @Last Modified On   : 05-07-2021
+ * @Last Modified On   : 06-18-2021
  */
 public class LeadTriggerHandler {
   private static final String TAG = 'LeadTriggerHandler';
@@ -1105,5 +1105,30 @@ Encourage client to add start and end date to employment
       }
     }
     return record;
+  }
+
+  public static void leadAssignmentSLAHandler() {
+    List<Lead> leadsToBeScheduled = new List<Lead>();
+    //Iterate through all updated leads
+    for (Lead leadReacord : leads) {
+      //Check if the lead owner was changed, hence if true LeadSLA process will be instigated
+      if (
+        this.newLeadMap.get(leadReacord.Id).OwnerId !=
+        this.oldLeadMap.get(leadReacord.Id).OwnerId
+      ) {
+        leadsToBeScheduled.add(leadReacord);
+      }
+    }
+    //Check if leads that had it ownership changed exists
+    if (leadsToBeScheduled.size() > 0) {
+      //Enqueue NoContactMadeNotifierOnLeads with selected leadsToBeScheduled
+      NoContactMadeNotifierOnLeads noContactNotifier = new noContactNotifier(
+        leadsToBeScheduled,
+        newMap,
+        oldMap
+      );
+      String sch = '0 0 8 * * *';
+      String jobID = System.schedule('Remind Opp Owners', sch, reminder);
+    }
   }
 }
