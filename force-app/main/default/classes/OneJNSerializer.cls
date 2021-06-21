@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-18-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 06-21-2021
+ * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -26,28 +26,28 @@ public class OneJNSerializer {
    * @param LoanCalculationProductRecord
    **/
   public OneJNSerializer(
-    List<Applicant__c> ApplicantList,
-    Map<Id, FinServ__Employment__c> EmploymentMap,
-    Map<Id, Account> AccountMap,
-    Application__c ApplicationRecord,
-    Opportunity OpportunityRecord,
-    OpportunityLineItem OpportunityProductRecord,
-    Loan_Calculation_Product__c LoanCalculationProductRecord
+    List<Applicant__c> applicantList,
+    Map<Id, FinServ__Employment__c> employmentMap,
+    Map<Id, Account> accountMap,
+    Application__c applicationRecord,
+    Opportunity opportunityRecord,
+    OpportunityLineItem opportunityProductRecord,
+    Loan_Calculation_Product__c loanCalculationProductRecord
   ) {
     this.Applicant = new List<ApplicantDataWrapper>();
     Applicant__c primaryApplicant = this.setupApplicants(
-      ApplicantList,
-      EmploymentMap,
-      OpportunityRecord,
-      OpportunityProductRecord,
-      AccountMap
+      applicantList,
+      employmentMap,
+      opportunityRecord,
+      opportunityProductRecord,
+      accountMap
     );
     this.AppData = new AppDataWrapper(
-      ApplicationRecord,
-      OpportunityRecord,
+      applicationRecord,
+      opportunityRecord,
       primaryApplicant,
-      OpportunityProductRecord,
-      LoanCalculationProductRecord
+      opportunityProductRecord,
+      loanCalculationProductRecord
     );
   }
   /**
@@ -61,24 +61,24 @@ public class OneJNSerializer {
    * @return Applicant__c
    **/
   private Applicant__c setupApplicants(
-    List<Applicant__c> ApplicantList,
-    Map<Id, FinServ__Employment__c> EmploymentMap,
-    Opportunity OpportunityRecord,
-    OpportunityLineItem OpportunityProductRecord,
-    Map<Id, Account> AccountMap
+    List<Applicant__c> applicantList,
+    Map<Id, FinServ__Employment__c> employmentMap,
+    Opportunity opportunityRecord,
+    OpportunityLineItem opportunityProductRecord,
+    Map<Id, Account> accountMap
   ) {
     Applicant__c primaryApplicant = new Applicant__c();
-    for (Applicant__c applicantRecord : ApplicantList) {
+    for (Applicant__c applicantRecord : applicantList) {
       if (applicantRecord.Primary_Applicant_Flag__c) {
         primaryApplicant = applicantRecord;
       }
       Account accountRecord = new Account();
       FinServ__Employment__c employmentRecord = new FinServ__Employment__c();
       if (String.isNotBlank(applicantRecord.Account__c)) {
-        if (AccountMap.containsKey(applicantRecord.Account__c)) {
+        if (accountMap.containsKey(applicantRecord.Account__c)) {
           accountRecord = AccountMap.get(applicantRecord.Account__c);
         }
-        if (EmploymentMap.containsKey(applicantRecord.Account__c)) {
+        if (employmentMap.containsKey(applicantRecord.Account__c)) {
           employmentRecord = EmploymentMap.get(applicantRecord.Account__c);
         }
       }
@@ -88,8 +88,8 @@ public class OneJNSerializer {
           applicantRecord,
           employmentRecord,
           accountRecord,
-          OpportunityRecord,
-          OpportunityProductRecord
+          opportunityRecord,
+          opportunityProductRecord
         )
       );
     }
@@ -142,13 +142,13 @@ public class OneJNSerializer {
      * @param LoanCalculationProductRecord
      **/
     AppDataWrapper(
-      Application__c ApplicationRecord,
-      Opportunity OpportunityRecord,
-      Applicant__c ApplicantRecord,
-      OpportunityLineItem OpportunityProductRecord,
-      Loan_Calculation_Product__c LoanCalculationProductRecord
+      Application__c applicationRecord,
+      Opportunity opportunityRecord,
+      Applicant__c applicantRecord,
+      OpportunityLineItem opportunityProductRecord,
+      Loan_Calculation_Product__c loanCalculationProductRecord
     ) {
-      if (ApplicationRecord != null) {
+      if (applicationRecord != null) {
         this.PhoenixId = applicationRecord.ApplicantNameID__r.RIM_no__c;
         this.ApplicationId = applicationRecord.Application_ID__c;
         this.ApprovedTenure = applicationRecord.IDM_Tenure_Date__c;
@@ -157,20 +157,20 @@ public class OneJNSerializer {
         this.InterestRateForApplication = applicationRecord.IDM_Interest_Rate_Number__c;
         this.ApplicationDate = buildDate(applicationRecord.CreatedDate);
       }
-      if (ApplicantRecord != null) {
+      if (applicantRecord != null) {
         this.IsJointApplication = OneJNSerializer.getBooleanValueFromString(
           applicantRecord.Joint_Application_flag__c
         );
       }
-      if (OpportunityProductRecord != null) {
+      if (opportunityProductRecord != null) {
         this.ProductType = opportunityProductRecord.Product_Family__c;
         this.SubProductType = opportunityProductRecord.Product2.Name;
       }
-      if (OpportunityRecord != null) {
+      if (opportunityRecord != null) {
         this.CurrencyType = opportunityRecord.CurrencyIsoCode;
         this.BranchRegion = opportunityRecord.Preferred_Location__c;
       }
-      if (LoanCalculationProductRecord != null) {
+      if (loanCalculationProductRecord != null) {
         this.Amount = loanCalculationProductRecord.Loan_Amount_Number__c;
         this.ApprovedInterestRate = loanCalculationProductRecord.Interest_Rate_Number__c;
         this.FeeFinancing = loanCalculationProductRecord.Method_of_Fee_Payment_List__c;
@@ -268,8 +268,8 @@ public class OneJNSerializer {
       Applicant__c applicantRecord,
       FinServ__Employment__c employmentRecord,
       Account accountRecord,
-      Opportunity OpportunityRecord,
-      OpportunityLineItem OpportunityProductRecord
+      Opportunity opportunityRecord,
+      OpportunityLineItem opportunityProductRecord
     ) {
       if (accountRecord != null) {
         this.PhoenixId = accountRecord.RIM_no__c;
