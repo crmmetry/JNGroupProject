@@ -2,8 +2,8 @@
  * @description       : Global constants
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-17-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 06-21-2021
+ * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   06-17-2021   Remario Richards   Initial Version
@@ -165,11 +165,6 @@ public class Constants {
   public static final String GET_UNSECURED_LOAN_PRE_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.UnsecuredLoanPreAssessmentEvent';
 
   public static final String RETURN_UNSECURED_LOAN_PRE_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.UnsecuredLoanPreAssessmentResponseEvent';
-
-  public static final String GET_MANUAL_DESICION_APPROVED = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreateManualDecisionApprovedEvent';
-  public static final String GET_MANUAL_DESICION_REJECT = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreateManualDecisionRejectEvent';
-  public static final String RETURN_MANUAL_DESICION_APPROVED = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreateManualDecisionApprovedResponseEvent';
-  public static final String RETURN_MANUAL_DESICION_REJECT = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreditCardManualDecisionEvent';
 
   public static final String GET_CREDITCARD_FINAL_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreditCardFinalAssessmentEvent';
   public static final String RETURN_CREDITCARD_FINAL_ASSESSMENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.CreditCardFinalAssessmentResponseEvent';

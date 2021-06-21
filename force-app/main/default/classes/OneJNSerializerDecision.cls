@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Ishwari Gaikwad(Thinqloud)
  * @group             :
- * @last modified on  : 06-18-2021
+ * @last modified on  : 06-21-2021
  * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author                       Modification
@@ -17,6 +17,13 @@ public class OneJNSerializerDecision {
    * @return Map<String, Object>
    **/
   public class Application {
+    /**
+    * @description : serialize get application event
+    * @author Trupti Zende (Thinqloud) | 06-21-2021 
+    * @param serialiser 
+    * @param eventType 
+    * @return Map<String, Object> 
+    **/
     public Map<String, Object> serialize(
       OneJNSerializer serialiser,
       String eventType
@@ -29,6 +36,13 @@ public class OneJNSerializerDecision {
     }
   }
   public class ManualDecision {
+    /**
+    * @description serialize manual decision events
+    * @author Trupti Zende (Thinqloud) | 06-21-2021 
+    * @param serialiser 
+    * @param eventType 
+    * @return Map<String, Object> 
+    **/
     public Map<String, Object> serialize(
       OneJNSerializer serialiser,
       String eventType
@@ -55,6 +69,13 @@ public class OneJNSerializerDecision {
   }
 
   public class PreAssesssment {
+    /**
+    * @description serialize credit card pre- assessment evnets
+    * @author Trupti Zende (Thinqloud) | 06-21-2021 
+    * @param serialiser 
+    * @param eventType 
+    * @return Map<String, Object> 
+    **/
     public Map<String, Object> creditCardSerialize(
       OneJNSerializer serialiser,
       String eventType
@@ -124,6 +145,13 @@ public class OneJNSerializerDecision {
       );
       return JSONToSerialize;
     }
+    /**
+    * @description serialize unsecured loan pre-assessment event
+    * @author Trupti Zende (Thinqloud) | 06-21-2021 
+    * @param serialiser 
+    * @param eventType 
+    * @return Map<STring, Object> 
+    **/
     public Map<STring, Object> unsecuredLoanSerialize(
       OneJNSerializer serialiser,
       String eventType
@@ -191,6 +219,13 @@ public class OneJNSerializerDecision {
     }
   }
   public class FinalAssessment {
+    /**
+    * @description serialize credit card final assessment events
+    * @author Trupti Zende (Thinqloud) | 06-21-2021 
+    * @param serialiser 
+    * @param eventType 
+    * @return Map<String, Object> 
+    **/
     public Map<String, Object> creditCardserialize(
       OneJNSerializer serialiser,
       String eventType
@@ -231,6 +266,13 @@ public class OneJNSerializerDecision {
       );
       return JSONToSerialize;
     }
+    /**
+    * @description serialize unsecured loan final assessment event
+    * @author Trupti Zende (Thinqloud) | 06-21-2021 
+    * @param serialiser 
+    * @param eventType 
+    * @return Map<String, Object> 
+    **/
     public Map<String, Object> unsecuredLoanserialize(
       OneJNSerializer serialiser,
       String eventType
@@ -271,6 +313,13 @@ public class OneJNSerializerDecision {
       return JSONToSerialize;
     }
   }
+  /**
+  * @description to set the request body for one JN events
+  * @author Trupti Zende (Thinqloud) | 06-21-2021 
+  * @param serialiser 
+  * @param eventType 
+  * @return Map<String, Object> 
+  **/
   public static Map<String, Object> setSerializer(
     OneJNSerializer serialiser,
     String eventType

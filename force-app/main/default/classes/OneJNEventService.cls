@@ -2,7 +2,7 @@
  * @description       : service to coordinate the  selector layer and serialization
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-18-2021
+ * @last modified on  : 06-21-2021
  * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -77,22 +77,7 @@ public with sharing class OneJNEventService {
         }
       }
     }
-    /*
-    OneJNSerializer serialiser = new OneJNSerializer(
-      applicantList.size() > 0 ? applicantList[0] : new Applicant__c(),
-      employmentList.size() > 0
-        ? employmentList[0]
-        : new FinServ__Employment__c(),
-      accountList.size() > 0 ? accountList[0] : new Account(),
-      applicationsList.size() > 0 ? applicationsList[0] : new Application__c(),
-      opportunitysList.size() > 0 ? opportunitysList[0] : new Opportunity(),
-      oppLineItemList.size() > 0
-        ? oppLineItemList[0]
-        : new OpportunityLineItem(),
-      loanCalcProductList.size() > 0
-        ? loanCalcProductList[0]
-        : new Loan_Calculation_Product__c()
-    );*/
+   
     OneJNSerializer serialiser = new OneJNSerializer(
       applicantList,
       employmentMap,
