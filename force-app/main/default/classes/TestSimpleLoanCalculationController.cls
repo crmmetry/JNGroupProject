@@ -10,6 +10,10 @@
  **/
 @isTest
 public class TestSimpleLoanCalculationController {
+  /**
+   * Data setip for test class.
+   * @author Travis Allen | 06-21-2021
+   **/
   @TestSetup
   public static void makeData() {
     Account acc = TestDataFactory.CreateBasicAccounts(1, 'hayley')[0];
@@ -22,7 +26,11 @@ public class TestSimpleLoanCalculationController {
     Lead newLead = TestDataFactory.CreateLeads(1)[0];
     insert newLead;
   }
-  //Scenario 1: Lead with only 1 Loan Cal record created before save
+
+  /**
+   * Scenario 1: Lead with only 1 Loan Cal record created before save
+   * @author Travis Allen | 06-21-2021
+   **/
   @isTest
   public static void shouldSaveLoanCalculation() {
     List<Lead> leads = [SELECT Id FROM Lead];
@@ -55,7 +63,11 @@ public class TestSimpleLoanCalculationController {
     Test.stopTest();
     System.assertEquals(1, [SELECT Id FROM Loan_Calculator__c].size());
   }
-  //Scenario 2: Lead when no loan cal object saved prior
+
+  /**
+   * Scenario 2: Lead when no loan cal object saved prior
+   * @author Travis Allen | 06-21-2021
+   **/
   @isTest
   public static void shouldUpdateRunLoanScenarios() {
     List<Lead> leads = [SELECT Id FROM Lead];
