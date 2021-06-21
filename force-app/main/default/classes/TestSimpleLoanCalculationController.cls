@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 04-09-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 06-21-2021
+ * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
  * 1.0   04-08-2021   Travis Allen   Initial Version
@@ -40,7 +40,7 @@ public class TestSimpleLoanCalculationController {
     loanCal.Interest_Rate__c = 15.0;
     loanCal.Monthly_Gross_Income__c = 3000.00;
     loanCal.Existing_Monthly_Credit_Payment__c = 500.00;
-    loanCal.Total_Monthly__c = 1000.00;
+    loanCal.Proposed_Starting_Limit__c = 1000.00;
 
     String recordTypeName = 'InstallmentPayment';
 
@@ -74,7 +74,7 @@ public class TestSimpleLoanCalculationController {
     loanCal.Interest_Rate__c = 15.0;
     loanCal.Monthly_Gross_Income__c = 3000.00;
     loanCal.Existing_Monthly_Credit_Payment__c = 500.00;
-    loanCal.Total_Monthly__c = 1000.00;
+    loanCal.Proposed_Starting_Limit__c = 1000.00;
 
     String recordTypeName = 'InstallmentPayment';
 
