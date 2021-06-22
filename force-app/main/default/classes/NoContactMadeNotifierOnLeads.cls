@@ -9,17 +9,26 @@
  * 1.0   06-18-2021   Travis Allen   Initial Version
  **/
 public with sharing class NoContactMadeNotifierOnLeads implements Queueable {
+  /**
+   * Execute Queueable class
+   * @author Travis Allen | 06-22-2021
+   * @param context
+   **/
   public void execute(QueueableContext context) {
     List<Lead> leads = checkLeadsToBeNotified();
     update leads;
   }
+
   /**
+   *  /**
    * LEAD Assignment SLA Scenarios and conditions
    * 1. Lead reassigned is true and assign to tier1 user, time period for contact is 8hrs - notify user that they have 8hrs to notify.
    * 2. Lead reassigned is false and assign to tier1 user, time perios for contact is 24hrs - notify supervisor.
    * 3. Lead assigned to Tier2 user, time period for contact is 24hrs - notify supervisor.
    * 4. Lead assigned to Tier2 user, time period for contact is 36hrs - notify senior supervisor.
-   */
+   *
+   * @author Travis Allen | 06-22-2021
+   **/
   public static void checkLeadsToBeNotified() {
     //Time spent in tier
     Decimal timeSpentInTier = 0;
