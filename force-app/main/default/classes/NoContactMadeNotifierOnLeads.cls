@@ -2,69 +2,148 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 06-21-2021
+ * @last modified on  : 06-22-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
  * 1.0   06-18-2021   Travis Allen   Initial Version
  **/
-global with sharing class NoContactMadeNotifierOnLeads implements Schedulable {
-  global NoContactMadeNotifierOnLeads(
-    List<Lead> leads,
-    Map<Id, Lead> newLeadMap,
-    Map<Id, Lead> oldLeadMap
-  ) {
-    this.leads = leads;
-    this.newLeadMap = newLeadMap;
-    this.oldLeadMap = oldLeadMap;
+public with sharing class NoContactMadeNotifierOnLeads implements Queueable {
+  public void execute(QueueableContext context) {
+    List<Lead> leads = checkLeadsToBeNotified();
+    update leads;
   }
+  /**
+   * LEAD Assignment SLA Scenarios and conditions
+   * 1. Lead reassigned is true and assign to tier1 user, time period for contact is 8hrs - notify user that they have 8hrs to notify.
+   * 2. Lead reassigned is false and assign to tier1 user, time perios for contact is 24hrs - notify supervisor.
+   * 3. Lead assigned to Tier2 user, time period for contact is 24hrs - notify supervisor.
+   * 4. Lead assigned to Tier2 user, time period for contact is 36hrs - notify senior supervisor.
+   */
+  public static void checkLeadsToBeNotified() {
+    //Time spent in tier
+    Decimal timeSpentInTier = 0;
 
-  global void execute(SchedulableContext ctx) {
-    /**
-     * LEAD Assignment SLA Scenarios and conditions
-     * 1. Lead reassigned is true and assign to tier1 user, time period for contact is 8hrs - notify user that they have 8hrs to notify.
-     * 2. Lead reassigned is false and assign to tier1 user, time perios for contact is 24hrs - notify supervisor.
-     * 3. Lead assigned to Tier2 user, time period for contact is 24hrs - notify supervisor.
-     * 4. Lead assigned to Tier2 user, time period for contact is 36hrs - notify senior supervisor.
-     */
+    //List of Leads to be updated
+    List<Lead> leadsToBeUpdated = new List<Lead>();
+
     //Fetch id for Tier one queue
     Id tierOneQueue = Util.getQueueId(Constants.TIER_ONE_QUEUE);
 
     //Fetch id for Tier two queue
     Id tierTwoQueue = Util.getQueueId(Constants.TIER_TWO_QUEUE);
 
-    //Fetch tier2 Agents
-    //List<User> tierOneAgents = [SELECT UserOrGroupId, GroupId FROM GroupMember WHERE GroupId = :tierOneQueue];
+    //Mapped group members for Tier 1 agents
+    Map<Id, GroupMember> tierOneAgentMap = new Map<Id, GroupMember>();
 
-    //Fetch tier2 Agents
-    //List<User> tierTwoAgents = [SELECT UserOrGroupId, GroupId FROM GroupMember WHERE GroupId = :tierTwoQueue];
+    //Mapped group members for Tier 2 agents
+    Map<Id, GroupMember> tierTwoAgentMap = new Map<Id, GroupMember>();
+
+    //Populate tier one agent map
+    for (GroupMember user : [
+      SELECT UserOrGroupId, GroupId
+      FROM GroupMember
+      WHERE GroupId = :tierOneQueue
+    ]) {
+      tierOneAgentMap.put(user.UserOrGroupId, user);
+    }
+
+    //Populate tier one agent map
+    for (GroupMember user : [
+      SELECT UserOrGroupId, GroupId
+      FROM GroupMember
+      WHERE GroupId = :tierTwoQueue
+    ]) {
+      tierTwoAgentMap.put(user.UserOrGroupId, user);
+    }
 
     //Iterate through all updated leads
     for (Lead leadRecord : [
-      SELECT Id, Assignment_Timestamp__c, OwnerId, Escalate_to_Tier2__c
+      SELECT
+        Id,
+        Assignment_Timestamp__c,
+        OwnerId,
+        Escalate_to_Tier2__c,
+        Lead_Reassigned_flag__c,
+        Contact_Made__c
       FROM Lead
     ]) {
       //Current time at which the job is is Running
       Datetime currentTime = System.now();
 
-      //Check if lead is tier1 or Tier2 and assigned to an Agent
-      if (!leadRecord.Escalate_to_Tier2__c) {
-        //Lead is currently in tier 1 and assigned to an Agent
+      //Calculate time spent in tier
+      timeSpentInTier =
+        (currentTime.getTime() - leadRecord.Assignment_Timestamp__c.getTime()) /
+        (1000.0 *
+        60.0 *
+        60.0);
+
+      //Check if lead is in tier 1
+      //TODO:Optimise requirement to check lead owner is a Sales User
+      if (
+        !leadRecord.Escalate_to_Tier2__c &&
+        (tierOneAgentMap.keySet().contains(leadRecord.OwnerId))
+      ) {
+        //Check if maximum time has been spent in tier 1 with no contact made for a reassigned lead and no notification have been sent out
+        if (
+          timeSpentInTier >=
+          Constants.MAX_TIME_SPENT_IN_TIER_ONE_WHEN_REASSIGNED &&
+          leadRecord.Contact_Made__c != Constants.CONTACT_MADE &&
+          leadRecord.Lead_Reassigned_flag__c &&
+          !leadRecord.Not_Contacted_8_hours_flag__c
+        ) {
+          //Update Notification flag on lead record
+          leadRecord.Not_Contacted_8_hours_flag__c = true;
+          leadsToBeUpdated.add(leadRecord);
+        }
+
+        //Check if maximum time has been spent in tier 1 with no contact made for a lead and no notification have not been sent
+        if (
+          timeSpentInTier >= Constants.MAX_TIME_SPENT_IN_TIER_ONE &&
+          leadRecord.Contact_Made__c != Constants.CONTACT_MADE &&
+          !leadRecord.Lead_Reassigned_flag__c &&
+          !leadRecord.Not_Contacted_24_hours_flag__c
+        ) {
+          //Update Notification flag on lead record
+          leadRecord.Not_Contacted_24_hours_flag__c = true;
+
+          //Reassign lead to tier one queue
+          leadRecord.Lead_Reassigned_flag__c = true;
+          leadRecord.OwnerId = tierOneQueue;
+          leadsToBeUpdated.add(leadRecord);
+        }
       }
 
-      //Check if leas si tier1 and reassigned to a tier one agents
-      // if(!leadRecord.Escalate_to_Tier2__c && tierOneAgents.contains(leadReacord.OwnerId)&& leadRecord.Reass){
-      //   //Lead is currently reassigned to tier1 agents
+      //Check if lead is in tier 2
+      if (
+        leadRecord.Escalate_to_Tier2__c &&
+        (tierTwoAgentMap.keySet().contains(leadRecord.OwnerId))
+      ) {
+        //Check if 24h has been spent in tier 2 with no contact made for lead and no notification have been sent out
+        if (
+          timeSpentInTier >=
+          Constants.MAX_TIME_SPENT_IN_TIER_TWO_FOR_FIRST_NOTFIFICATION &&
+          leadRecord.Contact_Made__c != Constants.CONTACT_MADE &&
+          !leadRecord.Not_Contacted_24_hours_flag__c
+        ) {
+          //Update Notification flag on lead record
+          leadRecord.Not_Contacted_24_hours_flag__c = true;
+          leadsToBeUpdated.add(leadRecord);
+        }
 
-      // }
-
-      //Check if lead is tier1 or Tier2 and assigned to an Agent
-      if (leadRecord.Escalate_to_Tier2__c) {
-        //Lead is currently assigned to tier2 agent
-        //Enqueue Schedulable class to check if contact has been made after 24 hours
-
-        //Enqueue Schedulable class to check if contact has been made after 36 hours
+        //Check if maximum time has been spent in tier 1 with no contact made for a lead and no notification have not been sent
+        if (
+          timeSpentInTier >=
+          Constants.MAX_TIME_SPENT_IN_TIER_TWO_FOR_SECOND_NOTIFICATION &&
+          leadRecord.Contact_Made__c != Constants.CONTACT_MADE &&
+          !leadRecord.Not_Contacted_36_hours_flag__c
+        ) {
+          //Update Notification flag on lead record
+          leadRecord.Not_Contacted_36_hours_flag__c = true;
+          leadsToBeUpdated.add(leadRecord);
+        }
       }
     }
+    return leadsToBeUpdated;
   }
 }
