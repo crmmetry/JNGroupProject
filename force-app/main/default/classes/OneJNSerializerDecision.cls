@@ -3,7 +3,7 @@
  * @author            : Ishwari Gaikwad(Thinqloud)
  * @group             :
  * @last modified on  : 06-21-2021
- * @last modified by  : Trupti Zende (Thinqloud)
+ * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author                       Modification
  * 1.0   06-14-2021   Ishwari Gaikwad(Thinqloud)   Initial Version
@@ -18,12 +18,12 @@ public class OneJNSerializerDecision {
    **/
   public class Application {
     /**
-    * @description : serialize get application event
-    * @author Trupti Zende (Thinqloud) | 06-21-2021 
-    * @param serialiser 
-    * @param eventType 
-    * @return Map<String, Object> 
-    **/
+     * @description : serialize get application event
+     * @author Trupti Zende (Thinqloud) | 06-21-2021
+     * @param serialiser
+     * @param eventType
+     * @return Map<String, Object>
+     **/
     public Map<String, Object> serialize(
       OneJNSerializer serialiser,
       String eventType
@@ -37,12 +37,12 @@ public class OneJNSerializerDecision {
   }
   public class ManualDecision {
     /**
-    * @description serialize manual decision events
-    * @author Trupti Zende (Thinqloud) | 06-21-2021 
-    * @param serialiser 
-    * @param eventType 
-    * @return Map<String, Object> 
-    **/
+     * @description serialize manual decision events
+     * @author Trupti Zende (Thinqloud) | 06-21-2021
+     * @param serialiser
+     * @param eventType
+     * @return Map<String, Object>
+     **/
     public Map<String, Object> serialize(
       OneJNSerializer serialiser,
       String eventType
@@ -70,12 +70,12 @@ public class OneJNSerializerDecision {
 
   public class PreAssesssment {
     /**
-    * @description serialize credit card pre- assessment evnets
-    * @author Trupti Zende (Thinqloud) | 06-21-2021 
-    * @param serialiser 
-    * @param eventType 
-    * @return Map<String, Object> 
-    **/
+     * @description serialize credit card pre- assessment evnets
+     * @author Trupti Zende (Thinqloud) | 06-21-2021
+     * @param serialiser
+     * @param eventType
+     * @return Map<String, Object>
+     **/
     public Map<String, Object> creditCardSerialize(
       OneJNSerializer serialiser,
       String eventType
@@ -89,6 +89,7 @@ public class OneJNSerializerDecision {
       );
       Object currencyType = appDataJson.get('CurrencyType');
       appDataJson.put('Currency', currencyType);
+      appDataJson.put('InterestRate', serialiser.AppData.ApprovedInterestRate);
       List<String> appDataFieldsToRemove = new List<String>{
         'FeeFinancing',
         'LoanPurpose',
@@ -99,7 +100,8 @@ public class OneJNSerializerDecision {
         'CurrencyType',
         'PhoenixId',
         'ApprovedCreditAmount',
-        'InterestRateForApplication'
+        'InterestRateForApplication',
+        'ApprovedInterestRate'
       };
 
       appDataJson = removeFields(appDataJson, appDataFieldsToRemove);
@@ -146,12 +148,12 @@ public class OneJNSerializerDecision {
       return JSONToSerialize;
     }
     /**
-    * @description serialize unsecured loan pre-assessment event
-    * @author Trupti Zende (Thinqloud) | 06-21-2021 
-    * @param serialiser 
-    * @param eventType 
-    * @return Map<STring, Object> 
-    **/
+     * @description serialize unsecured loan pre-assessment event
+     * @author Trupti Zende (Thinqloud) | 06-21-2021
+     * @param serialiser
+     * @param eventType
+     * @return Map<STring, Object>
+     **/
     public Map<STring, Object> unsecuredLoanSerialize(
       OneJNSerializer serialiser,
       String eventType
@@ -164,6 +166,7 @@ public class OneJNSerializerDecision {
       );
       Object currencyType = appDataJson.get('CurrencyType');
       appDataJson.put('Currency', currencyType);
+      appDataJson.put('InterestRate', serialiser.AppData.ApprovedInterestRate);
       List<String> appDataFieldsToRemove = new List<String>{
         'IsPEP',
         'SubProductType',
@@ -173,7 +176,7 @@ public class OneJNSerializerDecision {
         'PhoenixId',
         'ApprovedCreditAmount',
         'InterestRateForApplication',
-        'MinMonthlyRepayment'
+        'ApprovedInterestRate'
       };
 
       appDataJson = removeFields(appDataJson, appDataFieldsToRemove);
@@ -220,12 +223,12 @@ public class OneJNSerializerDecision {
   }
   public class FinalAssessment {
     /**
-    * @description serialize credit card final assessment events
-    * @author Trupti Zende (Thinqloud) | 06-21-2021 
-    * @param serialiser 
-    * @param eventType 
-    * @return Map<String, Object> 
-    **/
+     * @description serialize credit card final assessment events
+     * @author Trupti Zende (Thinqloud) | 06-21-2021
+     * @param serialiser
+     * @param eventType
+     * @return Map<String, Object>
+     **/
     public Map<String, Object> creditCardserialize(
       OneJNSerializer serialiser,
       String eventType
@@ -267,12 +270,12 @@ public class OneJNSerializerDecision {
       return JSONToSerialize;
     }
     /**
-    * @description serialize unsecured loan final assessment event
-    * @author Trupti Zende (Thinqloud) | 06-21-2021 
-    * @param serialiser 
-    * @param eventType 
-    * @return Map<String, Object> 
-    **/
+     * @description serialize unsecured loan final assessment event
+     * @author Trupti Zende (Thinqloud) | 06-21-2021
+     * @param serialiser
+     * @param eventType
+     * @return Map<String, Object>
+     **/
     public Map<String, Object> unsecuredLoanserialize(
       OneJNSerializer serialiser,
       String eventType
@@ -314,12 +317,12 @@ public class OneJNSerializerDecision {
     }
   }
   /**
-  * @description to set the request body for one JN events
-  * @author Trupti Zende (Thinqloud) | 06-21-2021 
-  * @param serialiser 
-  * @param eventType 
-  * @return Map<String, Object> 
-  **/
+   * @description to set the request body for one JN events
+   * @author Trupti Zende (Thinqloud) | 06-21-2021
+   * @param serialiser
+   * @param eventType
+   * @return Map<String, Object>
+   **/
   public static Map<String, Object> setSerializer(
     OneJNSerializer serialiser,
     String eventType
