@@ -111,7 +111,7 @@ public class OneJNSerializer {
     @AuraEnabled
     public decimal Amount;
     @AuraEnabled
-    public decimal ApprovedInterestRate;
+    public decimal InterestRate;
     @AuraEnabled
     public decimal RequestedTenure;
     @AuraEnabled
@@ -172,7 +172,7 @@ public class OneJNSerializer {
       }
       if (loanCalculationProductRecord != null) {
         this.Amount = loanCalculationProductRecord.Loan_Amount_Number__c;
-        this.ApprovedInterestRate = loanCalculationProductRecord.Interest_Rate_Number__c;
+        this.InterestRate = loanCalculationProductRecord.Interest_Rate_Number__c;
         this.FeeFinancing = loanCalculationProductRecord.Method_of_Fee_Payment_List__c;
         this.LoanPurpose = loanCalculationProductRecord.Loan_Purpose_List__c;
         this.RequestedTenure = loanCalculationProductRecord.Months_Number__c;

@@ -89,7 +89,7 @@ public class OneJNSerializerDecision {
       );
       Object currencyType = appDataJson.get('CurrencyType');
       appDataJson.put('Currency', currencyType);
-      appDataJson.put('InterestRate', serialiser.AppData.ApprovedInterestRate);
+      //appDataJson.put('InterestRate', serialiser.AppData.ApprovedInterestRate);
       List<String> appDataFieldsToRemove = new List<String>{
         'FeeFinancing',
         'LoanPurpose',
@@ -100,8 +100,7 @@ public class OneJNSerializerDecision {
         'CurrencyType',
         'PhoenixId',
         'ApprovedCreditAmount',
-        'InterestRateForApplication',
-        'ApprovedInterestRate'
+        'InterestRateForApplication'
       };
 
       appDataJson = removeFields(appDataJson, appDataFieldsToRemove);
@@ -166,7 +165,7 @@ public class OneJNSerializerDecision {
       );
       Object currencyType = appDataJson.get('CurrencyType');
       appDataJson.put('Currency', currencyType);
-      appDataJson.put('InterestRate', serialiser.AppData.ApprovedInterestRate);
+      //appDataJson.put('InterestRate', serialiser.AppData.ApprovedInterestRate);
       List<String> appDataFieldsToRemove = new List<String>{
         'IsPEP',
         'SubProductType',
@@ -175,8 +174,7 @@ public class OneJNSerializerDecision {
         'CurrencyType',
         'PhoenixId',
         'ApprovedCreditAmount',
-        'InterestRateForApplication',
-        'ApprovedInterestRate'
+        'InterestRateForApplication'
       };
 
       appDataJson = removeFields(appDataJson, appDataFieldsToRemove);
