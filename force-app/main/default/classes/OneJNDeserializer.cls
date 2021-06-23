@@ -55,17 +55,17 @@ public class OneJNDeserializer {
     @AuraEnabled
     public String FullName;
     @AuraEnabled
-    public decimal jNRiskScore;
+    public decimal JNRiskScore;
     @AuraEnabled
-    public String jNRiskGrade;
+    public String JNRiskGrade;
     @AuraEnabled
-    public decimal cRBScore_CIJ;
+    public decimal CRBScore_CIJ;
     @AuraEnabled
-    public String cRBGrade_CIJ;
+    public String CRBGrade_CIJ;
     @AuraEnabled
-    public decimal cRBScore_CRIF;
+    public decimal CRBScore_CRIF;
     @AuraEnabled
-    public String cRBGrade_CRIF;
+    public String CRBGrade_CRIF;
     @AuraEnabled
     public DocumentRequirementsWrapper[] DocumentRequirements;
   }

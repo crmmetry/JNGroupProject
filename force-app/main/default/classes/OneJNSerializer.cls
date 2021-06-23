@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-21-2021
- * @last modified by  : Trupti Zende (Thinqloud)
+ * @last modified on  : 06-22-2021
+ * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -214,9 +214,9 @@ public class OneJNSerializer {
     //@AuraEnabled
     //public decimal NPreviousRejectApplication12m;
     @AuraEnabled
-    public string IsPublicSectorEmployee;
+    public Boolean IsPublicSectorEmployee;
     @AuraEnabled
-    public integer BankruptCurrent;
+    public Boolean BankruptCurrent;
     @AuraEnabled
     public boolean BankruptEver;
     @AuraEnabled
@@ -295,11 +295,13 @@ public class OneJNSerializer {
         ? 'Primary'
         : 'Co-Applicant';
       //this.NPreviousRejectApplication12m = applicantRecord.Number_of_Rejected_Applications_Number__c;
-      this.IsPublicSectorEmployee = applicantRecord.Public_Sector_or_Civil_Servant_List__c;
-      this.BankruptCurrent = OneJNSerializer.getIntegerValueFromString(
+      this.IsPublicSectorEmployee = getBooleanValueFromString(
+        applicantRecord.Public_Sector_or_Civil_Servant_List__c
+      );
+      this.BankruptCurrent = getBooleanValueFromString(
         applicantRecord.Are_you_currently_in_bankruptcy_list__c
       );
-      this.BankruptEver = OneJNSerializer.getBooleanValueFromString(
+      this.BankruptEver = getBooleanValueFromString(
         applicantRecord.Declared_bankrupt_list__c
       );
       this.MonthlyIncomeUnverified = applicantRecord.Gross_Monthly_Income__c;
