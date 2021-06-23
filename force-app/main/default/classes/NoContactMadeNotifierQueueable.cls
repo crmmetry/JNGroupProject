@@ -101,7 +101,8 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
           Constants.MAX_TIME_SPENT_IN_TIER_ONE_WHEN_REASSIGNED &&
           leadRecord.Contact_Made__c != Constants.CONTACT_MADE &&
           leadRecord.Lead_Reassigned_flag__c &&
-          !leadRecord.Not_Contacted_8_hours_flag__c
+          !leadRecord.Not_Contacted_8_hours_flag__c &&
+          leadRecord.Not_Contacted_24_hours_flag__c
         ) {
           //Update Notification flag on lead record
           leadRecord.Not_Contacted_8_hours_flag__c = true;
@@ -135,7 +136,7 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
           timeSpentInTier >=
           Constants.MAX_TIME_SPENT_IN_TIER_TWO_FOR_FIRST_NOTFIFICATION &&
           leadRecord.Contact_Made__c != Constants.CONTACT_MADE &&
-          !leadRecord.Not_Contacted_24_hours_flag__c
+          !leadRecord.Not_Contacted_24_hours_Tier_2_flag__c
         ) {
           //Update Notification flag on lead record
           leadRecord.Not_Contacted_24_hours_flag__c = true;
@@ -147,6 +148,7 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
           timeSpentInTier >=
           Constants.MAX_TIME_SPENT_IN_TIER_TWO_FOR_SECOND_NOTIFICATION &&
           leadRecord.Contact_Made__c != Constants.CONTACT_MADE &&
+          leadRecord.Not_Contacted_24_hours_flag__c &&
           !leadRecord.Not_Contacted_36_hours_flag__c
         ) {
           //Update Notification flag on lead record
