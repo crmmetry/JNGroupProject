@@ -143,8 +143,8 @@ public class OneJNDeserializer {
         sfRecordId
       );
     } else if (
-      eventype == Constants.RETURN_MANUAL_DESICION_APPROVED ||
-      eventype == Constants.RETURN_MANUAL_DESICION_REJECT
+      eventype == Constants.RETURN_UNSECURED_LOAN_MANUAL_DECISION_RESPONSE ||
+      eventype == Constants.RETURN_CREDIT_CARD_MANUAL_DECISION_RESPONSE
     ) {
       OneJNEventService.OneJNManualDecisionEvent reference = new OneJNEventService.OneJNManualDecisionEvent();
       oneJNDeserializerVar = reference.deserialize(

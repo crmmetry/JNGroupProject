@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-08-2021
- * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * @last modified on  : 06-21-2021
+ * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -38,8 +38,8 @@ public with sharing class OneJNEventFactory {
       );
     }
     if (
-      eventType == Constants.RETURN_MANUAL_DESICION_APPROVED ||
-      eventType == Constants.RETURN_MANUAL_DESICION_REJECT
+      eventType == Constants.RETURN_CREDIT_CARD_MANUAL_DECISION_RESPONSE ||
+      eventType == Constants.RETURN_UNSECURED_LOAN_MANUAL_DECISION_RESPONSE
     ) {
       processGetManualIdEventResponse(oneJNDeserializer, sfRecordId, eventType);
     }
@@ -73,8 +73,8 @@ public with sharing class OneJNEventFactory {
       processGetPreAssessmentEventRequest(eventType, opportunityList);
     }
     if (
-      eventType == Constants.GET_MANUAL_DESICION_APPROVED ||
-      eventType == Constants.GET_MANUAL_DESICION_REJECT
+      eventType == Constants.SUBMIT_CREDIT_CARD_MANUAL_DECISION ||
+      eventType == Constants.SUBMIT_UNSECURED_LOAN_MANUAL_DECISION
     ) {
       processGetManualEventRequest(eventType, applicationList);
     }
@@ -87,7 +87,7 @@ public with sharing class OneJNEventFactory {
   }
 
   /**
-   * @description
+   * @description process application event request
    * @author Ishwari Gaikwad(Thinqloud) | 06-03-2021
    * @param application
    **/
@@ -221,7 +221,7 @@ public with sharing class OneJNEventFactory {
   }
 
   /**
-   * @description
+   * @description to process request for pre-assessment event
    * @author Trupti Zende (Thinqloud) | 06-04-2021
    * @param applicationList
    **/
@@ -253,6 +253,13 @@ public with sharing class OneJNEventFactory {
     }
   }
 
+  /**
+  * @description process pre-assessment events
+  * @author Trupti Zende (Thinqloud) | 06-21-2021 
+  * @param oneJNDeserializer 
+  * @param sfRecordId 
+  * @param eventType 
+  **/
   private static void processGetPreAssessmentEventResponse(
     OneJNDeserializer oneJNDeserializer,
     String sfRecordId,
@@ -285,7 +292,7 @@ public with sharing class OneJNEventFactory {
     }
   }
   /**
-   * @description
+   * @description process manual decision events
    * @author Rahul Rahangdale (Thinqloud) | 06-09-2021
    * @param application
    **/

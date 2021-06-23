@@ -2,8 +2,15 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 
   <types>
-    <members>LeadSource</members>
-    <name>StandardValueSet</name>
+     <members>OneJNSerializerDecision</members>
+
+   <members>OneJNEventFactory</members>
+  <members>OneJNQuerySelector</members>
+  <members>OneJNSerializer</members>
+  <members>Constants</members>
+  <members>OneJNDeserializer</members>
+    <members>OneJNEventService</members>
+    <name>ApexClass</name>
   </types>
   <version>50.0</version>
 </Package>

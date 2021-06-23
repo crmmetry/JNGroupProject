@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-17-2021
+ * @last modified on  : 06-18-2021
  * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -13,24 +13,25 @@ public with sharing class OneJNQuerySelector {
    * @description retrieve accounts
    * @author Remario Richards | 05-26-2021
    **/
-  public static List<Account> getAccounts(Set<Id> accountIdSet) {
-    List<Account> accountList = [
-      SELECT
-        RecordType.Name,
-        MonthsResidence_Number__c,
-        Politically_Affiliated__c,
-        JN_Bank_Affiliation__pc,
-        Premier_Customer_List__c,
-        FinServ__NumberOfDependents__pc,
-        Name,
-        RIM_no__c,
-        Id,
-        Highest_level_of_Education_attained__pc
-      FROM Account
-      WHERE Id IN :accountIdSet
-      WITH SECURITY_ENFORCED
-    ];
-    return accountList;
+  public static Map<ID, Account> getAccounts(Set<Id> accountIdSet) {
+    return new Map<ID, Account>(
+      [
+        SELECT
+          RecordType.Name,
+          MonthsResidence_Number__c,
+          Politically_Affiliated__c,
+          JN_Bank_Affiliation__pc,
+          Premier_Customer_List__c,
+          FinServ__NumberOfDependents__pc,
+          Name,
+          RIM_no__c,
+          Id,
+          Highest_level_of_Education_attained__pc
+        FROM Account
+        WHERE Id IN :accountIdSet
+        WITH SECURITY_ENFORCED
+      ]
+    );
   }
   public static Map<ID, Account> getAccountsMap(Set<Id> accountIdSet) {
     Map<ID, Account> accountsMap = new Map<ID, Account>(
