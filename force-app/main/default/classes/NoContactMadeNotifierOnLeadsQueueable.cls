@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 06-22-2021
+ * @last modified on  : 06-23-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -53,6 +53,7 @@ public with sharing class NoContactMadeNotifierOnLeads implements Queueable {
       SELECT UserOrGroupId, GroupId
       FROM GroupMember
       WHERE GroupId = :tierOneQueue
+      WITH SECURITY_ENFORCED
     ]) {
       tierOneAgentMap.put(user.UserOrGroupId, user);
     }
@@ -62,6 +63,7 @@ public with sharing class NoContactMadeNotifierOnLeads implements Queueable {
       SELECT UserOrGroupId, GroupId
       FROM GroupMember
       WHERE GroupId = :tierTwoQueue
+      WITH SECURITY_ENFORCED
     ]) {
       tierTwoAgentMap.put(user.UserOrGroupId, user);
     }

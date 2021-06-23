@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 06-22-2021
+ * @last modified on  : 06-23-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -75,8 +75,9 @@ public with sharing class TestNoContactMadeNotifier {
     leads[0].Not_Contacted_8_hours_flag__c = false;
     leads[0].Lead_Reassigned_flag__c = true;
     leads[0].Contact_Made__c = false;
+
     //TODO:assign owner to tier one agents
-    leads[0].OwnerId = tierOneQueueId;
+    leads[0].OwnerId = tierOneAgent.UserOrGroupId;
     insert leads[0];
 
     Test.startTest();
