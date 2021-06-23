@@ -2,68 +2,145 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-08-2021
- * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * @last modified on  : 06-21-2021
+ * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
  **/
 public class OneJNSerializer {
   @AuraEnabled
-  public AppDataWrapper appData;
+  public AppDataWrapper AppData;
   @AuraEnabled
-  public ApplicantDataWrapper applicant;
+  public List<ApplicantDataWrapper> Applicant;
 
+  /**
+   * @description constructor
+   * @author Remario Richards | 06-18-2021
+   * @param ApplicantList
+   * @param EmploymentMap
+   * @param AccountMap
+   * @param ApplicationRecord
+   * @param OpportunityRecord
+   * @param OpportunityProductRecord
+   * @param LoanCalculationProductRecord
+   **/
   public OneJNSerializer(
-    Applicant__c applicantRecord,
-    FinServ__Employment__c employmentRecord,
-    Account accountRecord,
+    List<Applicant__c> applicantList,
+    Map<Id, FinServ__Employment__c> employmentMap,
+    Map<Id, Account> accountMap,
     Application__c applicationRecord,
     Opportunity opportunityRecord,
     OpportunityLineItem opportunityProductRecord,
     Loan_Calculation_Product__c loanCalculationProductRecord
   ) {
-    this.appData = new AppDataWrapper(
+    this.Applicant = new List<ApplicantDataWrapper>();
+    Applicant__c primaryApplicant = this.setupApplicants(
+      applicantList,
+      employmentMap,
+      opportunityRecord,
+      opportunityProductRecord,
+      accountMap
+    );
+    this.AppData = new AppDataWrapper(
       applicationRecord,
       opportunityRecord,
-      applicantRecord,
+      primaryApplicant,
       opportunityProductRecord,
       loanCalculationProductRecord
     );
-    this.applicant = new ApplicantDataWrapper(
-      applicantRecord,
-      employmentRecord,
-      accountRecord
-    );
   }
-  class AppDataWrapper {
+  /**
+   * @description init all applications for serialization
+   * @author Remario Richards | 06-18-2021
+   * @param ApplicantList
+   * @param EmploymentMap
+   * @param OpportunityRecord
+   * @param OpportunityProductRecord
+   * @param AccountMap
+   * @return Applicant__c
+   **/
+  private Applicant__c setupApplicants(
+    List<Applicant__c> applicantList,
+    Map<Id, FinServ__Employment__c> employmentMap,
+    Opportunity opportunityRecord,
+    OpportunityLineItem opportunityProductRecord,
+    Map<Id, Account> accountMap
+  ) {
+    Applicant__c primaryApplicant = new Applicant__c();
+    for (Applicant__c applicantRecord : applicantList) {
+      if (applicantRecord.Primary_Applicant_Flag__c) {
+        primaryApplicant = applicantRecord;
+      }
+      Account accountRecord = new Account();
+      FinServ__Employment__c employmentRecord = new FinServ__Employment__c();
+      if (String.isNotBlank(applicantRecord.Account__c)) {
+        if (accountMap.containsKey(applicantRecord.Account__c)) {
+          accountRecord = AccountMap.get(applicantRecord.Account__c);
+        }
+        if (employmentMap.containsKey(applicantRecord.Account__c)) {
+          employmentRecord = EmploymentMap.get(applicantRecord.Account__c);
+        }
+      }
+      //add all applicant records
+      this.Applicant.add(
+        new ApplicantDataWrapper(
+          applicantRecord,
+          employmentRecord,
+          accountRecord,
+          opportunityRecord,
+          opportunityProductRecord
+        )
+      );
+    }
+    return primaryApplicant;
+  }
+  public class AppDataWrapper {
     @AuraEnabled
-    public string applicationId;
+    public string ApplicationId;
     @AuraEnabled
-    public boolean isJointApplication;
+    public boolean IsJointApplication;
     @AuraEnabled
-    public string productType;
+    public string ProductType;
     @AuraEnabled
-    public string subProductType;
+    public string SubProductType;
     @AuraEnabled
-    public string currencyType;
+    public string CurrencyType;
     @AuraEnabled
-    public string applicationDate;
+    public String ApplicationDate;
     @AuraEnabled
-    public decimal amount;
+    public decimal Amount;
     @AuraEnabled
-    public decimal interestRate;
+    public decimal InterestRate;
     @AuraEnabled
-    public decimal requestedTenure;
+    public decimal RequestedTenure;
     @AuraEnabled
-    public string loanPurpose;
+    public string LoanPurpose;
     @AuraEnabled
-    public string branchRegion;
+    public string BranchRegion;
     @AuraEnabled
-    public string feeFinancing;
+    public string FeeFinancing;
     @AuraEnabled
-    public decimal minMonthlyRepayment;
-
+    public decimal MinMonthlyRepayment;
+    @AuraEnabled
+    public decimal ApprovedTenure;
+    @AuraEnabled
+    public decimal ApprovedCreditAmount;
+    @AuraEnabled
+    public string AdjudicationDecision;
+    @AuraEnabled
+    public String PhoenixId;
+    @AuraEnabled
+    public Decimal InterestRateForApplication;
+    /**
+     * @description constructor
+     * @author Remario Richards | 06-18-2021
+     * @param ApplicationRecord
+     * @param OpportunityRecord
+     * @param ApplicantRecord
+     * @param OpportunityProductRecord
+     * @param LoanCalculationProductRecord
+     **/
     AppDataWrapper(
       Application__c applicationRecord,
       Opportunity opportunityRecord,
@@ -72,181 +149,181 @@ public class OneJNSerializer {
       Loan_Calculation_Product__c loanCalculationProductRecord
     ) {
       if (applicationRecord != null) {
-        this.applicationId = applicationRecord.Application_ID__c;
-        //this.applicationDate = '';
+        this.PhoenixId = applicationRecord.ApplicantNameID__r.RIM_no__c;
+        this.ApplicationId = applicationRecord.Application_ID__c;
+        this.ApprovedTenure = applicationRecord.IDM_Tenure_Date__c;
+        this.ApprovedCreditAmount = applicationRecord.IDM_Loan_Amount_Number__c;
+        this.AdjudicationDecision = applicationRecord.Adjudication_Decision_picklist__c;
+        this.InterestRateForApplication = applicationRecord.IDM_Interest_Rate_Number__c;
+        this.ApplicationDate = buildDate(applicationRecord.CreatedDate);
       }
       if (applicantRecord != null) {
-        this.isJointApplication = OneJNSerializer.getBooleanValueFromString(
+        this.IsJointApplication = OneJNSerializer.getBooleanValueFromString(
           applicantRecord.Joint_Application_flag__c
         );
       }
       if (opportunityProductRecord != null) {
-        this.productType = opportunityProductRecord.Product_Family__c;
-        this.subProductType = opportunityProductRecord.Name;
+        this.ProductType = opportunityProductRecord.Product_Family__c;
+        this.SubProductType = opportunityProductRecord.Product2.Name;
       }
       if (opportunityRecord != null) {
-        this.currencyType = opportunityRecord.CurrencyIsoCode;
-        this.branchRegion = opportunityRecord.Preferred_Location__c;
+        this.CurrencyType = opportunityRecord.CurrencyIsoCode;
+        this.BranchRegion = opportunityRecord.Preferred_Location__c;
       }
       if (loanCalculationProductRecord != null) {
-        this.amount = loanCalculationProductRecord.Loan_Amount_Number__c;
-        this.interestRate = loanCalculationProductRecord.Interest_Rate_Number__c;
-        this.requestedTenure = loanCalculationProductRecord.Months_Number__c;
-        this.loanPurpose = loanCalculationProductRecord.Loan_Purpose_List__c;
-        this.feeFinancing = loanCalculationProductRecord.Method_of_Fee_Payment_List__c;
-        this.minMonthlyRepayment = loanCalculationProductRecord.Minimum_Payment_per_Credit_Limit_Number__c;
+        this.Amount = loanCalculationProductRecord.Loan_Amount_Number__c;
+        this.InterestRate = loanCalculationProductRecord.Interest_Rate_Number__c;
+        this.FeeFinancing = loanCalculationProductRecord.Method_of_Fee_Payment_List__c;
+        this.LoanPurpose = loanCalculationProductRecord.Loan_Purpose_List__c;
+        this.RequestedTenure = loanCalculationProductRecord.Months_Number__c;
+        this.MinMonthlyRepayment = loanCalculationProductRecord.Minimum_Payment_per_Credit_Limit_Number__c;
       }
     }
   }
-  class ApplicantDataWrapper {
+  public class ApplicantDataWrapper {
     @AuraEnabled
-    public String rim;
+    public String PhoenixId;
     @AuraEnabled
-    public boolean isJointHolder;
+    public String ApplicantType;
     @AuraEnabled
-    public String applicantType;
+    public boolean IsPEP;
     @AuraEnabled
-    public boolean isGuarantor;
+    public String EntityType;
     @AuraEnabled
-    public boolean isVIP;
+    public decimal TimeinMonthsInCurrentResidency;
     @AuraEnabled
-    public boolean isPEP;
+    public String OccupationProffessionalCategory;
     @AuraEnabled
-    public boolean isSupplimental;
+    public String Position;
     @AuraEnabled
-    public String entityType;
+    public String EmploymentIndustryType;
     @AuraEnabled
-    public boolean creditorLife;
+    public String PlaceOfEmployment;
     @AuraEnabled
-    public decimal timeinMonthsInCurrentResidency;
+    public String EmploymentStatus;
     @AuraEnabled
-    public String occupationProffessionalCategory;
+    public decimal TimeAtCurrentEmployment;
     @AuraEnabled
-    public String position;
+    public decimal TimeEmployedWithPreviousEmployer;
     @AuraEnabled
-    public String employmentIndustryType;
+    public decimal MonthsEmployedPrevious12months;
     @AuraEnabled
-    public String placeOfEmployment;
+    public String HighestLevelOfEducation;
     @AuraEnabled
-    public String employmentStatus;
+    public decimal NDependents;
+    //@AuraEnabled
+    //public decimal NPreviousRejectApplication12m;
     @AuraEnabled
-    public decimal timeAtCurrentEmployment;
+    public string IsPublicSectorEmployee;
     @AuraEnabled
-    public decimal timeEmployedWithPreviousEmployer;
+    public integer BankruptCurrent;
     @AuraEnabled
-    public decimal monthsEmployedPrevious12months;
+    public boolean BankruptEver;
     @AuraEnabled
-    public String highestLevelOfEducation;
+    public decimal MonthlyIncomeUnverified;
     @AuraEnabled
-    public decimal nDependents;
+    public decimal OtherIncomeUnverified;
     @AuraEnabled
-    public decimal nPreviousRejectApplication12m;
+    public decimal TotalAssetsUnverified;
     @AuraEnabled
-    public string isPublicSectorEmployee;
+    public decimal TotalLiabilitiesUnverified;
     @AuraEnabled
-    public integer bankruptCurrent;
+    public decimal TotalLiabilitiesConsolidatedUnverified;
     @AuraEnabled
-    public boolean bankruptEver;
+    public decimal TotalMonthlyPaymentsUnverified;
     @AuraEnabled
-    public boolean dateLastRejection;
+    public decimal TotalPaymentsConsolidatedUnverified;
     @AuraEnabled
-    public decimal monthlyIncomeUnverified;
+    public decimal TotalNetworthUnverified;
     @AuraEnabled
-    public decimal otherIncomeUnverified;
+    public decimal MonthlyExpensesNonCreditUnverified;
     @AuraEnabled
-    public decimal totalAssetsUnverified;
+    public decimal MonthlyIncomeVerified;
     @AuraEnabled
-    public decimal totalLiabilitiesUnverified;
+    public decimal OtherIncomeVerified;
     @AuraEnabled
-    public decimal totalLiabilitiesConsolidatedUnverified;
+    public decimal TotalAssetsVerified;
     @AuraEnabled
-    public decimal totalMonthlyPaymentsUnverified;
+    public decimal TotalLiabilitiesVerified;
     @AuraEnabled
-    public decimal totalPaymentsConsolidatedUnverified;
+    public decimal TotalLiabilitiesConsolidatedVerified;
     @AuraEnabled
-    public decimal totalNetworthUnverified;
+    public decimal TotalMonthlyPaymentsVerified;
     @AuraEnabled
-    public decimal monthlyExpensesNonCreditUnverified;
+    public decimal TotalPaymentsConsolidatedVerified;
     @AuraEnabled
-    public decimal monthlyIncomeVerified;
+    public decimal TotalNetworthVerified;
     @AuraEnabled
-    public decimal otherIncomeVerified;
-    @AuraEnabled
-    public decimal totalAssetsVerified;
-    @AuraEnabled
-    public decimal totalLiabilitiesVerified;
-    @AuraEnabled
-    public decimal totalLiabilitiesConsolidatedVerified;
-    @AuraEnabled
-    public decimal totalMonthlyPaymentsVerified;
-    @AuraEnabled
-    public decimal totalPaymentsConsolidatedVerified;
-    @AuraEnabled
-    public decimal totalNetworthVerified;
-    @AuraEnabled
-    public decimal monthlyExpensesNonCreditVerified;
+    public decimal MonthlyExpensesNonCreditVerified;
+    /**
+     * @description constructor
+     * @author Remario Richards | 06-18-2021
+     * @param applicantRecord
+     * @param employmentRecord
+     * @param accountRecord
+     * @param OpportunityRecord
+     * @param OpportunityProductRecord
+     **/
     ApplicantDataWrapper(
       Applicant__c applicantRecord,
       FinServ__Employment__c employmentRecord,
-      Account accountRecord
+      Account accountRecord,
+      Opportunity opportunityRecord,
+      OpportunityLineItem opportunityProductRecord
     ) {
       if (accountRecord != null) {
-        //this.rim = ''; // need to create a new field
-        this.isVIP = OneJNSerializer.getBooleanValueFromString(
-          accountRecord.Premier_Customer_List__c
+        this.PhoenixId = accountRecord.RIM_no__c;
+        this.IsPEP = setDefaultBooleanValue(
+          accountRecord.Politically_Affiliated__c
         );
-        this.isPEP = accountRecord.Politically_Affiliated__c;
-        //this.CreditorLife = '' // need to create new Field on Person Account
-        this.timeinMonthsInCurrentResidency = accountRecord.MonthsResidence_Number__c;
-        this.nDependents = accountRecord.FinServ__NumberOfDependents__pc;
-        this.highestLevelOfEducation = accountRecord.Highest_Level_of_Education_attained__pc;
-      }
-      //this.entityType = ''; // Person Accout Record Type
-      if (applicantRecord != null) {
-        //this.isJointHolder = ''; // need to create a new field on Applicant
-        this.applicantType = applicantRecord.Primary_Applicant_Flag__c
-          ? 'Primary'
-          : 'Co-Applicant';
-        //this.isGuarantor = '';  // need to create a new field on Applicant
-        this.nPreviousRejectApplication12m = applicantRecord.Number_of_Rejected_Applications_Number__c;
-        this.isPublicSectorEmployee = applicantRecord.Public_Sector_or_Civil_Servant_List__c;
-        this.bankruptCurrent = OneJNSerializer.getIntegerValueFromString(
-          applicantRecord.Are_you_currently_in_bankruptcy_list__c
-        );
-        this.bankruptEver = OneJNSerializer.getBooleanValueFromString(
-          applicantRecord.Declared_bankrupt_list__c
-        );
-        this.monthlyIncomeUnverified = applicantRecord.Gross_Monthly_Income__c;
-        this.otherIncomeUnverified = applicantRecord.Other_Income__c;
-        this.totalAssetsUnverified = applicantRecord.Total_Assets_Calc__c;
-        this.totalLiabilitiesUnverified = applicantRecord.Total_Liabilities_Calc__c;
-        this.totalLiabilitiesConsolidatedUnverified = applicantRecord.Total_Amount_Consolidated__c;
-        this.totalMonthlyPaymentsUnverified = applicantRecord.Total_Monthly_Loan_Payments_Number__c;
-        this.totalPaymentsConsolidatedUnverified = applicantRecord.Total_Monthly_Payment__c;
-        this.totalNetworthUnverified = applicantRecord.Net_Worth_Calc__c;
-        this.monthlyExpensesNonCreditUnverified = applicantRecord.Total_Expenses_Calc__c;
-        this.monthlyIncomeVerified = applicantRecord.Gross_Monthly_Income_VERIFIED_Number__c;
-        this.otherIncomeVerified = applicantRecord.Other_Income_VERIFIED_Number__c;
-        this.totalAssetsVerified = applicantRecord.Total_Assets_VERIFIED_Calc__c;
-        this.totalLiabilitiesVerified = applicantRecord.Total_Liabilities_VERIFIED_Calc__c;
-        this.totalLiabilitiesConsolidatedVerified = applicantRecord.Total_Amount_Consolidation_VERIFIED__c;
-        this.totalMonthlyPaymentsVerified = applicantRecord.Total_Monthly_Loan_Payments_VERIFIED__c;
-        this.totalPaymentsConsolidatedVerified = applicantRecord.Total_Monthly_Payment_VERIFIED_Number__c;
-        this.totalNetworthVerified = applicantRecord.Net_Worth_VERIFIED_Calc__c;
-        this.monthlyExpensesNonCreditVerified = applicantRecord.Total_Expenses_VERIFIED_Calc__c;
+        this.TimeinMonthsInCurrentResidency = accountRecord.MonthsResidence_Number__c;
+        this.NDependents = accountRecord.FinServ__NumberOfDependents__pc;
+        this.HighestLevelOfEducation = accountRecord.Highest_Level_of_Education_attained__pc;
+        this.EntityType = accountRecord.RecordType.Name;
       }
       if (employmentRecord != null) {
-        this.occupationProffessionalCategory = employmentRecord.Professional_Category__c;
-        this.position = employmentRecord.Position_List__c;
-        this.employmentIndustryType = employmentRecord.Industry__c;
-        this.placeOfEmployment = employmentRecord.Name;
-        this.employmentStatus = employmentRecord.FinServ__EmploymentStatus__c;
-        this.timeAtCurrentEmployment = employmentRecord.Time_Employed_in_Present_Employer_M__c;
-        this.timeEmployedWithPreviousEmployer = employmentRecord.Time_Employed_with_Previous_Employer_M__c;
-        this.monthsEmployedPrevious12months = employmentRecord.Time_Employed_with_Previous_Employer_M__c;
+        this.OccupationProffessionalCategory = employmentRecord.Professional_Category__c;
+        this.Position = employmentRecord.Position_List__c;
+        this.EmploymentIndustryType = employmentRecord.Industry__c;
+        this.PlaceOfEmployment = employmentRecord.Name;
+        this.EmploymentStatus = employmentRecord.FinServ__EmploymentStatus__c;
+        this.TimeAtCurrentEmployment = employmentRecord.Time_Employed_in_Present_Employer_M__c;
+        this.TimeEmployedWithPreviousEmployer = employmentRecord.Time_Employed_with_Previous_Employer_M__c;
+        this.MonthsEmployedPrevious12months = employmentRecord.Time_Employed_with_Previous_Employer_M__c;
       }
+      this.applicantType = applicantRecord.Primary_Applicant_Flag__c
+        ? 'Primary'
+        : 'Co-Applicant';
+      //this.NPreviousRejectApplication12m = applicantRecord.Number_of_Rejected_Applications_Number__c;
+      this.IsPublicSectorEmployee = applicantRecord.Public_Sector_or_Civil_Servant_List__c;
+      this.BankruptCurrent = OneJNSerializer.getIntegerValueFromString(
+        applicantRecord.Are_you_currently_in_bankruptcy_list__c
+      );
+      this.BankruptEver = OneJNSerializer.getBooleanValueFromString(
+        applicantRecord.Declared_bankrupt_list__c
+      );
+      this.MonthlyIncomeUnverified = applicantRecord.Gross_Monthly_Income__c;
+      this.OtherIncomeUnverified = applicantRecord.Other_Income__c;
+      this.TotalAssetsUnverified = applicantRecord.Total_Assets_Calc__c;
+      this.TotalLiabilitiesUnverified = applicantRecord.Total_Liabilities_Calc__c;
+      this.TotalLiabilitiesConsolidatedUnverified = applicantRecord.Total_Amount_Consolidated__c;
+      this.TotalMonthlyPaymentsUnverified = applicantRecord.Total_Monthly_Loan_Payments_Number__c;
+      this.TotalPaymentsConsolidatedUnverified = applicantRecord.Total_Monthly_Payment__c;
+      this.TotalNetworthUnverified = applicantRecord.Net_Worth_Calc__c;
+      this.MonthlyExpensesNonCreditUnverified = applicantRecord.Total_Expenses_Calc__c;
+      this.OtherIncomeVerified = applicantRecord.Other_Income_VERIFIED_Number__c;
+
+      this.MonthlyExpensesNonCreditVerified = applicantRecord.Total_Expenses_VERIFIED_Calc__c;
+      this.MonthlyIncomeVerified = applicantRecord.Gross_Monthly_Income_VERIFIED_Number__c;
+      this.TotalAssetsVerified = applicantRecord.Total_Assets_VERIFIED_Calc__c;
+      this.TotalLiabilitiesConsolidatedVerified = applicantRecord.Total_Amount_Consolidation_VERIFIED__c;
+      this.TotalLiabilitiesVerified = applicantRecord.Total_Liabilities_VERIFIED_Calc__c;
+      this.TotalMonthlyPaymentsVerified = applicantRecord.Total_Monthly_Loan_Payments_VERIFIED__c;
+      this.TotalNetworthVerified = applicantRecord.Net_Worth_VERIFIED_Calc__c;
+      this.TotalPaymentsConsolidatedVerified = applicantRecord.Total_Monthly_Payment_VERIFIED_Number__c;
     }
   }
+
   /**
    * @description to return boolean value for string values Yes/No
    * @author Trupti Zende (Thinqloud) | 06-03-2021
@@ -271,13 +348,40 @@ public class OneJNSerializer {
   }
 
   /**
-   * @description : to get the Unix timestamp from the Datetime passed
+   * @description : to get the Unix timestamp from the Datetime or Date  passed
    * @author Ishwari Gaikwad(Thinqloud) | 06-08-2021
    * @param dateTimeVar
    * @return Long
    **/
   public static Long getUnixTime(DateTime dateTimeVar) {
-    Long l = dateTimeVar.getTime() / 1000;
-    return l;
+    if (dateTimeVar == null)
+      return null;
+    return dateTimeVar.getTime();
+  }
+  /**
+   * @description contruct date format for external system
+   * @author Remario Richards | 06-17-2021
+   * @param dateVar
+   * @return String
+   **/
+  public static String buildDate(DateTime dateVar) {
+    if (dateVar == null)
+      return null;
+    DateTime dt = DateTime.newInstance(
+      dateVar.year(),
+      dateVar.month(),
+      dateVar.day()
+    );
+    return dt.format('yyyy-MM-dd');
+  }
+
+  /**
+   * @description default value for the boolean
+   * @author Remario Richards | 06-18-2021
+   * @param field
+   * @return Boolean
+   **/
+  public static Boolean setDefaultBooleanValue(Boolean field) {
+    return (field == null ? false : field);
   }
 }

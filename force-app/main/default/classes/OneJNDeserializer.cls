@@ -2,56 +2,58 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-08-2021
- * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * @last modified on  : 06-15-2021
+ * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
  **/
 public class OneJNDeserializer {
-  public Loan_Calculation_Product__c loanCalculationProductRecord { get; set; }
-  public Applicant__c primaryApplicantRecord { get; set; }
-  public Applicant__c coApplicantRecord { get; set; }
-  public Application__c applicationRecord { get; set; }
-  public OpportunityLineItem opportunityLineItemRecord { get; set; }
-  public Opportunity opportunityRecord { get; set; }
   @AuraEnabled
-  public ConsolidatedReportWrapper consolidatedReport { get; set; }
-  class ConsolidatedReportWrapper {
+  public String ApplicationId;
+  public Loan_Calculation_Product__c LoanCalculationProductRecord { get; set; }
+  public Applicant__c PrimaryApplicantRecord { get; set; }
+  public Applicant__c CoApplicantRecord { get; set; }
+  public Application__c ApplicationRecord { get; set; }
+  public OpportunityLineItem OpportunityLineItemRecord { get; set; }
+  public Opportunity OpportunityRecord { get; set; }
+  @AuraEnabled
+  public ConsolidatedReportWrapper ConsolidatedReport { get; set; }
+  public class ConsolidatedReportWrapper {
     @AuraEnabled
-    public GeneralInformationWrapper generalInformation;
+    public GeneralInformationWrapper GeneralInformation;
     @AuraEnabled
-    public ApplicantDetailsWrapper applicantDetailsPrimary;
+    public ApplicantDetailsWrapper ApplicantDetailsPrimary;
     @AuraEnabled
-    public ApplicantDetailsWrapper[] applicantDetailsCoApplicants;
+    public List<ApplicantDetailsWrapper> ApplicantDetailsCoApplicants;
     @AuraEnabled
-    public LoanRequirementWrapper loanParameters;
+    public LoanRequirementWrapper LoanParameters;
     @AuraEnabled
-    public LoanFeesWrapper loanFees;
+    public LoanFeesWrapper LoanFees;
     @AuraEnabled
-    public String finalAssessmentReport;
+    public String FinalAssessmentReport;
     @AuraEnabled
     public decimal nBrokenRules;
   }
-  class GeneralInformationWrapper {
+  public class GeneralInformationWrapper {
     @AuraEnabled
-    public String applicationID;
+    public String ApplicationID;
     @AuraEnabled
-    public String productType;
+    public String ProductType;
     @AuraEnabled
-    public String cardType;
+    public String CardType;
     @AuraEnabled
-    public String preAssessmentDecision;
+    public String PreAssessmentDecision;
     @AuraEnabled
-    public String finalAssessmentDecision;
+    public String FinalAssessmentDecision;
     @AuraEnabled
-    public Date requestDate;
+    public Date RequestDate;
   }
-  class ApplicantDetailsWrapper {
+  public class ApplicantDetailsWrapper {
     @AuraEnabled
-    public String rim;
+    public String PhoenixId;
     @AuraEnabled
-    public String fullName;
+    public String FullName;
     @AuraEnabled
     public decimal jNRiskScore;
     @AuraEnabled
@@ -65,45 +67,45 @@ public class OneJNDeserializer {
     @AuraEnabled
     public String cRBGrade_CRIF;
     @AuraEnabled
-    public DocumentRequirementsWrapper[] documentRequirements;
+    public DocumentRequirementsWrapper[] DocumentRequirements;
   }
-  class LoanRequirementWrapper {
+  public class LoanRequirementWrapper {
     @AuraEnabled
-    public decimal approvedLoanAmount;
+    public decimal ApprovedLoanAmount;
     @AuraEnabled
-    public decimal aprrovedCreditCardLimit;
+    public decimal AprrovedCreditCardLimit;
     @AuraEnabled
-    public decimal approvedTenure;
+    public decimal ApprovedTenure;
     @AuraEnabled
-    public decimal approvedInterestRate;
+    public decimal ApprovedInterestRate;
     @AuraEnabled
-    public decimal monthlyPrincipalandInterest;
+    public decimal MonthlyPrincipalandInterest;
     @AuraEnabled
-    public decimal contractualSavings;
+    public decimal ContractualSavings;
     @AuraEnabled
-    public decimal totalMonthlyPayments;
+    public decimal TotalMonthlyPayments;
     @AuraEnabled
-    public decimal estimateOfMinimumPayment;
+    public decimal EstimateOfMinimumPayment;
     @AuraEnabled
-    public decimal requestedLoanAmount;
+    public decimal RequestedLoanAmount;
   }
-  class LoanFeesWrapper {
+  public class LoanFeesWrapper {
     @AuraEnabled
-    public String financingOption;
+    public String FinancingOption;
     @AuraEnabled
-    public decimal creditReportFee;
+    public decimal CreditReportFee;
     @AuraEnabled
-    public decimal processingFee;
+    public decimal ProcessingFee;
     @AuraEnabled
-    public decimal creditLifeSinglePremium;
+    public decimal CreditLifeSinglePremium;
     @AuraEnabled
-    public decimal legalFeesandStampduty;
+    public decimal LegalFeesandStampduty;
     @AuraEnabled
-    public decimal totalFees;
+    public decimal TotalFees;
   }
-  class DocumentRequirementsWrapper {
+  public class DocumentRequirementsWrapper {
     @AuraEnabled
-    public string documents;
+    public string Documents;
   }
   /**
    * @description to deserialize the incoming json repsonse
@@ -116,123 +118,40 @@ public class OneJNDeserializer {
     String eventype,
     String sfRecordId
   ) {
-    String productType = oneJNDeserializerVar.consolidatedReport.generalInformation.productType;
     if (eventype == Constants.RETURN_LOAN_APPLICATION_ID) {
-      // Application Object Id
-      oneJNDeserializerVar.applicationRecord = new Application__c();
-      oneJNDeserializerVar.applicationRecord.Id = sfRecordId;
-      oneJNDeserializerVar.applicationRecord.Application_ID__c = oneJNDeserializerVar.consolidatedReport.generalInformation.applicationID;
+      OneJNEventService.OneJNApplicationIdEvent reference = new OneJNEventService.OneJNApplicationIdEvent();
+      oneJNDeserializerVar = reference.deserialize(
+        oneJNDeserializerVar,
+        sfRecordId
+      );
     } else if (
       eventype == Constants.RETURN_CREDITCARD_PRE_ASSESSMENT ||
       eventype == Constants.RETURN_UNSECURED_LOAN_PRE_ASSESSMENT
     ) {
-      // SFrecord opportunity id
-      oneJNDeserializerVar.opportunityRecord = new Opportunity();
-      oneJNDeserializerVar.opportunityRecord.Id = sfRecordId;
-      oneJNDeserializerVar.opportunityRecord.Pre_Approval_list__c = oneJNDeserializerVar.consolidatedReport.generalInformation.preAssessmentDecision;
-      oneJNDeserializerVar.opportunityRecord.Final_Assessment_Decision_list__c = oneJNDeserializerVar.consolidatedReport.generalInformation.finalAssessmentDecision;
-
-      List<Application__c> applist = new List<Application__c>();
-      applist = OneJNQuerySelector.getApplications(new Set<ID>{ sfRecordId });
-      if (applist.size() > 0) {
-        oneJNDeserializerVar.applicationRecord = new Application__c();
-        oneJNDeserializerVar.applicationRecord.Id = applist[0]?.Id;
-        //  oneJNDeserializerVar.applicationRecord.Application_ID__c = oneJNDeserializerVar.consolidatedReport.generalInformation.applicationID;
-        // oneJNDeserializerVar.applicationRecord.IDM_Amount_number__c = oneJNDeserializerVar.consolidatedReport.loanParameters.requestedLoanAmount;
-        //oneJNDeserializerVar.applicationRecord.IDM_Number_of_Rules_Breached_Number__c = oneJNDeserializerVar.consolidatedReport.nBrokenRules;
-      }
-
-      List<Applicant__c> applicantList = OneJNQuerySelector.getApplicants(
-        new Set<ID>{ sfRecordId }
+      OneJNEventService.OneJNPreAssessementEvent reference = new OneJNEventService.OneJNPreAssessementEvent();
+      oneJNDeserializerVar = reference.deserialize(
+        oneJNDeserializerVar,
+        sfRecordId
       );
-      if (appList.size() > 0) {
-        for (Applicant__c applicant : applicantList) {
-          if (applicant.Primary_Applicant_Flag__c) {
-            oneJNDeserializerVar.primaryApplicantRecord = new Applicant__c();
-            oneJNDeserializerVar.primaryApplicantRecord.Id = applicant.Id;
-            //oneJNDeserializerVar.primaryApplicantRecord.Account__c = oneJNDeserializerVar.consolidatedReport.applicantDetailsPrimary.fullName;
-            if (productType == 'JN Bank Unsecured Loan') {
-              oneJNDeserializerVar.primaryApplicantRecord.Account__c = applicant.Account__c;
-              //this.primaryApplicantRecord._NewFieldsToBeCreated_ = oneJNDeserializerVar.consolidatedReport.applicantDetailsPrimary.jNRiskGrade;
-              //this.primaryApplicantRecord._NewFieldsToBeCreated_ = oneJNDeserializerVar.consolidatedReport.applicantDetailsPrimary.jNRiskScore;
-              //this.primaryApplicantRecord._NewFieldsToBeCreated_ = oneJNDeserializerVar.consolidatedReport.applicantDetailsPrimary.cRBGrade_CIJ;
-              //this.primaryApplicantRecord._NewFieldsToBeCreated_ = oneJNDeserializerVar.consolidatedReport.applicantDetailsPrimary.cRBScore_CIJ;
-              //this.primaryApplicantRecord._NewFieldsToBeCreated_ = oneJNDeserializerVar.consolidatedReport.applicantDetailsPrimary.cRBGrade_CRIF;
-              //this.primaryApplicantRecord._NewFieldsToBeCreated_ = oneJNDeserializerVar.consolidatedReport.applicantDetailsPrimary.cRBScore_CRIF;
-            }
-            // documents
-          } else {
-            oneJNDeserializerVar.coApplicantRecord = new Applicant__c();
-            oneJNDeserializerVar.coApplicantRecord.Id = applicant.Id;
-            //oneJNDeserializerVar.coApplicantRecord.Account__c = oneJNDeserializerVar.consolidatedReport.applicantDetailsPrimary.fullName;
-            if (productType == 'JN Bank Unsecured Loan') {
-              //this.coApplicantRecord._NewFieldsToBeCreated_ = oneJNDeserializerVar.consolidatedReport.applicantDetailsCoApplicants.jNRiskGrade;
-              //this.coApplicantRecord._NewFieldsToBeCreated_ = oneJNDeserializerVar.consolidatedReport.applicantDetailsCoApplicants.jNRiskScore;
-              //this.coApplicantRecord._NewFieldsToBeCreated_ = oneJNDeserializerVar.consolidatedReport.applicantDetailsCoApplicants.cRBGrade_CIJ;
-              //this.coApplicantRecord._NewFieldsToBeCreated_ = oneJNDeserializerVar.consolidatedReport.applicantDetailsCoApplicants.cRBScore_CIJ;
-              //this.coApplicantRecord._NewFieldsToBeCreated_ = oneJNDeserializerVar.consolidatedReport.applicantDetailsCoApplicants.cRBGrade_CRIF;
-              //this.coApplicantRecord._NewFieldsToBeCreated_ = oneJNDeserializerVar.consolidatedReport.applicantDetailsCoApplicants.cRBScore_CRIF;
-            }
-            // documents
-          }
-        }
-      }
-
-      List<OpportunityLineItem> opplineitemList = new List<OpportunityLineItem>();
-      opplineitemList = OneJNQuerySelector.getOpportunityLineItem(
-        new Set<ID>{ sfRecordId }
+    } else if (
+      eventype == Constants.RETURN_CREDITCARD_FINAL_ASSESSMENT ||
+      eventype == Constants.RETURN_UNSECURED_LOAN_FINAL_ASSESSMENT
+    ) {
+      OneJNEventService.OneJNFinalAssessmentEvent reference = new OneJNEventService.OneJNFinalAssessmentEvent();
+      oneJNDeserializerVar = reference.deserialize(
+        oneJNDeserializerVar,
+        sfRecordId
       );
-      if (opplineitemList.size() > 0) {
-        oneJNDeserializerVar.opportunityLineItemRecord = new OpportunityLineItem();
-        oneJNDeserializerVar.opportunityLineItemRecord.Id = opplineitemList[0]
-          ?.Id;
-        //this.opportunityLineItemRecord.Product_Family__c = oneJNDeserializerVar.consolidatedReport.generalInformation.productType; field is not writable
-        if (productType == 'JN Bank Credit Card') {
-          //this.opportunityLineItemRecord.Name = oneJNDeserializerVar.consolidatedReport.generalInformation.cardType;
-        }
-      }
-
-      /*List<Loan_Calculator__c> loancalculatorList = new List<Loan_Calculator__c>();
-            loancalculatorList = OneJNQuerySelector.getLoanCalculations(new set<ID>{sfRecordId});
-            
-            if(loancalculatorList.size() > 0){
-                Id loanCalculatorId = loancalculatorList[0]?.Id;
-                List<Loan_Calculation_Product__c> loanappproductList = new List<Loan_Calculation_Product__c>();
-                loanappproductList = OneJNQuerySelector.getLoanCalculationProducts(new set<ID>{loanCalculatorId});
-                if(loanappproductList.size() > 0){
-                    oneJNDeserializerVar.loanCalculationProductRecord = new Loan_Calculation_Product__c();
-                    oneJNDeserializerVar.loanCalculationProductRecord.Id = loanappproductList[0]?.Id;
-                    
-                    if(productType == 'JN Bank Credit Card'){
-                        oneJNDeserializerVar.loanCalculationProductRecord.Requested_Credit_Limit_Number__c = oneJNDeserializerVar.consolidatedReport.loanParameters.aprrovedCreditCardLimit;
-                        oneJNDeserializerVar.loanCalculationProductRecord.Minimum_Payment_per_Credit_Limit_Number__c = oneJNDeserializerVar.consolidatedReport.loanParameters.estimateOfMinimumPayment;
-                    }                    
-                    if(productType == 'JN Bank Unsecured Loan'){
-                        oneJNDeserializerVar.loanCalculationProductRecord.Loan_Amount_Number__c = oneJNDeserializerVar.consolidatedReport.loanParameters.approvedLoanAmount;
-                        oneJNDeserializerVar.loanCalculationProductRecord.Months_Number__c = oneJNDeserializerVar.consolidatedReport.loanParameters.approvedTenure;
-                        oneJNDeserializerVar.loanCalculationProductRecord.Interest_Rate_Number__c = oneJNDeserializerVar.consolidatedReport.loanParameters.approvedInterestRate;
-                        oneJNDeserializerVar.loanCalculationProductRecord.Total_Monthly_PI_Loan_Payment_Number__c = oneJNDeserializerVar.consolidatedReport.loanParameters.monthlyPrincipalandInterest;
-                        oneJNDeserializerVar.loanCalculationProductRecord.Monthly_Compulsory_Savings_Number__c	 = oneJNDeserializerVar.consolidatedReport.loanParameters.contractualSavings;
-                        oneJNDeserializerVar.loanCalculationProductRecord.Total_Monthly_Loan_Payment_Number__c = oneJNDeserializerVar.consolidatedReport.loanParameters.totalMonthlyPayments;
-                    }
-                    
-                    oneJNDeserializerVar.loanCalculationProductRecord.Method_of_Fee_Payment_List__c = oneJNDeserializerVar.consolidatedReport.loanFees.financingOption;
-                    oneJNDeserializerVar.loanCalculationProductRecord.Credit_Report_Fee_Number__c = oneJNDeserializerVar.consolidatedReport.loanFees.creditReportFee;
-                    oneJNDeserializerVar.loanCalculationProductRecord.Processing_Fees_including_GCT_Number__c = oneJNDeserializerVar.consolidatedReport.loanFees.processingFee;
-                    oneJNDeserializerVar.loanCalculationProductRecord.Creditor_Life_Insurance_Premium_Number__c = oneJNDeserializerVar.consolidatedReport.loanFees.creditLifeSinglePremium;
-                    oneJNDeserializerVar.loanCalculationProductRecord.Legal_Fees_including_GCT_Number__c = oneJNDeserializerVar.consolidatedReport.loanFees.legalFeesandStampduty;
-                    oneJNDeserializerVar.loanCalculationProductRecord.Total_Closing_Costs_Number__c = oneJNDeserializerVar.consolidatedReport.loanFees.totalFees;
-                    
-                }
-            }
-            */
-      //oneJNDeserializerVar.consolidatedReport.applicantDetailsPrimary.rim;
-      //oneJNDeserializerVar.consolidatedReport.applicantDetailsPrimary.rim;
-
-      //this.requestDate = ;unix system date
-      //commented for testing purpose
+    } else if (
+      eventype == Constants.RETURN_UNSECURED_LOAN_MANUAL_DECISION_RESPONSE ||
+      eventype == Constants.RETURN_CREDIT_CARD_MANUAL_DECISION_RESPONSE
+    ) {
+      OneJNEventService.OneJNManualDecisionEvent reference = new OneJNEventService.OneJNManualDecisionEvent();
+      oneJNDeserializerVar = reference.deserialize(
+        oneJNDeserializerVar,
+        sfRecordId
+      );
     }
     return oneJNDeserializerVar;
-    //oneJNDeserializerVar.consolidatedReport.finalAssessmentReport;
   }
 }

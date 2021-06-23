@@ -1,26 +1,28 @@
-/**
- * @description       :
- * @author            : Ishwari Gaikwad(Thinqloud)
- * @group             :
- * @last modified on  : 06-07-2021
- * @last modified by  : Ishwari Gaikwad(Thinqloud)
- * Modifications Log
- * Ver   Date         Author                       Modification
- * 1.0   06-07-2021   Ishwari Gaikwad(Thinqloud)   Initial Version
- **/
 trigger OneJNOutputEventTrigger on One_JN_Output__e(after insert) {
   for (One_JN_Output__e evt : Trigger.New) {
     JSONGenerator jsonGen = JSON.createGenerator(true);
     jsonGen.writeStartObject();
-    jsonGen.writeFieldName('consolidatedReport');
+    jsonGen.writeFieldName('ConsolidatedReport');
+
     jsonGen.writeStartObject();
-    jsonGen.writeStringField('finalAssessmentReport', 'test');
-    jsonGen.writeFieldName('generalInformation');
+    jsonGen.writeStringField('FinalAssessmentReport', 'test');
+    jsonGen.writeFieldName('GeneralInformation');
     jsonGen.writeStartObject();
     jsonGen.writeStringField(
-      'applicationID',
+      'ApplicationID',
       'TEST ' + Integer.valueof((Math.random() * 1000))
     );
+    jsonGen.writeStringField('PreAssessmentDecision', 'Pass');
+    if (evt.Name__c == Constants.SUBMIT_CREDIT_CARD_MANUAL_DECISION) {
+      jsonGen.writeStringField('FinalAssessmentDecision', 'Approved');
+    } else if (evt.Name__c == Constants.SUBMIT_UNSECURED_LOAN_MANUAL_DECISION) {
+      jsonGen.writeStringField('FinalAssessmentDecision', 'Denied');
+    } else if (
+      evt.Name__c == Constants.GET_CREDITCARD_FINAL_ASSESSMENT ||
+      evt.Name__c == Constants.GET_UNSECURED_LOAN_FINAL_ASSESSMENT
+    ) {
+      jsonGen.writeStringField('FinalAssessmentDecision', 'Referred');
+    }
     jsonGen.writeEndObject();
     jsonGen.writeEndObject();
     jsonGen.writeEndObject();
@@ -36,6 +38,14 @@ trigger OneJNOutputEventTrigger on One_JN_Output__e(after insert) {
       requestPlatformEvent.Name__c = Constants.RETURN_CREDITCARD_PRE_ASSESSMENT;
     } else if (evt.Name__c == Constants.GET_UNSECURED_LOAN_PRE_ASSESSMENT) {
       requestPlatformEvent.Name__c = Constants.RETURN_UNSECURED_LOAN_PRE_ASSESSMENT;
+    } else if (evt.Name__c == Constants.SUBMIT_CREDIT_CARD_MANUAL_DECISION) {
+      requestPlatformEvent.Name__c = Constants.RETURN_CREDIT_CARD_MANUAL_DECISION_RESPONSE;
+    } else if (evt.Name__c == Constants.SUBMIT_UNSECURED_LOAN_MANUAL_DECISION) {
+      requestPlatformEvent.Name__c = Constants.RETURN_UNSECURED_LOAN_MANUAL_DECISION_RESPONSE;
+    } else if (evt.Name__c == Constants.GET_CREDITCARD_FINAL_ASSESSMENT) {
+      requestPlatformEvent.Name__c = Constants.RETURN_CREDITCARD_FINAL_ASSESSMENT;
+    } else if (evt.Name__c == Constants.GET_UNSECURED_LOAN_FINAL_ASSESSMENT) {
+      requestPlatformEvent.Name__c = Constants.RETURN_UNSECURED_LOAN_FINAL_ASSESSMENT;
     }
     Database.SaveResult result = EventBus.publish(requestPlatformEvent);
     if (result.isSuccess()) {

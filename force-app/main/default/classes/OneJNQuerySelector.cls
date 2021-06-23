@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-04-2021
- * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * @last modified on  : 06-18-2021
+ * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -13,23 +13,25 @@ public with sharing class OneJNQuerySelector {
    * @description retrieve accounts
    * @author Remario Richards | 05-26-2021
    **/
-  public static List<Account> getAccounts(Set<Id> accountIdSet) {
-    List<Account> accountList = [
-      SELECT
-        RecordType.Name,
-        MonthsResidence_Number__c,
-        Politically_Affiliated__c,
-        JN_Bank_Affiliation__pc,
-        Premier_Customer_List__c,
-        FinServ__NumberOfDependents__pc,
-        Name,
-        Id,
-        Highest_level_of_Education_attained__pc
-      FROM Account
-      WHERE Id IN :accountIdSet
-      WITH SECURITY_ENFORCED
-    ];
-    return accountList;
+  public static Map<ID, Account> getAccounts(Set<Id> accountIdSet) {
+    return new Map<ID, Account>(
+      [
+        SELECT
+          RecordType.Name,
+          MonthsResidence_Number__c,
+          Politically_Affiliated__c,
+          JN_Bank_Affiliation__pc,
+          Premier_Customer_List__c,
+          FinServ__NumberOfDependents__pc,
+          Name,
+          RIM_no__c,
+          Id,
+          Highest_level_of_Education_attained__pc
+        FROM Account
+        WHERE Id IN :accountIdSet
+        WITH SECURITY_ENFORCED
+      ]
+    );
   }
   /**
    * @description get applicants
@@ -82,7 +84,9 @@ public with sharing class OneJNQuerySelector {
         IDM_Loan_Amount_Number__c,
         IDM_Tenure_Date__c,
         Adjudication_Decision_picklist__c,
-        IDM_Interest_Rate_Number__c
+        IDM_Interest_Rate_Number__c,
+        CreatedDate,
+        ApplicantNameID__r.RIM_no__c
       FROM Application__c
       WHERE Opportunity_Id__c IN :opportunityIdSet
       WITH SECURITY_ENFORCED
@@ -137,7 +141,14 @@ public with sharing class OneJNQuerySelector {
    **/
   public static List<Opportunity> getOpportunity(Set<Id> opportunityIdSet) {
     List<Opportunity> oppList = [
-      SELECT Preferred_Location__c, CurrencyIsoCode, Id, AccountId, Name
+      SELECT
+        Preferred_Location__c,
+        CurrencyIsoCode,
+        Id,
+        AccountId,
+        Name,
+        Rubicon_Path_list__c,
+        Product_Category__c
       FROM Opportunity
       WHERE Id IN :opportunityIdSet
       WITH SECURITY_ENFORCED
@@ -155,7 +166,7 @@ public with sharing class OneJNQuerySelector {
     Set<Id> opportunityIdSet
   ) {
     List<OpportunityLineItem> oppLineItemList = [
-      SELECT Product_Family__c, Name, Id
+      SELECT Product_Family__c, Name, Id, Product2.Name
       FROM OpportunityLineItem
       WHERE OpportunityId IN :opportunityIdSet
       WITH SECURITY_ENFORCED
@@ -187,5 +198,44 @@ public with sharing class OneJNQuerySelector {
       WITH SECURITY_ENFORCED
     ];
     return employmentList;
+  }
+  public static Map<ID, FinServ__Employment__c> getEmploymentMap(
+    Set<Id> accountIdSet
+  ) {
+    Map<ID, FinServ__Employment__c> employmentMap = new Map<ID, FinServ__Employment__c>();
+    for (FinServ__Employment__c employmentRecord : [
+      SELECT
+        Professional_Category__c,
+        Position_List__c,
+        Industry__c,
+        Name,
+        FinServ__EmploymentStatus__c,
+        Time_Employed_in_Present_Employer_M__c,
+        Time_Employed_with_Previous_Employer_M__c,
+        Id,
+        Account__c
+      FROM FinServ__Employment__c
+      WHERE Account__c IN :accountIdSet AND Current_Employment__c = TRUE
+      WITH SECURITY_ENFORCED
+    ]) {
+      employmentMap.put(employmentRecord.Account__c, employmentRecord);
+    }
+    return employmentMap;
+  }
+
+  /**
+   * @description : Get the Application record by passing
+   * @author Ishwari Gaikwad(Thinqloud) | 06-16-2021
+   * @param applicationId
+   * @return List<Application__c>
+   **/
+  public static List<Application__c> getApplicationRecord(Id applicationId) {
+    List<Application__c> applicationlist = [
+      SELECT ID, Opportunity_id__c, CreatedDate
+      FROM Application__c
+      WHERE Id = :applicationId
+      WITH SECURITY_ENFORCED
+    ];
+    return applicationlist;
   }
 }
