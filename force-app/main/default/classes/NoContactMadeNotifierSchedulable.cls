@@ -8,7 +8,7 @@
  * Ver   Date         Author         Modification
  * 1.0   06-22-2021   Travis Allen   Initial Version
  **/
-global with sharing class SchedulableNoContactMadeNotifier implements Schedulable {
+global with sharing class NoContactMadeNotifierSchedulable implements Schedulable {
   /**
    * Enqueue queueable class.
    * @author Travis Allen | 06-22-2021

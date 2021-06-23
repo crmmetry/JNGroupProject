@@ -8,7 +8,7 @@
  * Ver   Date         Author         Modification
  * 1.0   06-18-2021   Travis Allen   Initial Version
  **/
-public with sharing class NoContactMadeNotifierOnLeads implements Queueable {
+public with sharing class NoContactMadeNotifierQueueable implements Queueable {
   /**
    * Execute Queueable class
    * @author Travis Allen | 06-22-2021
