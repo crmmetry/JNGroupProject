@@ -1,5 +1,4 @@
 ({
-  helperMethod: function () {},
   RoundTo: function (number, roundto) {
     return roundto * Math.round(number / roundto);
   },
@@ -29,7 +28,10 @@
 
     return parseFloat((pmt / rate) * (1 - Math.pow(1 + rate, nper)));
   },
-  SetDefaultVal: function (obj, val = 0) {
+  SetDefaultVal: function (obj, val) {
+    if (!val) {
+      val = 0;
+    }
     if (obj.get("v.value")) {
       obj.set("v.value", obj.get("v.value"));
       return true;

@@ -77,7 +77,7 @@ public with sharing class OneJNEventService {
         }
       }
     }
-
+   
     OneJNSerializer serialiser = new OneJNSerializer(
       applicantList,
       employmentMap,
