@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-15-2021
+ * @last modified on  : 06-22-2021
  * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -32,8 +32,6 @@ public class OneJNDeserializer {
     public LoanFeesWrapper LoanFees;
     @AuraEnabled
     public String FinalAssessmentReport;
-    @AuraEnabled
-    public decimal nBrokenRules;
   }
   public class GeneralInformationWrapper {
     @AuraEnabled
@@ -48,6 +46,8 @@ public class OneJNDeserializer {
     public String FinalAssessmentDecision;
     @AuraEnabled
     public Date RequestDate;
+    @AuraEnabled
+    public Decimal nBrokenRules;
   }
   public class ApplicantDetailsWrapper {
     @AuraEnabled
