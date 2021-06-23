@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-22-2021
+ * @last modified on  : 06-15-2021
  * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -32,6 +32,8 @@ public class OneJNDeserializer {
     public LoanFeesWrapper LoanFees;
     @AuraEnabled
     public String FinalAssessmentReport;
+    @AuraEnabled
+    public decimal nBrokenRules;
   }
   public class GeneralInformationWrapper {
     @AuraEnabled
@@ -46,8 +48,6 @@ public class OneJNDeserializer {
     public String FinalAssessmentDecision;
     @AuraEnabled
     public Date RequestDate;
-    @AuraEnabled
-    public Decimal nBrokenRules;
   }
   public class ApplicantDetailsWrapper {
     @AuraEnabled
@@ -55,17 +55,17 @@ public class OneJNDeserializer {
     @AuraEnabled
     public String FullName;
     @AuraEnabled
-    public decimal jNRiskScore;
+    public decimal JNRiskScore;
     @AuraEnabled
-    public String jNRiskGrade;
+    public String JNRiskGrade;
     @AuraEnabled
-    public decimal cRBScore_CIJ;
+    public decimal CRBScore_CIJ;
     @AuraEnabled
-    public String cRBGrade_CIJ;
+    public String CRBGrade_CIJ;
     @AuraEnabled
-    public decimal cRBScore_CRIF;
+    public decimal CRBScore_CRIF;
     @AuraEnabled
-    public String cRBGrade_CRIF;
+    public String CRBGrade_CRIF;
     @AuraEnabled
     public DocumentRequirementsWrapper[] DocumentRequirements;
   }
