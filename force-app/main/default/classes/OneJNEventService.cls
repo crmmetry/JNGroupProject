@@ -2,7 +2,7 @@
  * @description       : service to coordinate the  selector layer and serialization
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-22-2021
+ * @last modified on  : 06-23-2021
  * @last modified by  : Remario Richards
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -77,7 +77,7 @@ public with sharing class OneJNEventService {
         }
       }
     }
-   
+
     OneJNSerializer serialiser = new OneJNSerializer(
       applicantList,
       employmentMap,
@@ -147,7 +147,7 @@ public with sharing class OneJNEventService {
         oneJNDeserializerVar.ApplicationRecord.IDM_Amount_number__c = oneJNDeserializerVar.ConsolidatedReport
           ?.LoanParameters
           ?.RequestedLoanAmount;
-        oneJNDeserializerVar.ApplicationRecord.IDM_Number_of_Rules_Breached_Number__c = oneJNDeserializerVar.ConsolidatedReport
+        oneJNDeserializerVar.ApplicationRecord.IDM_Number_of_Rules_Breached_Number__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
           ?.nBrokenRules;
       }
 
@@ -264,7 +264,7 @@ public with sharing class OneJNEventService {
         oneJNDeserializerVar.ApplicationRecord.IDM_Amount_number__c = oneJNDeserializerVar.ConsolidatedReport
           ?.LoanParameters
           ?.RequestedLoanAmount;
-        oneJNDeserializerVar.ApplicationRecord.IDM_Number_of_Rules_Breached_Number__c = oneJNDeserializerVar.ConsolidatedReport
+        oneJNDeserializerVar.ApplicationRecord.IDM_Number_of_Rules_Breached_Number__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
           ?.nBrokenRules;
         oneJNDeserializerVar.ApplicationRecord.IDMOutput__c = oneJNDeserializerVar.ConsolidatedReport
           ?.FinalAssessmentReport;
@@ -442,7 +442,7 @@ public with sharing class OneJNEventService {
           oneJNDeserializerVar.ApplicationRecord.IDM_Amount_number__c = oneJNDeserializerVar.ConsolidatedReport
             ?.LoanParameters
             ?.RequestedLoanAmount;
-          oneJNDeserializerVar.ApplicationRecord.IDM_Number_of_Rules_Breached_Number__c = oneJNDeserializerVar.ConsolidatedReport
+          oneJNDeserializerVar.ApplicationRecord.IDM_Number_of_Rules_Breached_Number__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
             ?.nBrokenRules;
           oneJNDeserializerVar.ApplicationRecord.IDMOutput__c = oneJNDeserializerVar.ConsolidatedReport
             ?.FinalAssessmentReport;
