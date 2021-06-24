@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 06-23-2021
+ * @last modified on  : 06-24-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -19,13 +19,14 @@ public with sharing class TestNoContactMadeNotifier {
     0,
     0
   );
+
   //Get Sales Team and SalesDeveloperTeam Queue Ids
-  public static Id tierOneQueueId = Util.getQueueId('Sales Development Team');
-  public static Id tierTwoQueueId = Util.getQueueId('Sales Team');
+  public static Id tierOneQueueId = Util.getQueueId(Constants.TIER_ONE_QUEUE);
+  public static Id tierTwoQueueId = Util.getQueueId(Constants.TIER_TWO_QUEUE);
+
   @TestSetup
   static void makeData() {
     //Create Users
-
     List<User> usersToInsert = new List<User>();
     //User to be added to Tier One queue
     User travisTierOne = TestDataFactory.CreateUser('travistest@email.com');
@@ -40,59 +41,67 @@ public with sharing class TestNoContactMadeNotifier {
 
     insert usersToInsert;
 
-    //Add users to Queue as GroupMembers
-    List<GroupMember> groupMembers = new List<GroupMember>();
-    GroupMember tierOneAgent = TestDataFactory.CreateGroupMember(
-      travisTierOne.Id,
-      tierOneQueueId
-    );
-    GroupMember tierTwoAgent = TestDataFactory.CreateGroupMember(
-      travisTierTwo.Id,
-      tierTwoQueueId
-    );
-    groupMembers.add(tierOneAgent);
-    groupMembers.add(tierTwoAgent);
-    insert groupMembers;
+    System.runAs(travisTierOne) {
+      //Add users to Queue as GroupMembers
+      List<GroupMember> groupMembers = new List<GroupMember>();
+      GroupMember tierOneAgent = TestDataFactory.CreateGroupMember(
+        travisTierOne.Id,
+        tierOneQueueId
+      );
+      GroupMember tierTwoAgent = TestDataFactory.CreateGroupMember(
+        travisTierTwo.Id,
+        tierTwoQueueId
+      );
+      groupMembers.add(tierOneAgent);
+      groupMembers.add(tierTwoAgent);
+      insert groupMembers;
+    }
   }
 
   //Scenario 1: Lead has been reassigned to tier 1 for 8hrs without contact being made
   @isTest
   public static void shouldNotifyNoContactMadeScenario1() {
-    //Get Group Member from Tier 1 queue
-    GroupMember tierOneAgent = [
-      SELECT Id, UserOrGroupId, GroupId
-      FROM GroupMember
-      WHERE GroupId = :tierOneQueueId
+    //Get user from Tier 1 queue
+    User tierOneAgent = [
+      SELECT Id
+      FROM User
+      WHERE UserName = 'travistest@email.com'
       LIMIT 1
     ];
 
+    System.debug('tier one agent: ' + tierOneAgent);
+    System.debug(
+      'tier one queue users ' +
+      [
+        SELECT Id, UserOrGroupId
+        FROM GroupMember
+        WHERE Group.Name = 'Sales Development Team'
+      ]
+    );
+
     //Create reassigned lead where contact has not been made
     List<Lead> leads = TestDataFactory.CreateLeads(1);
-    leads[0].Assignment_Timestamp__c = currentDateTime;
+    leads[0].Assignment_Timestamp__c = currentDateTime.addHours(-8);
     leads[0].Not_Contacted_8_hours_flag__c = false;
+    leads[0].Not_Contacted_24_hours_flag__c = true;
     leads[0].Lead_Reassigned_flag__c = true;
-    leads[0].OwnerId = tierOneAgent.UserOrGroupId;
     insert leads;
+
+    leads[0].OwnerId = tierOneAgent.Id;
+    update leads;
 
     Test.startTest();
     //Set time for which the schedule job should run
-    DateTime scheduledTime = currentDateTime.addHours(8);
-    String CRON_EXP =
-      '0 ' +
-      scheduledTime.minute() +
-      ' * ' +
-      scheduledTime.day() +
-      ' ' +
-      scheduledTime.month() +
-      ' ? ' +
-      scheduledTime.year();
+    String CRON_EXP = '0 0 * * * ?';
 
     //Enqueue Job with the above CRON expression
-    String jobId = System.schedule(
-      'TestScheduledApex',
-      CRON_EXP,
-      new NoContactMadeNotifierSchedulable()
-    );
+    // String jobId = System.schedule(
+    //   'TestScheduledApex',
+    //   CRON_EXP,
+    //   new NoContactMadeNotifierSchedulable(currentDateTime)
+    // );
+    System.enqueueJob(new NoContactMadeNotifierQueueable(currentDateTime));
+
     Test.stopTest();
 
     //System Asserts to check if leads were updated correctly
@@ -108,40 +117,28 @@ public with sharing class TestNoContactMadeNotifier {
   @isTest
   public static void shouldNotifyNoContactMadeScenario2() {
     //Get Group Member from Tier 1 queue
-    GroupMember tierOneAgent = [
-      SELECT Id, UserOrGroupId, GroupId
-      FROM GroupMember
-      WHERE GroupId = :tierOneQueueId
+    User tierOneAgent = [
+      SELECT Id
+      FROM User
+      WHERE UserName = 'travistest@email.com'
       LIMIT 1
     ];
 
     //Create TIER ONE lead where contact has not been made
     List<Lead> leads = TestDataFactory.CreateLeads(1);
-    leads[0].Assignment_Timestamp__c = currentDateTime;
+    leads[0].Assignment_Timestamp__c = currentDateTime.addHours(-24);
     leads[0].Not_Contacted_24_hours_flag__c = false;
     leads[0].Lead_Reassigned_flag__c = false;
-    leads[0].OwnerId = tierOneAgent.UserOrGroupId;
     insert leads;
+
+    leads[0].OwnerId = tierOneAgent.Id;
+    update leads;
 
     Test.startTest();
     //Set time for which the schedule job should run
-    DateTime scheduledTime = currentDateTime.addHours(24);
-    String CRON_EXP =
-      '0 ' +
-      scheduledTime.minute() +
-      ' * ' +
-      scheduledTime.day() +
-      ' ' +
-      scheduledTime.month() +
-      ' ? ' +
-      scheduledTime.year();
 
-    //Enqueue Job with the above CRON expression
-    String jobId = System.schedule(
-      'TestScheduledApex',
-      CRON_EXP,
-      new NoContactMadeNotifierSchedulable()
-    );
+    //Enqueue Job
+    System.enqueueJob(new NoContactMadeNotifierQueueable(currentDateTime));
     Test.stopTest();
 
     //System Asserts to check if leads were updated correctly
@@ -163,46 +160,47 @@ public with sharing class TestNoContactMadeNotifier {
   @isTest
   public static void shouldNotifyNoContactMadeScenario3() {
     //Get Group Member from Tier 2 queue
-    GroupMember tierTwoAgent = [
-      SELECT Id, UserOrGroupId, GroupId
-      FROM GroupMember
-      WHERE GroupId = :tierTwoQueueId
+    User tierTwoAgent = [
+      SELECT Id
+      FROM User
+      WHERE UserName = 'travistest2@email.com'
       LIMIT 1
     ];
 
+    System.debug('tier two agent: ' + tierTwoAgent);
+    System.debug('tier two queue Id ' + tierTwoQueueId);
+    System.debug(
+      'tier two queue users ' +
+      [
+        SELECT Id, UserOrGroupId
+        FROM GroupMember
+        WHERE Group.Name = 'Sales Team'
+      ]
+    );
+
     //Create TIER TWO lead where contact has not been made
     List<Lead> leads = TestDataFactory.CreateLeads(1);
-    leads[0].Assignment_Timestamp__c = currentDateTime;
-    leads[0].Not_Contacted_24_hours_flag__c = false;
-    leads[0].OwnerId = tierTwoAgent.UserOrGroupId;
+    leads[0].Assignment_Timestamp__c = currentDateTime.addHours(-24);
+    leads[0].Not_Contacted_24_hours_Tier_2_flag__c = false;
+    leads[0].Last_Contact_Made__c = currentDateTime.addHours(-36);
     insert leads;
 
-    Test.startTest();
-    //Set time for which the schedule job should run
-    DateTime scheduledTime = currentDateTime.addHours(24);
-    String CRON_EXP =
-      '0 ' +
-      scheduledTime.minute() +
-      ' * ' +
-      scheduledTime.day() +
-      ' ' +
-      scheduledTime.month() +
-      ' ? ' +
-      scheduledTime.year();
+    leads[0].Escalate_to_Tier2__c = true;
+    update leads;
 
-    //Enqueue Job with the above CRON expression
-    String jobId = System.schedule(
-      'TestScheduledApex',
-      CRON_EXP,
-      new NoContactMadeNotifierSchedulable()
-    );
+    leads[0].OwnerId = tierTwoAgent.Id;
+    update leads;
+
+    Test.startTest();
+    //Enqueue Job
+    System.enqueueJob(new NoContactMadeNotifierQueueable(currentDateTime));
     Test.stopTest();
 
     //System Asserts to check if leads were updated correctly
     System.assertEquals(
       true,
-      [SELECT Id, Not_Contacted_24_hours_flag__c FROM Lead]
-      .Not_Contacted_24_hours_flag__c,
+      [SELECT Id, Not_Contacted_24_hours_Tier_2_flag__c FROM Lead]
+      .Not_Contacted_24_hours_Tier_2_flag__c,
       'Notfication was not sent out.'
     );
   }
@@ -210,40 +208,30 @@ public with sharing class TestNoContactMadeNotifier {
   @isTest
   public static void shouldNotifyNoContactMadeScenario4() {
     //Get Group Member from Tier 2 queue
-    GroupMember tierTwoAgent = [
-      SELECT Id, UserOrGroupId, GroupId
-      FROM GroupMember
-      WHERE GroupId = :tierTwoQueueId
+    User tierTwoAgent = [
+      SELECT Id
+      FROM User
+      WHERE UserName = 'travistest2@email.com'
       LIMIT 1
     ];
 
     //Create TIER TWO lead where contact has not been made
     List<Lead> leads = TestDataFactory.CreateLeads(1);
-    leads[0].Assignment_Timestamp__c = currentDateTime;
+    leads[0].Assignment_Timestamp__c = currentDateTime.addHours(-36);
+    leads[0].Last_Contact_Made__c = currentDateTime.addHours(-40);
     leads[0].Not_Contacted_36_hours_flag__c = false;
-    leads[0].Not_Contacted_24_hours_flag__c = true;
-    leads[0].OwnerId = tierTwoAgent.UserOrGroupId;
+    leads[0].Not_Contacted_24_hours_Tier_2_flag__c = true;
     insert leads;
 
-    Test.startTest();
-    //Set time for which the schedule job should run
-    DateTime scheduledTime = currentDateTime.addHours(36);
-    String CRON_EXP =
-      '0 ' +
-      scheduledTime.minute() +
-      ' * ' +
-      scheduledTime.day() +
-      ' ' +
-      scheduledTime.month() +
-      ' ? ' +
-      scheduledTime.year();
+    leads[0].Escalate_to_Tier2__c = true;
+    update leads;
 
-    //Enqueue Job with the above CRON expression
-    String jobId = System.schedule(
-      'TestScheduledApex',
-      CRON_EXP,
-      new NoContactMadeNotifierSchedulable()
-    );
+    leads[0].OwnerId = tierTwoAgent.Id;
+    update leads;
+
+    Test.startTest();
+    //Enqueue Job
+    System.enqueueJob(new NoContactMadeNotifierQueueable(currentDateTime));
     Test.stopTest();
 
     //System Asserts to check if leads were updated correctly
