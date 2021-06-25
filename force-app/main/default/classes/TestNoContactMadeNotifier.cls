@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 06-24-2021
+ * @last modified on  : 06-25-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -14,7 +14,7 @@ public with sharing class TestNoContactMadeNotifier {
   public static DateTime currentDateTime = DateTime.newInstance(
     2021,
     6,
-    21,
+    18,
     12,
     0,
     0
@@ -56,6 +56,22 @@ public with sharing class TestNoContactMadeNotifier {
       groupMembers.add(tierTwoAgent);
       insert groupMembers;
     }
+
+    //Insert Holidays for testing
+    insert TestDataFactory.CreateHoliday(
+      Date.newInstance(2021, 6, 10),
+      'Test Holiday 1'
+    );
+
+    insert TestDataFactory.CreateHoliday(
+      Date.newInstance(2021, 6, 17),
+      'Test Holiday 2'
+    );
+
+    insert TestDataFactory.CreateHoliday(
+      Date.newInstance(2021, 6, 1),
+      'Test Holiday 3'
+    );
   }
 
   //Scenario 1: Lead has been reassigned to tier 1 for 8hrs without contact being made
@@ -240,6 +256,131 @@ public with sharing class TestNoContactMadeNotifier {
       [SELECT Id, Not_Contacted_36_hours_flag__c FROM Lead]
       .Not_Contacted_36_hours_flag__c,
       'Notfication was not sent out.'
+    );
+  }
+
+  /**
+   * Scenario 1 getBackDatedTime: Get back dated time of a reassigned lead without holidays or weekends falling in between.
+   * @author Travis Allen | 06-24-2021
+   **/
+  @isTest
+  public static void shouldGetExpectedAssignmentDateTimeScenario1() {
+    //Set specific datetime for scenario
+    Datetime now = Datetime.newInstance(2021, 6, 18, 12, 0, 0);
+    //Get Holidays in system currently
+    Map<Date, Holiday> mappedHolidays = Util.getHolidays();
+    //Call getBackDatedMethod from NoContactMadeNotifierQueueable
+    Datetime expectedTime = NoContactMadeNotifierQueueable.getBackDatedTime(
+      8,
+      mappedHolidays,
+      now
+    );
+    //Assert that the expected time is equal to the assigned time
+    System.assertEquals(
+      now.addHours(-8),
+      expectedTime,
+      'Back Dated time is inaccurate.'
+    );
+  }
+
+  /**
+   * Scenario 2 getBackDatedTime: Get back dated date of tier 1 / firststage tier 2 lead.
+   * @author Travis Allen | 06-24-2021
+   **/
+  @isTest
+  public static void shouldGetExpectedAssignmentDateTimeScenario2() {
+    //Set specific datetime for scenario
+    Datetime now = Datetime.newInstance(2021, 6, 18, 12, 0, 0);
+    //Get Holidays in system currently
+    Map<Date, Holiday> mappedHolidays = Util.getHolidays();
+    //Call getBackDatedMethod from NoContactMadeNotifierQueueable
+    System.debug('Current day of the week: ' + now.format('E'));
+    Datetime expectedTime = NoContactMadeNotifierQueueable.getBackDatedTime(
+      24,
+      mappedHolidays,
+      now
+    );
+    //Assert that the expected time is equal to the assigned time
+    System.assertEquals(
+      now.addDays(-1),
+      expectedTime,
+      'Back Dated time is inaccurate.'
+    );
+  }
+
+  /**
+   * Scenario 3 getBackDatedTime: Get back dated time of tier 2 second stage lead.
+   * @author Travis Allen | 06-24-2021
+   **/
+  @isTest
+  public static void shouldGetExpectedAssignmentDateTimeScenario3() {
+    //Set specific datetime for scenario
+    Datetime now = Datetime.newInstance(2021, 6, 18, 12, 0, 0);
+    //Get Holidays in system currently
+    Map<Date, Holiday> mappedHolidays = Util.getHolidays();
+    //Call getBackDatedMethod from NoContactMadeNotifierQueueable
+    Datetime expectedTime = NoContactMadeNotifierQueueable.getBackDatedTime(
+      36,
+      mappedHolidays,
+      now
+    );
+    System.debug('Current day of the week: ' + now.format('E'));
+    //Assert that the expected time is equal to the assigned time
+    System.assertEquals(
+      now.addDays(-1).addHours(-12),
+      expectedTime,
+      'Back Dated time is inaccurate.'
+    );
+  }
+
+  /**
+   * Scenario 4 getBackDatedTime: Get back dated time of tier 1 reassigned lead during weekend.
+   * @author Travis Allen | 06-24-2021
+   **/
+  @isTest
+  public static void shouldGetExpectedAssignmentDateTimeScenario4() {
+    //Set specific datetime for scenario
+    Datetime now = Datetime.newInstance(2021, 6, 21, 0, 0, 0);
+    //Get Holidays in system currently
+    Map<Date, Holiday> mappedHolidays = Util.getHolidays();
+    //Call getBackDatedMethod from NoContactMadeNotifierQueueable
+    Datetime expectedTime = NoContactMadeNotifierQueueable.getBackDatedTime(
+      8,
+      mappedHolidays,
+      now
+    );
+    System.debug('Current day of the week: ' + now.format('E'));
+    //Assert that the expected time is equal to the assigned time
+    System.assertEquals(
+      Datetime.newInstanceGMT(2021, 6, 18, 21, 0, 0),
+      expectedTime,
+      'Back Dated time is inaccurate.'
+    );
+  }
+
+  /**
+   * Scenario 5 getBackDatedTime: Get back dated time of tier 2 first stage lead during holiday.
+   * @author Travis Allen | 06-24-2021
+   **/
+  @isTest
+  public static void shouldGetExpectedAssignmentDateTimeScenario5() {
+    //Set specific datetime for scenario (Day After Ash Wednesday)
+    Datetime now = Datetime.newInstanceGMT(2021, 2, 18, 5, 0, 0);
+    //Get Holidays in system currently
+    Map<Date, Holiday> mappedHolidays = Util.getHolidays();
+    System.debug('Holidays Map: ' + mappedHolidays);
+    //Call getBackDatedMethod from NoContactMadeNotifierQueueable
+    Datetime expectedTime = NoContactMadeNotifierQueueable.getBackDatedTime(
+      24,
+      mappedHolidays,
+      now
+    );
+    //Assert that the expected time is equal to the assigned time
+    //5 hours was added to ensure that the Time Zone was equivalent to that of the system for testing accuracy.
+    System.assertEquals(
+      Datetime.newInstanceGMT(2021, 2, 16, 5, 0, 0),
+      expectedTime,
+      'Back Dated time is inaccurate.'
     );
   }
 }
