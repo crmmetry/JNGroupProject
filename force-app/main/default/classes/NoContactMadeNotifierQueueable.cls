@@ -25,9 +25,7 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
    * @param context
    **/
   public void execute(QueueableContext context) {
-    System.debug('Queueable Class reached');
     List<Lead> leads = checkLeadsToBeNotified(this.currentTime);
-    System.debug('Leads to be updated' + leads);
     update leads;
   }
 
@@ -42,8 +40,6 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
    * @author Travis Allen | 06-22-2021
    **/
   public static List<Lead> checkLeadsToBeNotified(Datetime currentTime) {
-    System.debug('Check Leads to be Notified Reached');
-
     //Time spent in tier
     Decimal timeSpentInTier = 0;
 
@@ -100,6 +96,8 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
         Not_Contacted_36_hours_flag__c,
         Last_Contact_Made__c
       FROM Lead
+      WITH SECURITY_ENFORCED
+      FOR UPDATE
     ]) {
       //Check if lead is in tier 1
       //TODO:Optimise requirement to check lead owner is a Sales User
@@ -107,7 +105,6 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
         !leadRecord.Escalate_to_Tier2__c &&
         (tierOneAgentMap.keySet().contains(leadRecord.OwnerId))
       ) {
-        System.debug('Lead In tier one is true');
         //Check if maximum time has been spent in tier 1 with no contact made for a reassigned lead and no notification have been sent out
         if (
           leadRecord.Contact_Made__c != Constants.CONTACT_MADE &&
@@ -125,7 +122,6 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
             //Update Notification flag on lead record
             leadRecord.Not_Contacted_8_hours_flag__c = true;
             leadsToBeUpdated.add(leadRecord);
-            System.debug('Lead is reassigned' + leadRecord);
           }
         }
 
@@ -157,7 +153,6 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
         leadRecord.Escalate_to_Tier2__c &&
         (tierTwoAgentMap.keySet().contains(leadRecord.OwnerId))
       ) {
-        System.debug('Lead In tier two is true');
         //Check if 24h has been spent in tier 2 with no contact made for lead and no notification have been sent out
         if (
           leadRecord.Last_Contact_Made__c <
@@ -171,7 +166,6 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
             currentTime
           );
           if (expectedAssignedTime >= leadRecord.Assignment_Timestamp__c) {
-            System.debug('Lead is in tier 2 and have not been assigned.');
             //Update Notification flag on lead record
             leadRecord.Not_Contacted_24_hours_Tier_2_flag__c = true;
             leadsToBeUpdated.add(leadRecord);
@@ -226,16 +220,13 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
       );
       //Assign the current day with corresponding string literal to identify the day
       day = expectedAssignedTime.format('E');
-      System.debug('Current Day: ' + day);
       //Decrement hour if current day is not holiday or Weekend
       if ((day == 'Sat' || day == 'Sun' || isHoliday) == false) {
         maxAllowableHours -= 1;
-        System.debug('Max Allowable hours decreased: ' + maxAllowableHours);
       }
       //Decrement expectedAssigneTime until until maxAllowableTime runs out
       if (maxAllowableHours >= 0) {
         expectedAssignedTime = expectedAssignedTime.addHours(-1);
-        System.debug('Hour was decremented: ' + expectedAssignedTime);
       }
     }
     return expectedAssignedTime;

@@ -24,6 +24,10 @@ public with sharing class TestNoContactMadeNotifier {
   public static Id tierOneQueueId = Util.getQueueId(Constants.TIER_ONE_QUEUE);
   public static Id tierTwoQueueId = Util.getQueueId(Constants.TIER_TWO_QUEUE);
 
+  /**
+   * Data setup for testing
+   * @author Travis Allen | 06-25-2021
+   **/
   @TestSetup
   static void makeData() {
     //Create Users
@@ -56,25 +60,12 @@ public with sharing class TestNoContactMadeNotifier {
       groupMembers.add(tierTwoAgent);
       insert groupMembers;
     }
-
-    //Insert Holidays for testing
-    insert TestDataFactory.CreateHoliday(
-      Date.newInstance(2021, 6, 10),
-      'Test Holiday 1'
-    );
-
-    insert TestDataFactory.CreateHoliday(
-      Date.newInstance(2021, 6, 17),
-      'Test Holiday 2'
-    );
-
-    insert TestDataFactory.CreateHoliday(
-      Date.newInstance(2021, 6, 1),
-      'Test Holiday 3'
-    );
   }
 
-  //Scenario 1: Lead has been reassigned to tier 1 for 8hrs without contact being made
+  /**
+   * Scenario 1: Lead has been reassigned to tier 1 for 8hrs without contact being made
+   * @author Travis Allen | 06-25-2021
+   **/
   @isTest
   public static void shouldNotifyNoContactMadeScenario1() {
     //Get user from Tier 1 queue
@@ -84,16 +75,6 @@ public with sharing class TestNoContactMadeNotifier {
       WHERE UserName = 'travistest@email.com'
       LIMIT 1
     ];
-
-    System.debug('tier one agent: ' + tierOneAgent);
-    System.debug(
-      'tier one queue users ' +
-      [
-        SELECT Id, UserOrGroupId
-        FROM GroupMember
-        WHERE Group.Name = 'Sales Development Team'
-      ]
-    );
 
     //Create reassigned lead where contact has not been made
     List<Lead> leads = TestDataFactory.CreateLeads(1);
@@ -107,17 +88,8 @@ public with sharing class TestNoContactMadeNotifier {
     update leads;
 
     Test.startTest();
-    //Set time for which the schedule job should run
-    String CRON_EXP = '0 0 * * * ?';
-
-    //Enqueue Job with the above CRON expression
-    // String jobId = System.schedule(
-    //   'TestScheduledApex',
-    //   CRON_EXP,
-    //   new NoContactMadeNotifierSchedulable(currentDateTime)
-    // );
+    //Enqueue job
     System.enqueueJob(new NoContactMadeNotifierQueueable(currentDateTime));
-
     Test.stopTest();
 
     //System Asserts to check if leads were updated correctly
@@ -129,7 +101,10 @@ public with sharing class TestNoContactMadeNotifier {
     );
   }
 
-  //Scenario 2: Lead has been assigned to tier 1 for 24hrs without contact being made
+  /**
+   * Scenario 2: Lead has been assigned to tier 1 for 24hrs without contact being made
+   * @author Travis Allen | 06-25-2021
+   **/
   @isTest
   public static void shouldNotifyNoContactMadeScenario2() {
     //Get Group Member from Tier 1 queue
@@ -151,8 +126,6 @@ public with sharing class TestNoContactMadeNotifier {
     update leads;
 
     Test.startTest();
-    //Set time for which the schedule job should run
-
     //Enqueue Job
     System.enqueueJob(new NoContactMadeNotifierQueueable(currentDateTime));
     Test.stopTest();
@@ -172,7 +145,10 @@ public with sharing class TestNoContactMadeNotifier {
     );
   }
 
-  //Scenario 3: Lead has been assigned to tier 2 for 24hrs without contact being made
+  /**
+   * Scenario 3: Lead has been assigned to tier 2 for 24hrs without contact being made
+   * @author Travis Allen | 06-25-2021
+   **/
   @isTest
   public static void shouldNotifyNoContactMadeScenario3() {
     //Get Group Member from Tier 2 queue
@@ -182,17 +158,6 @@ public with sharing class TestNoContactMadeNotifier {
       WHERE UserName = 'travistest2@email.com'
       LIMIT 1
     ];
-
-    System.debug('tier two agent: ' + tierTwoAgent);
-    System.debug('tier two queue Id ' + tierTwoQueueId);
-    System.debug(
-      'tier two queue users ' +
-      [
-        SELECT Id, UserOrGroupId
-        FROM GroupMember
-        WHERE Group.Name = 'Sales Team'
-      ]
-    );
 
     //Create TIER TWO lead where contact has not been made
     List<Lead> leads = TestDataFactory.CreateLeads(1);
@@ -220,7 +185,11 @@ public with sharing class TestNoContactMadeNotifier {
       'Notfication was not sent out.'
     );
   }
-  //Scenario 4: Lead has been assigned to tier 2 for 36hrs without contact being made
+
+  /**
+   * Scenario 4: Lead has been assigned to tier 2 for 36hrs without contact being made
+   * @author Travis Allen | 06-25-2021
+   **/
   @isTest
   public static void shouldNotifyNoContactMadeScenario4() {
     //Get Group Member from Tier 2 queue
@@ -294,7 +263,6 @@ public with sharing class TestNoContactMadeNotifier {
     //Get Holidays in system currently
     Map<Date, Holiday> mappedHolidays = Util.getHolidays();
     //Call getBackDatedMethod from NoContactMadeNotifierQueueable
-    System.debug('Current day of the week: ' + now.format('E'));
     Datetime expectedTime = NoContactMadeNotifierQueueable.getBackDatedTime(
       24,
       mappedHolidays,
@@ -324,7 +292,6 @@ public with sharing class TestNoContactMadeNotifier {
       mappedHolidays,
       now
     );
-    System.debug('Current day of the week: ' + now.format('E'));
     //Assert that the expected time is equal to the assigned time
     System.assertEquals(
       now.addDays(-1).addHours(-12),
@@ -349,7 +316,6 @@ public with sharing class TestNoContactMadeNotifier {
       mappedHolidays,
       now
     );
-    System.debug('Current day of the week: ' + now.format('E'));
     //Assert that the expected time is equal to the assigned time
     System.assertEquals(
       Datetime.newInstanceGMT(2021, 6, 18, 21, 0, 0),
@@ -368,7 +334,6 @@ public with sharing class TestNoContactMadeNotifier {
     Datetime now = Datetime.newInstanceGMT(2021, 2, 18, 5, 0, 0);
     //Get Holidays in system currently
     Map<Date, Holiday> mappedHolidays = Util.getHolidays();
-    System.debug('Holidays Map: ' + mappedHolidays);
     //Call getBackDatedMethod from NoContactMadeNotifierQueueable
     Datetime expectedTime = NoContactMadeNotifierQueueable.getBackDatedTime(
       24,
