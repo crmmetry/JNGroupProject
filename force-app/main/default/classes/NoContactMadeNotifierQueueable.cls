@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 06-25-2021
+ * @last modified on  : 06-28-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -81,6 +81,12 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
       tierTwoAgentMap.put(user.UserOrGroupId, user);
     }
 
+    //Get a list of all user Ids that are sales user in the system
+    List<Id> salesUsers = new List<Id>();
+    for (User user : [SELECT Id FROM User WHERE Sales_User__c = TRUE]) {
+      salesUsers.add(user.Id);
+    }
+
     //Iterate through all updated leads
     for (Lead leadRecord : [
       SELECT
@@ -96,6 +102,10 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
         Not_Contacted_36_hours_flag__c,
         Last_Contact_Made__c
       FROM Lead
+      WHERE
+        OwnerId IN :tierOneAgentMap.keySet()
+        OR OwnerId IN :tierTwoAgentMap.keySet()
+        OR OwnerId IN :salesUsers
       WITH SECURITY_ENFORCED
       FOR UPDATE
     ]) {
@@ -103,7 +113,8 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
       //TODO:Optimise requirement to check lead owner is a Sales User
       if (
         !leadRecord.Escalate_to_Tier2__c &&
-        (tierOneAgentMap.keySet().contains(leadRecord.OwnerId))
+        ((tierOneAgentMap.keySet().contains(leadRecord.OwnerId) ||
+        salesUsers.contains(leadRecord.OwnerId)))
       ) {
         //Check if maximum time has been spent in tier 1 with no contact made for a reassigned lead and no notification have been sent out
         if (
