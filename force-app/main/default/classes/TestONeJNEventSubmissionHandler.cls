@@ -1,8 +1,24 @@
+/**
+ * @description       :
+ * @author            : Trupti Zende (Thinqloud)
+ * @group             :
+ * @last modified on  : 06-29-2021
+ * @last modified by  : Trupti Zende (Thinqloud)
+ * Modifications Log
+ * Ver   Date         Author                     Modification
+ * 1.0   06-29-2021   Trupti Zende (Thinqloud)   Initial Version
+ **/
 @isTest
 public class TestONeJNEventSubmissionHandler {
+  /**
+   * @description test method for credit card pre-assessment submission
+   * @author Trupti Zende (Thinqloud) | 06-29-2021
+   **/
   @isTest
   public static void handleCreditCardPreAssessmentEvent() {
-    Map<String, Id> mappedOppRecTypes = Util.getRecordTypeids('Opportunity');
+    Map<String, Id> mappedOppRecTypes = Util.getRecordTypeids(
+      OPPORTUNITYSTRING
+    );
     Id oppRecordTypeId_cc = mappedOppRecTypes.get('Rubicon');
 
     //Get Application Record Type
@@ -19,13 +35,15 @@ public class TestONeJNEventSubmissionHandler {
 
     List<Opportunity> opps2 = TestDataFactory.CreateOpportunities(1);
     opps2[0].RecordTypeId = oppRecordTypeId_cc;
-    opps2[0].Rubicon_Path_list__c = 'Pre-Assessment Submission';
-    opps2[0].Product_Category__c = 'JN Bank Credit Card';
+    opps2[0].Rubicon_Path_list__c = Constants.PRE_ASSESSMENT_SUBMISSION;
+    opps2[0].Product_Category__c = Constants.CREDITCARD_PRODUCT_FAMILY;
     opps2[0].AccountId = accounts[0].Id;
     insert opps2;
 
     List<Product2> products = new List<Product2>();
-    List<String> families = new List<String>{ 'JN Bank Credit Card' };
+    List<String> families = new List<String>{
+      Constants.CREDITCARD_PRODUCT_FAMILY
+    };
     for (String family : families) {
       //add each product to be created
       products.add(
@@ -56,7 +74,10 @@ public class TestONeJNEventSubmissionHandler {
       'applicationID',
       'TEST ' + Integer.valueof((Math.random() * 1000))
     );
-    jsonGen.writeStringField('preAssessmentDecision', 'Pass');
+    jsonGen.writeStringField(
+      'preAssessmentDecision',
+      Constants.PASS_PRE_APPROVAL
+    );
     jsonGen.writeEndObject();
     jsonGen.writeEndObject();
     jsonGen.writeEndObject();
@@ -87,11 +108,17 @@ public class TestONeJNEventSubmissionHandler {
       FROM Opportunity
       WHERE Id = :opps2.get(0).Id
     ];
-    system.assertEquals('Pass', opp.Pre_Approval_list__c);
+    system.assertEquals(Constants.PASS_PRE_APPROVAL, opp.Pre_Approval_list__c);
   }
+  /**
+   * @description test method for Credit Card final assessment submission
+   * @author Trupti Zende (Thinqloud) | 06-29-2021
+   **/
   @isTest
   public static void handleCreditCardFinalAssessmentEvent() {
-    Map<String, Id> mappedOppRecTypes = Util.getRecordTypeids('Opportunity');
+    Map<String, Id> mappedOppRecTypes = Util.getRecordTypeids(
+      OPPORTUNITYSTRING
+    );
     Id oppRecordTypeId_cc = mappedOppRecTypes.get('Rubicon');
 
     //Get Application Record Type
@@ -108,13 +135,15 @@ public class TestONeJNEventSubmissionHandler {
 
     List<Opportunity> opps2 = TestDataFactory.CreateOpportunities(1);
     opps2[0].RecordTypeId = oppRecordTypeId_cc;
-    opps2[0].Product_Category__c = 'JN Bank Credit Card';
-    opps2[0].Rubicon_Path_list__c = 'Final Assessment Submission';
+    opps2[0].Product_Category__c = Constants.CREDITCARD_PRODUCT_FAMILY;
+    opps2[0].Rubicon_Path_list__c = Constants.FINAL_ASSESMENT_SUBMISSION;
     opps2[0].AccountId = accounts[0].Id;
     insert opps2;
 
     List<Product2> products = new List<Product2>();
-    List<String> families = new List<String>{ 'JN Bank Credit Card' };
+    List<String> families = new List<String>{
+      Constants.CREDITCARD_PRODUCT_FAMILY
+    };
     for (String family : families) {
       //add each product to be created
       products.add(
@@ -146,7 +175,10 @@ public class TestONeJNEventSubmissionHandler {
       'applicationID',
       'TEST ' + Integer.valueof((Math.random() * 1000))
     );
-    jsonGen.writeStringField('finalAssessmentDecision', 'Referred');
+    jsonGen.writeStringField(
+      'finalAssessmentDecision',
+      Constants.REFERRED_DECISION
+    );
     jsonGen.writeEndObject();
     jsonGen.writeEndObject();
     jsonGen.writeEndObject();
@@ -175,11 +207,20 @@ public class TestONeJNEventSubmissionHandler {
       FROM Opportunity
       WHERE Id = :opps2.get(0).Id
     ];
-    system.assertEquals('Referred', opp.Final_Assessment_Decision_list__c);
+    system.assertEquals(
+      Constants.REFERRED_DECISION,
+      opp.Final_Assessment_Decision_list__c
+    );
   }
+  /**
+   * @description test method for Unsecured Loan  pre-assessment submission
+   * @author Trupti Zende (Thinqloud) | 06-29-2021
+   **/
   @isTest
   public static void handleUnsecuredLoanPreAssessmentEvent() {
-    Map<String, Id> mappedOppRecTypes = Util.getRecordTypeids('Opportunity');
+    Map<String, Id> mappedOppRecTypes = Util.getRecordTypeids(
+      OPPORTUNITYSTRING
+    );
     Id oppRecordTypeId_cc = mappedOppRecTypes.get('Rubicon');
 
     //Get Application Record Type
@@ -196,13 +237,15 @@ public class TestONeJNEventSubmissionHandler {
 
     List<Opportunity> opps2 = TestDataFactory.CreateOpportunities(1);
     opps2[0].RecordTypeId = oppRecordTypeId_cc;
-    opps2[0].Rubicon_Path_list__c = 'Pre-Assessment Submission';
-    opps2[0].Product_Category__c = 'JN Bank Unsecured Loan';
+    opps2[0].Rubicon_Path_list__c = Constants.PRE_ASSESSMENT_SUBMISSION;
+    opps2[0].Product_Category__c = Constants.UNSECURED_PRODUCT_FAMILY;
     opps2[0].AccountId = accounts[0].Id;
     insert opps2;
 
     List<Product2> products = new List<Product2>();
-    List<String> families = new List<String>{ 'JN Bank Unsecured Loan' };
+    List<String> families = new List<String>{
+      Constants.UNSECURED_PRODUCT_FAMILY
+    };
     for (String family : families) {
       //add each product to be created
       products.add(
@@ -232,7 +275,10 @@ public class TestONeJNEventSubmissionHandler {
       'applicationID',
       'TEST ' + Integer.valueof((Math.random() * 1000))
     );
-    jsonGen.writeStringField('preAssessmentDecision', 'Pass');
+    jsonGen.writeStringField(
+      'preAssessmentDecision',
+      Constants.PASS_PRE_APPROVAL
+    );
     jsonGen.writeEndObject();
     jsonGen.writeEndObject();
     jsonGen.writeEndObject();
@@ -255,10 +301,22 @@ public class TestONeJNEventSubmissionHandler {
     ONeJNEventSubmissionHandler.HandleEventSubmission(Flilist);
     OneJNOutputEventHandler.HandleEvent(Flilist1);
     Test.stopTest();
+    Opportunity opp = [
+      SELECT Id, Pre_Approval_list__c
+      FROM Opportunity
+      WHERE Id = :opps2.get(0).Id
+    ];
+    system.assertEquals(Constants.PASS_PRE_APPROVAL, opp.Pre_Approval_list__c);
   }
+  /**
+   * @description test method for Unsecured Loan final assessment submission
+   * @author Trupti Zende (Thinqloud) | 06-29-2021
+   **/
   @isTest
   public static void handleUnsecuredLoanFinalAssessmentEvent() {
-    Map<String, Id> mappedOppRecTypes = Util.getRecordTypeids('Opportunity');
+    Map<String, Id> mappedOppRecTypes = Util.getRecordTypeids(
+      OPPORTUNITYSTRING
+    );
     Id oppRecordTypeId_cc = mappedOppRecTypes.get('Rubicon');
 
     //Get Application Record Type
@@ -275,13 +333,15 @@ public class TestONeJNEventSubmissionHandler {
 
     List<Opportunity> opps2 = TestDataFactory.CreateOpportunities(1);
     opps2[0].RecordTypeId = oppRecordTypeId_cc;
-    opps2[0].Product_Category__c = 'JN Bank Unsecured Loan';
-    opps2[0].Rubicon_Path_list__c = 'Final Assessment Submission';
+    opps2[0].Product_Category__c = Constants.UNSECURED_PRODUCT_FAMILY;
+    opps2[0].Rubicon_Path_list__c = Constants.FINAL_ASSESMENT_SUBMISSION;
     opps2[0].AccountId = accounts[0].Id;
     insert opps2;
 
     List<Product2> products = new List<Product2>();
-    List<String> families = new List<String>{ 'JN Bank Unsecured Loan' };
+    List<String> families = new List<String>{
+      Constants.UNSECURED_PRODUCT_FAMILY
+    };
     for (String family : families) {
       //add each product to be created
       products.add(
@@ -313,7 +373,10 @@ public class TestONeJNEventSubmissionHandler {
       'applicationID',
       'TEST ' + Integer.valueof((Math.random() * 1000))
     );
-    jsonGen.writeStringField('finalAssessmentDecision', 'Referred');
+    jsonGen.writeStringField(
+      'finalAssessmentDecision',
+      Constants.REFERRED_DECISION
+    );
     jsonGen.writeEndObject();
     jsonGen.writeEndObject();
     jsonGen.writeEndObject();
@@ -342,6 +405,9 @@ public class TestONeJNEventSubmissionHandler {
       FROM Opportunity
       WHERE Id = :opps2.get(0).Id
     ];
-    system.assertEquals('Referred', opp.Final_Assessment_Decision_list__c);
+    system.assertEquals(
+      Constants.REFERRED_DECISION,
+      opp.Final_Assessment_Decision_list__c
+    );
   }
 }
