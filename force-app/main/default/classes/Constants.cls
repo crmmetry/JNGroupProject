@@ -157,6 +157,8 @@ public class Constants {
   public static final String MANUAL_APPROVE = 'Manual Approve';
   public static final String MANUAL_DECLINED = 'Manual Decline';
   public static final String MANUAL_DEFER = 'Defer';
+  public static final String PASS_PRE_APPROVAL = 'Pass';
+  public static final String REFERRED_DECISION = 'Referred';
   //ONE JN
   public static final String GET_LOAN_APPLICATION_ID = 'JNGroup.OneJN.CreditInfo.Domain.Events.GetApplicationIdEvent';
   public static final String RETURN_LOAN_APPLICATION_ID = 'JNGroup.OneJN.CreditInfo.Domain.Events.GetApplicationIdResponseEvent';
