@@ -2,8 +2,8 @@
  * @description       : Global constants
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-21-2021
- * @last modified by  : Trupti Zende (Thinqloud)
+ * @last modified on  : 07-01-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   06-17-2021   Remario Richards   Initial Version
@@ -204,4 +204,7 @@ public class Constants {
   public static final String FINAL_ASSESMENT_SUBMISSION = 'Final Assessment Submission';
   public static final String DEFAULT_TRIGGER_SWITCH = 'Disable_All_Triggers';
   public static final String SALES_TEAM = 'Sales Team';
+
+  public static final String PRIMARY_APPLICANT = 'Primary Applicant';
+  public static final String CO_APPLICANT = 'Co-Applicant';
 }

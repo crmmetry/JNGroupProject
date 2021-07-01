@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-21-2021
- * @last modified by  : Trupti Zende (Thinqloud)
+ * @last modified on  : 07-01-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -254,12 +254,12 @@ public with sharing class OneJNEventFactory {
   }
 
   /**
-  * @description process pre-assessment events
-  * @author Trupti Zende (Thinqloud) | 06-21-2021 
-  * @param oneJNDeserializer 
-  * @param sfRecordId 
-  * @param eventType 
-  **/
+   * @description process pre-assessment events
+   * @author Trupti Zende (Thinqloud) | 06-21-2021
+   * @param oneJNDeserializer
+   * @param sfRecordId
+   * @param eventType
+   **/
   private static void processGetPreAssessmentEventResponse(
     OneJNDeserializer oneJNDeserializer,
     String sfRecordId,
@@ -283,12 +283,15 @@ public with sharing class OneJNEventFactory {
     if (deserialiser.applicationRecord <> null) {
       sObjectsToUpdate.add(deserialiser.applicationRecord);
     }
+    if (deserialiser.documentInstruction <> null) {
+      sObjectsToUpdate.addAll(deserialiser.documentInstruction);
+    }
     if (sObjectsToUpdate.size() > 0) {
       SObjectAccessDecision decision = Security.stripInaccessible(
         AccessType.UPDATABLE,
         sObjectsToUpdate
       );
-      update decision.getRecords();
+      upsert decision.getRecords();
     }
   }
   /**

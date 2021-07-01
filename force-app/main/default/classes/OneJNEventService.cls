@@ -2,7 +2,7 @@
  * @description       : service to coordinate the  selector layer and serialization
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-28-2021
+ * @last modified on  : 07-01-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -131,10 +131,22 @@ public with sharing class OneJNEventService {
       String sfRecordId
     ) {
       String productType = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation.ProductType;
+      List<Opportunity> opportunity1 = OneJNQuerySelector.getOpportunity(
+        new Set<Id>{ sfRecordId }
+      );
+      oneJNDeserializerVar.documentInstruction = new List<Document_Instruction__c>();
       oneJNDeserializerVar.OpportunityRecord = new Opportunity();
       oneJNDeserializerVar.OpportunityRecord.Id = sfRecordId;
       oneJNDeserializerVar.OpportunityRecord.Pre_Approval_list__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
         ?.PreAssessmentDecision;
+
+      DocumentChecklistItem documentChecklistItem = new DocumentChecklistItem();
+      documentChecklistItem.Name =
+        Constants.PRE_ASSESSMENT_SUBMISSION + ' Documents';
+      documentChecklistItem.Instruction = '';
+      documentChecklistItem.ParentRecordId = sfRecordId;
+      documentChecklistItem.WhoId = opportunity1[0].Account.PersonContactId;
+      insert documentChecklistItem;
 
       List<Application__c> applist = new List<Application__c>();
       Applist = OneJNQuerySelector.getApplications(new Set<ID>{ sfRecordId });
@@ -147,7 +159,7 @@ public with sharing class OneJNEventService {
         oneJNDeserializerVar.ApplicationRecord.IDM_Amount_number__c = oneJNDeserializerVar.ConsolidatedReport
           ?.LoanParameters
           ?.RequestedLoanAmount;
-        oneJNDeserializerVar.ApplicationRecord.IDM_Number_of_Rules_Breached_Number__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
+        oneJNDeserializerVar.ApplicationRecord.IDM_Number_of_Rules_Breached_Number__c = oneJNDeserializerVar.ConsolidatedReport
           ?.nBrokenRules;
       }
 
@@ -182,6 +194,14 @@ public with sharing class OneJNEventService {
               oneJNDeserializerVar.PrimaryApplicantRecord.Account__c = Applicant.Account__c;
             }
             // documents
+            List<Document_Instruction__c> documentInstructionList = getDocumentInstructionInstance(
+              oneJNDeserializerVar,
+              documentChecklistItem,
+              Constants.PRIMARY_APPLICANT
+            );
+            oneJNDeserializerVar.documentInstruction.addAll(
+              documentInstructionList
+            );
           } else {
             oneJNDeserializerVar.CoApplicantRecord = new Applicant__c();
             Applicant__c coApplicant = new Applicant__c();
@@ -212,7 +232,14 @@ public with sharing class OneJNEventService {
               );
             }
             if (productType == Constants.UNSECURED_PRODUCT_FAMILY) {
-              // documents
+              List<Document_Instruction__c> documentInstructionList = getDocumentInstructionInstance(
+                oneJNDeserializerVar,
+                documentChecklistItem,
+                Constants.CO_APPLICANT
+              );
+              oneJNDeserializerVar.documentInstruction.addAll(
+                documentInstructionList
+              );
             }
           }
         }
@@ -248,10 +275,21 @@ public with sharing class OneJNEventService {
       String sfRecordId
     ) {
       String productType = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation.ProductType;
+      List<Opportunity> opportunity1 = OneJNQuerySelector.getOpportunity(
+        new Set<Id>{ sfRecordId }
+      );
       oneJNDeserializerVar.OpportunityRecord = new Opportunity();
       oneJNDeserializerVar.OpportunityRecord.Id = sfRecordId;
       oneJNDeserializerVar.OpportunityRecord.Pre_Approval_list__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
         ?.PreAssessmentDecision;
+
+      DocumentChecklistItem documentChecklistItem = new DocumentChecklistItem();
+      documentChecklistItem.Name =
+        Constants.FINAL_ASSESMENT_SUBMISSION + ' Documents';
+      documentChecklistItem.Instruction = '';
+      documentChecklistItem.ParentRecordId = sfRecordId;
+      documentChecklistItem.WhoId = opportunity1[0].Account.PersonContactId;
+      insert documentChecklistItem;
 
       List<Application__c> applist = new List<Application__c>();
       Applist = OneJNQuerySelector.getApplications(new Set<ID>{ sfRecordId });
@@ -264,7 +302,7 @@ public with sharing class OneJNEventService {
         oneJNDeserializerVar.ApplicationRecord.IDM_Amount_number__c = oneJNDeserializerVar.ConsolidatedReport
           ?.LoanParameters
           ?.RequestedLoanAmount;
-        oneJNDeserializerVar.ApplicationRecord.IDM_Number_of_Rules_Breached_Number__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
+        oneJNDeserializerVar.ApplicationRecord.IDM_Number_of_Rules_Breached_Number__c = oneJNDeserializerVar.ConsolidatedReport
           ?.nBrokenRules;
         oneJNDeserializerVar.ApplicationRecord.IDMOutput__c = oneJNDeserializerVar.ConsolidatedReport
           ?.FinalAssessmentReport;
@@ -300,6 +338,14 @@ public with sharing class OneJNEventService {
               oneJNDeserializerVar.PrimaryApplicantRecord.Account__c = Applicant.Account__c;
             }
             // documents
+            List<Document_Instruction__c> documentInstructionList = getDocumentInstructionInstance(
+              oneJNDeserializerVar,
+              documentChecklistItem,
+              Constants.PRIMARY_APPLICANT
+            );
+            oneJNDeserializerVar.documentInstruction.addAll(
+              documentInstructionList
+            );
           } else {
             oneJNDeserializerVar.CoApplicantRecord = new Applicant__c();
             oneJNDeserializerVar.CoApplicantRecord.Id = Applicant.Id;
@@ -330,7 +376,14 @@ public with sharing class OneJNEventService {
             }
 
             if (productType == Constants.UNSECURED_PRODUCT_FAMILY) {
-              // documents
+              List<Document_Instruction__c> documentInstructionList = getDocumentInstructionInstance(
+                oneJNDeserializerVar,
+                documentChecklistItem,
+                Constants.CO_APPLICANT
+              );
+              oneJNDeserializerVar.documentInstruction.addAll(
+                documentInstructionList
+              );
             }
           }
         }
@@ -442,7 +495,7 @@ public with sharing class OneJNEventService {
           oneJNDeserializerVar.ApplicationRecord.IDM_Amount_number__c = oneJNDeserializerVar.ConsolidatedReport
             ?.LoanParameters
             ?.RequestedLoanAmount;
-          oneJNDeserializerVar.ApplicationRecord.IDM_Number_of_Rules_Breached_Number__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
+          oneJNDeserializerVar.ApplicationRecord.IDM_Number_of_Rules_Breached_Number__c = oneJNDeserializerVar.ConsolidatedReport
             ?.nBrokenRules;
           oneJNDeserializerVar.ApplicationRecord.IDMOutput__c = oneJNDeserializerVar.ConsolidatedReport
             ?.FinalAssessmentReport;
@@ -583,5 +636,32 @@ public with sharing class OneJNEventService {
       }
       return oneJNDeserializerVar;
     }
+  }
+
+  public static List<Document_Instruction__c> getDocumentInstructionInstance(
+    OneJNDeserializer deserialiser,
+    documentChecklistItem documentCheckRecord,
+    String applicantType
+  ) {
+    List<OneJNDeserializer.DocumentRequirementsWrapper> documentList = deserialiser.ConsolidatedReport.ApplicantDetailsPrimary.DocumentRequirements;
+    List<Document_Instruction__c> documentInstructionList = new List<Document_Instruction__c>();
+    String instruction;
+
+    if (documentList.size() > 0) {
+      for (
+        OneJNDeserializer.DocumentRequirementsWrapper wrapper : documentList
+      ) {
+        Document_Instruction__c documentInstruction = new Document_Instruction__c();
+        documentInstruction.Applicant_Type_List__c = applicantType;
+        documentInstruction.Document_Checklist_Item_Id__c = documentCheckRecord.Id;
+        documentInstruction.Instruction_Text__c = wrapper.Documents;
+        documentInstructionList.add(documentInstruction);
+        documentCheckRecord.Instruction += wrapper.Documents + ' , ';
+      }
+
+      update documentCheckRecord;
+    }
+
+    return documentInstructionList;
   }
 }
