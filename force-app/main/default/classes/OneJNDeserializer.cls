@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-23-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 07-01-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -17,6 +17,7 @@ public class OneJNDeserializer {
   public Application__c ApplicationRecord { get; set; }
   public OpportunityLineItem OpportunityLineItemRecord { get; set; }
   public Opportunity OpportunityRecord { get; set; }
+  public List<Document_Instruction__c> documentInstructions { get; set; }
   @AuraEnabled
   public ConsolidatedReportWrapper ConsolidatedReport { get; set; }
   public class ConsolidatedReportWrapper {

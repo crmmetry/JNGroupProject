@@ -2,7 +2,7 @@
  * @description       : service to coordinate the  selector layer and serialization
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-28-2021
+ * @last modified on  : 07-01-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -131,10 +131,23 @@ public with sharing class OneJNEventService {
       String sfRecordId
     ) {
       String productType = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation.ProductType;
+      List<Opportunity> opportunity1 = OneJNQuerySelector.getOpportunity(
+        new Set<Id>{ sfRecordId }
+      );
+      oneJNDeserializerVar.documentInstructions = new List<Document_Instruction__c>();
       oneJNDeserializerVar.OpportunityRecord = new Opportunity();
       oneJNDeserializerVar.OpportunityRecord.Id = sfRecordId;
       oneJNDeserializerVar.OpportunityRecord.Pre_Approval_list__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
         ?.PreAssessmentDecision;
+
+      DocumentChecklistItem documentChecklistItem = new DocumentChecklistItem();
+      if (
+        oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary.DocumentRequirements.size() >
+        0
+      ) {
+        documentChecklistItem = getDocumentCheckListItem(opportunity1[0]);
+        insert documentChecklistItem;
+      }
 
       List<Application__c> applist = new List<Application__c>();
       Applist = OneJNQuerySelector.getApplications(new Set<ID>{ sfRecordId });
@@ -182,6 +195,14 @@ public with sharing class OneJNEventService {
               oneJNDeserializerVar.PrimaryApplicantRecord.Account__c = Applicant.Account__c;
             }
             // documents
+            List<Document_Instruction__c> documentInstructionList = getDocumentInstructionInstance(
+              oneJNDeserializerVar,
+              documentChecklistItem,
+              Constants.PRIMARY_APPLICANT
+            );
+            oneJNDeserializerVar.documentInstructions.addAll(
+              documentInstructionList
+            );
           } else {
             oneJNDeserializerVar.CoApplicantRecord = new Applicant__c();
             Applicant__c coApplicant = new Applicant__c();
@@ -213,6 +234,14 @@ public with sharing class OneJNEventService {
             }
             if (productType == Constants.UNSECURED_PRODUCT_FAMILY) {
               // documents
+              List<Document_Instruction__c> documentInstructionList = getDocumentInstructionInstance(
+                oneJNDeserializerVar,
+                documentChecklistItem,
+                Constants.CO_APPLICANT
+              );
+              oneJNDeserializerVar.documentInstructions.addAll(
+                documentInstructionList
+              );
             }
           }
         }
@@ -248,10 +277,23 @@ public with sharing class OneJNEventService {
       String sfRecordId
     ) {
       String productType = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation.ProductType;
+      List<Opportunity> opportunity1 = OneJNQuerySelector.getOpportunity(
+        new Set<Id>{ sfRecordId }
+      );
+      oneJNDeserializerVar.documentInstructions = new List<Document_Instruction__c>();
       oneJNDeserializerVar.OpportunityRecord = new Opportunity();
       oneJNDeserializerVar.OpportunityRecord.Id = sfRecordId;
       oneJNDeserializerVar.OpportunityRecord.Pre_Approval_list__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
         ?.PreAssessmentDecision;
+
+      DocumentChecklistItem documentChecklistItem = new DocumentChecklistItem();
+      if (
+        oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary.DocumentRequirements.size() >
+        0
+      ) {
+        documentChecklistItem = getDocumentCheckListItem(opportunity1[0]);
+        insert documentChecklistItem;
+      }
 
       List<Application__c> applist = new List<Application__c>();
       Applist = OneJNQuerySelector.getApplications(new Set<ID>{ sfRecordId });
@@ -300,6 +342,14 @@ public with sharing class OneJNEventService {
               oneJNDeserializerVar.PrimaryApplicantRecord.Account__c = Applicant.Account__c;
             }
             // documents
+            List<Document_Instruction__c> documentInstructionList = getDocumentInstructionInstance(
+              oneJNDeserializerVar,
+              documentChecklistItem,
+              Constants.PRIMARY_APPLICANT
+            );
+            oneJNDeserializerVar.documentInstructions.addAll(
+              documentInstructionList
+            );
           } else {
             oneJNDeserializerVar.CoApplicantRecord = new Applicant__c();
             oneJNDeserializerVar.CoApplicantRecord.Id = Applicant.Id;
@@ -331,6 +381,14 @@ public with sharing class OneJNEventService {
 
             if (productType == Constants.UNSECURED_PRODUCT_FAMILY) {
               // documents
+              List<Document_Instruction__c> documentInstructionList = getDocumentInstructionInstance(
+                oneJNDeserializerVar,
+                documentChecklistItem,
+                Constants.CO_APPLICANT
+              );
+              oneJNDeserializerVar.documentInstructions.addAll(
+                documentInstructionList
+              );
             }
           }
         }
@@ -583,5 +641,39 @@ public with sharing class OneJNEventService {
       }
       return oneJNDeserializerVar;
     }
+  }
+
+  public static List<Document_Instruction__c> getDocumentInstructionInstance(
+    OneJNDeserializer deserialiser,
+    DocumentChecklistItem documentCheckRecord,
+    String applicantType
+  ) {
+    List<OneJNDeserializer.DocumentRequirementsWrapper> documentList = deserialiser.ConsolidatedReport.ApplicantDetailsPrimary.DocumentRequirements;
+    List<Document_Instruction__c> documentInstructionList = new List<Document_Instruction__c>();
+
+    if (documentList.size() > 0) {
+      for (
+        OneJNDeserializer.DocumentRequirementsWrapper wrapper : documentList
+      ) {
+        Document_Instruction__c documentInstruction = new Document_Instruction__c();
+        documentInstruction.Applicant_Type_List__c = applicantType;
+        documentInstruction.Document_Checklist_Item_Id__c = documentCheckRecord.Id;
+        documentInstruction.Instruction_Text__c = wrapper.Documents;
+        documentInstructionList.add(documentInstruction);
+      }
+    }
+
+    return documentInstructionList;
+  }
+
+  public static DocumentChecklistItem getDocumentCheckListItem(
+    Opportunity opportunityRecord
+  ) {
+    DocumentChecklistItem documentCheckListRecord = new DocumentChecklistItem();
+    documentCheckListRecord.Name =
+      opportunityRecord.Account.Name + ' - Document Checklist';
+    documentCheckListRecord.ParentRecordId = opportunityRecord.Id;
+    documentCheckListRecord.WhoId = opportunityRecord.Account.PersonContactId;
+    return documentCheckListRecord;
   }
 }
