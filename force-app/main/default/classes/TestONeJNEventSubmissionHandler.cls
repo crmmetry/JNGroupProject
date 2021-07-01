@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Trupti Zende (Thinqloud)
  * @group             :
- * @last modified on  : 06-29-2021
- * @last modified by  : Trupti Zende (Thinqloud)
+ * @last modified on  : 07-01-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                     Modification
  * 1.0   06-29-2021   Trupti Zende (Thinqloud)   Initial Version
@@ -17,7 +17,7 @@ public class TestONeJNEventSubmissionHandler {
   @isTest
   public static void handleCreditCardPreAssessmentEvent() {
     Map<String, Id> mappedOppRecTypes = Util.getRecordTypeids(
-      OPPORTUNITYSTRING
+      Constants.OPPORTUNITYSTRING
     );
     Id oppRecordTypeId_cc = mappedOppRecTypes.get('Rubicon');
 
@@ -117,7 +117,7 @@ public class TestONeJNEventSubmissionHandler {
   @isTest
   public static void handleCreditCardFinalAssessmentEvent() {
     Map<String, Id> mappedOppRecTypes = Util.getRecordTypeids(
-      OPPORTUNITYSTRING
+      Constants.OPPORTUNITYSTRING
     );
     Id oppRecordTypeId_cc = mappedOppRecTypes.get('Rubicon');
 
@@ -219,7 +219,7 @@ public class TestONeJNEventSubmissionHandler {
   @isTest
   public static void handleUnsecuredLoanPreAssessmentEvent() {
     Map<String, Id> mappedOppRecTypes = Util.getRecordTypeids(
-      OPPORTUNITYSTRING
+      Constants.OPPORTUNITYSTRING
     );
     Id oppRecordTypeId_cc = mappedOppRecTypes.get('Rubicon');
 
@@ -315,7 +315,7 @@ public class TestONeJNEventSubmissionHandler {
   @isTest
   public static void handleUnsecuredLoanFinalAssessmentEvent() {
     Map<String, Id> mappedOppRecTypes = Util.getRecordTypeids(
-      OPPORTUNITYSTRING
+      Constants.OPPORTUNITYSTRING
     );
     Id oppRecordTypeId_cc = mappedOppRecTypes.get('Rubicon');
 
