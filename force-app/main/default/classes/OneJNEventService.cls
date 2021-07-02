@@ -2,7 +2,7 @@
  * @description       : service to coordinate the  selector layer and serialization
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 07-01-2021
+ * @last modified on  : 07-02-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -139,11 +139,13 @@ public with sharing class OneJNEventService {
       oneJNDeserializerVar.OpportunityRecord.Id = sfRecordId;
       oneJNDeserializerVar.OpportunityRecord.Pre_Approval_list__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
         ?.PreAssessmentDecision;
-
+      List<String> documentRequirementList = oneJNDeserializerVar.ConsolidatedReport
+        ?.ApplicantDetailsPrimary
+        ?.DocumentRequirements;
       DocumentChecklistItem documentChecklistItem = new DocumentChecklistItem();
       if (
-        oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary.DocumentRequirements.size() >
-        0
+        documentRequirementList <> null &&
+        documentRequirementList.size() > 0
       ) {
         documentChecklistItem = getDocumentCheckListItem(opportunity1[0]);
         insert documentChecklistItem;
@@ -286,10 +288,13 @@ public with sharing class OneJNEventService {
       oneJNDeserializerVar.OpportunityRecord.Pre_Approval_list__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
         ?.PreAssessmentDecision;
 
+      List<String> documentRequirementList = oneJNDeserializerVar.ConsolidatedReport
+        ?.ApplicantDetailsPrimary
+        ?.DocumentRequirements;
       DocumentChecklistItem documentChecklistItem = new DocumentChecklistItem();
       if (
-        oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary.DocumentRequirements.size() >
-        0
+        documentRequirementList <> null &&
+        documentRequirementList.size() > 0
       ) {
         documentChecklistItem = getDocumentCheckListItem(opportunity1[0]);
         insert documentChecklistItem;
@@ -643,19 +648,25 @@ public with sharing class OneJNEventService {
     }
   }
 
+  /**
+   * @description : to create the document instructions from the documentRequirements from IDM
+   * @author Ishwari Gaikwad(Thinqloud) | 07-02-2021
+   * @param deserialiser
+   * @param documentCheckRecord
+   * @param applicantType
+   * @return List<Document_Instruction__c>
+   **/
   public static List<Document_Instruction__c> getDocumentInstructionInstance(
     OneJNDeserializer deserialiser,
     DocumentChecklistItem documentCheckRecord,
     String applicantType
   ) {
-    List<String> documentList = deserialiser.ConsolidatedReport.ApplicantDetailsPrimary.DocumentRequirements;
+    List<String> documentList = deserialiser.ConsolidatedReport
+      ?.ApplicantDetailsPrimary
+      ?.DocumentRequirements;
     List<Document_Instruction__c> documentInstructionList = new List<Document_Instruction__c>();
-
-      System.debug('documentList : '+documentList);
-    if (documentList.size() > 0) {
-      for (
-        String documentString : documentList
-      ) {
+    if (documentList <> null && documentList.size() > 0) {
+      for (String documentString : documentList) {
         Document_Instruction__c documentInstruction = new Document_Instruction__c();
         documentInstruction.Applicant_Type_List__c = applicantType;
         documentInstruction.Document_Checklist_Item_Id__c = documentCheckRecord.Id;
@@ -666,12 +677,21 @@ public with sharing class OneJNEventService {
 
     return documentInstructionList;
   }
-    
-    public static DocumentChecklistItem getDocumentCheckListItem(Opportunity opportunityRecord){
-        DocumentChecklistItem documentCheckListRecord = new DocumentChecklistItem();
-        documentCheckListRecord.Name = opportunityRecord.Account.Name + ' - Document Checklist';
-        documentCheckListRecord.ParentRecordId = opportunityRecord.Id;
-        documentCheckListRecord.WhoId = opportunityRecord.Account.PersonContactId;
-        return documentCheckListRecord;
-    }
+
+  /**
+   * @description : To create the document checklist item for the documentRequirements from IDM
+   * @author Ishwari Gaikwad(Thinqloud) | 07-02-2021
+   * @param opportunityRecord
+   * @return DocumentChecklistItem
+   **/
+  public static DocumentChecklistItem getDocumentCheckListItem(
+    Opportunity opportunityRecord
+  ) {
+    DocumentChecklistItem documentCheckListRecord = new DocumentChecklistItem();
+    documentCheckListRecord.Name =
+      opportunityRecord.Account.Name + ' - Document Checklist';
+    documentCheckListRecord.ParentRecordId = opportunityRecord.Id;
+    documentCheckListRecord.WhoId = opportunityRecord.Account.PersonContactId;
+    return documentCheckListRecord;
+  }
 }
