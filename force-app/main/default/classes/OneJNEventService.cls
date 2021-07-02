@@ -648,32 +648,30 @@ public with sharing class OneJNEventService {
     DocumentChecklistItem documentCheckRecord,
     String applicantType
   ) {
-    List<OneJNDeserializer.DocumentRequirementsWrapper> documentList = deserialiser.ConsolidatedReport.ApplicantDetailsPrimary.DocumentRequirements;
+    List<String> documentList = deserialiser.ConsolidatedReport.ApplicantDetailsPrimary.DocumentRequirements;
     List<Document_Instruction__c> documentInstructionList = new List<Document_Instruction__c>();
 
+      System.debug('documentList : '+documentList);
     if (documentList.size() > 0) {
       for (
-        OneJNDeserializer.DocumentRequirementsWrapper wrapper : documentList
+        String documentString : documentList
       ) {
         Document_Instruction__c documentInstruction = new Document_Instruction__c();
         documentInstruction.Applicant_Type_List__c = applicantType;
         documentInstruction.Document_Checklist_Item_Id__c = documentCheckRecord.Id;
-        documentInstruction.Instruction_Text__c = wrapper.Documents;
+        documentInstruction.Instruction_Text__c = documentString;
         documentInstructionList.add(documentInstruction);
       }
     }
 
     return documentInstructionList;
   }
-
-  public static DocumentChecklistItem getDocumentCheckListItem(
-    Opportunity opportunityRecord
-  ) {
-    DocumentChecklistItem documentCheckListRecord = new DocumentChecklistItem();
-    documentCheckListRecord.Name =
-      opportunityRecord.Account.Name + ' - Document Checklist';
-    documentCheckListRecord.ParentRecordId = opportunityRecord.Id;
-    documentCheckListRecord.WhoId = opportunityRecord.Account.PersonContactId;
-    return documentCheckListRecord;
-  }
+    
+    public static DocumentChecklistItem getDocumentCheckListItem(Opportunity opportunityRecord){
+        DocumentChecklistItem documentCheckListRecord = new DocumentChecklistItem();
+        documentCheckListRecord.Name = opportunityRecord.Account.Name + ' - Document Checklist';
+        documentCheckListRecord.ParentRecordId = opportunityRecord.Id;
+        documentCheckListRecord.WhoId = opportunityRecord.Account.PersonContactId;
+        return documentCheckListRecord;
+    }
 }

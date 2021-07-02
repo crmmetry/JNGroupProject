@@ -68,7 +68,7 @@ public class OneJNDeserializer {
     @AuraEnabled
     public String CRBGrade_CRIF;
     @AuraEnabled
-    public DocumentRequirementsWrapper[] DocumentRequirements;
+    public List<String> DocumentRequirements;
   }
   public class LoanRequirementWrapper {
     @AuraEnabled
@@ -104,10 +104,11 @@ public class OneJNDeserializer {
     @AuraEnabled
     public decimal TotalFees;
   }
+    /*
   public class DocumentRequirementsWrapper {
     @AuraEnabled
     public string Documents;
-  }
+  }*/
   /**
    * @description to deserialize the incoming json repsonse
    * @author Trupti Zende (Thinqloud) | 06-03-2021
