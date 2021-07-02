@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-22-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 07-02-2021
+ * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -153,7 +153,24 @@ public class OneJNSerializer {
         this.ApplicationId = applicationRecord.Application_ID__c;
         this.ApprovedTenure = applicationRecord.IDM_Tenure_Date__c;
         this.ApprovedCreditAmount = applicationRecord.IDM_Loan_Amount_Number__c;
-        this.AdjudicationDecision = applicationRecord.Adjudication_Decision_picklist__c;
+
+        /*
+        if( applicationRecord.Adjudication_Decision_picklist__c ==Constants.MANUALLY_APPROVED
+        || applicationRecord.Adjudication_Decision_picklist__c ==Constants.DEFERRAL_APPROVED ){
+          this.AdjudicationDecision = Constants.MANUAL_DECISION_ACCEPT;
+        }else if(applicationRecord.Adjudication_Decision_picklist__c ==Constants.MANUALLY_DECLINED
+        || applicationRecord.Adjudication_Decision_picklist__c ==Constants.DEFERRAL_DECLINED){
+          this.AdjudicationDecision = Constants.MANUAL_DECISION_DECLINE;
+        }*/
+
+        if( applicationRecord.Adjudication_Decision_picklist__c ==Constants.MANUAL_APPROVE
+        || applicationRecord.Adjudication_Decision_picklist__c ==Constants.DEFERRAL_APPROVED ){
+          this.AdjudicationDecision = Constants.MANUAL_DECISION_ACCEPT;
+        }else if(applicationRecord.Adjudication_Decision_picklist__c ==Constants.MANUAL_DECLINED
+        || applicationRecord.Adjudication_Decision_picklist__c ==Constants.DEFERRAL_DECLINED){
+          this.AdjudicationDecision = Constants.MANUAL_DECISION_DECLINE;
+        }
+        //this.AdjudicationDecision = applicationRecord.Adjudication_Decision_picklist__c;
         this.InterestRateForApplication = applicationRecord.IDM_Interest_Rate_Number__c;
         this.ApplicationDate = buildDate(applicationRecord.CreatedDate);
       }

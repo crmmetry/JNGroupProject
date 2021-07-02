@@ -2,8 +2,8 @@
  * @description       : Global constants
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 07-01-2021
- * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * @last modified on  : 07-02-2021
+ * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   06-17-2021   Remario Richards   Initial Version
@@ -159,6 +159,14 @@ public class Constants {
   public static final String MANUAL_DEFER = 'Defer';
   public static final String PASS_PRE_APPROVAL = 'Pass';
   public static final String REFERRED_DECISION = 'Referred';
+  public static final String MANUALLY_APPROVED = 'Manually Approved'; 
+  public static final String MANUALLY_DECLINED = 'Manually Declined';
+  public static final String DEFERRAL_APPROVED = 'Deferral Approved';
+  public static final String DEFERRAL_DECLINED = 'Deferral Declined';
+  public static final String MANUAL_DECISION_ACCEPT = 'Accept';
+  public static final String MANUAL_DECISION_DECLINE  = 'Decline';
+  public static final String DEFERRED = 'Defer';
+
   //ONE JN
   public static final String GET_LOAN_APPLICATION_ID = 'JNGroup.OneJN.CreditInfo.Domain.Events.GetApplicationIdEvent';
   public static final String RETURN_LOAN_APPLICATION_ID = 'JNGroup.OneJN.CreditInfo.Domain.Events.GetApplicationIdResponseEvent';
