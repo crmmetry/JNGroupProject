@@ -687,11 +687,17 @@ public with sharing class OneJNEventService {
       documentCheckListRecord.ParentRecordId = opportunityRecord.Id;
       documentCheckListRecord.WhoId = opportunityRecord.Account.PersonContactId;
 
-      SObjectAccessDecision decision = Security.stripInaccessible(
-        AccessType.CREATABLE,
-        new List<sObject>{ documentCheckListRecord }
-      );
-      insert decision.getRecords();
+      /*IMP: After using this the code is facing issue of create permission for the 
+           * DocumentChecklist item as record was creating through automated process.
+           * This is Deferred to Remario to be done in future.
+           * 
+           * SObjectAccessDecision decision = Security.stripInaccessible(
+                  AccessType.CREATABLE,
+              new List<sObject>{documentCheckListRecord}
+          );
+          insert decision.getRecords();
+*/
+      insert documentCheckListRecord;
     }
     return documentCheckListRecord;
   }
