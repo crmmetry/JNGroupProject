@@ -154,23 +154,21 @@ public class OneJNSerializer {
         this.ApprovedTenure = applicationRecord.IDM_Tenure_Date__c;
         this.ApprovedCreditAmount = applicationRecord.IDM_Loan_Amount_Number__c;
 
-        /*
-        if( applicationRecord.Adjudication_Decision_picklist__c ==Constants.MANUALLY_APPROVED
-        || applicationRecord.Adjudication_Decision_picklist__c ==Constants.DEFERRAL_APPROVED ){
+        if (
+          applicationRecord.Adjudication_Decision_picklist__c ==
+          Constants.MANUAL_APPROVE ||
+          applicationRecord.Adjudication_Decision_picklist__c ==
+          Constants.DEFERRAL_APPROVED
+        ) {
           this.AdjudicationDecision = Constants.MANUAL_DECISION_ACCEPT;
-        }else if(applicationRecord.Adjudication_Decision_picklist__c ==Constants.MANUALLY_DECLINED
-        || applicationRecord.Adjudication_Decision_picklist__c ==Constants.DEFERRAL_DECLINED){
-          this.AdjudicationDecision = Constants.MANUAL_DECISION_DECLINE;
-        }*/
-
-        if( applicationRecord.Adjudication_Decision_picklist__c ==Constants.MANUAL_APPROVE
-        || applicationRecord.Adjudication_Decision_picklist__c ==Constants.DEFERRAL_APPROVED ){
-          this.AdjudicationDecision = Constants.MANUAL_DECISION_ACCEPT;
-        }else if(applicationRecord.Adjudication_Decision_picklist__c ==Constants.MANUAL_DECLINED
-        || applicationRecord.Adjudication_Decision_picklist__c ==Constants.DEFERRAL_DECLINED){
+        } else if (
+          applicationRecord.Adjudication_Decision_picklist__c ==
+          Constants.MANUAL_DECLINED ||
+          applicationRecord.Adjudication_Decision_picklist__c ==
+          Constants.DEFERRAL_DECLINED
+        ) {
           this.AdjudicationDecision = Constants.MANUAL_DECISION_DECLINE;
         }
-        //this.AdjudicationDecision = applicationRecord.Adjudication_Decision_picklist__c;
         this.InterestRateForApplication = applicationRecord.IDM_Interest_Rate_Number__c;
         this.ApplicationDate = buildDate(applicationRecord.CreatedDate);
       }

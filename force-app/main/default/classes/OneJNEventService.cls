@@ -139,17 +139,12 @@ public with sharing class OneJNEventService {
       oneJNDeserializerVar.OpportunityRecord.Id = sfRecordId;
       oneJNDeserializerVar.OpportunityRecord.Pre_Approval_list__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
         ?.PreAssessmentDecision;
-      List<String> documentRequirementList = oneJNDeserializerVar.ConsolidatedReport
-        ?.ApplicantDetailsPrimary
-        ?.DocumentRequirements;
+
       DocumentChecklistItem documentChecklistItem = new DocumentChecklistItem();
-      if (
-        documentRequirementList <> null &&
-        documentRequirementList.size() > 0
-      ) {
-        documentChecklistItem = getDocumentCheckListItem(opportunity1[0]);
-        insert documentChecklistItem;
-      }
+      documentChecklistItem = getDocumentCheckListItem(
+        opportunity1[0],
+        oneJNDeserializerVar
+      );
 
       List<Application__c> applist = new List<Application__c>();
       Applist = OneJNQuerySelector.getApplications(new Set<ID>{ sfRecordId });
@@ -288,17 +283,11 @@ public with sharing class OneJNEventService {
       oneJNDeserializerVar.OpportunityRecord.Pre_Approval_list__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
         ?.PreAssessmentDecision;
 
-      List<String> documentRequirementList = oneJNDeserializerVar.ConsolidatedReport
-        ?.ApplicantDetailsPrimary
-        ?.DocumentRequirements;
       DocumentChecklistItem documentChecklistItem = new DocumentChecklistItem();
-      if (
-        documentRequirementList <> null &&
-        documentRequirementList.size() > 0
-      ) {
-        documentChecklistItem = getDocumentCheckListItem(opportunity1[0]);
-        insert documentChecklistItem;
-      }
+      documentChecklistItem = getDocumentCheckListItem(
+        opportunity1[0],
+        oneJNDeserializerVar
+      );
 
       List<Application__c> applist = new List<Application__c>();
       Applist = OneJNQuerySelector.getApplications(new Set<ID>{ sfRecordId });
@@ -685,13 +674,25 @@ public with sharing class OneJNEventService {
    * @return DocumentChecklistItem
    **/
   public static DocumentChecklistItem getDocumentCheckListItem(
-    Opportunity opportunityRecord
+    Opportunity opportunityRecord,
+    OneJNDeserializer deserialiser
   ) {
+    List<String> documentRequirementList = deserialiser.ConsolidatedReport
+      ?.ApplicantDetailsPrimary
+      ?.DocumentRequirements;
     DocumentChecklistItem documentCheckListRecord = new DocumentChecklistItem();
-    documentCheckListRecord.Name =
-      opportunityRecord.Account.Name + ' - Document Checklist';
-    documentCheckListRecord.ParentRecordId = opportunityRecord.Id;
-    documentCheckListRecord.WhoId = opportunityRecord.Account.PersonContactId;
+    if (documentRequirementList <> null && documentRequirementList.size() > 0) {
+      documentCheckListRecord.Name =
+        opportunityRecord.Account.Name + ' - Document Checklist';
+      documentCheckListRecord.ParentRecordId = opportunityRecord.Id;
+      documentCheckListRecord.WhoId = opportunityRecord.Account.PersonContactId;
+
+      SObjectAccessDecision decision = Security.stripInaccessible(
+        AccessType.CREATABLE,
+        new List<sObject>{ documentCheckListRecord }
+      );
+      insert decision.getRecords();
+    }
     return documentCheckListRecord;
   }
 }
