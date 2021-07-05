@@ -1,0 +1,23 @@
+<aura:component
+  implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId"
+  controller="OneJNErrorReportingController"
+>
+  <!-- Dynamically load the list of contacts -->
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+  <aura:handler
+    name="change"
+    value="{!v.recordId}"
+    action="{!c.onRecordIdChange}"
+  />
+  <aura:attribute name="keyList" type="List" />
+  <aura:attribute name="eventLogs" type="map" />
+  <lightning:empApi aura:id="empApi" />
+  <aura:attribute name="recordId" type="Id" />
+  <lightning:utilityBarAPI aura:id="UtilityBarEx" />
+  <br />
+  <ul class="slds-timeline">
+    <aura:iteration items="{!v.keyList}" var="key">
+      <c:OneJNErrorReportingChild key="{!key}" map="{!v.eventLogs}" />
+    </aura:iteration>
+  </ul>
+</aura:component>

@@ -1,0 +1,42 @@
+<aura:component>
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+  <aura:attribute name="map" type="map" />
+  <aura:attribute name="jsonMap" type="map" />
+  <aura:attribute name="key" type="string" />
+  <aura:attribute name="errorMessage" type="string" />
+  <aura:attribute name="errorCode" type="string" />
+  <aura:attribute name="eventName" type="string" />
+  <li>
+    <div class="slds-timeline__item_expandable slds-timeline__item_task">
+      <span class="slds-assistive-text">task</span>
+      <div class="slds-media">
+        <div class="slds-media__figure" style="margin-left: 5%;">
+          <div
+            class="slds-icon_container slds-icon-standard-task slds-timeline__icon"
+            title="task"
+          >
+            <lightning:icon iconName="standard:task" size="medium" />
+          </div>
+        </div>
+        <div class="slds-media__body">
+          <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+            <div
+              class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space"
+            >
+              <h3 class="slds-truncate" title="{!v.eventName}">
+                <strong>{!v.eventName}</strong>
+              </h3>
+            </div>
+            <div class="slds-timeline__actions slds-timeline__actions_inline">
+              <p class="slds-timeline__date">9:00am | 3/20/17</p>
+            </div>
+          </div>
+          <p class="slds-m-horizontal_xx-small">
+            {!v.errorMessage}<br />
+            {!v.errorCode}
+          </p>
+        </div>
+      </div>
+    </div>
+  </li>
+</aura:component>
