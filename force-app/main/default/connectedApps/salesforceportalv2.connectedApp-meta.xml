@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>llewis@jnbs.com</contactEmail>
+    <ipRanges>
+        <end>96.43.183.213</end>
+        <start>96.43.183.213</start>
+    </ipRanges>
+    <label>salesforceportalv2</label>
+    <oauthConfig>
+        <callbackUrl>https://jn.crmmertylabs.com/callback
+https://crmmetry.localtunnel.me/callback</callbackUrl>
+        <consumerKey
+    >3MVG9ifmAKCHISbaTzCrnAlwIXWUYYEUyE1tXM_uB_sa5z_bywNR4BGvQo6s08CKIcPriiA4e8MGrBMfBybPH</consumerKey>
+        <isAdminApproved>false</isAdminApproved>
+        <isConsumerSecretOptional>false</isConsumerSecretOptional>
+        <isIntrospectAllTokens>false</isIntrospectAllTokens>
+        <scopes>Full</scopes>
+    </oauthConfig>
+    <oauthPolicy>
+        <ipRelaxation>ENFORCE</ipRelaxation>
+        <refreshTokenPolicy>infinite</refreshTokenPolicy>
+    </oauthPolicy>
+</ConnectedApp>

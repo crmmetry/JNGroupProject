@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>Branch_Divsion_Opportunity</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Branch Divsion : Opportunity</label>
+        <sharedTo>
+            <group>Branch_Divsion_Leads</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal
+      >Chief_Branch_Division</roleAndSubordinatesInternal>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Business_banking</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Business banking</label>
+        <sharedTo>
+            <group>Business_Banking_Leads</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal
+      >Chief_Business_Banking</roleAndSubordinatesInternal>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Non_Branch_Division</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Non Branch Division</label>
+        <sharedTo>
+            <group>Non_Branch_Leads</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal
+      >Chief_Non_Branch_Division</roleAndSubordinatesInternal>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>
