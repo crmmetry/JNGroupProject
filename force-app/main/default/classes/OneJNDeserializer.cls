@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-15-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 07-01-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -17,6 +17,7 @@ public class OneJNDeserializer {
   public Application__c ApplicationRecord { get; set; }
   public OpportunityLineItem OpportunityLineItemRecord { get; set; }
   public Opportunity OpportunityRecord { get; set; }
+  public List<Document_Instruction__c> documentInstructions { get; set; }
   @AuraEnabled
   public ConsolidatedReportWrapper ConsolidatedReport { get; set; }
   public class ConsolidatedReportWrapper {
@@ -32,8 +33,6 @@ public class OneJNDeserializer {
     public LoanFeesWrapper LoanFees;
     @AuraEnabled
     public String FinalAssessmentReport;
-    @AuraEnabled
-    public decimal nBrokenRules;
   }
   public class GeneralInformationWrapper {
     @AuraEnabled
@@ -48,6 +47,8 @@ public class OneJNDeserializer {
     public String FinalAssessmentDecision;
     @AuraEnabled
     public Date RequestDate;
+    @AuraEnabled
+    public decimal nBrokenRules;
   }
   public class ApplicantDetailsWrapper {
     @AuraEnabled
@@ -55,19 +56,19 @@ public class OneJNDeserializer {
     @AuraEnabled
     public String FullName;
     @AuraEnabled
-    public decimal jNRiskScore;
+    public decimal JNRiskScore;
     @AuraEnabled
-    public String jNRiskGrade;
+    public String JNRiskGrade;
     @AuraEnabled
-    public decimal cRBScore_CIJ;
+    public decimal CRBScore_CIJ;
     @AuraEnabled
-    public String cRBGrade_CIJ;
+    public String CRBGrade_CIJ;
     @AuraEnabled
-    public decimal cRBScore_CRIF;
+    public decimal CRBScore_CRIF;
     @AuraEnabled
-    public String cRBGrade_CRIF;
+    public String CRBGrade_CRIF;
     @AuraEnabled
-    public DocumentRequirementsWrapper[] DocumentRequirements;
+    public List<String> DocumentRequirements;
   }
   public class LoanRequirementWrapper {
     @AuraEnabled
@@ -103,10 +104,11 @@ public class OneJNDeserializer {
     @AuraEnabled
     public decimal TotalFees;
   }
+  /*
   public class DocumentRequirementsWrapper {
     @AuraEnabled
     public string Documents;
-  }
+  }*/
   /**
    * @description to deserialize the incoming json repsonse
    * @author Trupti Zende (Thinqloud) | 06-03-2021

@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Ishwari Gaikwad(Thinqloud)
  * @group             :
- * @last modified on  : 06-21-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 06-29-2021
+ * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author                       Modification
  * 1.0   06-14-2021   Ishwari Gaikwad(Thinqloud)   Initial Version
@@ -32,6 +32,7 @@ public class OneJNSerializerDecision {
       JSONToSerialize.put('ProductType', serialiser.AppData.ProductType);
       JSONToSerialize.put('PhoenixId', serialiser.AppData.PhoenixId);
 
+      JSONToSerialize = removeNullData(JSONToSerialize);
       return JSONToSerialize;
     }
   }
@@ -63,7 +64,7 @@ public class OneJNSerializerDecision {
         'AdjudicationDecision',
         serialiser.AppData.AdjudicationDecision
       );
-
+      JSONToSerialize = removeNullData(JSONToSerialize);
       return JSONToSerialize;
     }
   }
@@ -105,6 +106,9 @@ public class OneJNSerializerDecision {
 
       appDataJson = removeFields(appDataJson, appDataFieldsToRemove);
 
+      //to remove fields with null values
+      appDataJson = removeNullData(appDataJson);
+
       Map<String, Object> applicantJson = (Map<String, Object>) JSON.deserializeUntyped(
         serializerdata
       );
@@ -126,11 +130,12 @@ public class OneJNSerializerDecision {
       for (Object applicant : applicantData) {
         Map<String, Object> applicantMap = (Map<String, Object>) applicant;
         applicantMap = removeFields(applicantMap, applicantFieldsToRemove);
+        //to remove fields with null values
+        applicantMap = removeNullData(applicantMap);
         applicant = (Object) applicantMap;
       }
       String appDataObj1 = JSON.serialize(appDataJson);
       String applicantObj1 = JSON.serialize(applicantData);
-
       String SerializeObj = JSON.serialize(serialiser);
       JSONToSerialize = (Map<String, Object>) JSON.deserializeUntyped(
         SerializeObj
@@ -176,8 +181,9 @@ public class OneJNSerializerDecision {
         'ApprovedCreditAmount',
         'InterestRateForApplication'
       };
-
       appDataJson = removeFields(appDataJson, appDataFieldsToRemove);
+      //to remove fields with null values
+      appDataJson = removeNullData(appDataJson);
       Map<String, Object> applicantJson = (Map<String, Object>) JSON.deserializeUntyped(
         serializerdata
       );
@@ -198,6 +204,8 @@ public class OneJNSerializerDecision {
       for (Object applicant : applicantData) {
         Map<String, Object> applicantMap = (Map<String, Object>) applicant;
         applicantMap = removeFields(applicantMap, applicantFieldsToRemove);
+        //to remove fields with null values
+        applicantMap = removeNullData(applicantMap);
         applicant = (Object) applicantMap;
       }
       String appDataObj1 = JSON.serialize(appDataJson);
@@ -233,6 +241,7 @@ public class OneJNSerializerDecision {
     ) {
       Map<String, Object> JSONToSerialize = new Map<String, Object>();
       String appDataObj = JSON.serialize(serialiser.AppData);
+      String serializerdata = JSON.serialize(serialiser);
       Map<String, Object> appDataJson = (Map<String, Object>) JSON.deserializeUntyped(
         appDataObj
       );
@@ -253,9 +262,24 @@ public class OneJNSerializerDecision {
       };
 
       appDataJson = removeFields(appDataJson, appDataFieldsToRemove);
+      //to remove fields with null values
+      appDataJson = removeNullData(appDataJson);
+
+      Map<String, Object> applicantJson = (Map<String, Object>) JSON.deserializeUntyped(
+        serializerdata
+      );
+      List<Object> applicantData = (List<Object>) applicantJson.get(
+        'Applicant'
+      );
+      for (Object applicant : applicantData) {
+        Map<String, Object> applicantMap = (Map<String, Object>) applicant;
+        //to remove fields with null values
+        applicantMap = removeNullData(applicantMap);
+        applicant = (Object) applicantMap;
+      }
 
       String appDataObj1 = JSON.serialize(appDataJson);
-
+      String applicantDataObj1 = JSON.serialize(applicantData);
       String SerializeObj = JSON.serialize(serialiser);
       JSONToSerialize = (Map<String, Object>) JSON.deserializeUntyped(
         SerializeObj
@@ -264,6 +288,10 @@ public class OneJNSerializerDecision {
       JSONToSerialize.put(
         'AppData',
         (Object) JSON.deserializeUntyped(appDataObj1)
+      );
+      JSONToSerialize.put(
+        'Applicant',
+        (Object) JSON.deserializeUntyped(applicantDataObj1)
       );
       return JSONToSerialize;
     }
@@ -281,6 +309,7 @@ public class OneJNSerializerDecision {
       Map<String, Object> JSONToSerialize = new Map<String, Object>();
 
       String appDataObj = JSON.serialize(serialiser.AppData);
+      String serializerdata = JSON.serialize(serialiser);
       Map<String, Object> appDataJson = (Map<String, Object>) JSON.deserializeUntyped(
         appDataObj
       );
@@ -298,10 +327,23 @@ public class OneJNSerializerDecision {
         'ApprovedCreditAmount',
         'InterestRateForApplication'
       };
-
       appDataJson = removeFields(appDataJson, appDataFieldsToRemove);
-
+      //to remove fields with null values
+      appDataJson = removeNullData(appDataJson);
+      Map<String, Object> applicantJson = (Map<String, Object>) JSON.deserializeUntyped(
+        serializerdata
+      );
+      List<Object> applicantData = (List<Object>) applicantJson.get(
+        'Applicant'
+      );
+      for (Object applicant : applicantData) {
+        Map<String, Object> applicantMap = (Map<String, Object>) applicant;
+        //to remove fields with null values
+        applicantMap = removeNullData(applicantMap);
+        applicant = (Object) applicantMap;
+      }
       String appDataObj1 = JSON.serialize(appDataJson);
+      String applicantDataObj1 = JSON.serialize(applicantData);
       String SerializeObj = JSON.serialize(serialiser);
       JSONToSerialize = (Map<String, Object>) JSON.deserializeUntyped(
         SerializeObj
@@ -310,6 +352,10 @@ public class OneJNSerializerDecision {
       JSONToSerialize.put(
         'AppData',
         (Object) JSON.deserializeUntyped(appDataObj1)
+      );
+      JSONToSerialize.put(
+        'Applicant',
+        (Object) JSON.deserializeUntyped(applicantDataObj1)
       );
       return JSONToSerialize;
     }
@@ -379,5 +425,24 @@ public class OneJNSerializerDecision {
       }
     }
     return jsonData;
+  }
+  /**
+   * @description : To remove fields with null values from JSON request body
+   * @author Trupti Zende (Thinqloud) | 06-29-2021
+   * @param JSONData
+   * @return Map<String, Object>
+   **/
+  public static Map<String, Object> removeNullData(
+    Map<String, Object> JSONData
+  ) {
+    List<String> fieldsToRemove = new List<String>();
+    for (String jsonKey : JSONData.KeySet()) {
+      //if(String.isBlank(JSON.serialize(JSONData.get(jsonKey)))){
+      if (JSONData.get(jsonKey) == null || JSONData.get(jsonKey) == '') {
+        fieldsToRemove.add(jsonKey);
+      }
+    }
+    JSONData = removeFields(JSONData, fieldsToRemove);
+    return JSONData;
   }
 }
