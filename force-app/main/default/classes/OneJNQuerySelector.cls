@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-18-2021
- * @last modified by  : Trupti Zende (Thinqloud)
+ * @last modified on  : 07-01-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -146,6 +146,8 @@ public with sharing class OneJNQuerySelector {
         CurrencyIsoCode,
         Id,
         AccountId,
+        Account.PersonContactId,
+        Account.Name,
         Name,
         Rubicon_Path_list__c,
         Product_Category__c
