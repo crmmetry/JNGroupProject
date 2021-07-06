@@ -2,8 +2,8 @@
  * @description       : Global constants
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 07-05-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 07-06-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   06-17-2021   Remario Richards   Initial Version
@@ -215,4 +215,7 @@ public class Constants {
 
   public static final String PRIMARY_APPLICANT = 'Primary Applicant';
   public static final String CO_APPLICANT = 'Co-Applicant';
+
+  public static final String EXTERNAL = 'External';
+  public static final String GENERIC_ERROR_EVENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.GenericErrorEvent';
 }

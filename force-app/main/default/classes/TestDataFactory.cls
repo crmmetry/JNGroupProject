@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 06-14-2021
- * @last modified by  : Travis Allen
+ * @last modified on  : 07-06-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author         Modification
  * 1.0   06-14-2021   Travis Allen   Initial Version
@@ -382,5 +382,32 @@ public class TestDataFactory {
       SlaProcessId = SlaId
     );
     return entitlement;
+  }
+
+  /**
+   * @description : create the list of error reporting event logs
+   * @author Ishwari Gaikwad(Thinqloud) | 07-06-2021
+   * @param recordId
+   * @param eventType
+   * @param body
+   * @param count
+   * @return List<OneJN_Event_Log__c>
+   **/
+  public static List<OneJN_Event_Log__c> createOneJNEventLog(
+    String recordId,
+    String eventType,
+    String body,
+    Integer count
+  ) {
+    List<OneJN_Event_Log__c> eventLogList = new List<OneJN_Event_Log__c>();
+    for (Integer i = 0; i < count; i++) {
+      OneJN_Event_Log__c eventlog = new OneJN_Event_Log__c();
+      eventlog.Salesforce_Record_Id__c = recordId;
+      eventlog.Name__c = eventType;
+      eventlog.Event_Source__c = Constants.EXTERNAL;
+      eventlog.Body__c = body;
+      eventLogList.add(eventlog);
+    }
+    return eventLogList;
   }
 }

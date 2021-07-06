@@ -6,6 +6,10 @@
   <aura:attribute name="errorMessage" type="string" />
   <aura:attribute name="errorCode" type="string" />
   <aura:attribute name="eventName" type="string" />
+  <aura:attribute name="time" type="string" />
+  <aura:attribute name="date" type="string" />
+  <aura:attribute name="userName" type="string" />
+
   <li>
     <div class="slds-timeline__item_expandable slds-timeline__item_task">
       <span class="slds-assistive-text">task</span>
@@ -28,12 +32,12 @@
               </h3>
             </div>
             <div class="slds-timeline__actions slds-timeline__actions_inline">
-              <p class="slds-timeline__date">9:00am | 3/20/17</p>
+              <p class="slds-timeline__date">{!v.time} | {!v.date}</p>
             </div>
           </div>
           <p class="slds-m-horizontal_xx-small">
             {!v.errorMessage}<br />
-            {!v.errorCode}
+            {!v.errorCode} - {!v.userName}
           </p>
         </div>
       </div>
