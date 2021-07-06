@@ -1,9 +1,9 @@
 ({
   doInit: function (component, event, helper) {
     const empApi = component.find("empApi");
-    const channel = "/topic/ErrorEventLogGenerated";
+    const channel = "/topic/OneJNErrorOuputEventLog";
     empApi.setDebugFlag(true);
-    var handleError = function (error) {
+    let handleError = function (error) {
       console.log("empApi error", error);
     };
     empApi.onError(handleError);

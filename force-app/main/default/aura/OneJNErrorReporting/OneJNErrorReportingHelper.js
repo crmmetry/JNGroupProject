@@ -9,9 +9,9 @@
       let state = response.getState();
       let result = response.getReturnValue();
       if (state === "SUCCESS") {
-        var arrayMapKeys = [];
+        let arrayMapKeys = [];
         component.set("v.eventLogs", result);
-        for (var key in result) {
+        for (let key in result) {
           arrayMapKeys.push(key);
         }
         component.set("v.keyList", arrayMapKeys);
