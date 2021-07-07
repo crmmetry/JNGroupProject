@@ -2,7 +2,7 @@
  * @description       : service to coordinate the  selector layer and serialization
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 07-02-2021
+ * @last modified on  : 07-07-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -143,7 +143,8 @@ public with sharing class OneJNEventService {
       DocumentChecklistItem documentChecklistItem = new DocumentChecklistItem();
       documentChecklistItem = getDocumentCheckListItem(
         opportunity1[0],
-        oneJNDeserializerVar
+        oneJNDeserializerVar,
+        Constants.PRE_ASSESSMENT_SUBMISSION
       );
 
       List<Application__c> applist = new List<Application__c>();
@@ -286,7 +287,8 @@ public with sharing class OneJNEventService {
       DocumentChecklistItem documentChecklistItem = new DocumentChecklistItem();
       documentChecklistItem = getDocumentCheckListItem(
         opportunity1[0],
-        oneJNDeserializerVar
+        oneJNDeserializerVar,
+        Constants.FINAL_ASSESMENT_SUBMISSION
       );
 
       List<Application__c> applist = new List<Application__c>();
@@ -675,7 +677,8 @@ public with sharing class OneJNEventService {
    **/
   public static DocumentChecklistItem getDocumentCheckListItem(
     Opportunity opportunityRecord,
-    OneJNDeserializer deserialiser
+    OneJNDeserializer deserialiser,
+    String eventType
   ) {
     List<String> documentRequirementList = deserialiser.ConsolidatedReport
       ?.ApplicantDetailsPrimary
@@ -683,7 +686,9 @@ public with sharing class OneJNEventService {
     DocumentChecklistItem documentCheckListRecord = new DocumentChecklistItem();
     if (documentRequirementList <> null && documentRequirementList.size() > 0) {
       documentCheckListRecord.Name =
-        opportunityRecord.Account.Name + ' - Document Checklist';
+        opportunityRecord.Account.Name +
+        ' - Document Checklist - ' +
+        eventType;
       documentCheckListRecord.ParentRecordId = opportunityRecord.Id;
       documentCheckListRecord.WhoId = opportunityRecord.Account.PersonContactId;
 
