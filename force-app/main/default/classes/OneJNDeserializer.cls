@@ -104,7 +104,7 @@ public class OneJNDeserializer {
     @AuraEnabled
     public decimal TotalFees;
   }
-  /*
+    /*
   public class DocumentRequirementsWrapper {
     @AuraEnabled
     public string Documents;
