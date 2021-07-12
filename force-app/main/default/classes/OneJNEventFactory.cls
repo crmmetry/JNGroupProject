@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 07-01-2021
+ * @last modified on  : 07-12-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -332,6 +332,25 @@ public with sharing class OneJNEventFactory {
         sObjectsToUpdate
       );
       update decision.getRecords();
+    }
+  }
+
+  /**
+   * @description
+   * @author Ishwari Gaikwad(Thinqloud) | 07-12-2021
+   * @param eventType
+   * @param oneJNOnBoardingDeserializer
+   **/
+  public static void ProcessIncomingEventOnBoarding(
+    String eventType,
+    OneJNOnBoardingDeserialiser oneJNOnBoardingDeserializer
+  ) {
+    OneJNOnBoardingDeserialiser deserialiser = OneJNOnBoardingDeserialiser.parse(
+      oneJNOnBoardingDeserializer,
+      eventType
+    );
+    if (deserialiser.accountRecord <> null) {
+      upsert deserialiser.accountRecord GUID_Text__c;
     }
   }
 }

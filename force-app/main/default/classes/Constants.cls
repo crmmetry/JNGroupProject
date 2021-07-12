@@ -2,8 +2,8 @@
  * @description       : Global constants
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 07-05-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 07-12-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   06-17-2021   Remario Richards   Initial Version
@@ -215,4 +215,10 @@ public class Constants {
 
   public static final String PRIMARY_APPLICANT = 'Primary Applicant';
   public static final String CO_APPLICANT = 'Co-Applicant';
+
+  public static final String SUBMIT_PROFILE_EVENT_1 = 'JNGroup.OneJN.Account.Domain.Events.Account.AccountCreateEvent';
+  public static final String SUBMIT_PROFILE_EVENT_2 = 'JNGroup.OneJN.Account.Domain.Events.Account.AccountTermAndConditionEvent';
+  public static final String SUBMIT_PROFILE_EVENT_3 = 'JNGroup.OneJN.Account.Domain.Events.Account.AccountUpdateIdentificationEvent';
+  public static final String SUBMIT_PROFILE_EVENT_4 = 'JNGroup.OneJN.Account.Domain.Events.Account.AccountUpdateIdentificationFinishEvent';
+  public static final String SUBMIT_PROFILE_EVENT_5 = 'JNGroup.OneJN.Account.Domain.Events.Account.AccountProfileConfirmedEvent';
 }
