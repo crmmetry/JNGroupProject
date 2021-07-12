@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 06-28-2021
+ * @last modified on  : 07-12-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -25,10 +25,10 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
    * @param context
    **/
   public void execute(QueueableContext context) {
-    List<Lead> leads = checkLeadsToBeNotified(this.currentTime);
+    List<Lead> leads = new List<Lead>(checkLeadsToBeNotified(this.currentTime));
     update leads;
   }
-  //TODO:Augment Unit Test to ensure that tests includes dependent process builder.
+
   /**
    *  /**
    * LEAD Assignment SLA Scenarios and conditions
@@ -39,12 +39,12 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
    *
    * @author Travis Allen | 06-22-2021
    **/
-  public static List<Lead> checkLeadsToBeNotified(Datetime currentTime) {
+  public static Set<Lead> checkLeadsToBeNotified(Datetime currentTime) {
     //Time spent in tier
     Decimal timeSpentInTier = 0;
 
     //List of Leads to be updated
-    List<Lead> leadsToBeUpdated = new List<Lead>();
+    Set<Lead> leadsToBeUpdated = new Set<Lead>();
 
     //Fetch id for Tier one queue
     Id tierOneQueue = Util.getQueueId(Constants.TIER_ONE_QUEUE);
@@ -181,15 +181,13 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
             leadRecord.Not_Contacted_24_hours_Tier_2_flag__c = true;
             leadsToBeUpdated.add(leadRecord);
           }
-        }
-
-        //Check if maximum time has been spent in tier 1 with no contact made for a lead and no notification have not been sent
-        if (
+        } else if (
           leadRecord.Last_Contact_Made__c <
           leadRecord.Assignment_Timestamp__c &&
           leadRecord.Not_Contacted_24_hours_Tier_2_flag__c &&
           !leadRecord.Not_Contacted_36_hours_flag__c
         ) {
+          //Check if maximum time has been spent in tier 1 with no contact made for a lead and no notification have not been sent
           //Check if expected assignment datetime lines up with what is recorded on lead record
           DateTime expectedAssignedTime = getBackDatedTime(
             Constants.MAX_TIME_SPENT_IN_TIER_TWO_FOR_SECOND_NOTIFICATION,
