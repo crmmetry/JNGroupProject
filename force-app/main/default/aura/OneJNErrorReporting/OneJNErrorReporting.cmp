@@ -1,0 +1,31 @@
+<aura:component
+  implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId"
+  controller="OneJNErrorReportingController"
+>
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+  <aura:handler
+    name="change"
+    value="{!v.recordId}"
+    action="{!c.onRecordIdChange}"
+  />
+  <aura:attribute name="keyList" type="List" />
+  <aura:attribute name="eventLogs" type="map" />
+  <lightning:empApi aura:id="empApi" />
+  <aura:attribute name="recordId" type="Id" />
+  <lightning:utilityBarAPI aura:id="UtilityBarEx" />
+  <ltng:require
+    scripts="{!$Resource.constants}"
+    afterScriptsLoaded="{!c.afterScriptsLoaded}"
+  />
+  <br />
+  <aura:if isTrue="{!v.keyList.length > 0 ? true : false }">
+    <ul class="slds-timeline">
+      <aura:iteration items="{!v.keyList}" var="key">
+        <c:OneJNErrorReportingChild key="{!key}" map="{!v.eventLogs}" />
+      </aura:iteration>
+    </ul>
+    <aura:set attribute="else">
+      Sorry, There are no error logs generated for this record.
+    </aura:set>
+  </aura:if>
+</aura:component>
