@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 07-06-2021
+ * @last modified on  : 06-17-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -28,15 +28,15 @@ public class TestSkillsBasedRouting {
     //Create a 3 Users
     List<User> newUsers = new List<User>();
 
-    User travis = TestDataFactory.CreateUser('Travis123456789@test.com');
+    User travis = TestDataFactory.CreateUser('TestTravis@test.com');
     travis.Sales_User__c = false;
     newUsers.add(travis);
 
-    User remario = TestDataFactory.CreateUser('Remario234567890@test.com');
+    User remario = TestDataFactory.CreateUser('TestRemario@test.com');
     remario.Sales_User__c = false;
     newUsers.add(remario);
 
-    User abigail = TestDataFactory.CreateUser('Abigail089786645331@test.com');
+    User abigail = TestDataFactory.CreateUser('TestAbigail@test.com');
     abigail.Sales_User__c = false;
     newUsers.add(abigail);
 
@@ -100,11 +100,7 @@ public class TestSkillsBasedRouting {
   public static void shouldRouteLeadScenario1() {
     List<ServiceResourceSkill> serviceResourceSkills = new List<ServiceResourceSkill>();
     //User to run system
-    User travis = [
-      SELECT Id
-      FROM User
-      WHERE UserName = 'Travis123456789@test.com'
-    ];
+    User travis = [SELECT Id FROM User WHERE UserName = 'TestTravis@test.com'];
     System.runAs(travis) {
       Id salesTeam = Util.getQueueId(Constants.SALES_TEAM);
 
@@ -181,11 +177,7 @@ public class TestSkillsBasedRouting {
   public static void shouldRouteLeadScenario2() {
     List<ServiceResourceSkill> serviceResourceSkills = new List<ServiceResourceSkill>();
     //User to run system
-    User travis = [
-      SELECT Id
-      FROM User
-      WHERE UserName = 'Travis123456789@test.com'
-    ];
+    User travis = [SELECT Id FROM User WHERE UserName = 'TestTravis@test.com'];
     System.runAs(travis) {
       Id salesTeam = Util.getQueueId(Constants.SALES_TEAM);
 
@@ -262,11 +254,7 @@ public class TestSkillsBasedRouting {
   public static void shouldRouteLeadScenario3() {
     List<ServiceResourceSkill> serviceResourceSkills = new List<ServiceResourceSkill>();
     //User to run system
-    User travis = [
-      SELECT Id
-      FROM User
-      WHERE UserName = 'Travis123456789@test.com'
-    ];
+    User travis = [SELECT Id FROM User WHERE UserName = 'TestTravis@test.com'];
     System.runAs(travis) {
       Id salesTeam = Util.getQueueId(Constants.SALES_TEAM);
 
@@ -375,11 +363,7 @@ public class TestSkillsBasedRouting {
   public static void shouldRouteLeadScenario4() {
     List<ServiceResourceSkill> serviceResourceSkills = new List<ServiceResourceSkill>();
     //User to run system
-    User travis = [
-      SELECT Id
-      FROM User
-      WHERE UserName = 'Travis123456789@test.com'
-    ];
+    User travis = [SELECT Id FROM User WHERE UserName = 'TestTravis@test.com'];
     System.runAs(travis) {
       Id salesTeam = Util.getQueueId(Constants.SALES_TEAM);
 
@@ -504,11 +488,7 @@ public class TestSkillsBasedRouting {
   public static void shouldRouteLeadScenario5() {
     List<ServiceResourceSkill> serviceResourceSkills = new List<ServiceResourceSkill>();
     //User to run system
-    User travis = [
-      SELECT Id
-      FROM User
-      WHERE UserName = 'Travis123456789@test.com'
-    ];
+    User travis = [SELECT Id FROM User WHERE UserName = 'TestTravis@test.com'];
     System.runAs(travis) {
       Id salesTeam = Util.getQueueId(Constants.SALES_TEAM);
 

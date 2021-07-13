@@ -2,8 +2,8 @@
  * @description       : Global constants
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 07-05-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 07-02-2021
+ * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   06-17-2021   Remario Richards   Initial Version
