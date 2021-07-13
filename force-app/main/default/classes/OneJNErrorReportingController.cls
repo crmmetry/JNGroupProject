@@ -2,13 +2,13 @@
  * @description       : Controller for the OneJNErrorReporting lightning component
  * @author            : Ishwari Gaikwad(Thinqloud)
  * @group             :
- * @last modified on  : 07-06-2021
+ * @last modified on  : 07-13-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                       Modification
  * 1.0   07-06-2021   Ishwari Gaikwad(Thinqloud)   Initial Version
  **/
-public class OneJNErrorReportingController {
+public with sharing class OneJNErrorReportingController {
   /**
    * @description : get the map of error logs for the opportunity and application object
    * @author Ishwari Gaikwad(Thinqloud) | 07-06-2021
@@ -62,7 +62,12 @@ public class OneJNErrorReportingController {
    * @return User
    **/
   public static User getUserDetails(Id userId) {
-    User userDetails = [SELECT ID, Name FROM User WHERE Id = :userId];
+    User userDetails = [
+      SELECT ID, Name
+      FROM User
+      WHERE Id = :userId
+      WITH SECURITY_ENFORCED
+    ];
     return userDetails;
   }
 
@@ -80,6 +85,7 @@ public class OneJNErrorReportingController {
         Event_Source__c = :Constants.EXTERNAL
         AND Name__c = :Constants.GENERIC_ERROR_EVENT
         AND Salesforce_Record_Id__c = :recordId
+      WITH SECURITY_ENFORCED
       ORDER BY CreatedDate DESC
       LIMIT 5
     ];
@@ -104,7 +110,7 @@ public class OneJNErrorReportingController {
       objectName +
       ' WHERE Id = \'' +
       recordId +
-      '\'';
+      '\' WITH SECURITY_ENFORCED';
     sObject sobjectRecord = Database.query(query);
     return sobjectRecord;
   }
