@@ -224,4 +224,5 @@ public class Constants {
   public static final String SUBMIT_PROFILE_EVENT_3 = 'JNGroup.OneJN.Account.Domain.Events.Account.AccountUpdateIdentificationEvent';
   public static final String SUBMIT_PROFILE_EVENT_4 = 'JNGroup.OneJN.Account.Domain.Events.Account.AccountUpdateIdentificationFinishEvent';
   public static final String SUBMIT_PROFILE_EVENT_5 = 'JNGroup.OneJN.Account.Domain.Events.Account.AccountProfileConfirmedEvent';
+
 }
