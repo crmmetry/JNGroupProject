@@ -2,7 +2,7 @@
  * @description       : Global constants
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 07-12-2021
+ * @last modified on  : 07-13-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -159,12 +159,12 @@ public class Constants {
   public static final String MANUAL_DEFER = 'Defer';
   public static final String PASS_PRE_APPROVAL = 'Pass';
   public static final String REFERRED_DECISION = 'Referred';
-  public static final String MANUALLY_APPROVED = 'Manually Approved'; 
+  public static final String MANUALLY_APPROVED = 'Manually Approved';
   public static final String MANUALLY_DECLINED = 'Manually Declined';
   public static final String DEFERRAL_APPROVED = 'Deferral Approved';
   public static final String DEFERRAL_DECLINED = 'Deferral Declined';
   public static final String MANUAL_DECISION_ACCEPT = 'Accept';
-  public static final String MANUAL_DECISION_DECLINE  = 'Decline';
+  public static final String MANUAL_DECISION_DECLINE = 'Decline';
   public static final String DEFERRED = 'Defer';
 
   //ONE JN
@@ -215,6 +215,9 @@ public class Constants {
 
   public static final String PRIMARY_APPLICANT = 'Primary Applicant';
   public static final String CO_APPLICANT = 'Co-Applicant';
+
+  public static final String EXTERNAL = 'External';
+  public static final String GENERIC_ERROR_EVENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.GenericErrorEvent';
 
   public static final String SUBMIT_PROFILE_EVENT_1 = 'JNGroup.OneJN.Account.Domain.Events.Account.AccountCreateEvent';
   public static final String SUBMIT_PROFILE_EVENT_2 = 'JNGroup.OneJN.Account.Domain.Events.Account.AccountTermAndConditionEvent';

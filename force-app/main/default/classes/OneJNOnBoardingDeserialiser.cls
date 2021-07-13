@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Ishwari Gaikwad(Thinqloud)
  * @group             :
- * @last modified on  : 07-12-2021
+ * @last modified on  : 07-13-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                       Modification
@@ -28,7 +28,7 @@ public class OneJNOnBoardingDeserialiser {
   @AuraEnabled
   public String ProfileState;
   @AuraEnabled
-  public String Date1; // Date is reserved keyword
+  public String DateString; // Date is reserved keyword: DateString
   @AuraEnabled
   public String Trn;
   @AuraEnabled
@@ -45,7 +45,7 @@ public class OneJNOnBoardingDeserialiser {
   @AuraEnabled
   public String JnRewardsAccount;
   @AuraEnabled
-  public String MarketingPreferences;
+  public List<String> MarketingPreferences;
   @AuraEnabled
   public AddressWrapper Address;
 
@@ -94,73 +94,89 @@ public class OneJNOnBoardingDeserialiser {
     String eventType
   ) {
     deserialiser.accountRecord = new Account();
-    //event 1::
-    deserialiser.accountRecord.FirstName = deserialiser.Firstname;
-    deserialiser.accountRecord.LastName = deserialiser.LastName;
-    deserialiser.accountRecord.MiddleName = deserialiser.MiddleName;
-    deserialiser.accountRecord.PersonEmail = deserialiser.Email;
-    deserialiser.accountRecord.PersonMobilePhone = deserialiser.PhoneNumber; // recheck the name
-    deserialiser.accountRecord.GUID_Text__c = deserialiser.Id;
-    deserialiser.accountRecord.ProfileState_List__c = deserialiser.ProfileState;
-    deserialiser.accountRecord.UsernameText__c = deserialiser.UserName;
+    try {
+      if (
+        eventType == Constants.SUBMIT_PROFILE_EVENT_1 ||
+        eventType == Constants.SUBMIT_PROFILE_EVENT_2 ||
+        eventType == Constants.SUBMIT_PROFILE_EVENT_3 ||
+        eventType == Constants.SUBMIT_PROFILE_EVENT_4 ||
+        eventType == Constants.SUBMIT_PROFILE_EVENT_5
+      ) {
+        //Event 1,2,3,4,5
+        deserialiser.accountRecord.FirstName = deserialiser.Firstname;
+        deserialiser.accountRecord.LastName = deserialiser.LastName;
+        deserialiser.accountRecord.MiddleName = deserialiser.MiddleName;
+        deserialiser.accountRecord.PersonEmail = deserialiser.Email;
+        deserialiser.accountRecord.PersonMobilePhone = deserialiser.PhoneNumber; // recheck the name
+        deserialiser.accountRecord.GUID_Text__c = deserialiser.Id;
+        deserialiser.accountRecord.ProfileState_List__c = deserialiser.ProfileState;
+        deserialiser.accountRecord.UsernameText__c = deserialiser.UserName;
+      }
+      if (
+        eventType == Constants.SUBMIT_PROFILE_EVENT_2 ||
+        eventType == Constants.SUBMIT_PROFILE_EVENT_3 ||
+        eventType == Constants.SUBMIT_PROFILE_EVENT_4 ||
+        eventType == Constants.SUBMIT_PROFILE_EVENT_5
+      ) {
+        //Event 2,3,4,5
+        deserialiser.accountRecord.ProfileCreateDate_Timestamp__c = Date.valueOf(
+          deserialiser.DateString
+        ); //confirm
+      }
+      if (
+        eventType == Constants.SUBMIT_PROFILE_EVENT_4 ||
+        eventType == Constants.SUBMIT_PROFILE_EVENT_5
+      ) {
+        //event 4,5
+        deserialiser.accountRecord.FinServ__Gender__pc = deserialiser.Gender;
+        deserialiser.accountRecord.PersonBirthdate = Date.valueOf(
+          deserialiser.DOB
+        ); //DateTIme to Date : change to date
+        deserialiser.accountRecord.Country_of_Citizenship__pc = deserialiser.Nationality;
+        deserialiser.accountRecord.Identification_Number__c = deserialiser.Identification.IdNumber;
+        deserialiser.accountRecord.Identification_Type__c = deserialiser.Identification.IdType;
+        deserialiser.accountRecord.IDIssueDate_Date__c = Date.valueOf(
+          deserialiser.Identification.IdIssueDate
+        ); //Datetime to date :
+        deserialiser.accountRecord.ID_Expiration_Date__c = Date.valueOf(
+          deserialiser.Identification.IdExpiryDate
+        ); //Datetime to date
+        deserialiser.accountRecord.Jamaican_Tax_Registration_Number__pc = deserialiser.TRN;
+      }
+      if (eventType == Constants.SUBMIT_PROFILE_EVENT_5) {
+        //Event 5
+        deserialiser.accountRecord.RIM_no__c = deserialiser.PhoenixId;
+        deserialiser.accountRecord.JNRewardsAcc_Text__c = deserialiser.JnRewardsAccount;
+        deserialiser.accountRecord.MarketingPreferences_MList__c = String.join(
+          deserialiser.MarketingPreferences,
+          ';'
+        ); //illegal assignment from list to string
 
-    //event 2, 3::
-    //deserialiser.accountRecord.ProfileCreateDate_Timestamp__c = deserialiser.Date1; //confirm
-
-    //Event 4
-    deserialiser.accountRecord.FinServ__Gender__pc = deserialiser.Gender;
-    //deserialiser.accountRecord.PersonBirthdate = deserialiser.DOB; //DateTIme to Date
-    deserialiser.accountRecord.Country_of_Citizenship__pc = deserialiser.Nationality;
-    deserialiser.accountRecord.Identification_Number__c = deserialiser.Identification.IdNumber;
-    deserialiser.accountRecord.Identification_Type__c = deserialiser.Identification.IdType;
-    //deserialiser.accountRecord.IDIssueDate_Date__c = deserialiser.Identification.IdIssueDate; //Datetime to date
-    //deserialiser.accountRecord.ID_Expiration_Date__c = deserialiser.Identification.IdExpiryDate;//Datetime to date
-    deserialiser.accountRecord.Jamaican_Tax_Registration_Number__pc = deserialiser.TRN;
-
-    //Event 5
-    deserialiser.accountRecord.RIM_no__c = deserialiser.PhoenixId;
-    deserialiser.accountRecord.JNRewardsAcc_Text__c = deserialiser.JnRewardsAccount;
-    deserialiser.accountRecord.MarketingPreferences_MList__c = deserialiser.MarketingPreferences; //illegal assignment from list to string
-
-    deserialiser.accountRecord.Street_1__pc = deserialiser.Address.Street1;
-    deserialiser.accountRecord.Street_2__pc = deserialiser.Address.Street2;
-    deserialiser.accountRecord.Country__c = deserialiser.Address.Country;
-    deserialiser.accountRecord.City_Town__pc = deserialiser.Address.city;
-    deserialiser.accountRecord.Province_Parish_State__pc = deserialiser.Address.Region;
-    deserialiser.accountRecord.Post_Office_Zip_Code__pc = deserialiser.Address.Zip;
-
-    if (
-      eventType == Constants.SUBMIT_PROFILE_EVENT_1 ||
-      eventType == Constants.SUBMIT_PROFILE_EVENT_2 ||
-      eventType == Constants.SUBMIT_PROFILE_EVENT_3 ||
-      eventType == Constants.SUBMIT_PROFILE_EVENT_4 ||
-      eventType == Constants.SUBMIT_PROFILE_EVENT_5
-    ) {
-      //Event 1,2,3,4,5
-    }
-    if (
-      eventType == Constants.SUBMIT_PROFILE_EVENT_2 ||
-      eventType == Constants.SUBMIT_PROFILE_EVENT_3 ||
-      eventType == Constants.SUBMIT_PROFILE_EVENT_4 ||
-      eventType == Constants.SUBMIT_PROFILE_EVENT_5
-    ) {
-      //Event 2,3,4,5
-    }
-    if (
-      eventType == Constants.SUBMIT_PROFILE_EVENT_3 ||
-      eventType == Constants.SUBMIT_PROFILE_EVENT_4 ||
-      eventType == Constants.SUBMIT_PROFILE_EVENT_5
-    ) {
-      //Event 3,4,5
-    }
-    if (
-      eventType == Constants.SUBMIT_PROFILE_EVENT_4 ||
-      eventType == Constants.SUBMIT_PROFILE_EVENT_5
-    ) {
-      //event 4,5
-    }
-    if (eventType == Constants.SUBMIT_PROFILE_EVENT_5) {
-      //Event 5
+        deserialiser.accountRecord.Street_1__pc = deserialiser.Address.Street1;
+        deserialiser.accountRecord.Street_2__pc = deserialiser.Address.Street2;
+        deserialiser.accountRecord.Country__c = deserialiser.Address.Country;
+        deserialiser.accountRecord.City_Town__pc = deserialiser.Address.city;
+        deserialiser.accountRecord.Province_Parish_State__pc = deserialiser.Address.Region;
+        deserialiser.accountRecord.Post_Office_Zip_Code__pc = deserialiser.Address.Zip;
+      }
+    } catch (Exception e) {
+      OneJNSerializerDecision.ExceptionWrapper exceptionWrapper = new OneJNSerializerDecision.ExceptionWrapper();
+      String json = exceptionWrapper.getExceptionJson(e, eventType);
+      One_JN_Output__e requestPlatformEvent = Util.getOutputPlateformEventInstance(
+        Constants.GENERIC_ERROR_EVENT,
+        '',
+        json,
+        deserialiser.Id
+      );
+      // publish the event
+      Database.SaveResult result = EventBus.publish(requestPlatformEvent);
+      if (result.isSuccess()) {
+        System.debug('Platform event published successfully.');
+      } else {
+        for (Database.Error err : result.getErrors()) {
+          System.debug('Error returned: ' + err.getStatusCode());
+        }
+      }
     }
     return deserialiser;
   }

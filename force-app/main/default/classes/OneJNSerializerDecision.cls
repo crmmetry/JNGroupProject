@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Ishwari Gaikwad(Thinqloud)
  * @group             :
- * @last modified on  : 06-29-2021
- * @last modified by  : Trupti Zende (Thinqloud)
+ * @last modified on  : 07-13-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                       Modification
  * 1.0   06-14-2021   Ishwari Gaikwad(Thinqloud)   Initial Version
@@ -444,5 +444,24 @@ public class OneJNSerializerDecision {
     }
     JSONData = removeFields(JSONData, fieldsToRemove);
     return JSONData;
+  }
+
+  public class ExceptionWrapper {
+    public String getExceptionJson(Exception e, String eventName) {
+      String stackTrace = e.getStackTraceString().substringBefore('\n');
+      String className = stackTrace.substringAfter('.').substringBefore('.');
+      String methodName = stackTrace.substringBefore(':')
+        .substringAfter(className)
+        .substringAfter('.');
+      Map<String, String> jsonData = new Map<String, String>();
+      jsonData.put('ProcessName', className);
+      jsonData.put('MethodName', methodName);
+      jsonData.put('ErrorMessage', e.getMessage());
+      jsonData.put('StackTrace', e.getStackTraceString());
+      jsonData.put('EventType', eventName);
+
+      String json = JSON.serialize(jsonData);
+      return json;
+    }
   }
 }

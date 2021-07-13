@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 07-12-2021
+ * @last modified on  : 07-13-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -349,8 +349,28 @@ public with sharing class OneJNEventFactory {
       oneJNOnBoardingDeserializer,
       eventType
     );
-    if (deserialiser.accountRecord <> null) {
-      upsert deserialiser.accountRecord GUID_Text__c;
+    try {
+      if (deserialiser.accountRecord <> null) {
+        upsert deserialiser.accountRecord GUID_Text__c;
+      }
+    } catch (Exception e) {
+      OneJNSerializerDecision.ExceptionWrapper exceptionWrapper = new OneJNSerializerDecision.ExceptionWrapper();
+      String json = exceptionWrapper.getExceptionJson(e, eventType);
+      One_JN_Output__e requestPlatformEvent = Util.getOutputPlateformEventInstance(
+        Constants.GENERIC_ERROR_EVENT,
+        '',
+        json,
+        deserialiser.Id
+      );
+      // publish the event
+      Database.SaveResult result = EventBus.publish(requestPlatformEvent);
+      if (result.isSuccess()) {
+        System.debug('Platform event published successfully.');
+      } else {
+        for (Database.Error err : result.getErrors()) {
+          System.debug('Error returned: ' + err.getStatusCode());
+        }
+      }
     }
   }
 }

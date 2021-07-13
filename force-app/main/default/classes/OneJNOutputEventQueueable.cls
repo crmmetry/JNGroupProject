@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 07-12-2021
+ * @last modified on  : 07-13-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -41,8 +41,11 @@ public with sharing class OneJNOutputEventQueueable implements Queueable {
         OneJNDeserializer.class
       );
     } else if (
-      eventType == Constants.SUBMIT_PROFILE_CREATION_EVENT ||
-      eventType == Constants.SUMBIT_PROFILE_UPDATE_EVENT
+      eventType == Constants.SUBMIT_PROFILE_EVENT_1 ||
+      eventType == Constants.SUBMIT_PROFILE_EVENT_2 ||
+      eventType == Constants.SUBMIT_PROFILE_EVENT_3 ||
+      eventType == Constants.SUBMIT_PROFILE_EVENT_4 ||
+      eventType == Constants.SUBMIT_PROFILE_EVENT_5
     ) {
       //deserialize body
       this.oneJNOnBoardingDeserializer = (OneJNOnBoardingDeserialiser) JSON.deserialize(
@@ -73,8 +76,11 @@ public with sharing class OneJNOutputEventQueueable implements Queueable {
         sfRecordId
       );
     } else if (
-      eventType == Constants.SUBMIT_PROFILE_CREATION_EVENT ||
-      eventType == Constants.SUMBIT_PROFILE_UPDATE_EVENT
+      eventType == Constants.SUBMIT_PROFILE_EVENT_1 ||
+      eventType == Constants.SUBMIT_PROFILE_EVENT_2 ||
+      eventType == Constants.SUBMIT_PROFILE_EVENT_3 ||
+      eventType == Constants.SUBMIT_PROFILE_EVENT_4 ||
+      eventType == Constants.SUBMIT_PROFILE_EVENT_5
     ) {
       OneJNEventFactory.ProcessIncomingEventOnBoarding(
         eventType,
