@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-21-2021
+ * @last modified on  : 07-02-2021
  * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -142,18 +142,33 @@ public class OneJNSerializer {
      * @param LoanCalculationProductRecord
      **/
     AppDataWrapper(
-      Application__c ApplicationRecord,
-      Opportunity OpportunityRecord,
-      Applicant__c ApplicantRecord,
-      OpportunityLineItem OpportunityProductRecord,
-      Loan_Calculation_Product__c LoanCalculationProductRecord
+      Application__c applicationRecord,
+      Opportunity opportunityRecord,
+      Applicant__c applicantRecord,
+      OpportunityLineItem opportunityProductRecord,
+      Loan_Calculation_Product__c loanCalculationProductRecord
     ) {
       if (applicationRecord != null) {
         this.PhoenixId = applicationRecord.ApplicantNameID__r.RIM_no__c;
         this.ApplicationId = applicationRecord.Application_ID__c;
         this.ApprovedTenure = applicationRecord.IDM_Tenure_Date__c;
         this.ApprovedCreditAmount = applicationRecord.IDM_Loan_Amount_Number__c;
-        this.AdjudicationDecision = applicationRecord.Adjudication_Decision_picklist__c;
+
+        if (
+          applicationRecord.Adjudication_Decision_picklist__c ==
+          Constants.MANUAL_APPROVE ||
+          applicationRecord.Adjudication_Decision_picklist__c ==
+          Constants.DEFERRAL_APPROVED
+        ) {
+          this.AdjudicationDecision = Constants.MANUAL_DECISION_ACCEPT;
+        } else if (
+          applicationRecord.Adjudication_Decision_picklist__c ==
+          Constants.MANUAL_DECLINED ||
+          applicationRecord.Adjudication_Decision_picklist__c ==
+          Constants.DEFERRAL_DECLINED
+        ) {
+          this.AdjudicationDecision = Constants.MANUAL_DECISION_DECLINE;
+        }
         this.InterestRateForApplication = applicationRecord.IDM_Interest_Rate_Number__c;
         this.ApplicationDate = buildDate(applicationRecord.CreatedDate);
       }
@@ -214,9 +229,9 @@ public class OneJNSerializer {
     //@AuraEnabled
     //public decimal NPreviousRejectApplication12m;
     @AuraEnabled
-    public string IsPublicSectorEmployee;
+    public Boolean IsPublicSectorEmployee;
     @AuraEnabled
-    public integer BankruptCurrent;
+    public Boolean BankruptCurrent;
     @AuraEnabled
     public boolean BankruptEver;
     @AuraEnabled
@@ -295,11 +310,13 @@ public class OneJNSerializer {
         ? 'Primary'
         : 'Co-Applicant';
       //this.NPreviousRejectApplication12m = applicantRecord.Number_of_Rejected_Applications_Number__c;
-      this.IsPublicSectorEmployee = applicantRecord.Public_Sector_or_Civil_Servant_List__c;
-      this.BankruptCurrent = OneJNSerializer.getIntegerValueFromString(
+      this.IsPublicSectorEmployee = getBooleanValueFromString(
+        applicantRecord.Public_Sector_or_Civil_Servant_List__c
+      );
+      this.BankruptCurrent = getBooleanValueFromString(
         applicantRecord.Are_you_currently_in_bankruptcy_list__c
       );
-      this.BankruptEver = OneJNSerializer.getBooleanValueFromString(
+      this.BankruptEver = getBooleanValueFromString(
         applicantRecord.Declared_bankrupt_list__c
       );
       this.MonthlyIncomeUnverified = applicantRecord.Gross_Monthly_Income__c;

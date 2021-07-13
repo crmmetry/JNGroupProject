@@ -2,8 +2,8 @@
  * @description       : Global constants
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-23-2021
- * @last modified by  : Travis Allen
+ * @last modified on  : 07-06-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   06-17-2021   Remario Richards   Initial Version
@@ -157,6 +157,16 @@ public class Constants {
   public static final String MANUAL_APPROVE = 'Manual Approve';
   public static final String MANUAL_DECLINED = 'Manual Decline';
   public static final String MANUAL_DEFER = 'Defer';
+  public static final String PASS_PRE_APPROVAL = 'Pass';
+  public static final String REFERRED_DECISION = 'Referred';
+  public static final String MANUALLY_APPROVED = 'Manually Approved';
+  public static final String MANUALLY_DECLINED = 'Manually Declined';
+  public static final String DEFERRAL_APPROVED = 'Deferral Approved';
+  public static final String DEFERRAL_DECLINED = 'Deferral Declined';
+  public static final String MANUAL_DECISION_ACCEPT = 'Accept';
+  public static final String MANUAL_DECISION_DECLINE = 'Decline';
+  public static final String DEFERRED = 'Defer';
+
   //ONE JN
   public static final String GET_LOAN_APPLICATION_ID = 'JNGroup.OneJN.CreditInfo.Domain.Events.GetApplicationIdEvent';
   public static final String RETURN_LOAN_APPLICATION_ID = 'JNGroup.OneJN.CreditInfo.Domain.Events.GetApplicationIdResponseEvent';
@@ -203,10 +213,9 @@ public class Constants {
   public static final String DEFAULT_TRIGGER_SWITCH = 'Disable_All_Triggers';
   public static final String SALES_TEAM = 'Sales Team';
 
-  public static final Integer MAX_TIME_SPENT_IN_TIER_ONE_WHEN_REASSIGNED = 8;
-  public static final Integer MAX_TIME_SPENT_IN_TIER_ONE = 24;
-  public static final Integer MAX_TIME_SPENT_IN_TIER_TWO_FOR_FIRST_NOTFIFICATION = 24;
-  public static final Integer MAX_TIME_SPENT_IN_TIER_TWO_FOR_SECOND_NOTIFICATION = 36;
+  public static final String PRIMARY_APPLICANT = 'Primary Applicant';
+  public static final String CO_APPLICANT = 'Co-Applicant';
 
-  public static final String CONTACT_MADE = 'Contact Made';
+  public static final String EXTERNAL = 'External';
+  public static final String GENERIC_ERROR_EVENT = 'JNGroup.OneJN.CreditInfo.Domain.Events.GenericErrorEvent';
 }

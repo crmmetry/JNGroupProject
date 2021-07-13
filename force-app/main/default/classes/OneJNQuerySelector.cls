@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 06-18-2021
- * @last modified by  : Trupti Zende (Thinqloud)
+ * @last modified on  : 07-01-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-26-2021   Remario Richards   Initial Version
@@ -32,27 +32,6 @@ public with sharing class OneJNQuerySelector {
         WITH SECURITY_ENFORCED
       ]
     );
-  }
-  public static Map<ID, Account> getAccountsMap(Set<Id> accountIdSet) {
-    Map<ID, Account> accountsMap = new Map<ID, Account>(
-      [
-        SELECT
-          RecordType.Name,
-          MonthsResidence_Number__c,
-          Politically_Affiliated__c,
-          JN_Bank_Affiliation__pc,
-          Premier_Customer_List__c,
-          FinServ__NumberOfDependents__pc,
-          Name,
-          RIM_no__c,
-          Id,
-          Highest_level_of_Education_attained__pc
-        FROM Account
-        WHERE Id IN :accountIdSet
-        WITH SECURITY_ENFORCED
-      ]
-    );
-    return accountsMap;
   }
   /**
    * @description get applicants
@@ -167,6 +146,8 @@ public with sharing class OneJNQuerySelector {
         CurrencyIsoCode,
         Id,
         AccountId,
+        Account.PersonContactId,
+        Account.Name,
         Name,
         Rubicon_Path_list__c,
         Product_Category__c

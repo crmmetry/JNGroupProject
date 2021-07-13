@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Trupti Zende (Thinqloud)
  * @group             :
- * @last modified on  : 06-15-2021
+ * @last modified on  : 07-02-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                     Modification
@@ -197,8 +197,14 @@ public class TestOneJNEventFactory {
       appList2,
       opps2
     );
+    OneJNEventFactory.ProcessOutgoingEvent(
+      Constants.GET_CREDITCARD_PRE_ASSESSMENT,
+      appList2,
+      opps2
+    );
     Test.stopTest();
   }
+
   /**
    * @description to Test process outcoming event for GetUnsecuredLoanPreAssessment
    * @author Trupti Zende (Thinqloud) | 06-11-2021
@@ -388,7 +394,7 @@ public class TestOneJNEventFactory {
 
     Test.startTest();
     OneJNEventFactory.ProcessOutgoingEvent(
-      Constants.GET_MANUAL_DESICION_APPROVED,
+      Constants.SUBMIT_CREDIT_CARD_MANUAL_DECISION,
       appList2,
       opps2
     );
@@ -491,6 +497,11 @@ public class TestOneJNEventFactory {
       'TEST ' + Integer.valueof((Math.random() * 1000))
     );
     jsonGen.writeEndObject();
+    jsonGen.writeFieldName('ApplicantDetailsCoApplicants');
+    jsonGen.writeStartArray();
+    jsonGen.writeStartObject();
+    jsonGen.writeEndObject();
+    jsonGen.writeEndArray();
     jsonGen.writeEndObject();
     jsonGen.writeEndObject();
     String jsonData = jsonGen.getAsString();
@@ -509,7 +520,7 @@ public class TestOneJNEventFactory {
     Id applRecordTypeId_cc = mappedApplicationRecTypes.get('Application');
 
     List<Account> accounts = TestDataFactory.CreateBasicAccounts(
-      1,
+      2,
       'testAccount3'
     );
     accounts[0].RIM_no__c = '1111';
@@ -531,6 +542,29 @@ public class TestOneJNEventFactory {
     //Insert products with families
     insert products;
 
+    Pricebook2 standardPricebook = new Pricebook2(
+      Id = Test.getStandardPricebookId(),
+      IsActive = true
+    );
+
+    List<PricebookEntry> priceBookEntries = new List<PricebookEntry>();
+    for (Product2 record : products) {
+      priceBookEntries.add(
+        TestDataFactory.CreatePriceBookEntry(standardPricebook.Id, record.Id)
+      );
+    }
+    //Insert Price Book Entries
+    insert priceBookEntries;
+
+    List<OpportunityLineItem> lineItems = new List<OpportunityLineItem>();
+    for (PricebookEntry record : priceBookEntries) {
+      lineItems.add(
+        TestDataFactory.CreateOpportunityLineItem(opps2[0].id, record.Id)
+      );
+    }
+    // Insert Opportunity Line Items
+    insert lineItems;
+
     Application__c applicationRecord = TestDataFactory.CreateApplication(
       accounts[0].Id,
       opps2[0].Id,
@@ -543,9 +577,75 @@ public class TestOneJNEventFactory {
     applicationRecord.Adjudication_Decision_picklist__c = 'Manual Approve';
     insert applicationRecord;
 
+    FinServ__Employment__c employee = TestDataFactory.CreateEmployment(
+      accounts[0].id,
+      'Employeement Test'
+    );
+    employee.Professional_Category__c = 'Professional';
+    //employee.Industry__c = 'Construction';
+    employee.Position_List__c = 'Analyst';
+    employee.FinServ__EmploymentStatus__c = 'Permanent';
+    employee.Time_Employed_in_Present_Employer_M__c = 10;
+    employee.Time_Employed_with_Previous_Employer_M__c = 20;
+    insert employee;
+
+    Applicant__c applicant = TestDataFactory.CreateApplicant(
+      accounts[0].id,
+      opps2[0].id
+    );
+    applicant.Joint_Application_flag__c = 'No';
+    applicant.Primary_Applicant_Flag__c = true;
+    applicant.Number_of_Rejected_Applications_Number__c = 1;
+    applicant.Public_Sector_or_Civil_Servant_List__c = 'Yes';
+    applicant.Are_you_currently_in_bankruptcy_list__c = 'No';
+    applicant.Declared_bankrupt_list__c = 'No';
+    applicant.Gross_Monthly_Income__c = 50000;
+    applicant.Other_Income__c = 10000;
+
+    applicant.Life_Insurance_Cash_Value__c = 1000;
+    applicant.Pension_IRS_Total_Contribution__c = 5000;
+    applicant.Other_Asset_Market_Value_Number__c = 2000;
+    applicant.Savings_Deposit_Investments__c = 2000;
+    applicant.Motor_Vehicle_Market_Value_Number__c = 2000;
+    applicant.Real_Estate_Market_Value_Number__c = 2000;
+
+    applicant.Mortgage_Balance_Number__c = 2000;
+    applicant.Other_Loan_Loan_Balance_Number__c = 2000;
+    applicant.Other_Debt_Number__c = 2000;
+    applicant.Average_Credit_Card_Balances_Number__c = 2000;
+    applicant.Average_Line_of_Credit_Balance_Number__c = 2000;
+
+    applicant.Personal_and_Family_Expenses_Number__c = 2000;
+    applicant.Mortgage_Rent_Number__c = 2000;
+    applicant.Other_Expenses_Number__c = 2000;
+    applicant.Utilties_and_Household_Expenses_Number__c = 2000;
+    applicant.Statutory_Deductions_Numbers__c = 2000;
+    applicant.Transportation_Number__c = 2000;
+    applicant.Total_Monthly_Loan_Payments_Number__c = 2000;
+
+    applicant.Total_Monthly_Payment__c = 1000;
+    applicant.Total_Monthly_Payment__c = 1000;
+    applicant.Total_Amount_Consolidated__c = 5000;
+    applicant.Total_Monthly_Loan_Payments_Number__c = 500;
+    applicant.Other_Income_VERIFIED_Number__c = 9999;
+    insert applicant;
+
+    Applicant__c applicant1 = TestDataFactory.CreateApplicant(
+      accounts[1].id,
+      opps2[0].id
+    );
+    applicant1.Joint_Application_flag__c = 'No';
+    applicant1.Primary_Applicant_Flag__c = false;
+    applicant1.Number_of_Rejected_Applications_Number__c = 1;
+    applicant1.Public_Sector_or_Civil_Servant_List__c = 'Yes';
+    applicant1.Are_you_currently_in_bankruptcy_list__c = 'No';
+    applicant1.Declared_bankrupt_list__c = 'No';
+    applicant1.Gross_Monthly_Income__c = 50000;
+    applicant1.Other_Income__c = 10000;
+    insert applicant1;
     Test.startTest();
     OneJNEventFactory.ProcessIncomingEvent(
-      Constants.RETURN_MANUAL_DESICION_APPROVED,
+      Constants.RETURN_CREDIT_CARD_MANUAL_DECISION_RESPONSE,
       oneJNDeserializer,
       applicationRecord.Id
     );
@@ -558,6 +658,10 @@ public class TestOneJNEventFactory {
   @isTest
   public static void testReturnUnsecuredLoanPreAssessment() {
     OneJNDeserializer oneJNDeserializer;
+    List<String> documentList = new List<String>{
+      'Last three (3) months\u2019 pay slips',
+      'bank statements or negotiated cheques AND Pay slips for December of the last calendar year'
+    };
     JSONGenerator jsonGen = JSON.createGenerator(true);
     jsonGen.writeStartObject();
     jsonGen.writeFieldName('ConsolidatedReport');
@@ -572,6 +676,19 @@ public class TestOneJNEventFactory {
       'TEST ' + Integer.valueof((Math.random() * 1000))
     );
     jsonGen.writeEndObject();
+
+    jsonGen.writeFieldName('ApplicantDetailsPrimary');
+    jsonGen.writeStartObject();
+    jsonGen.writeFieldName('DocumentRequirements');
+    jsonGen.writeObject(documentList);
+    jsonGen.writeEndObject();
+    jsonGen.writeFieldName('ApplicantDetailsCoApplicants');
+    jsonGen.writeStartArray();
+    jsonGen.writeStartObject();
+    jsonGen.writeFieldName('DocumentRequirements');
+    jsonGen.writeObject(documentList);
+    jsonGen.writeEndObject();
+    jsonGen.writeEndArray();
     jsonGen.writeEndObject();
     jsonGen.writeEndObject();
     String jsonData = jsonGen.getAsString();
@@ -624,6 +741,29 @@ public class TestOneJNEventFactory {
     }
     //Insert products with families
     insert products;
+
+    Pricebook2 standardPricebook = new Pricebook2(
+      Id = Test.getStandardPricebookId(),
+      IsActive = true
+    );
+
+    List<PricebookEntry> priceBookEntries = new List<PricebookEntry>();
+    for (Product2 record : products) {
+      priceBookEntries.add(
+        TestDataFactory.CreatePriceBookEntry(standardPricebook.Id, record.Id)
+      );
+    }
+    //Insert Price Book Entries
+    insert priceBookEntries;
+
+    List<OpportunityLineItem> lineItems = new List<OpportunityLineItem>();
+    for (PricebookEntry record : priceBookEntries) {
+      lineItems.add(
+        TestDataFactory.CreateOpportunityLineItem(opps3[0].id, record.Id)
+      );
+    }
+    // Insert Opportunity Line Items
+    insert lineItems;
 
     List<Application__c> appList3 = new List<Application__c>();
     Application__c applicationRecord = TestDataFactory.CreateApplication(
@@ -719,7 +859,7 @@ public class TestOneJNEventFactory {
     insert loanCalculationProductRecord;
     Test.startTest();
     OneJNEventFactory.ProcessIncomingEvent(
-      Constants.RETURN_UNSECURED_LOAN_PRE_ASSESSMENT,
+      Constants.RETURN_CREDITCARD_PRE_ASSESSMENT,
       oneJNDeserializer,
       opps3[0].Id
     );
@@ -732,6 +872,10 @@ public class TestOneJNEventFactory {
   @isTest
   public static void testReturnCreditCardFinalAssessment() {
     OneJNDeserializer oneJNDeserializer;
+    List<String> documentList = new List<String>{
+      'Last three (3) months\u2019 pay slips',
+      'bank statements or negotiated cheques AND Pay slips for December of the last calendar year'
+    };
     JSONGenerator jsonGen = JSON.createGenerator(true);
     jsonGen.writeStartObject();
     jsonGen.writeFieldName('ConsolidatedReport');
@@ -746,6 +890,18 @@ public class TestOneJNEventFactory {
       'TEST ' + Integer.valueof((Math.random() * 1000))
     );
     jsonGen.writeEndObject();
+    jsonGen.writeFieldName('ApplicantDetailsPrimary');
+    jsonGen.writeStartObject();
+    jsonGen.writeFieldName('DocumentRequirements');
+    jsonGen.writeObject(documentList);
+    jsonGen.writeEndObject();
+    jsonGen.writeFieldName('ApplicantDetailsCoApplicants');
+    jsonGen.writeStartArray();
+    jsonGen.writeStartObject();
+    jsonGen.writeFieldName('DocumentRequirements');
+    jsonGen.writeObject(documentList);
+    jsonGen.writeEndObject();
+    jsonGen.writeEndArray();
     jsonGen.writeEndObject();
     jsonGen.writeEndObject();
     String jsonData = jsonGen.getAsString();
@@ -793,6 +949,29 @@ public class TestOneJNEventFactory {
     }
     //Insert products with families
     insert products;
+
+    Pricebook2 standardPricebook = new Pricebook2(
+      Id = Test.getStandardPricebookId(),
+      IsActive = true
+    );
+
+    List<PricebookEntry> priceBookEntries = new List<PricebookEntry>();
+    for (Product2 record : products) {
+      priceBookEntries.add(
+        TestDataFactory.CreatePriceBookEntry(standardPricebook.Id, record.Id)
+      );
+    }
+    //Insert Price Book Entries
+    insert priceBookEntries;
+
+    List<OpportunityLineItem> lineItems = new List<OpportunityLineItem>();
+    for (PricebookEntry record : priceBookEntries) {
+      lineItems.add(
+        TestDataFactory.CreateOpportunityLineItem(opps3[0].id, record.Id)
+      );
+    }
+    // Insert Opportunity Line Items
+    insert lineItems;
 
     List<Application__c> appList3 = new List<Application__c>();
     Application__c applicationRecord = TestDataFactory.CreateApplication(
@@ -889,12 +1068,16 @@ public class TestOneJNEventFactory {
   }
 
   /**
-   * @description to test process incoming event for event type  ReturnCreditCardFinalAssessment
+   * @description to test process incoming event for event type  ReturnUnsecuredFinalAssessment
    * @author Trupti Zende (Thinqloud) | 06-11-2021
    **/
   @isTest
   public static void testReturnUnsecuredFinalAssessment() {
     OneJNDeserializer oneJNDeserializer;
+    List<String> documentList = new List<String>{
+      'Last three (3) months\u2019 pay slips',
+      'bank statements or negotiated cheques AND Pay slips for December of the last calendar year'
+    };
     JSONGenerator jsonGen = JSON.createGenerator(true);
     jsonGen.writeStartObject();
     jsonGen.writeFieldName('ConsolidatedReport');
@@ -909,6 +1092,18 @@ public class TestOneJNEventFactory {
       'TEST ' + Integer.valueof((Math.random() * 1000))
     );
     jsonGen.writeEndObject();
+    jsonGen.writeFieldName('ApplicantDetailsPrimary');
+    jsonGen.writeStartObject();
+    jsonGen.writeFieldName('DocumentRequirements');
+    jsonGen.writeObject(documentList);
+    jsonGen.writeEndObject();
+    jsonGen.writeFieldName('ApplicantDetailsCoApplicants');
+    jsonGen.writeStartArray();
+    jsonGen.writeStartObject();
+    jsonGen.writeFieldName('DocumentRequirements');
+    jsonGen.writeObject(documentList);
+    jsonGen.writeEndObject();
+    jsonGen.writeEndArray();
     jsonGen.writeEndObject();
     jsonGen.writeEndObject();
     String jsonData = jsonGen.getAsString();
@@ -963,6 +1158,29 @@ public class TestOneJNEventFactory {
     }
     //Insert products with families
     insert products;
+
+    Pricebook2 standardPricebook = new Pricebook2(
+      Id = Test.getStandardPricebookId(),
+      IsActive = true
+    );
+
+    List<PricebookEntry> priceBookEntries = new List<PricebookEntry>();
+    for (Product2 record : products) {
+      priceBookEntries.add(
+        TestDataFactory.CreatePriceBookEntry(standardPricebook.Id, record.Id)
+      );
+    }
+    //Insert Price Book Entries
+    insert priceBookEntries;
+
+    List<OpportunityLineItem> lineItems = new List<OpportunityLineItem>();
+    for (PricebookEntry record : priceBookEntries) {
+      lineItems.add(
+        TestDataFactory.CreateOpportunityLineItem(opps3[0].id, record.Id)
+      );
+    }
+    // Insert Opportunity Line Items
+    insert lineItems;
 
     List<Application__c> appList3 = new List<Application__c>();
     Application__c applicationRecord = TestDataFactory.CreateApplication(
@@ -1069,11 +1287,12 @@ public class TestOneJNEventFactory {
       oneJNDeserializer,
       opps3[0].Id
     );
+    // OneJNEventFactory.ProcessIncomingEvent(Constants.RETURN_LOAN_APPLICATION_ID, oneJNDeserializer, opps3[0].Id);
     Test.stopTest();
   }
   /**
-   * @description  Method to test final assessment event for Unsecured loan
-   * @author Ishwari Gaikwad(Thinqloud) | 06-15-2021
+   * @description to test process Outgoing event for event type  Unsecured loan final assessment
+   * @author Ishwari Gaikwad(Thinqloud) | 07-02-2021
    **/
   @isTest
   public static void testGetUnsecuredLoanFinalAssessment() {
@@ -1211,10 +1430,9 @@ public class TestOneJNEventFactory {
     );
     Test.stopTest();
   }
-
   /**
-   * @description : Method to test final assessment event for Credit card
-   * @author Ishwari Gaikwad(Thinqloud) | 06-15-2021
+   * @description to test process Outgoing event for event type  credit card loan final assessment
+   * @author Ishwari Gaikwad(Thinqloud) | 07-02-2021
    **/
   @isTest
   public static void testGetCreditCardFinalAssessment() {
@@ -1323,6 +1541,8 @@ public class TestOneJNEventFactory {
     applicant.Total_Amount_Consolidated__c = 5000;
     applicant.Total_Monthly_Loan_Payments_Number__c = 500;
     applicant.Other_Income_VERIFIED_Number__c = 9999;
+    applicant.JNRiskGrade__c = 'A';
+    applicant.JNRiskScore__c = 'B';
     insert applicant;
 
     List<Loan_Calculator__c> loanCalculatorRecord = TestDataFactory.CreateLoanCalculation(
@@ -1337,7 +1557,6 @@ public class TestOneJNEventFactory {
     loanCalculationProductRecord[0].Interest_Rate_Number__c = 7;
     loanCalculationProductRecord[0]
       .Method_of_Fee_Payment_List__c = 'Added to Loan';
-    //loanCalculationProductRecord[0].Loan_Purpose_List__c='Medical Expenses';
     loanCalculationProductRecord[0].Months_Number__c = 9;
     loanCalculationProductRecord[0]
       .Minimum_Payment_per_Credit_Limit_Number__c = 2000;
