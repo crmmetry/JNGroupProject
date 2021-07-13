@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 07-12-2021
+ * @last modified on  : 07-13-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -154,6 +154,8 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
             //Reassign lead to tier one queue
             leadRecord.Lead_Reassigned_flag__c = true;
             leadRecord.OwnerId = tierOneQueue;
+            //Update lead status to reassigned
+            leadRecord.Status = 'Reassigned';
             leadsToBeUpdated.add(leadRecord);
           }
         }
