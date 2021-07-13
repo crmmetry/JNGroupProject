@@ -25,33 +25,52 @@ public with sharing class OneJNOutputEventQueueable implements Queueable {
     this.externalId = externalId;
     this.sfRecordId = sfRecordId;
     this.body = body;
-
-    if (
-      eventType == Constants.RETURN_LOAN_APPLICATION_ID ||
-      eventType == Constants.RETURN_CREDITCARD_PRE_ASSESSMENT ||
-      eventType == Constants.RETURN_UNSECURED_LOAN_PRE_ASSESSMENT ||
-      eventType == Constants.RETURN_CREDIT_CARD_MANUAL_DECISION_RESPONSE ||
-      eventType == Constants.RETURN_UNSECURED_LOAN_MANUAL_DECISION_RESPONSE ||
-      eventType == Constants.RETURN_CREDITCARD_FINAL_ASSESSMENT ||
-      eventType == Constants.RETURN_UNSECURED_LOAN_FINAL_ASSESSMENT
-    ) {
-      //deserialize body
-      this.oneJNDeserializer = (OneJNDeserializer) JSON.deserialize(
-        body,
-        OneJNDeserializer.class
+    try {
+      if (
+        eventType == Constants.RETURN_LOAN_APPLICATION_ID ||
+        eventType == Constants.RETURN_CREDITCARD_PRE_ASSESSMENT ||
+        eventType == Constants.RETURN_UNSECURED_LOAN_PRE_ASSESSMENT ||
+        eventType == Constants.RETURN_CREDIT_CARD_MANUAL_DECISION_RESPONSE ||
+        eventType == Constants.RETURN_UNSECURED_LOAN_MANUAL_DECISION_RESPONSE ||
+        eventType == Constants.RETURN_CREDITCARD_FINAL_ASSESSMENT ||
+        eventType == Constants.RETURN_UNSECURED_LOAN_FINAL_ASSESSMENT
+      ) {
+        //deserialize body
+        this.oneJNDeserializer = (OneJNDeserializer) JSON.deserialize(
+          body,
+          OneJNDeserializer.class
+        );
+      } else if (
+        eventType == Constants.SUBMIT_PROFILE_EVENT_1 ||
+        eventType == Constants.SUBMIT_PROFILE_EVENT_2 ||
+        eventType == Constants.SUBMIT_PROFILE_EVENT_3 ||
+        eventType == Constants.SUBMIT_PROFILE_EVENT_4 ||
+        eventType == Constants.SUBMIT_PROFILE_EVENT_5
+      ) {
+        //deserialize body
+        this.oneJNOnBoardingDeserializer = (OneJNOnBoardingDeserialiser) JSON.deserialize(
+          body,
+          OneJNOnBoardingDeserialiser.class
+        );
+      }
+    } catch (Exception e) {
+      OneJNSerializerDecision.ExceptionWrapper exceptionWrapper = new OneJNSerializerDecision.ExceptionWrapper();
+      String json = exceptionWrapper.getExceptionJson(e, eventType);
+      One_JN_Output__e requestPlatformEvent = Util.getOutputPlateformEventInstance(
+        Constants.GENERIC_ERROR_EVENT,
+        '',
+        json,
+        externalId
       );
-    } else if (
-      eventType == Constants.SUBMIT_PROFILE_EVENT_1 ||
-      eventType == Constants.SUBMIT_PROFILE_EVENT_2 ||
-      eventType == Constants.SUBMIT_PROFILE_EVENT_3 ||
-      eventType == Constants.SUBMIT_PROFILE_EVENT_4 ||
-      eventType == Constants.SUBMIT_PROFILE_EVENT_5
-    ) {
-      //deserialize body
-      this.oneJNOnBoardingDeserializer = (OneJNOnBoardingDeserialiser) JSON.deserialize(
-        body,
-        OneJNOnBoardingDeserialiser.class
-      );
+      // publish the event
+      Database.SaveResult result = EventBus.publish(requestPlatformEvent);
+      if (result.isSuccess()) {
+        System.debug('Platform event published successfully.');
+      } else {
+        for (Database.Error err : result.getErrors()) {
+          System.debug('Error returned: ' + err.getStatusCode());
+        }
+      }
     }
   }
   /**

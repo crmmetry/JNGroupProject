@@ -351,7 +351,11 @@ public with sharing class OneJNEventFactory {
     );
     try {
       if (deserialiser.accountRecord <> null) {
-        upsert deserialiser.accountRecord GUID_Text__c;
+        SObjectAccessDecision securityDecision = Security.stripInaccessible(
+          AccessType.UPSERTABLE,
+          new List<sObject>{ deserialiser.accountRecord }
+        );
+        upsert (List<Account>) securityDecision.getRecords() GUID_Text__c;
       }
     } catch (Exception e) {
       OneJNSerializerDecision.ExceptionWrapper exceptionWrapper = new OneJNSerializerDecision.ExceptionWrapper();

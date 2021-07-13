@@ -60,7 +60,7 @@ public class OneJNOnBoardingDeserialiser {
     public DateTime IdExpiryDate;
   }
 
-  public class preferences {
+  public class Preferences {
     @AuraEnabled
     public String Id;
     @AuraEnabled
@@ -107,7 +107,7 @@ public class OneJNOnBoardingDeserialiser {
         deserialiser.accountRecord.LastName = deserialiser.LastName;
         deserialiser.accountRecord.MiddleName = deserialiser.MiddleName;
         deserialiser.accountRecord.PersonEmail = deserialiser.Email;
-        deserialiser.accountRecord.PersonMobilePhone = deserialiser.PhoneNumber; // recheck the name
+        deserialiser.accountRecord.PersonMobilePhone = deserialiser.PhoneNumber;
         deserialiser.accountRecord.GUID_Text__c = deserialiser.Id;
         deserialiser.accountRecord.ProfileState_List__c = deserialiser.ProfileState;
         deserialiser.accountRecord.UsernameText__c = deserialiser.UserName;
@@ -121,7 +121,7 @@ public class OneJNOnBoardingDeserialiser {
         //Event 2,3,4,5
         deserialiser.accountRecord.ProfileCreateDate_Timestamp__c = Date.valueOf(
           deserialiser.DateString
-        ); //confirm
+        );
       }
       if (
         eventType == Constants.SUBMIT_PROFILE_EVENT_4 ||
@@ -131,16 +131,16 @@ public class OneJNOnBoardingDeserialiser {
         deserialiser.accountRecord.FinServ__Gender__pc = deserialiser.Gender;
         deserialiser.accountRecord.PersonBirthdate = Date.valueOf(
           deserialiser.DOB
-        ); //DateTIme to Date : change to date
+        );
         deserialiser.accountRecord.Country_of_Citizenship__pc = deserialiser.Nationality;
         deserialiser.accountRecord.Identification_Number__c = deserialiser.Identification.IdNumber;
         deserialiser.accountRecord.Identification_Type__c = deserialiser.Identification.IdType;
         deserialiser.accountRecord.IDIssueDate_Date__c = Date.valueOf(
           deserialiser.Identification.IdIssueDate
-        ); //Datetime to date :
+        );
         deserialiser.accountRecord.ID_Expiration_Date__c = Date.valueOf(
           deserialiser.Identification.IdExpiryDate
-        ); //Datetime to date
+        );
         deserialiser.accountRecord.Jamaican_Tax_Registration_Number__pc = deserialiser.TRN;
       }
       if (eventType == Constants.SUBMIT_PROFILE_EVENT_5) {
@@ -150,7 +150,7 @@ public class OneJNOnBoardingDeserialiser {
         deserialiser.accountRecord.MarketingPreferences_MList__c = String.join(
           deserialiser.MarketingPreferences,
           ';'
-        ); //illegal assignment from list to string
+        );
 
         deserialiser.accountRecord.Street_1__pc = deserialiser.Address.Street1;
         deserialiser.accountRecord.Street_2__pc = deserialiser.Address.Street2;
