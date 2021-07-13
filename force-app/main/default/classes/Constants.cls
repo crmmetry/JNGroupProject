@@ -159,12 +159,12 @@ public class Constants {
   public static final String MANUAL_DEFER = 'Defer';
   public static final String PASS_PRE_APPROVAL = 'Pass';
   public static final String REFERRED_DECISION = 'Referred';
-  public static final String MANUALLY_APPROVED = 'Manually Approved';
+  public static final String MANUALLY_APPROVED = 'Manually Approved'; 
   public static final String MANUALLY_DECLINED = 'Manually Declined';
   public static final String DEFERRAL_APPROVED = 'Deferral Approved';
   public static final String DEFERRAL_DECLINED = 'Deferral Declined';
   public static final String MANUAL_DECISION_ACCEPT = 'Accept';
-  public static final String MANUAL_DECISION_DECLINE = 'Decline';
+  public static final String MANUAL_DECISION_DECLINE  = 'Decline';
   public static final String DEFERRED = 'Defer';
 
   //ONE JN
