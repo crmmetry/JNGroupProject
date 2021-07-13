@@ -1,33 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-
 	<types>
-		<members>Lead.Branch_Divsion_Leads</members>
-		<members>Lead.Business_banking</members>
-		<members>Lead.Executive_Queue_Sharing</members>
-		<members>Lead.Executive_Queue_Sharing_subs</members>
-		<members>Lead.In_Branch_BDR_Queue_Visibility_to_Community_Users</members>
-		<members>Lead.Non_Branch_Division</members>
-		<members>Lead.Partner_Sharing</members>
-		<members>Lead.Partner_Sharing_Rules</members>
-		<members>Lead.Portal_Roles_Sharing</members>
-		<members>Lead.Portal_Roles_Sharing_HWT</members>
-		<members>Lead.Tier_1_Lead_Visibility_to_Community_Users</members>
-		<members>Opportunity.Branch_Divsion_Opportunity</members>
-		<members>Opportunity.Business_banking</members>
-		<members>Opportunity.Non_Branch_Division</members>
-		<name>SharingOwnerRule</name>
-	</types>
-	<types>
-	<members>Opportunity</members>
-		<members>Lead</members>
-		<name>SharingRules</name>
-
-	</types>
-		<types>
-		<members>JNBankJamaicaPartnerUser</members>
-		<members>JNBankHWTPartnerUser</members>
-		<name>Role</name>
+	<members>CommunityReferralReports</members>
+		<members>CommunityReferralReports/My_Converted_Referrals</members>
+		<members>CommunityReferralReports/My_Referrals</members>
+		<members>CommunityReferralReports/Product_Interest_of_My_Referrals</members>
+		<members>CommunityReferralReports/of_Referrals_Made</members>
+		<name>Report</name>
 	</types>
 	<version>51.0</version>
 </Package>
