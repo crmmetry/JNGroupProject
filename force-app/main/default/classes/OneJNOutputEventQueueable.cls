@@ -33,9 +33,11 @@ public with sharing class OneJNOutputEventQueueable implements Queueable {
    **/
   public void execute(QueueableContext context) {
     //process one jn output event types
-    String className = OneJNBaseDeSerializer.identifyInstance(eventType);
+    Map<String, Boolean> classNameMap = OneJNBaseDeSerializer.identifyInstance(
+      eventType
+    );
     try {
-      if (className == 'OneJNDeserializer') {
+      if (classNameMap.get(Constants.LOANQUOTE_CLASSNAME)) {
         OneJNDeserializer oneJNDeserializer = (OneJNDeserializer) JSON.deserialize(
           body,
           OneJNDeserializer.class
@@ -45,7 +47,7 @@ public with sharing class OneJNOutputEventQueueable implements Queueable {
           oneJNDeserializer,
           sfRecordId
         );
-      } else if (className == 'OneJNOnBoardingDeserialiser') {
+      } else if (classNameMap.get(Constants.ONBOARDING_CLASSNAME)) {
         OneJNOnBoardingDeserialiser oneJNOnBoardingDeserializer = (OneJNOnBoardingDeserialiser) JSON.deserialize(
           body,
           OneJNOnBoardingDeserialiser.class

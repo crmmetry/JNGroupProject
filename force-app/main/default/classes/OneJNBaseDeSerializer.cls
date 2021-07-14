@@ -10,12 +10,12 @@
  **/
 public with sharing class OneJNBaseDeSerializer {
   /**
-   * @description : to identify the type of event whethere it is Loan Quote event or On Boarding event
+   * @description
    * @author Ishwari Gaikwad(Thinqloud) | 07-14-2021
    * @param eventType
    * @return String
    **/
-  public static String identifyInstance(String eventType) {
+  public static Map<String, Boolean> identifyInstance(String eventType) {
     String className;
     List<String> loanQuoateEventList = new List<String>{
       Constants.RETURN_LOAN_APPLICATION_ID,
@@ -33,12 +33,15 @@ public with sharing class OneJNBaseDeSerializer {
       Constants.SUBMIT_PROFILE_EVENT_4,
       Constants.SUBMIT_PROFILE_EVENT_5
     };
-
-    if (Util.Some(loanQuoateEventList, eventType)) {
-      className = 'OneJNDeserializer';
-    } else if (Util.Some(onBoardingEventList, eventType)) {
-      className = 'OneJNOnBoardingDeserialiser';
-    }
-    return className;
+    Map<String, Boolean> classNameMap = new Map<String, Boolean>();
+    classNameMap.put(
+      Constants.LOANQUOTE_CLASSNAME,
+      Util.Some(loanQuoateEventList, eventType)
+    );
+    classNameMap.put(
+      Constants.ONBOARDING_CLASSNAME,
+      Util.Some(onBoardingEventList, eventType)
+    );
+    return classNameMap;
   }
 }

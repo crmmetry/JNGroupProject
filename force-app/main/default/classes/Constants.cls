@@ -2,7 +2,7 @@
  * @description       : Global constants
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 07-13-2021
+ * @last modified on  : 07-14-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -225,4 +225,6 @@ public class Constants {
   public static final String SUBMIT_PROFILE_EVENT_4 = 'JNGroup.OneJN.Account.Domain.Events.Account.AccountUpdateIdentificationFinishEvent';
   public static final String SUBMIT_PROFILE_EVENT_5 = 'JNGroup.OneJN.Account.Domain.Events.Account.AccountProfileConfirmedEvent';
 
+  public static final String LOANQUOTE_CLASSNAME = 'OneJNDeserializer';
+  public static final String ONBOARDING_CLASSNAME = 'OneJNOnBoardingDeserialiser';
 }
