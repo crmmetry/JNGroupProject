@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 07-13-2021
+ * @last modified on  : 07-14-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -165,12 +165,16 @@ public with sharing class OneJNEventFactory {
       eventType,
       sfRecordId
     );
-    if (deserialiser.applicationRecord <> null) {
-      SObjectAccessDecision decision = Security.stripInaccessible(
-        AccessType.UPDATABLE,
-        new List<Application__c>{ deserialiser.applicationRecord }
-      );
-      update decision.getRecords();
+    try {
+      if (deserialiser.applicationRecord <> null) {
+        SObjectAccessDecision decision = Security.stripInaccessible(
+          AccessType.UPDATABLE,
+          new List<Application__c>{ deserialiser.applicationRecord }
+        );
+        update decision.getRecords();
+      }
+    } catch (Exception e) {
+      Util.handleOneJNExeption(e, eventType, '', sfRecordId);
     }
   }
   /**
@@ -211,12 +215,16 @@ public with sharing class OneJNEventFactory {
     if (deserialiser.loanCalculationProductRecord <> null) {
       sObjectsToUpdate.add(deserialiser.loanCalculationProductRecord);
     }
-    if (sObjectsToUpdate.size() > 0) {
-      SObjectAccessDecision decision = Security.stripInaccessible(
-        AccessType.UPDATABLE,
-        sObjectsToUpdate
-      );
-      update decision.getRecords();
+    try {
+      if (sObjectsToUpdate.size() > 0) {
+        SObjectAccessDecision decision = Security.stripInaccessible(
+          AccessType.UPDATABLE,
+          sObjectsToUpdate
+        );
+        update decision.getRecords();
+      }
+    } catch (Exception e) {
+      Util.handleOneJNExeption(e, eventType, '', sfRecordId);
     }
   }
 
@@ -286,12 +294,16 @@ public with sharing class OneJNEventFactory {
     if (deserialiser.documentInstructions <> null) {
       sObjectsToUpdate.addAll(deserialiser.documentInstructions);
     }
-    if (sObjectsToUpdate.size() > 0) {
-      SObjectAccessDecision decision = Security.stripInaccessible(
-        AccessType.UPSERTABLE,
-        sObjectsToUpdate
-      );
-      upsert decision.getRecords();
+    try {
+      if (sObjectsToUpdate.size() > 0) {
+        SObjectAccessDecision decision = Security.stripInaccessible(
+          AccessType.UPSERTABLE,
+          sObjectsToUpdate
+        );
+        upsert decision.getRecords();
+      }
+    } catch (Exception e) {
+      Util.handleOneJNExeption(e, eventType, '', sfRecordId);
     }
   }
   /**
@@ -326,12 +338,16 @@ public with sharing class OneJNEventFactory {
     if (deserialiser.loanCalculationProductRecord <> null) {
       sObjectsToUpdate.add(deserialiser.loanCalculationProductRecord);
     }
-    if (sObjectsToUpdate.size() > 0) {
-      SObjectAccessDecision decision = Security.stripInaccessible(
-        AccessType.UPDATABLE,
-        sObjectsToUpdate
-      );
-      update decision.getRecords();
+    try {
+      if (sObjectsToUpdate.size() > 0) {
+        SObjectAccessDecision decision = Security.stripInaccessible(
+          AccessType.UPDATABLE,
+          sObjectsToUpdate
+        );
+        update decision.getRecords();
+      }
+    } catch (Exception e) {
+      Util.handleOneJNExeption(e, eventType, '', sfRecordId);
     }
   }
 
@@ -358,23 +374,8 @@ public with sharing class OneJNEventFactory {
         upsert (List<Account>) securityDecision.getRecords() GUID_Text__c;
       }
     } catch (Exception e) {
-      OneJNSerializerDecision.ExceptionWrapper exceptionWrapper = new OneJNSerializerDecision.ExceptionWrapper();
-      String json = exceptionWrapper.getExceptionJson(e, eventType);
-      One_JN_Output__e requestPlatformEvent = Util.getOutputPlateformEventInstance(
-        Constants.GENERIC_ERROR_EVENT,
-        '',
-        json,
-        deserialiser.Id
-      );
-      // publish the event
-      Database.SaveResult result = EventBus.publish(requestPlatformEvent);
-      if (result.isSuccess()) {
-        System.debug('Platform event published successfully.');
-      } else {
-        for (Database.Error err : result.getErrors()) {
-          System.debug('Error returned: ' + err.getStatusCode());
-        }
-      }
+      OneJNException exceptionWrapper = new OneJNException();
+      Util.handleOneJNExeption(e, eventType, deserialiser.Id, '');
     }
   }
 }

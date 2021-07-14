@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 06-08-2021
+ * @last modified on  : 07-14-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -645,5 +645,38 @@ public with sharing class Util {
     requestPlatformEvent.Body__c = JSONBody;
     requestPlatformEvent.ExternalId__c = externalId;
     return requestPlatformEvent;
+  }
+
+  /**
+   * @description
+   * @author Ankita Vanjari(Thinqloud) | 07-14-2021
+   * @param e
+   * @param eventType
+   * @param externalId
+   * @param sfRecordId
+   **/
+  public static void handleOneJNExeption(
+    Exception e,
+    String eventType,
+    String externalId,
+    String sfRecordId
+  ) {
+    OneJNException exceptionWrapper = new OneJNException();
+    String json = exceptionWrapper.getExceptionJson(e, eventType);
+    One_JN_Output__e requestPlatformEvent = Util.getOutputPlateformEventInstance(
+      Constants.GENERIC_ERROR_EVENT,
+      sfRecordId,
+      json,
+      externalId
+    );
+    // publish the event
+    Database.SaveResult result = EventBus.publish(requestPlatformEvent);
+    if (result.isSuccess()) {
+      System.debug('Platform event published successfully.');
+    } else {
+      for (Database.Error err : result.getErrors()) {
+        System.debug('Error returned: ' + err.getStatusCode());
+      }
+    }
   }
 }

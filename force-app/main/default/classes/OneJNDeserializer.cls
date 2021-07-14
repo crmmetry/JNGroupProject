@@ -124,7 +124,8 @@ public class OneJNDeserializer {
       OneJNEventService.OneJNApplicationIdEvent reference = new OneJNEventService.OneJNApplicationIdEvent();
       oneJNDeserializerVar = reference.deserialize(
         oneJNDeserializerVar,
-        sfRecordId
+        sfRecordId,
+        eventype
       );
     } else if (
       eventype == Constants.RETURN_CREDITCARD_PRE_ASSESSMENT ||
@@ -133,7 +134,8 @@ public class OneJNDeserializer {
       OneJNEventService.OneJNPreAssessementEvent reference = new OneJNEventService.OneJNPreAssessementEvent();
       oneJNDeserializerVar = reference.deserialize(
         oneJNDeserializerVar,
-        sfRecordId
+        sfRecordId,
+        eventype
       );
     } else if (
       eventype == Constants.RETURN_CREDITCARD_FINAL_ASSESSMENT ||
@@ -142,7 +144,8 @@ public class OneJNDeserializer {
       OneJNEventService.OneJNFinalAssessmentEvent reference = new OneJNEventService.OneJNFinalAssessmentEvent();
       oneJNDeserializerVar = reference.deserialize(
         oneJNDeserializerVar,
-        sfRecordId
+        sfRecordId,
+        eventype
       );
     } else if (
       eventype == Constants.RETURN_UNSECURED_LOAN_MANUAL_DECISION_RESPONSE ||
@@ -151,7 +154,8 @@ public class OneJNDeserializer {
       OneJNEventService.OneJNManualDecisionEvent reference = new OneJNEventService.OneJNManualDecisionEvent();
       oneJNDeserializerVar = reference.deserialize(
         oneJNDeserializerVar,
-        sfRecordId
+        sfRecordId,
+        eventype
       );
     }
     return oneJNDeserializerVar;

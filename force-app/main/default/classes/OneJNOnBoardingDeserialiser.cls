@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Ishwari Gaikwad(Thinqloud)
  * @group             :
- * @last modified on  : 07-13-2021
+ * @last modified on  : 07-14-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                       Modification
@@ -93,15 +93,30 @@ public class OneJNOnBoardingDeserialiser {
     OneJNOnBoardingDeserialiser deserialiser,
     String eventType
   ) {
+    List<String> processAllEvents = new List<String>{
+      Constants.SUBMIT_PROFILE_EVENT_1,
+      Constants.SUBMIT_PROFILE_EVENT_2,
+      Constants.SUBMIT_PROFILE_EVENT_3,
+      Constants.SUBMIT_PROFILE_EVENT_4,
+      Constants.SUBMIT_PROFILE_EVENT_5
+    };
+    List<String> process_2_3_4_5 = new List<String>{
+      Constants.SUBMIT_PROFILE_EVENT_2,
+      Constants.SUBMIT_PROFILE_EVENT_3,
+      Constants.SUBMIT_PROFILE_EVENT_4,
+      Constants.SUBMIT_PROFILE_EVENT_5
+    };
+    List<String> process_4_5 = new List<String>{
+      Constants.SUBMIT_PROFILE_EVENT_4,
+      Constants.SUBMIT_PROFILE_EVENT_5
+    };
+    List<String> process_5 = new List<String>{
+      Constants.SUBMIT_PROFILE_EVENT_5
+    };
+
     deserialiser.accountRecord = new Account();
     try {
-      if (
-        eventType == Constants.SUBMIT_PROFILE_EVENT_1 ||
-        eventType == Constants.SUBMIT_PROFILE_EVENT_2 ||
-        eventType == Constants.SUBMIT_PROFILE_EVENT_3 ||
-        eventType == Constants.SUBMIT_PROFILE_EVENT_4 ||
-        eventType == Constants.SUBMIT_PROFILE_EVENT_5
-      ) {
+      if (Util.Some(processAllEvents, eventType)) {
         //Event 1,2,3,4,5
         deserialiser.accountRecord.FirstName = deserialiser.Firstname;
         deserialiser.accountRecord.LastName = deserialiser.LastName;
@@ -112,21 +127,13 @@ public class OneJNOnBoardingDeserialiser {
         deserialiser.accountRecord.ProfileState_List__c = deserialiser.ProfileState;
         deserialiser.accountRecord.UsernameText__c = deserialiser.UserName;
       }
-      if (
-        eventType == Constants.SUBMIT_PROFILE_EVENT_2 ||
-        eventType == Constants.SUBMIT_PROFILE_EVENT_3 ||
-        eventType == Constants.SUBMIT_PROFILE_EVENT_4 ||
-        eventType == Constants.SUBMIT_PROFILE_EVENT_5
-      ) {
+      if (Util.Some(process_2_3_4_5, eventType)) {
         //Event 2,3,4,5
         deserialiser.accountRecord.ProfileCreateDate_Timestamp__c = Date.valueOf(
           deserialiser.DateString
         );
       }
-      if (
-        eventType == Constants.SUBMIT_PROFILE_EVENT_4 ||
-        eventType == Constants.SUBMIT_PROFILE_EVENT_5
-      ) {
+      if (Util.Some(process_4_5, eventType)) {
         //event 4,5
         deserialiser.accountRecord.FinServ__Gender__pc = deserialiser.Gender;
         deserialiser.accountRecord.PersonBirthdate = Date.valueOf(
@@ -143,7 +150,7 @@ public class OneJNOnBoardingDeserialiser {
         );
         deserialiser.accountRecord.Jamaican_Tax_Registration_Number__pc = deserialiser.TRN;
       }
-      if (eventType == Constants.SUBMIT_PROFILE_EVENT_5) {
+      if (Util.Some(process_5, eventType)) {
         //Event 5
         deserialiser.accountRecord.RIM_no__c = deserialiser.PhoenixId;
         deserialiser.accountRecord.JNRewardsAcc_Text__c = deserialiser.JnRewardsAccount;
@@ -160,23 +167,7 @@ public class OneJNOnBoardingDeserialiser {
         deserialiser.accountRecord.Post_Office_Zip_Code__pc = deserialiser.Address.Zip;
       }
     } catch (Exception e) {
-      OneJNSerializerDecision.ExceptionWrapper exceptionWrapper = new OneJNSerializerDecision.ExceptionWrapper();
-      String json = exceptionWrapper.getExceptionJson(e, eventType);
-      One_JN_Output__e requestPlatformEvent = Util.getOutputPlateformEventInstance(
-        Constants.GENERIC_ERROR_EVENT,
-        '',
-        json,
-        deserialiser.Id
-      );
-      // publish the event
-      Database.SaveResult result = EventBus.publish(requestPlatformEvent);
-      if (result.isSuccess()) {
-        System.debug('Platform event published successfully.');
-      } else {
-        for (Database.Error err : result.getErrors()) {
-          System.debug('Error returned: ' + err.getStatusCode());
-        }
-      }
+      Util.handleOneJNExeption(e, eventType, deserialiser.Id, '');
     }
     return deserialiser;
   }
