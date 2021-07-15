@@ -162,28 +162,10 @@ public class TestONeJNEventSubmissionHandler {
     applicationRecord.RecordTypeId = applRecordTypeId_cc;
     appList2.add(applicationRecord);
     insert appList2;
-
-    JSONGenerator jsonGen = JSON.createGenerator(true);
-    jsonGen.writeStartObject();
-    jsonGen.writeFieldName('consolidatedReport');
-
-    jsonGen.writeStartObject();
-    jsonGen.writeStringField('finalAssessmentReport', 'test');
-    jsonGen.writeFieldName('generalInformation');
-    jsonGen.writeStartObject();
-    jsonGen.writeStringField(
-      'applicationID',
-      'TEST ' + Integer.valueof((Math.random() * 1000))
+    String jsonData = TestDataFactory.getJsonString(
+      Constants.GET_CREDITCARD_FINAL_ASSESSMENT,
+      'JN Bank Credit Card'
     );
-    jsonGen.writeStringField(
-      'finalAssessmentDecision',
-      Constants.REFERRED_DECISION
-    );
-    jsonGen.writeEndObject();
-    jsonGen.writeEndObject();
-    jsonGen.writeEndObject();
-    String jsonData = jsonGen.getAsString();
-
     list<OneJNOutputEventHandler.FlowInputs> Flilist1 = new List<OneJNOutputEventHandler.FlowInputs>();
     OneJNOutputEventHandler.FlowInputs Fli1 = new OneJNOutputEventHandler.FlowInputs();
     Fli1.eventType = Constants.RETURN_CREDITCARD_FINAL_ASSESSMENT;
@@ -264,25 +246,11 @@ public class TestONeJNEventSubmissionHandler {
     applicationRecord.RecordTypeId = applRecordTypeId_cc;
     appList2.add(applicationRecord);
     insert appList2;
-    JSONGenerator jsonGen = JSON.createGenerator(true);
-    jsonGen.writeStartObject();
-    jsonGen.writeFieldName('consolidatedReport');
 
-    jsonGen.writeStartObject();
-    jsonGen.writeFieldName('generalInformation');
-    jsonGen.writeStartObject();
-    jsonGen.writeStringField(
-      'applicationID',
-      'TEST ' + Integer.valueof((Math.random() * 1000))
+    String jsonData = TestDataFactory.getJsonString(
+      Constants.RETURN_UNSECURED_LOAN_PRE_ASSESSMENT,
+      'JN Bank Unsecured Loan'
     );
-    jsonGen.writeStringField(
-      'preAssessmentDecision',
-      Constants.PASS_PRE_APPROVAL
-    );
-    jsonGen.writeEndObject();
-    jsonGen.writeEndObject();
-    jsonGen.writeEndObject();
-    String jsonData = jsonGen.getAsString();
 
     list<OneJNOutputEventHandler.FlowInputs> Flilist1 = new List<OneJNOutputEventHandler.FlowInputs>();
     OneJNOutputEventHandler.FlowInputs Fli1 = new OneJNOutputEventHandler.FlowInputs();
@@ -361,27 +329,10 @@ public class TestONeJNEventSubmissionHandler {
     appList2.add(applicationRecord);
     insert appList2;
 
-    JSONGenerator jsonGen = JSON.createGenerator(true);
-    jsonGen.writeStartObject();
-    jsonGen.writeFieldName('consolidatedReport');
-
-    jsonGen.writeStartObject();
-    jsonGen.writeStringField('finalAssessmentReport', 'test');
-    jsonGen.writeFieldName('generalInformation');
-    jsonGen.writeStartObject();
-    jsonGen.writeStringField(
-      'applicationID',
-      'TEST ' + Integer.valueof((Math.random() * 1000))
+    String jsonData = TestDataFactory.getJsonString(
+      Constants.RETURN_UNSECURED_LOAN_FINAL_ASSESSMENT,
+      'JN Bank Unsecured Loan'
     );
-    jsonGen.writeStringField(
-      'finalAssessmentDecision',
-      Constants.REFERRED_DECISION
-    );
-    jsonGen.writeEndObject();
-    jsonGen.writeEndObject();
-    jsonGen.writeEndObject();
-    String jsonData = jsonGen.getAsString();
-
     list<OneJNOutputEventHandler.FlowInputs> Flilist1 = new List<OneJNOutputEventHandler.FlowInputs>();
     OneJNOutputEventHandler.FlowInputs Fli1 = new OneJNOutputEventHandler.FlowInputs();
     Fli1.eventType = Constants.RETURN_UNSECURED_LOAN_FINAL_ASSESSMENT;

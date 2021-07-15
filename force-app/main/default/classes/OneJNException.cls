@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Ishwari Gaikwad(Thinqloud)
  * @group             :
- * @last modified on  : 07-14-2021
+ * @last modified on  : 07-15-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                       Modification
@@ -16,7 +16,11 @@ public class OneJNException extends Exception {
    * @param eventName
    * @return String
    **/
-  public String getExceptionJson(Exception e, String eventName) {
+  public String getExceptionJson(
+    Exception e,
+    String eventName,
+    String replayId
+  ) {
     String stackTrace = e.getStackTraceString().substringBefore('\n');
     String className = stackTrace.substringAfter('.').substringBefore('.');
     String methodName = stackTrace.substringBefore(':')
@@ -28,6 +32,7 @@ public class OneJNException extends Exception {
     jsonData.put('ErrorMessage', e.getMessage());
     jsonData.put('StackTrace', e.getStackTraceString());
     jsonData.put('EventType', eventName);
+    jsonData.put('ReplayId', replayId);
 
     String json = JSON.serialize(jsonData);
     return json;

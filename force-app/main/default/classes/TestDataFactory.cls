@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 07-06-2021
+ * @last modified on  : 07-15-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -409,5 +409,151 @@ public class TestDataFactory {
       eventLogList.add(eventlog);
     }
     return eventLogList;
+  }
+  /**
+   * @description
+   * @author Ishwari Gaikwad(Thinqloud) | 07-15-2021
+   * @param eventType
+   * @param productType
+   * @return String
+   **/
+  public static String getJsonString(String eventType, String productType) {
+    List<String> documentList = new List<String>{
+      'Last three (3) months\u2019 pay slips',
+      'bank statements or negotiated cheques AND Pay slips for December of the last calendar year'
+    };
+    JSONGenerator gen = JSON.createGenerator(true);
+    gen.writeStartObject();
+    gen.writeFieldName('ConsolidatedReport');
+    gen.writeStartObject();
+    gen.writeStringField(
+      'ApplicationID',
+      'TEST ' + Integer.valueof((Math.random() * 1000))
+    );
+    gen.writeFieldName('GeneralInformation');
+    gen.writeStartObject();
+    gen.writeStringField('ProductType', productType);
+    gen.writeStringField('PreAssessmentDecision', 'Pass');
+    if (eventType == Constants.SUBMIT_CREDIT_CARD_MANUAL_DECISION) {
+      gen.writeStringField('FinalAssessmentDecision', 'Approved');
+    } else if (eventType == Constants.SUBMIT_UNSECURED_LOAN_MANUAL_DECISION) {
+      gen.writeStringField('FinalAssessmentDecision', 'Denied');
+    } else if (
+      eventType == Constants.GET_CREDITCARD_FINAL_ASSESSMENT ||
+      eventType == Constants.GET_UNSECURED_LOAN_FINAL_ASSESSMENT
+    ) {
+      gen.writeStringField('FinalAssessmentDecision', 'Referred');
+    }
+    gen.writeStringField('FinalAssessmentDecision', 'Referred');
+    gen.writeStringField('RequestDate', '2020-05-04');
+    gen.writeStringField('NBrokenRules', '0');
+    gen.writeEndObject();
+    gen.writeFieldName('LoanParameters');
+    gen.writeStartObject();
+    gen.writeStringField('RequestedLoanAmount', '10000000');
+    gen.writeEndObject();
+    gen.writeFieldName('ApplicantDetailsPrimary');
+    gen.writeStartObject();
+    gen.writeStringField('PhoenixId', '2747638');
+    gen.writeStringField('JNRiskScore', '601');
+    gen.writeStringField('JNRiskGrade', 'D');
+    gen.writeStringField('CRBScore_CIJ', '643');
+    gen.writeStringField('CRBGrade_CIJ', 'B1');
+    gen.writeStringField('FullName', 'Sherel Bollenberger');
+    gen.writeFieldName('DocumentRequirements');
+    gen.writeObject(documentList);
+    gen.writeEndObject();
+    gen.writeFieldName('ApplicantDetailsCoApplicants');
+    gen.writeStartArray();
+    gen.writeStartObject();
+    gen.writeStringField('PhoenixId', '274763812');
+    gen.writeStringField('JNRiskScore', '601');
+    gen.writeStringField('JNRiskGrade', 'D');
+    gen.writeStringField('CRBScore_CIJ', '643');
+    gen.writeStringField('CRBGrade_CIJ', 'B1');
+    gen.writeStringField('FullName', 'Sherel Bollenberger');
+    gen.writeFieldName('DocumentRequirements');
+    gen.writeObject(documentList);
+    gen.writeEndObject();
+    gen.writeEndArray();
+    gen.writeEndObject();
+    gen.writeFieldName('LoanParameters');
+    gen.writeStartObject();
+    gen.writeStringField(
+      'ApprovedLoanAmount',
+      '4470340.3421634000133333091595'
+    );
+    gen.writeStringField('ApprovedTenure', '72');
+    gen.writeStringField('ApprovedInterestRate', '0.225');
+    gen.writeStringField('MonthlyPrincipalandInterest', '113652.9');
+    gen.writeStringField('ContractualSavings', '11365.29');
+    gen.writeStringField('TotalMonthlyPayments', '125018.19');
+    gen.writeEndObject();
+    gen.writeFieldName('LoanFees');
+    gen.writeStartObject();
+    gen.writeStringField('CreditReportFee', '920.00');
+    gen.writeStringField('ProcessingFee', '178901.406000');
+    gen.writeStringField('CreditLifeSinglePremium', '99166.90005');
+    gen.writeStringField('LegalFeesandStampduty', '1380.00');
+    gen.writeStringField('TotalFees', '280368.306050');
+    gen.writeEndObject();
+    gen.writeStringField(
+      'FinalAssessmentReport',
+      'Link to Final Report Document'
+    );
+    gen.writeEndObject();
+
+    String jsonData = gen.getAsString();
+    return jsonData;
+  }
+
+  /**
+   * @description
+   * @author Ishwari Gaikwad(Thinqloud) | 07-15-2021
+   * @return String
+   **/
+  public static String getOnBoardingJson() {
+    List<String> marketingPreferences = new List<String>{
+      'Saving, Wealth Creation and Management',
+      'Home Ownership'
+    };
+
+    JSONGenerator jsonGen = JSON.createGenerator(true);
+    jsonGen.writeStartObject();
+    jsonGen.writeStringField('Id', '24-test23-3323');
+    jsonGen.writeStringField('UserName', 'teena.suarez');
+    jsonGen.writeStringField('FirstName', 'teena');
+    jsonGen.writeStringField('LastName', 'Suarez');
+    jsonGen.writeStringField('Email', 'anisley.suarez@test11.com');
+    jsonGen.writeStringField('PhoneNumber', '116417794312');
+    jsonGen.writeStringField('ProfileState', 'Unauthenticated');
+    jsonGen.writeStringField('DateString', '2021-06-30T14:39:56.5431608Z');
+    jsonGen.writeFieldName('Identification');
+    jsonGen.writeStartObject();
+    jsonGen.writeStringField('IdNumber', 'test');
+    jsonGen.writeStringField('IdType', 'Passport');
+    jsonGen.writeStringField('IdIssueDate', '2016-10-30T15:27:02.000Z');
+    jsonGen.writeStringField('IdExpiryDate', '2019-10-30T15:27:02.000Z');
+    jsonGen.writeEndObject();
+
+    jsonGen.writeStringField('PhoenixId', '123232');
+    jsonGen.writeStringField('JNRewardsAccount', '23432434');
+
+    jsonGen.writeFieldName('MarketingPreferences');
+    jsonGen.writeObject(marketingPreferences);
+
+    jsonGen.writeFieldName('Address');
+    jsonGen.writeStartObject();
+    jsonGen.writeStringField('Street1', 'test 1');
+    jsonGen.writeStringField('Street2', 'test 2');
+    jsonGen.writeStringField('City', 'Tes City');
+    jsonGen.writeStringField('Zip', '633663');
+    jsonGen.writeStringField('Country', 'India');
+    jsonGen.writeStringField('Region', 'Test region');
+    jsonGen.writeEndObject();
+
+    jsonGen.writeEndObject();
+    String jsonData = jsonGen.getAsString();
+    return jsonData;
   }
 }

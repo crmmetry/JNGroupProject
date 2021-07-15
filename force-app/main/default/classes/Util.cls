@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 07-14-2021
+ * @last modified on  : 07-15-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                               Modification
@@ -659,10 +659,11 @@ public with sharing class Util {
     Exception e,
     String eventType,
     String externalId,
-    String sfRecordId
+    String sfRecordId,
+    String replayId
   ) {
     OneJNException exceptionWrapper = new OneJNException();
-    String json = exceptionWrapper.getExceptionJson(e, eventType);
+    String json = exceptionWrapper.getExceptionJson(e, eventType, replayId);
     One_JN_Output__e requestPlatformEvent = Util.getOutputPlateformEventInstance(
       Constants.GENERIC_ERROR_EVENT,
       sfRecordId,

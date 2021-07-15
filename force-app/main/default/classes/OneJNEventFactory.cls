@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 07-14-2021
+ * @last modified on  : 07-15-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -18,13 +18,15 @@ public with sharing class OneJNEventFactory {
   public static void ProcessIncomingEvent(
     String eventType,
     OneJNDeserializer oneJNDeserializer,
-    String sfRecordId
+    String sfRecordId,
+    String replayId
   ) {
     if (eventType == Constants.RETURN_LOAN_APPLICATION_ID) {
       processGetApplicationEventResponse(
         oneJNDeserializer,
         sfRecordId,
-        eventType
+        eventType,
+        replayId
       );
     }
     if (
@@ -34,14 +36,20 @@ public with sharing class OneJNEventFactory {
       processGetPreAssessmentEventResponse(
         oneJNDeserializer,
         sfRecordId,
-        eventType
+        eventType,
+        replayId
       );
     }
     if (
       eventType == Constants.RETURN_CREDIT_CARD_MANUAL_DECISION_RESPONSE ||
       eventType == Constants.RETURN_UNSECURED_LOAN_MANUAL_DECISION_RESPONSE
     ) {
-      processGetManualIdEventResponse(oneJNDeserializer, sfRecordId, eventType);
+      processGetManualIdEventResponse(
+        oneJNDeserializer,
+        sfRecordId,
+        eventType,
+        replayId
+      );
     }
     if (
       eventType == Constants.RETURN_CREDITCARD_FINAL_ASSESSMENT ||
@@ -50,7 +58,8 @@ public with sharing class OneJNEventFactory {
       processFinalAssessmentEventResponse(
         oneJNDeserializer,
         sfRecordId,
-        eventType
+        eventType,
+        replayId
       );
     }
   }
@@ -158,12 +167,14 @@ public with sharing class OneJNEventFactory {
   private static void processGetApplicationEventResponse(
     OneJNDeserializer oneJNDeserializer,
     String sfRecordId,
-    String eventType
+    String eventType,
+    String replayId
   ) {
     oneJNDeserializer deserialiser = OneJNDeserializer.parse(
       oneJNDeserializer,
       eventType,
-      sfRecordId
+      sfRecordId,
+      replayId
     );
     try {
       if (deserialiser.applicationRecord <> null) {
@@ -174,7 +185,7 @@ public with sharing class OneJNEventFactory {
         update decision.getRecords();
       }
     } catch (Exception e) {
-      Util.handleOneJNExeption(e, eventType, '', sfRecordId);
+      Util.handleOneJNExeption(e, eventType, '', sfRecordId, replayId);
     }
   }
   /**
@@ -192,12 +203,14 @@ public with sharing class OneJNEventFactory {
   private static void processFinalAssessmentEventResponse(
     OneJNDeserializer oneJNDeserializer,
     String sfRecordId,
-    String eventType
+    String eventType,
+    String replayId
   ) {
     oneJNDeserializer deserialiser = OneJNDeserializer.parse(
       oneJNDeserializer,
       eventType,
-      sfRecordId
+      sfRecordId,
+      replayId
     );
     List<sObject> sObjectsToUpdate = new List<sObject>();
     if (deserialiser.primaryApplicantRecord <> null) {
@@ -224,7 +237,7 @@ public with sharing class OneJNEventFactory {
         update decision.getRecords();
       }
     } catch (Exception e) {
-      Util.handleOneJNExeption(e, eventType, '', sfRecordId);
+      Util.handleOneJNExeption(e, eventType, '', sfRecordId, replayId);
     }
   }
 
@@ -271,12 +284,14 @@ public with sharing class OneJNEventFactory {
   private static void processGetPreAssessmentEventResponse(
     OneJNDeserializer oneJNDeserializer,
     String sfRecordId,
-    String eventType
+    String eventType,
+    String replayId
   ) {
     oneJNDeserializer deserialiser = OneJNDeserializer.parse(
       oneJNDeserializer,
       eventType,
-      sfRecordId
+      sfRecordId,
+      replayId
     );
     List<sObject> sObjectsToUpdate = new List<sObject>();
     if (deserialiser.primaryApplicantRecord <> null) {
@@ -303,7 +318,7 @@ public with sharing class OneJNEventFactory {
         upsert decision.getRecords();
       }
     } catch (Exception e) {
-      Util.handleOneJNExeption(e, eventType, '', sfRecordId);
+      Util.handleOneJNExeption(e, eventType, '', sfRecordId, replayId);
     }
   }
   /**
@@ -315,12 +330,14 @@ public with sharing class OneJNEventFactory {
   private static void processGetManualIdEventResponse(
     OneJNDeserializer oneJNDeserializer,
     String sfRecordId,
-    String eventType
+    String eventType,
+    String replayId
   ) {
     oneJNDeserializer deserialiser = OneJNDeserializer.parse(
       oneJNDeserializer,
       eventType,
-      sfRecordId
+      sfRecordId,
+      replayId
     );
     List<sObject> sObjectsToUpdate = new List<sObject>();
     if (deserialiser.primaryApplicantRecord <> null) {
@@ -347,7 +364,7 @@ public with sharing class OneJNEventFactory {
         update decision.getRecords();
       }
     } catch (Exception e) {
-      Util.handleOneJNExeption(e, eventType, '', sfRecordId);
+      Util.handleOneJNExeption(e, eventType, '', sfRecordId, replayId);
     }
   }
 
@@ -359,11 +376,13 @@ public with sharing class OneJNEventFactory {
    **/
   public static void ProcessIncomingEventOnBoarding(
     String eventType,
-    OneJNOnBoardingDeserialiser oneJNOnBoardingDeserializer
+    OneJNOnBoardingDeserialiser oneJNOnBoardingDeserializer,
+    String replayId
   ) {
     OneJNOnBoardingDeserialiser deserialiser = OneJNOnBoardingDeserialiser.parse(
       oneJNOnBoardingDeserializer,
-      eventType
+      eventType,
+      replayId
     );
     try {
       if (deserialiser.accountRecord <> null) {
@@ -375,7 +394,7 @@ public with sharing class OneJNEventFactory {
       }
     } catch (Exception e) {
       OneJNException exceptionWrapper = new OneJNException();
-      Util.handleOneJNExeption(e, eventType, deserialiser.Id, '');
+      Util.handleOneJNExeption(e, eventType, deserialiser.Id, '', replayId);
     }
   }
 }

@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 07-14-2021
+ * @last modified on  : 07-15-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -13,18 +13,19 @@ public with sharing class OneJNOutputEventQueueable implements Queueable {
   String sfRecordId;
   String externalId;
   String body;
-  //  OneJNDeserializer oneJNDeserializer;
-  // OneJNOnBoardingDeserialiser oneJNOnBoardingDeserializer;
+  String replayId;
   public OneJNOutputEventQueueable(
     String body,
     String eventType,
     String externalId,
-    String sfRecordId
+    String sfRecordId,
+    String replayId
   ) {
     this.eventType = eventType;
     this.externalId = externalId;
     this.sfRecordId = sfRecordId;
     this.body = body;
+    this.replayId = replayId;
   }
   /**
    * @description process one JN Output Events
@@ -45,7 +46,8 @@ public with sharing class OneJNOutputEventQueueable implements Queueable {
         OneJNEventFactory.ProcessIncomingEvent(
           eventType,
           oneJNDeserializer,
-          sfRecordId
+          sfRecordId,
+          replayId
         );
       } else if (classNameMap.get(Constants.ONBOARDING_CLASSNAME)) {
         OneJNOnBoardingDeserialiser oneJNOnBoardingDeserializer = (OneJNOnBoardingDeserialiser) JSON.deserialize(
@@ -54,11 +56,12 @@ public with sharing class OneJNOutputEventQueueable implements Queueable {
         );
         OneJNEventFactory.ProcessIncomingEventOnBoarding(
           eventType,
-          oneJNOnBoardingDeserializer
+          oneJNOnBoardingDeserializer,
+          replayId
         );
       }
     } catch (Exception e) {
-      Util.handleOneJNExeption(e, eventType, externalId, sfRecordId);
+      Util.handleOneJNExeption(e, eventType, externalId, sfRecordId, replayId);
     }
   }
 }

@@ -2,7 +2,7 @@
  * @description       : service to coordinate the  selector layer and serialization
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 07-14-2021
+ * @last modified on  : 07-15-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -111,14 +111,15 @@ public with sharing class OneJNEventService {
     public OneJNDeserializer deserialize(
       OneJNDeserializer oneJNDeserializerVar,
       String sfRecordId,
-      String eventType
+      String eventType,
+      String replayId
     ) {
       try {
         oneJNDeserializerVar.ApplicationRecord = new Application__c();
         oneJNDeserializerVar.ApplicationRecord.Id = sfRecordId;
         oneJNDeserializerVar.ApplicationRecord.Application_ID__c = oneJNDeserializerVar.ApplicationId;
       } catch (Exception e) {
-        Util.handleOneJNExeption(e, eventType, '', sfRecordId);
+        Util.handleOneJNExeption(e, eventType, '', sfRecordId, replayId);
       }
       return oneJNDeserializerVar;
     }
@@ -134,7 +135,8 @@ public with sharing class OneJNEventService {
     public OneJNDeserializer deserialize(
       OneJNDeserializer oneJNDeserializerVar,
       String sfRecordId,
-      String eventType
+      String eventType,
+      String replayId
     ) {
       try {
         String productType = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation.ProductType;
@@ -151,7 +153,8 @@ public with sharing class OneJNEventService {
         documentChecklistItem = getDocumentCheckListItem(
           opportunity1[0],
           oneJNDeserializerVar,
-          Constants.PRE_ASSESSMENT_SUBMISSION
+          Constants.PRE_ASSESSMENT_SUBMISSION,
+          replayId
         );
 
         List<Application__c> applist = new List<Application__c>();
@@ -266,7 +269,7 @@ public with sharing class OneJNEventService {
           }
         }
       } catch (Exception e) {
-        Util.handleOneJNExeption(e, eventType, '', sfRecordId);
+        Util.handleOneJNExeption(e, eventType, '', sfRecordId, replayId);
       }
       //oneJNDeserializerVar.requestDate = ;unix system date
       return oneJNDeserializerVar;
@@ -283,7 +286,8 @@ public with sharing class OneJNEventService {
     public OneJNDeserializer deserialize(
       OneJNDeserializer oneJNDeserializerVar,
       String sfRecordId,
-      String eventType
+      String eventType,
+      String replayId
     ) {
       try {
         String productType = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation.ProductType;
@@ -300,7 +304,8 @@ public with sharing class OneJNEventService {
         documentChecklistItem = getDocumentCheckListItem(
           opportunity1[0],
           oneJNDeserializerVar,
-          Constants.FINAL_ASSESMENT_SUBMISSION
+          Constants.FINAL_ASSESMENT_SUBMISSION,
+          replayId
         );
 
         List<Application__c> applist = new List<Application__c>();
@@ -469,7 +474,7 @@ public with sharing class OneJNEventService {
           }
         }
       } catch (Exception e) {
-        util.handleOneJNExeption(e, eventType, '', sfRecordId);
+        util.handleOneJNExeption(e, eventType, '', sfRecordId, replayId);
       }
       //oneJNDeserializerVar.requestDate = ;unix system date
       return oneJNDeserializerVar;
@@ -486,7 +491,8 @@ public with sharing class OneJNEventService {
     public OneJNDeserializer deserialize(
       OneJNDeserializer oneJNDeserializerVar,
       String sfRecordId,
-      String eventType
+      String eventType,
+      String replayId
     ) {
       List<Application__c> applicationList = OneJNQuerySelector.getApplicationRecord(
         sfRecordId
@@ -652,7 +658,7 @@ public with sharing class OneJNEventService {
           }
         }
       } catch (Exception e) {
-        Util.handleOneJNExeption(e, eventType, '', sfRecordId);
+        Util.handleOneJNExeption(e, eventType, '', sfRecordId, replayId);
       }
       return oneJNDeserializerVar;
     }
@@ -696,7 +702,8 @@ public with sharing class OneJNEventService {
   public static DocumentChecklistItem getDocumentCheckListItem(
     Opportunity opportunityRecord,
     OneJNDeserializer deserialiser,
-    String eventType
+    String eventType,
+    String replayId
   ) {
     DocumentChecklistItem documentCheckListRecord = new DocumentChecklistItem();
     try {
@@ -728,7 +735,13 @@ public with sharing class OneJNEventService {
         insert documentCheckListRecord;
       }
     } catch (Exception e) {
-      Util.handleOneJNExeption(e, eventType, '', opportunityRecord.Id);
+      Util.handleOneJNExeption(
+        e,
+        eventType,
+        '',
+        opportunityRecord.Id,
+        replayId
+      );
     }
 
     return documentCheckListRecord;

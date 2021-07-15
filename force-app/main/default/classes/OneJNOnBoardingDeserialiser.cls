@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Ishwari Gaikwad(Thinqloud)
  * @group             :
- * @last modified on  : 07-14-2021
+ * @last modified on  : 07-15-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                       Modification
@@ -91,7 +91,8 @@ public class OneJNOnBoardingDeserialiser {
    **/
   public static OneJNOnBoardingDeserialiser parse(
     OneJNOnBoardingDeserialiser deserialiser,
-    String eventType
+    String eventType,
+    String replayId
   ) {
     List<String> processAllEvents = new List<String>{
       Constants.SUBMIT_PROFILE_EVENT_1,
@@ -167,7 +168,7 @@ public class OneJNOnBoardingDeserialiser {
         deserialiser.accountRecord.Post_Office_Zip_Code__pc = deserialiser.Address.Zip;
       }
     } catch (Exception e) {
-      Util.handleOneJNExeption(e, eventType, deserialiser.Id, '');
+      Util.handleOneJNExeption(e, eventType, deserialiser.Id, '', replayId);
     }
     return deserialiser;
   }

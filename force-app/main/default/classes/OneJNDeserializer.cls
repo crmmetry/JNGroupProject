@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 07-01-2021
+ * @last modified on  : 07-15-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -118,14 +118,16 @@ public class OneJNDeserializer {
   public OneJNDeserializer parse(
     OneJNDeserializer oneJNDeserializerVar,
     String eventype,
-    String sfRecordId
+    String sfRecordId,
+    String replayId
   ) {
     if (eventype == Constants.RETURN_LOAN_APPLICATION_ID) {
       OneJNEventService.OneJNApplicationIdEvent reference = new OneJNEventService.OneJNApplicationIdEvent();
       oneJNDeserializerVar = reference.deserialize(
         oneJNDeserializerVar,
         sfRecordId,
-        eventype
+        eventype,
+        replayId
       );
     } else if (
       eventype == Constants.RETURN_CREDITCARD_PRE_ASSESSMENT ||
@@ -135,7 +137,8 @@ public class OneJNDeserializer {
       oneJNDeserializerVar = reference.deserialize(
         oneJNDeserializerVar,
         sfRecordId,
-        eventype
+        eventype,
+        replayId
       );
     } else if (
       eventype == Constants.RETURN_CREDITCARD_FINAL_ASSESSMENT ||
@@ -145,7 +148,8 @@ public class OneJNDeserializer {
       oneJNDeserializerVar = reference.deserialize(
         oneJNDeserializerVar,
         sfRecordId,
-        eventype
+        eventype,
+        replayId
       );
     } else if (
       eventype == Constants.RETURN_UNSECURED_LOAN_MANUAL_DECISION_RESPONSE ||
@@ -155,7 +159,8 @@ public class OneJNDeserializer {
       oneJNDeserializerVar = reference.deserialize(
         oneJNDeserializerVar,
         sfRecordId,
-        eventype
+        eventype,
+        replayId
       );
     }
     return oneJNDeserializerVar;
