@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 06-25-2021
+ * @last modified on  : 07-16-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -33,13 +33,13 @@ public with sharing class TestNoContactMadeNotifier {
     //Create Users
     List<User> usersToInsert = new List<User>();
     //User to be added to Tier One queue
-    User travisTierOne = TestDataFactory.CreateUser('travistest@email.com');
+    User travisTierOne = TestDataFactory.CreateUser('travistest@dev2.com');
     usersToInsert.add(travisTierOne);
     //User to be added to Tier Two Queue
-    User travisTierTwo = TestDataFactory.CreateUser('travistest2@email.com');
+    User travisTierTwo = TestDataFactory.CreateUser('travistest2@dev2.com');
     usersToInsert.add(travisTierTwo);
     //Stand alone sales user (tier One)
-    User salesUser = TestDataFactory.CreateUser('salesUsertest@email.com');
+    User salesUser = TestDataFactory.CreateUser('salesUsertest@dev2.com');
     salesUser.Sales_User__c = true;
     usersToInsert.add(salesUser);
 
