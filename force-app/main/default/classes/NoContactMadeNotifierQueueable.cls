@@ -137,7 +137,7 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
             holidays,
             currentTime
           );
-          if (expectedAssignedTime >= leadRecord.Assignment_Timestamp__c) {
+          if (expectedAssignedTime <= leadRecord.Assignment_Timestamp__c) {
             //Update Notification flag on lead record
             leadRecord.Not_Contacted_8_hours_flag__c = true;
             leadsToBeUpdated.add(leadRecord);
@@ -156,7 +156,7 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
             holidays,
             currentTime
           );
-          if (expectedAssignedTime >= leadRecord.Assignment_Timestamp__c) {
+          if (expectedAssignedTime <= leadRecord.Assignment_Timestamp__c) {
             //Update Notification flag on lead record
             leadRecord.Not_Contacted_24_hours_flag__c = true;
             //Reassign lead to tier one queue
@@ -186,7 +186,8 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
             holidays,
             currentTime
           );
-          if (expectedAssignedTime >= leadRecord.Assignment_Timestamp__c) {
+
+          if (expectedAssignedTime <= leadRecord.Assignment_Timestamp__c) {
             //Update Notification flag on lead record
             leadRecord.Not_Contacted_24_hours_Tier_2_flag__c = true;
             leadsToBeUpdated.add(leadRecord);
@@ -204,7 +205,7 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
             holidays,
             currentTime
           );
-          if (expectedAssignedTime >= leadRecord.Assignment_Timestamp__c) {
+          if (expectedAssignedTime <= leadRecord.Assignment_Timestamp__c) {
             //Update Notification flag on lead record
             leadRecord.Not_Contacted_36_hours_flag__c = true;
             leadsToBeUpdated.add(leadRecord);

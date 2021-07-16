@@ -87,6 +87,11 @@ public with sharing class TestNoContactMadeNotifier {
     leads[0].OwnerId = tierOneAgent.Id;
     update leads;
 
+    System.assert(
+      [SELECT Id, OwnerId FROM Lead].OwnerId == tierOneAgent.Id,
+      'Lead owner was not updated to tier one agent.'
+    );
+
     Test.startTest();
     //Enqueue job
     System.enqueueJob(new NoContactMadeNotifierQueueable(currentDateTime));
@@ -111,7 +116,7 @@ public with sharing class TestNoContactMadeNotifier {
     User tierOneAgent = [
       SELECT Id
       FROM User
-      WHERE UserName = 'travistest@email.com'
+      WHERE UserName = 'travistest@dev2.com'
       LIMIT 1
     ];
 
@@ -124,6 +129,11 @@ public with sharing class TestNoContactMadeNotifier {
 
     leads[0].OwnerId = tierOneAgent.Id;
     update leads;
+
+    System.assert(
+      [SELECT Id, OwnerId FROM Lead].OwnerId == tierOneAgent.Id,
+      'Lead owner was not updated to tier one agent.'
+    );
 
     Test.startTest();
     //Enqueue Job
@@ -155,7 +165,7 @@ public with sharing class TestNoContactMadeNotifier {
     User tierTwoAgent = [
       SELECT Id
       FROM User
-      WHERE UserName = 'travistest2@email.com'
+      WHERE UserName = 'travistest2@dev2.com'
       LIMIT 1
     ];
 
