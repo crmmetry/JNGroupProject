@@ -670,14 +670,6 @@ public with sharing class Util {
       json,
       externalId
     );
-    OneJN_Event_Log__c eventLog = new OneJN_Event_Log__c();
-    eventLog.Name__c = Constants.GENERIC_ERROR_EVENT;
-    eventLog.Body__c = json;
-    eventLog.Salesforce_Record_Id__c = json;
-    eventLog.Event_Source__c = 'External';
-    eventLog.External_Record_Id__c = externalId;
-    eventLog.Replay_ID__c = replayId;
-    insert eventLog;
     // publish the event
     Database.SaveResult result = EventBus.publish(requestPlatformEvent);
     if (result.isSuccess()) {
