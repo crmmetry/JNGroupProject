@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 07-13-2021
+ * @last modified on  : 07-16-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -26,7 +26,15 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
    **/
   public void execute(QueueableContext context) {
     List<Lead> leads = new List<Lead>(checkLeadsToBeNotified(this.currentTime));
-    update leads;
+
+    //Secure the records to be inserted
+    SObjectAccessDecision decision = Security.stripInaccessible(
+      AccessType.UPDATABLE,
+      leads
+    );
+
+    //Update stripped object
+    update decision.getRecords();
   }
 
   /**
