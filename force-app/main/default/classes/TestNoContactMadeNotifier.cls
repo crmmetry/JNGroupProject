@@ -72,7 +72,7 @@ public with sharing class TestNoContactMadeNotifier {
     User tierOneAgent = [
       SELECT Id
       FROM User
-      WHERE UserName = 'travistest@email.com'
+      WHERE UserName = 'travistest@dev2.com'
       LIMIT 1
     ];
 
@@ -196,7 +196,7 @@ public with sharing class TestNoContactMadeNotifier {
     User tierTwoAgent = [
       SELECT Id
       FROM User
-      WHERE UserName = 'travistest2@email.com'
+      WHERE UserName = 'travistest2@dev2.com'
       LIMIT 1
     ];
 
