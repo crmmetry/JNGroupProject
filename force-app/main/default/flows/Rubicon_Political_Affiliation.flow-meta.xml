@@ -306,11 +306,6 @@
             <label>Same</label>
         </rules>
     </decisions>
-    <formulas>
-        <name>store_person_first_name</name>
-        <dataType>String</dataType>
-        <expression>{!Person_First_Name}</expression>
-    </formulas>
     <interviewLabel
   >Rubicon Political Affiliation {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Rubicon Political Affiliation</label>
@@ -471,7 +466,7 @@
         <connector>
             <targetReference>Affiliations_Exists</targetReference>
         </connector>
-        <filterLogic>or</filterLogic>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>FirstName</field>
             <operator>EqualTo</operator>
@@ -736,6 +731,8 @@
                     <stringValue>rubicon</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -799,6 +796,8 @@
                     <stringValue>rubicon</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -937,6 +936,8 @@
                             <stringValue>PersonAccount</stringValue>
                         </value>
                     </inputParameters>
+                    <inputsOnNextNavToAssocScrn
+          >UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
@@ -944,6 +945,8 @@
                     <name>Email_ec</name>
                     <extensionName>flowruntime:email</extensionName>
                     <fieldType>ComponentInstance</fieldType>
+                    <inputsOnNextNavToAssocScrn
+          >UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
@@ -982,6 +985,8 @@
               >Political_Affiliation_Relationship_List__c</stringValue>
                         </value>
                     </inputParameters>
+                    <inputsOnNextNavToAssocScrn
+          >UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
@@ -1029,6 +1034,8 @@
                     <stringValue>rubicon</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1069,6 +1076,8 @@
                     <stringValue>rubicon</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1102,6 +1111,8 @@
           >Do you or any member of your immediate family currently hold or have ever held a prominent public function (whether in Jamaica or any foreign county), such as Head of State, Head of Opposition Political Party, Senior Member of the Judiciary, Head of Military or Police Force, CEO of Statutory Body/ Government Body or Agency or are you a personal/professional associate of any of the foregoing public officials?</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <outputParameters>
                 <assignToReference>BasicChoice</assignToReference>
@@ -1139,6 +1150,8 @@
                     <stringValue>rubicon</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1172,6 +1185,8 @@
               >FinServ__ContactContactRelation__c</stringValue>
                         </value>
                     </inputParameters>
+                    <inputsOnNextNavToAssocScrn
+          >UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
@@ -1227,6 +1242,8 @@
                     <stringValue>rubicon</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1253,6 +1270,8 @@
                     <elementReference>AccountIds</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1284,6 +1303,8 @@
                     <stringValue>rubicon</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1321,6 +1342,8 @@
                     <stringValue>rubicon</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1361,6 +1384,8 @@
                     <stringValue>rubicon</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1418,6 +1443,8 @@
                     <booleanValue>true</booleanValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1431,7 +1458,7 @@
             <targetReference>Get_Account_Record</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <subflows>
         <name>JN_Shared_Affiliation_Flow2</name>
         <label>JN Shared Affiliation Flow2</label>

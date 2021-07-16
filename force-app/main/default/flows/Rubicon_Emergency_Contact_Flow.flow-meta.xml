@@ -567,8 +567,7 @@
         <connector>
             <targetReference>Accounts_Found</targetReference>
         </connector>
-        <filterLogic
-    >(1 AND 2) OR (1 AND 2 AND 4 AND 3) OR (4 AND 3)</filterLogic>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>FirstName</field>
             <operator>EqualTo</operator>
@@ -588,13 +587,6 @@
             <operator>EqualTo</operator>
             <value>
                 <elementReference>Mobile_Number_New.value</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>Mobile_Number__pc</field>
-            <operator>IsNull</operator>
-            <value>
-                <booleanValue>false</booleanValue>
             </value>
         </filters>
         <object>Account</object>
@@ -790,6 +782,8 @@
                     <stringValue>rubicon</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -817,6 +811,8 @@
           >EmergencyContactIdCollection</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -850,6 +846,8 @@
                     <stringValue>rubicon</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -913,6 +911,8 @@
                     <booleanValue>true</booleanValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -962,6 +962,8 @@
                     <elementReference>EmergencyContactStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -994,6 +996,8 @@
           >FinServ__ContactContactRelation__c</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1027,6 +1031,8 @@
                     <stringValue>rubicon</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1165,6 +1171,8 @@
                             <stringValue>PersonAccount</stringValue>
                         </value>
                     </inputParameters>
+                    <inputsOnNextNavToAssocScrn
+          >UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
@@ -1172,6 +1180,8 @@
                     <name>Email_ec</name>
                     <extensionName>flowruntime:email</extensionName>
                     <fieldType>ComponentInstance</fieldType>
+                    <inputsOnNextNavToAssocScrn
+          >UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
@@ -1210,6 +1220,8 @@
                             <stringValue>Relationship to Applicant</stringValue>
                         </value>
                     </inputParameters>
+                    <inputsOnNextNavToAssocScrn
+          >UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
@@ -1259,6 +1271,8 @@
                     <elementReference>EmergencyContactStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1286,6 +1300,8 @@
           >EmergencyContactAccountIds</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -1316,6 +1332,8 @@
                     <elementReference>EmergencyContactStage</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
