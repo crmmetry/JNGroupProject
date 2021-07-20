@@ -60,3 +60,10 @@ window.TOTAL_MONTHLY_EXPENSES = "totalMonthlyExpensesVerified";
 window.TOTAL_DEBT_CONSOLIDATED = "totalDebtConsolidatedVerified";
 window.TOTAL_MONTHLY_INCOME = "totalMonthlyIncomeVerified";
 window.TOTAL_OTHER_INCOME = "totalOtherIncomeVerified";
+
+window.ERROR_MESSAGE = "ErrorMessage";
+window.ERROR_CODE = "ErrorCode";
+window.SOURCE_EVENT = "SourceEvent";
+window.TIME = "Time";
+window.DATE = "Date";
+window.LAST_MODIFIED_BY = "LastModifiedBy";
