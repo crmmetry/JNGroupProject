@@ -2,14 +2,16 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 07-16-2021
+ * @last modified on  : 07-20-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
  * 1.0   06-18-2021   Travis Allen   Initial Version
  **/
 public with sharing class NoContactMadeNotifierQueueable implements Queueable {
+  @TestVisible
   public Datetime currentTime;
+  public Util util;
 
   /**
    * Class constructor
@@ -18,6 +20,7 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
    **/
   public NoContactMadeNotifierQueueable(Datetime currentTime) {
     this.currentTime = currentTime;
+    this.util = new Util();
   }
   /**
    * Execute Queueable class
@@ -55,39 +58,43 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
     Set<Lead> leadsToBeUpdated = new Set<Lead>();
 
     //Fetch id for Tier one queue
-    Id tierOneQueue = Util.getQueueId(Constants.TIER_ONE_QUEUE);
+    Id tierOneQueue = util.getQueueId(Constants.TIER_ONE_QUEUE);
 
     //Fetch id for Tier two queue
-    Id tierTwoQueue = Util.getQueueId(Constants.TIER_TWO_QUEUE);
+    Id tierTwoQueue = util.getQueueId(Constants.TIER_TWO_QUEUE);
 
     //Mapped group members for Tier 1 agents
-    Map<Id, GroupMember> tierOneAgentMap = new Map<Id, GroupMember>();
+    Map<Id, GroupMember> tierOneAgentMap = new Map<Id, GroupMember>(
+      util.getGroupMembersByGroupId(tierOneQueue)
+    );
 
     //Mapped group members for Tier 2 agents
-    Map<Id, GroupMember> tierTwoAgentMap = new Map<Id, GroupMember>();
+    Map<Id, GroupMember> tierTwoAgentMap = new Map<Id, GroupMember>(
+      util.getGroupMembersByGroupId(tierTwoQueue)
+    );
 
     //Get All mapped Holidays currently in the system
-    Map<Date, Holiday> holidays = Util.getHolidays();
+    Map<Date, Holiday> holidays = util.getHolidays();
 
     //Populate tier one agent map
-    for (GroupMember user : [
-      SELECT UserOrGroupId, GroupId
-      FROM GroupMember
-      WHERE GroupId = :tierOneQueue
-      WITH SECURITY_ENFORCED
-    ]) {
-      tierOneAgentMap.put(user.UserOrGroupId, user);
-    }
+    // for (GroupMember user : [
+    //   SELECT UserOrGroupId, GroupId
+    //   FROM GroupMember
+    //   WHERE GroupId = :tierOneQueue
+    //   WITH SECURITY_ENFORCED
+    // ]) {
+    //   tierOneAgentMap.put(user.UserOrGroupId, user);
+    // }
 
     //Populate tier one agent map
-    for (GroupMember user : [
-      SELECT UserOrGroupId, GroupId
-      FROM GroupMember
-      WHERE GroupId = :tierTwoQueue
-      WITH SECURITY_ENFORCED
-    ]) {
-      tierTwoAgentMap.put(user.UserOrGroupId, user);
-    }
+    // for (GroupMember user : [
+    //   SELECT UserOrGroupId, GroupId
+    //   FROM GroupMember
+    //   WHERE GroupId = :tierTwoQueue
+    //   WITH SECURITY_ENFORCED
+    // ]) {
+    //   tierTwoAgentMap.put(user.UserOrGroupId, user);
+    // }
 
     //Get a list of all user Ids that are sales user in the system
     List<Id> salesUsers = new List<Id>();
@@ -234,7 +241,7 @@ public with sharing class NoContactMadeNotifierQueueable implements Queueable {
     //Loop through max allowable hours that alead can be open without contact being made.
     while (maxAllowableHours >= 0) {
       //Check if current date is a holiday
-      isHoliday = Util.checkHoliday(
+      isHoliday = util.checkHoliday(
         expectedAssignedTime.date(),
         mappedHolidays
       );

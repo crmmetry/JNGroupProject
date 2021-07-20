@@ -2,8 +2,8 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 06-08-2021
- * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * @last modified on  : 07-20-2021
+ * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author                               Modification
  * 1.0   02-22-2021   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
@@ -645,5 +645,14 @@ public with sharing class Util {
     requestPlatformEvent.Body__c = JSONBody;
     requestPlatformEvent.ExternalId__c = externalId;
     return requestPlatformEvent;
+  }
+
+  public static List<GroupMember> getGroupMembersByGroupId(String groupId) {
+    return [
+      SELECT UserOrGroupId, GroupId
+      FROM GroupMember
+      WHERE GroupId = :groupId
+      WITH SECURITY_ENFORCED
+    ];
   }
 }
