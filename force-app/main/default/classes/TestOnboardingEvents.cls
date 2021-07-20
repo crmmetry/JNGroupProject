@@ -2,7 +2,7 @@
  * @description       : For testing onboarding event
  * @author            : Ishwari Gaikwad(Thinqloud)
  * @group             :
- * @last modified on  : 07-16-2021
+ * @last modified on  : 07-20-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                       Modification
@@ -20,7 +20,7 @@ public class TestOnboardingEvents {
     list<OneJNOutputEventHandler.FlowInputs> Flilist1 = new List<OneJNOutputEventHandler.FlowInputs>();
     OneJNOutputEventHandler.FlowInputs Fli1 = new OneJNOutputEventHandler.FlowInputs();
     Fli1.eventType = Constants.SUBMIT_PROFILE_EVENT_5;
-    Fli1.externalId = '24-test-3323';
+    Fli1.externalId = '24-test23-3323';
     Fli1.sfRecordId = '';
     Fli1.body = jsonData;
     Fli1.replayId = '';
@@ -28,6 +28,12 @@ public class TestOnboardingEvents {
     Test.startTest();
     OneJNOutputEventHandler.HandleEvent(Flilist1);
     Test.stopTest();
+    List<Account> accRecordList = [
+      SELECT Id
+      FROM Account
+      WHERE GUID_Text__c = '24-test23-3323'
+    ];
+    System.assertEquals(1, accRecordList.size());
   }
 
   /**
@@ -40,7 +46,7 @@ public class TestOnboardingEvents {
     list<OneJNOutputEventHandler.FlowInputs> Flilist1 = new List<OneJNOutputEventHandler.FlowInputs>();
     OneJNOutputEventHandler.FlowInputs Fli1 = new OneJNOutputEventHandler.FlowInputs();
     Fli1.eventType = Constants.SUBMIT_PROFILE_EVENT_4;
-    Fli1.externalId = '24-test-3323';
+    Fli1.externalId = '24-test23-3323';
     Fli1.sfRecordId = '';
     Fli1.body = jsonData;
     Fli1.replayId = '';
@@ -48,6 +54,12 @@ public class TestOnboardingEvents {
     Test.startTest();
     OneJNOutputEventHandler.HandleEvent(Flilist1);
     Test.stopTest();
+    List<Account> accRecordList = [
+      SELECT Id
+      FROM Account
+      WHERE GUID_Text__c = '24-test23-3323'
+    ];
+    System.assertEquals(1, accRecordList.size());
   }
 
   /**
@@ -60,7 +72,7 @@ public class TestOnboardingEvents {
     list<OneJNOutputEventHandler.FlowInputs> Flilist1 = new List<OneJNOutputEventHandler.FlowInputs>();
     OneJNOutputEventHandler.FlowInputs Fli1 = new OneJNOutputEventHandler.FlowInputs();
     Fli1.eventType = Constants.SUBMIT_PROFILE_EVENT_3;
-    Fli1.externalId = '24-test-3323';
+    Fli1.externalId = '24-test23-3323';
     Fli1.sfRecordId = '';
     Fli1.body = jsonData;
     Fli1.replayId = '';
@@ -68,6 +80,12 @@ public class TestOnboardingEvents {
     Test.startTest();
     OneJNOutputEventHandler.HandleEvent(Flilist1);
     Test.stopTest();
+    List<Account> accRecordList = [
+      SELECT Id
+      FROM Account
+      WHERE GUID_Text__c = '24-test23-3323'
+    ];
+    System.assertEquals(1, accRecordList.size());
   }
 
   /**
@@ -80,7 +98,7 @@ public class TestOnboardingEvents {
     list<OneJNOutputEventHandler.FlowInputs> Flilist1 = new List<OneJNOutputEventHandler.FlowInputs>();
     OneJNOutputEventHandler.FlowInputs Fli1 = new OneJNOutputEventHandler.FlowInputs();
     Fli1.eventType = Constants.SUBMIT_PROFILE_EVENT_2;
-    Fli1.externalId = '24-test-3323';
+    Fli1.externalId = '24-test23-3323';
     Fli1.sfRecordId = '';
     Fli1.body = jsonData;
     Fli1.replayId = '';
@@ -88,6 +106,12 @@ public class TestOnboardingEvents {
     Test.startTest();
     OneJNOutputEventHandler.HandleEvent(Flilist1);
     Test.stopTest();
+    List<Account> accRecordList = [
+      SELECT Id
+      FROM Account
+      WHERE GUID_Text__c = '24-test23-3323'
+    ];
+    System.assertEquals(1, accRecordList.size());
   }
 
   /**
@@ -100,7 +124,7 @@ public class TestOnboardingEvents {
     list<OneJNOutputEventHandler.FlowInputs> Flilist1 = new List<OneJNOutputEventHandler.FlowInputs>();
     OneJNOutputEventHandler.FlowInputs Fli1 = new OneJNOutputEventHandler.FlowInputs();
     Fli1.eventType = Constants.SUBMIT_PROFILE_EVENT_1;
-    Fli1.externalId = '24-test-3323';
+    Fli1.externalId = '24-test23-3323';
     Fli1.sfRecordId = '';
     Fli1.body = jsonData;
     Fli1.replayId = '';
@@ -108,5 +132,11 @@ public class TestOnboardingEvents {
     Test.startTest();
     OneJNOutputEventHandler.HandleEvent(Flilist1);
     Test.stopTest();
+    List<Account> accRecordList = [
+      SELECT Id
+      FROM Account
+      WHERE GUID_Text__c = '24-test23-3323'
+    ];
+    System.assertEquals(1, accRecordList.size());
   }
 }

@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Ishwari Gaikwad(Thinqloud)
  * @group             :
- * @last modified on  : 07-15-2021
+ * @last modified on  : 07-20-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author                       Modification
@@ -28,7 +28,7 @@ public class OneJNOnBoardingDeserialiser {
   @AuraEnabled
   public String ProfileState;
   @AuraEnabled
-  public String DateString; // Date is reserved keyword: DateString
+  public String ProfileCreateDate;
   @AuraEnabled
   public String Trn;
   @AuraEnabled
@@ -131,7 +131,7 @@ public class OneJNOnBoardingDeserialiser {
       if (Util.Some(process_2_3_4_5, eventType)) {
         //Event 2,3,4,5
         deserialiser.accountRecord.ProfileCreateDate_Timestamp__c = Date.valueOf(
-          deserialiser.DateString
+          deserialiser.ProfileCreateDate
         );
       }
       if (Util.Some(process_4_5, eventType)) {

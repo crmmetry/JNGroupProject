@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 07-15-2021
+ * @last modified on  : 07-20-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -527,7 +527,10 @@ public class TestDataFactory {
     jsonGen.writeStringField('Email', 'anisley.suarez@test11.com');
     jsonGen.writeStringField('PhoneNumber', '116417794312');
     jsonGen.writeStringField('ProfileState', 'Unauthenticated');
-    jsonGen.writeStringField('DateString', '2021-06-30T14:39:56.5431608Z');
+    jsonGen.writeStringField(
+      'ProfileCreateDate',
+      '2021-06-30T14:39:56.5431608Z'
+    );
     jsonGen.writeFieldName('Identification');
     jsonGen.writeStartObject();
     jsonGen.writeStringField('IdNumber', 'test');
