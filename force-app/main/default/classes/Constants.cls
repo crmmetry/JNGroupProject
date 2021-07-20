@@ -2,7 +2,7 @@
  * @description       : Global constants
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 07-14-2021
+ * @last modified on  : 07-20-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -212,6 +212,13 @@ public class Constants {
   public static final String FINAL_ASSESMENT_SUBMISSION = 'Final Assessment Submission';
   public static final String DEFAULT_TRIGGER_SWITCH = 'Disable_All_Triggers';
   public static final String SALES_TEAM = 'Sales Team';
+
+  public static final Integer MAX_TIME_SPENT_IN_TIER_ONE_WHEN_REASSIGNED = 8;
+  public static final Integer MAX_TIME_SPENT_IN_TIER_ONE = 24;
+  public static final Integer MAX_TIME_SPENT_IN_TIER_TWO_FOR_FIRST_NOTFIFICATION = 24;
+  public static final Integer MAX_TIME_SPENT_IN_TIER_TWO_FOR_SECOND_NOTIFICATION = 36;
+
+  public static final String CONTACT_MADE = 'Contact Made';
 
   public static final String PRIMARY_APPLICANT = 'Primary Applicant';
   public static final String CO_APPLICANT = 'Co-Applicant';
