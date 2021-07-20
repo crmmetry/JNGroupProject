@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Travis Allen
  * @group             :
- * @last modified on  : 07-16-2021
+ * @last modified on  : 07-20-2021
  * @last modified by  : Travis Allen
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -20,9 +20,9 @@ public with sharing class TestNoContactMadeNotifier {
     0
   );
 
-  //Get Sales Team and SalesDeveloperTeam Queue Ids
-  public static Id tierOneQueueId = Util.getQueueId(Constants.TIER_ONE_QUEUE);
-  public static Id tierTwoQueueId = Util.getQueueId(Constants.TIER_TWO_QUEUE);
+  // //Get Sales Team and SalesDeveloperTeam Queue Ids
+  // public static Id tierOneQueueId = Util.getQueueId(Constants.TIER_ONE_QUEUE);
+  // public static Id tierTwoQueueId = Util.getQueueId(Constants.TIER_TWO_QUEUE);
 
   /**
    * Data setup for testing
@@ -67,14 +67,89 @@ public with sharing class TestNoContactMadeNotifier {
    * @author Travis Allen | 06-25-2021
    **/
   @isTest
-  public static void shouldNotifyNoContactMadeScenario1() {
+  public static void shouldCheckLeadsToBeNotifiedScenario1() {
     //Get user from Tier 1 queue
-    User tierOneAgent = [
-      SELECT Id
-      FROM User
-      WHERE UserName = 'travistest@dev2.com'
-      LIMIT 1
+    // User tierOneAgent = [
+    //   SELECT Id
+    //   FROM User
+    //   WHERE UserName = 'travistest@dev2.com'
+    //   LIMIT 1
+    // ];
+
+    // //Create reassigned lead where contact has not been made
+    // List<Lead> leads = TestDataFactory.CreateLeads(1);
+    // leads[0].Assignment_Timestamp__c = currentDateTime.addHours(-8);
+    // leads[0].Not_Contacted_8_hours_flag__c = false;
+    // leads[0].Not_Contacted_24_hours_flag__c = true;
+    // leads[0].Lead_Reassigned_flag__c = true;
+    // insert leads;
+
+    // leads[0].OwnerId = tierOneAgent.Id;
+    // update leads;
+
+    // System.assert(
+    //   [SELECT Id, OwnerId FROM Lead].OwnerId == tierOneAgent.Id,
+    //   'Lead owner was not updated to tier one agent.'
+    // );
+
+    // Test.startTest();
+    // //Enqueue job
+    // System.enqueueJob(new NoContactMadeNotifierQueueable(currentDateTime));
+    // Test.stopTest();
+
+    // //System Asserts to check if leads were updated correctly
+    // System.assertEquals(
+    //   true,
+    //   [SELECT Id, Not_Contacted_8_hours_flag__c FROM Lead]
+    //   .Not_Contacted_8_hours_flag__c,
+    //   'Notfication was not sent out.'
+    // );
+
+    //Stubbing phase
+    fflib_ApexMocks mocks = new fflib_ApexMocks();
+    Util mockUtil = (Util) mocks.mock(Util.class);
+
+    //tier one queue id
+    Id tierOneQueueId = fflib_IDGenerator.generate(Group.SObjectType);
+    //tier two queue id
+    Id tierTwoQueueId = fflib_IDGenerator.generate(Group.SObjectType);
+
+    //List of group members for tier one
+    List<GroupMember> tierOneAgents = new List<GroupMember>{
+      new GroupMember(
+        GroupId = tierOneQueueId,
+        UserOrGroupId = [
+          SELECT Id
+          FROM User
+          WHERE UserName = 'travistest@dev2.com'
+        ]
+        .Id
+      )
+    };
+
+    //List of group members for tier two
+    List<GroupMember> tierTwoAgents = new List<GroupMember>{
+      new GroupMember(
+        GroupId = tierTwoQueueId,
+        UserOrGroupId = [
+          SELECT Id
+          FROM User
+          WHERE UserName = 'travistest2@dev2.com'
+        ]
+        .Id
+      )
+    };
+
+    //Holiday Map
+    Date ashWednesday = Date.newInstance(2021, 2, 17);
+    Holiday holiday = [
+      SELECT StartTimeInMinutes, Name, ActivityDate
+      FROM Holiday
+      WHERE ActivityDate = :ashWednesday
     ];
+    Map<Date, Holiday> holidayMap = new Map<Date, Holiday>{
+      ashWednesday => holiday
+    };
 
     //Create reassigned lead where contact has not been made
     List<Lead> leads = TestDataFactory.CreateLeads(1);
@@ -87,23 +162,19 @@ public with sharing class TestNoContactMadeNotifier {
     leads[0].OwnerId = tierOneAgent.Id;
     update leads;
 
-    System.assert(
-      [SELECT Id, OwnerId FROM Lead].OwnerId == tierOneAgent.Id,
-      'Lead owner was not updated to tier one agent.'
-    );
+    mocks.startStubbing();
 
-    Test.startTest();
-    //Enqueue job
-    System.enqueueJob(new NoContactMadeNotifierQueueable(currentDateTime));
-    Test.stopTest();
+    mocks.when(mockUtil.getQueueId(Constants.TIER_ONE_QUEUE))
+      .thenReturn(tierOneQueueId);
+    mocks.when(mockUtil.getQueueId(Constants.TIER_TWO_QUEUE))
+      .thenReturn(tierTwoQueueId);
+    mocks.when(mockUtil.getHolidays()).thenReturn(holidayMap);
+    mocks.when(mockUtil.getGroupMembersByGroupId(tierOneQueueId))
+      .thenReturn(tierOneAgents);
+    mocks.when(mockUtil.getGroupMembersBruGroupId(tierTwoQueueId))
+      .thenReturn(tierTwoAgents);
 
-    //System Asserts to check if leads were updated correctly
-    System.assertEquals(
-      true,
-      [SELECT Id, Not_Contacted_8_hours_flag__c FROM Lead]
-      .Not_Contacted_8_hours_flag__c,
-      'Notfication was not sent out.'
-    );
+    mocks.stopStubbing();
   }
 
   /**
