@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 07-01-2021
+ * @last modified on  : 07-21-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -18,13 +18,15 @@ public with sharing class OneJNEventFactory {
   public static void ProcessIncomingEvent(
     String eventType,
     OneJNDeserializer oneJNDeserializer,
-    String sfRecordId
+    String sfRecordId,
+    String replayId
   ) {
     if (eventType == Constants.RETURN_LOAN_APPLICATION_ID) {
       processGetApplicationEventResponse(
         oneJNDeserializer,
         sfRecordId,
-        eventType
+        eventType,
+        replayId
       );
     }
     if (
@@ -34,14 +36,20 @@ public with sharing class OneJNEventFactory {
       processGetPreAssessmentEventResponse(
         oneJNDeserializer,
         sfRecordId,
-        eventType
+        eventType,
+        replayId
       );
     }
     if (
       eventType == Constants.RETURN_CREDIT_CARD_MANUAL_DECISION_RESPONSE ||
       eventType == Constants.RETURN_UNSECURED_LOAN_MANUAL_DECISION_RESPONSE
     ) {
-      processGetManualIdEventResponse(oneJNDeserializer, sfRecordId, eventType);
+      processGetManualIdEventResponse(
+        oneJNDeserializer,
+        sfRecordId,
+        eventType,
+        replayId
+      );
     }
     if (
       eventType == Constants.RETURN_CREDITCARD_FINAL_ASSESSMENT ||
@@ -50,7 +58,8 @@ public with sharing class OneJNEventFactory {
       processFinalAssessmentEventResponse(
         oneJNDeserializer,
         sfRecordId,
-        eventType
+        eventType,
+        replayId
       );
     }
   }
@@ -158,19 +167,25 @@ public with sharing class OneJNEventFactory {
   private static void processGetApplicationEventResponse(
     OneJNDeserializer oneJNDeserializer,
     String sfRecordId,
-    String eventType
+    String eventType,
+    String replayId
   ) {
     oneJNDeserializer deserialiser = OneJNDeserializer.parse(
       oneJNDeserializer,
       eventType,
-      sfRecordId
+      sfRecordId,
+      replayId
     );
-    if (deserialiser.applicationRecord <> null) {
-      SObjectAccessDecision decision = Security.stripInaccessible(
-        AccessType.UPDATABLE,
-        new List<Application__c>{ deserialiser.applicationRecord }
-      );
-      update decision.getRecords();
+    try {
+      if (deserialiser.applicationRecord <> null) {
+        SObjectAccessDecision decision = Security.stripInaccessible(
+          AccessType.UPDATABLE,
+          new List<Application__c>{ deserialiser.applicationRecord }
+        );
+        update decision.getRecords();
+      }
+    } catch (Exception e) {
+      Util.handleOneJNExeption(e, eventType, '', sfRecordId, replayId);
     }
   }
   /**
@@ -188,12 +203,14 @@ public with sharing class OneJNEventFactory {
   private static void processFinalAssessmentEventResponse(
     OneJNDeserializer oneJNDeserializer,
     String sfRecordId,
-    String eventType
+    String eventType,
+    String replayId
   ) {
     oneJNDeserializer deserialiser = OneJNDeserializer.parse(
       oneJNDeserializer,
       eventType,
-      sfRecordId
+      sfRecordId,
+      replayId
     );
     List<sObject> sObjectsToUpdate = new List<sObject>();
     if (deserialiser.primaryApplicantRecord <> null) {
@@ -211,12 +228,16 @@ public with sharing class OneJNEventFactory {
     if (deserialiser.loanCalculationProductRecord <> null) {
       sObjectsToUpdate.add(deserialiser.loanCalculationProductRecord);
     }
-    if (sObjectsToUpdate.size() > 0) {
-      SObjectAccessDecision decision = Security.stripInaccessible(
-        AccessType.UPDATABLE,
-        sObjectsToUpdate
-      );
-      update decision.getRecords();
+    try {
+      if (sObjectsToUpdate.size() > 0) {
+        SObjectAccessDecision decision = Security.stripInaccessible(
+          AccessType.UPDATABLE,
+          sObjectsToUpdate
+        );
+        update decision.getRecords();
+      }
+    } catch (Exception e) {
+      Util.handleOneJNExeption(e, eventType, '', sfRecordId, replayId);
     }
   }
 
@@ -263,12 +284,14 @@ public with sharing class OneJNEventFactory {
   private static void processGetPreAssessmentEventResponse(
     OneJNDeserializer oneJNDeserializer,
     String sfRecordId,
-    String eventType
+    String eventType,
+    String replayId
   ) {
     oneJNDeserializer deserialiser = OneJNDeserializer.parse(
       oneJNDeserializer,
       eventType,
-      sfRecordId
+      sfRecordId,
+      replayId
     );
     List<sObject> sObjectsToUpdate = new List<sObject>();
     if (deserialiser.primaryApplicantRecord <> null) {
@@ -286,12 +309,16 @@ public with sharing class OneJNEventFactory {
     if (deserialiser.documentInstructions <> null) {
       sObjectsToUpdate.addAll(deserialiser.documentInstructions);
     }
-    if (sObjectsToUpdate.size() > 0) {
-      SObjectAccessDecision decision = Security.stripInaccessible(
-        AccessType.UPSERTABLE,
-        sObjectsToUpdate
-      );
-      upsert decision.getRecords();
+    try {
+      if (sObjectsToUpdate.size() > 0) {
+        SObjectAccessDecision decision = Security.stripInaccessible(
+          AccessType.UPSERTABLE,
+          sObjectsToUpdate
+        );
+        upsert decision.getRecords();
+      }
+    } catch (Exception e) {
+      Util.handleOneJNExeption(e, eventType, '', sfRecordId, replayId);
     }
   }
   /**
@@ -303,12 +330,14 @@ public with sharing class OneJNEventFactory {
   private static void processGetManualIdEventResponse(
     OneJNDeserializer oneJNDeserializer,
     String sfRecordId,
-    String eventType
+    String eventType,
+    String replayId
   ) {
     oneJNDeserializer deserialiser = OneJNDeserializer.parse(
       oneJNDeserializer,
       eventType,
-      sfRecordId
+      sfRecordId,
+      replayId
     );
     List<sObject> sObjectsToUpdate = new List<sObject>();
     if (deserialiser.primaryApplicantRecord <> null) {
@@ -326,12 +355,45 @@ public with sharing class OneJNEventFactory {
     if (deserialiser.loanCalculationProductRecord <> null) {
       sObjectsToUpdate.add(deserialiser.loanCalculationProductRecord);
     }
-    if (sObjectsToUpdate.size() > 0) {
-      SObjectAccessDecision decision = Security.stripInaccessible(
-        AccessType.UPDATABLE,
-        sObjectsToUpdate
-      );
-      update decision.getRecords();
+    try {
+      if (sObjectsToUpdate.size() > 0) {
+        SObjectAccessDecision decision = Security.stripInaccessible(
+          AccessType.UPDATABLE,
+          sObjectsToUpdate
+        );
+        update decision.getRecords();
+      }
+    } catch (Exception e) {
+      Util.handleOneJNExeption(e, eventType, '', sfRecordId, replayId);
+    }
+  }
+
+  /**
+   * @description
+   * @author Ishwari Gaikwad(Thinqloud) | 07-12-2021
+   * @param eventType
+   * @param oneJNOnBoardingDeserializer
+   **/
+  public static void ProcessIncomingEventOnBoarding(
+    String eventType,
+    OneJNOnBoardingDeserialiser oneJNOnBoardingDeserializer,
+    String replayId
+  ) {
+    OneJNOnBoardingDeserialiser deserialiser = OneJNOnBoardingDeserialiser.parse(
+      oneJNOnBoardingDeserializer,
+      eventType,
+      replayId
+    );
+    try {
+      if (deserialiser.accountRecord <> null) {
+        SObjectAccessDecision securityDecision = Security.stripInaccessible(
+          AccessType.UPSERTABLE,
+          new List<sObject>{ deserialiser.accountRecord }
+        );
+        upsert (List<Account>) securityDecision.getRecords() GUID_Text__c;
+      }
+    } catch (Exception e) {
+      Util.handleOneJNExeption(e, eventType, deserialiser.Id, '', replayId);
     }
   }
 }

@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 05-26-2021
- * @last modified by  : Remario Richards
+ * @last modified on  : 07-21-2021
+ * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
  * 1.0   05-25-2021   Remario Richards   Initial Version
@@ -26,7 +26,8 @@ public with sharing class OneJNOutputEventHandler {
         record.body,
         record.eventType,
         record.externalId,
-        record.sfRecordId
+        record.sfRecordId,
+        record.replayId
       )
     );
   }
@@ -40,5 +41,7 @@ public with sharing class OneJNOutputEventHandler {
     public String sfRecordId;
     @InvocableVariable
     public String body;
+    @InvocableVariable
+    public String replayId;
   }
 }

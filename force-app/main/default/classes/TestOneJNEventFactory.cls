@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Trupti Zende (Thinqloud)
  * @group             :
- * @last modified on  : 07-02-2021
- * @last modified by  : Ishwari Gaikwad(Thinqloud)
+ * @last modified on  : 06-11-2021
+ * @last modified by  : Trupti Zende (Thinqloud)
  * Modifications Log
  * Ver   Date         Author                     Modification
  * 1.0   06-11-2021   Trupti Zende (Thinqloud)   Initial Version
@@ -407,22 +407,10 @@ public class TestOneJNEventFactory {
   @isTest
   public static void testReturnApplicationLoanIdEvent() {
     OneJNDeserializer oneJNDeserializer;
-    JSONGenerator jsonGen = JSON.createGenerator(true);
-    jsonGen.writeStartObject();
-    jsonGen.writeFieldName('consolidatedReport');
-
-    jsonGen.writeStartObject();
-    jsonGen.writeStringField('finalAssessmentReport', 'test');
-    jsonGen.writeFieldName('generalInformation');
-    jsonGen.writeStartObject();
-    jsonGen.writeStringField(
-      'applicationID',
-      'TEST ' + Integer.valueof((Math.random() * 1000))
+    String jsonData = TestDataFactory.getJsonString(
+      Constants.RETURN_LOAN_APPLICATION_ID,
+      'JN Bank Credit Card'
     );
-    jsonGen.writeEndObject();
-    jsonGen.writeEndObject();
-    jsonGen.writeEndObject();
-    String jsonData = jsonGen.getAsString();
 
     oneJNDeserializer = (OneJNDeserializer) JSON.deserialize(
       jsonData,
@@ -473,7 +461,8 @@ public class TestOneJNEventFactory {
     OneJNEventFactory.ProcessIncomingEvent(
       Constants.RETURN_LOAN_APPLICATION_ID,
       oneJNDeserializer,
-      applicationRecord.Id
+      applicationRecord.Id,
+      ''
     );
     Test.stopTest();
   }
@@ -484,27 +473,10 @@ public class TestOneJNEventFactory {
   @isTest
   public static void testReturnManualDecisionApproved() {
     OneJNDeserializer oneJNDeserializer;
-    JSONGenerator jsonGen = JSON.createGenerator(true);
-    jsonGen.writeStartObject();
-    jsonGen.writeFieldName('consolidatedReport');
-
-    jsonGen.writeStartObject();
-    jsonGen.writeStringField('finalAssessmentReport', 'test');
-    jsonGen.writeFieldName('generalInformation');
-    jsonGen.writeStartObject();
-    jsonGen.writeStringField(
-      'applicationID',
-      'TEST ' + Integer.valueof((Math.random() * 1000))
+    String jsonData = TestDataFactory.getJsonString(
+      Constants.RETURN_CREDIT_CARD_MANUAL_DECISION_RESPONSE,
+      'JN Bank Credit Card '
     );
-    jsonGen.writeEndObject();
-    jsonGen.writeFieldName('ApplicantDetailsCoApplicants');
-    jsonGen.writeStartArray();
-    jsonGen.writeStartObject();
-    jsonGen.writeEndObject();
-    jsonGen.writeEndArray();
-    jsonGen.writeEndObject();
-    jsonGen.writeEndObject();
-    String jsonData = jsonGen.getAsString();
 
     oneJNDeserializer = (OneJNDeserializer) JSON.deserialize(
       jsonData,
@@ -647,7 +619,8 @@ public class TestOneJNEventFactory {
     OneJNEventFactory.ProcessIncomingEvent(
       Constants.RETURN_CREDIT_CARD_MANUAL_DECISION_RESPONSE,
       oneJNDeserializer,
-      applicationRecord.Id
+      applicationRecord.Id,
+      ''
     );
     Test.stopTest();
   }
@@ -658,40 +631,10 @@ public class TestOneJNEventFactory {
   @isTest
   public static void testReturnUnsecuredLoanPreAssessment() {
     OneJNDeserializer oneJNDeserializer;
-    List<String> documentList = new List<String>{
-      'Last three (3) months\u2019 pay slips',
-      'bank statements or negotiated cheques AND Pay slips for December of the last calendar year'
-    };
-    JSONGenerator jsonGen = JSON.createGenerator(true);
-    jsonGen.writeStartObject();
-    jsonGen.writeFieldName('ConsolidatedReport');
-
-    jsonGen.writeStartObject();
-    jsonGen.writeStringField('FinalAssessmentReport', 'test');
-    jsonGen.writeFieldName('GeneralInformation');
-    jsonGen.writeStartObject();
-    jsonGen.writeStringField('ProductType', 'JN Bank Unsecured Loan');
-    jsonGen.writeStringField(
-      'ApplicationID',
-      'TEST ' + Integer.valueof((Math.random() * 1000))
+    String jsonData = TestDataFactory.getJsonString(
+      Constants.RETURN_CREDITCARD_PRE_ASSESSMENT,
+      'JN Bank Unsecured Loan'
     );
-    jsonGen.writeEndObject();
-
-    jsonGen.writeFieldName('ApplicantDetailsPrimary');
-    jsonGen.writeStartObject();
-    jsonGen.writeFieldName('DocumentRequirements');
-    jsonGen.writeObject(documentList);
-    jsonGen.writeEndObject();
-    jsonGen.writeFieldName('ApplicantDetailsCoApplicants');
-    jsonGen.writeStartArray();
-    jsonGen.writeStartObject();
-    jsonGen.writeFieldName('DocumentRequirements');
-    jsonGen.writeObject(documentList);
-    jsonGen.writeEndObject();
-    jsonGen.writeEndArray();
-    jsonGen.writeEndObject();
-    jsonGen.writeEndObject();
-    String jsonData = jsonGen.getAsString();
 
     oneJNDeserializer = (OneJNDeserializer) JSON.deserialize(
       jsonData,
@@ -861,7 +804,8 @@ public class TestOneJNEventFactory {
     OneJNEventFactory.ProcessIncomingEvent(
       Constants.RETURN_CREDITCARD_PRE_ASSESSMENT,
       oneJNDeserializer,
-      opps3[0].Id
+      opps3[0].Id,
+      ''
     );
     Test.stopTest();
   }
@@ -872,40 +816,11 @@ public class TestOneJNEventFactory {
   @isTest
   public static void testReturnCreditCardFinalAssessment() {
     OneJNDeserializer oneJNDeserializer;
-    List<String> documentList = new List<String>{
-      'Last three (3) months\u2019 pay slips',
-      'bank statements or negotiated cheques AND Pay slips for December of the last calendar year'
-    };
-    JSONGenerator jsonGen = JSON.createGenerator(true);
-    jsonGen.writeStartObject();
-    jsonGen.writeFieldName('ConsolidatedReport');
 
-    jsonGen.writeStartObject();
-    jsonGen.writeStringField('FinalAssessmentReport', 'test');
-    jsonGen.writeFieldName('GeneralInformation');
-    jsonGen.writeStartObject();
-    jsonGen.writeStringField('ProductType', 'JN Bank Credit Card');
-    jsonGen.writeStringField(
-      'ApplicationID',
-      'TEST ' + Integer.valueof((Math.random() * 1000))
+    String jsonData = TestDataFactory.getJsonString(
+      Constants.RETURN_CREDITCARD_FINAL_ASSESSMENT,
+      'JN Bank Credit Card'
     );
-    jsonGen.writeEndObject();
-    jsonGen.writeFieldName('ApplicantDetailsPrimary');
-    jsonGen.writeStartObject();
-    jsonGen.writeFieldName('DocumentRequirements');
-    jsonGen.writeObject(documentList);
-    jsonGen.writeEndObject();
-    jsonGen.writeFieldName('ApplicantDetailsCoApplicants');
-    jsonGen.writeStartArray();
-    jsonGen.writeStartObject();
-    jsonGen.writeFieldName('DocumentRequirements');
-    jsonGen.writeObject(documentList);
-    jsonGen.writeEndObject();
-    jsonGen.writeEndArray();
-    jsonGen.writeEndObject();
-    jsonGen.writeEndObject();
-    String jsonData = jsonGen.getAsString();
-
     oneJNDeserializer = (OneJNDeserializer) JSON.deserialize(
       jsonData,
       OneJNDeserializer.class
@@ -1062,52 +977,23 @@ public class TestOneJNEventFactory {
     OneJNEventFactory.ProcessIncomingEvent(
       Constants.RETURN_CREDITCARD_FINAL_ASSESSMENT,
       oneJNDeserializer,
-      opps3[0].Id
+      opps3[0].Id,
+      ''
     );
     Test.stopTest();
   }
 
   /**
-   * @description to test process incoming event for event type  ReturnUnsecuredFinalAssessment
+   * @description to test process incoming event for event type  ReturnCreditCardFinalAssessment
    * @author Trupti Zende (Thinqloud) | 06-11-2021
    **/
   @isTest
   public static void testReturnUnsecuredFinalAssessment() {
     OneJNDeserializer oneJNDeserializer;
-    List<String> documentList = new List<String>{
-      'Last three (3) months\u2019 pay slips',
-      'bank statements or negotiated cheques AND Pay slips for December of the last calendar year'
-    };
-    JSONGenerator jsonGen = JSON.createGenerator(true);
-    jsonGen.writeStartObject();
-    jsonGen.writeFieldName('ConsolidatedReport');
-
-    jsonGen.writeStartObject();
-    jsonGen.writeStringField('FinalAssessmentReport', 'test');
-    jsonGen.writeFieldName('GeneralInformation');
-    jsonGen.writeStartObject();
-    jsonGen.writeStringField('ProductType', 'JN Bank Unsecured Loan');
-    jsonGen.writeStringField(
-      'ApplicationID',
-      'TEST ' + Integer.valueof((Math.random() * 1000))
+    String jsonData = TestDataFactory.getJsonString(
+      Constants.RETURN_UNSECURED_LOAN_FINAL_ASSESSMENT,
+      'JN Bank Unsecured Loan'
     );
-    jsonGen.writeEndObject();
-    jsonGen.writeFieldName('ApplicantDetailsPrimary');
-    jsonGen.writeStartObject();
-    jsonGen.writeFieldName('DocumentRequirements');
-    jsonGen.writeObject(documentList);
-    jsonGen.writeEndObject();
-    jsonGen.writeFieldName('ApplicantDetailsCoApplicants');
-    jsonGen.writeStartArray();
-    jsonGen.writeStartObject();
-    jsonGen.writeFieldName('DocumentRequirements');
-    jsonGen.writeObject(documentList);
-    jsonGen.writeEndObject();
-    jsonGen.writeEndArray();
-    jsonGen.writeEndObject();
-    jsonGen.writeEndObject();
-    String jsonData = jsonGen.getAsString();
-
     oneJNDeserializer = (OneJNDeserializer) JSON.deserialize(
       jsonData,
       OneJNDeserializer.class
@@ -1285,15 +1171,12 @@ public class TestOneJNEventFactory {
     OneJNEventFactory.ProcessIncomingEvent(
       Constants.RETURN_UNSECURED_LOAN_FINAL_ASSESSMENT,
       oneJNDeserializer,
-      opps3[0].Id
+      opps3[0].Id,
+      ''
     );
-    // OneJNEventFactory.ProcessIncomingEvent(Constants.RETURN_LOAN_APPLICATION_ID, oneJNDeserializer, opps3[0].Id);
+    // OneJNEventFactory.ProcessIncomingEvent(Constants.RETURN_LOAN_APPLICATION_ID, oneJNDeserializer, opps3[0].Id,'');
     Test.stopTest();
   }
-  /**
-   * @description to test process Outgoing event for event type  Unsecured loan final assessment
-   * @author Ishwari Gaikwad(Thinqloud) | 07-02-2021
-   **/
   @isTest
   public static void testGetUnsecuredLoanFinalAssessment() {
     Map<String, Id> mappedOppRecTypes = Util.getRecordTypeids('Opportunity');
@@ -1430,10 +1313,6 @@ public class TestOneJNEventFactory {
     );
     Test.stopTest();
   }
-  /**
-   * @description to test process Outgoing event for event type  credit card loan final assessment
-   * @author Ishwari Gaikwad(Thinqloud) | 07-02-2021
-   **/
   @isTest
   public static void testGetCreditCardFinalAssessment() {
     Map<String, Id> mappedOppRecTypes = Util.getRecordTypeids('Opportunity');
@@ -1557,6 +1436,7 @@ public class TestOneJNEventFactory {
     loanCalculationProductRecord[0].Interest_Rate_Number__c = 7;
     loanCalculationProductRecord[0]
       .Method_of_Fee_Payment_List__c = 'Added to Loan';
+    //loanCalculationProductRecord[0].Loan_Purpose_List__c='Medical Expenses';
     loanCalculationProductRecord[0].Months_Number__c = 9;
     loanCalculationProductRecord[0]
       .Minimum_Payment_per_Credit_Limit_Number__c = 2000;

@@ -2,7 +2,7 @@
  * @description       : service to coordinate the  selector layer and serialization
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 07-07-2021
+ * @last modified on  : 07-15-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -110,11 +110,17 @@ public with sharing class OneJNEventService {
      **/
     public OneJNDeserializer deserialize(
       OneJNDeserializer oneJNDeserializerVar,
-      String sfRecordId
+      String sfRecordId,
+      String eventType,
+      String replayId
     ) {
-      oneJNDeserializerVar.ApplicationRecord = new Application__c();
-      oneJNDeserializerVar.ApplicationRecord.Id = sfRecordId;
-      oneJNDeserializerVar.ApplicationRecord.Application_ID__c = oneJNDeserializerVar.ApplicationId;
+      try {
+        oneJNDeserializerVar.ApplicationRecord = new Application__c();
+        oneJNDeserializerVar.ApplicationRecord.Id = sfRecordId;
+        oneJNDeserializerVar.ApplicationRecord.Application_ID__c = oneJNDeserializerVar.ApplicationId;
+      } catch (Exception e) {
+        Util.handleOneJNExeption(e, eventType, '', sfRecordId, replayId);
+      }
       return oneJNDeserializerVar;
     }
   }
@@ -128,135 +134,142 @@ public with sharing class OneJNEventService {
      **/
     public OneJNDeserializer deserialize(
       OneJNDeserializer oneJNDeserializerVar,
-      String sfRecordId
+      String sfRecordId,
+      String eventType,
+      String replayId
     ) {
-      String productType = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation.ProductType;
-      List<Opportunity> opportunity1 = OneJNQuerySelector.getOpportunity(
-        new Set<Id>{ sfRecordId }
-      );
-      oneJNDeserializerVar.documentInstructions = new List<Document_Instruction__c>();
-      oneJNDeserializerVar.OpportunityRecord = new Opportunity();
-      oneJNDeserializerVar.OpportunityRecord.Id = sfRecordId;
-      oneJNDeserializerVar.OpportunityRecord.Pre_Approval_list__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
-        ?.PreAssessmentDecision;
+      try {
+        String productType = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation.ProductType;
+        List<Opportunity> opportunity1 = OneJNQuerySelector.getOpportunity(
+          new Set<Id>{ sfRecordId }
+        );
+        oneJNDeserializerVar.documentInstructions = new List<Document_Instruction__c>();
+        oneJNDeserializerVar.OpportunityRecord = new Opportunity();
+        oneJNDeserializerVar.OpportunityRecord.Id = sfRecordId;
+        oneJNDeserializerVar.OpportunityRecord.Pre_Approval_list__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
+          .PreAssessmentDecision;
 
-      DocumentChecklistItem documentChecklistItem = new DocumentChecklistItem();
-      documentChecklistItem = getDocumentCheckListItem(
-        opportunity1[0],
-        oneJNDeserializerVar,
-        Constants.PRE_ASSESSMENT_SUBMISSION
-      );
+        DocumentChecklistItem documentChecklistItem = new DocumentChecklistItem();
+        documentChecklistItem = getDocumentCheckListItem(
+          opportunity1[0],
+          oneJNDeserializerVar,
+          Constants.PRE_ASSESSMENT_SUBMISSION,
+          replayId
+        );
 
-      List<Application__c> applist = new List<Application__c>();
-      Applist = OneJNQuerySelector.getApplications(new Set<ID>{ sfRecordId });
-      if (applist.size() > 0) {
-        oneJNDeserializerVar.ApplicationRecord = new Application__c();
-        oneJNDeserializerVar.ApplicationRecord.Id = applist[0]?.Id;
+        List<Application__c> applist = new List<Application__c>();
+        Applist = OneJNQuerySelector.getApplications(new Set<ID>{ sfRecordId });
+        if (applist.size() > 0) {
+          oneJNDeserializerVar.ApplicationRecord = new Application__c();
+          oneJNDeserializerVar.ApplicationRecord.Id = applist[0]?.Id;
 
-        oneJNDeserializerVar.applicationRecord.Application_ID__c = oneJNDeserializerVar.ConsolidatedReport
-          ?.GeneralInformation.ApplicationID;
-        oneJNDeserializerVar.ApplicationRecord.IDM_Amount_number__c = oneJNDeserializerVar.ConsolidatedReport
-          ?.LoanParameters
-          ?.RequestedLoanAmount;
-        oneJNDeserializerVar.ApplicationRecord.IDM_Number_of_Rules_Breached_Number__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
-          ?.nBrokenRules;
-      }
+          oneJNDeserializerVar.applicationRecord.Application_ID__c = oneJNDeserializerVar.ConsolidatedReport
+            .GeneralInformation.ApplicationID;
+          oneJNDeserializerVar.ApplicationRecord.IDM_Amount_number__c = oneJNDeserializerVar.ConsolidatedReport
+            .LoanParameters
+            .RequestedLoanAmount;
+          oneJNDeserializerVar.ApplicationRecord.IDM_Number_of_Rules_Breached_Number__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
+            .nBrokenRules;
+        }
 
-      List<Applicant__c> applicantList = OneJNQuerySelector.getApplicants(
-        new Set<ID>{ sfRecordId }
-      );
-      if (appList.size() > 0) {
-        for (Applicant__c applicant : applicantList) {
-          if (applicant.Primary_Applicant_Flag__c) {
-            oneJNDeserializerVar.PrimaryApplicantRecord = new applicant__c();
-            oneJNDeserializerVar.PrimaryApplicantRecord.Id = Applicant.Id;
-            oneJNDeserializerVar.PrimaryApplicantRecord.JNRiskGrade__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
-              ?.JNRiskGrade;
-            oneJNDeserializerVar.PrimaryApplicantRecord.JNRiskScore__c = String.valueOf(
-              oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
-                ?.JNRiskScore
-            );
-            oneJNDeserializerVar.PrimaryApplicantRecord.CRBGradeCIJ__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
-              ?.CRBGrade_CIJ;
-            oneJNDeserializerVar.PrimaryApplicantRecord.CRBScoreCIJ__c = String.valueOf(
-              oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
-                ?.CRBScore_CIJ
-            );
-            oneJNDeserializerVar.PrimaryApplicantRecord.CRBGradeCRIF__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
-              ?.CRBGrade_CRIF;
-            oneJNDeserializerVar.PrimaryApplicantRecord.CRBScoreCRIF__c = String.valueOf(
-              oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
-                ?.CRBScore_CRIF
-            );
-
-            if (productType == Constants.UNSECURED_PRODUCT_FAMILY) {
-              oneJNDeserializerVar.PrimaryApplicantRecord.Account__c = Applicant.Account__c;
-            }
-            // documents
-            List<Document_Instruction__c> documentInstructionList = getDocumentInstructionInstance(
-              oneJNDeserializerVar,
-              documentChecklistItem,
-              Constants.PRIMARY_APPLICANT
-            );
-            oneJNDeserializerVar.documentInstructions.addAll(
-              documentInstructionList
-            );
-          } else {
-            oneJNDeserializerVar.CoApplicantRecord = new Applicant__c();
-            Applicant__c coApplicant = new Applicant__c();
-            oneJNDeserializerVar.CoApplicantRecord.Id = Applicant.Id;
-            if (
-              oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants !=
-              null &&
-              oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants.size() >
-              0
-            ) {
-              oneJNDeserializerVar.CoApplicantRecord.JNRiskGrade__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
-                ?.JNRiskGrade;
-              oneJNDeserializerVar.CoApplicantRecord.JNRiskScore__c = String.valueOf(
-                oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
-                  ?.JNRiskScore
+        List<Applicant__c> applicantList = OneJNQuerySelector.getApplicants(
+          new Set<ID>{ sfRecordId }
+        );
+        if (appList.size() > 0) {
+          for (Applicant__c applicant : applicantList) {
+            if (applicant.Primary_Applicant_Flag__c) {
+              oneJNDeserializerVar.PrimaryApplicantRecord = new applicant__c();
+              oneJNDeserializerVar.PrimaryApplicantRecord.Id = Applicant.Id;
+              oneJNDeserializerVar.PrimaryApplicantRecord.JNRiskGrade__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
+                .JNRiskGrade;
+              oneJNDeserializerVar.PrimaryApplicantRecord.JNRiskScore__c = String.valueOf(
+                oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
+                  .JNRiskScore
               );
-              oneJNDeserializerVar.CoApplicantRecord.CRBGradeCIJ__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
-                ?.CRBGrade_CIJ;
-              oneJNDeserializerVar.CoApplicantRecord.CRBScoreCIJ__c = String.valueOf(
-                oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
-                  ?.CRBScore_CIJ
+              oneJNDeserializerVar.PrimaryApplicantRecord.CRBGradeCIJ__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
+                .CRBGrade_CIJ;
+              oneJNDeserializerVar.PrimaryApplicantRecord.CRBScoreCIJ__c = String.valueOf(
+                oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
+                  .CRBScore_CIJ
               );
-              oneJNDeserializerVar.CoApplicantRecord.CRBGradeCRIF__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
-                ?.CRBGrade_CRIF;
-              oneJNDeserializerVar.CoApplicantRecord.CRBScoreCRIF__c = String.valueOf(
-                oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
-                  ?.CRBScore_CRIF
+              oneJNDeserializerVar.PrimaryApplicantRecord.CRBGradeCRIF__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
+                .CRBGrade_CRIF;
+              oneJNDeserializerVar.PrimaryApplicantRecord.CRBScoreCRIF__c = String.valueOf(
+                oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
+                  .CRBScore_CRIF
               );
-            }
-            if (productType == Constants.UNSECURED_PRODUCT_FAMILY) {
+
+              if (productType == Constants.UNSECURED_PRODUCT_FAMILY) {
+                oneJNDeserializerVar.PrimaryApplicantRecord.Account__c = Applicant.Account__c;
+              }
               // documents
               List<Document_Instruction__c> documentInstructionList = getDocumentInstructionInstance(
                 oneJNDeserializerVar,
                 documentChecklistItem,
-                Constants.CO_APPLICANT
+                Constants.PRIMARY_APPLICANT
               );
               oneJNDeserializerVar.documentInstructions.addAll(
                 documentInstructionList
               );
+            } else {
+              oneJNDeserializerVar.CoApplicantRecord = new Applicant__c();
+              Applicant__c coApplicant = new Applicant__c();
+              oneJNDeserializerVar.CoApplicantRecord.Id = Applicant.Id;
+              if (
+                oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants !=
+                null &&
+                oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants.size() >
+                0
+              ) {
+                oneJNDeserializerVar.CoApplicantRecord.JNRiskGrade__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
+                  .JNRiskGrade;
+                oneJNDeserializerVar.CoApplicantRecord.JNRiskScore__c = String.valueOf(
+                  oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
+                    .JNRiskScore
+                );
+                oneJNDeserializerVar.CoApplicantRecord.CRBGradeCIJ__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
+                  .CRBGrade_CIJ;
+                oneJNDeserializerVar.CoApplicantRecord.CRBScoreCIJ__c = String.valueOf(
+                  oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
+                    .CRBScore_CIJ
+                );
+                oneJNDeserializerVar.CoApplicantRecord.CRBGradeCRIF__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
+                  .CRBGrade_CRIF;
+                oneJNDeserializerVar.CoApplicantRecord.CRBScoreCRIF__c = String.valueOf(
+                  oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
+                    .CRBScore_CRIF
+                );
+              }
+              if (productType == Constants.UNSECURED_PRODUCT_FAMILY) {
+                // documents
+                List<Document_Instruction__c> documentInstructionList = getDocumentInstructionInstance(
+                  oneJNDeserializerVar,
+                  documentChecklistItem,
+                  Constants.CO_APPLICANT
+                );
+                oneJNDeserializerVar.documentInstructions.addAll(
+                  documentInstructionList
+                );
+              }
             }
           }
         }
-      }
 
-      List<OpportunityLineItem> opplineitemList = new List<OpportunityLineItem>();
-      opplineitemList = OneJNQuerySelector.getOpportunityLineItem(
-        new Set<ID>{ sfRecordId }
-      );
-      if (opplineitemList.size() > 0) {
-        oneJNDeserializerVar.OpportunityLineItemRecord = new OpportunityLineItem();
-        oneJNDeserializerVar.OpportunityLineItemRecord.Id = opplineitemList[0]
-          ?.Id;
-        //oneJNDeserializerVar.opportunityLineItemRecord.Product_Family__c = oneJNDeserializerVar.consolidatedReport.generalInformation.productType; field is not writable
-        if (ProductType == Constants.CREDITCARD_PRODUCT_FAMILY) {
-          //oneJNDeserializerVar.opportunityLineItemRecord.Name = oneJNDeserializerVar.consolidatedReport.generalInformation.cardType;
+        List<OpportunityLineItem> opplineitemList = new List<OpportunityLineItem>();
+        opplineitemList = OneJNQuerySelector.getOpportunityLineItem(
+          new Set<ID>{ sfRecordId }
+        );
+        if (opplineitemList.size() > 0) {
+          oneJNDeserializerVar.OpportunityLineItemRecord = new OpportunityLineItem();
+          oneJNDeserializerVar.OpportunityLineItemRecord.Id = opplineitemList[0]
+            .Id;
+          //oneJNDeserializerVar.opportunityLineItemRecord.Product_Family__c = oneJNDeserializerVar.consolidatedReport.generalInformation.productType; field is not writable
+          if (ProductType == Constants.CREDITCARD_PRODUCT_FAMILY) {
+            //oneJNDeserializerVar.opportunityLineItemRecord.Name = oneJNDeserializerVar.consolidatedReport.generalInformation.cardType;
+          }
         }
+      } catch (Exception e) {
+        Util.handleOneJNExeption(e, eventType, '', sfRecordId, replayId);
       }
       //oneJNDeserializerVar.requestDate = ;unix system date
       return oneJNDeserializerVar;
@@ -272,191 +285,197 @@ public with sharing class OneJNEventService {
      **/
     public OneJNDeserializer deserialize(
       OneJNDeserializer oneJNDeserializerVar,
-      String sfRecordId
+      String sfRecordId,
+      String eventType,
+      String replayId
     ) {
-      String productType = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation.ProductType;
-      List<Opportunity> opportunity1 = OneJNQuerySelector.getOpportunity(
-        new Set<Id>{ sfRecordId }
-      );
-      oneJNDeserializerVar.documentInstructions = new List<Document_Instruction__c>();
-      oneJNDeserializerVar.OpportunityRecord = new Opportunity();
-      oneJNDeserializerVar.OpportunityRecord.Id = sfRecordId;
-      oneJNDeserializerVar.OpportunityRecord.Pre_Approval_list__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
-        ?.PreAssessmentDecision;
+      try {
+        String productType = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation.ProductType;
+        List<Opportunity> opportunity1 = OneJNQuerySelector.getOpportunity(
+          new Set<Id>{ sfRecordId }
+        );
+        oneJNDeserializerVar.documentInstructions = new List<Document_Instruction__c>();
+        oneJNDeserializerVar.OpportunityRecord = new Opportunity();
+        oneJNDeserializerVar.OpportunityRecord.Id = sfRecordId;
+        oneJNDeserializerVar.OpportunityRecord.Pre_Approval_list__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
+          .PreAssessmentDecision;
 
-      DocumentChecklistItem documentChecklistItem = new DocumentChecklistItem();
-      documentChecklistItem = getDocumentCheckListItem(
-        opportunity1[0],
-        oneJNDeserializerVar,
-        Constants.FINAL_ASSESMENT_SUBMISSION
-      );
+        DocumentChecklistItem documentChecklistItem = new DocumentChecklistItem();
+        documentChecklistItem = getDocumentCheckListItem(
+          opportunity1[0],
+          oneJNDeserializerVar,
+          Constants.FINAL_ASSESMENT_SUBMISSION,
+          replayId
+        );
 
-      List<Application__c> applist = new List<Application__c>();
-      Applist = OneJNQuerySelector.getApplications(new Set<ID>{ sfRecordId });
-      if (applist.size() > 0) {
-        oneJNDeserializerVar.ApplicationRecord = new Application__c();
-        oneJNDeserializerVar.ApplicationRecord.Id = applist[0]?.Id;
+        List<Application__c> applist = new List<Application__c>();
+        Applist = OneJNQuerySelector.getApplications(new Set<ID>{ sfRecordId });
+        if (applist.size() > 0) {
+          oneJNDeserializerVar.ApplicationRecord = new Application__c();
+          oneJNDeserializerVar.ApplicationRecord.Id = applist[0]?.Id;
 
-        oneJNDeserializerVar.applicationRecord.Application_ID__c = oneJNDeserializerVar.ConsolidatedReport
-          ?.GeneralInformation.ApplicationID;
-        oneJNDeserializerVar.ApplicationRecord.IDM_Amount_number__c = oneJNDeserializerVar.ConsolidatedReport
-          ?.LoanParameters
-          ?.RequestedLoanAmount;
-        oneJNDeserializerVar.ApplicationRecord.IDM_Number_of_Rules_Breached_Number__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
-          ?.nBrokenRules;
-        oneJNDeserializerVar.ApplicationRecord.IDMOutput__c = oneJNDeserializerVar.ConsolidatedReport
-          ?.FinalAssessmentReport;
-      }
+          oneJNDeserializerVar.applicationRecord.Application_ID__c = oneJNDeserializerVar.ConsolidatedReport
+            .GeneralInformation.ApplicationID;
+          oneJNDeserializerVar.ApplicationRecord.IDM_Amount_number__c = oneJNDeserializerVar.ConsolidatedReport
+            .LoanParameters
+            .RequestedLoanAmount;
+          oneJNDeserializerVar.ApplicationRecord.IDM_Number_of_Rules_Breached_Number__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
+            .nBrokenRules;
+          oneJNDeserializerVar.ApplicationRecord.IDMOutput__c = oneJNDeserializerVar.ConsolidatedReport
+            .FinalAssessmentReport;
+        }
 
-      List<Applicant__c> applicantList = OneJNQuerySelector.getApplicants(
-        new Set<ID>{ sfRecordId }
-      );
-      if (appList.size() > 0) {
-        for (Applicant__c applicant : applicantList) {
-          if (applicant.Primary_Applicant_Flag__c) {
-            oneJNDeserializerVar.PrimaryApplicantRecord = new applicant__c();
-            oneJNDeserializerVar.PrimaryApplicantRecord.Id = Applicant.Id;
-            oneJNDeserializerVar.PrimaryApplicantRecord.JNRiskGrade__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
-              ?.JNRiskGrade;
-            oneJNDeserializerVar.PrimaryApplicantRecord.JNRiskScore__c = String.valueOf(
-              oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
-                ?.JNRiskScore
-            );
-            oneJNDeserializerVar.PrimaryApplicantRecord.CRBGradeCIJ__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
-              ?.CRBGrade_CIJ;
-            oneJNDeserializerVar.PrimaryApplicantRecord.CRBScoreCIJ__c = String.valueOf(
-              oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
-                ?.CRBScore_CIJ
-            );
-            oneJNDeserializerVar.PrimaryApplicantRecord.CRBGradeCRIF__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
-              ?.CRBGrade_CRIF;
-            oneJNDeserializerVar.PrimaryApplicantRecord.CRBScoreCRIF__c = String.valueOf(
-              oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
-                ?.CRBScore_CRIF
-            );
-            if (productType == Constants.UNSECURED_PRODUCT_FAMILY) {
-              oneJNDeserializerVar.PrimaryApplicantRecord.Account__c = Applicant.Account__c;
-            }
-            // documents
-            List<Document_Instruction__c> documentInstructionList = getDocumentInstructionInstance(
-              oneJNDeserializerVar,
-              documentChecklistItem,
-              Constants.PRIMARY_APPLICANT
-            );
-            oneJNDeserializerVar.documentInstructions.addAll(
-              documentInstructionList
-            );
-          } else {
-            oneJNDeserializerVar.CoApplicantRecord = new Applicant__c();
-            oneJNDeserializerVar.CoApplicantRecord.Id = Applicant.Id;
-            if (
-              oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants !=
-              null &&
-              oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants.size() >
-              0
-            ) {
-              oneJNDeserializerVar.CoApplicantRecord.JNRiskGrade__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
-                ?.JNRiskGrade;
-              oneJNDeserializerVar.CoApplicantRecord.JNRiskScore__c = String.valueOf(
-                oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
-                  ?.JNRiskScore
+        List<Applicant__c> applicantList = OneJNQuerySelector.getApplicants(
+          new Set<ID>{ sfRecordId }
+        );
+        if (appList.size() > 0) {
+          for (Applicant__c applicant : applicantList) {
+            if (applicant.Primary_Applicant_Flag__c) {
+              oneJNDeserializerVar.PrimaryApplicantRecord = new applicant__c();
+              oneJNDeserializerVar.PrimaryApplicantRecord.Id = Applicant.Id;
+              oneJNDeserializerVar.PrimaryApplicantRecord.JNRiskGrade__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
+                .JNRiskGrade;
+              oneJNDeserializerVar.PrimaryApplicantRecord.JNRiskScore__c = String.valueOf(
+                oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
+                  .JNRiskScore
               );
-              oneJNDeserializerVar.CoApplicantRecord.CRBGradeCIJ__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
-                ?.CRBGrade_CIJ;
-              oneJNDeserializerVar.CoApplicantRecord.CRBScoreCIJ__c = String.valueOf(
-                oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
-                  ?.CRBScore_CIJ
+              oneJNDeserializerVar.PrimaryApplicantRecord.CRBGradeCIJ__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
+                .CRBGrade_CIJ;
+              oneJNDeserializerVar.PrimaryApplicantRecord.CRBScoreCIJ__c = String.valueOf(
+                oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
+                  .CRBScore_CIJ
               );
-              oneJNDeserializerVar.CoApplicantRecord.CRBGradeCRIF__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
-                ?.CRBGrade_CRIF;
-              oneJNDeserializerVar.CoApplicantRecord.CRBScoreCRIF__c = String.valueOf(
-                oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
-                  ?.CRBScore_CRIF
+              oneJNDeserializerVar.PrimaryApplicantRecord.CRBGradeCRIF__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
+                .CRBGrade_CRIF;
+              oneJNDeserializerVar.PrimaryApplicantRecord.CRBScoreCRIF__c = String.valueOf(
+                oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
+                  .CRBScore_CRIF
               );
-            }
-
-            if (productType == Constants.UNSECURED_PRODUCT_FAMILY) {
+              if (productType == Constants.UNSECURED_PRODUCT_FAMILY) {
+                oneJNDeserializerVar.PrimaryApplicantRecord.Account__c = Applicant.Account__c;
+              }
               // documents
               List<Document_Instruction__c> documentInstructionList = getDocumentInstructionInstance(
                 oneJNDeserializerVar,
                 documentChecklistItem,
-                Constants.CO_APPLICANT
+                Constants.PRIMARY_APPLICANT
               );
               oneJNDeserializerVar.documentInstructions.addAll(
                 documentInstructionList
               );
+            } else {
+              oneJNDeserializerVar.CoApplicantRecord = new Applicant__c();
+              oneJNDeserializerVar.CoApplicantRecord.Id = Applicant.Id;
+              if (
+                oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants !=
+                null &&
+                oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants.size() >
+                0
+              ) {
+                oneJNDeserializerVar.CoApplicantRecord.JNRiskGrade__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
+                  .JNRiskGrade;
+                oneJNDeserializerVar.CoApplicantRecord.JNRiskScore__c = String.valueOf(
+                  oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
+                    .JNRiskScore
+                );
+                oneJNDeserializerVar.CoApplicantRecord.CRBGradeCIJ__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
+                  .CRBGrade_CIJ;
+                oneJNDeserializerVar.CoApplicantRecord.CRBScoreCIJ__c = String.valueOf(
+                  oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
+                    .CRBScore_CIJ
+                );
+                oneJNDeserializerVar.CoApplicantRecord.CRBGradeCRIF__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
+                  .CRBGrade_CRIF;
+                oneJNDeserializerVar.CoApplicantRecord.CRBScoreCRIF__c = String.valueOf(
+                  oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
+                    .CRBScore_CRIF
+                );
+              }
+
+              if (productType == Constants.UNSECURED_PRODUCT_FAMILY) {
+                // documents
+                List<Document_Instruction__c> documentInstructionList = getDocumentInstructionInstance(
+                  oneJNDeserializerVar,
+                  documentChecklistItem,
+                  Constants.CO_APPLICANT
+                );
+                oneJNDeserializerVar.documentInstructions.addAll(
+                  documentInstructionList
+                );
+              }
             }
           }
         }
-      }
 
-      List<OpportunityLineItem> opplineitemList = new List<OpportunityLineItem>();
-      opplineitemList = OneJNQuerySelector.getOpportunityLineItem(
-        new Set<ID>{ sfRecordId }
-      );
-      if (opplineitemList.size() > 0) {
-        oneJNDeserializerVar.OpportunityLineItemRecord = new OpportunityLineItem();
-        oneJNDeserializerVar.OpportunityLineItemRecord.Id = opplineitemList[0]
-          ?.Id;
-        //oneJNDeserializerVar.opportunityLineItemRecord.Product_Family__c = oneJNDeserializerVar.consolidatedReport.generalInformation.productType; field is not writable
-        if (ProductType == Constants.CREDITCARD_PRODUCT_FAMILY) {
-          //oneJNDeserializerVar.opportunityLineItemRecord.Name = oneJNDeserializerVar.consolidatedReport.generalInformation.cardType;
-        }
-      }
-      oneJNDeserializerVar.OpportunityRecord.Final_Assessment_Decision_list__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
-        ?.FinalAssessmentDecision;
-      List<Loan_Calculator__c> loancalculatorList = new List<Loan_Calculator__c>();
-      loancalculatorList = OneJNQuerySelector.getLoanCalculations(
-        new Set<ID>{ sfRecordId }
-      );
-
-      if (LoanCalculatorList.size() > 0) {
-        Id loanCalculatorId = loancalculatorList[0]?.Id;
-        List<Loan_Calculation_Product__c> loanappproductList = new List<Loan_Calculation_Product__c>();
-        loanappproductList = OneJNQuerySelector.getLoanCalculationProducts(
-          new Set<ID>{ loanCalculatorId }
+        List<OpportunityLineItem> opplineitemList = new List<OpportunityLineItem>();
+        opplineitemList = OneJNQuerySelector.getOpportunityLineItem(
+          new Set<ID>{ sfRecordId }
         );
-        if (LoanAppProductList.size() > 0) {
-          oneJNDeserializerVar.LoanCalculationProductRecord = new Loan_Calculation_Product__c();
-          oneJNDeserializerVar.LoanCalculationProductRecord.Id = loanappproductList[0]
-            ?.Id;
-
-          if (productType == Constants.CREDITCARD_PRODUCT_FAMILY) {
-            oneJNDeserializerVar.LoanCalculationProductRecord.Requested_Credit_Limit_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
-              ?.AprrovedCreditCardLimit;
-            oneJNDeserializerVar.LoanCalculationProductRecord.Minimum_Payment_per_Credit_Limit_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
-              ?.EstimateOfMinimumPayment;
+        if (opplineitemList.size() > 0) {
+          oneJNDeserializerVar.OpportunityLineItemRecord = new OpportunityLineItem();
+          oneJNDeserializerVar.OpportunityLineItemRecord.Id = opplineitemList[0]
+            .Id;
+          //oneJNDeserializerVar.opportunityLineItemRecord.Product_Family__c = oneJNDeserializerVar.consolidatedReport.generalInformation.productType; field is not writable
+          if (ProductType == Constants.CREDITCARD_PRODUCT_FAMILY) {
+            //oneJNDeserializerVar.opportunityLineItemRecord.Name = oneJNDeserializerVar.consolidatedReport.generalInformation.cardType;
           }
-          if (productType == Constants.UNSECURED_PRODUCT_FAMILY) {
-            oneJNDeserializerVar.LoanCalculationProductRecord.Loan_Amount_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
-              ?.ApprovedLoanAmount;
-            oneJNDeserializerVar.LoanCalculationProductRecord.Months_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
-              ?.ApprovedTenure;
-            oneJNDeserializerVar.LoanCalculationProductRecord.Interest_Rate_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
-              ?.ApprovedInterestRate;
-            oneJNDeserializerVar.LoanCalculationProductRecord.Total_Monthly_PI_Loan_Payment_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
-              ?.MonthlyPrincipalandInterest;
-            oneJNDeserializerVar.LoanCalculationProductRecord.Monthly_Compulsory_Savings_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
-              ?.ContractualSavings;
-            oneJNDeserializerVar.LoanCalculationProductRecord.Total_Monthly_Loan_Payment_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
-              ?.TotalMonthlyPayments;
-          }
-
-          oneJNDeserializerVar.LoanCalculationProductRecord.Method_of_Fee_Payment_List__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
-            ?.FinancingOption;
-          oneJNDeserializerVar.LoanCalculationProductRecord.Credit_Report_Fee_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
-            ?.CreditReportFee;
-          oneJNDeserializerVar.LoanCalculationProductRecord.Processing_Fees_including_GCT_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
-            ?.ProcessingFee;
-          oneJNDeserializerVar.LoanCalculationProductRecord.Creditor_Life_Insurance_Premium_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
-            ?.CreditLifeSinglePremium;
-          oneJNDeserializerVar.LoanCalculationProductRecord.Legal_Fees_including_GCT_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
-            ?.LegalFeesandStampduty;
-          oneJNDeserializerVar.LoanCalculationProductRecord.Total_Closing_Costs_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
-            ?.TotalFees;
         }
-      }
+        oneJNDeserializerVar.OpportunityRecord.Final_Assessment_Decision_list__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
+          .FinalAssessmentDecision;
+        List<Loan_Calculator__c> loancalculatorList = new List<Loan_Calculator__c>();
+        loancalculatorList = OneJNQuerySelector.getLoanCalculations(
+          new Set<ID>{ sfRecordId }
+        );
 
+        if (LoanCalculatorList.size() > 0) {
+          Id loanCalculatorId = loancalculatorList[0]?.Id;
+          List<Loan_Calculation_Product__c> loanappproductList = new List<Loan_Calculation_Product__c>();
+          loanappproductList = OneJNQuerySelector.getLoanCalculationProducts(
+            new Set<ID>{ loanCalculatorId }
+          );
+          if (LoanAppProductList.size() > 0) {
+            oneJNDeserializerVar.LoanCalculationProductRecord = new Loan_Calculation_Product__c();
+            oneJNDeserializerVar.LoanCalculationProductRecord.Id = loanappproductList[0]
+              .Id;
+
+            if (productType == Constants.CREDITCARD_PRODUCT_FAMILY) {
+              oneJNDeserializerVar.LoanCalculationProductRecord.Requested_Credit_Limit_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
+                .AprrovedCreditCardLimit;
+              oneJNDeserializerVar.LoanCalculationProductRecord.Minimum_Payment_per_Credit_Limit_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
+                .EstimateOfMinimumPayment;
+            }
+            if (productType == Constants.UNSECURED_PRODUCT_FAMILY) {
+              oneJNDeserializerVar.LoanCalculationProductRecord.Loan_Amount_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
+                .ApprovedLoanAmount;
+              oneJNDeserializerVar.LoanCalculationProductRecord.Months_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
+                .ApprovedTenure;
+              oneJNDeserializerVar.LoanCalculationProductRecord.Interest_Rate_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
+                .ApprovedInterestRate;
+              oneJNDeserializerVar.LoanCalculationProductRecord.Total_Monthly_PI_Loan_Payment_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
+                .MonthlyPrincipalandInterest;
+              oneJNDeserializerVar.LoanCalculationProductRecord.Monthly_Compulsory_Savings_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
+                .ContractualSavings;
+              oneJNDeserializerVar.LoanCalculationProductRecord.Total_Monthly_Loan_Payment_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
+                .TotalMonthlyPayments;
+            }
+
+            oneJNDeserializerVar.LoanCalculationProductRecord.Method_of_Fee_Payment_List__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
+              .FinancingOption;
+            oneJNDeserializerVar.LoanCalculationProductRecord.Credit_Report_Fee_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
+              .CreditReportFee;
+            oneJNDeserializerVar.LoanCalculationProductRecord.Processing_Fees_including_GCT_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
+              .ProcessingFee;
+            oneJNDeserializerVar.LoanCalculationProductRecord.Creditor_Life_Insurance_Premium_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
+              .CreditLifeSinglePremium;
+            oneJNDeserializerVar.LoanCalculationProductRecord.Legal_Fees_including_GCT_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
+              .LegalFeesandStampduty;
+            oneJNDeserializerVar.LoanCalculationProductRecord.Total_Closing_Costs_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
+              .TotalFees;
+          }
+        }
+      } catch (Exception e) {
+        util.handleOneJNExeption(e, eventType, '', sfRecordId, replayId);
+      }
       //oneJNDeserializerVar.requestDate = ;unix system date
       return oneJNDeserializerVar;
     }
@@ -471,169 +490,175 @@ public with sharing class OneJNEventService {
      **/
     public OneJNDeserializer deserialize(
       OneJNDeserializer oneJNDeserializerVar,
-      String sfRecordId
+      String sfRecordId,
+      String eventType,
+      String replayId
     ) {
       List<Application__c> applicationList = OneJNQuerySelector.getApplicationRecord(
         sfRecordId
       );
-      if (applicationList.size() > 0) {
-        oneJNDeserializerVar.OpportunityRecord = new Opportunity();
-        Id oppId = applicationList[0].Opportunity_Id__c;
-        oneJNDeserializerVar.OpportunityRecord.Id = oppId;
-        oneJNDeserializerVar.OpportunityRecord.Final_Assessment_Decision_list__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
-          ?.FinalAssessmentDecision;
+      try {
+        if (applicationList.size() > 0) {
+          oneJNDeserializerVar.OpportunityRecord = new Opportunity();
+          Id oppId = applicationList[0].Opportunity_Id__c;
+          oneJNDeserializerVar.OpportunityRecord.Id = oppId;
+          oneJNDeserializerVar.OpportunityRecord.Final_Assessment_Decision_list__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
+            .FinalAssessmentDecision;
 
-        String productType = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation.ProductType;
+          String productType = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation.ProductType;
 
-        List<Application__c> applist = new List<Application__c>();
-        Applist = OneJNQuerySelector.getApplications(new Set<ID>{ oppId });
-        if (applist.size() > 0) {
-          oneJNDeserializerVar.ApplicationRecord = new Application__c();
-          oneJNDeserializerVar.ApplicationRecord.Id = applist[0]?.Id;
+          List<Application__c> applist = new List<Application__c>();
+          Applist = OneJNQuerySelector.getApplications(new Set<ID>{ oppId });
+          if (applist.size() > 0) {
+            oneJNDeserializerVar.ApplicationRecord = new Application__c();
+            oneJNDeserializerVar.ApplicationRecord.Id = applist[0]?.Id;
 
-          oneJNDeserializerVar.applicationRecord.Application_ID__c = oneJNDeserializerVar.ConsolidatedReport
-            ?.GeneralInformation.ApplicationID;
-          oneJNDeserializerVar.ApplicationRecord.IDM_Amount_number__c = oneJNDeserializerVar.ConsolidatedReport
-            ?.LoanParameters
-            ?.RequestedLoanAmount;
-          oneJNDeserializerVar.ApplicationRecord.IDM_Number_of_Rules_Breached_Number__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
-            ?.nBrokenRules;
-          oneJNDeserializerVar.ApplicationRecord.IDMOutput__c = oneJNDeserializerVar.ConsolidatedReport
-            ?.FinalAssessmentReport;
-        }
-
-        List<Applicant__c> applicantList = OneJNQuerySelector.getApplicants(
-          new Set<ID>{ oppId }
-        );
-        if (appList.size() > 0) {
-          for (Applicant__c applicant : applicantList) {
-            if (applicant.Primary_Applicant_Flag__c) {
-              oneJNDeserializerVar.PrimaryApplicantRecord = new applicant__c();
-              oneJNDeserializerVar.PrimaryApplicantRecord.Id = Applicant.Id;
-              oneJNDeserializerVar.PrimaryApplicantRecord.JNRiskGrade__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
-                ?.JNRiskGrade;
-              oneJNDeserializerVar.PrimaryApplicantRecord.JNRiskScore__c = String.valueOf(
-                oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
-                  ?.JNRiskScore
-              );
-              oneJNDeserializerVar.PrimaryApplicantRecord.CRBGradeCIJ__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
-                ?.CRBGrade_CIJ;
-              oneJNDeserializerVar.PrimaryApplicantRecord.CRBScoreCIJ__c = String.valueOf(
-                oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
-                  ?.CRBScore_CIJ
-              );
-              oneJNDeserializerVar.PrimaryApplicantRecord.CRBGradeCRIF__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
-                ?.CRBGrade_CRIF;
-              oneJNDeserializerVar.PrimaryApplicantRecord.CRBScoreCRIF__c = String.valueOf(
-                oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
-                  ?.CRBScore_CRIF
-              );
-              if (productType == Constants.UNSECURED_PRODUCT_FAMILY) {
-                oneJNDeserializerVar.PrimaryApplicantRecord.Account__c = Applicant.Account__c;
-              }
-              // documents
-            } else {
-              oneJNDeserializerVar.CoApplicantRecord = new Applicant__c();
-              oneJNDeserializerVar.CoApplicantRecord.Id = Applicant.Id;
-              if (
-                oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants !=
-                null &&
-                oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants.size() >
-                0
-              ) {
-                oneJNDeserializerVar.CoApplicantRecord.JNRiskGrade__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
-                  ?.JNRiskGrade;
-                oneJNDeserializerVar.CoApplicantRecord.JNRiskScore__c = String.valueOf(
-                  oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
-                    ?.JNRiskScore
-                );
-                oneJNDeserializerVar.CoApplicantRecord.CRBGradeCIJ__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
-                  ?.CRBGrade_CIJ;
-                oneJNDeserializerVar.CoApplicantRecord.CRBScoreCIJ__c = String.valueOf(
-                  oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
-                    ?.CRBScore_CIJ
-                );
-                oneJNDeserializerVar.CoApplicantRecord.CRBGradeCRIF__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
-                  ?.CRBGrade_CRIF;
-                oneJNDeserializerVar.CoApplicantRecord.CRBScoreCRIF__c = String.valueOf(
-                  oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
-                    ?.CRBScore_CRIF
-                );
-              }
-
-              if (productType == Constants.UNSECURED_PRODUCT_FAMILY) {
-                // documents
-              }
-            }
+            oneJNDeserializerVar.applicationRecord.Application_ID__c = oneJNDeserializerVar.ConsolidatedReport
+              .GeneralInformation.ApplicationID;
+            oneJNDeserializerVar.ApplicationRecord.IDM_Amount_number__c = oneJNDeserializerVar.ConsolidatedReport
+              .LoanParameters
+              .RequestedLoanAmount;
+            oneJNDeserializerVar.ApplicationRecord.IDM_Number_of_Rules_Breached_Number__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
+              .nBrokenRules;
+            oneJNDeserializerVar.ApplicationRecord.IDMOutput__c = oneJNDeserializerVar.ConsolidatedReport
+              .FinalAssessmentReport;
           }
-        }
 
-        List<OpportunityLineItem> opplineitemList = new List<OpportunityLineItem>();
-        opplineitemList = OneJNQuerySelector.getOpportunityLineItem(
-          new Set<ID>{ oppId }
-        );
-        if (opplineitemList.size() > 0) {
-          oneJNDeserializerVar.OpportunityLineItemRecord = new OpportunityLineItem();
-          oneJNDeserializerVar.OpportunityLineItemRecord.Id = opplineitemList[0]
-            ?.Id;
-          //oneJNDeserializerVar.opportunityLineItemRecord.Product_Family__c = oneJNDeserializerVar.consolidatedReport.generalInformation.productType; field is not writable
-          if (ProductType == Constants.CREDITCARD_PRODUCT_FAMILY) {
-            //oneJNDeserializerVar.opportunityLineItemRecord.Name = oneJNDeserializerVar.consolidatedReport.generalInformation.cardType;
-          }
-        }
-        oneJNDeserializerVar.OpportunityRecord.Final_Assessment_Decision_list__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
-          ?.FinalAssessmentDecision;
-        List<Loan_Calculator__c> loancalculatorList = new List<Loan_Calculator__c>();
-        loancalculatorList = OneJNQuerySelector.getLoanCalculations(
-          new Set<ID>{ oppId }
-        );
-
-        if (LoanCalculatorList.size() > 0) {
-          Id loanCalculatorId = loancalculatorList[0]?.Id;
-          List<Loan_Calculation_Product__c> loanappproductList = new List<Loan_Calculation_Product__c>();
-          loanappproductList = OneJNQuerySelector.getLoanCalculationProducts(
-            new Set<ID>{ loanCalculatorId }
+          List<Applicant__c> applicantList = OneJNQuerySelector.getApplicants(
+            new Set<ID>{ oppId }
           );
-          if (LoanAppProductList.size() > 0) {
-            oneJNDeserializerVar.LoanCalculationProductRecord = new Loan_Calculation_Product__c();
-            oneJNDeserializerVar.LoanCalculationProductRecord.Id = loanappproductList[0]
-              ?.Id;
+          if (appList.size() > 0) {
+            for (Applicant__c applicant : applicantList) {
+              if (applicant.Primary_Applicant_Flag__c) {
+                oneJNDeserializerVar.PrimaryApplicantRecord = new applicant__c();
+                oneJNDeserializerVar.PrimaryApplicantRecord.Id = Applicant.Id;
+                oneJNDeserializerVar.PrimaryApplicantRecord.JNRiskGrade__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
+                  .JNRiskGrade;
+                oneJNDeserializerVar.PrimaryApplicantRecord.JNRiskScore__c = String.valueOf(
+                  oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
+                    .JNRiskScore
+                );
+                oneJNDeserializerVar.PrimaryApplicantRecord.CRBGradeCIJ__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
+                  .CRBGrade_CIJ;
+                oneJNDeserializerVar.PrimaryApplicantRecord.CRBScoreCIJ__c = String.valueOf(
+                  oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
+                    .CRBScore_CIJ
+                );
+                oneJNDeserializerVar.PrimaryApplicantRecord.CRBGradeCRIF__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
+                  .CRBGrade_CRIF;
+                oneJNDeserializerVar.PrimaryApplicantRecord.CRBScoreCRIF__c = String.valueOf(
+                  oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsPrimary
+                    .CRBScore_CRIF
+                );
+                if (productType == Constants.UNSECURED_PRODUCT_FAMILY) {
+                  oneJNDeserializerVar.PrimaryApplicantRecord.Account__c = Applicant.Account__c;
+                }
+                // documents
+              } else {
+                oneJNDeserializerVar.CoApplicantRecord = new Applicant__c();
+                oneJNDeserializerVar.CoApplicantRecord.Id = Applicant.Id;
+                if (
+                  oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants !=
+                  null &&
+                  oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants.size() >
+                  0
+                ) {
+                  oneJNDeserializerVar.CoApplicantRecord.JNRiskGrade__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
+                    .JNRiskGrade;
+                  oneJNDeserializerVar.CoApplicantRecord.JNRiskScore__c = String.valueOf(
+                    oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
+                      .JNRiskScore
+                  );
+                  oneJNDeserializerVar.CoApplicantRecord.CRBGradeCIJ__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
+                    .CRBGrade_CIJ;
+                  oneJNDeserializerVar.CoApplicantRecord.CRBScoreCIJ__c = String.valueOf(
+                    oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
+                      .CRBScore_CIJ
+                  );
+                  oneJNDeserializerVar.CoApplicantRecord.CRBGradeCRIF__c = oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
+                    .CRBGrade_CRIF;
+                  oneJNDeserializerVar.CoApplicantRecord.CRBScoreCRIF__c = String.valueOf(
+                    oneJNDeserializerVar.ConsolidatedReport.ApplicantDetailsCoApplicants[0]
+                      .CRBScore_CRIF
+                  );
+                }
 
-            if (productType == Constants.CREDITCARD_PRODUCT_FAMILY) {
-              oneJNDeserializerVar.LoanCalculationProductRecord.Requested_Credit_Limit_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
-                ?.AprrovedCreditCardLimit;
-              oneJNDeserializerVar.LoanCalculationProductRecord.Minimum_Payment_per_Credit_Limit_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
-                ?.EstimateOfMinimumPayment;
+                if (productType == Constants.UNSECURED_PRODUCT_FAMILY) {
+                  // documents
+                }
+              }
             }
-            if (productType == Constants.UNSECURED_PRODUCT_FAMILY) {
-              oneJNDeserializerVar.LoanCalculationProductRecord.Loan_Amount_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
-                ?.ApprovedLoanAmount;
-              oneJNDeserializerVar.LoanCalculationProductRecord.Months_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
-                ?.ApprovedTenure;
-              oneJNDeserializerVar.LoanCalculationProductRecord.Interest_Rate_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
-                ?.ApprovedInterestRate;
-              oneJNDeserializerVar.LoanCalculationProductRecord.Total_Monthly_PI_Loan_Payment_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
-                ?.MonthlyPrincipalandInterest;
-              oneJNDeserializerVar.LoanCalculationProductRecord.Monthly_Compulsory_Savings_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
-                ?.ContractualSavings;
-              oneJNDeserializerVar.LoanCalculationProductRecord.Total_Monthly_Loan_Payment_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
-                ?.TotalMonthlyPayments;
-            }
+          }
 
-            oneJNDeserializerVar.LoanCalculationProductRecord.Method_of_Fee_Payment_List__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
-              ?.FinancingOption;
-            oneJNDeserializerVar.LoanCalculationProductRecord.Credit_Report_Fee_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
-              ?.CreditReportFee;
-            oneJNDeserializerVar.LoanCalculationProductRecord.Processing_Fees_including_GCT_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
-              ?.processingFee;
-            oneJNDeserializerVar.LoanCalculationProductRecord.Creditor_Life_Insurance_Premium_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
-              ?.creditLifeSinglePremium;
-            oneJNDeserializerVar.LoanCalculationProductRecord.Legal_Fees_including_GCT_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
-              ?.LegalFeesandStampduty;
-            oneJNDeserializerVar.LoanCalculationProductRecord.Total_Closing_Costs_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
-              ?.TotalFees;
+          List<OpportunityLineItem> opplineitemList = new List<OpportunityLineItem>();
+          opplineitemList = OneJNQuerySelector.getOpportunityLineItem(
+            new Set<ID>{ oppId }
+          );
+          if (opplineitemList.size() > 0) {
+            oneJNDeserializerVar.OpportunityLineItemRecord = new OpportunityLineItem();
+            oneJNDeserializerVar.OpportunityLineItemRecord.Id = opplineitemList[0]
+              .Id;
+            //oneJNDeserializerVar.opportunityLineItemRecord.Product_Family__c = oneJNDeserializerVar.consolidatedReport.generalInformation.productType; field is not writable
+            if (ProductType == Constants.CREDITCARD_PRODUCT_FAMILY) {
+              //oneJNDeserializerVar.opportunityLineItemRecord.Name = oneJNDeserializerVar.consolidatedReport.generalInformation.cardType;
+            }
+          }
+          oneJNDeserializerVar.OpportunityRecord.Final_Assessment_Decision_list__c = oneJNDeserializerVar.ConsolidatedReport.GeneralInformation
+            .FinalAssessmentDecision;
+          List<Loan_Calculator__c> loancalculatorList = new List<Loan_Calculator__c>();
+          loancalculatorList = OneJNQuerySelector.getLoanCalculations(
+            new Set<ID>{ oppId }
+          );
+
+          if (LoanCalculatorList.size() > 0) {
+            Id loanCalculatorId = loancalculatorList[0]?.Id;
+            List<Loan_Calculation_Product__c> loanappproductList = new List<Loan_Calculation_Product__c>();
+            loanappproductList = OneJNQuerySelector.getLoanCalculationProducts(
+              new Set<ID>{ loanCalculatorId }
+            );
+            if (LoanAppProductList.size() > 0) {
+              oneJNDeserializerVar.LoanCalculationProductRecord = new Loan_Calculation_Product__c();
+              oneJNDeserializerVar.LoanCalculationProductRecord.Id = loanappproductList[0]
+                .Id;
+
+              if (productType == Constants.CREDITCARD_PRODUCT_FAMILY) {
+                oneJNDeserializerVar.LoanCalculationProductRecord.Requested_Credit_Limit_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
+                  .AprrovedCreditCardLimit;
+                oneJNDeserializerVar.LoanCalculationProductRecord.Minimum_Payment_per_Credit_Limit_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
+                  .EstimateOfMinimumPayment;
+              }
+              if (productType == Constants.UNSECURED_PRODUCT_FAMILY) {
+                oneJNDeserializerVar.LoanCalculationProductRecord.Loan_Amount_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
+                  .ApprovedLoanAmount;
+                oneJNDeserializerVar.LoanCalculationProductRecord.Months_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
+                  .ApprovedTenure;
+                oneJNDeserializerVar.LoanCalculationProductRecord.Interest_Rate_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
+                  .ApprovedInterestRate;
+                oneJNDeserializerVar.LoanCalculationProductRecord.Total_Monthly_PI_Loan_Payment_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
+                  .MonthlyPrincipalandInterest;
+                oneJNDeserializerVar.LoanCalculationProductRecord.Monthly_Compulsory_Savings_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
+                  .ContractualSavings;
+                oneJNDeserializerVar.LoanCalculationProductRecord.Total_Monthly_Loan_Payment_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanParameters
+                  .TotalMonthlyPayments;
+              }
+
+              oneJNDeserializerVar.LoanCalculationProductRecord.Method_of_Fee_Payment_List__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
+                .FinancingOption;
+              oneJNDeserializerVar.LoanCalculationProductRecord.Credit_Report_Fee_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
+                .CreditReportFee;
+              oneJNDeserializerVar.LoanCalculationProductRecord.Processing_Fees_including_GCT_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
+                .processingFee;
+              oneJNDeserializerVar.LoanCalculationProductRecord.Creditor_Life_Insurance_Premium_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
+                .creditLifeSinglePremium;
+              oneJNDeserializerVar.LoanCalculationProductRecord.Legal_Fees_including_GCT_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
+                .LegalFeesandStampduty;
+              oneJNDeserializerVar.LoanCalculationProductRecord.Total_Closing_Costs_Number__c = oneJNDeserializerVar.ConsolidatedReport.LoanFees
+                .TotalFees;
+            }
           }
         }
+      } catch (Exception e) {
+        Util.handleOneJNExeption(e, eventType, '', sfRecordId, replayId);
       }
       return oneJNDeserializerVar;
     }
@@ -665,7 +690,6 @@ public with sharing class OneJNEventService {
         documentInstructionList.add(documentInstruction);
       }
     }
-
     return documentInstructionList;
   }
 
@@ -678,21 +702,27 @@ public with sharing class OneJNEventService {
   public static DocumentChecklistItem getDocumentCheckListItem(
     Opportunity opportunityRecord,
     OneJNDeserializer deserialiser,
-    String eventType
+    String eventType,
+    String replayId
   ) {
-    List<String> documentRequirementList = deserialiser.ConsolidatedReport
-      ?.ApplicantDetailsPrimary
-      ?.DocumentRequirements;
     DocumentChecklistItem documentCheckListRecord = new DocumentChecklistItem();
-    if (documentRequirementList <> null && documentRequirementList.size() > 0) {
-      documentCheckListRecord.Name =
-        opportunityRecord.Account.Name +
-        ' - Document Checklist - ' +
-        eventType;
-      documentCheckListRecord.ParentRecordId = opportunityRecord.Id;
-      documentCheckListRecord.WhoId = opportunityRecord.Account.PersonContactId;
+    try {
+      List<String> documentRequirementList = deserialiser.ConsolidatedReport
+        .ApplicantDetailsPrimary
+        .DocumentRequirements;
 
-      /*IMP: After using this the code is facing issue of create permission for the 
+      if (
+        documentRequirementList <> null &&
+        documentRequirementList.size() > 0
+      ) {
+        documentCheckListRecord.Name =
+          opportunityRecord.Account.Name +
+          ' - Document Checklist- ' +
+          eventType;
+        documentCheckListRecord.ParentRecordId = opportunityRecord.Id;
+        documentCheckListRecord.WhoId = opportunityRecord.Account.PersonContactId;
+
+        /*IMP: After using this the code is facing issue of create permission for the 
            * DocumentChecklist item as record was creating through automated process.
            * This is Deferred to Remario to be done in future.
            * 
@@ -702,8 +732,18 @@ public with sharing class OneJNEventService {
           );
           insert decision.getRecords();
 */
-      insert documentCheckListRecord;
+        insert documentCheckListRecord;
+      }
+    } catch (Exception e) {
+      Util.handleOneJNExeption(
+        e,
+        eventType,
+        '',
+        opportunityRecord.Id,
+        replayId
+      );
     }
+
     return documentCheckListRecord;
   }
 }
