@@ -501,7 +501,7 @@ public class TestUtil {
   }
 
   /**
-   * @description
+   * @description : to test the method that creates the platform event
    * @author Ishwari Gaikwad(Thinqloud) | 07-20-2021
    **/
   @isTest
@@ -557,7 +557,7 @@ public class TestUtil {
   }
 
   /**
-   * @description
+   * @description : To test the method that generates the exception event log
    * @author Ishwari Gaikwad(Thinqloud) | 07-20-2021
    **/
   @isTest
@@ -787,8 +787,12 @@ public class TestUtil {
     Test.stopTest();
   }
 
+  /**
+   * @description : To test method when date is on Tuesday
+   * @author Ishwari Gaikwad(Thinqloud) | 07-21-2021
+   **/
   @isTest
-  public static void shouldLeadWithinTimeLimit2() {
+  public static void shouldLeadWithinTimeLimit_Tue() {
     Integer hours = 8;
     Datetime assignmentTime = DateTime.newInstance(2020, 9, 15, 13, 15, 0);
     String businessHoursName = Constants.DEFAULT_BUSINESS_HOURS_NAME;
@@ -890,8 +894,12 @@ public class TestUtil {
     );
   }
 
+  /**
+   * @description : To test the method when date is on Wednesday
+   * @author Ishwari Gaikwad(Thinqloud) | 07-21-2021
+   **/
   @isTest
-  public static void shouldLeadWithinTimeLimit3() {
+  public static void shouldLeadWithinTimeLimit_Wed() {
     Integer hours = 8;
     Datetime assignmentTime = DateTime.newInstance(2020, 9, 16, 13, 15, 0);
     String businessHoursName = Constants.DEFAULT_BUSINESS_HOURS_NAME;
@@ -993,8 +1001,12 @@ public class TestUtil {
     );
   }
 
+  /**
+   * @description : To test the the method when date is on Thursday
+   * @author Ishwari Gaikwad(Thinqloud) | 07-21-2021
+   **/
   @isTest
-  public static void shouldLeadWithinTimeLimit4() {
+  public static void shouldLeadWithinTimeLimit_Thu() {
     Integer hours = 8;
     Datetime assignmentTime = DateTime.newInstance(2020, 9, 17, 13, 15, 0);
     String businessHoursName = Constants.DEFAULT_BUSINESS_HOURS_NAME;
