@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Remario Richards
  * @group             :
- * @last modified on  : 07-15-2021
+ * @last modified on  : 07-21-2021
  * @last modified by  : Ishwari Gaikwad(Thinqloud)
  * Modifications Log
  * Ver   Date         Author             Modification
@@ -393,7 +393,6 @@ public with sharing class OneJNEventFactory {
         upsert (List<Account>) securityDecision.getRecords() GUID_Text__c;
       }
     } catch (Exception e) {
-      OneJNException exceptionWrapper = new OneJNException();
       Util.handleOneJNExeption(e, eventType, deserialiser.Id, '', replayId);
     }
   }
