@@ -20,7 +20,6 @@ public with sharing class OneJNOutputEventHandler {
    * @param request
    **/
   public static void HandleEvent(List<FlowInputs> request) {
-    System.debug('request body   : ' + request[0].body);
     FlowInputs record = request[0];
     System.enqueueJob(
       new OneJNOutputEventQueueable(
